@@ -69,26 +69,6 @@
 
 ---
 
-## TASK-011: Maintain CHANGELOG
-**Meta:** P2 | S | BACKLOG
-**Class:** 6-writing
-**CLI:** claude
-**CLI-reason:** backfill requires reading git history and writing coherent prose
-**Context-budget:** agents/EXEC.md + this task + docs/agents/HUMAN.md + git log
-**Depends:** none
-
-### Acceptance Criteria
-- [ ] `CHANGELOG.md` created at repo root following Keep a Changelog format
-- [ ] Backfilled with all tasks completed to date (TASK-001, TASK-009)
-- [ ] HUMAN.md updated: task completion flow includes a changelog entry step
-- [ ] Future entries follow `## [Unreleased]` → versioned section pattern
-
-### Definition of Done
-- [ ] PR approved
-- [ ] CHANGELOG.md present in repo root
-
----
-
 ## TASK-014: Sprint metrics — Closed-at field + METRICS.md from RETRO
 **Meta:** P2 | M | BACKLOG
 **Class:** 6-writing
