@@ -169,3 +169,22 @@
 
 ### Definition of Done
 - [ ] PR approved
+
+---
+
+## TASK-009: Add HUMAN agent to ARCH framework
+**Meta:** P0 | S | BACKLOG
+**Class:** 6-writing
+**CLI:** claude
+**CLI-reason:** requires editing framework files and maintaining protocol consistency
+**Context-budget:** agents/EXEC.md + this task + docs/agents/HUMAN.md + CLAUDE.md + README.md
+**Depends:** none
+
+### Acceptance Criteria
+- [ ] `docs/agents/HUMAN.md` committed to repo
+- [ ] HUMAN mode added to `CLAUDE.md` (modes section, same structure as others)
+- [ ] README updated to document the HUMAN agent and its role
+
+### Definition of Done
+- [ ] PR approved
+- [ ] HUMAN agent invocable from CLAUDE.md like any other mode
