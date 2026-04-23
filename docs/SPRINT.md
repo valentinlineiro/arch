@@ -217,7 +217,7 @@
 ---
 
 ## TASK-015: Update CONDUCTOR protocol — commit DISPATCH.md automatically
-**Meta:** P2 | XS | IN_PROGRESS | locked-by: gemini-cli | locked-at: 2026-04-23T14:00:00Z | Sprint 1
+**Meta:** P2 | XS | REVIEW | Sprint 1
 **Class:** 6-writing
 **CLI:** claude
 **CLI-reason:** protocol refinement requires coherent prose and consistency
@@ -225,13 +225,13 @@
 **Depends:** none
 
 ### Acceptance Criteria
-- [ ] `docs/agents/CONDUCTOR.md` updated to include "Commit DISPATCH.md" as the final step.
-- [ ] Defined commit message pattern: `chore: conductor dispatch [date]`
-- [ ] Protocol clarifies that CONDUCTOR still stops immediately after the commit.
+- [x] `docs/agents/CONDUCTOR.md` updated to include "Commit DISPATCH.md" as the final step.
+- [x] Defined commit message pattern: `chore: conductor dispatch [date]`
+- [x] Protocol clarifies that CONDUCTOR still stops immediately after the commit.
 
 ### Definition of Done
 - [ ] PR approved
-- [ ] CONDUCTOR agent protocol reflects the new requirement.
+- [x] CONDUCTOR agent protocol reflects the new requirement.
 
 ---
 
