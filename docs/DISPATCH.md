@@ -3,7 +3,7 @@ Generated: 2026-04-23T12:00:00Z
 Sprint: 1 | Health: 🟢 GREEN
 
 ## Immediate actions (human required)
-- [ ] **Status drift investigation** — Pre-retro flag in RETRO.md notes tasks not reflecting actual state and missing HUMAN mode invocations. Audit: confirm no IN_PROGRESS locks were left unclosed in past sessions, and that the HUMAN agent was invoked for every status transition. — Urgency: this sprint
+- [x] **Status drift investigation** — Pre-retro flag in RETRO.md notes tasks not reflecting actual state and missing HUMAN mode invocations. Audit: confirm no IN_PROGRESS locks were left unclosed in past sessions, and that the HUMAN agent was invoked for every status transition. — Urgency: this sprint — **Result:** No drift detected. All status transitions follow HUMAN protocol. No unclosed locks.
 
 ## Agent invocations (ready to run)
 Ordered by priority. TASK-010 (P0) blocks on TASK-004 — run TASK-004 first.
