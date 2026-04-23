@@ -53,7 +53,7 @@
 ---
 
 ## TASK-003: Write ADR-002 — Why context is a budget not a default
-**Meta:** P1 | S | READY | Sprint 1
+**Meta:** P1 | S | DONE | Sprint 1
 **Class:** 6-writing
 **CLI:** claude
 **CLI-reason:** architectural rationale
@@ -61,14 +61,14 @@
 **Depends:** TASK-002
 
 ### Acceptance Criteria
-- [ ] Covers: cost of loading full context on every invocation
-- [ ] Covers: the context-budget field in task format
-- [ ] Covers: measured token reduction (~75%)
-- [ ] Under 400 tokens total
+- [x] Covers: cost of loading full context on every invocation
+- [x] Covers: the context-budget field in task format
+- [x] Covers: measured token reduction (~75%)
+- [x] Under 400 tokens total
 
 ### Definition of Done
-- [ ] PR approved
-- [ ] File: docs/adr/ADR-002-context-as-budget.md
+- [x] PR approved
+- [x] File: docs/adr/ADR-002-context-as-budget.md
 
 ---
 
