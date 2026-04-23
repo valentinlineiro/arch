@@ -217,7 +217,7 @@
 ---
 
 ## TASK-015: Update CONDUCTOR protocol — commit DISPATCH.md automatically
-**Meta:** P2 | XS | REVIEW | Sprint 1
+**Meta:** P2 | XS | DONE | Sprint 1
 **Class:** 6-writing
 **CLI:** claude
 **CLI-reason:** protocol refinement requires coherent prose and consistency
@@ -230,7 +230,7 @@
 - [x] Protocol clarifies that CONDUCTOR still stops immediately after the commit.
 
 ### Definition of Done
-- [ ] PR approved
+- [x] PR approved
 - [x] CONDUCTOR agent protocol reflects the new requirement.
 
 ---

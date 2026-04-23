@@ -4,6 +4,7 @@
 
 | Task | Title | Size declared→actual | CLI used | Sprint | Closed | Notes |
 |------|-------|----------------------|----------|--------|--------|-------|
+| TASK-015 | Update CONDUCTOR protocol — commit DISPATCH.md automatically | XS→XS | claude | Sprint 1 | 2026-04-23 | PR approved by human |
 | TASK-004 | Build npx arch-init (remote installer) | M→M | codex | Sprint 1 | 2026-04-23 | Published to npm |
 | TASK-005 | Token audit — measure actual cost per mode | S→S | claude | Sprint 1 | 2026-04-23 | PR approved by human |
 | TASK-016 | Mandatory EXEC Commits before REVIEW | S→S | claude | Sprint 1 | 2026-04-23 | PR approved by human |
