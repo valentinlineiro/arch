@@ -9,9 +9,10 @@
 4. `git push` — if push fails, another agent took it; `git pull` and re-select
 5. Implement against Acceptance Criteria only — no additional scope
 6. Self-review: does output satisfy every AC checkbox?
-7. Commit: change status to `REVIEW`
-8. Open PR: title format `[task-class] task title [TASK-ID]`
-9. Stop — do not select another task in the same session
+7. Commit artifacts: `git add` all task-related changes (excluding status updates) + `git commit -m "[TASK-ID] implementation of ACs"`. Stop — artifact commit must be independent.
+8. Commit: change status to `REVIEW`
+9. Open PR: title format `[task-class] task title [TASK-ID]`
+10. Stop — do not select another task in the same session
 
 ## Constraints
 - Read only files declared in task's `Context-budget`
