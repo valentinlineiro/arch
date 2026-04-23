@@ -158,7 +158,7 @@
 ---
 
 ## TASK-013: Fix HUMAN agent — sync BACKLOG and SPRINT in one operation
-**Meta:** P1 | S | REVIEW | Sprint 1
+**Meta:** P1 | S | DONE | Sprint 1
 **Class:** 6-writing
 **CLI:** claude
 **CLI-reason:** protocol patch requires coherent prose and consistency across agent files
@@ -172,8 +172,8 @@
 - [x] Existing "After every operation" report section updated if status vocabulary changes
 
 ### Definition of Done
-- [ ] PR approved
-- [ ] No status-drift possible between BACKLOG.md and SPRINT.md after a "move to sprint" operation
+- [x] PR approved
+- [x] No status-drift possible between BACKLOG.md and SPRINT.md after a "move to sprint" operation
 
 ---
 
