@@ -68,6 +68,12 @@ Sprint: [N] | Health: 🟢 GREEN / 🟡 AT RISK / 🔴 BLOCKED
 - ...
 ```
 
+## Finalization
+
+1. **Commit DISPATCH.md**: Once generated, commit the file immediately.
+   - Commit message pattern: `chore: conductor dispatch [YYYY-MM-DD]`
+2. **Stop**: Do not perform any other actions or execute any tasks identified in `DISPATCH.md` in the same session.
+
 ---
 
 ## Hard constraints
