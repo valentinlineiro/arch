@@ -33,9 +33,7 @@
 ---
 
 ## TASK-002: Write ADR-001 — Why git as the operating system
-**Meta:** P1 | S | REVIEW | Sprint 1
-**Locked-by:** gemini-cli
-**Locked-at:** 2026-04-23T12:00:00Z
+**Meta:** P1 | S | DONE | Sprint 1
 **Class:** 6-writing
 **CLI:** claude
 **CLI-reason:** architectural rationale, trade-off analysis
@@ -49,7 +47,7 @@
 - [x] Under 400 tokens total
 
 ### Definition of Done
-- [ ] PR approved
+- [x] PR approved
 - [x] File: docs/adr/ADR-001-git-as-operating-system.md
 
 ---
