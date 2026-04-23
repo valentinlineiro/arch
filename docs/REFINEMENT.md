@@ -4,21 +4,6 @@
 
 ## Current draft
 
-### EXEC.md — validar prefijo de commit contra tabla de GUIDELINES
-
-**Problem:** EXEC genera commits con prefijos ad-hoc (`chore`, `feat`, `fix`) sin validar contra la tabla de tipos de commit definida en GUIDELINES.md. Esto produce inconsistencias en el historial.
-
-**Idea:** Agregar un paso explícito en el protocolo de EXEC que exija que el prefijo del commit pertenezca a los tipos aprobados en GUIDELINES.md antes de hacer el commit. Si el tipo no aplica claramente, elegir el más cercano y documentarlo.
-
-**Open questions for REFINE:**
-- ¿GUIDELINES.md ya tiene una tabla de tipos de commit? ¿Está completa?
-- ¿El agente debe fallar si no hay match, o proponer y continuar?
-- ¿Aplica también a HUMAN.md y CONDUCTOR?
-
-**Draft date:** 2026-04-23
-
----
-
 ### Campo "Committed:" en SPRINT.md — evaluar eliminación
 
 **Problem:** El campo `Committed:` en SPRINT.md es de actualización manual y genera drift entre lo que dice el archivo y lo que hay en git. Es ruido estructural más que valor real.
@@ -55,6 +40,7 @@
 
 | Date | Title | Outcome |
 |------|-------|---------|
+| 2026-04-23 | EXEC commit prefix validation | Promoted to TASK-019 + TASK-020 (BACKLOG) |
 | 2026-04-23 | HUMAN agent — duplicate detection before task creation | Promoted to TASK-018 (BACKLOG) |
 | 2026-04-23 | DISPATCH.md staleness — Last-invalidated protocol | Promoted to TASK-017 (BACKLOG) |
 | 2026-04-23 | Mandatory EXEC Commits before REVIEW | Promoted to TASK-016 (BACKLOG) |

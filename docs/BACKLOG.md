@@ -132,6 +132,43 @@
 
 ---
 
+## TASK-019: Complete commit type table in GUIDELINES.md
+**Meta:** P2 | XS | BACKLOG
+**Class:** 6-writing
+**CLI:** claude
+**CLI-reason:** requires consistency judgment across existing git history and agent protocols
+**Context-budget:** agents/EXEC.md + this task + docs/GUIDELINES.md
+**Depends:** none
+
+### Acceptance Criteria
+- [ ] GUIDELINES.md commit type table includes at minimum: `feat:`, `fix:`, `chore:`, `docs:`, `refactor:`, `test:`
+- [ ] Each type has a one-line description of when to use it
+- [ ] Table is designated as the authoritative reference for all agents
+
+### Definition of Done
+- [ ] PR approved
+
+---
+
+## TASK-020: EXEC — commit prefix validation against GUIDELINES
+**Meta:** P2 | XS | BACKLOG
+**Class:** 6-writing
+**CLI:** claude
+**CLI-reason:** protocol addition requiring precise placement within EXEC steps
+**Context-budget:** agents/EXEC.md + this task + docs/GUIDELINES.md
+**Depends:** TASK-019
+
+### Acceptance Criteria
+- [ ] EXEC.md protocol includes a step before every commit: select a prefix from the GUIDELINES.md commit type table
+- [ ] If no type fits exactly, pick the closest and append a one-line justification in the commit message
+- [ ] Step applies to all commits made by EXEC (status change, implementation, completion)
+- [ ] No other agent protocols are modified
+
+### Definition of Done
+- [ ] PR approved
+
+---
+
 ## TASK-012: Design and implement REVIEWER agent protocol
 **Meta:** P2 | M | BACKLOG
 **Class:** 6-writing
