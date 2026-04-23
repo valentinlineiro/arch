@@ -11,7 +11,7 @@
 ---
 
 ## TASK-001: Publish repo to GitHub as public OSS
-**Meta:** P0 | S | BACKLOG
+**Meta:** P0 | S | DONE
 **Class:** 7-operations
 **CLI:** human
 **CLI-reason:** requires account setup, DNS, repo config — not automatable
@@ -32,7 +32,7 @@
 ---
 
 ## TASK-002: Write ADR-001 — Why git as the operating system
-**Meta:** P1 | S | BACKLOG
+**Meta:** P1 | S | READY
 **Class:** 6-writing
 **CLI:** claude
 **CLI-reason:** architectural rationale, requires coherent prose and trade-off analysis
@@ -52,7 +52,7 @@
 ---
 
 ## TASK-003: Write ADR-002 — Why context is a budget not a default
-**Meta:** P1 | S | BACKLOG
+**Meta:** P1 | S | READY
 **Class:** 6-writing
 **CLI:** claude
 **CLI-reason:** architectural rationale
@@ -72,7 +72,7 @@
 ---
 
 ## TASK-004: Build npx arch-init (remote installer)
-**Meta:** P1 | M | BACKLOG
+**Meta:** P1 | M | READY
 **Class:** 2-code-generation
 **CLI:** codex
 **CLI-reason:** standard Node.js CLI scaffolder pattern
@@ -94,7 +94,7 @@
 ---
 
 ## TASK-005: Token audit — measure actual cost per mode
-**Meta:** P1 | S | BACKLOG
+**Meta:** P1 | S | READY
 **Class:** 5-research
 **CLI:** claude
 **CLI-reason:** requires reading all agent files and counting tokens accurately
@@ -173,7 +173,7 @@
 ---
 
 ## TASK-009: Add HUMAN agent to ARCH framework
-**Meta:** P0 | S | READY
+**Meta:** P0 | S | DONE
 **Class:** 6-writing
 **CLI:** claude
 **CLI-reason:** requires editing framework files and maintaining protocol consistency
