@@ -177,6 +177,25 @@
 
 ---
 
+## TASK-016: Mandatory EXEC Commits before REVIEW
+**Meta:** P1 | S | READY | Sprint 1
+**Class:** 6-writing
+**CLI:** claude
+**CLI-reason:** protocol update requires coherent prose and consistency
+**Context-budget:** agents/EXEC.md + this task
+**Depends:** none
+
+### Acceptance Criteria
+- [ ] `docs/agents/EXEC.md` updated to include a mandatory "Commit artifacts" step as the final action before changing status to `REVIEW`.
+- [ ] Protocol specifies that the commit message must include the TASK-ID.
+- [ ] Clarifies that the agent should stop after this commit.
+
+### Definition of Done
+- [ ] PR approved
+- [ ] EXEC agent protocol reflects the new requirement.
+
+---
+
 ## Sprint log
 
 | Date | Event |
