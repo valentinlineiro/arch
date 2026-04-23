@@ -60,13 +60,13 @@ Every sprint ends with a retrospective where AI detects patterns and proposes ru
                     Reads: SPRINT + BACKLOG + DONE + RETRO
                     Writes: DISPATCH.md — what needs attention
                          │
-          ┌──────────────┼──────────────┐
-          ▼              ▼              ▼
-       REFINE           EXEC          RETRO
-   (idea → task)   (task → PR)   (sprint → rules)
-          │              │              │
-  REFINEMENT.md    SPRINT.md       DONE.md
-  ◄── gaps         ◄── status      ◄── patterns
+          ┌──────────────┼──────────────┬──────────────┐
+          ▼              ▼              ▼              ▼
+       REFINE           EXEC          RETRO          HUMAN
+   (idea → task)   (task → PR)   (sprint → rules) (human interface)
+          │              │              │              │
+  REFINEMENT.md    SPRINT.md       DONE.md        SPRINT / BACKLOG
+  ◄── gaps         ◄── status      ◄── patterns   ◄── intent
   ◄── kaizen            │          ──► GUIDELINES.md
           │              ▼             (human approves)
           ▼          BACKLOG.md
@@ -75,7 +75,8 @@ Every sprint ends with a retrospective where AI detects patterns and proposes ru
 
 The CONDUCTOR is the only agent that sees the full picture.
 It doesn't execute — it routes. Every other agent reads only
-what its task declares in `Context-budget`.
+what its task declares in `Context-budget`. The HUMAN agent 
+bridges natural language intent to direct system operations.
 
 ---
 
@@ -100,7 +101,8 @@ your-project/
     │   ├── CONDUCTOR.md   ← Meta-agent: diagnoses system, writes DISPATCH
     │   ├── EXEC.md        ← Execution protocol (~200 tokens)
     │   ├── REFINE.md      ← Refinement protocol (~300 tokens)
-    │   └── RETRO.md       ← Retrospective protocol (~200 tokens)
+    │   ├── RETRO.md       ← Retrospective protocol (~200 tokens)
+    │   └── HUMAN.md       ← Human interface protocol (~500 tokens)
     └── adr/
         └── ADR-000-template.md
 ```
@@ -175,6 +177,7 @@ Conductor     agents/CONDUCTOR.md + 4 state files   ~2,500
 Execution     agents/EXEC.md + task                 ~1,500
 Refinement    agents/REFINE.md + draft idea         ~2,000
 Retrospective agents/RETRO.md + DONE.md             ~2,500
+Human         agents/HUMAN.md + state files         ~2,000
 ```
 
 Never load the full `docs/` directory.
@@ -194,6 +197,9 @@ gemini docs/agents/EXEC.md docs/SPRINT.md --task TASK-042
 
 # Refine a new idea
 claude-code docs/agents/REFINE.md docs/REFINEMENT.md
+
+# Communicate intent (e.g. task completed)
+claude-code docs/agents/HUMAN.md "terminé el login de auth"
 
 # Close a sprint
 claude-code docs/agents/RETRO.md docs/DONE.md

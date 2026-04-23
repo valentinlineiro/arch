@@ -139,7 +139,7 @@
 ---
 
 ## TASK-009: Add HUMAN agent to ARCH framework
-**Meta:** P0 | S | IN_PROGRESS | Sprint 1
+**Meta:** P0 | S | REVIEW | Sprint 1
 **locked-by:** [gemini-cli]
 **locked-at:** [2026-04-23T09:45:00Z]
 **Class:** 6-writing
@@ -149,9 +149,9 @@
 **Depends:** none
 
 ### Acceptance Criteria
-- [ ] `docs/agents/HUMAN.md` committed to repo
-- [ ] HUMAN mode added to `CLAUDE.md` (modes section, same structure as others)
-- [ ] README updated to document the HUMAN agent and its role
+- [x] `docs/agents/HUMAN.md` committed to repo
+- [x] HUMAN mode added to `CLAUDE.md` (modes section, same structure as others)
+- [x] README updated to document the HUMAN agent and its role
 
 ### Definition of Done
 - [ ] PR approved

@@ -62,6 +62,16 @@ Protocol:
 3. Detect patterns: sizing accuracy, dependency gaps, DoD failures, repeated issues
 4. Propose additions to `docs/GUIDELINES.md` — human decides what gets committed
 
+### HUMAN mode
+Invoked when: human wants to communicate intent to the system (e.g. task completion, status updates)
+
+Protocol:
+1. Read `docs/agents/HUMAN.md`
+2. Follow the "What the human might say" logic to map natural language intent to operations
+3. Perform required file operations (status changes, task creation, moves, etc.)
+4. Commit exactly once per operation
+5. Stop — do not perform any other mode logic in the same session
+
 ---
 
 ## Hard limits
