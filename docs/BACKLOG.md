@@ -234,7 +234,7 @@
 ---
 
 ## TASK-013: Fix HUMAN agent — sync BACKLOG and SPRINT in one operation
-**Meta:** P1 | S | BACKLOG
+**Meta:** P1 | S | READY
 **Class:** 6-writing
 **CLI:** claude
 **CLI-reason:** protocol patch requires coherent prose and consistency across agent files

@@ -4,7 +4,7 @@
 ## Sprint 1
 **Period:** 2026-04-23 → 2026-05-07
 **Goal:** ARCH is public, documented with ADRs, and installable via npx
-**Committed:** 7 tasks
+**Committed:** 8 tasks
 **Velocity target:** — (first sprint, no baseline)
 
 ---
@@ -154,6 +154,26 @@
 ### Definition of Done
 - [x] PR approved
 - [x] HUMAN agent invocable from CLAUDE.md like any other mode
+
+---
+
+## TASK-013: Fix HUMAN agent — sync BACKLOG and SPRINT in one operation
+**Meta:** P1 | S | READY | Sprint 1
+**Class:** 6-writing
+**CLI:** claude
+**CLI-reason:** protocol patch requires coherent prose and consistency across agent files
+**Context-budget:** agents/EXEC.md + this task + docs/agents/HUMAN.md
+**Depends:** none
+
+### Acceptance Criteria
+- [ ] `docs/agents/HUMAN.md` "Mueve [tarea(s)] al sprint" operation updated to modify both BACKLOG.md and SPRINT.md atomically
+- [ ] Decision recorded: BACKLOG entry is updated (status field) or removed — one approach chosen and documented
+- [ ] Single commit covers both file changes (no two-step drift window)
+- [ ] Existing "After every operation" report section updated if status vocabulary changes
+
+### Definition of Done
+- [ ] PR approved
+- [ ] No status-drift possible between BACKLOG.md and SPRINT.md after a "move to sprint" operation
 
 ---
 
