@@ -33,7 +33,7 @@
 ---
 
 ## TASK-002: Write ADR-001 — Why git as the operating system
-**Meta:** P1 | S | IN_PROGRESS | Sprint 1
+**Meta:** P1 | S | REVIEW | Sprint 1
 **Locked-by:** gemini-cli
 **Locked-at:** 2026-04-23T12:00:00Z
 **Class:** 6-writing
@@ -43,14 +43,14 @@
 **Depends:** none
 
 ### Acceptance Criteria
-- [ ] Covers: alternatives considered (SaaS DB, local DB, flat files)
-- [ ] Covers: why git wins (auditability, anti-collision, universality)
-- [ ] Covers: consequences (no real-time collab, merge conflicts as feature)
-- [ ] Under 400 tokens total
+- [x] Covers: alternatives considered (SaaS DB, local DB, flat files)
+- [x] Covers: why git wins (auditability, anti-collision, universality)
+- [x] Covers: consequences (no real-time collab, merge conflicts as feature)
+- [x] Under 400 tokens total
 
 ### Definition of Done
 - [ ] PR approved
-- [ ] File: docs/adr/ADR-001-git-as-operating-system.md
+- [x] File: docs/adr/ADR-001-git-as-operating-system.md
 
 ---
 
