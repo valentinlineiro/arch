@@ -7,7 +7,15 @@
 ## CORE
 <!-- Always loaded. Max 200 tokens. -->
 
-- Commits follow Conventional Commits: `feat:` `fix:` `docs:` `refactor:` `chore:`
+- Commits follow Conventional Commits:
+
+  | Prefijo     | Cuándo usarlo                                        |
+  |-------------|------------------------------------------------------|
+  | `feat:`     | Nueva tarea en backlog, nuevo agente                 |
+  | `chore:`    | Cambios de estado, commits de mantenimiento          |
+  | `docs:`     | Cambios en README, ADRs, guías                       |
+  | `fix:`      | Corrección de error en protocolo o config            |
+  | `refactor:` | Reestructuración sin cambio de comportamiento        |
 - Every PR references a TASK-ID: `docs(conductor): add velocity check [ARCH-012]`
 - No agent merges its own PR
 - Breaking changes (MAJOR) require an ADR before implementation
