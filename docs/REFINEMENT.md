@@ -4,7 +4,10 @@
 
 ## Current draft
 
-_No active draft._
+### Mandatory EXEC Commits before REVIEW
+**Problem:** The EXEC agent can complete a task implementation and move it to `REVIEW` status without committing the resulting files (e.g., ADRs, code). This creates status drift where a task is "ready for review" but the changes aren't in the repository.
+**Proposal:** Update `docs/agents/EXEC.md` to include a mandatory "Commit artifacts" step as the final action before changing status to `REVIEW`.
+**Impact:** Prevents status drift and ensures reviewers always have the latest code in the branch.
 
 ---
 
