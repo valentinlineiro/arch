@@ -94,7 +94,7 @@
 ---
 
 ## TASK-005: Token audit — measure actual cost per mode
-**Meta:** P1 | S | REVIEW | Sprint 1
+**Meta:** P1 | S | DONE | Sprint 1
 **Class:** 5-research
 **CLI:** claude
 **CLI-reason:** requires reading all agent files + accurate token counting
@@ -102,14 +102,14 @@
 **Depends:** none
 
 ### Acceptance Criteria
-- [ ] Actual token count per mode: CONDUCTOR, EXEC, REFINE, RETRO
-- [ ] Compare vs. declared budget in README
-- [ ] Flag protocols over budget by >20%
-- [ ] Propose reductions where needed
+- [x] Actual token count per mode: CONDUCTOR, EXEC, REFINE, RETRO
+- [x] Compare vs. declared budget in README
+- [x] Flag protocols over budget by >20%
+- [x] Propose reductions where needed
 
 ### Definition of Done
-- [ ] PR updating README token table with real numbers
-- [ ] Over-budget protocols patched in same PR
+- [x] PR updating README token table with real numbers
+- [x] Over-budget protocols patched in same PR
 
 ---
 

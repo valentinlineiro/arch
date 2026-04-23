@@ -4,6 +4,7 @@
 
 | Task | Title | Size declared→actual | CLI used | Sprint | Closed | Notes |
 |------|-------|----------------------|----------|--------|--------|-------|
+| TASK-005 | Token audit — measure actual cost per mode | S→S | claude | Sprint 1 | 2026-04-23 | PR approved by human |
 | TASK-016 | Mandatory EXEC Commits before REVIEW | S→S | claude | Sprint 1 | 2026-04-23 | PR approved by human |
 | TASK-003 | Write ADR-002 — Why context is a budget not a default | S→S | claude | Sprint 1 | 2026-04-23 | PR approved by human |
 | TASK-013 | Fix HUMAN agent — sync BACKLOG and SPRINT in one operation | S→S | claude | Sprint 1 | 2026-04-23 | PR approved by human |
