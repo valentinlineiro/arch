@@ -9,13 +9,13 @@
 
 - Commits follow Conventional Commits:
 
-  | Prefijo     | Cuándo usarlo                                        |
+  | Prefix      | When to use                                          |
   |-------------|------------------------------------------------------|
-  | `feat:`     | Nueva tarea en backlog, nuevo agente                 |
-  | `chore:`    | Cambios de estado, commits de mantenimiento          |
-  | `docs:`     | Cambios en README, ADRs, guías                       |
-  | `fix:`      | Corrección de error en protocolo o config            |
-  | `refactor:` | Reestructuración sin cambio de comportamiento        |
+  | `feat:`     | New backlog task, new agent                          |
+  | `chore:`    | Status changes, maintenance commits                  |
+  | `docs:`     | Changes to README, ADRs, guides                      |
+  | `fix:`      | Bug fix in protocol or config                        |
+  | `refactor:` | Restructuring without behavior change                |
 - Every PR references a TASK-ID: `docs(conductor): add velocity check [ARCH-012]`
 - No agent merges its own PR
 - Breaking changes (MAJOR) require an ADR before implementation
