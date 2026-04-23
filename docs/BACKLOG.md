@@ -188,6 +188,25 @@
 
 ---
 
+## TASK-022: CONDUCTOR — require Evidence: line on all DISPATCH actions
+**Meta:** P2 | XS | BACKLOG
+**Class:** 6-writing
+**CLI:** claude
+**CLI-reason:** protocol update requiring precise language to prevent interpretation drift
+**Context-budget:** agents/EXEC.md + this task + docs/agents/CONDUCTOR.md
+**Depends:** none
+
+### Acceptance Criteria
+- [ ] CONDUCTOR.md protocol requires an `Evidence:` line for every action emitted to DISPATCH.md
+- [ ] `Evidence:` must cite a concrete signal (e.g., "TASK-003 IN_PROGRESS, no commit in 4 days") — generic or precautionary reasons are not valid
+- [ ] DISPATCH.md action format updated to include `Evidence:` as a required field
+- [ ] An action with no citable evidence must be dropped, not emitted with a placeholder
+
+### Definition of Done
+- [ ] PR approved
+
+---
+
 ## TASK-012: Design and implement REVIEWER agent protocol
 **Meta:** P2 | M | BACKLOG
 **Class:** 6-writing

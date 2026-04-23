@@ -4,27 +4,11 @@
 
 ## Current draft
 
-### CONDUCTOR — reducir falsos positivos en checks de salud
-
-**Problem:** El CONDUCTOR generó una acción para investigar status drift. La investigación no encontró nada. Costo: una sesión entera de agente en ruido. El CONDUCTOR está siendo conservador en exceso.
-
-**Evidence:** Commits `8c44980` (commit DISPATCH.md — sprint 1 action queue) y `8a35f50` (complete status drift investigation — no drift detected).
-
-**Idea:** Revisar los checks del CONDUCTOR y agregar umbrales o evidencia requerida antes de emitir una acción de investigación. Un check solo debe producir una acción si hay señal concreta (e.g., tarea IN_PROGRESS sin commit en X días), no por precaución genérica.
-
-**Open questions for REFINE:**
-- ¿Cuáles checks actuales del CONDUCTOR son los más propensos a falsos positivos?
-- ¿Agregar un campo de confianza a cada acción de DISPATCH.md? (`Low/Medium/High`)
-- ¿Distinguir entre acciones de investigación (bajo valor) y acciones de ejecución (alto valor)?
-
-**Draft date:** 2026-04-23
-
----
-
 ## Refinement history
 
 | Date | Title | Outcome |
 |------|-------|---------|
+| 2026-04-23 | CONDUCTOR — Evidence: required on all DISPATCH actions | Promoted to TASK-022 (BACKLOG) |
 | 2026-04-23 | Remove Committed: field — git-derived commit count | Promoted to TASK-021 (BACKLOG) |
 | 2026-04-23 | EXEC commit prefix validation | Promoted to TASK-019 + TASK-020 (BACKLOG) |
 | 2026-04-23 | HUMAN agent — duplicate detection before task creation | Promoted to TASK-018 (BACKLOG) |
