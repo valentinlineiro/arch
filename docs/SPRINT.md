@@ -113,6 +113,31 @@
 
 ---
 
+## TASK-010: Build `arch` CLI (project interaction layer)
+**Meta:** P0 | M | READY | Sprint 1
+**Class:** 2-code-generation
+**CLI:** codex
+**CLI-reason:** standard Node.js CLI implementation
+**Context-budget:** agents/EXEC.md + this task + scripts/arch-install.sh + TASK-004
+**Depends:** TASK-004
+
+### Acceptance Criteria
+- [ ] `arch conduct` — invokes CONDUCTOR mode via Claude
+- [ ] `arch exec [TASK-ID]` — invokes EXEC mode for given task (or next READY if no ID)
+- [ ] `arch refine` — invokes REFINE mode against REFINEMENT.md
+- [ ] `arch retro` — invokes RETRO mode to close sprint
+- [ ] `arch human` — invokes HUMAN mode for natural language interaction
+- [ ] `arch status` — prints DISPATCH.md content to terminal
+- [ ] `arch task done ID` — marks task DONE without opening Claude
+- [ ] `arch task start ID` — marks task IN_PROGRESS without opening Claude
+- [ ] `arch` command available after `npx arch-init` (bundled in same package)
+
+### Definition of Done
+- [ ] All commands working on macOS, Linux, Windows (WSL)
+- [ ] PR approved + CI green
+
+---
+
 ## TASK-009: Add HUMAN agent to ARCH framework
 **Meta:** P0 | S | READY | Sprint 1
 **Class:** 6-writing

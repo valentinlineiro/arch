@@ -192,7 +192,7 @@
 ---
 
 ## TASK-010: Build `arch` CLI (project interaction layer)
-**Meta:** P0 | M | BACKLOG
+**Meta:** P0 | M | READY
 **Class:** 2-code-generation
 **CLI:** codex
 **CLI-reason:** standard Node.js CLI implementation
