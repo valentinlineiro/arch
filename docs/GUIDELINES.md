@@ -1,0 +1,47 @@
+# GUIDELINES.md
+<!-- Rules for developing ARCH with ARCH -->
+<!-- Every rule here has evidence. No speculative rules. -->
+
+---
+
+## CORE
+<!-- Always loaded. Max 200 tokens. -->
+
+- Commits follow Conventional Commits: `feat:` `fix:` `docs:` `refactor:` `chore:`
+- Every PR references a TASK-ID: `docs(conductor): add velocity check [ARCH-012]`
+- No agent merges its own PR
+- Breaking changes (MAJOR) require an ADR before implementation
+- Tasks estimated XL must be decomposed before entering SPRINT.md
+- **No change without evidence** — every proposal in REFINEMENT.md must include `Source:` field
+
+---
+
+## Documentation
+- All framework files are Markdown — no YAML, no JSON, no special syntax
+- Token budget must be declared or re-verified after any change to `docs/agents/`
+- If a protocol change increases token cost, justify it explicitly in the PR
+- ADRs are permanent — to reverse a decision, create a new ADR that supersedes
+
+---
+
+## Versioning
+- PATCH: protocol improvement, token reduction, clarification — no migration needed
+- MINOR: new agent or task class — backward compatible — update ROUTING.md
+- MAJOR: format change that breaks existing BACKLOG/SPRINT files — migration guide required
+- Tag format: `vX.Y.Z` — tag on `main` after merge, never before
+
+---
+
+## Testing a change
+Before merging any change to `docs/agents/`:
+- Apply it to at least one real project using ARCH
+- Run one full cycle (CONDUCTOR → EXEC or REFINE → output review)
+- Note the result in the PR body
+
+---
+
+## What AI must never do in this repo
+- Modify GUIDELINES.md directly — propose in RETRO.md only
+- Promote tasks to BACKLOG without explicit human approval
+- Change task format without a MAJOR version bump and migration guide
+- Merge PRs
