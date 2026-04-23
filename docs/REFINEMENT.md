@@ -4,6 +4,10 @@
 
 ## Current draft
 
+### Status vocabulary refinement
+**Idea:** Ensure all agents (CONDUCTOR, EXEC, HUMAN, etc.) are using the updated status fields consistently across SPRINT.md and BACKLOG.md.
+**Context:** Several recent tasks (TASK-013, TASK-016) have touched status handling. We need a unified "source of truth" for status vocabulary and agent transitions.
+
 ## Refinement history
 
 | Date | Title | Outcome |
