@@ -73,12 +73,14 @@
 ---
 
 ## TASK-004: Build npx arch-init (remote installer)
-**Meta:** P1 | M | READY | Sprint 1
+**Meta:** P1 | M | IN_PROGRESS | Sprint 1
 **Class:** 2-code-generation
 **CLI:** codex
 **CLI-reason:** standard Node.js CLI scaffolder
 **Context-budget:** agents/EXEC.md + this task + scripts/arch-install.sh
 **Depends:** TASK-001
+**Locked-by:** gemini-cli-session
+**Locked-at:** 2026-04-23T13:13:34Z
 
 ### Acceptance Criteria
 - [ ] `npx arch-init my-project` creates full ARCH structure
