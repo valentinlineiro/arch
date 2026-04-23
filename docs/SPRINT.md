@@ -198,7 +198,7 @@
 ---
 
 ## TASK-016: Mandatory EXEC Commits before REVIEW
-**Meta:** P1 | S | REVIEW | Sprint 1
+**Meta:** P1 | S | DONE | Sprint 1
 **Class:** 6-writing
 **CLI:** claude
 **CLI-reason:** protocol update requires coherent prose and consistency
@@ -211,7 +211,7 @@
 - [x] Clarifies that the agent should stop after this commit.
 
 ### Definition of Done
-- [ ] PR approved
+- [x] PR approved
 - [x] EXEC agent protocol reflects the new requirement.
 
 ---
