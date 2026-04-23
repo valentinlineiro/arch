@@ -94,9 +94,7 @@
 ---
 
 ## TASK-005: Token audit — measure actual cost per mode
-**Meta:** P1 | S | IN_PROGRESS | Sprint 1
-**locked-by:** claude-exec-session
-**locked-at:** 2026-04-23T00:00:00Z
+**Meta:** P1 | S | REVIEW | Sprint 1
 **Class:** 5-research
 **CLI:** claude
 **CLI-reason:** requires reading all agent files + accurate token counting
