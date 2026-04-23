@@ -45,10 +45,13 @@ Total: ~2,000 tokens max.
 → Report: "TASK-XXX añadida al backlog como [P?|Size|BACKLOG]"
 
 ### "Mueve [tarea(s)] al sprint"
-→ Copy task block(s) from BACKLOG.md to SPRINT.md
-→ Update status from BACKLOG to READY
-→ Commit: `chore: move TASK-XXX to sprint [TASK-XXX]`
-→ Report: "TASK-XXX en sprint. READY para ejecución."
+→ **Atomic Operation:** Move task block(s) from `BACKLOG.md` to `SPRINT.md`.
+→ **Approach:** Tasks are REMOVED from `BACKLOG.md` when moved to a sprint to prevent status drift and duplication. `SPRINT.md` becomes the sole source of truth for the task until completion or cancellation.
+→ In `SPRINT.md`:
+  - Update status to `READY`.
+  - Append `| Sprint [N]` to the **Meta** line.
+→ Commit both files in one operation: `chore: move TASK-XXX to sprint [TASK-XXX]`
+→ Report: "TASK-XXX movida al sprint [N] y eliminada del backlog. READY para ejecución."
 
 ### "Cancela [tarea]"
 → Change status to `REJECTED`

@@ -158,7 +158,7 @@
 ---
 
 ## TASK-013: Fix HUMAN agent — sync BACKLOG and SPRINT in one operation
-**Meta:** P1 | S | IN_PROGRESS | locked-by: gemini-cli | locked-at: 2026-04-23T12:00:00Z | Sprint 1
+**Meta:** P1 | S | REVIEW | Sprint 1
 **Class:** 6-writing
 **CLI:** claude
 **CLI-reason:** protocol patch requires coherent prose and consistency across agent files
@@ -166,10 +166,10 @@
 **Depends:** none
 
 ### Acceptance Criteria
-- [ ] `docs/agents/HUMAN.md` "Mueve [tarea(s)] al sprint" operation updated to modify both BACKLOG.md and SPRINT.md atomically
-- [ ] Decision recorded: BACKLOG entry is updated (status field) or removed — one approach chosen and documented
-- [ ] Single commit covers both file changes (no two-step drift window)
-- [ ] Existing "After every operation" report section updated if status vocabulary changes
+- [x] `docs/agents/HUMAN.md` "Mueve [tarea(s)] al sprint" operation updated to modify both BACKLOG.md and SPRINT.md atomically
+- [x] Decision recorded: BACKLOG entry is updated (status field) or removed — one approach chosen and documented
+- [x] Single commit covers both file changes (no two-step drift window)
+- [x] Existing "After every operation" report section updated if status vocabulary changes
 
 ### Definition of Done
 - [ ] PR approved

@@ -10,109 +10,6 @@
 
 ---
 
-## TASK-001: Publish repo to GitHub as public OSS
-**Meta:** P0 | S | DONE
-**Class:** 7-operations
-**CLI:** human
-**CLI-reason:** requires account setup, DNS, repo config — not automatable
-**Context-budget:** README.md only
-**Depends:** none
-
-### Acceptance Criteria
-- [ ] Repo live at github.com/[handle]/arch
-- [ ] README renders correctly
-- [ ] License: MIT confirmed in repo root
-- [ ] Symlinks work after clone (AGENTS.md, CLAUDE.md, GEMINI.md)
-- [ ] arch-install.sh updated with real GitHub URL
-
-### Definition of Done
-- [ ] Repo public and accessible
-- [ ] arch-install.sh points to real raw.githubusercontent.com URL
-
----
-
-## TASK-002: Write ADR-001 — Why git as the operating system
-**Meta:** P1 | S | READY
-**Class:** 6-writing
-**CLI:** claude
-**CLI-reason:** architectural rationale, requires coherent prose and trade-off analysis
-**Context-budget:** agents/EXEC.md + this task + docs/adr/ADR-000-template.md
-**Depends:** none
-
-### Acceptance Criteria
-- [ ] ADR covers: alternatives considered (SaaS DB, local DB, flat files)
-- [ ] ADR covers: why git wins (auditability, anti-collision, universality)
-- [ ] ADR covers: consequences (no real-time collab, merge conflicts as feature)
-- [ ] Under 400 tokens total
-
-### Definition of Done
-- [ ] PR approved
-- [ ] File: docs/adr/ADR-001-git-as-operating-system.md
-
----
-
-## TASK-003: Write ADR-002 — Why context is a budget not a default
-**Meta:** P1 | S | READY
-**Class:** 6-writing
-**CLI:** claude
-**CLI-reason:** architectural rationale
-**Context-budget:** agents/EXEC.md + this task + docs/adr/ADR-000-template.md + docs/adr/ADR-001 (when exists)
-**Depends:** TASK-002
-
-### Acceptance Criteria
-- [ ] ADR covers: the cost of loading full context on every invocation
-- [ ] ADR covers: the context-budget field in task format
-- [ ] ADR covers: measured token reduction (~75%)
-- [ ] Under 400 tokens total
-
-### Definition of Done
-- [ ] PR approved
-- [ ] File: docs/adr/ADR-002-context-as-budget.md
-
----
-
-## TASK-004: Build npx arch-init (remote installer)
-**Meta:** P1 | M | READY
-**Class:** 2-code-generation
-**CLI:** codex
-**CLI-reason:** standard Node.js CLI scaffolder pattern
-**Context-budget:** agents/EXEC.md + this task + scripts/arch-install.sh
-**Depends:** TASK-001
-
-### Acceptance Criteria
-- [ ] `npx arch-init my-project` creates a new directory with full ARCH structure
-- [ ] `npx arch-init .` installs into current directory
-- [ ] Downloads files from GitHub raw URLs (not bundled)
-- [ ] Creates symlinks post-download
-- [ ] Works on macOS, Linux, Windows (WSL)
-- [ ] Falls back gracefully if network unavailable
-
-### Definition of Done
-- [ ] Published to npm as `arch-init`
-- [ ] PR approved + CI green
-
----
-
-## TASK-005: Token audit — measure actual cost per mode
-**Meta:** P1 | S | READY
-**Class:** 5-research
-**CLI:** claude
-**CLI-reason:** requires reading all agent files and counting tokens accurately
-**Context-budget:** agents/EXEC.md + this task + all docs/agents/*.md
-**Depends:** none
-
-### Acceptance Criteria
-- [ ] Measure actual token count for each mode: CONDUCTOR, EXEC, REFINE, RETRO
-- [ ] Compare declared budget vs. actual in README
-- [ ] Flag any agent protocol over its declared budget
-- [ ] Propose reductions for any protocol exceeding budget by >20%
-
-### Definition of Done
-- [ ] PR updating README token table with real numbers
-- [ ] Any over-budget protocols patched in same PR
-
----
-
 ## TASK-006: Create arch.work landing page
 **Meta:** P2 | M | BACKLOG
 **Class:** 2-code-generation
@@ -172,25 +69,6 @@
 
 ---
 
-## TASK-009: Add HUMAN agent to ARCH framework
-**Meta:** P0 | S | DONE
-**Class:** 6-writing
-**CLI:** claude
-**CLI-reason:** requires editing framework files and maintaining protocol consistency
-**Context-budget:** agents/EXEC.md + this task + docs/agents/HUMAN.md + CLAUDE.md + README.md
-**Depends:** none
-
-### Acceptance Criteria
-- [ ] `docs/agents/HUMAN.md` committed to repo
-- [ ] HUMAN mode added to `CLAUDE.md` (modes section, same structure as others)
-- [ ] README updated to document the HUMAN agent and its role
-
-### Definition of Done
-- [ ] PR approved
-- [ ] HUMAN agent invocable from CLAUDE.md like any other mode
-
----
-
 ## TASK-011: Maintain CHANGELOG
 **Meta:** P2 | S | BACKLOG
 **Class:** 6-writing
@@ -233,26 +111,6 @@
 
 ---
 
-## TASK-013: Fix HUMAN agent — sync BACKLOG and SPRINT in one operation
-**Meta:** P1 | S | READY
-**Class:** 6-writing
-**CLI:** claude
-**CLI-reason:** protocol patch requires coherent prose and consistency across agent files
-**Context-budget:** agents/EXEC.md + this task + docs/agents/HUMAN.md
-**Depends:** none
-
-### Acceptance Criteria
-- [ ] `docs/agents/HUMAN.md` "Mueve [tarea(s)] al sprint" operation updated to modify both BACKLOG.md and SPRINT.md atomically
-- [ ] Decision recorded: BACKLOG entry is updated (status field) or removed — one approach chosen and documented
-- [ ] Single commit covers both file changes (no two-step drift window)
-- [ ] Existing "After every operation" report section updated if status vocabulary changes
-
-### Definition of Done
-- [ ] PR approved
-- [ ] No status-drift possible between BACKLOG.md and SPRINT.md after a "move to sprint" operation
-
----
-
 ## TASK-012: Design and implement REVIEWER agent protocol
 **Meta:** P2 | M | BACKLOG
 **Class:** 6-writing
@@ -273,28 +131,3 @@
 ### Definition of Done
 - [ ] PR approved
 - [ ] REVIEWER agent invocable from CLAUDE.md like any other mode
-
----
-
-## TASK-010: Build `arch` CLI (project interaction layer)
-**Meta:** P0 | M | READY
-**Class:** 2-code-generation
-**CLI:** codex
-**CLI-reason:** standard Node.js CLI implementation
-**Context-budget:** agents/EXEC.md + this task + scripts/arch-install.sh + TASK-004
-**Depends:** TASK-004
-
-### Acceptance Criteria
-- [ ] `arch conduct` — invokes CONDUCTOR mode via Claude
-- [ ] `arch exec [TASK-ID]` — invokes EXEC mode for given task (or next READY if no ID)
-- [ ] `arch refine` — invokes REFINE mode against REFINEMENT.md
-- [ ] `arch retro` — invokes RETRO mode to close sprint
-- [ ] `arch human` — invokes HUMAN mode for natural language interaction
-- [ ] `arch status` — prints DISPATCH.md content to terminal
-- [ ] `arch task done ID` — marks task DONE without opening Claude
-- [ ] `arch task start ID` — marks task IN_PROGRESS without opening Claude
-- [ ] `arch` command available after `npx arch-init` (bundled in same package)
-
-### Definition of Done
-- [ ] All commands working on macOS, Linux, Windows (WSL)
-- [ ] PR approved + CI green
