@@ -91,6 +91,27 @@
 
 ---
 
+## TASK-017: DISPATCH.md staleness — Last-invalidated protocol
+**Meta:** P2 | S | BACKLOG
+**Class:** 6-writing
+**CLI:** claude
+**CLI-reason:** touches three agent protocols simultaneously — requires consistency judgment
+**Context-budget:** agents/EXEC.md + agents/HUMAN.md + agents/CONDUCTOR.md + this task
+**Depends:** none
+
+### Acceptance Criteria
+- [ ] DISPATCH.md contains a `Last-invalidated:` field (ISO 8601 timestamp + agent name)
+- [ ] EXEC.md protocol includes a step: after status → REVIEW commit, update `Last-invalidated: <ISO date> by EXEC` in DISPATCH.md and commit
+- [ ] HUMAN.md protocol includes a step: after every operation commit, update `Last-invalidated: <ISO date> by HUMAN` in DISPATCH.md and commit
+- [ ] EXEC.md and HUMAN.md both end with: "Remind the user to re-run CONDUCTOR"
+- [ ] CONDUCTOR.md reads `Last-invalidated:` on each run and writes the value into the generated DISPATCH.md
+
+### Definition of Done
+- [ ] PR approved
+- [ ] All three agent files updated consistently
+
+---
+
 ## TASK-012: Design and implement REVIEWER agent protocol
 **Meta:** P2 | M | BACKLOG
 **Class:** 6-writing
