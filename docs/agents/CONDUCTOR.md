@@ -10,8 +10,9 @@ Read exactly these files — nothing else:
 2. `docs/BACKLOG.md` (status fields only — skip AC and DoD sections)
 3. `docs/DONE.md` (last 5 entries only)
 4. `docs/RETRO.md` (last sprint entry only)
+5. `docs/REFINEMENT.md` (status and title fields only)
 
-Total budget: ~2,500 tokens max. If any file exceeds budget, read headers and status fields only.
+Total budget: ~3,000 tokens max. If any file exceeds budget, read headers and status fields only.
 
 ---
 
