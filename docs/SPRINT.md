@@ -4,7 +4,7 @@
 ## Sprint 1
 **Period:** 2026-04-23 → 2026-05-07
 **Goal:** ARCH is public, documented with ADRs, and installable via npx
-**Committed:** 8 tasks
+**Committed:** 10 tasks
 **Velocity target:** — (first sprint, no baseline)
 
 ---
