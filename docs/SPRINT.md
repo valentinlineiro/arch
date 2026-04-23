@@ -33,7 +33,9 @@
 ---
 
 ## TASK-002: Write ADR-001 — Why git as the operating system
-**Meta:** P1 | S | READY | Sprint 1
+**Meta:** P1 | S | IN_PROGRESS | Sprint 1
+**Locked-by:** gemini-cli
+**Locked-at:** 2026-04-23T12:00:00Z
 **Class:** 6-writing
 **CLI:** claude
 **CLI-reason:** architectural rationale, trade-off analysis
