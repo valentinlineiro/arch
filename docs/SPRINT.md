@@ -73,7 +73,7 @@
 ---
 
 ## TASK-004: Build npx arch-init (remote installer)
-**Meta:** P1 | M | IN_PROGRESS | Sprint 1
+**Meta:** P1 | M | REVIEW | Sprint 1
 **Class:** 2-code-generation
 **CLI:** codex
 **CLI-reason:** standard Node.js CLI scaffolder
