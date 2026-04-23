@@ -139,9 +139,7 @@
 ---
 
 ## TASK-009: Add HUMAN agent to ARCH framework
-**Meta:** P0 | S | REVIEW | Sprint 1
-**locked-by:** [gemini-cli]
-**locked-at:** [2026-04-23T09:45:00Z]
+**Meta:** P0 | S | DONE | Sprint 1
 **Class:** 6-writing
 **CLI:** claude
 **CLI-reason:** requires editing framework files and maintaining protocol consistency
@@ -154,8 +152,8 @@
 - [x] README updated to document the HUMAN agent and its role
 
 ### Definition of Done
-- [ ] PR approved
-- [ ] HUMAN agent invocable from CLAUDE.md like any other mode
+- [x] PR approved
+- [x] HUMAN agent invocable from CLAUDE.md like any other mode
 
 ---
 
