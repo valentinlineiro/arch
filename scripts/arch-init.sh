@@ -5,20 +5,40 @@
 
 set -e
 
-PROJECT=${1:-$(basename "$PWD")}
+# ── Colors ────────────────────────────────────────────────────────
+GREEN='\033[0;32m'; YELLOW='\033[1;33m'; GRAY='\033[0;90m'; NC='\033[0m'
+
+ARG1="${1:-.}"
+
+# Handle project directory creation if ARG1 is not "."
+if [ "$ARG1" != "." ]; then
+  if [ ! -d "$ARG1" ]; then
+    mkdir -p "$ARG1"
+    echo -e "  ${GRAY}+${NC} created directory: $ARG1"
+  fi
+  cd "$ARG1"
+fi
+
+PROJECT=$(basename "$PWD")
 DOCS_DIR="docs"
-GREEN='\033[0;32m'
-GRAY='\033[0;90m'
-NC='\033[0m'
 
 echo ""
-echo "  ARCH — initializing framework for: $PROJECT"
+echo -e "  ${GREEN}ARCH${NC} — initializing framework for: $PROJECT"
 echo ""
 
-# Create directory structure
-mkdir -p "$DOCS_DIR/agents" "$DOCS_DIR/adr" "$DOCS_DIR/archive"
+# ── Init git if needed ────────────────────────────────────────────
+if [ ! -d ".git" ]; then
+  git init -q
+  echo -e "  ${GRAY}+${NC} initialized git repo"
+fi
 
-# Download core files from GitHub
+# ── Create structure ──────────────────────────────────────────────
+mkdir -p \
+  "$DOCS_DIR/agents" \
+  "$DOCS_DIR/adr" \
+  "$DOCS_DIR/archive"
+
+# ── Download core files from GitHub ───────────────────────────────
 BASE_URL="https://raw.githubusercontent.com/valentinlineiro/arch/main"
 
 files=(
@@ -26,47 +46,87 @@ files=(
   "docs/BACKLOG.md"
   "docs/SPRINT.md"
   "docs/DONE.md"
+  "docs/DISPATCH.md"
   "docs/REFINEMENT.md"
   "docs/RETRO.md"
   "docs/GUIDELINES.md"
   "docs/ROUTING.md"
+  "docs/agents/CONDUCTOR.md"
   "docs/agents/EXEC.md"
   "docs/agents/REFINE.md"
   "docs/agents/RETRO.md"
+  "docs/agents/HUMAN.md"
   "docs/adr/ADR-000-template.md"
 )
 
 for file in "${files[@]}"; do
-  if [ ! -f "$file" ]; then
-    curl -s "$BASE_URL/$file" -o "$file"
+  dest="$file"
+  if [ ! -f "$dest" ]; then
+    mkdir -p "$(dirname "$dest")"
+    curl -s "$BASE_URL/$file" -o "$dest"
     echo -e "  ${GRAY}+${NC} $file"
   else
     echo -e "  ${GRAY}~${NC} $file (already exists, skipping)"
   fi
 done
 
-# Create symlinks for CLI compatibility
+# ── Symlinks for CLI compatibility ────────────────────────────────
 echo ""
-echo "  Creating CLI compatibility symlinks..."
+echo -e "  ${GRAY}Creating CLI compatibility symlinks...${NC}"
 
-[ ! -f "AGENTS.md" ]  && ln -s docs/AGENTS.md AGENTS.md  && echo -e "  ${GRAY}→${NC} AGENTS.md → docs/AGENTS.md"
-[ ! -f "CLAUDE.md" ]  && ln -s docs/AGENTS.md CLAUDE.md  && echo -e "  ${GRAY}→${NC} CLAUDE.md → docs/AGENTS.md"
-[ ! -f "GEMINI.md" ]  && ln -s docs/AGENTS.md GEMINI.md  && echo -e "  ${GRAY}→${NC} GEMINI.md → docs/AGENTS.md"
+# Function to create symlink safely
+create_symlink() {
+  local target="$1"
+  local link="$2"
+  if [ ! -e "$link" ]; then
+    ln -s "$target" "$link"
+    echo -e "  ${GRAY}→${NC} $link"
+  fi
+}
 
-# Add .gitignore entry if needed
-if [ -f ".gitignore" ] && ! grep -q "# ARCH" .gitignore; then
-  echo "" >> .gitignore
-  echo "# ARCH — local overrides" >> .gitignore
-  echo ".arch-local" >> .gitignore
+create_symlink "docs/AGENTS.md" "AGENTS.md"
+create_symlink "docs/AGENTS.md" "CLAUDE.md"
+create_symlink "docs/AGENTS.md" "GEMINI.md"
+
+# ── .gitignore ────────────────────────────────────────────────────
+if [ ! -f ".gitignore" ]; then
+  cat > .gitignore << 'GITIGNORE'
+# ARCH — local overrides
+.arch-local
+
+# Common
+.DS_Store
+*.env
+.env.*
+node_modules/
+__pycache__/
+*.pyc
+GITIGNORE
+  echo -e "  ${GRAY}+${NC} .gitignore"
+elif ! grep -q "# ARCH" .gitignore; then
+  printf '\n# ARCH — local overrides\n.arch-local\n' >> .gitignore
+  echo -e "  ${GRAY}~${NC} .gitignore (appended)"
 fi
 
+# ── Initial commit ────────────────────────────────────────────────
+echo ""
+read -p "  Create initial commit? (y/n) " -n 1 -r REPLY
+echo ""
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+  git add -A
+  git commit -m "chore: initialize ARCH framework" -q
+  echo -e "  ${GREEN}✓${NC} Initial commit created"
+fi
+
+# ── Done ──────────────────────────────────────────────────────────
 echo ""
 echo -e "  ${GREEN}Done.${NC} Next steps:"
 echo ""
-echo "  1. Edit docs/GUIDELINES.md — add your stack and core conventions"
-echo "  2. Add your first idea to docs/REFINEMENT.md"
-echo "  3. Run your AI CLI with: arch refine"
-echo "     (or manually: claude-code docs/agents/REFINE.md docs/REFINEMENT.md)"
+echo -e "  ${GRAY}1.${NC} Edit   ${GRAY}docs/GUIDELINES.md${NC}  — add your stack"
+echo -e "  ${GRAY}2.${NC} Add    ${GRAY}docs/REFINEMENT.md${NC}  — your first idea"
+echo -e "  ${GRAY}3.${NC} Run    ${GRAY}CONDUCTOR${NC} to assess state:"
 echo ""
-echo "  Docs: https://github.com/valentinlineiro/arch"
+echo -e "       claude-code docs/agents/CONDUCTOR.md"
+echo ""
+echo -e "  Docs: https://github.com/valentinlineiro/arch"
 echo ""

@@ -1,0 +1,28 @@
+{
+  "name": "arch-init",
+  "version": "0.1.0",
+  "description": "Scaffolds ARCH framework into your repository",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/valentinlineiro/arch.git"
+  },
+  "bin": {
+    "arch-init": "scripts/arch-init.sh"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "arch",
+    "framework",
+    "scaffolding",
+    "git",
+    "ai-agents"
+  ],
+  "author": "Valentin Lineiro",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/valentinlineiro/arch/issues"
+  },
+  "homepage": "https://github.com/valentinlineiro/arch#readme"
+}
