@@ -1,19 +1,19 @@
 # DISPATCH.md
-Generated: 2026-04-23T10:30:00Z
+Generated: 2026-04-23T13:27:50Z
 Sprint: 1 | Health: 🟢 GREEN
 
 ## Immediate actions (human required)
-_None_
+- [ ] Review TASK-004 (arch-init) — Currently in REVIEW. Required to unblock P0 TASK-010. — Urgency: today
+- [ ] Confirm "Status vocabulary refinement" idea in REFINEMENT.md — Draft exists, needs agent refinement. — Urgency: this sprint
 
 ## Agent invocations (ready to run)
-<!-- Ordered by priority. Each line is a complete invocation instruction. -->
-1. `codex` `EXEC` `TASK-010` — context: `docs/agents/EXEC.md` `docs/SPRINT.md` `scripts/arch-install.sh` `TASK-004` — reason: P0 core project interaction layer
-2. `codex` `EXEC` `TASK-004` — context: `docs/agents/EXEC.md` `docs/SPRINT.md` `scripts/arch-install.sh` — reason: P1 remote installer bootstrap
-3. `claude` `EXEC` `TASK-011` — context: `docs/agents/EXEC.md` `docs/SPRINT.md` `docs/agents/HUMAN.md` `git log` — reason: P2 CHANGELOG maintenance
-4. `claude` `EXEC` `TASK-015` — context: `docs/agents/CONDUCTOR.md` `docs/SPRINT.md` — reason: P2 CONDUCTOR protocol refinement
+1. claude EXEC TASK-015 — context: agents/CONDUCTOR.md + docs/SPRINT.md — reason: Add automatic commit of DISPATCH.md to CONDUCTOR protocol (P2).
+2. claude EXEC TASK-011 — context: agents/HUMAN.md + docs/SPRINT.md — reason: Create and maintain CHANGELOG.md (P2).
+3. claude REFINE docs/REFINEMENT.md — context: docs/REFINEMENT.md + docs/SPRINT.md — reason: Refine the "Status vocabulary" draft.
 
 ## Maintenance actions
-_None_
+- None.
 
 ## Flags for next planning session
-- **Status vocabulary** — ensure all agents are using the updated status fields consistently.
+- Velocity target needs to be established after Sprint 1.
+- Status drift noted in RETRO.md needs systematic fix (addressed by TASK-013 and planned refinement).
