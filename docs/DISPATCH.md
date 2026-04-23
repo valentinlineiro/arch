@@ -15,7 +15,7 @@ Ordered by priority. TASK-010 (P0) blocks on TASK-004 — run TASK-004 first.
 5. **codex exec TASK-010** — context: agents/EXEC.md + SPRINT.md#TASK-010 + scripts/arch-install.sh + TASK-004 output — reason: P0 `arch` CLI; start only after TASK-004 is DONE.
 
 ## Maintenance actions
-- SPRINT.md header declares "Committed: 8 tasks" but the active tasks section contains 10 entries (TASK-011 and TASK-016 were added to sprint after initial commit). Update the committed count to 10 — human or HUMAN agent can patch this with a one-line edit.
+- [x] SPRINT.md header declares "Committed: 8 tasks" but the active tasks section contains 10 entries (TASK-011 and TASK-016 were added to sprint after initial commit). Update the committed count to 10 — human or HUMAN agent can patch this with a one-line edit. — **Status:** Complete.
 
 ## Flags for next planning session
 - TASK-007 (first real RETRO) depends on TASK-004 and TASK-005 being DONE — keep this in view as sprint progresses; if those slip past mid-sprint, RETRO will be delayed.
