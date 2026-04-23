@@ -158,7 +158,7 @@
 ---
 
 ## TASK-013: Fix HUMAN agent — sync BACKLOG and SPRINT in one operation
-**Meta:** P1 | S | READY | Sprint 1
+**Meta:** P1 | S | IN_PROGRESS | locked-by: gemini-cli | locked-at: 2026-04-23T12:00:00Z | Sprint 1
 **Class:** 6-writing
 **CLI:** claude
 **CLI-reason:** protocol patch requires coherent prose and consistency across agent files
