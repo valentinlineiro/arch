@@ -5,7 +5,7 @@
 
 ## Context budget
 Read exactly these files:
-1. `docs/SPRINT.md`
+1. `docs/SPRINT.md` (task title and status fields only — skip AC and DoD sections)
 2. `docs/BACKLOG.md` (status fields only)
 3. `docs/DONE.md`
 

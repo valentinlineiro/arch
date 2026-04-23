@@ -99,10 +99,10 @@ your-project/
     ├── ROUTING.md         ← Which CLI for which task type
     ├── agents/
     │   ├── CONDUCTOR.md   ← Meta-agent: diagnoses system, writes DISPATCH
-    │   ├── EXEC.md        ← Execution protocol (~200 tokens)
-    │   ├── REFINE.md      ← Refinement protocol (~300 tokens)
-    │   ├── RETRO.md       ← Retrospective protocol (~200 tokens)
-    │   └── HUMAN.md       ← Human interface protocol (~500 tokens)
+    │   ├── EXEC.md        ← Execution protocol (~320 tokens)
+    │   ├── REFINE.md      ← Refinement protocol (~340 tokens)
+    │   ├── RETRO.md       ← Retrospective protocol (~90 tokens)
+    │   └── HUMAN.md       ← Human interface protocol (~1,000 tokens)
     └── adr/
         └── ADR-000-template.md
 ```
@@ -170,15 +170,20 @@ CLASS                  EXAMPLES                   DEFAULT CLI
 
 ## Context budget by mode
 
+Measured 2026-04-23 against Sprint 1 state files. Token count = chars ÷ 4.
+
 ```
-MODE          REQUIRED FILES                         MAX TOKENS
-───────────────────────────────────────────────────────────────
-Conductor     agents/CONDUCTOR.md + 4 state files   ~2,500
-Execution     agents/EXEC.md + task                 ~1,500
-Refinement    agents/REFINE.md + draft idea         ~2,000
-Retrospective agents/RETRO.md + DONE.md             ~2,500
-Human         agents/HUMAN.md + state files         ~2,000
+MODE          REQUIRED FILES                         MEASURED   MAX TOKENS
+──────────────────────────────────────────────────────────────────────────
+Conductor     agents/CONDUCTOR.md + 5 state files   ~2,040     ~2,100
+Execution     agents/EXEC.md + task                 ~520       ~1,000
+Refinement    agents/REFINE.md + draft idea         ~650       ~1,000
+Retrospective agents/RETRO.md + DONE.md             ~360       ~1,000
+Human         agents/HUMAN.md + state files         ~1,940     ~2,000
 ```
+
+Note: SPRINT.md grows with sprint size. CONDUCTOR and HUMAN both declare partial reads
+(Meta/status fields only) to stay within budget as the sprint backlog grows.
 
 Never load the full `docs/` directory.
 If a task requires it, the task is too large.
