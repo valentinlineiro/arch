@@ -4,21 +4,6 @@
 
 ## Current draft
 
-### Campo "Committed:" en SPRINT.md — evaluar eliminación
-
-**Problem:** El campo `Committed:` en SPRINT.md es de actualización manual y genera drift entre lo que dice el archivo y lo que hay en git. Es ruido estructural más que valor real.
-
-**Idea:** Eliminar el campo `Committed:` de la plantilla de tareas en SPRINT.md. La fuente de verdad de commits es git (`git log --grep=TASK-XXX`). Si hace falta auditabilidad, el PR asociado ya lo cubre.
-
-**Open questions for REFINE:**
-- ¿Hay algún agente que lea `Committed:` para tomar decisiones? (si sí, es bloqueante)
-- ¿Migración: eliminar el campo de las tareas activas o solo de la plantilla forward?)
-- ¿Reemplazar con un campo derivado (link al PR) que sí aporte valor?
-
-**Draft date:** 2026-04-23
-
----
-
 ### CONDUCTOR — reducir falsos positivos en checks de salud
 
 **Problem:** El CONDUCTOR generó una acción para investigar status drift. La investigación no encontró nada. Costo: una sesión entera de agente en ruido. El CONDUCTOR está siendo conservador en exceso.
@@ -40,6 +25,7 @@
 
 | Date | Title | Outcome |
 |------|-------|---------|
+| 2026-04-23 | Remove Committed: field — git-derived commit count | Promoted to TASK-021 (BACKLOG) |
 | 2026-04-23 | EXEC commit prefix validation | Promoted to TASK-019 + TASK-020 (BACKLOG) |
 | 2026-04-23 | HUMAN agent — duplicate detection before task creation | Promoted to TASK-018 (BACKLOG) |
 | 2026-04-23 | DISPATCH.md staleness — Last-invalidated protocol | Promoted to TASK-017 (BACKLOG) |
