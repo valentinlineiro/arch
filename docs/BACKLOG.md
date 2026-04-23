@@ -112,6 +112,26 @@
 
 ---
 
+## TASK-018: HUMAN agent — duplicate detection before task creation
+**Meta:** P2 | XS | BACKLOG
+**Class:** 6-writing
+**CLI:** claude
+**CLI-reason:** protocol addition requiring careful prose — must not break existing HUMAN operations
+**Context-budget:** agents/EXEC.md + agents/HUMAN.md + this task
+**Depends:** none
+
+### Acceptance Criteria
+- [ ] HUMAN.md includes a new step before any task creation: grep title keywords against SPRINT.md, BACKLOG.md, and DONE.md
+- [ ] If one or more matches found: list them, halt task creation, and wait for explicit human confirmation or cancellation before proceeding
+- [ ] If no matches found: proceed with task creation normally
+- [ ] Step applies only to task creation operations, not to status changes or other HUMAN operations
+
+### Definition of Done
+- [ ] PR approved
+- [ ] HUMAN.md updated with new step in correct position in the protocol
+
+---
+
 ## TASK-012: Design and implement REVIEWER agent protocol
 **Meta:** P2 | M | BACKLOG
 **Class:** 6-writing

@@ -4,21 +4,6 @@
 
 ## Current draft
 
-### HUMAN agent — verificación de duplicados antes de crear tarea
-
-**Problem:** Cuando el humano dice "Añade X al backlog", HUMAN.md ejecuta la creación directamente. Si ya existe una tarea similar en SPRINT.md o BACKLOG.md, se genera un duplicado silencioso.
-
-**Idea:** Antes de crear cualquier tarea nueva, HUMAN debe buscar coincidencias por keywords en SPRINT.md y BACKLOG.md. Si hay match parcial, mostrar las candidatas y pedir confirmación explícita antes de proceder.
-
-**Open questions for REFINE:**
-- ¿Cuán agresiva debe ser la búsqueda? (título exacto vs keywords sueltas)
-- ¿Duplicado semántico (misma idea, distinta redacción) es responsabilidad del agente o del humano?
-- ¿Buscar también en DONE.md para evitar reabrir trabajo ya terminado?
-
-**Draft date:** 2026-04-23
-
----
-
 ### EXEC.md — validar prefijo de commit contra tabla de GUIDELINES
 
 **Problem:** EXEC genera commits con prefijos ad-hoc (`chore`, `feat`, `fix`) sin validar contra la tabla de tipos de commit definida en GUIDELINES.md. Esto produce inconsistencias en el historial.
@@ -70,6 +55,7 @@
 
 | Date | Title | Outcome |
 |------|-------|---------|
+| 2026-04-23 | HUMAN agent — duplicate detection before task creation | Promoted to TASK-018 (BACKLOG) |
 | 2026-04-23 | DISPATCH.md staleness — Last-invalidated protocol | Promoted to TASK-017 (BACKLOG) |
 | 2026-04-23 | Mandatory EXEC Commits before REVIEW | Promoted to TASK-016 (BACKLOG) |
 | 2026-04-23 | REVIEWER agent protocol | Promoted to TASK-012 (BACKLOG) |
