@@ -111,23 +111,20 @@
 
 ---
 
-## TASK-012: Design and implement REVIEWER agent protocol
-**Meta:** P2 | M | BACKLOG
+## TASK-015: Update CONDUCTOR protocol — commit DISPATCH.md automatically
+**Meta:** P2 | XS | BACKLOG
 **Class:** 6-writing
 **CLI:** claude
-**CLI-reason:** protocol design requires coherent prose and architectural judgment
-**Context-budget:** agents/EXEC.md + this task + docs/agents/CONDUCTOR.md + docs/GUIDELINES.md
+**CLI-reason:** protocol refinement requires coherent prose and consistency
+**Context-budget:** agents/CONDUCTOR.md + this task
 **Depends:** none
 
 ### Acceptance Criteria
-- [ ] `docs/agents/REVIEWER.md` created with full protocol (trigger, context-budget, output format)
-- [ ] Trigger defined: post-push hook, manual invocation, or CI step — decision recorded in protocol
-- [ ] Output mode defined: PR comments with write access OR file-based report
-- [ ] Context-budget field set with PR diff size limit
-- [ ] Semver impact declared: PATCH or MINOR
-- [ ] REVIEWER mode added to `CLAUDE.md` modes section
-- [ ] "Obvious miss" defined concretely: unchecked AC, incomplete DoD, out-of-scope change
+- [ ] `docs/agents/CONDUCTOR.md` updated to include "Commit DISPATCH.md" as the final step.
+- [ ] Defined commit message pattern: `chore: conductor dispatch [date]`
+- [ ] Protocol clarifies that CONDUCTOR still stops immediately after the commit.
 
 ### Definition of Done
 - [ ] PR approved
-- [ ] REVIEWER agent invocable from CLAUDE.md like any other mode
+- [ ] CONDUCTOR agent protocol reflects the new requirement.
+
