@@ -4,7 +4,7 @@
 ## Sprint 1
 **Period:** 2026-04-23 → 2026-05-07
 **Goal:** ARCH is public, documented with ADRs, and installable via npx
-**Committed:** 5 tasks
+**Committed:** 7 tasks
 **Velocity target:** — (first sprint, no baseline)
 
 ---
@@ -110,6 +110,25 @@
 ### Definition of Done
 - [ ] PR updating README token table with real numbers
 - [ ] Over-budget protocols patched in same PR
+
+---
+
+## TASK-009: Add HUMAN agent to ARCH framework
+**Meta:** P0 | S | READY | Sprint 1
+**Class:** 6-writing
+**CLI:** claude
+**CLI-reason:** requires editing framework files and maintaining protocol consistency
+**Context-budget:** agents/EXEC.md + this task + docs/agents/HUMAN.md + CLAUDE.md + README.md
+**Depends:** none
+
+### Acceptance Criteria
+- [ ] `docs/agents/HUMAN.md` committed to repo
+- [ ] HUMAN mode added to `CLAUDE.md` (modes section, same structure as others)
+- [ ] README updated to document the HUMAN agent and its role
+
+### Definition of Done
+- [ ] PR approved
+- [ ] HUMAN agent invocable from CLAUDE.md like any other mode
 
 ---
 

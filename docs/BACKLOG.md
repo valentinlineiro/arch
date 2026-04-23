@@ -173,7 +173,7 @@
 ---
 
 ## TASK-009: Add HUMAN agent to ARCH framework
-**Meta:** P0 | S | BACKLOG
+**Meta:** P0 | S | READY
 **Class:** 6-writing
 **CLI:** claude
 **CLI-reason:** requires editing framework files and maintaining protocol consistency
