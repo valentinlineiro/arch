@@ -128,6 +128,21 @@
 - [ ] REVIEWER mode added to `CLAUDE.md` modes section
 - [ ] "Obvious miss" defined concretely: unchecked AC, incomplete DoD, out-of-scope change
 
+---
+
+## TASK-015: Refinar ciclo de vida de DISPATCH.md (evitar staleness)
+**Meta:** P1 | S | BACKLOG
+**Class:** 6-writing
+**CLI:** claude
+**CLI-reason:** requires protocol design and consistency across multiple agent files
+**Context-budget:** agents/EXEC.md + this task + docs/agents/HUMAN.md + docs/agents/CONDUCTOR.md + docs/GUIDELINES.md
+**Depends:** none
+
+### Acceptance Criteria
+- [ ] Update `docs/agents/HUMAN.md` "Terminé" protocol to include a step for clearing related items in `DISPATCH.md`.
+- [ ] Propose automated trigger for `CONDUCTOR` mode (e.g., pre-session hook) to ensure fresh dispatch.
+- [ ] Document responsible party and freshness criteria in `docs/GUIDELINES.md`.
+
 ### Definition of Done
 - [ ] PR approved
-- [ ] REVIEWER agent invocable from CLAUDE.md like any other mode
+- [ ] Protocol updates committed and verified in one full cycle (EXEC -> HUMAN -> DISPATCH refresh)
