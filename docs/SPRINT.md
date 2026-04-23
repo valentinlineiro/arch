@@ -216,6 +216,25 @@
 
 ---
 
+## TASK-015: Update CONDUCTOR protocol — commit DISPATCH.md automatically
+**Meta:** P2 | XS | READY | Sprint 1
+**Class:** 6-writing
+**CLI:** claude
+**CLI-reason:** protocol refinement requires coherent prose and consistency
+**Context-budget:** agents/CONDUCTOR.md + this task
+**Depends:** none
+
+### Acceptance Criteria
+- [ ] `docs/agents/CONDUCTOR.md` updated to include "Commit DISPATCH.md" as the final step.
+- [ ] Defined commit message pattern: `chore: conductor dispatch [date]`
+- [ ] Protocol clarifies that CONDUCTOR still stops immediately after the commit.
+
+### Definition of Done
+- [ ] PR approved
+- [ ] CONDUCTOR agent protocol reflects the new requirement.
+
+---
+
 ## Sprint log
 
 | Date | Event |
