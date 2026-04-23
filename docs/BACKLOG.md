@@ -211,6 +211,29 @@
 
 ---
 
+## TASK-012: Design and implement REVIEWER agent protocol
+**Meta:** P2 | M | BACKLOG
+**Class:** 6-writing
+**CLI:** claude
+**CLI-reason:** protocol design requires coherent prose and architectural judgment
+**Context-budget:** agents/EXEC.md + this task + docs/agents/CONDUCTOR.md + docs/GUIDELINES.md
+**Depends:** none
+
+### Acceptance Criteria
+- [ ] `docs/agents/REVIEWER.md` created with full protocol (trigger, context-budget, output format)
+- [ ] Trigger defined: post-push hook, manual invocation, or CI step — decision recorded in protocol
+- [ ] Output mode defined: PR comments with write access OR file-based report
+- [ ] Context-budget field set with PR diff size limit
+- [ ] Semver impact declared: PATCH or MINOR
+- [ ] REVIEWER mode added to `CLAUDE.md` modes section
+- [ ] "Obvious miss" defined concretely: unchecked AC, incomplete DoD, out-of-scope change
+
+### Definition of Done
+- [ ] PR approved
+- [ ] REVIEWER agent invocable from CLAUDE.md like any other mode
+
+---
+
 ## TASK-010: Build `arch` CLI (project interaction layer)
 **Meta:** P0 | M | READY
 **Class:** 2-code-generation

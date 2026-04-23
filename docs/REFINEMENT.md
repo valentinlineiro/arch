@@ -7,26 +7,27 @@
 **Status:** DRAFT
 **Proposed by:** Valen
 **Date:** 2026-04-23
-**Source:** Bootstrap session — observed during ARCH self-setup
+**Source:** Sprint 1 observation — commits e5bc5c6 and aa8a0f1
 
 ### Proposal
-ARCH needs a REVIEWER agent. When a PR is opened by an EXEC agent,
-there's no protocol for AI-assisted review before the human sees it.
-The human currently gets the raw output without a first pass.
-A REVIEWER agent would run against the PR diff and AC checklist
-before the human review — catching obvious misses early.
+When a task moves from BACKLOG to SPRINT, the HUMAN agent currently only
+updates SPRINT.md. The corresponding entry in BACKLOG.md retains its old
+status (e.g. `BACKLOG` or `READY`) instead of being updated or removed.
+This caused a status-drift bug in Sprint 1 that required a manual sync commit.
+The HUMAN agent's "Mueve [tarea(s)] al sprint" operation should atomically
+update both files in a single operation.
 
 ### Gaps identified by AI
 <!-- To be filled by REFINE agent -->
-- [ ] What's the exact trigger? Post-push hook, manual invocation, or CI step?
-- [ ] Does REVIEWER have write access to add PR comments, or does it write to a file?
-- [ ] What's the context-budget? PR diff can be large — need a size limit.
-- [ ] Is this PATCH (improves existing EXEC flow) or MINOR (new agent)?
-- [ ] What does "obvious miss" mean concretely — AC not checked? DoD incomplete? Scope creep?
+- [ ] Should the BACKLOG entry be updated (status → `IN_SPRINT`) or removed entirely?
+- [ ] If updated: does it need a new status vocabulary term?
+- [ ] If removed: how does CONDUCTOR know which tasks have been promoted?
+- [ ] Is this a PATCH to HUMAN.md only, or does it also require CONDUCTOR protocol change?
+- [ ] Should BACKLOG.md serve as a historical record (keep entries) or a live queue (remove on promotion)?
 
 ### Kaizen suggestions
-<!-- To be filled by REFINE agent after first real retro -->
-_Insufficient history — first sprint not yet closed._
+<!-- To be filled by REFINE agent -->
+_Pending first RETRO._
 
 ### Human decision
 _Pending refinement_
@@ -37,4 +38,4 @@ _Pending refinement_
 
 | Date | Title | Outcome |
 |------|-------|---------|
-| — | — | — |
+| 2026-04-23 | REVIEWER agent protocol | Promoted to TASK-012 (BACKLOG) |
