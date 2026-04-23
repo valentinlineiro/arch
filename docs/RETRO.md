@@ -10,5 +10,8 @@
 
 _Sprint in progress. This entry will be filled by RETRO agent at sprint close._
 
+### Pre-retro flags (human-submitted)
+- **Status drift** — tasks not reflecting actual state (e.g. locks not cleared, status not updated after PR merge). Investigate: missing HUMAN mode invocations, unclear ownership handoff between agents.
+
 ---
 <!-- Add new retros above this line -->
