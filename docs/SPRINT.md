@@ -139,7 +139,9 @@
 ---
 
 ## TASK-009: Add HUMAN agent to ARCH framework
-**Meta:** P0 | S | READY | Sprint 1
+**Meta:** P0 | S | IN_PROGRESS | Sprint 1
+**locked-by:** [gemini-cli]
+**locked-at:** [2026-04-23T09:45:00Z]
 **Class:** 6-writing
 **CLI:** claude
 **CLI-reason:** requires editing framework files and maintaining protocol consistency
