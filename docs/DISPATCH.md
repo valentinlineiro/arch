@@ -1,19 +1,17 @@
 # DISPATCH.md
-Generated: 2026-04-23T13:27:50Z
-Sprint: 1 | Health: 🟢 GREEN
+Generated: 2026-04-23T12:00:00Z
+Sprint: 1 | Health: 🟡 AT RISK
 
 ## Immediate actions (human required)
-- [ ] Review TASK-004 (arch-init) — Currently in REVIEW. Required to unblock P0 TASK-010. — Urgency: today
-- [ ] Confirm "Status vocabulary refinement" idea in REFINEMENT.md — Draft exists, needs agent refinement. — Urgency: this sprint
+- [ ] Review TASK-015 PR — Task is in REVIEW status — today
+- [ ] Pull next priority from BACKLOG to SPRINT — Sprint 1 has only 2 READY tasks (minimum 3 required) — today
 
 ## Agent invocations (ready to run)
-1. claude EXEC TASK-015 — context: agents/CONDUCTOR.md + docs/SPRINT.md — reason: Add automatic commit of DISPATCH.md to CONDUCTOR protocol (P2).
-2. claude EXEC TASK-011 — context: agents/HUMAN.md + docs/SPRINT.md — reason: Create and maintain CHANGELOG.md (P2).
-3. claude REFINE docs/REFINEMENT.md — context: docs/REFINEMENT.md + docs/SPRINT.md — reason: Refine the "Status vocabulary" draft.
+1. codex EXEC TASK-010 — context: agents/EXEC.md + TASK-010 + scripts/arch-install.sh + TASK-004 — reason: Build `arch` CLI (project interaction layer)
+2. claude EXEC TASK-011 — context: agents/EXEC.md + TASK-011 + docs/agents/HUMAN.md + git log — reason: Maintain CHANGELOG
 
 ## Maintenance actions
-- None.
+- None
 
 ## Flags for next planning session
-- Velocity target needs to be established after Sprint 1.
-- Status drift noted in RETRO.md needs systematic fix (addressed by TASK-013 and planned refinement).
+- None
