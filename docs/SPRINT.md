@@ -198,7 +198,7 @@
 ---
 
 ## TASK-016: Mandatory EXEC Commits before REVIEW
-**Meta:** P1 | S | READY | Sprint 1
+**Meta:** P1 | S | IN_PROGRESS | locked-by: [Gemini CLI] | locked-at: [2026-04-23T12:00:00Z] | Sprint 1
 **Class:** 6-writing
 **CLI:** claude
 **CLI-reason:** protocol update requires coherent prose and consistency
