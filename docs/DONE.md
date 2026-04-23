@@ -4,7 +4,7 @@
 
 | Task | Title | Size declared→actual | CLI used | Sprint | Closed | Notes |
 |------|-------|----------------------|----------|--------|--------|-------|
-| — | — | — | — | — | — | First sprint in progress |
+| TASK-001 | Publish repo to GitHub as public OSS | S→S | human | Sprint 1 | 2026-04-23 | github.com/valentinlineiro/arch |
 
 ---
 

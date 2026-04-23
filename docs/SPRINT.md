@@ -12,7 +12,7 @@
 ## Active tasks
 
 ## TASK-001: Publish repo to GitHub as public OSS
-**Meta:** P0 | S | READY | Sprint 1
+**Meta:** P0 | S | DONE | Sprint 1
 **Class:** 7-operations
 **CLI:** human
 **CLI-reason:** requires account setup — not automatable
@@ -20,15 +20,15 @@
 **Depends:** none
 
 ### Acceptance Criteria
-- [ ] Repo live at github.com/[handle]/arch
-- [ ] README renders correctly
-- [ ] License: MIT confirmed
-- [ ] Symlinks work after clone
-- [ ] arch-install.sh updated with real GitHub URL
+- [x] Repo live at github.com/valentinlineiro/arch
+- [x] README renders correctly
+- [x] License: MIT confirmed
+- [x] Symlinks work after clone
+- [x] arch-install.sh updated with real GitHub URL
 
 ### Definition of Done
-- [ ] Repo public and accessible
-- [ ] arch-install.sh points to real raw.githubusercontent.com URL
+- [x] Repo public and accessible
+- [x] arch-install.sh points to real raw.githubusercontent.com URL
 
 ---
 
