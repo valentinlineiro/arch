@@ -211,6 +211,26 @@
 
 ---
 
+## TASK-013: Fix HUMAN agent — sync BACKLOG and SPRINT in one operation
+**Meta:** P1 | S | BACKLOG
+**Class:** 6-writing
+**CLI:** claude
+**CLI-reason:** protocol patch requires coherent prose and consistency across agent files
+**Context-budget:** agents/EXEC.md + this task + docs/agents/HUMAN.md
+**Depends:** none
+
+### Acceptance Criteria
+- [ ] `docs/agents/HUMAN.md` "Mueve [tarea(s)] al sprint" operation updated to modify both BACKLOG.md and SPRINT.md atomically
+- [ ] Decision recorded: BACKLOG entry is updated (status field) or removed — one approach chosen and documented
+- [ ] Single commit covers both file changes (no two-step drift window)
+- [ ] Existing "After every operation" report section updated if status vocabulary changes
+
+### Definition of Done
+- [ ] PR approved
+- [ ] No status-drift possible between BACKLOG.md and SPRINT.md after a "move to sprint" operation
+
+---
+
 ## TASK-012: Design and implement REVIEWER agent protocol
 **Meta:** P2 | M | BACKLOG
 **Class:** 6-writing
