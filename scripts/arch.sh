@@ -11,16 +11,18 @@ find_ready_task() {
 }
 
 # ── Router ────────────────────────────────────────────────────────
+BIN="node cli/dist/index.js"
+
 case "$1" in
   "conduct")
     echo -e "  ${GREEN}ARCH${NC} — invoking CONDUCTOR mode"
     if command -v claude-code &> /dev/null; then
-      claude-code docs/agents/CONDUCTOR.md
+      claude-code docs/agents/THINK.md
     elif command -v claude &> /dev/null; then
-      claude -p "$(cat docs/agents/CONDUCTOR.md)"
+      claude -p "$(cat docs/agents/THINK.md)"
     else
       echo -e "  ${YELLOW}Note:${NC} No AI CLI detected. Showing protocol:"
-      cat docs/agents/CONDUCTOR.md
+      cat docs/agents/THINK.md
     fi
     ;;
 
@@ -35,21 +37,21 @@ case "$1" in
     fi
     echo -e "  ${GREEN}ARCH${NC} — invoking EXEC mode for: $TASK_ID"
     if command -v claude-code &> /dev/null; then
-      claude-code docs/agents/EXEC.md
+      claude-code docs/agents/DO.md
     elif command -v claude &> /dev/null; then
-      claude -p "$(cat docs/agents/EXEC.md)"
+      claude -p "$(cat docs/agents/DO.md)"
     else
       echo -e "  ${YELLOW}Note:${NC} No AI CLI detected. Showing protocol:"
-      cat docs/agents/EXEC.md
+      cat docs/agents/DO.md
     fi
     ;;
 
   "refine")
     echo -e "  ${GREEN}ARCH${NC} — invoking REFINE mode"
     if command -v claude-code &> /dev/null; then
-      claude-code docs/agents/REFINE.md
+      claude-code docs/agents/THINK.md
     else
-      cat docs/agents/REFINE.md
+      cat docs/agents/THINK.md
     fi
     ;;
 
@@ -65,65 +67,30 @@ case "$1" in
   "human")
     echo -e "  ${GREEN}ARCH${NC} — invoking HUMAN mode"
     if command -v claude-code &> /dev/null; then
-      claude-code docs/agents/HUMAN.md
+      claude-code docs/agents/DO.md
     else
-      cat docs/agents/HUMAN.md
+      cat docs/agents/DO.md
     fi
     ;;
 
   "status")
-    if [ -f "docs/DISPATCH.md" ]; then
-      cat docs/DISPATCH.md
-    else
-      echo "No DISPATCH.md found. Run 'arch conduct' first."
-    fi
+    $BIN status
+    ;;
+
+  "validate")
+    $BIN validate
+    ;;
+
+  "review")
+    $BIN review
     ;;
 
   "task")
-    CMD="$2"
-    ID="$3"
-    if [ -z "$ID" ]; then
-      echo -e "  ${YELLOW}Usage:${NC} arch task [done|start] [TASK-ID]"
-      exit 1
-    fi
-    case "$CMD" in
-      "done")
-        echo -e "  ${GREEN}✓${NC} marking $ID as DONE"
-        python3 -c "
-import sys
-import re
-content = open('docs/SPRINT.md').read()
-pattern = r'(## ' + re.escape('$ID') + r'.*?Meta:.*?)\|( READY| IN_PROGRESS)'
-if re.search(pattern, content, re.DOTALL):
-    new_content = re.sub(pattern, r'\1| DONE', content, flags=re.DOTALL)
-    with open('docs/SPRINT.md', 'w') as f:
-        f.write(new_content)
-else:
-    print('  Task $ID not found or already DONE.')
-"
-        ;;
-      "start")
-        echo -e "  ${GREEN}→${NC} marking $ID as IN_PROGRESS"
-        python3 -c "
-import sys
-import re
-from datetime import datetime
-content = open('docs/SPRINT.md').read()
-pattern = r'(## ' + re.escape('$ID') + r'.*?Meta:.*?)\| READY'
-if re.search(pattern, content, re.DOTALL):
-    replacement = r'\1| IN_PROGRESS\n**Locked-by:** cli | **Locked-at:** ' + datetime.now().isoformat()
-    new_content = re.sub(pattern, replacement, content, flags=re.DOTALL)
-    with open('docs/SPRINT.md', 'w') as f:
-        f.write(new_content)
-else:
-    print('  Task $ID not found or not in READY state.')
-"
-        ;;
-    esac
+    $BIN "$@"
     ;;
 
   *)
-    echo "Usage: arch [conduct|exec|refine|retro|human|status|task]"
+    echo "Usage: arch [conduct|exec|refine|retro|human|status|validate|review|task]"
     exit 1
     ;;
 esac
