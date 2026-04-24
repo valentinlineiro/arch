@@ -7,6 +7,7 @@ import { GetSprintStatus } from './application/use-cases/get-sprint-status.js';
 import { MarkTaskInProgress } from './application/use-cases/mark-task-in-progress.js';
 import { ReviewSystem } from './application/use-cases/review-system.js';
 import { ValidateSystem } from './application/use-cases/validate-system.js';
+import { MarkTaskDone } from './application/use-cases/mark-task-done.js';
 
 const GREEN = '\x1b[32m';
 const RED = '\x1b[31m';
@@ -69,8 +70,16 @@ async function main() {
         } catch (error: any) {
           console.error(`  ${YELLOW}Error:${NC} ${error.message}`);
         }
+      } else if (subCommand === 'done' && taskId) {
+        const useCase = new MarkTaskDone(taskRepository);
+        try {
+          await useCase.execute(taskId);
+          console.log(`  ${GREEN}✓${NC} marking ${taskId} as DONE`);
+        } catch (error: any) {
+          console.error(`  ${YELLOW}Error:${NC} ${error.message}`);
+        }
       } else {
-        console.log('Usage: arch task start [TASK-ID]');
+        console.log('Usage: arch task [start|done] [TASK-ID]');
       }
       break;
     }
