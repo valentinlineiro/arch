@@ -1,5 +1,5 @@
 import fs from 'node:fs/promises';
-import { FileSystem } from '../../application/ports/file-system.js';
+import { FileSystem } from '../../domain/repositories/file-system.js';
 
 export class NodeFileSystem implements FileSystem {
   async readFile(path: string): Promise<string> {

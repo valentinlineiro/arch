@@ -363,16 +363,16 @@ _None_
 
 ### Acceptance Criteria
 - [x] Node.js (v20+) project initialized with TypeScript.
-- [ ] Explicit layers established: Domain (Entities), Application (Use Cases), and Infrastructure (Adapters).
-- [ ] Logic for 'arch' commands ported to independent Use Case classes.
-- [ ] Infrastructure ensures node_modules is ignored during file system operations.
-- [ ] Domain-level tests implemented for core task logic.
-- [ ] Native TASK-FORMAT v0.2 validation logic (regex-based) as a Domain Service.
-- [ ] Bundle process (esbuild/tsup) created for zero-dep redistribution.
+- [x] Explicit layers established: Domain (Entities), Application (Use Cases), and Infrastructure (Adapters).
+- [x] Logic for 'arch' commands ported to independent Use Case classes.
+- [x] Infrastructure ensures node_modules is ignored during file system operations.
+- [x] Domain-level tests implemented for core task logic.
+- [x] Native TASK-FORMAT v0.2 validation logic (regex-based) as a Domain Service.
+- [x] Bundle process (esbuild/tsup) created for zero-dep redistribution.
 
 ### Definition of Done
-- [ ] 'arch' command in package.json points to the new Node/TS implementation.
-- [ ] Full suite of automated tests passing.
+- [x] 'arch' command in package.json points to the new Node/TS implementation.
+- [x] Full suite of automated tests passing.
 - [ ] PR approved.
 
 ---

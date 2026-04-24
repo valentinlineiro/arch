@@ -8,7 +8,7 @@
   },
   "bin": {
     "arch-init": "scripts/arch-init.sh",
-    "arch": "dist/index.js"
+    "arch": "dist/index.mjs"
   },
   "scripts": {
     "test": "node --import tsx --test src/tests/*.test.ts",
