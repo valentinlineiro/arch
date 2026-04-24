@@ -343,7 +343,7 @@ _None_
 ---
 
 ## TASK-022: Evidence required on THINK actions
-**Meta:** P2 | XS | READY | Sprint 1 | 6-writing | claude | docs/agents/THINK.md
+**Meta:** P2 | XS | DONE | Sprint 1 | 6-writing | claude | docs/agents/THINK.md
 **Depends:** TASK-026
 
 ### Acceptance Criteria
