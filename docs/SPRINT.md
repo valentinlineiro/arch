@@ -157,53 +157,9 @@
 
 ---
 
-## TASK-025: CLI — arch validate
-**Meta:** P0 | M | READY | Sprint 1
-**Class:** 2-code-generation
-**CLI:** claude-code
-**CLI-reason:** implementación de comando CLI con lógica de validación — requiere manejo de errores y edge cases
-**Context-budget:** agents/EXEC.md + this task + docs/TASK-FORMAT.md
-**Depends:** TASK-024
-
-### Acceptance Criteria
-- [x] `arch validate` disponible como subcomando del CLI
-- [x] Valida `arch.config.json` contra schema definido (campos requeridos, tipos, valores permitidos)
-- [x] Valida que SPRINT.md y BACKLOG.md tengan tareas en formato v0.2 (usando regex de TASK-FORMAT.md)
-- [x] Output: lista de errores con archivo + línea, o "OK" si todo válido
-- [x] Exit code 1 si hay errores, 0 si válido
-- [x] Tests unitarios para al menos 3 casos de error y el caso happy path
-
-### Definition of Done
-- [x] PR aprobado
-- [x] `arch validate` documentado en README o help text del CLI
 
 ---
 
-## TASK-026: Implementación v0.2 — agentes, vocabulario y estructura
-**Meta:** P0 | L | READY | Sprint 1
-**Class:** 6-writing
-**CLI:** claude-code
-**CLI-reason:** reestructuración de múltiples archivos de protocolo — requiere consistencia cross-file
-**Context-budget:** agents/EXEC.md + this task + docs/TASK-FORMAT.md + docs/adr/ADR-003-dispatch-ephemeral.md + docs/GUIDELINES.md
-**Depends:** TASK-023, TASK-024
-
-### Acceptance Criteria
-- [x] `docs/agents/THINK.md` creado: 2 fases secuenciales (system check → ideas), sin mezcla de contextos
-- [x] `docs/agents/DO.md` creado: fusión de EXEC + HUMAN con operaciones diferenciadas por intent
-- [x] `docs/agents/CONDUCTOR.md`, `EXEC.md`, `HUMAN.md`, `REFINE.md` eliminados o marcados deprecated
-- [x] `arch.config.json` schema definido con campos de routing equivalentes a ROUTING.md actual
-- [x] `ROUTING.md` eliminado, referencias actualizadas a `arch.config.json`
-- [x] `docs/REFINEMENT.md` eliminado, instrucciones de IDEA actualizadas en BACKLOG y DO.md
-- [x] `DONE.md`: columna `Iterations` añadida
-- [x] `GUIDELINES.md`: tabla changelog añadida (solo cambios aditivos)
-- [x] Symlinks `AGENTS.md`, `CLAUDE.md`, `GEMINI.md` en raíz apuntando a `docs/AGENTS.md`
-- [x] `docs/AGENTS.md` actualizado como entrada universal con los 3 modos (THINK, DO, RETRO)
-- [x] `CLAUDE.md` (raíz o symlink) actualizado para reflejar los nuevos modos
-
-### Definition of Done
-- [x] PR aprobado
-- [x] `arch validate` pasa en el repo tras la implementación
-- [x] Onboarding manual verificado: repo limpio + AGENTS.md → flujo completo funciona
 
 ---
 
@@ -271,23 +227,6 @@
 
 ---
 
-## TASK-011: Maintain CHANGELOG
-**Meta:** P2 | S | READY | Sprint 1
-**Class:** 6-writing
-**CLI:** claude
-**CLI-reason:** backfill requires reading git history and writing coherent prose
-**Context-budget:** agents/EXEC.md + this task + docs/agents/HUMAN.md + git log
-**Depends:** none
-
-### Acceptance Criteria
-- [x] `CHANGELOG.md` created at repo root following Keep a Changelog format
-- [x] Backfilled with all tasks completed to date (TASK-001, TASK-009)
-- [x] HUMAN.md updated: task completion flow includes a changelog entry step
-- [x] Future entries follow `## [Unreleased]` → versioned section pattern
-
-### Definition of Done
-- [x] PR approved
-- [x] CHANGELOG.md present in repo root
 
 ---
 
@@ -358,7 +297,7 @@ _None_
 
 ## TASK-027: CLI Migration — Node.js + TypeScript + Clean Architecture
 **Meta:** P0 | L | DONE | Sprint 1 | 2-code-generation | claude-code | scripts/, package.json, docs/TASK-FORMAT.md
-**Locked-by:** Gemini CLI | **Locked-at: 2026-04-24T10:58:03.313991
+
 **Depends:** TASK-024
 
 ### Acceptance Criteria
@@ -396,3 +335,86 @@ _None_
 ### Definition of Done
 - [x] PR approved
 - [x] 'arch review' functional and tested in the CLI binary.
+
+
+---
+
+## Sprint 2
+**Period:** 2026-05-08 → 2026-05-22
+**Goal:** ARCH v0.2 fully implemented and validated
+**Committed:** 3 tasks
+**Velocity target:** —
+
+---
+
+## Active tasks
+## TASK-011: Maintain CHANGELOG
+**Meta:** P2 | S | READY | Sprint 2
+**Class:** 6-writing
+**CLI:** claude
+**CLI-reason:** backfill requires reading git history and writing coherent prose
+**Context-budget:** agents/EXEC.md + this task + docs/agents/HUMAN.md + git log
+**Depends:** none
+
+### Acceptance Criteria
+- [x] `CHANGELOG.md` created at repo root following Keep a Changelog format
+- [x] Backfilled with all tasks completed to date (TASK-001, TASK-009)
+- [x] HUMAN.md updated: task completion flow includes a changelog entry step
+- [x] Future entries follow `## [Unreleased]` → versioned section pattern
+
+### Definition of Done
+- [x] PR approved
+- [x] CHANGELOG.md present in repo root
+
+
+---
+
+## TASK-025: CLI — arch validate
+**Meta:** P0 | M | READY | Sprint 2
+**Class:** 2-code-generation
+**CLI:** claude-code
+**CLI-reason:** implementación de comando CLI con lógica de validación — requiere manejo de errores y edge cases
+**Context-budget:** agents/EXEC.md + this task + docs/TASK-FORMAT.md
+**Depends:** TASK-024
+
+### Acceptance Criteria
+- [x] `arch validate` disponible como subcomando del CLI
+- [x] Valida `arch.config.json` contra schema definido (campos requeridos, tipos, valores permitidos)
+- [x] Valida que SPRINT.md y BACKLOG.md tengan tareas en formato v0.2 (usando regex de TASK-FORMAT.md)
+- [x] Output: lista de errores con archivo + línea, o "OK" si todo válido
+- [x] Exit code 1 si hay errores, 0 si válido
+- [x] Tests unitarios para al menos 3 casos de error y el caso happy path
+
+### Definition of Done
+- [x] PR aprobado
+- [x] `arch validate` documentado en README o help text del CLI
+
+
+---
+
+## TASK-026: Implementación v0.2 — agentes, vocabulario y estructura
+**Meta:** P0 | L | READY | Sprint 2
+**Class:** 6-writing
+**CLI:** claude-code
+**CLI-reason:** reestructuración de múltiples archivos de protocolo — requiere consistencia cross-file
+**Context-budget:** agents/EXEC.md + this task + docs/TASK-FORMAT.md + docs/adr/ADR-003-dispatch-ephemeral.md + docs/GUIDELINES.md
+**Depends:** TASK-023, TASK-024
+
+### Acceptance Criteria
+- [x] `docs/agents/THINK.md` creado: 2 fases secuenciales (system check → ideas), sin mezcla de contextos
+- [x] `docs/agents/DO.md` creado: fusión de EXEC + HUMAN con operaciones diferenciadas por intent
+- [x] `docs/agents/CONDUCTOR.md`, `EXEC.md`, `HUMAN.md`, `REFINE.md` eliminados o marcados deprecated
+- [x] `arch.config.json` schema definido con campos de routing equivalentes a ROUTING.md actual
+- [x] `ROUTING.md` eliminado, referencias actualizadas a `arch.config.json`
+- [x] `docs/REFINEMENT.md` eliminado, instrucciones de IDEA actualizadas en BACKLOG y DO.md
+- [x] `DONE.md`: columna `Iterations` añadida
+- [x] `GUIDELINES.md`: tabla changelog añadida (solo cambios aditivos)
+- [x] Symlinks `AGENTS.md`, `CLAUDE.md`, `GEMINI.md` en raíz apuntando a `docs/AGENTS.md`
+- [x] `docs/AGENTS.md` actualizado como entrada universal con los 3 modos (THINK, DO, RETRO)
+- [x] `CLAUDE.md` (raíz o symlink) actualizado para reflejar los nuevos modos
+
+### Definition of Done
+- [x] PR aprobado
+- [x] `arch validate` pasa en el repo tras la implementación
+- [x] Onboarding manual verificado: repo limpio + AGENTS.md → flujo completo funciona
+
