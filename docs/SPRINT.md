@@ -349,7 +349,8 @@ _None_
 
 ## Active tasks
 ## TASK-011: Maintain CHANGELOG
-**Meta:** P2 | S | READY | Sprint 2
+**Meta:** P2 | S | IN_PROGRESS | Sprint 2
+**Locked-by:** Gemini CLI | **Locked-at: 2026-04-24T16:35:56.335857**
 **Class:** 6-writing
 **CLI:** claude
 **CLI-reason:** backfill requires reading git history and writing coherent prose
