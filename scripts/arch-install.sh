@@ -53,7 +53,9 @@ files=(
   "docs/agents/EXEC.md"
   "docs/agents/REFINE.md"
   "docs/agents/RETRO.md"
+  "scripts/arch.sh"
   "docs/adr/ADR-000-template.md"
+  "scripts/arch.sh"
 )
 
 for file in "${files[@]}"; do

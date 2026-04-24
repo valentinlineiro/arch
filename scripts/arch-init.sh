@@ -55,8 +55,10 @@ files=(
   "docs/agents/EXEC.md"
   "docs/agents/REFINE.md"
   "docs/agents/RETRO.md"
+  "scripts/arch.sh"
   "docs/agents/HUMAN.md"
   "docs/adr/ADR-000-template.md"
+  "scripts/arch.sh"
 )
 
 for file in "${files[@]}"; do
@@ -126,7 +128,7 @@ echo -e "  ${GRAY}1.${NC} Edit   ${GRAY}docs/GUIDELINES.md${NC}  — add your st
 echo -e "  ${GRAY}2.${NC} Add    ${GRAY}docs/REFINEMENT.md${NC}  — your first idea"
 echo -e "  ${GRAY}3.${NC} Run    ${GRAY}CONDUCTOR${NC} to assess state:"
 echo ""
-echo -e "       claude-code docs/agents/CONDUCTOR.md"
+echo -e "       arch conduct"
 echo ""
 echo -e "  Docs: https://github.com/valentinlineiro/arch"
 echo ""
