@@ -44,21 +44,23 @@
 **Context:** Tareas recientes (TASK-013, TASK-016) han tocado el manejo de estados. Necesitamos una "fuente de verdad" única.
 
 ### 4. TASK-017 (re-refining): DISPATCH.md staleness — Last-invalidated protocol
-**Status:** 
-**Rejected-reason:** Validated via arch validate (TASK-025) and ephemeral DISPATCH (ADR-003)`DRAFT`
-**Idea:** Re-evaluar la necesidad de `Last-invalidated` dado que v0.2 elimina DISPATCH.md como fuente de verdad. ¿Debe aplicarse a SPRINT.md/BACKLOG.md?
+**Status:** `REJECTED`
+**Rejected-reason:** Validated via arch validate (TASK-025) and ephemeral DISPATCH (ADR-003)
 
-### 5. TASK-022 (re-refining): CONDUCTOR — require Evidence: required on all DISPATCH actions
-**Status:** `DRAFT`
-**Idea:** Adaptar el requisito de Evidence para el nuevo modo THINK (v0.2) que emite a terminal.
+### 5. TASK-022 (re-refining): Evidence required on THINK actions
+**Status:** `READY_FOR_PROMOTION`
+**Idea:** Integrar el requisito de Evidence de la TASK-022 original en el nuevo protocolo `THINK.md` (v0.2).
+**Protocol update:** El modo `THINK` debe incluir obligatoriamente una línea de evidencia para cada acción recomendada en su salida de terminal.
+**Output Format Example:**
+1. [claude] EXEC TASK-025 — context: docs/TASK-FORMAT.md — reason: P0 READY, depends on TASK-024 (DONE)
+   Evidence: TASK-024 marked as DONE in SPRINT.md and docs/TASK-FORMAT.md verified.
 
 ## Refinement history (Last 5)
 
 | Date | Title | Outcome |
 |------|-------|---------|
+| 2026-04-24 | TASK-017 (staleness protocol) | Rejected |
 | 2026-04-24 | ARCH v0.2 — Simplificación arquitectónica mayor | Promoted to TASK-023, TASK-024, TASK-025, TASK-026 |
 | 2026-04-23 | CONDUCTOR — Evidence: required on all DISPATCH actions | Promoted to TASK-022 |
 | 2026-04-23 | Remove Committed: field — git-derived commit count | Promoted to TASK-021 |
 | 2026-04-23 | EXEC commit prefix validation | Promoted to TASK-019 + TASK-020 |
-| 2026-04-23 | HUMAN agent — duplicate detection before task creation | Promoted to TASK-018 |
-| 2026-04-23 | DISPATCH.md staleness — Last-invalidated protocol | Promoted to TASK-017 |
