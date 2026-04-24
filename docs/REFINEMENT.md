@@ -3,16 +3,6 @@
 <!-- Multiple ideas allowed. Use status tags to track progress. -->
 
 ## Refinement Queue
-### 6. CLI Migration — Node.js + TypeScript + Clean Architecture
-**Status:** 
-**Idea:** Rewrite the x86_64 CLI in Node.js (v20+) using TypeScript and Clean Architecture principles.
-**Context:** The current Bash/Python mix is hard to maintain. TypeScript provides type safety, and Clean Architecture ensures that the logic (tasks, states) is decoupled from the storage (Markdown).
-**Key Requirements:**
-- **TypeScript & Node 20+:** Use modern TS features and Node's native testing/APIs.
-- **Clean Architecture:** Domain (Entities), Use Cases (Business Logic), and Adapters (IO/FileSystem).
-- **Zero Production Dependencies:** Use a build step (esbuild/tsup) to produce a single executable-like JS file.
-- **Extensibility:** Easy to add new adapters (e.g., SQLite, Web UI) in the future.
-
 ### 1. RETRO — Guardián de la Arquitectura (Análisis de Log)
 **Status:** 
 **Idea:** Expand RETRO to act as an architecture integrity auditor.

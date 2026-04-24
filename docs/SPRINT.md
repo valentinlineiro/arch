@@ -355,3 +355,20 @@ _None_
 
 ### Definition of Done
 - [ ] PR approved
+
+---
+
+## TASK-027: CLI Migration — Node.js + TypeScript + Clean Architecture
+**Meta:** P0 | L | READY | Sprint 1 | 2-code-generation | claude-code | scripts/, package.json, docs/TASK-FORMAT.md
+**Depends:** TASK-024
+
+### Acceptance Criteria
+- [ ] Node.js (v20+) project initialized with TypeScript.
+- [ ] Clean Architecture layers established: Domain, Use Cases, Adapters.
+- [ ] Parity with current 'arch' commands: conduct, exec, status, task.
+- [ ] Native TASK-FORMAT v0.2 validation logic (regex-based).
+- [ ] Bundle process (esbuild/tsup) created for zero-dep redistribution.
+
+### Definition of Done
+- [ ] 'arch' command in package.json points to the new Node/TS implementation.
+- [ ] PR approved.
