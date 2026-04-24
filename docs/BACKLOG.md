@@ -199,7 +199,7 @@ Sprint 1 — 72 hours, solo operator:
 **Depends:** TASK-027
 
 ### Idea / Context
-The framework documentation is becoming monolithic. Large files like GUIDELINES.md, SPRINT.md, and BACKLOG.md consume excessive context budget and make archiving difficult. We need to transition to a modular system with lightweight indexes and individual files for each entry.
+The framework documentation is becoming monolithic. Large files like GUIDELINES.md, SPRINT.md, BACKLOG.md, and RETRO.md consume excessive context budget and make archiving difficult. We need to transition to a modular system with lightweight indexes and individual files for each entry.
 
 ### Requirements
 - **Modular Guidelines:** GUIDELINES.md becomes an index pointing to .
@@ -212,3 +212,17 @@ The framework documentation is becoming monolithic. Large files like GUIDELINES.
 - [ ] Migration script to split monolithic files into modules.
 - [ ]  and  updated to work with the modular structure.
 - [ ] No regression in context budget efficiency.
+
+---
+
+## TASK-030: Agent Evolution — From RETRO to Continuous Reviewer
+**Meta:** P1 | M | IDEA | Backlog | 8-strategy | claude | docs/agents/
+**Depends:** TASK-028
+
+### Idea / Context
+The current RETRO agent operates only at sprint close. We propose evolving it into a 'Reviewer' mode that provides continuous feedback, gap analysis, and guideline enforcement throughout the sprint. This aligns with the 'Reviewer engine' (TASK-012) but focuses on the cognitive/architectural level rather than just deterministic rules.
+
+### Requirements
+- **Continuous Feedback:** Ability to invoke 'arch review' to get qualitative feedback on current state, not just pass/fail.
+- **Gap Detection:** Proactively identify inconsistencies between the APPROVED plan and current implementation.
+- **Protocol Merge:** Consolidate RETRO.md logic into a broader REVIEW.md agent protocol.
