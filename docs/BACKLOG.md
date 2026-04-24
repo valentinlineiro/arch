@@ -191,3 +191,24 @@ Sprint 1 — 72 hours, solo operator:
 
 ### Definition of Done
 - [ ] PR approved
+
+---
+
+## TASK-028: Knowledge Base Scalability — Modular Documentation
+**Meta:** P1 | L | IDEA | Backlog | 2-code-generation | claude-code | docs/
+**Depends:** TASK-027
+
+### Idea / Context
+The framework documentation is becoming monolithic. Large files like GUIDELINES.md, SPRINT.md, and BACKLOG.md consume excessive context budget and make archiving difficult. We need to transition to a modular system with lightweight indexes and individual files for each entry.
+
+### Requirements
+- **Modular Guidelines:** GUIDELINES.md becomes an index pointing to .
+- **Task Files:** SPRINT.md and BACKLOG.md become indexes pointing to .
+- **Archiving Logic:** Completed or rejected entries move to .
+- **CLI Support:** The Node/TS CLI must handle the multi-file structure for validation and execution.
+
+### Acceptance Criteria (Draft)
+- [ ] Directory structure established: , , .
+- [ ] Migration script to split monolithic files into modules.
+- [ ]  and  updated to work with the modular structure.
+- [ ] No regression in context budget efficiency.
