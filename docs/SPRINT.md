@@ -357,7 +357,7 @@ _None_
 ---
 
 ## TASK-027: CLI Migration — Node.js + TypeScript + Clean Architecture
-**Meta:** P0 | L | REVIEW | Sprint 1 | 2-code-generation | claude-code | scripts/, package.json, docs/TASK-FORMAT.md
+**Meta:** P0 | L | DONE | Sprint 1 | 2-code-generation | claude-code | scripts/, package.json, docs/TASK-FORMAT.md
 **Locked-by:** Gemini CLI | **Locked-at: 2026-04-24T10:58:03.313991
 **Depends:** TASK-024
 
@@ -373,7 +373,7 @@ _None_
 ### Definition of Done
 - [x] 'arch' command in package.json points to the new Node/TS implementation.
 - [x] Full suite of automated tests passing.
-- [ ] PR approved.
+- [x] PR approved.
 
 ---
 
@@ -386,8 +386,8 @@ _None_
 **Depends:** TASK-027
 
 ### Acceptance Criteria
-- [ ] Reviewer logic implemented as Application Use Cases or pure Domain Services.
-- [ ] Explicit separation between Review logic (Domain) and Git/Filesystem interaction (Infrastructure).
+- [x] Reviewer logic implemented as Application Use Cases or pure Domain Services.
+- [x] Explicit separation between Review logic (Domain) and Git/Filesystem interaction (Infrastructure).
 - [ ] Rules implemented: Canonical format (regex v0.2), Commit prefix (GUIDELINES), AC completion before DONE.
 - [ ] Command 'arch review' (or extension of 'validate') capable of checking 'git diff'.
 - [ ] CI-ready output: clear list of violations and non-zero exit code on failure.
