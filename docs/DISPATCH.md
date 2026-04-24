@@ -1,18 +1,19 @@
 # DISPATCH.md
-Generated: 2026-04-24T10:15:00Z
+Generated: 2026-04-24T12:00:00Z
 Sprint: 1 | Health: 🟢 GREEN
 
 ## Immediate actions (human required)
-- [ ] Promote TASK-022 to BACKLOG — Refinement finished, READY_FOR_PROMOTION. — Urgency: this sprint
+- [ ] Review TASK-010 (Build `arch` CLI) — Status: REVIEW. Implementation complete in `scripts/arch.sh`. — Urgency: today
+- [ ] Review TASK-025 (CLI — arch validate) — Status: REVIEW. Implementation complete. — Urgency: today
 
 ## Agent invocations (ready to run)
-1. `claude-code` EXEC TASK-025 (CLI — arch validate) — context: agents/EXEC.md, docs/TASK-FORMAT.md — reason: P0 READY, dependency TASK-024 met.
-2. `codex` EXEC TASK-010 (Build `arch` CLI) — context: agents/EXEC.md, docs/SPRINT.md, scripts/arch-install.sh, TASK-004 — reason: P0 READY, dependencies met.
-3. `claude` EXEC TASK-011 (Maintain CHANGELOG) — context: agents/EXEC.md, docs/SPRINT.md, docs/agents/HUMAN.md, git log — reason: P2 READY, no dependencies.
+1. `claude-code` EXEC TASK-026 (Implementación v0.2) — context: agents/EXEC.md, docs/TASK-FORMAT.md, docs/adr/ADR-003-dispatch-ephemeral.md, docs/GUIDELINES.md — reason: P0 READY, critical path for v0.2.
+2. `claude` EXEC TASK-011 (Maintain CHANGELOG) — context: agents/EXEC.md, docs/SPRINT.md, docs/agents/HUMAN.md, git log — reason: P2 READY.
 
 ## Maintenance actions
-- None.
+- Clear stale lock on TASK-010: Status is REVIEW, but lock metadata remains in `docs/SPRINT.md`.
+- Clear stale lock on TASK-025: Status is REVIEW, but lock metadata remains in `docs/SPRINT.md`.
 
 ## Flags for next planning session
-- TASK-024 completed: v0.2 task format canonical spec is now the source of truth in `docs/TASK-FORMAT.md`.
-- Path to v0.2 implementation: TASK-025 (READY) → TASK-026 (READY).
+- TASK-022 is READY in Sprint 1 but depends on TASK-026.
+- TASK-017 has been successfully REJECTED in REFINEMENT queue.
