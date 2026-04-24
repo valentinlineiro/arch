@@ -167,16 +167,16 @@
 **Depends:** TASK-024
 
 ### Acceptance Criteria
-- [ ] `arch validate` disponible como subcomando del CLI
-- [ ] Valida `arch.config.json` contra schema definido (campos requeridos, tipos, valores permitidos)
-- [ ] Valida que SPRINT.md y BACKLOG.md tengan tareas en formato v0.2 (usando regex de TASK-FORMAT.md)
-- [ ] Output: lista de errores con archivo + línea, o "OK" si todo válido
-- [ ] Exit code 1 si hay errores, 0 si válido
-- [ ] Tests unitarios para al menos 3 casos de error y el caso happy path
+- [x] `arch validate` disponible como subcomando del CLI
+- [x] Valida `arch.config.json` contra schema definido (campos requeridos, tipos, valores permitidos)
+- [x] Valida que SPRINT.md y BACKLOG.md tengan tareas en formato v0.2 (usando regex de TASK-FORMAT.md)
+- [x] Output: lista de errores con archivo + línea, o "OK" si todo válido
+- [x] Exit code 1 si hay errores, 0 si válido
+- [x] Tests unitarios para al menos 3 casos de error y el caso happy path
 
 ### Definition of Done
-- [ ] PR aprobado
-- [ ] `arch validate` documentado en README o help text del CLI
+- [x] PR aprobado
+- [x] `arch validate` documentado en README o help text del CLI
 
 ---
 
@@ -189,22 +189,22 @@
 **Depends:** TASK-023, TASK-024
 
 ### Acceptance Criteria
-- [ ] `docs/agents/THINK.md` creado: 2 fases secuenciales (system check → ideas), sin mezcla de contextos
-- [ ] `docs/agents/DO.md` creado: fusión de EXEC + HUMAN con operaciones diferenciadas por intent
-- [ ] `docs/agents/CONDUCTOR.md`, `EXEC.md`, `HUMAN.md`, `REFINE.md` eliminados o marcados deprecated
-- [ ] `arch.config.json` schema definido con campos de routing equivalentes a ROUTING.md actual
-- [ ] `ROUTING.md` eliminado, referencias actualizadas a `arch.config.json`
-- [ ] `docs/REFINEMENT.md` eliminado, instrucciones de IDEA actualizadas en BACKLOG y DO.md
-- [ ] `DONE.md`: columna `Iterations` añadida
-- [ ] `GUIDELINES.md`: tabla changelog añadida (solo cambios aditivos)
-- [ ] Symlinks `AGENTS.md`, `CLAUDE.md`, `GEMINI.md` en raíz apuntando a `docs/AGENTS.md`
-- [ ] `docs/AGENTS.md` actualizado como entrada universal con los 3 modos (THINK, DO, RETRO)
-- [ ] `CLAUDE.md` (raíz o symlink) actualizado para reflejar los nuevos modos
+- [x] `docs/agents/THINK.md` creado: 2 fases secuenciales (system check → ideas), sin mezcla de contextos
+- [x] `docs/agents/DO.md` creado: fusión de EXEC + HUMAN con operaciones diferenciadas por intent
+- [x] `docs/agents/CONDUCTOR.md`, `EXEC.md`, `HUMAN.md`, `REFINE.md` eliminados o marcados deprecated
+- [x] `arch.config.json` schema definido con campos de routing equivalentes a ROUTING.md actual
+- [x] `ROUTING.md` eliminado, referencias actualizadas a `arch.config.json`
+- [x] `docs/REFINEMENT.md` eliminado, instrucciones de IDEA actualizadas en BACKLOG y DO.md
+- [x] `DONE.md`: columna `Iterations` añadida
+- [x] `GUIDELINES.md`: tabla changelog añadida (solo cambios aditivos)
+- [x] Symlinks `AGENTS.md`, `CLAUDE.md`, `GEMINI.md` en raíz apuntando a `docs/AGENTS.md`
+- [x] `docs/AGENTS.md` actualizado como entrada universal con los 3 modos (THINK, DO, RETRO)
+- [x] `CLAUDE.md` (raíz o symlink) actualizado para reflejar los nuevos modos
 
 ### Definition of Done
-- [ ] PR aprobado
-- [ ] `arch validate` pasa en el repo tras la implementación
-- [ ] Onboarding manual verificado: repo limpio + AGENTS.md → flujo completo funciona
+- [x] PR aprobado
+- [x] `arch validate` pasa en el repo tras la implementación
+- [x] Onboarding manual verificado: repo limpio + AGENTS.md → flujo completo funciona
 
 ---
 
@@ -218,19 +218,19 @@
 **Depends:** TASK-004
 
 ### Acceptance Criteria
-- [ ] `arch conduct` — invokes CONDUCTOR mode via Claude
-- [ ] `arch exec [TASK-ID]` — invokes EXEC mode for given task (or next READY if no ID)
-- [ ] `arch refine` — invokes REFINE mode against REFINEMENT.md
-- [ ] `arch retro` — invokes RETRO mode to close sprint
-- [ ] `arch human` — invokes HUMAN mode for natural language interaction
-- [ ] `arch status` — prints DISPATCH.md content to terminal
-- [ ] `arch task done ID` — marks task DONE without opening Claude
-- [ ] `arch task start ID` — marks task IN_PROGRESS without opening Claude
-- [ ] `arch` command available after `npx arch-init` (bundled in same package)
+- [x] `arch conduct` — invokes CONDUCTOR mode via Claude
+- [x] `arch exec [TASK-ID]` — invokes EXEC mode for given task (or next READY if no ID)
+- [x] `arch refine` — invokes REFINE mode against REFINEMENT.md
+- [x] `arch retro` — invokes RETRO mode to close sprint
+- [x] `arch human` — invokes HUMAN mode for natural language interaction
+- [x] `arch status` — prints DISPATCH.md content to terminal
+- [x] `arch task done ID` — marks task DONE without opening Claude
+- [x] `arch task start ID` — marks task IN_PROGRESS without opening Claude
+- [x] `arch` command available after `npx arch-init` (bundled in same package)
 
 ### Definition of Done
-- [ ] All commands working on macOS, Linux, Windows (WSL)
-- [ ] PR approved + CI green
+- [x] All commands working on macOS, Linux, Windows (WSL)
+- [x] PR approved + CI green
 
 ---
 
@@ -282,14 +282,14 @@
 **Depends:** none
 
 ### Acceptance Criteria
-- [ ] `CHANGELOG.md` created at repo root following Keep a Changelog format
-- [ ] Backfilled with all tasks completed to date (TASK-001, TASK-009)
-- [ ] HUMAN.md updated: task completion flow includes a changelog entry step
-- [ ] Future entries follow `## [Unreleased]` → versioned section pattern
+- [x] `CHANGELOG.md` created at repo root following Keep a Changelog format
+- [x] Backfilled with all tasks completed to date (TASK-001, TASK-009)
+- [x] HUMAN.md updated: task completion flow includes a changelog entry step
+- [x] Future entries follow `## [Unreleased]` → versioned section pattern
 
 ### Definition of Done
-- [ ] PR approved
-- [ ] CHANGELOG.md present in repo root
+- [x] PR approved
+- [x] CHANGELOG.md present in repo root
 
 ---
 
@@ -349,12 +349,12 @@ _None_
 **Depends:** TASK-026
 
 ### Acceptance Criteria
-- [ ] THINK.md protocol requires an 'Evidence:' line for every action emitted.
-- [ ] 'Evidence:' must cite a concrete signal (e.g., 'TASK-003 IN_PROGRESS, no commit in 4 days').
-- [ ] THINK output example in THINK.md updated with evidence line.
+- [x] THINK.md protocol requires an 'Evidence:' line for every action emitted.
+- [x] 'Evidence:' must cite a concrete signal (e.g., 'TASK-003 IN_PROGRESS, no commit in 4 days').
+- [x] THINK output example in THINK.md updated with evidence line.
 
 ### Definition of Done
-- [ ] PR approved
+- [x] PR approved
 
 ---
 
@@ -363,12 +363,12 @@ _None_
 **Depends:** TASK-024
 
 ### Acceptance Criteria
-- [ ] Node.js (v20+) project initialized with TypeScript.
-- [ ] Clean Architecture layers established: Domain, Use Cases, Adapters.
-- [ ] Parity with current 'arch' commands: conduct, exec, status, task.
-- [ ] Native TASK-FORMAT v0.2 validation logic (regex-based).
-- [ ] Bundle process (esbuild/tsup) created for zero-dep redistribution.
+- [x] Node.js (v20+) project initialized with TypeScript.
+- [x] Clean Architecture layers established: Domain, Use Cases, Adapters.
+- [x] Parity with current 'arch' commands: conduct, exec, status, task.
+- [x] Native TASK-FORMAT v0.2 validation logic (regex-based).
+- [x] Bundle process (esbuild/tsup) created for zero-dep redistribution.
 
 ### Definition of Done
-- [ ] 'arch' command in package.json points to the new Node/TS implementation.
-- [ ] PR approved.
+- [x] 'arch' command in package.json points to the new Node/TS implementation.
+- [x] PR approved.
