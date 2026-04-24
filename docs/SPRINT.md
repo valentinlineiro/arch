@@ -339,3 +339,17 @@
 
 ## Blocked tasks
 _None_
+
+---
+
+## TASK-022: Evidence required on THINK actions
+**Meta:** P2 | XS | READY | Sprint 1 | 6-writing | claude | docs/agents/THINK.md
+**Depends:** TASK-026
+
+### Acceptance Criteria
+- [ ] THINK.md protocol requires an  line for every action emitted.
+- [ ]  must cite a concrete signal (e.g., 'TASK-003 IN_PROGRESS, no commit in 4 days').
+- [ ] THINK output example in THINK.md updated with evidence line.
+
+### Definition of Done
+- [ ] PR approved
