@@ -357,20 +357,22 @@ _None_
 ---
 
 ## TASK-027: CLI Migration — Node.js + TypeScript + Clean Architecture
-**Meta:** P0 | L | REVIEW | Sprint 1 | 2-code-generation | claude-code | scripts/, package.json, docs/TASK-FORMAT.md
-**Locked-by:** Gemini CLI | **Locked-at:** 2026-04-24T10:29:23.516908
+**Meta:** P0 | L | IN_PROGRESS | Sprint 1 | 2-code-generation | claude-code | scripts/, package.json, docs/TASK-FORMAT.md
+**Locked-by:** Gemini CLI | **Locked-at: 2026-04-24T10:58:03.313991
 **Depends:** TASK-024
 
 ### Acceptance Criteria
 - [x] Node.js (v20+) project initialized with TypeScript.
-- [x] Clean Architecture layers established: Domain, Use Cases, Adapters.
-- [x] Parity with current 'arch' commands: conduct, exec, status, task.
-- [x] Native TASK-FORMAT v0.2 validation logic (regex-based).
-- [x] Bundle process (esbuild/tsup) created for zero-dep redistribution.
+- [ ] Explicit layers established: Domain (Entities), Application (Use Cases), and Infrastructure (Adapters).
+- [ ] Logic for 'arch' commands ported to independent Use Case classes.
+- [ ] Domain-level tests implemented for core task logic.
+- [ ] Native TASK-FORMAT v0.2 validation logic (regex-based) as a Domain Service.
+- [ ] Bundle process (esbuild/tsup) created for zero-dep redistribution.
 
 ### Definition of Done
-- [x] 'arch' command in package.json points to the new Node/TS implementation.
-- [x] PR approved.
+- [ ] 'arch' command in package.json points to the new Node/TS implementation.
+- [ ] Full suite of automated tests passing.
+- [ ] PR approved.
 
 ---
 
@@ -383,11 +385,12 @@ _None_
 **Depends:** TASK-027
 
 ### Acceptance Criteria
-- [ ] Reviewer logic implemented as a pure Domain Service (Clean Architecture).
+- [ ] Reviewer logic implemented as Application Use Cases or pure Domain Services.
+- [ ] Explicit separation between Review logic (Domain) and Git/Filesystem interaction (Infrastructure).
 - [ ] Rules implemented: Canonical format (regex v0.2), Commit prefix (GUIDELINES), AC completion before DONE.
 - [ ] Command 'arch review' (or extension of 'validate') capable of checking 'git diff'.
 - [ ] CI-ready output: clear list of violations and non-zero exit code on failure.
-- [ ] Automated tests for each validation rule.
+- [ ] Unit tests for each validation rule in isolation.
 
 ### Definition of Done
 - [ ] PR approved
