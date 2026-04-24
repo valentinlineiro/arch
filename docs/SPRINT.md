@@ -358,7 +358,8 @@ _None_
 ---
 
 ## TASK-027: CLI Migration — Node.js + TypeScript + Clean Architecture
-**Meta:** P0 | L | READY | Sprint 1 | 2-code-generation | claude-code | scripts/, package.json, docs/TASK-FORMAT.md
+**Meta:** P0 | L | IN_PROGRESS | Sprint 1 | 2-code-generation | claude-code | scripts/, package.json, docs/TASK-FORMAT.md
+**Locked-by:** Gemini CLI | **Locked-at:** 2026-04-24T10:29:23.516908
 **Depends:** TASK-024
 
 ### Acceptance Criteria
