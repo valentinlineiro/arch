@@ -394,7 +394,7 @@ _None_
 ---
 
 ## TASK-026: Implementación v0.2 — agentes, vocabulario y estructura
-**Meta:** P0 | L | REVIEW | Sprint 2
+**Meta:** P0 | L | DONE | Sprint 2
 
 **Class:** 6-writing
 **CLI:** claude-code
