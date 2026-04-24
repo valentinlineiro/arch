@@ -114,7 +114,7 @@
 ---
 
 ## TASK-023: ADR-003 — DISPATCH efímero (excepción a ADR-001)
-**Meta:** P0 | XS | REVIEW | Sprint 1
+**Meta:** P0 | XS | DONE | Sprint 1
 **Class:** 8-strategy
 **CLI:** claude
 **CLI-reason:** decisión arquitectónica con impacto global — requiere juicio de diseño
@@ -122,15 +122,15 @@
 **Depends:** none
 
 ### Acceptance Criteria
-- [ ] `docs/adr/ADR-003-dispatch-ephemeral.md` creado con formato estándar ADR
-- [ ] Documenta explícitamente la excepción a ADR-001: DISPATCH es output de conveniencia, no fuente de verdad
-- [ ] Justifica por qué el estado real vive en SPRINT/BACKLOG y DISPATCH es redundante
-- [ ] Declara consecuencias: pérdida de auditabilidad de recomendaciones vs. reducción de fricción
-- [ ] Status: ACCEPTED con deciders registrados
+- [x] `docs/adr/ADR-003-dispatch-ephemeral.md` creado con formato estándar ADR
+- [x] Documenta explícitamente la excepción a ADR-001: DISPATCH es output de conveniencia, no fuente de verdad
+- [x] Justifica por qué el estado real vive en SPRINT/BACKLOG y DISPATCH es redundante
+- [x] Declara consecuencias: pérdida de auditabilidad de recomendaciones vs. reducción de fricción
+- [x] Status: ACCEPTED con deciders registrados
 
 ### Definition of Done
-- [ ] PR aprobado
-- [ ] ADR-003 enlazado desde GUIDELINES.md o AGENTS.md como referencia
+- [x] PR aprobado
+- [x] ADR-003 enlazado desde GUIDELINES.md o AGENTS.md como referencia
 
 ---
 
