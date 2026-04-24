@@ -3,17 +3,15 @@
 <!-- Multiple ideas allowed. Use status tags to track progress. -->
 
 ## Refinement Queue
-### 6. CLI Migration — From Bash to Node.js
+### 6. CLI Migration — Node.js + TypeScript + Clean Architecture
 **Status:** 
-**Idea:** Rewrite the x86_64 CLI in Node.js to eliminate tech mixing and improve robustness.
-**Context:** Current Usage: arch [conduct|exec|refine|retro|human|status|task] is a Bash wrapper that invokes Python for complex logic. ARCH v0.2 requires strict validation (regex, JSON config) that is better handled by a single, typed language.
-**Key Requirements:
-- **Zero external dependencies:** Use only Node.js standard library to keep it fast and portable.**
-- Parity with current x86_64 commands (, , , etc.).
-- Native regex support for TASK-FORMAT v0.2 validation.
-- Better error handling and terminal output (colors/formatting).
-- Single source of truth: .
-
+**Idea:** Rewrite the x86_64 CLI in Node.js (v20+) using TypeScript and Clean Architecture principles.
+**Context:** The current Bash/Python mix is hard to maintain. TypeScript provides type safety, and Clean Architecture ensures that the logic (tasks, states) is decoupled from the storage (Markdown).
+**Key Requirements:**
+- **TypeScript & Node 20+:** Use modern TS features and Node's native testing/APIs.
+- **Clean Architecture:** Domain (Entities), Use Cases (Business Logic), and Adapters (IO/FileSystem).
+- **Zero Production Dependencies:** Use a build step (esbuild/tsup) to produce a single executable-like JS file.
+- **Extensibility:** Easy to add new adapters (e.g., SQLite, Web UI) in the future.
 
 ### 1. RETRO — Guardián de la Arquitectura (Análisis de Log)
 **Status:** `DRAFT`
