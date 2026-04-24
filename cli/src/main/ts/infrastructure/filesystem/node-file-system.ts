@@ -18,4 +18,12 @@ export class NodeFileSystem implements FileSystem {
       return false;
     }
   }
+
+  async readDirectory(path: string): Promise<string[]> {
+    return await fs.readdir(path);
+  }
+
+  async rename(oldPath: string, newPath: string): Promise<void> {
+    await fs.rename(oldPath, newPath);
+  }
 }

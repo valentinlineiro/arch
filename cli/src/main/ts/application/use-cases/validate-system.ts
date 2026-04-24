@@ -28,12 +28,12 @@ export class ValidateSystem {
       }
     }
 
-    // 2. Validate tasks in SPRINT.md and BACKLOG.md
+    // 2. Validate tasks in modular structure
     const tasks = await this.taskRepository.getAll();
     for (const task of tasks) {
       if (task.rawMetaLine && !TaskValidator.isValidMeta(task.rawMetaLine)) {
-        const sourceFile = task.sprint.startsWith('Sprint') ? 'docs/SPRINT.md' : 'docs/BACKLOG.md';
-        errors.push(`[${sourceFile}] Task ${task.id} has an invalid Meta line: ${task.rawMetaLine}`);
+        const subDir = task.sprint.startsWith('Sprint') ? 'sprint' : 'backlog';
+        errors.push(`[docs/tasks/${subDir}/${task.id}.md] Task ${task.id} has an invalid Meta line: ${task.rawMetaLine}`);
       }
     }
 
