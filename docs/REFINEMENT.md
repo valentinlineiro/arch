@@ -3,6 +3,16 @@
 <!-- Multiple ideas allowed. Use status tags to track progress. -->
 
 ## Refinement Queue
+### 7. Task Files & Markdown Indexes (v0.3 Architecture)
+**Status:** 
+**Idea:** Moving tasks to individual files () and using / as lightweight indexes.
+**Context:** Address the growing size of status files and facilitate archiving while maintaining context efficiency (ADR-002).
+**Key Requirements:**
+- **Index/Detail Split:**  and  contain only stubs (ID, Title, Meta, Link).
+- **Task Files:** Full task definition lives in its own Markdown file.
+- **Migration Script:** Automation to extract existing tasks without data loss.
+- **CLI Validation:** Ensure index and details remain synchronized.
+
 ### 1. RETRO — Guardián de la Arquitectura (Análisis de Log)
 **Status:** 
 **Idea:** Expand RETRO to act as an architecture integrity auditor.
