@@ -15,27 +15,28 @@
 - Generación de propuestas automáticas en este mismo archivo (`REFINEMENT.md`).
 
 ### 3. ARCH v0.2 — Simplificación arquitectónica mayor
-**Status:** `DRAFT`
+**Status:** `REFINED`
 **Idea:** Rediseño completo del framework para reducir complejidad de adopción y mantenimiento.
 **Context:** v0.1 creció a 20 archivos, 5 agentes y 8 comandos CLI. La fricción de onboarding es alta. v0.2 propone colapsar hacia 9 archivos, 3 modos y 4 comandos.
 **Key Requirements:**
-- **Modos:** 5 agentes → 3 modos (THINK = conductor+refine fusionados, DO = exec+human fusionados, RETRO sin cambios)
-- **Routing:** `ROUTING.md` → `arch.config.json` (machine-readable, sirve a todos los CLIs)
-- **Symlinks:** `AGENTS.md`, `CLAUDE.md`, `GEMINI.md` en raíz del repo apuntan a `docs/AGENTS.md`
-- **DISPATCH:** output directo a terminal en lugar de archivo persistente
-- **REFINEMENT.md:** eliminada — ideas capturadas con status `IDEA` inline en `BACKLOG.md`
-- **ADR:** opcional vía `arch add adr` en lugar de instalado por defecto
-- **Formato tarea:** 8 campos → 3 líneas (meta comprimida)
-- **CLI:** 8 comandos → 4 comandos
-**Delta de archivos:**
-```
-v0.1: 20 archivos | v0.2: 9 archivos
-docs/agents/: CONDUCTOR, EXEC, HUMAN, REFINE, RETRO → THINK, DO, RETRO
-docs/REFINEMENT.md → eliminada
-docs/ROUTING.md → arch.config.json (raíz)
-```
-**Riesgo principal:** backward compatibility del formato de tarea y migración de repos existentes.
-**Precondición sugerida:** ADR antes de implementar — decisión de diseño con impacto global.
+- **Modos:** 5 agentes → 3 modos (THINK = conductor+refine fusionados en 2 fases secuenciales, DO = exec+human fusionados, RETRO sin cambios)
+- **THINK fase 1:** system check — lee SPRINT + DONE solamente. **Fase 2:** ideas — lee BACKLOG status IDEA solamente. Si no hay IDEAs, fase 2 no corre. No se mezclan.
+- **Routing:** `ROUTING.md` → `arch.config.json` (machine-readable). CLI valida via `arch validate`.
+- **Symlinks:** `AGENTS.md`, `CLAUDE.md`, `GEMINI.md` en raíz apuntan a `docs/AGENTS.md`
+- **DISPATCH:** output a terminal — excepción explícita a ADR-001. Estado real vive en SPRINT/BACKLOG. DISPATCH era conveniencia, no fuente de verdad. Documentado en ADR-003.
+- **REFINEMENT.md:** eliminada — ideas con status `IDEA` inline en BACKLOG.
+- **Vocabulario extendido:** `IDEA → READY → IN_PROGRESS → REVIEW → DONE | BLOCKED | REJECTED`. IDEA existe solo en BACKLOG; no entra a SPRINT hasta promoción explícita.
+- **ADR:** opcional vía `arch add adr`.
+- **Formato tarea:** 8 campos → 3 líneas (spec formal con regex — bloqueante).
+- **CLI:** 8 comandos → 4 comandos (incluye `arch validate`).
+- **DONE.md:** +columna Iterations. **GUIDELINES.md:** +tabla changelog. Solo cambios aditivos.
+- **Migración:** `migrate-v2.sh` cubre v0.1→v0.2. Cerrado.
+- **Kaizen aplicado:** TASK-018 resuelto en DO.md estructuralmente. TASK-021 resuelto (campo Committed eliminado). TASK-022 preservado (Evidence required en GUIDELINES).
+**Implementation order (bloqueantes primero):**
+1. ADR-003 — DISPATCH efímero (justifica excepción a ADR-001)
+2. TASK: spec formato canónico de tarea + regex
+3. TASK: `arch validate`
+4. Implementación v0.2 (DO.md, THINK.md, vocabulario, estructura de archivos)
 
 ### 2. Status vocabulary refinement
 **Status:** `DRAFT`
