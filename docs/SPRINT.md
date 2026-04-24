@@ -378,7 +378,7 @@ _None_
 ---
 
 ## TASK-012: Implement deterministic REVIEWER engine in CLI
-**Meta:** P1 | M | IN_PROGRESS | Sprint 1
+**Meta:** P1 | M | REVIEW | Sprint 1
 **Locked-by:** Gemini CLI | **Locked-at: 2026-04-24T13:38:42.723808**
 **Class:** 2-code-generation
 **CLI:** claude-code
