@@ -349,7 +349,7 @@ _None_
 
 ## Active tasks
 ## TASK-011: Maintain CHANGELOG
-**Meta:** P2 | S | IN_PROGRESS | Sprint 2
+**Meta:** P2 | S | REVIEW | Sprint 2
 **Locked-by:** Gemini CLI | **Locked-at: 2026-04-24T16:35:56.335857**
 **Class:** 6-writing
 **CLI:** claude
@@ -359,7 +359,7 @@ _None_
 
 ### Acceptance Criteria
 - [x] `CHANGELOG.md` created at repo root following Keep a Changelog format
-- [x] Backfilled with all tasks completed to date (TASK-001, TASK-009)
+- [x] Backfilled with all tasks (Sprint 1 & 2) completed to date (TASK-001, TASK-009)
 - [x] HUMAN.md updated: task completion flow includes a changelog entry step
 - [x] Future entries follow `## [Unreleased]` → versioned section pattern
 
