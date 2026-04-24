@@ -135,7 +135,7 @@
 ---
 
 ## TASK-024: Spec formato canónico de tarea v0.2 + regex
-**Meta:** P0 | S | IN_PROGRESS | Sprint 1
+**Meta:** P0 | S | REVIEW | Sprint 1
 **Locked-by:** Gemini CLI | **Locked-at: 2026-04-24**
 **Class:** 6-writing
 **CLI:** claude
