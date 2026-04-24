@@ -158,7 +158,8 @@
 ---
 
 ## TASK-025: CLI — arch validate
-**Meta:** P0 | M | READY | Sprint 1
+**Meta:** P0 | M | IN_PROGRESS | Sprint 1
+**Locked-by:** Gemini CLI | **Locked-at:** 2026-04-24T10:03:36.028053
 **Class:** 2-code-generation
 **CLI:** claude-code
 **CLI-reason:** implementación de comando CLI con lógica de validación — requiere manejo de errores y edge cases
@@ -208,7 +209,8 @@
 ---
 
 ## TASK-010: Build `arch` CLI (project interaction layer)
-**Meta:** P0 | M | READY | Sprint 1
+**Meta:** P0 | M | IN_PROGRESS | Sprint 1
+**Locked-by:** Gemini CLI | **Locked-at:** 2026-04-24T10:03:36.028053
 **Class:** 2-code-generation
 **CLI:** codex
 **CLI-reason:** standard Node.js CLI implementation
@@ -347,8 +349,8 @@ _None_
 **Depends:** TASK-026
 
 ### Acceptance Criteria
-- [ ] THINK.md protocol requires an  line for every action emitted.
-- [ ]  must cite a concrete signal (e.g., 'TASK-003 IN_PROGRESS, no commit in 4 days').
+- [ ] THINK.md protocol requires an 'Evidence:' line for every action emitted.
+- [ ] 'Evidence:' must cite a concrete signal (e.g., 'TASK-003 IN_PROGRESS, no commit in 4 days').
 - [ ] THINK output example in THINK.md updated with evidence line.
 
 ### Definition of Done
