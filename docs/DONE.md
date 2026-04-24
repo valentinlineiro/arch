@@ -4,6 +4,7 @@
 
 | Task | Title | Size declared→actual | CLI used | Sprint | Closed | Notes |
 |------|-------|----------------------|----------|--------|--------|-------|
+| TASK-025 | CLI — arch validate | M→M | claude-code | Sprint 2 | 2026-04-24 | Validator as Use Case with tests |
 | TASK-012 | Implement deterministic REVIEWER engine in CLI | M→M | claude-code | Sprint 1 | 2026-04-24 | Review logic as Domain Service + tests |
 | TASK-027 | CLI Migration — Node.js + TypeScript + Clean Architecture | L→L | claude-code | Sprint 1 | 2026-04-24 | Clean Architecture + TS + cli/ folder restructure |
 | TASK-022 | Evidence required on THINK actions | XS→XS | claude | Sprint 1 | 2026-04-24 | THINK.md protocol updated |
