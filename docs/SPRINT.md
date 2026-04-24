@@ -420,3 +420,14 @@ _None_
 - [x] `arch validate` pasa en el repo tras la implementación
 - [x] Onboarding manual verificado: repo limpio + AGENTS.md → flujo completo funciona
 
+
+---
+
+## TASK-029: README — Real-world Case Study & v0.2 information
+**Meta:** P2 | S | READY | Sprint 2 | 6-writing | claude | README.md, docs/DONE.md
+**Depends:** TASK-026
+
+### Idea / Context
+The current README is theoretical. We need to ground it with a real-world case study from Sprint 1.
+
+Proposed section:

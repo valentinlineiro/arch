@@ -172,14 +172,7 @@
 
 ---
 
-## TASK-029: README — Real-world Case Study & v0.2 information
-**Meta:** P2 | S | IDEA | Backlog | 6-writing | claude | README.md, docs/DONE.md
-**Depends:** TASK-026
 
-### Idea / Context
-The current README is theoretical. We need to ground it with a real-world case study from Sprint 1.
-
-Proposed section:
 ## In practice
 
 Sprint 1 — 72 hours, solo operator:
