@@ -62,6 +62,8 @@ Before merging any change to `docs/agents/`:
 - **Architectural Buffer:** Re-architecting, migrations, or structural changes must default to size  or higher to account for Clean Architecture overhead and testing.
 
 ## Task Integrity
+- **Validation Gate:** Before any status move to , the agent or human MUST run . Zero violations are required for a clean handover and to prevent protocol debt.
+
 - **Scope Stability:** If a task's implementation model changes fundamentally (e.g., from AI Agent to Deterministic Engine), it MUST return to  unless the human provides an explicit  in the meta line.
 
 ## Changelog
