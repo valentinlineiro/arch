@@ -1,0 +1,38 @@
+{
+  "name": "arch-init",
+  "version": "0.1.0",
+  "description": "Scaffolds ARCH framework into your repository",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/valentinlineiro/arch.git"
+  },
+  "bin": {
+    "arch-init": "../scripts/arch-init.sh",
+    "arch": "dist/index.mjs"
+  },
+  "type": "module",
+  "scripts": {
+    "test": "node --import tsx --test src/test/ts/*.test.ts",
+    "build": "tsup src/main/ts/index.ts --format esm --clean --minify",
+    "dev": "tsup src/main/ts/index.ts --format esm --watch"
+  },
+  "keywords": [
+    "arch",
+    "framework",
+    "scaffolding",
+    "git",
+    "ai-agents"
+  ],
+  "author": "Valentin Lineiro",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/valentinlineiro/arch/issues"
+  },
+  "homepage": "https://github.com/valentinlineiro/arch#readme",
+  "devDependencies": {
+    "typescript": "^5.4.0",
+    "@types/node": "^20.0.0",
+    "tsup": "^8.0.0",
+    "tsx": "^4.7.0"
+  }
+}
