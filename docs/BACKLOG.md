@@ -215,14 +215,20 @@ The framework documentation is becoming monolithic. Large files like GUIDELINES.
 
 ---
 
-## TASK-030: Agent Evolution — From RETRO to Continuous Reviewer
-**Meta:** P1 | M | IDEA | Backlog | 8-strategy | claude | docs/agents/
+## TASK-030: Continuous Reviewer — Real-time Kaizen Protocol
+**Meta:** P1 | M | READY | Sprint 3 | 8-strategy | claude | docs/agents/THINK.md
 **Depends:** TASK-028
 
 ### Idea / Context
-The current RETRO agent operates only at sprint close. We propose evolving it into a 'Reviewer' mode that provides continuous feedback, gap analysis, and guideline enforcement throughout the sprint. This aligns with the 'Reviewer engine' (TASK-012) but focuses on the cognitive/architectural level rather than just deterministic rules.
+Waiting for the end of a sprint to improve is a bottleneck. We need a protocol that allows the system to detect patterns and propose improvements (Kaizen) after any significant milestone (task completion, PR review, or architectural pivot).
 
-### Requirements
-- **Continuous Feedback:** Ability to invoke 'arch review' to get qualitative feedback on current state, not just pass/fail.
-- **Gap Detection:** Proactively identify inconsistencies between the APPROVED plan and current implementation.
-- **Protocol Merge:** Consolidate RETRO.md logic into a broader REVIEW.md agent protocol.
+### Acceptance Criteria
+- [ ] THINK mode updated with 'Phase 3: Continuous Kaizen'.
+- [ ] Protocol for 'Immediate Gap Closing': Identify missing context or logic in the current task/sprint.
+- [ ] Protocol for 'Real-time Guideline Proposal': AI can propose a guideline change as soon as a pattern is detected (e.g., after 2 similar failures).
+- [ ] Integration with 'arch review' to provide qualitative context to deterministic failures.
+
+### Definition of Done
+- [ ] THINK.md updated and validated.
+- [ ] docs/agents/RETRO.md deleted (logic fully absorbed).
+- [ ] PR approved.
