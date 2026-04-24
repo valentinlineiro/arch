@@ -4,6 +4,7 @@
 
 | Task | Title | Size declared→actual | CLI used | Sprint | Closed | Iterations | Notes |
 |------|-------|----------------------|----------|--------|--------|------------|-------|
+| TASK-011 | Maintain CHANGELOG | S→S | claude | Sprint 2 | 2026-04-24 | - | CHANGELOG.md backfilled |
 | TASK-029 | README — Real-world Case Study & v0.2 information | S→S | claude | Sprint 2 | 2026-04-24 | - | Case study section + v0.2 diagrams |
 | TASK-026 | Implementación v0.2 — agentes, vocabulario y estructura | L→L | claude-code | Sprint 2 | 2026-04-24 | - | Consolidated THINK/DO modes + config |
 | TASK-025 | CLI — arch validate | M→M | claude-code | Sprint 2 | 2026-04-24 | - | Validator as Use Case with tests |
