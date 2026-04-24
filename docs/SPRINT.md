@@ -158,8 +158,7 @@
 ---
 
 ## TASK-025: CLI — arch validate
-**Meta:** P0 | M | REVIEW | Sprint 1
-**Locked-by:** Gemini CLI | **Locked-at:** 2026-04-24T10:03:36.028053
+**Meta:** P0 | M | READY | Sprint 1
 **Class:** 2-code-generation
 **CLI:** claude-code
 **CLI-reason:** implementación de comando CLI con lógica de validación — requiere manejo de errores y edge cases
