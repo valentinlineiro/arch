@@ -14,15 +14,12 @@
 - **Extensibility:** Easy to add new adapters (e.g., SQLite, Web UI) in the future.
 
 ### 1. RETRO — Guardián de la Arquitectura (Análisis de Log)
-**Status:** `DRAFT`
-**Idea:** Expandir RETRO para que actúe como auditor de la integridad del framework.
-**Context:** Necesitamos que el sistema se auto-corrija. Si el git log muestra que nos saltamos pasos (PRs, atomicidad), RETRO debe detectarlo y proponer tareas de "Arreglo de Proceso".
-**Key Requirements:
-- **Zero external dependencies:** Use only Node.js standard library to keep it fast and portable.**
-- Análisis de `git log` limitado estrictamente al periodo del sprint actual.
-- Detección de falta de atomicidad (commits que mezclan TASK-IDs o afectan sistemas no declarados).
-- Identificación de "fricción arquitectónica" (donde la fluidez del desarrollo se ve comprometida por el framework).
-- Generación de propuestas automáticas en este mismo archivo (`REFINEMENT.md`).
+**Status:** 
+**Idea:** Expand RETRO to act as an architecture integrity auditor.
+**Gaps:**
+- [ ] **Enforcement:** Should it block commits (git hooks) or just report?
+- [ ] **Detection:** Compare diff against task  to detect out-of-scope changes.
+- [ ] **Remediation:** Define clear templates for 'Process Fix' tasks.
 
 ### 3. ARCH v0.2 — Simplificación arquitectónica mayor
 **Status:** `PROMOTED`
@@ -50,9 +47,8 @@
 4. Implementación v0.2 (DO.md, THINK.md, vocabulario, estructura de archivos)
 
 ### 2. Status vocabulary refinement
-**Status:** `DRAFT`
-**Idea:** Asegurar que todos los agentes (CONDUCTOR, EXEC, HUMAN, etc.) usen los campos de estado de forma consistente.
-**Context:** Tareas recientes (TASK-013, TASK-016) han tocado el manejo de estados. Necesitamos una "fuente de verdad" única.
+**Status:** 
+**Reason:** Superseded by canonical specification in  (TASK-024).
 
 ### 4. TASK-017 (re-refining): DISPATCH.md staleness — Last-invalidated protocol
 **Status:** `REJECTED`
