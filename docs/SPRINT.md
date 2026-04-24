@@ -394,7 +394,7 @@ _None_
 ---
 
 ## TASK-026: Implementación v0.2 — agentes, vocabulario y estructura
-**Meta:** P0 | L | IN_PROGRESS | Sprint 2
+**Meta:** P0 | L | REVIEW | Sprint 2
 **Locked-by:** Gemini CLI | **Locked-at: 2026-04-24T14:17:26.660436**
 **Class:** 6-writing
 **CLI:** claude-code
