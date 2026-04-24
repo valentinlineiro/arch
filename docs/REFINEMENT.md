@@ -44,7 +44,8 @@
 **Context:** Tareas recientes (TASK-013, TASK-016) han tocado el manejo de estados. Necesitamos una "fuente de verdad" única.
 
 ### 4. TASK-017 (re-refining): DISPATCH.md staleness — Last-invalidated protocol
-**Status:** `DRAFT`
+**Status:** 
+**Rejected-reason:** Validated via arch validate (TASK-025) and ephemeral DISPATCH (ADR-003)`DRAFT`
 **Idea:** Re-evaluar la necesidad de `Last-invalidated` dado que v0.2 elimina DISPATCH.md como fuente de verdad. ¿Debe aplicarse a SPRINT.md/BACKLOG.md?
 
 ### 5. TASK-022 (re-refining): CONDUCTOR — require Evidence: required on all DISPATCH actions
