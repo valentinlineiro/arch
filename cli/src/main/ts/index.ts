@@ -1,16 +1,22 @@
 #!/usr/bin/env node
 import { NodeFileSystem } from './infrastructure/filesystem/node-file-system.js';
 import { MarkdownTaskRepository } from './infrastructure/filesystem/markdown-task-repository.js';
+import { GitCli } from './infrastructure/cli/git-cli.js';
+import { Reviewer } from './domain/services/reviewer.js';
 import { GetSprintStatus } from './application/use-cases/get-sprint-status.js';
 import { MarkTaskInProgress } from './application/use-cases/mark-task-in-progress.js';
+import { ReviewSystem } from './application/use-cases/review-system.js';
 
 const GREEN = '\x1b[32m';
+const RED = '\x1b[31m';
 const YELLOW = '\x1b[33m';
 const NC = '\x1b[0m';
 
 async function main() {
   const fileSystem = new NodeFileSystem();
   const taskRepository = new MarkdownTaskRepository(fileSystem);
+  const gitRepository = new GitCli();
+  const reviewer = new Reviewer();
   
   const args = process.argv.slice(2);
   const command = args[0];
@@ -21,6 +27,20 @@ async function main() {
       const status = await useCase.execute();
       console.log(`\n  ${GREEN}ARCH${NC} — Sprint Status`);
       console.log(`  READY: ${status.ready} | IN_PROGRESS: ${status.inProgress} | REVIEW: ${status.review} | DONE: ${status.done}\n`);
+      break;
+    }
+    case 'review': {
+      const useCase = new ReviewSystem(taskRepository, gitRepository, reviewer);
+      const result = await useCase.execute();
+      if (result.success) {
+        console.log(`\n  ${GREEN}✔${NC} System Review: OK\n`);
+        process.exit(0);
+      } else {
+        console.log(`\n  ${RED}✖${NC} System Review: FAILED`);
+        result.violations.forEach(v => console.log(`    - ${v}`));
+        console.log('');
+        process.exit(1);
+      }
       break;
     }
     case 'task': {
@@ -40,7 +60,7 @@ async function main() {
       break;
     }
     default:
-      console.log('Usage: arch [status|task]');
+      console.log('Usage: arch [status|review|task]');
       process.exit(1);
   }
 }

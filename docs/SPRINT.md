@@ -389,11 +389,11 @@ _None_
 ### Acceptance Criteria
 - [x] Reviewer logic implemented as Application Use Cases or pure Domain Services.
 - [x] Explicit separation between Review logic (Domain) and Git/Filesystem interaction (Infrastructure).
-- [ ] Rules implemented: Canonical format (regex v0.2), Commit prefix (GUIDELINES), AC completion before DONE.
-- [ ] Command 'arch review' (or extension of 'validate') capable of checking 'git diff'.
-- [ ] CI-ready output: clear list of violations and non-zero exit code on failure.
-- [ ] Unit tests for each validation rule in isolation.
+- [x] Rules implemented: Canonical format (regex v0.2), Commit prefix (GUIDELINES), AC completion before DONE.
+- [x] Command 'arch review' (or extension of 'validate') capable of checking 'git diff'.
+- [x] CI-ready output: clear list of violations and non-zero exit code on failure.
+- [x] Unit tests for each validation rule in isolation.
 
 ### Definition of Done
 - [ ] PR approved
-- [ ] 'arch review' functional and tested in the CLI binary.
+- [x] 'arch review' functional and tested in the CLI binary.

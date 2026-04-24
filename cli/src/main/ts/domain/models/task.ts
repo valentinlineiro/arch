@@ -8,6 +8,11 @@ export enum TaskStatus {
   REJECTED = 'REJECTED'
 }
 
+export interface AcceptanceCriterion {
+  description: string;
+  completed: boolean;
+}
+
 export interface Task {
   id: string;
   title: string;
@@ -21,4 +26,6 @@ export interface Task {
   depends?: string[];
   lockedBy?: string;
   lockedAt?: string;
+  acceptanceCriteria?: AcceptanceCriterion[];
+  rawMetaLine?: string;
 }
