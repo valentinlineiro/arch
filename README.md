@@ -8,6 +8,29 @@ ARCH is an open framework that sits on top of `AGENTS.md`, `MCP`, and any AI CLI
 
 ---
 
+## In practice
+
+Sprint 1 — 72 hours, solo operator:
+- **29 tasks** created, 16 completed
+- **3 ADRs** written before implementation
+- **1 architectural pivot** caught in refinement (Python → TypeScript)
+- **3 kaizen improvements** → permanent rules in `GUIDELINES.md`
+- **REVIEWER engine** shipped (deterministic validation, no IA overhead)
+
+### The Architectural Git Log
+ARCH encourages atomic, task-tagged commits that preserve the rationale of every change:
+
+```text
+75b7178 chore: complete TASK-026 — Implementation of ARCH v0.2 [TASK-026]
+2f91fe1 [TASK-026] implementation of ARCH v0.2: consolidated THINK/DO modes
+4fb15b2 [TASK-025] implementation of ACs: arch validate command
+163b43d refactor: redefine TASK-012 as deterministic CLI engine [TASK-012]
+bf29462 [TASK-027] restructure CLI codebase to cli/src/{main,test}/ts
+d9d41db chore: pivot CLI migration from Python to Node.js [TASK-027]
+```
+
+---
+
 ## The problem
 
 AI CLIs exist. Standards like `AGENTS.md` and `MCP` exist. What doesn't exist is a **method** for operating work with multiple AI agents across a whole organization — one that:
@@ -22,61 +45,43 @@ ARCH is that method.
 
 ---
 
-## What the name means
-
-| Letter | Word | Role in the framework |
-|--------|------|-----------------------|
-| **A** | Autonomous | Agents operate without constant human supervision |
-| **R** | Routing | Every task is matched to the right CLI by class and cost |
-| **C** | Context | Each agent reads only what it needs — no more |
-| **H** | Hierarchy | CONDUCTOR → agents → tasks — clear chain of delegation |
-
----
-
 ## Core principles
 
 **1. Git is the operating system**
-All state lives in git. No external databases, no SaaS lock-in. A new agent session or a new team member starts by reading `docs/` — nothing else required.
+All state lives in git. No external databases, no SaaS lock-in.
 
 **2. Context is a budget, not a default**
-Every task declares exactly what context it needs. Agents read only that. No full-repo scans unless explicitly required. Cuts token cost ~75%.
+Every task declares exactly what context it needs. Cuts token cost ~75%.
 
 **3. Humans propose, AI closes gaps**
-Ideas come from humans. AI's role in planning is to identify what's missing, flag dependencies, and surface patterns from history — not to generate roadmaps.
+Ideas come from humans. AI flags dependencies and surfaces patterns.
 
 **4. Routing over monogamy**
-Different tasks require different CLIs. ARCH routes by task class: reasoning to Claude, large context to Gemini, boilerplate to Codex, repetition to local models.
+Different tasks require different CLIs. Reasoning to Claude, large context to Gemini.
 
-**5. Kaizen is structural, not optional**
-Every sprint ends with a retrospective where AI detects patterns and proposes rule changes. Humans decide what becomes permanent. The system gets smarter without manual effort.
+**5. Kaizen is structural**
+Every sprint ends with a retrospective where AI proposes rule changes. The system gets smarter automatically.
 
 ---
 
-## Agent hierarchy
+## Agent hierarchy (v0.2)
 
 ```
-                    CONDUCTOR
-                    (session start / checkpoint)
-                    Reads: SPRINT + BACKLOG + DONE + RETRO
-                    Writes: DISPATCH.md — what needs attention
+                    THINK mode
+            (System check + Refinement)
+            Reads: SPRINT + DONE + BACKLOG
+            Writes: Ephemeral terminal report
                          │
-          ┌──────────────┼──────────────┬──────────────┐
-          ▼              ▼              ▼              ▼
-       REFINE           EXEC          RETRO          HUMAN
-   (idea → task)   (task → PR)   (sprint → rules) (human interface)
-          │              │              │              │
-  REFINEMENT.md    SPRINT.md       DONE.md        SPRINT / BACKLOG
-  ◄── gaps         ◄── status      ◄── patterns   ◄── intent
-  ◄── kaizen            │          ──► GUIDELINES.md
-          │              ▼             (human approves)
-          ▼          BACKLOG.md
-     SPRINT.md
+          ┌──────────────┴──────────────┐
+          ▼                             ▼
+       DO mode                      RETRO mode
+   (Intent: Exec)                 (Sprint close)
+   (Intent: Human)                (Pattern detect)
+          │                             │
+    SPRINT.md                       DONE.md
+    ◄── status                      ──► GUIDELINES.md
+    ◄── intent                      (Human approves)
 ```
-
-The CONDUCTOR is the only agent that sees the full picture.
-It doesn't execute — it routes. Every other agent reads only
-what its task declares in `Context-budget`. The HUMAN agent 
-bridges natural language intent to direct system operations.
 
 ---
 
@@ -84,186 +89,64 @@ bridges natural language intent to direct system operations.
 
 ```
 your-project/
-├── AGENTS.md              ← Symlink → docs/AGENTS.md
-├── CLAUDE.md              ← Symlink → docs/AGENTS.md
-├── GEMINI.md              ← Symlink → docs/AGENTS.md
+├── AGENTS.md              ← AI entry point
+├── arch.config.json       ← Routing and path configuration
+├── cli/                   ← Node.js/TS Clean Architecture implementation
 └── docs/
-    ├── AGENTS.md          ← AI entry point (AGENTS.md standard compatible)
-    ├── BACKLOG.md         ← All tasks, single source of truth
-    ├── SPRINT.md          ← Active sprint tasks
-    ├── DONE.md            ← Last 10 completed tasks (rolling window)
-    ├── DISPATCH.md        ← Current system state (written by CONDUCTOR)
-    ├── REFINEMENT.md      ← Ideas being refined before entering backlog
-    ├── RETRO.md           ← Sprint retrospectives + detected patterns
-    ├── GUIDELINES.md      ← Permanent rules (human-approved only)
-    ├── ROUTING.md         ← Which CLI for which task type
+    ├── SPRINT.md          ← Active sprint tasks (Single Source of Truth)
+    ├── BACKLOG.md         ← All tasks and IDEAs
+    ├── DONE.md            ← Completed tasks with Iterations count
+    ├── GUIDELINES.md      ← Permanent rules (The project's DNA)
     ├── agents/
-    │   ├── CONDUCTOR.md   ← Meta-agent: diagnoses system, writes DISPATCH
-    │   ├── EXEC.md        ← Execution protocol (~320 tokens)
-    │   ├── REFINE.md      ← Refinement protocol (~340 tokens)
-    │   ├── RETRO.md       ← Retrospective protocol (~90 tokens)
-    │   └── HUMAN.md       ← Human interface protocol (~1,000 tokens)
+    │   ├── THINK.md       ← Conductor + Refine consolidated protocol
+    │   └── DO.md          ← Exec + Human consolidated protocol
     └── adr/
         └── ADR-000-template.md
 ```
 
 ---
 
-## Task format
-
-Every task is a self-contained unit of work with its own context budget:
+## Task format (v0.2)
 
 ```markdown
-## TASK-042
-**Meta:** P0 | M | READY | Sprint 3
-**Class:** 1-code-reasoning
-**CLI:** claude-code
-**CLI-reason:** architectural decision with trade-offs
-**Context-budget:** agents/EXEC.md + this task + src/auth/
-**Depends:** TASK-039 (merged)
-**ADR:** ADR-003 — no need to re-read, decision is final
+## TASK-027: CLI Migration
+**Meta:** P0 | L | DONE | Sprint 1 | 2-code-generation | claude-code | cli/, package.json
+**Depends:** TASK-024
 
 ### Acceptance Criteria
-- [ ] POST /auth/login → {access_token, refresh_token}
-- [ ] RS256 signature, refresh rotation
-- [ ] Tests: happy path + expired token
+- [x] Node.js project initialized with TypeScript.
+- [x] Clean Architecture layers established.
+- [x] Bundle process (tsup) created for zero-dep redistribution.
 
 ### Definition of Done
-- [ ] PR approved by human
-- [ ] CI green
-- [ ] /docs/api.md updated
+- [x] 'arch' command points to the new implementation.
+- [x] PR approved.
 ```
 
 ---
 
-## Task classes and CLI routing
-
-```
-CLASS                  EXAMPLES                   DEFAULT CLI
-────────────────────────────────────────────────────────────────
-1-code-reasoning       Architecture, ADRs,        Claude Code
-                       complex debugging
-
-2-code-generation      Boilerplate, CRUD,         Codex / Codestral
-                       standard endpoints
-
-3-code-context         Cross-repo refactors,      Gemini CLI
-                       large codebase analysis
-
-4-code-repetitive      Automation scripts,        Aider + local model
-                       recurring transforms
-
-5-research             Market analysis,           Perplexity / Gemini
-                       technical specs, docs
-
-6-writing              Technical docs, ADRs,      Claude
-                       proposals, reports
-
-7-operations           ETL, integrations,         Local + n8n
-                       data pipelines
-
-8-strategy             Trade-offs, planning,      Claude Opus / o3
-                       retrospectives
-```
-
----
-
-## Context budget by mode
-
-Measured 2026-04-23 against Sprint 1 state files. Token count = chars ÷ 4.
-
-```
-MODE          REQUIRED FILES                         MEASURED   MAX TOKENS
-──────────────────────────────────────────────────────────────────────────
-Conductor     agents/CONDUCTOR.md + 5 state files   ~2,040     ~2,100
-Execution     agents/EXEC.md + task                 ~520       ~1,000
-Refinement    agents/REFINE.md + draft idea         ~650       ~1,000
-Retrospective agents/RETRO.md + DONE.md             ~360       ~1,000
-Human         agents/HUMAN.md + state files         ~1,940     ~2,000
-```
-
-Note: SPRINT.md grows with sprint size. CONDUCTOR and HUMAN both declare partial reads
-(Meta/status fields only) to stay within budget as the sprint backlog grows.
-
-Never load the full `docs/` directory.
-If a task requires it, the task is too large.
-
----
-
-## Daily workflow
-
-```bash
-# Start of session — always
-claude-code docs/agents/CONDUCTOR.md
-# → DISPATCH.md tells you exactly what needs attention
-
-# Execute a task
-gemini docs/agents/EXEC.md docs/SPRINT.md --task TASK-042
-
-# Refine a new idea
-claude-code docs/agents/REFINE.md docs/REFINEMENT.md
-
-# Communicate intent (e.g. task completed)
-claude-code docs/agents/HUMAN.md "terminé el login de auth"
-
-# Close a sprint
-claude-code docs/agents/RETRO.md docs/DONE.md
-```
-
----
-
-## Anti-collision protocol
-
-Multiple agents can run in parallel safely:
-
-1. `git pull` before selecting any task
-2. Commit `IN_PROGRESS` status atomically — failed push = re-select
-3. `IN_PROGRESS` tasks are untouchable by other agents
-4. Lock field: `**Locked-by:** session-id | **Locked-at:** ISO timestamp`
-5. Lock TTL: 4 hours. CONDUCTOR flags expired locks in DISPATCH.md
-
----
-
-## Compatibility
-
-| Standard | Role in ARCH |
-|----------|-------------|
-| `AGENTS.md` | AI entry point, symlinked from `docs/AGENTS.md` |
-| `CLAUDE.md` | Symlink to `AGENTS.md` for Claude Code |
-| `GEMINI.md` | Symlink to `AGENTS.md` for Gemini CLI |
-| `MCP` | Tool integration layer |
-| `SKILL.md` | Optional skills can extend `docs/agents/` |
-
----
-
-## Quick start
+## CLI & Quick start
 
 ```bash
 npx arch-init my-project
 cd my-project
-# 1. Edit docs/GUIDELINES.md — add your stack
-# 2. Add your first idea to docs/REFINEMENT.md
-# 3. Run: arch refine   ← AI closes gaps
-# 4. Run: arch conduct  ← CONDUCTOR evaluates system state
-# 5. Run: arch exec     ← Right CLI for the next task
+
+# 1. Start a session
+arch conduct   # Invokes THINK mode
+
+# 2. Execute a task
+arch exec      # Invokes DO mode for the next READY task
+
+# 3. Verify system integrity
+arch review    # Deterministic check of guidelines and task formats
 ```
 
 ---
 
 ## Status
 
-**v0.1 — Method only.**
-The framework and templates are the product.
-CLI tooling follows adoption.
-
-ARCH is a methodology first. Tooling follows adoption, not the other way around.
-
----
-
-## Contributing
-
-The method is the contribution.
-If you use ARCH and discover a pattern that makes the framework better, open a PR against `docs/`. No code required.
+**v0.2 — Clean Architecture & Automated Validation.**
+The methodology is supported by a deterministic CLI engine.
 
 ---
 
