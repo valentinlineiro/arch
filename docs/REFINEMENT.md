@@ -47,14 +47,6 @@
 **Status:** `REJECTED`
 **Rejected-reason:** Validated via arch validate (TASK-025) and ephemeral DISPATCH (ADR-003)
 
-### 5. TASK-022 (re-refining): Evidence required on THINK actions
-**Status:** `READY_FOR_PROMOTION`
-**Idea:** Integrar el requisito de Evidence de la TASK-022 original en el nuevo protocolo `THINK.md` (v0.2).
-**Protocol update:** El modo `THINK` debe incluir obligatoriamente una línea de evidencia para cada acción recomendada en su salida de terminal.
-**Output Format Example:**
-1. [claude] EXEC TASK-025 — context: docs/TASK-FORMAT.md — reason: P0 READY, depends on TASK-024 (DONE)
-   Evidence: TASK-024 marked as DONE in SPRINT.md and docs/TASK-FORMAT.md verified.
-
 ## Refinement history (Last 5)
 
 | Date | Title | Outcome |
