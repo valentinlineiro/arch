@@ -3,11 +3,12 @@
 <!-- Multiple ideas allowed. Use status tags to track progress. -->
 
 ## Refinement Queue
-### 6. CLI Migration — From Bash to Python
+### 6. CLI Migration — From Bash to Node.js
 **Status:** 
-**Idea:** Rewrite the x86_64 CLI in Python 3 to eliminate tech mixing and improve robustness.
+**Idea:** Rewrite the x86_64 CLI in Node.js to eliminate tech mixing and improve robustness.
 **Context:** Current Usage: arch [conduct|exec|refine|retro|human|status|task] is a Bash wrapper that invokes Python for complex logic. ARCH v0.2 requires strict validation (regex, JSON config) that is better handled by a single, typed language.
-**Key Requirements:**
+**Key Requirements:
+- **Zero external dependencies:** Use only Node.js standard library to keep it fast and portable.**
 - Parity with current x86_64 commands (, , , etc.).
 - Native regex support for TASK-FORMAT v0.2 validation.
 - Better error handling and terminal output (colors/formatting).
@@ -18,7 +19,8 @@
 **Status:** `DRAFT`
 **Idea:** Expandir RETRO para que actúe como auditor de la integridad del framework.
 **Context:** Necesitamos que el sistema se auto-corrija. Si el git log muestra que nos saltamos pasos (PRs, atomicidad), RETRO debe detectarlo y proponer tareas de "Arreglo de Proceso".
-**Key Requirements:**
+**Key Requirements:
+- **Zero external dependencies:** Use only Node.js standard library to keep it fast and portable.**
 - Análisis de `git log` limitado estrictamente al periodo del sprint actual.
 - Detección de falta de atomicidad (commits que mezclan TASK-IDs o afectan sistemas no declarados).
 - Identificación de "fricción arquitectónica" (donde la fluidez del desarrollo se ve comprometida por el framework).
@@ -28,7 +30,8 @@
 **Status:** `PROMOTED`
 **Idea:** Rediseño completo del framework para reducir complejidad de adopción y mantenimiento.
 **Context:** v0.1 creció a 20 archivos, 5 agentes y 8 comandos CLI. La fricción de onboarding es alta. v0.2 propone colapsar hacia 9 archivos, 3 modos y 4 comandos.
-**Key Requirements:**
+**Key Requirements:
+- **Zero external dependencies:** Use only Node.js standard library to keep it fast and portable.**
 - **Modos:** 5 agentes → 3 modos (THINK = conductor+refine fusionados en 2 fases secuenciales, DO = exec+human fusionados, RETRO sin cambios)
 - **THINK fase 1:** system check — lee SPRINT + DONE solamente. **Fase 2:** ideas — lee BACKLOG status IDEA solamente. Si no hay IDEAs, fase 2 no corre. No se mezclan.
 - **Routing:** `ROUTING.md` → `arch.config.json` (machine-readable). CLI valida via `arch validate`.
