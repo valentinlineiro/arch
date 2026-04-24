@@ -374,23 +374,21 @@ _None_
 
 ---
 
-## TASK-012: Design and implement REVIEWER agent protocol
+## TASK-012: Implement deterministic REVIEWER engine in CLI
 **Meta:** P1 | M | READY | Sprint 1
-**Class:** 6-writing
-**CLI:** claude
-**CLI-reason:** protocol design requires coherent prose and architectural judgment
-**Context-budget:** agents/EXEC.md + this task + docs/agents/CONDUCTOR.md + docs/GUIDELINES.md
-**Depends:** none
+**Class:** 2-code-generation
+**CLI:** claude-code
+**CLI-reason:** implementation of deterministic validation logic in the TS CLI
+**Context-budget:** agents/EXEC.md + this task + docs/GUIDELINES.md + src/domain/
+**Depends:** TASK-027
 
 ### Acceptance Criteria
-- [ ] `docs/agents/REVIEWER.md` created with full protocol (trigger, context-budget, output format)
-- [ ] Trigger defined: post-push hook, manual invocation, or CI step — decision recorded in protocol
-- [ ] Output mode defined: PR comments with write access OR file-based report
-- [ ] Context-budget field set with PR diff size limit
-- [ ] Semver impact declared: PATCH or MINOR
-- [ ] REVIEWER mode added to `CLAUDE.md` modes section
-- [ ] "Obvious miss" defined concretely: unchecked AC, incomplete DoD, out-of-scope change
+- [ ] Reviewer logic implemented as a pure Domain Service (Clean Architecture).
+- [ ] Rules implemented: Canonical format (regex v0.2), Commit prefix (GUIDELINES), AC completion before DONE.
+- [ ] Command 'arch review' (or extension of 'validate') capable of checking 'git diff'.
+- [ ] CI-ready output: clear list of violations and non-zero exit code on failure.
+- [ ] Automated tests for each validation rule.
 
 ### Definition of Done
 - [ ] PR approved
-- [ ] REVIEWER agent invocable from CLAUDE.md like any other mode
+- [ ] 'arch review' functional and tested in the CLI binary.
