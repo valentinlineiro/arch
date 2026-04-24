@@ -370,7 +370,7 @@ _None_
 ---
 
 ## TASK-025: CLI — arch validate
-**Meta:** P0 | M | IN_PROGRESS | Sprint 2
+**Meta:** P0 | M | REVIEW | Sprint 2
 **Locked-by:** Gemini CLI | **Locked-at: 2026-04-24T14:03:10.730727**
 **Class:** 2-code-generation
 **CLI:** claude-code
