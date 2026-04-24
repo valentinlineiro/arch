@@ -14,6 +14,25 @@ Versioning rules:
 
 ## [Unreleased]
 
+### Added
+- [TASK-025] `arch validate` command — deterministic validation of task format and config.
+- [TASK-012] `arch review` command — deterministic review of guidelines and git diffs.
+- [TASK-027] Node.js/TypeScript CLI core — Clean Architecture implementation in `cli/`.
+- [TASK-010] Initial `arch` CLI — bash wrapper for agent orchestration.
+- [TASK-024] TASK-FORMAT v0.2 spec — compressed 3-line format with regex validation.
+- [TASK-023] ADR-003: Ephemeral DISPATCH — justifies terminal-only conductor output.
+- [TASK-015] Automatic DISPATCH.md commits in CONDUCTOR protocol.
+- [TASK-004] `npx arch-init` — remote installer for scaffolding new projects.
+
+### Changed
+- [TASK-029] README rework — included real-world Sprint 1 metrics and v0.2 diagrams.
+- [TASK-026] ARCH v0.2 Migration — consolidated agents into `THINK` and `DO` modes.
+- [TASK-022] Evidence requirement — all THINK actions must cite concrete signals.
+
+### Fixed
+- [TASK-013] Atomic status moves — HUMAN agent now syncs BACKLOG and SPRINT in one commit.
+- [TASK-016] Mandatory commits — EXEC agent must commit artifacts before status to REVIEW.
+
 ---
 
 ## v0.1.0 — 2026-04-22
