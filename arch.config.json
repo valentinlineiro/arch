@@ -1,0 +1,19 @@
+{
+  "version": "0.2.0",
+  "routing": {
+    "1-code-reasoning": "claude-code",
+    "2-code-generation": "claude-code",
+    "3-code-context": "gemini",
+    "4-code-repetitive": "local",
+    "5-research": "gemini",
+    "6-writing": "claude",
+    "7-operations": "local",
+    "8-strategy": "claude"
+  },
+  "paths": {
+    "sprint": "docs/SPRINT.md",
+    "backlog": "docs/BACKLOG.md",
+    "done": "docs/DONE.md",
+    "guidelines": "docs/GUIDELINES.md"
+  }
+}
