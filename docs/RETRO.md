@@ -4,6 +4,29 @@
 
 ---
 
+## Sprint 2 Retrospective
+**Closed:** 2026-04-24
+**Committed:** 4 tasks | **Delivered:** 4 | **Velocity:** 100%
+
+### Sizing Accuracy
+| Task | Declared | Actual | Delta |
+|------|----------|--------|-------|
+| TASK-026 | L | L | 0 |
+| TASK-025 | M | M | 0 |
+| TASK-029 | S | S | 0 |
+
+**Observation:** Sizing has stabilized after the initial bootstrap phase. The 'Architectural Buffer' rule added in RETRO 1 is working.
+
+### Detected Patterns & Risks
+1. **Deterministic Dominance:** The move from AI-agents to CLI-engines for validation (TASK-012/TASK-025) has eliminated non-deterministic errors.
+2. **Clean Evolution:** The Clean Architecture in  allowed for a 15-minute re-refinement to pivot the Reviewer engine logic without breaking core stability.
+
+### Proposed Guideline Additions
+- **Validation Gate:** Before any status move to , the agent or human should run . Zero violations are required for a clean handover.
+
+
+---
+
 ## Sprint 1 Retrospective
 **Closed:** 2026-04-24
 **Committed:** 10 tasks | **Delivered:** 14 | **Velocity:** 140% (Overflow from refinement)
