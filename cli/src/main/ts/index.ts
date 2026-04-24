@@ -6,6 +6,7 @@ import { Reviewer } from './domain/services/reviewer.js';
 import { GetSprintStatus } from './application/use-cases/get-sprint-status.js';
 import { MarkTaskInProgress } from './application/use-cases/mark-task-in-progress.js';
 import { ReviewSystem } from './application/use-cases/review-system.js';
+import { ValidateSystem } from './application/use-cases/validate-system.js';
 
 const GREEN = '\x1b[32m';
 const RED = '\x1b[31m';
@@ -27,6 +28,20 @@ async function main() {
       const status = await useCase.execute();
       console.log(`\n  ${GREEN}ARCH${NC} — Sprint Status`);
       console.log(`  READY: ${status.ready} | IN_PROGRESS: ${status.inProgress} | REVIEW: ${status.review} | DONE: ${status.done}\n`);
+      break;
+    }
+    case 'validate': {
+      const useCase = new ValidateSystem(taskRepository, fileSystem);
+      const result = await useCase.execute();
+      if (result.success) {
+        console.log(`\n  ${GREEN}✔${NC} System Validation: OK\n`);
+        process.exit(0);
+      } else {
+        console.log(`\n  ${RED}✖${NC} System Validation: FAILED`);
+        result.errors.forEach(err => console.log(`    - ${err}`));
+        console.log('');
+        process.exit(1);
+      }
       break;
     }
     case 'review': {
@@ -60,7 +75,7 @@ async function main() {
       break;
     }
     default:
-      console.log('Usage: arch [status|review|task]');
+      console.log('Usage: arch [status|validate|review|task]');
       process.exit(1);
   }
 }
