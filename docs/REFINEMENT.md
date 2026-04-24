@@ -3,6 +3,18 @@
 <!-- Multiple ideas allowed. Use status tags to track progress. -->
 
 ## Refinement Queue
+### 8. README — Real-world Case Study (Sprint 1)
+**Status:** 
+**Idea:** Update the main README to reflect actual project metrics and the iterative process experienced during ARCH's bootstrapping.
+**Context:** The current README is theoretical. We need to ground it with the data from Sprint 1 to build trust and show the framework's effectiveness in preventing drift and managing pivots.
+**Key Content:**
+- **In Practice section:** 72 hours, solo operator.
+- **Metrics:** 27 tasks created, 15 completed.
+- **Decision Engine:** 3 ADRs before implementation.
+- **Pivot Management:** Python → TypeScript transition caught in refinement.
+- **Self-Correction:** 3 GUIDELINES improvements from RETRO.
+- **Tooling:** REVIEWER engine as a deterministic gatekeeper.
+
 ### 7. Task Files & Markdown Indexes (v0.3 Architecture)
 **Status:** 
 **Idea:** Moving tasks to individual files () and using / as lightweight indexes.
