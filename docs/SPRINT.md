@@ -424,7 +424,8 @@ _None_
 ---
 
 ## TASK-029: README — Real-world Case Study & v0.2 information
-**Meta:** P2 | S | READY | Sprint 2 | 6-writing | claude | README.md, docs/DONE.md
+**Meta:** P2 | S | IN_PROGRESS | Sprint 2 | 6-writing | claude | README.md, docs/DONE.md
+**Locked-by:** Gemini CLI | **Locked-at: 2026-04-24T16:17:17.844366**
 **Depends:** TASK-026
 
 ### Idea / Context
