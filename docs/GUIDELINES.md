@@ -56,3 +56,10 @@ Before merging any change to `docs/agents/`:
 - Promote tasks to BACKLOG without explicit human approval
 - Change task format without a MAJOR version bump and migration guide
 - Merge PRs
+
+## Engineering Hygiene
+- **Zero-Day .gitignore:** Any commit that initializes a new code directory must include a relevant  to prevent tracking build artifacts or dependencies.
+- **Architectural Buffer:** Re-architecting, migrations, or structural changes must default to size  or higher to account for Clean Architecture overhead and testing.
+
+## Task Integrity
+- **Scope Stability:** If a task's implementation model changes fundamentally (e.g., from AI Agent to Deterministic Engine), it MUST return to  unless the human provides an explicit  in the meta line.
