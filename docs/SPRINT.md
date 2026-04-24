@@ -357,7 +357,7 @@ _None_
 ---
 
 ## TASK-027: CLI Migration — Node.js + TypeScript + Clean Architecture
-**Meta:** P0 | L | REVIEW | Sprint 1 | 2-code-generation | claude-code | scripts/, package.json, docs/TASK-FORMAT.md
+**Meta:** P0 | L | IN_PROGRESS | Sprint 1 | 2-code-generation | claude-code | scripts/, package.json, docs/TASK-FORMAT.md
 **Locked-by:** Gemini CLI | **Locked-at: 2026-04-24T10:58:03.313991
 **Depends:** TASK-024
 
@@ -365,6 +365,7 @@ _None_
 - [x] Node.js (v20+) project initialized with TypeScript.
 - [ ] Explicit layers established: Domain (Entities), Application (Use Cases), and Infrastructure (Adapters).
 - [ ] Logic for 'arch' commands ported to independent Use Case classes.
+- [ ] Infrastructure ensures node_modules is ignored during file system operations.
 - [ ] Domain-level tests implemented for core task logic.
 - [ ] Native TASK-FORMAT v0.2 validation logic (regex-based) as a Domain Service.
 - [ ] Bundle process (esbuild/tsup) created for zero-dep redistribution.
