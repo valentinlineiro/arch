@@ -43,6 +43,14 @@
 **Idea:** Asegurar que todos los agentes (CONDUCTOR, EXEC, HUMAN, etc.) usen los campos de estado de forma consistente.
 **Context:** Tareas recientes (TASK-013, TASK-016) han tocado el manejo de estados. Necesitamos una "fuente de verdad" única.
 
+### 4. TASK-017 (re-refining): DISPATCH.md staleness — Last-invalidated protocol
+**Status:** `DRAFT`
+**Idea:** Re-evaluar la necesidad de `Last-invalidated` dado que v0.2 elimina DISPATCH.md como fuente de verdad. ¿Debe aplicarse a SPRINT.md/BACKLOG.md?
+
+### 5. TASK-022 (re-refining): CONDUCTOR — require Evidence: required on all DISPATCH actions
+**Status:** `DRAFT`
+**Idea:** Adaptar el requisito de Evidence para el nuevo modo THINK (v0.2) que emite a terminal.
+
 ## Refinement history (Last 5)
 
 | Date | Title | Outcome |
