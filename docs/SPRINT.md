@@ -114,7 +114,8 @@
 ---
 
 ## TASK-023: ADR-003 — DISPATCH efímero (excepción a ADR-001)
-**Meta:** P0 | XS | READY | Sprint 1
+**Meta:** P0 | XS | IN_PROGRESS | Sprint 1
+**Locked-by:** human | **Locked-at:** 2026-04-24T00:00:00Z
 **Class:** 8-strategy
 **CLI:** claude
 **CLI-reason:** decisión arquitectónica con impacto global — requiere juicio de diseño
