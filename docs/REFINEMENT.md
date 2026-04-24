@@ -3,6 +3,16 @@
 <!-- Multiple ideas allowed. Use status tags to track progress. -->
 
 ## Refinement Queue
+### 6. CLI Migration — From Bash to Python
+**Status:** 
+**Idea:** Rewrite the x86_64 CLI in Python 3 to eliminate tech mixing and improve robustness.
+**Context:** Current Usage: arch [conduct|exec|refine|retro|human|status|task] is a Bash wrapper that invokes Python for complex logic. ARCH v0.2 requires strict validation (regex, JSON config) that is better handled by a single, typed language.
+**Key Requirements:**
+- Parity with current x86_64 commands (, , , etc.).
+- Native regex support for TASK-FORMAT v0.2 validation.
+- Better error handling and terminal output (colors/formatting).
+- Single source of truth: .
+
 
 ### 1. RETRO — Guardián de la Arquitectura (Análisis de Log)
 **Status:** `DRAFT`
