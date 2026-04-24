@@ -208,8 +208,7 @@
 ---
 
 ## TASK-010: Build `arch` CLI (project interaction layer)
-**Meta:** P0 | M | REVIEW | Sprint 1
-**Locked-by:** Gemini CLI | **Locked-at:** 2026-04-24T10:03:36.028053
+**Meta:** P0 | M | DONE | Sprint 1
 **Class:** 2-code-generation
 **CLI:** codex
 **CLI-reason:** standard Node.js CLI implementation
