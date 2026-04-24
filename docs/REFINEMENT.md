@@ -15,7 +15,7 @@
 - Generación de propuestas automáticas en este mismo archivo (`REFINEMENT.md`).
 
 ### 3. ARCH v0.2 — Simplificación arquitectónica mayor
-**Status:** `REFINED`
+**Status:** `PROMOTED`
 **Idea:** Rediseño completo del framework para reducir complejidad de adopción y mantenimiento.
 **Context:** v0.1 creció a 20 archivos, 5 agentes y 8 comandos CLI. La fricción de onboarding es alta. v0.2 propone colapsar hacia 9 archivos, 3 modos y 4 comandos.
 **Key Requirements:**
@@ -47,6 +47,7 @@
 
 | Date | Title | Outcome |
 |------|-------|---------|
+| 2026-04-24 | ARCH v0.2 — Simplificación arquitectónica mayor | Promoted to TASK-023, TASK-024, TASK-025, TASK-026 |
 | 2026-04-23 | CONDUCTOR — Evidence: required on all DISPATCH actions | Promoted to TASK-022 |
 | 2026-04-23 | Remove Committed: field — git-derived commit count | Promoted to TASK-021 |
 | 2026-04-23 | EXEC commit prefix validation | Promoted to TASK-019 + TASK-020 |
