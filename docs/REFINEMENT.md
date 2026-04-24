@@ -5,15 +5,13 @@
 ## Refinement Queue
 ### 8. README — Real-world Case Study (Sprint 1)
 **Status:** 
-**Idea:** Update the main README to reflect actual project metrics and the iterative process experienced during ARCH's bootstrapping.
-**Context:** The current README is theoretical. We need to ground it with the data from Sprint 1 to build trust and show the framework's effectiveness in preventing drift and managing pivots.
-**Key Content:**
-- **In Practice section:** 72 hours, solo operator.
-- **Metrics:** 27 tasks created, 15 completed.
-- **Decision Engine:** 3 ADRs before implementation.
-- **Pivot Management:** Python → TypeScript transition caught in refinement.
-- **Self-Correction:** 3 GUIDELINES improvements from RETRO.
-- **Tooling:** REVIEWER engine as a deterministic gatekeeper.
+**Idea:** Update the main README to reflect actual project metrics and the iterative process experienced during ARCH's bootstrapping, including visual evidence from the git history.
+**Context:** Show the framework's effectiveness in preventing drift and managing pivots using Sprint 1 data.
+**Key Requirements:**
+- **Visual Git Log:** Inclusion of a curated git log snippet showing atomic commits and TASK-ID tagging.
+- **Pivot Analysis:** Practical example of the Python -> TypeScript transition as proof of Refinement value.
+- **Metrics Table:** Real data (27 tasks, 3 ADRs, 3 Kaizens).
+- **Gatekeeping Example:** Showing how the deterministic REVIEWER engine enforces GUIDELINES.md.
 
 ### 7. Task Files & Markdown Indexes (v0.3 Architecture)
 **Status:** 
