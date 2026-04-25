@@ -32,6 +32,11 @@
 
 ---
 
+## Refinement flow
+- `idea:` prefix in DO → draft in `docs/refinement/` → THINK evaluates → human promotes → BACKLOG
+- Direct task description (no prefix) → BACKLOG directly, no refinement required
+- Promoting a draft: explicit human instruction required (`arch do "promover IDEA-[slug]"`)
+
 ## Hard limits
 - Never merge a PR without human approval.
 - One commit per operation.
