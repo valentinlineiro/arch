@@ -11,7 +11,8 @@
 
 ## Intent: Human Operation (Human)
 1. Interpret intent (Mark DONE, Start task, Block, Add to backlog, Move to sprint, Cancel).
-2. Execute file operation:
+2. When marking DONE: if the task required more than one implementation cycle, add `Iterations: N` to the task file before archiving.
+3. Execute file operation:
    - Move tasks between `docs/tasks/backlog/`, `docs/tasks/sprint/`, and `docs/archive/`.
    - Update Meta lines in individual task files.
 3. Commit exactly once per operation.
