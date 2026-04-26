@@ -7,7 +7,9 @@
 publicar arch-initializr.html en GitHub Pages docs/
 
 ## Gaps
-<!-- THINK fills this section when invoked — do not edit manually -->
+- **Funcionalidad:** ¿Es una herramienta estática o requiere lógica de cliente para generar el scaffold?
+- **Riesgo:** Si genera archivos, ¿cómo se descargan? (Zip vs Copy-paste).
+- **Consistencia:** Debe usar la misma lógica que `arch-init.sh` para evitar divergencias en la estructura de carpetas.
 
 ## Decision
 <!-- Human writes here after THINK evaluation -->

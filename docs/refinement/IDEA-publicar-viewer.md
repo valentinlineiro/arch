@@ -7,7 +7,10 @@
 publicar arch-viewer.html conectado a GitHub API en docs/
 
 ## Gaps
-<!-- THINK fills this section when invoked — do not edit manually -->
+- **Permisos:** La API de GitHub tiene límites de rate-limit para peticiones no autenticadas.
+- **Visualización:** ¿Debe renderizar diagramas Mermaid/D2 presentes en el repo?
+- **Alcance:** ¿Solo lectura de tareas o también edición básica de estados (READY/DONE)?
+- **Dependencia:** TASK-032 (Drift detection) podría integrarse aquí visualmente.
 
 ## Decision
 <!-- Human writes here after THINK evaluation -->

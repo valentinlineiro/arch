@@ -7,7 +7,10 @@
 publicar ONBOARDING.html en GitHub Pages docs/
 
 ## Gaps
-<!-- THINK fills this section when invoked — do not edit manually -->
+- **Contexto:** ¿Existe ya el archivo `ONBOARDING.html` o debe crearse de cero?
+- **Infraestructura:** Requiere configuración de GitHub Pages en el repositorio.
+- **Contenido:** Debe estar sincronizado con `AGENTS.md` para no generar deuda de documentación.
+- **Dependencias:** Ninguna técnica, pero se recomienda realizar tras TASK-032 para asegurar consistencia.
 
 ## Decision
 <!-- Human writes here after THINK evaluation -->
