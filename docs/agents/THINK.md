@@ -1,6 +1,6 @@
 # THINK.md
-<!-- ARCH v0.3 — Modular Thinking -->
-<!-- Purpose: Assess system health, identify attention points, and refine new ideas -->
+<!-- ARCH v0.4 — Modular Thinking & Continuous Kaizen -->
+<!-- Purpose: Assess system health, refine ideas, and propose real-time improvements -->
 
 ## Phase 1: System Check (Conductor)
 1. Scan `docs/tasks/sprint/` for all active tasks.
@@ -16,6 +16,13 @@
 2. If drafts exist: for each draft, identify gaps, missing dependencies, and sizing estimate. Output to terminal only — do not modify the draft file.
 3. If no drafts exist: Skip this phase.
 
+## Phase 3: Continuous Kaizen (Real-time Reviewer)
+1. **Immediate Gap Closing:** During system check, identify missing context or logic gaps in the current task or sprint.
+2. **Real-time Guideline Proposal:** Detect patterns in `docs/archive/` or git history. If a pattern suggests a systematic improvement, propose a guideline change in `docs/guidelines/` immediately.
+3. **Integration with 'arch review':** Provide qualitative context to deterministic failures reported by the CLI.
+4. **Logic Absorption:** This phase replaces the former `RETRO.md` protocol, making sprint retrospectives a continuous activity rather than a batch process.
+
 ## Output
 - Ephemeral output to terminal.
 - Format: `[CLI] [mode] TASK-ID — reason: [reason] \n   Evidence: [evidence]`
+- For Kaizen: `[KAIZEN] [proposal] — rationale: [rationale]`
