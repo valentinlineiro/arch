@@ -1,0 +1,38 @@
+import { ReviewSystem } from '../use-cases/review-system.js';
+import type { TaskRepository } from '../../domain/repositories/task-repository.js';
+import type { GitRepository } from '../../domain/repositories/git-repository.js';
+import type { Reviewer } from '../../domain/services/reviewer.js';
+import type { DriftChecker } from '../../domain/services/drift-checker.js';
+import * as fmt from '../../infrastructure/cli/output-formatter.js';
+
+export class ReviewCommand {
+  private useCase: ReviewSystem;
+
+  constructor(
+    taskRepository: TaskRepository,
+    gitRepository: GitRepository,
+    reviewer: Reviewer,
+    driftChecker: DriftChecker,
+  ) {
+    this.useCase = new ReviewSystem(taskRepository, gitRepository, reviewer, driftChecker);
+  }
+
+  async execute(): Promise<void> {
+    const result = await this.useCase.execute();
+    if (result.success) {
+      fmt.ok('System Review: OK');
+    } else {
+      fmt.fail('System Review: FAILED');
+      result.violations.forEach(v => console.log(`    - ${v}`));
+    }
+    if (result.drift.length > 0) {
+      console.log(`\n  Drift`);
+      for (const d of result.drift) {
+        console.log(`    ${fmt.driftIcon(d.status)} ${d.check}`);
+        d.details.forEach(detail => console.log(`        ${detail}`));
+      }
+    }
+    console.log('');
+    process.exit(result.success ? 0 : 1);
+  }
+}
