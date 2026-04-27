@@ -12,4 +12,4 @@
 ### Definition of Done
 - [x] HTML funcional en GitHub Pages
 - [x] GitHub Action corriendo en el repo
-- [ ] PR aprobado
+- [x] PR aprobado
