@@ -20,3 +20,4 @@
 - `Closed-at: YYYY-MM-DDTHH:MM:SSZ` — optional field written to task file when archiving as DONE. Used for cycle time and velocity metrics.
 - **Execution order within the same priority:** smaller size wins (XS → S → M → L)
 - **No change without evidence** — every proposal in REFINEMENT.md must include `Source:` field
+- **Backlog Health:** The agent MUST proactively propose at least one new IDEA when the count of READY tasks is < 3 (THINK Phase 4).

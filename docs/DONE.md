@@ -32,6 +32,7 @@
 | TASK-049 | Ignorar artefactos runtime locales como .codex | XS→XS | human | Focus:no | 2026-04-27 | - | Archived |
 | TASK-052 | Corregir inconsistencias de estado en tareas archivadas (TASK-030) | XS→XS | local | Focus:yes | 2026-04-27 | - | Archived |
 | TASK-053 | Limpieza de docs/refinement/ (IDEAs ya promovidas) | XS→XS | local | Focus:yes | 2026-04-27 | - | Archived |
+| TASK-054 | Implementar THINK Phase 4: Autonomous Replenishment | XS→XS | claude | Focus:yes | 2026-04-27 | - | Archived |
 
 ---
 

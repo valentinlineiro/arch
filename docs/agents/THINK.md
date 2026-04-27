@@ -23,6 +23,14 @@
 4. **Logic Absorption:** This phase replaces the former `RETRO.md` protocol, making sprint retrospectives a continuous activity rather than a batch process.
 5. **Sprint metrics (on sprint close):** Generate `docs/METRICS.md` covering: tasks closed, avg cycle time (git log date → `Closed-at`), size accuracy, AI/human ratio, regressions detected, framework improvements applied.
 
+## Phase 4: Autonomous Replenishment (Backlog Health)
+1. **Trigger:** If the count of `READY` tasks (Focus:yes/no) is less than 3, this phase is mandatory.
+2. **Analysis Scope:** Scan the last 10 tasks in `docs/archive/` and the last 3 entries in `docs/KAIZEN-LOG.md`.
+3. **Action:** Propose at least one new `IDEA-*.md` in `docs/refinement/` addressing either:
+   - **Drift Prevention:** New checks for `arch review`.
+   - **Protocol Hardening:** Automating manual protocol steps.
+   - **Context Pruning:** Removing stale/redundant files or logic.
+
 ## Output
 - Ephemeral output to terminal.
 - Format: `[CLI] [mode] TASK-ID — reason: [reason] \n   Evidence: [evidence]`
