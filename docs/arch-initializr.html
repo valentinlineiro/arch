@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ARCH Initializr — Scaffold your project</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0a0a;
+      --surface: #111;
+      --surface2: #161616;
+      --border: #222;
+      --text: #e8e8e8;
+      --muted: #666;
+      --accent: #7fff7f;
+      --accent-dim: #3a6b3a;
+      --blue: #7fb3ff;
+      --font-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+      --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    nav {
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(10,10,10,0.95);
+      backdrop-filter: blur(8px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-logo { font-family: var(--font-mono); font-size: 1rem; font-weight: 700; color: var(--accent); text-decoration: none; }
+    .nav-link { color: var(--muted); text-decoration: none; font-size: 0.875rem; }
+    .nav-link:hover { color: var(--text); }
+
+    main {
+      flex: 1;
+      max-width: 800px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 4rem;
+    }
+
+    .page-label {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      margin-bottom: 0.75rem;
+    }
+
+    h1 {
+      font-size: clamp(1.5rem, 4vw, 2.25rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.75rem;
+    }
+
+    .subtitle {
+      font-size: 0.95rem;
+      color: var(--muted);
+      margin-bottom: 2.5rem;
+      max-width: 520px;
+    }
+
+    /* FORM */
+    .form-section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1.75rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .form-title {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 1.25rem;
+    }
+
+    .field { margin-bottom: 1.25rem; }
+    .field:last-child { margin-bottom: 0; }
+    .field label {
+      display: block;
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-bottom: 0.4rem;
+      font-family: var(--font-mono);
+    }
+    .field input, .field select {
+      width: 100%;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      padding: 0.65rem 0.875rem;
+      color: var(--text);
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      outline: none;
+      transition: border-color 0.15s;
+      appearance: none;
+    }
+    .field input:focus, .field select:focus { border-color: var(--accent-dim); }
+    .field .hint { font-size: 0.75rem; color: var(--muted); margin-top: 0.4rem; }
+
+    .checkbox-group { display: flex; flex-direction: column; gap: 0.6rem; }
+    .checkbox-item { display: flex; align-items: center; gap: 0.6rem; cursor: pointer; }
+    .checkbox-item input[type=checkbox] {
+      width: 16px; height: 16px;
+      accent-color: var(--accent);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .checkbox-item span { font-size: 0.85rem; color: var(--muted); }
+    .checkbox-item span strong { color: var(--text); }
+
+    /* PREVIEW */
+    .preview {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1.25rem 1.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+      overflow-x: auto;
+    }
+    .preview-title {
+      font-size: 0.7rem;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 0.875rem;
+    }
+    .tree-dir { color: var(--blue); }
+    .tree-file { color: var(--text); }
+    .tree-muted { color: var(--muted); }
+
+    /* ACTIONS */
+    .actions { display: flex; gap: 0.875rem; flex-wrap: wrap; }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #000;
+      font-family: var(--font-mono);
+      font-size: 0.875rem;
+      font-weight: 700;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 2px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: opacity 0.15s;
+    }
+    .btn-primary:hover { opacity: 0.85; }
+
+    .btn-secondary {
+      background: none;
+      color: var(--text);
+      font-family: var(--font-mono);
+      font-size: 0.875rem;
+      padding: 0.75rem 1.5rem;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: border-color 0.15s;
+      text-decoration: none;
+    }
+    .btn-secondary:hover { border-color: var(--muted); }
+
+    .success-banner {
+      display: none;
+      background: rgba(127,255,127,0.08);
+      border: 1px solid var(--accent-dim);
+      border-radius: 3px;
+      padding: 0.875rem 1rem;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--accent);
+      margin-top: 1rem;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 1.25rem 2rem;
+      text-align: center;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+    footer a { color: var(--muted); text-decoration: none; }
+
+    @media (max-width: 600px) {
+      main { padding: 2rem 1rem 3rem; }
+      .actions { flex-direction: column; }
+      .btn-primary, .btn-secondary { justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="/">ARCH</a>
+  <a class="nav-link" href="https://github.com/valentinlineiro/arch">GitHub ↗</a>
+</nav>
+
+<main>
+  <div class="page-label">// ARCH INITIALIZR</div>
+  <h1>Scaffold your ARCH project</h1>
+  <p class="subtitle">Configure and download the full ARCH v0.3 directory structure as a ZIP — ready to drop into any repository.</p>
+
+  <div class="form-section">
+    <div class="form-title">Project</div>
+    <div class="field">
+      <label>PROJECT NAME</label>
+      <input type="text" id="projectName" value="my-project" spellcheck="false" autocomplete="off">
+      <div class="hint">Used in README header and initial commit message.</div>
+    </div>
+    <div class="field">
+      <label>ARCH VERSION</label>
+      <select id="archVersion">
+        <option value="0.3">v0.3 — Modular Agents & Task Tracking (latest)</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-section">
+    <div class="form-title">Included files</div>
+    <div class="checkbox-group">
+      <label class="checkbox-item">
+        <input type="checkbox" id="incAgents" checked disabled>
+        <span><strong>docs/AGENTS.md</strong> — Universal AI entry point (required)</span>
+      </label>
+      <label class="checkbox-item">
+        <input type="checkbox" id="incThink" checked>
+        <span><strong>docs/agents/THINK.md</strong> — System check + Kaizen protocol</span>
+      </label>
+      <label class="checkbox-item">
+        <input type="checkbox" id="incDo" checked>
+        <span><strong>docs/agents/DO.md</strong> — Exec + Human intent protocol</span>
+      </label>
+      <label class="checkbox-item">
+        <input type="checkbox" id="incGuidelines" checked>
+        <span><strong>docs/guidelines/</strong> — Core rules, bugs, versioning</span>
+      </label>
+      <label class="checkbox-item">
+        <input type="checkbox" id="incAdr" checked>
+        <span><strong>docs/adr/ADR-000-template.md</strong> — Decision record template</span>
+      </label>
+      <label class="checkbox-item">
+        <input type="checkbox" id="incExample" checked>
+        <span><strong>docs/tasks/TASK-001.md</strong> — Example first task</span>
+      </label>
+      <label class="checkbox-item">
+        <input type="checkbox" id="incGitignore" checked>
+        <span><strong>.gitignore</strong> — Pre-configured for ARCH</span>
+      </label>
+      <label class="checkbox-item">
+        <input type="checkbox" id="incSymlinks">
+        <span><strong>CLAUDE.md / GEMINI.md</strong> — Symlink stubs for AI CLI compatibility</span>
+      </label>
+    </div>
+  </div>
+
+  <div class="preview">
+    <div class="preview-title">Structure preview</div>
+    <div id="treePreview"></div>
+  </div>
+
+  <div class="actions">
+    <button class="btn-primary" id="downloadBtn">↓ Download ZIP</button>
+    <a class="btn-secondary" href="https://github.com/valentinlineiro/arch" target="_blank" rel="noopener">
+      ↗ Use GitHub template
+    </a>
+  </div>
+
+  <div class="success-banner" id="successBanner">
+    ✓ arch-scaffold.zip downloaded — drop it into your repo and run: arch review
+  </div>
+</main>
+
+<footer>
+  <a href="https://github.com/valentinlineiro/arch">ARCH — MIT License</a> · No data sent anywhere · Runs entirely in your browser
+</footer>
+
+<!-- Minimal ZIP builder (no dependencies) -->
+<script>
+// ─── File definitions ────────────────────────────────────────────────────────
+
+function getFiles(cfg) {
+  const files = {};
+  const project = cfg.projectName || 'my-project';
+
+  // Always included
+  files['docs/AGENTS.md'] = agentsMd();
+  files['docs/refinement/.gitkeep'] = '';
+  files['docs/tasks/.gitkeep'] = '';
+  files['docs/archive/.gitkeep'] = '';
+  files['arch.config.json'] = archConfig();
+
+  if (cfg.incThink) files['docs/agents/THINK.md'] = thinkMd();
+  if (cfg.incDo)    files['docs/agents/DO.md']    = doMd();
+
+  if (cfg.incGuidelines) {
+    files['docs/guidelines/core.md']            = guidelinesCore();
+    files['docs/guidelines/bugs.md']            = guidelinesBugs();
+    files['docs/guidelines/versioning.md']      = guidelinesVersioning();
+    files['docs/guidelines/documentation.md']   = guidelinesDocumentation();
+  }
+
+  if (cfg.incAdr) {
+    files['docs/adr/ADR-000-template.md'] = adrTemplate();
+  }
+
+  if (cfg.incExample) {
+    files['docs/tasks/TASK-001.md'] = exampleTask(project);
+  }
+
+  if (cfg.incGitignore) {
+    files['.gitignore'] = gitignore();
+  }
+
+  if (cfg.incSymlinks) {
+    files['CLAUDE.md'] = '<!-- symlink stub — points to docs/AGENTS.md -->\n<!-- Copy docs/AGENTS.md content here or use: ln -sf docs/AGENTS.md CLAUDE.md -->\n';
+    files['GEMINI.md'] = '<!-- symlink stub — points to docs/AGENTS.md -->\n<!-- Copy docs/AGENTS.md content here or use: ln -sf docs/AGENTS.md GEMINI.md -->\n';
+  }
+
+  files['README.md'] = readmeMd(project);
+
+  return files;
+}
+
+// ─── File content generators ─────────────────────────────────────────────────
+
+function agentsMd() {
+  return `# AGENTS.md
+<!-- ARCH Framework v0.3 | Universal Entry Point -->
+
+## Onboarding
+1. Read this file.
+2. Read \`arch.config.json\` for routing.
+3. Run \`arch review\` to verify system integrity.
+
+---
+
+## Modes
+
+### THINK mode
+**Invoked for:** System check, refinement, planning.
+**Protocol:** \`docs/agents/THINK.md\`
+1. Phase 1: Assess task health by scanning \`docs/tasks/\` (Focus:yes = active).
+2. Phase 2: Refine draft IDEAs in \`docs/refinement/\`.
+3. Output: Ephemeral terminal report with Evidence.
+
+### DO mode
+**Invoked for:** Implementation or human-directed state changes.
+**Protocol:** \`docs/agents/DO.md\`
+1. Intent Exec: Work on a specific task in \`docs/tasks/\`.
+2. Intent Human: Map natural language to atomic file operations.
+3. Constraint: Atomic commits following conventional prefixes.
+
+### RETRO mode
+**Invoked for:** Sprint closure and pattern detection.
+**Protocol:** \`docs/agents/THINK.md\` (Phase 3 — Continuous Kaizen)
+1. Analyze \`docs/archive/\` and git history.
+2. Propose Kaizen additions to \`docs/guidelines/\`.
+
+---
+
+## Refinement flow
+- \`idea:\` prefix in DO → draft in \`docs/refinement/\` → THINK evaluates → human promotes → tasks/
+- Direct task description (no prefix) → \`docs/tasks/\` directly, no refinement required
+- Promoting a draft: explicit human instruction required
+
+## Hard limits
+- Never merge a PR without human approval.
+- One commit per operation.
+- Modular task integrity: One task per file in \`docs/tasks/\`.
+
+## Bug protocol
+Any ARCH misalignment is a bug. See \`docs/guidelines/bugs.md\` for the full protocol.
+`;
+}
+
+function archConfig() {
+  return JSON.stringify({
+    version: '0.3.0',
+    routing: {
+      '1-code-reasoning': 'claude-code',
+      '2-code-generation': 'claude-code',
+      '3-code-context': 'gemini',
+      '4-code-repetitive': 'local',
+      '5-research': 'gemini',
+      '6-writing': 'claude',
+      '7-operations': 'local',
+      '8-strategy': 'claude'
+    },
+    paths: {
+      tasks: 'docs/tasks',
+      archive: 'docs/archive',
+      guidelines: 'docs/guidelines',
+      agents: 'docs/agents',
+      refinement: 'docs/refinement',
+      adr: 'docs/adr'
+    }
+  }, null, 2) + '\n';
+}
+
+function thinkMd() {
+  return `# THINK.md
+<!-- ARCH v0.3 — Modular Thinking & Continuous Kaizen -->
+
+## Phase 1: System Check
+1. Scan \`docs/tasks/\` for all active tasks (Focus:yes = active, Focus:no = queued).
+2. Read recent tasks in \`docs/archive/\` (Last 5 by modification time).
+3. Evaluate health:
+   - Stale locks (Task IN_PROGRESS for >3 days without commit).
+   - Priority escalation (P0 tasks blocked or not started).
+   - Focus drift (Focus:no tasks at P0 that should be Focus:yes).
+4. **Evidence Required:** Every recommendation must cite a concrete signal.
+
+## Phase 2: Idea Refinement
+1. Scan \`docs/refinement/\` for draft files (\`IDEA-*.md\`).
+2. If drafts exist: for each draft, identify gaps, missing dependencies, and sizing estimate.
+3. If no drafts exist: Skip this phase.
+
+## Phase 3: Continuous Kaizen
+1. **Immediate Gap Closing:** Identify missing context or logic gaps in the current sprint.
+2. **Real-time Guideline Proposal:** Detect patterns in \`docs/archive/\` or git history.
+3. **Integration with 'arch review':** Provide qualitative context to deterministic failures.
+4. **Logic Absorption:** Replaces batch retrospectives — kaizen is continuous.
+
+## Output
+- Ephemeral output to terminal.
+- Format: \`[THINK] TASK-ID — reason: [reason] Evidence: [evidence]\`
+- For Kaizen: \`[KAIZEN] [proposal] — rationale: [rationale]\`
+`;
+}
+
+function doMd() {
+  return `# DO.md
+<!-- ARCH v0.3 — Execution & Human Intent Protocol -->
+
+## Intent: Exec
+Execute a specific task from \`docs/tasks/\`.
+
+### Steps
+1. Read task file. Verify status is READY.
+2. Check for duplicate before creating any new file.
+3. Lock task: set status to IN_PROGRESS, commit: \`chore: lock TASK-NNN IN_PROGRESS [TASK-NNN]\`
+4. Implement acceptance criteria one by one.
+5. Run \`arch review\` after implementation.
+6. Mark DONE: update Meta status, add \`Closed-at: YYYY-MM-DDTHH:MM:SSZ\`, check all ACs.
+7. Move task file to \`docs/archive/\`.
+8. Commit: \`feat|fix|docs: description [TASK-NNN]\`
+
+## Intent: Human
+Map natural language to atomic file operations.
+
+- "move TASK-NNN to sprint" → set Focus:yes
+- "promote IDEA-slug" → move from refinement/ to tasks/
+- "close TASK-NNN" → mark DONE, archive
+
+## Constraints
+- One commit per operation.
+- Commit prefix must match type: feat / fix / chore / docs / refactor / test / idea
+- Never merge your own PR.
+- Never skip \`arch review\` after implementation.
+`;
+}
+
+function guidelinesCore() {
+  return `## CORE
+<!-- Always loaded. Max 200 tokens. -->
+
+- Commits follow Conventional Commits:
+
+  | Prefix      | When to use                                         |
+  |-------------|-----------------------------------------------------|
+  | \`feat:\`     | New feature, new task, new agent capability         |
+  | \`fix:\`      | Bug fix in protocol, CLI, or config                 |
+  | \`chore:\`    | Status changes, maintenance, dependency updates     |
+  | \`docs:\`     | Changes to README, ADRs, guides                     |
+  | \`refactor:\` | Restructuring without behavior change               |
+  | \`test:\`     | Adding or updating tests only                       |
+  | \`idea:\`     | Committing a draft IDEA to refinement/              |
+
+- Every PR references a TASK-ID: \`feat: description [TASK-NNN]\`
+- No agent merges its own PR
+- Breaking changes (MAJOR) require an ADR before implementation
+- Tasks estimated XL must be decomposed before entering sprint
+- \`Closed-at: YYYY-MM-DDTHH:MM:SSZ\` — written to task file when archiving as DONE
+- **Execution order within the same priority:** smaller size wins (XS → S → M → L)
+- **No change without evidence** — every proposal must include a \`Source:\` field
+`;
+}
+
+function guidelinesBugs() {
+  return `## BUGS
+<!-- Bug definition and hotfix protocol for ARCH -->
+
+### What is a bug?
+Any misalignment between ARCH documentation, CLI behavior, or actual system state.
+Examples: command documented but not implemented, paths referenced but not existing, version mismatch.
+
+### Bug flow
+1. Detected (by \`arch review\`, THINK phase, or human observation)
+2. Created as a task in \`docs/tasks/\` with priority P0
+3. Set to IN_PROGRESS in the same commit it is created
+4. Fixed immediately — bugs are always prioritized over development
+
+### Severity table
+| Severity | Priority | Examples |
+|----------|----------|---------|
+| Critical | P0 | CLI command documented but not implemented, broken \`arch review\` |
+| High     | P1 | Path reference wrong, version mismatch |
+| Low      | P2 | Cosmetic docs drift, style inconsistency |
+
+### Relationship to \`arch review\`
+- WARN → P1 bug (fix in current sprint)
+- ERROR → P0 bug (fix before any other work)
+`;
+}
+
+function guidelinesVersioning() {
+  return `## VERSIONING
+<!-- Semantic versioning rules for ARCH -->
+
+- \`arch.config.json\` version is the source of truth for framework version
+- \`cli/package.json\` version must always match \`arch.config.json\`
+- MAJOR: breaking changes to task format or agent protocol (requires ADR)
+- MINOR: new commands, new guidelines, new phases
+- PATCH: bug fixes, wording, path corrections
+`;
+}
+
+function guidelinesDocumentation() {
+  return `## DOCUMENTATION
+<!-- Rules for keeping docs accurate -->
+
+- Every CLI command documented in README must be implemented in the CLI
+- Every path referenced in AGENTS.md must exist in the repository
+- ADRs are immutable once ACCEPTED — create a new ADR to supersede
+- Guidelines files are the source of truth — README is a summary
+`;
+}
+
+function adrTemplate() {
+  return `# ADR-NNN: [Title]
+
+**Date:** YYYY-MM-DD
+**Status:** PROPOSED | ACCEPTED | SUPERSEDED by ADR-NNN
+
+## Context
+[What problem or situation prompted this decision?]
+
+## Decision
+[What was decided?]
+
+## Rationale
+[Why this option over alternatives?]
+
+## Consequences
+[What changes as a result? What trade-offs were accepted?]
+`;
+}
+
+function exampleTask(project) {
+  return `## TASK-001: Define project guidelines
+**Meta:** P1 | S | READY | Focus:yes | 6-writing | claude | docs/guidelines/
+
+### Acceptance Criteria
+- [ ] Fill in \`docs/guidelines/core.md\` with project-specific rules
+- [ ] Add your tech stack and coding conventions
+- [ ] Define which AI CLIs are available (routing)
+
+### Definition of Done
+- [ ] \`arch review\` passes with no violations
+- [ ] Guidelines committed to main
+`;
+}
+
+function gitignore() {
+  return `# ARCH — local overrides
+.arch-local
+
+# Common
+.DS_Store
+*.env
+.env.*
+node_modules/
+__pycache__/
+*.pyc
+dist/
+.next/
+`;
+}
+
+function readmeMd(project) {
+  return `# ${project}
+
+> Powered by [ARCH](https://github.com/valentinlineiro/arch) — Autonomous Routing and Context Hierarchy
+
+## Quick start
+
+\`\`\`bash
+# Verify system integrity
+arch review
+
+# Check task status
+arch status
+
+# Start working on a task
+arch task start TASK-001
+\`\`\`
+
+## Structure
+
+\`\`\`
+docs/
+├── AGENTS.md          ← AI entry point (read this first)
+├── agents/
+│   ├── THINK.md       ← System check + Kaizen protocol
+│   └── DO.md          ← Execution protocol
+├── guidelines/        ← Permanent rules
+├── tasks/             ← Active tasks (Focus:yes = sprint)
+├── archive/           ← Completed tasks
+├── refinement/        ← Draft IDEAs pending evaluation
+└── adr/               ← Architecture Decision Records
+arch.config.json       ← Routing and path configuration
+\`\`\`
+
+## Workflow
+
+1. **THINK mode** — AI scans tasks, refines ideas, proposes Kaizen
+2. **DO mode** — AI implements one task atomically, commits, verifies
+3. **Human** — reviews, approves PRs, promotes IDEAs, makes decisions
+`;
+}
+
+// ─── Tree preview ─────────────────────────────────────────────────────────────
+
+function buildTree(cfg) {
+  const lines = [];
+  const project = cfg.projectName || 'my-project';
+  lines.push(`<span class="tree-dir">${escHtml(project)}/</span>`);
+  if (cfg.incGitignore) lines.push(`  <span class="tree-file">.gitignore</span>`);
+  lines.push(`  <span class="tree-file">arch.config.json</span>`);
+  lines.push(`  <span class="tree-file">README.md</span>`);
+  if (cfg.incSymlinks) {
+    lines.push(`  <span class="tree-muted">CLAUDE.md  ← stub</span>`);
+    lines.push(`  <span class="tree-muted">GEMINI.md  ← stub</span>`);
+  }
+  lines.push(`  <span class="tree-dir">docs/</span>`);
+  lines.push(`    <span class="tree-file">AGENTS.md</span>`);
+  if (cfg.incThink || cfg.incDo) {
+    lines.push(`    <span class="tree-dir">agents/</span>`);
+    if (cfg.incThink) lines.push(`      <span class="tree-file">THINK.md</span>`);
+    if (cfg.incDo)    lines.push(`      <span class="tree-file">DO.md</span>`);
+  }
+  if (cfg.incAdr) {
+    lines.push(`    <span class="tree-dir">adr/</span>`);
+    lines.push(`      <span class="tree-file">ADR-000-template.md</span>`);
+  }
+  if (cfg.incGuidelines) {
+    lines.push(`    <span class="tree-dir">guidelines/</span>`);
+    lines.push(`      <span class="tree-file">core.md</span>`);
+    lines.push(`      <span class="tree-file">bugs.md</span>`);
+    lines.push(`      <span class="tree-file">versioning.md</span>`);
+    lines.push(`      <span class="tree-file">documentation.md</span>`);
+  }
+  lines.push(`    <span class="tree-dir">tasks/</span>`);
+  if (cfg.incExample) lines.push(`      <span class="tree-file">TASK-001.md</span>`);
+  lines.push(`    <span class="tree-dir">archive/</span>`);
+  lines.push(`    <span class="tree-dir">refinement/</span>`);
+  return lines.join('\n');
+}
+
+function escHtml(str) {
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+// ─── Minimal ZIP builder (no deps) ───────────────────────────────────────────
+// Implements ZIP local file headers + central directory. Supports UTF-8 filenames.
+
+function buildZip(files) {
+  const enc = new TextEncoder();
+  const centralDir = [];
+  const parts = [];
+  let offset = 0;
+
+  for (const [name, content] of Object.entries(files)) {
+    const nameBytes = enc.encode(name);
+    const dataBytes = typeof content === 'string' ? enc.encode(content) : content;
+    const crc = crc32(dataBytes);
+    const now = dosDateTime();
+
+    // Local file header
+    const lh = localHeader(nameBytes, dataBytes.length, crc, now);
+    parts.push(lh, dataBytes);
+
+    // Central directory entry
+    centralDir.push(centralEntry(nameBytes, dataBytes.length, crc, now, offset));
+    offset += lh.length + dataBytes.length;
+  }
+
+  const cdOffset = offset;
+  const cdBytes = concat(centralDir);
+  const eocd = endOfCD(centralDir.length, cdBytes.length, cdOffset);
+
+  return concat([...parts, cdBytes, eocd]);
+}
+
+function localHeader(nameBytes, size, crc, date) {
+  const buf = new Uint8Array(30 + nameBytes.length);
+  const v = new DataView(buf.buffer);
+  v.setUint32(0, 0x04034b50, true);  // signature
+  v.setUint16(4, 20, true);           // version needed
+  v.setUint16(6, 0x800, true);        // flags: UTF-8
+  v.setUint16(8, 0, true);            // compression: stored
+  v.setUint16(10, date.time, true);
+  v.setUint16(12, date.date, true);
+  v.setUint32(14, crc, true);
+  v.setUint32(18, size, true);         // compressed size
+  v.setUint32(22, size, true);         // uncompressed size
+  v.setUint16(26, nameBytes.length, true);
+  v.setUint16(28, 0, true);            // extra field length
+  buf.set(nameBytes, 30);
+  return buf;
+}
+
+function centralEntry(nameBytes, size, crc, date, localOffset) {
+  const buf = new Uint8Array(46 + nameBytes.length);
+  const v = new DataView(buf.buffer);
+  v.setUint32(0, 0x02014b50, true);   // signature
+  v.setUint16(4, 20, true);            // version made by
+  v.setUint16(6, 20, true);            // version needed
+  v.setUint16(8, 0x800, true);         // flags: UTF-8
+  v.setUint16(10, 0, true);            // compression
+  v.setUint16(12, date.time, true);
+  v.setUint16(14, date.date, true);
+  v.setUint32(16, crc, true);
+  v.setUint32(20, size, true);
+  v.setUint32(24, size, true);
+  v.setUint16(28, nameBytes.length, true);
+  v.setUint16(30, 0, true);            // extra
+  v.setUint16(32, 0, true);            // comment
+  v.setUint16(34, 0, true);            // disk start
+  v.setUint16(36, 0, true);            // internal attrs
+  v.setUint32(38, 0, true);            // external attrs
+  v.setUint32(42, localOffset, true);
+  buf.set(nameBytes, 46);
+  return buf;
+}
+
+function endOfCD(count, cdSize, cdOffset) {
+  const buf = new Uint8Array(22);
+  const v = new DataView(buf.buffer);
+  v.setUint32(0, 0x06054b50, true);
+  v.setUint16(4, 0, true);   // disk
+  v.setUint16(6, 0, true);   // disk with cd
+  v.setUint16(8, count, true);
+  v.setUint16(10, count, true);
+  v.setUint32(12, cdSize, true);
+  v.setUint32(16, cdOffset, true);
+  v.setUint16(20, 0, true);  // comment length
+  return buf;
+}
+
+function dosDateTime() {
+  const d = new Date();
+  const date = ((d.getFullYear() - 1980) << 9) | ((d.getMonth() + 1) << 5) | d.getDate();
+  const time = (d.getHours() << 11) | (d.getMinutes() << 5) | (d.getSeconds() >> 1);
+  return { date, time };
+}
+
+function concat(arrays) {
+  const total = arrays.reduce((s, a) => s + a.length, 0);
+  const out = new Uint8Array(total);
+  let off = 0;
+  for (const a of arrays) { out.set(a, off); off += a.length; }
+  return out;
+}
+
+// CRC-32 table
+const CRC_TABLE = (() => {
+  const t = new Uint32Array(256);
+  for (let i = 0; i < 256; i++) {
+    let c = i;
+    for (let j = 0; j < 8; j++) c = (c & 1) ? (0xEDB88320 ^ (c >>> 1)) : (c >>> 1);
+    t[i] = c;
+  }
+  return t;
+})();
+
+function crc32(data) {
+  let crc = 0xFFFFFFFF;
+  for (let i = 0; i < data.length; i++) crc = CRC_TABLE[(crc ^ data[i]) & 0xFF] ^ (crc >>> 8);
+  return (crc ^ 0xFFFFFFFF) >>> 0;
+}
+
+// ─── UI wiring ────────────────────────────────────────────────────────────────
+
+function getConfig() {
+  return {
+    projectName: document.getElementById('projectName').value.trim() || 'my-project',
+    incThink: document.getElementById('incThink').checked,
+    incDo: document.getElementById('incDo').checked,
+    incGuidelines: document.getElementById('incGuidelines').checked,
+    incAdr: document.getElementById('incAdr').checked,
+    incExample: document.getElementById('incExample').checked,
+    incGitignore: document.getElementById('incGitignore').checked,
+    incSymlinks: document.getElementById('incSymlinks').checked,
+  };
+}
+
+function updatePreview() {
+  document.getElementById('treePreview').innerHTML = buildTree(getConfig());
+}
+
+// Attach listeners to all controls
+['projectName','incThink','incDo','incGuidelines','incAdr','incExample','incGitignore','incSymlinks']
+  .forEach(id => document.getElementById(id).addEventListener('input', updatePreview));
+
+document.getElementById('downloadBtn').addEventListener('click', () => {
+  const cfg = getConfig();
+  const files = getFiles(cfg);
+
+  // Prefix all paths with project folder
+  const prefixed = {};
+  for (const [k, v] of Object.entries(files)) {
+    prefixed[`${cfg.projectName}/${k}`] = v;
+  }
+
+  const zipData = buildZip(prefixed);
+  const blob = new Blob([zipData], { type: 'application/zip' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'arch-scaffold.zip';
+  a.click();
+  URL.revokeObjectURL(url);
+
+  const banner = document.getElementById('successBanner');
+  banner.style.display = 'block';
+  setTimeout(() => banner.style.display = 'none', 5000);
+});
+
+// Init
+updatePreview();
+</script>
+
+</body>
+</html>
