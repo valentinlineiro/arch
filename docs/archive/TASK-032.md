@@ -1,5 +1,5 @@
 ## TASK-032: Add drift detection to arch review
-**Meta:** P1 | S | IN_PROGRESS | Sprint 3 | 2-code-generation | claude-code | src/
+**Meta:** P1 | S | DONE | Sprint 3 | 2-code-generation | claude-code | src/
 **Depends:** none
 
 ### Acceptance Criteria
@@ -11,4 +11,4 @@
 ### Definition of Done
 - [x] All three checks implemented and passing on clean repo
 - [x] `arch review` output includes a "Drift" section with OK / WARN per check
-- [ ] PR approved
+- [x] PR approved
