@@ -3,12 +3,12 @@
 **Depends:** TASK-028
 
 ### Acceptance Criteria
-- [ ] Implement `arch task done [ID]` in TS CLI.
-- [ ] Logic: Update status to `DONE` in Meta line.
-- [ ] Logic: Move task file from `docs/tasks/sprint/` to `docs/archive/`.
-- [ ] Logic: Update `docs/DONE.md` table with a new entry for the completed task.
-- [ ] Unit tests for the new `MarkTaskDone` use case.
+- [x] Implement `arch task done [ID]` in TS CLI.
+- [x] Logic: Update status to `DONE` in Meta line.
+- [x] Logic: Move task file from `docs/tasks/sprint/` to `docs/archive/`.
+- [x] Logic: Update `docs/DONE.md` table with a new entry for the completed task.
+- [x] Unit tests for the new `MarkTaskDone` use case.
 
 ### Definition of Done
-- [ ] `arch task done TASK-031` successfully archives itself.
-- [ ] PR approved.
+- [x] `arch task done TASK-031` successfully archives itself.
+- [x] PR approved.
