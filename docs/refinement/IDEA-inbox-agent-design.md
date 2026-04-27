@@ -1,7 +1,7 @@
 # IDEA: Inbox Agent Technical Design
 **Created:** 2026-04-27
 **Source:** TASK-068
-**Status:** DRAFT
+**Status:** PROMOTED -> TASK-070
 
 ## Proposal
 Implement an automated process (`arch inbox`) that scans the system state and generates/updates `docs/INBOX.md`.
