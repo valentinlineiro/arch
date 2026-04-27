@@ -2,6 +2,14 @@
 
 This guideline defines the progression of agent independence within ARCH and the specific boundaries for autonomous decision-making.
 
+## Governance & Source of Truth
+
+The definitive matrix for decision-making authority is maintained in `docs/GOVERNANCE.md`. This file takes precedence over any individual task-level autonomy definitions.
+
+## Communication & Escalation
+
+Coordination between the Human and the Agent is facilitated via `docs/INBOX.md`. Any decision that requires human approval (as per GOVERNANCE.md) must be escalated to the INBOX for visibility and resolution.
+
 ## Autonomy Levels
 
 | Level | Name | Description | Human Involvement |
@@ -13,7 +21,9 @@ This guideline defines the progression of agent independence within ARCH and the
 
 ---
 
-## Delegation of Authority Matrix (Level 3)
+## Delegation of Authority Matrix (Legacy Level 3)
+
+*Note: For the current active matrix, see `docs/GOVERNANCE.md`.*
 
 When operating at Level 3, the agent is authorized to merge changes without human approval **ONLY** if the following criteria are met:
 
