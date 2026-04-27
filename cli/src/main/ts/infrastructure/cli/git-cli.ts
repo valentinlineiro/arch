@@ -35,4 +35,14 @@ export class GitCli implements GitRepository {
       .map(line => line.trimEnd())
       .filter(Boolean);
   }
+
+  async add(path: string): Promise<void> {
+    await execAsync(`git add ${path}`);
+  }
+
+  async commit(message: string): Promise<void> {
+    // Escape single quotes in message
+    const escapedMessage = message.replace(/'/g, "'\\''");
+    await execAsync(`git commit -m '${escapedMessage}'`);
+  }
 }

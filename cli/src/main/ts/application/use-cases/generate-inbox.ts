@@ -99,6 +99,21 @@ export class GenerateInbox {
     content += `- **Last Commit:** ${lastCommit || 'None'}\n`;
 
     await this.fileSystem.writeFile(this.inboxFile, content);
+
+    // 6. Commit INBOX.md
+    try {
+      await this.gitRepository.add(this.inboxFile);
+      const statusLines = await this.gitRepository.getStatusLines();
+      const isChanged = statusLines.some(line => line.includes(this.inboxFile) && !line.startsWith('??'));
+      
+      if (isChanged) {
+        await this.gitRepository.commit(`docs: update INBOX.md dashboard [TASK-070]`);
+      }
+    } catch (error) {
+      // If commit fails (e.g. no changes), we just continue
+      console.warn('Could not auto-commit INBOX.md:', error);
+    }
+
     return this.inboxFile;
   }
 }
