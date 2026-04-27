@@ -2,6 +2,7 @@
 **Created:** [ISO date]
 **Source:** [what triggered this]
 **Status:** DRAFT
+**Meta:** [P0/P1/P2/P3] | [XS/S/M/L/XL] | [herramienta] | [contexto] ← opcional, rellenar si se conoce
 
 ## Problema
 [Qué problema o fricción motiva esta idea]
