@@ -1,7 +1,7 @@
 # IDEA: publicar arch-viewer.html conectado a GitHub API en docs/
 **Created:** 2026-04-26
 **Source:** Human request via Manus
-**Status:** DRAFT
+**Status:** DECIDED
 
 ## Proposal
 publicar arch-viewer.html conectado a GitHub API en docs/
@@ -13,5 +13,5 @@ publicar arch-viewer.html conectado a GitHub API en docs/
 - **Dependencia:** TASK-032 (Drift detection) podría integrarse aquí visualmente.
 
 ## Decision
-<!-- Human writes here after THINK evaluation -->
-<!-- PROMOTE → TASK-XXX | REJECT: reason -->
+Incluye edición de estado de tareas (READY/IN_PROGRESS/DONE) con GitHub OAuth sign-in para autenticación y escritura via API. Solo lectura sin sesión. El HTML debe crearse antes de publicarlo.
+PROMOTE → BACKLOG

@@ -1,7 +1,7 @@
 # IDEA: publicar arch-assistant.html con Gemini free tier en docs/
 **Created:** 2026-04-26
 **Source:** Human request via Manus
-**Status:** DRAFT
+**Status:** DECIDED
 
 ## Proposal
 publicar arch-assistant.html con Gemini free tier en docs/
@@ -12,5 +12,5 @@ publicar arch-assistant.html con Gemini free tier en docs/
 - **Coste:** Confirmar límites de cuota de Gemini Free Tier para uso multi-agente.
 
 ## Decision
-<!-- Human writes here after THINK evaluation -->
-<!-- PROMOTE → TASK-XXX | REJECT: reason -->
+API Key user-provided: el usuario ingresa su propia clave de Gemini en la interfaz. Sin proxy. El HTML debe crearse antes de publicarlo.
+PROMOTE → BACKLOG

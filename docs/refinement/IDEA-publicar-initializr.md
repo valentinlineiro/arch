@@ -1,7 +1,7 @@
 # IDEA: publicar arch-initializr.html en GitHub Pages docs/
 **Created:** 2026-04-26
 **Source:** Human request via Manus
-**Status:** DRAFT
+**Status:** DECIDED
 
 ## Proposal
 publicar arch-initializr.html en GitHub Pages docs/
@@ -12,5 +12,5 @@ publicar arch-initializr.html en GitHub Pages docs/
 - **Consistencia:** Debe usar la misma lógica que `arch-init.sh` para evitar divergencias en la estructura de carpetas.
 
 ## Decision
-<!-- Human writes here after THINK evaluation -->
-<!-- PROMOTE → TASK-XXX | REJECT: reason -->
+Genera ZIP descargable o abre repo en GitHub (GitHub template / `use this template`). El HTML debe crearse antes de publicarlo. Debe ser consistente con `arch-init.sh`.
+PROMOTE → BACKLOG

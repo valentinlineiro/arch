@@ -1,7 +1,7 @@
 # IDEA: Recolectar puntos débiles de ARCH
 **Created:** 2026-04-26
 **Source:** Human request via THINK mode
-**Status:** DRAFT
+**Status:** DECIDED
 
 ## Proposal
 Establecer un proceso sistemático para identificar y recolectar los puntos débiles, fricciones y cuellos de botella de la metodología ARCH. Esto incluye tanto ineficiencias técnicas (consumo de tokens) como operativas (fricción para el humano o el agente).
@@ -13,5 +13,5 @@ Establecer un proceso sistemático para identificar y recolectar los puntos déb
 - **Categorización:** Diferenciar entre debilidades de *Protocolo* (reglas), *Herramienta* (CLI) y *Contexto* (exceso de archivos).
 
 ## Decision
-<!-- Human writes here after THINK evaluation -->
-<!-- PROMOTE → TASK-XXX | REJECT: reason -->
+Crear docs/KAIZEN-LOG.md con categorías: Protocolo / Herramienta / Contexto. KPI en lenguaje natural, sin métricas cuantitativas en v1. Los agentes reportan fricciones de forma manual al final de THINK o DO cuando las detectan.
+PROMOTE → BACKLOG

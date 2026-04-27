@@ -1,7 +1,7 @@
 # IDEA: Integrar recursos de GitHub CLI en la documentación
 **Created:** 2026-04-26
 **Source:** THINK v0.4 Kaizen Proposal
-**Status:** DRAFT
+**Status:** DECIDED
 
 ## Proposal
 Añadir enlaces directos a la documentación oficial del CLI de GitHub en `AGENTS.md` o crear un archivo `docs/guidelines/resources.md`. Esto facilitará que los agentes consulten comandos avanzados de forma autónoma.
@@ -12,5 +12,5 @@ Añadir enlaces directos a la documentación oficial del CLI de GitHub en `AGENT
 - **Alcance:** ¿Incluir solo el CLI oficial o también extensiones recomendadas de `gh`?
 
 ## Decision
-<!-- Human writes here after THINK evaluation -->
-<!-- PROMOTE → TASK-XXX | REJECT: reason -->
+Archivo nuevo docs/guidelines/resources.md con cheat sheet local de comandos gh comunes. Sin enlaces externos para evitar rot. Sin extensiones de terceros en v1.
+PROMOTE → BACKLOG
