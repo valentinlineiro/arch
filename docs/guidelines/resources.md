@@ -1,65 +1,65 @@
 # Resources — GitHub CLI Cheat Sheet
 
-Referencia local de comandos `gh` frecuentes. Sin enlaces externos.
+Local reference for common `gh` commands. No external links.
 
 ## Pull Requests
 
 ```bash
-gh pr create --title "title" --body "body"   # Crear PR
-gh pr list                                    # Listar PRs abiertos
-gh pr view <number>                           # Ver detalle de un PR
-gh pr checkout <number>                       # Hacer checkout de un PR
-gh pr merge <number> --squash                 # Mergear PR (squash)
-gh pr close <number>                          # Cerrar PR sin mergear
-gh pr review <number> --approve               # Aprobar PR
-gh pr review <number> --request-changes -b "reason"  # Solicitar cambios
-gh pr diff <number>                           # Ver diff de un PR
+gh pr create --title "title" --body "body"   # Create PR
+gh pr list                                    # List open PRs
+gh pr view <number>                           # View PR details
+gh pr checkout <number>                       # Checkout a PR
+gh pr merge <number> --squash                 # Merge PR (squash)
+gh pr close <number>                          # Close PR without merging
+gh pr review <number> --approve               # Approve PR
+gh pr review <number> --request-changes -b "reason"  # Request changes
+gh pr diff <number>                           # View PR diff
 ```
 
 ## Issues
 
 ```bash
-gh issue create --title "title" --body "body"  # Crear issue
-gh issue list                                   # Listar issues abiertos
-gh issue view <number>                          # Ver detalle
-gh issue close <number>                         # Cerrar issue
-gh issue comment <number> --body "comment"      # Comentar en issue
-gh issue edit <number> --add-label "bug"        # Editar etiquetas
+gh issue create --title "title" --body "body"  # Create issue
+gh issue list                                   # List open issues
+gh issue view <number>                          # View issue details
+gh issue close <number>                         # Close issue
+gh issue comment <number> --body "comment"      # Comment on issue
+gh issue edit <number> --add-label "bug"        # Edit labels
 ```
 
-## Repositorio
+## Repository
 
 ```bash
-gh repo view                        # Ver info del repo actual
-gh repo clone <owner>/<repo>        # Clonar repo
-gh repo fork                        # Fork del repo actual
-gh repo create <name> --public      # Crear repo nuevo
+gh repo view                        # View current repo info
+gh repo clone <owner>/<repo>        # Clone repo
+gh repo fork                        # Fork current repo
+gh repo create <name> --public      # Create new repo
 ```
 
 ## Releases
 
 ```bash
-gh release create v1.0.0 --title "v1.0.0" --notes "notes"  # Crear release
-gh release list                                               # Listar releases
-gh release view v1.0.0                                        # Ver release
-gh release upload v1.0.0 ./dist/*.zip                        # Subir assets
+gh release create v1.0.0 --title "v1.0.0" --notes "notes"  # Create release
+gh release list                                               # List releases
+gh release view v1.0.0                                        # View release
+gh release upload v1.0.0 ./dist/*.zip                        # Upload assets
 ```
 
 ## Workflows (GitHub Actions)
 
 ```bash
-gh workflow list                              # Listar workflows
-gh workflow run <workflow-name>               # Disparar workflow manualmente
-gh run list                                   # Ver ejecuciones recientes
-gh run view <run-id>                          # Ver detalle de una ejecución
-gh run watch <run-id>                         # Seguir ejecución en tiempo real
+gh workflow list                              # List workflows
+gh workflow run <workflow-name>               # Trigger workflow manually
+gh run list                                   # List recent runs
+gh run view <run-id>                          # View run details
+gh run watch <run-id>                         # Follow run in real time
 ```
 
-## Utilidades
+## Utilities
 
 ```bash
-gh auth status                    # Verificar autenticación
-gh api /repos/:owner/:repo        # Llamada directa a la API de GitHub
-gh browse                         # Abrir repo en el navegador
-gh gist create <file>             # Crear gist
+gh auth status                    # Check authentication
+gh api /repos/:owner/:repo        # Direct GitHub API call
+gh browse                         # Open repo in browser
+gh gist create <file>             # Create gist
 ```

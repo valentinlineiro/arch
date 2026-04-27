@@ -1,13 +1,13 @@
-## TASK-060: Implementar política de English-first en documentación
+## TASK-060: Implement English-first language policy for documentation
 **Meta:** P2 | XS | REVIEW | Focus:yes | 6-writing | local | docs/guidelines/core.md, cli/
 
 ### Acceptance Criteria
-- [x] Documentar en `docs/guidelines/core.md` la obligatoriedad del inglés para nuevos docs y títulos de tareas
-- [x] Establecer el protocolo de migración para tareas legacy (traducción al editar)
-- [x] Añadir check en `arch review` (o similar) para advertir sobre títulos de tareas que contengan caracteres no ASCII o patrones comunes en español
-- [x] Traducir las guías actuales que estén mezcladas (ej. `bugs.md`)
+- [x] Document English-first requirement in `docs/guidelines/core.md` for new docs and task titles
+- [x] Establish migration protocol for legacy content (translate on edit)
+- [x] Add check in `arch review` to warn about task titles containing non-ASCII characters
+- [x] Translate mixed-language guides (e.g. `bugs.md`) to English
 
 ### Definition of Done
-- [x] Guías actualizadas y unificadas en inglés
-- [x] CLI capaz de detectar drift idiomático
-- [ ] PR aprobado
+- [x] Guidelines updated and unified in English
+- [x] CLI detects language drift in task titles
+- [ ] PR approved

@@ -1,15 +1,15 @@
-## TASK-059: Crear arch-upgrade.html para migración de versiones
+## TASK-059: Create arch-upgrade.html for version migration
 **Meta:** P2 | S | READY | Focus:no | 2-code-generation | local | docs/
 **Depends:** none
 
 ### Acceptance Criteria
-- [ ] Crear `docs/arch-upgrade.html` — single HTML file, sin framework
-- [ ] Implementar funcionalidad de pegado de JSON local y fetch del template remoto desde GitHub main
-- [ ] Implementar motor de diff visual simple en JS para resaltar cambios en `arch.config.json`
-- [ ] Generar sugerencias de migración basadas en los campos detectados
-- [ ] Integrar estéticamente con el diseño ARCH (dark mode)
+- [ ] Create `docs/arch-upgrade.html` — single HTML file, no framework
+- [ ] Implement local JSON paste and remote template fetch from GitHub main
+- [ ] Implement simple JS visual diff engine to highlight changes in `arch.config.json`
+- [ ] Generate migration suggestions based on detected fields
+- [ ] Style consistently with ARCH design (dark mode)
 
 ### Definition of Done
-- [ ] Herramienta funcional en `docs/`
-- [ ] Capaz de detectar cambios entre v0.3 y v0.4
-- [ ] PR aprobado
+- [ ] Tool functional in `docs/`
+- [ ] Able to detect changes between v0.3 and v0.4
+- [ ] PR approved

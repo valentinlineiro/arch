@@ -12,7 +12,7 @@
 ## Intent: Human Operation (Human)
 1. Interpret intent (Mark DONE, Start task, Block, Add to backlog, Move to sprint, Cancel, Add idea).
 2. **Before creating any new task:** search title keywords across `docs/tasks/` and `docs/archive/`. If one or more matches found: list them and halt — wait for explicit human confirmation before proceeding. If no matches: proceed normally.
-3. **If input starts with `idea:` or contains `añade idea:`:**
+3. **If input starts with `idea:` or contains `add idea:`:**
    - Derive a slug from the idea text (lowercase, hyphens, max 5 words).
    - Create `docs/refinement/IDEA-[slug].md` using the template in `docs/refinement/TEMPLATE.md`.
    - Commit: `feat: add idea draft [slug] to refinement`.
