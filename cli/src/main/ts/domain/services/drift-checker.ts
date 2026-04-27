@@ -1,4 +1,5 @@
 import { FileSystem } from '../repositories/file-system.js';
+import { GitRepository } from '../repositories/git-repository.js';
 
 export interface DriftResult {
   check: string;
@@ -7,15 +8,23 @@ export interface DriftResult {
 }
 
 const CLI_COMMANDS = new Set(['status', 'validate', 'review', 'task']);
+const ROOT_RUNTIME_ARTIFACTS = new Set(['.codex']);
 
 export class DriftChecker {
-  constructor(private fileSystem: FileSystem, private rootPath: string, private cliVersion: string) {}
+  constructor(
+    private fileSystem: FileSystem,
+    private gitRepository: GitRepository,
+    private rootPath: string,
+    private cliVersion: string
+  ) {}
 
   async check(): Promise<DriftResult[]> {
     return Promise.all([
       this.checkCommandDrift(),
       this.checkVersionDrift(),
       this.checkAgentsPaths(),
+      this.checkWorktreeHygiene(),
+      this.checkTaskArchiveDrift(),
     ]);
   }
 
@@ -72,5 +81,60 @@ export class DriftChecker {
       status: missing.length === 0 ? 'OK' : 'WARN',
       details: missing.length > 0 ? missing.map(p => `Missing: ${p}`) : [],
     };
+  }
+
+  private async checkWorktreeHygiene(): Promise<DriftResult> {
+    const statusLines = await this.gitRepository.getStatusLines();
+    const details: string[] = [];
+
+    for (const line of statusLines) {
+      const status = line.slice(0, 2);
+      const filePath = line.slice(3).trim();
+      if (!filePath) continue;
+
+      if (status.includes('D')) {
+        details.push(`Tracked deletion in worktree: ${filePath}`);
+        continue;
+      }
+
+      if (status === '??') {
+        const normalized = filePath.replace(/\/$/, '');
+        if (!normalized.includes('/') && ROOT_RUNTIME_ARTIFACTS.has(normalized)) {
+          details.push(`Runtime artifact not ignored locally: ${normalized}`);
+        }
+      }
+    }
+
+    return {
+      check: 'Worktree',
+      status: details.length === 0 ? 'OK' : 'WARN',
+      details,
+    };
+  }
+
+  private async checkTaskArchiveDrift(): Promise<DriftResult> {
+    const details: string[] = [];
+    const taskFiles = await this.getMarkdownFiles('docs/tasks');
+    const archiveFiles = await this.getMarkdownFiles('docs/archive');
+
+    const duplicateIds = taskFiles.filter(file => archiveFiles.includes(file));
+    for (const file of duplicateIds) {
+      details.push(`Task exists in both active and archive: ${file.replace('.md', '')}`);
+    }
+
+    return {
+      check: 'TaskArchive',
+      status: details.length === 0 ? 'OK' : 'WARN',
+      details,
+    };
+  }
+
+  private async getMarkdownFiles(dirPath: string): Promise<string[]> {
+    if (!(await this.fileSystem.exists(`${this.rootPath}/${dirPath}`))) {
+      return [];
+    }
+
+    const files = await this.fileSystem.readDirectory(`${this.rootPath}/${dirPath}`);
+    return files.filter(file => file.endsWith('.md'));
   }
 }

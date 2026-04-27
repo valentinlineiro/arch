@@ -5,3 +5,5 @@
 - If a protocol change increases token cost, justify it explicitly in the PR
 - ADRs are permanent — to reverse a decision, create a new ADR that supersedes
 - **ADR-003** documents the explicit exception to ADR-001: DISPATCH output is ephemeral (terminal only, not committed)
+- Runtime-local artifacts should be ignored locally first (for example via `.git/info/exclude`) unless every operator is expected to generate them
+- `.codex` is an approved repo-level ignore because it is generated repeatedly by the Codex runtime in this repository

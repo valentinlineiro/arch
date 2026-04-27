@@ -25,7 +25,7 @@ async function main() {
   const rootPath = path.resolve('.');
   const require = createRequire(import.meta.url);
   const { version: cliVersion } = require('../package.json') as { version: string };
-  const driftChecker = new DriftChecker(fileSystem, rootPath, cliVersion);
+  const driftChecker = new DriftChecker(fileSystem, gitRepository, rootPath, cliVersion);
   
   const args = process.argv.slice(2);
   const command = args[0];

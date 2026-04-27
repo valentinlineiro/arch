@@ -23,4 +23,12 @@ export class GitCli implements GitRepository {
     const { stdout } = await execAsync('git rev-parse --abbrev-ref HEAD');
     return stdout.trim();
   }
+
+  async getStatusLines(): Promise<string[]> {
+    const { stdout } = await execAsync('git status --short --untracked-files=all');
+    return stdout
+      .split('\n')
+      .map(line => line.trimEnd())
+      .filter(Boolean);
+  }
 }

@@ -32,8 +32,7 @@ export class ValidateSystem {
     const tasks = await this.taskRepository.getAll();
     for (const task of tasks) {
       if (task.rawMetaLine && !TaskValidator.isValidMeta(task.rawMetaLine)) {
-        const subDir = task.sprint.startsWith('Sprint') ? 'sprint' : 'backlog';
-        errors.push(`[docs/tasks/${subDir}/${task.id}.md] Task ${task.id} has an invalid Meta line: ${task.rawMetaLine}`);
+        errors.push(`[docs/tasks/${task.id}.md] Task ${task.id} has an invalid Meta line: ${task.rawMetaLine}`);
       }
     }
 
