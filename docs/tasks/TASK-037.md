@@ -1,5 +1,5 @@
 ## TASK-037: Crear y publicar arch-assistant.html en GitHub Pages
-**Meta:** P2 | M | READY | Focus:yes | 2-code-generation | claude-code | docs/
+**Meta:** P2 | M | IN_PROGRESS | Focus:yes | 2-code-generation | claude-code | docs/
 **Depends:** none
 
 ### Acceptance Criteria
