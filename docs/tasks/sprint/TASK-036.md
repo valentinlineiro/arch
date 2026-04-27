@@ -1,5 +1,5 @@
 ## TASK-036: Crear docs/KAIZEN-LOG.md para registrar puntos débiles de ARCH
-**Meta:** P2 | S | READY | Backlog | 6-writing | claude | docs/
+**Meta:** P2 | S | IN_PROGRESS | Backlog | 6-writing | claude | docs/
 **Depends:** none
 
 ### Acceptance Criteria
