@@ -1,7 +1,7 @@
 # IDEA: Handle warns as bugs — define bug and hotfix protocol in ARCH
 **Created:** 2026-04-27
 **Source:** Human request via arch think
-**Status:** DRAFT
+**Status:** DECIDED
 
 ## Proposal
 Handle warns as bugs. We need to define bug and hotfix protocol in ARCH.
@@ -14,5 +14,7 @@ Handle warns as bugs. We need to define bug and hotfix protocol in ARCH.
 - **Tamaño estimado:** XS si es solo `docs/guidelines/bugs.md`. S si también implica cambios en `arch review` para clasificar severidad con exit codes diferenciados.
 
 ## Decision
-<!-- Human writes here after THINK evaluation -->
-<!-- PROMOTE → TASK-XXX | REJECT: reason -->
+Cualquier desajuste de ARCH (WARNs de `arch review`, inconsistencias de protocolo, paths rotos) es un bug.
+Los bugs van automáticamente al sprint, bypaseando el backlog. Siempre se priorizan sobre desarrollo.
+Tamaño: XS — solo `docs/guidelines/bugs.md`.
+PROMOTE → TASK-040
