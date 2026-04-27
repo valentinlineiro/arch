@@ -8,7 +8,7 @@
   },
   "bin": {
     "arch-init": "../scripts/arch-init.sh",
-    "arch": "dist/index.mjs"
+    "arch": "dist/index.js"
   },
   "type": "module",
   "scripts": {
