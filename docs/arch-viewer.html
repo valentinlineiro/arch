@@ -46,9 +46,22 @@
       z-index: 100;
     }
     .nav-logo { font-family: var(--font-mono); font-size: 1rem; font-weight: 700; color: var(--accent); text-decoration: none; }
-    .nav-links { display: flex; gap: 1.5rem; }
+    .nav-links { display: flex; gap: 1.5rem; align-items: center; }
     .nav-link { color: var(--muted); text-decoration: none; font-size: 0.875rem; }
     .nav-link:hover { color: var(--text); }
+
+    .auth-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      padding: 0.4rem 0.8rem;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      border-radius: 2px;
+      cursor: pointer;
+    }
+    .auth-btn:hover { border-color: var(--muted); color: var(--text); }
+    .auth-btn.active { color: var(--accent); border-color: var(--accent-dim); }
 
     main {
       flex: 1;
@@ -119,6 +132,7 @@
       display: flex;
       flex-direction: column;
       transition: border-color 0.2s;
+      position: relative;
     }
     .task-card:hover { border-color: var(--muted); }
 
@@ -128,6 +142,7 @@
       margin-bottom: 0.75rem;
       font-family: var(--font-mono);
       font-size: 0.7rem;
+      flex-wrap: wrap;
     }
     .badge {
       padding: 0.1rem 0.4rem;
@@ -139,6 +154,17 @@
     .badge.p1 { color: var(--yellow); }
     .badge.ready { color: var(--accent); }
     .badge.in-progress { color: var(--blue); }
+
+    .status-select {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      color: var(--accent);
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      padding: 0.1rem 0.2rem;
+      border-radius: 2px;
+      cursor: pointer;
+    }
 
     .task-title {
       font-size: 1rem;
@@ -180,6 +206,26 @@
       font-family: var(--font-mono);
     }
 
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.8);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+    .modal-content {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 2rem;
+      max-width: 400px;
+      width: 100%;
+      border-radius: 4px;
+    }
+    .modal h2 { font-size: 1.25rem; margin-bottom: 1rem; }
+
     footer {
       padding: 3rem 2rem;
       border-top: 1px solid var(--border);
@@ -197,6 +243,7 @@
   <nav>
     <a href="index.html" class="nav-logo">ARCH</a>
     <div class="nav-links">
+      <button id="auth-toggle" class="auth-btn" onclick="toggleAuthModal()">Sign In</button>
       <a href="arch-initializr.html" class="nav-link">Initializr</a>
       <a href="https://github.com/valentinlineiro/arch" class="nav-link">GitHub</a>
     </div>
@@ -205,7 +252,7 @@
   <main id="app">
     <div class="page-label">SYSTEM_VIEWER</div>
     <h1>Project State</h1>
-    <p class="subtitle">Real-time view of active tasks and system integrity metrics fetched directly from GitHub.</p>
+    <p class="subtitle">Real-time view of active tasks and system integrity metrics. Authenticate to edit task states.</p>
 
     <div id="error-banner" class="error-banner"></div>
 
@@ -213,6 +260,20 @@
       <div class="loading">Fetching data from GitHub API...</div>
     </div>
   </main>
+
+  <div id="auth-modal" class="modal">
+    <div class="modal-content">
+      <h2>GitHub Authentication</h2>
+      <p style="font-size: 0.85rem; color: var(--muted); margin-bottom: 1.5rem;">
+        Enter a Personal Access Token with <code>repo</code> scope to enable editing.
+      </p>
+      <input type="password" id="gh-token" placeholder="ghp_..." style="width: 100%; background: var(--bg); border: 1px solid var(--border); color: var(--text); padding: 0.75rem; margin-bottom: 1rem; font-family: var(--font-mono);">
+      <div style="display: flex; gap: 1rem; justify-content: flex-end;">
+        <button class="auth-btn" onclick="toggleAuthModal()">Cancel</button>
+        <button class="auth-btn active" onclick="saveToken()">Save Token</button>
+      </div>
+    </div>
+  </div>
 
   <footer>
     &copy; 2026 ARCH Framework — Anonymous Read Access via GitHub API
@@ -222,21 +283,62 @@
     const OWNER = 'valentinlineiro';
     const REPO = 'arch';
     const BRANCH = 'main';
+    let TOKEN = localStorage.getItem('gh_token') || '';
+
+    const STATUSES = ['IDEA', 'READY', 'IN_PROGRESS', 'REVIEW', 'DONE', 'BLOCKED', 'REJECTED'];
+
+    function toggleAuthModal() {
+      const modal = document.getElementById('auth-modal');
+      modal.style.display = modal.style.display === 'flex' ? 'none' : 'flex';
+    }
+
+    function saveToken() {
+      const token = document.getElementById('gh-token').value;
+      if (token) {
+        localStorage.setItem('gh_token', token);
+        TOKEN = token;
+        updateAuthUI();
+        toggleAuthModal();
+        init(); // Re-fetch to enable editing
+      }
+    }
+
+    function logout() {
+      localStorage.removeItem('gh_token');
+      TOKEN = '';
+      updateAuthUI();
+      init();
+    }
+
+    function updateAuthUI() {
+      const btn = document.getElementById('auth-toggle');
+      if (TOKEN) {
+        btn.textContent = 'Sign Out';
+        btn.classList.add('active');
+        btn.onclick = logout;
+      } else {
+        btn.textContent = 'Sign In';
+        btn.classList.remove('active');
+        btn.onclick = toggleAuthModal;
+      }
+    }
 
     async function fetchTasks() {
       try {
-        const response = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/docs/tasks?ref=${BRANCH}`);
+        const headers = TOKEN ? { 'Authorization': `token ${TOKEN}` } : {};
+        const response = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/docs/tasks?ref=${BRANCH}`, { headers });
+        
         if (!response.ok) {
-          if (response.status === 403) throw new Error('GitHub API rate limit exceeded. Please try again later.');
+          if (response.status === 403) throw new Error('GitHub API rate limit exceeded. Please sign in or try again later.');
           throw new Error('Failed to fetch tasks from GitHub.');
         }
         const files = await response.json();
         const taskFiles = files.filter(f => f.name.endsWith('.md') && f.name.startsWith('TASK-'));
         
         const tasks = await Promise.all(taskFiles.map(async file => {
-          const res = await fetch(file.download_url);
+          const res = await fetch(file.download_url, { headers });
           const content = await res.text();
-          return parseTask(file.name, content);
+          return parseTask(file.name, content, file.sha, file.path);
         }));
 
         return tasks;
@@ -246,7 +348,7 @@
       }
     }
 
-    function parseTask(filename, content) {
+    function parseTask(filename, content, sha, path) {
       const idMatch = filename.match(/(TASK-\d{3})/);
       const titleMatch = content.match(/^## TASK-\d{3}: (.*)/m);
       const metaMatch = content.match(/^\*\*Meta:\*\* (.*)/m);
@@ -258,7 +360,6 @@
       const metaLine = metaMatch ? metaMatch[1] : '';
       const parts = metaLine.split('|').map(p => p.trim());
 
-      // P1 | XS | READY | Focus:yes | 6-writing | claude | docs/
       return {
         id,
         title,
@@ -268,14 +369,54 @@
         focus: parts[3] || 'Focus:no',
         class: parts[4] || '',
         cli: parts[5] || '',
-        context: parts[6] || ''
+        context: parts[6] || '',
+        sha,
+        path,
+        rawContent: content
       };
+    }
+
+    async function updateTaskStatus(task, newStatus) {
+      if (!TOKEN) return;
+      
+      try {
+        const oldStatus = task.status;
+        const newContent = task.rawContent.replace(
+          /(\n\*\*Meta:\*\* .*?\| )(IDEA|READY|IN_PROGRESS|REVIEW|DONE|BLOCKED|REJECTED)/,
+          `$1${newStatus}`
+        );
+
+        const response = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/${task.path}`, {
+          method: 'PUT',
+          headers: {
+            'Authorization': `token ${TOKEN}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            message: `chore: update ${task.id} status to ${newStatus} via Viewer`,
+            content: btoa(unescape(encodeURIComponent(newContent))),
+            sha: task.sha,
+            branch: BRANCH
+          })
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.message || 'Failed to update task.');
+        }
+
+        // Optimistic UI update or re-fetch
+        init();
+      } catch (err) {
+        showError(`Update failed: ${err.message}`);
+      }
     }
 
     function showError(msg) {
       const banner = document.getElementById('error-banner');
       banner.textContent = msg;
       banner.style.display = 'block';
+      setTimeout(() => banner.style.display = 'none', 5000);
     }
 
     function renderTasks(tasks) {
@@ -298,25 +439,18 @@
         html += `</div>`;
       }
 
-      // Placeholder for Drift section (since it requires running `arch review` which we can't do in browser)
-      // We could fetch a static report if we had one, but for now we'll show a "Static Integrity" check
       html += `<div class="section-title">System Integrity</div>`;
       html += `
         <div class="drift-section">
           <div class="drift-item">
             <span class="drift-status" style="color: var(--accent)">✔</span>
             <span class="drift-check">API</span>
-            <span class="drift-details">Connected to GitHub v3</span>
+            <span class="drift-details">Connected to GitHub v3 ${TOKEN ? '(Authenticated)' : '(Anonymous)'}</span>
           </div>
           <div class="drift-item">
             <span class="drift-status" style="color: var(--accent)">✔</span>
             <span class="drift-check">Structure</span>
             <span class="drift-details">Flat docs/tasks/ detected</span>
-          </div>
-          <div class="drift-item">
-            <span class="drift-status" style="color: var(--muted)">-</span>
-            <span class="drift-check">Drift</span>
-            <span class="drift-details">Run 'arch review' locally for full drift report</span>
           </div>
         </div>
       `;
@@ -328,12 +462,18 @@
       const statusClass = t.status.toLowerCase().replace('_', '-');
       const priorityClass = t.priority.toLowerCase();
       
+      const statusUI = TOKEN 
+        ? `<select class="status-select" onchange="handleStatusChange('${t.id}', this.value)">
+            ${STATUSES.map(s => `<option value="${s}" ${s === t.status ? 'selected' : ''}>${s}</option>`).join('')}
+           </select>`
+        : `<span class="badge ${statusClass}">${t.status}</span>`;
+
       return `
-        <div class="task-card">
+        <div class="task-card" id="card-${t.id}">
           <div class="task-meta">
             <span class="badge ${priorityClass}">${t.priority}</span>
             <span class="badge">${t.size}</span>
-            <span class="badge ${statusClass}">${t.status}</span>
+            ${statusUI}
           </div>
           <div class="task-title">${t.title}</div>
           <div class="task-footer">
@@ -344,8 +484,23 @@
       `;
     }
 
+    let allTasks = [];
+    async function handleStatusChange(taskId, newStatus) {
+      const task = allTasks.find(t => t.id === taskId);
+      if (task) {
+        const card = document.getElementById(`card-${taskId}`);
+        card.style.opacity = '0.5';
+        card.style.pointerEvents = 'none';
+        await updateTaskStatus(task, newStatus);
+      }
+    }
+
+    window.handleStatusChange = handleStatusChange;
+
     async function init() {
+      updateAuthUI();
       const tasks = await fetchTasks();
+      allTasks = tasks;
       if (tasks.length > 0) {
         renderTasks(tasks);
       } else {

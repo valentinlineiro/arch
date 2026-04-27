@@ -34,6 +34,7 @@
 | TASK-053 | Limpieza de docs/refinement/ (IDEAs ya promovidas) | XS→XS | local | Focus:yes | 2026-04-27 | - | Archived |
 | TASK-054 | Implementar THINK Phase 4: Autonomous Replenishment | XS→XS | claude | Focus:yes | 2026-04-27 | - | Archived |
 | TASK-044 | Crear y publicar ONBOARDING.html en GitHub Pages | M→M | claude-code | Focus:yes | 2026-04-27 | - | Archived |
+| TASK-046 | arch-viewer.html — edición de estado con GitHub OAuth | M→M | claude-code | Focus:yes | 2026-04-27 | - | Archived |
 
 ---
 
