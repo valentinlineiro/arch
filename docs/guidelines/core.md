@@ -14,7 +14,8 @@
   | `idea:`     | Committing a draft IDEA to refinement/               |
 - Every PR references a TASK-ID: `docs(conductor): add velocity check [ARCH-012]`
 - If a follow-up commit only fixes the previous one and no one else has seen it yet, use `git commit --amend` instead of a new commit
-- No agent merges its own PR (Exception: Level 3 Autonomy)
+- **Git Safety:** Agents must use `git fetch` to safely sync state. History-changing operations (`git pull`, `git merge`, `git rebase`) are FORBIDDEN without explicit human approval.
+- No agent merges its own PR (Exception: Level 3 Autonomy defined in `autonomy.md`)
 - Breaking changes (MAJOR) require an ADR before implementation
 - Tasks estimated XL must be decomposed before entering sprint/
 - `Closed-at: YYYY-MM-DDTHH:MM:SSZ` — optional field written to task file when archiving as DONE. Used for cycle time and velocity metrics.

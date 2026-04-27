@@ -3,7 +3,7 @@
 <!-- Purpose: Execute tasks from sprint/ or perform human-directed operations -->
 
 ## Intent: Execute Task (Exec)
-1. `git pull`.
+1. `git fetch` (sync state safely without merging). History-changing operations (`git pull`, `git merge`, `git rebase`) require explicit human approval.
 2. Find highest priority `READY` task in `docs/tasks/` (prefer Focus:yes, then Focus:no by priority+size).
 3. Set status to `IN_PROGRESS`, add lock in Meta line, and commit immediately.
 4. Implement against Acceptance Criteria ONLY.

@@ -38,6 +38,7 @@
 | TASK-055 | Definir Niveles de Autonomía y pilotar Nivel 2 (Self-Promotion) | S→S | claude | Focus:yes | 2026-04-27 | - | Archived |
 | TASK-056 | Fix arch.config.json paths drift | S→S | local | Focus:yes | 2026-04-27 | - | Archived |
 | TASK-057 | Sync AGENTS.md version with arch.config.json | S→S | claude | Focus:yes | 2026-04-27 | - | Archived |
+| TASK-061 | Remove unsafe pull and merge behavior from protocol | S→S | local | Focus:yes | 2026-04-27 | - | Archived |
 
 ---
 

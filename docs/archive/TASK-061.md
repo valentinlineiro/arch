@@ -1,5 +1,5 @@
 ## TASK-061: Remove unsafe pull and merge behavior from protocol
-**Meta:** P0 | S | READY | Focus:yes | 7-operations | local | docs/agents/DO.md, docs/guidelines/core.md, docs/guidelines/autonomy.md, docs/guidelines/what-ai-must-never-do-in-this-repo.md
+**Meta:** P0 | S | DONE | Focus:yes | 7-operations | local | docs/agents/DO.md, docs/guidelines/core.md, docs/guidelines/autonomy.md, docs/guidelines/what-ai-must-never-do-in-this-repo.md
 
 ### Bug
 ARCH currently contains protocol instructions that can trigger git operations the agent should not perform by default:
@@ -25,12 +25,12 @@ Define one canonical git-safety policy and align the protocol to it:
 - Ensure the default agent path cannot perform merge-producing git operations without explicit human approval.
 
 ### Acceptance Criteria
-- [ ] `docs/agents/DO.md` no longer instructs unconditional `git pull`
-- [ ] Merge authority rules are consistent across all guideline files
-- [ ] Protocol clearly distinguishes safe read-only sync (`git fetch`) from history-changing sync (`pull`, `merge`, `rebase`)
-- [ ] `arch review` or equivalent check can detect future drift in git-safety rules
+- [x] `docs/agents/DO.md` no longer instructs unconditional `git pull`
+- [x] Merge authority rules are consistent across all guideline files
+- [x] Protocol clearly distinguishes safe read-only sync (`git fetch`) from history-changing sync (`pull`, `merge`, `rebase`)
+- [x] `arch review` or equivalent check can detect future drift in git-safety rules
 
 ### Definition of Done
-- [ ] Canonical policy documented in one source of truth and referenced elsewhere
-- [ ] No remaining contradictory pull/merge guidance in active protocol docs
+- [x] Canonical policy documented in one source of truth and referenced elsewhere
+- [x] No remaining contradictory pull/merge guidance in active protocol docs
 - [ ] PR approved

@@ -2,16 +2,17 @@
 - Modify GUIDELINES.md directly — propose in RETRO.md only
 - Promote tasks to BACKLOG without explicit human approval
 - Change task format without a MAJOR version bump and migration guide
-- Merge PRs
+- Run history-changing git operations (`git pull`, `git merge`, `git rebase`) without explicit human approval
+- Merge PRs (Exception: Authorized under Level 3 Autonomy, see `autonomy.md`)
 
 ## Engineering Hygiene
-- **Zero-Day .gitignore:** Any commit that initializes a new code directory must include a relevant  to prevent tracking build artifacts or dependencies.
-- **Architectural Buffer:** Re-architecting, migrations, or structural changes must default to size  or higher to account for Clean Architecture overhead and testing.
+- **Zero-Day .gitignore:** Any commit that initializes a new code directory must include a relevant `.gitignore` to prevent tracking build artifacts or dependencies.
+- **Architectural Buffer:** Re-architecting, migrations, or structural changes must default to size `L` or higher to account for Clean Architecture overhead and testing.
 
 ## Task Integrity
-- **Validation Gate:** Before any status move to , the agent or human MUST run . Zero violations are required for a clean handover and to prevent protocol debt.
+- **Validation Gate:** Before any status move to `REVIEW` or `DONE`, the agent or human MUST run `arch review`. Zero violations are required for a clean handover and to prevent protocol debt.
 
-- **Scope Stability:** If a task's implementation model changes fundamentally (e.g., from AI Agent to Deterministic Engine), it MUST return to  unless the human provides an explicit  in the meta line.
+- **Scope Stability:** If a task's implementation model changes fundamentally (e.g., from AI Agent to Deterministic Engine), it MUST return to `READY` unless the human provides an explicit `Continue` in the meta line.
 
 ## Changelog
 | Version | Date | Description | Impact |
