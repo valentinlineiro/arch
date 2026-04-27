@@ -1,5 +1,5 @@
 ## TASK-039: Crear y publicar arch-viewer.html conectado a GitHub API
-**Meta:** P2 | L | READY | Backlog | 2-code-generation | claude-code | docs/
+**Meta:** P2 | L | REJECTED | Backlog | 2-code-generation | claude-code | docs/
 **Depends:** TASK-032
 
 ### Acceptance Criteria
