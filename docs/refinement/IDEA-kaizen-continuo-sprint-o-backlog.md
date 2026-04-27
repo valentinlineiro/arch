@@ -1,7 +1,7 @@
 # IDEA: Si hacemos kaizen continuo, ¿necesitamos sprint o solo backlog?
 **Created:** 2026-04-27
 **Source:** Human request via DO
-**Status:** DRAFT
+**Status:** DECIDED
 **Meta:** P1 | S | claude | docs/agents/, docs/AGENTS.md ← opcional, rellenar si se conoce
 
 ## Problema
@@ -26,6 +26,8 @@ S — principalmente cambio de protocolo y posible migración de estructura de d
 ## Decision
 <!-- Human writes here after THINK evaluation -->
 <!-- PROMOTE → TASK-XXX | REJECT: reason -->
+
+PROMOTE → TASK-047
 
 **Propuesta de THINK:** Modelo híbrido — directorio único `docs/tasks/` con campo `Focus: yes/no` en Meta.
 - `Focus:yes` reemplaza sprint/, `Focus:no` reemplaza backlog/. Un archivo, una ubicación.
