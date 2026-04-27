@@ -1,5 +1,5 @@
 {
-  "version": "0.2.0",
+  "version": "0.4.0",
   "routing": {
     "1-code-reasoning": "claude-code",
     "2-code-generation": "claude-code",
