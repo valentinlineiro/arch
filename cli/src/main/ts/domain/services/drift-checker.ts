@@ -23,9 +23,31 @@ export class DriftChecker {
       this.checkCommandDrift(),
       this.checkVersionDrift(),
       this.checkAgentsPaths(),
+      this.checkConfigPaths(),
       this.checkWorktreeHygiene(),
       this.checkTaskArchiveDrift(),
     ]);
+  }
+
+  private async checkConfigPaths(): Promise<DriftResult> {
+    const configRaw = await this.fileSystem.readFile(`${this.rootPath}/arch.config.json`);
+    const config = JSON.parse(configRaw);
+    const details: string[] = [];
+
+    if (config.paths) {
+      for (const [key, relPath] of Object.entries(config.paths)) {
+        const exists = await this.fileSystem.exists(`${this.rootPath}/${relPath}`);
+        if (!exists) {
+          details.push(`Configured path for '${key}' does not exist: ${relPath}`);
+        }
+      }
+    }
+
+    return {
+      check: 'ConfigPaths',
+      status: details.length === 0 ? 'OK' : 'WARN',
+      details,
+    };
   }
 
   private async checkCommandDrift(): Promise<DriftResult> {

@@ -11,9 +11,11 @@
     "8-strategy": "claude"
   },
   "paths": {
-    "sprint": "docs/SPRINT.md",
-    "backlog": "docs/BACKLOG.md",
-    "done": "docs/DONE.md",
-    "guidelines": "docs/GUIDELINES.md"
+    "tasks": "docs/tasks",
+    "archive": "docs/archive",
+    "guidelines": "docs/guidelines",
+    "agents": "docs/agents",
+    "refinement": "docs/refinement",
+    "adr": "docs/adr"
   }
 }
