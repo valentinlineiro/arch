@@ -36,27 +36,26 @@ fi
 mkdir -p \
   "$DOCS_DIR/agents" \
   "$DOCS_DIR/adr" \
-  "$DOCS_DIR/archive"
+  "$DOCS_DIR/archive" \
+  "$DOCS_DIR/tasks" \
+  "$DOCS_DIR/guidelines" \
+  "$DOCS_DIR/refinement" \
+  "scripts"
 
 # ── Download core files from GitHub ───────────────────────────────
 BASE_URL="https://raw.githubusercontent.com/valentinlineiro/arch/main"
 
 files=(
-  "docs/AGENTS.md"
-  "docs/BACKLOG.md"
-  "docs/SPRINT.md"
+  "AGENTS.md"
+  "arch.config.json"
   "docs/DONE.md"
-  "docs/DISPATCH.md"
-  "docs/REFINEMENT.md"
-  "docs/RETRO.md"
-  "docs/GUIDELINES.md"
-  "docs/ROUTING.md"
-  "docs/agents/CONDUCTOR.md"
-  "docs/agents/EXEC.md"
-  "docs/agents/REFINE.md"
-  "docs/agents/RETRO.md"
-  "scripts/arch.sh"
-  "docs/agents/HUMAN.md"
+  "docs/KAIZEN-LOG.md"
+  "docs/METRICS.md"
+  "docs/TASK-FORMAT.md"
+  "docs/agents/THINK.md"
+  "docs/agents/DO.md"
+  "docs/guidelines/core.md"
+  "docs/guidelines/autonomy.md"
   "docs/adr/ADR-000-template.md"
   "scripts/arch.sh"
 )
@@ -86,9 +85,8 @@ create_symlink() {
   fi
 }
 
-create_symlink "docs/AGENTS.md" "AGENTS.md"
-create_symlink "docs/AGENTS.md" "CLAUDE.md"
-create_symlink "docs/AGENTS.md" "GEMINI.md"
+create_symlink "AGENTS.md" "CLAUDE.md"
+create_symlink "AGENTS.md" "GEMINI.md"
 
 # ── .gitignore ────────────────────────────────────────────────────
 if [ ! -f ".gitignore" ]; then
@@ -124,11 +122,11 @@ fi
 echo ""
 echo -e "  ${GREEN}Done.${NC} Next steps:"
 echo ""
-echo -e "  ${GRAY}1.${NC} Edit   ${GRAY}docs/GUIDELINES.md${NC}  — add your stack"
-echo -e "  ${GRAY}2.${NC} Add    ${GRAY}docs/REFINEMENT.md${NC}  — your first idea"
-echo -e "  ${GRAY}3.${NC} Run    ${GRAY}CONDUCTOR${NC} to assess state:"
+echo -e "  ${GRAY}1.${NC} Edit   ${GRAY}docs/guidelines/core.md${NC}  — add your stack"
+echo -e "  ${GRAY}2.${NC} Create ${GRAY}docs/tasks/TASK-001.md${NC}  — your first task"
+echo -e "  ${GRAY}3.${NC} Run    ${GRAY}THINK mode${NC} to assess state:"
 echo ""
-echo -e "       arch conduct"
+echo -e "       ./scripts/arch.sh conduct"
 echo ""
 echo -e "  Docs: https://github.com/valentinlineiro/arch"
 echo ""

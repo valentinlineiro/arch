@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # arch-upgrade.sh
-# Upgrades ARCH framework files in an existing project.
-# SAFE: only touches agent protocols and routing — never project state.
+# Upgrades ARCH framework files in an existing project to v0.4.
+# SAFE: only touches framework files — never overwrites your tasks.
 #
 # Usage: bash arch-upgrade.sh /path/to/your-repo
 #        bash arch-upgrade.sh .
@@ -13,101 +13,112 @@ set -e
 GREEN='\033[0;32m'; YELLOW='\033[1;33m'; RED='\033[0;31m'; GRAY='\033[0;90m'; NC='\033[0m'
 
 TARGET="${1:-.}"
-ARCH_DIR="$(cd "$(dirname "$0")" && pwd)"
+ARCH_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 
-if [ ! -f "$ARCH_DIR/docs/AGENTS.md" ]; then
+if [ ! -f "$ARCH_DIR/AGENTS.md" ]; then
   echo "Error: run this script from inside the arch/ directory."
   exit 1
 fi
 
 TARGET="$(cd "$TARGET" && pwd)"
 
-# Verify target has ARCH installed
-if [ ! -f "$TARGET/docs/agents/CONDUCTOR.md" ]; then
-  echo -e "${RED}Error:${NC} ARCH not found in $TARGET"
+# Verify target has some ARCH structure
+if [ ! -f "$TARGET/docs/AGENTS.md" ] && [ ! -f "$TARGET/AGENTS.md" ]; then
+  echo -e "${RED}Error:${NC} ARCH structure not found in $TARGET"
   echo "Run arch-install.sh first."
   exit 1
 fi
 
 echo ""
-echo -e "  ${GREEN}ARCH Upgrade${NC}"
+echo -e "  ${GREEN}ARCH Upgrade (v0.4)${NC}"
 echo -e "  ${GRAY}Target: $TARGET${NC}"
 echo ""
 
-# ── Files that are SAFE to upgrade (framework, not project state) ──
+# ── Migration: Legacy -> v0.4 ─────────────────────────────────────
+
+migrate_file() {
+  local src_rel="$1"
+  local dest_rel="$2"
+  if [ -f "$TARGET/$src_rel" ] && [ ! -f "$TARGET/$dest_rel" ]; then
+    mkdir -p "$(dirname "$TARGET/$dest_rel")"
+    mv "$TARGET/$src_rel" "$TARGET/$dest_rel"
+    echo -e "  ${YELLOW}→${NC} migrated $src_rel to $dest_rel"
+  fi
+}
+
+echo -e "  ${GRAY}Checking for legacy files...${NC}"
+migrate_file "docs/agents/CONDUCTOR.md" "docs/agents/THINK.md"
+migrate_file "docs/agents/EXEC.md" "docs/agents/DO.md"
+[ -f "$TARGET/docs/agents/REFINE.md" ] && rm "$TARGET/docs/agents/REFINE.md" && echo -e "  ${GRAY}-${NC} removed legacy docs/agents/REFINE.md"
+[ -f "$TARGET/docs/agents/HUMAN.md" ] && rm "$TARGET/docs/agents/HUMAN.md" && echo -e "  ${GRAY}-${NC} removed legacy docs/agents/HUMAN.md"
+[ -f "$TARGET/docs/ROUTING.md" ] && rm "$TARGET/docs/ROUTING.md" && echo -e "  ${GRAY}-${NC} removed legacy docs/ROUTING.md (now in arch.config.json)"
+
+# ── Files that are SAFE to upgrade (framework) ──────────────────
 UPGRADEABLE=(
-  "docs/agents/CONDUCTOR.md"
-  "docs/agents/EXEC.md"
-  "docs/agents/REFINE.md"
-  "docs/agents/RETRO.md"
-  "docs/ROUTING.md"
+  "docs/agents/THINK.md"
+  "docs/agents/DO.md"
   "docs/adr/ADR-000-template.md"
+  "docs/TASK-FORMAT.md"
+  "scripts/arch.sh"
 )
 
-# ── Files that are NEVER touched (project state) ──────────────────
-# docs/BACKLOG.md    — your tasks
-# docs/SPRINT.md     — your active sprint
-# docs/DONE.md       — your history
-# docs/DISPATCH.md   — generated state
-# docs/RETRO.md      — your retrospectives
-# docs/REFINEMENT.md — your ideas
-# docs/GUIDELINES.md — your approved rules (CORE section may differ)
+# ── New v0.4 files ──────────────────────────────────────────────
+NEW_FILES=(
+  "arch.config.json"
+  "docs/KAIZEN-LOG.md"
+  "docs/METRICS.md"
+  "docs/guidelines/core.md"
+  "docs/guidelines/autonomy.md"
+)
 
-echo -e "  Upgrading framework files (agent protocols + routing):"
+echo ""
+echo -e "  Upgrading framework files:"
 echo ""
 
 UPDATED=0
-SKIPPED=0
 
-for file in "${UPGRADEABLE[@]}"; do
+# Ensure directories exist
+mkdir -p "$TARGET/docs/tasks" "$TARGET/docs/archive" "$TARGET/docs/guidelines" "$TARGET/docs/refinement"
+
+for file in "${UPGRADEABLE[@]}" "${NEW_FILES[@]}"; do
   src="$ARCH_DIR/$file"
   dest="$TARGET/$file"
 
-  if [ ! -f "$src" ]; then
-    echo -e "  ${YELLOW}?${NC} $file (not found in source, skipping)"
-    continue
-  fi
+  if [ ! -f "$src" ]; then continue; fi
 
   if [ ! -f "$dest" ]; then
+    mkdir -p "$(dirname "$dest")"
     cp "$src" "$dest"
-    echo -e "  ${GREEN}+${NC} $file (new)"
+    echo -e "  ${GREEN}+${NC} $file (installed)"
     UPDATED=$((UPDATED + 1))
   elif diff -q "$src" "$dest" > /dev/null 2>&1; then
-    echo -e "  ${GRAY}=${NC} $file (unchanged)"
-    SKIPPED=$((SKIPPED + 1))
+    echo -e "  ${GRAY}=${NC} $file (up to date)"
   else
-    # Show diff summary before overwriting
-    DIFF_LINES=$(diff "$dest" "$src" | grep -c '^[<>]' || true)
     cp "$src" "$dest"
-    echo -e "  ${GREEN}↑${NC} $file (${DIFF_LINES} lines changed)"
+    echo -e "  ${GREEN}↑${NC} $file (updated)"
     UPDATED=$((UPDATED + 1))
   fi
 done
 
-# ── GUIDELINES.md: upgrade CORE section only ──────────────────────
+# ── Symlinks ──────────────────────────────────────────────────────
 echo ""
-echo -e "  ${GRAY}Note: docs/GUIDELINES.md not touched.${NC}"
-echo -e "  ${GRAY}If ARCH updated its CORE rules, review CHANGELOG.md${NC}"
-echo -e "  ${GRAY}and apply manually to preserve your project-specific rules.${NC}"
+echo -e "  ${GRAY}Updating symlinks...${NC}"
+cd "$TARGET"
+[ -L "AGENTS.md" ] && rm "AGENTS.md"
+[ ! -f "AGENTS.md" ] && cp "$ARCH_DIR/AGENTS.md" "AGENTS.md" && echo -e "  ${GREEN}+${NC} AGENTS.md (root)"
+[ -L "CLAUDE.md" ] && rm "CLAUDE.md"
+ln -s AGENTS.md CLAUDE.md && echo -e "  ${GRAY}→${NC} CLAUDE.md"
+[ -L "GEMINI.md" ] && rm "GEMINI.md"
+ln -s AGENTS.md GEMINI.md && echo -e "  ${GRAY}→${NC} GEMINI.md"
 
-# ── Commit ────────────────────────────────────────────────────────
+# ── Final check ──────────────────────────────────────────────────
 echo ""
-if [ "$UPDATED" -gt 0 ]; then
-  read -p "  Commit upgrade? (y/n) " -n 1 -r REPLY
-  echo ""
-  if [[ $REPLY =~ ^[Yy]$ ]]; then
-    cd "$TARGET"
-    git add docs/agents/ docs/ROUTING.md docs/adr/
-    git commit -m "chore: upgrade ARCH framework files" -q
-    echo -e "  ${GREEN}✓${NC} Committed"
-  fi
-else
-  echo -e "  ${GRAY}Already up to date.${NC}"
+if [ -f "docs/SPRINT.md" ] || [ -f "docs/BACKLOG.md" ]; then
+  echo -e "${YELLOW}Warning:${NC} Legacy SPRINT.md or BACKLOG.md found."
+  echo -e "         Please migrate your tasks to docs/tasks/TASK-XXX.md"
+  echo -e "         following the v0.4 Focus-based model."
 fi
 
 echo ""
-echo -e "  ${GREEN}Done.${NC} $UPDATED file(s) updated, $SKIPPED unchanged."
-echo ""
-echo -e "  ${GRAY}Project state files untouched:${NC}"
-echo -e "  ${GRAY}BACKLOG, SPRINT, DONE, DISPATCH, RETRO, REFINEMENT, GUIDELINES${NC}"
+echo -e "  ${GREEN}Upgrade complete.${NC}"
 echo ""

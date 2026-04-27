@@ -1,5 +1,5 @@
 ## TASK-063: Fix scaffold script drift to align with v0.4 modular layout
-**Meta:** P0 | M | READY | Focus:no | 1-implementation | local | scripts/, docs/, cli/, arch.config.json
+**Meta:** P0 | M | DONE | Focus:yes | 1-implementation | local | scripts/, docs/, cli/, arch.config.json
 
 ### Acceptance Criteria
 - [ ] Update `scripts/arch-install.sh` to use the v0.4 directory structure.

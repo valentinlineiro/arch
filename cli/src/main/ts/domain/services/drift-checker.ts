@@ -51,6 +51,9 @@ export class DriftChecker {
   }
 
   private async checkCommandDrift(): Promise<DriftResult> {
+    if (!(await this.fileSystem.exists(`${this.rootPath}/README.md`))) {
+      return { check: 'Commands', status: 'WARN', details: ['README.md not found'] };
+    }
     const readme = await this.fileSystem.readFile(`${this.rootPath}/README.md`);
     const documented = new Set<string>();
     for (const match of readme.matchAll(/^(?:\.\/scripts\/arch\.sh|arch)\s+([a-z][a-z-]+)/gm)) {
@@ -71,17 +74,19 @@ export class DriftChecker {
     const configRaw = await this.fileSystem.readFile(`${this.rootPath}/arch.config.json`);
     const configVersion = JSON.parse(configRaw).version as string;
 
-    const pkgRaw = await this.fileSystem.readFile(`${this.rootPath}/cli/package.json`);
-    const pkgVersion = JSON.parse(pkgRaw).version as string;
-
     const details: string[] = [];
 
     if (configVersion !== this.cliVersion) {
       details.push(`arch.config.json: v${configVersion} — CLI: v${this.cliVersion}`);
     }
 
-    if (pkgVersion !== configVersion) {
-      details.push(`cli/package.json: v${pkgVersion} — arch.config.json: v${configVersion}`);
+    const pkgPath = `${this.rootPath}/cli/package.json`;
+    if (await this.fileSystem.exists(pkgPath)) {
+      const pkgRaw = await this.fileSystem.readFile(pkgPath);
+      const pkgVersion = JSON.parse(pkgRaw).version as string;
+      if (pkgVersion !== configVersion) {
+        details.push(`cli/package.json: v${pkgVersion} — arch.config.json: v${configVersion}`);
+      }
     }
 
     if (details.length === 0) {
@@ -96,7 +101,14 @@ export class DriftChecker {
   }
 
   private async checkAgentsPaths(): Promise<DriftResult> {
-    const agents = await this.fileSystem.readFile(`${this.rootPath}/docs/AGENTS.md`);
+    let agentsPath = `${this.rootPath}/docs/AGENTS.md`;
+    if (!(await this.fileSystem.exists(agentsPath))) {
+      agentsPath = `${this.rootPath}/AGENTS.md`;
+    }
+    if (!(await this.fileSystem.exists(agentsPath))) {
+      return { check: 'Paths', status: 'WARN', details: ['AGENTS.md not found'] };
+    }
+    const agents = await this.fileSystem.readFile(agentsPath);
     const refs = new Set<string>();
 
     for (const match of agents.matchAll(/`([a-zA-Z][a-zA-Z0-9/_\-\.]+\.[a-zA-Z]{1,5})`/g)) {

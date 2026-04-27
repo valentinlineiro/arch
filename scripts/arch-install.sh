@@ -13,9 +13,9 @@ GREEN='\033[0;32m'; YELLOW='\033[1;33m'; GRAY='\033[0;90m'; NC='\033[0m'
 
 # ── Args ──────────────────────────────────────────────────────────
 TARGET="${1:-.}"
-ARCH_DIR="$(cd "$(dirname "$0")" && pwd)"
+ARCH_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 
-if [ ! -f "$ARCH_DIR/docs/AGENTS.md" ]; then
+if [ ! -f "$ARCH_DIR/AGENTS.md" ]; then
   echo "Error: run this script from inside the arch/ directory."
   exit 1
 fi
@@ -33,27 +33,27 @@ if [ ! -d "$TARGET/.git" ]; then
   echo -e "  ${GRAY}+${NC} initialized git repo"
 fi
 
-# ── Copy docs/ ────────────────────────────────────────────────────
+# ── Copy core files ───────────────────────────────────────────────
 mkdir -p \
   "$TARGET/docs/agents" \
   "$TARGET/docs/adr" \
-  "$TARGET/docs/archive"
+  "$TARGET/docs/archive" \
+  "$TARGET/docs/tasks" \
+  "$TARGET/docs/guidelines" \
+  "$TARGET/docs/refinement" \
+  "$TARGET/scripts"
 
 files=(
-  "docs/AGENTS.md"
-  "docs/BACKLOG.md"
-  "docs/SPRINT.md"
+  "AGENTS.md"
+  "arch.config.json"
   "docs/DONE.md"
-  "docs/DISPATCH.md"
-  "docs/REFINEMENT.md"
-  "docs/RETRO.md"
-  "docs/GUIDELINES.md"
-  "docs/ROUTING.md"
-  "docs/agents/CONDUCTOR.md"
-  "docs/agents/EXEC.md"
-  "docs/agents/REFINE.md"
-  "docs/agents/RETRO.md"
-  "scripts/arch.sh"
+  "docs/KAIZEN-LOG.md"
+  "docs/METRICS.md"
+  "docs/TASK-FORMAT.md"
+  "docs/agents/THINK.md"
+  "docs/agents/DO.md"
+  "docs/guidelines/core.md"
+  "docs/guidelines/autonomy.md"
   "docs/adr/ADR-000-template.md"
   "scripts/arch.sh"
 )
@@ -63,6 +63,7 @@ for file in "${files[@]}"; do
   if [ -f "$dest" ]; then
     echo -e "  ${YELLOW}~${NC} $file (already exists, skipping)"
   else
+    mkdir -p "$(dirname "$dest")"
     cp "$ARCH_DIR/$file" "$dest"
     echo -e "  ${GRAY}+${NC} $file"
   fi
@@ -74,11 +75,9 @@ echo -e "  ${GRAY}Creating CLI symlinks...${NC}"
 
 cd "$TARGET"
 
-[ ! -e "AGENTS.md" ] && ln -s docs/AGENTS.md AGENTS.md \
-  && echo -e "  ${GRAY}→${NC} AGENTS.md"
-[ ! -e "CLAUDE.md" ] && ln -s docs/AGENTS.md CLAUDE.md \
+[ ! -e "CLAUDE.md" ] && ln -s AGENTS.md CLAUDE.md \
   && echo -e "  ${GRAY}→${NC} CLAUDE.md"
-[ ! -e "GEMINI.md" ] && ln -s docs/AGENTS.md GEMINI.md \
+[ ! -e "GEMINI.md" ] && ln -s AGENTS.md GEMINI.md \
   && echo -e "  ${GRAY}→${NC} GEMINI.md"
 
 # ── .gitignore ────────────────────────────────────────────────────
@@ -115,9 +114,9 @@ fi
 echo ""
 echo -e "  ${GREEN}Done.${NC} Next steps:"
 echo ""
-echo -e "  ${GRAY}1.${NC} Edit   $TARGET/docs/GUIDELINES.md  — add your stack"
-echo -e "  ${GRAY}2.${NC} Write  $TARGET/docs/REFINEMENT.md  — your first idea"
-echo -e "  ${GRAY}3.${NC} Run    CONDUCTOR to assess system state:"
+echo -e "  ${GRAY}1.${NC} Edit   $TARGET/docs/guidelines/core.md — add your stack"
+echo -e "  ${GRAY}2.${NC} Create $TARGET/docs/tasks/TASK-001.md  — your first task"
+echo -e "  ${GRAY}3.${NC} Run    THINK mode to assess system state:"
 echo ""
-echo -e "       claude-code $TARGET/docs/agents/CONDUCTOR.md"
+echo -e "       ./scripts/arch.sh conduct"
 echo ""
