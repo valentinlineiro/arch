@@ -26,3 +26,9 @@ S — principalmente cambio de protocolo y posible migración de estructura de d
 ## Decision
 <!-- Human writes here after THINK evaluation -->
 <!-- PROMOTE → TASK-XXX | REJECT: reason -->
+
+**Propuesta de THINK:** Modelo híbrido — directorio único `docs/tasks/` con campo `Focus: yes/no` en Meta.
+- `Focus:yes` reemplaza sprint/, `Focus:no` reemplaza backlog/. Un archivo, una ubicación.
+- Velocidad → tareas cerradas por semana via campo `Closed-at:` (TASK-014).
+- Migración: renombrar directorios + añadir Focus: a cada Meta + cambio CLI.
+- Tamaño: M (protocolo + migración + CLI).
