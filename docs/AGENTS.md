@@ -41,3 +41,6 @@
 - Never merge a PR without human approval.
 - One commit per operation.
 - Modular task integrity: One task per file in `docs/tasks/`.
+
+## Bug protocol
+Any ARCH misalignment is a bug. See `docs/guidelines/bugs.md` for the full protocol.
