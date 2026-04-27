@@ -12,6 +12,7 @@ import { ReviewSystem } from './application/use-cases/review-system.js';
 import { ValidateSystem } from './application/use-cases/validate-system.js';
 import { MarkTaskDone } from './application/use-cases/mark-task-done.js';
 import { GenerateInbox } from './application/use-cases/generate-inbox.js';
+import { SelectNextTask } from './application/use-cases/select-next-task.js';
 
 const GREEN = '\x1b[32m';
 const RED = '\x1b[31m';
@@ -108,8 +109,18 @@ async function main() {
       }
       break;
     }
+    case 'next': {
+      const useCase = new SelectNextTask(taskRepository);
+      const nextTask = await useCase.execute();
+      if (nextTask) {
+        console.log(nextTask.id);
+      } else {
+        process.exit(1);
+      }
+      break;
+    }
     default:
-      console.log('Usage: arch [status|validate|review|task|inbox]');
+      console.log('Usage: arch [status|validate|review|task|inbox|next]');
       process.exit(1);
   }
 }

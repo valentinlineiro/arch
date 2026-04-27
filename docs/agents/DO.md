@@ -4,7 +4,10 @@
 
 ## Intent: Execute Task (Exec)
 1. `git fetch` (sync state safely without merging). History-changing operations (`git pull`, `git merge`, `git rebase`) require explicit human approval.
-2. Find highest priority `READY` task in `docs/tasks/` (prefer Focus:yes, then Focus:no by priority+size).
+2. Find highest priority `READY` task in `docs/tasks/`.
+   - **Automated Selection:** Run `arch next` to identify the deterministic candidate.
+   - If `arch next` returns a TASK-ID: select it.
+   - If `arch next` fails (exit 1): no unblocked tasks available — halt and wait for human instruction or THINK replenishment.
 3. Set status to `IN_PROGRESS`, add lock in Meta line, and commit immediately.
 4. Implement against Acceptance Criteria ONLY.
 5. On completion: Status to `REVIEW`, stop.
