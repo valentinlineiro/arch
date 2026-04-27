@@ -1,12 +1,14 @@
 import { TaskRepository } from '../../domain/repositories/task-repository.js';
 import { GitRepository } from '../../domain/repositories/git-repository.js';
 import { Reviewer, ReviewResult } from '../../domain/services/reviewer.js';
+import { DriftChecker, DriftResult } from '../../domain/services/drift-checker.js';
 
 export class ReviewSystem {
   constructor(
     private taskRepository: TaskRepository,
     private gitRepository: GitRepository,
-    private reviewer: Reviewer
+    private reviewer: Reviewer,
+    private driftChecker?: DriftChecker
   ) {}
 
   async execute() {
@@ -36,9 +38,12 @@ export class ReviewSystem {
       violations.push('Warning: Large git diff detected. Ensure commits remain atomic.');
     }
 
+    const drift: DriftResult[] = this.driftChecker ? await this.driftChecker.check() : [];
+
     return {
       success: violations.length === 0,
-      violations
+      violations,
+      drift
     };
   }
 }

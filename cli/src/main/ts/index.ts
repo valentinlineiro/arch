@@ -1,8 +1,11 @@
 #!/usr/bin/env node
+import path from 'node:path';
+import { createRequire } from 'node:module';
 import { NodeFileSystem } from './infrastructure/filesystem/node-file-system.js';
 import { MarkdownTaskRepository } from './infrastructure/filesystem/markdown-task-repository.js';
 import { GitCli } from './infrastructure/cli/git-cli.js';
 import { Reviewer } from './domain/services/reviewer.js';
+import { DriftChecker } from './domain/services/drift-checker.js';
 import { GetSprintStatus } from './application/use-cases/get-sprint-status.js';
 import { MarkTaskInProgress } from './application/use-cases/mark-task-in-progress.js';
 import { ReviewSystem } from './application/use-cases/review-system.js';
@@ -19,6 +22,10 @@ async function main() {
   const taskRepository = new MarkdownTaskRepository(fileSystem);
   const gitRepository = new GitCli();
   const reviewer = new Reviewer();
+  const rootPath = path.resolve('.');
+  const require = createRequire(import.meta.url);
+  const { version: cliVersion } = require('../package.json') as { version: string };
+  const driftChecker = new DriftChecker(fileSystem, rootPath, cliVersion);
   
   const args = process.argv.slice(2);
   const command = args[0];
@@ -46,17 +53,24 @@ async function main() {
       break;
     }
     case 'review': {
-      const useCase = new ReviewSystem(taskRepository, gitRepository, reviewer);
+      const useCase = new ReviewSystem(taskRepository, gitRepository, reviewer, driftChecker);
       const result = await useCase.execute();
       if (result.success) {
-        console.log(`\n  ${GREEN}✔${NC} System Review: OK\n`);
-        process.exit(0);
+        console.log(`\n  ${GREEN}✔${NC} System Review: OK`);
       } else {
         console.log(`\n  ${RED}✖${NC} System Review: FAILED`);
         result.violations.forEach(v => console.log(`    - ${v}`));
-        console.log('');
-        process.exit(1);
       }
+      if (result.drift.length > 0) {
+        console.log(`\n  Drift`);
+        for (const d of result.drift) {
+          const icon = d.status === 'OK' ? `${GREEN}✔${NC}` : `${YELLOW}⚠${NC}`;
+          console.log(`    ${icon} ${d.check}`);
+          d.details.forEach(detail => console.log(`        ${detail}`));
+        }
+      }
+      console.log('');
+      process.exit(result.success ? 0 : 1);
       break;
     }
     case 'task': {
