@@ -16,5 +16,6 @@
 - If a follow-up commit only fixes the previous one and no one else has seen it yet, use `git commit --amend` instead of a new commit
 - No agent merges its own PR
 - Breaking changes (MAJOR) require an ADR before implementation
-- Tasks estimated XL must be decomposed before entering SPRINT.md
+- Tasks estimated XL must be decomposed before entering sprint/
+- **Execution order within the same priority:** smaller size wins (XS → S → M → L)
 - **No change without evidence** — every proposal in REFINEMENT.md must include `Source:` field
