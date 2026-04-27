@@ -1,5 +1,5 @@
 ## TASK-064: Sync TASK-FORMAT.md with Focus-based model
-**Meta:** P1 | M | READY | Focus:no | 6-writing | local | docs/TASK-FORMAT.md, cli/src/, docs/agents/, docs/guidelines/
+**Meta:** P1 | M | IN_PROGRESS | Focus:yes | 6-writing | local | docs/TASK-FORMAT.md, cli/src/, docs/agents/, docs/guidelines/
 
 ### Acceptance Criteria
 - [ ] Rewrite `docs/TASK-FORMAT.md` to define the Focus-based schema (ADR-004) as canonical.
