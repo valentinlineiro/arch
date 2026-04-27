@@ -13,7 +13,7 @@
 ### THINK mode
 **Invoked for:** System check, refinement, planning, and continuous Kaizen.
 **Protocol:** `docs/agents/THINK.md`
-1. Phase 1: Assess sprint health by scanning `docs/tasks/sprint/`.
+1. Phase 1: Assess task health by scanning `docs/tasks/` (Focus:yes = active).
 2. Phase 2: Refine draft IDEAs in `docs/refinement/`.
 3. Phase 3: Propose real-time Kaizen and guideline improvements.
 4. Output: Ephemeral terminal report with Evidence.
@@ -21,7 +21,7 @@
 ### DO mode
 **Invoked for:** Implementation or human-directed state changes.
 **Protocol:** `docs/agents/DO.md`
-1. Intent Exec: Work on a specific task in `docs/tasks/sprint/`.
+1. Intent Exec: Work on a specific task in `docs/tasks/` (Focus:yes).
 2. Intent Human: Map natural language to atomic file operations (moves between directories).
 3. Constraint: Atomic commits following conventional prefixes.
 
