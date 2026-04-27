@@ -14,9 +14,11 @@
 **Invoked for:** System check, refinement, planning, and continuous Kaizen.
 **Protocol:** `docs/agents/THINK.md`
 1. Phase 1: Assess task health by scanning `docs/tasks/` (Focus:yes = active).
-2. Phase 2: Refine draft IDEAs in `docs/refinement/`.
+2. Phase 2: Refine draft IDEAs in `docs/refinement/`. 
+   - *Autonomy (L2):* Agent may autonomously promote IDEAs to TASKS if they are XS and class operations/writing.
 3. Phase 3: Propose real-time Kaizen and guideline improvements.
-4. Output: Ephemeral terminal report with Evidence.
+4. Phase 4: Autonomous Replenishment (if READY tasks < 3).
+5. Output: Ephemeral terminal report with Evidence.
 
 ### DO mode
 **Invoked for:** Implementation or human-directed state changes.
