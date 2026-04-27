@@ -12,7 +12,7 @@ Un bug es **cualquier desajuste detectado en el sistema**, incluyendo:
 ## Flujo de bug
 
 1. **Detección:** `arch review` o THINK mode identifica el desajuste.
-2. **Registro:** El agente crea la tarea de bug directamente en `docs/tasks/sprint/` — no pasa por backlog.
+2. **Registro:** El agente crea la tarea de bug directamente en `docs/tasks/` con `Focus:yes` — no pasa por backlog.
 3. **Priorización:** Los bugs siempre tienen prioridad sobre tareas de desarrollo. Se atienden antes de continuar con features.
 4. **Resolución:** Flujo DO normal — IN_PROGRESS → implementar → DONE → archivar.
 
