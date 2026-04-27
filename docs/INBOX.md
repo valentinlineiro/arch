@@ -5,7 +5,7 @@
 ## Status Summary
 - **Active Tasks:** 0
 - **In Review:** 0
-- **Backlog (Ready):** 4
+- **Backlog (Ready):** 3
 
 ## Urgent / Actions Required
 _No urgent items detected._
@@ -14,4 +14,4 @@ _No urgent items detected._
 - Inbox Agent Technical Design (IDEA-inbox-agent-design.md)
 
 ## Recent Activity
-- **Last Commit:** docs: archive TASK-070 with auto-commit fix
+- **Last Commit:** docs: archive TASK-069
