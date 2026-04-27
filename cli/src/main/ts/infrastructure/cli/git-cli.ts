@@ -6,8 +6,12 @@ const execAsync = promisify(exec);
 
 export class GitCli implements GitRepository {
   async getDiff(): Promise<string> {
-    const { stdout } = await execAsync('git diff HEAD');
-    return stdout;
+    try {
+      const { stdout } = await execAsync('git diff HEAD');
+      return stdout;
+    } catch {
+      return '';
+    }
   }
 
   async getLastCommitMessage(): Promise<string | null> {

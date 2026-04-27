@@ -35,6 +35,7 @@ fi
 
 # ── Copy core files ───────────────────────────────────────────────
 mkdir -p \
+  "$TARGET/cli/dist" \
   "$TARGET/docs/agents" \
   "$TARGET/docs/adr" \
   "$TARGET/docs/archive" \
@@ -46,6 +47,8 @@ mkdir -p \
 files=(
   "AGENTS.md"
   "arch.config.json"
+  "cli/package.json"
+  "cli/dist/index.js"
   "docs/DONE.md"
   "docs/KAIZEN-LOG.md"
   "docs/METRICS.md"

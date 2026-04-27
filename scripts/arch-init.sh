@@ -34,6 +34,7 @@ fi
 
 # ── Create structure ──────────────────────────────────────────────
 mkdir -p \
+  "cli/dist" \
   "$DOCS_DIR/agents" \
   "$DOCS_DIR/adr" \
   "$DOCS_DIR/archive" \
@@ -48,6 +49,8 @@ BASE_URL="https://raw.githubusercontent.com/valentinlineiro/arch/main"
 files=(
   "AGENTS.md"
   "arch.config.json"
+  "cli/package.json"
+  "cli/dist/index.js"
   "docs/DONE.md"
   "docs/KAIZEN-LOG.md"
   "docs/METRICS.md"

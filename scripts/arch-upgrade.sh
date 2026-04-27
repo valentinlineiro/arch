@@ -55,6 +55,8 @@ migrate_file "docs/agents/EXEC.md" "docs/agents/DO.md"
 
 # ── Files that are SAFE to upgrade (framework) ──────────────────
 UPGRADEABLE=(
+  "cli/dist/index.js"
+  "cli/package.json"
   "docs/agents/THINK.md"
   "docs/agents/DO.md"
   "docs/adr/ADR-000-template.md"
@@ -78,7 +80,7 @@ echo ""
 UPDATED=0
 
 # Ensure directories exist
-mkdir -p "$TARGET/docs/tasks" "$TARGET/docs/archive" "$TARGET/docs/guidelines" "$TARGET/docs/refinement"
+mkdir -p "$TARGET/cli/dist" "$TARGET/docs/tasks" "$TARGET/docs/archive" "$TARGET/docs/guidelines" "$TARGET/docs/refinement"
 
 for file in "${UPGRADEABLE[@]}" "${NEW_FILES[@]}"; do
   src="$ARCH_DIR/$file"
@@ -113,9 +115,22 @@ ln -s AGENTS.md GEMINI.md && echo -e "  ${GRAY}→${NC} GEMINI.md"
 
 # ── Final check ──────────────────────────────────────────────────
 echo ""
-if [ -f "docs/SPRINT.md" ] || [ -f "docs/BACKLOG.md" ]; then
-  echo -e "${YELLOW}Warning:${NC} Legacy SPRINT.md or BACKLOG.md found."
-  echo -e "         Please migrate your tasks to docs/tasks/TASK-XXX.md"
+legacy_root_docs=()
+for file in docs/*.md; do
+  [ -e "$file" ] || continue
+  base="$(basename "$file")"
+  case "$base" in
+    DONE.md|KAIZEN-LOG.md|METRICS.md|TASK-FORMAT.md)
+      ;;
+    *)
+      legacy_root_docs+=("$base")
+      ;;
+  esac
+done
+
+if [ ${#legacy_root_docs[@]} -gt 0 ]; then
+  echo -e "${YELLOW}Warning:${NC} Legacy root-level docs found: ${legacy_root_docs[*]}"
+  echo -e "         Please migrate task content to docs/tasks/TASK-XXX.md"
   echo -e "         following the v0.4 Focus-based model."
 fi
 
