@@ -1,5 +1,5 @@
 ## TASK-034: Estandarización de metadatos en TEMPLATE.md para ideas
-**Meta:** P2 | XS | READY | Backlog | 6-writing | claude | docs/refinement/TEMPLATE.md
+**Meta:** P2 | XS | IN_PROGRESS | Backlog | 6-writing | claude | docs/refinement/TEMPLATE.md
 **Depends:** none
 
 ### Acceptance Criteria

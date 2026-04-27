@@ -1,5 +1,5 @@
 ## TASK-019: Complete commit type table in GUIDELINES.md
-**Meta:** P2 | XS | READY | Backlog | 6-writing | claude | docs/GUIDELINES.md
+**Meta:** P2 | XS | IN_PROGRESS | Backlog | 6-writing | claude | docs/GUIDELINES.md
 **Depends:** none
 
 ### Acceptance Criteria

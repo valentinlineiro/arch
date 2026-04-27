@@ -1,5 +1,5 @@
 ## TASK-035: Cheat sheet de GitHub CLI en docs/guidelines/resources.md
-**Meta:** P2 | XS | READY | Backlog | 6-writing | claude | docs/guidelines/
+**Meta:** P2 | XS | IN_PROGRESS | Backlog | 6-writing | claude | docs/guidelines/
 **Depends:** none
 
 ### Acceptance Criteria
