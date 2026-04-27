@@ -41,6 +41,7 @@
 | TASK-061 | Remove unsafe pull and merge behavior from protocol | S→S | local | Focus:yes | 2026-04-27 | - | Archived |
 | TASK-062 | Avoid arch command collision by standardizing on ./scripts/arch.sh | S→S | local | Focus:yes | 2026-04-27 | - | Archived |
 | TASK-063 | Fix scaffold script drift to align with v0.4 modular layout | M→M | local | Focus:yes | 2026-04-27 | - | Archived |
+| TASK-064 | Sync TASK-FORMAT.md with Focus-based model | M→M | local | Focus:yes | 2026-04-27 | - | Archived |
 
 ---
 
