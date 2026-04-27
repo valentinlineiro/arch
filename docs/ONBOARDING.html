@@ -208,7 +208,7 @@
       <div class="summary-card" id="protocol-output"></div>
 
       <div class="protocol-box">
-        <span class="protocol-title">v0.4.0 Core Workflow</span>
+        <span class="protocol-title"><span class="arch-version">v0.4.0</span> Core Workflow</span>
         
         <div class="protocol-step">
           <span class="step-num">01</span>
@@ -241,12 +241,24 @@
   </footer>
 
   <script>
+    // Sync version from arch.config.json
+    fetch('../arch.config.json')
+      .then(r => r.json())
+      .then(config => {
+        if (config.version) {
+          document.querySelectorAll('.arch-version').forEach(el => {
+            el.textContent = 'v' + config.version;
+          });
+        }
+      }).catch(() => {});
+
     document.getElementById('wizard-form').addEventListener('submit', function(e) {
       e.preventDefault();
       
       const name = document.getElementById('project-name').value;
       const stack = document.getElementById('project-stack').value;
       const agent = document.getElementById('primary-agent').value;
+      const version = document.querySelector('.arch-version').textContent;
 
       document.getElementById('display-name').textContent = name;
       
@@ -254,7 +266,7 @@
 # ARCH Protocol for ${name}
 **Stack:** ${stack}
 **Agent:** ${agent}
-**Version:** v0.4.0
+**Version:** ${version}
 
 ## Quick Commands
 - \`./scripts/arch.sh conduct\`  -> Run THINK mode (Phases 1-4)

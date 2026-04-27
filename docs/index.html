@@ -249,7 +249,7 @@
 
 <main>
   <section class="hero">
-    <div class="hero-badge">v0.4.0 — Open Framework</div>
+    <div class="hero-badge"><span class="arch-version">v0.4.0</span> — Open Framework</div>
     <h1>Run work with AI.<br><span>Without losing control.</span></h1>
     <p>ARCH is a methodology for operating tasks, teams, and decisions with AI agents — across any CLI, any provider, any project.</p>
 
@@ -341,6 +341,19 @@
 <footer>
   <p>ARCH is open source — <a href="https://github.com/valentinlineiro/arch">MIT License</a> · Built by Valentín Liñeiro</p>
 </footer>
+
+<script>
+  // Sync version from arch.config.json
+  fetch('arch.config.json')
+    .then(r => r.json())
+    .then(config => {
+      if (config.version) {
+        document.querySelectorAll('.arch-version').forEach(el => {
+          el.textContent = 'v' + config.version;
+        });
+      }
+    }).catch(() => {});
+</script>
 
 </body>
 </html>

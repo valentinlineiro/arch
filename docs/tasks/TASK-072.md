@@ -1,4 +1,4 @@
-## TASK-066: Refactor CLI Entrypoint using Clean Architecture
+## TASK-072: Refactor CLI Entrypoint using Clean Architecture
 **Meta:** P2 | S | READY | Focus:no | 1-implementation | cli | src/main/ts/index.ts
 **Depends:** none
 

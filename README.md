@@ -133,6 +133,8 @@ cd my-project
 
 # 1. Check sprint status
 ./scripts/arch.sh status    # Shows READY / IN_PROGRESS / DONE counts
+./scripts/arch.sh inbox     # Show weekly dashboard and pending refinement
+./scripts/arch.sh next      # Suggests the next most relevant task
 
 # 2. Manage tasks
 ./scripts/arch.sh task start TASK-001   # Mark a task as IN_PROGRESS

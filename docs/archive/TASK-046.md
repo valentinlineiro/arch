@@ -1,4 +1,4 @@
-## TASK-046: arch-viewer.html — task state editing with GitHub OAuth
+## TASK-046: arch-viewer.html - task state editing with GitHub OAuth
 **Meta:** P2 | M | DONE | Focus:yes | 2-code-generation | claude-code | docs/
 **Depends:** TASK-045
 

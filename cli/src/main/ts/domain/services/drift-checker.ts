@@ -60,6 +60,7 @@ export class DriftChecker {
 
     const filesToCheck = [
       'AGENTS.md',
+      'GEMINI.md',
       'docs/AGENTS.md',
       'docs/ONBOARDING.html',
       'docs/index.html',

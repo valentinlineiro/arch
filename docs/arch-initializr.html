@@ -229,7 +229,7 @@
 <main>
   <div class="page-label">// ARCH INITIALIZR</div>
   <h1>Scaffold your ARCH project</h1>
-  <p class="subtitle">Configure and download the full ARCH v0.4.0 directory structure as a ZIP — ready to drop into any repository.</p>
+  <p class="subtitle">Configure and download the full ARCH <span class="arch-version">v0.4.0</span> directory structure as a ZIP — ready to drop into any repository.</p>
 
   <div class="form-section">
     <div class="form-title">Project</div>
@@ -241,7 +241,7 @@
     <div class="field">
       <label>ARCH VERSION</label>
       <select id="archVersion">
-        <option value="0.3">v0.4.0 — Modular Agents & Task Tracking (latest)</option>
+        <option value="latest"><span class="arch-version">v0.4.0</span> — Modular Agents & Task Tracking (latest)</option>
       </select>
     </div>
   </div>
@@ -309,6 +309,8 @@
 <script>
 // ─── File definitions ────────────────────────────────────────────────────────
 
+let ARCH_VERSION = '0.4.0';
+
 function getFiles(cfg) {
   const files = {};
   const project = cfg.projectName || 'my-project';
@@ -356,7 +358,7 @@ function getFiles(cfg) {
 
 function agentsMd() {
   return `# AGENTS.md
-<!-- ARCH Framework v0.4.0 | Universal Entry Point -->
+<!-- ARCH Framework v${ARCH_VERSION} | Universal Entry Point -->
 
 ## Onboarding
 1. Read this file.
@@ -406,7 +408,7 @@ Any ARCH misalignment is a bug. See \`docs/guidelines/bugs.md\` for the full pro
 
 function archConfig() {
   return JSON.stringify({
-    version: '0.3.0',
+    version: ARCH_VERSION,
     routing: {
       '1-code-reasoning': 'claude-code',
       '2-code-generation': 'claude-code',
@@ -430,7 +432,7 @@ function archConfig() {
 
 function thinkMd() {
   return `# THINK.md
-<!-- ARCH v0.4.0 — Modular Thinking & Continuous Kaizen -->
+<!-- ARCH v${ARCH_VERSION} — Modular Thinking & Continuous Kaizen -->
 
 ## Phase 1: System Check
 1. Scan \`docs/tasks/\` for all active tasks (Focus:yes = active, Focus:no = queued).
@@ -461,7 +463,7 @@ function thinkMd() {
 
 function doMd() {
   return `# DO.md
-<!-- ARCH v0.4.0 — Execution & Human Intent Protocol -->
+<!-- ARCH v${ARCH_VERSION} — Execution & Human Intent Protocol -->
 
 ## Intent: Exec
 Execute a specific task from \`docs/tasks/\`.
@@ -869,6 +871,18 @@ document.getElementById('downloadBtn').addEventListener('click', () => {
 });
 
 // Init
+fetch('arch.config.json')
+  .then(r => r.json())
+  .then(config => {
+    if (config.version) {
+      ARCH_VERSION = config.version;
+      document.querySelectorAll('.arch-version').forEach(el => {
+        el.textContent = 'v' + ARCH_VERSION;
+      });
+      updatePreview();
+    }
+  }).catch(() => {});
+
 updatePreview();
 </script>
 

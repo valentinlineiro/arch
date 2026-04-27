@@ -1,4 +1,4 @@
-## TASK-021: Remove `Committed:` field — replace with git-derived commit count
+## TASK-021: Remove `Committed:` field - replace with git-derived commit count
 **Meta:** P2 | XS | REJECTED | Backlog | 6-writing | claude | docs/SPRINT.md, docs/agents/RETRO.md
 **Depends:** none
 
