@@ -31,6 +31,7 @@
 | TASK-048 | Detectar worktree sucio y drift task/archive en arch review | S→S | claude-code | Focus:yes | 2026-04-27 | - | Archived |
 | TASK-049 | Ignorar artefactos runtime locales como .codex | XS→XS | human | Focus:no | 2026-04-27 | - | Archived |
 | TASK-052 | Corregir inconsistencias de estado en tareas archivadas (TASK-030) | XS→XS | local | Focus:yes | 2026-04-27 | - | Archived |
+| TASK-053 | Limpieza de docs/refinement/ (IDEAs ya promovidas) | XS→XS | local | Focus:yes | 2026-04-27 | - | Archived |
 
 ---
 
