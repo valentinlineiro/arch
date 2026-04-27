@@ -1,9 +1,10 @@
-# TASK-FORMAT v0.2
+# TASK-FORMAT v0.4
 <!-- Canonical specification for ARCH tasks -->
-<!-- Compatible with ARCH v0.2 and later -->
+<!-- Compatible with ARCH v0.4 and later — supersedes v0.2 -->
+<!-- Decision basis: ADR-004 (flat docs/tasks/ + Focus field) -->
 
 ## Overview
-ARCH v0.2 simplifies the task structure from 8+ header fields to a compressed 3-line format. This reduces token usage and improves parsing consistency across different AI agents.
+ARCH v0.4 removes the sprint/backlog directory split. All tasks live in `docs/tasks/`. The `Focus` field in the Meta line distinguishes the active queue (`Focus:yes`) from queued work (`Focus:no`). Completed tasks move to `docs/archive/`.
 
 ---
 
@@ -11,7 +12,7 @@ ARCH v0.2 simplifies the task structure from 8+ header fields to a compressed 3-
 
 ```markdown
 ## TASK-ID: Title
-**Meta:** P[0-3] | [Size] | [STATUS] | [Sprint N] | [Class] | [CLI] | [Context]
+**Meta:** P[0-3] | [Size] | [STATUS] | Focus:yes/no | [Class] | [CLI] | [Context]
 **Depends:** TASK-ID, TASK-ID... (optional)
 
 ### Acceptance Criteria
@@ -27,33 +28,34 @@ ARCH v0.2 simplifies the task structure from 8+ header fields to a compressed 3-
 ## Fields
 
 ### 1. TASK-ID
-- Format: `TASK-XXX` (e.g., `TASK-024`)
-- Unique identifier within the project history.
+- Format: `TASK-XXX` (e.g., `TASK-064`)
+- Unique across the full project history (tasks + archive).
 
 ### 2. Title
-- Clear, descriptive name of the goal.
+- Clear, descriptive name of the goal. English only.
 
 ### 3. Meta Line (Compressed)
 The meta line is the source of truth for task state and routing. It MUST be a single line.
 
 - **Priority:** `P0` (Critical/Blocker) to `P3` (Nice to have).
-- **Size:** `XS`, `S`, `M`, `L`, `XL` (XL must be decomposed).
+- **Size:** `XS`, `S`, `M`, `L`, `XL` (XL must be decomposed before execution).
 - **Status:** See [Status Vocabulary](#status-vocabulary).
-- **Sprint:** `Sprint N` or `Backlog`.
-- **Class:** ID-slug (e.g., `2-code-generation`, `6-writing`).
-- **CLI:** Target agent mode (e.g., `claude`, `human`, `claude-code`).
-- **Context:** Comma-separated list of files or globs required for the task.
+- **Focus:** `Focus:yes` (active queue — agent picks this session) or `Focus:no` (queued — visible for planning).
+- **Class:** ID-slug (e.g., `2-code-generation`, `6-writing`, `7-operations`).
+- **CLI:** Target agent mode (e.g., `local`, `claude`, `human`).
+- **Context:** Comma-separated list of files or globs relevant to the task.
 
 ### 4. Depends
 - Optional line listing blocking TASK-IDs.
+- Format: `**Depends:** TASK-XYZ, TASK-ABC`
 
 ### 5. Acceptance Criteria (AC)
 - Atomic, verifiable checkboxes.
-- Must be all checked before marking as `REVIEW` or `DONE`.
+- All must be checked before marking the task `REVIEW` or `DONE`.
 
 ### 6. Definition of Done (DoD)
-- Project-level quality standards (e.g., "PR approved", "CI green").
-- Optional for `XS` and `S` tasks if they follow global guidelines.
+- Project-level quality standards (e.g., "PR approved", "`arch review` passes").
+- Optional for `XS` tasks if global guidelines cover them.
 
 ---
 
@@ -61,57 +63,75 @@ The meta line is the source of truth for task state and routing. It MUST be a si
 
 | Status | Location | Meaning |
 |--------|----------|---------|
-| `IDEA` | `BACKLOG.md` only | Draft proposal, not yet ready for selection. |
-| `READY` | `SPRINT.md` / `BACKLOG.md` | Defined and estimated, waiting for execution. |
-| `IN_PROGRESS` | `SPRINT.md` | Currently locked by an agent or human. |
-| `REVIEW` | `SPRINT.md` | Implementation finished, pending human/PR review. |
-| `DONE` | `SPRINT.md` / `DONE.md` | Completed and verified. |
-| `BLOCKED` | Any | Stopped due to ambiguity or missing dependency. |
-| `REJECTED` | Any | Cancelled or superseded. |
+| `READY` | `docs/tasks/` | Defined and estimated, waiting for execution. |
+| `IN_PROGRESS` | `docs/tasks/` | Currently locked by an agent or human. |
+| `REVIEW` | `docs/tasks/` | Implementation finished, pending human/PR review. |
+| `DONE` | `docs/archive/` | Completed and verified. |
+| `BLOCKED` | `docs/tasks/` | Stopped due to ambiguity or missing dependency. |
+| `REJECTED` | `docs/archive/` | Cancelled or superseded. |
+
+> **Note:** `IDEA` is not a task status — ideas live as draft files in `docs/refinement/` and are promoted to tasks via explicit human instruction.
 
 ---
 
 ## Canonical Regex (PCRE)
 
 ### Header & Title
-`^## TASK-(?<id>\d{3}): (?<title>.+)$`
+```
+^## TASK-(?<id>\d{3}): (?<title>.+)$
+```
 
 ### Meta Line
-`^\*\*Meta:\*\* P(?<priority>[0-3]) \| (?<size>XS|S|M|L|XL) \| (?<status>IDEA|READY|IN_PROGRESS|REVIEW|DONE|BLOCKED|REJECTED) \| (?<sprint>Sprint \d+|Backlog) \| (?<class>\d-[a-z-]+) \| (?<cli>[a-z-]+) \| (?<context>.+)$`
+```
+^\*\*Meta:\*\* P(?<priority>[0-3]) \| (?<size>XS|S|M|L|XL) \| (?<status>IDEA|READY|IN_PROGRESS|REVIEW|DONE|BLOCKED|REJECTED) \| (?<focus>Focus:yes|Focus:no) \| (?<class>\d-[a-z-]+) \| (?<cli>[a-z-]+) \| (?<context>.+)$
+```
+
+This regex is authoritative. The CLI validator (`cli/src/main/ts/domain/services/task-validator.ts`) implements this pattern.
 
 ---
 
 ## Rules of Engagement
 
-1. **IDEA Promotion:** An `IDEA` remains in `BACKLOG.md`. It can only be promoted to `READY` after a `THINK` session or explicit human instruction.
-2. **Atomic Status:** A task exists in ONLY ONE state. When moving from `BACKLOG.md` to `SPRINT.md`, the entry in `BACKLOG.md` must be removed or marked as moved.
-3. **No Drift:** Changes to task structure (AC/DoD) during `IN_PROGRESS` are allowed but must be committed immediately.
+1. **One task, one file:** each task is its own file in `docs/tasks/`. No inline lists, no monolithic files.
+2. **Atomic status:** a task exists in exactly one location. Active tasks → `docs/tasks/`. Archived tasks → `docs/archive/`. No duplicates.
+3. **Focus as intent:** the agent reads `Focus:yes` tasks as the active queue per session. Switching focus is a one-field edit — not a file move.
+4. **No drift:** changes to AC/DoD during `IN_PROGRESS` are allowed but must be committed immediately.
+5. **Lock on start:** when picking up a task, set status to `IN_PROGRESS` and `Focus:yes`, commit before implementation begins.
 
 ---
 
-## Migration Example
+## Example
 
-### v0.1 (Legacy)
+### v0.4 (Canonical)
 ```markdown
-## TASK-024: Spec formato canónico de tarea v0.2 + regex
-**Meta:** P0 | S | READY | Sprint 1
-**Class:** 6-writing
-**CLI:** claude
-**CLI-reason:** spec formal...
-**Context-budget:** agents/EXEC.md + this task + docs/GUIDELINES.md
-**Depends:** TASK-023
+## TASK-064: Sync TASK-FORMAT.md with Focus-based model
+**Meta:** P1 | M | IN_PROGRESS | Focus:yes | 6-writing | local | docs/TASK-FORMAT.md, cli/src/, docs/agents/, docs/guidelines/
+
+### Acceptance Criteria
+- [ ] Rewrite `docs/TASK-FORMAT.md` to define the Focus-based schema (ADR-004) as canonical.
+- [ ] Update the meta line regex to include `Focus:yes/no`.
+- [ ] Deprecate/Remove Sprint/Backlog terminology from the specification.
+- [ ] Ensure all examples use the current v0.4 format.
+
+### Definition of Done
+- [ ] `docs/TASK-FORMAT.md` matches the implementation in the CLI validator.
+- [ ] Documentation is consistent with ADR-004.
 ```
 
-### v0.2 (Canonical)
+---
+
+## Migration Guide (v0.2 → v0.4)
+
+Replace the `Sprint N | Backlog` field with `Focus:yes` (if active) or `Focus:no` (if queued):
+
+### v0.2 (Legacy)
 ```markdown
-## TASK-024: Spec formato canónico de tarea v0.2 + regex
 **Meta:** P0 | S | READY | Sprint 1 | 6-writing | claude | agents/EXEC.md, docs/GUIDELINES.md
-**Depends:** TASK-023
 ```
 
----
+### v0.4 (Canonical)
+```markdown
+**Meta:** P0 | S | READY | Focus:no | 6-writing | local | agents/EXEC.md, docs/GUIDELINES.md
+```
 
-## Semver Impact
-- **Impact:** MAJOR
-- **Rationale:** Breaks existing parsers in `arch-init` and agent protocols.
-- **Migration:** All active tasks must be converted to the new format before upgrading to ARCH v0.2.
+**Semver impact:** MAJOR. The `Sprint N | Backlog` field is replaced by `Focus:yes | Focus:no`. All task files must be updated before using a v0.4-aware validator.
