@@ -4,7 +4,7 @@
 
 ### Acceptance Criteria
 - [ ] Crear `docs/arch-viewer.html` — single HTML file, sin framework
-- [ ] Lectura de tareas desde `docs/tasks/sprint/` y `docs/tasks/backlog/` vía GitHub API anónima
+- [ ] Lectura de tareas desde `docs/tasks/` vía GitHub API anónima, interpretando `Focus: yes/no`
 - [ ] Muestra estado, prioridad, tamaño y título de cada tarea
 - [ ] Sección Drift: muestra el output de `arch review` (Commands / Version / Paths)
 - [ ] Maneja rate-limit anónimo con mensaje claro al usuario
