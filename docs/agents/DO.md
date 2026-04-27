@@ -19,7 +19,7 @@
    - Stop — do not add to backlog, do not set status to READY.
    - Report: `"Draft created at docs/refinement/IDEA-[slug].md. Run arch think to evaluate."`
    - **Promoting a draft requires explicit human instruction:** `arch do "promover IDEA-[slug]"`.
-4. When marking DONE: if the task required more than one implementation cycle, add `Iterations: N` to the task file before archiving.
+4. When marking DONE: add `Closed-at: <ISO 8601 timestamp>` to the task file. If the task required more than one implementation cycle, also add `Iterations: N`.
 5. Execute file operation:
    - Move tasks between `docs/tasks/backlog/`, `docs/tasks/sprint/`, and `docs/archive/`.
    - Update Meta lines in individual task files.

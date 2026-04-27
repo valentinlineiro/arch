@@ -21,6 +21,7 @@
 2. **Real-time Guideline Proposal:** Detect patterns in `docs/archive/` or git history. If a pattern suggests a systematic improvement, propose a guideline change in `docs/guidelines/` immediately.
 3. **Integration with 'arch review':** Provide qualitative context to deterministic failures reported by the CLI.
 4. **Logic Absorption:** This phase replaces the former `RETRO.md` protocol, making sprint retrospectives a continuous activity rather than a batch process.
+5. **Sprint metrics (on sprint close):** Generate `docs/METRICS.md` covering: tasks closed, avg cycle time (git log date → `Closed-at`), size accuracy, AI/human ratio, regressions detected, framework improvements applied.
 
 ## Output
 - Ephemeral output to terminal.

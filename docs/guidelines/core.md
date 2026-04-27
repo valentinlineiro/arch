@@ -17,5 +17,6 @@
 - No agent merges its own PR
 - Breaking changes (MAJOR) require an ADR before implementation
 - Tasks estimated XL must be decomposed before entering sprint/
+- `Closed-at: YYYY-MM-DDTHH:MM:SSZ` — optional field written to task file when archiving as DONE. Used for cycle time and velocity metrics.
 - **Execution order within the same priority:** smaller size wins (XS → S → M → L)
 - **No change without evidence** — every proposal in REFINEMENT.md must include `Source:` field
