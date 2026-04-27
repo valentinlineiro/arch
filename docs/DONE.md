@@ -45,6 +45,7 @@
 | TASK-060 | Implement English-first language policy for documentation | XS→XS | local | Focus:yes | 2026-04-27 | - | Archived |
 | TASK-066 | bug: THINK Phase 2 missing lifecycle rules for DECIDED IDEAs | XS→XS | local | Focus:yes | 2026-04-27 | - | Archived |
 | TASK-058 | System Hardening - Anti-drift and strict criteria | S→S | gemini | Focus:yes | 2026-04-27 | - | Archived |
+| TASK-059 | Create arch-upgrade.html for version migration | S→S | local | Focus:yes | 2026-04-27 | - | Archived |
 
 ---
 
