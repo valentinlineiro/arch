@@ -24,6 +24,7 @@
 | TASK-009 | Add HUMAN agent to ARCH framework | S→S | claude | Sprint 1 | 2026-04-23 | - | PR approved by human |
 | TASK-001 | Publish repo to GitHub as public OSS | S→S | human | Sprint 1 | 2026-04-23 | - | github.com/valentinlineiro/arch |
 | TASK-031 | CLI Completion — Port `done` command and Archive logic | M→M | claude-code | Sprint 3 | 2026-04-24 | - | Archived |
+| TASK-050 | Corregir TASK-038 activo inválido y TASK-045 desactualizado | XS→XS | claude | Focus:yes | 2026-04-27 | - | Archived |
 
 ---
 
