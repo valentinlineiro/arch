@@ -25,6 +25,7 @@
 | TASK-001 | Publish repo to GitHub as public OSS | S→S | human | Sprint 1 | 2026-04-23 | - | github.com/valentinlineiro/arch |
 | TASK-031 | CLI Completion — Port `done` command and Archive logic | M→M | claude-code | Sprint 3 | 2026-04-24 | - | Archived |
 | TASK-050 | Corregir TASK-038 activo inválido y TASK-045 desactualizado | XS→XS | claude | Focus:yes | 2026-04-27 | - | Archived |
+| TASK-051 | Sincronizar versión de CLI con protocolo ARCH v0.4 | XS→XS | local | Focus:yes | 2026-04-27 | - | Archived |
 
 ---
 
