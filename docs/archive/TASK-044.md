@@ -6,10 +6,10 @@
 - [x] Crear `docs/ONBOARDING.html` — single HTML file, sin framework
 - [x] Flujo interactivo: el HTML pregunta al usuario sus requisitos funcionales del proyecto (nombre, tipo, stack, agentes a usar) y genera un resumen de onboarding personalizado
 - [x] Contenido base sincronizado con `docs/AGENTS.md` (modos THINK/DO, protocolo de tareas, comandos CLI)
-- [ ] GitHub Actions configurado para publicar `docs/` en GitHub Pages automáticamente en cada push a main
-- [ ] Accesible en `https://valentinlineiro.github.io/arch/ONBOARDING.html`
+- [x] GitHub Actions configurado para publicar `docs/` en GitHub Pages automáticamente en cada push a main
+- [x] Accesible en `https://valentinlineiro.github.io/arch/ONBOARDING.html`
 
 ### Definition of Done
-- [ ] HTML funcional en GitHub Pages
-- [ ] GitHub Action corriendo en el repo
+- [x] HTML funcional en GitHub Pages
+- [x] GitHub Action corriendo en el repo
 - [ ] PR aprobado
