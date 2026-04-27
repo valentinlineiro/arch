@@ -12,9 +12,13 @@
 4. **Evidence Required:** Every recommendation must cite a concrete signal (e.g., 'TASK-003 in sprint/ has stale lock').
 
 ## Phase 2: Idea Refinement (Refine)
-1. Scan `docs/refinement/` for draft files (`IDEA-*.md`).
-2. If drafts exist: for each draft, identify gaps, missing dependencies, and sizing estimate. Output to terminal only — do not modify the draft file.
-3. If no drafts exist: Skip this phase.
+1. Scan `docs/refinement/` for all `IDEA-*.md` files.
+2. If no files exist: Skip this phase.
+3. For each IDEA, apply lifecycle rules based on status:
+   - **DRAFT:** Identify gaps, missing dependencies, and sizing estimate. Output to terminal only — do not modify the draft file.
+   - **DECIDED + no task exists yet:** If gaps are filled, promote to a new task in `docs/tasks/`. If gaps remain, report them.
+   - **DECIDED + task already exists:** Leave the IDEA file untouched — it is a permanent historical record.
+4. **Never delete IDEA files.** DECIDED IDEAs remain in `docs/refinement/` as an audit trail of how decisions were reached.
 
 ## Phase 3: Continuous Kaizen (Real-time Reviewer)
 1. **Immediate Gap Closing:** During system check, identify missing context or logic gaps in the current task or sprint.
