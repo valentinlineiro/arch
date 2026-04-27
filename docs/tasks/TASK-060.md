@@ -1,5 +1,5 @@
 ## TASK-060: Implementar política de English-first en documentación
-**Meta:** P2 | XS | READY | Focus:no | 6-writing | local | docs/guidelines/core.md, cli/
+**Meta:** P2 | XS | IN_PROGRESS | Focus:yes | 6-writing | local | docs/guidelines/core.md, cli/
 
 ### Acceptance Criteria
 - [ ] Documentar en `docs/guidelines/core.md` la obligatoriedad del inglés para nuevos docs y títulos de tareas
