@@ -1,5 +1,5 @@
 ## TASK-069: Implement deterministic auto-selection of the next task
-**Meta:** P2 | S | READY | Focus:no | 1-implementation | local | docs/agents/DO.md, cli/
+**Meta:** P2 | S | IN_PROGRESS | Focus:yes | 1-implementation | gemini | docs/agents/DO.md, cli/
 **Depends:** none
 
 ### Acceptance Criteria
