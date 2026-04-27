@@ -12,9 +12,14 @@ export class Reviewer {
   public reviewTask(task: Task, rawMetaLine?: string): ReviewResult {
     const violations: string[] = [];
 
-    // Rule: Canonical format (regex v0.2)
+    // Rule: Canonical format (regex v0.4)
     if (rawMetaLine && !TaskValidator.isValidMeta(rawMetaLine)) {
-      violations.push(`Task ${task.id} does not follow canonical v0.2 format in Meta line.`);
+      violations.push(`Task ${task.id} does not follow canonical v0.4 format in Meta line.`);
+    }
+
+    // Rule: English-first — task titles must be ASCII only (core.md language policy)
+    if (/[^\x00-\x7F]/.test(task.title)) {
+      violations.push(`WARN Task ${task.id} title contains non-ASCII characters — translate to English per language policy.`);
     }
 
     // Rule: AC completion before DONE

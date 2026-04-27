@@ -1,31 +1,31 @@
 # Bug & Hotfix Protocol
 
-## Definición de bug en ARCH
+## What counts as a bug in ARCH
 
-Un bug es **cualquier desajuste detectado en el sistema**, incluyendo:
+A bug is **any detected misalignment in the system**, including:
 
-- WARNs reportados por `arch review` (drift de comandos, versión, paths)
-- Inconsistencias entre documentación y comportamiento real del CLI
-- Referencias rotas en `AGENTS.md` u otros protocolos
-- Tareas archivadas con ACs sin completar
+- WARNs reported by `arch review` (command drift, version drift, path drift)
+- Inconsistencies between documentation and actual CLI behavior
+- Broken references in `AGENTS.md` or other protocol files
+- Tasks archived as DONE with unchecked ACs
 
-## Flujo de bug
+## Bug flow
 
-1. **Detección:** `arch review` o THINK mode identifica el desajuste.
-2. **Registro:** El agente crea la tarea de bug directamente en `docs/tasks/` con `Focus:yes` — no pasa por backlog.
-3. **Priorización:** Los bugs siempre tienen prioridad sobre tareas de desarrollo. Se atienden antes de continuar con features.
-4. **Resolución:** Flujo DO normal — IN_PROGRESS → implementar → DONE → archivar.
+1. **Detection:** `arch review` or THINK mode identifies the misalignment.
+2. **Registration:** The agent creates a bug task directly in `docs/tasks/` with `Focus:yes` — it bypasses the refinement queue.
+3. **Priority:** Bugs always take precedence over feature tasks. Address before continuing development.
+4. **Resolution:** Standard DO flow — IN_PROGRESS → implement → DONE → archive.
 
-## Clasificación de severidad
+## Severity classification
 
-| Nivel | Criterio | Ejemplo |
+| Level | Criteria | Example |
 |-------|----------|---------|
-| P0 | Bloqueante para el agente — impide operar correctamente | Path roto en AGENTS.md, arch review devuelve exit 1 |
-| P1 | Degradado funcional — el sistema opera pero con fricción | Comando documentado en README sin implementar |
-| P2 | Cosmético / warn — no afecta operación | Inconsistencia menor de formato |
+| P0 | Blocking — prevents the agent from operating correctly | Broken path in AGENTS.md, `arch review` returns exit 1 |
+| P1 | Functional degradation — system operates but with friction | Command documented in README but not implemented |
+| P2 | Cosmetic / warn — does not affect operation | Minor format inconsistency |
 
-## Relación con `arch review`
+## Relationship with `arch review`
 
-Cada WARN de `arch review` es un bug. Al detectarlos durante THINK o DO, el agente crea la tarea correspondiente en sprint con la severidad apropiada.
+Every WARN from `arch review` is a bug. When detected during THINK or DO, the agent creates the corresponding task in `docs/tasks/` with the appropriate severity.
 
-Los bugs P0 se marcan IN_PROGRESS en el mismo commit en que se crean.
+P0 bugs are set to IN_PROGRESS in the same commit they are created.
