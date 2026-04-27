@@ -1,5 +1,5 @@
 ## IDEA-arch-upgrade-diff-tool
-**Type:** feature | **Source:** Kaizen 2026-04-27 | **Priority:** P2
+**Type:** feature | **Source:** Kaizen 2026-04-27 | **Priority:** P2 | **Status:** DECIDED
 
 ### Observation
 Scaffolded projects have no way to consume ARCH framework updates. When `arch.config.json` schema changes (e.g., v0.3 → v0.4), users must manually diff and migrate.
@@ -11,12 +11,6 @@ Create `arch-upgrade.html` — browser-based tool:
 3. Shows diff: added/removed/changed fields
 4. Generates migration script or explains changes
 
-### Technical
-- Single HTML, no framework
-- Fetch latest via `https://raw.githubusercontent.com/valentinlineiro/arch/main/arch.config.json`
-- Simple JSON diff in JS
-- Publish to GitHub Pages alongside `arch-initializr.html`
-
-### Value
-- Closes convergence gap — projects stay current
-- Low effort to build, high utility
+### Decision
+Implement arch-upgrade.html as a browser tool. Ensure it handles nested JSON diffs and provides clear migration instructions.
+PROMOTE -> TASK-059
