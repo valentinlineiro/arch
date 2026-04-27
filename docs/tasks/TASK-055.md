@@ -4,11 +4,12 @@
 
 ### Acceptance Criteria
 - [ ] Crear `docs/guidelines/autonomy.md` con la escala de Niveles 1-4
+- [ ] Definir en `docs/guidelines/autonomy.md` la matriz de "Delegation of Authority" para el Nivel 3 (qué puede auto-aprobar el agente)
 - [ ] Documentar en `docs/guidelines/core.md` la excepción de Nivel 2: "El agente puede autopromover IDEAs a TASKS si son XS y de clase 7-operations o 6-writing"
 - [ ] Actualizar `AGENTS.md` (root y docs) para reflejar que el refinamiento en Fase 2 puede resultar en una promoción autónoma bajo las condiciones de Nivel 2
 - [ ] El protocolo THINK detalla cómo reportar una autopromoción en la salida del terminal
 
 ### Definition of Done
-- [ ] Guía de autonomía creada y referenciada
+- [ ] Guía de autonomía creada y referenciada (incluyendo matriz de delegación)
 - [ ] Protocolo actualizado para permitir Self-Promotion XS
 - [ ] PR aprobado
