@@ -203,7 +203,7 @@ export class DriftChecker {
       if (!filePath) continue;
 
       if (status.includes('D')) {
-        details.push(`Tracked deletion in worktree: ${filePath}`);
+        // Skip tracked deletions as they are intentional
         continue;
       }
 

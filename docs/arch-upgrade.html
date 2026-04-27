@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ARCH — Upgrade Assistant</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0a0a;
+      --surface: #111;
+      --surface2: #161616;
+      --border: #222;
+      --text: #e8e8e8;
+      --muted: #666;
+      --accent: #7fff7f;
+      --accent-dim: #3a6b3a;
+      --blue: #7fb3ff;
+      --red: #ff7f7f;
+      --font-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+      --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    nav {
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(10,10,10,0.95);
+      backdrop-filter: blur(8px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-logo { font-family: var(--font-mono); font-size: 1rem; font-weight: 700; color: var(--accent); text-decoration: none; }
+    .nav-link { color: var(--muted); text-decoration: none; font-size: 0.875rem; }
+    .nav-link:hover { color: var(--text); }
+
+    main {
+      flex: 1;
+      max-width: 1000px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 4rem;
+    }
+
+    .page-label {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      margin-bottom: 0.75rem;
+    }
+
+    h1 {
+      font-size: clamp(1.5rem, 4vw, 2.25rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.75rem;
+    }
+
+    .subtitle {
+      font-size: 0.95rem;
+      color: var(--muted);
+      margin-bottom: 2.5rem;
+      max-width: 520px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .panel-title {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    textarea {
+      width: 100%;
+      height: 300px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      padding: 1rem;
+      color: var(--text);
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      outline: none;
+      resize: vertical;
+    }
+    textarea:focus { border-color: var(--accent-dim); }
+
+    .diff-view {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1rem;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      white-space: pre-wrap;
+      overflow-x: auto;
+      margin-bottom: 1.5rem;
+    }
+    .diff-added { color: var(--accent); background: rgba(127,255,127,0.1); display: block; }
+    .diff-removed { color: var(--red); background: rgba(255,127,127,0.1); display: block; text-decoration: line-through; }
+    .diff-changed { color: var(--blue); background: rgba(127,179,255,0.1); display: block; }
+
+    .suggestions {
+      margin-top: 2rem;
+    }
+    .suggestion-item {
+      background: rgba(127,179,255,0.05);
+      border-left: 3px solid var(--blue);
+      padding: 1rem;
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+    }
+    .suggestion-item strong { color: var(--blue); display: block; margin-bottom: 0.25rem; font-family: var(--font-mono); font-size: 0.75rem; }
+
+    .actions {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .btn {
+      background: var(--accent);
+      color: #000;
+      font-family: var(--font-mono);
+      font-size: 0.875rem;
+      font-weight: 700;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: opacity 0.15s;
+    }
+    .btn:hover { opacity: 0.85; }
+    .btn:disabled { background: var(--muted); cursor: not-allowed; }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 1.25rem 2rem;
+      text-align: center;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    @media (max-width: 800px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="/">ARCH</a>
+  <a class="nav-link" href="https://github.com/valentinlineiro/arch">GitHub ↗</a>
+</nav>
+
+<main>
+  <div class="page-label">// UPGRADE_ASSISTANT</div>
+  <h1>Migrate your workspace.</h1>
+  <p class="subtitle">Paste your <code>arch.config.json</code> to compare with the latest ARCH standard and generate migration steps.</p>
+
+  <div class="grid">
+    <div class="panel">
+      <div class="panel-title">Current arch.config.json</div>
+      <textarea id="currentConfig" placeholder='{ "version": "0.3.0", ... }'></textarea>
+    </div>
+    <div class="panel">
+      <div class="panel-title">Target standard (v0.4.0)</div>
+      <textarea id="targetConfig" readonly></textarea>
+    </div>
+  </div>
+
+  <div class="actions">
+    <button class="btn" id="compareBtn">Analyze Changes</button>
+  </div>
+
+  <div id="results" style="display: none;">
+    <div class="page-label" style="margin-top: 3rem;">// ANALYSIS</div>
+    <div class="diff-view" id="diffOutput"></div>
+
+    <div class="suggestions" id="suggestionOutput"></div>
+  </div>
+</main>
+
+<footer>
+  ARCH — MIT License · No data sent anywhere · Runs entirely in your browser
+</footer>
+
+<script>
+  const targetConfig = {
+    version: "0.4.0",
+    routing: {
+      "1-code-reasoning": "claude-code",
+      "2-code-generation": "claude-code",
+      "3-code-context": "gemini",
+      "4-code-repetitive": "local",
+      "5-research": "gemini",
+      "6-writing": "claude",
+      "7-operations": "local",
+      "8-strategy": "claude"
+    },
+    paths: {
+      tasks: "docs/tasks",
+      archive: "docs/archive",
+      guidelines: "docs/guidelines",
+      agents: "docs/agents",
+      refinement: "docs/refinement",
+      adr: "docs/adr"
+    }
+  };
+
+  document.getElementById('targetConfig').value = JSON.stringify(targetConfig, null, 2);
+
+  document.getElementById('compareBtn').addEventListener('click', () => {
+    const raw = document.getElementById('currentConfig').value;
+    let current;
+    try {
+      current = JSON.parse(raw);
+    } catch (e) {
+      alert("Invalid JSON in current config");
+      return;
+    }
+
+    const results = document.getElementById('results');
+    const diffOutput = document.getElementById('diffOutput');
+    const suggestionOutput = document.getElementById('suggestionOutput');
+    
+    results.style.display = 'block';
+    diffOutput.innerHTML = '';
+    suggestionOutput.innerHTML = '';
+
+    const suggestions = [];
+
+    // Version check
+    if (current.version !== targetConfig.version) {
+      suggestions.push({
+        title: "VERSION_UPGRADE",
+        text: `Upgrade version from ${current.version} to ${targetConfig.version}.`
+      });
+    }
+
+    // Path changes
+    const deprecatedPaths = ['sprint', 'backlog', 'done'];
+    deprecatedPaths.forEach(p => {
+      if (current.paths && current.paths[p]) {
+        suggestions.push({
+          title: "PATH_DEPRECATION",
+          text: `Path '${p}' is deprecated. ARCH v0.4 uses 'tasks' and 'archive' for better separation.`
+        });
+      }
+    });
+
+    if (!current.paths || !current.paths.refinement) {
+      suggestions.push({
+        title: "NEW_PATH_REQUIRED",
+        text: "Add 'refinement' path to arch.config.json. This folder will store IDEA-*.md drafts."
+      });
+    }
+
+    // Routing changes
+    if (current.routing) {
+      Object.keys(targetConfig.routing).forEach(r => {
+        if (!current.routing[r]) {
+          suggestions.push({
+            title: "NEW_ROUTING_CLASS",
+            text: `Add routing class '${r}' to your config for optimized agent task assignment.`
+          });
+        }
+      });
+    }
+
+    // Basic diff visualization
+    const currentKeys = flattenKeys(current);
+    const targetKeys = flattenKeys(targetConfig);
+
+    const allKeys = new Set([...Object.keys(currentKeys), ...Object.keys(targetKeys)]);
+    
+    let diffHtml = '';
+    Array.from(allKeys).sort().forEach(k => {
+      const curVal = currentKeys[k];
+      const tarVal = targetKeys[k];
+
+      if (curVal === undefined) {
+        diffHtml += `<span class="diff-added">+ ${k}: ${JSON.stringify(tarVal)}</span>`;
+      } else if (tarVal === undefined) {
+        diffHtml += `<span class="diff-removed">- ${k}: ${JSON.stringify(curVal)}</span>`;
+      } else if (JSON.stringify(curVal) !== JSON.stringify(tarVal)) {
+        diffHtml += `<span class="diff-changed">~ ${k}: ${JSON.stringify(curVal)} -> ${JSON.stringify(tarVal)}</span>`;
+      } else {
+        diffHtml += `  ${k}: ${JSON.stringify(curVal)}\n`;
+      }
+    });
+
+    diffOutput.innerHTML = diffHtml;
+
+    suggestions.forEach(s => {
+      const div = document.createElement('div');
+      div.className = 'suggestion-item';
+      div.innerHTML = `<strong>${s.title}</strong> ${s.text}`;
+      suggestionOutput.appendChild(div);
+    });
+
+    if (suggestions.length === 0) {
+      suggestionOutput.innerHTML = '<div class="suggestion-item" style="border-color: var(--accent); background: rgba(127,255,127,0.05);"><strong>UP_TO_DATE</strong> Your configuration matches the v0.4.0 standard.</div>';
+    }
+  });
+
+  function flattenKeys(obj, prefix = '') {
+    let keys = {};
+    for (let k in obj) {
+      const key = prefix ? `${prefix}.${k}` : k;
+      if (typeof obj[k] === 'object' && obj[k] !== null && !Array.isArray(obj[k])) {
+        Object.assign(keys, flattenKeys(obj[k], key));
+      } else {
+        keys[key] = obj[k];
+      }
+    }
+    return keys;
+  }
+</script>
+
+</body>
+</html>
