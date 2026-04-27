@@ -1,5 +1,5 @@
 ## TASK-006: Create arch.work landing page
-**Meta:** P2 | M | READY | Focus:yes | 2-code-generation | claude-code | README.md
+**Meta:** P2 | M | IN_PROGRESS | Focus:yes | 2-code-generation | claude-code | README.md
 **Depends:** TASK-001
 
 ### Acceptance Criteria
