@@ -26,7 +26,7 @@
 
 ### RETRO mode
 **Invoked for:** Sprint closure and pattern detection.
-**Protocol:** `docs/agents/RETRO.md`
+**Protocol:** `docs/agents/THINK.md` (Phase 3 — Continuous Kaizen)
 1. Analyze `docs/archive/` and git history.
 2. Propose Kaizen additions to `docs/guidelines/`.
 
