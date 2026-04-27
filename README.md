@@ -149,6 +149,32 @@ arch review    # Deterministic check of guidelines, task formats, and drift
 
 ---
 
+## Daily workflow
+
+```bash
+# 1. Start session — THINK mode (run by your AI agent)
+#    Scans sprint, refines ideas, detects patterns
+arch think
+
+# 2. Start a task
+arch task start TASK-032
+
+# 3. Implement, then verify
+arch review
+#   ✔ System Review: OK
+#
+#   Drift
+#     ✔ Commands
+#     ✔ Version
+#         v0.2.0
+#     ✔ Paths
+
+# 4. Done
+arch task done TASK-032
+```
+
+---
+
 ## Status
 
 **v0.2 — Clean Architecture & Automated Validation.**
