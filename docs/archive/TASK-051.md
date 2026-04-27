@@ -3,11 +3,11 @@
 **Depends:** none
 
 ### Acceptance Criteria
-- [ ] Actualizar versión en `cli/package.json` a `0.4.0`
-- [ ] Actualizar versión en `arch.config.json` a `0.4.0`
-- [ ] Reconstruir el CLI para reflejar el cambio en `arch review`
-- [ ] `arch review` devuelve OK con la versión 0.4.0
+- [x] Actualizar versión en `cli/package.json` a `0.4.0`
+- [x] Actualizar versión en `arch.config.json` a `0.4.0`
+- [x] Reconstruir el CLI para reflejar el cambio en `arch review`
+- [x] `arch review` devuelve OK con la versión 0.4.0
 
 ### Definition of Done
-- [ ] Versiones alineadas en todo el sistema
+- [x] Versiones alineadas en todo el sistema
 - [ ] PR aprobado
