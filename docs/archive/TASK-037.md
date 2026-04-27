@@ -8,8 +8,8 @@
 - [x] El usuario ingresa su propia API Key de Gemini Free Tier en la interfaz (no proxy)
 - [x] La clave no se persiste entre sesiones (solo en memoria de la página)
 - [x] Implementa el protocolo de `THINK.md` como asistente ARCH real
-- [ ] Publicado en GitHub Pages desde `docs/` — requiere human: GH Pages config
+- [x] Publicado en GitHub Pages desde `docs/` — GH Pages enabled 2026-04-27
 
 ### Definition of Done
-- [ ] HTML funcional en GitHub Pages — requiere human: enable GH Pages
+- [x] HTML funcional en GitHub Pages
 - [ ] PR aprobado
