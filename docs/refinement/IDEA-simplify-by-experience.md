@@ -1,5 +1,5 @@
 ## IDEA-simplify-by-experience
-**Type:** simplification | **Source:** Kaizen 2026-04-27 | **Priority:** P2
+**Type:** simplification | **Source:** Kaizen 2026-04-27 | **Priority:** P2 | **Status:** DECIDED
 
 ### Observation
 Recent bugs exposed systemic weaknesses:
@@ -34,7 +34,6 @@ ARCH accumulated features without defensive checks. The "trusted" stance (assume
 - Task Meta line already has size (S/M/L) — use it, not separate estimation
 - Focus:yes implies sprint — no need for sprint file
 
-### Value
-- Fewer surfaces for drift
-- Reviewer catches issues, not human
-- Simpler contributor mental model
+### Decision
+Implement systemic hardening to prevent drift. Focus on path validation and strict completion criteria.
+PROMOTE -> TASK-058
