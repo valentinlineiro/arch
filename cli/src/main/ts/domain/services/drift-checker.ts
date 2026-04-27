@@ -7,7 +7,7 @@ export interface DriftResult {
   details: string[];
 }
 
-const CLI_COMMANDS = new Set(['status', 'validate', 'review', 'task']);
+const CLI_COMMANDS = new Set(['status', 'validate', 'review', 'task', 'inbox', 'next']);
 const ROOT_RUNTIME_ARTIFACTS = new Set(['.codex']);
 
 export class DriftChecker {
@@ -26,7 +26,68 @@ export class DriftChecker {
       this.checkConfigPaths(),
       this.checkWorktreeHygiene(),
       this.checkTaskArchiveDrift(),
+      this.checkDocVersion(),
+      this.checkDeadPaths(),
     ]);
+  }
+
+  private async checkDeadPaths(): Promise<DriftResult> {
+    const configRaw = await this.fileSystem.readFile(`${this.rootPath}/arch.config.json`);
+    const config = JSON.parse(configRaw);
+    const details: string[] = [];
+    const deadPaths = ['sprint', 'backlog', 'done'];
+
+    if (config.paths) {
+      for (const path of deadPaths) {
+        if (config.paths[path]) {
+          details.push(`Deprecated path '${path}' found in arch.config.json. Remove it.`);
+        }
+      }
+    }
+
+    return {
+      check: 'DeadPaths',
+      status: details.length === 0 ? 'OK' : 'WARN',
+      details,
+    };
+  }
+
+  private async checkDocVersion(): Promise<DriftResult> {
+    const configRaw = await this.fileSystem.readFile(`${this.rootPath}/arch.config.json`);
+    const config = JSON.parse(configRaw);
+    const version = config.version;
+    const details: string[] = [];
+
+    const filesToCheck = [
+      'AGENTS.md',
+      'docs/AGENTS.md',
+      'docs/ONBOARDING.html',
+      'docs/index.html',
+      'docs/agents/DO.md',
+      'docs/agents/THINK.md',
+    ];
+
+    for (const file of filesToCheck) {
+      if (await this.fileSystem.exists(`${this.rootPath}/${file}`)) {
+        const content = await this.fileSystem.readFile(`${this.rootPath}/${file}`);
+        // Match v0.4, v0.4.0, etc.
+        const versionRegex = /v\d+\.\d+(\.\d+)?/g;
+        const matches = content.match(versionRegex);
+        if (matches) {
+          for (const match of matches) {
+            if (!version.startsWith(match.substring(1))) {
+              details.push(`${file}: found ${match}, expected v${version}`);
+            }
+          }
+        }
+      }
+    }
+
+    return {
+      check: 'DocVersion',
+      status: details.length === 0 ? 'OK' : 'WARN',
+      details,
+    };
   }
 
   private async checkConfigPaths(): Promise<DriftResult> {

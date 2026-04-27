@@ -22,16 +22,13 @@ export class Reviewer {
       violations.push(`WARN Task ${task.id} title contains non-ASCII characters — translate to English per language policy.`);
     }
 
-    // Rule: AC completion before DONE
-    if (task.status === TaskStatus.DONE) {
+    // Rule: AC completion before DONE or REVIEW
+    if (task.status === TaskStatus.DONE || task.status === TaskStatus.REVIEW) {
       if (task.acceptanceCriteria && task.acceptanceCriteria.length > 0) {
         const pendingACs = task.acceptanceCriteria.filter(ac => !ac.completed);
         if (pendingACs.length > 0) {
-          violations.push(`Task ${task.id} marked as DONE but has pending Acceptance Criteria: ${pendingACs.map(ac => ac.description).join(', ')}`);
+          violations.push(`Task ${task.id} marked as ${task.status} but has pending Acceptance Criteria: ${pendingACs.map(ac => ac.description).join(', ')}`);
         }
-      } else {
-        // If it's DONE but has NO ACs, that might be a violation too depending on guidelines
-        // For now we assume some tasks might not have ACs defined in the markdown block
       }
     }
 

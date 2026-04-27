@@ -1,5 +1,5 @@
 # THINK.md
-<!-- ARCH v0.4 — Modular Thinking & Continuous Kaizen -->
+<!-- ARCH v0.4.0 — Modular Thinking & Continuous Kaizen -->
 <!-- Purpose: Assess system health, refine ideas, and propose real-time improvements -->
 
 ## Phase 1: System Check (Conductor)

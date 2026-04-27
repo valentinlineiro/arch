@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # arch-upgrade.sh
-# Upgrades ARCH framework files in an existing project to v0.4.
+# Upgrades ARCH framework files in an existing project to v0.4.0.
 # SAFE: only touches framework files — never overwrites your tasks.
 #
 # Usage: bash arch-upgrade.sh /path/to/your-repo
@@ -30,11 +30,11 @@ if [ ! -f "$TARGET/docs/AGENTS.md" ] && [ ! -f "$TARGET/AGENTS.md" ]; then
 fi
 
 echo ""
-echo -e "  ${GREEN}ARCH Upgrade (v0.4)${NC}"
+echo -e "  ${GREEN}ARCH Upgrade (v0.4.0)${NC}"
 echo -e "  ${GRAY}Target: $TARGET${NC}"
 echo ""
 
-# ── Migration: Legacy -> v0.4 ─────────────────────────────────────
+# ── Migration: Legacy -> v0.4.0 ─────────────────────────────────────
 
 migrate_file() {
   local src_rel="$1"
@@ -64,7 +64,7 @@ UPGRADEABLE=(
   "scripts/arch.sh"
 )
 
-# ── New v0.4 files ──────────────────────────────────────────────
+# ── New v0.4.0 files ──────────────────────────────────────────────
 NEW_FILES=(
   "arch.config.json"
   "docs/KAIZEN-LOG.md"
@@ -131,7 +131,7 @@ done
 if [ ${#legacy_root_docs[@]} -gt 0 ]; then
   echo -e "${YELLOW}Warning:${NC} Legacy root-level docs found: ${legacy_root_docs[*]}"
   echo -e "         Please migrate task content to docs/tasks/TASK-XXX.md"
-  echo -e "         following the v0.4 Focus-based model."
+  echo -e "         following the v0.4.0 Focus-based model."
 fi
 
 echo ""

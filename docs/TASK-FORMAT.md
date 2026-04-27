@@ -1,4 +1,4 @@
-# TASK-FORMAT v0.4
+# TASK-FORMAT v0.4.0
 <!-- Canonical specification for ARCH tasks -->
 <!-- Compatible with ARCH v0.4 and later — supersedes v0.2 -->
 <!-- Decision basis: ADR-004 (flat docs/tasks/ + Focus field) -->

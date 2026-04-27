@@ -39,6 +39,13 @@ export class ReviewSystem {
     }
 
     const drift: DriftResult[] = this.driftChecker ? await this.driftChecker.check() : [];
+    
+    // 4. Critical drift checks as violations
+    for (const d of drift) {
+      if (d.status === 'WARN' && ['ConfigPaths', 'DocVersion', 'DeadPaths'].includes(d.check)) {
+        violations.push(...d.details.map(detail => `[${d.check}] ${detail}`));
+      }
+    }
 
     return {
       success: violations.length === 0,

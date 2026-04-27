@@ -1,5 +1,5 @@
 # AGENTS.md
-<!-- ARCH Framework v0.4 | Universal Entry Point -->
+<!-- ARCH Framework v0.4.0 | Universal Entry Point -->
 
 ## Onboarding
 1. Read this file.
