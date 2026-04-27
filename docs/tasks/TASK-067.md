@@ -1,5 +1,5 @@
 ## TASK-067: Commit idea drafts when they are registered
-**Meta:** P1 | XS | READY | Focus:yes | 7-operations | local | docs/agents/DO.md, docs/guidelines/bugs.md, docs/refinement/
+**Meta:** P1 | XS | IN_PROGRESS | Focus:yes | 7-operations | local | docs/agents/DO.md, docs/guidelines/bugs.md, docs/refinement/
 
 ### Bug
 ARCH currently allows an idea draft to be created in `docs/refinement/` without being committed in the same operation. That breaks the expected durability of registration and can leave newly registered ideas vulnerable to loss or invisible in the task history.
