@@ -1,5 +1,5 @@
 ## TASK-058: System Hardening - Anti-drift and strict criteria
-**Meta:** P2 | S | READY | Focus:no | 7-operations | local | cli/, arch.config.json, docs/
+**Meta:** P2 | S | IN_PROGRESS | Focus:yes | 1-implementation | gemini | cli/, arch.config.json, docs/
 **Depends:** TASK-056
 
 ### Acceptance Criteria
