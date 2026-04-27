@@ -1,5 +1,5 @@
 ## TASK-048: Detectar worktree sucio y drift task/archive en arch review
-**Meta:** P1 | S | REVIEW | Focus:yes | 2-code-generation | claude-code | cli/src/, docs/agents/THINK.md, docs/agents/DO.md, docs/guidelines/
+**Meta:** P1 | S | DONE | Focus:yes | 2-code-generation | claude-code | cli/src/, docs/agents/THINK.md, docs/agents/DO.md, docs/guidelines/
 **Depends:** none
 
 ### Acceptance Criteria

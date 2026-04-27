@@ -28,6 +28,8 @@
 | TASK-051 | Sincronizar versión de CLI con protocolo ARCH v0.4 | XS→XS | local | Focus:yes | 2026-04-27 | - | Archived |
 | TASK-032 | Add drift detection to arch review | S→S | claude-code | Sprint 3 | 2026-04-27 | - | Archived |
 | TASK-045 | arch-viewer.html — lectura anónima de tareas via GitHub API | M→M | claude-code | Focus:yes | 2026-04-27 | - | Archived |
+| TASK-048 | Detectar worktree sucio y drift task/archive en arch review | S→S | claude-code | Focus:yes | 2026-04-27 | - | Archived |
+| TASK-049 | Ignorar artefactos runtime locales como .codex | XS→XS | human | Focus:no | 2026-04-27 | - | Archived |
 
 ---
 
