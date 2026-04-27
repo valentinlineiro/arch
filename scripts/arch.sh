@@ -3,23 +3,30 @@
 set -e
 
 # ── Colors ────────────────────────────────────────────────────────
-GREEN='\033[0;32m'; YELLOW='\033[1;33m'; GRAY='\033[0;90m'; NC='\033[0m'
+GREEN='\033[0;32m'; YELLOW='\033[1;33m'; RED='\033[0;31m'; GRAY='\033[0;90m'; NC='\033[0m'
 
-# ── Helpers ───────────────────────────────────────────────────────
-find_ready_task() {
-  grep -B 1 "READY" docs/SPRINT.md | grep -m 1 "## TASK-" | grep -o "TASK-[0-9]\{3\}" || echo ""
-}
+# ── Configuration ──────────────────────────────────────────────────
+# Path to the CLI entry point
+BIN="node $(dirname "$0")/../cli/dist/index.js"
 
 # ── Router ────────────────────────────────────────────────────────
-BIN="node cli/dist/index.js"
-
 case "$1" in
+  "status"|"validate"|"review")
+    $BIN "$@"
+    ;;
+
+  "task")
+    $BIN "$@"
+    ;;
+
   "conduct")
-    echo -e "  ${GREEN}ARCH${NC} — invoking CONDUCTOR mode"
+    echo -e "  ${GREEN}ARCH${NC} — invoking CONDUCTOR mode (THINK)"
     if command -v claude-code &> /dev/null; then
       claude-code docs/agents/THINK.md
     elif command -v claude &> /dev/null; then
       claude -p "$(cat docs/agents/THINK.md)"
+    elif command -v gemini &> /dev/null; then
+      gemini "Follow the protocol in docs/agents/THINK.md"
     else
       echo -e "  ${YELLOW}Note:${NC} No AI CLI detected. Showing protocol:"
       cat docs/agents/THINK.md
@@ -27,70 +34,29 @@ case "$1" in
     ;;
 
   "exec")
-    TASK_ID="$2"
-    if [ -z "$TASK_ID" ]; then
-      TASK_ID=$(find_ready_task)
-    fi
-    if [ -z "$TASK_ID" ]; then
-      echo -e "  ${YELLOW}Error:${NC} No READY task found and no ID provided."
-      exit 1
-    fi
-    echo -e "  ${GREEN}ARCH${NC} — invoking EXEC mode for: $TASK_ID"
+    echo -e "  ${GREEN}ARCH${NC} — invoking EXEC mode (DO)"
     if command -v claude-code &> /dev/null; then
       claude-code docs/agents/DO.md
     elif command -v claude &> /dev/null; then
       claude -p "$(cat docs/agents/DO.md)"
+    elif command -v gemini &> /dev/null; then
+      gemini "Follow the protocol in docs/agents/DO.md"
     else
       echo -e "  ${YELLOW}Note:${NC} No AI CLI detected. Showing protocol:"
       cat docs/agents/DO.md
     fi
     ;;
 
-  "refine")
-    echo -e "  ${GREEN}ARCH${NC} — invoking REFINE mode"
-    if command -v claude-code &> /dev/null; then
-      claude-code docs/agents/THINK.md
-    else
-      cat docs/agents/THINK.md
-    fi
-    ;;
-
-  "retro")
-    echo -e "  ${GREEN}ARCH${NC} — invoking RETRO mode"
-    if command -v claude-code &> /dev/null; then
-      claude-code docs/agents/RETRO.md
-    else
-      cat docs/agents/RETRO.md
-    fi
-    ;;
-
-  "human")
-    echo -e "  ${GREEN}ARCH${NC} — invoking HUMAN mode"
-    if command -v claude-code &> /dev/null; then
-      claude-code docs/agents/DO.md
-    else
-      cat docs/agents/DO.md
-    fi
-    ;;
-
-  "status")
-    $BIN status
-    ;;
-
-  "validate")
-    $BIN validate
-    ;;
-
-  "review")
-    $BIN review
-    ;;
-
-  "task")
-    $BIN "$@"
-    ;;
-
   *)
-    echo "Usage: arch [conduct|exec|refine|retro|human|status|validate|review|task]"
+    echo "Usage: $0 [status|validate|review|task|conduct|exec]"
+    echo ""
+    echo "Commands:"
+    echo "  status     Show task counts"
+    echo "  validate   Check repository structure"
+    echo "  review     Run deep audit and drift check"
+    echo "  task       Manage tasks (start/done)"
+    echo "  conduct    Invoke THINK mode with an AI agent"
+    echo "  exec       Invoke DO mode with an AI agent"
     exit 1
     ;;
 esac

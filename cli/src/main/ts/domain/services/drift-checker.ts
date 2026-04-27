@@ -53,7 +53,7 @@ export class DriftChecker {
   private async checkCommandDrift(): Promise<DriftResult> {
     const readme = await this.fileSystem.readFile(`${this.rootPath}/README.md`);
     const documented = new Set<string>();
-    for (const match of readme.matchAll(/^arch\s+([a-z][a-z-]+)/gm)) {
+    for (const match of readme.matchAll(/^(?:\.\/scripts\/arch\.sh|arch)\s+([a-z][a-z-]+)/gm)) {
       documented.add(match[1]);
     }
 

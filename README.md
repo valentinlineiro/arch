@@ -132,15 +132,15 @@ npx arch-init my-project
 cd my-project
 
 # 1. Check sprint status
-arch status    # Shows READY / IN_PROGRESS / DONE counts
+./scripts/arch.sh status    # Shows READY / IN_PROGRESS / DONE counts
 
 # 2. Manage tasks
-arch task start TASK-001   # Mark a task as IN_PROGRESS
-arch task done  TASK-001   # Mark a task as DONE and archive it
+./scripts/arch.sh task start TASK-001   # Mark a task as IN_PROGRESS
+./scripts/arch.sh task done  TASK-001   # Mark a task as DONE and archive it
 
 # 3. Verify system integrity
-arch validate  # Structural validation (task format, required files)
-arch review    # Deterministic check of guidelines, task formats, and drift
+./scripts/arch.sh validate  # Structural validation (task format, required files)
+./scripts/arch.sh review    # Deterministic check of guidelines, task formats, and drift
 
 # Planned
 # arch conduct   # Invokes THINK mode (coming soon)
@@ -157,10 +157,10 @@ arch review    # Deterministic check of guidelines, task formats, and drift
 #    (invoke via your AI CLI — not a CLI command)
 
 # 2. Start a task
-arch task start TASK-032
+./scripts/arch.sh task start TASK-032
 
 # 3. Implement, then verify
-arch review
+./scripts/arch.sh review
 #   ✔ System Review: OK
 #
 #   Drift
@@ -170,7 +170,7 @@ arch review
 #     ✔ Paths
 
 # 4. Done
-arch task done TASK-032
+./scripts/arch.sh task done TASK-032
 ```
 
 ---

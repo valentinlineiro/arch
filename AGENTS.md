@@ -4,7 +4,7 @@
 ## Onboarding
 1. Read this file.
 2. Read `arch.config.json` for routing.
-3. Run `arch review` to verify system integrity.
+3. Run `./scripts/arch.sh review` to verify system integrity.
 
 ---
 
@@ -32,7 +32,7 @@
 ## Refinement flow
 - `idea:` prefix in DO → draft in `docs/refinement/` → THINK evaluates → human promotes → BACKLOG
 - Direct task description (no prefix) → BACKLOG directly, no refinement required
-- Promoting a draft: explicit human instruction required (`arch do "promover IDEA-[slug]"`)
+- Promoting a draft: explicit human instruction required (`./scripts/arch.sh do "promover IDEA-[slug]"`)
 
 ## Hard limits
 - Never merge a PR without human approval.
