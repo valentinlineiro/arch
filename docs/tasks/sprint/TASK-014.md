@@ -1,5 +1,5 @@
 ## TASK-014: Sprint metrics — Closed-at field + METRICS.md from THINK Phase 3
-**Meta:** P2 | M | READY | Backlog | 6-writing | claude | docs/guidelines/, docs/agents/THINK.md
+**Meta:** P2 | M | IN_PROGRESS | Backlog | 6-writing | claude | docs/guidelines/, docs/agents/THINK.md
 **Depends:** none
 
 ### Acceptance Criteria
