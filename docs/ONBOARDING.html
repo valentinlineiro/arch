@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ARCH — Onboarding Wizard</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0a0a;
+      --surface: #111;
+      --surface2: #161616;
+      --border: #222;
+      --text: #e8e8e8;
+      --muted: #666;
+      --accent: #7fff7f;
+      --accent-dim: #3a6b3a;
+      --blue: #7fb3ff;
+      --font-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+      --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    nav {
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(10,10,10,0.95);
+      backdrop-filter: blur(8px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-logo { font-family: var(--font-mono); font-size: 1rem; font-weight: 700; color: var(--accent); text-decoration: none; }
+    .nav-link { color: var(--muted); text-decoration: none; font-size: 0.875rem; }
+    .nav-link:hover { color: var(--text); }
+
+    main {
+      flex: 1;
+      max-width: 800px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 4rem;
+    }
+
+    .page-label {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      margin-bottom: 0.75rem;
+    }
+
+    h1 {
+      font-size: clamp(1.5rem, 4vw, 2.25rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.75rem;
+    }
+
+    .subtitle {
+      font-size: 0.95rem;
+      color: var(--muted);
+      margin-bottom: 2.5rem;
+      max-width: 520px;
+    }
+
+    /* WIZARD */
+    .wizard-step {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .step-title {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+      display: block;
+    }
+
+    .field { margin-bottom: 1.5rem; }
+    .field label { display: block; font-size: 0.85rem; color: var(--muted); margin-bottom: 0.5rem; }
+    .field input, .field select, .field textarea {
+      width: 100%;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.75rem;
+      font-family: var(--font-sans);
+      font-size: 0.95rem;
+      border-radius: 2px;
+    }
+    .field input:focus { border-color: var(--accent); outline: none; }
+
+    .btn {
+      background: var(--accent);
+      color: #000;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 2px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .btn:hover { opacity: 0.9; }
+
+    /* SUMMARY */
+    #summary {
+      display: none;
+      animation: fadeIn 0.4s ease-out;
+    }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+    .summary-card {
+      background: var(--surface2);
+      border: 1px solid var(--accent-dim);
+      padding: 2rem;
+      border-radius: 4px;
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      white-space: pre-wrap;
+      overflow-x: auto;
+    }
+
+    .protocol-box {
+      margin-top: 2rem;
+      border-top: 1px solid var(--border);
+      padding-top: 2rem;
+    }
+    .protocol-title { font-weight: 700; color: var(--text); margin-bottom: 1rem; display: block; }
+    .protocol-step { display: flex; gap: 1rem; margin-bottom: 1rem; }
+    .step-num { color: var(--accent); min-width: 2rem; }
+    .step-desc { color: var(--muted); font-size: 0.85rem; }
+
+    footer {
+      padding: 3rem 2rem;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.75rem;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">ARCH</a>
+    <a href="https://github.com/valentinlineiro/arch" class="nav-link">GitHub ↗</a>
+  </nav>
+
+  <main>
+    <div id="step-container">
+      <div class="page-label">ONBOARDING_WIZARD</div>
+      <h1>Initialize your workspace.</h1>
+      <p class="subtitle">Answer a few questions to generate your custom ARCH operating protocol.</p>
+
+      <form id="wizard-form" class="wizard-step">
+        <span class="step-title">// PROJECT_DETAILS</span>
+        
+        <div class="field">
+          <label for="project-name">Project Name</label>
+          <input type="text" id="project-name" placeholder="e.g. monolith-api" required>
+        </div>
+
+        <div class="field">
+          <label for="project-stack">Primary Stack</label>
+          <input type="text" id="project-stack" placeholder="e.g. Node.js, TypeScript, PostgreSQL" required>
+        </div>
+
+        <div class="field">
+          <label for="primary-agent">Primary AI Agent</label>
+          <select id="primary-agent">
+            <option value="claude-code">Claude Code (Recommended)</option>
+            <option value="gemini">Gemini CLI</option>
+            <option value="local">Local Model (Llama 3/Gemma)</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn">Generate Protocol ➔</button>
+      </form>
+    </div>
+
+    <div id="summary">
+      <div class="page-label">GENERATED_PROTOCOL</div>
+      <h1>Welcome to ARCH, <span id="display-name">Project</span>.</h1>
+      <p class="subtitle">Your agents are ready to operate. Copy the block below to your root README or AGENTS.md.</p>
+
+      <div class="summary-card" id="protocol-output"></div>
+
+      <div class="protocol-box">
+        <span class="protocol-title">v0.4 Core Workflow</span>
+        
+        <div class="protocol-step">
+          <span class="step-num">01</span>
+          <div class="step-desc">
+            <strong>THINK mode:</strong> Every session starts here. Agent scans <code>docs/tasks/</code> for Focus:yes tasks and evaluates system health.
+          </div>
+        </div>
+
+        <div class="protocol-step">
+          <span class="step-num">02</span>
+          <div class="step-desc">
+            <strong>DO mode:</strong> Atomic execution. One task, one commit. Agent maps natural language to file operations.
+          </div>
+        </div>
+
+        <div class="protocol-step">
+          <span class="step-num">03</span>
+          <div class="step-desc">
+            <strong>Kaizen:</strong> Real-time drift detection and guideline updates. The system learns from every archived task.
+          </div>
+        </div>
+      </div>
+
+      <button onclick="window.location.reload()" class="btn" style="margin-top: 2rem; background: transparent; border: 1px solid var(--border); color: var(--text);">Start Over</button>
+    </div>
+  </main>
+
+  <footer>
+    &copy; 2026 ARCH Framework — Autonomous Routing and Context Hierarchy
+  </footer>
+
+  <script>
+    document.getElementById('wizard-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const name = document.getElementById('project-name').value;
+      const stack = document.getElementById('project-stack').value;
+      const agent = document.getElementById('primary-agent').value;
+
+      document.getElementById('display-name').textContent = name;
+      
+      const protocol = `
+# ARCH Protocol for ${name}
+**Stack:** ${stack}
+**Agent:** ${agent}
+**Version:** v0.4
+
+## Quick Commands
+- \`arch conduct\`  -> Run THINK mode (Phases 1-4)
+- \`arch exec [ID]\` -> Run DO mode for specific task
+- \`arch review\`    -> Verify system integrity
+
+## Active Queue
+Tasks reside in \`docs/tasks/\`. 
+Mark \`Focus:yes\` to pull into current sprint.
+      `;
+
+      document.getElementById('protocol-output').textContent = protocol.trim();
+      document.getElementById('step-container').style.display = 'none';
+      document.getElementById('summary').style.display = 'block';
+      window.scrollTo(0,0);
+    });
+  </script>
+</body>
+</html>
