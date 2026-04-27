@@ -27,4 +27,4 @@
 
 ## Constraints
 - **Atomic commits:** Referencing TASK-ID.
-- **Convention:** Follow guidelines in `docs/guidelines/` for commit prefixes.
+- **Commit prefix (mandatory before every commit):** Select the type from the table in `docs/guidelines/core.md`. If no type fits exactly, pick the closest and append a one-line justification in the commit message body. Applies to all commits: lock, implementation, completion.
