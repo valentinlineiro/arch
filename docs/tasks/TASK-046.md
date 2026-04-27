@@ -1,5 +1,5 @@
 ## TASK-046: arch-viewer.html — edición de estado con GitHub OAuth
-**Meta:** P2 | M | READY | Sprint 3 | 2-code-generation | claude-code | docs/
+**Meta:** P2 | M | READY | Focus:yes | 2-code-generation | claude-code | docs/
 **Depends:** TASK-045
 
 ### Acceptance Criteria

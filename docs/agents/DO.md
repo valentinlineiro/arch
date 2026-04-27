@@ -4,14 +4,14 @@
 
 ## Intent: Execute Task (Exec)
 1. `git pull`.
-2. Find highest priority `READY` task in `docs/tasks/sprint/`.
+2. Find highest priority `READY` task in `docs/tasks/` (prefer Focus:yes, then Focus:no by priority+size).
 3. Set status to `IN_PROGRESS`, add lock in Meta line, and commit immediately.
 4. Implement against Acceptance Criteria ONLY.
 5. On completion: Status to `REVIEW`, stop.
 
 ## Intent: Human Operation (Human)
 1. Interpret intent (Mark DONE, Start task, Block, Add to backlog, Move to sprint, Cancel, Add idea).
-2. **Before creating any new task:** search title keywords across `docs/tasks/sprint/`, `docs/tasks/backlog/`, and `docs/archive/`. If one or more matches found: list them and halt — wait for explicit human confirmation before proceeding. If no matches: proceed normally.
+2. **Before creating any new task:** search title keywords across `docs/tasks/` and `docs/archive/`. If one or more matches found: list them and halt — wait for explicit human confirmation before proceeding. If no matches: proceed normally.
 3. **If input starts with `idea:` or contains `añade idea:`:**
    - Derive a slug from the idea text (lowercase, hyphens, max 5 words).
    - Create `docs/refinement/IDEA-[slug].md` using the template in `docs/refinement/TEMPLATE.md`.
@@ -21,7 +21,7 @@
    - **Promoting a draft requires explicit human instruction:** `arch do "promover IDEA-[slug]"`.
 4. When marking DONE: add `Closed-at: <ISO 8601 timestamp>` to the task file. If the task required more than one implementation cycle, also add `Iterations: N`.
 5. Execute file operation:
-   - Move tasks between `docs/tasks/backlog/`, `docs/tasks/sprint/`, and `docs/archive/`.
+   - Move tasks between `docs/tasks/` and `docs/archive/`. Change `Focus:yes/no` to adjust active queue.
    - Update Meta lines in individual task files.
 6. Commit exactly once per operation.
 

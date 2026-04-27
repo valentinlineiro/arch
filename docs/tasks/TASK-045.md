@@ -1,5 +1,5 @@
 ## TASK-045: arch-viewer.html — lectura anónima de tareas via GitHub API
-**Meta:** P2 | M | READY | Sprint 3 | 2-code-generation | claude-code | docs/
+**Meta:** P2 | M | READY | Focus:yes | 2-code-generation | claude-code | docs/
 **Depends:** TASK-032
 
 ### Acceptance Criteria

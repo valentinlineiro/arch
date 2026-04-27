@@ -3,12 +3,12 @@
 <!-- Purpose: Assess system health, refine ideas, and propose real-time improvements -->
 
 ## Phase 1: System Check (Conductor)
-1. Scan `docs/tasks/sprint/` for all active tasks.
+1. Scan `docs/tasks/` for all active tasks (Focus:yes = active, Focus:no = queued).
 2. Read recent tasks in `docs/archive/` (Last 5 by modification time).
 3. Evaluate health:
    - Stale locks (Task IN_PROGRESS for >3 days without commit).
    - Priority escalation (P0 tasks blocked or not started).
-   - Sprint risks (Dependencies not met).
+   - Focus drift (Focus:no tasks at P0 that should be Focus:yes).
 4. **Evidence Required:** Every recommendation must cite a concrete signal (e.g., 'TASK-003 in sprint/ has stale lock').
 
 ## Phase 2: Idea Refinement (Refine)

@@ -153,8 +153,8 @@ arch review    # Deterministic check of guidelines, task formats, and drift
 
 ```bash
 # 1. Start session — THINK mode (run by your AI agent)
-#    Scans sprint, refines ideas, detects patterns
-arch think
+#    Scans tasks, refines ideas, detects patterns
+#    (invoke via your AI CLI — not a CLI command)
 
 # 2. Start a task
 arch task start TASK-032
