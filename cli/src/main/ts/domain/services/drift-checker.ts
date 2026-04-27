@@ -71,13 +71,27 @@ export class DriftChecker {
     const configRaw = await this.fileSystem.readFile(`${this.rootPath}/arch.config.json`);
     const configVersion = JSON.parse(configRaw).version as string;
 
-    if (configVersion === this.cliVersion) {
-      return { check: 'Version', status: 'OK', details: [`v${configVersion}`] };
+    const pkgRaw = await this.fileSystem.readFile(`${this.rootPath}/cli/package.json`);
+    const pkgVersion = JSON.parse(pkgRaw).version as string;
+
+    const details: string[] = [];
+
+    if (configVersion !== this.cliVersion) {
+      details.push(`arch.config.json: v${configVersion} — CLI: v${this.cliVersion}`);
     }
+
+    if (pkgVersion !== configVersion) {
+      details.push(`cli/package.json: v${pkgVersion} — arch.config.json: v${configVersion}`);
+    }
+
+    if (details.length === 0) {
+      return { check: 'Version', status: 'OK', details: [`v${this.cliVersion}`] };
+    }
+
     return {
       check: 'Version',
       status: 'WARN',
-      details: [`arch.config.json: v${configVersion} — CLI: v${this.cliVersion}`],
+      details,
     };
   }
 
