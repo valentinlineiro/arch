@@ -1,6 +1,6 @@
 ## TASK-047: Migrar sprint/backlog a docs/tasks/ único con campo Focus
-**Meta:** P1 | M | READY | Sprint 3 | 2-code-generation | claude-code | docs/tasks/, cli/src/, docs/AGENTS.md
-**Depends:** none
+**Meta:** P1 | M | IN_PROGRESS | Sprint 3 | 2-code-generation | claude-code | docs/tasks/, cli/src/, docs/AGENTS.md
+**Depends:** ADR-004
 
 ### Acceptance Criteria
 - [ ] Crear `docs/tasks/` como directorio único — fusionar contenido de `docs/tasks/sprint/` y `docs/tasks/backlog/`
