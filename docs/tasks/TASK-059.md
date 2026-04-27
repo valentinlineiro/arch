@@ -1,5 +1,5 @@
 ## TASK-059: Create arch-upgrade.html for version migration
-**Meta:** P2 | S | READY | Focus:no | 2-code-generation | local | docs/
+**Meta:** P2 | S | IN_PROGRESS | Focus:yes | 2-code-generation | local | docs/
 **Depends:** none
 
 ### Acceptance Criteria
