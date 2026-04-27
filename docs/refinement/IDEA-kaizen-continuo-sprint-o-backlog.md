@@ -17,7 +17,11 @@ Ninguna técnica. Requiere decisión estratégica antes de cualquier implementac
 S — principalmente cambio de protocolo y posible migración de estructura de directorios.
 
 ## Gaps
-<!-- THINK fills this section when invoked — do not edit manually -->
+- **Velocidad:** Sin límite de sprint, ¿cómo medimos throughput? ¿Tareas cerradas por semana en lugar de por sprint?
+- **Contexto:** Si todo está en un directorio plano, el agente lee todas las tareas en cada sesión — hoy `sprint/` actúa como filtro de contexto presupuestario.
+- **Formato:** Todos los tasks tienen `Sprint N` en Meta. Un sistema flat requiere migración de formato o un nuevo campo alternativo.
+- **Híbrido:** ¿Opción intermedia? Un solo `docs/tasks/` con campo `Focus: yes/no`, o solo ordenación por prioridad sin directorios separados.
+- **Tamaño estimado:** S si es solo cambio de protocolo. M si incluye migración de estructura de directorios y cambios en el CLI.
 
 ## Decision
 <!-- Human writes here after THINK evaluation -->
