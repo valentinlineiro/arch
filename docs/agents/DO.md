@@ -17,6 +17,7 @@
    - Commit: `feat: add idea draft [slug] to refinement`.
    - Stop — do not add to backlog, do not set status to READY.
    - Report: `"Draft created at docs/refinement/IDEA-[slug].md. Run arch think to evaluate."`
+   - **Promoting a draft requires explicit human instruction:** `arch do "promover IDEA-[slug]"`.
 3. When marking DONE: if the task required more than one implementation cycle, add `Iterations: N` to the task file before archiving.
 4. Execute file operation:
    - Move tasks between `docs/tasks/backlog/`, `docs/tasks/sprint/`, and `docs/archive/`.
