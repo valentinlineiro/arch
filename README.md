@@ -131,14 +131,20 @@ your-project/
 npx arch-init my-project
 cd my-project
 
-# 1. Start a session
-arch conduct   # Invokes THINK mode
+# 1. Check sprint status
+arch status    # Shows READY / IN_PROGRESS / DONE counts
 
-# 2. Execute a task
-arch exec      # Invokes DO mode for the next READY task
+# 2. Manage tasks
+arch task start TASK-001   # Mark a task as IN_PROGRESS
+arch task done  TASK-001   # Mark a task as DONE and archive it
 
 # 3. Verify system integrity
-arch review    # Deterministic check of guidelines and task formats
+arch validate  # Structural validation (task format, required files)
+arch review    # Deterministic check of guidelines, task formats, and drift
+
+# Planned
+# arch conduct   # Invokes THINK mode (coming soon)
+# arch exec      # Invokes DO mode for next READY task (coming soon)
 ```
 
 ---
