@@ -7,7 +7,7 @@ export interface ReviewResult {
 }
 
 export class Reviewer {
-  private static COMMIT_PREFIXES = ['feat:', 'fix:', 'chore:', 'docs:', 'refactor:', 'test:', 'idea:'];
+  private static COMMIT_PREFIXES = ['feat:', 'fix:', 'chore:', 'docs:', 'refactor:', 'test:', 'idea:', 'task:'];
 
   public reviewTask(task: Task, rawMetaLine?: string): ReviewResult {
     const violations: string[] = [];
@@ -48,7 +48,7 @@ export class Reviewer {
       violations.push(`Commit message must start with one of: ${Reviewer.COMMIT_PREFIXES.join(', ')}`);
     }
 
-    if (!message.startsWith('idea:') && !/\[TASK-\d{3}\]/.test(message)) {
+    if (!message.startsWith('idea:') && !message.startsWith('task:') && !/\[TASK-\d{3}\]/.test(message)) {
       violations.push('Commit message must reference a TASK-ID (e.g., [TASK-001])');
     }
 

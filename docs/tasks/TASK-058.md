@@ -1,4 +1,4 @@
-## TASK-058: System Hardening — Anti-drift and strict criteria
+## TASK-058: System Hardening - Anti-drift and strict criteria
 **Meta:** P2 | S | READY | Focus:no | 7-operations | local | cli/, arch.config.json, docs/
 **Depends:** TASK-056
 

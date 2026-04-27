@@ -1,15 +1,16 @@
 ## TASK-070: Implement arch inbox agent for automated reporting
-**Meta:** P1 | M | IN_PROGRESS | Focus:yes | 1-implementation | gemini | cli/, docs/INBOX.md
+**Meta:** P1 | M | DONE | Focus:yes | 1-implementation | gemini | cli/, docs/INBOX.md
 **Depends:** TASK-068
+**Closed-at:** 2026-04-27T18:05:00Z
 
 ### Acceptance Criteria
-- [ ] Implement `arch inbox` command.
-- [ ] Command scans `docs/tasks/` for active/stale/completed tasks.
-- [ ] Command scans git log for recent commits and contributors.
-- [ ] Automatically updates `docs/INBOX.md` with a summary of the current state.
-- [ ] Detect "Urgent" items (blocked P0/P1 tasks, validation failures).
+- [x] Implement `arch inbox` command.
+- [x] Command scans `docs/tasks/` for active/stale/completed tasks.
+- [x] Command scans git log for recent commits and contributors.
+- [x] Automatically updates `docs/INBOX.md` with a summary of the current state.
+- [x] Detect "Urgent" items (blocked P0/P1 tasks, validation failures).
 
 ### Definition of Done
-- [ ] Running `arch inbox` produces a valid `INBOX.md`.
-- [ ] Summary accurately reflects the backlog state.
-- [ ] `arch review` passes.
+- [x] Running `arch inbox` produces a valid `INBOX.md`.
+- [x] Summary accurately reflects the backlog state.
+- [x] `arch review` passes (commit message validation fixed).

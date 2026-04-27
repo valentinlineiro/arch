@@ -11,6 +11,7 @@ import { MarkTaskInProgress } from './application/use-cases/mark-task-in-progres
 import { ReviewSystem } from './application/use-cases/review-system.js';
 import { ValidateSystem } from './application/use-cases/validate-system.js';
 import { MarkTaskDone } from './application/use-cases/mark-task-done.js';
+import { GenerateInbox } from './application/use-cases/generate-inbox.js';
 
 const GREEN = '\x1b[32m';
 const RED = '\x1b[31m';
@@ -97,8 +98,18 @@ async function main() {
       }
       break;
     }
+    case 'inbox': {
+      const useCase = new GenerateInbox(taskRepository, gitRepository, fileSystem, reviewer, driftChecker);
+      try {
+        const path = await useCase.execute();
+        console.log(`\n  ${GREEN}✔${NC} Inbox updated: ${path}\n`);
+      } catch (error: any) {
+        console.error(`  ${YELLOW}Error:${NC} ${error.message}`);
+      }
+      break;
+    }
     default:
-      console.log('Usage: arch [status|validate|review|task]');
+      console.log('Usage: arch [status|validate|review|task|inbox]');
       process.exit(1);
   }
 }
