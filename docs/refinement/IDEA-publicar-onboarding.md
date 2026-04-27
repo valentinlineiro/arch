@@ -1,7 +1,7 @@
 # IDEA: publicar ONBOARDING.html en GitHub Pages docs/
 **Created:** 2026-04-26
 **Source:** Human request via Manus
-**Status:** DRAFT
+**Status:** DECIDED
 
 ## Proposal
 publicar ONBOARDING.html en GitHub Pages docs/
@@ -13,5 +13,7 @@ publicar ONBOARDING.html en GitHub Pages docs/
 - **Dependencias:** Ninguna técnica, pero se recomienda realizar tras TASK-032 para asegurar consistencia.
 
 ## Decision
-<!-- Human writes here after THINK evaluation -->
-<!-- PROMOTE → TASK-XXX | REJECT: reason -->
+Crear ONBOARDING.html de cero: el flujo arranca preguntando al usuario sus requisitos funcionales para el proyecto.
+Infraestructura: GitHub Pages via GitHub Actions (gh-pages branch o docs/ folder).
+Contenido sincronizado con AGENTS.md.
+PROMOTE → TASK-044
