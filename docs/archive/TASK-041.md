@@ -1,12 +1,12 @@
-## TASK-041: bug: RETRO.md referenciado en AGENTS.md pero eliminado
+## TASK-041: bug: RETRO.md referenced in AGENTS.md but deleted
 **Meta:** P0 | XS | DONE | Sprint 3 | 6-writing | claude | docs/AGENTS.md
 **Depends:** none
 
 ### Acceptance Criteria
-- [x] Eliminar la referencia a `docs/agents/RETRO.md` en `docs/AGENTS.md` (sección RETRO mode)
-- [x] Reemplazar con referencia a `docs/agents/THINK.md` Phase 3 (que absorbió la lógica de RETRO)
-- [x] `arch review` pasa sin WARN de Paths tras el cambio
+- [x] Remove reference to `docs/agents/RETRO.md` in `docs/AGENTS.md` (RETRO mode section)
+- [x] Replace with reference to `docs/agents/THINK.md` Phase 3 (which absorbed RETRO logic)
+- [x] `arch review` passes without Paths WARN after the change
 
 ### Definition of Done
 - [x] `arch review` Paths: OK
-- [x] PR aprobado
+- [x] PR approved

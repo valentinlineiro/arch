@@ -1,32 +1,32 @@
 # KAIZEN-LOG
-<!-- Registro de puntos débiles, fricciones y cuellos de botella de ARCH -->
-<!-- Categorías: Protocolo | Herramienta | Contexto -->
-<!-- Formato: cada entrada en lenguaje natural, sin métricas cuantitativas en v1 -->
+<!-- Record of weak points, friction, and bottlenecks in ARCH -->
+<!-- Categories: Protocol | Tool | Context -->
+<!-- Format: each entry in plain language, no quantitative metrics in v1 -->
 
 ---
 
-## Protocolo
+## Protocol
 
-- **Bugs sin registro formal** *(Sprint 3)*: Los WARNs de `arch review` no tenían un camino definido hacia el backlog. Se crearon TASK-041/042/043 manualmente tras detectarlos. El protocolo de bugs (TASK-040) resolvió esto, pero la fricción existió durante todo Sprint 2 y parte de Sprint 3.
+- **Bugs without formal registration** *(Sprint 3)*: `arch review` WARNs had no defined path to the backlog. TASK-041/042/043 were created manually after detection. The bug protocol (TASK-040) resolved this, but friction persisted throughout Sprint 2 and part of Sprint 3.
 
-- **Tareas legacy con dependencias podridas** *(Sprint 3)*: TASK-007, TASK-014, TASK-021 referenciaban RETRO.md, HUMAN.md y SPRINT.md monolítico — todos eliminados en Sprint 3. Requirieron triage manual. Señal: cuando se elimina un artefacto, hay que buscar activamente referencias en el backlog.
+- **Legacy tasks with stale dependencies** *(Sprint 3)*: TASK-007, TASK-014, TASK-021 referenced RETRO.md, HUMAN.md, and monolithic SPRINT.md — all deleted in Sprint 3. Required manual triage. Signal: when an artifact is deleted, actively search for references in the backlog.
 
-- **Sprint vs backlog como duplicidad estructural** *(Sprint 3)*: Al decir "mover todo al sprint" el backlog quedó vacío — evidencia de que la separación era artificial. Se promovió TASK-047 para resolverlo con un modelo de directorio único + campo Focus.
-
----
-
-## Herramienta
-
-- **`arch review` no valida ACs antes de archivar** *(Sprint 3)*: TASK-031 fue archivado con DONE pero sin ACs marcadas. El reviewer detectó la inconsistencia pero no bloqueó el archivo en su momento. La detección llegó tarde (sesión siguiente).
-
-- **Commit de lock batch no pasa el validator de TASK-ID** *(Sprint 3)*: Al lockear 4 tareas en un commit `[SPRINT]`, `arch review` reportó violación de formato. El validator asume un único TASK-ID por commit — los commits de planificación batch son un edge case no cubierto.
-
-- **`arch --version` no existe como subcomando** *(Sprint 3)*: El drift checker compara versiones leyendo package.json directamente porque el CLI no implementa `--version`. Es un workaround funcional pero inconsistente con la convención estándar de CLIs.
+- **Sprint vs backlog as structural duplication** *(Sprint 3)*: Saying "move everything to sprint" left the backlog empty — evidence the separation was artificial. TASK-047 was promoted to resolve this with a single-directory model + Focus field.
 
 ---
 
-## Contexto
+## Tool
 
-- **IDEAs sin estructura antes de TASK-033** *(Sprint 3)*: El TEMPLATE original solo tenía `## Proposal` sin campos estructurados. THINK tenía que inferir gaps sin contexto de dependencias o tamaño. Las primeras 8 IDEAs se refinaron con más fricción de la necesaria.
+- **`arch review` does not validate ACs before archiving** *(Sprint 3)*: TASK-031 was archived as DONE but with unchecked ACs. The reviewer detected the inconsistency but did not block archival at the time. Detection arrived late (next session).
 
-- **Terminología antigua en backlog legacy** *(Sprint 3)*: CONDUCTOR, EXEC, DISPATCH.md, SPRINT.md monolítico — términos de v0.1 que sobrevivieron a la migración modular. Requirieron triage manual para detectarlos y actualizarlos.
+- **Batch lock commit fails TASK-ID validator** *(Sprint 3)*: Locking 4 tasks in a `[SPRINT]` commit caused `arch review` to report a format violation. The validator assumes a single TASK-ID per commit — batch planning commits are an uncovered edge case.
+
+- **`arch --version` does not exist as a subcommand** *(Sprint 3)*: The drift checker compares versions by reading package.json directly because the CLI does not implement `--version`. This is a functional workaround but inconsistent with standard CLI conventions.
+
+---
+
+## Context
+
+- **Unstructured IDEAs before TASK-033** *(Sprint 3)*: The original TEMPLATE only had `## Proposal` with no structured fields. THINK had to infer gaps without dependency or size context. The first 8 IDEAs were refined with more friction than necessary.
+
+- **Legacy terminology in legacy backlog** *(Sprint 3)*: CONDUCTOR, EXEC, DISPATCH.md, monolithic SPRINT.md — v0.1 terms that survived the modular migration. Required manual triage to detect and update.

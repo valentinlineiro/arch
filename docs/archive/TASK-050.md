@@ -1,12 +1,12 @@
-## TASK-050: Corregir TASK-038 activo inválido y TASK-045 desactualizado
+## TASK-050: Fix invalid active TASK-038 and outdated TASK-045
 **Meta:** P1 | XS | DONE | Focus:yes | 6-writing | claude | docs/tasks/TASK-038.md, docs/tasks/TASK-045.md, docs/archive/TASK-047.md
 **Depends:** none
 
 ### Acceptance Criteria
-- [x] Resolver el estado inválido de `docs/tasks/TASK-038.md`, que hoy duplica una tarea archivada
-- [x] Actualizar `docs/tasks/TASK-045.md` para usar el modelo vigente de `docs/tasks/` con `Focus: yes/no`
-- [x] La especificación actualizada de `TASK-045` sigue siendo ejecutable como está escrita
+- [x] Resolve invalid state of `docs/tasks/TASK-038.md`, which duplicates an archived task
+- [x] Update `docs/tasks/TASK-045.md` to use the current `docs/tasks/` model with `Focus: yes/no`
+- [x] Updated TASK-045 spec remains executable as written
 
 ### Definition of Done
-- [x] No quedan referencias activas a `docs/tasks/sprint/` o `docs/tasks/backlog/` en tareas READY afectadas
-- [ ] PR aprobado
+- [x] No active references to `docs/tasks/sprint/` or `docs/tasks/backlog/` remain in affected READY tasks
+- [ ] PR approved

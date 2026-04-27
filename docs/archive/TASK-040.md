@@ -1,14 +1,14 @@
-## TASK-040: Definir protocolo de bugs y hotfixes en ARCH
+## TASK-040: Define bug and hotfix protocol in ARCH
 **Meta:** P0 | XS | DONE | Sprint 3 | 6-writing | claude | docs/guidelines/
 **Depends:** none
 
 ### Acceptance Criteria
-- [x] Crear `docs/guidelines/bugs.md` con definición de bug en ARCH: cualquier desajuste detectado por `arch review` o inconsistencia de protocolo/documentación
-- [x] Documentar flujo de bug: va directamente a sprint (no pasa por backlog), prioridad siempre sobre desarrollo
-- [x] Documentar clasificación de severidad: P0 = bloqueante para el agente, P1 = degradado funcional, P2 = warn/cosmético
-- [x] Documentar que los WARNs de `arch review` generan tareas de bug automáticamente
-- [x] Referenciar `docs/guidelines/bugs.md` desde `docs/AGENTS.md`
+- [x] Create `docs/guidelines/bugs.md` with ARCH bug definition: any misalignment detected by `arch review` or protocol/documentation inconsistency
+- [x] Document bug flow: goes directly to sprint (bypasses backlog), always prioritized over development
+- [x] Document severity classification: P0 = blocking for agent, P1 = functional degradation, P2 = warn/cosmetic
+- [x] Document that `arch review` WARNs automatically generate bug tasks
+- [x] Reference `docs/guidelines/bugs.md` from `docs/AGENTS.md`
 
 ### Definition of Done
-- [x] `docs/guidelines/bugs.md` creado y validado
-- [x] PR aprobado
+- [x] `docs/guidelines/bugs.md` created and validated
+- [x] PR approved

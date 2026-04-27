@@ -5,7 +5,7 @@
 ### Acceptance Criteria
 - [x] DO.md updated: when Human intent contains `"idea:"`, create a draft in `docs/refinement/` and stop — no task created
 - [x] Draft filename: `IDEA-<slug>.md` derived from the idea text
-- [x] Draft template includes: Problema, Solución propuesta, Dependencias, Tamaño estimado
+- [x] Draft template includes: Problem, Proposed solution, Dependencies, Estimated size
 - [x] DO.md documents that promoting a draft to backlog requires explicit human instruction
 - [x] `docs/refinement/` directory created with a `.gitkeep`
 

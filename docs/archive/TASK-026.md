@@ -1,21 +1,21 @@
-## TASK-026: Implementación v0.2 — agentes, vocabulario y estructura
+## TASK-026: v0.2 implementation — agents, vocabulary, and structure
 **Meta:** P0 | L | DONE | Sprint 2 | 6-writing | claude-code | docs/TASK-FORMAT.md, docs/GUIDELINES.md
 **Depends:** TASK-023, TASK-024
 
 ### Acceptance Criteria
-- [x] `docs/agents/THINK.md` creado: 2 fases secuenciales (system check → ideas), sin mezcla de contextos
-- [x] `docs/agents/DO.md` creado: fusión de EXEC + HUMAN con operaciones diferenciadas por intent
-- [x] `docs/agents/CONDUCTOR.md`, `EXEC.md`, `HUMAN.md`, `REFINE.md` eliminados o marcados deprecated
-- [x] `arch.config.json` schema definido con campos de routing equivalentes a ROUTING.md actual
-- [x] `ROUTING.md` eliminado, referencias actualizadas a `arch.config.json`
-- [x] `docs/REFINEMENT.md` eliminado, instrucciones de IDEA actualizadas en BACKLOG y DO.md
-- [x] `DONE.md`: columna `Iterations` añadida
-- [x] `GUIDELINES.md`: tabla changelog añadida (solo cambios aditivos)
-- [x] Symlinks `AGENTS.md`, `CLAUDE.md`, `GEMINI.md` en raíz apuntando a `docs/AGENTS.md`
-- [x] `docs/AGENTS.md` actualizado como entrada universal con los 3 modos (THINK, DO, RETRO)
-- [x] `CLAUDE.md` (raíz o symlink) actualizado para reflejar los nuevos modos
+- [x] `docs/agents/THINK.md` created: 2 sequential phases (system check → ideas), no context mixing
+- [x] `docs/agents/DO.md` created: merge of EXEC + HUMAN with intent-differentiated operations
+- [x] `docs/agents/CONDUCTOR.md`, `EXEC.md`, `HUMAN.md`, `REFINE.md` deleted or marked deprecated
+- [x] `arch.config.json` schema defined with routing fields equivalent to current ROUTING.md
+- [x] `ROUTING.md` deleted, references updated to `arch.config.json`
+- [x] `docs/REFINEMENT.md` deleted, IDEA instructions updated in BACKLOG and DO.md
+- [x] `DONE.md`: `Iterations` column added
+- [x] `GUIDELINES.md`: changelog table added (additive changes only)
+- [x] Symlinks `AGENTS.md`, `CLAUDE.md`, `GEMINI.md` at root pointing to `docs/AGENTS.md`
+- [x] `docs/AGENTS.md` updated as universal entry point with 3 modes (THINK, DO, RETRO)
+- [x] `CLAUDE.md` (root or symlink) updated to reflect new modes
 
 ### Definition of Done
 - [x] PR approved
-- [x] `arch validate` pasa en el repo tras la implementación
-- [x] Onboarding manual verificado: repo limpio + AGENTS.md → flujo completo funciona
+- [x] `arch validate` passes in repo after implementation
+- [x] Manual onboarding verified: clean repo + AGENTS.md → full flow works

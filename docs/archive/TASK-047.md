@@ -1,16 +1,16 @@
-## TASK-047: Migrar sprint/backlog a docs/tasks/ único con campo Focus
+## TASK-047: Migrate sprint/backlog to single docs/tasks/ with Focus field
 **Meta:** P1 | M | DONE | Focus:yes | 2-code-generation | claude-code | docs/tasks/, cli/src/, docs/AGENTS.md
 **Depends:** ADR-004
 
 ### Acceptance Criteria
-- [x] Crear `docs/tasks/` como directorio único — fusionar contenido de `docs/tasks/sprint/` y `docs/tasks/backlog/`
-- [x] Añadir campo `Focus: yes/no` a la línea Meta de cada tarea activa (`yes` = antes en sprint, `no` = antes en backlog)
-- [x] Formato Meta actualizado: `P1 | S | READY | Focus:yes | 6-writing | claude | docs/`
-- [x] CLI (`MarkdownTaskRepository`) actualizado para leer desde `docs/tasks/` y filtrar por `Focus`
-- [x] `arch status` muestra tareas Focus:yes como activas y Focus:no como pendientes
-- [x] `docs/AGENTS.md` y `docs/agents/DO.md` actualizados — eliminar referencias a sprint/ y backlog/ como directorios
-- [x] `arch.config.json` paths actualizados si aplica
-- [x] `arch review` Drift:Paths pasa sin WARNs tras la migración
+- [x] Create `docs/tasks/` as a single directory — merge content from `docs/tasks/sprint/` and `docs/tasks/backlog/`
+- [x] Add `Focus: yes/no` field to the Meta line of each active task (`yes` = formerly in sprint, `no` = formerly in backlog)
+- [x] Meta format updated: `P1 | S | READY | Focus:yes | 6-writing | claude | docs/`
+- [x] CLI (`MarkdownTaskRepository`) updated to read from `docs/tasks/` and filter by `Focus`
+- [x] `arch status` shows Focus:yes tasks as active and Focus:no tasks as queued
+- [x] `docs/AGENTS.md` and `docs/agents/DO.md` updated — remove references to sprint/ and backlog/ as directories
+- [x] `arch.config.json` paths updated if applicable
+- [x] `arch review` Drift:Paths passes without WARNs after migration
 
 ### Definition of Done
 - [x] Todos los tasks migrados al nuevo formato

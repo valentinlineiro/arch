@@ -1,14 +1,14 @@
-## TASK-048: Detectar worktree sucio y drift task/archive en arch review
+## TASK-048: Detect dirty worktree and task/archive drift in arch review
 **Meta:** P1 | S | DONE | Focus:yes | 2-code-generation | claude-code | cli/src/, docs/agents/THINK.md, docs/agents/DO.md, docs/guidelines/
 **Depends:** none
 
 ### Acceptance Criteria
-- [x] `arch review` o el protocolo THINK/DO detecta worktree sucio por borrados rastreados y archivos temporales raíz relevantes
-- [x] El sistema detecta inconsistencia cuando una misma tarea existe en `docs/tasks/` y `docs/archive/` en estado inválido
-- [x] La salida clasifica claramente artefactos runtime ignorables vs drift real del repo
-- [x] La regla queda documentada en la guía o protocolo correspondiente
+- [x] `arch review` or THINK/DO protocol detects dirty worktree from tracked deletions and relevant root temp files
+- [x] System detects inconsistency when the same task exists in both `docs/tasks/` and `docs/archive/` in an invalid state
+- [x] Output clearly classifies ignorable runtime artifacts vs real repo drift
+- [x] Rule is documented in the corresponding guideline or protocol
 
 ### Definition of Done
-- [x] Check determinístico implementado o protocolo actualizado
-- [x] Sin falsos positivos obvios sobre cambios humanos intencionales
+- [x] Deterministic check implemented or protocol updated
+- [x] No obvious false positives on intentional human changes
 - [ ] PR aprobado
