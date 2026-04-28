@@ -1,5 +1,5 @@
 ## TASK-083: arch review warns when REVIEW task has all ACs checked
-**Meta:** P2 | XS | IN_PROGRESS | Focus:yes | 7-operations | cli | cli/src/main/ts/
+**Meta:** P2 | XS | DONE | Focus:yes | 7-operations | cli | cli/src/main/ts/
 
 ### Acceptance Criteria
 - [x] `arch review` emits a WARNING for any task in REVIEW state where all AC checkboxes are `[x]`.
