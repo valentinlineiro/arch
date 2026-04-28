@@ -3,6 +3,7 @@ import assert from 'node:assert';
 import { MarkTaskDone } from '../../main/ts/application/use-cases/mark-task-done.js';
 import { Task, TaskStatus } from '../../main/ts/domain/models/task.js';
 import { TaskRepository } from '../../main/ts/domain/repositories/task-repository.js';
+import { Reviewer, ReviewResult } from '../../main/ts/domain/services/reviewer.js';
 
 function makeTask(overrides: Partial<Task> = {}): Task {
   return {
@@ -35,10 +36,16 @@ class MockTaskRepository implements TaskRepository {
   async save(task: Task) { this.saved = task; }
 }
 
+function makeReviewer(result: ReviewResult): Reviewer {
+  const reviewer = new Reviewer();
+  reviewer.reviewTask = () => result;
+  return reviewer;
+}
+
 test('MarkTaskDone - sets status to DONE', async () => {
   const task = makeTask();
   const repo = new MockTaskRepository(task);
-  const useCase = new MarkTaskDone(repo);
+  const useCase = new MarkTaskDone(repo, makeReviewer({ valid: true, violations: [] }));
 
   await useCase.execute('TASK-031');
 
@@ -47,7 +54,7 @@ test('MarkTaskDone - sets status to DONE', async () => {
 
 test('MarkTaskDone - throws when task not found', async () => {
   const repo = new MockTaskRepository(null);
-  const useCase = new MarkTaskDone(repo);
+  const useCase = new MarkTaskDone(repo, new Reviewer());
 
   await assert.rejects(
     () => useCase.execute('TASK-999'),
@@ -58,9 +65,40 @@ test('MarkTaskDone - throws when task not found', async () => {
 test('MarkTaskDone - works from REVIEW status', async () => {
   const task = makeTask({ status: TaskStatus.REVIEW });
   const repo = new MockTaskRepository(task);
-  const useCase = new MarkTaskDone(repo);
+  const useCase = new MarkTaskDone(repo, makeReviewer({ valid: true, violations: [] }));
 
   await useCase.execute('TASK-031');
+
+  assert.strictEqual(repo.saved?.status, TaskStatus.DONE);
+});
+
+test('MarkTaskDone - blocks transition when pending ACs exist', async () => {
+  const task = makeTask({
+    acceptanceCriteria: [
+      { description: 'AC one', completed: true },
+      { description: 'AC two', completed: false },
+    ],
+  });
+  const repo = new MockTaskRepository(task);
+  const useCase = new MarkTaskDone(repo, new Reviewer());
+
+  await assert.rejects(
+    () => useCase.execute('TASK-031'),
+    /Cannot mark TASK-031 as DONE/
+  );
+  assert.strictEqual(repo.saved, null);
+});
+
+test('MarkTaskDone - force bypasses pending AC guard', async () => {
+  const task = makeTask({
+    acceptanceCriteria: [
+      { description: 'AC one', completed: false },
+    ],
+  });
+  const repo = new MockTaskRepository(task);
+  const useCase = new MarkTaskDone(repo, new Reviewer());
+
+  await useCase.execute('TASK-031', true);
 
   assert.strictEqual(repo.saved?.status, TaskStatus.DONE);
 });

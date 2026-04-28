@@ -43,7 +43,7 @@ async function main() {
       await new ReviewCommand(taskRepository, gitRepository, reviewer, driftChecker).execute();
       break;
     case 'task':
-      await new TaskCommand(taskRepository).execute(args[0], args[1]);
+      await new TaskCommand(taskRepository, reviewer).execute(args);
       break;
     case 'inbox':
       await new InboxCommand(taskRepository, gitRepository, fileSystem, reviewer, driftChecker).execute();
