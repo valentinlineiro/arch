@@ -4,8 +4,8 @@
 
 ## Status Summary
 - **Active Tasks:** 0
-- **In Review:** 1
-- **Backlog (Ready):** 0
+- **In Review:** 0
+- **Backlog (Ready):** 1
 
 ## Urgent / Actions Required
 _No urgent items detected._
@@ -14,4 +14,4 @@ _No urgent items detected._
 _No pending ideas._
 
 ## Recent Activity
-- **Last Commit:** docs: mark resolved KAIZEN-LOG entries [TASK-080]
+- **Last Commit:** chore: THINK conduct run — replenishment IDEAs [TASK-083]
