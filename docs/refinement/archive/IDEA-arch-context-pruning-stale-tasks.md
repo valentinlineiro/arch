@@ -1,5 +1,5 @@
 # IDEA: ARCH Context Pruning — Stale Task Identification
-**Status:** DRAFT
+**Status:** PROMOTED -> TASK-118
 **Class:** 7-operations
 **Size:** S
 **Value:** 6

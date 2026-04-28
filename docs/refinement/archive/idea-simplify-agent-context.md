@@ -2,7 +2,7 @@
 
 - **Class:** 7-operations
 - **Size:** S
-- **Status:** draft
+- **Status:** PROMOTED -> TASK-119
 
 ## Problem
 
