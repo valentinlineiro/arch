@@ -17,6 +17,10 @@ export class Reviewer {
       violations.push(`Task ${task.id} does not follow canonical v0.4 format in Meta line.`);
     }
 
+    if (task.rawDependsLine && !TaskValidator.isValidDepends(task.rawDependsLine)) {
+      violations.push(`Task ${task.id} does not follow canonical format in Depends line.`);
+    }
+
     // Rule: English-first — task titles must be ASCII only (core.md language policy)
     if (/[^\x00-\x7F]/.test(task.title)) {
       violations.push(`WARN Task ${task.id} title contains non-ASCII characters — translate to English per language policy.`);

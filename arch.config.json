@@ -17,5 +17,17 @@
     "agents": "docs/agents",
     "refinement": "docs/refinement",
     "adr": "docs/adr"
-  }
+  },
+  "clis": [
+    {
+      "name": "gemini",
+      "bin": "gemini",
+      "template": "gemini -p \"{prompt}\" -y"
+    },
+    {
+      "name": "claude",
+      "bin": "claude",
+      "template": "claude -p \"{prompt}\" --dangerously-skip-permissions"
+    }
+  ]
 }

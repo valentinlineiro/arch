@@ -17,6 +17,14 @@ test('TaskValidator - isValidMeta', () => {
   assert.strictEqual(TaskValidator.isValidMeta(invalidMeta), false);
 });
 
+test('TaskValidator - isValidDepends', () => {
+  assert.strictEqual(TaskValidator.isValidDepends('**Depends:** TASK-001'), true);
+  assert.strictEqual(TaskValidator.isValidDepends('**Depends:** TASK-001, TASK-002'), true);
+  assert.strictEqual(TaskValidator.isValidDepends('**Depends:** TASK-001, TASK-002, TASK-003'), true);
+  assert.strictEqual(TaskValidator.isValidDepends('**Depends:** invalid'), false);
+  assert.strictEqual(TaskValidator.isValidDepends('Depends: TASK-001'), false);
+});
+
 test('TaskValidator - parseMeta', () => {
   const meta = '**Meta:** P1 | M | IN_PROGRESS | Sprint 1 | 6-writing | claude | agents/EXEC.md';
   const parsed = TaskValidator.parseMeta(meta);

@@ -111,6 +111,7 @@ export class MarkdownTaskRepository implements TaskRepository {
       }
 
       const closedAtMatch = content.match(/^\*\*Closed-at:\*\* (.*)/m);
+      const dependsMatch = content.match(/^\*\*Depends:\*\* (.*)/m);
 
       return {
         id,
@@ -123,8 +124,10 @@ export class MarkdownTaskRepository implements TaskRepository {
         cli: metaParts[5] || '',
         context: (metaParts[6] || '').split(',').map(s => s.trim()),
         closedAt: closedAtMatch?.[1],
+        depends: dependsMatch ? dependsMatch[1].split(',').map(s => s.trim()) : undefined,
         acceptanceCriteria,
-        rawMetaLine: `**Meta:** ${metaLine}`
+        rawMetaLine: `**Meta:** ${metaLine}`,
+        rawDependsLine: dependsMatch ? dependsMatch[0] : undefined
       };
     }
     return null;

@@ -29,4 +29,5 @@ export interface Task {
   closedAt?: string;
   acceptanceCriteria?: AcceptanceCriterion[];
   rawMetaLine?: string;
+  rawDependsLine?: string;
 }
