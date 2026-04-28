@@ -1,7 +1,7 @@
 # IDEA: arch review detects stale references to deleted files
 **Created:** 2026-04-28
 **Source:** KAIZEN-LOG — Legacy tasks with stale dependencies
-**Status:** DRAFT
+**Status:** PROMOTED -> TASK-107
 **Meta:** P2 | S | 7-operations | cli/src/main/ts/domain/services/drift-checker.ts
 
 ## Problem
@@ -21,4 +21,4 @@ S
 - Performance impact of scanning every task file for every review.
 
 ## Decision
-<!-- Human writes here after THINK evaluation -->
+PROMOTE -> TASK-107 (Self-promoted: addresses recurring stale dependency friction)
