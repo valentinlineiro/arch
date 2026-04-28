@@ -1,5 +1,5 @@
 ## TASK-081: Auto-inject Closed-at timestamp in MarkTaskDone
-**Meta:** P2 | XS | READY | Focus:yes | 1-implementation | cli | cli/src/main/ts/application/use-cases/mark-task-done.ts
+**Meta:** P2 | XS | IN_PROGRESS | Focus:yes | 1-implementation | cli | cli/src/main/ts/application/use-cases/mark-task-done.ts | lock:cli
 **Depends:** none
 
 ### Acceptance Criteria
