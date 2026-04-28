@@ -1,17 +1,17 @@
 # INBOX
 <!-- Weekly dashboard for human-agent coordination -->
-<!-- Generated on: 2026-04-27 -->
+<!-- Generated on: 2026-04-28 -->
 
 ## Status Summary
 - **Active Tasks:** 0
 - **In Review:** 0
-- **Backlog (Ready):** 4
+- **Backlog (Ready):** 0
 
 ## Urgent / Actions Required
 _No urgent items detected._
 
 ## Refinement Queue
-- Inbox Agent Technical Design (IDEA-inbox-agent-design.md)
+_No pending ideas._
 
 ## Recent Activity
-- **Last Commit:** idea: ARCH help and training [IDEA-arch-help-and-training]
+- **Last Commit:** docs: move BLOCKED task back to active task list
