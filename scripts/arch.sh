@@ -2,34 +2,30 @@
 
 set -e
 
-# Colors
+# ── Colors ────────────────────────────────────────────────────────
 GREEN='\033[0;32m'; YELLOW='\033[1;33m'; RED='\033[0;31m'; GRAY='\033[0;90m'; NC='\033[0m'
 
-# Configuration
+# ── Configuration ──────────────────────────────────────────────────
+# Path to the CLI entry point
 BIN="node $(dirname "$0")/../cli/dist/index.js"
 
-# Agent Invoker
+# ── Agent Invoker ────────────────────────────────────────────────
 invoke_agent() {
   local mode_name=$1
   local prompt_file=$2
   local extra_flags=$3
   local task_class=$4
   local task_size=$5
-
+  
   echo -e "  ${GREEN}ARCH${NC} — invoking ${mode_name} mode"
-
+  
   node -e "
-    const fs = require('fs');
-    const os = require('os');
-    const { execSync, spawnSync } = require('child_process');
-
-    const promptFile = '$prompt_file';
-    const taskClass = '$task_class';
-    const taskSize = '$task_size';
-    const extraFlags = '$extra_flags';
-
+    const fs = require(\"fs\");
+    const { execSync, spawnSync } = require(\"child_process\");
     try {
-      const config = JSON.parse(fs.readFileSync('arch.config.json', 'utf8'));
+      const config = JSON.parse(fs.readFileSync(\"arch.config.json\", \"utf8\"));
+      const taskClass = process.argv[3];
+      const taskSize = process.argv[4];
 
       let preferredCliName = null;
       if (taskClass && config.routing && config.routing[taskClass]) {
@@ -41,65 +37,36 @@ invoke_agent() {
         preferredModel = config.governance.modelTiers[taskSize];
       }
 
-      const hasOpencode = config.clis.some(c => c.name === 'opencode');
-      if (!hasOpencode) {
-        config.clis.push({
-          name: 'opencode',
-          bin: 'opencode',
-          template: 'opencode run {prompt}'
-        });
-      }
-
+      // Determine CLI order: preferred first, then others
       let clisToTry = config.clis;
-      if (preferredCliName && preferredCliName !== 'local') {
+      if (preferredCliName && preferredCliName !== \"local\") {
         const found = config.clis.find(c => c.name === preferredCliName);
         if (found) {
-          clisToTry = [found, ...config.clis.filter(c => c.name !== preferredCliName && c.name !== 'opencode'), ...config.clis.filter(c => c.name === 'opencode')];
+          clisToTry = [found, ...config.clis.filter(c => c.name !== preferredCliName)];
         }
       }
-
-      const pathEnv = process.env.PATH || '';
-      const promptContent = fs.readFileSync(promptFile, 'utf8');
 
       for (const cli of clisToTry) {
         try {
-          execSync('type ' + cli.bin, { stdio: 'ignore', shell: true, env: { PATH: pathEnv } });
-        } catch (e) {
-          continue;
-        }
-
-        let cmd;
-        if (cli.name === 'opencode') {
-          const tf = os.tmpdir() + '/arch-prompt-' + Date.now() + '.md';
-          fs.writeFileSync(tf, promptContent);
-          cmd = 'opencode run < ' + tf;
-        } else {
-          const tf = os.tmpdir() + '/arch-prompt-' + Date.now() + '.md';
-          fs.writeFileSync(tf, promptContent);
-          cmd = cli.template.replace(/{prompt}/g, tf);
+          execSync(\"which \" + cli.bin, { stdio: \"ignore\" });
+          let cmd = cli.template.replace(/\\{prompt\\}/g, \"\$(cat \" + process.argv[1] + \")\");
+          
           if (preferredModel) {
-            cmd = cmd + ' --model ' + preferredModel;
+            cmd += \" --model \" + preferredModel;
           }
-        }
-
-        if (extraFlags) {
-          cmd = cmd + ' ' + extraFlags;
-        }
-
-        const result = spawnSync('sh', ['-c', cmd], { stdio: 'inherit', env: { ...process.env, PATH: pathEnv } });
-
-        if (result.status !== 0 && cli.name !== 'opencode') {
-          console.error('  ' + cli.bin + ' exited with status ' + result.status + ', trying next...');
-          continue;
-        }
-        process.exit(result.status ?? 0);
+          
+          if (process.argv[2]) {
+            cmd += \" \" + process.argv[2];
+          }
+          const result = spawnSync(\"sh\", [\"-c\", cmd], { stdio: \"inherit\" });
+          process.exit(result.status ?? 0);
+        } catch (e) {}
       }
-      throw new Error('No working CLI found');
     } catch (e) {
-      console.error('Error in invoke_agent:', e.message);
+      console.error(\"Error in invoke_agent:\", e.message);
     }
     process.exit(1);
-  " || {
+  " "$prompt_file" "$extra_flags" "$task_class" "$task_size" || {
     local status=$?
     if [ $status -eq 1 ]; then
       echo -e "  ${YELLOW}Note:${NC} No AI CLI detected or invocation failed. Showing protocol:"
@@ -110,13 +77,15 @@ invoke_agent() {
   }
 }
 
-# Router
+# ── Router ────────────────────────────────────────────────────────
 case "$1" in
   "status"|"validate"|"inbox"|"next"|"govern"|"rank"|"batch"|"drain"|"version"|"--version"|"-v")
     $BIN "$@"
     ;;
 
+
   "review")
+    # Check for --push flag
     PUSH=false
     for arg in "$@"; do
       if [ "$arg" == "--push" ]; then
@@ -124,8 +93,10 @@ case "$1" in
       fi
     done
 
+    # Execute review
     $BIN "$@"
 
+    # Push if flag present and review passed (set -e ensures we only reach here on success)
     if [ "$PUSH" = true ]; then
       echo ""
       echo -e "  ${GREEN}✓${NC} Review passed. Pushing to remote..."
@@ -134,6 +105,7 @@ case "$1" in
     ;;
 
   "task")
+    # Pre-archive guard for 'task done'
     if [ "$2" == "done" ]; then
       task_id=""
       force=false
@@ -157,7 +129,8 @@ case "$1" in
       fi
     fi
     $BIN "$@"
-
+    
+    # Autofocus next task after 'task done'
     if [ "$2" == "done" ]; then
       echo ""
       $0 govern
@@ -176,6 +149,7 @@ case "$1" in
 
   "exec")
     shift
+    # Find focused task for routing
     FOCUSED_TASK_FILE=$(grep -l "Focus:yes" docs/tasks/*.md 2>/dev/null | head -n 1)
     TASK_CLASS=""
     TASK_SIZE=""
@@ -187,6 +161,7 @@ case "$1" in
       TASK_CLASS=$(echo "$META" | cut -d'|' -f6 | tr -d ' ')
     fi
 
+    # Check if batching is enabled and task matches criteria
     SHOULD_BATCH=$(node -e "
       const fs = require('fs');
       try {
