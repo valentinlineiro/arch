@@ -16,9 +16,9 @@
 2. If no files exist: Skip this phase.
 3. For each IDEA, apply lifecycle rules based on status:
    - **DRAFT:** Identify gaps, missing dependencies, and sizing estimate. Output to terminal only — do not modify the draft file.
-   - **DECIDED + no task exists yet:** If gaps are filled, promote to a new task in `docs/tasks/`. If gaps remain, report them. **Promotion is an atomic operation:** Update the IDEA status to `PROMOTED -> TASK-XXX`, create the task file, and commit both immediately.
-   - **DECIDED + task already exists:** Leave the IDEA file untouched — it is a permanent historical record.
-4. **Never delete IDEA files.** DECIDED IDEAs remain in `docs/refinement/` as an audit trail of how decisions were reached.
+   - **DECIDED + no task exists yet:** If gaps are filled, promote to a new task in `docs/tasks/`. If gaps remain, report them. **Promotion is an atomic operation:** Update the IDEA status to `PROMOTED -> TASK-XXX`, create the task file, and move the IDEA file to `docs/refinement/archive/`.
+   - **REJECTED:** Move the IDEA file to `docs/refinement/archive/`.
+4. **Preserve audit trail:** Processed IDEAs (PROMOTED/REJECTED) must never be deleted; they reside in `docs/refinement/archive/` for historical context.
 
 ## Phase 3: Continuous Kaizen (Real-time Reviewer)
 1. **Immediate Gap Closing:** During system check, identify missing context or logic gaps in the current task or sprint.
