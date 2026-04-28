@@ -1,6 +1,7 @@
 ## TASK-078: Implement guarded `arch task done` transition
-**Meta:** P2 | S | REVIEW | Focus:yes | 1-implementation | cli | cli/src/main/ts/application/commands/task-command.ts, cli/src/main/ts/application/use-cases/mark-task-done.ts
+**Meta:** P2 | S | DONE | Focus:yes | 1-implementation | cli | cli/src/main/ts/application/commands/task-command.ts, cli/src/main/ts/application/use-cases/mark-task-done.ts
 **Depends:** none
+**Closed-at:** 2026-04-28T00:00:00Z
 
 ### Acceptance Criteria
 - [x] Inject `Reviewer` or `ReviewSystem` into `MarkTaskDone` use-case.
@@ -12,4 +13,4 @@
 ### Definition of Done
 - [x] `arch task done` fails if a task has pending ACs.
 - [x] `arch task done --force` succeeds even with pending ACs.
-- [ ] `arch review` passes.
+- [x] `arch review` passes.
