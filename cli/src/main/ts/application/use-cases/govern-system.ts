@@ -3,7 +3,7 @@ import { GitRepository } from '../../domain/repositories/git-repository.js';
 import { FileSystem } from '../../domain/repositories/file-system.js';
 import { Task, TaskStatus } from '../../domain/models/task.js';
 import { SelectNextTask } from './select-next-task.js';
-import { exec } from 'node:child_process';
+import { exec, spawnSync } from 'node:child_process';
 import { promisify } from 'node:util';
 
 const execAsync = promisify(exec);
@@ -73,7 +73,7 @@ export class GovernSystem {
   }
 
   private async runConduct(): Promise<void> {
-    await execAsync('./scripts/arch.sh conduct');
+    spawnSync('./scripts/arch.sh', ['conduct'], { stdio: 'inherit' });
   }
 
   private async getExecCountSinceLastThink(): Promise<number> {

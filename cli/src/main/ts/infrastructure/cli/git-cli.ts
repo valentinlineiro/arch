@@ -36,6 +36,16 @@ export class GitCli implements GitRepository {
       .filter(Boolean);
   }
 
+  async getLog(limit: number): Promise<string[]> {
+    const { stdout } = await execAsync(`git log -n ${limit} --pretty=%B`);
+    // git log --pretty=%B can have multiple lines per commit. 
+    // We want to return an array of commit messages.
+    // However, %B is the raw body. 
+    // To get each commit as a single element, we can use a delimiter.
+    const { stdout: stdoutDelimited } = await execAsync(`git log -n ${limit} --pretty=format:"%B%x00"`);
+    return stdoutDelimited.split('\0').filter(msg => msg.trim().length > 0);
+  }
+
   async add(path: string): Promise<void> {
     await execAsync(`git add ${path}`);
   }

@@ -79,7 +79,7 @@ invoke_agent() {
 
 # ── Router ────────────────────────────────────────────────────────
 case "$1" in
-  "status"|"validate"|"inbox"|"next"|"version"|"--version"|"-v")
+  "status"|"validate"|"inbox"|"next"|"govern"|"version"|"--version"|"-v")
     $BIN "$@"
     ;;
 
@@ -127,7 +127,7 @@ case "$1" in
     ;;
 
   *)
-    echo "Usage: $0 [status|validate|review|inbox|next|task|version|conduct|exec]"
+    echo "Usage: $0 [status|validate|review|inbox|next|govern|task|version|conduct|exec]"
     echo ""
     echo "Commands:"
     echo "  status     Show task counts"
@@ -135,6 +135,7 @@ case "$1" in
     echo "  review     Run deep audit and drift check"
     echo "  inbox      Show weekly dashboard"
     echo "  next       Suggest the next task"
+    echo "  govern     Autonomous governance tick"
     echo "  task       Manage tasks (start/done)"
     echo "  version    Show current version"
     echo "  conduct    Invoke THINK mode with an AI agent"
