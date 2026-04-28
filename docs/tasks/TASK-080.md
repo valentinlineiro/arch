@@ -1,5 +1,5 @@
 ## TASK-080: Mark resolved KAIZEN-LOG entries
-**Meta:** P3 | XS | READY | Focus:yes | 6-writing | docs | docs/KAIZEN-LOG.md
+**Meta:** P3 | XS | IN_PROGRESS | Focus:yes | 6-writing | docs | docs/KAIZEN-LOG.md | lock:cli
 **Depends:** none
 
 ### Acceptance Criteria
