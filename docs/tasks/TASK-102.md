@@ -1,5 +1,5 @@
 ## TASK-102: arch govern - autonomous self-balancing loop
-**Meta:** P1 | M | READY | Focus:no | 7-operations | local | scripts/arch.sh, arch.config.json, docs/agents/
+**Meta:** P1 | M | IN_PROGRESS | Focus:yes | 7-operations | local | scripts/arch.sh, arch.config.json, docs/agents/
 **Depends:** TASK-087, TASK-088
 
 ### Acceptance Criteria
