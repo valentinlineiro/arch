@@ -1,7 +1,7 @@
 # IDEA: Support batch task references in commit messages
 **Created:** 2026-04-28
 **Source:** KAIZEN-LOG — Batch lock commit fails TASK-ID validator
-**Status:** DRAFT
+**Status:** PROMOTED -> TASK-106
 **Meta:** P2 | XS | 7-operations | cli/src/main/ts/domain/services/reviewer.ts
 
 ## Problem
@@ -28,4 +28,4 @@ XS
 - Should the format be strictly comma-separated?
 
 ## Decision
-<!-- Human writes here after THINK evaluation -->
+PROMOTE -> TASK-106 (Self-promoted via THINK Level 2 Autonomy)
