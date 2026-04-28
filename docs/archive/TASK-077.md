@@ -1,5 +1,5 @@
 ## TASK-077: Automate push after successful arch review
-**Meta:** P3 | S | READY | Focus:yes | 7-operations | local | scripts/arch.sh
+**Meta:** P3 | S | DONE | Focus:yes | 7-operations | local | scripts/arch.sh
 **Depends:** none
 ### Acceptance Criteria
 - [x] Add a `--push` flag to `arch review` in `scripts/arch.sh`.
