@@ -22,12 +22,15 @@
    - Registration is not complete until that commit succeeds. Do not leave the draft as an uncommitted worktree change.
    - Stop after the commit — do not add to backlog, do not set status to READY.
    - Report: `"Draft created at docs/refinement/IDEA-[slug].md. Run arch think to evaluate."`
-   - **Promoting a draft requires explicit human instruction:** `arch do "promover IDEA-[slug]"`.
+   - See section 7 below for promotion rules.
 4. When marking DONE: add `Closed-at: <ISO 8601 timestamp>` to the task file. If the task required more than one implementation cycle, also add `Iterations: N`.
 5. Execute file operation:
    - Move tasks between `docs/tasks/` and `docs/archive/`. Change `Focus:yes/no` to adjust active queue.
    - Update Meta lines in individual task files.
 6. Commit exactly once per operation.
+7. **Promoting a draft:** 
+   - **L2 Autonomy:** If the IDEA is sized XS and class `6-writing` or `7-operations`, the agent may autonomously promote without human instruction (per core.md:25).
+   - **Otherwise:** Explicit human instruction required: `arch do "promover IDEA-[slug]"`.
 
 ## Constraints
 - **Atomic commits:** Referencing TASK-ID.
