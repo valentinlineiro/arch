@@ -41,12 +41,10 @@ case "$1" in
 
   "conduct")
     echo -e "  ${GREEN}ARCH${NC} — invoking CONDUCTOR mode (THINK)"
-    if command -v claude-code &> /dev/null; then
-      claude-code docs/agents/THINK.md
-    elif command -v claude &> /dev/null; then
-      claude -p "$(cat docs/agents/THINK.md)"
+    if command -v claude &> /dev/null; then
+      claude -p "$(cat docs/agents/THINK.md)" --dangerously-skip-permissions
     elif command -v gemini &> /dev/null; then
-      gemini "Follow the protocol in docs/agents/THINK.md"
+      gemini -p "$(cat docs/agents/THINK.md)" -y
     else
       echo -e "  ${YELLOW}Note:${NC} No AI CLI detected. Showing protocol:"
       cat docs/agents/THINK.md
@@ -55,12 +53,10 @@ case "$1" in
 
   "exec")
     echo -e "  ${GREEN}ARCH${NC} — invoking EXEC mode (DO)"
-    if command -v claude-code &> /dev/null; then
-      claude-code docs/agents/DO.md
-    elif command -v claude &> /dev/null; then
-      claude -p "$(cat docs/agents/DO.md)"
+    if command -v claude &> /dev/null; then
+      claude -p "$(cat docs/agents/DO.md)" --dangerously-skip-permissions
     elif command -v gemini &> /dev/null; then
-      gemini "Follow the protocol in docs/agents/DO.md"
+      gemini -p "$(cat docs/agents/DO.md)" -y
     else
       echo -e "  ${YELLOW}Note:${NC} No AI CLI detected. Showing protocol:"
       cat docs/agents/DO.md
