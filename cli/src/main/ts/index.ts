@@ -16,6 +16,7 @@ import { NextCommand } from './application/commands/next-command.js';
 import { VersionCommand } from './application/commands/version-command.js';
 import { GovernCommand } from './application/commands/govern-command.js';
 import { RankCommand } from './application/commands/rank-command.js';
+import { BatchCommand } from './application/commands/batch-command.js';
 
 async function main() {
   const fileSystem = new NodeFileSystem();
@@ -62,8 +63,14 @@ async function main() {
     case 'rank':
       await new RankCommand(taskRepository).execute();
       break;
+    case 'batch':
+      await new BatchCommand(fileSystem).execute(args);
+      break;
+    case 'drain':
+      await new BatchCommand(fileSystem).execute(['drain']);
+      break;
     default:
-      console.log('Usage: arch [status|validate|review|task|inbox|next|version|govern|rank]');
+      console.log('Usage: arch [status|validate|review|task|inbox|next|version|govern|rank|batch|drain]');
       process.exit(1);
   }
 }

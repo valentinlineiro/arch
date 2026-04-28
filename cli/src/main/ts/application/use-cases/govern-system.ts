@@ -3,22 +3,30 @@ import { GitRepository } from '../../domain/repositories/git-repository.js';
 import { FileSystem } from '../../domain/repositories/file-system.js';
 import { Task, TaskStatus } from '../../domain/models/task.js';
 import { SelectNextTask } from './select-next-task.js';
+import { BatchSystem } from './batch-system.js';
 import { exec, spawnSync } from 'node:child_process';
 import { promisify } from 'node:util';
 
 const execAsync = promisify(exec);
 
 export class GovernSystem {
+  private batchSystem: BatchSystem;
+
   constructor(
     private taskRepository: TaskRepository,
     private gitRepository: GitRepository,
     private fileSystem: FileSystem
-  ) {}
+  ) {
+    this.batchSystem = new BatchSystem(fileSystem);
+  }
 
   async execute(): Promise<void> {
     const config = JSON.parse(await this.fileSystem.readFile('arch.config.json'));
     const conductEveryN = config.governance?.conductEveryN ?? 3;
     const starvationCycles = config.governance?.starvationCycles ?? 5;
+
+    // 0. Batch Drain
+    await this.batchSystem.drain();
 
     // 1. Rule 2 — Replenishment
     const readyTasks = await this.taskRepository.findReady();

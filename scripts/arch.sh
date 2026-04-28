@@ -79,9 +79,10 @@ invoke_agent() {
 
 # ── Router ────────────────────────────────────────────────────────
 case "$1" in
-  "status"|"validate"|"inbox"|"next"|"govern"|"rank"|"version"|"--version"|"-v")
+  "status"|"validate"|"inbox"|"next"|"govern"|"rank"|"batch"|"drain"|"version"|"--version"|"-v")
     $BIN "$@"
     ;;
+
 
   "review")
     # Check for --push flag
@@ -152,16 +153,37 @@ case "$1" in
     FOCUSED_TASK_FILE=$(grep -l "Focus:yes" docs/tasks/*.md 2>/dev/null | head -n 1)
     TASK_CLASS=""
     TASK_SIZE=""
+    TASK_ID=""
     if [ -n "$FOCUSED_TASK_FILE" ]; then
+      TASK_ID=$(basename "$FOCUSED_TASK_FILE" .md)
       META=$(grep "^\*\*Meta:\*\*" "$FOCUSED_TASK_FILE")
       TASK_SIZE=$(echo "$META" | cut -d'|' -f2 | tr -d ' ')
-      TASK_CLASS=$(echo "$META" | cut -d'|' -f5 | tr -d ' ')
+      TASK_CLASS=$(echo "$META" | cut -d'|' -f6 | tr -d ' ')
     fi
-    invoke_agent "EXEC (DO)" "docs/agents/DO.md" "$*" "$TASK_CLASS" "$TASK_SIZE"
+
+    # Check if batching is enabled and task matches criteria
+    SHOULD_BATCH=$(node -e "
+      const fs = require('fs');
+      try {
+        const config = JSON.parse(fs.readFileSync('arch.config.json', 'utf8'));
+        const batchEnabled = config.governance?.batchWritingTasks === true;
+        const matchesCriteria = '$TASK_CLASS' === '6-writing' && '$TASK_SIZE' === 'XS';
+        console.log(batchEnabled && matchesCriteria);
+      } catch (e) {
+        console.log(false);
+      }
+    ")
+
+    if [ "$SHOULD_BATCH" == "true" ]; then
+      echo -e "  ${YELLOW}BATCH${NC} — queuing ${TASK_ID} for Anthropic Batch API"
+      $BIN batch add "$TASK_ID" "docs/agents/DO.md"
+    else
+      invoke_agent "EXEC (DO)" "docs/agents/DO.md" "$*" "$TASK_CLASS" "$TASK_SIZE"
+    fi
     ;;
 
   *)
-    echo "Usage: $0 [status|validate|review|inbox|next|govern|rank|archive|task|version|conduct|exec]"
+    echo "Usage: $0 [status|validate|review|inbox|next|govern|rank|batch|drain|archive|task|version|conduct|exec]"
     echo ""
     echo "Commands:"
     echo "  status     Show task counts"
@@ -171,6 +193,8 @@ case "$1" in
     echo "  next       Suggest the next task"
     echo "  govern     Autonomous governance tick"
     echo "  rank       Rank READY tasks by Value/Size ratio"
+    echo "  batch      Manage batch queue"
+    echo "  drain      Submit and process batch queue"
     echo "  archive    Alias for task done"
     echo "  task       Manage tasks (start/done)"
     echo "  version    Show current version"

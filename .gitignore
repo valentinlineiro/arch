@@ -3,3 +3,4 @@ dist/
 cli/node_modules/
 cli/dist/
 .codex
+docs/.arch-batch-queue.json
