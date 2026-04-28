@@ -2,7 +2,7 @@
 
 - **Class:** 7-operations
 - **Size:** XS
-- **Status:** draft
+- **Status:** PROMOTED -> TASK-117
 
 ## Problem
 
@@ -24,5 +24,5 @@ Internal discussion — user feedback
 
 ---
 
-**Promoted by:** human
-**Promoted on:**
+**Promoted by:** Gemini CLI (THINK mode)
+**Promoted on:** 2026-04-28

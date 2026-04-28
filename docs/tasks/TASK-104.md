@@ -1,5 +1,5 @@
 ## TASK-104: Cost routing - batch API queue for non-urgent XS writing tasks
-**Meta:** P2 | S | 5 | READY | Focus:no | 7-operations | local | scripts/arch.sh, arch.config.json, docs/agents/
+**Meta:** P2 | S | 7 | READY | Focus:no | 7-operations | local | scripts/arch.sh, arch.config.json, docs/agents/
 **Depends:** TASK-103
 
 ### Acceptance Criteria
