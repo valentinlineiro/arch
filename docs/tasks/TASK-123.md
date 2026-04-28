@@ -1,5 +1,6 @@
 ## TASK-123: Review generates recursive "fix violations" tasks
-**Meta:** P0 | XS | 8 | IN_PROGRESS | Focus:yes | 7-operations | local | cli/src/main/ts/application/use-cases/review-system.ts
+**Meta:** P0 | XS | 8 | DONE | Focus:yes | 7-operations | local | cli/src/main/ts/application/use-cases/review-system.ts
+**Closed-at:** 2026-04-28T14:02:00Z
 
 ## Problem
 Large diff warning triggers TASK-XXX creation, but archiving that task (1 file deletion) itself becomes a large diff, triggering the next violation task. Pattern: TASK-111, 113, 114, 117 all follow this cycle.
