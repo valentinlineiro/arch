@@ -11,7 +11,7 @@ BIN="node $(dirname "$0")/../cli/dist/index.js"
 
 # ── Router ────────────────────────────────────────────────────────
 case "$1" in
-  "status"|"validate"|"review"|"inbox"|"next")
+  "status"|"validate"|"review"|"inbox"|"next"|"version"|"--version"|"-v")
     $BIN "$@"
     ;;
 
@@ -48,7 +48,7 @@ case "$1" in
     ;;
 
   *)
-    echo "Usage: $0 [status|validate|review|inbox|next|task|conduct|exec]"
+    echo "Usage: $0 [status|validate|review|inbox|next|task|version|conduct|exec]"
     echo ""
     echo "Commands:"
     echo "  status     Show task counts"
@@ -57,6 +57,7 @@ case "$1" in
     echo "  inbox      Show weekly dashboard"
     echo "  next       Suggest the next task"
     echo "  task       Manage tasks (start/done)"
+    echo "  version    Show current version"
     echo "  conduct    Invoke THINK mode with an AI agent"
     echo "  exec       Invoke DO mode with an AI agent"
     exit 1

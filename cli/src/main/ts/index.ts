@@ -13,6 +13,7 @@ import { ReviewCommand } from './application/commands/review-command.js';
 import { TaskCommand } from './application/commands/task-command.js';
 import { InboxCommand } from './application/commands/inbox-command.js';
 import { NextCommand } from './application/commands/next-command.js';
+import { VersionCommand } from './application/commands/version-command.js';
 
 async function main() {
   const fileSystem = new NodeFileSystem();
@@ -25,6 +26,11 @@ async function main() {
   const driftChecker = new DriftChecker(fileSystem, gitRepository, rootPath, cliVersion);
 
   const { name, args } = parseCommand(process.argv.slice(2));
+
+  if (name === '--version' || name === '-v') {
+    await new VersionCommand(cliVersion).execute();
+    return;
+  }
 
   switch (name) {
     case 'status':
@@ -45,8 +51,11 @@ async function main() {
     case 'next':
       await new NextCommand(taskRepository).execute();
       break;
+    case 'version':
+      await new VersionCommand(cliVersion).execute();
+      break;
     default:
-      console.log('Usage: arch [status|validate|review|task|inbox|next]');
+      console.log('Usage: arch [status|validate|review|task|inbox|next|version]');
       process.exit(1);
   }
 }

@@ -1,14 +1,13 @@
 ## TASK-072: Implement `arch --version` command
-**Meta:** P3 | XS | IN_PROGRESS | Focus:yes | 1-implementation | cli | cli/src/main/ts/index.ts
-**Locked-by:** gemini | **Locked-at:** 2026-04-28T09:30:00Z
-**Depends:** none
+**Meta:** P3 | XS | REVIEW | Focus:yes | 1-implementation | cli | cli/src/main/ts/index.ts
+**Iterations:** 1
 
 ### Acceptance Criteria
-- [ ] Add `version` command to CLI that prints the version from `package.json`
-- [ ] Add support for `--version` and `-v` flags in the main entrypoint
-- [ ] Ensure `arch review` still works correctly with the new version command
-- [ ] Rebuild CLI and verify output
+- [x] Add `version` command to CLI that prints the version from `package.json`
+- [x] Add support for `--version` and `-v` flags in the main entrypoint
+- [x] Ensure `arch review` still works correctly with the new version command
+- [x] Rebuild CLI and verify output
 
 ### Definition of Done
-- [ ] `arch version`, `arch --version`, and `arch -v` all output the current version (e.g., `v0.4.0`)
-- [ ] Tests pass
+- [x] `arch version`, `arch --version`, and `arch -v` all output the current version (e.g., `v0.4.0`)
+- [x] Tests pass
