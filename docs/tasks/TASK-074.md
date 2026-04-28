@@ -3,12 +3,12 @@
 **Depends:** none
 
 ### Acceptance Criteria
-- [ ] Update `docs/DISPATCH.md` to clearly mark it as DEPRECATED
-- [ ] Redirect users to terminal output and `docs/INBOX.md` in `DISPATCH.md`
-- [ ] Verify no other active docs depend on `DISPATCH.md` as a source of truth
-- [ ] Update `ADR-003-dispatch-ephemeral.md` if it references the persisted file as active
+- [x] Update `docs/DISPATCH.md` to clearly mark it as DEPRECATED
+- [x] Redirect users to terminal output and `docs/INBOX.md` in `DISPATCH.md`
+- [x] Verify no other active docs depend on `DISPATCH.md` as a source of truth
+- [x] Update `ADR-003-dispatch-ephemeral.md` if it references the persisted file as active
 
 ### Definition of Done
-- [ ] `docs/DISPATCH.md` is deprecated
-- [ ] Consistency between ADR-003 and implementation
+- [x] `docs/DISPATCH.md` is deprecated
+- [x] Consistency between ADR-003 and implementation
 - [ ] `arch review` passes

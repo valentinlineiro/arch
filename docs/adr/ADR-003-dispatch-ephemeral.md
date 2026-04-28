@@ -18,7 +18,9 @@ The question is whether DISPATCH.md carries unique state or is a derived view of
 
 ## Decision
 
-DISPATCH output will be written to terminal only, not persisted to the repository. DISPATCH.md will be eliminated in v0.2.
+DISPATCH output will be written to terminal only, not persisted to the repository. DISPATCH.md is officially DEPRECATED and will be eliminated in v0.5.0.
+
+Coordination dashboarding and health reporting now flow through `docs/INBOX.md`.
 
 This is an explicit, bounded exception to ADR-001.
 
