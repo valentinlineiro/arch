@@ -1,5 +1,5 @@
 ## TASK-122: Review mutates repository state during verification
-**Meta:** P0 | XS | 8 | READY | Focus:yes | 7-operations | local | cli/src/main/ts/application/commands/review-command.ts, docs/agents/AGENTS.md, docs/agents/THINK.md
+**Meta:** P0 | XS | 8 | IN_PROGRESS | Focus:yes | 7-operations | local | cli/src/main/ts/application/commands/review-command.ts, docs/agents/AGENTS.md, docs/agents/THINK.md
 
 ## Problem
 `./scripts/arch.sh review` is documented as verification ("verify system integrity") but it creates and commits new tasks on failure. Verification should not have write side effects.
