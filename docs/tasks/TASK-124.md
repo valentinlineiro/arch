@@ -1,13 +1,12 @@
 ## TASK-124: Auto-create bypasses safeguards and leaves partial state
-**Meta:** P1 | XS | 8 | READY | Focus:yes | 7-operations | local | cli/src/main/ts/application/commands/review-command.ts, docs/agents/DO.md
+**Meta:** P1 | XS | 8 | DONE | Focus:yes | 7-operations | local | cli/src/main/ts/application/commands/review-command.ts, docs/agents/DO.md
+**Closed-at:** 2026-04-28T14:02:30Z
 
 ## Problem
 Review-command saves task first, then attempts git add && commit, and merely logs failure. DO.md:17 requires duplicate search and halting before new task creation. DO.md:22 says registration is incomplete until commit succeeds.
 
-## Evidence
-- review-command.ts:79: logs failure but doesn't rollback the saved task file
-- DO.md:17,22: safeguards not applied to auto-create path
-- TASK-117 left uncommitted in worktree after commit failure
+## Resolution
+TASK-122 fixed the root cause by removing auto-create entirely. Review is now read-only (no task creation on failure). This bug is closed as a duplicate of TASK-122.
 
 ## Impact
 Partial state on failure — task exists but isn't registered, violating protocol integrity.
