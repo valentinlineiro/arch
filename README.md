@@ -78,7 +78,7 @@ Every sprint ends with a retrospective where AI proposes rule changes. The syste
    (Intent: Exec)                 (Sprint close)
    (Intent: Human)                (Pattern detect)
           │                             │
-    SPRINT.md                       DONE.md
+    SPRINT.md                       INBOX.md
     ◄── status                      ──► GUIDELINES.md
     ◄── intent                      (Human approves)
 ```
@@ -95,7 +95,6 @@ your-project/
 └── docs/
     ├── SPRINT.md          ← Active sprint tasks (Single Source of Truth)
     ├── BACKLOG.md         ← All tasks and IDEAs
-    ├── DONE.md            ← Completed tasks with Iterations count
     ├── GUIDELINES.md      ← Permanent rules (The project's DNA)
     ├── agents/
     │   ├── THINK.md       ← Conductor + Refine consolidated protocol

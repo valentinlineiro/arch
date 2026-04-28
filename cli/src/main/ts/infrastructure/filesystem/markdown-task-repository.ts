@@ -5,7 +5,6 @@ import { FileSystem } from '../../domain/repositories/file-system.js';
 export class MarkdownTaskRepository implements TaskRepository {
   private tasksDir = 'docs/tasks';
   private archiveDir = 'docs/archive';
-  private doneFile = 'docs/DONE.md';
 
   constructor(private fileSystem: FileSystem) {}
 
@@ -71,37 +70,6 @@ export class MarkdownTaskRepository implements TaskRepository {
     } else {
       await this.fileSystem.writeFile(targetPath, content);
     }
-
-    if (task.status === TaskStatus.DONE) {
-      await this.updateDoneTable(task);
-    }
-  }
-
-  private async updateDoneTable(task: Task): Promise<void> {
-    if (!(await this.fileSystem.exists(this.doneFile))) return;
-    let content = await this.fileSystem.readFile(this.doneFile);
-    if (content.includes(`| ${task.id} |`)) return;
-
-    const today = new Date().toISOString().split('T')[0];
-    const newRow = `| ${task.id} | ${task.title} | ${task.size}→${task.size} | ${task.cli} | ${task.sprint} | ${today} | - | Archived |\n`;
-
-    if (content.includes('---')) {
-      const lines = content.split('\n');
-      let lastRowIndex = -1;
-      for (let i = lines.length - 1; i >= 0; i--) {
-        if (lines[i].startsWith('|')) { lastRowIndex = i; break; }
-      }
-      if (lastRowIndex !== -1) {
-        lines.splice(lastRowIndex + 1, 0, newRow.trim());
-        content = lines.join('\n');
-      } else {
-        content += `\n${newRow}`;
-      }
-    } else {
-      content += `\n${newRow}`;
-    }
-
-    await this.fileSystem.writeFile(this.doneFile, content);
   }
 
   private parseTask(content: string): Task | null {

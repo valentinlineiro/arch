@@ -120,7 +120,7 @@ for file in docs/*.md; do
   [ -e "$file" ] || continue
   base="$(basename "$file")"
   case "$base" in
-    DONE.md|KAIZEN-LOG.md|METRICS.md|TASK-FORMAT.md)
+    KAIZEN-LOG.md|METRICS.md|TASK-FORMAT.md)
       ;;
     *)
       legacy_root_docs+=("$base")

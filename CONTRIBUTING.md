@@ -90,7 +90,6 @@ SAFE TO CHANGE (framework files)
 NEVER CHANGE IN A PR (project state files)
   docs/BACKLOG.md       ← template only, not content
   docs/SPRINT.md        ← template only
-  docs/DONE.md          ← template only
   docs/DISPATCH.md      ← DEPRECATED, use docs/INBOX.md instead```
 
 ---

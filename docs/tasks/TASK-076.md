@@ -3,12 +3,12 @@
 **Depends:** none
 
 ### Acceptance Criteria
-- [ ] Remove `docs/DONE.md` from the repository.
-- [ ] Remove `updateDoneTable` logic from `MarkdownTaskRepository.ts`.
-- [ ] Update `MarkdownTaskRepository` tests to remove `DONE.md` dependency.
-- [ ] Verify `arch status` still reports correct `DONE` count from `docs/archive/`.
+- [x] Remove `docs/DONE.md` from the repository.
+- [x] Remove `updateDoneTable` logic from `MarkdownTaskRepository.ts`.
+- [x] Update `MarkdownTaskRepository` tests to remove `DONE.md` dependency.
+- [x] Verify `arch status` still reports correct `DONE` count from `docs/archive/`.
 
 ### Definition of Done
-- [ ] `docs/DONE.md` is gone.
-- [ ] CLI code is simplified.
-- [ ] `arch review` passes.
+- [x] `docs/DONE.md` is gone.
+- [x] CLI code is simplified.
+- [x] `arch review` passes.

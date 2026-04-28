@@ -43,7 +43,6 @@ Initial release. Method only. No tooling.
 - `docs/AGENTS.md` — universal AI entry point, compatible with AGENTS.md open standard
 - `docs/BACKLOG.md` — task backlog with canonical format
 - `docs/SPRINT.md` — active sprint template
-- `docs/DONE.md` — rolling window of last 10 completed tasks
 - `docs/DISPATCH.md` — DEPRECATED (use docs/INBOX.md)
 - `docs/REFINEMENT.md` — idea refinement before backlog entry
 - `docs/RETRO.md` — sprint retrospective with AI pattern detection

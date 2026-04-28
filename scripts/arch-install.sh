@@ -49,7 +49,6 @@ files=(
   "arch.config.json"
   "cli/package.json"
   "cli/dist/index.js"
-  "docs/DONE.md"
   "docs/KAIZEN-LOG.md"
   "docs/METRICS.md"
   "docs/TASK-FORMAT.md"
