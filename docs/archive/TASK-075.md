@@ -1,5 +1,5 @@
 ## TASK-075: Fix README version drift
-**Meta:** P3 | XS | READY | Focus:yes | 6-writing | docs | README.md
+**Meta:** P3 | XS | DONE | Focus:yes | 6-writing | docs | README.md
 **Depends:** none
 ### Acceptance Criteria
 - [x] Change `v0.2` references to `v0.4.0` in `README.md`
