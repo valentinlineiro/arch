@@ -1,5 +1,5 @@
 ## TASK-103: Cost routing - class-based provider and model-tier selection
-**Meta:** P1 | S | READY | Focus:no | 7-operations | local | scripts/arch.sh, arch.config.json
+**Meta:** P1 | S | IN_PROGRESS | Focus:yes | 7-operations | local | scripts/arch.sh, arch.config.json
 **Depends:** TASK-086
 
 ### Acceptance Criteria
