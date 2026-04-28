@@ -1,5 +1,6 @@
 ## TASK-072: Implement `arch --version` command
-**Meta:** P3 | XS | READY | Focus:yes | 1-implementation | cli | cli/src/main/ts/index.ts
+**Meta:** P3 | XS | IN_PROGRESS | Focus:yes | 1-implementation | cli | cli/src/main/ts/index.ts
+**Locked-by:** gemini | **Locked-at:** 2026-04-28T09:30:00Z
 **Depends:** none
 
 ### Acceptance Criteria
