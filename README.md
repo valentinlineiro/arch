@@ -21,10 +21,10 @@ Sprint 1 — 72 hours, solo operator:
 ARCH encourages atomic, task-tagged commits that preserve the rationale of every change:
 
 ```text
-75b7178 chore: complete TASK-026 — Implementation of ARCH v0.2 [TASK-026]
-2f91fe1 [TASK-026] implementation of ARCH v0.2: consolidated THINK/DO modes
+d442d90 docs: Deprecate stale DISPATCH.md [TASK-074]
+f73f467 refactor: remove redundant DONE.md and simplify archiving [TASK-076]
+7e10389 chore: archive TASK-065 as DONE [TASK-065]
 4fb15b2 [TASK-025] implementation of ACs: arch validate command
-163b43d refactor: redefine TASK-012 as deterministic CLI engine [TASK-012]
 bf29462 [TASK-027] restructure CLI codebase to cli/src/{main,test}/ts
 d9d41db chore: pivot CLI migration from Python to Node.js [TASK-027]
 ```
@@ -64,12 +64,14 @@ Every sprint ends with a retrospective where AI proposes rule changes. The syste
 
 ---
 
-## Agent hierarchy (v0.2)
+## Agent hierarchy (v0.4.0)
+
+> **Note:** ARCH v0.4.0 moves from a flat file structure to a modular, directory-based model (e.g., `docs/tasks/`, `docs/guidelines/`) to ensure scalability and better context management.
 
 ```
                     THINK mode
             (System check + Refinement)
-            Reads: SPRINT + DONE + BACKLOG
+            Reads: SPRINT + archive/ + BACKLOG
             Writes: Ephemeral terminal report
                          │
           ┌──────────────┴──────────────┐
@@ -105,21 +107,22 @@ your-project/
 
 ---
 
-## Task format (v0.2)
+## Task format (v0.4.0)
 
 ```markdown
-## TASK-027: CLI Migration
-**Meta:** P0 | L | DONE | Sprint 1 | 2-code-generation | claude-code | cli/, package.json
-**Depends:** TASK-024
+## TASK-077: Automate push after successful arch review
+**Meta:** P3 | S | READY | Focus:yes | 7-operations | local | scripts/arch.sh
+**Depends:** none
 
 ### Acceptance Criteria
-- [x] Node.js project initialized with TypeScript.
-- [x] Clean Architecture layers established.
-- [x] Bundle process (tsup) created for zero-dep redistribution.
+- [ ] Add a `--push` flag to `arch review` in `scripts/arch.sh`.
+- [ ] If `--push` is present and review is OK, execute `git push`.
+- [ ] Ensure `git push` is NOT executed if any review check fails.
 
 ### Definition of Done
-- [x] 'arch' command points to the new implementation.
-- [x] PR approved.
+- [ ] `arch review --push` works as expected.
+- [ ] Manual verification of safety (no push on failure).
+- [ ] `arch review` passes.
 ```
 
 ---
@@ -167,19 +170,19 @@ cd my-project
 #   Drift
 #     ✔ Commands
 #     ✔ Version
-#         v0.2.0
+#         v0.4.0
 #     ✔ Paths
 
 # 4. Done
-./scripts/arch.sh task done TASK-032
+./scripts/arch.sh task done TASK-077
 ```
 
 ---
 
 ## Status
 
-**v0.2 — Clean Architecture & Automated Validation.**
-The methodology is supported by a deterministic CLI engine.
+**v0.4.0 — Scalable Context & Modular Protocols.**
+The methodology is supported by a deterministic CLI engine and modular repository structure.
 
 ---
 
