@@ -18,6 +18,17 @@ export class MarkdownTaskRepository implements TaskRepository {
     return tasks.filter(t => t.status === TaskStatus.READY);
   }
 
+  async getNextId(): Promise<string> {
+    const tasks = await this.getAll();
+    const ids = tasks
+      .map(t => t.id)
+      .filter(id => /^TASK-\d{3}$/.test(id))
+      .map(id => parseInt(id.split('-')[1], 10));
+    
+    const maxId = ids.length > 0 ? Math.max(...ids) : 0;
+    return `TASK-${(maxId + 1).toString().padStart(3, '0')}`;
+  }
+
   async getAll(): Promise<Task[]> {
     const activeTasks = await this.loadTasksFromDir(this.tasksDir);
     const archiveTasks = await this.loadTasksFromDir(this.archiveDir);

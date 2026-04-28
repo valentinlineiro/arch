@@ -11,8 +11,8 @@ class MockTaskRepository implements TaskRepository {
   async getAll() { return this.tasks; }
   async save(task: Task) {}
   async findReady() { return []; }
-}
-
+  async getNextId() { return 'TASK-001'; }
+  }
 class MockFileSystem implements FileSystem {
   files: Record<string, string> = {};
   async readFile(path: string) { return this.files[path]; }

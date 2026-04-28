@@ -5,4 +5,5 @@ export interface TaskRepository {
   getAll(): Promise<Task[]>;
   save(task: Task): Promise<void>;
   findReady(): Promise<Task[]>;
+  getNextId(): Promise<string>;
 }

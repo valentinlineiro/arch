@@ -33,6 +33,7 @@ class MockTaskRepository implements TaskRepository {
   async getById(id: string) { return this.task?.id === id ? this.task : null; }
   async getAll() { return this.task ? [this.task] : []; }
   async findReady() { return []; }
+  async getNextId() { return 'TASK-001'; }
   async save(task: Task) { this.saved = task; }
 }
 
