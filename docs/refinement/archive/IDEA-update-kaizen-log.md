@@ -1,7 +1,7 @@
 # IDEA: Mark resolved KAIZEN-LOG entries
 **Created:** 2026-04-28
 **Source:** THINK Phase 4 — stale entries in KAIZEN-LOG
-**Status:** DRAFT
+**Status:** PROMOTED → TASK-080
 **Meta:** P3 | XS | 6-writing | docs/KAIZEN-LOG.md
 
 ## Problem
