@@ -1,5 +1,6 @@
 # TASK-117: Autofocus next best task after completion
 **Meta:** P2 | XS | 7 | DONE | Focus:yes | 7-operations | local | scripts/arch.sh
+**Closed-at:** 2026-04-28T12:44:51Z
 
 ## Description
 Implement automatic selection and focusing of the next best task after a task is marked DONE.
