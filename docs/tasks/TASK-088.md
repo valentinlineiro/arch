@@ -1,5 +1,5 @@
 ## TASK-088: Autonomous loop - CI workflows with human-in-the-loop gates
-**Meta:** P1 | M | READY | Focus:no | 7-operations | local | .github/workflows/, scripts/arch.sh, docs/agents/
+**Meta:** P1 | M | IN_PROGRESS | Focus:yes | 7-operations | local | .github/workflows/, scripts/arch.sh, docs/agents/
 **Depends:** TASK-086
 
 ### Acceptance Criteria
