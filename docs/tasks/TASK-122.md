@@ -1,16 +1,18 @@
-## BUG: Review mutates repository state during verification
-**Author:** review | **Status:** OPEN | **Focus:** yes
+# TASK-122: Review mutates repository state during verification
+**Meta:** P0 | XS | 8 | READY | Focus:yes | 7-operations | local | cli/src/main/ts/application/commands/review-command.ts, docs/agents/AGENTS.md, docs/agents/THINK.md
 
-### Problem
+## Problem
 `./scripts/arch.sh review` is documented as verification ("verify system integrity") but it creates and commits new tasks on failure. Verification should not have write side effects.
 
-### Evidence
+## Evidence
 - AGENTS.md:7: "run ./scripts/arch.sh review to verify system integrity"
 - THINK.md:43: "output is ephemeral terminal reporting"
 - review-command.ts:33,79: creates and commits new task on failure
 
-### Impact
+## Impact
 Onboarding step mutates state, breaking the contract that verification is read-only.
 
-### Priority
-High
+## Acceptance Criteria
+- [ ] `arch review` is read-only — no file creation or git commits on failure
+- [ ] Violations are reported to terminal, not auto-fixed
+- [ ] Document the non-mutating behavior in AGENTS.md onboarding
