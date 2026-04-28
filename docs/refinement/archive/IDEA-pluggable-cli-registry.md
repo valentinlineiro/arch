@@ -1,7 +1,7 @@
 # IDEA: Pluggable CLI registry for conduct/exec
 **Created:** 2026-04-28
 **Source:** TASK-082 post-mortem — adding a new CLI required edits in multiple places in arch.sh
-**Status:** DRAFT
+**Status:** PROMOTED → TASK-086
 **Meta:** P2 | S | 7-operations | scripts/arch.sh
 
 ## Problem

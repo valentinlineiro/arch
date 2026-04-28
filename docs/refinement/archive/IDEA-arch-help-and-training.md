@@ -1,7 +1,7 @@
 # IDEA: ARCH help and training
 **Created:** 2026-04-27
 **Source:** User feedback
-**Status:** DRAFT
+**Status:** PROMOTED → TASK-089
 **Meta:** P2 | M | 6-writing | docs/
 
 ## Problem

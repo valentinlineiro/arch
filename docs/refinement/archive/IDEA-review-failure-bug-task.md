@@ -1,7 +1,7 @@
 # IDEA: Auto-create P0 bug task when arch review fails
 **Created:** 2026-04-28
 **Source:** Human request — review failures should self-document and self-prioritize
-**Status:** DRAFT
+**Status:** PROMOTED → TASK-087
 **Meta:** P1 | S | 2-code-generation | cli/src/, scripts/arch.sh
 
 ## Problem

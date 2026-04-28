@@ -1,7 +1,7 @@
 # IDEA: Continuous Simplification Cycle
 **Created:** 2026-04-28
 **Source:** User suggestion
-**Status:** DRAFT
+**Status:** PROMOTED → TASK-090
 **Meta:** P3 | M | protocol | docs/agents/THINK.md
 
 ## Problem

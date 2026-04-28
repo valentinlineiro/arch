@@ -1,7 +1,7 @@
 # IDEA: Scope-Based Sprints
 **Created:** 2026-04-28
 **Source:** User suggestion
-**Status:** DRAFT
+**Status:** PROMOTED → TASK-091, TASK-092, TASK-093, TASK-094
 **Meta:** P2 | L | process | docs/
 
 ## Problem

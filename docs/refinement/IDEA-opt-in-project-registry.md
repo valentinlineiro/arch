@@ -1,43 +1,27 @@
-## IDEA-opt-in-project-registry
-**Type:** feature | **Source:** Kaizen 2026-04-27 | **Priority:** P3
+# IDEA: Opt-in project registry
+**Created:** 2026-04-27
+**Source:** Kaizen — no feedback loop from scaffolded repos back to ARCH
+**Status:** DRAFT
+**Meta:** P3 | M | local | scripts/, .github/workflows/
 
-### Observation
-No feedback loop from scaffolded repos back to ARCH. Can't detect convergence patterns — how many projects use each routing agent, what guidelines are popular, etc.
+## Problem
+No feedback loop from scaffolded repos back to ARCH. Convergence patterns (which routing agents are used, which guidelines are popular, version distribution) are invisible, making roadmap decisions data-free.
 
-### Proposal
-**Minimal registry** — JSON file in repo:
-```json
-{
-  "version": "0.3.0",
-  "routing": { ... },
-  "guidelines": ["core", "bugs", "versioning"]
-}
-```
+## Proposed solution
+A minimal opt-in registry: at scaffold time, generate a `registry.json` in the repo and publish it to a static GitHub Pages aggregate endpoint. Users opt-in via CLI flag (`arch init --opt-in-telemetry`) or initializr checkbox. No backend — static JSON only, aggregated by a daily GitHub Action.
 
-Published at `https://valentinlineiro.github.io/arch/registry.json`.
+## Dependencies
+None.
 
-Users opt-in via:
-- Checkbox in `arch-initializr.html` (default: off)
-- Or CLI flag: `arch init --opt-in-telemetry`
+## Estimated size
+M
 
-**Privacy:** Hash-only (no PII), no auth required.
+## Gaps
+- "Hash-only" privacy is underspecified — what exactly is hashed? (URL, domain, random UUID?)
+- Aggregation infrastructure (GitHub Action writing to gh-pages branch) is a separate deliverable that should be its own task.
+- Value proposition is unclear for a single-user local tool; this is more relevant as a public SaaS offering — needs a decision on whether ARCH is targeting that audience.
+- `arch init --opt-in-telemetry` flag doesn't exist yet; adds scope to the CLI.
 
-### Aggregate endpoint
-`https://valentinlineiro.github.io/arch/registry/aggregate.json`:
-```json
-{
-  "totalProjects": 142,
-  "byAgent": { "claude-code": 89, "gemini": 34, "local": 19 },
-  "byVersion": { "0.3.0": 120, "0.2.0": 22 }
-}
-```
-
-### Technical
-- `registry.json` generated at scaffold time
-- Cron job or manual script aggregates (GitHub Actions every 24h)
-- No backend — static JSON only
-
-### Value
-- Measurable convergence metric
-- Informs roadmap decisions
-- Low privacy impact (anonymized)
+## Decision
+<!-- Human writes here after THINK evaluation -->
+<!-- PROMOTE → TASK-XXX | REJECT: reason -->

@@ -1,7 +1,7 @@
 # IDEA: Autonomous loop — arch operating by itself with human-in-the-loop gates
 **Created:** 2026-04-28
 **Source:** Human request — desire for arch to self-sustain via CI with controlled human checkpoints
-**Status:** DRAFT
+**Status:** PROMOTED → TASK-088
 **Meta:** P1 | M | 7-operations | .github/workflows/, scripts/arch.sh, docs/agents/
 
 ## Problem
