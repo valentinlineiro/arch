@@ -11,8 +11,28 @@ BIN="node $(dirname "$0")/../cli/dist/index.js"
 
 # ── Router ────────────────────────────────────────────────────────
 case "$1" in
-  "status"|"validate"|"review"|"inbox"|"next"|"version"|"--version"|"-v")
+  "status"|"validate"|"inbox"|"next"|"version"|"--version"|"-v")
     $BIN "$@"
+    ;;
+
+  "review")
+    # Check for --push flag
+    PUSH=false
+    for arg in "$@"; do
+      if [ "$arg" == "--push" ]; then
+        PUSH=true
+      fi
+    done
+
+    # Execute review
+    $BIN "$@"
+
+    # Push if flag present and review passed (set -e ensures we only reach here on success)
+    if [ "$PUSH" = true ]; then
+      echo ""
+      echo -e "  ${GREEN}✓${NC} Review passed. Pushing to remote..."
+      git push
+    fi
     ;;
 
   "task")
