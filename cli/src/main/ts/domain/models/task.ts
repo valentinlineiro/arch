@@ -26,6 +26,7 @@ export interface Task {
   depends?: string[];
   lockedBy?: string;
   lockedAt?: string;
+  closedAt?: string;
   acceptanceCriteria?: AcceptanceCriterion[];
   rawMetaLine?: string;
 }

@@ -102,3 +102,35 @@ test('MarkTaskDone - force bypasses pending AC guard', async () => {
 
   assert.strictEqual(repo.saved?.status, TaskStatus.DONE);
 });
+
+test('MarkTaskDone - injects closedAt timestamp on DONE transition', async () => {
+  const task = makeTask();
+  const repo = new MockTaskRepository(task);
+  const useCase = new MarkTaskDone(repo, makeReviewer({ valid: true, violations: [] }));
+
+  await useCase.execute('TASK-031');
+
+  assert.ok(repo.saved?.closedAt, 'closedAt should be set');
+  assert.ok(!isNaN(Date.parse(repo.saved!.closedAt!)), 'closedAt should be a valid ISO date');
+});
+
+test('MarkTaskDone - does not overwrite existing closedAt (idempotent)', async () => {
+  const existing = '2026-01-01T00:00:00.000Z';
+  const task = makeTask({ closedAt: existing });
+  const repo = new MockTaskRepository(task);
+  const useCase = new MarkTaskDone(repo, makeReviewer({ valid: true, violations: [] }));
+
+  await useCase.execute('TASK-031');
+
+  assert.strictEqual(repo.saved?.closedAt, existing);
+});
+
+test('MarkTaskDone - force path also injects closedAt', async () => {
+  const task = makeTask({ acceptanceCriteria: [{ description: 'AC', completed: false }] });
+  const repo = new MockTaskRepository(task);
+  const useCase = new MarkTaskDone(repo, new Reviewer());
+
+  await useCase.execute('TASK-031', true);
+
+  assert.ok(repo.saved?.closedAt, 'closedAt should be set even on force');
+});

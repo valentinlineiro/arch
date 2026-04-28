@@ -64,6 +64,13 @@ export class MarkdownTaskRepository implements TaskRepository {
     const statusRegex = new RegExp(`(\\n\\*\\*Meta:\\*\\* .*?\\| )(IDEA|READY|IN_PROGRESS|REVIEW|DONE|BLOCKED|REJECTED)`, 's');
     content = content.replace(statusRegex, `$1${task.status}`);
 
+    if (task.closedAt && !content.includes('**Closed-at:**')) {
+      content = content.replace(
+        /(\*\*Depends:\*\*[^\n]*\n)/,
+        `$1**Closed-at:** ${task.closedAt}\n`
+      );
+    }
+
     if (currentPath && currentPath !== targetPath) {
       await this.fileSystem.writeFile(currentPath, content);
       await this.fileSystem.rename(currentPath, targetPath);
@@ -92,6 +99,8 @@ export class MarkdownTaskRepository implements TaskRepository {
         }
       }
 
+      const closedAtMatch = content.match(/^\*\*Closed-at:\*\* (.*)/m);
+
       return {
         id,
         title,
@@ -102,6 +111,7 @@ export class MarkdownTaskRepository implements TaskRepository {
         class: metaParts[4] || '',
         cli: metaParts[5] || '',
         context: (metaParts[6] || '').split(',').map(s => s.trim()),
+        closedAt: closedAtMatch?.[1],
         acceptanceCriteria,
         rawMetaLine: `**Meta:** ${metaLine}`
       };

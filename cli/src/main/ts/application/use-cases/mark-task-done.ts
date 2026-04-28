@@ -22,6 +22,9 @@ export class MarkTaskDone {
     }
 
     task.status = TaskStatus.DONE;
+    if (!task.closedAt) {
+      task.closedAt = new Date().toISOString();
+    }
     await this.taskRepository.save(task);
     return task;
   }
