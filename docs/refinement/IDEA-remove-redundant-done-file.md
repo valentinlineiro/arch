@@ -1,7 +1,7 @@
 # IDEA: Remove redundant DONE.md and simplify archiving
 **Created:** 2026-04-28
 **Source:** Human suggestion: "archive and done housekeeping. Is even DONE necessary?"
-**Status:** DRAFT
+**Status:** PROMOTED → TASK-076
 **Meta:** P2 | S | cli | docs/DONE.md, cli/src/main/ts/infrastructure/filesystem/markdown-task-repository.ts
 
 ## Problem
