@@ -32,8 +32,8 @@ export class ReviewSystem {
       }
     }
 
-    // 3. Review git diff
-    const diff = await this.gitRepository.getDiff();
+    // 3. Review git diff (excluding archive/)
+    const diff = await this.gitRepository.getDiff(['--', ':!docs/archive/**']);
     if (diff && diff.length > 5000) {
       violations.push('Warning: Large git diff detected. Ensure commits remain atomic.');
     }
