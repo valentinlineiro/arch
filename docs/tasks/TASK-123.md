@@ -1,4 +1,4 @@
-# TASK-123: Review generates recursive "fix violations" tasks
+## TASK-123: Review generates recursive "fix violations" tasks
 **Meta:** P0 | XS | 8 | READY | Focus:yes | 7-operations | local | docs/archive/, cli/src/main/ts/application/use-cases/review-system.ts
 
 ## Problem

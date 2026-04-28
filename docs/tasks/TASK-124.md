@@ -1,4 +1,4 @@
-# TASK-124: Auto-create bypasses safeguards and leaves partial state
+## TASK-124: Auto-create bypasses safeguards and leaves partial state
 **Meta:** P1 | XS | 8 | READY | Focus:yes | 7-operations | local | cli/src/main/ts/application/commands/review-command.ts, docs/agents/DO.md
 
 ## Problem

@@ -1,4 +1,4 @@
-# TASK-122: Review mutates repository state during verification
+## TASK-122: Review mutates repository state during verification
 **Meta:** P0 | XS | 8 | READY | Focus:yes | 7-operations | local | cli/src/main/ts/application/commands/review-command.ts, docs/agents/AGENTS.md, docs/agents/THINK.md
 
 ## Problem
