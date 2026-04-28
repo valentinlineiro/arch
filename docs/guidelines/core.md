@@ -24,3 +24,4 @@
 - **Backlog Health:** The agent MUST proactively propose at least one new IDEA when the count of READY tasks is < 3 (THINK Phase 4).
 - **Autonomy Pilot (Level 2):** Agents are authorized to self-promote IDEAs to TASKS if they are sized **XS** and belong to class `7-operations` or `6-writing`.
 - **Language — English-first:** All new documentation, task titles, guideline entries, and commit messages must be written in English. Non-ASCII characters in task titles are a drift signal detected by `arch review`. Legacy Spanish content is grandfathered — translate on edit, not proactively.
+- **Dependency Hygiene:** `npm install` in `cli/` should only be run when intentionally adding or upgrading dependencies to prevent unintended `package-lock.json` churn. Always verify diffs before committing lock files.
