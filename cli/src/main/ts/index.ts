@@ -49,7 +49,7 @@ async function main() {
       await new InboxCommand(taskRepository, gitRepository, fileSystem, reviewer, driftChecker).execute();
       break;
     case 'next':
-      await new NextCommand(taskRepository).execute();
+      await new NextCommand(taskRepository, args).execute();
       break;
     case 'version':
       await new VersionCommand(cliVersion).execute();
