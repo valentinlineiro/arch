@@ -30,7 +30,64 @@ export class DriftChecker {
       this.checkDeadPaths(),
       this.checkDeadContext(),
       this.checkStaleDepends(),
+      this.checkPriorityDrift(),
     ]);
+  }
+
+  private async checkPriorityDrift(): Promise<DriftResult> {
+    const details: string[] = [];
+    const activeFiles = await this.getMarkdownFiles('docs/tasks');
+    const archiveFiles = await this.getMarkdownFiles('docs/archive');
+    
+    const doneTaskIds = new Set(archiveFiles.map(f => f.replace('.md', '')));
+    const allActiveTasks: any[] = [];
+
+    for (const file of activeFiles) {
+      const content = await this.fileSystem.readFile(`${this.rootPath}/docs/tasks/${file}`);
+      const headerMatch = content.match(/^## (TASK-\d{3}): (.*)/m);
+      const metaMatch = content.match(/^\*\*Meta:\*\* .*/m);
+      const dependsMatch = content.match(/^\*\*Depends:\*\* (.*)/m);
+      
+      if (headerMatch && metaMatch) {
+        const id = headerMatch[1];
+        const metaLine = metaMatch[0];
+        const parts = metaLine.split('|').map(s => s.trim());
+        const priority = parts[0].replace('**Meta:** ', '');
+        const status = parts[3];
+        const focus = parts[4];
+        
+        allActiveTasks.push({
+          id,
+          priority: parseInt(priority.substring(1), 10),
+          status,
+          isFocused: focus === 'Focus:yes',
+          depends: dependsMatch ? dependsMatch[1].split(',').map(s => s.trim()) : []
+        });
+      }
+    }
+
+    const focusedTasks = allActiveTasks.filter(t => t.isFocused && t.status !== 'DONE');
+    if (focusedTasks.length === 0) {
+      return { check: 'PriorityDrift', status: 'OK', details: [] };
+    }
+
+    const minFocusedPriority = Math.min(...focusedTasks.map(t => t.priority));
+
+    for (const task of allActiveTasks) {
+      if (task.status === 'READY' && !task.isFocused && task.priority < minFocusedPriority) {
+        // Check if unblocked
+        const isUnblocked = task.depends.every((dep: string) => dep === 'none' || doneTaskIds.has(dep));
+        if (isUnblocked) {
+          details.push(`${task.id} (P${task.priority}) is READY and unblocked, but not focused while a P${minFocusedPriority} task is focused.`);
+        }
+      }
+    }
+
+    return {
+      check: 'PriorityDrift',
+      status: details.length === 0 ? 'OK' : 'WARN',
+      details,
+    };
   }
 
   private async checkDeadContext(): Promise<DriftResult> {
