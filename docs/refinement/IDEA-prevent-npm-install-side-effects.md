@@ -1,5 +1,8 @@
-## IDEA-prevent-npm-install-side-effects
-**Type:** enhancement | **Source:** Kaizen 2026-04-27 | **Priority:** P3
+# IDEA-prevent-npm-install-side-effects
+**Created:** 2026-04-27
+**Source:** Kaizen 2026-04-27
+**Status:** PROMOTED -> TASK-065
+**Meta:** P3 | XS | 7-operations | cli/.npmrc, cli/package-lock.json, docs/guidelines/
 
 ### Observation
 Running `npm install` in `cli/` auto-updated `package-lock.json` version. This wasn't caught until after several commits. The change is benign but creates noise.
