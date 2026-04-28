@@ -1,7 +1,7 @@
 # IDEA: Guarded `arch task done` transition
 **Created:** 2026-04-28
 **Source:** KAIZEN-LOG.md (drift detection latency)
-**Status:** DRAFT
+**Status:** PROMOTED → TASK-078
 **Meta:** P2 | S | cli | cli/src/main/ts/application/commands/task-command.ts
 
 ## Problem
