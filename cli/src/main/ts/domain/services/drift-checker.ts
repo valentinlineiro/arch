@@ -28,7 +28,71 @@ export class DriftChecker {
       this.checkTaskArchiveDrift(),
       this.checkDocVersion(),
       this.checkDeadPaths(),
+      this.checkDeadContext(),
+      this.checkStaleDepends(),
     ]);
+  }
+
+  private async checkDeadContext(): Promise<DriftResult> {
+    const details: string[] = [];
+    const taskFiles = await this.getMarkdownFiles('docs/tasks');
+
+    for (const file of taskFiles) {
+      const content = await this.fileSystem.readFile(`${this.rootPath}/docs/tasks/${file}`);
+      const metaMatch = content.match(/^\*\*Meta:\*\* .*/m);
+      if (metaMatch) {
+        const parts = metaMatch[0].split('|').map(s => s.trim());
+        const contextPart = parts[7];
+        if (contextPart) {
+          const paths = contextPart.split(',').map(s => s.trim());
+          for (const p of paths) {
+            if (!p || p === '' || p === 'none') continue;
+            // Check if it's a glob
+            if (p.includes('*')) continue;
+            
+            const exists = await this.fileSystem.exists(`${this.rootPath}/${p}`);
+            if (!exists) {
+              details.push(`${file.replace('.md', '')}: dead context path '${p}'`);
+            }
+          }
+        }
+      }
+    }
+
+    return {
+      check: 'DeadContext',
+      status: details.length === 0 ? 'OK' : 'WARN',
+      details,
+    };
+  }
+
+  private async checkStaleDepends(): Promise<DriftResult> {
+    const details: string[] = [];
+    const activeFiles = await this.getMarkdownFiles('docs/tasks');
+    const archiveFiles = await this.getMarkdownFiles('docs/archive');
+    
+    const allTaskFiles = [...activeFiles, ...archiveFiles];
+    const existingTaskIds = new Set(allTaskFiles.map(f => f.replace('.md', '')));
+
+    for (const file of activeFiles) {
+      const content = await this.fileSystem.readFile(`${this.rootPath}/docs/tasks/${file}`);
+      const dependsMatch = content.match(/^\*\*Depends:\*\* (.*)/m);
+      if (dependsMatch) {
+        const deps = dependsMatch[1].split(',').map(s => s.trim());
+        for (const dep of deps) {
+          if (!dep || dep === 'none') continue;
+          if (!existingTaskIds.has(dep)) {
+            details.push(`${file.replace('.md', '')}: stale dependency '${dep}'`);
+          }
+        }
+      }
+    }
+
+    return {
+      check: 'StaleDepends',
+      status: details.length === 0 ? 'OK' : 'WARN',
+      details,
+    };
   }
 
   private async checkDeadPaths(): Promise<DriftResult> {

@@ -66,13 +66,14 @@ export class ReviewCommand {
       title: 'Fix arch review violations',
       priority: 'P0',
       size: 'XS',
+      value: 5,
       status: TaskStatus.READY,
       sprint: 'Focus:yes',
       class: '7-operations',
       cli: 'local',
       context: ['docs/tasks/'],
       acceptanceCriteria: violations.map(v => ({ description: v, completed: false })),
-      rawMetaLine: `**Meta:** P0 | XS | READY | Focus:yes | 7-operations | local | docs/tasks/`
+      rawMetaLine: `**Meta:** P0 | XS | 5 | READY | Focus:yes | 7-operations | local | docs/tasks/`
     };
 
     await this.taskRepository.save(bugTask);

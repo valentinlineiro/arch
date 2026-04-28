@@ -1,8 +1,8 @@
 ## TASK-089: Write ARCH course - what it is and how to operate it
-**Meta:** P2 | M | 5 | READY | Focus:no | 6-writing | local | docs/COURSE.md
+**Meta:** P2 | M | 5 | READY | Focus:no | 6-writing | local | docs/
 
 ### Acceptance Criteria
-- [ ] `docs/COURSE.md` created with the following structure:
+- [ ] `docs/` created with the following structure:
   - **What is ARCH** — the core idea (routing, agents, task lifecycle, autonomy levels).
   - **Key concepts** — tasks, IDEAs, THINK mode, DO mode, arch review, Focus field.
   - **Walkthrough example** — a concrete end-to-end session: idea → refinement → task → exec → done.
