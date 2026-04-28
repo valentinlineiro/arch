@@ -16,6 +16,18 @@ test('Reviewer - validateCommitMessage', () => {
   const noId = reviewer.validateCommitMessage('feat: add reviewer engine');
   assert.strictEqual(noId.valid, false);
   assert.ok(noId.violations.some(v => v.includes('must reference a TASK-ID')));
+
+  const multiIdSpace = reviewer.validateCommitMessage('feat: [TASK-001] [TASK-002]');
+  assert.strictEqual(multiIdSpace.valid, true);
+
+  const multiIdComma = reviewer.validateCommitMessage('feat: [TASK-001], [TASK-002]');
+  assert.strictEqual(multiIdComma.valid, true);
+
+  const taskPrefix = reviewer.validateCommitMessage('task: update something');
+  assert.strictEqual(taskPrefix.valid, true);
+
+  const ideaPrefix = reviewer.validateCommitMessage('idea: new concept');
+  assert.strictEqual(ideaPrefix.valid, true);
 });
 
 test('Reviewer - reviewTask (AC completion)', () => {
