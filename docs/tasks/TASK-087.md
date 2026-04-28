@@ -1,5 +1,5 @@
 ## TASK-087: Auto-create P0 bug task on arch review failure
-**Meta:** P1 | S | READY | Focus:no | 2-code-generation | claude | cli/src/main/ts/application/commands/review-command.ts, cli/src/main/ts/application/use-cases/
+**Meta:** P1 | S | IN_PROGRESS | Focus:yes | 2-code-generation | claude | cli/src/main/ts/application/commands/review-command.ts, cli/src/main/ts/application/use-cases/
 
 ### Acceptance Criteria
 - [ ] `ReviewCommand` exposes a `next-task-id` utility (scanning `docs/tasks/` + `docs/archive/` for highest TASK-XXX and incrementing).
