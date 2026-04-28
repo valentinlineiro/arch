@@ -1,7 +1,7 @@
 # IDEA: Auto-inject Closed-at timestamp on arch task done
 **Created:** 2026-04-28
 **Source:** THINK Phase 4 — pattern in recent archive
-**Status:** DRAFT
+**Status:** PROMOTED → TASK-081
 **Meta:** P2 | XS | 1-implementation | cli
 
 ## Problem
