@@ -4,7 +4,7 @@
 
 ## Status Summary
 - **Active Tasks:** 0
-- **In Review:** 0
+- **In Review:** 1
 - **Backlog (Ready):** 0
 
 ## Urgent / Actions Required
@@ -14,4 +14,4 @@ _No urgent items detected._
 _No pending ideas._
 
 ## Recent Activity
-- **Last Commit:** docs: move BLOCKED task back to active task list
+- **Last Commit:** docs: mark resolved KAIZEN-LOG entries [TASK-080]
