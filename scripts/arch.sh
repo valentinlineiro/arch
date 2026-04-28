@@ -104,7 +104,35 @@ case "$1" in
     ;;
 
   "task")
+    # Pre-archive guard for 'task done'
+    if [ "$2" == "done" ]; then
+      task_id=""
+      force=false
+      for arg in "$@"; do
+        if [[ "$arg" =~ ^TASK-[0-9]{3}$ ]]; then
+          task_id="$arg"
+        elif [ "$arg" == "--force" ]; then
+          force=true
+        fi
+      done
+
+      if [ -n "$task_id" ] && [ "$force" = false ]; then
+        task_file="docs/tasks/${task_id}.md"
+        if [ -f "$task_file" ]; then
+          if grep -q "^[[:space:]]*- \[ \]" "$task_file"; then
+            echo -e "  ${RED}✖${NC} Error: Task ${task_id} has unchecked Acceptance Criteria."
+            echo -e "    Please check all ACs or use ${YELLOW}--force${NC} to override."
+            exit 1
+          fi
+        fi
+      fi
+    fi
     $BIN "$@"
+    ;;
+
+  "archive")
+    shift
+    $0 task done "$@"
     ;;
 
   "conduct")
@@ -127,7 +155,7 @@ case "$1" in
     ;;
 
   *)
-    echo "Usage: $0 [status|validate|review|inbox|next|govern|rank|task|version|conduct|exec]"
+    echo "Usage: $0 [status|validate|review|inbox|next|govern|rank|archive|task|version|conduct|exec]"
     echo ""
     echo "Commands:"
     echo "  status     Show task counts"
@@ -137,6 +165,7 @@ case "$1" in
     echo "  next       Suggest the next task"
     echo "  govern     Autonomous governance tick"
     echo "  rank       Rank READY tasks by Value/Size ratio"
+    echo "  archive    Alias for task done"
     echo "  task       Manage tasks (start/done)"
     echo "  version    Show current version"
     echo "  conduct    Invoke THINK mode with an AI agent"
