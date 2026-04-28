@@ -1,5 +1,5 @@
 ## TASK-074: Deprecate stale DISPATCH.md
-**Meta:** P2 | XS | READY | Focus:yes | 7-operations | docs | docs/DISPATCH.md, docs/adr/ADR-003-dispatch-ephemeral.md
+**Meta:** P2 | XS | DONE | Focus:yes | 7-operations | docs | docs/DISPATCH.md, docs/adr/ADR-003-dispatch-ephemeral.md
 **Depends:** none
 
 ### Acceptance Criteria
