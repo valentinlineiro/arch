@@ -1,5 +1,5 @@
 ## TASK-078: Implement guarded `arch task done` transition
-**Meta:** P2 | S | BLOCKED | Focus:no | 1-implementation | cli | cli/src/main/ts/application/commands/task-command.ts, cli/src/main/ts/application/use-cases/mark-task-done.ts
+**Meta:** P2 | S | IN_PROGRESS | Focus:yes | 1-implementation | cli | cli/src/main/ts/application/commands/task-command.ts, cli/src/main/ts/application/use-cases/mark-task-done.ts | lock:cli
 **Depends:** none
 
 ### NOTE: BLOCKED
