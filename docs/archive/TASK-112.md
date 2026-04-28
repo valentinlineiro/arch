@@ -2,4 +2,4 @@
 **Meta:** P0 | XS | DONE | Focus:yes | 7-operations | local | docs/tasks/
 
 ### Acceptance Criteria
-- [ ] Warning: Large git diff detected. Ensure commits remain atomic.
+- [x] Warning: Large git diff detected. Ensure commits remain atomic.
