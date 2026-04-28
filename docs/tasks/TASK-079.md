@@ -1,5 +1,5 @@
 ## TASK-079: Fix critical build and test environment failure
-**Meta:** P0 | S | BLOCKED | Focus:yes | 7-operations | cli | cli/
+**Meta:** P0 | S | IN_PROGRESS | Focus:yes | 7-operations | cli | cli/ | lock:cli
 **Depends:** none
 
 ### NOTE: BLOCKED - REQUIRES USER INTERVENTION
