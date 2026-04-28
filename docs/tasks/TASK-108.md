@@ -1,5 +1,5 @@
 ## TASK-108: Dynamic Backlog Reprioritization with Value field
-**Meta:** P1 | M | READY | Focus:no | 7-operations | local | docs/tasks/, cli/src/, docs/agents/THINK.md
+**Meta:** P1 | M | READY | Focus:yes | 7-operations | local | docs/tasks/, cli/src/, docs/agents/THINK.md
 
 ### Acceptance Criteria
 - [ ] Update `TASK-FORMAT.md` and `TaskValidator` to include a mandatory `Value: [1-10]` field in the Meta line (v0.5 schema).
