@@ -15,6 +15,8 @@
 
 - **Sprint vs backlog as structural duplication** *(Sprint 3)*: Saying "move everything to sprint" left the backlog empty — evidence the separation was artificial. TASK-047 was promoted to resolve this with a single-directory model + Focus field.
 
+- **Recursive review violation tasks** *(Sprint 4)*: TASK-112, 113, and 114 show a pattern where a task is created to fix a review violation, but then marked DONE with its own violations (e.g. pending ACs), leading to a chain of cleanup tasks. **Proposal:** Implement pre-archive guards (TASK-115) and enforce AC validation during `arch review`.
+
 ---
 
 ## Tool

@@ -1,28 +1,26 @@
-# IDEA: Guarded `arch task done` transition
+# IDEA: arch task done guard - pre-archive AC check
 **Created:** 2026-04-28
-**Source:** KAIZEN-LOG.md (drift detection latency)
-**Status:** PROMOTED → TASK-078
-**Meta:** P2 | S | cli | cli/src/main/ts/application/commands/task-command.ts
+**Source:** THINK mode observation of TASK-112 violation
+**Status:** PROMOTED -> TASK-115
+**Meta:** P1 | XS | tool | scripts/arch.sh
 
 ## Problem
-Currently, `arch task done TASK-XXX` changes the task status to `DONE` and archives it without verifying if the task is actually valid (e.g., all Acceptance Criteria checked). Drift is only detected during a subsequent `arch review`, creating a latency where the archive can contain invalid state.
+Tasks can be marked as DONE and moved to `docs/archive/` even if they have unchecked Acceptance Criteria. This leads to `arch review` failures later and requires manual cleanup or automatic bug creation.
 
 ## Proposed solution
-Integrate a validation gate into the `arch task done` command. The command should:
-1. Load the task.
-2. Run the `Reviewer` logic on it.
-3. If violations exist (e.g., unchecked ACs), block the status transition and report the violations to the user.
-4. Allow a `--force` flag for exceptional cases.
+Modify the `done` or `archive` command in `scripts/arch.sh` to:
+1. Scan the task file for `[ ]` (unchecked boxes) before moving it.
+2. If unchecked boxes exist, abort the archive operation and display a warning.
+3. Allow an override flag (e.g., `--force`) for cases where an AC is intentionally skipped (though this should be rare).
 
 ## Dependencies
 None
 
 ## Estimated size
-S
+XS
 
 ## Gaps
-<!-- THINK fills this section when invoked — do not edit manually -->
+- Define the exact regex for AC detection: `^[\s]*- \[ \] `
 
 ## Decision
-<!-- Human writes here after THINK evaluation -->
-<!-- PROMOTE → TASK-XXX | REJECT: reason -->
+PROMOTED to TASK-115 by THINK agent (L2 Autonomy).
