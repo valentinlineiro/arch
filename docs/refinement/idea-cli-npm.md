@@ -2,7 +2,7 @@
 
 - **Class:** 6-writing
 - **Size:** M
-- **Status:** backlog
+- **Status:** draft
 
 ## Problem
 
