@@ -32,6 +32,16 @@ export class Reviewer {
       }
     }
 
+    // Rule: Warning for REVIEW task with all ACs completed (TASK-083)
+    if (task.status === TaskStatus.REVIEW) {
+      if (task.acceptanceCriteria && task.acceptanceCriteria.length > 0) {
+        const allCompleted = task.acceptanceCriteria.every(ac => ac.completed);
+        if (allCompleted) {
+          violations.push(`Warning: Task ${task.id} has all ACs completed but is still in REVIEW state. Suggested action: arch task done ${task.id}`);
+        }
+      }
+    }
+
     return {
       valid: violations.length === 0,
       violations

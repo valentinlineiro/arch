@@ -41,3 +41,27 @@ test('Reviewer - reviewTask (AC completion)', () => {
   assert.strictEqual(result.valid, false);
   assert.ok(result.violations[0].includes('pending Acceptance Criteria'));
 });
+
+test('Reviewer - reviewTask (Warning for REVIEW with all ACs completed)', () => {
+  const reviewer = new Reviewer();
+  
+  const taskReviewWithAllACs = {
+    id: 'TASK-001',
+    title: 'Test',
+    priority: 'P1',
+    size: 'S',
+    status: TaskStatus.REVIEW,
+    sprint: 'Sprint 1',
+    class: 'test',
+    cli: 'claude',
+    context: [],
+    acceptanceCriteria: [
+      { description: 'AC1', completed: true },
+      { description: 'AC2', completed: true }
+    ]
+  };
+  
+  const result = reviewer.reviewTask(taskReviewWithAllACs);
+  assert.strictEqual(result.valid, false);
+  assert.ok(result.violations.some(v => v.includes('has all ACs completed but is still in REVIEW state')));
+});
