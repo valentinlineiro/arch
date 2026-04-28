@@ -1,0 +1,50 @@
+## TASK-111: Fix arch review violations
+**Meta:** P0 | XS | DONE | Focus:yes | 7-operations | local | docs/tasks/
+
+### Acceptance Criteria
+- [x] Task TASK-001 does not follow canonical format in Depends line.
+- [x] Task TASK-002 does not follow canonical format in Depends line.
+- [x] Task TASK-005 does not follow canonical format in Depends line.
+- [x] Task TASK-009 does not follow canonical format in Depends line.
+- [x] Task TASK-011 does not follow canonical format in Depends line.
+- [x] Task TASK-013 does not follow canonical format in Depends line.
+- [x] Task TASK-014 does not follow canonical format in Depends line.
+- [x] Task TASK-015 does not follow canonical format in Depends line.
+- [x] Task TASK-016 does not follow canonical format in Depends line.
+- [x] Task TASK-018 does not follow canonical format in Depends line.
+- [x] Task TASK-019 does not follow canonical format in Depends line.
+- [x] Task TASK-021 does not follow canonical format in Depends line.
+- [x] Task TASK-023 does not follow canonical format in Depends line.
+- [x] Task TASK-032 does not follow canonical format in Depends line.
+- [x] Task TASK-033 does not follow canonical format in Depends line.
+- [x] Task TASK-034 does not follow canonical format in Depends line.
+- [x] Task TASK-035 does not follow canonical format in Depends line.
+- [x] Task TASK-036 does not follow canonical format in Depends line.
+- [x] Task TASK-037 does not follow canonical format in Depends line.
+- [x] Task TASK-040 does not follow canonical format in Depends line.
+- [x] Task TASK-041 does not follow canonical format in Depends line.
+- [x] Task TASK-042 does not follow canonical format in Depends line.
+- [x] Task TASK-043 does not follow canonical format in Depends line.
+- [x] Task TASK-044 does not follow canonical format in Depends line.
+- [x] Task TASK-047 does not follow canonical format in Depends line.
+- [x] Task TASK-048 does not follow canonical format in Depends line.
+- [x] Task TASK-049 does not follow canonical format in Depends line.
+- [x] Task TASK-050 does not follow canonical format in Depends line.
+- [x] Task TASK-051 does not follow canonical format in Depends line.
+- [x] Task TASK-052 does not follow canonical format in Depends line.
+- [x] Task TASK-053 does not follow canonical format in Depends line.
+- [x] Task TASK-054 does not follow canonical format in Depends line.
+- [x] Task TASK-055 does not follow canonical format in Depends line.
+- [x] Task TASK-059 does not follow canonical format in Depends line.
+- [x] Task TASK-068 does not follow canonical format in Depends line.
+- [x] Task TASK-069 does not follow canonical format in Depends line.
+- [x] Task TASK-071 does not follow canonical format in Depends line.
+- [x] Task TASK-074 does not follow canonical format in Depends line.
+- [x] Task TASK-075 does not follow canonical format in Depends line.
+- [x] Task TASK-076 does not follow canonical format in Depends line.
+- [x] Task TASK-077 does not follow canonical format in Depends line.
+- [x] Task TASK-078 does not follow canonical format in Depends line.
+- [x] Task TASK-079 does not follow canonical format in Depends line.
+- [x] Task TASK-080 does not follow canonical format in Depends line.
+- [x] Task TASK-081 does not follow canonical format in Depends line.
+- [x] Warning: Large git diff detected. Ensure commits remain atomic.
