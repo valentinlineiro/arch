@@ -1,5 +1,5 @@
 ## TASK-099: ARCH control panel - migrate viewer to Angular component
-**Meta:** P3 | S | READY | Focus:no | 2-code-generation | human | ui/src/app/viewer/, docs/arch-viewer.html
+**Meta:** P3 | S | 5 | READY | Focus:no | 2-code-generation | human | ui/src/app/viewer/, docs/arch-viewer.html
 **Depends:** TASK-097
 
 ### Acceptance Criteria

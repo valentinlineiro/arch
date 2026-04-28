@@ -1,5 +1,5 @@
 ## TASK-082: Fix conduct/exec blocking on tool permissions for all CLIs
-**Meta:** P0 | XS | DONE | Focus:yes | 7-operations | local | scripts/arch.sh
+**Meta:** P0 | XS | 5 | DONE | Focus:yes | 7-operations | local | scripts/arch.sh
 
 ### Acceptance Criteria
 - [x] `arch conduct` runs autonomously end-to-end without blocking on tool permission prompts (claude).

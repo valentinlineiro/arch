@@ -28,6 +28,7 @@ export class SelectNextTask {
     // It's in the rawMetaLine.
     
     const priorityOrder: Record<string, number> = { 'P0': 0, 'P1': 1, 'P2': 2, 'P3': 3 };
+    const sizeMap: Record<string, number> = { 'XS': 1, 'S': 2, 'M': 3, 'L': 5, 'XL': 8 };
 
     unblockedTasks.sort((a, b) => {
       // 1. Priority
@@ -35,12 +36,17 @@ export class SelectNextTask {
       const pB = priorityOrder[b.priority] ?? 99;
       if (pA !== pB) return pA - pB;
 
-      // 2. Focus (yes > no)
+      // 2. Value / Size ratio (Higher is better)
+      const ratioA = (a.value || 0) / (sizeMap[a.size] || 1);
+      const ratioB = (b.value || 0) / (sizeMap[b.size] || 1);
+      if (ratioA !== ratioB) return ratioB - ratioA;
+
+      // 3. Focus (yes > no)
       const focusA = a.rawMetaLine?.includes('Focus:yes') ? 0 : 1;
       const focusB = b.rawMetaLine?.includes('Focus:yes') ? 0 : 1;
       if (focusA !== focusB) return focusA - focusB;
 
-      // 3. ID (as proxy for oldest)
+      // 4. ID (as proxy for oldest)
       return a.id.localeCompare(b.id);
     });
 

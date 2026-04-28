@@ -1,5 +1,5 @@
 ## TASK-044: Create and publish ONBOARDING.html on GitHub Pages
-**Meta:** P2 | M | DONE | Focus:yes | 2-code-generation | claude-code | docs/
+**Meta:** P2 | M | 5 | DONE | Focus:yes | 2-code-generation | claude-code | docs/
 **Depends:** none
 
 ### Acceptance Criteria

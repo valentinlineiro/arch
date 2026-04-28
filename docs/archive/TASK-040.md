@@ -1,5 +1,5 @@
 ## TASK-040: Define bug and hotfix protocol in ARCH
-**Meta:** P0 | XS | DONE | Sprint 3 | 6-writing | claude | docs/guidelines/
+**Meta:** P0 | XS | 5 | DONE | Sprint 3 | 6-writing | claude | docs/guidelines/
 **Depends:** none
 
 ### Acceptance Criteria

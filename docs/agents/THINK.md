@@ -1,5 +1,5 @@
 # THINK.md
-<!-- ARCH v0.4.0 — Modular Thinking & Continuous Kaizen -->
+<!-- ARCH v0.5.0 — Modular Thinking & Continuous Kaizen -->
 <!-- Purpose: Assess system health, refine ideas, and propose real-time improvements -->
 
 ## Phase 1: System Check (Conductor)
@@ -9,6 +9,7 @@
    - Stale locks (Task IN_PROGRESS for >3 days without commit).
    - Priority escalation (P0 tasks blocked or not started).
    - Focus drift (Focus:no tasks at P0 that should be Focus:yes).
+   - **Value Audit:** Review the `Value` field of READY tasks. Propose adjustments (increase/decrease) if a task's perceived impact has changed relative to project goals.
 4. **Evidence Required:** Every recommendation must cite a concrete signal (e.g., 'TASK-003 in sprint/ has stale lock').
 
 ## Phase 2: Idea Refinement (Refine)

@@ -15,6 +15,7 @@ import { InboxCommand } from './application/commands/inbox-command.js';
 import { NextCommand } from './application/commands/next-command.js';
 import { VersionCommand } from './application/commands/version-command.js';
 import { GovernCommand } from './application/commands/govern-command.js';
+import { RankCommand } from './application/commands/rank-command.js';
 
 async function main() {
   const fileSystem = new NodeFileSystem();
@@ -58,8 +59,11 @@ async function main() {
     case 'govern':
       await new GovernCommand(taskRepository, gitRepository, fileSystem).execute();
       break;
+    case 'rank':
+      await new RankCommand(taskRepository).execute();
+      break;
     default:
-      console.log('Usage: arch [status|validate|review|task|inbox|next|version|govern]');
+      console.log('Usage: arch [status|validate|review|task|inbox|next|version|govern|rank]');
       process.exit(1);
   }
 }

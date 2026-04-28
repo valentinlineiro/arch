@@ -1,5 +1,5 @@
 ## TASK-009: Add HUMAN agent to ARCH framework
-**Meta:** P0 | S | DONE | Sprint 1 | 6-writing | claude | docs/agents/HUMAN.md, README.md
+**Meta:** P0 | S | 5 | DONE | Sprint 1 | 6-writing | claude | docs/agents/HUMAN.md, README.md
 **Depends:** none
 
 ### Acceptance Criteria

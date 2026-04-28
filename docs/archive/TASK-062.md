@@ -1,5 +1,5 @@
 ## TASK-062: Avoid arch command collision by standardizing on ./scripts/arch.sh
-**Meta:** P0 | S | DONE | Focus:yes | 6-writing | local | AGENTS.md, docs/, scripts/, README.md
+**Meta:** P0 | S | 5 | DONE | Focus:yes | 6-writing | local | AGENTS.md, docs/, scripts/, README.md
 
 ### Acceptance Criteria
 - [x] Update `AGENTS.md` to recommend `./scripts/arch.sh` for local operations.

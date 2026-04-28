@@ -1,5 +1,5 @@
 ## TASK-085: Add phase progress output to THINK protocol
-**Meta:** P2 | XS | READY | Focus:no | 7-operations | local | docs/agents/THINK.md
+**Meta:** P2 | XS | 5 | READY | Focus:no | 7-operations | local | docs/agents/THINK.md
 
 ### Acceptance Criteria
 - [ ] Each phase section in `THINK.md` begins with an explicit instruction to print `[THINK] Phase N — <name>` to stdout before starting work.

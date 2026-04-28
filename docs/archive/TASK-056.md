@@ -1,5 +1,5 @@
 ## TASK-056: Fix arch.config.json paths drift
-**Meta:** P0 | S | DONE | Focus:yes | 7-operations | local | docs/
+**Meta:** P0 | S | 5 | DONE | Focus:yes | 7-operations | local | docs/
 
 ### Acceptance Criteria
 - [x] Update paths in arch.config.json to reflect current structure

@@ -1,5 +1,5 @@
 ## TASK-111: Fix arch review violations
-**Meta:** P0 | XS | DONE | Focus:yes | 7-operations | local | docs/tasks/
+**Meta:** P0 | XS | 5 | DONE | Focus:yes | 7-operations | local | docs/tasks/
 
 ### Acceptance Criteria
 - [x] Task TASK-001 does not follow canonical format in Depends line.

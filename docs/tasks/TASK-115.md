@@ -1,5 +1,5 @@
 ## TASK-115: arch task done guard - pre-archive AC check
-**Meta:** P1 | XS | READY | Focus:no | 7-operations | local | scripts/arch.sh
+**Meta:** P1 | XS | 5 | READY | Focus:no | 7-operations | local | scripts/arch.sh
 
 ### Acceptance Criteria
 - [ ] Modify `scripts/arch.sh` to include a guard in the `done` or `archive` command.

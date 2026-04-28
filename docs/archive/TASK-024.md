@@ -1,5 +1,5 @@
 ## TASK-024: Canonical task format v0.2 spec + regex
-**Meta:** P0 | S | DONE | Sprint 1 | 6-writing | claude | docs/GUIDELINES.md
+**Meta:** P0 | S | 5 | DONE | Sprint 1 | 6-writing | claude | docs/GUIDELINES.md
 **Depends:** TASK-023
 
 ### Acceptance Criteria

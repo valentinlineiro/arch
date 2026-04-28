@@ -1,5 +1,5 @@
 ## TASK-086: Pluggable CLI registry in arch.conf
-**Meta:** P2 | S | DONE | Focus:yes | 7-operations | local | scripts/arch.sh, arch.config.json
+**Meta:** P2 | S | 5 | DONE | Focus:yes | 7-operations | local | scripts/arch.sh, arch.config.json
 
 ### Acceptance Criteria
 - [x] A `[clis]` section is added to `arch.config.json` listing each supported CLI with its `bin` and headless invocation template (using `{prompt}` placeholder).

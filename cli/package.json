@@ -1,6 +1,6 @@
 {
   "name": "arch-init",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "Scaffolds ARCH framework into your repository",
   "repository": {
     "type": "git",

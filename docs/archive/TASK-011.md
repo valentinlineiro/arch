@@ -1,7 +1,7 @@
 ## Active tasks
 
 ## TASK-011: Maintain CHANGELOG
-**Meta:** P2 | S | DONE | Sprint 2 | 6-writing | claude | docs/agents/HUMAN.md
+**Meta:** P2 | S | 5 | DONE | Sprint 2 | 6-writing | claude | docs/agents/HUMAN.md
 **Depends:** none
 
 ### Acceptance Criteria

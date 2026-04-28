@@ -1,7 +1,7 @@
 ## Active tasks
 
 ## TASK-001: Publish repo to GitHub as public OSS
-**Meta:** P0 | S | DONE | Sprint 1 | 7-operations | human | README.md
+**Meta:** P0 | S | 5 | DONE | Sprint 1 | 7-operations | human | README.md
 **Depends:** none
 
 ### Acceptance Criteria

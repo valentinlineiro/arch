@@ -1,5 +1,5 @@
 ## TASK-107: arch review detects stale references to deleted files
-**Meta:** P2 | S | READY | Focus:no | 7-operations | local | cli/src/main/ts/domain/services/drift-checker.ts
+**Meta:** P2 | S | 5 | READY | Focus:no | 7-operations | local | cli/src/main/ts/domain/services/drift-checker.ts
 
 ### Acceptance Criteria
 - [ ] `DriftChecker` scans all `docs/tasks/*.md` files for file paths in the `Context` field.

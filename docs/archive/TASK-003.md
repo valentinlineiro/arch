@@ -1,5 +1,5 @@
 ## TASK-003: Write ADR-002 - Why context is a budget not a default
-**Meta:** P1 | S | DONE | Sprint 1 | 6-writing | claude | docs/adr/ADR-000-template.md
+**Meta:** P1 | S | 5 | DONE | Sprint 1 | 6-writing | claude | docs/adr/ADR-000-template.md
 **Depends:** TASK-002
 
 ### Acceptance Criteria

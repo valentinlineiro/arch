@@ -1,5 +1,5 @@
 ## TASK-068: Implement Governance and Reporting System
-**Meta:** P1 | M | DONE | Focus:yes | 6-writing | gemini | docs/GOVERNANCE.md, docs/INBOX.md
+**Meta:** P1 | M | 5 | DONE | Focus:yes | 6-writing | gemini | docs/GOVERNANCE.md, docs/INBOX.md
 **Depends:** none
 
 ### Acceptance Criteria

@@ -18,6 +18,7 @@ export interface Task {
   title: string;
   priority: string;
   size: string;
+  value: number;
   status: TaskStatus;
   sprint: string;
   class: string;

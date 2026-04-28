@@ -1,5 +1,5 @@
 ## TASK-109: Fix CLI dependency parsing and validation
-**Meta:** P1 | XS | DONE | Focus:yes | 2-code-generation | claude | cli/src/main/ts/infrastructure/filesystem/markdown-task-repository.ts, cli/src/main/ts/domain/services/task-validator.ts
+**Meta:** P1 | XS | 5 | DONE | Focus:yes | 2-code-generation | claude | cli/src/main/ts/infrastructure/filesystem/markdown-task-repository.ts, cli/src/main/ts/domain/services/task-validator.ts
 
 ### Acceptance Criteria
 - [x] `MarkdownTaskRepository.parseTask` correctly parses the `**Depends:**` line into the `Task.depends` field.

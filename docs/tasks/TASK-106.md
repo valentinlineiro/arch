@@ -1,5 +1,5 @@
 ## TASK-106: Support batch task references in commit messages
-**Meta:** P2 | XS | READY | Focus:no | 7-operations | local | cli/src/main/ts/domain/services/reviewer.ts
+**Meta:** P2 | XS | 5 | READY | Focus:no | 7-operations | local | cli/src/main/ts/domain/services/reviewer.ts
 
 ### Acceptance Criteria
 - [ ] `Reviewer.validateCommitMessage` allows multiple `[TASK-XXX]` references in a single commit message.
