@@ -4,7 +4,7 @@
 ## Onboarding
 1. Read this file.
 2. Read `arch.config.json` for routing.
-3. Run `arch review` to verify system integrity.
+3. Run `arch review` to verify system integrity. This command is **read-only** — it reports violations but does not create tasks or modify repository state.
 
 ---
 

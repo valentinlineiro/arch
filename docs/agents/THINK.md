@@ -41,7 +41,7 @@
    - **Context Pruning:** Removing stale/redundant files or logic.
 
 ## Output
-- Ephemeral output to terminal.
+- Ephemeral read-only output to terminal.
 - Format: `[CLI] [mode] TASK-ID — reason: [reason] \n   Evidence: [evidence]`
 - For Kaizen: `[KAIZEN] [proposal] — rationale: [rationale]`
 - For Autonomy: `[SELF-PROMOTION] IDEA-ID to TASK-ID — criteria: [L2 requirements met]`

@@ -33,9 +33,6 @@ export class ReviewCommand {
     } else {
       fmt.fail('System Review: FAILED');
       result.violations.forEach(v => console.log(`    - ${v}`));
-
-      // TASK-087: Auto-create P0 bug task
-      await this.handleReviewFailure(result.violations);
     }
     if (result.drift.length > 0) {
       console.log(`\n  Drift`);
