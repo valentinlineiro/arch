@@ -9,6 +9,8 @@
 - [ ] Auth for AI CLIs is handled via repository secrets (`ANTHROPIC_API_KEY`, `GEMINI_API_KEY`).
 - [ ] THINK workflow uses read-only tool scope (`--tools "Read,Bash(git *)"`) to avoid unsafe writes in CI.
 - [ ] Existing L2 autonomy rules (only XS ops/writing IDEAs auto-promoted) are enforced in CI identically to local.
+- [ ] Standard action safety boundary matrix is documented in `docs/agents/DO.md`: `action:test`, `action:lint`, `action:build` execute automatically; `action:deploy`, `action:pr-create` require human gate.
+- [ ] Each standard action is implemented as a reusable GitHub Actions workflow callable from `exec.yml`.
 - [ ] `arch review` passes.
 
 ### Definition of Done

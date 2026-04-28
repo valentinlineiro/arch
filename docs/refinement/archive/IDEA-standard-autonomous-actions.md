@@ -1,7 +1,7 @@
 # IDEA: Standard actions for autonomous development lifecycle
 **Created:** 2026-04-27
 **Source:** Human request — move agent from writing code to managing releases
-**Status:** DRAFT
+**Status:** REJECTED
 **Meta:** P2 | M | human | .github/workflows/, docs/agents/
 
 ## Problem
@@ -22,5 +22,4 @@ M
 - "Feedback loop" (agent reads CI output to decide next step) overlaps with TASK-088; needs deduplication before promotion.
 
 ## Decision
-<!-- Human writes here after THINK evaluation -->
-<!-- PROMOTE → TASK-XXX | REJECT: reason -->
+REJECT: content absorbed into TASK-088. Safety boundary matrix (lint/test/build = auto, deploy/pr-create = human gate) and standard action workflows added as ACs there.

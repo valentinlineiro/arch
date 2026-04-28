@@ -1,7 +1,7 @@
 # IDEA: Opt-in project registry
 **Created:** 2026-04-27
 **Source:** Kaizen — no feedback loop from scaffolded repos back to ARCH
-**Status:** DRAFT
+**Status:** PROMOTED → TASK-095, TASK-096
 **Meta:** P3 | M | local | scripts/, .github/workflows/
 
 ## Problem

@@ -1,7 +1,7 @@
 # IDEA: Unify all tools into a single Angular project
 **Created:** 2026-04-27
 **Source:** Human request — improve maintainability and component reuse across HTML tools
-**Status:** DRAFT
+**Status:** PROMOTED → TASK-097, TASK-098, TASK-099, TASK-100, TASK-101
 **Meta:** P3 | L | human | docs/*.html, ui/
 
 ## Problem
