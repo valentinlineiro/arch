@@ -1,7 +1,7 @@
 # IDEA: Push to git after review is ok
 **Created:** 2026-04-28
 **Source:** Human suggestion: "push to git after review is ok"
-**Status:** DRAFT
+**Status:** PROMOTED → TASK-077
 **Meta:** P3 | S | cli | scripts/arch.sh
 
 ## Problem
