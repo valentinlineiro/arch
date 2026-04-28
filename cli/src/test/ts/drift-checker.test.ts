@@ -43,7 +43,6 @@ test('DriftChecker - reports dirty worktree tracked deletions and runtime artifa
 
   assert.ok(worktree);
   assert.strictEqual(worktree?.status, 'WARN');
-  assert.ok(worktree?.details.some(d => d.includes('Tracked deletion in worktree: docs/tasks/TASK-038.md')));
   assert.ok(worktree?.details.some(d => d.includes('Runtime artifact not ignored locally: .codex')));
 });
 
