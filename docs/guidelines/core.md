@@ -25,3 +25,4 @@
 - **Autonomy Pilot (Level 2):** Agents are authorized to self-promote IDEAs to TASKS if they are sized **XS** and belong to class `7-operations` or `6-writing`.
 - **Language — English-first:** All new documentation, task titles, guideline entries, and commit messages must be written in English. Non-ASCII characters in task titles are a drift signal detected by `arch review`. Legacy Spanish content is grandfathered — translate on edit, not proactively.
 - **Dependency Hygiene:** `npm install` in `cli/` should only be run when intentionally adding or upgrading dependencies to prevent unintended `package-lock.json` churn. Always verify diffs before committing lock files.
+- **Build Requirement:** Any change to the CLI source (`cli/src/main/ts/`) must be followed by `npm run build` within the `cli/` directory to update the `dist/` artifacts used by `scripts/arch.sh`. Failure to build leads to stale behavior during verification.
