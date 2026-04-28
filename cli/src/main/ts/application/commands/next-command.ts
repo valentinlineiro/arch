@@ -4,14 +4,18 @@ import type { TaskRepository } from '../../domain/repositories/task-repository.j
 export class NextCommand {
   private useCase: SelectNextTask;
 
-  constructor(taskRepository: TaskRepository) {
+  constructor(private taskRepository: TaskRepository, private args: string[] = []) {
     this.useCase = new SelectNextTask(taskRepository);
   }
 
   async execute(): Promise<void> {
     const nextTask = await this.useCase.execute();
     if (nextTask) {
-      console.log(nextTask.id);
+      if (this.args.includes('--format')) {
+        console.log(`${nextTask.id}:${nextTask.class}:${nextTask.size}`);
+      } else {
+        console.log(nextTask.id);
+      }
     } else {
       process.exit(1);
     }
