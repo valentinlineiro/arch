@@ -1,0 +1,65 @@
+name: ARCH Exec (DO)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  exec:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Gemini CLI
+        run: npm install -g @google/gemini-cli
+
+      - name: Build ARCH CLI
+        run: |
+          cd cli
+          npm install
+          npm run build
+
+      - name: Run arch exec
+        id: exec
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          ./scripts/arch.sh exec > exec_output.txt 2>&1 || true
+          echo "EXEC_OUTPUT<<EOF" >> $GITHUB_ENV
+          cat exec_output.txt >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+
+      - name: Check for changes
+        id: git-check
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "changed=true" >> $GITHUB_OUTPUT
+          else
+            echo "changed=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create PR if changed
+        if: steps.git-check.outputs.changed == 'true'
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "chore: autonomous task execution [DO]"
+          branch: arch/exec-${{ github.run_id }}
+          title: "ARCH: Task Execution Results"
+          body: |
+            ## EXEC Output
+            ```
+            ${{ env.EXEC_OUTPUT }}
+            ```
+          base: main

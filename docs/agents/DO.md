@@ -33,3 +33,14 @@
 - **Atomic commits:** Referencing TASK-ID.
 - **Exception:** idea-draft registration uses the `idea:` commit prefix and is exempt from TASK-ID because no task exists yet.
 - **Commit prefix (mandatory before every commit):** Select the type from the table in `docs/guidelines/core.md`. If no type fits exactly, pick the closest and append a one-line justification in the commit message body. Applies to all commits: lock, implementation, completion.
+
+## Action Safety Boundaries (CI)
+| Action | Execution | Gate |
+|--------|-----------|------|
+| `action:test` | Automatic | None |
+| `action:lint` | Automatic | None |
+| `action:build` | Automatic | None |
+| `action:deploy` | Manual | Human Approval |
+| `action:pr-create` | Manual | Human Approval |
+
+These boundaries define which tools can be invoked autonomously in CI environments.

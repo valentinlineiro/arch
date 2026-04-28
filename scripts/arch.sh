@@ -9,6 +9,43 @@ GREEN='\033[0;32m'; YELLOW='\033[1;33m'; RED='\033[0;31m'; GRAY='\033[0;90m'; NC
 # Path to the CLI entry point
 BIN="node $(dirname "$0")/../cli/dist/index.js"
 
+# ── Agent Invoker ────────────────────────────────────────────────
+invoke_agent() {
+  local mode_name=$1
+  local prompt_file=$2
+  local extra_flags=$3
+  
+  echo -e "  ${GREEN}ARCH${NC} — invoking ${mode_name} mode"
+  
+  node -e '
+    const fs = require("fs");
+    const { execSync, spawnSync } = require("child_process");
+    try {
+      const config = JSON.parse(fs.readFileSync("arch.config.json", "utf8"));
+      for (const cli of config.clis) {
+        try {
+          execSync("which " + cli.bin, { stdio: "ignore" });
+          let cmd = cli.template.replace(/\{prompt\}/g, "$(cat " + process.argv[1] + ")");
+          if (process.argv[2]) {
+            cmd += " " + process.argv[2];
+          }
+          const result = spawnSync("sh", ["-c", cmd], { stdio: "inherit" });
+          process.exit(result.status ?? 0);
+        } catch (e) {}
+      }
+    } catch (e) {}
+    process.exit(1);
+  ' "$prompt_file" "$extra_flags" || {
+    local status=$?
+    if [ $status -eq 1 ]; then
+      echo -e "  ${YELLOW}Note:${NC} No AI CLI detected. Showing protocol:"
+      cat "$prompt_file"
+    else
+      exit $status
+    fi
+  }
+}
+
 # ── Router ────────────────────────────────────────────────────────
 case "$1" in
   "status"|"validate"|"inbox"|"next"|"version"|"--version"|"-v")
@@ -40,27 +77,13 @@ case "$1" in
     ;;
 
   "conduct")
-    echo -e "  ${GREEN}ARCH${NC} — invoking CONDUCTOR mode (THINK)"
-    if command -v claude &> /dev/null; then
-      claude -p "$(cat docs/agents/THINK.md)" --dangerously-skip-permissions
-    elif command -v gemini &> /dev/null; then
-      gemini -p "$(cat docs/agents/THINK.md)" -y
-    else
-      echo -e "  ${YELLOW}Note:${NC} No AI CLI detected. Showing protocol:"
-      cat docs/agents/THINK.md
-    fi
+    shift
+    invoke_agent "CONDUCTOR (THINK)" "docs/agents/THINK.md" "$*"
     ;;
 
   "exec")
-    echo -e "  ${GREEN}ARCH${NC} — invoking EXEC mode (DO)"
-    if command -v claude &> /dev/null; then
-      claude -p "$(cat docs/agents/DO.md)" --dangerously-skip-permissions
-    elif command -v gemini &> /dev/null; then
-      gemini -p "$(cat docs/agents/DO.md)" -y
-    else
-      echo -e "  ${YELLOW}Note:${NC} No AI CLI detected. Showing protocol:"
-      cat docs/agents/DO.md
-    fi
+    shift
+    invoke_agent "EXEC (DO)" "docs/agents/DO.md" "$*"
     ;;
 
   *)
