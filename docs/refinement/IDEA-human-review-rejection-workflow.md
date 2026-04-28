@@ -1,7 +1,7 @@
 # IDEA: human-review-rejection-workflow
 **Created:** 2026-04-28T14:34:00Z
 **Source:** TASK-124 solution was rejected - no easy way to reject
-**Status:** DRAFT
+**Status:** PROMOTED → TASK-125
 **Meta:** P1 | XS | 7-operations | workflow
 
 ## Problem
