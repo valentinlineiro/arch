@@ -3,6 +3,7 @@
 <!-- Purpose: Assess system health, refine ideas, and propose real-time improvements -->
 
 ## Phase 1: System Check (Conductor)
+0. **Print:** `[THINK] Phase 1 — System Check` to stdout.
 1. Scan `docs/tasks/` for all active tasks (Focus:yes = active, Focus:no = queued).
 2. Read recent tasks in `docs/archive/` (Last 5 by modification time).
 3. Evaluate health:
@@ -13,6 +14,7 @@
 4. **Evidence Required:** Every recommendation must cite a concrete signal (e.g., 'TASK-003 in sprint/ has stale lock').
 
 ## Phase 2: Idea Refinement (Refine)
+0. **Print:** `[THINK] Phase 2 — Idea Refinement` to stdout.
 1. Scan `docs/refinement/` for all `IDEA-*.md` files.
 2. If no files exist: Skip this phase.
 3. For each IDEA, apply lifecycle rules based on status:
@@ -22,6 +24,7 @@
 4. **Preserve audit trail:** Processed IDEAs (PROMOTED/REJECTED) must never be deleted; they reside in `docs/refinement/archive/` for historical context.
 
 ## Phase 3: Continuous Kaizen (Real-time Reviewer)
+0. **Print:** `[THINK] Phase 3 — Continuous Kaizen` to stdout.
 1. **Immediate Gap Closing:** During system check, identify missing context or logic gaps in the current task or sprint.
 2. **Real-time Guideline Proposal:** Detect patterns in `docs/archive/` or git history. If a pattern suggests a systematic improvement, propose a guideline change in `docs/guidelines/` immediately.
 3. **Integration with 'arch review':** Provide qualitative context to deterministic failures reported by the CLI.
@@ -29,6 +32,7 @@
 5. **Sprint metrics (on sprint close):** Generate `docs/METRICS.md` covering: tasks closed, avg cycle time (git log date → `Closed-at`), size accuracy, AI/human ratio, regressions detected, framework improvements applied.
 
 ## Phase 4: Autonomous Replenishment (Backlog Health)
+0. **Print:** `[THINK] Phase 4 — Autonomous Replenishment` to stdout.
 1. **Trigger:** If the count of `READY` tasks (Focus:yes/no) is less than 3, this phase is mandatory.
 2. **Analysis Scope:** Scan the last 10 tasks in `docs/archive/` and the last 3 entries in `docs/KAIZEN-LOG.md`.
 3. **Action:** Propose at least one new `IDEA-*.md` in `docs/refinement/` addressing either:
@@ -41,3 +45,4 @@
 - Format: `[CLI] [mode] TASK-ID — reason: [reason] \n   Evidence: [evidence]`
 - For Kaizen: `[KAIZEN] [proposal] — rationale: [rationale]`
 - For Autonomy: `[SELF-PROMOTION] IDEA-ID to TASK-ID — criteria: [L2 requirements met]`
+- **Finally, print:** `[THINK] Done` to stdout.
