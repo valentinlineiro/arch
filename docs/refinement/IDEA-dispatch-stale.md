@@ -1,7 +1,7 @@
 # IDEA: DISPATCH is stale
 **Created:** 2026-04-27T00:00:00Z
 **Source:** User request: "idea: dispatch is stale"
-**Status:** DRAFT
+**Status:** PROMOTED → TASK-074
 **Meta:** P2 | XS | local | docs/DISPATCH.md, docs/adr/ADR-003-dispatch-ephemeral.md, docs/INBOX.md
 
 ## Problem
