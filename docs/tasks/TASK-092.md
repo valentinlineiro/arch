@@ -1,6 +1,7 @@
 ## TASK-092: arch status - sprint progress view
-**Meta:** P2 | S | 7 | READY | Focus:no | 2-code-generation | claude | cli/src/main/ts/application/commands/status-command.ts
+**Meta:** P2 | S | 7 | IN_PROGRESS | Focus:yes | 2-code-generation | claude | cli/src/main/ts/application/commands/status-command.ts
 **Depends:** TASK-091
+**Locked-by:** codex | **Locked-at:** 2026-04-29T08:34:37Z
 
 ### Acceptance Criteria
 - [ ] `arch status` displays a sprint section showing the current sprint name (from `arch.config.json`) and progress: `N/M tasks done`.
