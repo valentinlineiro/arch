@@ -5,7 +5,7 @@
 ## Status Summary
 - **Active Tasks:** 0
 - **In Review:** 0
-- **Backlog (Ready):** 6
+- **Backlog (Ready):** 5
 
 ## Urgent / Actions Required
 _No urgent items detected._
@@ -17,4 +17,4 @@ _No pending ideas._
 _No active sprint._
 
 ## Recent Activity
-- **Last Commit:** feat: implement opt-in project registry in arch-init [TASK-095]
+- **Last Commit:** feat: implement project registry aggregation and workflows [TASK-096]
