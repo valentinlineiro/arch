@@ -17,4 +17,4 @@ _No pending ideas._
 _No active sprint._
 
 ## Recent Activity
-- **Last Commit:** chore: focus next priority TASK-084 [TASK-084]
+- **Last Commit:** idea: add draft separate-arch-core-from-content to refinement
