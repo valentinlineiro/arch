@@ -53,6 +53,7 @@ The meta line is the source of truth for task state and routing. It MUST be a si
 - Naming convention: `sprint/` prefix + lowercase hyphenated slug describing the theme.
 - Tasks without this line are not assigned to any sprint.
 - The active sprint is tracked in `arch.config.json` under `currentSprint`.
+- **Closing a sprint:** See `docs/agents/DO.md` → Intent: Sprint Close for the full close sequence (verify all tasks DONE → generate summary in METRICS.md → clear `currentSprint`).
 
 ### 5. Depends
 - Optional line listing blocking TASK-IDs.

@@ -33,6 +33,20 @@
    - **Executing the promotion:** If the IDEA has a human-written Decision and is sized XS and class `6-writing` or `7-operations`, the agent may autonomously execute the file operations (create task, update IDEA status) without further instruction.
    - **Otherwise:** Explicit human instruction required: `arch do "promover IDEA-[slug]"`.
 
+## Intent: Sprint Close
+
+**Trigger:** Human declares the sprint complete.
+
+1. **Verify closeable:** Confirm all tasks tagged `**Sprint:** sprint/<slug>` matching `currentSprint` in `arch.config.json` have status `DONE` in `docs/archive/`. If any task is not `DONE`, halt and report the blocking task.
+2. **Generate sprint summary** — append a new dated section to `docs/METRICS.md`:
+   - **Sprint name:** value of `currentSprint`.
+   - **Tasks closed:** count + list of TASK-IDs.
+   - **Cycle time:** date of first commit touching any sprint task → `Closed-at` of the last archived task.
+   - **Size accuracy:** flag any task where `Iterations: N` is present (N > 1 = overrun).
+   - **AI/human ratio:** commit count by AI agent vs. human author across the sprint (`git log --author`).
+3. **Clear sprint:** Set `"currentSprint": ""` in `arch.config.json`.
+4. **Commit once:** `chore: close sprint/<slug> [THINK]` — covers METRICS.md update and arch.config.json change.
+
 ## Constraints
 - **Atomic commits:** Referencing TASK-ID.
 - **Exception:** idea-draft registration uses the `idea:` commit prefix and is exempt from TASK-ID because no task exists yet.
