@@ -20,7 +20,11 @@ Ideas and tasks lack quantitative signals beyond Value and Size to guide priorit
 M
 
 ## Gaps
-<!-- THINK fills this section when invoked — do not edit manually -->
+- **Metric set underspecified:** "confidence, benefit, risk/effort, composite" is four fields — needs narrowing to the minimum useful set to avoid maintenance bloat on every task/IDEA.
+- **ContextPrice estimability:** Token cost is dynamic (depends on model, agent state). A static ordinal scale (XS/S/M/L matching t-shirt sizing) may be more practical than a numeric value.
+- **Migration scope unaddressed:** If new fields are required in Meta, all existing tasks and IDEAs become non-compliant immediately. A migration or "optional until X" policy needs to be defined.
+- **Sizing may be L not M:** Touching TASK-FORMAT.md, TEMPLATE.md, arch review drift checks, and potentially all existing task files is broader than M.
+- **Consumer unclear:** If the new metrics are for human prioritization only, this is a display/format improvement. If agents also read them (e.g., to skip high-context tasks), the protocol must specify where/when agents consult these fields.
 
 ## Decision
 <!-- Human writes here after THINK evaluation -->
