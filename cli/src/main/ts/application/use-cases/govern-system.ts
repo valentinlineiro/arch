@@ -4,10 +4,7 @@ import { FileSystem } from '../../domain/repositories/file-system.js';
 import { Task, TaskStatus } from '../../domain/models/task.js';
 import { SelectNextTask } from './select-next-task.js';
 import { BatchSystem } from './batch-system.js';
-import { exec, spawnSync } from 'node:child_process';
-import { promisify } from 'node:util';
-
-const execAsync = promisify(exec);
+import { spawnSync } from 'node:child_process';
 
 export class GovernSystem {
   private batchSystem: BatchSystem;
@@ -96,18 +93,18 @@ export class GovernSystem {
   }
 
   private async focusTask(task: Task): Promise<void> {
-    // Rule 4 — Focus rotation (part 1: clear other focus is handled by manual edit usually, 
-    // but here we just update the target task)
-    // In ARCH v0.4, Focus is a field in the Meta line.
-    if (task.rawMetaLine) {
-        const newMeta = task.rawMetaLine.replace('Focus:no', 'Focus:yes');
-        const content = await this.fileSystem.readFile(`docs/tasks/${task.id}.md`);
-        const newContent = content.replace(task.rawMetaLine, newMeta);
-        await this.fileSystem.writeFile(`docs/tasks/${task.id}.md`, newContent);
-        
-        // Commit atomically
-        await execAsync(`git add docs/tasks/${task.id}.md && git commit -m "chore: [${task.id}] focus task via arch govern"`);
-        console.log(`  ✓ Focused and committed: ${task.id}`);
+    if (!task.rawMetaLine) return;
+    const filePath = `docs/tasks/${task.id}.md`;
+    const original = await this.fileSystem.readFile(filePath);
+    const updated = original.replace(task.rawMetaLine, task.rawMetaLine.replace('Focus:no', 'Focus:yes'));
+    await this.fileSystem.writeFile(filePath, updated);
+    try {
+      await this.gitRepository.add(filePath);
+      await this.gitRepository.commit(`chore: [${task.id}] focus task via arch govern`);
+      console.log(`  Focused and committed: ${task.id}`);
+    } catch (error: any) {
+      await this.fileSystem.writeFile(filePath, original);
+      throw new Error(`Failed to commit focus for ${task.id}: ${error.message}`);
     }
   }
 }
