@@ -12,9 +12,11 @@ test('TaskValidator - isValidHeader', () => {
 test('TaskValidator - isValidMeta', () => {
   const validMeta = '**Meta:** P0 | S | 5 | READY | Focus:no | 2-code-generation | claude | README.md';
   const invalidMeta = '**Meta:** P9 | S | 5 | READY | Focus:no | 2-code-generation | claude | README.md';
-  
+  const backlogMeta = '**Meta:** P1 | XS | 7 | BACKLOG | Focus:no | 7-operations | local | cli/src/main/ts/application/use-cases/task-reject.ts';
+
   assert.strictEqual(TaskValidator.isValidMeta(validMeta), true);
   assert.strictEqual(TaskValidator.isValidMeta(invalidMeta), false);
+  assert.strictEqual(TaskValidator.isValidMeta(backlogMeta), true, 'BACKLOG is a valid status');
 });
 
 test('TaskValidator - isValidDepends', () => {
