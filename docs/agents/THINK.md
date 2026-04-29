@@ -6,12 +6,15 @@
 0. **Print:** `[THINK] Phase 1 — System Check` to stdout.
 1. Scan `docs/tasks/` for all active tasks (Focus:yes = active, Focus:no = queued).
 2. Read recent tasks in `docs/archive/` (Last 5 by modification time).
-3. Evaluate health:
+3. **Archival Guard:** Scan `docs/tasks/` for any task with `Status: DONE`. For each found:
+   - Move the file to `docs/archive/` preserving the filename and all metadata.
+   - Commit immediately: `chore: archive [TASK-ID] DONE [TASK-ID]`.
+4. Evaluate health:
    - Stale locks (Task IN_PROGRESS for >3 days without commit).
    - Priority escalation (P0 tasks blocked or not started).
    - Focus drift (Focus:no tasks at P0 that should be Focus:yes).
    - **Value Audit:** Review the `Value` field of READY tasks. Propose adjustments (increase/decrease) if a task's perceived impact has changed relative to project goals.
-4. **Evidence Required:** Every recommendation must cite a concrete signal (e.g., 'TASK-003 in sprint/ has stale lock').
+5. **Evidence Required:** Every recommendation must cite a concrete signal (e.g., 'TASK-003 in sprint/ has stale lock').
 
 ## Phase 2: Idea Refinement (Refine)
 0. **Print:** `[THINK] Phase 2 — Idea Refinement` to stdout.
