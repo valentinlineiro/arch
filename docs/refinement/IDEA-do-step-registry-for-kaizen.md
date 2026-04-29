@@ -1,0 +1,24 @@
+# IDEA: Register DO task steps for Kaizen optimization
+**Created:** 2026-04-29
+**Source:** Human suggestion during session
+**Status:** DRAFT
+**Meta:** P2 | S | claude | context
+
+## Problem
+When DO executes a task, the sequence of steps taken is not recorded anywhere. This means Kaizen has no structured data to analyze patterns, identify recurring friction points, or suggest flow improvements based on actual execution history.
+
+## Proposed solution
+During DO mode task execution, emit a structured step log (e.g. appended to the task file or a sidecar file) that captures ordered steps: what was done, in what phase, and any blockers or deviations. THINK/Kaizen can then read these logs to detect patterns and propose workflow improvements.
+
+## Dependencies
+None — can be implemented independently of other IDEAs.
+
+## Estimated size
+S
+
+## Gaps
+<!-- THINK fills this section when invoked — do not edit manually -->
+
+## Decision
+<!-- Human writes here after THINK evaluation -->
+<!-- PROMOTE → TASK-XXX | REJECT: reason -->
