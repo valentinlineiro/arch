@@ -5,7 +5,7 @@
 ## Status Summary
 - **Active Tasks:** 0
 - **In Review:** 0
-- **Backlog (Ready):** 7
+- **Backlog (Ready):** 6
 
 ## Urgent / Actions Required
 _No urgent items detected._
@@ -17,4 +17,4 @@ _No pending ideas._
 _No active sprint._
 
 ## Recent Activity
-- **Last Commit:** docs: add continuous simplification mandate to THINK Phase 3 [TASK-090]
+- **Last Commit:** feat: implement opt-in project registry in arch-init [TASK-095]
