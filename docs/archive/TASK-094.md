@@ -1,5 +1,6 @@
 ## TASK-094: Sprint close protocol
-**Meta:** P2 | XS | 7 | REVIEW | Focus:yes | 6-writing | local | docs/agents/DO.md, docs/TASK-FORMAT.md
+**Meta:** P2 | XS | 7 | DONE | Focus:yes | 6-writing | local | docs/agents/DO.md, docs/TASK-FORMAT.md
+Closed-at: 2026-04-29T08:12:59Z
 **Depends:** TASK-091
 
 ### Acceptance Criteria
