@@ -56,7 +56,7 @@ export class MarkdownTaskRepository implements TaskRepository {
   }
 
   async save(task: Task): Promise<void> {
-    const targetDir = task.status === TaskStatus.DONE ? this.archiveDir : this.tasksDir;
+    const targetDir = (task.status === TaskStatus.DONE || task.status === TaskStatus.REJECTED) ? this.archiveDir : this.tasksDir;
     const targetPath = path.join(targetDir, `${task.id}.md`);
 
     const tasksPath = path.join(this.tasksDir, `${task.id}.md`);
@@ -79,12 +79,18 @@ export class MarkdownTaskRepository implements TaskRepository {
     const statusRegex = new RegExp(`(\\n\\*\\*Meta:\\*\\* .*?\\| )(IDEA|READY|IN_PROGRESS|REVIEW|DONE|BLOCKED|REJECTED)`, 's');
     content = content.replace(statusRegex, `$1${task.status}`);
 
-    if (task.closedAt && !content.includes('**Closed-at:**')) {
-      content = content.replace(
-        /(\*\*Depends:\*\*[^\n]*\n)/,
-        `$1**Closed-at:** ${task.closedAt}\n`
-      );
-    }
+    const ensureField = (fieldName: string, value: string | undefined) => {
+      if (value && !content.includes(`**${fieldName}:**`)) {
+        const insertionMatch = content.match(/^(\*\*(Depends|Sprint|Meta):\*\*.*?\n)/m);
+        if (insertionMatch) {
+          content = content.replace(insertionMatch[0], `${insertionMatch[0]}**${fieldName}:** ${value}\n`);
+        }
+      }
+    };
+
+    ensureField('Closed-at', task.closedAt);
+    ensureField('Rejected-at', task.rejectedAt);
+    ensureField('Reason', task.rejectionReason);
 
     if (currentPath && currentPath !== targetPath) {
       await this.fileSystem.writeFile(currentPath, content);
@@ -115,6 +121,8 @@ export class MarkdownTaskRepository implements TaskRepository {
       }
 
       const closedAtMatch = content.match(/^\*\*Closed-at:\*\* (.*)/m);
+      const rejectedAtMatch = content.match(/^\*\*Rejected-at:\*\* (.*)/m);
+      const rejectionReasonMatch = content.match(/^\*\*Reason:\*\* (.*)/m);
       const sprintMatch = content.match(/^\*\*Sprint:\*\* (.*)/m);
       const dependsMatch = content.match(/^\*\*Depends:\*\* (.*)/m);
 
@@ -130,6 +138,8 @@ export class MarkdownTaskRepository implements TaskRepository {
         cli: metaParts[6] || '',
         context: (metaParts[7] || '').split(',').map(s => s.trim()),
         closedAt: closedAtMatch?.[1],
+        rejectedAt: rejectedAtMatch?.[1],
+        rejectionReason: rejectionReasonMatch?.[1],
         depends: dependsMatch ? dependsMatch[1].split(',').map(s => s.trim()) : undefined,
         acceptanceCriteria,
         rawMetaLine: `**Meta:** ${metaLine}`,

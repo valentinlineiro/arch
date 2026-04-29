@@ -31,7 +31,38 @@ export class DriftChecker {
       this.checkDeadContext(),
       this.checkStaleDepends(),
       this.checkPriorityDrift(),
+      this.checkStaleTasks(),
     ]);
+  }
+
+  private async checkStaleTasks(): Promise<DriftResult> {
+    const details: string[] = [];
+    const activeFiles = await this.getMarkdownFiles('docs/tasks');
+    const THIRTY_DAYS_MS = 30 * 24 * 60 * 60 * 1000;
+    const now = new Date().getTime();
+
+    for (const file of activeFiles) {
+      const content = await this.fileSystem.readFile(`${this.rootPath}/docs/tasks/${file}`);
+      const metaMatch = content.match(/^\*\*Meta:\*\* .*/m);
+      if (metaMatch) {
+        const parts = metaMatch[0].split('|').map(s => s.trim());
+        const status = parts[3];
+        
+        if (status === 'READY' || status === 'BLOCKED') {
+          const lastMod = await this.gitRepository.getFileLastModifiedDate(`docs/tasks/${file}`);
+          if (lastMod && (now - lastMod.getTime() > THIRTY_DAYS_MS)) {
+            const days = Math.floor((now - lastMod.getTime()) / (24 * 60 * 60 * 1000));
+            details.push(`${file.replace('.md', '')} is ${status} but has not been modified in ${days} days.`);
+          }
+        }
+      }
+    }
+
+    return {
+      check: 'StaleTasks',
+      status: details.length === 0 ? 'OK' : 'WARN',
+      details,
+    };
   }
 
   private async checkPriorityDrift(): Promise<DriftResult> {

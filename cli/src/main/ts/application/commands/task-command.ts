@@ -1,6 +1,7 @@
 import { MarkTaskInProgress } from '../use-cases/mark-task-in-progress.js';
 import { MarkTaskDone } from '../use-cases/mark-task-done.js';
 import { RejectTask } from '../use-cases/task-reject.js';
+import { RejectStaleTask } from '../use-cases/task-reject-stale.js';
 import type { TaskRepository } from '../../domain/repositories/task-repository.js';
 import { Reviewer } from '../../domain/services/reviewer.js';
 import * as fmt from '../../infrastructure/cli/output-formatter.js';
@@ -9,11 +10,13 @@ export class TaskCommand {
   private markInProgress: MarkTaskInProgress;
   private markDone: MarkTaskDone;
   private rejectTask: RejectTask;
+  private rejectStaleTask: RejectStaleTask;
 
   constructor(taskRepository: TaskRepository, reviewer: Reviewer) {
     this.markInProgress = new MarkTaskInProgress(taskRepository);
     this.markDone = new MarkTaskDone(taskRepository, reviewer);
     this.rejectTask = new RejectTask(taskRepository);
+    this.rejectStaleTask = new RejectStaleTask(taskRepository);
   }
 
   async execute(args: string[]): Promise<void> {
@@ -45,8 +48,15 @@ export class TaskCommand {
       } catch (error: any) {
         fmt.warn(error.message);
       }
+    } else if (subCommand === 'reject-stale' && taskId) {
+      try {
+        await this.rejectStaleTask.execute(taskId);
+        fmt.arrow(`rejected ${taskId} — archived as stale`);
+      } catch (error: any) {
+        fmt.warn(error.message);
+      }
     } else {
-      console.log('Usage: arch task [start|done|reject] [TASK-ID] [--force] [--reason "<text>"]');
+      console.log('Usage: arch task [start|done|reject|reject-stale] [TASK-ID] [--force] [--reason "<text>"]');
     }
   }
 }

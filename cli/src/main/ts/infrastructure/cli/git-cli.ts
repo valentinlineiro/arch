@@ -5,9 +5,10 @@ import { GitRepository } from '../../domain/repositories/git-repository.js';
 const execAsync = promisify(exec);
 
 export class GitCli implements GitRepository {
-  async getDiff(): Promise<string> {
+  async getDiff(args: string[] = []): Promise<string> {
     try {
-      const { stdout } = await execAsync('git diff HEAD');
+      const argsStr = args.length > 0 ? ` ${args.join(' ')}` : ' HEAD';
+      const { stdout } = await execAsync(`git diff${argsStr}`);
       return stdout;
     } catch {
       return '';
@@ -37,11 +38,6 @@ export class GitCli implements GitRepository {
   }
 
   async getLog(limit: number): Promise<string[]> {
-    const { stdout } = await execAsync(`git log -n ${limit} --pretty=%B`);
-    // git log --pretty=%B can have multiple lines per commit. 
-    // We want to return an array of commit messages.
-    // However, %B is the raw body. 
-    // To get each commit as a single element, we can use a delimiter.
     const { stdout: stdoutDelimited } = await execAsync(`git log -n ${limit} --pretty=format:"%B%x00"`);
     return stdoutDelimited.split('\0').filter(msg => msg.trim().length > 0);
   }
@@ -54,5 +50,15 @@ export class GitCli implements GitRepository {
     // Escape single quotes in message
     const escapedMessage = message.replace(/'/g, "'\\''");
     await execAsync(`git commit -m '${escapedMessage}'`);
+  }
+
+  async getFileLastModifiedDate(path: string): Promise<Date | null> {
+    try {
+      const { stdout } = await execAsync(`git log -1 --format=%cI -- ${path}`);
+      const dateStr = stdout.trim();
+      return dateStr ? new Date(dateStr) : new Date();
+    } catch {
+      return new Date();
+    }
   }
 }
