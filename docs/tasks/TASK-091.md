@@ -1,13 +1,13 @@
 ## TASK-091: Define sprint data model and naming convention
-**Meta:** P2 | S | 5 | IN_PROGRESS | Focus:no | 6-writing | local | docs/TASK-FORMAT.md, arch.config.json
+**Meta:** P2 | S | 5 | REVIEW | Focus:no | 6-writing | local | docs/TASK-FORMAT.md, arch.config.json
 
 ### Acceptance Criteria
-- [ ] A sprint is formally defined as a named, scope-based collection of tasks (not time-boxed).
-- [ ] `docs/TASK-FORMAT.md` documents the sprint field: optional `Sprint: <name>` line below the Meta line.
-- [ ] `arch.config.json` includes a `currentSprint` field (string, optional).
-- [ ] The naming convention for sprints is documented (e.g. `sprint/<slug>`).
-- [ ] `arch review` passes.
+- [x] A sprint is formally defined as a named, scope-based collection of tasks (not time-boxed).
+- [x] `docs/TASK-FORMAT.md` documents the sprint field: optional `Sprint: <name>` line below the Meta line.
+- [x] `arch.config.json` includes a `currentSprint` field (string, optional).
+- [x] The naming convention for sprints is documented (e.g. `sprint/<slug>`).
+- [x] `arch review` passes.
 
 ### Definition of Done
-- [ ] All ACs checked.
-- [ ] `arch review` passes.
+- [x] All ACs checked.
+- [x] `arch review` passes.

@@ -13,6 +13,7 @@ ARCH v0.5 introduces a mandatory `Value` field in the Meta line to enable dynami
 ```markdown
 ## TASK-ID: Title
 **Meta:** P[0-3] | [Size] | [Value] | [STATUS] | Focus:yes/no | [Class] | [CLI] | [Context]
+**Sprint:** sprint/<slug>  (optional)
 **Depends:** TASK-ID, TASK-ID... (optional)
 
 ### Acceptance Criteria
@@ -46,15 +47,22 @@ The meta line is the source of truth for task state and routing. It MUST be a si
 - **CLI:** Target agent mode (e.g., `local`, `claude`, `human`).
 - **Context:** Comma-separated list of files or globs relevant to the task.
 
-### 4. Depends
+### 4. Sprint (optional)
+- A sprint is a named, scope-based collection of tasks — not time-boxed.
+- Format: `**Sprint:** sprint/<slug>` (e.g., `sprint/review-hardening`, `sprint/control-panel`)
+- Naming convention: `sprint/` prefix + lowercase hyphenated slug describing the theme.
+- Tasks without this line are not assigned to any sprint.
+- The active sprint is tracked in `arch.config.json` under `currentSprint`.
+
+### 5. Depends
 - Optional line listing blocking TASK-IDs.
 - Format: `**Depends:** TASK-XYZ, TASK-ABC`
 
-### 5. Acceptance Criteria (AC)
+### 6. Acceptance Criteria (AC)
 - Atomic, verifiable checkboxes.
 - All must be checked before marking the task `REVIEW` or `DONE`.
 
-### 6. Definition of Done (DoD)
+### 7. Definition of Done (DoD)
 - Project-level quality standards (e.g., "PR approved", "`arch review` passes").
 - Optional for `XS` tasks if global guidelines cover them.
 
