@@ -1,5 +1,5 @@
 ## TASK-090: Add continuous simplification mandate to THINK Phase 3
-**Meta:** P3 | S | 5 | READY | Focus:no | 6-writing | local | docs/agents/THINK.md
+**Meta:** P3 | S | 5 | READY | Focus:yes | 6-writing | local | docs/agents/THINK.md
 
 ### Acceptance Criteria
 - [ ] THINK.md Phase 3 includes a **Simplification** step that counts the total number of: protocol phases across all agent docs, fields in the task Meta line, and top-level sections in `docs/guidelines/core.md`.
