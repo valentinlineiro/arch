@@ -1,5 +1,5 @@
 ## TASK-089: Write ARCH course - what it is and how to operate it
-**Meta:** P2 | M | 5 | READY | Focus:yes | 6-writing | local | docs/
+**Meta:** P2 | M | 5 | IN_PROGRESS | Focus:yes | 6-writing | local | docs/
 
 ### Acceptance Criteria
 - [ ] `docs/` created with the following structure:
