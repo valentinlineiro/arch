@@ -3,7 +3,7 @@
 <!-- Generated on: 2026-04-29 -->
 
 ## Status Summary
-- **Active Tasks:** 1
+- **Active Tasks:** 0
 - **In Review:** 0
 - **Backlog (Ready):** 8
 
@@ -17,4 +17,4 @@ _No pending ideas._
 _No active sprint._
 
 ## Recent Activity
-- **Last Commit:** docs: update INBOX.md dashboard [TASK-070]
+- **Last Commit:** docs: align IDEA template with task-format and mark TASK-084 as DONE [TASK-084]
