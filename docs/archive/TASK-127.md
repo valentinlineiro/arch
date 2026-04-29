@@ -1,5 +1,6 @@
 ## TASK-127: Resolve promotion authority contradiction across protocol files
-**Meta:** P1 | XS | 8 | REVIEW | Focus:no | 6-writing | local | docs/AGENTS.md, docs/agents/DO.md, docs/agents/THINK.md
+**Meta:** P1 | XS | 8 | DONE | Focus:no | 6-writing | local | docs/AGENTS.md, docs/agents/DO.md, docs/agents/THINK.md
+**Closed-at:** 2026-04-29T08:01:54Z
 
 ## Problem
 AGENTS.md:18 grants THINK autonomous promotion of XS ops/writing IDEAs, but AGENTS.md:33 and DO.md:25 require explicit human instruction. The word "promote" conflates two distinct acts — deciding and executing — causing ambiguity about when autonomy applies.

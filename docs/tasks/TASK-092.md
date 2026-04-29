@@ -1,5 +1,5 @@
 ## TASK-092: arch status - sprint progress view
-**Meta:** P2 | S | 5 | READY | Focus:no | 2-code-generation | claude | cli/src/main/ts/application/commands/status-command.ts
+**Meta:** P2 | S | 7 | READY | Focus:no | 2-code-generation | claude | cli/src/main/ts/application/commands/status-command.ts
 **Depends:** TASK-091
 
 ### Acceptance Criteria
