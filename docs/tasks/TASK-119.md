@@ -1,4 +1,4 @@
-# TASK-119: Simplify agent context requirements
+## TASK-119: Simplify agent context requirements
 **Meta:** P3 | S | 6 | READY | Focus:no | 7-operations | local | docs/agents/, docs/guidelines/
 
 ## Description

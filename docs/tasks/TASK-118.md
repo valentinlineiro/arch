@@ -1,5 +1,5 @@
-# TASK-118: ARCH Context Pruning — Stale Task Identification
-**Meta:** P2 | S | 6 | READY | Focus:no | 7-operations | local | cli/src/, docs/agents/THINK.md
+## TASK-118: ARCH Context Pruning - Stale Task Identification
+**Meta:** P2 | S | 6 | IN_PROGRESS | Focus:yes | 7-operations | local | cli/src/, docs/agents/THINK.md
 
 ## Description
 Implement a mechanism to identify and handle stale tasks in `docs/tasks/` that have not seen activity for a significant period.
