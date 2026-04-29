@@ -2,7 +2,8 @@
 **Created:** [ISO date]
 **Source:** [what triggered this]
 **Status:** DRAFT
-**Meta:** [P0/P1/P2/P3] | [XS/S/M/L/XL] | [tool] | [context] ← optional, fill if known
+**Meta:** [P0/P1/P2/P3] | [XS/S/M/L/XL] | [cli] | [context]
+<!-- cli: local | claude | gemini | human -->
 
 ## Problem
 [What problem or friction motivates this idea]
