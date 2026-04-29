@@ -94,6 +94,36 @@ export class GenerateInbox {
     }
     content += `\n`;
 
+    content += `## Current Sprint\n`;
+    const configPath = 'arch.config.json';
+    let currentSprint = '';
+    try {
+      const configContent = await this.fileSystem.readFile(configPath);
+      const config = JSON.parse(configContent);
+      currentSprint = config.currentSprint || '';
+    } catch {
+      currentSprint = '';
+    }
+
+    if (!currentSprint) {
+      content += `_No active sprint._\n`;
+    } else {
+      const sprintTasks = activeTasks.filter(t => t.rawMetaLine?.includes(`Sprint: ${currentSprint}`));
+      const totalSprint = sprintTasks.length;
+      const doneSprint = sprintTasks.filter(t => t.status === TaskStatus.DONE).length;
+      content += `- **Sprint:** ${currentSprint}\n`;
+      content += `- **Progress:** ${doneSprint}/${totalSprint} tasks done\n`;
+      if (sprintTasks.length > 0) {
+        content += `\n**Open Tasks:**\n`;
+        for (const t of sprintTasks) {
+          if (t.status !== TaskStatus.DONE) {
+            content += `- [${t.id}] ${t.title}\n`;
+          }
+        }
+      }
+    }
+    content += `\n`;
+
     content += `## Recent Activity\n`;
     const lastCommit = await this.gitRepository.getLastCommitMessage();
     content += `- **Last Commit:** ${lastCommit || 'None'}\n`;
