@@ -1,14 +1,23 @@
 #!/usr/bin/env bash
 # arch-init — scaffolds ARCH framework into the current repository
-# Usage: bash arch-init.sh [project-name]
-# Or via npx: npx arch-init [project-name]
+# Usage: bash arch-init.sh [project-name] [--opt-in-telemetry]
+# Or via npx: npx arch-init [project-name] [--opt-in-telemetry]
 
 set -e
 
 # ── Colors ────────────────────────────────────────────────────────
 GREEN='\033[0;32m'; YELLOW='\033[1;33m'; GRAY='\033[0;90m'; NC='\033[0m'
 
-ARG1="${1:-.}"
+ARG1="."
+OPT_IN_TELEMETRY=false
+
+for arg in "$@"; do
+  if [ "$arg" == "--opt-in-telemetry" ]; then
+    OPT_IN_TELEMETRY=true
+  elif [[ "$arg" != -* ]]; then
+    ARG1="$arg"
+  fi
+done
 
 # Handle project directory creation if ARG1 is not "."
 if [ "$ARG1" != "." ]; then
@@ -89,6 +98,41 @@ create_symlink() {
 
 create_symlink "AGENTS.md" "CLAUDE.md"
 create_symlink "AGENTS.md" "GEMINI.md"
+
+# ── Telemetry (Opt-in) ────────────────────────────────────────────
+if [ "$OPT_IN_TELEMETRY" = true ]; then
+  echo ""
+  echo -e "  ${GREEN}Telemetry opted-in${NC}"
+  
+  if [ ! -f ".arch-local" ]; then
+    UUID=$(node -e 'console.log(require("crypto").randomUUID())')
+    echo "PROJECT_UUID=$UUID" > .arch-local
+    echo -e "  ${GRAY}+${NC} generated project UUID"
+  fi
+  
+  UUID=$(grep PROJECT_UUID .arch-local | cut -d= -f2)
+  VERSION=$(node -e 'console.log(require("./arch.config.json").version)')
+  ROUTING=$(node -e 'console.log(JSON.stringify(require("./arch.config.json").routing))')
+  
+  cat > registry.json << REGISTRY
+{
+  "uuid": "$UUID",
+  "version": "$VERSION",
+  "routing": $ROUTING
+}
+REGISTRY
+  echo -e "  ${GRAY}+${NC} registry.json"
+  
+  # Push to registry (repository_dispatch)
+  echo -e "  ${GRAY}Publishing to registry...${NC}"
+  # Note: The endpoint and event_type are defined in TASK-095/TASK-096.
+  #repository_dispatch requires authentication, so this curl will fail without a token
+  # but we provide the logic as requested.
+  curl -s -X POST -H "Accept: application/vnd.github.v3+json" \
+    -H "Authorization: token ${GITHUB_TOKEN:-anonymous}" \
+    https://api.github.com/repos/valentinlineiro/arch/dispatches \
+    -d "{\"event_type\": \"project_registry\", \"client_payload\": $(cat registry.json)}" || true
+fi
 
 # ── .gitignore ────────────────────────────────────────────────────
 if [ ! -f ".gitignore" ]; then
