@@ -28,11 +28,12 @@
 
 ## Phase 3: Continuous Kaizen (Real-time Reviewer)
 0. **Print:** `[THINK] Phase 3 — Continuous Kaizen` to stdout.
-1. **Immediate Gap Closing:** During system check, identify missing context or logic gaps in the current task or sprint.
-2. **Real-time Guideline Proposal:** Detect patterns in `docs/archive/` or git history. If a pattern suggests a systematic improvement, propose a guideline change in `docs/guidelines/` immediately.
-3. **Integration with 'arch review':** Provide qualitative context to deterministic failures reported by the CLI.
-4. **Logic Absorption:** This phase replaces the former `RETRO.md` protocol, making sprint retrospectives a continuous activity rather than a batch process.
-5. **Sprint metrics (on sprint close):** Generate `docs/METRICS.md` covering: tasks closed, avg cycle time (git log date → `Closed-at`), size accuracy, AI/human ratio, regressions detected, framework improvements applied.
+1. **Simplification:** Count the total number of protocol phases across all agent docs, fields in the task Meta line, and top-level sections in `docs/guidelines/core.md`. If any threshold is exceeded (phases > 5, Meta fields > 7, guideline sections > 8), propose one concrete reduction task (XS or S) targeting the most bloated element using the `[KAIZEN]` output format.
+2. **Immediate Gap Closing:** During system check, identify missing context or logic gaps in the current task or sprint.
+3. **Real-time Guideline Proposal:** Detect patterns in `docs/archive/` or git history. If a pattern suggests a systematic improvement, propose a guideline change in `docs/guidelines/` immediately.
+4. **Integration with 'arch review':** Provide qualitative context to deterministic failures reported by the CLI.
+5. **Logic Absorption:** This phase replaces the former `RETRO.md` protocol, making sprint retrospectives a continuous activity rather than a batch process.
+6. **Sprint metrics (on sprint close):** Generate `docs/METRICS.md` covering: tasks closed, avg cycle time (git log date → `Closed-at`), size accuracy, AI/human ratio, regressions detected, framework improvements applied.
 
 ## Phase 4: Autonomous Replenishment (Backlog Health)
 0. **Print:** `[THINK] Phase 4 — Autonomous Replenishment` to stdout.
