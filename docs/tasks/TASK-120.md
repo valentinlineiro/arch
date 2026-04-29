@@ -1,5 +1,5 @@
 # TASK-120: Implement Protocol Archival Guard
-**Meta:** P2 | XS | 7 | READY | Focus:yes | 7-operations | local | docs/agents/THINK.md
+**Meta:** P2 | XS | 7 | IN_PROGRESS | Focus:yes | 7-operations | local | docs/agents/THINK.md
 
 ## Description
 Update `THINK.md` Phase 1 to include an "Archival Guard" that autonomously archives DONE tasks.
