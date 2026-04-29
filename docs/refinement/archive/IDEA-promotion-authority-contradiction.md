@@ -1,5 +1,5 @@
 ## IDEA: Fix IDEA promotion authority contradiction
-**Author:** review | **Status:** OPEN | **Focus:** yes
+**Author:** review | **Status:** PROMOTED -> TASK-127 | **Focus:** no
 
 ### Problem
 AGENTS.md:18 grants THINK autonomous XS promotion, but AGENTS.md:33 and DO.md:25 require explicit human instruction. THINK.md:22 contradicts by instructing automatic promotion for DECIDED ideas.
