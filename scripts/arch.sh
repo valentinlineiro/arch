@@ -129,7 +129,7 @@ case "$1" in
       fi
     fi
     $BIN "$@"
-    
+
     # Autofocus next task after 'task done'
     if [ "$2" == "done" ]; then
       echo ""

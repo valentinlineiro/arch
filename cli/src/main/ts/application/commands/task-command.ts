@@ -1,5 +1,6 @@
 import { MarkTaskInProgress } from '../use-cases/mark-task-in-progress.js';
 import { MarkTaskDone } from '../use-cases/mark-task-done.js';
+import { RejectTask } from '../use-cases/task-reject.js';
 import type { TaskRepository } from '../../domain/repositories/task-repository.js';
 import { Reviewer } from '../../domain/services/reviewer.js';
 import * as fmt from '../../infrastructure/cli/output-formatter.js';
@@ -7,16 +8,20 @@ import * as fmt from '../../infrastructure/cli/output-formatter.js';
 export class TaskCommand {
   private markInProgress: MarkTaskInProgress;
   private markDone: MarkTaskDone;
+  private rejectTask: RejectTask;
 
   constructor(taskRepository: TaskRepository, reviewer: Reviewer) {
     this.markInProgress = new MarkTaskInProgress(taskRepository);
     this.markDone = new MarkTaskDone(taskRepository, reviewer);
+    this.rejectTask = new RejectTask(taskRepository);
   }
 
   async execute(args: string[]): Promise<void> {
     const subCommand = args[0];
     const taskId = args.find(arg => arg.startsWith('TASK-'));
     const force = args.includes('--force');
+    const reasonIdx = args.indexOf('--reason');
+    const reason = reasonIdx !== -1 ? args[reasonIdx + 1] : '';
 
     if (subCommand === 'start' && taskId) {
       try {
@@ -32,8 +37,16 @@ export class TaskCommand {
       } catch (error: any) {
         fmt.warn(error.message);
       }
+    } else if (subCommand === 'reject' && taskId) {
+      try {
+        await this.rejectTask.execute(taskId, reason);
+        fmt.arrow(`rejected ${taskId} — moved back to READY`);
+        if (reason) console.log(`    Reason: ${reason}`);
+      } catch (error: any) {
+        fmt.warn(error.message);
+      }
     } else {
-      console.log('Usage: arch task [start|done] [TASK-ID] [--force]');
+      console.log('Usage: arch task [start|done|reject] [TASK-ID] [--force] [--reason "<text>"]');
     }
   }
 }
