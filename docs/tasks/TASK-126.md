@@ -1,4 +1,4 @@
-## TASK-124: arch review validates archived tasks with v0.4 format
+## TASK-126: arch review validates archived tasks with v0.4 format
 **Meta:** P0 | XS | 8 | BACKLOG | Focus:no | 7-operations | local | cli/src/main/ts/application/use-cases/review-system.ts
 
 ## Problem
