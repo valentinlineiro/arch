@@ -3,9 +3,9 @@
 <!-- Generated on: 2026-04-29 -->
 
 ## Status Summary
-- **Active Tasks:** 0
+- **Active Tasks:** 1
 - **In Review:** 0
-- **Backlog (Ready):** 9
+- **Backlog (Ready):** 8
 
 ## Urgent / Actions Required
 _No urgent items detected._
@@ -17,4 +17,4 @@ _No pending ideas._
 _No active sprint._
 
 ## Recent Activity
-- **Last Commit:** docs: deliver ARCH course and mark TASK-089 as DONE [TASK-089]
+- **Last Commit:** chore: focus next priority TASK-084 [TASK-084]
