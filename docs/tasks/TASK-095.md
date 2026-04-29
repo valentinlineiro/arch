@@ -1,5 +1,5 @@
 ## TASK-095: Opt-in project registry - scaffold and publish at init time
-**Meta:** P3 | S | 5 | READY | Focus:no | 2-code-generation | claude | cli/src/, scripts/arch-init.sh
+**Meta:** P3 | S | 5 | READY | Focus:yes | 2-code-generation | claude | cli/src/, scripts/arch-init.sh
 
 ### Acceptance Criteria
 - [ ] `arch init` accepts an `--opt-in-telemetry` flag (default: off).
