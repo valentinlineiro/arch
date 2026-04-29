@@ -37,7 +37,7 @@ async function main() {
 
   switch (name) {
     case 'status':
-      await new StatusCommand(taskRepository).execute();
+      await new StatusCommand(taskRepository, fileSystem).execute();
       break;
     case 'validate':
       await new ValidateCommand(taskRepository, fileSystem).execute();

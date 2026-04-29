@@ -115,6 +115,7 @@ export class MarkdownTaskRepository implements TaskRepository {
       }
 
       const closedAtMatch = content.match(/^\*\*Closed-at:\*\* (.*)/m);
+      const sprintMatch = content.match(/^\*\*Sprint:\*\* (.*)/m);
       const dependsMatch = content.match(/^\*\*Depends:\*\* (.*)/m);
 
       return {
@@ -124,7 +125,7 @@ export class MarkdownTaskRepository implements TaskRepository {
         size: metaParts[1] || '',
         value: parseInt(metaParts[2] || '0', 10),
         status: (metaParts[3] || '') as TaskStatus,
-        sprint: metaParts[4] || '',
+        sprint: sprintMatch?.[1]?.trim() || '',
         class: metaParts[5] || '',
         cli: metaParts[6] || '',
         context: (metaParts[7] || '').split(',').map(s => s.trim()),
