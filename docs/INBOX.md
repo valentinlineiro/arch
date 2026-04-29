@@ -17,4 +17,4 @@ _No pending ideas._
 _No active sprint._
 
 ## Recent Activity
-- **Last Commit:** idea: add draft separate-arch-core-from-content to refinement
+- **Last Commit:** idea: propose stale lock detection in arch review [IDEA-arch-review-stale-locks]
