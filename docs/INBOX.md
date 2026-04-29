@@ -3,15 +3,18 @@
 <!-- Generated on: 2026-04-29 -->
 
 ## Status Summary
-- **Active Tasks:** 0
-- **In Review:** 2
-- **Backlog (Ready):** 16
+- **Active Tasks:** 1
+- **In Review:** 0
+- **Backlog (Ready):** 10
 
 ## Urgent / Actions Required
-- [ ] Drift: DeadContext - TASK-125: dead context path 'cli/src/main/ts/application/use-cases/task-reject.ts'
+- [ ] Drift: PriorityDrift - TASK-089 (P2) is READY and unblocked, but not focused while a P3 task is focused.
 
 ## Refinement Queue
 _No pending ideas._
 
+## Current Sprint
+_No active sprint._
+
 ## Recent Activity
-- **Last Commit:** task: promote TASK-125 to READY [TASK-125]
+- **Last Commit:** feat: lock start TASK-093 inbox sprint view [TASK-093]
