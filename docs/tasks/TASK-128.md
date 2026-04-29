@@ -1,5 +1,5 @@
 ## TASK-128: Fix arch conduct to use CLI instead of API
-**Meta:** P0 | S | 5 | READY | Focus:yes | 7-operations | local | scripts/arch.sh
+**Meta:** P0 | S | 5 | IN_PROGRESS | Focus:yes | 7-operations | local | scripts/arch.sh | gemini-cli
 
 ### Problem
 The `arch conduct` command is reportedly using an API directly instead of calling the configured AI CLI. This violates the ARCH principle of using local CLIs for AI interaction to ensure portability and user control over tools.
