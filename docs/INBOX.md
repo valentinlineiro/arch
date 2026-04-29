@@ -3,12 +3,12 @@
 <!-- Generated on: 2026-04-29 -->
 
 ## Status Summary
-- **Active Tasks:** 1
+- **Active Tasks:** 0
 - **In Review:** 0
-- **Backlog (Ready):** 10
+- **Backlog (Ready):** 12
 
 ## Urgent / Actions Required
-- [ ] Drift: PriorityDrift - TASK-089 (P2) is READY and unblocked, but not focused while a P3 task is focused.
+_No urgent items detected._
 
 ## Refinement Queue
 _No pending ideas._
@@ -17,4 +17,4 @@ _No pending ideas._
 _No active sprint._
 
 ## Recent Activity
-- **Last Commit:** feat: lock start TASK-093 inbox sprint view [TASK-093]
+- **Last Commit:** chore: remove duplicate TASK-093 from tasks [TASK-093]
