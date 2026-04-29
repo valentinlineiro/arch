@@ -5,7 +5,7 @@
 ## Status Summary
 - **Active Tasks:** 0
 - **In Review:** 0
-- **Backlog (Ready):** 8
+- **Backlog (Ready):** 7
 
 ## Urgent / Actions Required
 _No urgent items detected._
@@ -17,4 +17,4 @@ _No pending ideas._
 _No active sprint._
 
 ## Recent Activity
-- **Last Commit:** docs: align IDEA template with task-format and mark TASK-084 as DONE [TASK-084]
+- **Last Commit:** docs: add continuous simplification mandate to THINK Phase 3 [TASK-090]
