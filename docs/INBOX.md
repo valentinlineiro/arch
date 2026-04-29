@@ -5,7 +5,7 @@
 ## Status Summary
 - **Active Tasks:** 0
 - **In Review:** 0
-- **Backlog (Ready):** 10
+- **Backlog (Ready):** 9
 
 ## Urgent / Actions Required
 _No urgent items detected._
@@ -17,4 +17,4 @@ _No pending ideas._
 _No active sprint._
 
 ## Recent Activity
-- **Last Commit:** chore: autofocus TASK-084 via Flow Guard [TASK-084]
+- **Last Commit:** docs: deliver ARCH course and mark TASK-089 as DONE [TASK-089]
