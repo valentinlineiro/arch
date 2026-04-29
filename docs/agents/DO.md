@@ -28,8 +28,9 @@
    - Move tasks between `docs/tasks/` and `docs/archive/`. Change `Focus:yes/no` to adjust active queue.
    - Update Meta lines in individual task files.
 6. Commit exactly once per operation.
-7. **Promoting a draft:** 
-   - **L2 Autonomy:** If the IDEA is sized XS and class `6-writing` or `7-operations`, the agent may autonomously promote without human instruction (per core.md:25).
+7. **Promoting a draft:**
+   - **Deciding to promote:** Always requires explicit human instruction — the human writes `PROMOTE → TASK-XXX` in the IDEA's Decision section.
+   - **Executing the promotion:** If the IDEA has a human-written Decision and is sized XS and class `6-writing` or `7-operations`, the agent may autonomously execute the file operations (create task, update IDEA status) without further instruction.
    - **Otherwise:** Explicit human instruction required: `arch do "promover IDEA-[slug]"`.
 
 ## Constraints

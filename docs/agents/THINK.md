@@ -19,7 +19,7 @@
 2. If no files exist: Skip this phase.
 3. For each IDEA, apply lifecycle rules based on status:
    - **DRAFT:** Identify gaps, missing dependencies, and sizing estimate. Output to terminal only — do not modify the draft file.
-   - **DECIDED + no task exists yet:** If gaps are filled, promote to a new task in `docs/tasks/`. If gaps remain, report them. **Promotion is an atomic operation:** Update the IDEA status to `PROMOTED -> TASK-XXX`, create the task file, and move the IDEA file to `docs/refinement/archive/`.
+   - **DECIDED + no task exists yet:** The human has already written the Decision — THINK executes the promotion autonomously (for XS ops/writing IDEAs). If gaps remain, report them and wait. **Promotion is an atomic operation:** Update the IDEA status to `PROMOTED -> TASK-XXX`, create the task file, and move the IDEA file to `docs/refinement/archive/`. Note: DRAFT → DECIDED is a human act; THINK never writes the Decision itself.
    - **REJECTED:** Move the IDEA file to `docs/refinement/archive/`.
 4. **Preserve audit trail:** Processed IDEAs (PROMOTED/REJECTED) must never be deleted; they reside in `docs/refinement/archive/` for historical context.
 

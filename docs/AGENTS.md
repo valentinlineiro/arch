@@ -15,7 +15,7 @@
 **Protocol:** `docs/agents/THINK.md`
 1. Phase 1: Assess task health by scanning `docs/tasks/` (Focus:yes = active).
 2. Phase 2: Refine draft IDEAs in `docs/refinement/`. 
-   - *Autonomy (L2):* Agent may autonomously promote IDEAs to TASKS if they are XS and class operations/writing.
+   - *Autonomy (L2):* Agent may autonomously **execute** promotion of IDEAs that are XS and class operations/writing, **only when the human has already written a Decision in the IDEA file.** The agent never decides to promote — it executes a human decision.
 3. Phase 3: Propose real-time Kaizen and guideline improvements.
 4. Phase 4: Autonomous Replenishment (if READY tasks < 3).
 5. Output: Ephemeral terminal report with Evidence.
@@ -32,7 +32,7 @@
 ## Refinement flow
 - `idea:` prefix in DO → draft in `docs/refinement/` → THINK evaluates → human promotes → BACKLOG
 - Direct task description (no prefix) → BACKLOG directly, no refinement required
-- Promoting a draft: explicit human instruction required (`arch do "promover IDEA-[slug]"`)
+- Promoting a draft: the **decision** to promote requires explicit human instruction (human writes `PROMOTE → TASK-XXX` in the IDEA's Decision section). The **execution** of an already-decided promotion is THINK-autonomous for XS ops/writing IDEAs.
 
 ## Hard limits
 - Never merge a PR without human approval.
