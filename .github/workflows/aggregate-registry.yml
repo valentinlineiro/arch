@@ -1,0 +1,68 @@
+name: Aggregate Registry
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+jobs:
+  aggregate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Aggregate entries
+        run: |
+          node -e '
+            const fs = require("fs");
+            const entriesDir = "docs/registry/entries";
+            if (!fs.existsSync(entriesDir)) {
+              console.log("No entries found");
+              process.exit(0);
+            }
+            const files = fs.readdirSync(entriesDir).filter(f => f.endsWith(".json"));
+            
+            let totalProjects = files.length;
+            let byVersion = {};
+            let byRouting = {};
+            
+            for (const file of files) {
+              try {
+                const entry = JSON.parse(fs.readFileSync(`${entriesDir}/${file}`, "utf8"));
+                
+                // Version
+                const version = entry.version || "unknown";
+                byVersion[version] = (byVersion[version] || 0) + 1;
+                
+                // Routing
+                if (entry.routing) {
+                  for (const [key, val] of Object.entries(entry.routing)) {
+                    if (!byRouting[key]) byRouting[key] = {};
+                    byRouting[key][val] = (byRouting[key][val] || 0) + 1;
+                  }
+                }
+              } catch (e) {
+                console.error(`Error parsing ${file}:`, e.message);
+              }
+            }
+            
+            const aggregate = {
+              totalProjects,
+              byVersion,
+              byRouting,
+              lastUpdated: new Date().toISOString()
+            };
+            
+            fs.writeFileSync("docs/registry/aggregate.json", JSON.stringify(aggregate, null, 2));
+          '
+      - name: Commit and push
+        run: |
+          git config --global user.name "arch-bot"
+          git config --global user.email "arch-bot@users.noreply.github.com"
+          git add docs/registry/aggregate.json
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "chore: aggregate project registry"
+            git push
+          fi

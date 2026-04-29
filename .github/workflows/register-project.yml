@@ -1,0 +1,33 @@
+name: Register Project
+on:
+  repository_dispatch:
+    types: [project_registry]
+
+jobs:
+  register:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Save entry
+        run: |
+          UUID="${{ github.event.client_payload.uuid }}"
+          # Ensure UUID is not empty and looks like a UUID to prevent path injection
+          if [[ "$UUID" =~ ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$ ]]; then
+            echo '${{ toJson(github.event.client_payload) }}' > docs/registry/entries/${UUID}.json
+          else
+            echo "Invalid UUID"
+            exit 1
+          fi
+      - name: Commit and push
+        run: |
+          git config --global user.name "arch-bot"
+          git config --global user.email "arch-bot@users.noreply.github.com"
+          git add docs/registry/entries/
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "chore: register project ${{ github.event.client_payload.uuid }}"
+            git push
+          fi
