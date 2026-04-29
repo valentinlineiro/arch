@@ -1,5 +1,5 @@
 ## TASK-126: arch review validates archived tasks with v0.4 format
-**Meta:** P0 | XS | 8 | IN_PROGRESS | Focus:yes | 7-operations | local | cli/src/main/ts/application/use-cases/review-system.ts
+**Meta:** P0 | XS | 8 | REVIEW | Focus:yes | 7-operations | local | cli/src/main/ts/application/use-cases/review-system.ts
 
 ## Problem
 `arch review` validates all tasks in docs/tasks/ AND docs/archive/, but archived tasks use v0.4 Meta format while reviewer expects v0.5 format. This causes 40+ false violation errors.
@@ -13,6 +13,6 @@
 Review noise obscures real issues. Users ignore failures or stop running review.
 
 ## Acceptance Criteria
-- [ ] review-system.ts excludes docs/archive/ from task validation
-- [ ] Review passes when only docs/tasks/ are validated
-- [ ] Add unit test for archive exclusion
+- [x] review-system.ts excludes docs/archive/ from task validation
+- [x] Review passes when only docs/tasks/ are validated
+- [x] Add unit test for archive exclusion

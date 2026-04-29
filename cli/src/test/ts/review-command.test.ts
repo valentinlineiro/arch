@@ -8,6 +8,7 @@ class SpyTaskRepository {
   tasks: any[] = [];
   async getById() { return null; }
   async getAll() { return this.tasks; }
+  async getActive() { return this.tasks; }
   async save() { this.saveCalls++; }
   async findReady() { return []; }
   async getNextId() { return 'TASK-999'; }

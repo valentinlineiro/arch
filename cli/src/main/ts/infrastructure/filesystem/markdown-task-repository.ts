@@ -29,6 +29,10 @@ export class MarkdownTaskRepository implements TaskRepository {
     return `TASK-${(maxId + 1).toString().padStart(3, '0')}`;
   }
 
+  async getActive(): Promise<Task[]> {
+    return this.loadTasksFromDir(this.tasksDir);
+  }
+
   async getAll(): Promise<Task[]> {
     const activeTasks = await this.loadTasksFromDir(this.tasksDir);
     const archiveTasks = await this.loadTasksFromDir(this.archiveDir);

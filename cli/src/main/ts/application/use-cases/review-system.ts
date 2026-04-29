@@ -14,8 +14,8 @@ export class ReviewSystem {
   async execute() {
     const violations: string[] = [];
     
-    // 1. Review all tasks for state consistency and canonical format
-    const tasks = await this.taskRepository.getAll();
+    // 1. Review active tasks only — archive uses legacy formats and is excluded
+    const tasks = await this.taskRepository.getActive();
     for (const task of tasks) {
       const result = this.reviewer.reviewTask(task, task.rawMetaLine);
       if (!result.valid) {
