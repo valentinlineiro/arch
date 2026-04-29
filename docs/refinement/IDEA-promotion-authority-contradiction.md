@@ -15,3 +15,8 @@ Align authority: either THINK has L2 autonomy (current AGENTS.md:18) or it requi
 
 ### Priority
 High - governance conflict
+
+## Decision
+PROMOTE → TASK-127
+Split "promote" into two acts: human decides (writes Decision), THINK executes (creates file, moves IDEA).
+L2 autonomy applies to execution only — never to the decision itself.
