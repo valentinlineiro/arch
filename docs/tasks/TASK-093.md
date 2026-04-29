@@ -1,5 +1,6 @@
 ## TASK-093: arch inbox - sprint progress view
-**Meta:** P2 | S | 7 | READY | Focus:no | 2-code-generation | claude | cli/src/main/ts/application/commands/inbox-command.ts
+**Meta:** P2 | S | 7 | IN_PROGRESS | Focus:no | 2-code-generation | claude | cli/src/main/ts/application/commands/inbox-command.ts
+**Locked-by:** claude | **Locked-at:** 2026-04-29T08:55:00Z
 **Depends:** TASK-091
 
 ### Acceptance Criteria
