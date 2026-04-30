@@ -1,5 +1,5 @@
 ## TASK-147: Protocol-as-Code - rewrite THINK Phase 1 to delegate to arch govern
-**Meta:** P1 | M | READY | Focus:no | 6-writing | local | docs/agents/THINK.md, cli/src/main/ts/application/use-cases/govern-system.ts
+**Meta:** P1 | M | READY | Focus:yes | 6-writing | local | docs/agents/THINK.md, cli/src/main/ts/application/use-cases/govern-system.ts
 **Sprint:** sprint/v0.7-foundations
 
 ### Acceptance Criteria
