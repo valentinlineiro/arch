@@ -32,16 +32,16 @@ export class LoopEngine {
     console.log(`\n[LOOP] Starting arch loop${options.dryRun ? ' (dry-run)' : ''}${scopeLabel}`);
 
     while (true) {
-      // 1. GOVERN — select next task, handle replenishment
+      // 1. GOVERN — select next task, handle replenishment (skip AI conduct when in loop)
       console.log('\n[LOOP] Phase: GOVERN');
       if (!options.dryRun) {
-        const code = await this.sh('govern');
+        const code = await this.sh('govern', '--no-conduct');
         if (code !== 0) {
           console.error('[LOOP] arch govern failed. Halting.');
           process.exit(code);
         }
       } else {
-        console.log('[dry-run] Would run: arch govern');
+        console.log('[dry-run] Would run: arch govern --no-conduct');
       }
 
       // 2. SELECT — find next unblocked task, applying sprint filter

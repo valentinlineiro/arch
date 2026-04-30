@@ -14,9 +14,10 @@ export class GovernCommand {
     this.useCase = new GovernSystem(taskRepository, gitRepository, fileSystem);
   }
 
-  async execute(): Promise<void> {
+  async execute(args: string[] = []): Promise<void> {
+    const noConduct = args.includes('--no-conduct');
     console.log('\n  ARCH — Governance Tick');
-    await this.useCase.execute();
+    await this.useCase.execute(noConduct);
     console.log('');
   }
 }

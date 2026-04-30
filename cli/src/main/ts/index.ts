@@ -61,7 +61,7 @@ async function main() {
       await new VersionCommand(cliVersion).execute();
       break;
     case 'govern':
-      await new GovernCommand(taskRepository, gitRepository, fileSystem).execute();
+      await new GovernCommand(taskRepository, gitRepository, fileSystem).execute(args);
       break;
     case 'rank':
       await new RankCommand(taskRepository).execute();

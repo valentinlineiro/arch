@@ -17,7 +17,7 @@ export class GovernSystem {
     this.batchSystem = new BatchSystem(fileSystem);
   }
 
-  async execute(): Promise<void> {
+  async execute(noConduct = false): Promise<void> {
     const config = JSON.parse(await this.fileSystem.readFile('arch.config.json'));
     const conductEveryN = config.governance?.conductEveryN ?? 3;
 
@@ -30,17 +30,25 @@ export class GovernSystem {
     // 1. Rule 2 — Replenishment
     const readyTasks = await this.taskRepository.findReady();
     if (readyTasks.length < 3) {
-      console.log('  READY tasks < 3. Running arch conduct...');
-      await this.runConduct();
-      return;
+      if (noConduct) {
+        console.log('  READY tasks < 3 (conduct skipped — running in loop mode).');
+      } else {
+        console.log('  READY tasks < 3. Running arch conduct...');
+        await this.runConduct();
+        return;
+      }
     }
 
     // 2. Rule 3 — Conduct cadence
     const execCount = await this.getExecCountSinceLastThink();
     if (execCount >= conductEveryN) {
-      console.log(`  Exec count (${execCount}) >= N (${conductEveryN}). Running arch conduct...`);
-      await this.runConduct();
-      return;
+      if (noConduct) {
+        console.log(`  Exec count (${execCount}) >= N (${conductEveryN}) (conduct skipped — running in loop mode).`);
+      } else {
+        console.log(`  Exec count (${execCount}) >= N (${conductEveryN}). Running arch conduct...`);
+        await this.runConduct();
+        return;
+      }
     }
 
     // 3. Rule 1 — Critical first
