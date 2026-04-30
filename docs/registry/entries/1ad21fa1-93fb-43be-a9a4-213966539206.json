@@ -1,0 +1,14 @@
+{
+  "uuid": "1ad21fa1-93fb-43be-a9a4-213966539206",
+  "version": "0.5.0",
+  "routing": {
+    "1-code-reasoning": "claude-code",
+    "2-code-generation": "claude-code",
+    "3-code-context": "gemini",
+    "4-code-repetitive": "local",
+    "5-research": "gemini",
+    "6-writing": "claude",
+    "7-operations": "local",
+    "8-strategy": "claude"
+  }
+}

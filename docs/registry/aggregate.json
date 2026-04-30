@@ -1,14 +1,33 @@
 {
-  "totalProjects": 2,
+  "totalProjects": 1,
   "byVersion": {
-    "0.5.0": 1,
-    "0.4.0": 1
+    "0.5.0": 1
   },
   "byRouting": {
-    "code": {
-      "claude": 1,
+    "1-code-reasoning": {
+      "claude-code": 1
+    },
+    "2-code-generation": {
+      "claude-code": 1
+    },
+    "3-code-context": {
       "gemini": 1
+    },
+    "4-code-repetitive": {
+      "local": 1
+    },
+    "5-research": {
+      "gemini": 1
+    },
+    "6-writing": {
+      "claude": 1
+    },
+    "7-operations": {
+      "local": 1
+    },
+    "8-strategy": {
+      "claude": 1
     }
   },
-  "lastUpdated": "2026-04-29T11:36:42.246Z"
+  "lastUpdated": "2026-04-29T11:40:08.863Z"
 }

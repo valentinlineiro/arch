@@ -79,7 +79,7 @@ invoke_agent() {
 
 # ── Router ────────────────────────────────────────────────────────
 case "$1" in
-  "status"|"validate"|"inbox"|"next"|"govern"|"rank"|"batch"|"drain"|"version"|"--version"|"-v")
+  "status"|"validate"|"inbox"|"next"|"govern"|"rank"|"batch"|"drain"|"conduct"|"version"|"--version"|"-v")
     $BIN "$@"
     ;;
 
@@ -140,11 +140,6 @@ case "$1" in
   "archive")
     shift
     $0 task done "$@"
-    ;;
-
-  "conduct")
-    shift
-    invoke_agent "CONDUCTOR (THINK)" "docs/agents/THINK.md" "$*"
     ;;
 
   "exec")
