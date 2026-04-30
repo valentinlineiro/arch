@@ -2,7 +2,7 @@
 **Created:** 2026-04-29T08:45:00Z
 **Source:** human
 **Status:** DRAFT
-**Meta:** P2 | S | claude | cli
+**Meta:** P2 | XS | claude | cli
 
 ## Problem
 When the model executes a task (THINK or DO mode), there's no visibility into resource consumption or effort. KAIZEN cannot detect friction patterns (e.g., tasks that consistently take high cost or many steps) without this data.
@@ -22,8 +22,9 @@ When the model executes a task (THINK or DO mode), there's no visibility into re
 XS
 
 ## Gaps
-<!-- THINK fills this section when invoked — do not edit manually -->
+- Cost Tracking: Verify if the current CLI or `scripts/arch.sh` has access to token usage/cost data from the model provider.
+- State Persistence: Decide where to store the running cost/steps count before the task is finalized (e.g., a temporary hidden file or session variable).
+- Multi-Agent Support: Ensure cost is aggregated if multiple sub-agents are invoked.
 
 ## Decision
-<!-- Human writes here after THINK evaluation -->
-<!-- PROMOTE → TASK-XXX | REJECT: reason -->
+PROMOTE → TASK-133

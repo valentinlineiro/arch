@@ -20,8 +20,9 @@ Implement a check in `arch review` (either in the script or CLI) that:
 S
 
 ## Gaps
-<!-- THINK fills this section when invoked — do not edit manually -->
+- Git History Dependency: Ensure `arch review` has access to the git log in all environments (local vs CI).
+- Threshold Configuration: Should the 3-day threshold be global or per-priority (e.g., P0 stalls faster)?
+- Reporting: Should it be a warning or a blocking failure in `arch review`?
 
 ## Decision
-<!-- Human writes here after THINK evaluation -->
-<!-- PROMOTE → TASK-XXX | REJECT: reason -->
+PROMOTE → TASK-137

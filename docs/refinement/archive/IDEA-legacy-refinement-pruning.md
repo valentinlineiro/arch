@@ -20,8 +20,9 @@ The `docs/refinement/` directory contains several legacy `idea-*.md` files (lowe
 S
 
 ## Gaps
-<!-- THINK fills this section when invoked — do not edit manually -->
+- Criteria for "stale" ideas: Suggesting any idea > 30 days old with no human activity.
+- Definition of "canonical format": Ensure all promoted ideas follow the `IDEA-*.md` naming and header structure.
+- Automation: Consider if `arch review` should flag non-canonical filenames in `docs/refinement/`.
 
 ## Decision
-<!-- Human writes here after THINK evaluation -->
-<!-- PROMOTE → TASK-XXX | REJECT: reason -->
+PROMOTE → TASK-135

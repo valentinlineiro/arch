@@ -17,8 +17,9 @@ none
 S
 
 ## Gaps
-<!-- THINK fills this section when invoked — do not edit manually -->
+- Parsing Logic: Need a robust way to parse the semi-structured output of `arch review`.
+- Protocol Update: Define how THINK Phase 3 should present these "learnings" (e.g., new entries in `KAIZEN-LOG.md`).
+- False Positives: Mechanism to allow human to override a "learning" that is actually an intentional exception.
 
 ## Decision
-<!-- Human writes here after THINK evaluation -->
-<!-- PROMOTE → TASK-XXX | REJECT: reason -->
+PROMOTE → TASK-136
