@@ -1,36 +1,25 @@
-import { exec } from 'node:child_process';
-import { promisify } from 'node:util';
 import { GitRepository } from '../../domain/repositories/git-repository.js';
-
-const execAsync = promisify(exec);
+import { SubprocessRunner } from './subprocess-runner.js';
 
 export class GitCli implements GitRepository {
   async getDiff(args: string[] = []): Promise<string> {
-    try {
-      const argsStr = args.length > 0 ? ` ${args.join(' ')}` : ' HEAD';
-      const { stdout } = await execAsync(`git diff${argsStr}`);
-      return stdout;
-    } catch {
-      return '';
-    }
+    const finalArgs = ['diff', ...(args.length > 0 ? args : ['HEAD'])];
+    const { stdout } = await SubprocessRunner.runWithOutput('git', finalArgs);
+    return stdout;
   }
 
   async getLastCommitMessage(): Promise<string | null> {
-    try {
-      const { stdout } = await execAsync('git log -1 --pretty=%B');
-      return stdout.trim();
-    } catch {
-      return null;
-    }
+    const { stdout, code } = await SubprocessRunner.runWithOutput('git', ['log', '-1', '--pretty=%B']);
+    return code === 0 ? stdout.trim() : null;
   }
 
   async getCurrentBranch(): Promise<string> {
-    const { stdout } = await execAsync('git rev-parse --abbrev-ref HEAD');
+    const { stdout } = await SubprocessRunner.runWithOutput('git', ['rev-parse', '--abbrev-ref', 'HEAD']);
     return stdout.trim();
   }
 
   async getStatusLines(): Promise<string[]> {
-    const { stdout } = await execAsync('git status --short --untracked-files=all');
+    const { stdout } = await SubprocessRunner.runWithOutput('git', ['status', '--short', '--untracked-files=all']);
     return stdout
       .split('\n')
       .map(line => line.trimEnd())
@@ -38,31 +27,29 @@ export class GitCli implements GitRepository {
   }
 
   async getLog(limit: number): Promise<string[]> {
-    const { stdout: stdoutDelimited } = await execAsync(`git log -n ${limit} --pretty=format:"%B%x00"`);
-    return stdoutDelimited.split('\0').filter(msg => msg.trim().length > 0);
+    const { stdout } = await SubprocessRunner.runWithOutput('git', ['log', '-n', limit.toString(), '--pretty=format:%B%x00']);
+    return stdout.split('\0').filter(msg => msg.trim().length > 0);
   }
 
   async add(path: string): Promise<void> {
-    await execAsync(`git add "${path}"`);
+    await SubprocessRunner.runWithOutput('git', ['add', path]);
   }
 
   async rm(path: string): Promise<void> {
-    await execAsync(`git rm "${path}"`);
+    await SubprocessRunner.runWithOutput('git', ['rm', path]);
   }
 
   async mv(oldPath: string, newPath: string): Promise<void> {
-    await execAsync(`git mv "${oldPath}" "${newPath}"`);
+    await SubprocessRunner.runWithOutput('git', ['mv', oldPath, newPath]);
   }
 
   async commit(message: string): Promise<void> {
-    // Escape single quotes in message
-    const escapedMessage = message.replace(/'/g, "'\\''");
-    await execAsync(`git commit -m '${escapedMessage}'`);
+    await SubprocessRunner.runWithOutput('git', ['commit', '-m', message]);
   }
 
   async getFileLastModifiedDate(path: string): Promise<Date | null> {
     try {
-      const { stdout } = await execAsync(`git log -1 --format=%cI -- ${path}`);
+      const { stdout } = await SubprocessRunner.runWithOutput('git', ['log', '-1', '--format=%cI', '--', path]);
       const dateStr = stdout.trim();
       return dateStr ? new Date(dateStr) : new Date();
     } catch {
@@ -72,7 +59,7 @@ export class GitCli implements GitRepository {
 
   async getChangedFilesInLastCommit(): Promise<string[]> {
     try {
-      const { stdout } = await execAsync('git diff --name-only HEAD~1 HEAD');
+      const { stdout } = await SubprocessRunner.runWithOutput('git', ['diff', '--name-only', 'HEAD~1', 'HEAD']);
       return stdout.split('\n').map(line => line.trim()).filter(Boolean);
     } catch {
       return [];

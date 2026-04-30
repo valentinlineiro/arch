@@ -4,7 +4,7 @@ import { FileSystem } from '../../domain/repositories/file-system.js';
 import { Task, TaskStatus } from '../../domain/models/task.js';
 import { SelectNextTask } from './select-next-task.js';
 import { BatchSystem } from './batch-system.js';
-import { spawnSync } from 'node:child_process';
+import { SubprocessRunner } from '../../infrastructure/cli/subprocess-runner.js';
 
 export class GovernSystem {
   private batchSystem: BatchSystem;
@@ -84,7 +84,7 @@ export class GovernSystem {
   }
 
   private async runConduct(): Promise<void> {
-    spawnSync('./scripts/arch.sh', ['conduct'], { stdio: 'inherit' });
+    SubprocessRunner.runSync('./scripts/arch.sh', ['conduct']);
   }
 
   private async getExecCountSinceLastThink(): Promise<number> {
