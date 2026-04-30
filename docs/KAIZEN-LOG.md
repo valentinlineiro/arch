@@ -43,3 +43,9 @@
 
 ## Exceptions
 <!-- Add specific violation strings here to suppress Kaizen learning from them -->
+
+---
+
+## Persistent WARNs
+<!-- Tracking for 5S Seiso (TASK-150) -->
+<!-- Format: [WARN String] | [Session Count] -->
