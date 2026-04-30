@@ -1,5 +1,5 @@
 ## TASK-156: Enforce AC completion in arch review
-**Meta:** P2 | S | READY | Focus:no | 7-operations | local | cli/src/main/ts/domain/services/reviewer.ts, cli/src/main/ts/application/use-cases/review-system.ts
+**Meta:** P2 | S | READY | Focus:yes | 7-operations | local | cli/src/main/ts/domain/services/reviewer.ts, cli/src/main/ts/application/use-cases/review-system.ts
 **Depends:** none
 
 ### Acceptance Criteria
