@@ -14,6 +14,7 @@
    - **Handover:** The agent that implements a task CANNOT archive it. It must yield to an Auditor.
    - **Review Request:** Append a `REVIEW_REQUEST` entry to `docs/INBOX.md` with Task ID, AC list, and changed files.
    - Status to `REVIEW`, release lock, and stop.
+   - **Telemetry:** Finally, print `Turns: [count]` and `Cost: $[amount]` to stdout for loop tracking.
 7. **Auditor Step:**
    - A fresh session reads `docs/INBOX.md`.
    - Run `arch review` and verify each AC against actual repository state.
