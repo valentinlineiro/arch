@@ -79,7 +79,7 @@ async function main() {
       await new PromoteCommand(taskRepository, gitRepository, fileSystem).execute(args);
       break;
     case 'loop':
-      await new LoopCommand(taskRepository, gitRepository).execute(args);
+      await new LoopCommand(taskRepository, gitRepository, fileSystem).execute(args);
       break;
     default:
       console.log('Usage: arch [status|validate|review|task|inbox|next|version|govern|rank|batch|drain|conduct|promote|loop]');
