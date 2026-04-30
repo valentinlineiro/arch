@@ -14,7 +14,7 @@
 
 ## Phase 2: Idea Refinement (Refine)
 0. **Print:** `[THINK] Phase 2 — Idea Refinement` to stdout.
-1. Scan `docs/refinement/` for all `IDEA-*.md` files.
+1. Scan `docs/refinement/` for all `IDEA-*.md` files. **Triage:** process all IDEAs that have a `Decision:` field first; for DRAFT IDEAs (no `Decision:`), process at most 3 per session ordered by file creation date (oldest first) — skip the rest and print `[THINK] Skipped N DRAFT IDEAs (cap reached)`.
 2. For each IDEA, apply lifecycle rules:
    - **DRAFT:** Identify gaps, dependencies, and estimate. Output to terminal only.
    - **DECIDED + no task exists:** If human Decision is written and IDEA is XS + 6-writing/7-operations, promote autonomously: update status to `PROMOTED -> TASK-XXX`, create task file, and archive IDEA.
