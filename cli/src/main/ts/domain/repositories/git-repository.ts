@@ -5,6 +5,8 @@ export interface GitRepository {
   getStatusLines(): Promise<string[]>;
   getLog(limit: number): Promise<string[]>;
   add(path: string): Promise<void>;
+  rm(path: string): Promise<void>;
+  mv(oldPath: string, newPath: string): Promise<void>;
   commit(message: string): Promise<void>;
   getFileLastModifiedDate(path: string): Promise<Date | null>;
 }

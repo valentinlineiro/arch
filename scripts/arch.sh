@@ -79,7 +79,7 @@ invoke_agent() {
 
 # ── Router ────────────────────────────────────────────────────────
 case "$1" in
-  "status"|"validate"|"inbox"|"next"|"govern"|"rank"|"batch"|"drain"|"conduct"|"version"|"--version"|"-v")
+  "status"|"validate"|"inbox"|"next"|"govern"|"rank"|"batch"|"drain"|"conduct"|"promote"|"version"|"--version"|"-v")
     $BIN "$@"
     ;;
 
@@ -178,7 +178,7 @@ case "$1" in
     ;;
 
   *)
-    echo "Usage: $0 [status|validate|review|inbox|next|govern|rank|batch|drain|archive|task|version|conduct|exec]"
+    echo "Usage: $0 [status|validate|review|inbox|next|govern|rank|batch|drain|archive|task|promote|version|conduct|exec]"
     echo ""
     echo "Commands:"
     echo "  status     Show task counts"
@@ -192,6 +192,7 @@ case "$1" in
     echo "  drain      Submit and process batch queue"
     echo "  archive    Alias for task done"
     echo "  task       Manage tasks (start/done)"
+    echo "  promote    Promote an IDEA to a TASK"
     echo "  version    Show current version"
     echo "  conduct    Invoke THINK mode with an AI agent"
     echo "  exec       Invoke DO mode with an AI agent"

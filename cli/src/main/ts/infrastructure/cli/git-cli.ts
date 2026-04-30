@@ -43,7 +43,15 @@ export class GitCli implements GitRepository {
   }
 
   async add(path: string): Promise<void> {
-    await execAsync(`git add ${path}`);
+    await execAsync(`git add "${path}"`);
+  }
+
+  async rm(path: string): Promise<void> {
+    await execAsync(`git rm "${path}"`);
+  }
+
+  async mv(oldPath: string, newPath: string): Promise<void> {
+    await execAsync(`git mv "${oldPath}" "${newPath}"`);
   }
 
   async commit(message: string): Promise<void> {
