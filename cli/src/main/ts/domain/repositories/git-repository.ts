@@ -9,4 +9,5 @@ export interface GitRepository {
   mv(oldPath: string, newPath: string): Promise<void>;
   commit(message: string): Promise<void>;
   getFileLastModifiedDate(path: string): Promise<Date | null>;
+  getChangedFilesInLastCommit(): Promise<string[]>;
 }

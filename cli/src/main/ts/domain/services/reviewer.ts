@@ -52,6 +52,36 @@ export class Reviewer {
     };
   }
 
+  public validateImmutability(
+    changedFiles: string[],
+    commitMessage: string,
+    protectedPaths: string[],
+    activeTasks: Task[]
+  ): ReviewResult {
+    const violations: string[] = [];
+
+    const violatedPaths = changedFiles.filter(file =>
+      protectedPaths.some(protectedPath => file.startsWith(protectedPath))
+    );
+
+    if (violatedPaths.length > 0) {
+      const hasADRReferenceInCommit = /ADR-\d{3}/.test(commitMessage);
+      const hasADRReferenceInTasks = activeTasks.some(task => {
+        const content = `${task.description} ${task.acceptanceCriteria.map(ac => ac.description).join(' ')} ${task.rawDependsLine || ''}`;
+        return /ADR-\d{3}/.test(content);
+      });
+
+      if (!hasADRReferenceInCommit && !hasADRReferenceInTasks) {
+        violations.push(`Warning: Protected path(s) modified without ADR reference: ${violatedPaths.join(', ')}`);
+      }
+    }
+
+    return {
+      valid: violations.length === 0,
+      violations
+    };
+  }
+
   public validateCommitMessage(message: string): ReviewResult {
     const violations: string[] = [];
     const hasPrefix = Reviewer.COMMIT_PREFIXES.some(prefix => message.startsWith(prefix));

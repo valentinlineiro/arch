@@ -2,6 +2,7 @@ import { TaskRepository } from '../../domain/repositories/task-repository.js';
 import { GitRepository } from '../../domain/repositories/git-repository.js';
 import { Reviewer, ReviewResult } from '../../domain/services/reviewer.js';
 import { DriftChecker, DriftResult } from '../../domain/services/drift-checker.js';
+import fs from 'node:fs';
 
 export class ReviewSystem {
   constructor(
@@ -32,7 +33,29 @@ export class ReviewSystem {
       }
     }
 
-    // 3. Review git diff (excluding archive/)
+    // 3. Immutability Check (TASK-154)
+    try {
+      const config = JSON.parse(fs.readFileSync('arch.config.json', 'utf8'));
+      const protectedPaths = config.governance?.protectedPaths || [];
+      if (protectedPaths.length > 0) {
+        const changedFiles = await this.gitRepository.getChangedFilesInLastCommit();
+        if (lastCommit) {
+          const immutabilityResult = this.reviewer.validateImmutability(
+            changedFiles,
+            lastCommit,
+            protectedPaths,
+            tasks
+          );
+          if (!immutabilityResult.valid) {
+            violations.push(...immutabilityResult.violations);
+          }
+        }
+      }
+    } catch {
+      // Ignore config read errors here, drift checker will catch them
+    }
+
+    // 4. Review git diff (excluding archive/)
     const diff = await this.gitRepository.getDiff(['--', ':!docs/archive/**']);
     if (diff && diff.length > 5000) {
       violations.push('Warning: Large git diff detected. Ensure commits remain atomic.');

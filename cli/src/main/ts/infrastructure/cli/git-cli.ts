@@ -69,4 +69,13 @@ export class GitCli implements GitRepository {
       return new Date();
     }
   }
+
+  async getChangedFilesInLastCommit(): Promise<string[]> {
+    try {
+      const { stdout } = await execAsync('git diff --name-only HEAD~1 HEAD');
+      return stdout.split('\n').map(line => line.trim()).filter(Boolean);
+    } catch {
+      return [];
+    }
+  }
 }
