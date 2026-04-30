@@ -3,12 +3,12 @@
 **Depends:** none
 
 ### Acceptance Criteria
-- [ ] Implement parsing for the semi-structured output of `arch review`.
-- [ ] Update THINK Phase 3 to analyze review failures and propose specific hardening steps.
-- [ ] Log identified patterns and proposed protocol refinements in `docs/KAIZEN-LOG.md`.
-- [ ] Include a mechanism for humans to override or skip specific learnings.
-- [ ] `arch review` passes.
+- [x] Implement parsing for the semi-structured output of `arch review` (via `--json` flag).
+- [x] Update THINK Phase 3 to analyze review failures and propose specific hardening steps.
+- [x] Log identified patterns and proposed protocol refinements in `docs/KAIZEN-LOG.md`.
+- [x] Include a mechanism for humans to override or skip specific learnings (via `## Exceptions`).
+- [x] `arch review` passes.
 
 ### Definition of Done
-- [ ] All ACs checked.
-- [ ] `arch review` passes.
+- [x] All ACs checked.
+- [x] `arch review` passes.

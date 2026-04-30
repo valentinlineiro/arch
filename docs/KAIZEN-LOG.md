@@ -38,3 +38,8 @@
 - **Unstructured IDEAs before TASK-033** *(Sprint 3)*: The original TEMPLATE only had `## Proposal` with no structured fields. THINK had to infer gaps without dependency or size context. The first 8 IDEAs were refined with more friction than necessary.
 
 - **Legacy terminology in legacy backlog** *(Sprint 3)*: CONDUCTOR, EXEC, DISPATCH.md, monolithic SPRINT.md — v0.1 terms that survived the modular migration. Required manual triage to detect and update.
+
+---
+
+## Exceptions
+<!-- Add specific violation strings here to suppress Kaizen learning from them -->

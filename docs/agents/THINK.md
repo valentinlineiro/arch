@@ -23,9 +23,15 @@
 ## Phase 3: Continuous Kaizen (Real-time Reviewer)
 0. **Print:** `[THINK] Phase 3 — Continuous Kaizen` to stdout.
 1. **Simplification:** Count protocol phases (target <= 5), Meta fields (target <= 7), and guideline sections (target <= 8). If exceeded, propose a reduction task using `[KAIZEN]` format.
-2. **Immediate Improvements:** Identify context gaps, propose guideline changes based on patterns, and provide qualitative context to `arch review` failures.
-3. **Sprint Metrics:** On sprint close (triggered via DO Operations), generate `docs/METRICS.md` summary (tasks, cycle time, size accuracy, AI/human ratio).
-4. **Logic Absorption:** This phase replaces the former `RETRO.md` protocol.
+2. **Kaizen Learning (Mistake Analysis):**
+   - Run `arch review --json`.
+   - If failures exist:
+     - Analyze `violations` and `drift`.
+     - **Override:** Check `docs/KAIZEN-LOG.md` section `## Exceptions`. If the violation string (or a substring) is listed, skip.
+     - For non-excepted mistakes, record the pattern in `docs/KAIZEN-LOG.md` (e.g., "Recurring drift in X") and propose a hardening task (`fix:` or `feat:`) or a guideline refinement to prevent recurrence.
+3. **Immediate Improvements:** Identify context gaps, propose guideline changes based on patterns, and provide qualitative context to `arch review` failures.
+4. **Sprint Metrics:** On sprint close (triggered via DO Operations), generate `docs/METRICS.md` summary (tasks, cycle time, size accuracy, AI/human ratio).
+5. **Logic Absorption:** This phase replaces the former `RETRO.md` protocol.
 
 ## Output
 - Ephemeral read-only output to terminal.

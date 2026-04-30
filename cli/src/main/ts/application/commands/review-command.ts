@@ -17,8 +17,15 @@ export class ReviewCommand {
     this.useCase = new ReviewSystem(taskRepository, gitRepository, reviewer, driftChecker);
   }
 
-  async execute(): Promise<void> {
+  async execute(args: string[] = []): Promise<void> {
+    const isJson = args.includes('--json');
     const result = await this.useCase.execute();
+
+    if (isJson) {
+      console.log(JSON.stringify(result, null, 2));
+      process.exit(result.success ? 0 : 1);
+    }
+
     if (result.success) {
       fmt.ok('System Review: OK');
     } else {
