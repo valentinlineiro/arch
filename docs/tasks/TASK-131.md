@@ -1,5 +1,5 @@
 ## TASK-131: Consolidate core guidelines to reduce bloat
-**Meta:** P2 | S | 5 | READY | Focus:no | 6-writing | local | docs/guidelines/core.md
+**Meta:** P2 | S | 5 | IN_PROGRESS | Focus:yes | 6-writing | local | docs/guidelines/core.md | gemini-cli
 **Depends:** none
 
 ### Acceptance Criteria

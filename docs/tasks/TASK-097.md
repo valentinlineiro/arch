@@ -1,5 +1,5 @@
 ## TASK-097: ARCH control panel - Angular project scaffold and GitHub Pages deployment
-**Meta:** P3 | M | 5 | READY | Focus:yes | 2-code-generation | human | docs/
+**Meta:** P3 | M | 5 | READY | Focus:no | 2-code-generation | human | docs/
 
 ### Acceptance Criteria
 - [ ] Angular project created in `docs/` with standalone components, Angular Router, and separate CSS/HTML/TS files per component.
