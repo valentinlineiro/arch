@@ -1,5 +1,5 @@
 ## TASK-152: Implement arch loop - autonomous execution engine
-**Meta:** P1 | L | READY | Focus:yes | 2-code-generation | claude | cli/src/, docs/agents/DO.md, docs/agents/THINK.md, arch.config.json
+**Meta:** P1 | L | IN_PROGRESS | Focus:yes | 2-code-generation | claude | cli/src/, docs/agents/DO.md, docs/agents/THINK.md, arch.config.json | lock:gemini
 **Sprint:** sprint/v0.7-foundations
 
 ### Acceptance Criteria
