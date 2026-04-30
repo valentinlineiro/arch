@@ -21,6 +21,11 @@ Coordination between the Human and the Agent is facilitated via `docs/INBOX.md`.
 
 ---
 
+## Autonomy Pilot (Level 2)
+Agents are authorized to self-promote IDEAs to TASKS if they are sized **XS** and belong to class `7-operations` or `6-writing`. This is an **execution** of a human-written Decision, as defined in `docs/AGENTS.md`.
+
+---
+
 ## Delegation of Authority Matrix (Legacy Level 3)
 
 *Note: For the current active matrix, see `docs/GOVERNANCE.md`.*

@@ -1,28 +1,35 @@
 ## CORE
 <!-- Always loaded. Max 200 tokens. -->
 
-- Commits follow Conventional Commits. **This table is the authoritative reference for all agents:**
+### 1. Communication
+- **English-first:** All documentation, task titles, and commit messages must be written in English. Non-ASCII characters in task titles are a drift signal. Translate legacy content on edit.
+- **Evidence Required:** Every proposal in REFINEMENT.md must include a `Source:` field citing the signal or feedback.
 
-  | Prefix      | When to use                                          |
-  |-------------|------------------------------------------------------|
-  | `feat:`     | New feature, new task, new agent capability          |
-  | `fix:`      | Bug fix in protocol, CLI, or config                  |
-  | `chore:`    | Status changes, maintenance, dependency updates      |
-  | `docs:`     | Changes to README, ADRs, guides                      |
-  | `refactor:` | Restructuring without behavior change                |
-  | `test:`     | Adding or updating tests only                        |
-  | `idea:`     | Committing a draft IDEA to refinement/               |
-- Every PR references a TASK-ID: `docs(conductor): add velocity check [ARCH-012]`
-- If a follow-up commit only fixes the previous one and no one else has seen it yet, use `git commit --amend` instead of a new commit
-- **Git Safety:** Agents must use `git fetch` to safely sync state. History-changing operations (`git pull`, `git merge`, `git rebase`) are FORBIDDEN without explicit human approval.
-- No agent merges its own PR (Exception: Level 3 Autonomy defined in `autonomy.md`)
-- Breaking changes (MAJOR) require an ADR before implementation
-- Tasks estimated XL must be decomposed before entering sprint/
-- `Closed-at: YYYY-MM-DDTHH:MM:SSZ` — optional field written to task file when archiving as DONE. Used for cycle time and velocity metrics.
-- **Execution order within the same priority:** smaller size wins (XS → S → M → L)
-- **No change without evidence** — every proposal in REFINEMENT.md must include `Source:` field
-- **Backlog Health:** The agent MUST proactively propose at least one new IDEA when the count of READY tasks is < 3 (THINK Phase 4).
-- **Autonomy Pilot (Level 2):** Agents are authorized to self-promote IDEAs to TASKS if they are sized **XS** and belong to class `7-operations` or `6-writing`.
-- **Language — English-first:** All new documentation, task titles, guideline entries, and commit messages must be written in English. Non-ASCII characters in task titles are a drift signal detected by `arch review`. Legacy Spanish content is grandfathered — translate on edit, not proactively.
-- **Dependency Hygiene:** `npm install` in `cli/` should only be run when intentionally adding or upgrading dependencies to prevent unintended `package-lock.json` churn. Always verify diffs before committing lock files.
-- **Build Requirement:** Any change to the CLI source (`cli/src/main/ts/`) must be followed by `npm run build` within the `cli/` directory to update the `dist/` artifacts used by `scripts/arch.sh`. Failure to build leads to stale behavior during verification.
+### 2. Git & Commits
+- **Conventional Commits:** The following table is the authoritative reference:
+  | Prefix | When to use |
+  |---|---|
+  | `feat:` | New feature, task, or agent capability |
+  | `fix:` | Bug fix in protocol, CLI, or config |
+  | `chore:` | Status changes, maintenance, or lock updates |
+  | `docs:` | Changes to README, ADRs, or guides |
+  | `refactor:` | Restructuring without behavior change |
+  | `idea:` | Committing a draft IDEA to refinement/ |
+- **Safety:** Use `git fetch` to sync. History-changing ops (`pull`, `merge`, `rebase`) are FORBIDDEN without explicit human approval.
+- **Atomicity:** Every PR/commit must reference a TASK-ID. Use `git commit --amend` for follow-up fixes on unpushed commits.
+
+### 3. Authority & Governance
+- **No Self-Merging:** Agents cannot merge their own PRs (Exception: L3 Autonomy in `autonomy.md`).
+- **Breaking Changes:** MAJOR changes require an ADR before implementation.
+
+### 4. Task Lifecycle
+- **Decomposition:** Tasks estimated XL must be decomposed before entering READY status.
+- **Execution Priority:** Within the same priority level (P0-P3), smaller sizes win (XS → S → M → L).
+
+### 5. Backlog Health
+- **Autonomous Replenishment:** Propose at least one new IDEA when READY tasks < 3 (THINK Phase 4).
+- **Metrics:** `Closed-at: <ISO 8601>` is required when archiving as DONE for cycle-time tracking.
+
+### 6. Implementation
+- **Technical Ops:** Rules regarding `npm install` and `npm run build` are relocated to `DEVELOPMENT.md`.
+- **Autonomy Pilot:** Details on Level 2 self-promotion are maintained in `docs/guidelines/autonomy.md`.
