@@ -1,29 +1,23 @@
 # INBOX
-<!-- Weekly dashboard for human-agent coordination -->
-<!-- Generated on: 2026-04-30 14:15 -->
+<!-- ARCH v0.6.0 | System Governance Dashboard -->
 
-## Status Summary
-- **Loop Status:** Running (TASK-148)
-- **Active Tasks (Focus:yes):** 1
-- **READY Tasks:** 12
+## [2026-04-30] Loop Status: ACTIVE
+- **READY:** 4
+- **IN_PROGRESS:** 1 (TASK-097)
+- **REVIEW:** 0
+- **DONE (Last 5):**
+  - chore: start [TASK-097] [DO] (00c498f)
+  - idea: register loop observability and security improvements (336d6cc)
+  - feat: implement stale lock detection in arch review (Aligns with ADR-001) [TASK-137] (7fc5201)
+  - chore: [TASK-097] focus task via arch govern (018141f)
+  - chore: archive [TASK-137] DONE [TASK-137] [THINK] (cd98591)
 
-## Urgent / Actions Required
-_No urgent items detected._
+## Pending Items
+- **AWAITING_REVIEW:** IDEA-improve-loop-observability.md
+- **AWAITING_PROMOTION:** none
+- **ANDON_HALT:** none
 
-## Handover Queue
-<!-- Managed by agents: REVIEW_REQUEST | REVIEW_PASS | REVIEW_FAIL -->
-- [2026-04-30 15:40] REVIEW_PASS | TASK-152 | Implement arch loop - autonomous execution engine
-
-## Refinement Queue
-_No pending ideas awaiting promotion._
-
-## Recent Activity
-- chore: archive [TASK-147] DONE [TASK-147] [THINK]
-- chore: archive [TASK-146] DONE [TASK-146] [THINK]
-- chore: archive [TASK-145] DONE [TASK-145] [THINK]
-- chore: archive [TASK-144] DONE [TASK-144] [THINK]
-- chore: archive [TASK-143] DONE [TASK-143] [THINK]
-
-## [2026-04-30 11:40] ANDON_HALT | TASK-137
-Evidence: arch review failed 3 consecutive times. Write APPROVE or REDIRECT in INBOX then run arch loop --resume.
-APPROVE — root causes fixed: perf: prefix added to allowlist, local routing now bypasses AI, review commit prefix valid.
+## System Health
+- **Integrity:** arch review OK
+- **Replenishment:** 4 READY tasks (above threshold)
+- **Stale Locks:** none detected (check v0.6.1 active)
