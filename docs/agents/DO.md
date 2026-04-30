@@ -55,8 +55,16 @@ The autonomous execution loop must halt and yield to a human when any of these c
 
 **Stop Behavior:**
 1. Halt all execution.
-2. Append an `ANDON_HALT` entry to `docs/INBOX.md` with the condition met and supporting evidence (e.g., violation logs or turn counts).
+2. Append a timestamped `ANDON_HALT` entry to `docs/INBOX.md` with the condition met and supporting evidence (e.g., violation logs or turn counts).
+   - **Format:** `## [YYYY-MM-DD HH:MM] ANDON_HALT | [Task-ID] | [Condition]`
 3. Exit the session.
 4. Resume ONLY upon human `APPROVE` or `REDIRECT` in INBOX.
+
+## Human-Approval Protocol
+Any action hitting a human-approval gate (e.g., `action:deploy`, `action:pr-create`, or architectural changes) must append a timestamped entry to `docs/INBOX.md` before halting.
+- **Format:** `## [YYYY-MM-DD HH:MM] AWAITING_APPROVAL | [Type] | [Description]`
+- **Examples:**
+  - `## [2026-04-30 14:00] AWAITING_APPROVAL | DEPLOY | Deploy v0.6.0 to production`
+  - `## [2026-04-30 14:05] AWAITING_APPROVAL | MAJOR_CHANGE | Update core auth logic`
 
 These boundaries define which tools can be invoked autonomously in CI environments.

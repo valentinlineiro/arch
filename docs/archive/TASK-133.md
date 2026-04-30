@@ -1,5 +1,5 @@
 ## TASK-133: Track task cost and steps for KAIZEN friction detection
-**Meta:** P2 | XS | DONE | Focus:yes | 7-operations | claude | cli | Cost: $0.05 | Steps: 10
+**Meta:** P2 | XS | DONE | Focus:no | 7-operations | claude | cli | Cost: $0.08 | Steps: 15
 **Closed-at:** 2026-04-30T10:42:08.230Z
 <!-- arch-metrics: cost=0.05, steps=10 -->
 **Depends:** none

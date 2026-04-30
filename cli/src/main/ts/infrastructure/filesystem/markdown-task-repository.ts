@@ -73,11 +73,18 @@ export class MarkdownTaskRepository implements TaskRepository {
     if (currentPath) {
       content = await this.fileSystem.readFile(currentPath);
     } else {
-      content = `## ${task.id}: ${task.title}\n${task.rawMetaLine}\n\n### Acceptance Criteria\n${task.acceptanceCriteria.map(ac => `- [${ac.completed ? 'x' : ' '}] ${ac.description}`).join('\n')}`;
+      content = `## ${task.id}: ${task.title}\n\n**Meta:** ${task.priority} | ${task.size} | ${task.status} | Focus:${task.focus ? 'yes' : 'no'} | ${task.class} | ${task.cli} | ${task.context.join(', ')}\n\n### Acceptance Criteria\n${task.acceptanceCriteria?.map(ac => `- [${ac.completed ? 'x' : ' '}] ${ac.description}`).join('\n') || ''}`;
     }
 
-    const statusRegex = new RegExp(`(\\n\\*\\*Meta:\\*\\* .*?\\| )(IDEA|READY|IN_PROGRESS|REVIEW|DONE|BLOCKED|REJECTED)`, 's');
-    content = content.replace(statusRegex, `$1${task.status}`);
+    const metaMatch = content.match(/^\*\*Meta:\*\* (.*)/m);
+    if (metaMatch) {
+      let newMetaLine = `**Meta:** ${task.priority} | ${task.size} | ${task.status} | Focus:${task.focus ? 'yes' : 'no'} | ${task.class} | ${task.cli} | ${task.context.join(', ')}`;
+      if (task.status === TaskStatus.DONE) {
+        if (task.cost !== undefined) newMetaLine += ` | Cost: $${task.cost.toFixed(2)}`;
+        if (task.steps !== undefined) newMetaLine += ` | Steps: ${task.steps}`;
+      }
+      content = content.replace(metaMatch[0], newMetaLine);
+    }
 
     const ensureField = (fieldName: string, value: string | undefined) => {
       if (value && !content.includes(`**${fieldName}:**`)) {
@@ -91,6 +98,18 @@ export class MarkdownTaskRepository implements TaskRepository {
     ensureField('Closed-at', task.closedAt);
     ensureField('Rejected-at', task.rejectedAt);
     ensureField('Reason', task.rejectionReason);
+
+    // Save/Update in-progress metrics as comment if task is not DONE
+    if (task.status !== TaskStatus.DONE && (task.cost !== undefined || task.steps !== undefined)) {
+      const metricsComment = `<!-- arch-metrics: cost=${task.cost?.toFixed(2) || '0.00'}, steps=${task.steps || '0'} -->`;
+      const existingMetricsMatch = content.match(/<!-- arch-metrics: .*? -->/);
+      if (existingMetricsMatch) {
+        content = content.replace(existingMetricsMatch[0], metricsComment);
+      } else {
+        // Append after meta line
+        content = content.replace(/^(\*\*Meta:\*\*.*?\n)/m, `$1${metricsComment}\n`);
+      }
+    }
 
     if (currentPath && currentPath !== targetPath) {
       await this.fileSystem.writeFile(currentPath, content);
@@ -107,8 +126,16 @@ export class MarkdownTaskRepository implements TaskRepository {
     if (headerMatch && metaMatch) {
       const id = headerMatch[1];
       const title = headerMatch[2];
-      const metaLine = metaMatch[1];
-      const metaParts = metaLine.split('|').map(s => s.trim());
+      const metaLine = metaMatch[0];
+
+      // Use a basic split for initial extraction, but regex for detailed fields
+      const metaParts = metaMatch[1].split('|').map(s => s.trim());
+      
+      const costMatch = metaMatch[1].match(/Cost: \$(\d+\.\d{2})/);
+      const stepsMatch = metaMatch[1].match(/Steps: (\d+)/);
+
+      // Also check for in-progress metrics in comments
+      const inProgressMetricsMatch = content.match(/<!-- arch-metrics: cost=(?<cost>\d+\.\d{2}), steps=(?<steps>\d+) -->/);
 
       const acceptanceCriteria: AcceptanceCriterion[] = [];
       const acSectionMatch = content.match(/### Acceptance Criteria\n([\s\S]*?)(\n### |$)/);
@@ -132,6 +159,7 @@ export class MarkdownTaskRepository implements TaskRepository {
         priority: metaParts[0] || '',
         size: metaParts[1] || '',
         status: (metaParts[2] || '') as TaskStatus,
+        focus: metaParts[3] === 'Focus:yes',
         sprint: sprintMatch?.[1]?.trim() || '',
         class: metaParts[4] || '',
         cli: metaParts[5] || '',
@@ -141,7 +169,9 @@ export class MarkdownTaskRepository implements TaskRepository {
         rejectionReason: rejectionReasonMatch?.[1],
         depends: dependsMatch ? dependsMatch[1].split(',').map(s => s.trim()) : undefined,
         acceptanceCriteria,
-        rawMetaLine: `**Meta:** ${metaLine}`,
+        cost: costMatch ? parseFloat(costMatch[1]) : (inProgressMetricsMatch?.groups?.cost ? parseFloat(inProgressMetricsMatch.groups.cost) : undefined),
+        steps: stepsMatch ? parseInt(stepsMatch[1], 10) : (inProgressMetricsMatch?.groups?.steps ? parseInt(inProgressMetricsMatch.groups.steps, 10) : undefined),
+        rawMetaLine: metaLine,
         rawDependsLine: dependsMatch ? dependsMatch[0] : undefined
       };
     }

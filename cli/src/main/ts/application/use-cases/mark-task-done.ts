@@ -22,6 +22,7 @@ export class MarkTaskDone {
     }
 
     task.status = TaskStatus.DONE;
+    task.focus = false;
     if (!task.closedAt) {
       task.closedAt = new Date().toISOString();
     }

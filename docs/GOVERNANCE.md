@@ -29,8 +29,16 @@ Any system action affecting a category that requires Human or Human+Justificatio
 Recognized entry types:
 - `AWAITING_PROMOTION`: IDEA ready for backlog.
 - `AWAITING_REVIEW`: Task ready for Auditor (see DO.md).
+- `AWAITING_APPROVAL`: Manual gate required for specific actions.
 - `ANDON_HALT`: Loop halted due to safety conditions (Review failure, Budget exceeded, or Protected Path).
 - `ADR_REQUIRED`: Implementation requires a Decision Record.
+
+### Human Triage Tokens
+Humans respond to INBOX entries by writing a triage token inline or as a reply:
+- `APPROVE`: Proceed with the proposed action or promotion.
+- `REJECT: [reason]`: Cancel the proposed action or promotion with explanation.
+- `DEFER`: Postpone the decision to a later session.
+- `REDIRECT: [instruction]`: Override the current path with new instructions.
 
 ## Conflict Resolution
 

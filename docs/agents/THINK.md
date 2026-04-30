@@ -10,7 +10,8 @@
 2. **Health Evaluation:** If running in an interactive session, manually verify system health signals that the CLI may not yet detect:
    - **Priority Escalation:** Identify P0 tasks that are blocked or not focused.
    - **Stale Locks:** If a task is `IN_PROGRESS` with a lock > 3 days, create a P1 `READY` bug task in `docs/tasks/` citing the stale task ID and lock age.
-3. **Evidence Required:** Every recommendation must cite a concrete signal (e.g., 'TASK-003 has stale lock' or CLI output from `arch govern`).
+3. **INBOX Regeneration:** Overwrite `docs/INBOX.md` with current loop status, active/READY task counts, pending items by type (`AWAITING_PROMOTION`, `AWAITING_REVIEW`, `ANDON_HALT`), and summaries of the last 5 completed tasks. Commit with `[THINK]` tag.
+4. **Evidence Required:** Every recommendation must cite a concrete signal (e.g., 'TASK-003 has stale lock' or CLI output from `arch govern`).
 
 ## Phase 2: Idea Refinement (Refine)
 0. **Print:** `[THINK] Phase 2 — Idea Refinement` to stdout.

@@ -1,11 +1,11 @@
 # INBOX
 <!-- Weekly dashboard for human-agent coordination -->
-<!-- Generated on: 2026-04-29 -->
+<!-- Generated on: 2026-04-30 14:15 -->
 
 ## Status Summary
-- **Active Tasks:** 0
-- **In Review:** 0
-- **Backlog (Ready):** 5
+- **Loop Status:** Running (TASK-148)
+- **Active Tasks (Focus:yes):** 1
+- **READY Tasks:** 12
 
 ## Urgent / Actions Required
 _No urgent items detected._
@@ -14,10 +14,11 @@ _No urgent items detected._
 <!-- Managed by agents: REVIEW_REQUEST | REVIEW_PASS | REVIEW_FAIL -->
 
 ## Refinement Queue
-_No pending ideas._
-
-## Current Sprint
-_No active sprint._
+_No pending ideas awaiting promotion._
 
 ## Recent Activity
-- **Last Commit:** feat: implement project registry aggregation and workflows [TASK-096]
+- chore: archive [TASK-147] DONE [TASK-147] [THINK]
+- chore: archive [TASK-146] DONE [TASK-146] [THINK]
+- chore: archive [TASK-145] DONE [TASK-145] [THINK]
+- chore: archive [TASK-144] DONE [TASK-144] [THINK]
+- chore: archive [TASK-143] DONE [TASK-143] [THINK]

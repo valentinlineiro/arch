@@ -12,9 +12,9 @@ export class Reviewer {
   public reviewTask(task: Task, rawMetaLine?: string): ReviewResult {
     const violations: string[] = [];
 
-    // Rule: Canonical format (regex v0.5)
+    // Rule: Canonical format (regex v0.6)
     if (rawMetaLine && !TaskValidator.isValidMeta(rawMetaLine)) {
-      violations.push(`Task ${task.id} does not follow canonical v0.5 format in Meta line.`);
+      violations.push(`Task ${task.id} does not follow canonical v0.6 format in Meta line.`);
     }
 
     if (task.rawDependsLine && !TaskValidator.isValidDepends(task.rawDependsLine)) {

@@ -20,6 +20,7 @@ export interface Task {
   priority: string;
   size: string;
   status: TaskStatus;
+  focus: boolean;
   sprint: string;
   class: string;
   cli: string;
@@ -31,6 +32,8 @@ export interface Task {
   rejectedAt?: string;
   rejectionReason?: string;
   acceptanceCriteria?: AcceptanceCriterion[];
+  cost?: number;
+  steps?: number;
   rawMetaLine?: string;
   rawDependsLine?: string;
 }
