@@ -2,11 +2,22 @@
 <!-- ARCH v0.6.0 — Modular Thinking & Continuous Kaizen -->
 <!-- Purpose: Assess system health, refine ideas, and propose real-time improvements -->
 
+> **THINK is the AI reasoning layer.** It handles work that requires judgment, pattern recognition, or architectural insight. It does not re-implement logic the CLI can execute deterministically.
+
+## Layer Split
+- **CLI Layer (Deterministic):** Governance, status checks, archival, and deterministic task selection. Executed via `arch govern`.
+- **AI Layer (Reasoning):** Idea refinement, Kaizen analysis, pattern detection, and unblocking the loop when deterministic rules fail.
+
+## Escalation Path
+The CLI layer escalates to the AI layer when:
+1. `arch govern` reports no unblocked `READY` tasks.
+2. `arch review` detects drift or violations that require qualitative analysis.
+3. A task hits an **Andon Cord** halt condition (see `DO.md`).
+
 ## Phase 1: Governance & Replenishment (Conductor)
 0. **Print:** `[THINK] Phase 1 — Governance & Replenishment` to stdout.
 1. **Run:** `arch govern`.
-   - Archival Guard, Flow Guard, and Replenishment are handled deterministically by the CLI.
-   - If `arch govern` reports a condition requiring AI judgment (e.g., all READY tasks are blocked), proceed to Phase 2. Otherwise, Phase 1 is complete.
+   - If `arch govern` reports a condition requiring AI judgment (see Escalation Path), proceed to Phase 2. Otherwise, Phase 1 is complete.
 2. **Health Evaluation:** If running in an interactive session, manually verify system health signals that the CLI may not yet detect:
    - **Priority Escalation:** Identify P0 tasks that are blocked or not focused.
    - **Stale Locks:** If a task is `IN_PROGRESS` with a lock > 3 days, create a P1 `READY` bug task in `docs/tasks/` citing the stale task ID and lock age.
