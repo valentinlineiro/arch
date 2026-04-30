@@ -37,24 +37,31 @@ invoke_agent() {
         preferredModel = config.governance.modelTiers[taskSize];
       }
 
+      // Local routing: no AI invocation, print protocol for human execution
+      if (preferredCliName === \"local\") {
+        console.log(\"  Routing: local (no AI invocation)\");
+        console.log(\"\");
+        process.stdout.write(require(\"fs\").readFileSync(process.argv[1], \"utf8\"));
+        process.exit(0);
+      }
+
       // Determine CLI order: preferred first, then others
       let clisToTry = config.clis;
-      if (preferredCliName && preferredCliName !== \"local\") {
-        const found = config.clis.find(c => c.name === preferredCliName);
-        if (found) {
-          clisToTry = [found, ...config.clis.filter(c => c.name !== preferredCliName)];
-        }
+      const found = config.clis.find(c => c.name === preferredCliName);
+      if (found) {
+        clisToTry = [found, ...config.clis.filter(c => c.name !== preferredCliName)];
       }
 
       for (const cli of clisToTry) {
         try {
           execSync(\"which \" + cli.bin, { stdio: \"ignore\" });
           let cmd = cli.template.replace(/\\{prompt\\}/g, \"\$(cat \" + process.argv[1] + \")\");
-          
-          if (preferredModel) {
+
+          // Only append --model for claude CLI (model IDs are Anthropic-specific)
+          if (preferredModel && cli.name === \"claude\") {
             cmd += \" --model \" + preferredModel;
           }
-          
+
           if (process.argv[2]) {
             cmd += \" \" + process.argv[2];
           }
@@ -71,6 +78,7 @@ invoke_agent() {
     if [ $status -eq 1 ]; then
       echo -e "  ${YELLOW}Note:${NC} No AI CLI detected or invocation failed. Showing protocol:"
       cat "$prompt_file"
+      exit 1
     else
       exit $status
     fi

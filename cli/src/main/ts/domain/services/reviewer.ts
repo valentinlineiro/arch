@@ -7,7 +7,7 @@ export interface ReviewResult {
 }
 
 export class Reviewer {
-  private static COMMIT_PREFIXES = ['feat:', 'fix:', 'chore:', 'docs:', 'refactor:', 'test:', 'idea:', 'task:'];
+  private static COMMIT_PREFIXES = ['feat:', 'fix:', 'chore:', 'docs:', 'refactor:', 'test:', 'perf:', 'idea:', 'task:'];
 
   public reviewTask(task: Task, rawMetaLine?: string): ReviewResult {
     const violations: string[] = [];
