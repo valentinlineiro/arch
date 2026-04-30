@@ -10,6 +10,9 @@
 ## Urgent / Actions Required
 _No urgent items detected._
 
+## Handover Queue
+<!-- Managed by agents: REVIEW_REQUEST | REVIEW_PASS | REVIEW_FAIL -->
+
 ## Refinement Queue
 _No pending ideas._
 

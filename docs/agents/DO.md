@@ -8,7 +8,16 @@
    - **Automated Selection:** Run `arch next` to identify the deterministic candidate.
 3. Set status to `IN_PROGRESS`, add lock in Meta line, and commit immediately.
 4. Implement against Acceptance Criteria ONLY.
-5. On completion: Status to `REVIEW`, stop.
+5. On completion:
+   - **Handover:** The agent that implements a task CANNOT archive it. It must yield to an Auditor.
+   - **Review Request:** Append a `REVIEW_REQUEST` entry to `docs/INBOX.md` with Task ID, AC list, and changed files.
+   - Status to `REVIEW`, release lock, and stop.
+6. **Auditor Step:**
+   - A fresh session reads `docs/INBOX.md`.
+   - Run `arch review` and verify each AC against actual repository state.
+   - If pass: Append `REVIEW_PASS` to `docs/INBOX.md`, set status to `DONE`.
+   - If fail: Append `REVIEW_FAIL` to `docs/INBOX.md` with evidence, set status back to `READY` (Focus:no).
+   - Only an Auditor can move a task to `docs/archive/`.
 
 ## Intent: Operations (Ops)
 1. **Manual Task/Idea Management:**
