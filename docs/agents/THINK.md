@@ -6,9 +6,9 @@
 0. **Print:** `[THINK] Phase 1 — Governance & Replenishment` to stdout.
 1. **System Check:**
    - Scan `docs/tasks/` for all active tasks (Focus:yes = active, Focus:no = queued).
-   - **Archival Guard:** Scan `docs/tasks/` for any task with `Status: DONE`. Move to `docs/archive/` and commit: `chore: archive [TASK-ID] DONE [TASK-ID]`.
+   - **Archival Guard:** Scan `docs/tasks/` for any task with `Status: DONE`. Move to `docs/archive/` and commit: `chore: archive [TASK-ID] DONE [TASK-ID] [THINK]`.
    - Evaluate health: stale locks (>3 days), priority escalation (P0 blocked), and focus drift.
-2. **Flow Guard:** If 0 tasks in `docs/tasks/` have `Focus:yes`, identify the `READY` task with the highest priority and smallest size (XS > S > M > L > XL) and autonomously set `Focus:yes`. Commit: `chore: autofocus [TASK-ID] via Flow Guard [TASK-ID]`.
+2. **Flow Guard:** If 0 tasks in `docs/tasks/` have `Focus:yes`, identify the `READY` task with the highest priority and smallest size (XS > S > M > L > XL) and autonomously set `Focus:yes`. Commit: `chore: autofocus [TASK-ID] via Flow Guard [TASK-ID] [THINK]`.
 3. **Replenishment:** If the count of `READY` tasks is < 3, propose at least one new `IDEA-*.md` in `docs/refinement/` based on recent archive (last 10) and `KAIZEN-LOG.md`.
 4. **Evidence Required:** Every recommendation must cite a concrete signal (e.g., 'TASK-003 has stale lock').
 
