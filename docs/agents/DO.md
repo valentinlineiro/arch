@@ -46,4 +46,17 @@
 | `action:deploy` | Manual | Human Approval |
 | `action:pr-create` | Manual | Human Approval |
 
+## Andon Cord (Halt Conditions)
+The autonomous execution loop must halt and yield to a human when any of these conditions are met:
+
+1. **Review Failure Loop:** If `arch review` fails 3 consecutive times on the same task.
+2. **Budget Exceeded:** If the task turn count exceeds the Muri threshold for its size (see `arch.config.json`).
+3. **Major Change / Protected Path:** If implementation requires touching a `protectedPath` or triggers a MAJOR architectural change without a prior ADR.
+
+**Stop Behavior:**
+1. Halt all execution.
+2. Append an `ANDON_HALT` entry to `docs/INBOX.md` with the condition met and supporting evidence (e.g., violation logs or turn counts).
+3. Exit the session.
+4. Resume ONLY upon human `APPROVE` or `REDIRECT` in INBOX.
+
 These boundaries define which tools can be invoked autonomously in CI environments.

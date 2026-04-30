@@ -24,7 +24,13 @@ This document establishes the governance contract between the ARCH Agent and the
 
 ## Escalation (INBOX.md)
 
-Any system action affecting a category that requires Human or Human+Justification approval will be automatically registered in `docs/INBOX.md` for periodic review.
+Any system action affecting a category that requires Human or Human+Justification approval, or that triggers an **Andon Cord halt**, will be automatically registered in `docs/INBOX.md` for periodic review.
+
+Recognized entry types:
+- `AWAITING_PROMOTION`: IDEA ready for backlog.
+- `AWAITING_REVIEW`: Task ready for Auditor (see DO.md).
+- `ANDON_HALT`: Loop halted due to safety conditions (Review failure, Budget exceeded, or Protected Path).
+- `ADR_REQUIRED`: Implementation requires a Decision Record.
 
 ## Conflict Resolution
 
