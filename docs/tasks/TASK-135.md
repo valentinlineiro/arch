@@ -1,5 +1,5 @@
 ## TASK-135: Audit and prune legacy ideas in docs/refinement/
-**Meta:** P3 | S | READY | Focus:no | 6-writing | local | docs/refinement/
+**Meta:** P3 | S | READY | Focus:yes | 6-writing | local | docs/refinement/
 **Depends:** none
 
 ### Acceptance Criteria
