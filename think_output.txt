@@ -1,0 +1,2 @@
+  ARCH — invoking CONDUCTOR (THINK) mode
+sh: 1: Syntax error: "(" unexpected
