@@ -39,6 +39,7 @@ export class DriftChecker {
     const details: string[] = [];
     const activeFiles = await this.getMarkdownFiles('docs/tasks');
     const THIRTY_DAYS_MS = 30 * 24 * 60 * 60 * 1000;
+    const THREE_DAYS_MS = 3 * 24 * 60 * 60 * 1000;
     const now = new Date().getTime();
 
     for (const file of activeFiles) {
@@ -48,12 +49,17 @@ export class DriftChecker {
         const parts = metaMatch[0].split('|').map(s => s.trim());
         const status = parts[2];
         
-        if (status === 'READY' || status === 'BLOCKED') {
-          const lastMod = await this.gitRepository.getFileLastModifiedDate(`docs/tasks/${file}`);
-          if (lastMod && (now - lastMod.getTime() > THIRTY_DAYS_MS)) {
-            const days = Math.floor((now - lastMod.getTime()) / (24 * 60 * 60 * 1000));
-            details.push(`${file.replace('.md', '')} is ${status} but has not been modified in ${days} days.`);
-          }
+        const lastMod = await this.gitRepository.getFileLastModifiedDate(`docs/tasks/${file}`);
+        if (!lastMod) continue;
+
+        const ageMs = now - lastMod.getTime();
+
+        if ((status === 'READY' || status === 'BLOCKED') && ageMs > THIRTY_DAYS_MS) {
+          const days = Math.floor(ageMs / (24 * 60 * 60 * 1000));
+          details.push(`${file.replace('.md', '')} is ${status} but has not been modified in ${days} days.`);
+        } else if (status === 'IN_PROGRESS' && ageMs > THREE_DAYS_MS) {
+          const days = Math.floor(ageMs / (24 * 60 * 60 * 1000));
+          details.push(`${file.replace('.md', '')} is IN_PROGRESS but has no commit in ${days} days (stale lock).`);
         }
       }
     }
