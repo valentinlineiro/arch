@@ -1,4 +1,4 @@
-## TASK-150: 5S Seiso — auto-create deletion tasks for persistent DeadPaths WARNs
+## TASK-150: 5S Seiso - auto-create deletion tasks for persistent DeadPaths WARNs
 **Meta:** P2 | S | READY | Focus:no | 7-operations | local | cli/src/, docs/agents/THINK.md
 **Sprint:** sprint/v0.7-foundations
 
