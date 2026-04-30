@@ -29,3 +29,14 @@ A bug is **any detected misalignment in the system**, including:
 Every WARN from `arch review` is a bug. When detected during THINK or DO, the agent creates the corresponding task in `docs/tasks/` with the appropriate severity.
 
 P0 bugs are set to IN_PROGRESS in the same commit they are created.
+
+## Poka-Yoke (Mistake-Proofing)
+
+To prevent the recurrence of systematic errors, the following Poka-Yoke rule applies:
+
+- **Enforcement Pipeline:** Any error pattern that appears 2+ times in `docs/KAIZEN-LOG.md` must have a corresponding deterministic check implemented in `arch review` before the pattern is considered resolved.
+- **Exit Conditions:** A Kaizen entry is only "closed" when:
+  1. An `arch review` check prevents the error from recurring.
+  2. The pattern is explicitly accepted as a known trade-off with a documented rationale in `docs/KAIZEN-LOG.md`.
+
+This ensures that protocol friction leads to deterministic hardening of the system.
