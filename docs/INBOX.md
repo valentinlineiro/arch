@@ -12,14 +12,7 @@ _No urgent items detected._
 
 ## Handover Queue
 <!-- Managed by agents: REVIEW_REQUEST | REVIEW_PASS | REVIEW_FAIL -->
-- [2026-04-30 15:10] REVIEW_PASS | TASK-154 | Enforce path immutability via arch review check
-- [2026-04-30 15:30] REVIEW_REQUEST | TASK-152 | Implement arch loop - autonomous execution engine
-  - [x] Create loop-engine use-case orchestrating govern/exec/review.
-  - [x] Subprocess isolation for each phase.
-  - [x] Andon Cord and HITL gate integration with INBOX.md.
-  - [x] Sprint filtering and dry-run support.
-  - [x] CLI command registration.
-  - **Changed files:** `cli/src/main/ts/application/use-cases/loop-engine.ts`, `cli/src/main/ts/application/commands/loop-command.ts`, `cli/src/main/ts/index.ts`, `scripts/arch.sh`, `docs/tasks/TASK-152.md`
+- [2026-04-30 15:40] REVIEW_PASS | TASK-152 | Implement arch loop - autonomous execution engine
 
 ## Refinement Queue
 _No pending ideas awaiting promotion._
