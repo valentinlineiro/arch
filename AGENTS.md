@@ -1,5 +1,5 @@
 # AGENTS.md
-<!-- ARCH Framework v0.5.0 | Universal Entry Point -->
+<!-- ARCH Framework v0.6.0 | Universal Entry Point -->
 
 ## Onboarding
 1. Read this file.
@@ -13,18 +13,16 @@
 ### THINK mode
 **Invoked for:** System check, refinement, planning, and continuous Kaizen.
 **Protocol:** `docs/agents/THINK.md`
-1. Phase 1: Assess task health by scanning `docs/tasks/` (Focus:yes = active).
+1. Phase 1: Governance & Replenishment (Status check, archival, and replenishment).
 2. Phase 2: Refine draft IDEAs in `docs/refinement/`. 
-   - *Autonomy (L2):* Agent may autonomously promote IDEAs to TASKS if they are XS and class operations/writing.
-3. Phase 3: Propose real-time Kaizen and guideline improvements.
-4. Phase 4: Autonomous Replenishment (if READY tasks < 3).
-5. Output: Ephemeral terminal report with Evidence.
+3. Phase 3: Continuous Kaizen (Simplification and metrics).
+4. Output: Ephemeral terminal report with Evidence.
 
 ### DO mode
 **Invoked for:** Implementation or human-directed state changes.
 **Protocol:** `docs/agents/DO.md`
 1. Intent Exec: Work on a specific task in `docs/tasks/` (Focus:yes).
-2. Intent Human: Map natural language to atomic file operations (moves between directories).
+2. Intent Ops: Manual task/idea management and sprint operations.
 3. Constraint: Atomic commits following conventional prefixes.
 
 ---

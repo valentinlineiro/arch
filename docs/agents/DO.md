@@ -1,56 +1,32 @@
 # DO.md
-<!-- ARCH v0.5.0 — Modular Execution -->
-<!-- Purpose: Execute tasks from sprint/ or perform human-directed operations -->
+<!-- ARCH v0.6.0 — Modular Execution -->
+<!-- Purpose: Execute tasks from docs/tasks/ or perform human-directed operations -->
 
 ## Intent: Execute Task (Exec)
-1. `git fetch` (sync state safely without merging). History-changing operations (`git pull`, `git merge`, `git rebase`) require explicit human approval.
+1. `git fetch` (sync state safely without merging).
 2. Find highest priority `READY` task in `docs/tasks/`.
    - **Automated Selection:** Run `arch next` to identify the deterministic candidate.
-   - If `arch next` returns a TASK-ID: select it.
-   - If `arch next` fails (exit 1): no unblocked tasks available — halt and wait for human instruction or THINK replenishment.
 3. Set status to `IN_PROGRESS`, add lock in Meta line, and commit immediately.
 4. Implement against Acceptance Criteria ONLY.
 5. On completion: Status to `REVIEW`, stop.
 
-## Intent: Human Operation (Human)
-1. Interpret intent (Mark DONE, Start task, Block, Add to backlog, Move to sprint, Cancel, Add idea).
-2. **Before creating any new task:** search title keywords across `docs/tasks/` and `docs/archive/`. If one or more matches found: list them and halt — wait for explicit human confirmation before proceeding. If no matches: proceed normally.
-3. **If input starts with `idea:` or contains `add idea:`:**
-   - Derive a slug from the idea text (lowercase, hyphens, max 5 words).
-   - Create `docs/refinement/IDEA-[slug].md` using the template in `docs/refinement/TEMPLATE.md`.
-   - Commit immediately in the same operation with: `idea: add draft [slug] to refinement`.
-   - Registration is not complete until that commit succeeds. Do not leave the draft as an uncommitted worktree change.
-   - Stop after the commit — do not add to backlog, do not set status to READY.
-   - Report: `"Draft created at docs/refinement/IDEA-[slug].md. Run arch think to evaluate."`
-   - See section 7 below for promotion rules.
-4. When marking DONE: add `Closed-at: <ISO 8601 timestamp>` to the task file. If the task required more than one implementation cycle, also add `Iterations: N`.
-5. Execute file operation:
-   - Move tasks between `docs/tasks/` and `docs/archive/`. Change `Focus:yes/no` to adjust active queue.
-   - Update Meta lines in individual task files.
-6. Commit exactly once per operation.
-7. **Promoting a draft:**
-   - **Deciding to promote:** Always requires explicit human instruction — the human writes `PROMOTE → TASK-XXX` in the IDEA's Decision section.
-   - **Executing the promotion:** If the IDEA has a human-written Decision and is sized XS and class `6-writing` or `7-operations`, the agent may autonomously execute the file operations (create task, update IDEA status) without further instruction.
-   - **Otherwise:** Explicit human instruction required: `arch do "promover IDEA-[slug]"`.
-
-## Intent: Sprint Close
-
-**Trigger:** Human declares the sprint complete.
-
-1. **Verify closeable:** Confirm all tasks tagged `**Sprint:** sprint/<slug>` matching `currentSprint` in `arch.config.json` have status `DONE` in `docs/archive/`. If any task is not `DONE`, halt and report the blocking task.
-2. **Generate sprint summary** — append a new dated section to `docs/METRICS.md`:
-   - **Sprint name:** value of `currentSprint`.
-   - **Tasks closed:** count + list of TASK-IDs.
-   - **Cycle time:** date of first commit touching any sprint task → `Closed-at` of the last archived task.
-   - **Size accuracy:** flag any task where `Iterations: N` is present (N > 1 = overrun).
-   - **AI/human ratio:** commit count by AI agent vs. human author across the sprint (`git log --author`).
-3. **Clear sprint:** Set `"currentSprint": ""` in `arch.config.json`.
-4. **Commit once:** `chore: close sprint/<slug> [THINK]` — covers METRICS.md update and arch.config.json change.
+## Intent: Operations (Ops)
+1. **Manual Task/Idea Management:**
+   - Interpret intent (Mark DONE, Start task, Block, Add idea).
+   - **New Task Guard:** Search title keywords before creation. If match found, halt for confirmation.
+   - **Idea Drafts:** If input starts with `idea:`, create `docs/refinement/IDEA-[slug].md` and commit immediately with `idea: add draft [slug]`.
+   - **Archive/Move:** Move files between `tasks/` and `archive/`. Update `Focus:yes/no`. Commit once per op.
+   - **Marking DONE:** Add `Closed-at` timestamp.
+2. **Sprint Close:**
+   - **Trigger:** Human declares sprint complete.
+   - **Verify:** Confirm all sprint tasks are `DONE` in `docs/archive/`.
+   - **Summary:** Signal THINK mode to generate `docs/METRICS.md` entry.
+   - **Clear:** Set `"currentSprint": ""` in `arch.config.json` and commit: `chore: close sprint/<slug> [THINK]`.
 
 ## Constraints
 - **Atomic commits:** Referencing TASK-ID.
-- **Exception:** idea-draft registration uses the `idea:` commit prefix and is exempt from TASK-ID because no task exists yet.
-- **Commit prefix (mandatory before every commit):** Select the type from the table in `docs/guidelines/core.md`. If no type fits exactly, pick the closest and append a one-line justification in the commit message body. Applies to all commits: lock, implementation, completion.
+- **Exception:** idea-draft registration uses the `idea:` commit prefix.
+- **Commit prefix:** Mandatory selection from `docs/guidelines/core.md`.
 
 ## Action Safety Boundaries (CI)
 | Action | Execution | Gate |

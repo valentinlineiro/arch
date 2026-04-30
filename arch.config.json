@@ -1,5 +1,5 @@
 {
-  "version": "0.5.0",
+  "version": "0.6.0",
   "currentSprint": "",
   "routing": {
     "1-code-reasoning": "claude-code",

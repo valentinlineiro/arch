@@ -27,7 +27,7 @@
 - **Execution Priority:** Within the same priority level (P0-P3), smaller sizes win (XS → S → M → L).
 
 ### 5. Backlog Health
-- **Autonomous Replenishment:** Propose at least one new IDEA when READY tasks < 3 (THINK Phase 4).
+- **Autonomous Replenishment:** Propose at least one new IDEA when READY tasks < 3 (THINK Phase 1).
 - **Metrics:** `Closed-at: <ISO 8601>` is required when archiving as DONE for cycle-time tracking.
 
 ### 6. Implementation

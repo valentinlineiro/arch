@@ -1,48 +1,31 @@
 # THINK.md
-<!-- ARCH v0.5.0 — Modular Thinking & Continuous Kaizen -->
+<!-- ARCH v0.6.0 — Modular Thinking & Continuous Kaizen -->
 <!-- Purpose: Assess system health, refine ideas, and propose real-time improvements -->
 
-## Phase 1: System Check (Conductor)
-0. **Print:** `[THINK] Phase 1 — System Check` to stdout.
-1. Scan `docs/tasks/` for all active tasks (Focus:yes = active, Focus:no = queued).
-2. Read recent tasks in `docs/archive/` (Last 5 by modification time).
-3. **Archival Guard:** Scan `docs/tasks/` for any task with `Status: DONE`. For each found:
-   - Move the file to `docs/archive/` preserving the filename and all metadata.
-   - Commit immediately: `chore: archive [TASK-ID] DONE [TASK-ID]`.
-4. Evaluate health:
-   - Stale locks (Task IN_PROGRESS for >3 days without commit).
-   - Priority escalation (P0 tasks blocked or not started).
-   - Focus drift (Focus:no tasks at P0 that should be Focus:yes).
-5. **Evidence Required:** Every recommendation must cite a concrete signal (e.g., 'TASK-003 in sprint/ has stale lock').
+## Phase 1: Governance & Replenishment (Conductor)
+0. **Print:** `[THINK] Phase 1 — Governance & Replenishment` to stdout.
+1. **System Check:**
+   - Scan `docs/tasks/` for all active tasks (Focus:yes = active, Focus:no = queued).
+   - **Archival Guard:** Scan `docs/tasks/` for any task with `Status: DONE`. Move to `docs/archive/` and commit: `chore: archive [TASK-ID] DONE [TASK-ID]`.
+   - Evaluate health: stale locks (>3 days), priority escalation (P0 blocked), and focus drift.
+2. **Flow Guard:** If 0 tasks in `docs/tasks/` have `Focus:yes`, identify the `READY` task with the highest priority and smallest size (XS > S > M > L > XL) and autonomously set `Focus:yes`. Commit: `chore: autofocus [TASK-ID] via Flow Guard [TASK-ID]`.
+3. **Replenishment:** If the count of `READY` tasks is < 3, propose at least one new `IDEA-*.md` in `docs/refinement/` based on recent archive (last 10) and `KAIZEN-LOG.md`.
+4. **Evidence Required:** Every recommendation must cite a concrete signal (e.g., 'TASK-003 has stale lock').
 
 ## Phase 2: Idea Refinement (Refine)
 0. **Print:** `[THINK] Phase 2 — Idea Refinement` to stdout.
 1. Scan `docs/refinement/` for all `IDEA-*.md` files.
-2. If no files exist: Skip this phase.
-3. For each IDEA, apply lifecycle rules based on status:
-   - **DRAFT:** Identify gaps, missing dependencies, and sizing estimate. Output to terminal only — do not modify the draft file.
-   - **DECIDED + no task exists yet:** The human has already written the Decision — THINK executes the promotion autonomously (for XS ops/writing IDEAs). If gaps remain, report them and wait. **Promotion is an atomic operation:** Update the IDEA status to `PROMOTED -> TASK-XXX`, create the task file, and move the IDEA file to `docs/refinement/archive/`. Note: DRAFT → DECIDED is a human act; THINK never writes the Decision itself.
-   - **REJECTED:** Move the IDEA file to `docs/refinement/archive/`.
-4. **Preserve audit trail:** Processed IDEAs (PROMOTED/REJECTED) must never be deleted; they reside in `docs/refinement/archive/` for historical context.
+2. For each IDEA, apply lifecycle rules:
+   - **DRAFT:** Identify gaps, dependencies, and estimate. Output to terminal only.
+   - **DECIDED + no task exists:** If human Decision is written and IDEA is XS + 6-writing/7-operations, promote autonomously: update status to `PROMOTED -> TASK-XXX`, create task file, and archive IDEA.
+   - **REJECTED:** Move to `docs/refinement/archive/`.
 
 ## Phase 3: Continuous Kaizen (Real-time Reviewer)
 0. **Print:** `[THINK] Phase 3 — Continuous Kaizen` to stdout.
-1. **Simplification:** Count the total number of protocol phases across all agent docs, fields in the task Meta line, and top-level sections in `docs/guidelines/core.md`. If any threshold is exceeded (phases > 5, Meta fields > 7, guideline sections > 8), propose one concrete reduction task (XS or S) targeting the most bloated element using the `[KAIZEN]` output format.
-2. **Immediate Gap Closing:** During system check, identify missing context or logic gaps in the current task or sprint.
-3. **Real-time Guideline Proposal:** Detect patterns in `docs/archive/` or git history. If a pattern suggests a systematic improvement, propose a guideline change in `docs/guidelines/` immediately.
-4. **Integration with 'arch review':** Provide qualitative context to deterministic failures reported by the CLI.
-5. **Logic Absorption:** This phase replaces the former `RETRO.md` protocol, making sprint retrospectives a continuous activity rather than a batch process.
-6. **Sprint metrics (on sprint close):** Generate `docs/METRICS.md` covering: tasks closed, avg cycle time (git log date → `Closed-at`), size accuracy, AI/human ratio, regressions detected, framework improvements applied.
-
-## Phase 4: Autonomous Replenishment (Backlog Health)
-0. **Print:** `[THINK] Phase 4 — Autonomous Replenishment` to stdout.
-1. **Trigger:** If the count of `READY` tasks (Focus:yes/no) is less than 3, this phase is mandatory.
-2. **Flow Guard:** If 0 tasks in `docs/tasks/` have `Focus:yes`, identify the `READY` task with the highest priority and smallest size (XS > S > M > L > XL) and autonomously set `Focus:yes` for that task. Commit: `chore: autofocus [TASK-ID] via Flow Guard [TASK-ID]`.
-3. **Analysis Scope:** Scan the last 10 tasks in `docs/archive/` and the last 3 entries in `docs/KAIZEN-LOG.md`.
-4. **Action:** Propose at least one new `IDEA-*.md` in `docs/refinement/` addressing either:
-   - **Drift Prevention:** New checks for `arch review`.
-   - **Protocol Hardening:** Automating manual protocol steps.
-   - **Context Pruning:** Removing stale/redundant files or logic.
+1. **Simplification:** Count protocol phases (target <= 5), Meta fields (target <= 7), and guideline sections (target <= 8). If exceeded, propose a reduction task using `[KAIZEN]` format.
+2. **Immediate Improvements:** Identify context gaps, propose guideline changes based on patterns, and provide qualitative context to `arch review` failures.
+3. **Sprint Metrics:** On sprint close (triggered via DO Operations), generate `docs/METRICS.md` summary (tasks, cycle time, size accuracy, AI/human ratio).
+4. **Logic Absorption:** This phase replaces the former `RETRO.md` protocol.
 
 ## Output
 - Ephemeral read-only output to terminal.

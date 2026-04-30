@@ -341,11 +341,10 @@
   </div>
 
   <div class="quick-actions">
-    <button class="quick-btn" data-prompt="Run Phase 1: scan my tasks and report system health.">Phase 1: System Check</button>
+    <button class="quick-btn" data-prompt="Run Phase 1: scan my tasks, report system health, and check replenishment needs.">Phase 1: Governance & Replenishment</button>
     <button class="quick-btn" data-prompt="Run Phase 2: evaluate my draft IDEAs and identify gaps.">Phase 2: Idea Refinement</button>
     <button class="quick-btn" data-prompt="Run Phase 3: detect patterns and propose Kaizen improvements to guidelines.">Phase 3: Kaizen</button>
     <button class="quick-btn" data-prompt="What tasks should I prioritize next? Apply the ARCH priority rules (P0 first, then smaller size wins on ties).">Prioritize tasks</button>
-    <button class="quick-btn" data-prompt="Check for stale locks: any task marked IN_PROGRESS for more than 3 days?">Stale lock check</button>
   </div>
 
   <div id="messages"></div>
@@ -365,11 +364,12 @@
 
 You implement three phases of the THINK protocol:
 
-## Phase 1: System Check
+## Phase 1: Governance & Replenishment
 - Scan active tasks (Focus:yes = active, Focus:no = queued)
 - Check for stale locks (IN_PROGRESS > 3 days without commit)
 - Check for priority escalation (P0 tasks blocked or not started)
-- Check for focus drift (Focus:no tasks at P0 that should be Focus:yes)
+- Flow Guard: If 0 tasks have Focus:yes, identify highest priority/smallest size task to focus
+- Replenishment: Propose new IDEAs if READY tasks < 3
 - EVERY recommendation must cite a concrete signal (task ID, date, status)
 
 ## Phase 2: Idea Refinement
