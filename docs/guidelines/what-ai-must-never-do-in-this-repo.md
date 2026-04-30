@@ -1,5 +1,5 @@
 ## What AI must never do in this repo
-- Modify GUIDELINES.md directly — propose in RETRO.md only
+- Modify GUIDELINES.md directly — propose via `idea:` prefix (creates a draft in `docs/refinement/`) or raise during THINK mode (Phase 3 Continuous Kaizen)
 - Promote tasks to BACKLOG without explicit human approval
 - Change task format without a MAJOR version bump and migration guide
 - Run history-changing git operations (`git pull`, `git merge`, `git rebase`) without explicit human approval
