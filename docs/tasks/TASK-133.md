@@ -1,5 +1,5 @@
 ## TASK-133: Track task cost and steps for KAIZEN friction detection
-**Meta:** P2 | XS | READY | Focus:no | 7-operations | claude | cli
+**Meta:** P2 | XS | READY | Focus:yes | 7-operations | claude | cli
 **Depends:** none
 
 ### Acceptance Criteria
