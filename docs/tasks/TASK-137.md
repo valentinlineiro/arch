@@ -1,5 +1,5 @@
 ## TASK-137: Implement stale lock detection in arch review
-**Meta:** P3 | S | READY | Focus:no | 7-operations | local | scripts/arch.sh, cli/
+**Meta:** P3 | S | READY | Focus:yes | 7-operations | local | scripts/arch.sh, cli/
 **Depends:** none
 
 ### Acceptance Criteria
