@@ -178,7 +178,7 @@ case "$1" in
     ;;
 
   *)
-    echo "Usage: $0 [status|validate|review|inbox|next|govern|rank|batch|drain|archive|task|promote|version|conduct|exec]"
+    echo "Usage: $0 [status|validate|review|inbox|next|govern|rank|batch|drain|archive|task|promote|version|conduct|exec|loop]"
     echo ""
     echo "Commands:"
     echo "  status     Show task counts"
@@ -196,6 +196,7 @@ case "$1" in
     echo "  version    Show current version"
     echo "  conduct    Invoke THINK mode with an AI agent"
     echo "  exec       Invoke DO mode with an AI agent"
+    echo "  loop       Autonomous execution loop"
     exit 1
     ;;
 esac

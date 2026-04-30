@@ -19,6 +19,7 @@ import { RankCommand } from './application/commands/rank-command.js';
 import { BatchCommand } from './application/commands/batch-command.js';
 import { ConductCommand } from './application/commands/conduct-command.js';
 import { PromoteCommand } from './application/commands/promote-command.js';
+import { LoopCommand } from './application/commands/loop-command.js';
 
 async function main() {
   const fileSystem = new NodeFileSystem();
@@ -77,8 +78,11 @@ async function main() {
     case 'promote':
       await new PromoteCommand(taskRepository, gitRepository, fileSystem).execute(args);
       break;
+    case 'loop':
+      await new LoopCommand(taskRepository, gitRepository).execute(args);
+      break;
     default:
-      console.log('Usage: arch [status|validate|review|task|inbox|next|version|govern|rank|batch|drain|conduct|promote]');
+      console.log('Usage: arch [status|validate|review|task|inbox|next|version|govern|rank|batch|drain|conduct|promote|loop]');
       process.exit(1);
   }
 }
