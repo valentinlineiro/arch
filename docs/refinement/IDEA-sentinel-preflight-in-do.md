@@ -29,6 +29,9 @@ IDEA-immutability-protected-paths-review-check (shares `protectedPaths` config c
 S
 
 ## Gaps
+- **Check Mechanism:** The pre-flight check is performed by an XS reasoning call (Haiku or similar) that takes the task's ACs + description and the `negativeConstraints` list. It returns PASS or FAIL with justification.
+- **Placement:** This check happens in DO mode *after* the task is read but *before* the first tool call or file edit. It acts as a cognitive "wait, am I allowed to do this?" step.
+- **Bypassing:** A `force: yes` field on a task can bypass the Sentinel check for emergency hotfixes.
 
 ## Decision
 <!-- Human writes here after THINK evaluation -->

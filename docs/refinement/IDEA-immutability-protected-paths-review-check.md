@@ -29,6 +29,9 @@ None — extends existing `arch review` infrastructure.
 M
 
 ## Gaps
+- **ADR Reference Validation:** The check will search for `ADR-XXX` in the commit message or the task file's `Depends` or AC list.
+- **Granularity:** Support for both directory-level and file-level paths.
+- **Exemptions:** Specific commit prefixes (e.g. `chore: version bump`) can be exempt from path protection if they only touch one specific protected file.
 
 ## Decision
 <!-- Human writes here after THINK evaluation -->

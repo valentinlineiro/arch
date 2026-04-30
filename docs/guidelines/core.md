@@ -15,6 +15,7 @@
   | `docs:` | Changes to README, ADRs, or guides |
   | `refactor:` | Restructuring without behavior change |
   | `idea:` | Committing a draft IDEA to refinement/ |
+- **Idea Filenames:** Idea files in `docs/refinement/` MUST use the `IDEA-[slug].md` format (all uppercase). Lowercase `idea-*.md` filenames are forbidden and will be flagged as drift.
 - **Safety:** Use `git fetch` to sync. History-changing ops (`pull`, `merge`, `rebase`) are FORBIDDEN without explicit human approval.
 - **Atomicity:** Every PR/commit must reference a TASK-ID. Use `git commit --amend` for follow-up fixes on unpushed commits.
 
