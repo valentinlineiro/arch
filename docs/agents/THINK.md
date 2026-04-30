@@ -4,16 +4,13 @@
 
 ## Phase 1: Governance & Replenishment (Conductor)
 0. **Print:** `[THINK] Phase 1 — Governance & Replenishment` to stdout.
-1. **System Check:**
-   - Scan `docs/tasks/` for all active tasks (Focus:yes = active, Focus:no = queued).
-   - **Archival Guard:** Scan `docs/tasks/` for any task with `Status: DONE`. Move to `docs/archive/` and commit: `chore: archive [TASK-ID] DONE [TASK-ID] [THINK]`.
-   - Evaluate health:
-     - **Stale Locks:** If a task is `IN_PROGRESS` with a lock > 3 days, create a P1 `READY` bug task in `docs/tasks/` citing the stale task ID and lock age.
-     - **Priority Escalation:** Identify P0 tasks that are blocked or not focused.
-     - **Focus Drift:** Identify if the active task is lower priority than unblocked READY tasks.
-2. **Flow Guard:** If 0 tasks in `docs/tasks/` have `Focus:yes`, identify the `READY` task with the highest priority and smallest size (XS > S > M > L > XL) and autonomously set `Focus:yes`. Commit: `chore: autofocus [TASK-ID] via Flow Guard [TASK-ID] [THINK]`.
-3. **Replenishment:** If the count of `READY` tasks is < 3, propose at least one new `IDEA-*.md` in `docs/refinement/` based on recent archive (last 10) and `KAIZEN-LOG.md`.
-4. **Evidence Required:** Every recommendation must cite a concrete signal (e.g., 'TASK-003 has stale lock').
+1. **Run:** `arch govern`.
+   - Archival Guard, Flow Guard, and Replenishment are handled deterministically by the CLI.
+   - If `arch govern` reports a condition requiring AI judgment (e.g., all READY tasks are blocked), proceed to Phase 2. Otherwise, Phase 1 is complete.
+2. **Health Evaluation:** If running in an interactive session, manually verify system health signals that the CLI may not yet detect:
+   - **Priority Escalation:** Identify P0 tasks that are blocked or not focused.
+   - **Stale Locks:** If a task is `IN_PROGRESS` with a lock > 3 days, create a P1 `READY` bug task in `docs/tasks/` citing the stale task ID and lock age.
+3. **Evidence Required:** Every recommendation must cite a concrete signal (e.g., 'TASK-003 has stale lock' or CLI output from `arch govern`).
 
 ## Phase 2: Idea Refinement (Refine)
 0. **Print:** `[THINK] Phase 2 — Idea Refinement` to stdout.
