@@ -3,12 +3,12 @@
 **Depends:** none
 
 ### Acceptance Criteria
-- [ ] Update the archival logic (in `arch archive` or THINK Phase 1) to use git commands.
-- [ ] Automatically stage the deletion from `docs/tasks/` and addition to `docs/archive/`.
-- [ ] Use `git mv` or equivalent `git rm` and `git add` to ensure history is tracked.
-- [ ] Verify functionality in different environments (local vs CI).
-- [ ] `arch review` passes.
+- [x] Update the archival logic (in `arch archive` or THINK Phase 1) to use git commands.
+- [x] Automatically stage the deletion from `docs/tasks/` and addition to `docs/archive/`.
+- [x] Use `git mv` or equivalent `git rm` and `git add` to ensure history is tracked.
+- [x] Verify functionality in different environments (local vs CI).
+- [x] `arch review` passes.
 
 ### Definition of Done
-- [ ] All ACs checked.
-- [ ] `arch review` passes.
+- [x] All ACs checked.
+- [x] `arch review` passes.
