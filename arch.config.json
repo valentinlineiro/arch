@@ -14,6 +14,11 @@
   "governance": {
     "conductEveryN": 5,
     "batchWritingTasks": false,
+    "negativeConstraints": [
+      "No new npm dependencies for tasks smaller than M",
+      "No modifying protectedPaths without a preceding ADR",
+      "No major architectural changes without an approved ADR"
+    ],
     "modelTiers": {
       "XS": "claude-3-haiku-20240307",
       "S": "claude-3-5-sonnet-20240620",

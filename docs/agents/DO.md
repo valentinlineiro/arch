@@ -6,13 +6,15 @@
 1. `git fetch` (sync state safely without merging).
 2. Find highest priority `READY` task in `docs/tasks/`.
    - **Automated Selection:** Run `arch next` to identify the deterministic candidate.
-3. Set status to `IN_PROGRESS`, add lock in Meta line, and commit immediately.
-4. Implement against Acceptance Criteria ONLY.
-5. On completion:
+3. **Sentinel Pre-flight:** Verify task ACs and description against `negativeConstraints` in `arch.config.json` using an XS reasoning call.
+   - **Escalation:** If a potential violation is identified, append a timestamped `AWAITING_APPROVAL | SENTINEL_VIOLATION` entry to `docs/INBOX.md` with evidence and halt.
+4. Set status to `IN_PROGRESS`, add lock in Meta line, and commit immediately.
+5. Implement against Acceptance Criteria ONLY.
+6. On completion:
    - **Handover:** The agent that implements a task CANNOT archive it. It must yield to an Auditor.
    - **Review Request:** Append a `REVIEW_REQUEST` entry to `docs/INBOX.md` with Task ID, AC list, and changed files.
    - Status to `REVIEW`, release lock, and stop.
-6. **Auditor Step:**
+7. **Auditor Step:**
    - A fresh session reads `docs/INBOX.md`.
    - Run `arch review` and verify each AC against actual repository state.
    - If pass: Append `REVIEW_PASS` to `docs/INBOX.md`, set status to `DONE`.
