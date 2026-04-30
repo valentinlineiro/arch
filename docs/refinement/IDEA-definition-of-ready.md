@@ -14,6 +14,7 @@ Add a "Definition of Ready" section to TASK-FORMAT.md listing the minimum criter
 3. Size is estimated (not XL — XL must be decomposed first).
 4. No unresolved `**Depends:**` blocking it.
 5. `Focus:no` by default (Flow Guard or human sets `Focus:yes`).
+6. **Nemawashi gate (M+):** Tasks sized M or larger must have the `## Gaps` section filled (by THINK or human) before entering READY. This ensures agent and human are aligned on approach before implementation begins.
 
 This makes the READY gate explicit and gives `arch review` a checklist to validate against.
 
