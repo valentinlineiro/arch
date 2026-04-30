@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+# ARCH commit-msg hook
+# Validates that commit messages follow the protocol:
+# 1. Contains [TASK-XXX]
+# 2. OR starts with an exempted prefix: idea:, chore: open sprint/, chore: close sprint/
+# 3. OR contains [THINK]
+
+COMMIT_MSG_FILE=$1
+COMMIT_MSG=$(cat "$COMMIT_MSG_FILE")
+
+# Exemptions
+if [[ "$COMMIT_MSG" =~ ^idea: ]] || \
+   [[ "$COMMIT_MSG" =~ ^chore:\ open\ sprint/ ]] || \
+   [[ "$COMMIT_MSG" =~ ^chore:\ close\ sprint/ ]] || \
+   [[ "$COMMIT_MSG" =~ \[THINK\] ]]; then
+    exit 0
+fi
+
+# Mandatory TASK-ID
+if [[ ! "$COMMIT_MSG" =~ \[TASK-[0-9]{3}\] ]]; then
+    echo -e "\033[0;31m✖ Error:\033[0m Commit message must reference a TASK-ID (e.g., [TASK-001])"
+    echo -e "    See docs/guidelines/core.md for the commit protocol."
+    exit 1
+fi
+
+exit 0
