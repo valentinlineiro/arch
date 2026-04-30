@@ -17,7 +17,9 @@ ACs as executable assertions with explicit expected output — not descriptions,
 M
 
 ## Gaps
-<!-- THINK fills this section when invoked — do not edit manually -->
+- **Safety:** Protocol for sandboxing or limiting AC commands to prevent accidental system damage during autonomous review.
+- **Cross-platform:** AC commands must be executable in both Linux (agent default) and Windows (if human operator uses it).
+- **Non-determinism:** Strategy for handling dynamic outputs (e.g., dates, hashes, random IDs) in verification strings.
 
 ## Decision
 <!-- Human writes here after THINK evaluation -->

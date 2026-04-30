@@ -20,7 +20,8 @@ None
 S
 
 ## Gaps
-<!-- THINK fills this section when invoked — do not edit manually -->
+- **Convergence:** Coordinate with the existing shell-based guard in `scripts/arch.sh` (which blocks `task done`) to avoid redundant reporting.
+- **Legacy Tasks:** Decide if the check should apply to `READY` tasks (as a warning) or only to `DONE/REVIEW` tasks (as a failure).
 
 ## Decision
 <!-- Human writes here after THINK evaluation -->

@@ -17,7 +17,9 @@ None — can be implemented independently of other IDEAs.
 S
 
 ## Gaps
-<!-- THINK fills this section when invoked — do not edit manually -->
+- **Storage:** Decide between appending to the TASK file (easy for humans) vs a hidden `.arch/` directory (easier for parsing).
+- **Granularity:** Define what constitutes a "step" (every tool call? every 5 turns? manual human signal?).
+- **Context Impact:** Ensure the log is not included in the default agent context to avoid consuming the budget.
 
 ## Decision
 <!-- Human writes here after THINK evaluation -->

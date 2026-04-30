@@ -17,7 +17,9 @@ The executor cannot be the judge of its own work. When the agent that implemente
 S
 
 ## Gaps
-<!-- THINK fills this section when invoked — do not edit manually -->
+- **Isolation Enforcement:** How to technically prevent the DO-agent's session history from being passed to the Review-agent (e.g., clearing `MEMORY.md` or using a fresh temporary directory).
+- **Handover Protocol:** Define exactly what "handoff" looks like — does the DO agent explicitly call a `request-review` command?
+- **L3 Autonomy:** How this applies when an agent is running in a loop — does it spawn a child process with a fresh identity?
 
 ## Decision
 <!-- Human writes here after THINK evaluation -->
