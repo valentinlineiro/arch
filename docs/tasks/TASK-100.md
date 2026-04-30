@@ -1,5 +1,5 @@
 ## TASK-100: ARCH control panel - migrate assistant to Angular component
-**Meta:** P3 | S | 5 | READY | Focus:no | 2-code-generation | human | docs/, docs/arch-assistant.html
+**Meta:** P3 | S | READY | Focus:no | 2-code-generation | human | docs/, docs/arch-assistant.html
 **Depends:** TASK-097
 
 ### Acceptance Criteria

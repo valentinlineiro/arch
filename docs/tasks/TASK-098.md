@@ -1,5 +1,5 @@
 ## TASK-098: ARCH control panel - migrate initializr to Angular component
-**Meta:** P3 | S | 5 | READY | Focus:no | 2-code-generation | human | docs/, docs/arch-initializr.html
+**Meta:** P3 | S | READY | Focus:no | 2-code-generation | human | docs/, docs/arch-initializr.html
 **Depends:** TASK-097
 
 ### Acceptance Criteria

@@ -25,6 +25,10 @@ class MockGitRepository implements GitRepository {
   async getLastCommitMessage() { return this.lastCommitMessage; }
   async getCurrentBranch() { return this.currentBranch; }
   async getStatusLines() { return this.statusLines; }
+  async getLog() { return []; }
+  async add() {}
+  async commit() {}
+  async getFileLastModifiedDate() { return new Date(); }
 }
 
 test('DriftChecker - reports dirty worktree tracked deletions and runtime artifacts', async () => {
@@ -56,10 +60,10 @@ test('DriftChecker - reports duplicated task ids across active and archive', asy
   fs.directories['/repo/docs/archive'] = ['TASK-038.md', 'TASK-047.md'];
   
   // Provide content for the files to avoid readFile returning undefined
-  fs.files['/repo/docs/tasks/TASK-038.md'] = '**Meta:** P1 | S | 5 | READY | Focus:no | 7-operations | local | none';
-  fs.files['/repo/docs/tasks/TASK-045.md'] = '**Meta:** P1 | S | 5 | READY | Focus:no | 7-operations | local | none';
-  fs.files['/repo/docs/archive/TASK-038.md'] = '**Meta:** P1 | S | 5 | DONE | Focus:no | 7-operations | local | none';
-  fs.files['/repo/docs/archive/TASK-047.md'] = '**Meta:** P1 | S | 5 | DONE | Focus:no | 7-operations | local | none';
+  fs.files['/repo/docs/tasks/TASK-038.md'] = '**Meta:** P1 | S | READY | Focus:no | 7-operations | local | none';
+  fs.files['/repo/docs/tasks/TASK-045.md'] = '**Meta:** P1 | S | READY | Focus:no | 7-operations | local | none';
+  fs.files['/repo/docs/archive/TASK-038.md'] = '**Meta:** P1 | S | DONE | Focus:no | 7-operations | local | none';
+  fs.files['/repo/docs/archive/TASK-047.md'] = '**Meta:** P1 | S | DONE | Focus:no | 7-operations | local | none';
 
   const checker = new DriftChecker(fs, git, '/repo', '0.2.0');
 

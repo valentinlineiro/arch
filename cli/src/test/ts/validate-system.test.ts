@@ -31,7 +31,7 @@ test('ValidateSystem - success when everything is valid', async () => {
     id: 'TASK-001',
     title: 'Valid Task',
     status: TaskStatus.READY,
-    rawMetaLine: '**Meta:** P1 | S | 5 | READY | Focus:no | 6-writing | claude | README.md'
+    rawMetaLine: '**Meta:** P1 | S | READY | Focus:no | 6-writing | claude | README.md'
   } as any);
 
   fs.files['arch.config.json'] = JSON.stringify({ version: '0.1.0' });

@@ -17,7 +17,7 @@ test('MarkdownTaskRepository parses Sprint line separately from Meta', async () 
   const fs = new MockFileSystem();
   fs.directories['docs/tasks'] = ['TASK-200.md'];
   fs.files['docs/tasks/TASK-200.md'] = `## TASK-200: Sprint-aware task
-**Meta:** P2 | S | 5 | READY | Focus:no | 2-code-generation | claude | cli/src/main/ts/
+**Meta:** P2 | S | READY | Focus:no | 2-code-generation | claude | cli/src/main/ts/
 **Sprint:** sprint/control-panel
 **Depends:** TASK-199
 

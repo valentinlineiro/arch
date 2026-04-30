@@ -46,7 +46,7 @@ export class DriftChecker {
       const metaMatch = content.match(/^\*\*Meta:\*\* .*/m);
       if (metaMatch) {
         const parts = metaMatch[0].split('|').map(s => s.trim());
-        const status = parts[3];
+        const status = parts[2];
         
         if (status === 'READY' || status === 'BLOCKED') {
           const lastMod = await this.gitRepository.getFileLastModifiedDate(`docs/tasks/${file}`);
@@ -84,8 +84,8 @@ export class DriftChecker {
         const metaLine = metaMatch[0];
         const parts = metaLine.split('|').map(s => s.trim());
         const priority = parts[0].replace('**Meta:** ', '');
-        const status = parts[3];
-        const focus = parts[4];
+        const status = parts[2];
+        const focus = parts[3];
         
         allActiveTasks.push({
           id,
@@ -130,7 +130,7 @@ export class DriftChecker {
       const metaMatch = content.match(/^\*\*Meta:\*\* .*/m);
       if (metaMatch) {
         const parts = metaMatch[0].split('|').map(s => s.trim());
-        const contextPart = parts[7];
+        const contextPart = parts[6];
         if (contextPart) {
           const paths = contextPart.split(',').map(s => s.trim());
           for (const p of paths) {

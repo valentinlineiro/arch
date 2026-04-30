@@ -3,7 +3,7 @@
 To operate ARCH effectively, you must understand these fundamental building blocks.
 
 ## 1. Tasks (`docs/tasks/`)
-The unit of work. Every change in ARCH must correspond to a **TASK-ID**. Tasks follow a strict format (`TASK-FORMAT.md`) that includes Meta fields like Priority, Size, Value, and Focus.
+The unit of work. Every change in ARCH must correspond to a **TASK-ID**. Tasks follow a strict format (`TASK-FORMAT.md`) that includes Meta fields like Priority, Size, Status, and Focus.
 
 ## 2. IDEAs (`docs/refinement/`)
 Potential future tasks. They start as drafts and are only promoted to the backlog after human approval or autonomous collaboration (L2).

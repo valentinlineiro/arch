@@ -10,9 +10,9 @@ test('TaskValidator - isValidHeader', () => {
 });
 
 test('TaskValidator - isValidMeta', () => {
-  const validMeta = '**Meta:** P0 | S | 5 | READY | Focus:no | 2-code-generation | claude | README.md';
-  const invalidMeta = '**Meta:** P9 | S | 5 | READY | Focus:no | 2-code-generation | claude | README.md';
-  const backlogMeta = '**Meta:** P1 | XS | 7 | BACKLOG | Focus:no | 7-operations | local | cli/src/main/ts/application/use-cases/task-reject.ts';
+  const validMeta = '**Meta:** P0 | S | READY | Focus:no | 2-code-generation | claude | README.md';
+  const invalidMeta = '**Meta:** P9 | S | READY | Focus:no | 2-code-generation | claude | README.md';
+  const backlogMeta = '**Meta:** P1 | XS | BACKLOG | Focus:no | 7-operations | local | cli/src/main/ts/application/use-cases/task-reject.ts';
 
   assert.strictEqual(TaskValidator.isValidMeta(validMeta), true);
   assert.strictEqual(TaskValidator.isValidMeta(invalidMeta), false);
@@ -28,12 +28,11 @@ test('TaskValidator - isValidDepends', () => {
 });
 
 test('TaskValidator - parseMeta', () => {
-  const meta = '**Meta:** P1 | M | 8 | IN_PROGRESS | Focus:yes | 6-writing | claude | agents/EXEC.md';
+  const meta = '**Meta:** P1 | M | IN_PROGRESS | Focus:yes | 6-writing | claude | agents/EXEC.md';
   const parsed = TaskValidator.parseMeta(meta);
   
   assert.strictEqual(parsed.priority, '1');
   assert.strictEqual(parsed.size, 'M');
-  assert.strictEqual(parsed.value, '8');
   assert.strictEqual(parsed.status, 'IN_PROGRESS');
   assert.strictEqual(parsed.focus, 'Focus:yes');
   assert.strictEqual(parsed.class, '6-writing');

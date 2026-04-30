@@ -13,7 +13,6 @@
    - Stale locks (Task IN_PROGRESS for >3 days without commit).
    - Priority escalation (P0 tasks blocked or not started).
    - Focus drift (Focus:no tasks at P0 that should be Focus:yes).
-   - **Value Audit:** Review the `Value` field of READY tasks. Propose adjustments (increase/decrease) if a task's perceived impact has changed relative to project goals.
 5. **Evidence Required:** Every recommendation must cite a concrete signal (e.g., 'TASK-003 in sprint/ has stale lock').
 
 ## Phase 2: Idea Refinement (Refine)
@@ -38,7 +37,7 @@
 ## Phase 4: Autonomous Replenishment (Backlog Health)
 0. **Print:** `[THINK] Phase 4 — Autonomous Replenishment` to stdout.
 1. **Trigger:** If the count of `READY` tasks (Focus:yes/no) is less than 3, this phase is mandatory.
-2. **Flow Guard:** If 0 tasks in `docs/tasks/` have `Focus:yes`, identify the `READY` task with the highest Value/Size ratio (Value ÷ 1 for XS, ÷ 2 for S, ÷ 4 for M, ÷ 8 for L) and autonomously set `Focus:yes` for that task. Commit: `chore: autofocus [TASK-ID] via Flow Guard [TASK-ID]`.
+2. **Flow Guard:** If 0 tasks in `docs/tasks/` have `Focus:yes`, identify the `READY` task with the highest priority and smallest size (XS > S > M > L > XL) and autonomously set `Focus:yes` for that task. Commit: `chore: autofocus [TASK-ID] via Flow Guard [TASK-ID]`.
 3. **Analysis Scope:** Scan the last 10 tasks in `docs/archive/` and the last 3 entries in `docs/KAIZEN-LOG.md`.
 4. **Action:** Propose at least one new `IDEA-*.md` in `docs/refinement/` addressing either:
    - **Drift Prevention:** New checks for `arch review`.

@@ -36,10 +36,10 @@ export class SelectNextTask {
       const pB = priorityOrder[b.priority] ?? 99;
       if (pA !== pB) return pA - pB;
 
-      // 2. Value / Size ratio (Higher is better)
-      const ratioA = (a.value || 0) / (sizeMap[a.size] || 1);
-      const ratioB = (b.value || 0) / (sizeMap[b.size] || 1);
-      if (ratioA !== ratioB) return ratioB - ratioA;
+      // 2. Size (Smaller is better: XS > S > M > L > XL)
+      const sA = sizeMap[a.size] ?? 99;
+      const sB = sizeMap[b.size] ?? 99;
+      if (sA !== sB) return sA - sB;
 
       // 3. Focus (yes > no)
       const focusA = a.rawMetaLine?.includes('Focus:yes') ? 0 : 1;

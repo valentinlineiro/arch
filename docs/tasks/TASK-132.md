@@ -1,5 +1,5 @@
 ## TASK-132: Implement 'arch promote' command for easier IDEA promotion
-**Meta:** P3 | S | 5 | READY | Focus:no | 2-code-generation | local | cli/, scripts/arch.sh
+**Meta:** P3 | S | READY | Focus:no | 2-code-generation | local | cli/, scripts/arch.sh
 **Depends:** none
 
 ### Acceptance Criteria

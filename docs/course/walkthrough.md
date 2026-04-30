@@ -11,7 +11,6 @@ A human wants to add a "Dark Mode" to the system dashboard. They run:
 ## Step 2: Refinement
 The human (or a THINK-mode agent) fills in the details:
 *   **Size:** S
-*   **Value:** 7
 *   **Acceptance Criteria:** CSS variables added, toggle button in header.
 
 ## Step 3: Promotion
