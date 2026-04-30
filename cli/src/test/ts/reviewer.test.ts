@@ -80,7 +80,7 @@ test('Reviewer - reviewTask ignores pending ACs outside DONE/REVIEW', () => {
   assert.deepStrictEqual(result.violations, []);
 });
 
-test('Reviewer - reviewTask (Warning for REVIEW with all ACs completed)', () => {
+test('Reviewer - reviewTask allows REVIEW with all ACs completed', () => {
   const reviewer = new Reviewer();
   
   const taskReviewWithAllACs = {
@@ -100,6 +100,6 @@ test('Reviewer - reviewTask (Warning for REVIEW with all ACs completed)', () => 
   };
   
   const result = reviewer.reviewTask(taskReviewWithAllACs);
-  assert.strictEqual(result.valid, false);
-  assert.ok(result.violations.some(v => v.includes('has all ACs completed but is still in REVIEW state')));
+  assert.strictEqual(result.valid, true);
+  assert.deepStrictEqual(result.violations, []);
 });
