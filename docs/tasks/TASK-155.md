@@ -1,5 +1,5 @@
 ## TASK-155: Improve autonomous loop observability and security
-**Meta:** P2 | S | READY | Focus:no | 7-operations | local | cli/src/main/ts/application/use-cases/loop-engine.ts, docs/agents/
+**Meta:** P2 | S | IN_PROGRESS | Focus:yes | 7-operations | local | cli/src/main/ts/application/use-cases/loop-engine.ts, docs/agents/ | Lock:gemini-cli
 **Depends:** none
 
 ### Acceptance Criteria
