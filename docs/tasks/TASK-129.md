@@ -1,5 +1,5 @@
 ## TASK-129: Reduce Meta fields to comply with simplification mandate
-**Meta:** P3 | XS | 5 | READY | Focus:no | 7-operations | local | docs/tasks/, docs/agents/
+**Meta:** P3 | XS | 5 | READY | Focus:yes | 7-operations | local | docs/tasks/, docs/agents/
 **Depends:** none
 
 ### Acceptance Criteria
