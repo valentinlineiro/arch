@@ -1,5 +1,5 @@
 ## TASK-130: Simplify agent protocols by consolidating phases
-**Meta:** P3 | S | READY | Focus:no | 6-writing | gemini | docs/agents/
+**Meta:** P3 | S | READY | Focus:yes | 6-writing | gemini | docs/agents/
 **Depends:** none
 
 ### Acceptance Criteria
