@@ -67,28 +67,30 @@ test('ReviewSystem does not validate archived tasks', async () => {
   );
 });
 
-test('ReviewSystem still validates active tasks', async () => {
-  const doneTaskWithPendingAC = {
-    ...ACTIVE_TASK,
-    id: 'TASK-100',
-    status: TaskStatus.DONE,
-    acceptanceCriteria: [{ description: 'AC1', completed: false }],
-  };
+test('ReviewSystem still validates active DONE/REVIEW tasks with pending ACs', async () => {
+  for (const status of [TaskStatus.DONE, TaskStatus.REVIEW]) {
+    const activeTaskWithPendingAC = {
+      ...ACTIVE_TASK,
+      id: `TASK-10${status === TaskStatus.DONE ? '0' : '1'}`,
+      status,
+      acceptanceCriteria: [{ description: 'AC1', completed: false }],
+    };
 
-  class RepoWithDoneTask {
-    async getById() { return null; }
-    async getAll() { return [doneTaskWithPendingAC]; }
-    async getActive() { return [doneTaskWithPendingAC]; }
-    async save() {}
-    async findReady() { return []; }
-    async getNextId() { return 'TASK-999'; }
+    class RepoWithPendingTask {
+      async getById() { return null; }
+      async getAll() { return [activeTaskWithPendingAC]; }
+      async getActive() { return [activeTaskWithPendingAC]; }
+      async save() {}
+      async findReady() { return []; }
+      async getNextId() { return 'TASK-999'; }
+    }
+
+    const system = new ReviewSystem(new RepoWithPendingTask() as any, new StubGitRepository() as any, new Reviewer());
+    const result = await system.execute();
+
+    assert.ok(
+      result.violations.some(v => v.includes(activeTaskWithPendingAC.id) && v.includes(`marked as ${status}`)),
+      `active ${status} task with pending ACs must be flagged`
+    );
   }
-
-  const system = new ReviewSystem(new RepoWithDoneTask() as any, new StubGitRepository() as any, new Reviewer());
-  const result = await system.execute();
-
-  assert.ok(
-    result.violations.some(v => v.includes('TASK-100')),
-    'active task with pending ACs must still be flagged'
-  );
 });

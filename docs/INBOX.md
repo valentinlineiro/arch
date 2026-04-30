@@ -21,3 +21,20 @@
 - **Integrity:** arch review OK
 - **Replenishment:** 4 READY tasks (above threshold)
 - **Stale Locks:** none detected (check v0.6.1 active)
+
+## [2026-04-30 11:52] ANDON_HALT | TASK-097
+Evidence: arch exec exited with code 130
+
+## [2026-04-30 12:04] ANDON_HALT | TASK-156
+Evidence: arch exec exited with code 1
+
+## [2026-04-30 14:20] REVIEW_REQUEST | TASK-156
+AC:
+- Reviewer/ReviewSystem enforce AC completion for active tasks in `DONE` and `REVIEW`.
+- `arch review` fails when those tasks still contain unchecked `- [ ]` items.
+- Review logic remains compatible with the existing `scripts/arch.sh task done` shell guard.
+- `arch review` passes after task handoff commit.
+Changed files:
+- cli/src/test/ts/reviewer.test.ts
+- cli/src/test/ts/review-system.test.ts
+- docs/tasks/TASK-156.md

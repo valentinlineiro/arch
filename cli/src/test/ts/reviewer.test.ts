@@ -32,26 +32,52 @@ test('Reviewer - validateCommitMessage', () => {
 
 test('Reviewer - reviewTask (AC completion)', () => {
   const reviewer = new Reviewer();
-  
-  const taskDoneWithPendingAC = {
+
+  for (const status of [TaskStatus.DONE, TaskStatus.REVIEW]) {
+    const taskWithPendingAC = {
+      id: 'TASK-001',
+      title: 'Test',
+      priority: 'P1',
+      size: 'S',
+      status,
+      sprint: 'Sprint 1',
+      class: 'test',
+      cli: 'claude',
+      context: [],
+      acceptanceCriteria: [
+        { description: 'AC1', completed: true },
+        { description: 'AC2', completed: false }
+      ]
+    };
+
+    const result = reviewer.reviewTask(taskWithPendingAC);
+    assert.strictEqual(result.valid, false);
+    assert.ok(result.violations[0].includes(`marked as ${status}`));
+    assert.ok(result.violations[0].includes('pending Acceptance Criteria'));
+  }
+});
+
+test('Reviewer - reviewTask ignores pending ACs outside DONE/REVIEW', () => {
+  const reviewer = new Reviewer();
+
+  const readyTaskWithPendingAC = {
     id: 'TASK-001',
     title: 'Test',
     priority: 'P1',
     size: 'S',
-    status: TaskStatus.DONE,
+    status: TaskStatus.READY,
     sprint: 'Sprint 1',
     class: 'test',
     cli: 'claude',
     context: [],
     acceptanceCriteria: [
-      { description: 'AC1', completed: true },
-      { description: 'AC2', completed: false }
+      { description: 'AC1', completed: false }
     ]
   };
-  
-  const result = reviewer.reviewTask(taskDoneWithPendingAC);
-  assert.strictEqual(result.valid, false);
-  assert.ok(result.violations[0].includes('pending Acceptance Criteria'));
+
+  const result = reviewer.reviewTask(readyTaskWithPendingAC);
+  assert.strictEqual(result.valid, true);
+  assert.deepStrictEqual(result.violations, []);
 });
 
 test('Reviewer - reviewTask (Warning for REVIEW with all ACs completed)', () => {
