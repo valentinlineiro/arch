@@ -20,16 +20,16 @@ export class SubprocessRunner {
         cwd: options.cwd ?? process.cwd(),
       });
 
-      let output = '';
       if (stdio === 'pipe') {
-        child.stdout?.on('data', (data) => { output += data.toString(); });
-        child.stderr?.on('data', (data) => { output += data.toString(); });
+        child.stdout?.on('data', (data) => {
+          process.stdout.write(data);
+        });
+        child.stderr?.on('data', (data) => {
+          process.stderr.write(data);
+        });
       }
 
       child.on('close', (code) => {
-        if (code !== 0 && stdio === 'pipe') {
-          process.stdout.write(output);
-        }
         resolve(code ?? 0);
       });
     });
@@ -38,7 +38,7 @@ export class SubprocessRunner {
   /**
    * Runs a command and captures its output.
    */
-  static async runWithOutput(command: string, args: string[], options: { cwd?: string } = {}): Promise<SubprocessResult> {
+  static async runWithOutput(command: string, args: string[], options: { cwd?: string; stream?: boolean } = {}): Promise<SubprocessResult> {
     return new Promise((resolve) => {
       const child = spawn(command, args, {
         stdio: 'pipe',
@@ -48,8 +48,18 @@ export class SubprocessRunner {
       let stdout = '';
       let stderr = '';
 
-      child.stdout?.on('data', (data) => { stdout += data.toString(); });
-      child.stderr?.on('data', (data) => { stderr += data.toString(); });
+      child.stdout?.on('data', (data) => {
+        stdout += data.toString();
+        if (options.stream) {
+          process.stdout.write(data);
+        }
+      });
+      child.stderr?.on('data', (data) => {
+        stderr += data.toString();
+        if (options.stream) {
+          process.stderr.write(data);
+        }
+      });
 
       child.on('close', (code) => {
         resolve({

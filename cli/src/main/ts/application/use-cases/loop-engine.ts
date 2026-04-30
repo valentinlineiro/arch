@@ -87,13 +87,11 @@ export class LoopEngine {
 
       // 3. EXEC — delegate to arch exec (arch.sh invokes the AI CLI with DO.md)
       this.log(`[LOOP] Phase: EXEC (${task.id})`);
-      const { code: execCode, stdout, stderr } = await SubprocessRunner.runWithOutput(ARCH_SH, ['exec']);
       
-      if (options.verbose || execCode !== 0) {
-        process.stdout.write(stdout);
-        process.stderr.write(stderr);
-      }
-
+      const { code: execCode, stdout, stderr } = await SubprocessRunner.runWithOutput(ARCH_SH, ['exec'], { 
+        stream: true // New option to stream in real-time
+      });
+      
       if (execCode !== 0) {
         await this.appendInbox(task.id, 'ANDON_HALT', `arch exec exited with code ${execCode}`);
         console.error(`[LOOP] Exec failed for ${task.id}. INBOX updated. Halting.`);
