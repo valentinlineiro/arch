@@ -1,7 +1,7 @@
 # IDEA: arch loop — autonomous execution engine (THINK → GOVERN → EXEC → REVIEW → ARCHIVE)
 **Created:** 2026-04-30
 **Source:** Autonomous loop architecture — move human from Operator to Governor
-**Status:** DRAFT
+**Status:** PROMOTED
 **Meta:** P1 | L | local | cli/src/, docs/agents/DO.md, docs/agents/THINK.md, arch.config.json
 
 ## Problem
@@ -36,9 +36,9 @@ THINK (assess) → GOVERN (select) → EXEC (implement) → REVIEW (verify) → 
 L
 
 ## Gaps
-- Define polling mechanism for INBOX: does the loop actively poll INBOX.md for human responses, or does it halt and require a manual `arch loop --resume`?
-- Clarify interaction with `arch exec` — does loop call exec as a subprocess or inline?
+- **Polling vs. Halt:** The loop will not actively poll INBOX. Instead, it will be designed as an interruptible state machine. On any HITL gate (AWAITING_APPROVAL) or Andon Cord halt, it writes the state to INBOX and exits. Resumption is triggered by the human running `arch loop --resume`.
+- **Execution Model:** `arch loop` will invoke `govern`, `exec`, and `review` as clean subprocesses. This ensures that the context for each task is isolated and reset, preventing the "context drift" where an agent carries assumptions from Task A into Task B.
+- **Metrics Integration:** The loop must automatically capture Cost/Steps for each task in the cycle and aggregate them into a session report.
 
 ## Decision
-<!-- Human writes here after THINK evaluation -->
-<!-- PROMOTE → TASK-XXX | REJECT: reason -->
+PROMOTE → TASK-152
