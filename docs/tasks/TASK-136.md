@@ -1,5 +1,5 @@
 ## TASK-136: Implement Kaizen learning from review mistakes
-**Meta:** P1 | S | READY | Focus:no | 7-operations | local | docs/agents/THINK.md, docs/KAIZEN-LOG.md
+**Meta:** P1 | S | READY | Focus:yes | 7-operations | local | docs/agents/THINK.md, docs/KAIZEN-LOG.md
 **Depends:** none
 
 ### Acceptance Criteria
