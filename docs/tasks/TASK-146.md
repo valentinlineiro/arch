@@ -1,5 +1,5 @@
 ## TASK-146: Add Definition of Ready to TASK-FORMAT.md
-**Meta:** P1 | XS | READY | Focus:no | 6-writing | local | docs/TASK-FORMAT.md, docs/guidelines/core.md
+**Meta:** P1 | XS | READY | Focus:yes | 6-writing | local | docs/TASK-FORMAT.md, docs/guidelines/core.md
 **Sprint:** sprint/v0.7-foundations
 
 ### Acceptance Criteria
