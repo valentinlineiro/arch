@@ -23,6 +23,7 @@
 - **Breaking Changes:** MAJOR changes require an ADR before implementation.
 
 ### 4. Task Lifecycle
+- **Definition of Ready:** Tasks must meet the criteria in `docs/TASK-FORMAT.md` before being set to `READY`.
 - **Decomposition:** Tasks estimated XL must be decomposed before entering READY status.
 - **Execution Priority:** Within the same priority level (P0-P3), smaller sizes win (XS → S → M → L).
 

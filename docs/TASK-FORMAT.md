@@ -79,11 +79,24 @@ The meta line is the source of truth for task state and routing. It MUST be a si
 | `BLOCKED` | `docs/tasks/` | Stopped due to ambiguity or missing dependency. |
 | `REJECTED` | `docs/archive/` | Cancelled or superseded. |
 
-> **Note:** `IDEA` is not a task status — ideas live as draft files in `docs/refinement/` and are promoted to tasks via explicit human instruction.
+---
+
+## Definition of Ready (DoR)
+
+A task must meet the following criteria before its status can be set to `READY`:
+
+1. **Clear Title:** The title is descriptive and written in English (no non-ASCII characters).
+2. **Acceptance Criteria:** At least one verifiable AC is defined.
+3. **Estimated Size:** Size is assigned (`XS` to `L`). `XL` tasks must be decomposed first.
+4. **Unblocked:** All `**Depends:**` references are resolved or none exist.
+5. **Focus Off:** Set to `Focus:no` by default (Flow Guard or human will set to `yes`).
+6. **Nemawashi Gate (M+):** Tasks sized `M` or larger must have a `## Gaps` section filled (by THINK or human) to ensure alignment on approach before implementation begins.
+
+> **Note:** `READY` is the gate for autonomous execution. Underspecified tasks should remain as draft IDEAs or be marked `BLOCKED`.
 
 ---
 
-## Canonical Regex (PCRE)
+## Rules of Engagement
 
 ### Header & Title
 ```
