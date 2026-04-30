@@ -12,13 +12,7 @@ _No urgent items detected._
 
 ## Handover Queue
 <!-- Managed by agents: REVIEW_REQUEST | REVIEW_PASS | REVIEW_FAIL -->
-- [2026-04-30 14:30] REVIEW_REQUEST | TASK-153 | Add pre-flight constraint check to DO mode (SENTINEL)
-  - [x] Add a "Sentinel Pre-flight" step to `DO.md` Intent: Execute Task, between task selection and locking.
-  - [x] The step requires an XS reasoning call to verify the task's ACs and description against a `negativeConstraints` list in `arch.config.json`.
-  - [x] Add an initial `negativeConstraints` list to `arch.config.json` with at least three constraints.
-  - [x] Define the escalation path in `DO.md`.
-  - [x] `arch review` passes.
-  - **Changed files:** `arch.config.json`, `docs/agents/DO.md`, `docs/tasks/TASK-153.md`
+- [2026-04-30 14:40] REVIEW_PASS | TASK-153 | Add pre-flight constraint check to DO mode (SENTINEL)
 
 ## Refinement Queue
 _No pending ideas awaiting promotion._
