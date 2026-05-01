@@ -170,3 +170,4 @@ _No active sprint._
 
 ## Recent Activity
 - **Last Commit:** chore: archive [TASK-157] DONE [TASK-157] [THINK]
+## [2026-05-01 12:09] AWAITING_APPROVAL | SENTINEL_VIOLATION | [TASK-159] | Modifying protected path 'cli/src/main/ts/domain/' without an ADR.

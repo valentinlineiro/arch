@@ -1,5 +1,5 @@
 ## TASK-159: Define and Implement Metrics Schema for METRICS.md
-**Meta:** P2 | S | IN_PROGRESS | Focus:no | 7-operations | local | docs/METRICS.md, cli/src/main/ts/domain/services/metrics-service.ts | lock:gemini-cli
+**Meta:** P2 | S | READY | Focus:no | 7-operations | local | docs/METRICS.md, cli/src/main/ts/domain/services/metrics-service.ts
 **Depends:** none
 
 ### Acceptance Criteria
