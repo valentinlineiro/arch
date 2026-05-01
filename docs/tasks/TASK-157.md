@@ -1,5 +1,6 @@
 ## TASK-157: Fix Reviewer rejection of governance tags [THINK] and [KAIZEN]
 **Meta:** P1 | XS | REVIEW | Focus:yes | 7-operations | local | cli/src/main/ts/domain/services/reviewer.ts
+**Depends:** ADR-001
 
 ### Acceptance Criteria
 - [x] Update `Reviewer.ts` to allow `[THINK]` and `[KAIZEN]` as valid commit message prefixes or permit them alongside conventional prefixes.
