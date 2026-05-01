@@ -18,3 +18,5 @@ _No active sprint._
 
 ## Recent Activity
 - **Last Commit:** docs: update INBOX.md dashboard [TASK-070]
+## [2026-05-01 12:35] AWAITING_APPROVAL | SENTINEL_VIOLATION | [TASK-164] | Potential new npm dependency 'isolate-vm' for S-sized task and modifying protected path 'cli/src/main/ts/domain/' without an ADR.
+## [2026-05-01 12:35] AWAITING_APPROVAL | SENTINEL_VIOLATION | [TASK-164] | Potential new npm dependency 'isolate-vm' for S-sized task and modifying protected path 'cli/src/main/ts/domain/' without an ADR.
