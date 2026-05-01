@@ -55,13 +55,14 @@ invoke_agent() {
       for (const cli of clisToTry) {
         try {
           execSync(\"which \" + cli.bin, { stdio: \"ignore\" });
-          let cmd = cli.template.replace(/\{prompt\}/g, "$(cat " + process.argv[1] + ")");
+          let cmd = cli.template.replace(/\{prompt\}/g, \"\$(cat \" + process.argv[1] + \")\");
+          cmd = cmd.replace(/\{prompt_file\}/g, process.argv[1]);
 
           if (preferredModel) {
-            if (cli.template.includes("{model}")) {
+            if (cli.template.includes(\"{model}\")) {
               cmd = cmd.replace(/\{model\}/g, preferredModel);
-            } else if (cli.name === "claude") {
-              cmd += " --model " + preferredModel;
+            } else if (cli.name === \"claude\") {
+              cmd += \" --model \" + preferredModel;
             }
           }
 
@@ -76,7 +77,7 @@ invoke_agent() {
       console.error(\"Error in invoke_agent:\", e.message);
     }
     process.exit(1);
-  " "$prompt_file" "$extra_flags" "$task_class" "$task_size" || {
+  " -- "$prompt_file" "$extra_flags" "$task_class" "$task_size" || {
     local status=$?
     if [ $status -eq 1 ]; then
       echo -e "  ${YELLOW}Note:${NC} No AI CLI detected or invocation failed. Showing protocol:"

@@ -19,8 +19,7 @@ export class GenerateInbox {
   ) {}
 
   async execute() {
-    const tasks = await this.taskRepository.getAll();
-    const activeTasks = tasks.filter(t => t.status !== TaskStatus.DONE && t.status !== TaskStatus.REJECTED);
+    const activeTasks = await this.taskRepository.getActive();
     
     const urgentItems: string[] = [];
     const pendingIdeas: string[] = [];

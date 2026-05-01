@@ -52,8 +52,8 @@
     },
     {
       "name": "ollama",
-      "bin": "ollama",
-      "template": "ollama run {model} \"{prompt}\""
+      "bin": "curl",
+      "template": "jq -Rs '{model: \"{model}\", prompt: ., stream: true, options: {num_ctx: 8192, num_predict: 4096, temperature: 0.1}}' {prompt_file} | curl -N -s -X POST http://127.0.0.1:11434/api/generate -d @- | jq -j --unbuffered .response"
     }
     ]
     }
