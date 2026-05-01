@@ -4,8 +4,8 @@
 
 ## Status Summary
 - **Active Tasks:** 0
-- **In Review:** 1
-- **Backlog (Ready):** 5
+- **In Review:** 0
+- **Backlog (Ready):** 11
 
 ## Urgent / Actions Required
 - [ ] [TASK-047] Migrate sprint/backlog to single docs/tasks/ with Focus field (P1) - Active in Focus
@@ -161,6 +161,7 @@
 - [ ] [TASK-127] Validation Failure: Task TASK-127 does not follow canonical v0.6 format in Meta line.
 - [ ] [TASK-128] Validation Failure: Task TASK-128 does not follow canonical v0.6 format in Meta line.
 - [ ] [TASK-131] Validation Failure: Task TASK-131 does not follow canonical v0.6 format in Meta line.
+- [ ] Drift: DeadContext - TASK-159: dead context path 'cli/src/main/ts/domain/services/metrics-service.ts'
 
 ## Refinement Queue
 _No pending ideas._
@@ -169,5 +170,4 @@ _No pending ideas._
 _No active sprint._
 
 ## Recent Activity
-- **Last Commit:** chore: archive [TASK-157] DONE [TASK-157] [THINK]
-## [2026-05-01 12:09] AWAITING_APPROVAL | SENTINEL_VIOLATION | [TASK-159] | Modifying protected path 'cli/src/main/ts/domain/' without an ADR.
+- **Last Commit:** [THINK] Add missing TASK-165 (Sandbox Guard)
