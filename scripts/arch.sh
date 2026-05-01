@@ -55,11 +55,14 @@ invoke_agent() {
       for (const cli of clisToTry) {
         try {
           execSync(\"which \" + cli.bin, { stdio: \"ignore\" });
-          let cmd = cli.template.replace(/\\{prompt\\}/g, \"\$(cat \" + process.argv[1] + \")\");
+          let cmd = cli.template.replace(/\{prompt\}/g, "$(cat " + process.argv[1] + ")");
 
-          // Only append --model for claude CLI (model IDs are Anthropic-specific)
-          if (preferredModel && cli.name === \"claude\") {
-            cmd += \" --model \" + preferredModel;
+          if (preferredModel) {
+            if (cli.template.includes("{model}")) {
+              cmd = cmd.replace(/\{model\}/g, preferredModel);
+            } else if (cli.name === "claude") {
+              cmd += " --model " + preferredModel;
+            }
           }
 
           if (process.argv[2]) {

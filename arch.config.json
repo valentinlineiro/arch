@@ -5,10 +5,10 @@
     "1-code-reasoning": "claude-code",
     "2-code-generation": "claude-code",
     "3-code-context": "gemini",
-    "4-code-repetitive": "local",
+    "4-code-repetitive": "ollama",
     "5-research": "gemini",
     "6-writing": "claude",
-    "7-operations": "local",
+    "7-operations": "ollama",
     "8-strategy": "claude"
   },
   "governance": {
@@ -25,21 +25,21 @@
       "cli/src/main/ts/domain/"
     ],
     "modelTiers": {
-      "XS": "claude-3-haiku-20240307",
-      "S": "claude-3-5-sonnet-20240620",
+      "XS": "qwen2.5-coder:7b",
+      "S": "qwen3:8b",
       "M": "claude-3-5-sonnet-20240620",
       "L": "claude-3-opus-20240229"
     }
-  },
-  "paths": {
+    },
+    "paths": {
     "tasks": "docs/tasks",
     "archive": "docs/archive",
     "guidelines": "docs/guidelines",
     "agents": "docs/agents",
     "refinement": "docs/refinement",
     "adr": "docs/adr"
-  },
-  "clis": [
+    },
+    "clis": [
     {
       "name": "gemini",
       "bin": "gemini",
@@ -49,6 +49,11 @@
       "name": "claude",
       "bin": "claude",
       "template": "claude -p \"{prompt}\" --dangerously-skip-permissions"
+    },
+    {
+      "name": "ollama",
+      "bin": "ollama",
+      "template": "ollama run {model} \"{prompt}\""
     }
-  ]
-}
+    ]
+    }
