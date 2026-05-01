@@ -48,6 +48,7 @@ class SpyFileSystem {
 class SpyTaskRepository {
   async getById() { return null; }
   async getAll() { return READY_TASKS; }
+  async getActive() { return READY_TASKS; }
   async save() {}
   async findReady() { return READY_TASKS; }
   async getNextId() { return 'TASK-099'; }

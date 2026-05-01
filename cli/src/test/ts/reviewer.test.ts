@@ -28,6 +28,15 @@ test('Reviewer - validateCommitMessage', () => {
 
   const ideaPrefix = reviewer.validateCommitMessage('idea: new concept');
   assert.strictEqual(ideaPrefix.valid, true);
+
+  const thinkTag = reviewer.validateCommitMessage('[THINK] session log');
+  assert.strictEqual(thinkTag.valid, true);
+
+  const kaizenTag = reviewer.validateCommitMessage('[KAIZEN] improve review logic');
+  assert.strictEqual(kaizenTag.valid, true);
+
+  const selfPromotionTag = reviewer.validateCommitMessage('[SELF-PROMOTION] IDEA-001 to TASK-001');
+  assert.strictEqual(selfPromotionTag.valid, true);
 });
 
 test('Reviewer - reviewTask (AC completion)', () => {

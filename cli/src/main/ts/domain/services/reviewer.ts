@@ -78,11 +78,15 @@ export class Reviewer {
   public validateCommitMessage(message: string): ReviewResult {
     const violations: string[] = [];
     const hasPrefix = Reviewer.COMMIT_PREFIXES.some(prefix => message.startsWith(prefix));
-    if (!hasPrefix) {
-      violations.push(`Commit message must start with one of: ${Reviewer.COMMIT_PREFIXES.join(', ')}`);
+    
+    // Rule: Allow governance tags as prefixes
+    const isGovernance = message.startsWith('[THINK]') || message.startsWith('[KAIZEN]') || message.startsWith('[SELF-PROMOTION]');
+
+    if (!hasPrefix && !isGovernance) {
+      violations.push(`Commit message must start with one of: ${Reviewer.COMMIT_PREFIXES.join(', ')} or a governance tag ([THINK], [KAIZEN], [SELF-PROMOTION])`);
     }
 
-    if (!message.startsWith('idea:') && !message.startsWith('task:') && !/\[TASK-\d{3}\]/.test(message)) {
+    if (!message.startsWith('idea:') && !message.startsWith('task:') && !/\[TASK-\d{3}\]/.test(message) && !isGovernance) {
       violations.push('Commit message must reference a TASK-ID (e.g., [TASK-001])');
     }
 
