@@ -11,6 +11,7 @@
 4. Set status to `IN_PROGRESS`, add lock in Meta line, and commit immediately.
 5. Implement against Acceptance Criteria ONLY.
 6. On completion:
+   - **Hansei Check:** Before setting status, check if any trigger applies: (a) actual size differed from estimate, (b) a blocker was encountered, (c) task is `M` or larger. If triggered, append a `## Hansei` section (1–3 sentences) to the task file answering: *"One thing done poorly or one way this could have been cleaner."*
    - **Handover:** The agent that implements a task CANNOT archive it. It must yield to an Auditor.
    - **Review Request:** Append a `REVIEW_REQUEST` entry to `docs/INBOX.md` with Task ID, AC list, and changed files.
    - Status to `REVIEW`, release lock, and stop.

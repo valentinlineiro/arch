@@ -22,6 +22,10 @@ ARCH v0.6 simplifies the Meta line by removing the `Value` field, prioritizing P
 
 ### Definition of Done
 - [ ] DoD 1
+
+## Hansei
+One sentence: one thing done poorly or one way this could have been cleaner.
+(optional — required when size delta, blocker encountered, or task is M+)
 ```
 
 ---
@@ -65,6 +69,13 @@ The meta line is the source of truth for task state and routing. It MUST be a si
 ### 7. Definition of Done (DoD)
 - Project-level quality standards (e.g., "PR approved", "`arch review` passes").
 - Optional for `XS` tasks if global guidelines cover them.
+
+### 8. Hansei (optional)
+- A brief retrospective written by the implementing agent before marking `REVIEW`.
+- **Required when** any of the following apply: (a) actual size differed from estimate, (b) a blocker was encountered during execution, (c) task is `M` or larger.
+- **Format:** `## Hansei` section with 1–3 sentences maximum.
+- **Prompt:** *"One thing done poorly or one way this could have been cleaner."*
+- **Purpose:** raw input for KAIZEN-LOG and Mura detection.
 
 ---
 
