@@ -3,12 +3,12 @@
 <!-- Generated on: 2026-05-04 -->
 
 ## Status Summary
-- **Active Tasks:** 3
-- **In Review:** 1
+- **Active Tasks:** 2
+- **In Review:** 2
 - **Backlog (Ready):** 15
 
 ## Urgent / Actions Required
-- [ ] [TASK-187] [BUG] INBOX.md coordination surface shows stale active tasks (P1) - Active in Focus
+- [ ] [TASK-187] [BUG] INBOX.md coordination surface shows stale active tasks (P1) - In Review
 
 ## Refinement Queue
 _No pending ideas._
@@ -17,7 +17,17 @@ _No pending ideas._
 _No active sprint._
 
 ## Recent Activity
-- **Last Commit:** fix: [TASK-187] register bug — stale INBOX.md coordination surface
+- **Last Commit:** fix: [TASK-187] fix stale INBOX.md coordination surface
+
+## [2026-05-04 00:00] REVIEW_REQUEST | TASK-187
+**Task:** [BUG] INBOX.md coordination surface shows stale active tasks
+**ACs:**
+- [x] INBOX.md "Urgent / Actions Required" no longer references TASK-172 or TASK-173
+- [x] INBOX.md Status Summary counts match actual task state
+- [x] `arch review` passes
+**Changed files:**
+- docs/INBOX.md
+- docs/tasks/TASK-187.md
 
 ## [2026-05-04 00:00] REVIEW_REQUEST | TASK-174
 **Task:** Fix loop mode performance - eliminate subprocess cold starts
