@@ -1,4 +1,4 @@
-## TASK-174: Fix loop mode performance — eliminate subprocess cold starts
+## TASK-174: Fix loop mode performance - eliminate subprocess cold starts
 **Meta:** P1 | M | READY | Focus:yes | 2-code-generation | claude-code | cli/src/main/ts/application/use-cases/loop-engine.ts, cli/src/main/ts/application/use-cases/govern-system.ts, cli/src/main/ts/application/use-cases/review-system.ts, cli/src/main/ts/application/use-cases/mark-task-done.ts
 **Depends:** none
 
