@@ -24,6 +24,7 @@ import { SandboxCommand } from './application/commands/sandbox-command.js';
 import { SandboxService } from './domain/services/sandbox.js';
 import { HumanCoordinationService } from './domain/services/human-coordination-service.js';
 import { LintCommand } from './application/commands/lint-command.js';
+import { MoveCommand } from './application/commands/move-command.js';
 
 async function main() {
   const fileSystem = new NodeFileSystem();
@@ -93,8 +94,11 @@ async function main() {
     case 'lint':
       await new LintCommand(taskRepository, fileSystem).execute(args);
       break;
+    case 'mv':
+      await new MoveCommand(taskRepository, gitRepository, fileSystem).execute(args);
+      break;
     default:
-      console.log('Usage: arch [status|validate|review|task|inbox|next|version|govern|rank|batch|drain|conduct|promote|loop|sandbox|lint]');
+      console.log('Usage: arch [status|validate|review|task|inbox|next|version|govern|rank|batch|drain|conduct|promote|loop|sandbox|lint|mv]');
       process.exit(1);
   }
 }
