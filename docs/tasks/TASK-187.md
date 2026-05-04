@@ -1,5 +1,5 @@
 ## TASK-187: [BUG] INBOX.md coordination surface shows stale active tasks
-**Meta:** P1 | XS | IN_PROGRESS | Focus:yes | 6-writing | local | docs/INBOX.md, docs/tasks/TASK-176.md
+**Meta:** P1 | XS | IN_PROGRESS | Focus:yes | 6-writing | local | docs/INBOX.md
 **Depends:** none
 
 ### Context
@@ -10,7 +10,6 @@ Additionally, TASK-176 was implemented in this session but its task file was nev
 ### Acceptance Criteria
 - [ ] INBOX.md "Urgent / Actions Required" no longer references TASK-172 or TASK-173
 - [ ] INBOX.md Status Summary counts match actual task state
-- [ ] TASK-176.md status updated to REVIEW with REVIEW_REQUEST in INBOX.md
 - [ ] `arch review` passes
 
 ### Definition of Done
