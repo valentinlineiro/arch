@@ -24,8 +24,9 @@ None
 S
 
 ## Gaps
-<!-- THINK fills this section when invoked — do not edit manually -->
+- `arch sync` and `arch move` introduce new names that break established vocabulary and would require users and documentation to relearn the surface.
+- `arch loop` already exists and covers the high-autonomy intent this IDEA proposes.
+- Root problem superseded by `IDEA-consolidate-cli-commands`, which merges redundant commands into existing names rather than renaming the whole surface.
 
 ## Decision
-<!-- Human writes here after THINK evaluation -->
-<!-- PROMOTE → TASK-XXX | REJECT: reason -->
+REJECT: superseded by IDEA-consolidate-cli-commands
