@@ -52,11 +52,21 @@ export class SandboxService {
     // Sentinel check: Allowlist validation for non-privileged execution
     if (!privileged) {
       if (!SandboxService.ALLOWLIST.includes(command)) {
-        throw new Error(`Command '${command}' is not in the sandbox allowlist.`);
+        throw new Error(`Command '${command}' is not in the sandbox allowlist. Allowed: ${SandboxService.ALLOWLIST.join(', ')}`);
       }
       
       if (command === 'git' && args.length > 0 && args[0] !== 'status') {
          throw new Error(`Subcommand 'git ${args[0]}' is not allowed in unprivileged mode.`);
+      }
+
+      // Filesystem Guard: Prevent access to absolute paths outside /tmp and traversal
+      for (const arg of args) {
+        if (path.isAbsolute(arg) && !arg.startsWith(os.tmpdir())) {
+          throw new Error(`Access to absolute path '${arg}' is denied in sandbox mode. Only '${os.tmpdir()}' is allowed.`);
+        }
+        if (arg.split(path.sep).includes('..')) {
+          throw new Error(`Path traversal in '${arg}' is denied in sandbox mode.`);
+        }
       }
     }
 

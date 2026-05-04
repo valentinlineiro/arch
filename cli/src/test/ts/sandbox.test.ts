@@ -61,6 +61,18 @@ test('SandboxService - executeCommand allowlist', async (t) => {
     // result might fail with status 128 if not in a repo, but the point is it shouldn't throw an allowlist error
     assert.ok(result.duration >= 0);
   });
+
+  await t.test('should deny absolute paths outside /tmp', () => {
+    assert.throws(() => {
+      sandbox.executeCommand('grep', ['error', '/etc/passwd']);
+    }, /Access to absolute path '\/etc\/passwd' is denied/);
+  });
+
+  await t.test('should deny path traversal', () => {
+    assert.throws(() => {
+      sandbox.executeCommand('node', ['../../package.json']);
+    }, /Path traversal in '..\/..\/package.json' is denied/);
+  });
 });
 
 test('SandboxService - benchmarking', async (t) => {
