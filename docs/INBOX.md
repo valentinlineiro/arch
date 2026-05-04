@@ -5,10 +5,10 @@
 ## Status Summary
 - **Active Tasks:** 2
 - **In Review:** 1
-- **Backlog (Ready):** 10
+- **Backlog (Ready):** 9
 
 ## Urgent / Actions Required
-- [ ] [TASK-166] Implement Sandbox Wrapper and Timeout (P0) - Active in Focus
+- [ ] [TASK-167] Implement 'arch lint' and pre-commit hook for Meta format (P1) - Active in Focus
 - [ ] Drift: MergeCommits - Merge commit detected: 50ccaae52b9df819809594c3f9aa91ebf44617a0
 
 ## Refinement Queue
@@ -18,4 +18,4 @@ _No pending ideas._
 _No active sprint._
 
 ## Recent Activity
-- **Last Commit:** chore: [KAIZEN] [THINK] promote dynamic inbox pivot as TASK-172 and archive TASK-170
+- **Last Commit:** feat: [TASK-167] implement arch lint and pre-commit hook
