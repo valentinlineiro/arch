@@ -22,3 +22,12 @@ _No active sprint._
 
 ## Recent Activity
 - **Last Commit:** feat: [TASK-165] implement Command Allowlist and FS Guard per ADR-005
+
+## [2026-05-04 10:45] REVIEW_REQUEST | TASK-165
+- **Task:** Implement Command Allowlist and FS Guard for Sandbox
+- **ACs:** 
+  - [x] Allowlist: test, grep, jq, node, git status
+  - [x] FS Guard: No absolute paths outside /tmp, no path traversal
+- **Changed Files:**
+  - `cli/src/main/ts/domain/services/sandbox.ts`
+  - `cli/src/test/ts/sandbox.test.ts`

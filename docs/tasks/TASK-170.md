@@ -1,6 +1,6 @@
 ## TASK-170: Improve UX when loop needs human feedback
 **Meta:** P2 | S | READY | Focus:no | 2-code-generation | local | cli/, docs/agents/
-**Depends:** - `IDEA-simplify-cli-ux.md` (related)
+**Depends:** none
 
 ### Acceptance Criteria
 - [ ] Improve UX when loop needs human feedback
