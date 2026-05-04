@@ -4,8 +4,8 @@
 
 ## Status Summary
 - **Active Tasks:** 2
-- **In Review:** 0
-- **Backlog (Ready):** 12
+- **In Review:** 1
+- **Backlog (Ready):** 11
 
 ## Urgent / Actions Required
 - [ ] [TASK-165] Implement Command Allowlist and FS Guard for Sandbox (P0) - Active in Focus
@@ -21,4 +21,4 @@ _No pending ideas._
 _No active sprint._
 
 ## Recent Activity
-- **Last Commit:** feat: [TASK-171] [KAIZEN] [THINK] add canonical Meta linter task
+- **Last Commit:** feat: [TASK-165] implement Command Allowlist and FS Guard per ADR-005
