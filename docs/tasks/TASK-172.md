@@ -1,5 +1,5 @@
 ## TASK-172: Pivot to Dynamic Interactive Inbox
-**Meta:** P1 | M | READY | Focus:no | 7-operations | local | cli/, docs/INBOX.md
+**Meta:** P1 | M | READY | Focus:yes | 7-operations | local | cli/, docs/INBOX.md
 **Depends:** none
 
 ### Acceptance Criteria
