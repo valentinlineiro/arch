@@ -7,4 +7,4 @@
 - [x] Handle `privileged:yes` tag for human approval in INBOX.
 
 ### Definition of Done
-- [ ] `arch review` passes.
+- [x] `arch review` passes.
