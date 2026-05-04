@@ -18,7 +18,7 @@
 
 ## Phase 3: Continuous Kaizen (Real-time Reviewer)
 0. **Print:** `[THINK] Phase 3 — Continuous Kaizen` to stdout.
-1. **Kaizen Learning:** Run `arch review --json`. If failures exist (and aren't in `docs/KAIZEN-LOG.md` exceptions), analyze violations/drift. Record patterns and propose hardening tasks (`fix:` or `feat:`) to prevent recurrence.
+1. **Kaizen Learning:** Run `arch review --json`. If failures exist (and aren't in `docs/KAIZEN-LOG.md` exceptions), analyze violations/drift against `docs/PRINCIPLES.md` (primary context) and `docs/KAIZEN-LOG.md` (audit trail). If a violation matches an existing principle, reference it. If it represents a new pattern, propose a new principle entry and a hardening task (`fix:` or `feat:`) to prevent recurrence.
 2. **Immediate Improvements:** Identify context gaps or guideline changes based on patterns.
 3. **Sprint Metrics:** On sprint close, generate `docs/METRICS.md` summary.
 
