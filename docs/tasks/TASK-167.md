@@ -1,5 +1,5 @@
 ## TASK-167: Implement 'arch lint' and pre-commit hook for Meta format
-**Meta:** P1 | S | READY | Focus:yes | 7-operations | local | cli/src/main/ts/application/commands/lint-command.ts, scripts/install-hooks.sh, .git/hooks/pre-commit
+**Meta:** P1 | S | READY | Focus:yes | 7-operations | local | scripts/install-hooks.sh
 **Depends:** none
 
 ### Acceptance Criteria

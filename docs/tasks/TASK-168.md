@@ -1,5 +1,5 @@
 ## TASK-168: Implement 'arch mv' to prevent DeadContext drift
-**Meta:** P2 | S | READY | Focus:no | 7-operations | local | cli/src/main/ts/application/commands/mv-command.ts, cli/src/main/ts/domain/services/task-mover.ts
+**Meta:** P2 | S | READY | Focus:no | 7-operations | local | docs/tasks/
 **Depends:** none
 
 ### Acceptance Criteria
