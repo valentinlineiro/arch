@@ -19,4 +19,4 @@ _No pending ideas._
 _No active sprint._
 
 ## Recent Activity
-- **Last Commit:** feat: [TASK-152] add EXEC timeout and .arch-local.json support per ADR-003
+- **Last Commit:** chore: [KAIZEN] [THINK] resolve DeadContext drift in backlog
