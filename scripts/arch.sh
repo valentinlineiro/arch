@@ -6,6 +6,7 @@ set -e
 GREEN='\033[0;32m'; YELLOW='\033[1;33m'; RED='\033[0;31m'; GRAY='\033[0;90m'; NC='\033[0m'
 
 # ── Configuration ──────────────────────────────────────────────────
+export LC_ALL=C
 # Path to the CLI entry point
 BIN="node $(dirname "$0")/../cli/dist/index.js"
 
@@ -26,6 +27,10 @@ invoke_agent() {
       const config = JSON.parse(fs.readFileSync(\"arch.config.json\", \"utf8\"));
       const taskClass = process.argv[3];
       const taskSize = process.argv[4];
+
+      if (process.env.ARCH_VERBOSE === \"true\") {
+        console.log(\"  \" + \"\\x1b[90m\" + \"[TRACE] Routing: class=\" + taskClass + \", size=\" + taskSize + \"\\x1b[0m\");
+      }
 
       let preferredCliName = null;
       if (taskClass && config.routing && config.routing[taskClass]) {
@@ -69,6 +74,11 @@ invoke_agent() {
           if (process.argv[2]) {
             cmd += \" \" + process.argv[2];
           }
+
+          if (process.env.ARCH_VERBOSE === \"true\") {
+            console.log(\"  \" + \"\\x1b[90m\" + \"[TRACE] \" + cmd + \"\\x1b[0m\");
+          }
+
           const result = spawnSync(\"sh\", [\"-c\", cmd], { stdio: \"inherit\" });
           process.exit(result.status ?? 0);
         } catch (e) {}
@@ -165,7 +175,8 @@ case "$1" in
       TASK_ID=$(basename "$FOCUSED_TASK_FILE" .md)
       META=$(grep "^\*\*Meta:\*\*" "$FOCUSED_TASK_FILE")
       TASK_SIZE=$(echo "$META" | cut -d'|' -f2 | tr -d ' ')
-      TASK_CLASS=$(echo "$META" | cut -d'|' -f6 | tr -d ' ')
+      # Meta v0.6: P | Size | Status | Focus | Class | CLI | Context
+      TASK_CLASS=$(echo "$META" | cut -d'|' -f5 | tr -d ' ')
     fi
 
     # Check if batching is enabled and task matches criteria

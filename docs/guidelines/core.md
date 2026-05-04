@@ -6,18 +6,10 @@
 - **Evidence Required:** Every proposal in REFINEMENT.md must include a `Source:` field citing the signal or feedback.
 
 ### 2. Git & Commits
-- **Conventional Commits:** The following table is the authoritative reference:
-  | Prefix | When to use |
-  |---|---|
-  | `feat:` | New feature, task, or agent capability |
-  | `fix:` | Bug fix in protocol, CLI, or config |
-  | `chore:` | Status changes, maintenance, or lock updates |
-  | `docs:` | Changes to README, ADRs, or guides |
-  | `refactor:` | Restructuring without behavior change |
-  | `idea:` | Committing a draft IDEA to refinement/ |
-- **Idea Filenames:** Idea files in `docs/refinement/` MUST use the `IDEA-[slug].md` format (all uppercase). Lowercase `idea-*.md` filenames are forbidden and will be flagged as drift.
-- **Safety:** Use `git fetch` to sync. History-changing ops (`pull`, `merge`, `rebase`) are FORBIDDEN without explicit human approval.
-- **Atomicity:** Every PR/commit must reference a TASK-ID. Use `git commit --amend` for follow-up fixes on unpushed commits.
+- **Conventional Commits:** Use authoritative prefixes (feat, fix, chore, docs, refactor, idea). Every commit must reference a TASK-ID.
+- **No-Merge Policy:** ARCH enforces a clean, linear git history. Merge commits (2+ parents) are strictly FORBIDDEN and will fail `arch review`.
+- **Sync Strategy:** Use `git fetch`. History-changing ops (`pull`, `merge`, `rebase`) are FORBIDDEN without explicit human approval.
+- **Atomicity:** One task per commit where possible. Use `git commit --amend` for follow-up fixes on unpushed commits.
 
 ### 3. Authority & Governance
 - **No Self-Merging:** Agents cannot merge their own PRs (Exception: L3 Autonomy in `autonomy.md`).

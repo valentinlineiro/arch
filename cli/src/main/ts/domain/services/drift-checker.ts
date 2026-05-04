@@ -32,7 +32,19 @@ export class DriftChecker {
       this.checkStaleDepends(),
       this.checkPriorityDrift(),
       this.checkStaleTasks(),
+      this.checkMergeCommits(),
     ]);
+  }
+
+  private async checkMergeCommits(): Promise<DriftResult> {
+    const merges = await this.gitRepository.getMergeCommits(20);
+    const details: string[] = merges.map(hash => `Merge commit detected: ${hash}`);
+
+    return {
+      check: 'MergeCommits',
+      status: details.length === 0 ? 'OK' : 'WARN',
+      details,
+    };
   }
 
   private async checkStaleTasks(): Promise<DriftResult> {
