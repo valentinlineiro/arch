@@ -31,12 +31,21 @@ ARCH exposes 18 user-facing commands. 8 of them are redundant subsets, loose ali
 - `promote` → `task promote`
 - `batch` → internalize routing into `exec`/`loop`; keep `batch` only as plumbing if needed for drain
 
+### Dependencies
+- **Blocked by TASK-175** (`IDEA-migrate-arch-sh-routing-to-typescript`): `batch`/`drain` internalization and removal of the post-`task done` govern side effect require routing to live in TypeScript first.
+
 ### Gaps
-- `next` and `rank` are read-only operations used by humans during planning. As `task next` / `task rank` they are still accessible but the discoverability changes — needs a clear `task --help`.
-- `validate` is used in onboarding/CI contexts where a lightweight check is preferred. If absorbed into `review`, callers need to update.
-- `batch`/`drain` internalization: the Batch API flow (queue → drain → result) currently surfaces as explicit commands. Internalizing it means the user loses visibility into batch state. May need `loop --batch-status` or similar.
-- `sandbox` is called by AI agents via `arch exec`. Removing it from the surface would require exec to call the sandbox service directly — possible but needs careful scoping.
+- `next` and `rank` are read-only operations used by humans during planning. As `task next` / `task rank` they remain accessible but discoverability changes — needs a clear `task --help`.
+- `validate` is used in onboarding/CI contexts where a lightweight check is preferred. If absorbed into `review`, callers need to update. Consider `review --fast` as a migration path.
+- `batch`/`drain` internalization: the Batch API has a queue → drain → poll cycle. Internalizing it silently loses operator visibility into batch state. Either keep `batch status` as a read-only subcommand, or add `loop --batch-status`.
+- `sandbox` is called by AI agents via `arch exec`. Removing it from the public surface requires exec to invoke the sandbox service directly — possible but needs careful scoping.
 - `arch.sh` and `AGENTS.md` reference the removed commands and must be updated atomically.
 
+### Decomposition (required before READY)
+This is L and must be split before promotion:
+1. Merge read-only subcommands into `task` (`next`, `rank`, `promote`) + drop `status`, `archive` alias
+2. Absorb `validate`/`lint` into `review` + clean arch.sh aliases
+Each sub-task is M and can ship independently.
+
 ### Estimate
-L — touches CLI dispatch, arch.sh, AGENTS.md, README, CHANGELOG, and any CI/hook references. Needs careful migration path for external callers. Should be decomposed into at least two tasks: (1) merge read-only subcommands into `task`, (2) absorb validate/lint into review + remove shell aliases.
+L (must decompose first)
