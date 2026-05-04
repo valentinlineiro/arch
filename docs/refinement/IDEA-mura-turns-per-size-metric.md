@@ -1,7 +1,7 @@
 # IDEA: Add turns-per-size metric to METRICS.md (Mura / unevenness detection)
 **Created:** 2026-04-30
 **Source:** Human proposal (Mura — unevenness waste) — METRICS.md tracks tasks and cycle time but not execution depth per size tier
-**Status:** DRAFT
+**Status:** PROMOTED → TASK-182
 **Meta:** P2 | S | local | docs/METRICS.md, docs/agents/THINK.md
 
 ## Problem

@@ -1,6 +1,6 @@
 ## IDEA: Consolidate CLI commands — 18 → 10
 
-**Status:** DRAFT
+**Status:** PROMOTED → TASK-185 + TASK-186
 **Decision:** —
 
 ### Problem

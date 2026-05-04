@@ -1,7 +1,7 @@
 # IDEA: allow-openrouter-groq-fallbacks
 **Created:** 2026-04-29
 **Source:** human feedback
-**Status:** DRAFT
+**Status:** PROMOTED → TASK-183
 **Meta:** P3 | S | gemini | cli/, docs/agents/
 <!-- cli: local | claude | gemini | human -->
 

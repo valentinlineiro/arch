@@ -1,7 +1,7 @@
 # IDEA: Add context budget (CENSUS) check to arch review
 **Created:** 2026-04-30
 **Source:** Human proposal (CENSUS protocol) — ADR-002 names context-as-budget but enforces nothing
-**Status:** DRAFT
+**Status:** PROMOTED → TASK-184
 **Meta:** P2 | M | local | cli/src/, arch.config.json, docs/guidelines/documentation.md
 
 ## Problem

@@ -1,7 +1,7 @@
 # IDEA: arch review dependency graph validation
 **Created:** 2026-04-30
 **Source:** THINK Phase 4 (Drift Prevention)
-**Status:** DRAFT
+**Status:** PROMOTED → TASK-181
 **Meta:** P3 | S | 7-operations | scripts/arch.sh, cli/
 
 ## Problem
