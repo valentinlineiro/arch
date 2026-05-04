@@ -1,5 +1,5 @@
 ## TASK-178: Add Hansei section to TASK-FORMAT and DO.md close step
-**Meta:** P2 | S | READY | Focus:no | 6-writing | local | docs/TASK-FORMAT.md, docs/agents/DO.md
+**Meta:** P2 | S | IN_PROGRESS | Focus:yes | 6-writing | local | docs/TASK-FORMAT.md, docs/agents/DO.md
 **Depends:** none
 
 ### Context
