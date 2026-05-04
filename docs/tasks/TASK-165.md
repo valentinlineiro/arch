@@ -1,5 +1,5 @@
 ## TASK-165: Implement Command Allowlist and FS Guard for Sandbox
-**Meta:** P0 | S | READY | Focus:no | 7-operations | local | cli/src/main/ts/domain/services/sandbox.ts
+**Meta:** P0 | S | READY | Focus:yes | 7-operations | local | cli/src/main/ts/domain/services/sandbox.ts
 **Depends:** TASK-164
 
 ### Acceptance Criteria
