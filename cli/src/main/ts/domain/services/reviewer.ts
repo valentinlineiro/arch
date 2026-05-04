@@ -13,8 +13,11 @@ export class Reviewer {
     const violations: string[] = [];
 
     // Rule: Canonical format (regex v0.6)
-    if (rawMetaLine && !TaskValidator.isValidMeta(rawMetaLine)) {
-      violations.push(`Task ${task.id} does not follow canonical v0.6 format in Meta line.`);
+    if (rawMetaLine) {
+      const metaErrors = TaskValidator.validateMeta(rawMetaLine);
+      if (metaErrors.length > 0) {
+        violations.push(`Task ${task.id} has invalid Meta line format: ${metaErrors.join('; ')}`);
+      }
     }
 
     if (task.rawDependsLine && !TaskValidator.isValidDepends(task.rawDependsLine)) {
