@@ -30,6 +30,7 @@ export class DriftChecker {
       this.checkDeadPaths(),
       this.checkDeadContext(),
       this.checkStaleDepends(),
+      this.checkDependsGraph(),
       this.checkPriorityDrift(),
       this.checkStaleTasks(),
       this.checkMergeCommits(),
@@ -196,6 +197,66 @@ export class DriftChecker {
 
     return {
       check: 'StaleDepends',
+      status: details.length === 0 ? 'OK' : 'WARN',
+      details,
+    };
+  }
+
+  private async checkDependsGraph(): Promise<DriftResult> {
+    const details: string[] = [];
+    const activeFiles = await this.getMarkdownFiles('docs/tasks');
+    const archiveFiles = await this.getMarkdownFiles('docs/archive');
+    const allTaskIds = new Set([
+      ...activeFiles.map(f => f.replace('.md', '')),
+      ...archiveFiles.map(f => f.replace('.md', '')),
+    ]);
+
+    const graph = new Map<string, string[]>();
+    for (const file of activeFiles) {
+      const id = file.replace('.md', '');
+      const content = await this.fileSystem.readFile(`${this.rootPath}/docs/tasks/${file}`);
+      const dependsMatch = content.match(/^\*\*Depends:\*\* (.*)/m);
+      const deps: string[] = [];
+      if (dependsMatch) {
+        for (const dep of dependsMatch[1].split(',').map(s => s.trim())) {
+          if (!dep || dep === 'none') continue;
+          if (!allTaskIds.has(dep)) {
+            details.push(`${id}: unknown dependency '${dep}'`);
+          } else {
+            deps.push(dep);
+          }
+        }
+      }
+      graph.set(id, deps);
+    }
+
+    // DFS cycle detection (active nodes only)
+    const visited = new Set<string>();
+    const inStack = new Set<string>();
+
+    const dfs = (node: string, path: string[]): boolean => {
+      visited.add(node);
+      inStack.add(node);
+      for (const dep of graph.get(node) ?? []) {
+        if (!graph.has(dep)) continue; // archived, no cycle possible from here
+        if (!visited.has(dep)) {
+          if (dfs(dep, [...path, dep])) return true;
+        } else if (inStack.has(dep)) {
+          const cycle = [...path, dep].join(' → ');
+          details.push(`Circular dependency detected: ${cycle}`);
+          return true;
+        }
+      }
+      inStack.delete(node);
+      return false;
+    };
+
+    for (const id of graph.keys()) {
+      if (!visited.has(id)) dfs(id, [id]);
+    }
+
+    return {
+      check: 'DependsGraph',
       status: details.length === 0 ? 'OK' : 'WARN',
       details,
     };

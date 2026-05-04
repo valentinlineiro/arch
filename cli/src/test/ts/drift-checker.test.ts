@@ -78,3 +78,71 @@ test('DriftChecker - reports duplicated task ids across active and archive', asy
   assert.strictEqual(drift?.status, 'WARN');
   assert.deepStrictEqual(drift?.details, ['Task exists in both active and archive: TASK-038']);
 });
+
+function makeBaseFs() {
+  const fs = new MockFileSystem();
+  fs.files['/repo/README.md'] = '';
+  fs.files['/repo/arch.config.json'] = JSON.stringify({ version: '0.2.0' });
+  fs.files['/repo/docs/AGENTS.md'] = '';
+  fs.directories['/repo/docs/archive'] = [];
+  return fs;
+}
+
+test('DependsGraph - OK when no dependencies exist', async () => {
+  const fs = makeBaseFs();
+  fs.directories['/repo/docs/tasks'] = ['TASK-001.md', 'TASK-002.md'];
+  fs.files['/repo/docs/tasks/TASK-001.md'] = '## TASK-001: A\n**Meta:** P1 | S | READY | Focus:no | 6-writing | local | none\n**Depends:** none';
+  fs.files['/repo/docs/tasks/TASK-002.md'] = '## TASK-002: B\n**Meta:** P1 | S | READY | Focus:no | 6-writing | local | none\n**Depends:** none';
+
+  const checker = new DriftChecker(fs, new MockGitRepository(), '/repo', '0.2.0');
+  const result = await checker.check();
+  const check = result.find(r => r.check === 'DependsGraph');
+
+  assert.ok(check);
+  assert.strictEqual(check?.status, 'OK');
+});
+
+test('DependsGraph - WARN on unknown dependency reference', async () => {
+  const fs = makeBaseFs();
+  fs.directories['/repo/docs/tasks'] = ['TASK-001.md'];
+  fs.files['/repo/docs/tasks/TASK-001.md'] = '## TASK-001: A\n**Meta:** P1 | S | READY | Focus:no | 6-writing | local | none\n**Depends:** TASK-999';
+
+  const checker = new DriftChecker(fs, new MockGitRepository(), '/repo', '0.2.0');
+  const result = await checker.check();
+  const check = result.find(r => r.check === 'DependsGraph');
+
+  assert.ok(check);
+  assert.strictEqual(check?.status, 'WARN');
+  assert.ok(check?.details.some(d => d.includes("TASK-001") && d.includes("TASK-999")));
+});
+
+test('DependsGraph - WARN on circular dependency', async () => {
+  const fs = makeBaseFs();
+  fs.directories['/repo/docs/tasks'] = ['TASK-001.md', 'TASK-002.md', 'TASK-003.md'];
+  fs.files['/repo/docs/tasks/TASK-001.md'] = '## TASK-001: A\n**Meta:** P1 | S | READY | Focus:no | 6-writing | local | none\n**Depends:** TASK-003';
+  fs.files['/repo/docs/tasks/TASK-002.md'] = '## TASK-002: B\n**Meta:** P1 | S | READY | Focus:no | 6-writing | local | none\n**Depends:** TASK-001';
+  fs.files['/repo/docs/tasks/TASK-003.md'] = '## TASK-003: C\n**Meta:** P1 | S | READY | Focus:no | 6-writing | local | none\n**Depends:** TASK-002';
+
+  const checker = new DriftChecker(fs, new MockGitRepository(), '/repo', '0.2.0');
+  const result = await checker.check();
+  const check = result.find(r => r.check === 'DependsGraph');
+
+  assert.ok(check);
+  assert.strictEqual(check?.status, 'WARN');
+  assert.ok(check?.details.some(d => d.includes('Circular dependency')));
+});
+
+test('DependsGraph - OK when dependency is in archive', async () => {
+  const fs = makeBaseFs();
+  fs.directories['/repo/docs/tasks'] = ['TASK-002.md'];
+  fs.directories['/repo/docs/archive'] = ['TASK-001.md'];
+  fs.files['/repo/docs/tasks/TASK-002.md'] = '## TASK-002: B\n**Meta:** P1 | S | READY | Focus:no | 6-writing | local | none\n**Depends:** TASK-001';
+  fs.files['/repo/docs/archive/TASK-001.md'] = '## TASK-001: A\n**Meta:** P1 | S | DONE | Focus:no | 6-writing | local | none\n**Depends:** none';
+
+  const checker = new DriftChecker(fs, new MockGitRepository(), '/repo', '0.2.0');
+  const result = await checker.check();
+  const check = result.find(r => r.check === 'DependsGraph');
+
+  assert.ok(check);
+  assert.strictEqual(check?.status, 'OK');
+});
