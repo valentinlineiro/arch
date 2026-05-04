@@ -86,7 +86,7 @@ async function main() {
       await new PromoteCommand(taskRepository, gitRepository, fileSystem).execute(args);
       break;
     case 'loop':
-      await new LoopCommand(taskRepository, gitRepository, fileSystem).execute(args);
+      await new LoopCommand(taskRepository, gitRepository, fileSystem, reviewer, driftChecker).execute(args);
       break;
     case 'sandbox':
       await new SandboxCommand(sandboxService, taskRepository, fileSystem).execute(args);

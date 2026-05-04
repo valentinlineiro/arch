@@ -1,8 +1,13 @@
 import { TaskRepository } from '../../domain/repositories/task-repository.js';
 import { GitRepository } from '../../domain/repositories/git-repository.js';
 import { FileSystem } from '../../domain/repositories/file-system.js';
+import { Reviewer } from '../../domain/services/reviewer.js';
+import { DriftChecker } from '../../domain/services/drift-checker.js';
 import { TaskStatus } from '../../domain/models/task.js';
 import { SelectNextTask } from './select-next-task.js';
+import { GovernSystem } from './govern-system.js';
+import { ReviewSystem } from './review-system.js';
+import { MarkTaskDone } from './mark-task-done.js';
 import { SubprocessRunner } from '../../infrastructure/cli/subprocess-runner.js';
 import { ConfigLoader } from '../../domain/services/config-loader.js';
 
@@ -18,12 +23,21 @@ const ARCH_SH = './scripts/arch.sh';
 
 export class LoopEngine {
   private reviewFailures = new Map<string, number>();
+  private governSystem: GovernSystem;
+  private reviewSystem: ReviewSystem;
+  private markTaskDone: MarkTaskDone;
 
   constructor(
     private taskRepository: TaskRepository,
     private gitRepository: GitRepository,
-    private fileSystem: FileSystem
-  ) {}
+    private fileSystem: FileSystem,
+    private reviewer: Reviewer,
+    private driftChecker?: DriftChecker
+  ) {
+    this.governSystem = new GovernSystem(taskRepository, gitRepository, fileSystem);
+    this.reviewSystem = new ReviewSystem(taskRepository, gitRepository, reviewer, fileSystem, driftChecker);
+    this.markTaskDone = new MarkTaskDone(taskRepository, reviewer);
+  }
 
   private log(message: string) {
     const ts = new Date().toISOString().slice(11, 19);
@@ -47,11 +61,7 @@ export class LoopEngine {
       // 1. GOVERN — select next task, handle replenishment (skip AI conduct when in loop)
       this.log('[LOOP] Phase: GOVERN');
       if (!options.dryRun) {
-        const code = await SubprocessRunner.run(ARCH_SH, ['govern', '--no-conduct'], { verbose: options.verbose });
-        if (code !== 0) {
-          console.error('[LOOP] arch govern failed. Halting.');
-          process.exit(code);
-        }
+        await this.governSystem.execute(true);
       } else {
         this.log('[dry-run] Would run: arch govern --no-conduct');
       }
@@ -92,12 +102,12 @@ export class LoopEngine {
 
       // 3. EXEC — delegate to arch exec (arch.sh invokes the AI CLI with DO.md)
       this.log(`[LOOP] Phase: EXEC (${task.id})`);
-      
-      const { code: execCode, stdout, stderr } = await SubprocessRunner.runWithOutput(ARCH_SH, ['exec'], { 
-        stream: true, // New option to stream in real-time
+
+      const { code: execCode, stdout, stderr } = await SubprocessRunner.runWithOutput(ARCH_SH, ['exec'], {
+        stream: true,
         timeoutMs: EXEC_TIMEOUT_MS
       });
-      
+
       if (execCode !== 0) {
         const reason = execCode === 124 ? `EXEC timeout exceeded (${timeoutMinutes}m)` : `arch exec exited with code ${execCode}`;
         await this.appendInbox(task.id, 'ANDON_HALT', reason);
@@ -116,14 +126,15 @@ export class LoopEngine {
         this.log(`[LOOP] Agent activity: ${summary}`);
       }
 
-      // 4. REVIEW — deterministic check; track consecutive failures per task
+      // 4. REVIEW — in-process check; track consecutive failures per task
       this.log(`[LOOP] Phase: REVIEW (${task.id})`);
-      const reviewCode = await SubprocessRunner.run(ARCH_SH, ['review'], { verbose: options.verbose });
+      const reviewResult = await this.reviewSystem.execute();
 
-      if (reviewCode !== 0) {
+      if (!reviewResult.success) {
         const failures = (this.reviewFailures.get(task.id) ?? 0) + 1;
         this.reviewFailures.set(task.id, failures);
         console.warn(`[LOOP] Review failed for ${task.id} (${failures}/${ANDON_MAX_FAILURES}).`);
+        reviewResult.violations.forEach(v => console.warn(`    - ${v}`));
 
         if (failures >= ANDON_MAX_FAILURES) {
           await this.appendInbox(task.id, 'ANDON_HALT', `arch review failed ${failures} consecutive times. Write APPROVE or REDIRECT in INBOX then run arch loop --resume.`);
@@ -137,11 +148,13 @@ export class LoopEngine {
 
       this.reviewFailures.delete(task.id);
 
-      // 5. ARCHIVE — mark done, move to archive, commit (arch task done runs arch govern after)
+      // 5. ARCHIVE — mark done in-process; govern at the top of the next iteration handles archival
       this.log(`[LOOP] Phase: ARCHIVE (${task.id})`);
-      const archiveCode = await SubprocessRunner.run(ARCH_SH, ['task', 'done', task.id], { verbose: options.verbose });
-      if (archiveCode !== 0) {
-        console.error(`[LOOP] Archive failed for ${task.id}. Halting.`);
+      try {
+        await this.markTaskDone.execute(task.id);
+        this.log(`[LOOP] Marked ${task.id} as DONE.`);
+      } catch (err: any) {
+        console.error(`[LOOP] Archive failed for ${task.id}: ${err.message}. Halting.`);
         process.exit(1);
       }
 
