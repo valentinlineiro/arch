@@ -39,6 +39,5 @@ If we remove `docs/INBOX.md`, we still need to persist human instructions (appro
 ## Estimated size
 M
 
-## Gaps
-- How do we handle "Evidence" that was previously dumped in `INBOX.md`? (e.g., failed test snippets).
-- How do we handle "Andon Cord" halts where the system literally stops and needs a "Redirect" instruction?
+## Decision
+PROMOTE → TASK-172
