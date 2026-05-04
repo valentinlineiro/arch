@@ -12,7 +12,7 @@
 0. **Print:** `[THINK] Phase 2 — Idea Refinement` to stdout.
 1. Scan `docs/refinement/` for `IDEA-*.md` files. Triage: process all IDEAs with a `Decision:` field first; for DRAFT IDEAs, process at most 3 per session.
 2. For each IDEA, apply lifecycle rules:
-   - **DRAFT:** Identify gaps, dependencies, and estimate. Output to terminal only.
+   - **DRAFT:** Identify gaps, dependencies, and estimate. Output to terminal only. Increment `**Sessions:** N` counter in the IDEA file (add field if missing). If `Sessions >= 3`, emit `[STALE-IDEA] IDEA-slug — N sessions without Decision` to stdout. If the IDEA was already flagged `[STALE-IDEA]` in the previous session (Sessions > 3) and still has no Decision, move it to `docs/refinement/archive/` with status `REJECTED: TTL expired`.
    - **DECIDED:** If human Decision is written and IDEA is XS + 6-writing/7-operations, promote autonomously: update status to `PROMOTED -> TASK-XXX`, create task file, and archive IDEA.
    - **REJECTED:** Move to `docs/refinement/archive/`.
 
