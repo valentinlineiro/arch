@@ -33,3 +33,19 @@ _No active sprint._
 - cli/src/main/ts/application/use-cases/loop-engine.ts
 - cli/src/main/ts/application/commands/loop-command.ts
 - cli/src/main/ts/index.ts
+
+## [2026-05-04 00:00] REVIEW_REQUEST | TASK-175
+**Task:** Migrate arch.sh routing logic to TypeScript
+**ACs:**
+- [x] invoke_agent routing moved into ExecCommand using ConfigLoader
+- [x] local routing mode preserved
+- [x] CLI fallback order + which checks covered by 11 unit tests
+- [x] Post-task-done govern removed from arch.sh
+- [x] arch.sh reduced to thin dispatcher
+- [x] CHANGELOG entry added
+**Changed files:**
+- cli/src/main/ts/application/commands/exec-command.ts (new)
+- cli/src/test/ts/exec-command.test.ts (new, 11 tests)
+- cli/src/main/ts/index.ts
+- scripts/arch.sh
+- CHANGELOG.md
