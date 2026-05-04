@@ -19,3 +19,17 @@ _No active sprint._
 
 ## Recent Activity
 - **Last Commit:** chore: [TASK-173] focus task via arch govern
+
+## [2026-05-04 00:00] REVIEW_REQUEST | TASK-174
+**Task:** Fix loop mode performance - eliminate subprocess cold starts
+**ACs:**
+- [x] LoopEngine calls GovernSystem.execute(true) directly
+- [x] LoopEngine calls ReviewSystem directly
+- [x] LoopEngine handles archive/done via MarkTaskDone directly
+- [x] arch exec remains the only subprocess call
+- [x] Double-govern per cycle eliminated
+- [x] --dry-run and --resume still work
+**Changed files:**
+- cli/src/main/ts/application/use-cases/loop-engine.ts
+- cli/src/main/ts/application/commands/loop-command.ts
+- cli/src/main/ts/index.ts
