@@ -29,7 +29,12 @@
    - **Idea Drafts:** If input starts with `idea:`, create `docs/refinement/IDEA-[slug].md` and commit immediately with `idea: add draft [slug]`.
    - **Archive/Move:** Move files between `tasks/` and `archive/`. Update `Focus:yes/no`. Commit once per op.
    - **Marking DONE:** Add `Closed-at` timestamp.
-2. **Sprint Close:**
+2. **Sprint Open:**
+   - **Trigger:** Human declares new sprint with slug.
+   - **Set:** Update `"currentSprint": "<slug>"` in `arch.config.json`.
+   - **Assign:** Add `**Sprint:** <slug>` to the Meta line of designated tasks.
+   - **Commit:** `chore: open sprint/<slug> [THINK]`.
+3. **Sprint Close:**
    - **Trigger:** Human declares sprint complete.
    - **Verify:** Confirm all sprint tasks are `DONE` in `docs/archive/`.
    - **Summary:** Signal THINK mode to generate `docs/METRICS.md` entry.
