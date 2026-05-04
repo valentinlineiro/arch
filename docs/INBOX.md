@@ -19,4 +19,4 @@ _No pending ideas._
 _No active sprint._
 
 ## Recent Activity
-- **Last Commit:** chore: [KAIZEN] [THINK] resolve DeadContext drift in backlog
+- **Last Commit:** idea: improve UX when loop needs human feedback
