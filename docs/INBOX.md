@@ -5,13 +5,10 @@
 ## Status Summary
 - **Active Tasks:** 2
 - **In Review:** 1
-- **Backlog (Ready):** 11
+- **Backlog (Ready):** 10
 
 ## Urgent / Actions Required
-- [ ] [TASK-165] Implement Command Allowlist and FS Guard for Sandbox (P0) - Active in Focus
-- [ ] [TASK-167] Implement 'arch lint' and pre-commit hook for Meta format (P1) - Active in Focus
-- [ ] [TASK-170] Validation Failure: Task TASK-170 does not follow canonical format in Depends line.
-- [ ] Drift: StaleDepends - TASK-170: stale dependency '- `IDEA-simplify-cli-ux.md` (related)'
+- [ ] [TASK-166] Implement Sandbox Wrapper and Timeout (P0) - Active in Focus
 - [ ] Drift: MergeCommits - Merge commit detected: 50ccaae52b9df819809594c3f9aa91ebf44617a0
 
 ## Refinement Queue
@@ -21,19 +18,4 @@ _No pending ideas._
 _No active sprint._
 
 ## Recent Activity
-- **Last Commit:** feat: [TASK-165] implement Command Allowlist and FS Guard per ADR-005
-
-## [2026-05-04 10:45] REVIEW_REQUEST | TASK-165
-- **Task:** Implement Command Allowlist and FS Guard for Sandbox
-- **ACs:** 
-  - [x] Allowlist: test, grep, jq, node, git status
-  - [x] FS Guard: No absolute paths outside /tmp, no path traversal
-- **Changed Files:**
-  - `cli/src/main/ts/domain/services/sandbox.ts`
-  - `cli/src/test/ts/sandbox.test.ts`
-
-## [2026-05-04 10:55] REVIEW_PASS | TASK-165
-Evidence: All ACs verified. `arch review` passed. Tests passed.
-
-## [2026-05-04 12:05] APPROVED | PRIVILEGED_EXECUTION | TASK-166
-Evidence: Agent requested privileged execution for task TASK-166.
+- **Last Commit:** chore: [TASK-166] handover to auditor
