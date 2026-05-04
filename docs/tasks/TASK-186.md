@@ -1,4 +1,4 @@
-## TASK-186: Consolidate CLI — absorb validate and lint into review
+## TASK-186: Consolidate CLI - absorb validate and lint into review
 **Meta:** P2 | M | READY | Focus:no | 2-code-generation | claude-code | cli/src/main/ts/index.ts, cli/src/main/ts/application/commands/review-command.ts, scripts/arch.sh
 **Depends:** none
 

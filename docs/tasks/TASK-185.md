@@ -1,4 +1,4 @@
-## TASK-185: Consolidate CLI — merge read-only subcommands into `task`
+## TASK-185: Consolidate CLI - merge read-only subcommands into `task`
 **Meta:** P2 | M | READY | Focus:no | 2-code-generation | claude-code | cli/src/main/ts/index.ts, cli/src/main/ts/application/commands/task-command.ts, scripts/arch.sh
 **Depends:** none
 
