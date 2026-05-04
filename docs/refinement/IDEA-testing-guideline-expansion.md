@@ -1,7 +1,7 @@
 # IDEA: Expand testing-a-change.md beyond docs/agents/ changes
 **Created:** 2026-04-30
 **Source:** Protocol audit — testing-a-change.md is 4 lines covering only agents/ changes; no guidance for CLI, config, or guideline changes
-**Status:** DRAFT
+**Status:** PROMOTED → TASK-177
 **Meta:** P2 | S | local | docs/guidelines/testing-a-change.md
 
 ## Problem

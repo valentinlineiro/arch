@@ -1,7 +1,7 @@
 # IDEA: Institutional memory document — distill KAIZEN-LOG into durable principles
 **Created:** 2026-04-30
 **Source:** Strategic vision — KAIZEN-LOG is an event log; durable wisdom requires distillation into a living principles document
-**Status:** DRAFT
+**Status:** PROMOTED → TASK-180
 **Meta:** P2 | M | claude | docs/KAIZEN-LOG.md, docs/guidelines/
 
 ## Problem

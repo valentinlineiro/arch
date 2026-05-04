@@ -1,7 +1,7 @@
 # IDEA: Add Hansei (self-reflection) section to archived tasks
 **Created:** 2026-04-30
 **Source:** Human proposal (Hansei / Toyota self-reflection) — closed tasks capture what was done but not what could have been better
-**Status:** DRAFT
+**Status:** PROMOTED → TASK-178
 **Meta:** P2 | S | local | docs/TASK-FORMAT.md, docs/agents/DO.md
 
 ## Problem

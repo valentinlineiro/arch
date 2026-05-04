@@ -1,7 +1,7 @@
 # IDEA: Add sprint open protocol to DO.md
 **Created:** 2026-04-30
 **Source:** Protocol audit — DO.md has sprint close but no sprint open
-**Status:** DRAFT
+**Status:** PROMOTED → TASK-176
 **Meta:** P2 | S | local | docs/agents/DO.md, docs/TASK-FORMAT.md, arch.config.json
 
 ## Problem

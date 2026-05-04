@@ -1,7 +1,7 @@
 # IDEA: Define IDEA TTL and auto-rejection path for stale DRAFTs
 **Created:** 2026-04-30
 **Source:** Protocol audit — refinement queue has 17 IDEAs with no resolution path for long-lived DRAFTs
-**Status:** DRAFT
+**Status:** PROMOTED → TASK-179
 **Meta:** P2 | XS | local | docs/agents/THINK.md, docs/refinement/
 
 ## Problem
