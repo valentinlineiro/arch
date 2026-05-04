@@ -3,6 +3,7 @@ import { MarkTaskDone } from '../use-cases/mark-task-done.js';
 import { RejectTask } from '../use-cases/task-reject.js';
 import { RejectStaleTask } from '../use-cases/task-reject-stale.js';
 import { UpdateTaskMetrics } from '../use-cases/update-task-metrics.js';
+import { HumanCoordinationService } from '../../domain/services/human-coordination-service.js';
 import type { TaskRepository } from '../../domain/repositories/task-repository.js';
 import { Reviewer } from '../../domain/services/reviewer.js';
 import * as fmt from '../../infrastructure/cli/output-formatter.js';
@@ -14,7 +15,11 @@ export class TaskCommand {
   private rejectStaleTask: RejectStaleTask;
   private updateMetrics: UpdateTaskMetrics;
 
-  constructor(taskRepository: TaskRepository, reviewer: Reviewer) {
+  constructor(
+    taskRepository: TaskRepository, 
+    reviewer: Reviewer,
+    private humanCoordinationService: HumanCoordinationService
+  ) {
     this.markInProgress = new MarkTaskInProgress(taskRepository);
     this.markDone = new MarkTaskDone(taskRepository, reviewer);
     this.rejectTask = new RejectTask(taskRepository);
@@ -76,8 +81,26 @@ export class TaskCommand {
       } catch (error: any) {
         fmt.warn(error.message);
       }
+    } else if (subCommand === 'approve' && taskId) {
+      try {
+        await this.humanCoordinationService.approveTask(taskId);
+        fmt.check(`approved ${taskId}`);
+      } catch (error: any) {
+        fmt.fail(error.message);
+      }
+    } else if (subCommand === 'redirect' && taskId) {
+      try {
+        const toIdx = args.indexOf('--to');
+        const instruction = toIdx !== -1 ? args.slice(toIdx + 1).join(' ') : '';
+        if (!instruction) throw new Error('Missing instruction after --to');
+        
+        await this.humanCoordinationService.redirectTask(taskId, instruction);
+        fmt.check(`redirected ${taskId} with new instruction`);
+      } catch (error: any) {
+        fmt.fail(error.message);
+      }
     } else {
-      console.log('Usage: arch task [start|done|reject|reject-stale|metrics] [TASK-ID] [--force] [--reason "<text>"] [--cost <val>] [--steps <val>] [--add-cost <val>] [--add-steps <val>]');
+      console.log('Usage: arch task [start|done|reject|reject-stale|metrics|approve|redirect] [TASK-ID] [--force] [--reason "<text>"] [--to "<instruction>"] [--cost <val>] [--steps <val>]');
     }
   }
 }

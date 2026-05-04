@@ -36,4 +36,6 @@ export interface Task {
   steps?: number;
   rawMetaLine?: string;
   rawDependsLine?: string;
+  content: string;
+  filePath: string;
 }

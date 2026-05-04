@@ -1,31 +1,43 @@
 import path from 'node:path';
 import { TaskRepository } from '../../domain/repositories/task-repository.js';
-import { GitRepository } from '../../domain/repositories/git-repository.js';
 import { FileSystem } from '../../domain/repositories/file-system.js';
-import { TaskStatus } from '../../domain/models/task.js';
+import { TaskStatus, Task } from '../../domain/models/task.js';
 import { Reviewer } from '../../domain/services/reviewer.js';
-import { DriftChecker } from '../../domain/services/drift-checker.js';
+import { DriftChecker, DriftResult } from '../../domain/services/drift-checker.js';
+
+export interface InboxData {
+  summary: {
+    active: number;
+    review: number;
+    ready: number;
+  };
+  urgent: string[];
+  refinement: string[];
+  sprint?: {
+    name: string;
+    progress: string;
+    openTasks: Task[];
+  };
+}
 
 export class GenerateInbox {
-  private inboxFile = 'docs/INBOX.md';
   private refinementDir = 'docs/refinement';
 
   constructor(
     private taskRepository: TaskRepository,
-    private gitRepository: GitRepository,
     private fileSystem: FileSystem,
     private reviewer: Reviewer,
     private driftChecker?: DriftChecker
   ) {}
 
-  async execute() {
+  async execute(): Promise<InboxData> {
     const activeTasks = await this.taskRepository.getActive();
     
     const urgentItems: string[] = [];
     const pendingIdeas: string[] = [];
     
     // 1. Detect Urgent: P0/P1 tasks in Focus:yes
-    const focusTasks = activeTasks.filter(t => t.rawMetaLine?.includes('Focus:yes'));
+    const focusTasks = activeTasks.filter(t => t.focus);
     for (const t of focusTasks) {
       if (t.priority === 'P0' || t.priority === 'P1') {
         urgentItems.push(`[${t.id}] ${t.title} (${t.priority}) - Active in Focus`);
@@ -34,7 +46,7 @@ export class GenerateInbox {
 
     // 2. Detect Urgent: Review violations
     for (const t of activeTasks) {
-      const result = this.reviewer.reviewTask(t, t.rawMetaLine);
+      const result = this.reviewer.reviewTask(t, t.rawMetaLine || '');
       if (!result.valid) {
         urgentItems.push(`[${t.id}] Validation Failure: ${result.violations[0]}`);
       }
@@ -65,84 +77,34 @@ export class GenerateInbox {
       }
     }
 
-    // 5. Build INBOX.md content
-    const date = new Date().toISOString().split('T')[0];
-    let content = `# INBOX\n<!-- Weekly dashboard for human-agent coordination -->\n<!-- Generated on: ${date} -->\n\n`;
-    
-    content += `## Status Summary\n`;
-    const ready = activeTasks.filter(t => t.status === TaskStatus.READY).length;
-    const inProgress = activeTasks.filter(t => t.status === TaskStatus.IN_PROGRESS).length;
-    const review = activeTasks.filter(t => t.status === TaskStatus.REVIEW).length;
-    content += `- **Active Tasks:** ${inProgress}\n`;
-    content += `- **In Review:** ${review}\n`;
-    content += `- **Backlog (Ready):** ${ready}\n\n`;
-
-    content += `## Urgent / Actions Required\n`;
-    if (urgentItems.length > 0) {
-      urgentItems.forEach(item => content += `- [ ] ${item}\n`);
-    } else {
-      content += `_No urgent items detected._\n`;
-    }
-    content += `\n`;
-
-    content += `## Refinement Queue\n`;
-    if (pendingIdeas.length > 0) {
-      pendingIdeas.forEach(idea => content += `- ${idea}\n`);
-    } else {
-      content += `_No pending ideas._\n`;
-    }
-    content += `\n`;
-
-    content += `## Current Sprint\n`;
     const configPath = 'arch.config.json';
-    let currentSprint = '';
+    let sprintData: InboxData['sprint'];
     try {
       const configContent = await this.fileSystem.readFile(configPath);
       const config = JSON.parse(configContent);
-      currentSprint = config.currentSprint || '';
+      if (config.currentSprint) {
+        const sprintTasks = activeTasks.filter(t => t.sprint === config.currentSprint);
+        const totalSprint = sprintTasks.length;
+        const doneSprint = sprintTasks.filter(t => t.status === TaskStatus.DONE).length;
+        sprintData = {
+          name: config.currentSprint,
+          progress: `${doneSprint}/${totalSprint}`,
+          openTasks: sprintTasks.filter(t => t.status !== TaskStatus.DONE)
+        };
+      }
     } catch {
-      currentSprint = '';
+      // Ignore
     }
 
-    if (!currentSprint) {
-      content += `_No active sprint._\n`;
-    } else {
-      const sprintTasks = activeTasks.filter(t => t.rawMetaLine?.includes(`Sprint: ${currentSprint}`));
-      const totalSprint = sprintTasks.length;
-      const doneSprint = sprintTasks.filter(t => t.status === TaskStatus.DONE).length;
-      content += `- **Sprint:** ${currentSprint}\n`;
-      content += `- **Progress:** ${doneSprint}/${totalSprint} tasks done\n`;
-      if (sprintTasks.length > 0) {
-        content += `\n**Open Tasks:**\n`;
-        for (const t of sprintTasks) {
-          if (t.status !== TaskStatus.DONE) {
-            content += `- [${t.id}] ${t.title}\n`;
-          }
-        }
-      }
-    }
-    content += `\n`;
-
-    content += `## Recent Activity\n`;
-    const lastCommit = await this.gitRepository.getLastCommitMessage();
-    content += `- **Last Commit:** ${lastCommit || 'None'}\n`;
-
-    await this.fileSystem.writeFile(this.inboxFile, content);
-
-    // 6. Commit INBOX.md
-    try {
-      await this.gitRepository.add(this.inboxFile);
-      const statusLines = await this.gitRepository.getStatusLines();
-      const isChanged = statusLines.some(line => line.includes(this.inboxFile) && !line.startsWith('??'));
-      
-      if (isChanged) {
-        await this.gitRepository.commit(`docs: update INBOX.md dashboard [TASK-070]`);
-      }
-    } catch (error) {
-      // If commit fails (e.g. no changes), we just continue
-      console.warn('Could not auto-commit INBOX.md:', error);
-    }
-
-    return this.inboxFile;
+    return {
+      summary: {
+        active: activeTasks.filter(t => t.status === TaskStatus.IN_PROGRESS).length,
+        review: activeTasks.filter(t => t.status === TaskStatus.REVIEW).length,
+        ready: activeTasks.filter(t => t.status === TaskStatus.READY).length,
+      },
+      urgent: urgentItems,
+      refinement: pendingIdeas,
+      sprint: sprintData
+    };
   }
 }

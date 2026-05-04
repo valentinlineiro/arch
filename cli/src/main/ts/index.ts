@@ -22,6 +22,7 @@ import { PromoteCommand } from './application/commands/promote-command.js';
 import { LoopCommand } from './application/commands/loop-command.js';
 import { SandboxCommand } from './application/commands/sandbox-command.js';
 import { SandboxService } from './domain/services/sandbox.js';
+import { HumanCoordinationService } from './domain/services/human-coordination-service.js';
 import { LintCommand } from './application/commands/lint-command.js';
 
 async function main() {
@@ -34,6 +35,7 @@ async function main() {
   const require = createRequire(import.meta.url);
   const { version: cliVersion } = require('../package.json') as { version: string };
   const driftChecker = new DriftChecker(fileSystem, gitRepository, rootPath, cliVersion);
+  const humanCoordinationService = new HumanCoordinationService(taskRepository, gitRepository);
 
   const { name, args } = parseCommand(process.argv.slice(2));
 
@@ -53,10 +55,10 @@ async function main() {
       await new ReviewCommand(taskRepository, gitRepository, reviewer, driftChecker, fileSystem).execute(args);
       break;
     case 'task':
-      await new TaskCommand(taskRepository, reviewer).execute(args);
+      await new TaskCommand(taskRepository, reviewer, humanCoordinationService).execute(args);
       break;
     case 'inbox':
-      await new InboxCommand(taskRepository, gitRepository, fileSystem, reviewer, driftChecker).execute();
+      await new InboxCommand(taskRepository, fileSystem, reviewer, driftChecker).execute();
       break;
     case 'next':
       await new NextCommand(taskRepository, args).execute();

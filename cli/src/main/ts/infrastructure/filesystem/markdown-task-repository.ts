@@ -47,34 +47,24 @@ export class MarkdownTaskRepository implements TaskRepository {
     const tasks: Task[] = [];
     for (const file of files) {
       if (file.endsWith('.md')) {
-        const content = await this.fileSystem.readFile(path.join(dirPath, file));
+        const filePath = path.join(dirPath, file);
+        const content = await this.fileSystem.readFile(filePath);
         const task = this.parseTask(content);
-        if (task) tasks.push(task);
+        if (task) {
+          task.filePath = filePath; // Adding filePath dynamically for easier access
+          tasks.push(task);
+        }
       }
     }
     return tasks;
   }
 
   async save(task: Task): Promise<void> {
-    const targetDir = (task.status === TaskStatus.DONE || task.status === TaskStatus.REJECTED) ? this.archiveDir : this.tasksDir;
+    const isArchived = task.status === TaskStatus.DONE || task.status === TaskStatus.REJECTED;
+    const targetDir = isArchived ? this.archiveDir : this.tasksDir;
     const targetPath = path.join(targetDir, `${task.id}.md`);
 
-    const tasksPath = path.join(this.tasksDir, `${task.id}.md`);
-    const archivePath = path.join(this.archiveDir, `${task.id}.md`);
-
-    let currentPath = '';
-    if (await this.fileSystem.exists(tasksPath)) {
-      currentPath = tasksPath;
-    } else if (await this.fileSystem.exists(archivePath)) {
-      currentPath = archivePath;
-    }
-
-    let content = '';
-    if (currentPath) {
-      content = await this.fileSystem.readFile(currentPath);
-    } else {
-      content = `## ${task.id}: ${task.title}\n\n**Meta:** ${task.priority} | ${task.size} | ${task.status} | Focus:${task.focus ? 'yes' : 'no'} | ${task.class} | ${task.cli} | ${task.context.join(', ')}\n\n### Acceptance Criteria\n${task.acceptanceCriteria?.map(ac => `- [${ac.completed ? 'x' : ' '}] ${ac.description}`).join('\n') || ''}`;
-    }
+    let content = task.content;
 
     const metaMatch = content.match(/^\*\*Meta:\*\* (.*)/m);
     if (metaMatch) {
@@ -111,11 +101,14 @@ export class MarkdownTaskRepository implements TaskRepository {
       }
     }
 
-    if (currentPath && currentPath !== targetPath) {
+    const currentPath = task.filePath || path.join(this.tasksDir, `${task.id}.md`);
+    if (await this.fileSystem.exists(currentPath) && currentPath !== targetPath) {
       await this.fileSystem.writeFile(currentPath, content);
       await this.fileSystem.rename(currentPath, targetPath);
+      task.filePath = targetPath;
     } else {
       await this.fileSystem.writeFile(targetPath, content);
+      task.filePath = targetPath;
     }
   }
 
@@ -172,7 +165,8 @@ export class MarkdownTaskRepository implements TaskRepository {
         cost: costMatch ? parseFloat(costMatch[1]) : (inProgressMetricsMatch?.groups?.cost ? parseFloat(inProgressMetricsMatch.groups.cost) : undefined),
         steps: stepsMatch ? parseInt(stepsMatch[1], 10) : (inProgressMetricsMatch?.groups?.steps ? parseInt(inProgressMetricsMatch.groups.steps, 10) : undefined),
         rawMetaLine: metaLine,
-        rawDependsLine: dependsMatch ? dependsMatch[0] : undefined
+        rawDependsLine: dependsMatch ? dependsMatch[0] : undefined,
+        content
       };
     }
     return null;

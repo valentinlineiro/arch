@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+# ARCH Pre-push Hook: Ensure system integrity before pushing
+
+echo -e "  \033[0;32mARCH\033[0m — running pre-push integrity review..."
+
+./scripts/arch.sh review
+
+if [ $? -ne 0 ]; then
+    echo -e "  \033[0;31m✖\033[0m Error: Integrity review failed. Push aborted."
+    echo -e "    Check for merge commits or architectural drift."
+    exit 1
+fi
+
+echo -e "  \033[0;32m✓\033[0m Integrity review passed. Proceeding with push."
