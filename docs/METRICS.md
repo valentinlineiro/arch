@@ -43,6 +43,28 @@
 }
 ```
 
+## Turns-per-Size
+<!-- Expected ranges based on ARCH execution model. Flag [MURA] if actual avg > expected by >50%. -->
+| Size | Expected Turns | Mura Threshold |
+|------|---------------|----------------|
+| XS   | 1–5           | >7             |
+| S    | 5–15          | >22            |
+| M    | 15–30         | >45            |
+| L    | 30–60         | >90            |
+
+## Sprint Template
+<!-- Copy this block when closing a sprint. Fill in actuals. -->
+```markdown
+## Sprint: sprint/<slug>
+- **Closed:** YYYY-MM-DD
+- **Tasks completed:** N
+- **P50 cycle time:** Xh
+- **Avg cost / task:** $X.XX
+- **REVIEW_FAIL rate:** X%
+- **Turns-per-Size actuals:** XS=N, S=N, M=N, L=N
+- **Mura flags:** [list TASK-IDs or "none"]
+```
+
 ## Insights
 - Autonomous loop efficiency is high.
 - REVIEW_FAIL rate is below the 5% threshold for L3 Autonomy.

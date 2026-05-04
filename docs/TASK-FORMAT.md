@@ -70,7 +70,14 @@ The meta line is the source of truth for task state and routing. It MUST be a si
 - Project-level quality standards (e.g., "PR approved", "`arch review` passes").
 - Optional for `XS` tasks if global guidelines cover them.
 
-### 8. Hansei (optional)
+### 8. Turns (optional)
+- Appended to the Meta line at close, after the Context field, by the implementing agent.
+- **Format:** `Turns: N` (e.g., `**Meta:** P2 | S | DONE | Focus:no | 6-writing | local | docs/ | Turns: 12`)
+- **Definition:** One "turn" is one full agent request/response cycle within the execution session.
+- **Required:** When the agent records a Hansei section (i.e., same triggers: size delta, blocker, or M+).
+- **Purpose:** Input for Mura detection in THINK Phase 3 and Turns-per-Size trend in METRICS.md.
+
+### 9. Hansei (optional)
 - A brief retrospective written by the implementing agent before marking `REVIEW`.
 - **Required when** any of the following apply: (a) actual size differed from estimate, (b) a blocker was encountered during execution, (c) task is `M` or larger.
 - **Format:** `## Hansei` section with 1–3 sentences maximum.

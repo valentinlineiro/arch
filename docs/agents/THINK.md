@@ -19,8 +19,9 @@
 ## Phase 3: Continuous Kaizen (Real-time Reviewer)
 0. **Print:** `[THINK] Phase 3 — Continuous Kaizen` to stdout.
 1. **Kaizen Learning:** Run `arch review --json`. If failures exist (and aren't in `docs/KAIZEN-LOG.md` exceptions), analyze violations/drift against `docs/PRINCIPLES.md` (primary context) and `docs/KAIZEN-LOG.md` (audit trail). If a violation matches an existing principle, reference it. If it represents a new pattern, propose a new principle entry and a hardening task (`fix:` or `feat:`) to prevent recurrence.
-2. **Immediate Improvements:** Identify context gaps or guideline changes based on patterns.
-3. **Sprint Metrics:** On sprint close, generate `docs/METRICS.md` summary.
+2. **Mura Detection:** Read `Turns: N` from the last 10 archived tasks. For each size tier (XS/S/M/L), compute the average. If actual avg exceeds the expected range in `docs/METRICS.md` by >50%, emit `[MURA] <size>-tier avg=N turns (threshold=T)` to stdout and propose a re-estimation or decomposition task.
+3. **Immediate Improvements:** Identify context gaps or guideline changes based on patterns.
+4. **Sprint Metrics:** On sprint close, generate `docs/METRICS.md` summary using the Sprint Template block.
 
 ## Output
 - Ephemeral read-only output to terminal.
