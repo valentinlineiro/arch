@@ -6,8 +6,8 @@
 DO.md defines a full Sprint Close sequence but has no Sprint Open protocol. Sprint naming and scoping happen ad-hoc, making sprint boundaries inconsistent and hard to trace in git history.
 
 ### Acceptance Criteria
-- [ ] DO.md Intent: Operations includes a Sprint Open sequence: set `currentSprint` in arch.config.json, assign `**Sprint:**` to designated tasks, commit with `chore: open sprint/<slug> [THINK]`
-- [ ] Sprint Open mirrors Sprint Close structure and is symmetrical in DO.md
+- [x] DO.md Intent: Operations includes a Sprint Open sequence: set `currentSprint` in arch.config.json, assign `**Sprint:**` to designated tasks, commit with `chore: open sprint/<slug> [THINK]`
+- [x] Sprint Open mirrors Sprint Close structure and is symmetrical in DO.md
 
 ### Definition of Done
-- [ ] `arch review` passes
+- [x] `arch review` passes
