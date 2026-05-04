@@ -1,5 +1,5 @@
 ## TASK-175: Migrate arch.sh routing logic to TypeScript
-**Meta:** P2 | M | READY | Focus:no | 2-code-generation | claude-code | scripts/arch.sh, cli/src/main/ts/application/commands/exec-command.ts, cli/src/main/ts/index.ts
+**Meta:** P2 | M | IN_PROGRESS | Focus:yes | 2-code-generation | claude-code | scripts/arch.sh, cli/src/main/ts/application/commands/exec-command.ts, cli/src/main/ts/index.ts
 **Depends:** none
 
 ### Context
