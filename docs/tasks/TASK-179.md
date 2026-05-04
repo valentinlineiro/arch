@@ -1,5 +1,5 @@
 ## TASK-179: Define IDEA TTL and stale-DRAFT auto-rejection in THINK.md
-**Meta:** P2 | XS | READY | Focus:no | 6-writing | local | docs/agents/THINK.md
+**Meta:** P2 | XS | IN_PROGRESS | Focus:yes | 6-writing | local | docs/agents/THINK.md
 **Depends:** none
 
 ### Context
