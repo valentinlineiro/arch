@@ -1,5 +1,5 @@
 ## TASK-182: Add Turns field to task meta and Mura detection to THINK
-**Meta:** P2 | S | READY | Focus:no | 6-writing | local | docs/TASK-FORMAT.md, docs/agents/THINK.md, docs/METRICS.md
+**Meta:** P2 | S | IN_PROGRESS | Focus:yes | 6-writing | local | docs/TASK-FORMAT.md, docs/agents/THINK.md, docs/METRICS.md
 **Depends:** TASK-178
 
 ### Context
