@@ -10,122 +10,11 @@ export LC_ALL=C
 # Path to the CLI entry point
 BIN="node $(dirname "$0")/../cli/dist/index.js"
 
-# ── Agent Invoker ────────────────────────────────────────────────
-invoke_agent() {
-  local mode_name=$1
-  local prompt_file=$2
-  local extra_flags=$3
-  local task_class=$4
-  local task_size=$5
-  
-  echo -e "  ${GREEN}ARCH${NC} — invoking ${mode_name} mode"
-  
-  node -e "
-    const fs = require(\"fs\");
-    const { execSync, spawnSync } = require(\"child_process\");
-    try {
-      let config = JSON.parse(fs.readFileSync(\"arch.config.json\", \"utf8\"));
-      
-      // Local override merge
-      if (fs.existsSync(\".arch-local.json\")) {
-        try {
-          const local = JSON.parse(fs.readFileSync(\".arch-local.json\", \"utf8\"));
-          const deepMerge = (target, source) => {
-            for (const key in source) {
-              if (source[key] && typeof source[key] === 'object' && !Array.isArray(source[key])) {
-                if (!target[key]) target[key] = {};
-                deepMerge(target[key], source[key]);
-              } else {
-                target[key] = source[key];
-              }
-            }
-          };
-          deepMerge(config, local);
-        } catch (e) {
-          console.error(\"  \\x1b[31m✖\\x1b[0m Error parsing .arch-local.json:\", e.message);
-        }
-      }
-
-      const taskClass = process.argv[3];
-      const taskSize = process.argv[4];
-
-      if (process.env.ARCH_VERBOSE === \"true\") {
-        console.log(\"  \" + \"\\x1b[90m\" + \"[TRACE] Routing: class=\" + taskClass + \", size=\" + taskSize + \"\\x1b[0m\");
-      }
-
-      let preferredCliName = null;
-      if (taskClass && config.routing && config.routing[taskClass]) {
-        preferredCliName = config.routing[taskClass];
-      }
-
-      let preferredModel = null;
-      if (taskSize && config.governance && config.governance.modelTiers && config.governance.modelTiers[taskSize]) {
-        preferredModel = config.governance.modelTiers[taskSize];
-      }
-
-      // Local routing: no AI invocation, print protocol for human execution
-      if (preferredCliName === \"local\") {
-        console.log(\"  Routing: local (no AI invocation)\");
-        console.log(\"\");
-        process.stdout.write(require(\"fs\").readFileSync(process.argv[1], \"utf8\"));
-        process.exit(0);
-      }
-
-      // Determine CLI order: preferred first, then others
-      let clisToTry = config.clis;
-      const found = config.clis.find(c => c.name === preferredCliName);
-      if (found) {
-        clisToTry = [found, ...config.clis.filter(c => c.name !== preferredCliName)];
-      }
-
-      for (const cli of clisToTry) {
-        try {
-          execSync(\"which \" + cli.bin, { stdio: \"ignore\" });
-          let cmd = cli.template.replace(/\{prompt\}/g, \"\$(cat \" + process.argv[1] + \")\");
-          cmd = cmd.replace(/\{prompt_file\}/g, process.argv[1]);
-
-          if (preferredModel) {
-            if (cli.template.includes(\"{model}\")) {
-              cmd = cmd.replace(/\{model\}/g, preferredModel);
-            } else if (cli.name === \"claude\") {
-              cmd += \" --model \" + preferredModel;
-            }
-          }
-
-          if (process.argv[2]) {
-            cmd += \" \" + process.argv[2];
-          }
-
-          if (process.env.ARCH_VERBOSE === \"true\") {
-            console.log(\"  \" + \"\\x1b[90m\" + \"[TRACE] \" + cmd + \"\\x1b[0m\");
-          }
-
-          const result = spawnSync(\"sh\", [\"-c\", cmd], { stdio: \"inherit\" });
-          process.exit(result.status ?? 0);
-        } catch (e) {}
-      }
-    } catch (e) {
-      console.error(\"Error in invoke_agent:\", e.message);
-    }
-    process.exit(1);
-  " -- "$prompt_file" "$extra_flags" "$task_class" "$task_size" || {
-    local status=$?
-    if [ $status -eq 1 ]; then
-      echo -e "  ${YELLOW}Note:${NC} No AI CLI detected or invocation failed. Showing protocol:"
-      cat "$prompt_file"
-      exit 1
-    else
-      exit $status
-    fi
-  }
-}
-
 # ── Router ────────────────────────────────────────────────────────
 case "$1" in
-  "status"|"validate"|"inbox"|"next"|"govern"|"rank"|"batch"|"drain"|"conduct"|"promote"|"version"|"loop"|"sandbox"|"lint"|"mv"|"--version"|"-v")
+  "status"|"validate"|"inbox"|"next"|"govern"|"rank"|"batch"|"drain"|"conduct"|"promote"|"version"|"loop"|"sandbox"|"lint"|"mv"|"exec"|"--version"|"-v")
     $BIN "$@"
     ;;
-
 
   "review")
     # Check for --push flag
@@ -136,7 +25,6 @@ case "$1" in
       fi
     done
 
-    # Execute review
     $BIN "$@"
 
     # Push if flag present and review passed (set -e ensures we only reach here on success)
@@ -172,12 +60,6 @@ case "$1" in
       fi
     fi
     $BIN "$@"
-
-    # Autofocus next task after 'task done'
-    if [ "$2" == "done" ]; then
-      echo ""
-      $0 govern
-    fi
     ;;
 
   "archive")
@@ -185,44 +67,8 @@ case "$1" in
     $0 task done "$@"
     ;;
 
-  "exec")
-    shift
-    # Find focused task for routing
-    FOCUSED_TASK_FILE=$(grep -l "Focus:yes" docs/tasks/*.md 2>/dev/null | head -n 1)
-    TASK_CLASS=""
-    TASK_SIZE=""
-    TASK_ID=""
-    if [ -n "$FOCUSED_TASK_FILE" ]; then
-      TASK_ID=$(basename "$FOCUSED_TASK_FILE" .md)
-      META=$(grep "^\*\*Meta:\*\*" "$FOCUSED_TASK_FILE")
-      TASK_SIZE=$(echo "$META" | cut -d'|' -f2 | tr -d ' ')
-      # Meta v0.6: P | Size | Status | Focus | Class | CLI | Context
-      TASK_CLASS=$(echo "$META" | cut -d'|' -f5 | tr -d ' ')
-    fi
-
-    # Check if batching is enabled and task matches criteria
-    SHOULD_BATCH=$(node -e "
-      const fs = require('fs');
-      try {
-        const config = JSON.parse(fs.readFileSync('arch.config.json', 'utf8'));
-        const batchEnabled = config.governance?.batchWritingTasks === true;
-        const matchesCriteria = '$TASK_CLASS' === '6-writing' && '$TASK_SIZE' === 'XS';
-        console.log(batchEnabled && matchesCriteria);
-      } catch (e) {
-        console.log(false);
-      }
-    ")
-
-    if [ "$SHOULD_BATCH" == "true" ]; then
-      echo -e "  ${YELLOW}BATCH${NC} — queuing ${TASK_ID} for Anthropic Batch API"
-      $BIN batch add "$TASK_ID" "docs/agents/DO.md"
-    else
-      invoke_agent "EXEC (DO)" "docs/agents/DO.md" "$*" "$TASK_CLASS" "$TASK_SIZE"
-    fi
-    ;;
-
   *)
-    echo "Usage: $0 [status|validate|review|inbox|next|govern|rank|batch|drain|archive|task|promote|version|conduct|exec|loop|sandbox|lint]"
+    echo "Usage: $0 [status|validate|review|inbox|next|govern|rank|batch|drain|archive|task|promote|version|conduct|exec|loop|sandbox|lint|mv]"
     echo ""
     echo "Commands:"
     echo "  status     Show task counts"
@@ -243,6 +89,7 @@ case "$1" in
     echo "  loop       Autonomous execution loop"
     echo "  sandbox    Secure execution wrapper (non-AI)"
     echo "  lint       Validate task format"
+    echo "  mv         Move a file and update task contexts"
     exit 1
     ;;
 esac

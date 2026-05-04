@@ -15,6 +15,15 @@ Versioning rules:
 ## [Unreleased]
 
 ### Added
+- [TASK-175] `ExecCommand` TypeScript class — agent routing logic (`invoke_agent`) moved from `arch.sh` into typed, tested TypeScript. Supports preferred CLI, model tier injection, `{prompt}`/`{prompt_file}` substitution, local routing mode, and CLI fallback order.
+
+### Changed
+- [TASK-175] `arch.sh` reduced to a thin dispatcher — `invoke_agent` function and inline `node -e` scripts removed. All routing logic now lives in `ExecCommand`.
+
+### Removed
+- [TASK-175] Post-`task done` govern side effect removed from `arch.sh`. `arch task done` now only marks a task done; governance (archival, focus selection) is the responsibility of `arch govern` or `arch loop`.
+
+### Added
 - [TASK-025] `arch validate` command — deterministic validation of task format and config.
 - [TASK-012] `arch review` command — deterministic review of guidelines and git diffs.
 - [TASK-027] Node.js/TypeScript CLI core — Clean Architecture implementation in `cli/`.
