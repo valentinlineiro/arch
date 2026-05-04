@@ -54,7 +54,8 @@ The autonomous execution loop must halt and yield to a human when any of these c
 
 1. **Review Failure Loop:** If `arch review` fails 3 consecutive times on the same task.
 2. **Budget Exceeded:** If the task turn count exceeds the Muri threshold for its size (see `arch.config.json`).
-3. **Major Change / Protected Path:** If implementation requires touching a `protectedPath` or triggers a MAJOR architectural change without a prior ADR.
+3. **EXEC Timeout:** If the `EXEC` phase exceeds the configured timeout (default: 10 minutes) without returning. Configurable via `governance.execTimeoutMinutes` in `arch.config.json`.
+4. **Major Change / Protected Path:** If implementation requires touching a `protectedPath` or triggers a MAJOR architectural change without a prior ADR.
 
 **Stop Behavior:**
 1. Halt all execution.

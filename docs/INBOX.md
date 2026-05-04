@@ -27,3 +27,6 @@ _No active sprint._
 - **TASK-160:** Implement Non-Docker Executable AC Sandbox
 - **TASK-158:** Implement Ollama API Wrapper and Provider
 - **TASK-157:** Fix Reviewer rejection of governance tags [THINK] and [KAIZEN]
+
+## [2026-05-04 08:38] ANDON_HALT | TASK-165
+Evidence: arch review failed 3 consecutive times. Write APPROVE or REDIRECT in INBOX then run arch loop --resume.

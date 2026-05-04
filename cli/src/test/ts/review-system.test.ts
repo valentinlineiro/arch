@@ -51,11 +51,18 @@ class StubGitRepository {
   async getLog() { return []; }
   async add() {}
   async commit() {}
+  async getChangedFilesInLastCommit() { return []; }
+  async getMergeCommits() { return []; }
+}
+
+class StubFileSystem {
+  async exists() { return false; }
+  async readFile() { return '{}'; }
 }
 
 test('ReviewSystem does not validate archived tasks', async () => {
   const repo = new SpyTaskRepository();
-  const system = new ReviewSystem(repo as any, new StubGitRepository() as any, new Reviewer());
+  const system = new ReviewSystem(repo as any, new StubGitRepository() as any, new Reviewer(), new StubFileSystem() as any);
 
   const result = await system.execute();
 
@@ -85,7 +92,7 @@ test('ReviewSystem still validates active DONE/REVIEW tasks with pending ACs', a
       async getNextId() { return 'TASK-999'; }
     }
 
-    const system = new ReviewSystem(new RepoWithPendingTask() as any, new StubGitRepository() as any, new Reviewer());
+    const system = new ReviewSystem(new RepoWithPendingTask() as any, new StubGitRepository() as any, new Reviewer(), new StubFileSystem() as any);
     const result = await system.execute();
 
     assert.ok(

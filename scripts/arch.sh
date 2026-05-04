@@ -24,7 +24,28 @@ invoke_agent() {
     const fs = require(\"fs\");
     const { execSync, spawnSync } = require(\"child_process\");
     try {
-      const config = JSON.parse(fs.readFileSync(\"arch.config.json\", \"utf8\"));
+      let config = JSON.parse(fs.readFileSync(\"arch.config.json\", \"utf8\"));
+      
+      // Local override merge
+      if (fs.existsSync(\".arch-local.json\")) {
+        try {
+          const local = JSON.parse(fs.readFileSync(\".arch-local.json\", \"utf8\"));
+          const deepMerge = (target, source) => {
+            for (const key in source) {
+              if (source[key] && typeof source[key] === 'object' && !Array.isArray(source[key])) {
+                if (!target[key]) target[key] = {};
+                deepMerge(target[key], source[key]);
+              } else {
+                target[key] = source[key];
+              }
+            }
+          };
+          deepMerge(config, local);
+        } catch (e) {
+          console.error(\"  \\x1b[31m✖\\x1b[0m Error parsing .arch-local.json:\", e.message);
+        }
+      }
+
       const taskClass = process.argv[3];
       const taskSize = process.argv[4];
 

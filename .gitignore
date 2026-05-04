@@ -4,3 +4,7 @@ cli/node_modules/
 cli/dist/
 .codex
 docs/.arch-batch-queue.json
+
+# ARCH local overrides
+.arch-local
+.arch-local.json

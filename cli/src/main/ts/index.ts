@@ -46,7 +46,7 @@ async function main() {
       await new ValidateCommand(taskRepository, fileSystem).execute();
       break;
     case 'review':
-      await new ReviewCommand(taskRepository, gitRepository, reviewer, driftChecker).execute(args);
+      await new ReviewCommand(taskRepository, gitRepository, reviewer, driftChecker, fileSystem).execute(args);
       break;
     case 'task':
       await new TaskCommand(taskRepository, reviewer).execute(args);

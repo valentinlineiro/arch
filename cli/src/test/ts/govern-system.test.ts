@@ -64,6 +64,11 @@ class SucceedingGitRepository {
   async getLog() { return ['chore: [THINK] session']; }
   async add(path: string) { this.addCalls.push(path); }
   async commit(msg: string) { this.commitCalls.push(msg); }
+  async getFileLastModifiedDate() { return new Date(); }
+  async getChangedFilesInLastCommit() { return []; }
+  async getMergeCommits() { return []; }
+  async rm() {}
+  async mv() {}
 }
 
 class FailingGitRepository extends SucceedingGitRepository {

@@ -4,6 +4,7 @@ import { FileSystem } from '../../domain/repositories/file-system.js';
 import { TaskStatus } from '../../domain/models/task.js';
 import { SelectNextTask } from './select-next-task.js';
 import { SubprocessRunner } from '../../infrastructure/cli/subprocess-runner.js';
+import { ConfigLoader } from '../../domain/services/config-loader.js';
 
 export interface LoopOptions {
   sprint?: string;
@@ -34,6 +35,10 @@ export class LoopEngine {
       await this.handleResume(options);
       return;
     }
+
+    const config = await ConfigLoader.load(this.fileSystem);
+    const timeoutMinutes = config.governance?.execTimeoutMinutes ?? 10;
+    const EXEC_TIMEOUT_MS = timeoutMinutes * 60 * 1000;
 
     const scopeLabel = options.sprint ? ` [sprint: ${options.sprint}]` : '';
     this.log(`[LOOP] Starting arch loop${options.dryRun ? ' (dry-run)' : ''}${scopeLabel}`);
@@ -89,12 +94,14 @@ export class LoopEngine {
       this.log(`[LOOP] Phase: EXEC (${task.id})`);
       
       const { code: execCode, stdout, stderr } = await SubprocessRunner.runWithOutput(ARCH_SH, ['exec'], { 
-        stream: true // New option to stream in real-time
+        stream: true, // New option to stream in real-time
+        timeoutMs: EXEC_TIMEOUT_MS
       });
       
       if (execCode !== 0) {
-        await this.appendInbox(task.id, 'ANDON_HALT', `arch exec exited with code ${execCode}`);
-        console.error(`[LOOP] Exec failed for ${task.id}. INBOX updated. Halting.`);
+        const reason = execCode === 124 ? `EXEC timeout exceeded (${timeoutMinutes}m)` : `arch exec exited with code ${execCode}`;
+        await this.appendInbox(task.id, 'ANDON_HALT', reason);
+        console.error(`[LOOP] Exec failed for ${task.id}. ${reason}. INBOX updated. Halting.`);
         process.exit(1);
       }
 

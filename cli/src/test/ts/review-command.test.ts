@@ -22,6 +22,13 @@ class StubGitRepository {
   async getLog() { return []; }
   async add() {}
   async commit() {}
+  async getChangedFilesInLastCommit() { return []; }
+  async getMergeCommits() { return []; }
+}
+
+class StubFileSystem {
+  async exists() { return false; }
+  async readFile() { return '{}'; }
 }
 
 class ViolatingReviewer {
@@ -74,6 +81,7 @@ test('ReviewCommand does not write or commit when violations exist', async () =>
     new StubGitRepository() as any,
     new ViolatingReviewer() as any,
     new StubDriftChecker() as any,
+    new StubFileSystem() as any,
   );
 
   const exitCode = await captureExit(() => command.execute());
@@ -89,6 +97,7 @@ test('ReviewCommand exits 0 and does not write when review passes', async () => 
     new StubGitRepository() as any,
     new PassingReviewer() as any,
     new StubDriftChecker() as any,
+    new StubFileSystem() as any,
   );
 
   const exitCode = await captureExit(() => command.execute());

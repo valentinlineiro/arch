@@ -1,14 +1,16 @@
 import { TaskRepository } from '../../domain/repositories/task-repository.js';
 import { GitRepository } from '../../domain/repositories/git-repository.js';
+import { FileSystem } from '../../domain/repositories/file-system.js';
 import { Reviewer, ReviewResult } from '../../domain/services/reviewer.js';
 import { DriftChecker, DriftResult } from '../../domain/services/drift-checker.js';
-import fs from 'node:fs';
+import { ConfigLoader } from '../../domain/services/config-loader.js';
 
 export class ReviewSystem {
   constructor(
     private taskRepository: TaskRepository,
     private gitRepository: GitRepository,
     private reviewer: Reviewer,
+    private fileSystem: FileSystem,
     private driftChecker?: DriftChecker
   ) {}
 
@@ -35,7 +37,7 @@ export class ReviewSystem {
 
     // 3. Immutability Check (TASK-154)
     try {
-      const config = JSON.parse(fs.readFileSync('arch.config.json', 'utf8'));
+      const config = await ConfigLoader.load(this.fileSystem);
       const protectedPaths = config.governance?.protectedPaths || [];
       if (protectedPaths.length > 0) {
         const changedFiles = await this.gitRepository.getChangedFilesInLastCommit();

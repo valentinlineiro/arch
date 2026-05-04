@@ -139,6 +139,7 @@ if [ ! -f ".gitignore" ]; then
   cat > .gitignore << 'GITIGNORE'
 # ARCH — local overrides
 .arch-local
+.arch-local.json
 
 # Common
 .DS_Store

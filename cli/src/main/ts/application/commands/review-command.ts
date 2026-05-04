@@ -1,6 +1,7 @@
 import { ReviewSystem } from '../use-cases/review-system.js';
 import type { TaskRepository } from '../../domain/repositories/task-repository.js';
 import type { GitRepository } from '../../domain/repositories/git-repository.js';
+import type { FileSystem } from '../../domain/repositories/file-system.js';
 import type { Reviewer } from '../../domain/services/reviewer.js';
 import type { DriftChecker } from '../../domain/services/drift-checker.js';
 import * as fmt from '../../infrastructure/cli/output-formatter.js';
@@ -13,8 +14,9 @@ export class ReviewCommand {
     private gitRepository: GitRepository,
     private reviewer: Reviewer,
     private driftChecker: DriftChecker,
+    private fileSystem: FileSystem,
   ) {
-    this.useCase = new ReviewSystem(taskRepository, gitRepository, reviewer, driftChecker);
+    this.useCase = new ReviewSystem(taskRepository, gitRepository, reviewer, fileSystem, driftChecker);
   }
 
   async execute(args: string[] = []): Promise<void> {

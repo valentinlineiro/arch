@@ -38,7 +38,7 @@ export class SubprocessRunner {
   /**
    * Runs a command and captures its output.
    */
-  static async runWithOutput(command: string, args: string[], options: { cwd?: string; stream?: boolean } = {}): Promise<SubprocessResult> {
+  static async runWithOutput(command: string, args: string[], options: { cwd?: string; stream?: boolean; timeoutMs?: number } = {}): Promise<SubprocessResult> {
     return new Promise((resolve) => {
       const child = spawn(command, args, {
         stdio: 'pipe',
@@ -47,6 +47,12 @@ export class SubprocessRunner {
 
       let stdout = '';
       let stderr = '';
+      let timedOut = false;
+
+      const timeout = options.timeoutMs ? setTimeout(() => {
+        timedOut = true;
+        child.kill();
+      }, options.timeoutMs) : null;
 
       child.stdout?.on('data', (data) => {
         stdout += data.toString();
@@ -62,11 +68,20 @@ export class SubprocessRunner {
       });
 
       child.on('close', (code) => {
-        resolve({
-          code: code ?? 0,
-          stdout,
-          stderr,
-        });
+        if (timeout) clearTimeout(timeout);
+        if (timedOut) {
+          resolve({
+            code: 124, // Standard exit code for timeout
+            stdout,
+            stderr: stderr + '\nError: Execution timed out',
+          });
+        } else {
+          resolve({
+            code: code ?? 0,
+            stdout,
+            stderr,
+          });
+        }
       });
     });
   }

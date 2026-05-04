@@ -5,6 +5,7 @@ import { Task, TaskStatus } from '../../domain/models/task.js';
 import { SelectNextTask } from './select-next-task.js';
 import { BatchSystem } from './batch-system.js';
 import { SubprocessRunner } from '../../infrastructure/cli/subprocess-runner.js';
+import { ConfigLoader } from '../../domain/services/config-loader.js';
 
 export class GovernSystem {
   private batchSystem: BatchSystem;
@@ -18,7 +19,7 @@ export class GovernSystem {
   }
 
   async execute(noConduct = false): Promise<void> {
-    const config = JSON.parse(await this.fileSystem.readFile('arch.config.json'));
+    const config = await ConfigLoader.load(this.fileSystem);
     const conductEveryN = config.governance?.conductEveryN ?? 3;
 
     // 0. Batch Drain
