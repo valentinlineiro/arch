@@ -1,5 +1,9 @@
 ## TASK-170: Improve UX when loop needs human feedback
-**Meta:** P2 | S | READY | Focus:no | 2-code-generation | local | cli/, docs/agents/
+**Meta:** P2 | S | DONE | Focus:no | 2-code-generation | local | cli/, docs/agents/
+**Closed-at:** 2026-05-04T12:12:01.522Z
+
+## Decision
+REJECTED: Superseded by TASK-172 (Dynamic Inbox Pivot).
 **Depends:** none
 
 ### Acceptance Criteria
