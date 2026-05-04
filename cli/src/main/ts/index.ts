@@ -22,6 +22,7 @@ import { PromoteCommand } from './application/commands/promote-command.js';
 import { LoopCommand } from './application/commands/loop-command.js';
 import { SandboxCommand } from './application/commands/sandbox-command.js';
 import { SandboxService } from './domain/services/sandbox.js';
+import { LintCommand } from './application/commands/lint-command.js';
 
 async function main() {
   const fileSystem = new NodeFileSystem();
@@ -87,8 +88,11 @@ async function main() {
     case 'sandbox':
       await new SandboxCommand(sandboxService, taskRepository, fileSystem).execute(args);
       break;
+    case 'lint':
+      await new LintCommand(taskRepository, fileSystem).execute(args);
+      break;
     default:
-      console.log('Usage: arch [status|validate|review|task|inbox|next|version|govern|rank|batch|drain|conduct|promote|loop|sandbox]');
+      console.log('Usage: arch [status|validate|review|task|inbox|next|version|govern|rank|batch|drain|conduct|promote|loop|sandbox|lint]');
       process.exit(1);
   }
 }

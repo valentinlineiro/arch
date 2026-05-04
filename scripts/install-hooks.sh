@@ -15,4 +15,7 @@ fi
 cp "$TEMPLATE_DIR/commit-msg.template" "$HOOKS_DIR/commit-msg"
 chmod +x "$HOOKS_DIR/commit-msg"
 
-echo "✓ commit-msg hook installed."
+cp "$TEMPLATE_DIR/pre-commit.template" "$HOOKS_DIR/pre-commit"
+chmod +x "$HOOKS_DIR/pre-commit"
+
+echo "✓ commit-msg and pre-commit hooks installed."

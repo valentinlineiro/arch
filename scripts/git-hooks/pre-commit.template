@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+# ARCH Pre-commit Hook: Lint staged task files
+
+STAGED_TASKS=$(git diff --cached --name-only --diff-filter=ACM | grep "^docs/tasks/.*\.md$" || true)
+
+if [ -n "$STAGED_TASKS" ]; then
+    echo -e "  \033[0;32mARCH\033[0m — linting staged tasks..."
+    ./scripts/arch.sh lint $STAGED_TASKS
+    if [ $? -ne 0 ]; then
+        echo -e "  \033[0;31m✖\033[0m Error: Task lint failed. Fix formatting before committing."
+        exit 1
+    fi
+fi
