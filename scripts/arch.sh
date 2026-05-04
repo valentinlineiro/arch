@@ -122,7 +122,7 @@ invoke_agent() {
 
 # ── Router ────────────────────────────────────────────────────────
 case "$1" in
-  "status"|"validate"|"inbox"|"next"|"govern"|"rank"|"batch"|"drain"|"conduct"|"promote"|"version"|"loop"|"--version"|"-v")
+  "status"|"validate"|"inbox"|"next"|"govern"|"rank"|"batch"|"drain"|"conduct"|"promote"|"version"|"loop"|"sandbox"|"--version"|"-v")
     $BIN "$@"
     ;;
 
@@ -222,7 +222,7 @@ case "$1" in
     ;;
 
   *)
-    echo "Usage: $0 [status|validate|review|inbox|next|govern|rank|batch|drain|archive|task|promote|version|conduct|exec|loop]"
+    echo "Usage: $0 [status|validate|review|inbox|next|govern|rank|batch|drain|archive|task|promote|version|conduct|exec|loop|sandbox]"
     echo ""
     echo "Commands:"
     echo "  status     Show task counts"
@@ -241,6 +241,7 @@ case "$1" in
     echo "  conduct    Invoke THINK mode with an AI agent"
     echo "  exec       Invoke DO mode with an AI agent"
     echo "  loop       Autonomous execution loop"
+    echo "  sandbox    Secure execution wrapper (non-AI)"
     exit 1
     ;;
 esac

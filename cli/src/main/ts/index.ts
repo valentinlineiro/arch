@@ -20,12 +20,15 @@ import { BatchCommand } from './application/commands/batch-command.js';
 import { ConductCommand } from './application/commands/conduct-command.js';
 import { PromoteCommand } from './application/commands/promote-command.js';
 import { LoopCommand } from './application/commands/loop-command.js';
+import { SandboxCommand } from './application/commands/sandbox-command.js';
+import { SandboxService } from './domain/services/sandbox.js';
 
 async function main() {
   const fileSystem = new NodeFileSystem();
   const taskRepository = new MarkdownTaskRepository(fileSystem);
   const gitRepository = new GitCli();
   const reviewer = new Reviewer();
+  const sandboxService = new SandboxService();
   const rootPath = path.resolve('.');
   const require = createRequire(import.meta.url);
   const { version: cliVersion } = require('../package.json') as { version: string };
@@ -81,8 +84,11 @@ async function main() {
     case 'loop':
       await new LoopCommand(taskRepository, gitRepository, fileSystem).execute(args);
       break;
+    case 'sandbox':
+      await new SandboxCommand(sandboxService, taskRepository, fileSystem).execute(args);
+      break;
     default:
-      console.log('Usage: arch [status|validate|review|task|inbox|next|version|govern|rank|batch|drain|conduct|promote|loop]');
+      console.log('Usage: arch [status|validate|review|task|inbox|next|version|govern|rank|batch|drain|conduct|promote|loop|sandbox]');
       process.exit(1);
   }
 }

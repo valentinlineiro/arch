@@ -12,7 +12,11 @@ export function fail(message: string): void {
 }
 
 export function warn(message: string): void {
-  console.error(`  ${YELLOW}Error:${NC} ${message}`);
+  console.log(`  ${YELLOW}⚠${NC} ${message}`);
+}
+
+export function info(message: string): void {
+  console.log(`  ${YELLOW}ℹ${NC} ${message}`);
 }
 
 export function arrow(message: string): void {
