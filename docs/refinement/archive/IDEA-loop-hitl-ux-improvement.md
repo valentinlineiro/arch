@@ -39,13 +39,21 @@ Introduce an interactive command to resolve halts without manual file editing:
 - Prompts: "How would you like to proceed? 1. Approve 2. Redirect"
 - Automatically updates `INBOX.md` and prepares the system for resume.
 
+### 4. Interactive Inbox Actions
+Make the inbox more than just a report by allowing direct interaction:
+- Add action menu to inbox (e.g., promote, start, view)
+- Enable direct task promotion from inbox
+- Add keyboard navigation (long-term)
+
 ## Dependencies
-- `IDEA-interactive-inbox.md` (related)
 - `IDEA-simplify-cli-ux.md` (related)
 
 ## Estimated size
-S
+M
 
 ## Gaps
 - Should we support multiple concurrent halts? (Currently `arch loop` halts on the first one).
 - Should `arch resolve` trigger the resume automatically?
+
+## Decision
+PROMOTE → TASK-170
