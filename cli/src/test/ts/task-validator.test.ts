@@ -27,15 +27,16 @@ test('TaskValidator - isValidDepends', () => {
   assert.strictEqual(TaskValidator.isValidDepends('Depends: TASK-001'), false);
 });
 
-test('TaskValidator - parseMeta', () => {
+test('TaskValidator - validateMeta', () => {
   const meta = '**Meta:** P1 | M | IN_PROGRESS | Focus:yes | 6-writing | claude | agents/EXEC.md';
-  const parsed = TaskValidator.parseMeta(meta);
+  const errors = TaskValidator.validateMeta(meta);
   
-  assert.strictEqual(parsed.priority, '1');
-  assert.strictEqual(parsed.size, 'M');
-  assert.strictEqual(parsed.status, 'IN_PROGRESS');
-  assert.strictEqual(parsed.focus, 'Focus:yes');
-  assert.strictEqual(parsed.class, '6-writing');
-  assert.strictEqual(parsed.cli, 'claude');
-  assert.strictEqual(parsed.context, 'agents/EXEC.md');
+  assert.strictEqual(errors.length, 0, `Should have no errors, but got: ${errors.join(', ')}`);
+});
+
+test('TaskValidator - validateMeta failures', () => {
+  const meta = '**Meta:** P1 | INVALID | IN_PROGRESS | Focus:yes | 6-writing | claude | agents/EXEC.md';
+  const errors = TaskValidator.validateMeta(meta);
+  
+  assert.ok(errors.some(e => e.includes('Invalid Size')), 'Should detect invalid size');
 });
