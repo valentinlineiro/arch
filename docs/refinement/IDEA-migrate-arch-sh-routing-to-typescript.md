@@ -1,7 +1,7 @@
 ## IDEA: Migrate arch.sh routing logic to TypeScript
 
-**Status:** DRAFT
-**Decision:** —
+**Status:** PROMOTED → TASK-175
+**Decision:** PROMOTE → TASK-175
 
 ### Problem
 `arch.sh` currently owns two pieces of logic that belong in the TypeScript CLI:
