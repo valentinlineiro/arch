@@ -1,7 +1,7 @@
 # IDEA: conflict-resolver-agent
 **Created:** 2026-05-01
 **Source:** ADR-001 "Merge conflicts as feature"
-**Status:** DRAFT
+**Status:** PROMOTED → TASK-191
 **Meta:** P1 | M | 7-operations | local
 <!-- cli: local | claude | gemini | human -->
 
@@ -22,5 +22,4 @@ M
 - Definir "trivial" sin falsos positivos que escalen todo
 
 ## Decision
-<!-- Human writes here after THINK evaluation -->
-<!-- PROMOTE → TASK-XXX | REJECT: reason -->
+PROMOTE → TASK-191

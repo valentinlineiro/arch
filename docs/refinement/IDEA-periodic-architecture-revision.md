@@ -1,7 +1,7 @@
 # IDEA: Periodic architecture revision for continuous efficiency
 **Created:** 2026-04-29T08:48:00Z
 **Source:** human
-**Status:** DRAFT
+**Status:** PROMOTED → TASK-188
 **Meta:** P1 | S | claude | process
 
 ## Problem
@@ -27,5 +27,4 @@ XS
 <!-- THINK fills this section when invoked — do not edit manually -->
 
 ## Decision
-<!-- Human writes here after THINK evaluation -->
-<!-- PROMOTE → TASK-XXX | REJECT: reason -->
+PROMOTE → TASK-188

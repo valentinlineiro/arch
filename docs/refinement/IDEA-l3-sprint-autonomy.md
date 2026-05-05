@@ -1,7 +1,7 @@
 # IDEA: L3 Sprint Autonomy — arch loop scoped to a sprint
 **Created:** 2026-04-30
 **Source:** Autonomous loop architecture — Level 3 "Pilot Mode"; agent executes full sprint without per-task human triggers
-**Status:** DRAFT
+**Status:** PROMOTED → TASK-190
 **Meta:** P2 | M | local | cli/src/, docs/guidelines/autonomy.md, docs/GOVERNANCE.md, arch.config.json
 
 ## Problem
@@ -33,5 +33,4 @@ M
 - Decide initial L3-eligible task classes (ops/writing only vs broader).
 
 ## Decision
-<!-- Human writes here after THINK evaluation -->
-<!-- PROMOTE → TASK-XXX | REJECT: reason -->
+PROMOTE → TASK-190

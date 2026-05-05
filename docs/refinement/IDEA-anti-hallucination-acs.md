@@ -1,7 +1,7 @@
 # IDEA: anti-hallucination-acs
 **Created:** 2026-04-29
 **Source:** human — `idea:` DO mode submission
-**Status:** DRAFT
+**Status:** PROMOTED → TASK-189
 **Meta:** P0 | M | arch review | task execution
 
 ## Problem
@@ -22,5 +22,4 @@ M
 - **Non-determinism:** Strategy for handling dynamic outputs (e.g., dates, hashes, random IDs) in verification strings.
 
 ## Decision
-<!-- Human writes here after THINK evaluation -->
-<!-- PROMOTE → TASK-XXX | REJECT: reason -->
+PROMOTE → TASK-189
