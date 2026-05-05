@@ -1,6 +1,6 @@
 ## TASK-101: ARCH control panel - migrate onboarding to Angular component
 **Meta:** P3 | S | READY | Focus:no | 2-code-generation | human | docs/, docs/ONBOARDING.html
-**Depends:** TASK-097
+**Depends:** TASK-097, TASK-206
 
 ### Acceptance Criteria
 - [ ] `OnboardingComponent` created with separate `onboarding.component.ts`, `onboarding.component.html`, `onboarding.component.css`.

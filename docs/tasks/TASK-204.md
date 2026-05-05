@@ -1,6 +1,6 @@
 ## TASK-204: Escalation maturity Phase 3 — Level 5 Verifiable
-**Meta:** P1 | M | READY | Focus:no | 2-code-generation | claude-code | cli/src/main/ts/, docs/
-**Depends:** TASK-203
+**Meta:** P2 | M | READY | Focus:no | 2-code-generation | claude-code | cli/src/main/ts/, docs/
+**Depends:** TASK-203, TASK-194
 
 ### Context
 Phase 3 of 3. Escalations become verifiable: `arch review` checks that every halt was resolved, and integration tests prove escalation paths work.

@@ -1,5 +1,5 @@
 ## TASK-194: Implement HALT.md and halt-log drift check
-**Meta:** P2 | S | READY | Focus:no | 2-code-generation | claude-code | docs/agents/DO.md, docs/TASK-FORMAT.md, cli/src/main/ts/domain/services/drift-checker.ts
+**Meta:** P1 | S | READY | Focus:no | 2-code-generation | claude-code | docs/agents/DO.md, docs/TASK-FORMAT.md, cli/src/main/ts/domain/services/drift-checker.ts
 **Depends:** none
 
 ### Context
