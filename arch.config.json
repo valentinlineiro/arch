@@ -32,6 +32,11 @@
       "L": "claude-3-opus-20240229"
     }
     },
+    "contextBudget": {
+    "docs/tasks": 1000,
+    "docs/archive": 8000,
+    "docs/refinement": 3000
+    },
     "paths": {
     "tasks": "docs/tasks",
     "archive": "docs/archive",

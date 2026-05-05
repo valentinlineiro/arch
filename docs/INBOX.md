@@ -19,6 +19,22 @@ _No active sprint._
 ## Recent Activity
 - **Last Commit:** fix: [TASK-187] fix stale INBOX.md coordination surface
 
+## [2026-05-05 00:00] REVIEW_REQUEST | TASK-184
+**Task:** Add Census (context budget) check to arch review
+**ACs:**
+- [x] `arch.config.json` supports a `contextBudget` block mapping directory paths to line-count thresholds
+- [x] New `Census` drift check in `DriftChecker` counts lines per configured directory
+- [x] WARN emitted when threshold exceeded with PURGE or REFACTOR suggestion
+- [x] `Census` check appears in `arch review` drift output
+- [x] Default thresholds documented as example in `arch.config.json`
+**Changed files:**
+- arch.config.json
+- cli/src/main/ts/domain/services/drift-checker.ts
+- cli/src/test/ts/drift-checker.test.ts
+- cli/dist/index.js
+- docs/adr/ADR-007-census-context-budget-check.md
+- docs/tasks/TASK-184.md
+
 ## [2026-05-05 00:00] REVIEW_REQUEST | TASK-159
 **Task:** Define and Implement Metrics Schema for METRICS.md
 **ACs:**

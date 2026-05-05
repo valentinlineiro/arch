@@ -132,6 +132,87 @@ test('DependsGraph - WARN on circular dependency', async () => {
   assert.ok(check?.details.some(d => d.includes('Circular dependency')));
 });
 
+test('Census - OK when all directories are under budget', async () => {
+  const fs = makeBaseFs();
+  fs.files['/repo/arch.config.json'] = JSON.stringify({
+    version: '0.2.0',
+    contextBudget: { 'docs/tasks': 1000 },
+  });
+  fs.directories['/repo/docs/tasks'] = ['TASK-001.md'];
+  fs.files['/repo/docs/tasks/TASK-001.md'] = 'line1\nline2\nline3';
+
+  const checker = new DriftChecker(fs, new MockGitRepository(), '/repo', '0.2.0');
+  const result = await checker.check();
+  const check = result.find(r => r.check === 'Census');
+
+  assert.ok(check);
+  assert.strictEqual(check?.status, 'OK');
+});
+
+test('Census - WARN when directory exceeds budget with REFACTOR suggestion', async () => {
+  const fs = makeBaseFs();
+  fs.files['/repo/arch.config.json'] = JSON.stringify({
+    version: '0.2.0',
+    contextBudget: { 'docs/tasks': 2 },
+  });
+  fs.directories['/repo/docs/tasks'] = ['TASK-001.md'];
+  fs.files['/repo/docs/tasks/TASK-001.md'] = 'line1\nline2\nline3\nline4\nline5';
+
+  const checker = new DriftChecker(fs, new MockGitRepository(), '/repo', '0.2.0');
+  const result = await checker.check();
+  const check = result.find(r => r.check === 'Census');
+
+  assert.ok(check);
+  assert.strictEqual(check?.status, 'WARN');
+  assert.ok(check?.details.some(d => d.includes('docs/tasks') && d.includes('REFACTOR')));
+});
+
+test('Census - WARN with PURGE suggestion for archive directory', async () => {
+  const fs = makeBaseFs();
+  fs.files['/repo/arch.config.json'] = JSON.stringify({
+    version: '0.2.0',
+    contextBudget: { 'docs/archive': 2 },
+  });
+  fs.directories['/repo/docs/archive'] = ['TASK-001.md'];
+  fs.files['/repo/docs/archive/TASK-001.md'] = 'line1\nline2\nline3\nline4\nline5';
+
+  const checker = new DriftChecker(fs, new MockGitRepository(), '/repo', '0.2.0');
+  const result = await checker.check();
+  const check = result.find(r => r.check === 'Census');
+
+  assert.ok(check);
+  assert.strictEqual(check?.status, 'WARN');
+  assert.ok(check?.details.some(d => d.includes('docs/archive') && d.includes('PURGE')));
+});
+
+test('Census - OK when no contextBudget configured', async () => {
+  const fs = makeBaseFs();
+  fs.directories['/repo/docs/tasks'] = ['TASK-001.md'];
+  fs.files['/repo/docs/tasks/TASK-001.md'] = 'lots of content\n'.repeat(10000);
+
+  const checker = new DriftChecker(fs, new MockGitRepository(), '/repo', '0.2.0');
+  const result = await checker.check();
+  const check = result.find(r => r.check === 'Census');
+
+  assert.ok(check);
+  assert.strictEqual(check?.status, 'OK');
+});
+
+test('Census - skips missing directories gracefully', async () => {
+  const fs = makeBaseFs();
+  fs.files['/repo/arch.config.json'] = JSON.stringify({
+    version: '0.2.0',
+    contextBudget: { 'docs/nonexistent': 100 },
+  });
+
+  const checker = new DriftChecker(fs, new MockGitRepository(), '/repo', '0.2.0');
+  const result = await checker.check();
+  const check = result.find(r => r.check === 'Census');
+
+  assert.ok(check);
+  assert.strictEqual(check?.status, 'OK');
+});
+
 test('DependsGraph - OK when dependency is in archive', async () => {
   const fs = makeBaseFs();
   fs.directories['/repo/docs/tasks'] = ['TASK-002.md'];

@@ -34,6 +34,7 @@ export class DriftChecker {
       this.checkPriorityDrift(),
       this.checkStaleTasks(),
       this.checkMergeCommits(),
+      this.checkCensus(),
     ]);
   }
 
@@ -465,6 +466,39 @@ export class DriftChecker {
 
     return {
       check: 'TaskArchive',
+      status: details.length === 0 ? 'OK' : 'WARN',
+      details,
+    };
+  }
+
+  private async checkCensus(): Promise<DriftResult> {
+    const configRaw = await this.fileSystem.readFile(`${this.rootPath}/arch.config.json`);
+    const config = JSON.parse(configRaw);
+    const budget: Record<string, number> = config.contextBudget ?? {};
+    const details: string[] = [];
+
+    for (const [dirPath, threshold] of Object.entries(budget)) {
+      if (!(await this.fileSystem.exists(`${this.rootPath}/${dirPath}`))) continue;
+
+      const files = await this.fileSystem.readDirectory(`${this.rootPath}/${dirPath}`);
+      let totalLines = 0;
+      for (const file of files) {
+        try {
+          const content = await this.fileSystem.readFile(`${this.rootPath}/${dirPath}/${file}`);
+          if (content) totalLines += content.split('\n').length;
+        } catch {
+          // skip subdirectories and unreadable entries
+        }
+      }
+
+      if (totalLines > threshold) {
+        const action = dirPath.includes('archive') ? 'PURGE' : 'REFACTOR';
+        details.push(`${dirPath}: ${totalLines} lines exceeds budget of ${threshold} — suggested action: ${action}`);
+      }
+    }
+
+    return {
+      check: 'Census',
       status: details.length === 0 ? 'OK' : 'WARN',
       details,
     };
