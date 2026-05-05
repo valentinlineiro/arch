@@ -8,18 +8,20 @@
 `docs/archive/` currently stores full task files including Context sections, verbose Acceptance Criteria prose, and Hansei text. As tasks accumulate this drives up the Census line count (budget: 8000 lines) and makes the archive expensive to pass to an LLM as context. The information that matters long-term is a small fraction of each file.
 
 ## Proposed solution
-Define a compressed archive format and an `arch task compress` (or `arch purge`) command that rewrites task files in `docs/archive/` to a minimal canonical form, keeping only:
+Define a compressed archive format and an `arch task compress` command that rewrites task files in `docs/archive/` to a minimal canonical form. The format is a curated subset of TASK-FORMAT (no new schema — existing tooling reads it unchanged), retaining only the fields that enrich Kaizen sessions:
 - Task ID and title
-- Meta line (priority, size, status, class, cost, turns)
+- Meta line (priority, size estimated vs actual, status, class, cost, turns)
 - Closed-at date
-- Final AC list (checked/unchecked state only, no prose)
-- Hansei section (1–3 sentences — the highest-signal content)
+- Hansei section (1–3 sentences — highest-signal content for ORACLE and THINK)
+- Blockers encountered (if any)
 
-Everything else (Context, Definition of Done body, lock lines, in-progress comments) is dropped. The result is a ~10-line entry per task instead of the current 20–50 lines, roughly halving the archive footprint.
+Everything else (Context, AC prose, lock lines, implementation notes) is dropped. Compression is **lossy** — git history preserves the original if ever needed. The result is a ~10-line entry per task instead of the current 20–50 lines, roughly halving the archive footprint.
+
+**Trigger:** Automatic when Census emits a PURGE warning for `docs/archive/`; `arch task compress` also available as a manual command.
 
 ## Related
 - `IDEA-oracle-archive-distillation` — extracts wisdom *from* the archive into guidelines. Complementary: compress first, then distill.
-- `IDEA-queryable-archive` — queryable archive would benefit from a uniform compressed schema.
+- `IDEA-rag-context-retrieval` — RAG indexes the archive; compressed uniform entries improve chunk quality and reduce embedding cost. Compress before indexing.
 - Census check (TASK-184) — the PURGE suggestion in the Census WARN message is the enforcement trigger for this operation.
 
 ## Dependencies
@@ -29,9 +31,10 @@ None. Compression can be applied incrementally to existing archive entries.
 M
 
 ## Gaps
-- Define the exact compressed format (separate schema or subset of existing TASK-FORMAT).
-- Decide whether compression is lossy (delete dropped fields) or lossless (move to a `.bak` or separate store).
-- Decide trigger: manual command, or automatic when Census emits PURGE for `docs/archive/`.
+All resolved:
+- **Format:** Curated subset of TASK-FORMAT (no new schema).
+- **Lossy/lossless:** Lossy — git history is the recovery path.
+- **Trigger:** Automatic on Census PURGE + manual `arch task compress`.
 
 ## Decision
 <!-- Human writes here after THINK evaluation -->
