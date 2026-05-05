@@ -1,5 +1,5 @@
 ## TASK-191: Implement conflict resolver for trivial autonomous merge
-**Meta:** P1 | M | REVIEW | Focus:no | 2-code-generation | claude-code | docs/agents/DO.md, cli/src/main/ts/ | Turns: 18
+**Meta:** P1 | M | REVIEW | Focus:no | 2-code-generation | claude-code | docs/agents/DO.md, cli/src/main/ts/ | Turns: 32
 **Depends:** none
 
 ### Context

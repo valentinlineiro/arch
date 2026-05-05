@@ -4,8 +4,8 @@
 
 ## Status Summary
 - **Active Tasks:** 0
-- **In Review:** 0
-- **Backlog (Ready):** 16
+- **In Review:** 1
+- **Backlog (Ready):** 15
 
 ## Urgent / Actions Required
 _No urgent actions._
@@ -18,7 +18,27 @@ anti-hallucination-acs, arch-review-dependency-graph, archive-compression, censu
 _No active sprint._
 
 ## Recent Activity
-- **Last Commit:** chore: [TASK-192][TASK-195][TASK-197] REVIEW_PASS — set DONE
+- **Last Commit:** feat: [TASK-191] finalize conflict resolver safety and chronological sorting
+
+## [2026-05-05 15:45] REVIEW_REQUEST | TASK-191
+**Task:** Implement conflict resolver for trivial autonomous merge
+**ACs:**
+- [x] `DO.md` documents the conflict resolution protocol: auto-merge is permitted only for pure-append conflicts on `docs/INBOX.md` and `**Meta:**` status-line-only changes in `docs/tasks/*.md`; all other conflicts escalate to INBOX
+- [x] `arch merge-resolve` command (or integrated into `arch loop`) detects merge conflicts after `git pull --rebase`, auto-resolves qualifying conflicts using chronological append order, and logs a `MERGE_AUTO` entry to INBOX
+- [x] A `MERGE_ESCALATE` entry is written to INBOX for any conflict that does not meet the auto-merge criteria, halting the loop until human resolution
+- [x] Auto-merge never touches `docs/adr/`, `arch.config.json`, or `cli/src/main/ts/domain/` (protected paths always escalate)
+- [x] `arch review` passes
+- [x] `npm test` passes in `cli/`
+**Changed files:**
+- docs/tasks/TASK-191.md
+- docs/agents/DO.md
+- README.md
+- cli/src/main/ts/index.ts
+- cli/src/main/ts/application/use-cases/merge-resolve.ts
+- cli/src/main/ts/application/commands/merge-resolve-command.ts
+- cli/src/main/ts/domain/services/task-validator.ts
+- cli/src/main/ts/domain/services/drift-checker.ts
+- cli/src/test/ts/merge-resolve.test.ts
 
 ## [2026-05-05 11:15] REVIEW_PASS | TASK-192, TASK-195, TASK-197
 All ACs verified. TASK-192 Refinement Queue count confirmed. TASK-195 Hansei drift check verified by arch review. TASK-197 DO.md Hansei protocol alignment confirmed. Archived.
