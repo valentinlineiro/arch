@@ -26,7 +26,11 @@ export class GovernSystem {
     await this.batchSystem.drain();
 
     // 0.1 Archival Guard — Auto-archive DONE/REJECTED tasks from tasksDir
-    await this.archiveDoneTasks();
+    try {
+      await this.archiveDoneTasks();
+    } catch (error: any) {
+      throw error; // Halt execution on archival escalation
+    }
 
     // 1. Rule 2 — Replenishment
     const readyTasks = await this.taskRepository.findReady();
@@ -171,7 +175,22 @@ export class GovernSystem {
       console.log(`  ✓ ${taskId} archived and committed.`);
     } catch (error: any) {
       console.error(`  ✖ Failed to archive ${taskId}: ${error.message}`);
+      await this.appendInbox(taskId, 'ANDON_HALT', error.message);
+      throw error;
     }
+  }
+
+  private async appendInbox(taskId: string, type: string, evidence: string): Promise<void> {
+    const ts = new Date().toISOString().slice(0, 16).replace('T', ' ');
+    const entry = `\n## [${ts}] ${type} | ${taskId}\nEvidence: ${evidence}\n`;
+    const inboxPath = 'docs/INBOX.md';
+    let existing = '';
+    try {
+      existing = await this.fileSystem.readFile(inboxPath);
+    } catch {
+      // If INBOX.md doesn't exist, we'll start with just the entry
+    }
+    await this.fileSystem.writeFile(inboxPath, existing + entry);
   }
 
   private async getArchiveCandidateContent(sourcePath: string, targetPath: string): Promise<string | null> {

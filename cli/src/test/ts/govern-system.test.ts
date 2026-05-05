@@ -137,19 +137,14 @@ test('archiveDoneTasks blocks auto-archiving post-rollout DONE task without Hans
   const git = new SucceedingGitRepository();
 
   const errorLogs: string[] = [];
-  const originalError = console.error;
-  console.error = (...args: any[]) => { errorLogs.push(args.join(' ')); };
-
-  try {
-    const system = new GovernSystem(repo as any, git as any, fs as any);
-    await system.execute();
-  } finally {
-    console.error = originalError;
-  }
+  const system = new GovernSystem(repo as any, git as any, fs as any);
+  await assert.rejects(
+    () => system.execute(),
+    /missing ## Hansei section/
+  );
 
   assert.strictEqual(git.commitCalls.some(m => m.includes('archive [TASK-195]')), false);
   assert.strictEqual(git.addCalls.includes('docs/archive/TASK-195.md'), false);
-  assert.ok(errorLogs.some(msg => msg.includes('TASK-195') && msg.includes('missing ## Hansei section')));
 });
 
 test('archiveDoneTasks blocks phantom archive sync for post-rollout DONE task without Hansei', async () => {
@@ -162,18 +157,37 @@ test('archiveDoneTasks blocks phantom archive sync for post-rollout DONE task wi
   const git = new SucceedingGitRepository();
   git.getStatusLines = async () => ['?? docs/archive/TASK-195.md'];
 
-  const errorLogs: string[] = [];
-  const originalError = console.error;
-  console.error = (...args: any[]) => { errorLogs.push(args.join(' ')); };
-
-  try {
-    const system = new GovernSystem(repo as any, git as any, fs as any);
-    await system.execute();
-  } finally {
-    console.error = originalError;
-  }
+  const system = new GovernSystem(repo as any, git as any, fs as any);
+  await assert.rejects(
+    () => system.execute(),
+    /missing ## Hansei section/
+  );
 
   assert.strictEqual(git.commitCalls.some(m => m.includes('archive [TASK-195]')), false);
   assert.strictEqual(git.addCalls.includes('docs/archive/TASK-195.md'), false);
-  assert.ok(errorLogs.some(msg => msg.includes('TASK-195') && msg.includes('missing ## Hansei section')));
+});
+
+test('archiveDoneTasks appends ANDON_HALT to INBOX.md and halts on Hansei violation', async () => {
+  const task = {
+    ...makeReady('TASK-195'),
+    status: TaskStatus.DONE,
+    rawMetaLine: '**Meta:** P1 | S | DONE | Focus:no | 2-code-generation | claude-code | docs/',
+  };
+  const fs = new SpyFileSystem();
+  fs.files['docs/tasks/TASK-195.md'] = '## TASK-195: Missing Hansei\n**Meta:** P1 | S | DONE | Focus:no | 2-code-generation | claude-code | docs/\n';
+  fs.directories['docs/tasks'] = ['TASK-195.md'];
+  fs.files['docs/INBOX.md'] = '# INBOX\n';
+  const repo = new ArchiveTaskRepository([task]);
+  const git = new SucceedingGitRepository();
+
+  const system = new GovernSystem(repo as any, git as any, fs as any);
+  
+  await assert.rejects(
+    () => system.execute(),
+    /missing ## Hansei section/
+  );
+
+  const inboxContent = fs.files['docs/INBOX.md'];
+  assert.ok(inboxContent.includes('ANDON_HALT | TASK-195'), 'INBOX must contain ANDON_HALT for TASK-195');
+  assert.ok(inboxContent.includes('Evidence: missing ## Hansei section'), 'INBOX must contain violation evidence');
 });
