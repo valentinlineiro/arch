@@ -19,6 +19,16 @@ _No active sprint._
 ## Recent Activity
 - **Last Commit:** fix: [TASK-187] fix stale INBOX.md coordination surface
 
+## [2026-05-05 00:00] REVIEW_REQUEST | TASK-159
+**Task:** Define and Implement Metrics Schema for METRICS.md
+**ACs:**
+- [x] JSON schema defined (Schema section added to METRICS.md with field table)
+- [x] Includes cycle time (P50/P90), cost per task, REVIEW_FAIL rate, and token usage trends
+- [x] Format is machine-readable (```json block tagged machine-readable-block)
+**Changed files:**
+- docs/METRICS.md
+- docs/tasks/TASK-159.md
+
 ## [2026-05-04 00:00] REVIEW_REQUEST | TASK-187
 **Task:** [BUG] INBOX.md coordination surface shows stale active tasks
 **ACs:**
