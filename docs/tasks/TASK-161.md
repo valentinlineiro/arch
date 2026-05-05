@@ -1,5 +1,5 @@
 ## TASK-161: Angular project scaffold for ARCH control panel
-**Meta:** P3 | S | IN_PROGRESS | Focus:no | 2-code-generation | human | docs/
+**Meta:** P3 | S | READY | Focus:no | 2-code-generation | human | docs/
 **Depends:** none
 
 ### Acceptance Criteria
