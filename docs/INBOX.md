@@ -19,6 +19,9 @@ _No active sprint._
 ## Recent Activity
 - **Last Commit:** fix: [TASK-187] fix stale INBOX.md coordination surface
 
+## [2026-05-05 00:00] REVIEW_PASS | TASK-188
+All ACs verified. Review issues fixed: machine-enforceable Last-Revision trigger in KAIZEN-LOG.md, minimum data guard, full IDEA path spec, [REVISION] tag added to Output section. `arch review` OK. Archived.
+
 ## [2026-05-05 00:00] REVIEW_PASS | TASK-189
 All ACs verified. Review issues fixed: status guard in MarkTaskReview, timeout detection with timedOut field, ValidateCommand routing through TaskRepository, and MarkTaskReview test suite (5 tests). `npm test` 82/82. Archived.
 
