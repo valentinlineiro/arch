@@ -36,7 +36,7 @@ export class LoopEngine {
   ) {
     this.governSystem = new GovernSystem(taskRepository, gitRepository, fileSystem);
     this.reviewSystem = new ReviewSystem(taskRepository, gitRepository, reviewer, fileSystem, driftChecker);
-    this.markTaskDone = new MarkTaskDone(taskRepository, reviewer);
+    this.markTaskDone = new MarkTaskDone(taskRepository, reviewer, fileSystem);
   }
 
   private log(message: string) {

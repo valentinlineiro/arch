@@ -146,6 +146,14 @@ export class GovernSystem {
     const targetPath = `docs/archive/${taskId}.md`;
     
     try {
+      const archiveContent = await this.getArchiveCandidateContent(sourcePath, targetPath);
+      if (archiveContent) {
+        const hanseiViolation = await this.validateHanseiRequirement(taskId, archiveContent);
+        if (hanseiViolation) {
+          throw new Error(hanseiViolation);
+        }
+      }
+
       if (await this.fileSystem.exists(sourcePath)) {
         console.log(`  Auto-archiving ${taskId}...`);
         await this.gitRepository.mv(sourcePath, targetPath);
@@ -164,5 +172,37 @@ export class GovernSystem {
     } catch (error: any) {
       console.error(`  ✖ Failed to archive ${taskId}: ${error.message}`);
     }
+  }
+
+  private async getArchiveCandidateContent(sourcePath: string, targetPath: string): Promise<string | null> {
+    if (await this.fileSystem.exists(sourcePath)) {
+      return this.fileSystem.readFile(sourcePath);
+    }
+
+    if (await this.fileSystem.exists(targetPath)) {
+      return this.fileSystem.readFile(targetPath);
+    }
+
+    return null;
+  }
+
+  private async validateHanseiRequirement(taskId: string, content: string): Promise<string | null> {
+    if (!content.includes('| DONE |')) {
+      return null;
+    }
+
+    const config = await ConfigLoader.load(this.fileSystem);
+    const hanseiSinceTaskId = config.hanseiSinceTaskId as number | undefined;
+    const taskNumber = parseInt(taskId.replace('TASK-', ''), 10);
+
+    if (hanseiSinceTaskId === undefined || Number.isNaN(taskNumber) || taskNumber < hanseiSinceTaskId) {
+      return null;
+    }
+
+    if (!content.includes('## Hansei')) {
+      return `missing ## Hansei section for post-rollout task (TASK-${hanseiSinceTaskId}+).`;
+    }
+
+    return null;
   }
 }

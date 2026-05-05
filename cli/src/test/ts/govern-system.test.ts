@@ -25,7 +25,7 @@ const READY_TASKS = [READY_TASK, makeReady('TASK-043'), makeReady('TASK-044')];
 const ORIGINAL_FILE = `## TASK-042: Some task\n**Meta:** P2 | S | 5 | READY | Focus:no | 6-writing | local | docs/\n`;
 const FOCUSED_FILE  = `## TASK-042: Some task\n**Meta:** P2 | S | 5 | READY | Focus:yes | 6-writing | local | docs/\n`;
 
-const CONFIG = JSON.stringify({ version: '0.5.0', governance: { conductEveryN: 3, starvationCycles: 5 } });
+const CONFIG = JSON.stringify({ version: '0.5.0', governance: { conductEveryN: 3, starvationCycles: 5 }, hanseiSinceTaskId: 195 });
 
 class SpyFileSystem {
   files: Record<string, string> = {
@@ -52,6 +52,16 @@ class SpyTaskRepository {
   async save() {}
   async findReady() { return READY_TASKS; }
   async getNextId() { return 'TASK-099'; }
+}
+
+class ArchiveTaskRepository extends SpyTaskRepository {
+  constructor(private tasks: any[]) {
+    super();
+  }
+
+  async getAll() { return this.tasks; }
+  async getActive() { return this.tasks; }
+  async findReady() { return []; }
 }
 
 class SucceedingGitRepository {
@@ -112,4 +122,58 @@ test('focusTask commits via gitRepository when commit succeeds', async () => {
     FOCUSED_FILE,
     'file must contain Focus:yes after successful commit'
   );
+});
+
+test('archiveDoneTasks blocks auto-archiving post-rollout DONE task without Hansei', async () => {
+  const task = {
+    ...makeReady('TASK-195'),
+    status: TaskStatus.DONE,
+    rawMetaLine: '**Meta:** P1 | S | DONE | Focus:no | 2-code-generation | claude-code | docs/',
+  };
+  const fs = new SpyFileSystem();
+  fs.files['docs/tasks/TASK-195.md'] = '## TASK-195: Missing Hansei\n**Meta:** P1 | S | DONE | Focus:no | 2-code-generation | claude-code | docs/\n';
+  fs.directories['docs/tasks'] = ['TASK-195.md'];
+  const repo = new ArchiveTaskRepository([task]);
+  const git = new SucceedingGitRepository();
+
+  const errorLogs: string[] = [];
+  const originalError = console.error;
+  console.error = (...args: any[]) => { errorLogs.push(args.join(' ')); };
+
+  try {
+    const system = new GovernSystem(repo as any, git as any, fs as any);
+    await system.execute();
+  } finally {
+    console.error = originalError;
+  }
+
+  assert.strictEqual(git.commitCalls.some(m => m.includes('archive [TASK-195]')), false);
+  assert.strictEqual(git.addCalls.includes('docs/archive/TASK-195.md'), false);
+  assert.ok(errorLogs.some(msg => msg.includes('TASK-195') && msg.includes('missing ## Hansei section')));
+});
+
+test('archiveDoneTasks blocks phantom archive sync for post-rollout DONE task without Hansei', async () => {
+  const fs = new SpyFileSystem();
+  delete fs.files['docs/tasks/TASK-042.md'];
+  fs.files['docs/archive/TASK-195.md'] = '## TASK-195: Missing Hansei\n**Meta:** P1 | S | DONE | Focus:no | 2-code-generation | claude-code | docs/\n';
+  fs.directories['docs/tasks'] = [];
+  fs.directories['docs/archive'] = ['TASK-195.md'];
+  const repo = new ArchiveTaskRepository([]);
+  const git = new SucceedingGitRepository();
+  git.getStatusLines = async () => ['?? docs/archive/TASK-195.md'];
+
+  const errorLogs: string[] = [];
+  const originalError = console.error;
+  console.error = (...args: any[]) => { errorLogs.push(args.join(' ')); };
+
+  try {
+    const system = new GovernSystem(repo as any, git as any, fs as any);
+    await system.execute();
+  } finally {
+    console.error = originalError;
+  }
+
+  assert.strictEqual(git.commitCalls.some(m => m.includes('archive [TASK-195]')), false);
+  assert.strictEqual(git.addCalls.includes('docs/archive/TASK-195.md'), false);
+  assert.ok(errorLogs.some(msg => msg.includes('TASK-195') && msg.includes('missing ## Hansei section')));
 });

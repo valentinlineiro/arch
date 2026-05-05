@@ -7,6 +7,7 @@ import { UpdateTaskMetrics } from '../use-cases/update-task-metrics.js';
 import { HumanCoordinationService } from '../../domain/services/human-coordination-service.js';
 import type { TaskRepository } from '../../domain/repositories/task-repository.js';
 import { Reviewer } from '../../domain/services/reviewer.js';
+import type { FileSystem } from '../../domain/repositories/file-system.js';
 import * as fmt from '../../infrastructure/cli/output-formatter.js';
 
 export class TaskCommand {
@@ -21,10 +22,11 @@ export class TaskCommand {
     taskRepository: TaskRepository,
     reviewer: Reviewer,
     private humanCoordinationService: HumanCoordinationService,
+    fileSystem: FileSystem,
     rootPath: string,
   ) {
     this.markInProgress = new MarkTaskInProgress(taskRepository);
-    this.markDone = new MarkTaskDone(taskRepository, reviewer);
+    this.markDone = new MarkTaskDone(taskRepository, reviewer, fileSystem);
     this.markReview = new MarkTaskReview(taskRepository, rootPath);
     this.rejectTask = new RejectTask(taskRepository);
     this.rejectStaleTask = new RejectStaleTask(taskRepository);
