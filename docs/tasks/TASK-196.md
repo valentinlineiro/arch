@@ -1,5 +1,5 @@
 ## TASK-196: [BUG] arch task done exits zero when Hansei guard blocks DONE transition
-**Meta:** P1 | S | READY | Focus:no | 2-code-generation | claude-code | cli/src/main/ts/application/commands/task-command.ts, cli/src/test/ts/, docs/agents/DO.md
+**Meta:** P1 | S | READY | Focus:yes | 2-code-generation | claude-code | cli/src/main/ts/application/commands/task-command.ts, cli/src/test/ts/, docs/agents/DO.md
 **Depends:** none
 
 ### Context
