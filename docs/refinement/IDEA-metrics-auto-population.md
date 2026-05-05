@@ -9,27 +9,27 @@
 METRICS.md has a well-defined schema (cycle time, cost per task, turns, REVIEW_FAIL rate) but is hand-populated. Hand-populated metrics are unreliable: they lag reality, are subject to selection bias, and require human discipline to maintain. The result is a dashboard that looks authoritative but isn't continuously verified.
 
 ## Proposed solution
-Add an `arch metrics` command (or extend `arch review`) that reads all archived task files in `docs/archive/`, extracts structured fields (closedAt, cost, steps/turns, size, class), and writes a generated metrics block to `docs/METRICS.md`. THINK Phase 3 step 4 (Sprint Metrics) would call this command instead of asking the agent to compute manually.
+Add an `arch report` command that reads all archived task files in `docs/archive/`, extracts structured fields, and writes a generated metrics block to `docs/METRICS.md`. `arch report` is a new top-level reporting command — not an extension of `arch review` (which stays read-only) and not a standalone `arch metrics`. THINK Phase 3 step 4 (Sprint Metrics) calls `arch report` instead of computing manually.
 
 Key outputs to auto-generate:
-- Cycle time P50/P90 per size tier (from closedAt − startedAt, if startedAt is recorded)
+- Cycle time P50/P90 per size tier (from `lockedAt` as proxy for startedAt → `closedAt`)
 - Cost per task by size and class
-- REVIEW_FAIL rate (tasks that transitioned REVIEW → READY)
-- Turns per task from `steps` field
+- REVIEW_FAIL rate (from event log — see Dependencies)
+
+Turns-per-task is **out of scope**: `steps` field is never populated in practice (verified).
 
 ## Dependencies
-- Requires `startedAt` to be recorded on task start (currently only `lockedAt` exists — likely sufficient)
-- METRICS.md schema (TASK-159, archived) is the target format
+- **Event log for status transitions** — a new append-only log (e.g. `docs/EVENTS.md` or a structured field in task files) recording REVIEW → READY transitions. Required for REVIEW_FAIL rate. This is a prerequisite and should be scoped as a separate XS task.
+- METRICS.md schema (TASK-159, archived) is the target format.
 
 ## Estimated size
-M — new CLI command, archive parser, metric aggregator, METRICS.md writer, tests
+M — event log prerequisite (XS) + archive parser + metric aggregator + `arch report` command + tests
 
 ## Gaps
-- **REVIEW_FAIL rate is not derivable from task files alone.** Task files hold current status only; REVIEW → READY transition history isn't recorded. Requires either git log parsing (fragile) or a new event log on status changes. Decision needed before scope is final.
-- `lockedAt` = `startedAt` — same field, cycle time is feasible.
-- `steps` field exists in Task model but population in practice is unverified — check before committing to turns-per-task output.
-- Standalone `arch metrics` command preferred over extending `arch review` (metrics writes a file; review should remain read-only).
-- Size may be M+ if REVIEW_FAIL tracking requires a new event log.
+All resolved:
+- **REVIEW_FAIL tracking:** event log (portable, not git log parsing).
+- **Turns-per-task:** dropped — `steps` field confirmed unpopulated.
+- **Command:** `arch report` — new reporting command, consistent with fewer-commands principle.
 
 ## Decision
 <!-- Human writes here after THINK evaluation -->
