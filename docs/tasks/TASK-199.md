@@ -1,5 +1,5 @@
 ## TASK-199: Implement Universal LLM Bridge (OpenAI-standard) for CLIs and Native REST
-**Meta:** P1 | M | READY | Focus:no | 2-code-generation | local | arch.config.json
+**Meta:** P1 | M | READY | Focus:yes | 2-code-generation | local | arch.config.json
 **Depends:** TASK-191
 
 ### Context
