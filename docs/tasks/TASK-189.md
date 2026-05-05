@@ -1,5 +1,5 @@
 ## TASK-189: Add executable AC predicates to task format and DO close step
-**Meta:** P0 | M | READY | Focus:no | 2-code-generation | claude-code | docs/TASK-FORMAT.md, docs/agents/DO.md, cli/src/main/ts/
+**Meta:** P0 | M | IN_PROGRESS | Focus:yes | 2-code-generation | claude-code | docs/TASK-FORMAT.md, docs/agents/DO.md, cli/src/main/ts/
 **Depends:** none
 
 ### Context
