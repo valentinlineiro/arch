@@ -22,14 +22,15 @@
 2. **Mura Detection:** Read `Turns: N` from the last 10 archived tasks. For each size tier (XS/S/M/L), compute the average. If actual avg exceeds the expected range in `docs/METRICS.md` by >50%, emit `[MURA] <size>-tier avg=N turns (threshold=T)` to stdout and propose a re-estimation or decomposition task.
 3. **Immediate Improvements:** Identify context gaps or guideline changes based on patterns.
 4. **Sprint Metrics:** On sprint close, generate `docs/METRICS.md` summary using the Sprint Template block.
-5. **Periodic Architecture Revision (bi-weekly):** Every two weeks, regardless of active tasks, run a focused architecture audit. Use `docs/METRICS.md` cost-per-task and turns-per-task data as the primary signal for identifying friction candidates. Produce a numbered list of concrete streamlining proposals — each must be an actionable proposal, not an observation — formatted as:
+5. **Periodic Architecture Revision (bi-weekly):** Read the `Last-Revision:` field at the bottom of `docs/KAIZEN-LOG.md`. If the field is absent or its date is more than 14 days before today, run a focused architecture audit; otherwise skip this step. Use `docs/METRICS.md` cost-per-task and turns-per-task data as the primary signal for identifying friction candidates (skip if fewer than 5 tasks are recorded). Produce a numbered list of concrete streamlining proposals — each must be an actionable proposal, not an observation — formatted as:
    ```
-   [REVISION] <N>. <proposal> → <next action: IDEA draft IDEA-slug | direct fix in <file>>
+   [REVISION] <N>. <proposal> → <next action: IDEA draft docs/refinement/IDEA-<slug>.md | direct fix in <file>>
    ```
-   Output to terminal only. If a proposal warrants a task, create an IDEA draft in `docs/refinement/` and commit with `idea:` prefix.
+   Output to terminal only. If a proposal warrants a task, create an IDEA draft in `docs/refinement/IDEA-<slug>.md` and commit with `idea:` prefix. After completing the audit, append `Last-Revision: YYYY-MM-DD` (today's date) to `docs/KAIZEN-LOG.md` and commit with `[THINK]` tag.
 
 ## Output
 - Ephemeral read-only output to terminal.
 - Kaizen: `[KAIZEN] [proposal] — rationale: [rationale]`
 - Autonomy: `[SELF-PROMOTION] IDEA-ID to TASK-ID — criteria: [L2 requirements met]`
+- Revision: `[REVISION] <N>. <proposal> → <next action>`
 - **Finally, print:** `[THINK] Done` to stdout.
