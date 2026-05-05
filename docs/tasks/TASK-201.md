@@ -1,4 +1,4 @@
-## TASK-201: Implement arch report — auto-populate METRICS.md from archived task data
+## TASK-201: Implement arch report - auto-populate METRICS.md from archived task data
 **Meta:** P2 | M | READY | Focus:no | 2-code-generation | claude-code | cli/src/main/ts/, docs/METRICS.md, docs/archive/
 **Depends:** none
 

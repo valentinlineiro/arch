@@ -1,4 +1,4 @@
-## TASK-203: Escalation maturity Phase 2 — Level 4 Fail-Closed
+## TASK-203: Escalation maturity Phase 2 - Level 4 Fail-Closed
 **Meta:** P2 | M | READY | Focus:no | 2-code-generation | claude-code | cli/src/main/ts/, docs/agents/DO.md
 **Depends:** TASK-202
 
