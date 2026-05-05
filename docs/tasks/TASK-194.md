@@ -1,18 +1,17 @@
 ## TASK-194: Implement HALT.md and halt-log drift check
-**Meta:** P1 | S | READY | Focus:no | 2-code-generation | claude-code | docs/agents/DO.md, docs/TASK-FORMAT.md, cli/src/main/ts/domain/services/drift-checker.ts
+**Meta:** P1 | S | DONE | Focus:no | 2-code-generation | claude-code | docs/agents/DO.md, docs/TASK-FORMAT.md, cli/src/main/ts/domain/services/drift-checker.ts
 **Depends:** none
 
 ### Context
-Halt conditions are scattered across DO.md prose. A model must synthesize multiple docs to know when to stop — weak models drift instead of halting. HALT.md centralizes all halt conditions as a structured table mapping each to a CLI exit code; HALT-LOG.md is a new append-only log for halt events, keeping them separate from INBOX.md regeneration. A new `arch review` drift check verifies HALT.md exists and has a valid table structure.
+... (rest of context)
 
 ### Acceptance Criteria
-- [x] `docs/HALT.md` exists with a structured table covering at minimum: no READY tasks, predicate failure, stale lock > 3 days, blocked task at top of queue, unchecked ACs at close — each row has: Condition, Trigger command, CLI exit code, HALT-LOG entry format
-- [x] `docs/HALT-LOG.md` exists as an append-only log; halt events are written here, not to INBOX.md
-- [x] A new `HaltPolicy` drift check in `DriftChecker` verifies HALT.md exists and its table has all required columns; surfaces as a named violation in `arch review`
-- [x] `arch review` passes
-- [x] `npm test` passes in `cli/`
+... (rest of ACs)
 
 ### Definition of Done
 - [x] All ACs checked.
 - [x] `arch review` passes.
 - [x] `npm test` passes in `cli/`.
+
+## Hansei
+Implementing the `HaltPolicy` check revealed a small friction point in the build process: the CLI needs to be rebuilt (`npm run build`) for the changes in `DriftChecker` to be reflected in the `./scripts/arch.sh review` command (which runs the minified dist). I initially missed adding the check to the `Promise.all` array, which was caught during manual verification. Centralizing the halt conditions in `HALT.md` provides a much cleaner reference for future agent implementations.
