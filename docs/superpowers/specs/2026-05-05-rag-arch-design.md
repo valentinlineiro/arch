@@ -15,7 +15,7 @@ RAG addresses both: retrieve only what's relevant, at the moment it's needed.
 **Components:**
 
 - `arch index` — reads all docs, chunks by `##` heading, embeds via `@huggingface/transformers` (WASM), writes to `docs/.rag/index.db` (SQLite-vec).
-- `arch rag <query>` — embeds the query, returns top-K chunks with source paths and metadata.
+- `arch rag <query>` — embeds the query, returns top-5 chunks with source paths and metadata (configurable via `--top-k`).
 - **Post-commit git hook** — runs `arch index --changed` after every commit, re-embedding only files touched in that commit. Exits 0 regardless of outcome (never blocks a commit).
 - **Enriched existing commands** — `arch next` and `arch task review` call `arch rag` internally and append a "Related context" section.
 
