@@ -83,7 +83,8 @@ export class TaskCommand {
         await this.markDone.execute(taskId, force);
         fmt.check(`marking ${taskId} as DONE`);
       } catch (error: any) {
-        fmt.warn(error.message);
+        fmt.fail(error.message);
+        process.exit(1);
       }
     } else if (subCommand === 'reject' && taskId) {
       try {
