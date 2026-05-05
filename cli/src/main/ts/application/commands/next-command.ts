@@ -9,15 +9,28 @@ export class NextCommand {
   }
 
   async execute(): Promise<void> {
-    const nextTask = await this.useCase.execute();
-    if (nextTask) {
-      if (this.args.includes('--format')) {
-        console.log(`${nextTask.id}:${nextTask.class}:${nextTask.size}`);
+    const result = await this.useCase.execute();
+
+    if (!result.ok) {
+      const { halt } = result;
+      let reason: string;
+      if (halt.kind === 'no_ready_tasks') {
+        reason = 'No READY tasks available.';
+      } else if (halt.kind === 'stale_lock') {
+        reason = `Stale lock: ${halt.taskId} has been IN_PROGRESS since ${halt.lockedAt} (> 3 days). Resolve before proceeding.`;
       } else {
-        console.log(nextTask.id);
+        reason = `Highest-priority READY task ${halt.taskId} is blocked by unresolved dependencies: ${halt.blockedBy.join(', ')}.`;
       }
-    } else {
+      process.stderr.write(reason + '\n');
       process.exit(1);
+    }
+
+    const task = result.task;
+
+    if (this.args.includes('--json')) {
+      console.log(JSON.stringify({ taskId: task.id, filePath: task.filePath, content: task.content }));
+    } else {
+      console.log(task.content);
     }
   }
 }

@@ -1,55 +1,91 @@
 import { TaskRepository } from '../../domain/repositories/task-repository.js';
 import { Task, TaskStatus } from '../../domain/models/task.js';
 
+export type HaltReason =
+  | { kind: 'no_ready_tasks' }
+  | { kind: 'stale_lock'; taskId: string; lockedAt: string }
+  | { kind: 'winner_blocked'; taskId: string; blockedBy: string[] };
+
+export type SelectNextResult =
+  | { ok: true; task: Task }
+  | { ok: false; halt: HaltReason };
+
+const STALE_LOCK_DAYS = 3;
+
+function taskIdNumber(id: string): number {
+  const m = id.match(/(\d+)$/);
+  return m ? parseInt(m[1], 10) : Infinity;
+}
+
+function isStale(lockedAt: string): boolean {
+  const locked = new Date(lockedAt).getTime();
+  const now = Date.now();
+  return (now - locked) > STALE_LOCK_DAYS * 24 * 60 * 60 * 1000;
+}
+
 export class SelectNextTask {
   constructor(private taskRepository: TaskRepository) {}
 
-  async execute(): Promise<Task | null> {
+  async execute(): Promise<SelectNextResult> {
     const allTasks = await this.taskRepository.getAll();
-    const readyTasks = allTasks.filter(t => t.status === TaskStatus.READY);
-    
-    // Filter out blocked tasks (those with dependencies not DONE)
-    const doneTaskIds = new Set(allTasks.filter(t => t.status === TaskStatus.DONE).map(t => t.id));
-    const unblockedTasks = readyTasks.filter(t => {
-      if (!t.depends || t.depends.length === 0 || (t.depends.length === 1 && t.depends[0].toLowerCase() === 'none')) {
-        return true;
-      }
-      return t.depends.every(depId => doneTaskIds.has(depId));
-    });
+    const activeTasks = await this.taskRepository.getActive();
 
-    if (unblockedTasks.length === 0) {
-      return null;
+    // Check stale lock: any P0 IN_PROGRESS task locked > 3 days
+    const staleP0 = activeTasks.find(
+      t => t.status === TaskStatus.IN_PROGRESS && t.priority === 'P0' && t.lockedAt && isStale(t.lockedAt)
+    );
+    if (staleP0) {
+      return { ok: false, halt: { kind: 'stale_lock', taskId: staleP0.id, lockedAt: staleP0.lockedAt! } };
     }
 
-    // Sort:
-    // 1. Priority (P0 < P1 < P2 < P3)
-    // 2. Focus (yes < no) - but wait, Meta line has Focus:yes/no. 
-    // The Task model currently doesn't have an explicit 'focus' boolean field.
-    // It's in the rawMetaLine.
-    
+    const readyTasks = activeTasks.filter(t => t.status === TaskStatus.READY);
+
+    if (readyTasks.length === 0) {
+      return { ok: false, halt: { kind: 'no_ready_tasks' } };
+    }
+
+    const doneTaskIds = new Set(allTasks.filter(t => t.status === TaskStatus.DONE).map(t => t.id));
+
+    function getUnresolvedDeps(task: Task): string[] {
+      if (!task.depends || task.depends.length === 0) return [];
+      if (task.depends.length === 1 && task.depends[0].toLowerCase() === 'none') return [];
+      return task.depends.filter(dep => !doneTaskIds.has(dep));
+    }
+
+    const unblockedTasks = readyTasks.filter(t => getUnresolvedDeps(t).length === 0);
+
     const priorityOrder: Record<string, number> = { 'P0': 0, 'P1': 1, 'P2': 2, 'P3': 3 };
-    const sizeMap: Record<string, number> = { 'XS': 1, 'S': 2, 'M': 3, 'L': 5, 'XL': 8 };
 
     unblockedTasks.sort((a, b) => {
-      // 1. Priority
+      // 1. Focus:yes wins first
+      const focusA = a.focus ? 0 : 1;
+      const focusB = b.focus ? 0 : 1;
+      if (focusA !== focusB) return focusA - focusB;
+
+      // 2. Priority (P0 < P1 < P2 < P3)
       const pA = priorityOrder[a.priority] ?? 99;
       const pB = priorityOrder[b.priority] ?? 99;
       if (pA !== pB) return pA - pB;
 
-      // 2. Size (Smaller is better: XS > S > M > L > XL)
-      const sA = sizeMap[a.size] ?? 99;
-      const sB = sizeMap[b.size] ?? 99;
-      if (sA !== sB) return sA - sB;
-
-      // 3. Focus (yes > no)
-      const focusA = a.rawMetaLine?.includes('Focus:yes') ? 0 : 1;
-      const focusB = b.rawMetaLine?.includes('Focus:yes') ? 0 : 1;
-      if (focusA !== focusB) return focusA - focusB;
-
-      // 4. ID (as proxy for oldest)
-      return a.id.localeCompare(b.id);
+      // 3. TASK-ID numerically ascending
+      return taskIdNumber(a.id) - taskIdNumber(b.id);
     });
 
-    return unblockedTasks[0];
+    if (unblockedTasks.length === 0) {
+      // All ready tasks are blocked — report the top-priority ready task's blockers
+      const sorted = [...readyTasks].sort((a, b) => {
+        const focusA = a.focus ? 0 : 1;
+        const focusB = b.focus ? 0 : 1;
+        if (focusA !== focusB) return focusA - focusB;
+        const pA = priorityOrder[a.priority] ?? 99;
+        const pB = priorityOrder[b.priority] ?? 99;
+        if (pA !== pB) return pA - pB;
+        return taskIdNumber(a.id) - taskIdNumber(b.id);
+      });
+      const top = sorted[0];
+      return { ok: false, halt: { kind: 'winner_blocked', taskId: top.id, blockedBy: getUnresolvedDeps(top) } };
+    }
+
+    return { ok: true, task: unblockedTasks[0] };
   }
 }
