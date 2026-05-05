@@ -19,6 +19,24 @@ _No active sprint._
 ## Recent Activity
 - **Last Commit:** fix: [TASK-187] fix stale INBOX.md coordination surface
 
+## [2026-05-05 00:00] REVIEW_REQUEST | TASK-189
+**Task:** Add executable AC predicates to task format and DO close step
+**ACs:**
+- [x] `TASK-FORMAT.md` documents `cmd:` predicate syntax
+- [x] `DO.md` close step mandates `arch task review` before REVIEW transition
+- [x] `arch validate --acs TASK-XXX` runs predicates and reports pass/fail
+- [x] Failing predicates block `arch task review` transition (CLI-enforced)
+- [x] `arch review` passes
+- [x] `npm test` passes (76/76)
+**Changed files:**
+- docs/TASK-FORMAT.md, docs/agents/DO.md
+- cli/src/main/ts/application/use-cases/validate-task-acs.ts (new)
+- cli/src/main/ts/application/use-cases/mark-task-review.ts (new)
+- cli/src/main/ts/application/commands/validate-command.ts
+- cli/src/main/ts/application/commands/task-command.ts
+- cli/src/main/ts/index.ts
+- cli/src/test/ts/validate-task-acs.test.ts (new)
+
 ## [2026-05-05 00:00] REVIEW_PASS | TASK-184
 All ACs verified. `arch review` OK, `npm test` 70/70. Archived.
 
