@@ -19,6 +19,9 @@ _No active sprint._
 ## Recent Activity
 - **Last Commit:** fix: [TASK-187] fix stale INBOX.md coordination surface
 
+## [2026-05-05 00:00] REVIEW_PASS | TASK-189
+All ACs verified. Review issues fixed: status guard in MarkTaskReview, timeout detection with timedOut field, ValidateCommand routing through TaskRepository, and MarkTaskReview test suite (5 tests). `npm test` 82/82. Archived.
+
 ## [2026-05-05 00:00] REVIEW_REQUEST | TASK-189
 **Task:** Add executable AC predicates to task format and DO close step
 **ACs:**
