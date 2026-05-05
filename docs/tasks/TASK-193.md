@@ -1,5 +1,5 @@
 ## TASK-193: Implement arch next - single-task dispatch command
-**Meta:** P1 | M | READY | Focus:no | 2-code-generation | claude-code | cli/src/main/ts/application/commands/, cli/src/main/ts/index.ts, scripts/arch.sh
+**Meta:** P1 | M | IN_PROGRESS | Focus:yes | 2-code-generation | claude-code | cli/src/main/ts/application/commands/, cli/src/main/ts/index.ts, scripts/arch.sh
 **Depends:** none
 
 ### Context
