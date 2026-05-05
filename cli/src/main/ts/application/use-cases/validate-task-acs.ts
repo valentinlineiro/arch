@@ -6,6 +6,7 @@ export interface AcPredicateResult {
   expectedExit: number;
   actualExit: number;
   passed: boolean;
+  timedOut: boolean;
 }
 
 export interface ValidateAcsResult {
@@ -17,7 +18,7 @@ export interface ValidateAcsResult {
 const PREDICATE_REGEX = /→\s+cmd:\s+(.+?);\s+exit:\s+(\d+)/;
 
 export class ValidateTaskAcs {
-  constructor(private rootPath: string) {}
+  constructor(private rootPath: string, private timeoutMs: number = 30000) {}
 
   execute(taskContent: string, taskId: string): ValidateAcsResult {
     const results: AcPredicateResult[] = [];
@@ -34,15 +35,19 @@ export class ValidateTaskAcs {
       const result = spawnSync('sh', ['-c', command.trim()], {
         cwd: this.rootPath,
         encoding: 'utf8',
-        timeout: 30000,
+        timeout: this.timeoutMs,
       });
+
+      const timedOut = result.error?.code === 'ETIMEDOUT';
+      const actualExit = timedOut ? -1 : (result.status ?? 1);
 
       results.push({
         ac,
         command: command.trim(),
         expectedExit,
-        actualExit: result.status ?? 1,
-        passed: (result.status ?? 1) === expectedExit,
+        actualExit,
+        passed: !timedOut && actualExit === expectedExit,
+        timedOut,
       });
     }
 

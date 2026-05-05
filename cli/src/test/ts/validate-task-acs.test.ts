@@ -57,3 +57,13 @@ test('ValidateTaskAcs - extracts AC description correctly', () => {
   const result = validator.execute(content, 'TASK-001');
   assert.ok(result.results[0].ac.includes('arch review passes'));
 });
+
+test('ValidateTaskAcs - timeout produces distinct timedOut result', () => {
+  const shortTimeoutValidator = new ValidateTaskAcs(process.cwd(), 100);
+  const content = '- [ ] Slow command  →  cmd: sleep 5; exit: 0';
+  const result = shortTimeoutValidator.execute(content, 'TASK-001');
+  assert.strictEqual(result.results.length, 1);
+  assert.strictEqual(result.results[0].timedOut, true);
+  assert.strictEqual(result.results[0].passed, false);
+  assert.strictEqual(result.allPassed, false);
+});

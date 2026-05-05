@@ -13,6 +13,10 @@ export class MarkTaskReview {
     const task = await this.taskRepository.getById(taskId);
     if (!task) throw new Error(`Task ${taskId} not found`);
 
+    if (task.status !== TaskStatus.IN_PROGRESS) {
+      throw new Error(`Task ${taskId} is not in IN_PROGRESS state`);
+    }
+
     const validation = this.validateAcs.execute(task.content, taskId);
 
     if (!validation.allPassed) {

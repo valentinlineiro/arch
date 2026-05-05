@@ -8,7 +8,7 @@ export class ValidateCommand {
   private useCase: ValidateSystem;
 
   constructor(
-    taskRepository: TaskRepository,
+    private taskRepository: TaskRepository,
     fileSystem: FileSystem,
     private rootPath: string,
   ) {
@@ -40,19 +40,14 @@ export class ValidateCommand {
       process.exit(1);
     }
 
-    const validator = new ValidateTaskAcs(this.rootPath);
-    const taskPath = `${this.rootPath}/docs/tasks/${taskId}.md`;
-
-    let content: string;
-    try {
-      const fs = await import('node:fs/promises');
-      content = await fs.readFile(taskPath, 'utf8');
-    } catch {
+    const task = await this.taskRepository.getById(taskId);
+    if (!task) {
       fmt.fail(`Task file not found: docs/tasks/${taskId}.md`);
       process.exit(1);
     }
 
-    const result = validator.execute(content, taskId);
+    const validator = new ValidateTaskAcs(this.rootPath);
+    const result = validator.execute(task.content, taskId);
 
     if (result.results.length === 0) {
       fmt.ok(`${taskId}: no cmd: predicates found`);
@@ -61,7 +56,11 @@ export class ValidateCommand {
 
     let anyFailed = false;
     for (const r of result.results) {
-      if (r.passed) {
+      if (r.timedOut) {
+        fmt.fail(`FAIL  ${r.ac}  (TIMEOUT after ${30}s)`);
+        console.log(`      cmd: ${r.command}`);
+        anyFailed = true;
+      } else if (r.passed) {
         fmt.check(`PASS  ${r.ac}`);
       } else {
         fmt.fail(`FAIL  ${r.ac}  (exit ${r.actualExit}, expected ${r.expectedExit})`);
