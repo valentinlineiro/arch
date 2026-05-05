@@ -1,7 +1,7 @@
 # IDEA: Archive compression — retain essential fields, discard bulk
 **Created:** 2026-05-05
 **Source:** Human proposal — Census check surfaced archive growth as a context-budget risk
-**Status:** DRAFT
+**Status:** PROMOTED → TASK-200
 **Meta:** P2 | M | claude-code | docs/archive/, cli/
 
 ## Problem
@@ -37,5 +37,4 @@ All resolved:
 - **Trigger:** Automatic on Census PURGE + manual `arch task compress`.
 
 ## Decision
-<!-- Human writes here after THINK evaluation -->
-<!-- PROMOTE → TASK-XXX | REJECT: reason -->
+PROMOTE → TASK-200

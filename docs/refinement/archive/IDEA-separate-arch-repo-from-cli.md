@@ -29,5 +29,4 @@ All resolved:
 - **Protocol distribution:** `@arch/protocol` npm package; `arch-cli` consumes it as a versioned dependency.
 
 ## Decision
-<!-- Human writes here after THINK evaluation -->
-<!-- PROMOTE → TASK-XXX | REJECT: reason -->
+PROMOTE → TASK-206

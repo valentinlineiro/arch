@@ -32,4 +32,4 @@ All resolved:
 - **Command:** `arch report` — new reporting command, consistent with fewer-commands principle.
 
 ## Decision
-<!-- Human writes here after THINK evaluation -->
+PROMOTE → TASK-201

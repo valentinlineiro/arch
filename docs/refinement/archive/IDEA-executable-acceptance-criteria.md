@@ -39,5 +39,4 @@ All resolved:
 - **Auditor bypass:** Enabled automatically when zero `prose:` ACs on a task.
 
 ## Decision
-<!-- Human writes here after THINK evaluation -->
-<!-- PROMOTE → TASK-XXX | REJECT: reason -->
+PROMOTE → TASK-205

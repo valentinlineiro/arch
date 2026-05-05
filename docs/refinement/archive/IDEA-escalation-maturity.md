@@ -49,4 +49,4 @@ All resolved:
 - **Promotion:** split into 3 tasks at promotion time, one per phase.
 
 ## Decision
-<!-- Human writes here after THINK evaluation -->
+PROMOTE → TASK-202 (Phase 1), TASK-203 (Phase 2), TASK-204 (Phase 3)
