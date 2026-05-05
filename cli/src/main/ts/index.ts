@@ -51,13 +51,13 @@ async function main() {
       await new StatusCommand(taskRepository, fileSystem).execute();
       break;
     case 'validate':
-      await new ValidateCommand(taskRepository, fileSystem).execute();
+      await new ValidateCommand(taskRepository, fileSystem, rootPath).execute(args);
       break;
     case 'review':
       await new ReviewCommand(taskRepository, gitRepository, reviewer, driftChecker, fileSystem).execute(args);
       break;
     case 'task':
-      await new TaskCommand(taskRepository, reviewer, humanCoordinationService).execute(args);
+      await new TaskCommand(taskRepository, reviewer, humanCoordinationService, rootPath).execute(args);
       break;
     case 'inbox':
       await new InboxCommand(taskRepository, fileSystem, reviewer, driftChecker).execute();

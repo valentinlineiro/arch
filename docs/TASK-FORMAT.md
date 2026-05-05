@@ -66,6 +66,23 @@ The meta line is the source of truth for task state and routing. It MUST be a si
 - Atomic, verifiable checkboxes.
 - All must be checked before marking the task `REVIEW` or `DONE`.
 
+#### cmd: predicates (optional)
+An AC item may include an executable predicate appended after a `→` separator:
+
+```markdown
+- [ ] `arch review` passes  →  cmd: bash scripts/arch.sh review; exit: 0
+- [ ] Tests pass            →  cmd: npm test --prefix cli; exit: 0
+- [ ] File exists           →  cmd: test -f docs/PRINCIPLES.md; exit: 0
+```
+
+**Syntax:** `→  cmd: <shell command>; exit: <expected-exit-code>`
+
+**Behaviour:**
+- `arch task review TASK-XXX` runs all `cmd:` predicates before setting status to REVIEW. A failing predicate blocks the transition.
+- `arch validate --acs TASK-XXX` runs predicates and reports pass/fail per AC without changing status.
+- ACs without a predicate are prose-assessed by the Auditor as before.
+- Predicates are executed from the repository root with a 30-second timeout.
+
 ### 7. Definition of Done (DoD)
 - Project-level quality standards (e.g., "PR approved", "`arch review` passes").
 - Optional for `XS` tasks if global guidelines cover them.

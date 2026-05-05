@@ -1,5 +1,6 @@
 import { MarkTaskInProgress } from '../use-cases/mark-task-in-progress.js';
 import { MarkTaskDone } from '../use-cases/mark-task-done.js';
+import { MarkTaskReview } from '../use-cases/mark-task-review.js';
 import { RejectTask } from '../use-cases/task-reject.js';
 import { RejectStaleTask } from '../use-cases/task-reject-stale.js';
 import { UpdateTaskMetrics } from '../use-cases/update-task-metrics.js';
@@ -11,17 +12,20 @@ import * as fmt from '../../infrastructure/cli/output-formatter.js';
 export class TaskCommand {
   private markInProgress: MarkTaskInProgress;
   private markDone: MarkTaskDone;
+  private markReview: MarkTaskReview;
   private rejectTask: RejectTask;
   private rejectStaleTask: RejectStaleTask;
   private updateMetrics: UpdateTaskMetrics;
 
   constructor(
-    taskRepository: TaskRepository, 
+    taskRepository: TaskRepository,
     reviewer: Reviewer,
-    private humanCoordinationService: HumanCoordinationService
+    private humanCoordinationService: HumanCoordinationService,
+    rootPath: string,
   ) {
     this.markInProgress = new MarkTaskInProgress(taskRepository);
     this.markDone = new MarkTaskDone(taskRepository, reviewer);
+    this.markReview = new MarkTaskReview(taskRepository, rootPath);
     this.rejectTask = new RejectTask(taskRepository);
     this.rejectStaleTask = new RejectStaleTask(taskRepository);
     this.updateMetrics = new UpdateTaskMetrics(taskRepository);
@@ -56,6 +60,19 @@ export class TaskCommand {
       try {
         await this.updateMetrics.execute(taskId, options);
         fmt.arrow(`updated metrics for ${taskId}`);
+      } catch (error: any) {
+        fmt.warn(error.message);
+      }
+    } else if (subCommand === 'review' && taskId) {
+      try {
+        const result = await this.markReview.execute(taskId);
+        if (result.passed) {
+          fmt.check(`${taskId} predicates passed — status set to REVIEW`);
+        } else {
+          fmt.fail(`${taskId} has failing cmd: predicates:`);
+          result.failures.forEach(f => console.log(`    - ${f}`));
+          process.exit(1);
+        }
       } catch (error: any) {
         fmt.warn(error.message);
       }
@@ -100,7 +117,7 @@ export class TaskCommand {
         fmt.fail(error.message);
       }
     } else {
-      console.log('Usage: arch task [start|done|reject|reject-stale|metrics|approve|redirect] [TASK-ID] [--force] [--reason "<text>"] [--to "<instruction>"] [--cost <val>] [--steps <val>]');
+      console.log('Usage: arch task [start|review|done|reject|reject-stale|metrics|approve|redirect] [TASK-ID] [--force] [--reason "<text>"] [--to "<instruction>"] [--cost <val>] [--steps <val>]');
     }
   }
 }
