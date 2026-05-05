@@ -61,10 +61,10 @@ export class GovernSystem {
     if (p0Tasks.length > 0) {
       // Find unblocked P0
       const selector = new SelectNextTask(this.taskRepository);
-      const nextTask = await selector.execute();
-      if (nextTask && nextTask.priority === 'P0') {
-         console.log(`  P0 task READY: ${nextTask.id}. Focusing...`);
-         await this.focusTask(nextTask);
+      const result = await selector.execute();
+      if (result.ok && result.task.priority === 'P0') {
+         console.log(`  P0 task READY: ${result.task.id}. Focusing...`);
+         await this.focusTask(result.task);
          return;
       }
     }
@@ -76,10 +76,10 @@ export class GovernSystem {
     if (!focusedTask) {
 
       const selector = new SelectNextTask(this.taskRepository);
-      const nextTask = await selector.execute();
-      if (nextTask) {
-        console.log(`  No focused task. Picking next: ${nextTask.id}`);
-        await this.focusTask(nextTask);
+      const result = await selector.execute();
+      if (result.ok) {
+        console.log(`  No focused task. Picking next: ${result.task.id}`);
+        await this.focusTask(result.task);
       } else {
         console.log('  No unblocked tasks available.');
       }
