@@ -1,5 +1,5 @@
 ## TASK-198: [BUG] govern archive guard logs Hansei violations but does not escalate blocked DONE tasks
-**Meta:** P1 | S | READY | Focus:no | 2-code-generation | claude-code | cli/src/main/ts/application/use-cases/govern-system.ts, docs/agents/DO.md, docs/INBOX.md
+**Meta:** P1 | S | READY | Focus:yes | 2-code-generation | claude-code | cli/src/main/ts/application/use-cases/govern-system.ts, docs/agents/DO.md, docs/INBOX.md
 **Depends:** none
 
 ### Context
