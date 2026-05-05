@@ -8,20 +8,25 @@
 The ARCH protocol (docs/, scripts/, config) and the CLI product (cli/) live in the same repository. This couples protocol evolution to CLI release cycles and makes it harder to adopt ARCH in projects that don't use the CLI, or to evolve the CLI independently from the protocol spec.
 
 ## Proposed solution
-Split into two repositories:
-1. **arch-protocol** — docs/, scripts/arch.sh, arch.config.json schema, AGENTS.md, guidelines. The source of truth for the protocol itself.
-2. **arch-cli** (or kept as `arch`) — cli/ source, package.json, CI/CD for npm publish. Consumes the protocol as a versioned reference.
-Possibly a third repo for web tooling (docs/arch-*.html, Angular control panel).
+Split into three repositories:
+1. **arch-protocol** — docs/, arch.config.json schema, AGENTS.md, guidelines. Published as `@arch/protocol` npm package. Source of truth for the protocol spec.
+2. **arch-cli** — cli/ source, package.json, CI/CD for npm publish. Consumes `@arch/protocol` as a versioned dependency.
+3. **arch-web** — Angular control panel and HTML tooling (arch-*.html). Blocked until the split is complete.
+
+Existing ARCH instances upgrade the protocol via `npm update @arch/protocol`.
 
 ## Dependencies
-- TASK-097 (Angular control panel scaffold) — web tooling split depends on this being defined
-- TASK-089 (ARCH course) — documentation should be stable before splitting protocol repo
+- This split is a **prerequisite** for all Angular/arch-web tasks — they are blocked until repos are separated.
+- TASK-089 (ARCH course) — documentation should be stable before splitting protocol repo.
 
 ## Estimated size
 M
 
 ## Gaps
-<!-- THINK fills this section when invoked — do not edit manually -->
+All resolved:
+- **Scope:** Three repos — `arch-protocol`, `arch-cli`, `arch-web`.
+- **Angular dependency:** All Angular tasks blocked until split is complete.
+- **Protocol distribution:** `@arch/protocol` npm package; `arch-cli` consumes it as a versioned dependency.
 
 ## Decision
 <!-- Human writes here after THINK evaluation -->
