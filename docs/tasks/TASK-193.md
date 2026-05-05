@@ -1,5 +1,5 @@
 ## TASK-193: Implement arch next - single-task dispatch command
-**Meta:** P1 | M | IN_PROGRESS | Focus:yes | 2-code-generation | claude-code | cli/src/main/ts/application/commands/, cli/src/main/ts/index.ts, scripts/arch.sh
+**Meta:** P1 | M | REVIEW | Focus:no | 2-code-generation | claude-code | cli/src/main/ts/application/commands/, cli/src/main/ts/index.ts, scripts/arch.sh
 **Depends:** none
 
 ### Context
@@ -17,3 +17,6 @@ The executor currently decides what task to pick by reading the task board and a
 - [ ] All ACs checked.
 - [ ] `arch review` passes.
 - [ ] `npm test` passes in `cli/`.
+
+## Hansei
+The partial implementation already in place (NextCommand + SelectNextTask) required a full rewrite rather than an extension — the existing sort put Focus third after size, and there was no halt infrastructure at all. Cleaner to have started from a greenfield rather than inheriting the partial state.

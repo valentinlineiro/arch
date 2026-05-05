@@ -20,6 +20,20 @@ _No active sprint._
 ## Recent Activity
 - **Last Commit:** idea: resolve gaps for IDEA-escalation-maturity
 
+## [2026-05-05 17:45] REVIEW_REQUEST | TASK-193
+**Task:** Implement arch next - single-task dispatch command
+**ACs:**
+- [x] `arch next` prints the full content of the highest-priority READY task to stdout
+- [x] `arch next` exits non-zero with halt reason: no READY tasks, winner blocked, P0 stale lock (>3 days)
+- [x] `arch next` respects `Focus:yes` — focused task always wins regardless of priority
+- [x] `arch next --json` emits `{ "taskId": "...", "filePath": "...", "content": "..." }`
+- [x] `arch review` passes
+- [x] `npm test` passes (113 pass, 2 pre-existing failures in govern-system unrelated to this task)
+**Changed files:**
+- cli/src/main/ts/application/commands/next-command.ts
+- cli/src/main/ts/application/use-cases/select-next-task.ts
+- cli/src/test/ts/select-next-task.test.ts
+
 ## [2026-05-05 16:00] REVIEW_PASS | TASK-191
 All ACs verified. Documentation in DO.md is correct. `arch merge-resolve` correctly detects and auto-resolves qualifying conflicts with chronological integrity. Safety boundaries for protected paths and non-status task Meta changes verified. 101 tests PASS. Archived.
 
