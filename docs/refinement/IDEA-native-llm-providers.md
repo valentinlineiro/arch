@@ -1,48 +1,56 @@
-# IDEA: Hybrid LLM Providers — Optimized CLI wrapping with optional Native REST
+# IDEA: Hybrid LLM Providers — CLI-to-REST Bridge and Native Providers
 **Created:** 2026-05-05
-**Source:** User feedback — prioritize low-cost CLI usage while improving metadata capture
+**Source:** User feedback — wrap CLI calls under a REST adapter to decouple execution and metadata
 **Status:** DRAFT
-**Sessions:** 2
+**Sessions:** 3
 **Meta:** P1 | M | local | cli/src/main/ts/domain/services/llm-provider.ts, arch.config.json
 
 ## Problem
-Directly using REST APIs via keys often incurs direct financial costs (e.g., Anthropic API billing) or lower rate limits compared to the provider's official CLIs which may leverage different billing tiers or "free-to-use" developer environments. However, pure subprocess execution makes ARCH "blind" to performance and usage metrics.
+ARCH needs a unified way to interact with AI agents that preserves the cost benefits of official CLIs while gaining the metadata visibility (tokens, cost, latency) of native REST APIs. Directly spawning subprocesses in the main loop is performance-heavy and makes metadata capture difficult.
 
 ## Proposed solution
-Implement a **Hybrid Provider Architecture** that treats both CLIs and REST APIs as first-class implementations of a unified `LLMProvider` interface.
+Implement a **Unified Provider Interface** with three distinct execution strategies:
 
-**1. Optimized CLI Wrappers (Default):**
-Instead of a generic `sh -c` template, implement specialized wrappers for `claude`, `gemini`, and `ollama`.
-- **Metadata Scraping:** Each wrapper includes a parser to extract token counts or timing data from the CLI's specific output format.
-- **Cost Preservation:** Continues to use existing CLI auth/billing channels, ensuring zero cost increase for the user.
+**1. CLI-to-REST Bridge (Sidecar Mode):**
+A local "adapter" service that provides a standard OpenAI-compatible REST API but executes local CLI commands (e.g., `claude`, `gemini`) under the hood.
+- **Decoupling:** ARCH CLI talks HTTP to the bridge. The bridge manages the subprocess, shell environment, and output parsing.
+- **Metadata Persistence:** The bridge parses CLI output and returns a structured JSON response (including usage metrics) to ARCH.
+- **Cost Neutral:** Uses the user's existing CLI auth/billing, adding zero direct API costs.
+- **Async Ready:** Allows the bridge to handle long-running generation or queuing without blocking the ARCH main loop.
 
-**2. Native REST (High-Fidelity):**
-Optional providers for users who prioritize speed and metadata precision (e.g., OpenRouter, Anthropic Direct, Google AI Studio).
-- **Latency reduction:** Eliminates subprocess overhead.
-- **Rich Metadata:** Captures exact token usage directly from the JSON response.
+**2. Native REST (Direct Mode):**
+Direct HTTP integration for high-performance providers (Anthropic, Google, OpenRouter).
+- **Zero Latency:** No subprocess overhead.
+- **Fidelity:** Native usage metrics and reasoning headers.
 
-**3. Automatic Routing:**
-`arch.config.json` allows defining a fallback chain:
+**3. Integrated CLI Wrapper (Embedded Mode):**
+The current `sh -c` approach, but upgraded with specialized parsers for `claude` and `gemini` output to capture usage data in-process.
+
+## Configuration
+`arch.config.json` routes tasks based on priority and cost constraints:
 ```json
 "providers": {
-  "claude-3-5": [
-    { "type": "cli", "bin": "claude", "parseMetadata": true },
-    { "type": "rest", "id": "anthropic-native", "costGate": "high" }
-  ]
+  "claude-3-5": {
+    "strategy": "bridge",
+    "bridgeUrl": "http://localhost:8080/v1",
+    "cli": "claude",
+    "fallback": "native-rest"
+  }
 }
 ```
 
 ## Dependencies
-- `IDEA-cost-aware-protocol` (Uses metadata to warn on high-cost API routing)
+- `IDEA-cost-aware-protocol`
 - `TASK-191` (Conflict resolver)
 
 ## Estimated size
 M
 
 ## Gaps
-- **Parser Brittleness:** Official CLI output formats are not guaranteed to be stable (e.g., `claude` updates might break our token scraper).
-- **Auth Parity:** Managing credentials for both CLIs and REST keys in a single secure context.
-- **Local Fallbacks:** Ensuring `ollama` (free/local) is the default high-turn fallback for non-complex tasks.
+- **Bridge Lifecycle:** Does ARCH start/stop the bridge automatically, or is it a persistent background service?
+- **Universal Parser:** Creating a robust parser for CLI output that handles streaming artifacts and escape codes.
+- **Overhead vs. Benefit:** Does the HTTP overhead of the bridge cancel out the benefits of decoupling?
+- **Security:** Securing the local bridge endpoint to prevent other local processes from "stealing" AI access.
 
 ## Decision
 <!-- Human writes here after THINK evaluation -->
