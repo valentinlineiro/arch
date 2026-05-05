@@ -1,6 +1,7 @@
 ## TASK-184: Add Census (context budget) check to arch review
-**Meta:** P2 | M | READY | Focus:no | 2-code-generation | claude-code | cli/src/main/ts/domain/services/drift-checker.ts, arch.config.json
+**Meta:** P2 | M | IN_PROGRESS | Focus:no | 2-code-generation | claude-code | cli/src/main/ts/domain/services/drift-checker.ts, arch.config.json
 **Depends:** none
+**ADR:** ADR-007
 
 ### Context
 ADR-002 establishes context-as-budget as a core principle but there is no enforcement mechanism. Directories can silently exceed LLM context capacity with no warning until it causes a failure.
