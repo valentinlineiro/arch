@@ -45,7 +45,8 @@ export class TaskCommand {
         await this.markInProgress.execute(taskId, 'cli');
         fmt.arrow(`marking ${taskId} as IN_PROGRESS`);
       } catch (error: any) {
-        fmt.warn(error.message);
+        fmt.fail(error.message);
+        process.exit(1);
       }
     } else if (subCommand === 'metrics' && taskId) {
       const costIdx = args.indexOf('--cost');
@@ -63,7 +64,8 @@ export class TaskCommand {
         await this.updateMetrics.execute(taskId, options);
         fmt.arrow(`updated metrics for ${taskId}`);
       } catch (error: any) {
-        fmt.warn(error.message);
+        fmt.fail(error.message);
+        process.exit(1);
       }
     } else if (subCommand === 'review' && taskId) {
       try {
@@ -76,7 +78,8 @@ export class TaskCommand {
           process.exit(1);
         }
       } catch (error: any) {
-        fmt.warn(error.message);
+        fmt.fail(error.message);
+        process.exit(1);
       }
     } else if (subCommand === 'done' && taskId) {
       try {
@@ -92,14 +95,16 @@ export class TaskCommand {
         fmt.arrow(`rejected ${taskId} — moved back to READY`);
         if (reason) console.log(`    Reason: ${reason}`);
       } catch (error: any) {
-        fmt.warn(error.message);
+        fmt.fail(error.message);
+        process.exit(1);
       }
     } else if (subCommand === 'reject-stale' && taskId) {
       try {
         await this.rejectStaleTask.execute(taskId);
         fmt.arrow(`rejected ${taskId} — archived as stale`);
       } catch (error: any) {
-        fmt.warn(error.message);
+        fmt.fail(error.message);
+        process.exit(1);
       }
     } else if (subCommand === 'approve' && taskId) {
       try {
@@ -107,6 +112,7 @@ export class TaskCommand {
         fmt.check(`approved ${taskId}`);
       } catch (error: any) {
         fmt.fail(error.message);
+        process.exit(1);
       }
     } else if (subCommand === 'redirect' && taskId) {
       try {
@@ -118,6 +124,7 @@ export class TaskCommand {
         fmt.check(`redirected ${taskId} with new instruction`);
       } catch (error: any) {
         fmt.fail(error.message);
+        process.exit(1);
       }
     } else {
       console.log('Usage: arch task [start|review|done|reject|reject-stale|metrics|approve|redirect] [TASK-ID] [--force] [--reason "<text>"] [--to "<instruction>"] [--cost <val>] [--steps <val>]');
