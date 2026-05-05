@@ -1,7 +1,7 @@
 # IDEA: Machine-readable halt policy (HALT.md)
 **Created:** 2026-05-05
 **Source:** Codex external review — "one machine-readable halt policy; if model misunderstands, does system halt safely or quietly drift?"
-**Status:** DRAFT
+**Status:** PROMOTED -> TASK-194
 **Sessions:** 1
 **Meta:** P2 | S | local | docs/, cli/src/main/ts/
 
@@ -34,4 +34,4 @@ S — doc authoring, one new `arch review` drift check, no new commands
 - Dependency on TASK-193 is soft — doc and drift check can be done independently; TASK-193 implements some conditions but doesn't block this IDEA.
 
 ## Decision
-<!-- Human writes here after THINK evaluation -->
+PROMOTE -> TASK-194

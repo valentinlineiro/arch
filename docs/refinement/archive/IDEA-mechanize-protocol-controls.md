@@ -1,7 +1,7 @@
 # IDEA: Mechanize protocol-level controls in arch review
 **Created:** 2026-05-05
 **Source:** Codex external review — "several important controls are still protocol-level, not executable-level"
-**Status:** DRAFT
+**Status:** SPLIT -> IDEA-hansei-drift-check, IDEA-approval-entry-check, IDEA-sentinel-log-infrastructure
 **Sessions:** 1
 **Meta:** P1 | L | claude-code | cli/src/main/ts/domain/services/, docs/agents/DO.md
 
