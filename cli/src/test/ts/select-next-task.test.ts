@@ -173,6 +173,17 @@ test('does not return stale_lock for P1 IN_PROGRESS even if stale', async () => 
   assert.ok(result.ok && result.task.id === 'TASK-002');
 });
 
+test('P0 IN_PROGRESS with lockedAt undefined does not trigger stale-lock halt', async () => {
+  const tasks = [
+    makeTask({ id: 'TASK-001', status: TaskStatus.IN_PROGRESS, priority: 'P0', lockedAt: undefined }),
+    makeTask({ id: 'TASK-002', status: TaskStatus.READY }),
+  ];
+  const repo = new MockTaskRepository(tasks, tasks);
+  const useCase = new SelectNextTask(repo);
+  const result = await useCase.execute();
+  assert.ok(result.ok && result.task.id === 'TASK-002');
+});
+
 test('NextCommand outputs valid JSON when --json flag is passed', async () => {
   const task = makeTask({
     id: 'TASK-100',

@@ -23,6 +23,21 @@ function isStale(lockedAt: string): boolean {
   return (now - locked) > STALE_LOCK_DAYS * 24 * 60 * 60 * 1000;
 }
 
+function compareTasksForSort(a: Task, b: Task, priorityOrder: Record<string, number>): number {
+  // 1. Focus:yes wins first
+  const focusA = a.focus ? 0 : 1;
+  const focusB = b.focus ? 0 : 1;
+  if (focusA !== focusB) return focusA - focusB;
+
+  // 2. Priority (P0 < P1 < P2 < P3)
+  const pA = priorityOrder[a.priority] ?? 99;
+  const pB = priorityOrder[b.priority] ?? 99;
+  if (pA !== pB) return pA - pB;
+
+  // 3. TASK-ID numerically ascending
+  return taskIdNumber(a.id) - taskIdNumber(b.id);
+}
+
 export class SelectNextTask {
   constructor(private taskRepository: TaskRepository) {}
 
@@ -56,32 +71,11 @@ export class SelectNextTask {
 
     const priorityOrder: Record<string, number> = { 'P0': 0, 'P1': 1, 'P2': 2, 'P3': 3 };
 
-    unblockedTasks.sort((a, b) => {
-      // 1. Focus:yes wins first
-      const focusA = a.focus ? 0 : 1;
-      const focusB = b.focus ? 0 : 1;
-      if (focusA !== focusB) return focusA - focusB;
-
-      // 2. Priority (P0 < P1 < P2 < P3)
-      const pA = priorityOrder[a.priority] ?? 99;
-      const pB = priorityOrder[b.priority] ?? 99;
-      if (pA !== pB) return pA - pB;
-
-      // 3. TASK-ID numerically ascending
-      return taskIdNumber(a.id) - taskIdNumber(b.id);
-    });
+    unblockedTasks.sort((a, b) => compareTasksForSort(a, b, priorityOrder));
 
     if (unblockedTasks.length === 0) {
       // All ready tasks are blocked — report the top-priority ready task's blockers
-      const sorted = [...readyTasks].sort((a, b) => {
-        const focusA = a.focus ? 0 : 1;
-        const focusB = b.focus ? 0 : 1;
-        if (focusA !== focusB) return focusA - focusB;
-        const pA = priorityOrder[a.priority] ?? 99;
-        const pB = priorityOrder[b.priority] ?? 99;
-        if (pA !== pB) return pA - pB;
-        return taskIdNumber(a.id) - taskIdNumber(b.id);
-      });
+      const sorted = [...readyTasks].sort((a, b) => compareTasksForSort(a, b, priorityOrder));
       const top = sorted[0];
       return { ok: false, halt: { kind: 'winner_blocked', taskId: top.id, blockedBy: getUnresolvedDeps(top) } };
     }
