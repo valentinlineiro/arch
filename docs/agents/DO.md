@@ -11,7 +11,7 @@
 4. Set status to `IN_PROGRESS`, add lock in Meta line, and commit immediately.
 5. Implement against Acceptance Criteria ONLY.
 6. On completion:
-   - **Hansei Check:** Before setting status, check if any trigger applies: (a) actual size differed from estimate, (b) a blocker was encountered, (c) task is `M` or larger. If triggered, append a `## Hansei` section (1–3 sentences) to the task file answering: *"One thing done poorly or one way this could have been cleaner."*
+   - **Hansei Check:** Before setting status, check if any trigger applies: (a) actual size differed from estimate, (b) a blocker was encountered, (c) task is `M` or larger. If any trigger applies, the Hansei should reflect that signal directly. For any task that will be archived as `DONE` from `TASK-195` onward, always append a `## Hansei` section (1–3 sentences), even on XS/S happy-path work, because the close transition enforces its presence.
    - **Predicate Check:** Run `arch task review TASK-XXX` to execute all `cmd:` predicates and atomically set status to REVIEW. If any predicate fails, fix the implementation before retrying — do not manually override the status. If the task has no `cmd:` predicates, set status to REVIEW manually and proceed.
    - **Handover:** The agent that implements a task CANNOT archive it. It must yield to an Auditor.
    - **Review Request:** Append a `REVIEW_REQUEST` entry to `docs/INBOX.md` with Task ID, AC list, and changed files.

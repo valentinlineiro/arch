@@ -97,7 +97,7 @@ An AC item may include an executable predicate appended after a `→` separator:
 ### 9. Hansei
 - A brief retrospective written by the implementing agent before marking `REVIEW`.
 - **Required when** any of the following apply: (a) actual size differed from estimate, (b) a blocker was encountered during execution, (c) task is `M` or larger.
-- **Archived task requirement:** DONE tasks archived from `TASK-195` onward must include a `## Hansei` section so `arch review` can verify the close-out record.
+- **Archived task requirement:** DONE tasks archived from `TASK-195` onward must include a `## Hansei` section so the close/archival path can verify the record. When no trigger applies, a minimal 1-sentence Hansei is still required for those post-rollout tasks.
 - **Format:** `## Hansei` section with 1–3 sentences maximum.
 - **Prompt:** *"One thing done poorly or one way this could have been cleaner."*
 - **Purpose:** raw input for KAIZEN-LOG and Mura detection.
