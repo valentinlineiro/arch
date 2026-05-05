@@ -1,5 +1,6 @@
 ## TASK-184: Add Census (context budget) check to arch review
-**Meta:** P2 | M | REVIEW | Focus:no | 2-code-generation | claude-code | cli/src/main/ts/domain/services/drift-checker.ts, arch.config.json
+**Meta:** P2 | M | DONE | Focus:no | 2-code-generation | claude-code | cli/src/main/ts/domain/services/drift-checker.ts, arch.config.json
+**Closed-at:** 2026-05-05T09:17:15.820Z
 **Depends:** none
 **ADR:** ADR-007
 
