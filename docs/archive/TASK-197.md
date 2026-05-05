@@ -1,5 +1,6 @@
 ## TASK-197: [BUG] DO.md Hansei protocol no longer matches enforced post-rollout close rule
-**Meta:** P1 | XS | REVIEW | Focus:no | 6-writing | local | docs/agents/DO.md, docs/TASK-FORMAT.md, docs/tasks/TASK-195.md
+**Meta:** P1 | XS | DONE | Focus:no | 6-writing | local | docs/agents/DO.md, docs/TASK-FORMAT.md, docs/tasks/TASK-195.md
+**Closed-at:** 2026-05-05T11:00:00.000Z
 **Depends:** none
 
 ### Context
