@@ -4,7 +4,7 @@
 
 ## Status Summary
 - **Active Tasks:** 0
-- **In Review:** 1
+- **In Review:** 0
 - **Backlog (Ready):** 15
 
 ## Urgent / Actions Required
@@ -18,7 +18,10 @@ anti-hallucination-acs, arch-review-dependency-graph, archive-compression, censu
 _No active sprint._
 
 ## Recent Activity
-- **Last Commit:** feat: [TASK-191] finalize conflict resolver safety and chronological sorting
+- **Last Commit:** idea: resolve gaps for IDEA-escalation-maturity
+
+## [2026-05-05 16:00] REVIEW_PASS | TASK-191
+All ACs verified. Documentation in DO.md is correct. `arch merge-resolve` correctly detects and auto-resolves qualifying conflicts with chronological integrity. Safety boundaries for protected paths and non-status task Meta changes verified. 101 tests PASS. Archived.
 
 ## [2026-05-05 15:45] REVIEW_REQUEST | TASK-191
 **Task:** Implement conflict resolver for trivial autonomous merge
