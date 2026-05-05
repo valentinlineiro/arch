@@ -1,23 +1,24 @@
 # INBOX
 <!-- Weekly dashboard for human-agent coordination -->
-<!-- Generated on: 2026-05-04 -->
+<!-- Generated on: 2026-05-05 -->
 
 ## Status Summary
-- **Active Tasks:** 2
-- **In Review:** 2
-- **Backlog (Ready):** 15
+- **Active Tasks:** 1 (TASK-192 IN_PROGRESS)
+- **In Review:** 0
+- **Backlog (Ready):** 12
 
 ## Urgent / Actions Required
-- [ ] [TASK-187] [BUG] INBOX.md coordination surface shows stale active tasks (P1) - In Review
+- [ ] [TASK-192] [BUG] INBOX.md Refinement Queue omits actual IDEA count (P1) - IN_PROGRESS
 
 ## Refinement Queue
-_No pending ideas._
+40 pending IDEAs:
+anti-hallucination-acs, arch-review-dependency-graph, archive-compression, census-context-budget-review-check, cli-npm, conflict-resolver-agent, consolidate-cli-commands, context-control, cost-aware-protocol, cross-repo-learning-network, do-step-registry-for-kaizen, executable-acceptance-criteria, formal-protocol-invariants, handle-parallelism, hansei-reflection-on-done-tasks, idea-ttl-auto-rejection, institutional-memory-document, interactive-test, l3-sprint-autonomy, migrate-arch-sh-routing-to-typescript, multi-human-governance, multi-repo-arch, mura-turns-per-size-metric, open-standard-portability, openrouter-groq-free-tier-fallback, optimize-decomposition-for-local-llms, oracle-archive-distillation, parallel-tasks, periodic-architecture-revision, probabilistic-trust-model, protocol-replay-regression, prune-stale-documentation, queryable-archive, separate-arch-core-from-content, separate-arch-repo-from-cli, sprint-open-protocol, task-idea-metrics-context-price, task-template-linter, testing-guideline-expansion, typed-protocol-schema
 
 ## Current Sprint
 _No active sprint._
 
 ## Recent Activity
-- **Last Commit:** fix: [TASK-187] fix stale INBOX.md coordination surface
+- **Last Commit:** chore: [TASK-188][TASK-189] fix worktree — stage missed archive files
 
 ## [2026-05-05 00:00] REVIEW_PASS | TASK-188
 All ACs verified. Review issues fixed: machine-enforceable Last-Revision trigger in KAIZEN-LOG.md, minimum data guard, full IDEA path spec, [REVISION] tag added to Output section. `arch review` OK. Archived.
