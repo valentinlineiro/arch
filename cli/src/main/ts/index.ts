@@ -26,6 +26,7 @@ import { HumanCoordinationService } from './domain/services/human-coordination-s
 import { LintCommand } from './application/commands/lint-command.js';
 import { MoveCommand } from './application/commands/move-command.js';
 import { ExecCommand } from './application/commands/exec-command.js';
+import { MergeResolveCommand } from './application/commands/merge-resolve-command.js';
 
 async function main() {
   const fileSystem = new NodeFileSystem();
@@ -101,8 +102,11 @@ async function main() {
     case 'exec':
       await new ExecCommand(taskRepository, fileSystem).execute(args);
       break;
+    case 'merge-resolve':
+      await new MergeResolveCommand(gitRepository, fileSystem).execute();
+      break;
     default:
-      console.log('Usage: arch [status|validate|review|task|inbox|next|version|govern|rank|batch|drain|conduct|promote|loop|sandbox|lint|mv|exec]');
+      console.log('Usage: arch [status|validate|review|task|inbox|next|version|govern|rank|batch|drain|conduct|promote|loop|sandbox|lint|mv|exec|merge-resolve]');
       process.exit(1);
   }
 }

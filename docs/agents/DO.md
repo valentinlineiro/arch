@@ -4,13 +4,18 @@
 
 ## Intent: Execute Task (Exec)
 1. `git fetch` (sync state safely without merging).
-2. Find highest priority `READY` task in `docs/tasks/`.
+2. **Conflict Resolution:** If `git pull --rebase` (or equivalent loop sync) encounters a conflict:
+   - Run `arch merge-resolve`.
+   - **Auto-merge:** Permitted ONLY for pure-append conflicts on `docs/INBOX.md` and `**Meta:**` status-line-only changes in `docs/tasks/*.md`. All other conflicts MUST escalate.
+   - **Protected Paths:** Auto-merge NEVER touches `docs/adr/`, `arch.config.json`, or `cli/src/main/ts/domain/` (always escalate).
+   - **Escalation:** If auto-merge fails or is not permitted, append a timestamped `MERGE_ESCALATE` entry to `docs/INBOX.md` and halt.
+3. Find highest priority `READY` task in `docs/tasks/`.
    - **Automated Selection:** Run `arch next` to identify the deterministic candidate.
-3. **Sentinel Pre-flight:** Verify task ACs and description against `negativeConstraints` in `arch.config.json` using an XS reasoning call.
+4. **Sentinel Pre-flight:** Verify task ACs and description against `negativeConstraints` in `arch.config.json` using an XS reasoning call.
    - **Escalation:** If a potential violation is identified, append a timestamped `AWAITING_APPROVAL | SENTINEL_VIOLATION` entry to `docs/INBOX.md` with evidence and halt.
-4. Set status to `IN_PROGRESS`, add lock in Meta line, and commit immediately.
-5. Implement against Acceptance Criteria ONLY.
-6. On completion:
+5. Set status to `IN_PROGRESS`, add lock in Meta line, and commit immediately.
+6. Implement against Acceptance Criteria ONLY.
+7. On completion:
    - **Hansei Check:** Before setting status, check if any trigger applies: (a) actual size differed from estimate, (b) a blocker was encountered, (c) task is `M` or larger. If any trigger applies, the Hansei should reflect that signal directly. For any task that will be archived as `DONE` from `TASK-195` onward, always append a `## Hansei` section (1–3 sentences), even on XS/S happy-path work, because the close transition enforces its presence.
    - **Predicate Check:** Run `arch task review TASK-XXX` to execute all `cmd:` predicates and atomically set status to REVIEW. If any predicate fails, fix the implementation before retrying — do not manually override the status. If the task has no `cmd:` predicates, set status to REVIEW manually and proceed.
    - **Handover:** The agent that implements a task CANNOT archive it. It must yield to an Auditor.

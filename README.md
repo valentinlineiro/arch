@@ -145,6 +145,7 @@ cd my-project
 # 3. Verify system integrity
 ./scripts/arch.sh validate  # Structural validation (task format, required files)
 ./scripts/arch.sh review    # Deterministic check of guidelines, task formats, and drift
+./scripts/arch.sh merge-resolve # Auto-resolve trivial merge conflicts
 
 # Planned
 # arch conduct   # Invokes THINK mode (coming soon)
