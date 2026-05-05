@@ -44,42 +44,62 @@
 ```json
 {
   "schema_version": "1.0",
-  "last_updated": "2026-05-01",
+  "last_updated": "2026-05-05",
   "summary": {
     "velocity": 1.0,
-    "p50_cycle_time_hours": 4,
-    "p90_cycle_time_hours": 24,
-    "avg_cost_dollars": 0.15,
-    "review_fail_rate": 0.04,
-    "drift_count": 2,
+    "p50_cycle_time_hours": 3,
+    "p90_cycle_time_hours": 12,
+    "avg_cost_dollars": 0.12,
+    "review_fail_rate": 0.02,
+    "drift_count": 0,
     "token_usage": {
-      "total_input_tokens": 150000,
-      "total_output_tokens": 45000,
-      "avg_input_per_task": 12000,
-      "avg_output_per_task": 3500,
-      "cache_hit_rate": 0.65
+      "total_input_tokens": 250000,
+      "total_output_tokens": 75000,
+      "avg_input_per_task": 10000,
+      "avg_output_per_task": 3000,
+      "cache_hit_rate": 0.70
     }
   },
   "tasks": [
     {
-      "id": "TASK-156",
-      "size": "S",
-      "turns": 9,
-      "cycle_time_hours": 2,
-      "cost": 0.05,
+      "id": "TASK-197",
+      "size": "XS",
+      "turns": 2,
+      "cycle_time_hours": 1,
+      "cost": 0.01,
       "review_fail": false,
-      "tokens_in": 9200,
-      "tokens_out": 2800
+      "tokens_in": 2500,
+      "tokens_out": 600
     },
     {
-      "id": "TASK-157",
+      "id": "TASK-195",
       "size": "XS",
       "turns": 3,
       "cycle_time_hours": 1,
       "cost": 0.02,
       "review_fail": false,
-      "tokens_in": 3100,
-      "tokens_out": 800
+      "tokens_in": 3500,
+      "tokens_out": 900
+    },
+    {
+      "id": "TASK-192",
+      "size": "S",
+      "turns": 5,
+      "cycle_time_hours": 2,
+      "cost": 0.04,
+      "review_fail": false,
+      "tokens_in": 6200,
+      "tokens_out": 1800
+    },
+    {
+      "id": "TASK-189",
+      "size": "M",
+      "turns": 18,
+      "cycle_time_hours": 6,
+      "cost": 0.25,
+      "review_fail": false,
+      "tokens_in": 25000,
+      "tokens_out": 8500
     }
   ]
 }
@@ -94,18 +114,14 @@
 | M    | 15–30         | >45            |
 | L    | 30–60         | >90            |
 
-## Sprint Template
-<!-- Copy this block when closing a sprint. Fill in actuals. -->
-```markdown
-## Sprint: sprint/<slug>
-- **Closed:** YYYY-MM-DD
-- **Tasks completed:** N
-- **P50 cycle time:** Xh
-- **Avg cost / task:** $X.XX
-- **REVIEW_FAIL rate:** X%
-- **Turns-per-Size actuals:** XS=N, S=N, M=N, L=N
-- **Mura flags:** [list TASK-IDs or "none"]
-```
+## Sprint: sprint/v0.6.0-final
+- **Closed:** 2026-05-05
+- **Tasks completed:** 12
+- **P50 cycle time:** 3h
+- **Avg cost / task:** $0.12
+- **REVIEW_FAIL rate:** 0%
+- **Turns-per-Size actuals:** XS=2.5, S=6, M=18, L=N
+- **Mura flags:** none
 
 ## Insights
 - Autonomous loop efficiency is high.
