@@ -1,6 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert';
 import { SelectNextTask } from '../../main/ts/application/use-cases/select-next-task.js';
+import { NextCommand } from '../../main/ts/application/commands/next-command.js';
 import { Task, TaskStatus } from '../../main/ts/domain/models/task.js';
 import { TaskRepository } from '../../main/ts/domain/repositories/task-repository.js';
 
@@ -170,4 +171,31 @@ test('does not return stale_lock for P1 IN_PROGRESS even if stale', async () => 
   const useCase = new SelectNextTask(repo);
   const result = await useCase.execute();
   assert.ok(result.ok && result.task.id === 'TASK-002');
+});
+
+test('NextCommand outputs valid JSON when --json flag is passed', async () => {
+  const task = makeTask({
+    id: 'TASK-100',
+    status: TaskStatus.READY,
+    content: '# TASK-100\nTest JSON output',
+    filePath: 'docs/tasks/TASK-100.md',
+  });
+  const repo = new MockTaskRepository([task]);
+  const command = new NextCommand(repo, ['--json']);
+
+  let output = '';
+  const originalLog = console.log;
+  console.log = (message: string) => {
+    output = message;
+  };
+
+  try {
+    await command.execute();
+    const parsed = JSON.parse(output);
+    assert.equal(parsed.taskId, 'TASK-100');
+    assert.equal(parsed.filePath, 'docs/tasks/TASK-100.md');
+    assert.equal(parsed.content, '# TASK-100\nTest JSON output');
+  } finally {
+    console.log = originalLog;
+  }
 });
