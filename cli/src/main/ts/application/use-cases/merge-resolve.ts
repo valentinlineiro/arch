@@ -46,10 +46,10 @@ export class MergeResolve {
       }
     }
 
-    if (resolved.length > 0) {
+    if (resolved.length > 0 && !escalated.includes('docs/INBOX.md')) {
       await this.logToInbox('MERGE_AUTO', resolved);
     }
-    if (escalated.length > 0) {
+    if (escalated.length > 0 && !escalated.includes('docs/INBOX.md')) {
       await this.logToInbox('MERGE_ESCALATE', escalated);
     }
 
@@ -89,9 +89,6 @@ export class MergeResolve {
 
     let allResolved = true;
     const mergedContent = content.replace(conflictRegex, (match, ours, theirs) => {
-      const combined = (ours + theirs).trim();
-      if (combined === '') return '';
-
       // Check for singletons in either side
       const hasSingleton = singletons.some(s => ours.includes(s) || theirs.includes(s));
       if (hasSingleton) {
@@ -100,15 +97,36 @@ export class MergeResolve {
       }
 
       // Verify both sides only contain valid entries (headers or bullet points)
-      const lines = [...ours.split('\n'), ...theirs.split('\n')].filter(l => l.trim() !== '');
-      const onlyEntries = lines.every(l => l.startsWith('## [') || l.startsWith('- ') || l.startsWith('**Task:**') || l.startsWith('**ACs:**') || l.startsWith('**Changed files:**'));
-      
-      if (!onlyEntries) {
-        allResolved = false;
-        return match;
+      const parseEntries = (text: string) => {
+        const entryRegex = /(## \[\d{4}-\d{2}-\d{2} \d{2}:\d{2}\][\s\S]*?)(?=\n## \[|$)/g;
+        return Array.from(text.matchAll(entryRegex)).map(m => m[1].trim());
+      };
+
+      const ourEntries = parseEntries(ours);
+      const theirEntries = parseEntries(theirs);
+
+      if (ourEntries.length === 0 && theirEntries.length === 0) {
+        // Fallback for non-dated entries if they are simple bullet points
+        const lines = [...ours.split('\n'), ...theirs.split('\n')].filter(l => l.trim() !== '');
+        const onlySimpleEntries = lines.every(l => l.startsWith('- ') || l.startsWith('**Task:**') || l.startsWith('**ACs:**') || l.startsWith('**Changed files:**'));
+        if (!onlySimpleEntries) {
+          allResolved = false;
+          return match;
+        }
+        return (ours + theirs).trim() + '\n';
       }
 
-      return ours + theirs;
+      // Chronological sort
+      const allEntries = [...ourEntries, ...theirEntries];
+      allEntries.sort((a, b) => {
+        const getTs = (s: string) => {
+          const m = s.match(/\[(\d{4}-\d{2}-\d{2} \d{2}:\d{2})\]/);
+          return m ? new Date(m[1]).getTime() : 0;
+        };
+        return getTs(a) - getTs(b);
+      });
+
+      return allEntries.join('\n\n') + '\n';
     });
 
     return { success: allResolved && content.match(conflictRegex) !== null, mergedContent };
@@ -144,8 +162,18 @@ export class MergeResolve {
       const o = ourMatch.groups!;
       const t = theirMatch.groups!;
 
-      // 1. Immutable fields must match
-      if (o.size !== t.size || o.class.trim() !== t.class.trim() || o.cli.trim() !== t.cli.trim()) {
+      // 1. Immutable fields MUST match per protocol
+      const immutableMismatch = 
+        o.priority !== t.priority ||
+        o.size !== t.size ||
+        o.class.trim() !== t.class.trim() ||
+        o.cli.trim() !== t.cli.trim() ||
+        o.context.trim() !== t.context.trim() ||
+        (o.cost || '0') !== (t.cost || '0') ||
+        (o.steps || '0') !== (t.steps || '0') ||
+        (o.turns || '0') !== (t.turns || '0');
+
+      if (immutableMismatch) {
         allResolved = false;
         return match;
       }
@@ -156,26 +184,15 @@ export class MergeResolve {
         return match;
       }
 
-      // 3. Merge fields
-      const priority = `P${Math.min(parseInt(o.priority), parseInt(t.priority))}`;
+      // 3. Merge fields (status and focus only)
       const status = statusRank[o.status] >= statusRank[t.status] ? o.status : t.status;
       const focus = (o.focus === 'Focus:yes' || t.focus === 'Focus:yes') ? 'Focus:yes' : 'Focus:no';
       
-      // Context union
-      const contextO = o.context.split(',').map(s => s.trim());
-      const contextT = t.context.split(',').map(s => s.trim());
-      const context = Array.from(new Set([...contextO, ...contextT])).join(', ');
-
-      // Metrics max
-      const cost = Math.max(parseFloat(o.cost || '0'), parseFloat(t.cost || '0'));
-      const steps = Math.max(parseInt(o.steps || '0'), parseInt(t.steps || '0'));
-      const turns = Math.max(parseInt(o.turns || '0'), parseInt(t.turns || '0'));
-
-      // 4. Reconstruct
-      let mergedLine = `**Meta:** ${priority} | ${o.size} | ${status} | ${focus} | ${o.class.trim()} | ${o.cli.trim()} | ${context}`;
-      if (cost > 0) mergedLine += ` | Cost: $${cost.toFixed(2)}`;
-      if (steps > 0) mergedLine += ` | Steps: ${steps}`;
-      if (turns > 0) mergedLine += ` | Turns: ${turns}`;
+      // 4. Reconstruct using identical immutable base
+      let mergedLine = `**Meta:** P${o.priority} | ${o.size} | ${status} | ${focus} | ${o.class.trim()} | ${o.cli.trim()} | ${o.context.trim()}`;
+      if (o.cost) mergedLine += ` | Cost: $${parseFloat(o.cost).toFixed(2)}`;
+      if (o.steps) mergedLine += ` | Steps: ${o.steps}`;
+      if (o.turns) mergedLine += ` | Turns: ${o.turns}`;
 
       return mergedLine + '\n';
     });

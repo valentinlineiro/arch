@@ -2,7 +2,7 @@
 
 - **Class:** 7-operations
 - **Size:** S
-- **Status:** draft
+- **Status:** REJECTED: superseded by IDEA-rag-context-retrieval
 
 ## Problem
 

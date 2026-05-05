@@ -33,14 +33,14 @@ class MockGitRepository implements GitRepository {
   async mv() {}
 }
 
-test('MergeResolve - auto-resolves pure-append on INBOX.md', async () => {
+test('MergeResolve - auto-resolves pure-append on INBOX.md with chronological sorting', async () => {
   const fs = new MockFileSystem();
   const git = new MockGitRepository();
   
   const conflictContent = `
 ## Recent Activity
 <<<<<<< HEAD
-## [2026-05-05 14:00] REVIEW_REQUEST | TASK-100
+## [2026-05-05 14:10] REVIEW_REQUEST | TASK-100
 =======
 ## [2026-05-05 14:05] REVIEW_REQUEST | TASK-101
 >>>>>>> branch
@@ -52,12 +52,15 @@ test('MergeResolve - auto-resolves pure-append on INBOX.md', async () => {
   const result = await useCase.execute();
 
   assert.strictEqual(result.resolved.length, 1);
-  assert.ok(fs.files['docs/INBOX.md'].includes('TASK-100'));
-  assert.ok(fs.files['docs/INBOX.md'].includes('TASK-101'));
-  assert.ok(!fs.files['docs/INBOX.md'].includes('<<<<<<<'));
+  const merged = fs.files['docs/INBOX.md'];
+  // 14:05 should come before 14:10
+  const index101 = merged.indexOf('TASK-101');
+  const index100 = merged.indexOf('TASK-100');
+  assert.ok(index101 < index100, 'Chronological order should be preserved (TASK-101 before TASK-100)');
+  assert.ok(!merged.includes('<<<<<<<'));
 });
 
-test('MergeResolve - escalates INBOX.md singleton collision', async () => {
+test('MergeResolve - escalates INBOX.md and skips logging', async () => {
   const fs = new MockFileSystem();
   const git = new MockGitRepository();
   
@@ -76,17 +79,23 @@ test('MergeResolve - escalates INBOX.md singleton collision', async () => {
 
   assert.strictEqual(result.resolved.length, 0);
   assert.strictEqual(result.escalated.length, 1);
+  assert.strictEqual(result.escalated[0], 'docs/INBOX.md');
+  
+  // logToInbox should not have been called, so INBOX.md content should still have conflict markers
+  assert.ok(fs.files['docs/INBOX.md'].includes('<<<<<<<'));
+  // And it should not have been added to git (staged) by logToInbox
+  assert.ok(!git.addedFiles.includes('docs/INBOX.md'));
 });
 
-test('MergeResolve - semantic merge for task meta (advanced status and higher priority wins)', async () => {
+test('MergeResolve - auto-resolves status-only meta conflict', async () => {
   const fs = new MockFileSystem();
   const git = new MockGitRepository();
   
   const conflictContent = `## TASK-001: Title
 <<<<<<< HEAD
-**Meta:** P2 | S | READY | Focus:no | 6-writing | local | path/a | Cost: $10.00 | Steps: 5
+**Meta:** P1 | S | READY | Focus:no | 6-writing | local | none
 =======
-**Meta:** P1 | S | IN_PROGRESS | Focus:yes | 6-writing | local | path/b | Cost: $5.00 | Steps: 10
+**Meta:** P1 | S | IN_PROGRESS | Focus:yes | 6-writing | local | none
 >>>>>>> branch
 
 ### AC
@@ -100,12 +109,29 @@ test('MergeResolve - semantic merge for task meta (advanced status and higher pr
 
   assert.strictEqual(result.resolved.length, 1);
   const merged = fs.files['docs/tasks/TASK-001.md'];
-  assert.ok(merged.includes('P1'), 'P1 should win over P2');
-  assert.ok(merged.includes('IN_PROGRESS'), 'IN_PROGRESS should win over READY');
-  assert.ok(merged.includes('Focus:yes'), 'Focus:yes should win');
-  assert.ok(merged.includes('path/a, path/b'), 'Context should be unioned');
-  assert.ok(merged.includes('Cost: $10.00'), 'Max cost should win');
-  assert.ok(merged.includes('Steps: 10'), 'Max steps should win');
+  assert.ok(merged.includes('IN_PROGRESS'));
+  assert.ok(merged.includes('Focus:yes'));
+});
+
+test('MergeResolve - escalates task meta on semantic field mismatch (priority)', async () => {
+  const fs = new MockFileSystem();
+  const git = new MockGitRepository();
+  
+  const conflictContent = `## TASK-001: Title
+<<<<<<< HEAD
+**Meta:** P2 | S | READY | Focus:no | 6-writing | local | none
+=======
+**Meta:** P1 | S | IN_PROGRESS | Focus:yes | 6-writing | local | none
+>>>>>>> branch
+`;
+  fs.files['docs/tasks/TASK-001.md'] = conflictContent;
+  git.statusLines = ['UU docs/tasks/TASK-001.md'];
+
+  const useCase = new MergeResolve(git, fs);
+  const result = await useCase.execute();
+
+  assert.strictEqual(result.resolved.length, 0);
+  assert.strictEqual(result.escalated.length, 1);
 });
 
 test('MergeResolve - escalates task meta on immutable field mismatch', async () => {
