@@ -43,9 +43,10 @@ Phase the work toward Level 5 (verifiable), which is the practical ceiling for t
 L — three phases, multiple drift checks and CLI guards, tests for escalation scenarios
 
 ## Gaps
-- Phase 1 protected-path check requires parsing commit diffs in `arch review`, which currently only reads the filesystem. This is a new capability for the drift checker (git integration).
-- "Ambiguous task shape" needs a precise definition — which fields are required for `arch task start` to proceed? This is a protocol decision before it can be a code check.
-- This IDEA is large enough that it should likely be split into one task per phase at promotion time.
+All resolved:
+- **Git integration in `arch review`:** `arch review` gains git diff parsing capability (not delegated to post-commit hook). This is an explicit scope-in decision.
+- **Ambiguous task shape:** defined as failure to meet the existing DoR in `TASK-FORMAT.md` — all Meta line fields (Priority, Size, Status, Focus, Class, CLI, Context) + at least one AC + Gaps section for M+ tasks. No new rules needed; `arch task start` enforces the existing DoR.
+- **Promotion:** split into 3 tasks at promotion time, one per phase.
 
 ## Decision
 <!-- Human writes here after THINK evaluation -->
