@@ -4,6 +4,31 @@
 
 ---
 
+## Sprint v0.6.0-final Retrospective
+**Closed:** 2026-05-05
+**Committed:** 12 tasks | **Delivered:** 12 | **Velocity:** 100%
+
+### Sizing Accuracy
+| Task | Declared | Actual | Delta |
+|------|----------|--------|-------|
+| TASK-189 | M | M | 0 |
+| TASK-192 | S | S | 0 |
+| TASK-195 | XS | XS | 0 |
+| TASK-197 | XS | XS | 0 |
+
+**Observation:** Sizing for protocol/writing tasks is highly accurate. Autonomous execution of M-sized tasks (TASK-189) is successful, but requires 15+ turns, indicating a complexity threshold for single-session completion.
+
+### Detected Patterns & Risks
+1. **Protocol Drift:** The rollout of the `## Hansei` mandate (TASK-195) created immediate friction where protocol (DO.md) and enforcement (CLI) were out of sync for a short window.
+2. **Coordination Overhead:** 40+ IDEAs in refinement are creating visual noise in INBOX.md.
+3. **Execution Latency:** The shift to L3 autonomy (TASK-190) is blocked by the need for better conflict resolution on append-only files (TASK-191).
+
+### Proposed Guideline Additions
+- **Atomic Rollout:** Protocol changes involving machine enforcement MUST update `DO.md` and the CLI in the same task or an immediate dependent task to prevent agent confusion.
+- **Hansei Discipline:** XS tasks on the happy-path should use the minimal 1-sentence Hansei template to maintain velocity while meeting the archival guard requirement.
+
+---
+
 ## Sprint 2 Retrospective
 **Closed:** 2026-04-24
 **Committed:** 4 tasks | **Delivered:** 4 | **Velocity:** 100%
