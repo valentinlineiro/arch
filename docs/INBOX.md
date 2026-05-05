@@ -3,12 +3,13 @@
 <!-- Generated on: 2026-05-05 -->
 
 ## Status Summary
-- **Active Tasks:** 1 (TASK-192 IN_PROGRESS)
-- **In Review:** 0
-- **Backlog (Ready):** 12
+- **Active Tasks:** 0
+- **In Review:** 2 (TASK-192, TASK-195)
+- **Backlog (Ready):** 14
 
 ## Urgent / Actions Required
-- [ ] [TASK-192] [BUG] INBOX.md Refinement Queue omits actual IDEA count (P1) - IN_PROGRESS
+- [ ] [TASK-192] [BUG] INBOX.md Refinement Queue omits actual IDEA count (P1) - In Review
+- [ ] [TASK-195] Hansei drift check - mandate and verify Hansei section on archived tasks (P1) - In Review
 
 ## Refinement Queue
 40 pending IDEAs:
@@ -19,6 +20,21 @@ _No active sprint._
 
 ## Recent Activity
 - **Last Commit:** chore: [TASK-188][TASK-189] fix worktree — stage missed archive files
+
+## [2026-05-05 12:30] REVIEW_REQUEST | TASK-195
+**Task:** Hansei drift check - mandate and verify Hansei section on archived tasks
+**ACs:**
+- [x] `docs/TASK-FORMAT.md` marks `## Hansei` as a required section on DONE tasks
+- [x] A `HanseiPresent` drift check in `DriftChecker` scans `docs/archive/*.md` and flags any task missing a `## Hansei` section as a named violation in `arch review`
+- [x] `arch review` passes
+- [x] `npm test` passes in `cli/`
+**Changed files:**
+- arch.config.json
+- cli/src/main/ts/domain/services/drift-checker.ts
+- cli/src/test/ts/drift-checker.test.ts
+- docs/TASK-FORMAT.md
+- docs/tasks/TASK-194.md
+- docs/tasks/TASK-195.md
 
 ## [2026-05-05 00:00] REVIEW_PASS | TASK-188
 All ACs verified. Review issues fixed: machine-enforceable Last-Revision trigger in KAIZEN-LOG.md, minimum data guard, full IDEA path spec, [REVISION] tag added to Output section. `arch review` OK. Archived.

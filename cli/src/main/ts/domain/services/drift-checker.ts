@@ -35,6 +35,7 @@ export class DriftChecker {
       this.checkStaleTasks(),
       this.checkMergeCommits(),
       this.checkCensus(),
+      this.checkHanseiPresent(),
     ]);
   }
 
@@ -499,6 +500,35 @@ export class DriftChecker {
 
     return {
       check: 'Census',
+      status: details.length === 0 ? 'OK' : 'WARN',
+      details,
+    };
+  }
+
+  private async checkHanseiPresent(): Promise<DriftResult> {
+    const configRaw = await this.fileSystem.readFile(`${this.rootPath}/arch.config.json`);
+    const config = JSON.parse(configRaw);
+    const hanseiSinceTaskId = config.hanseiSinceTaskId as number | undefined;
+    const archiveFiles = await this.getMarkdownFiles('docs/archive');
+    const details: string[] = [];
+
+    for (const file of archiveFiles) {
+      const taskIdMatch = file.match(/^TASK-(\d+)\.md$/);
+      if (!taskIdMatch) continue;
+
+      const taskId = parseInt(taskIdMatch[1], 10);
+      if (hanseiSinceTaskId !== undefined && taskId < hanseiSinceTaskId) {
+        continue;
+      }
+
+      const content = await this.fileSystem.readFile(`${this.rootPath}/docs/archive/${file}`);
+      if (!content.includes('## Hansei')) {
+        details.push(`${file.replace('.md', '')}: missing ## Hansei section`);
+      }
+    }
+
+    return {
+      check: 'HanseiPresent',
       status: details.length === 0 ? 'OK' : 'WARN',
       details,
     };

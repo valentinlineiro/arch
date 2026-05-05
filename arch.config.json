@@ -32,7 +32,8 @@
       "L": "claude-3-opus-20240229"
     }
     },
-    "contextBudget": {
+    "hanseiSinceTaskId": 195,
+  "contextBudget": {
     "docs/tasks": 1000,
     "docs/archive": 8000,
     "docs/refinement": 3000

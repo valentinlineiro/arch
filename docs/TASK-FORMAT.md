@@ -94,9 +94,10 @@ An AC item may include an executable predicate appended after a `→` separator:
 - **Required:** When the agent records a Hansei section (i.e., same triggers: size delta, blocker, or M+).
 - **Purpose:** Input for Mura detection in THINK Phase 3 and Turns-per-Size trend in METRICS.md.
 
-### 9. Hansei (optional)
+### 9. Hansei
 - A brief retrospective written by the implementing agent before marking `REVIEW`.
 - **Required when** any of the following apply: (a) actual size differed from estimate, (b) a blocker was encountered during execution, (c) task is `M` or larger.
+- **Archived task requirement:** DONE tasks archived from `TASK-195` onward must include a `## Hansei` section so `arch review` can verify the close-out record.
 - **Format:** `## Hansei` section with 1–3 sentences maximum.
 - **Prompt:** *"One thing done poorly or one way this could have been cleaner."*
 - **Purpose:** raw input for KAIZEN-LOG and Mura detection.

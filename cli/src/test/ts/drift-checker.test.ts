@@ -227,3 +227,56 @@ test('DependsGraph - OK when dependency is in archive', async () => {
   assert.ok(check);
   assert.strictEqual(check?.status, 'OK');
 });
+
+test('DriftChecker - HanseiPresent flags archived task missing Hansei section', async () => {
+  const fs = makeBaseFs();
+  fs.files['/repo/arch.config.json'] = JSON.stringify({
+    version: '0.2.0',
+    hanseiSinceTaskId: 195,
+  });
+  fs.directories['/repo/docs/archive'] = ['TASK-010.md'];
+  fs.files['/repo/docs/archive/TASK-010.md'] = '## TASK-010: Something\n**Meta:** P1 | S | DONE | Focus:no\n\nNo Hansei here.\n';
+
+  const checker = new DriftChecker(fs, new MockGitRepository(), '/repo', '0.2.0');
+  const result = await checker.check();
+  const check = result.find(r => r.check === 'HanseiPresent');
+
+  assert.ok(check);
+  assert.strictEqual(check?.status, 'OK');
+});
+
+test('DriftChecker - HanseiPresent flags archived task missing Hansei section after rollout threshold', async () => {
+  const fs = makeBaseFs();
+  fs.files['/repo/arch.config.json'] = JSON.stringify({
+    version: '0.2.0',
+    hanseiSinceTaskId: 195,
+  });
+  fs.directories['/repo/docs/archive'] = ['TASK-195.md'];
+  fs.files['/repo/docs/archive/TASK-195.md'] = '## TASK-195: Something\n**Meta:** P1 | S | DONE | Focus:no\n\nNo Hansei here.\n';
+
+  const checker = new DriftChecker(fs, new MockGitRepository(), '/repo', '0.2.0');
+  const result = await checker.check();
+  const check = result.find(r => r.check === 'HanseiPresent');
+
+  assert.ok(check);
+  assert.strictEqual(check?.status, 'WARN');
+  assert.ok(check?.details.some(d => d.includes('TASK-195')));
+});
+
+test('DriftChecker - HanseiPresent passes when all archived tasks have Hansei section', async () => {
+  const fs = makeBaseFs();
+  fs.files['/repo/arch.config.json'] = JSON.stringify({
+    version: '0.2.0',
+    hanseiSinceTaskId: 195,
+  });
+  fs.directories['/repo/docs/archive'] = ['TASK-195.md', 'TASK-196.md'];
+  fs.files['/repo/docs/archive/TASK-195.md'] = '## TASK-195: Something\n**Meta:** P1 | S | DONE | Focus:no\n\n## Hansei\nReflection here.\n';
+  fs.files['/repo/docs/archive/TASK-196.md'] = '## TASK-196: Another\n**Meta:** P1 | S | DONE | Focus:no\n\n## Hansei\nMore reflection.\n';
+
+  const checker = new DriftChecker(fs, new MockGitRepository(), '/repo', '0.2.0');
+  const result = await checker.check();
+  const check = result.find(r => r.check === 'HanseiPresent');
+
+  assert.ok(check);
+  assert.strictEqual(check?.status, 'OK');
+});
