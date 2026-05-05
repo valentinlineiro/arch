@@ -22,6 +22,11 @@
 2. **Mura Detection:** Read `Turns: N` from the last 10 archived tasks. For each size tier (XS/S/M/L), compute the average. If actual avg exceeds the expected range in `docs/METRICS.md` by >50%, emit `[MURA] <size>-tier avg=N turns (threshold=T)` to stdout and propose a re-estimation or decomposition task.
 3. **Immediate Improvements:** Identify context gaps or guideline changes based on patterns.
 4. **Sprint Metrics:** On sprint close, generate `docs/METRICS.md` summary using the Sprint Template block.
+5. **Periodic Architecture Revision (bi-weekly):** Every two weeks, regardless of active tasks, run a focused architecture audit. Use `docs/METRICS.md` cost-per-task and turns-per-task data as the primary signal for identifying friction candidates. Produce a numbered list of concrete streamlining proposals — each must be an actionable proposal, not an observation — formatted as:
+   ```
+   [REVISION] <N>. <proposal> → <next action: IDEA draft IDEA-slug | direct fix in <file>>
+   ```
+   Output to terminal only. If a proposal warrants a task, create an IDEA draft in `docs/refinement/` and commit with `idea:` prefix.
 
 ## Output
 - Ephemeral read-only output to terminal.
