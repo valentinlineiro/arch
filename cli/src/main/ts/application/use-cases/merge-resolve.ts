@@ -12,7 +12,10 @@ export class MergeResolve {
   async execute() {
     const statusLines = await this.gitRepository.getStatusLines();
     const conflictingFiles = statusLines
-      .filter(line => line.startsWith('UU') || line.startsWith('AA') || line.startsWith('AU') || line.startsWith('UA'))
+      .filter(line => {
+        const status = line.slice(0, 2);
+        return status.includes('U') || status === 'AA' || status === 'DD';
+      })
       .map(line => {
         // Line format is "UU path"
         return line.slice(3).trim();
@@ -69,37 +72,115 @@ export class MergeResolve {
 
   private resolveInboxConflict(content: string): { success: boolean; mergedContent: string } {
     const conflictRegex = /<<<<<<< .*?\n([\s\S]*?)=======\n([\s\S]*?)>>>>>>> .*?\n/g;
-    const matches = Array.from(content.matchAll(conflictRegex));
     
-    if (matches.length === 0) return { success: false, mergedContent: content };
+    // Safety: singleton lines that should NEVER be auto-merged
+    const singletons = [
+      '# INBOX',
+      '## Status Summary',
+      '- **Active Tasks:**',
+      '- **In Review:**',
+      '- **Backlog (Ready):**',
+      '## Urgent / Actions Required',
+      '## Refinement Queue',
+      '## Current Sprint',
+      '## Recent Activity',
+      '- **Last Commit:**'
+    ];
 
-    // Check if it's "pure-append" - i.e. it's at the end of the file or only adds content
-    // For INBOX, we just keep both.
+    let allResolved = true;
     const mergedContent = content.replace(conflictRegex, (match, ours, theirs) => {
+      const combined = (ours + theirs).trim();
+      if (combined === '') return '';
+
+      // Check for singletons in either side
+      const hasSingleton = singletons.some(s => ours.includes(s) || theirs.includes(s));
+      if (hasSingleton) {
+        allResolved = false;
+        return match;
+      }
+
+      // Verify both sides only contain valid entries (headers or bullet points)
+      const lines = [...ours.split('\n'), ...theirs.split('\n')].filter(l => l.trim() !== '');
+      const onlyEntries = lines.every(l => l.startsWith('## [') || l.startsWith('- ') || l.startsWith('**Task:**') || l.startsWith('**ACs:**') || l.startsWith('**Changed files:**'));
+      
+      if (!onlyEntries) {
+        allResolved = false;
+        return match;
+      }
+
       return ours + theirs;
     });
 
-    return { success: true, mergedContent };
+    return { success: allResolved && content.match(conflictRegex) !== null, mergedContent };
   }
 
   private resolveTaskMetaConflict(content: string): { success: boolean; mergedContent: string } {
     const conflictRegex = /<<<<<<< .*?\n([\s\S]*?)=======\n([\s\S]*?)>>>>>>> .*?\n/g;
-    const matches = Array.from(content.matchAll(conflictRegex));
+    
+    // Status ranking for merging (higher is more "advanced")
+    const statusRank: Record<string, number> = {
+      'IDEA': 0,
+      'BACKLOG': 1,
+      'READY': 2,
+      'IN_PROGRESS': 3,
+      'REVIEW': 4,
+      'DONE': 5,
+      'BLOCKED': -1,
+      'REJECTED': -1
+    };
 
-    if (matches.length === 0) return { success: false, mergedContent: content };
+    const metaRegex = /^\*\*Meta:\*\* P(?<priority>[0-3]) \| (?<size>[A-Z]+) \| (?<status>[A-Z_]+) \| (?<focus>Focus:yes|Focus:no) \| (?<class>[^|]+) \| (?<cli>[^|]+) \| (?<context>[^|]+?)(?: \| Cost: \$(?<cost>\d+\.\d{2}))?(?: \| Steps: (?<steps>\d+))?(?: \| Turns: (?<turns>\d+))?$/;
 
-    let onlyMetaConflict = true;
+    let allResolved = true;
     const mergedContent = content.replace(conflictRegex, (match, ours, theirs) => {
-      if (ours.trim().startsWith('**Meta:**') && theirs.trim().startsWith('**Meta:**')) {
-        // Both sides modified the Meta line. We take 'theirs' as the more recent local intent.
-        return theirs;
-      } else {
-        onlyMetaConflict = false;
+      const ourMatch = ours.trim().match(metaRegex);
+      const theirMatch = theirs.trim().match(metaRegex);
+
+      if (!ourMatch || !theirMatch) {
+        allResolved = false;
         return match;
       }
+
+      const o = ourMatch.groups!;
+      const t = theirMatch.groups!;
+
+      // 1. Immutable fields must match
+      if (o.size !== t.size || o.class.trim() !== t.class.trim() || o.cli.trim() !== t.cli.trim()) {
+        allResolved = false;
+        return match;
+      }
+
+      // 2. Status check (Blocked/Rejected escalate)
+      if (statusRank[o.status] === -1 || statusRank[t.status] === -1) {
+        allResolved = false;
+        return match;
+      }
+
+      // 3. Merge fields
+      const priority = `P${Math.min(parseInt(o.priority), parseInt(t.priority))}`;
+      const status = statusRank[o.status] >= statusRank[t.status] ? o.status : t.status;
+      const focus = (o.focus === 'Focus:yes' || t.focus === 'Focus:yes') ? 'Focus:yes' : 'Focus:no';
+      
+      // Context union
+      const contextO = o.context.split(',').map(s => s.trim());
+      const contextT = t.context.split(',').map(s => s.trim());
+      const context = Array.from(new Set([...contextO, ...contextT])).join(', ');
+
+      // Metrics max
+      const cost = Math.max(parseFloat(o.cost || '0'), parseFloat(t.cost || '0'));
+      const steps = Math.max(parseInt(o.steps || '0'), parseInt(t.steps || '0'));
+      const turns = Math.max(parseInt(o.turns || '0'), parseInt(t.turns || '0'));
+
+      // 4. Reconstruct
+      let mergedLine = `**Meta:** ${priority} | ${o.size} | ${status} | ${focus} | ${o.class.trim()} | ${o.cli.trim()} | ${context}`;
+      if (cost > 0) mergedLine += ` | Cost: $${cost.toFixed(2)}`;
+      if (steps > 0) mergedLine += ` | Steps: ${steps}`;
+      if (turns > 0) mergedLine += ` | Turns: ${turns}`;
+
+      return mergedLine + '\n';
     });
 
-    return { success: onlyMetaConflict, mergedContent };
+    return { success: allResolved && content.match(conflictRegex) !== null, mergedContent };
   }
 
   private async logToInbox(type: 'MERGE_AUTO' | 'MERGE_ESCALATE', files: string[]) {

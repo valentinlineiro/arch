@@ -40,9 +40,9 @@ test('MergeResolve - auto-resolves pure-append on INBOX.md', async () => {
   const conflictContent = `
 ## Recent Activity
 <<<<<<< HEAD
-- **Last Commit:** chore: [TASK-100] ours
+## [2026-05-05 14:00] REVIEW_REQUEST | TASK-100
 =======
-- **Last Commit:** chore: [TASK-101] theirs
+## [2026-05-05 14:05] REVIEW_REQUEST | TASK-101
 >>>>>>> branch
 `;
   fs.files['docs/INBOX.md'] = conflictContent;
@@ -52,22 +52,41 @@ test('MergeResolve - auto-resolves pure-append on INBOX.md', async () => {
   const result = await useCase.execute();
 
   assert.strictEqual(result.resolved.length, 1);
-  assert.strictEqual(result.resolved[0], 'docs/INBOX.md');
-  assert.ok(fs.files['docs/INBOX.md'].includes('ours'));
-  assert.ok(fs.files['docs/INBOX.md'].includes('theirs'));
+  assert.ok(fs.files['docs/INBOX.md'].includes('TASK-100'));
+  assert.ok(fs.files['docs/INBOX.md'].includes('TASK-101'));
   assert.ok(!fs.files['docs/INBOX.md'].includes('<<<<<<<'));
-  assert.ok(git.addedFiles.includes('docs/INBOX.md'));
 });
 
-test('MergeResolve - auto-resolves status-line-only on tasks', async () => {
+test('MergeResolve - escalates INBOX.md singleton collision', async () => {
+  const fs = new MockFileSystem();
+  const git = new MockGitRepository();
+  
+  const conflictContent = `
+<<<<<<< HEAD
+- **Backlog (Ready):** 16
+=======
+- **Backlog (Ready):** 15
+>>>>>>> branch
+`;
+  fs.files['docs/INBOX.md'] = conflictContent;
+  git.statusLines = ['UU docs/INBOX.md'];
+
+  const useCase = new MergeResolve(git, fs);
+  const result = await useCase.execute();
+
+  assert.strictEqual(result.resolved.length, 0);
+  assert.strictEqual(result.escalated.length, 1);
+});
+
+test('MergeResolve - semantic merge for task meta (advanced status and higher priority wins)', async () => {
   const fs = new MockFileSystem();
   const git = new MockGitRepository();
   
   const conflictContent = `## TASK-001: Title
 <<<<<<< HEAD
-**Meta:** P1 | S | READY | Focus:no | 6-writing | local | none
+**Meta:** P2 | S | READY | Focus:no | 6-writing | local | path/a | Cost: $10.00 | Steps: 5
 =======
-**Meta:** P1 | S | IN_PROGRESS | Focus:yes | 6-writing | local | none
+**Meta:** P1 | S | IN_PROGRESS | Focus:yes | 6-writing | local | path/b | Cost: $5.00 | Steps: 10
 >>>>>>> branch
 
 ### AC
@@ -80,38 +99,24 @@ test('MergeResolve - auto-resolves status-line-only on tasks', async () => {
   const result = await useCase.execute();
 
   assert.strictEqual(result.resolved.length, 1);
-  assert.ok(fs.files['docs/tasks/TASK-001.md'].includes('IN_PROGRESS'));
-  assert.ok(!fs.files['docs/tasks/TASK-001.md'].includes('READY'));
-  assert.ok(!fs.files['docs/tasks/TASK-001.md'].includes('<<<<<<<'));
+  const merged = fs.files['docs/tasks/TASK-001.md'];
+  assert.ok(merged.includes('P1'), 'P1 should win over P2');
+  assert.ok(merged.includes('IN_PROGRESS'), 'IN_PROGRESS should win over READY');
+  assert.ok(merged.includes('Focus:yes'), 'Focus:yes should win');
+  assert.ok(merged.includes('path/a, path/b'), 'Context should be unioned');
+  assert.ok(merged.includes('Cost: $10.00'), 'Max cost should win');
+  assert.ok(merged.includes('Steps: 10'), 'Max steps should win');
 });
 
-test('MergeResolve - escalates protected paths', async () => {
-  const fs = new MockFileSystem();
-  const git = new MockGitRepository();
-  
-  fs.files['arch.config.json'] = '<<<<<<< HEAD\nours\n=======\ntheirs\n>>>>>>> branch';
-  git.statusLines = ['UU arch.config.json'];
-
-  const useCase = new MergeResolve(git, fs, ['arch.config.json']);
-  const result = await useCase.execute();
-
-  assert.strictEqual(result.resolved.length, 0);
-  assert.strictEqual(result.escalated.length, 1);
-  assert.strictEqual(result.escalated[0], 'arch.config.json');
-});
-
-test('MergeResolve - escalates non-meta task conflicts', async () => {
+test('MergeResolve - escalates task meta on immutable field mismatch', async () => {
   const fs = new MockFileSystem();
   const git = new MockGitRepository();
   
   const conflictContent = `## TASK-001: Title
-**Meta:** P1 | S | READY | Focus:no | 6-writing | local | none
-
-### AC
 <<<<<<< HEAD
-- [ ] our ac
+**Meta:** P1 | S | READY | Focus:no | 6-writing | local | none
 =======
-- [ ] their ac
+**Meta:** P1 | M | READY | Focus:no | 6-writing | local | none
 >>>>>>> branch
 `;
   fs.files['docs/tasks/TASK-001.md'] = conflictContent;
@@ -122,4 +127,19 @@ test('MergeResolve - escalates non-meta task conflicts', async () => {
 
   assert.strictEqual(result.resolved.length, 0);
   assert.strictEqual(result.escalated.length, 1);
+});
+
+test('MergeResolve - detects all unmerged states (DD, DU, etc.)', async () => {
+  const fs = new MockFileSystem();
+  const git = new MockGitRepository();
+  
+  fs.files['file1'] = 'conflict';
+  fs.files['file2'] = 'conflict';
+  git.statusLines = ['DD file1', 'DU file2'];
+
+  const useCase = new MergeResolve(git, fs);
+  const result = await useCase.execute();
+
+  // Both should be detected as conflicting, even if not auto-resolvable
+  assert.strictEqual(result.escalated.length, 2);
 });
