@@ -280,3 +280,42 @@ test('DriftChecker - HanseiPresent passes when all archived tasks have Hansei se
   assert.ok(check);
   assert.strictEqual(check?.status, 'OK');
 });
+
+test('DriftChecker - HaltPolicy flags missing HALT.md or HALT-LOG.md', async () => {
+  const fs = makeBaseFs();
+  const checker = new DriftChecker(fs, new MockGitRepository(), '/repo', '0.2.0');
+  const result = await checker.check();
+  const check = result.find(r => r.check === 'HaltPolicy');
+
+  assert.ok(check);
+  assert.strictEqual(check?.status, 'WARN');
+  assert.ok(check?.details.some(d => d.includes('docs/HALT.md not found')));
+  assert.ok(check?.details.some(d => d.includes('docs/HALT-LOG.md not found')));
+});
+
+test('DriftChecker - HaltPolicy flags invalid table structure in HALT.md', async () => {
+  const fs = makeBaseFs();
+  fs.files['/repo/docs/HALT.md'] = '# Halt Conditions\n\nInvalid table here.';
+  fs.files['/repo/docs/HALT-LOG.md'] = '# Halt Log';
+  
+  const checker = new DriftChecker(fs, new MockGitRepository(), '/repo', '0.2.0');
+  const result = await checker.check();
+  const check = result.find(r => r.check === 'HaltPolicy');
+
+  assert.ok(check);
+  assert.strictEqual(check?.status, 'WARN');
+  assert.ok(check?.details.some(d => d.includes('table structure is invalid')));
+});
+
+test('DriftChecker - HaltPolicy passes with valid files', async () => {
+  const fs = makeBaseFs();
+  fs.files['/repo/docs/HALT.md'] = '# Halt Conditions\n\n| Condition | Trigger command | CLI exit code | HALT-LOG entry format |\n|---|---|---|---|';
+  fs.files['/repo/docs/HALT-LOG.md'] = '# Halt Log';
+  
+  const checker = new DriftChecker(fs, new MockGitRepository(), '/repo', '0.2.0');
+  const result = await checker.check();
+  const check = result.find(r => r.check === 'HaltPolicy');
+
+  assert.ok(check);
+  assert.strictEqual(check?.status, 'OK');
+});

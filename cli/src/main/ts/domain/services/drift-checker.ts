@@ -36,7 +36,43 @@ export class DriftChecker {
       this.checkMergeCommits(),
       this.checkCensus(),
       this.checkHanseiPresent(),
+      this.checkHaltPolicy(),
     ]);
+  }
+
+  private async checkHaltPolicy(): Promise<DriftResult> {
+    const details: string[] = [];
+    const haltPath = 'docs/HALT.md';
+    const haltLogPath = 'docs/HALT-LOG.md';
+
+    if (!(await this.fileSystem.exists(`${this.rootPath}/${haltPath}`))) {
+      details.push(`${haltPath} not found.`);
+    } else {
+      const content = await this.fileSystem.readFile(`${this.rootPath}/${haltPath}`);
+      const requiredColumns = ['Condition', 'Trigger command', 'CLI exit code', 'HALT-LOG entry format'];
+      
+      const tableMatch = content.match(/\|.*\|/g);
+      if (!tableMatch || tableMatch.length < 2) {
+        details.push(`${haltPath} table structure is invalid or missing.`);
+      } else {
+        const header = tableMatch[0];
+        for (const col of requiredColumns) {
+          if (!header.includes(col)) {
+            details.push(`${haltPath} table missing required column: ${col}`);
+          }
+        }
+      }
+    }
+
+    if (!(await this.fileSystem.exists(`${this.rootPath}/${haltLogPath}`))) {
+      details.push(`${haltLogPath} not found.`);
+    }
+
+    return {
+      check: 'HaltPolicy',
+      status: details.length === 0 ? 'OK' : 'WARN',
+      details,
+    };
   }
 
   private async checkMergeCommits(): Promise<DriftResult> {
