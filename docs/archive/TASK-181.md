@@ -1,5 +1,6 @@
 ## TASK-181: Add dependency graph validation to arch review
-**Meta:** P2 | S | REVIEW | Focus:yes | 2-code-generation | claude-code | cli/src/main/ts/domain/services/drift-checker.ts, cli/src/main/ts/application/use-cases/review-system.ts
+**Meta:** P2 | S | DONE | Focus:no | 2-code-generation | claude-code | cli/src/main/ts/domain/services/drift-checker.ts, cli/src/main/ts/application/use-cases/review-system.ts
+**Closed-at:** 2026-05-05T09:14:29.341Z
 **Depends:** none
 **ADR:** ADR-006
 

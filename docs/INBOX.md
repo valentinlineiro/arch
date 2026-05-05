@@ -19,6 +19,9 @@ _No active sprint._
 ## Recent Activity
 - **Last Commit:** fix: [TASK-187] fix stale INBOX.md coordination surface
 
+## [2026-05-05 00:00] REVIEW_PASS | TASK-159, TASK-178, TASK-179, TASK-180, TASK-181, TASK-182
+All ACs verified against repository state. `arch review` OK. Archived.
+
 ## [2026-05-05 00:00] REVIEW_REQUEST | TASK-184
 **Task:** Add Census (context budget) check to arch review
 **ACs:**
