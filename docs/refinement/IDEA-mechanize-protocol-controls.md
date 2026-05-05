@@ -2,6 +2,7 @@
 **Created:** 2026-05-05
 **Source:** Codex external review — "several important controls are still protocol-level, not executable-level"
 **Status:** DRAFT
+**Sessions:** 1
 **Meta:** P1 | L | claude-code | cli/src/main/ts/domain/services/, docs/agents/DO.md
 
 ## Problem
@@ -23,7 +24,11 @@ Each new check follows the existing DriftChecker pattern and surfaces as a named
 L — three distinct drift checks, each needing a parser, test coverage, and DO.md/TASK-FORMAT.md updates
 
 ## Gaps
-<!-- THINK fills this section when invoked -->
+- This IDEA conflates three workstreams with very different costs and prerequisites. Recommend splitting before promotion:
+  1. **Hansei check** (XS): TASK-FORMAT.md must first mandate `## Hansei`; drift check is trivial after. Promotable soon.
+  2. **Approval entry check** (S-M): no `## Approval` block exists in TASK-FORMAT.md; requires a format decision first.
+  3. **Sentinel log check** (L): no structured Sentinel call log exists; requires new infrastructure before this check is implementable. Separate IDEA.
+- L estimate is driven entirely by Sentinel work; without it the rest is S.
 
 ## Decision
 <!-- Human writes here after THINK evaluation -->

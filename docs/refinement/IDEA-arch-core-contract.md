@@ -2,6 +2,7 @@
 **Created:** 2026-05-05
 **Source:** Codex external review — "shrink the live protocol; give a minimal execution contract and keep the rest enforced by tooling"
 **Status:** DRAFT
+**Sessions:** 1
 **Meta:** P2 | M | local | docs/
 
 ## Problem
@@ -27,7 +28,10 @@ The split requires no code changes — only doc authoring and a decision about w
 M — authoring ARCH-CORE.md, updating AGENTS.md onboarding to distinguish Core vs Governance entry points, updating arch.config.json routing
 
 ## Gaps
-<!-- THINK fills this section when invoked -->
+- **Critical unresolved: who selects Core vs Governance?** Three options: (a) human chooses which doc to load into the session, (b) arch.config.json `mode` flag, (c) AGENTS.md branches on a condition. This decision must be written before promotion.
+- "Updating arch.config.json routing" is underspecified — Core is a system-prompt selection concern, not a CLI type. Routing by `cli` field doesn't map cleanly.
+- DO mode Ops (sprint management, manual task ops) must be explicitly excluded from Core; the contract must state "Ops not permitted in Core mode."
+- Dependency chain: IDEA-halt-policy → TASK-193 → this IDEA.
 
 ## Decision
 <!-- Human writes here after THINK evaluation -->

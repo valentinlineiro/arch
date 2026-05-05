@@ -2,6 +2,7 @@
 **Created:** 2026-05-05
 **Source:** Codex external review — "metrics look more like a schema plus sample dashboard than a deeply trusted measurement system"
 **Status:** DRAFT
+**Sessions:** 1
 **Meta:** P2 | M | claude-code | cli/src/main/ts/, docs/METRICS.md
 
 ## Problem
@@ -24,7 +25,11 @@ Key outputs to auto-generate:
 M — new CLI command, archive parser, metric aggregator, METRICS.md writer, tests
 
 ## Gaps
-<!-- THINK fills this section when invoked -->
+- **REVIEW_FAIL rate is not derivable from task files alone.** Task files hold current status only; REVIEW → READY transition history isn't recorded. Requires either git log parsing (fragile) or a new event log on status changes. Decision needed before scope is final.
+- `lockedAt` = `startedAt` — same field, cycle time is feasible.
+- `steps` field exists in Task model but population in practice is unverified — check before committing to turns-per-task output.
+- Standalone `arch metrics` command preferred over extending `arch review` (metrics writes a file; review should remain read-only).
+- Size may be M+ if REVIEW_FAIL tracking requires a new event log.
 
 ## Decision
 <!-- Human writes here after THINK evaluation -->

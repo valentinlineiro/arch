@@ -2,6 +2,7 @@
 **Created:** 2026-05-05
 **Source:** Codex external review — "one machine-readable halt policy; if model misunderstands, does system halt safely or quietly drift?"
 **Status:** DRAFT
+**Sessions:** 1
 **Meta:** P2 | S | local | docs/, cli/src/main/ts/
 
 ## Problem
@@ -28,7 +29,9 @@ Every halt condition maps to a non-zero CLI exit so the loop (`arch loop`) can d
 S — doc authoring, one new `arch review` drift check, no new commands
 
 ## Gaps
-<!-- THINK fills this section when invoked -->
+- `arch review` completeness check: HALT.md should be authoritative (not cross-verified against DO.md prose). Check verifies file exists and table is structurally valid.
+- Halt entries should go to `docs/HALT-LOG.md` (append-only), not INBOX.md, to avoid write conflicts with THINK regeneration.
+- Dependency on TASK-193 is soft — doc and drift check can be done independently; TASK-193 implements some conditions but doesn't block this IDEA.
 
 ## Decision
 <!-- Human writes here after THINK evaluation -->
