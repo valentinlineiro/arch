@@ -139,8 +139,17 @@ test('resolveAgentCommand - uses first available CLI when no routing preference'
 // ── ProviderRegistry integration via ExecCommand config ──────────────────────
 
 const PROVIDER_CONFIG = {
-  routing: { '2-code-generation': 'claude-code', '6-writing': 'claude', '7-operations': 'ollama' },
-  governance: { modelTiers: { XS: 'qwen2.5-coder:7b', M: 'claude-3-5-sonnet-20240620' } },
+  strategies: {
+    '2-code-generation': {
+      M: [
+        { provider: 'claude-code', model: 'claude-3-5-sonnet-20240620' },
+        { provider: 'claude',      model: 'claude-3-5-sonnet-20240620' },
+      ]
+    },
+    default: {
+      XS: [{ provider: 'ollama', model: 'qwen2.5-coder:7b' }]
+    }
+  },
   providers: [
     { name: 'claude-code', type: 'bridge', bin: 'claude', template: 'claude -p "{prompt}"' },
     { name: 'claude',      type: 'bridge', bin: 'claude', template: 'claude -p "{prompt}"' },
@@ -155,9 +164,9 @@ test('ProviderRegistry via ExecCommand config - resolves claude-code for code-ge
   assert.equal(name, 'claude-code');
 });
 
-test('ProviderRegistry via ExecCommand config - resolves native for ollama routing', () => {
+test('ProviderRegistry via ExecCommand config - resolves native for ollama via default strategy', () => {
   const registry = new ProviderRegistry(PROVIDER_CONFIG);
-  const { provider, name } = registry.resolve('7-operations', 'XS', () => false);
+  const { provider, name } = registry.resolve('7-operations', 'XS', () => true);
   assert.ok(provider !== null);
   assert.equal(name, 'ollama');
 });

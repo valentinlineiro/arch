@@ -28,6 +28,15 @@
       "S": [
         { "provider": "ollama", "model": "phi3:latest" },
         { "provider": "claude-code", "model": "haiku" }
+      ],
+      "M": [
+        { "provider": "claude-code", "model": "sonnet" },
+        { "provider": "gemini", "model": "sonnet" },
+        { "provider": "ollama", "model": "qwen2.5-coder:7b" }
+      ],
+      "L": [
+        { "provider": "claude-code", "model": "opus" },
+        { "provider": "gemini", "model": "pro" }
       ]
     }
   },

@@ -302,6 +302,77 @@ test('ProviderRegistry.resolveModelLegacy - returns model tier for given size an
   assert.equal(candidates[0].model, 'qwen');
 });
 
+test('ProviderRegistry.resolve - default isBinAvailable does not crash', () => {
+  // Exercises the default parameter on resolve() — previously referenced a deleted private method
+  const config = {
+    strategies: { default: { default: [{ provider: 'fake-bridge', model: 'x' }] } },
+    providers: [{ name: 'fake-bridge', type: 'bridge', bin: '__nonexistent_bin__', template: 'x -p "{prompt}"' }]
+  };
+  const registry = new ProviderRegistry(config);
+  const result = registry.resolve('any', 'any'); // no third arg — uses default isBinAvailable
+  assert.equal(result.provider, null);
+  assert.equal(result.name, null);
+});
+
+test('ProviderRegistry.resolveAll - does not fall back to legacy when strategy matched but providers unavailable', () => {
+  const config = {
+    strategies: { '2-code-generation': { M: [{ provider: 'claude-code', model: 'sonnet' }] } },
+    routing: { '2-code-generation': 'fallback-provider' },
+    providers: [
+      { name: 'claude-code', type: 'bridge', bin: 'claude', template: '' },
+      { name: 'fallback-provider', type: 'native', endpoint: 'http://x', apiKey: '' },
+    ]
+  };
+  const registry = new ProviderRegistry(config);
+  const results = registry.resolveAll('2-code-generation', 'M', () => false);
+  assert.equal(results.length, 0);
+});
+
+test('ProviderRegistry.resolveAll - falls back to legacy when strategy not found and legacy config exists', () => {
+  const config = {
+    strategies: { '1-code-reasoning': { M: [{ provider: 'claude-code', model: 'sonnet' }] } },
+    routing: { '2-code-generation': 'claude-code' },
+    governance: { modelTiers: { M: 'legacy-model' } },
+    providers: [
+      { name: 'claude-code', type: 'bridge', bin: 'claude', template: '' },
+    ]
+  };
+  const registry = new ProviderRegistry(config);
+  // '2-code-generation' has no strategy entry, so legacy should fire
+  const results = registry.resolveAll('2-code-generation', 'M', () => true);
+  assert.equal(results[0].name, 'claude-code');
+  assert.equal(results[0].model, 'legacy-model');
+});
+
+test('ProviderRegistry.resolveAll - falls back to legacy when no strategies key at all', () => {
+  const config = {
+    routing: { '5-research': 'claude-code' },
+    governance: { modelTiers: { S: 'legacy-model-s' } },
+    providers: [{ name: 'claude-code', type: 'bridge', bin: 'claude', template: '' }]
+  };
+  const registry = new ProviderRegistry(config);
+  const results = registry.resolveAll('5-research', 'S', () => true);
+  assert.equal(results[0].name, 'claude-code');
+  assert.equal(results[0].model, 'legacy-model-s');
+});
+
+test('ProviderRegistry.resolveAll - resolves via default.M strategy for unmapped class', () => {
+  // Verifies that classes without explicit strategy entries (e.g. 3-8) resolve through default.M
+  const config = {
+    strategies: {
+      default: {
+        M: [{ provider: 'claude-code', model: 'sonnet' }]
+      }
+    },
+    providers: [{ name: 'claude-code', type: 'bridge', bin: 'claude', template: '' }]
+  };
+  const registry = new ProviderRegistry(config);
+  const results = registry.resolveAll('6-writing', 'M', () => true);
+  assert.equal(results.length, 1);
+  assert.equal(results[0].name, 'claude-code');
+  assert.equal(results[0].model, 'sonnet');
+});
+
 test('ProviderRegistry.resolve - falls back to clis when providers absent', () => {
   const legacyConfig = {
     strategies: { default: { default: [{ provider: 'claude', model: 'sonnet' }] } },

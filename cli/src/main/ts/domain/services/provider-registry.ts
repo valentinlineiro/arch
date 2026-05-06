@@ -33,7 +33,7 @@ export class ProviderRegistry {
   resolve(
     taskClass: string,
     taskSize: string,
-    isBinAvailable: (bin: string) => boolean = (bin) => this.isBinAvailable(bin)
+    isBinAvailable: (bin: string) => boolean = (bin) => spawnSync('which', [bin]).status === 0
   ): ResolveResult {
     return this.resolveAll(taskClass, taskSize, isBinAvailable)[0] ?? { provider: null, name: null, model: '' };
   }
@@ -41,9 +41,15 @@ export class ProviderRegistry {
   resolveAll(
     taskClass: string,
     taskSize: string,
-    isBinAvailable: (bin: string) => boolean = (bin) => this.isBinAvailable(bin)
+    isBinAvailable: (bin: string) => boolean = (bin) => spawnSync('which', [bin]).status === 0
   ): ResolveResult[] {
     const strategy = this.getStrategy(taskClass, taskSize);
+
+    // Legacy fallback: if no strategy entry found, use old routing/modelTiers logic if they exist
+    if (strategy.length === 0 && (this.config.routing || this.config.governance?.modelTiers)) {
+      return this.resolveAllLegacy(taskClass, taskSize, isBinAvailable);
+    }
+
     const providerConfigs: any[] = this.config.providers ?? this.buildLegacyProviders();
     const results: ResolveResult[] = [];
 
@@ -62,11 +68,6 @@ export class ProviderRegistry {
       } else if (pc.type === 'native') {
         results.push({ provider: new NativeProvider(pc as NativeConfig), name: pc.name, model: step.model });
       }
-    }
-
-    // Legacy fallback: if no strategies defined, use old routing/modelTiers logic if they exist
-    if (results.length === 0 && (this.config.routing || this.config.governance?.modelTiers)) {
-       return this.resolveAllLegacy(taskClass, taskSize, isBinAvailable);
     }
 
     return results;
