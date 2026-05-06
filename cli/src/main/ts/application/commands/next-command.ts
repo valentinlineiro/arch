@@ -1,11 +1,11 @@
-import { SelectNextTask } from '../use-cases/select-next-task.js';
+import { SelectNextTask, MuriConfig } from '../use-cases/select-next-task.js';
 import type { TaskRepository } from '../../domain/repositories/task-repository.js';
 
 export class NextCommand {
   private useCase: SelectNextTask;
 
-  constructor(private taskRepository: TaskRepository, private args: string[] = []) {
-    this.useCase = new SelectNextTask(taskRepository);
+  constructor(private taskRepository: TaskRepository, private args: string[] = [], muriConfig?: MuriConfig) {
+    this.useCase = new SelectNextTask(taskRepository, muriConfig);
   }
 
   async execute(): Promise<void> {
@@ -18,6 +18,8 @@ export class NextCommand {
         reason = 'No READY tasks available.';
       } else if (halt.kind === 'stale_lock') {
         reason = `Stale lock: ${halt.taskId} has been IN_PROGRESS since ${halt.lockedAt} (> 3 days). Resolve before proceeding.`;
+      } else if (halt.kind === 'budget_exceeded') {
+        reason = `HALT: ${halt.taskId} has exceeded its ${halt.type} budget (${halt.current} > ${halt.limit}). Escalate before continuing.`;
       } else {
         reason = `Highest-priority READY task ${halt.taskId} is blocked by unresolved dependencies: ${halt.blockedBy.join(', ')}.`;
       }

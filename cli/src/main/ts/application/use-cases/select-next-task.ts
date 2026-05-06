@@ -1,6 +1,9 @@
 import { TaskRepository } from '../../domain/repositories/task-repository.js';
 import { Task, TaskStatus } from '../../domain/models/task.js';
 
+export type MuriThreshold = { turns: number; cost: number };
+export type MuriConfig = Record<string, MuriThreshold>;
+
 export type HaltReason =
   | { kind: 'no_ready_tasks' }
   | { kind: 'stale_lock'; taskId: string; lockedAt: string }
@@ -12,20 +15,6 @@ export type SelectNextResult =
   | { ok: false; halt: HaltReason };
 
 const STALE_LOCK_DAYS = 3;
-
-async function loadMuriConfig(taskRepository: TaskRepository): Promise<any> {
-  // Config is not directly available here, so we have to assume a default or read it.
-  // Actually, SelectNextTask should probably take config in constructor or we read it via taskRepo/fileSys.
-  // But SelectNextTask only has taskRepository.
-  // Let's assume the repository can provide config or we just read it.
-  // For simplicity, let's inject a config loader or just hardcode/default if we can't.
-  return {
-    "XS": { "turns": 5, "cost": 0.05 },
-    "S": { "turns": 15, "cost": 0.15 },
-    "M": { "turns": 40, "cost": 0.50 },
-    "L": { "turns": 100, "cost": 2.00 }
-  };
-}
 
 function taskIdNumber(id: string): number {
   const m = id.match(/(\d+)$/);
@@ -54,7 +43,7 @@ function compareTasksForSort(a: Task, b: Task, priorityOrder: Record<string, num
 }
 
 export class SelectNextTask {
-  constructor(private taskRepository: TaskRepository) {}
+  constructor(private taskRepository: TaskRepository, private muriConfig?: MuriConfig) {}
 
   async execute(): Promise<SelectNextResult> {
     const allTasks = await this.taskRepository.getAll();
@@ -66,6 +55,21 @@ export class SelectNextTask {
     );
     if (staleP0) {
       return { ok: false, halt: { kind: 'stale_lock', taskId: staleP0.id, lockedAt: staleP0.lockedAt! } };
+    }
+
+    // Check budget: any IN_PROGRESS task exceeding its muri threshold
+    if (this.muriConfig) {
+      for (const task of activeTasks) {
+        if (task.status !== TaskStatus.IN_PROGRESS) continue;
+        const threshold = this.muriConfig[task.size];
+        if (!threshold) continue;
+        if (task.steps !== undefined && task.steps > threshold.turns) {
+          return { ok: false, halt: { kind: 'budget_exceeded', taskId: task.id, current: task.steps, limit: threshold.turns, type: 'turns' } };
+        }
+        if (task.cost !== undefined && task.cost > threshold.cost) {
+          return { ok: false, halt: { kind: 'budget_exceeded', taskId: task.id, current: task.cost, limit: threshold.cost, type: 'cost' } };
+        }
+      }
     }
 
     const readyTasks = activeTasks.filter(t => t.status === TaskStatus.READY);

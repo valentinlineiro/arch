@@ -63,9 +63,15 @@ async function main() {
     case 'inbox':
       await new InboxCommand(taskRepository, fileSystem, reviewer, driftChecker).execute();
       break;
-    case 'next':
-      await new NextCommand(taskRepository, args).execute();
+    case 'next': {
+      let muriConfig;
+      try {
+        const configRaw = await fileSystem.readFile(`${rootPath}/arch.config.json`);
+        muriConfig = JSON.parse(configRaw).muri;
+      } catch { /* use default: no budget check */ }
+      await new NextCommand(taskRepository, args, muriConfig).execute();
       break;
+    }
     case 'version':
       await new VersionCommand(cliVersion).execute();
       break;

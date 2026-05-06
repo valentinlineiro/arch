@@ -77,6 +77,17 @@ export class DriftChecker {
       details.push(`Protected path(s) modified without a new ADR in the same change set: ${touchedProtectedPaths.join(', ')}`);
     }
 
+    // 3. Git diff parsing: check last commit for protected path changes without ADR
+    const lastCommitFiles = await this.gitRepository.getChangedFilesInLastCommit();
+    const commitTouchedProtected = lastCommitFiles.filter(f =>
+      protectedPaths.some((p: string) => f.startsWith(p) && !f.startsWith('docs/adr/'))
+    );
+    const commitHasAdr = lastCommitFiles.some(f => f.startsWith('docs/adr/'));
+
+    if (commitTouchedProtected.length > 0 && !commitHasAdr) {
+      details.push(`Last commit modifies protected path(s) without a new ADR: ${commitTouchedProtected.join(', ')}`);
+    }
+
     return {
       check: 'EscalationMaturity',
       status: details.length === 0 ? 'OK' : 'WARN',

@@ -184,6 +184,58 @@ test('P0 IN_PROGRESS with lockedAt undefined does not trigger stale-lock halt', 
   assert.ok(result.ok && result.task.id === 'TASK-002');
 });
 
+test('returns budget_exceeded halt when IN_PROGRESS task exceeds turns threshold', async () => {
+  const tasks = [
+    makeTask({ id: 'TASK-001', status: TaskStatus.IN_PROGRESS, size: 'S', steps: 20 }),
+    makeTask({ id: 'TASK-002', status: TaskStatus.READY }),
+  ];
+  const repo = new MockTaskRepository(tasks, tasks);
+  const muriConfig = { S: { turns: 15, cost: 0.15 } };
+  const useCase = new SelectNextTask(repo, muriConfig);
+  const result = await useCase.execute();
+  assert.equal(result.ok, false);
+  assert.ok(!result.ok && result.halt.kind === 'budget_exceeded');
+  assert.ok(!result.ok && result.halt.kind === 'budget_exceeded' && result.halt.taskId === 'TASK-001');
+  assert.ok(!result.ok && result.halt.kind === 'budget_exceeded' && result.halt.type === 'turns');
+});
+
+test('returns budget_exceeded halt when IN_PROGRESS task exceeds cost threshold', async () => {
+  const tasks = [
+    makeTask({ id: 'TASK-001', status: TaskStatus.IN_PROGRESS, size: 'M', cost: 0.75 }),
+    makeTask({ id: 'TASK-002', status: TaskStatus.READY }),
+  ];
+  const repo = new MockTaskRepository(tasks, tasks);
+  const muriConfig = { M: { turns: 40, cost: 0.50 } };
+  const useCase = new SelectNextTask(repo, muriConfig);
+  const result = await useCase.execute();
+  assert.equal(result.ok, false);
+  assert.ok(!result.ok && result.halt.kind === 'budget_exceeded');
+  assert.ok(!result.ok && result.halt.kind === 'budget_exceeded' && result.halt.type === 'cost');
+});
+
+test('does not halt when IN_PROGRESS task is within budget', async () => {
+  const tasks = [
+    makeTask({ id: 'TASK-001', status: TaskStatus.IN_PROGRESS, size: 'S', steps: 5, cost: 0.05 }),
+    makeTask({ id: 'TASK-002', status: TaskStatus.READY }),
+  ];
+  const repo = new MockTaskRepository(tasks, tasks);
+  const muriConfig = { S: { turns: 15, cost: 0.15 } };
+  const useCase = new SelectNextTask(repo, muriConfig);
+  const result = await useCase.execute();
+  assert.ok(result.ok && result.task.id === 'TASK-002');
+});
+
+test('does not check budget when muriConfig is not provided', async () => {
+  const tasks = [
+    makeTask({ id: 'TASK-001', status: TaskStatus.IN_PROGRESS, size: 'S', steps: 999, cost: 999 }),
+    makeTask({ id: 'TASK-002', status: TaskStatus.READY }),
+  ];
+  const repo = new MockTaskRepository(tasks, tasks);
+  const useCase = new SelectNextTask(repo);
+  const result = await useCase.execute();
+  assert.ok(result.ok && result.task.id === 'TASK-002');
+});
+
 test('NextCommand outputs valid JSON when --json flag is passed', async () => {
   const task = makeTask({
     id: 'TASK-100',
