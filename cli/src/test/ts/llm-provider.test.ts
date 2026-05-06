@@ -198,3 +198,70 @@ test('NativeProvider.complete - throws on network error', async () => {
     globalThis.fetch = originalFetch;
   }
 });
+
+import { ProviderRegistry } from '../../main/ts/domain/services/provider-registry.js';
+
+const REGISTRY_CONFIG = {
+  routing: {
+    '2-code-generation': 'claude-code',
+    '4-code-repetitive': 'ollama',
+    '5-research': 'gemini',
+  },
+  governance: {
+    modelTiers: { XS: 'qwen2.5-coder:7b', M: 'claude-3-5-sonnet-20240620' },
+  },
+  providers: [
+    { name: 'claude-code', type: 'bridge', bin: 'claude', template: 'claude -p "{prompt}" --dangerously-skip-permissions' },
+    { name: 'gemini',      type: 'bridge', bin: 'gemini', template: 'gemini -p "{prompt}" -y' },
+    { name: 'ollama',      type: 'native', endpoint: 'http://127.0.0.1:11434/v1', apiKey: 'ollama' },
+  ],
+};
+
+test('ProviderRegistry.resolve - returns BridgeProvider for bridge type', () => {
+  const registry = new ProviderRegistry(REGISTRY_CONFIG);
+  const { provider } = registry.resolve('2-code-generation', 'M', () => true);
+  assert.ok(provider !== null);
+  assert.equal(provider!.constructor.name, 'BridgeProvider');
+});
+
+test('ProviderRegistry.resolve - returns NativeProvider for native type', () => {
+  const registry = new ProviderRegistry(REGISTRY_CONFIG);
+  const { provider } = registry.resolve('4-code-repetitive', 'XS', () => true);
+  assert.ok(provider !== null);
+  assert.equal(provider!.constructor.name, 'NativeProvider');
+});
+
+test('ProviderRegistry.resolve - skips unavailable bridge bin, falls back to next', () => {
+  const registry = new ProviderRegistry(REGISTRY_CONFIG);
+  // claude-code bin unavailable; next available is gemini
+  const { provider } = registry.resolve('2-code-generation', 'M', bin => bin !== 'claude');
+  assert.ok(provider !== null);
+  assert.equal(provider!.constructor.name, 'BridgeProvider');
+});
+
+test('ProviderRegistry.resolve - returns null when no provider available', () => {
+  const registry = new ProviderRegistry(REGISTRY_CONFIG);
+  const { provider } = registry.resolve('2-code-generation', 'M', () => false);
+  assert.equal(provider, null);
+});
+
+test('ProviderRegistry.resolveModel - returns model tier for given size', () => {
+  const registry = new ProviderRegistry(REGISTRY_CONFIG);
+  assert.equal(registry.resolveModel('M'), 'claude-3-5-sonnet-20240620');
+  assert.equal(registry.resolveModel('XS'), 'qwen2.5-coder:7b');
+  assert.equal(registry.resolveModel('L'), '');
+});
+
+test('ProviderRegistry.resolve - falls back to clis when providers absent', () => {
+  const legacyConfig = {
+    routing: { '6-writing': 'claude' },
+    governance: { modelTiers: {} },
+    clis: [
+      { name: 'claude', bin: 'claude', template: 'claude -p "{prompt}"' },
+    ],
+  };
+  const registry = new ProviderRegistry(legacyConfig);
+  const { provider } = registry.resolve('6-writing', '', () => true);
+  assert.ok(provider !== null);
+  assert.equal(provider!.constructor.name, 'BridgeProvider');
+});
