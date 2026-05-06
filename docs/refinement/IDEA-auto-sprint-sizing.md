@@ -2,6 +2,7 @@
 **Created:** 2026-05-06
 **Source:** User request "idea: auto sprint sizing. ARCH should help human to know the kind of tasks being done in a spring"
 **Status:** DRAFT
+**Sessions:** 1
 **Meta:** P2 | S | local | docs/agents/DO.md, docs/METRICS.md
 <!-- cli: local | claude | gemini | human -->
 
@@ -24,7 +25,10 @@ IDEA-sprint-open-protocol (Promoted)
 S
 
 ## Gaps
-<!-- THINK fills this section when invoked — do not edit manually -->
+- **Sprint membership is undefined:** No canonical field marks a task as "in sprint." `Focus:yes` is a priority signal, not a sprint membership signal. The data model for "which tasks belong to this sprint" must be defined in TASK-176 (sprint-open-protocol) before sizing is possible.
+- **Size weights are uncanonical:** XS=1, S=3, M=8, L=21 are proposed but not documented in TASK-FORMAT.md or METRICS.md. These must be ratified before any tooling consumes them.
+- **Output coupling:** If `arch sprint status` is a new command, it conflicts with the existing session-based sprint reporting in DO.md. Decide whether to extend DO.md's Sprint Open output or add a standalone command.
+- **Dependency completeness:** TASK-176 must be DONE before this IDEA can be accurately scoped. The sizing report format depends on how sprint state is persisted.
 
 ## Decision
 <!-- Human writes here after THINK evaluation -->
