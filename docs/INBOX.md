@@ -74,3 +74,6 @@ Evidence: arch exec exited with code 1
 - `scripts/arch` — new: wrapper executable for `arch` in predicate context
 - `cli/src/test/ts/drift-checker.test.ts` — 3 new EscalationMaturity tests
 - `cli/src/test/ts/select-next-task.test.ts` — 4 new budget_exceeded tests
+
+## [2026-05-06 13:26] ANDON_HALT | TASK-202
+Evidence: EXEC timeout exceeded (10m)
