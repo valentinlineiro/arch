@@ -10,6 +10,10 @@ import { ReviewSystem } from './review-system.js';
 import { MarkTaskDone } from './mark-task-done.js';
 import { SubprocessRunner } from '../../infrastructure/cli/subprocess-runner.js';
 import { ConfigLoader } from '../../domain/services/config-loader.js';
+import { ProviderRegistry } from '../../domain/services/provider-registry.js';
+import { BridgeProvider } from '../../domain/services/bridge-provider.js';
+import { spawnSync } from 'node:child_process';
+import fs from 'node:fs';
 
 export interface LoopOptions {
   sprint?: string;
@@ -32,7 +36,8 @@ export class LoopEngine {
     private gitRepository: GitRepository,
     private fileSystem: FileSystem,
     private reviewer: Reviewer,
-    private driftChecker?: DriftChecker
+    private driftChecker?: DriftChecker,
+    private providerRegistry?: ProviderRegistry
   ) {
     this.governSystem = new GovernSystem(taskRepository, gitRepository, fileSystem);
     this.reviewSystem = new ReviewSystem(taskRepository, gitRepository, reviewer, fileSystem, driftChecker);
@@ -100,30 +105,97 @@ export class LoopEngine {
 
       const cycleStart = Date.now();
 
-      // 3. EXEC — delegate to arch exec (arch.sh invokes the AI CLI with DO.md)
+      // 3. EXEC — use provider directly if registry available, else fall back to arch.sh subprocess
       this.log(`[LOOP] Phase: EXEC (${task.id})`);
 
-      const { code: execCode, stdout, stderr } = await SubprocessRunner.runWithOutput(ARCH_SH, ['exec'], {
-        stream: true,
-        timeoutMs: EXEC_TIMEOUT_MS
-      });
+      if (this.providerRegistry) {
+        const { provider, name, model } = this.providerRegistry.resolve(
+          task.class ?? '',
+          task.size ?? '',
+          bin => spawnSync('which', [bin]).status === 0
+        );
 
-      if (execCode !== 0) {
-        const reason = execCode === 124 ? `EXEC timeout exceeded (${timeoutMinutes}m)` : `arch exec exited with code ${execCode}`;
-        await this.appendInbox(task.id, 'ANDON_HALT', reason);
-        console.error(`[LOOP] Exec failed for ${task.id}. ${reason}. INBOX updated. Halting.`);
-        process.exit(1);
-      }
+        if (!provider || name === 'local') {
+          const reason = 'No provider resolved for task — halting';
+          await this.appendInbox(task.id, 'ANDON_HALT', reason);
+          console.error(`[LOOP] ${reason}`);
+          process.exit(1);
+        }
 
-      // Capture summary from stdout (e.g., "Turns: 5", "Cost: $0.05")
-      const turnMatch = stdout.match(/Turns: (\d+)/);
-      const costMatch = stdout.match(/Cost: (\$\d+\.\d+)/);
-      if (turnMatch || costMatch) {
-        const summary = [
-          turnMatch ? `${turnMatch[1]} turns` : '',
-          costMatch ? `cost ${costMatch[1]}` : ''
-        ].filter(Boolean).join(', ');
-        this.log(`[LOOP] Agent activity: ${summary}`);
+        this.log(`[LOOP] Provider: ${name} | Model: ${model || 'default'}`);
+
+        let turns: number | undefined;
+        let cost: string | undefined;
+
+        if (provider instanceof BridgeProvider) {
+          const DO_PROMPT_FILE = 'docs/agents/DO.md';
+          const promptContent = fs.readFileSync(DO_PROMPT_FILE, 'utf8');
+          const cmd = provider.buildCommand(promptContent, model, DO_PROMPT_FILE);
+          const start = Date.now();
+          const result = spawnSync('sh', ['-c', cmd], {
+            stdio: ['ignore', 'pipe', 'inherit'],
+            encoding: 'utf8',
+            timeout: EXEC_TIMEOUT_MS,
+          });
+          if (result.status !== 0) {
+            const reason = result.signal === 'SIGTERM'
+              ? `EXEC timeout exceeded (${timeoutMinutes}m)`
+              : `provider exited with code ${result.status}`;
+            await this.appendInbox(task.id, 'ANDON_HALT', reason);
+            console.error(`[LOOP] Exec failed for ${task.id}. ${reason}. INBOX updated. Halting.`);
+            process.exit(1);
+          }
+          const meta = provider.parseMetadata(result.stdout ?? '', Date.now() - start);
+          turns = meta.turns;
+          cost = meta.cost;
+        } else {
+          // NativeProvider: async completion
+          try {
+            const DO_PROMPT_FILE = 'docs/agents/DO.md';
+            const promptContent = fs.readFileSync(DO_PROMPT_FILE, 'utf8');
+            const response = await provider.complete({
+              model,
+              messages: [{ role: 'user', content: promptContent }],
+            });
+            console.log(response.content);
+            turns = response.usage.turns;
+            cost = response.usage.cost;
+          } catch (err: any) {
+            await this.appendInbox(task.id, 'ANDON_HALT', `Provider error: ${err.message}`);
+            console.error(`[LOOP] Provider error for ${task.id}: ${err.message}. Halting.`);
+            process.exit(1);
+          }
+        }
+
+        if (turns !== undefined || cost !== undefined) {
+          const summary = [turns ? `${turns} turns` : '', cost ? `cost ${cost}` : ''].filter(Boolean).join(', ');
+          this.log(`[LOOP] Agent activity: ${summary}`);
+        }
+      } else {
+        // Legacy path: shell out to arch.sh exec
+        const { code: execCode, stdout } = await SubprocessRunner.runWithOutput(ARCH_SH, ['exec'], {
+          stream: true,
+          timeoutMs: EXEC_TIMEOUT_MS,
+        });
+
+        if (execCode !== 0) {
+          const reason = execCode === 124
+            ? `EXEC timeout exceeded (${timeoutMinutes}m)`
+            : `arch exec exited with code ${execCode}`;
+          await this.appendInbox(task.id, 'ANDON_HALT', reason);
+          console.error(`[LOOP] Exec failed for ${task.id}. ${reason}. INBOX updated. Halting.`);
+          process.exit(1);
+        }
+
+        const turnMatch = stdout.match(/Turns: (\d+)/);
+        const costMatch = stdout.match(/Cost: (\$\d+\.\d+)/);
+        if (turnMatch || costMatch) {
+          const summary = [
+            turnMatch ? `${turnMatch[1]} turns` : '',
+            costMatch ? `cost ${costMatch[1]}` : '',
+          ].filter(Boolean).join(', ');
+          this.log(`[LOOP] Agent activity: ${summary}`);
+        }
       }
 
       // 4. REVIEW — in-process check; track consecutive failures per task
