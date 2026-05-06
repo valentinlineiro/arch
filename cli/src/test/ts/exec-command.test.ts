@@ -1,6 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert';
 import { ExecCommand } from '../../main/ts/application/commands/exec-command.js';
+import { ProviderRegistry } from '../../main/ts/domain/services/provider-registry.js';
 
 const BASE_CONFIG = {
   version: '0.6.0',
@@ -75,7 +76,7 @@ test('resolveAgentCommand - appends --model for claude CLI when model tier is se
     BASE_CONFIG, '6-writing', 'M', 'docs/agents/DO.md', '', allAvailable
   );
   assert.ok(result !== 'local' && result !== null);
-  assert.ok(result.cmd.includes('--model claude-3-5-sonnet-20240620'), `cmd was: ${result.cmd}`);
+  assert.ok(result.cmd.includes('--model "claude-3-5-sonnet-20240620"'), `cmd was: ${result.cmd}`);
 });
 
 test('resolveAgentCommand - replaces {model} placeholder for ollama CLI', () => {
@@ -102,7 +103,7 @@ test('resolveAgentCommand - substitutes {prompt} with $(cat <file>)', () => {
     BASE_CONFIG, '6-writing', '', 'docs/agents/DO.md', '', allAvailable
   );
   assert.ok(result !== 'local' && result !== null);
-  assert.ok(result.cmd.includes('$(cat docs/agents/DO.md)'), `cmd was: ${result.cmd}`);
+  assert.ok(result.cmd.includes('$(cat "docs/agents/DO.md")'), `cmd was: ${result.cmd}`);
 });
 
 test('resolveAgentCommand - substitutes {prompt_file} for ollama template', () => {
@@ -133,4 +134,30 @@ test('resolveAgentCommand - uses first available CLI when no routing preference'
   );
   assert.ok(result !== 'local' && result !== null);
   assert.equal(result.name, 'claude-code');
+});
+
+// ── ProviderRegistry integration via ExecCommand config ──────────────────────
+
+const PROVIDER_CONFIG = {
+  routing: { '2-code-generation': 'claude-code', '6-writing': 'claude', '7-operations': 'ollama' },
+  governance: { modelTiers: { XS: 'qwen2.5-coder:7b', M: 'claude-3-5-sonnet-20240620' } },
+  providers: [
+    { name: 'claude-code', type: 'bridge', bin: 'claude', template: 'claude -p "{prompt}"' },
+    { name: 'claude',      type: 'bridge', bin: 'claude', template: 'claude -p "{prompt}"' },
+    { name: 'ollama',      type: 'native', endpoint: 'http://127.0.0.1:11434/v1', apiKey: 'ollama' },
+  ],
+};
+
+test('ProviderRegistry via ExecCommand config - resolves claude-code for code-generation', () => {
+  const registry = new ProviderRegistry(PROVIDER_CONFIG);
+  const { provider, name } = registry.resolve('2-code-generation', 'M', () => true);
+  assert.ok(provider !== null);
+  assert.equal(name, 'claude-code');
+});
+
+test('ProviderRegistry via ExecCommand config - resolves native for ollama routing', () => {
+  const registry = new ProviderRegistry(PROVIDER_CONFIG);
+  const { provider, name } = registry.resolve('7-operations', 'XS', () => false);
+  assert.ok(provider !== null);
+  assert.equal(name, 'ollama');
 });
