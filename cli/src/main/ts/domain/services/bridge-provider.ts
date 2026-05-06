@@ -23,7 +23,7 @@ export class BridgeProvider implements LLMProvider {
     if (model) {
       if (this.config.template.includes('{model}')) {
         cmd = cmd.replace(/\{model\}/g, model);
-      } else if (this.config.name === 'claude' || this.config.name === 'claude-code') {
+      } else if (['claude', 'claude-code', 'gemini'].includes(this.config.name)) {
         cmd += ` --model "${model}"`;
       }
     }

@@ -33,6 +33,12 @@
     }
     },
     "hanseiSinceTaskId": 195,
+  "muri": {
+    "XS": { "turns": 5, "cost": 0.05 },
+    "S": { "turns": 15, "cost": 0.15 },
+    "M": { "turns": 40, "cost": 0.50 },
+    "L": { "turns": 100, "cost": 2.00 }
+  },
   "contextBudget": {
     "docs/tasks": 1000,
     "docs/archive": 8000,

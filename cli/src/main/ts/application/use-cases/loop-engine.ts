@@ -154,7 +154,7 @@ export class LoopEngine {
             const DO_PROMPT_FILE = 'docs/agents/DO.md';
             const promptContent = fs.readFileSync(DO_PROMPT_FILE, 'utf8');
             const response = await provider.complete({
-              model,
+              model: model || 'default',
               messages: [{ role: 'user', content: promptContent }],
             });
             console.log(response.content);
