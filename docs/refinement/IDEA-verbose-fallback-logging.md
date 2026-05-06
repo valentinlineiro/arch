@@ -19,8 +19,11 @@ Implement more descriptive and visually distinct logging when the `ProviderRegis
 ## Estimated size
 XS
 
+**Sessions:** 1
+
 ## Gaps
-<!-- THINK fills this section when invoked — do not edit manually -->
+- Integration with `cli/src/main/ts/infrastructure/cli/format.ts`: should fallback logs have a dedicated visual style (e.g., `fmt.warn`)?
+- Performance: ensure verbose logging doesn't slow down the loop in high-throughput scenarios.
 
 ## Decision
 <!-- Human writes here after THINK evaluation -->

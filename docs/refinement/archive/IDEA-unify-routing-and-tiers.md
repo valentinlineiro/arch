@@ -1,7 +1,7 @@
 # IDEA: Unify routing and model tiers into a single strategy configuration
 **Created:** 2026-05-06
 **Source:** User suggestion to eliminate redundancy between routing and tiers.
-**Status:** DRAFT
+**Status:** PROMOTED → TASK-213
 **Meta:** P1 | S | cli | arch.config.json
 
 ## Problem
