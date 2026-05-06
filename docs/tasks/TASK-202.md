@@ -1,5 +1,5 @@
 ## TASK-202: Escalation maturity Phase 1 - Level 3 Detectable
-**Meta:** P1 | M | READY | Focus:no | 2-code-generation | claude-code | cli/src/main/ts/domain/services/drift-checker.ts, cli/src/main/ts/
+**Meta:** P1 | M | READY | Focus:yes | 2-code-generation | claude-code | cli/src/main/ts/domain/services/drift-checker.ts, cli/src/main/ts/
 **Depends:** TASK-193
 
 ### Context
