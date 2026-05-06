@@ -66,49 +66,71 @@ export class ExecCommand {
     console.log('  \x1b[32mARCH\x1b[0m — invoking EXEC (DO) mode');
 
     const registry = new ProviderRegistry(config);
-    const { provider, name, model } = registry.resolve(
+    const candidates = registry.resolveAll(
       taskClass,
       taskSize,
       bin => spawnSync('which', [bin]).status === 0
     );
 
-    if (name === 'local') {
+    if (candidates.length > 0 && candidates[0].name === 'local') {
       console.log('  Routing: local (no AI invocation)');
       console.log('');
       process.stdout.write(fs.readFileSync(DO_PROMPT_FILE, 'utf8'));
       process.exit(0);
     }
 
-    if (!provider) {
+    if (candidates.length === 0) {
       console.log('  Note: No AI provider detected. Showing protocol:');
       console.log(fs.readFileSync(DO_PROMPT_FILE, 'utf8'));
       process.exit(1);
     }
 
-    console.log(`  Provider: ${name} | Model: ${model || 'default'}`);
-
     const promptContent = fs.readFileSync(DO_PROMPT_FILE, 'utf8');
     const extraFlags = args.join(' ');
 
-    if (provider instanceof BridgeProvider) {
-      const cmd = provider.buildCommand(promptContent, model, DO_PROMPT_FILE) +
-        (extraFlags ? ` ${extraFlags}` : '');
-      const result = spawnSync('sh', ['-c', cmd], { stdio: 'inherit' });
-      process.exit(result.status ?? 0);
+    let success = false;
+    for (const { provider, name, model } of candidates) {
+      if (!provider || name === 'local') continue;
+
+      console.log(`  Provider: ${name} | Model: ${model || 'default'}`);
+
+      if (provider instanceof BridgeProvider) {
+        const cmd = provider.buildCommand(promptContent, model, DO_PROMPT_FILE) +
+          (extraFlags ? ` ${extraFlags}` : '');
+        
+        const result = spawnSync('sh', ['-c', cmd], { stdio: ['ignore', 'pipe', 'pipe'], encoding: 'utf8' });
+        
+        if (result.status === 0) {
+          process.stdout.write(result.stdout);
+          if (result.stderr) process.stderr.write(result.stderr);
+          success = true;
+          break;
+        } else {
+          console.warn(`  \x1b[33mWARN\x1b[0m — Provider ${name} failed (exit ${result.status}). Trying next...`);
+          if (result.stdout) process.stdout.write(result.stdout);
+          if (result.stderr) process.stderr.write(result.stderr);
+        }
+      } else {
+        // NativeProvider: call REST endpoint
+        try {
+          const response = await provider.complete({
+            model: model || 'default',
+            messages: [{ role: 'user', content: promptContent }],
+          });
+          console.log(response.content);
+          if (response.usage.turns) console.log(`Turns: ${response.usage.turns}`);
+          if (response.usage.cost) console.log(`Cost: ${response.usage.cost}`);
+          if (response.usage.latencyMs) console.log(`Latency: ${response.usage.latencyMs}ms`);
+          success = true;
+          break;
+        } catch (err: any) {
+          console.warn(`  \x1b[33mWARN\x1b[0m — Provider ${name} error: ${err.message}. Trying next...`);
+        }
+      }
     }
 
-    // NativeProvider: call REST endpoint
-    try {
-      const response = await provider.complete({
-        model,
-        messages: [{ role: 'user', content: promptContent }],
-      });
-      console.log(response.content);
-      if (response.usage.turns) console.log(`Turns: ${response.usage.turns}`);
-      if (response.usage.cost) console.log(`Cost: ${response.usage.cost}`);
-      if (response.usage.latencyMs) console.log(`Latency: ${response.usage.latencyMs}ms`);
-    } catch (err: any) {
-      console.error(`Provider error: ${err.message}`);
+    if (!success) {
+      console.error('  \x1b[31mERROR\x1b[0m — All candidate providers failed.');
       process.exit(1);
     }
   }

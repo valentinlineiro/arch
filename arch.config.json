@@ -2,14 +2,14 @@
   "version": "0.6.0",
   "currentSprint": "",
   "routing": {
-    "1-code-reasoning": "gemini",
-    "2-code-generation": "gemini",
+    "1-code-reasoning": "claude-code",
+    "2-code-generation": "claude-code",
     "3-code-context": "gemini",
     "4-code-repetitive": "ollama",
     "5-research": "gemini",
-    "6-writing": "gemini",
+    "6-writing": "claude-code",
     "7-operations": "ollama",
-    "8-strategy": "gemini"
+    "8-strategy": "claude-code"
   },
   "governance": {
     "conductEveryN": 5,

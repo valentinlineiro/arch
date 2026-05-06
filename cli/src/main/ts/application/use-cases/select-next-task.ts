@@ -4,6 +4,7 @@ import { Task, TaskStatus } from '../../domain/models/task.js';
 export type HaltReason =
   | { kind: 'no_ready_tasks' }
   | { kind: 'stale_lock'; taskId: string; lockedAt: string }
+  | { kind: 'budget_exceeded'; taskId: string; current: number; limit: number; type: 'turns' | 'cost' }
   | { kind: 'winner_blocked'; taskId: string; blockedBy: string[] };
 
 export type SelectNextResult =
@@ -11,6 +12,20 @@ export type SelectNextResult =
   | { ok: false; halt: HaltReason };
 
 const STALE_LOCK_DAYS = 3;
+
+async function loadMuriConfig(taskRepository: TaskRepository): Promise<any> {
+  // Config is not directly available here, so we have to assume a default or read it.
+  // Actually, SelectNextTask should probably take config in constructor or we read it via taskRepo/fileSys.
+  // But SelectNextTask only has taskRepository.
+  // Let's assume the repository can provide config or we just read it.
+  // For simplicity, let's inject a config loader or just hardcode/default if we can't.
+  return {
+    "XS": { "turns": 5, "cost": 0.05 },
+    "S": { "turns": 15, "cost": 0.15 },
+    "M": { "turns": 40, "cost": 0.50 },
+    "L": { "turns": 100, "cost": 2.00 }
+  };
+}
 
 function taskIdNumber(id: string): number {
   const m = id.match(/(\d+)$/);

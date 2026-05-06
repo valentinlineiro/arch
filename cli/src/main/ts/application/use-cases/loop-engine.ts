@@ -105,71 +105,85 @@ export class LoopEngine {
 
       const cycleStart = Date.now();
 
-      // 3. EXEC — use provider directly if registry available, else fall back to arch.sh subprocess
+      // 3. EXEC — try candidate providers until one succeeds or all fail
       this.log(`[LOOP] Phase: EXEC (${task.id})`);
 
       if (this.providerRegistry) {
-        const { provider, name, model } = this.providerRegistry.resolve(
+        const candidates = this.providerRegistry.resolveAll(
           task.class ?? '',
           task.size ?? '',
           bin => spawnSync('which', [bin]).status === 0
         );
 
-        if (!provider || name === 'local') {
-          const reason = 'No provider resolved for task — halting';
-          await this.appendInbox(task.id, 'ANDON_HALT', reason);
-          console.error(`[LOOP] ${reason}`);
-          process.exit(1);
-        }
-
-        this.log(`[LOOP] Provider: ${name} | Model: ${model || 'default'}`);
-
-        let turns: number | undefined;
-        let cost: string | undefined;
-
-        if (provider instanceof BridgeProvider) {
-          const DO_PROMPT_FILE = 'docs/agents/DO.md';
-          const promptContent = fs.readFileSync(DO_PROMPT_FILE, 'utf8');
-          const cmd = provider.buildCommand(promptContent, model, DO_PROMPT_FILE);
-          const start = Date.now();
-          const result = spawnSync('sh', ['-c', cmd], {
-            stdio: ['ignore', 'pipe', 'inherit'],
-            encoding: 'utf8',
-            timeout: EXEC_TIMEOUT_MS,
-          });
-          if (result.status !== 0) {
-            const reason = result.signal === 'SIGTERM'
-              ? `EXEC timeout exceeded (${timeoutMinutes}m)`
-              : `provider exited with code ${result.status}`;
+        if (candidates.length === 0 || candidates[0].name === 'local') {
+          if (candidates[0]?.name === 'local') {
+            const reason = 'No provider resolved for task — halting';
             await this.appendInbox(task.id, 'ANDON_HALT', reason);
-            console.error(`[LOOP] Exec failed for ${task.id}. ${reason}. INBOX updated. Halting.`);
+            console.error(`[LOOP] ${reason}`);
             process.exit(1);
           }
-          const meta = provider.parseMetadata(result.stdout ?? '', Date.now() - start);
-          turns = meta.turns;
-          cost = meta.cost;
-        } else {
-          // NativeProvider: async completion
-          try {
+        }
+
+        let success = false;
+        for (const { provider, name, model } of candidates) {
+          if (!provider || name === 'local') continue;
+          
+          this.log(`[LOOP] Attempting ${name} | Model: ${model || 'default'}`);
+
+          let turns: number | undefined;
+          let cost: string | undefined;
+
+          if (provider instanceof BridgeProvider) {
             const DO_PROMPT_FILE = 'docs/agents/DO.md';
             const promptContent = fs.readFileSync(DO_PROMPT_FILE, 'utf8');
-            const response = await provider.complete({
-              model: model || 'default',
-              messages: [{ role: 'user', content: promptContent }],
+            const cmd = provider.buildCommand(promptContent, model, DO_PROMPT_FILE);
+            const start = Date.now();
+            const result = spawnSync('sh', ['-c', cmd], {
+              stdio: ['ignore', 'pipe', 'inherit'],
+              encoding: 'utf8',
+              timeout: EXEC_TIMEOUT_MS,
             });
-            console.log(response.content);
-            turns = response.usage.turns;
-            cost = response.usage.cost;
-          } catch (err: any) {
-            await this.appendInbox(task.id, 'ANDON_HALT', `Provider error: ${err.message}`);
-            console.error(`[LOOP] Provider error for ${task.id}: ${err.message}. Halting.`);
-            process.exit(1);
+            if (result.status !== 0) {
+              const reason = result.signal === 'SIGTERM'
+                ? `EXEC timeout exceeded (${timeoutMinutes}m)`
+                : `provider ${name} exited with code ${result.status}`;
+              this.log(`[LOOP] Provider ${name} failed: ${reason}. Trying next...`);
+              continue;
+            }
+            const meta = provider.parseMetadata(result.stdout ?? '', Date.now() - start);
+            turns = meta.turns;
+            cost = meta.cost;
+          } else {
+            // NativeProvider: async completion
+            try {
+              const DO_PROMPT_FILE = 'docs/agents/DO.md';
+              const promptContent = fs.readFileSync(DO_PROMPT_FILE, 'utf8');
+              const response = await provider.complete({
+                model: model || 'default',
+                messages: [{ role: 'user', content: promptContent }],
+              });
+              console.log(response.content);
+              turns = response.usage.turns;
+              cost = response.usage.cost;
+            } catch (err: any) {
+              this.log(`[LOOP] Provider ${name} error: ${err.message}. Trying next...`);
+              continue;
+            }
           }
+
+          if (turns !== undefined || cost !== undefined) {
+            const summary = [turns ? `${turns} turns` : '', cost ? `cost ${cost}` : ''].filter(Boolean).join(', ');
+            this.log(`[LOOP] Agent activity: ${summary}`);
+          }
+          success = true;
+          break;
         }
 
-        if (turns !== undefined || cost !== undefined) {
-          const summary = [turns ? `${turns} turns` : '', cost ? `cost ${cost}` : ''].filter(Boolean).join(', ');
-          this.log(`[LOOP] Agent activity: ${summary}`);
+        if (!success) {
+          const reason = 'All candidate providers failed — halting';
+          await this.appendInbox(task.id, 'ANDON_HALT', reason);
+          console.error(`[LOOP] ${reason}. INBOX updated.`);
+          process.exit(1);
         }
       } else {
         // Legacy path: shell out to arch.sh exec

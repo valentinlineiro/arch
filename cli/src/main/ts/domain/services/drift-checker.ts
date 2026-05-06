@@ -37,7 +37,51 @@ export class DriftChecker {
       this.checkCensus(),
       this.checkHanseiPresent(),
       this.checkHaltPolicy(),
+      this.checkEscalationMaturity(),
     ]);
+  }
+
+  private async checkEscalationMaturity(): Promise<DriftResult> {
+    const details: string[] = [];
+    const configRaw = await this.fileSystem.readFile(`${this.rootPath}/arch.config.json`);
+    const config = JSON.parse(configRaw);
+    const protectedPaths = config.governance?.protectedPaths || [];
+
+    // 1. Repeated Review Failure Detection
+    const activeTasks = await this.getMarkdownFiles('docs/tasks');
+    for (const file of activeTasks) {
+      const content = await this.fileSystem.readFile(`${this.rootPath}/docs/tasks/${file}`);
+      const metaMatch = content.match(/^\*\*Meta:\*\* .*/m);
+      if (metaMatch) {
+        const parts = metaMatch[0].split('|').map(s => s.trim());
+        const status = parts[2];
+        if (status === 'REVIEW' && content.includes('**Rejected-at:**')) {
+          details.push(`${file.replace('.md', '')} is back in REVIEW after a previous rejection. High risk of repeated failure.`);
+        }
+      }
+    }
+
+    // 2. Protected Path Enforcement (Current Worktree)
+    const statusLines = await this.gitRepository.getStatusLines();
+    const touchedProtectedPaths: string[] = [];
+    const adrAdded = statusLines.some(line => line.startsWith('A') && line.includes('docs/adr/'));
+
+    for (const line of statusLines) {
+      const filePath = line.slice(3).trim();
+      if (protectedPaths.some((p: string) => filePath.startsWith(p) && !filePath.startsWith('docs/adr/'))) {
+        touchedProtectedPaths.push(filePath);
+      }
+    }
+
+    if (touchedProtectedPaths.length > 0 && !adrAdded) {
+      details.push(`Protected path(s) modified without a new ADR in the same change set: ${touchedProtectedPaths.join(', ')}`);
+    }
+
+    return {
+      check: 'EscalationMaturity',
+      status: details.length === 0 ? 'OK' : 'WARN',
+      details,
+    };
   }
 
   private async checkHaltPolicy(): Promise<DriftResult> {

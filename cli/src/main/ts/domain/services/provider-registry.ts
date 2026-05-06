@@ -25,39 +25,42 @@ export class ProviderRegistry {
     taskSize: string,
     isBinAvailable: (bin: string) => boolean = (bin) => this.isBinAvailable(bin)
   ): ResolveResult {
+    return this.resolveAll(taskClass, taskSize, isBinAvailable)[0] ?? { provider: null, name: null, model: '' };
+  }
+
+  resolveAll(
+    taskClass: string,
+    taskSize: string,
+    isBinAvailable: (bin: string) => boolean = (bin) => this.isBinAvailable(bin)
+  ): ResolveResult[] {
     const model = this.resolveModel(taskSize);
     const preferredName: string | null = this.config.routing?.[taskClass] ?? null;
 
     if (preferredName === 'local') {
-      return { provider: null, name: 'local', model };
+      return [{ provider: null, name: 'local', model }];
     }
 
     const providerConfigs: any[] = this.config.providers ?? this.buildLegacyProviders();
 
     const preferred = providerConfigs.find(p => p.name === preferredName);
-    const preferredType = preferred?.type;
 
-    // If there's a preferred provider, restrict candidates to the same type
-    const candidateConfigs = preferredType
-      ? providerConfigs.filter(p => p.type === preferredType)
+    // Reorder to put preferred first, then others in order of config
+    const ordered = preferred
+      ? [preferred, ...providerConfigs.filter(p => p.name !== preferredName)]
       : providerConfigs;
 
-    // Reorder to put preferred first
-    const ordered = preferred
-      ? [preferred, ...candidateConfigs.filter(p => p.name !== preferredName)]
-      : candidateConfigs;
+    const results: ResolveResult[] = [];
 
     for (const pc of ordered) {
       if (pc.type === 'bridge') {
         if (!isBinAvailable(pc.bin)) continue;
-        return { provider: new BridgeProvider(pc as BridgeConfig), name: pc.name, model };
-      }
-      if (pc.type === 'native') {
-        return { provider: new NativeProvider(pc as NativeConfig), name: pc.name, model };
+        results.push({ provider: new BridgeProvider(pc as BridgeConfig), name: pc.name, model });
+      } else if (pc.type === 'native') {
+        results.push({ provider: new NativeProvider(pc as NativeConfig), name: pc.name, model });
       }
     }
 
-    return { provider: null, name: null, model };
+    return results;
   }
 
   private buildLegacyProviders(): any[] {

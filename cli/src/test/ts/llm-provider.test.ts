@@ -240,9 +240,44 @@ test('ProviderRegistry.resolve - skips unavailable bridge bin, falls back to nex
 });
 
 test('ProviderRegistry.resolve - returns null when no provider available', () => {
-  const registry = new ProviderRegistry(REGISTRY_CONFIG);
+  const bridgeOnlyConfig = {
+    ...REGISTRY_CONFIG,
+    providers: REGISTRY_CONFIG.providers.filter(p => p.type === 'bridge')
+  };
+  const registry = new ProviderRegistry(bridgeOnlyConfig);
   const { provider } = registry.resolve('2-code-generation', 'M', () => false);
   assert.equal(provider, null);
+});
+
+test('ProviderRegistry.resolveAll - returns all candidates in correct order', () => {
+  const registry = new ProviderRegistry(REGISTRY_CONFIG);
+  const candidates = registry.resolveAll('2-code-generation', 'M', () => true);
+  
+  assert.equal(candidates.length, 3);
+  assert.equal(candidates[0].name, 'claude-code'); // preferred
+  assert.equal(candidates[1].name, 'gemini');      // config order
+  assert.equal(candidates[2].name, 'ollama');      // config order
+});
+
+test('ProviderRegistry.resolveAll - filters unavailable bridges', () => {
+  const registry = new ProviderRegistry(REGISTRY_CONFIG);
+  const candidates = registry.resolveAll('2-code-generation', 'M', bin => bin !== 'claude');
+  
+  assert.equal(candidates.length, 2);
+  assert.equal(candidates[0].name, 'gemini');
+  assert.equal(candidates[1].name, 'ollama');
+});
+
+test('ProviderRegistry.resolveAll - cross-type fallback (no type restriction)', () => {
+  const registry = new ProviderRegistry({
+    ...REGISTRY_CONFIG,
+    routing: { '2-code-generation': 'ollama' } // preferred is native
+  });
+  const candidates = registry.resolveAll('2-code-generation', 'M', () => true);
+  
+  assert.equal(candidates[0].name, 'ollama');
+  assert.equal(candidates[1].name, 'claude-code');
+  assert.equal(candidates[2].name, 'gemini');
 });
 
 test('ProviderRegistry.resolveModel - returns model tier for given size', () => {
