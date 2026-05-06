@@ -2,14 +2,14 @@
   "version": "0.6.0",
   "currentSprint": "",
   "routing": {
-    "1-code-reasoning": "claude-code",
-    "2-code-generation": "claude-code",
+    "1-code-reasoning": "gemini",
+    "2-code-generation": "gemini",
     "3-code-context": "gemini",
     "4-code-repetitive": "ollama",
     "5-research": "gemini",
-    "6-writing": "claude",
+    "6-writing": "gemini",
     "7-operations": "ollama",
-    "8-strategy": "claude"
+    "8-strategy": "gemini"
   },
   "governance": {
     "conductEveryN": 5,
@@ -26,10 +26,10 @@
       "cli/src/main/ts/domain/"
     ],
     "modelTiers": {
-      "XS": "qwen3:1.7b",
-      "S": "qwen2.5:7b-instruct-q2_K",
-      "M": "claude-3-5-sonnet-20240620",
-      "L": "claude-3-opus-20240229"
+      "XS": "qwen2.5-coder:1.5b",
+      "S": "phi3:latest",
+      "M": "sonnet",
+      "L": "opus"
     }
     },
     "hanseiSinceTaskId": 195,
