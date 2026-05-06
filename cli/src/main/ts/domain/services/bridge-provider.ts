@@ -17,14 +17,14 @@ export class BridgeProvider implements LLMProvider {
 
   buildCommand(content: string, model: string, promptFile: string): string {
     let cmd = this.config.template
-      .replace(/\{prompt\}/g, `$(cat ${promptFile})`)
+      .replace(/\{prompt\}/g, `$(cat "${promptFile}")`)
       .replace(/\{prompt_file\}/g, promptFile);
 
     if (model) {
       if (this.config.template.includes('{model}')) {
         cmd = cmd.replace(/\{model\}/g, model);
       } else if (this.config.name === 'claude' || this.config.name === 'claude-code') {
-        cmd += ` --model ${model}`;
+        cmd += ` --model "${model}"`;
       }
     }
     return cmd;
@@ -47,7 +47,7 @@ export class BridgeProvider implements LLMProvider {
 
   async complete(request: ChatRequest): Promise<ChatResponse> {
     const userMessage = request.messages.find(m => m.role === 'user')?.content ?? '';
-    const promptFile = join(tmpdir(), `arch-prompt-${randomBytes(4).toString('hex')}.md`);
+    const promptFile = join(tmpdir(), `arch-prompt-${randomBytes(8).toString('hex')}.md`);
 
     try {
       writeFileSync(promptFile, userMessage);

@@ -35,7 +35,7 @@ test('BridgeProvider.buildCommand - substitutes {prompt} with cat of temp file',
   };
   const provider = new BridgeProvider(config);
   const cmd = provider.buildCommand('hello world', 'claude-3-5-sonnet-20240620', '/tmp/test.md');
-  assert.ok(cmd.includes('$(cat /tmp/test.md)'), `cmd: ${cmd}`);
+  assert.ok(cmd.includes('$(cat "/tmp/test.md")'), `cmd: ${cmd}`);
   assert.ok(cmd.includes('--dangerously-skip-permissions'), `cmd: ${cmd}`);
 });
 
@@ -61,7 +61,7 @@ test('BridgeProvider.buildCommand - appends --model for claude when no {model} p
   };
   const provider = new BridgeProvider(config);
   const cmd = provider.buildCommand('hello', 'claude-3-5-sonnet-20240620', '/tmp/test.md');
-  assert.ok(cmd.includes('--model claude-3-5-sonnet-20240620'), `cmd: ${cmd}`);
+  assert.ok(cmd.includes('--model "claude-3-5-sonnet-20240620"'), `cmd: ${cmd}`);
 });
 
 test('BridgeProvider.parseMetadata - extracts turns and cost from stdout', () => {
