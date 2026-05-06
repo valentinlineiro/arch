@@ -141,3 +141,60 @@ test('NativeProvider.parseResponse - extracts content and usage', () => {
   assert.equal(result.usage.completionTokens, 5);
   assert.equal(result.usage.latencyMs, 200);
 });
+
+test('NativeProvider.complete - returns ChatResponse on success', async () => {
+  const config: NativeConfig = {
+    name: 'ollama',
+    type: 'native',
+    endpoint: 'http://127.0.0.1:11434/v1',
+    apiKey: 'ollama',
+  };
+  const provider = new NativeProvider(config);
+
+  const mockResponse = {
+    choices: [{ message: { role: 'assistant', content: 'test response' } }],
+    usage: { prompt_tokens: 5, completion_tokens: 3, total_tokens: 8 },
+  };
+
+  const originalFetch = globalThis.fetch;
+  globalThis.fetch = async () => ({
+    ok: true,
+    json: async () => mockResponse,
+    text: async () => JSON.stringify(mockResponse),
+  } as any);
+
+  try {
+    const result = await provider.complete({
+      model: 'llama3.2',
+      messages: [{ role: 'user', content: 'hello' }],
+    });
+    assert.equal(result.content, 'test response');
+    assert.equal(result.usage.promptTokens, 5);
+    assert.equal(result.usage.completionTokens, 3);
+    assert.ok(result.usage.latencyMs >= 0);
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
+test('NativeProvider.complete - throws on network error', async () => {
+  const config: NativeConfig = {
+    name: 'ollama',
+    type: 'native',
+    endpoint: 'http://127.0.0.1:11434/v1',
+    apiKey: 'ollama',
+  };
+  const provider = new NativeProvider(config);
+
+  const originalFetch = globalThis.fetch;
+  globalThis.fetch = async () => { throw new Error('ECONNREFUSED'); };
+
+  try {
+    await assert.rejects(
+      () => provider.complete({ model: 'llama3.2', messages: [{ role: 'user', content: 'hello' }] }),
+      /network error/
+    );
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});

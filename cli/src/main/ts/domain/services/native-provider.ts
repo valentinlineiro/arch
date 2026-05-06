@@ -43,21 +43,33 @@ export class NativeProvider implements LLMProvider {
     const apiKey = this.resolveApiKey();
 
     const start = Date.now();
-    const resp = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${apiKey}`,
-      },
-      body: this.buildRequestBody(request),
-    });
+    let resp: Response;
+    try {
+      resp = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${apiKey}`,
+        },
+        body: this.buildRequestBody(request),
+      });
+    } catch (err: any) {
+      throw new Error(`NativeProvider ${this.config.name} network error: ${err.message}`);
+    }
     const latencyMs = Date.now() - start;
 
     if (!resp.ok) {
-      throw new Error(`NativeProvider ${this.config.name} HTTP ${resp.status}: ${await resp.text()}`);
+      const errorBody = await resp.text().catch(() => '(unreadable)');
+      throw new Error(`NativeProvider ${this.config.name} HTTP ${resp.status}: ${errorBody}`);
     }
 
-    const apiResp = await resp.json();
+    let apiResp: any;
+    try {
+      apiResp = await resp.json();
+    } catch (err: any) {
+      throw new Error(`NativeProvider ${this.config.name} invalid JSON response: ${err.message}`);
+    }
+
     return this.parseResponse(apiResp, latencyMs);
   }
 }
