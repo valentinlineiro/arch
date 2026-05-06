@@ -12,8 +12,21 @@ export interface ResolveResult {
 export class ProviderRegistry {
   constructor(private config: any) {}
 
-  resolveModel(size: string): string {
-    return this.config.governance?.modelTiers?.[size] ?? '';
+  resolveModel(size: string, providerName?: string): string {
+    const tier = this.config.governance?.modelTiers?.[size];
+    if (!tier) return '';
+
+    if (typeof tier === 'string') {
+      return tier;
+    }
+
+    if (typeof tier === 'object' && tier !== null) {
+      if (providerName && typeof (tier as any)[providerName] === 'string') {
+        return (tier as any)[providerName];
+      }
+    }
+
+    return '';
   }
 
   private isBinAvailable(bin: string): boolean {
@@ -33,11 +46,10 @@ export class ProviderRegistry {
     taskSize: string,
     isBinAvailable: (bin: string) => boolean = (bin) => this.isBinAvailable(bin)
   ): ResolveResult[] {
-    const model = this.resolveModel(taskSize);
     const preferredName: string | null = this.config.routing?.[taskClass] ?? null;
 
     if (preferredName === 'local') {
-      return [{ provider: null, name: 'local', model }];
+      return [{ provider: null, name: 'local', model: this.resolveModel(taskSize, 'local') }];
     }
 
     const providerConfigs: any[] = this.config.providers ?? this.buildLegacyProviders();
@@ -51,7 +63,16 @@ export class ProviderRegistry {
 
     const results: ResolveResult[] = [];
 
+    const tier = this.config.governance?.modelTiers?.[taskSize];
+
     for (const pc of ordered) {
+      const model = this.resolveModel(taskSize, pc.name);
+      
+      // If tier is an object but this provider is not explicitly mapped, skip it
+      if (typeof tier === 'object' && tier !== null && !model) {
+        continue;
+      }
+
       if (pc.type === 'bridge') {
         if (!isBinAvailable(pc.bin)) continue;
         results.push({ provider: new BridgeProvider(pc as BridgeConfig), name: pc.name, model });

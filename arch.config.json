@@ -26,10 +26,23 @@
       "cli/src/main/ts/domain/"
     ],
     "modelTiers": {
-      "XS": "qwen2.5-coder:1.5b",
-      "S": "phi3:latest",
-      "M": "sonnet",
-      "L": "opus"
+      "XS": {
+        "ollama": "qwen2.5-coder:1.5b",
+        "gemini": "flash"
+      },
+      "S": {
+        "ollama": "phi3:latest",
+        "claude-code": "haiku"
+      },
+      "M": {
+        "claude-code": "sonnet",
+        "gemini": "sonnet",
+        "ollama": "qwen2.5-coder:7b"
+      },
+      "L": {
+        "claude-code": "opus",
+        "gemini": "pro"
+      }
     }
     },
     "hanseiSinceTaskId": 195,

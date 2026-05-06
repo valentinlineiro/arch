@@ -208,7 +208,10 @@ const REGISTRY_CONFIG = {
     '5-research': 'gemini',
   },
   governance: {
-    modelTiers: { XS: 'qwen2.5-coder:7b', M: 'claude-3-5-sonnet-20240620' },
+    modelTiers: { 
+      XS: { ollama: 'qwen2.5-coder:7b', default: 'qwen2.5-coder:7b' }, 
+      M: { 'claude-code': 'claude-3-5-sonnet-20240620', gemini: 'gemini-1.5-pro' } 
+    },
   },
   providers: [
     { name: 'claude-code', type: 'bridge', bin: 'claude', template: 'claude -p "{prompt}" --dangerously-skip-permissions' },
@@ -249,29 +252,34 @@ test('ProviderRegistry.resolve - returns null when no provider available', () =>
   assert.equal(provider, null);
 });
 
-test('ProviderRegistry.resolveAll - returns all candidates in correct order', () => {
+test('ProviderRegistry.resolveAll - returns all candidates in correct order with correct models', () => {
   const registry = new ProviderRegistry(REGISTRY_CONFIG);
   const candidates = registry.resolveAll('2-code-generation', 'M', () => true);
   
-  assert.equal(candidates.length, 3);
-  assert.equal(candidates[0].name, 'claude-code'); // preferred
-  assert.equal(candidates[1].name, 'gemini');      // config order
-  assert.equal(candidates[2].name, 'ollama');      // config order
+  // ollama is filtered out of M because it's not mapped in REGISTRY_CONFIG.governance.modelTiers.M
+  assert.equal(candidates.length, 2);
+  assert.equal(candidates[0].name, 'claude-code');
+  assert.equal(candidates[0].model, 'claude-3-5-sonnet-20240620');
+  assert.equal(candidates[1].name, 'gemini');
+  assert.equal(candidates[1].model, 'gemini-1.5-pro');
 });
 
-test('ProviderRegistry.resolveAll - filters unavailable bridges', () => {
+test('ProviderRegistry.resolveAll - filters candidates without model mapping', () => {
   const registry = new ProviderRegistry(REGISTRY_CONFIG);
-  const candidates = registry.resolveAll('2-code-generation', 'M', bin => bin !== 'claude');
+  // XS only maps ollama (via default) in our test config
+  const candidates = registry.resolveAll('4-code-repetitive', 'XS', () => true);
   
-  assert.equal(candidates.length, 2);
-  assert.equal(candidates[0].name, 'gemini');
-  assert.equal(candidates[1].name, 'ollama');
+  assert.equal(candidates.length, 1);
+  assert.equal(candidates[0].name, 'ollama');
 });
 
 test('ProviderRegistry.resolveAll - cross-type fallback (no type restriction)', () => {
   const registry = new ProviderRegistry({
     ...REGISTRY_CONFIG,
-    routing: { '2-code-generation': 'ollama' } // preferred is native
+    routing: { '2-code-generation': 'ollama' },
+    governance: {
+      modelTiers: { M: { 'claude-code': 'sonnet', gemini: 'pro', ollama: 'qwen' } }
+    }
   });
   const candidates = registry.resolveAll('2-code-generation', 'M', () => true);
   
@@ -280,10 +288,13 @@ test('ProviderRegistry.resolveAll - cross-type fallback (no type restriction)', 
   assert.equal(candidates[2].name, 'gemini');
 });
 
-test('ProviderRegistry.resolveModel - returns model tier for given size', () => {
+test('ProviderRegistry.resolveModel - returns model tier for given size and provider', () => {
   const registry = new ProviderRegistry(REGISTRY_CONFIG);
-  assert.equal(registry.resolveModel('M'), 'claude-3-5-sonnet-20240620');
-  assert.equal(registry.resolveModel('XS'), 'qwen2.5-coder:7b');
+  assert.equal(registry.resolveModel('M', 'claude-code'), 'claude-3-5-sonnet-20240620');
+  assert.equal(registry.resolveModel('M', 'gemini'), 'gemini-1.5-pro');
+  assert.equal(registry.resolveModel('M', 'ollama'), ''); // No mapping
+  assert.equal(registry.resolveModel('XS', 'ollama'), 'qwen2.5-coder:7b');
+  assert.equal(registry.resolveModel('XS', 'claude-code'), ''); // No mapping, default not in test yet but we check specific
   assert.equal(registry.resolveModel('L'), '');
 });
 
