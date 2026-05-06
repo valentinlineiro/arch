@@ -1,15 +1,35 @@
 {
   "version": "0.6.0",
   "currentSprint": "",
-  "routing": {
-    "1-code-reasoning": "claude-code",
-    "2-code-generation": "claude-code",
-    "3-code-context": "gemini",
-    "4-code-repetitive": "ollama",
-    "5-research": "gemini",
-    "6-writing": "claude-code",
-    "7-operations": "ollama",
-    "8-strategy": "claude-code"
+  "strategies": {
+    "1-code-reasoning": {
+      "M": [
+        { "provider": "claude-code", "model": "sonnet" },
+        { "provider": "gemini", "model": "sonnet" },
+        { "provider": "ollama", "model": "qwen2.5-coder:7b" }
+      ],
+      "L": [
+        { "provider": "claude-code", "model": "opus" },
+        { "provider": "gemini", "model": "pro" }
+      ]
+    },
+    "2-code-generation": {
+      "M": [
+        { "provider": "claude-code", "model": "sonnet" },
+        { "provider": "gemini", "model": "sonnet" },
+        { "provider": "ollama", "model": "qwen2.5-coder:7b" }
+      ]
+    },
+    "default": {
+      "XS": [
+        { "provider": "ollama", "model": "qwen2.5-coder:1.5b" },
+        { "provider": "gemini", "model": "flash" }
+      ],
+      "S": [
+        { "provider": "ollama", "model": "phi3:latest" },
+        { "provider": "claude-code", "model": "haiku" }
+      ]
+    }
   },
   "governance": {
     "conductEveryN": 5,
@@ -25,27 +45,8 @@
       "arch.config.json",
       "cli/src/main/ts/domain/"
     ],
-    "modelTiers": {
-      "XS": {
-        "ollama": "qwen2.5-coder:1.5b",
-        "gemini": "flash"
-      },
-      "S": {
-        "ollama": "phi3:latest",
-        "claude-code": "haiku"
-      },
-      "M": {
-        "claude-code": "sonnet",
-        "gemini": "sonnet",
-        "ollama": "qwen2.5-coder:7b"
-      },
-      "L": {
-        "claude-code": "opus",
-        "gemini": "pro"
-      }
-    }
-    },
-    "hanseiSinceTaskId": 195,
+    "hanseiSinceTaskId": 195
+  },
   "muri": {
     "XS": { "turns": 5, "cost": 0.05 },
     "S": { "turns": 15, "cost": 0.15 },

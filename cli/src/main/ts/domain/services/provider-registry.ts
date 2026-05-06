@@ -12,25 +12,22 @@ export interface ResolveResult {
 export class ProviderRegistry {
   constructor(private config: any) {}
 
-  resolveModel(size: string, providerName?: string): string {
-    const tier = this.config.governance?.modelTiers?.[size];
-    if (!tier) return '';
+  private getStrategy(taskClass: string, taskSize: string): any[] {
+    const strategies = this.config.strategies || {};
+    
+    // Exact match: class and size
+    if (strategies[taskClass]?.[taskSize]) return strategies[taskClass][taskSize];
+    
+    // Fallback 1: class default size
+    if (strategies[taskClass]?.default) return strategies[taskClass].default;
+    
+    // Fallback 2: default class, specific size
+    if (strategies.default?.[taskSize]) return strategies.default[taskSize];
+    
+    // Fallback 3: default class, default size
+    if (strategies.default?.default) return strategies.default.default;
 
-    if (typeof tier === 'string') {
-      return tier;
-    }
-
-    if (typeof tier === 'object' && tier !== null) {
-      if (providerName && typeof (tier as any)[providerName] === 'string') {
-        return (tier as any)[providerName];
-      }
-    }
-
-    return '';
-  }
-
-  private isBinAvailable(bin: string): boolean {
-    return spawnSync('which', [bin]).status === 0;
+    return [];
   }
 
   resolve(
@@ -46,32 +43,58 @@ export class ProviderRegistry {
     taskSize: string,
     isBinAvailable: (bin: string) => boolean = (bin) => this.isBinAvailable(bin)
   ): ResolveResult[] {
+    const strategy = this.getStrategy(taskClass, taskSize);
+    const providerConfigs: any[] = this.config.providers ?? this.buildLegacyProviders();
+    const results: ResolveResult[] = [];
+
+    for (const step of strategy) {
+      if (step.provider === 'local') {
+        results.push({ provider: null, name: 'local', model: step.model || '' });
+        continue;
+      }
+
+      const pc = providerConfigs.find(p => p.name === step.provider);
+      if (!pc) continue;
+
+      if (pc.type === 'bridge') {
+        if (!isBinAvailable(pc.bin)) continue;
+        results.push({ provider: new BridgeProvider(pc as BridgeConfig), name: pc.name, model: step.model });
+      } else if (pc.type === 'native') {
+        results.push({ provider: new NativeProvider(pc as NativeConfig), name: pc.name, model: step.model });
+      }
+    }
+
+    // Legacy fallback: if no strategies defined, use old routing/modelTiers logic if they exist
+    if (results.length === 0 && (this.config.routing || this.config.governance?.modelTiers)) {
+       return this.resolveAllLegacy(taskClass, taskSize, isBinAvailable);
+    }
+
+    return results;
+  }
+
+  private resolveAllLegacy(
+    taskClass: string,
+    taskSize: string,
+    isBinAvailable: (bin: string) => boolean
+  ): ResolveResult[] {
     const preferredName: string | null = this.config.routing?.[taskClass] ?? null;
 
     if (preferredName === 'local') {
-      return [{ provider: null, name: 'local', model: this.resolveModel(taskSize, 'local') }];
+      return [{ provider: null, name: 'local', model: this.resolveModelLegacy(taskSize, 'local') }];
     }
 
     const providerConfigs: any[] = this.config.providers ?? this.buildLegacyProviders();
-
     const preferred = providerConfigs.find(p => p.name === preferredName);
-
-    // Reorder to put preferred first, then others in order of config
     const ordered = preferred
       ? [preferred, ...providerConfigs.filter(p => p.name !== preferredName)]
       : providerConfigs;
 
     const results: ResolveResult[] = [];
-
     const tier = this.config.governance?.modelTiers?.[taskSize];
 
     for (const pc of ordered) {
-      const model = this.resolveModel(taskSize, pc.name);
-      
-      // If tier is an object but this provider is not explicitly mapped, skip it
-      if (typeof tier === 'object' && tier !== null && !model) {
-        continue;
-      }
+      const model = this.resolveModelLegacy(taskSize, pc.name);
+      if (typeof tier === 'object' && tier !== null && !model) continue;
 
       if (pc.type === 'bridge') {
         if (!isBinAvailable(pc.bin)) continue;
@@ -80,8 +103,19 @@ export class ProviderRegistry {
         results.push({ provider: new NativeProvider(pc as NativeConfig), name: pc.name, model });
       }
     }
-
     return results;
+  }
+
+  private resolveModelLegacy(size: string, providerName?: string): string {
+    const tier = this.config.governance?.modelTiers?.[size];
+    if (!tier) return '';
+    if (typeof tier === 'string') return tier;
+    if (typeof tier === 'object' && tier !== null) {
+      if (providerName && typeof (tier as any)[providerName] === 'string') {
+        return (tier as any)[providerName];
+      }
+    }
+    return '';
   }
 
   private buildLegacyProviders(): any[] {

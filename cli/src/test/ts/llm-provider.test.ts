@@ -202,16 +202,23 @@ test('NativeProvider.complete - throws on network error', async () => {
 import { ProviderRegistry } from '../../main/ts/domain/services/provider-registry.js';
 
 const REGISTRY_CONFIG = {
-  routing: {
-    '2-code-generation': 'claude-code',
-    '4-code-repetitive': 'ollama',
-    '5-research': 'gemini',
-  },
-  governance: {
-    modelTiers: { 
-      XS: { ollama: 'qwen2.5-coder:7b', default: 'qwen2.5-coder:7b' }, 
-      M: { 'claude-code': 'claude-3-5-sonnet-20240620', gemini: 'gemini-1.5-pro' } 
+  strategies: {
+    '2-code-generation': {
+      M: [
+        { provider: 'claude-code', model: 'claude-3-5-sonnet-20240620' },
+        { provider: 'gemini', model: 'gemini-1.5-pro' }
+      ]
     },
+    '4-code-repetitive': {
+      default: [
+        { provider: 'ollama', model: 'qwen2.5-coder:7b' }
+      ]
+    },
+    default: {
+      XS: [
+        { provider: 'ollama', model: 'qwen2.5-coder:1.5b' }
+      ]
+    }
   },
   providers: [
     { name: 'claude-code', type: 'bridge', bin: 'claude', template: 'claude -p "{prompt}" --dangerously-skip-permissions' },
@@ -220,94 +227,90 @@ const REGISTRY_CONFIG = {
   ],
 };
 
-test('ProviderRegistry.resolve - returns BridgeProvider for bridge type', () => {
+test('ProviderRegistry.resolve - returns provider based on strategy', () => {
   const registry = new ProviderRegistry(REGISTRY_CONFIG);
-  const { provider } = registry.resolve('2-code-generation', 'M', () => true);
+  const { provider, name, model } = registry.resolve('2-code-generation', 'M', () => true);
   assert.ok(provider !== null);
-  assert.equal(provider!.constructor.name, 'BridgeProvider');
+  assert.equal(name, 'claude-code');
+  assert.equal(model, 'claude-3-5-sonnet-20240620');
 });
 
-test('ProviderRegistry.resolve - returns NativeProvider for native type', () => {
+test('ProviderRegistry.resolveAll - handles class-default size fallback', () => {
   const registry = new ProviderRegistry(REGISTRY_CONFIG);
-  const { provider } = registry.resolve('4-code-repetitive', 'XS', () => true);
-  assert.ok(provider !== null);
-  assert.equal(provider!.constructor.name, 'NativeProvider');
+  const candidates = registry.resolveAll('4-code-repetitive', 'XS', () => true);
+  assert.equal(candidates.length, 1);
+  assert.equal(candidates[0].name, 'ollama');
+  assert.equal(candidates[0].model, 'qwen2.5-coder:7b');
 });
 
-test('ProviderRegistry.resolve - skips unavailable bridge bin, falls back to next', () => {
+test('ProviderRegistry.resolveAll - handles global default-class fallback', () => {
   const registry = new ProviderRegistry(REGISTRY_CONFIG);
-  // claude-code bin unavailable; next available is gemini
-  const { provider } = registry.resolve('2-code-generation', 'M', bin => bin !== 'claude');
-  assert.ok(provider !== null);
-  assert.equal(provider!.constructor.name, 'BridgeProvider');
+  // '5-research' is not defined, should use default.XS
+  const candidates = registry.resolveAll('5-research', 'XS', () => true);
+  assert.equal(candidates.length, 1);
+  assert.equal(candidates[0].name, 'ollama');
+  assert.equal(candidates[0].model, 'qwen2.5-coder:1.5b');
 });
 
-test('ProviderRegistry.resolve - returns null when no provider available', () => {
-  const bridgeOnlyConfig = {
-    ...REGISTRY_CONFIG,
-    providers: REGISTRY_CONFIG.providers.filter(p => p.type === 'bridge')
+test('ProviderRegistry.resolveAll - returns empty for unmapped context', () => {
+  const registry = new ProviderRegistry(REGISTRY_CONFIG);
+  const candidates = registry.resolveAll('5-research', 'L', () => true);
+  assert.equal(candidates.length, 0);
+});
+
+test('ProviderRegistry.resolve - skips unavailable bridge bin in strategy chain', () => {
+  const registry = new ProviderRegistry(REGISTRY_CONFIG);
+  // claude-code bin unavailable; next in strategy is gemini
+  const { provider, name } = registry.resolve('2-code-generation', 'M', bin => bin !== 'claude');
+  assert.ok(provider !== null);
+  assert.equal(name, 'gemini');
+});
+
+test('ProviderRegistry.resolve - supports local strategy', () => {
+  const localConfig = {
+    strategies: {
+      default: { default: [{ provider: 'local', model: 'none' }] }
+    }
   };
-  const registry = new ProviderRegistry(bridgeOnlyConfig);
-  const { provider } = registry.resolve('2-code-generation', 'M', () => false);
+  const registry = new ProviderRegistry(localConfig);
+  const { name, provider } = registry.resolve('any', 'any');
+  assert.equal(name, 'local');
   assert.equal(provider, null);
 });
 
-test('ProviderRegistry.resolveAll - returns all candidates in correct order with correct models', () => {
-  const registry = new ProviderRegistry(REGISTRY_CONFIG);
+test('ProviderRegistry.resolveAll - backward compatibility for legacy config', () => {
+  const legacyConfig = {
+    routing: { '2-code-generation': 'claude-code' },
+    governance: { modelTiers: { M: 'legacy-model' } },
+    providers: REGISTRY_CONFIG.providers
+  };
+  const registry = new ProviderRegistry(legacyConfig);
   const candidates = registry.resolveAll('2-code-generation', 'M', () => true);
-  
-  // ollama is filtered out of M because it's not mapped in REGISTRY_CONFIG.governance.modelTiers.M
-  assert.equal(candidates.length, 2);
   assert.equal(candidates[0].name, 'claude-code');
-  assert.equal(candidates[0].model, 'claude-3-5-sonnet-20240620');
-  assert.equal(candidates[1].name, 'gemini');
-  assert.equal(candidates[1].model, 'gemini-1.5-pro');
+  assert.equal(candidates[0].model, 'legacy-model');
 });
 
-test('ProviderRegistry.resolveAll - filters candidates without model mapping', () => {
-  const registry = new ProviderRegistry(REGISTRY_CONFIG);
-  // XS only maps ollama (via default) in our test config
-  const candidates = registry.resolveAll('4-code-repetitive', 'XS', () => true);
-  
-  assert.equal(candidates.length, 1);
-  assert.equal(candidates[0].name, 'ollama');
-});
-
-test('ProviderRegistry.resolveAll - cross-type fallback (no type restriction)', () => {
+test('ProviderRegistry.resolveModelLegacy - returns model tier for given size and provider', () => {
   const registry = new ProviderRegistry({
-    ...REGISTRY_CONFIG,
-    routing: { '2-code-generation': 'ollama' },
-    governance: {
-      modelTiers: { M: { 'claude-code': 'sonnet', gemini: 'pro', ollama: 'qwen' } }
-    }
+     governance: {
+       modelTiers: { XS: { ollama: 'qwen' } }
+     },
+     providers: [{ name: 'ollama', type: 'native', endpoint: '...' }]
   });
-  const candidates = registry.resolveAll('2-code-generation', 'M', () => true);
-  
-  assert.equal(candidates[0].name, 'ollama');
-  assert.equal(candidates[1].name, 'claude-code');
-  assert.equal(candidates[2].name, 'gemini');
-});
-
-test('ProviderRegistry.resolveModel - returns model tier for given size and provider', () => {
-  const registry = new ProviderRegistry(REGISTRY_CONFIG);
-  assert.equal(registry.resolveModel('M', 'claude-code'), 'claude-3-5-sonnet-20240620');
-  assert.equal(registry.resolveModel('M', 'gemini'), 'gemini-1.5-pro');
-  assert.equal(registry.resolveModel('M', 'ollama'), ''); // No mapping
-  assert.equal(registry.resolveModel('XS', 'ollama'), 'qwen2.5-coder:7b');
-  assert.equal(registry.resolveModel('XS', 'claude-code'), ''); // No mapping, default not in test yet but we check specific
-  assert.equal(registry.resolveModel('L'), '');
+  const candidates = registry.resolveAll('any', 'XS', () => true);
+  assert.equal(candidates.length, 1);
+  assert.equal(candidates[0].model, 'qwen');
 });
 
 test('ProviderRegistry.resolve - falls back to clis when providers absent', () => {
   const legacyConfig = {
-    routing: { '6-writing': 'claude' },
-    governance: { modelTiers: {} },
+    strategies: { default: { default: [{ provider: 'claude', model: 'sonnet' }] } },
     clis: [
       { name: 'claude', bin: 'claude', template: 'claude -p "{prompt}"' },
     ],
   };
   const registry = new ProviderRegistry(legacyConfig);
-  const { provider } = registry.resolve('6-writing', '', () => true);
+  const { provider } = registry.resolve('any', 'any', () => true);
   assert.ok(provider !== null);
   assert.equal(provider!.constructor.name, 'BridgeProvider');
 });
