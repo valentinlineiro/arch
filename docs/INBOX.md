@@ -11,8 +11,8 @@
 _No urgent actions._
 
 ## Refinement Queue
-43 pending IDEAs:
-anti-hallucination-acs, approval-entry-check, arch-core-contract, arch-review-dependency-graph, auto-sprint-sizing, census-context-budget-review-check, cli-npm, conflict-resolver-agent, consolidate-cli-commands, context-control, cost-aware-protocol, cross-repo-learning-network, do-step-registry-for-kaizen, dynamic-model-provisioning, feature-branch-workflow, formal-protocol-invariants, handle-parallelism, hansei-reflection-on-done-tasks, idea-ttl-auto-rejection, institutional-memory-document, interactive-test, l3-sprint-autonomy, multi-human-governance, multi-repo-arch, mura-turns-per-size-metric, open-standard-portability, openclaw-integration, openrouter-groq-free-tier-fallback, optimize-decomposition-for-local-llms, parallel-tasks, periodic-architecture-revision, probabilistic-trust-model, protocol-replay-regression, prune-stale-documentation, rag-context-retrieval, sentinel-log-infrastructure, separate-arch-core-from-content, sprint-open-protocol, task-execution-plans, task-idea-metrics-context-price, task-template-linter, testing-guideline-expansion, typed-protocol-schema
+45 pending IDEAs:
+anti-hallucination-acs, approval-entry-check, arch-core-contract, arch-review-dependency-graph, auto-sprint-sizing, census-context-budget-review-check, cli-npm, conflict-resolver-agent, consolidate-cli-commands, context-control, cost-aware-protocol, cross-repo-learning-network, do-step-registry-for-kaizen, dynamic-model-provisioning, feature-branch-workflow, formal-protocol-invariants, handle-parallelism, hansei-reflection-on-done-tasks, idea-ttl-auto-rejection, institutional-memory-document, interactive-test, l3-sprint-autonomy, loop-load-balancing, loop-mode-output-visibility, multi-human-governance, multi-repo-arch, mura-turns-per-size-metric, open-standard-portability, openclaw-integration, openrouter-groq-free-tier-fallback, optimize-decomposition-for-local-llms, parallel-tasks, periodic-architecture-revision, probabilistic-trust-model, protocol-replay-regression, prune-stale-documentation, rag-context-retrieval, sentinel-log-infrastructure, separate-arch-core-from-content, sprint-open-protocol, task-execution-plans, task-idea-metrics-context-price, task-template-linter, testing-guideline-expansion, typed-protocol-schema
 
 ## Current Sprint
 _No active sprint._
@@ -55,3 +55,22 @@ Evidence: arch exec exited with code 1
 
 ## [2026-05-06 11:38] ANDON_HALT | TASK-202
 Evidence: arch exec exited with code 1
+
+## [2026-05-06 14:00] REVIEW_REQUEST | TASK-202
+**Task:** TASK-202 — Escalation maturity Phase 1 - Level 3 Detectable
+**ACs:**
+- [x] `arch review` gains git diff parsing: flags commits that touch paths in protectedPaths without ADR → drift-checker.ts `checkEscalationMaturity` now calls `getChangedFilesInLastCommit()` and flags if protected paths touched without `docs/adr/` in same commit
+- [x] `arch review` flags tasks that have gone through REVIEW→READY→REVIEW cycle → existing content-based check retained + tests added
+- [x] `arch next` emits HALT when task cost exceeds budget → `SelectNextTask` now accepts `MuriConfig`, checks IN_PROGRESS task cost/steps against thresholds
+- [x] `arch review` passes → exit: 0 confirmed
+- [x] Tests pass → 155 tests all pass
+
+**Changed files:**
+- `cli/src/main/ts/domain/services/drift-checker.ts` — AC1+AC2: git diff check + tests
+- `cli/src/main/ts/application/use-cases/select-next-task.ts` — AC3: MuriConfig injection + budget halt
+- `cli/src/main/ts/application/commands/next-command.ts` — AC3: pass MuriConfig through
+- `cli/src/main/ts/index.ts` — AC3: read muri from config, inject into NextCommand
+- `cli/src/main/ts/application/use-cases/validate-task-acs.ts` — fix: prepend scripts/ to PATH for predicate runner
+- `scripts/arch` — new: wrapper executable for `arch` in predicate context
+- `cli/src/test/ts/drift-checker.test.ts` — 3 new EscalationMaturity tests
+- `cli/src/test/ts/select-next-task.test.ts` — 4 new budget_exceeded tests
