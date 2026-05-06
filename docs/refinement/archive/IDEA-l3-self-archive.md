@@ -2,7 +2,7 @@
 
 **Created:** 2026-05-06
 **Source:** Human — strategic analysis of ARCH operational friction
-**Status:** DRAFT
+**Status:** PROMOTED → TASK-208
 **Sessions:** 1
 
 ## Problem
