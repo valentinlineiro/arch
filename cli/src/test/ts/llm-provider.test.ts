@@ -82,3 +82,62 @@ test('BridgeProvider.parseMetadata - handles missing turns/cost gracefully', () 
   assert.equal(meta.cost, undefined);
   assert.equal(meta.latencyMs, 50);
 });
+
+import { NativeProvider, NativeConfig } from '../../main/ts/domain/services/native-provider.js';
+
+test('NativeProvider.buildRequestBody - formats messages correctly', () => {
+  const config: NativeConfig = {
+    name: 'ollama',
+    type: 'native',
+    endpoint: 'http://127.0.0.1:11434/v1',
+    apiKey: 'ollama',
+  };
+  const provider = new NativeProvider(config);
+  const body = provider.buildRequestBody({
+    model: 'llama3.2',
+    messages: [{ role: 'user', content: 'hello' }],
+  });
+  const parsed = JSON.parse(body);
+  assert.equal(parsed.model, 'llama3.2');
+  assert.equal(parsed.messages[0].role, 'user');
+  assert.equal(parsed.messages[0].content, 'hello');
+});
+
+test('NativeProvider.resolveApiKey - prefers apiKeyEnv over apiKey', () => {
+  process.env['TEST_API_KEY'] = 'env-key';
+  const config: NativeConfig = {
+    name: 'openrouter',
+    type: 'native',
+    endpoint: 'https://openrouter.ai/api/v1',
+    apiKey: 'fallback',
+    apiKeyEnv: 'TEST_API_KEY',
+  };
+  const provider = new NativeProvider(config);
+  assert.equal(provider.resolveApiKey(), 'env-key');
+  delete process.env['TEST_API_KEY'];
+});
+
+test('NativeProvider.resolveApiKey - falls back to apiKey when env unset', () => {
+  const config: NativeConfig = {
+    name: 'ollama',
+    type: 'native',
+    endpoint: 'http://127.0.0.1:11434/v1',
+    apiKey: 'ollama',
+  };
+  const provider = new NativeProvider(config);
+  assert.equal(provider.resolveApiKey(), 'ollama');
+});
+
+test('NativeProvider.parseResponse - extracts content and usage', () => {
+  const config: NativeConfig = { name: 'ollama', type: 'native', endpoint: '', apiKey: '' };
+  const provider = new NativeProvider(config);
+  const apiResp = {
+    choices: [{ message: { role: 'assistant', content: 'hello back' } }],
+    usage: { prompt_tokens: 10, completion_tokens: 5, total_tokens: 15 },
+  };
+  const result = provider.parseResponse(apiResp, 200);
+  assert.equal(result.content, 'hello back');
+  assert.equal(result.usage.promptTokens, 10);
+  assert.equal(result.usage.completionTokens, 5);
+  assert.equal(result.usage.latencyMs, 200);
+});
