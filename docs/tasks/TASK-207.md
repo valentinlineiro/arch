@@ -1,4 +1,4 @@
-## TASK-207: Implement SemanticACVerifier — LLM-based AC completion check
+## TASK-207: Implement SemanticACVerifier - LLM-based AC completion check
 **Meta:** P1 | M | READY | Focus:no | 2-code-generation | claude-code | cli/src/main/ts/domain/services/, cli/src/main/ts/application/commands/, cli/src/main/ts/application/use-cases/review-system.ts
 **Depends:** none
 

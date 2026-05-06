@@ -1,4 +1,4 @@
-## TASK-208: Implement L3 Self-Archive — audited autonomous task completion
+## TASK-208: Implement L3 Self-Archive - audited autonomous task completion
 **Meta:** P1 | M | READY | Focus:no | 2-code-generation | claude-code | docs/agents/DO.md, docs/AGENTS.md, docs/adr/, cli/src/main/ts/application/use-cases/mark-task-done.ts
 **Depends:** TASK-207
 
