@@ -26,8 +26,8 @@
       "cli/src/main/ts/domain/"
     ],
     "modelTiers": {
-      "XS": "qwen2.5-coder:7b",
-      "S": "qwen3:8b",
+      "XS": "qwen3:1.7b",
+      "S": "qwen2.5:7b-instruct-q2_K",
       "M": "claude-3-5-sonnet-20240620",
       "L": "claude-3-opus-20240229"
     }
@@ -61,6 +61,50 @@
       "name": "ollama",
       "bin": "curl",
       "template": "jq -Rs '{model: \"{model}\", prompt: ., stream: true, options: {num_ctx: 8192, num_predict: 4096, temperature: 0.1}}' {prompt_file} | curl -N -s -X POST http://127.0.0.1:11434/api/generate -d @- | jq -j --unbuffered .response"
+    }
+    ],
+    "providers": [
+    {
+      "name": "claude-code",
+      "type": "bridge",
+      "bin": "claude",
+      "template": "claude -p \"{prompt}\" --dangerously-skip-permissions"
+    },
+    {
+      "name": "gemini",
+      "type": "bridge",
+      "bin": "gemini",
+      "template": "gemini -p \"{prompt}\" -y"
+    },
+    {
+      "name": "codex",
+      "type": "bridge",
+      "bin": "codex",
+      "template": "codex \"{prompt}\""
+    },
+    {
+      "name": "opencode",
+      "type": "bridge",
+      "bin": "opencode",
+      "template": "opencode \"{prompt}\""
+    },
+    {
+      "name": "claude",
+      "type": "bridge",
+      "bin": "claude",
+      "template": "claude -p \"{prompt}\" --dangerously-skip-permissions"
+    },
+    {
+      "name": "ollama",
+      "type": "native",
+      "endpoint": "http://127.0.0.1:11434/v1",
+      "apiKey": "ollama"
+    },
+    {
+      "name": "openrouter",
+      "type": "native",
+      "endpoint": "https://openrouter.ai/api/v1",
+      "apiKeyEnv": "OPENROUTER_API_KEY"
     }
     ]
     }
