@@ -38,6 +38,7 @@ export class DriftChecker {
       this.checkHanseiPresent(),
       this.checkHaltPolicy(),
       this.checkEscalationMaturity(),
+      this.checkOrphanTasks(),
     ]);
   }
 
@@ -623,6 +624,61 @@ export class DriftChecker {
       status: details.length === 0 ? 'OK' : 'WARN',
       details,
     };
+  }
+
+  private async checkOrphanTasks(): Promise<DriftResult> {
+    const activeFiles = await this.getMarkdownFiles('docs/tasks');
+
+    interface TaskNode { id: string; status: string; dependsOn: string[] }
+    const tasks: TaskNode[] = [];
+
+    for (const file of activeFiles) {
+      const content = await this.fileSystem.readFile(`${this.rootPath}/docs/tasks/${file}`);
+      const id = file.replace('.md', '');
+      const metaMatch = content.match(/^\*\*Meta:\*\* .*/m);
+      const status = metaMatch ? metaMatch[0].split('|').map(s => s.trim())[2] : '';
+      const dependsMatch = content.match(/^\*\*Depends:\*\* (.*)/m);
+      const dependsOn = dependsMatch
+        ? dependsMatch[1].split(',').map(s => s.trim()).filter(s => s && s !== 'none')
+        : [];
+      tasks.push({ id, status, dependsOn });
+    }
+
+    const activeRootIds = new Set(
+      tasks.filter(t => t.status === 'READY' || t.status === 'IN_PROGRESS').map(t => t.id)
+    );
+
+    if (activeRootIds.size === 0) {
+      return { check: 'OrphanTasks', status: 'OK', details: [] };
+    }
+
+    // Build enables graph: dependency → [dependents that need it]
+    const enables = new Map<string, string[]>();
+    for (const task of tasks) {
+      for (const dep of task.dependsOn) {
+        if (!enables.has(dep)) enables.set(dep, []);
+        enables.get(dep)!.push(task.id);
+      }
+    }
+
+    // BFS from active roots following enables edges
+    const reachable = new Set<string>(activeRootIds);
+    const queue = [...activeRootIds];
+    while (queue.length > 0) {
+      const current = queue.shift()!;
+      for (const dependent of enables.get(current) ?? []) {
+        if (!reachable.has(dependent)) {
+          reachable.add(dependent);
+          queue.push(dependent);
+        }
+      }
+    }
+
+    const details = tasks
+      .filter(t => !reachable.has(t.id))
+      .map(t => `${t.id} is not reachable from any active node (orphan task).`);
+
+    return { check: 'OrphanTasks', status: details.length === 0 ? 'OK' : 'WARN', details };
   }
 
   private async getMarkdownFiles(dirPath: string): Promise<string[]> {

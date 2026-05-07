@@ -384,10 +384,93 @@ test('DriftChecker - HaltPolicy passes with valid files', async () => {
   const fs = makeBaseFs();
   fs.files['/repo/docs/HALT.md'] = '# Halt Conditions\n\n| Condition | Trigger command | CLI exit code | HALT-LOG entry format |\n|---|---|---|---|';
   fs.files['/repo/docs/HALT-LOG.md'] = '# Halt Log';
-  
+
   const checker = new DriftChecker(fs, new MockGitRepository(), '/repo', '0.2.0');
   const result = await checker.check();
   const check = result.find(r => r.check === 'HaltPolicy');
+
+  assert.ok(check);
+  assert.strictEqual(check?.status, 'OK');
+});
+
+// ─── OrphanTasks ─────────────────────────────────────────────────────────────
+
+test('OrphanTasks - OK when all tasks are in the active root set', async () => {
+  const fs = makeBaseFs();
+  fs.directories['/repo/docs/tasks'] = ['TASK-001.md', 'TASK-002.md'];
+  fs.files['/repo/docs/tasks/TASK-001.md'] =
+    '## TASK-001: A\n**Meta:** P1 | S | READY | Focus:yes | 2-code-generation | claude | none\n**Depends:** none';
+  fs.files['/repo/docs/tasks/TASK-002.md'] =
+    '## TASK-002: B\n**Meta:** P1 | S | IN_PROGRESS | Focus:no | 2-code-generation | claude | none\n**Depends:** none';
+
+  const checker = new DriftChecker(fs, new MockGitRepository(), '/repo', '0.2.0');
+  const result = await checker.check();
+  const check = result.find(r => r.check === 'OrphanTasks');
+
+  assert.ok(check);
+  assert.strictEqual(check?.status, 'OK');
+});
+
+test('OrphanTasks - OK when a downstream task is reachable from an active root', async () => {
+  const fs = makeBaseFs();
+  fs.directories['/repo/docs/tasks'] = ['TASK-001.md', 'TASK-002.md'];
+  fs.files['/repo/docs/tasks/TASK-001.md'] =
+    '## TASK-001: A\n**Meta:** P1 | S | READY | Focus:yes | 2-code-generation | claude | none\n**Depends:** none';
+  fs.files['/repo/docs/tasks/TASK-002.md'] =
+    '## TASK-002: B\n**Meta:** P2 | S | BLOCKED | Focus:no | 2-code-generation | claude | none\n**Depends:** TASK-001';
+
+  const checker = new DriftChecker(fs, new MockGitRepository(), '/repo', '0.2.0');
+  const result = await checker.check();
+  const check = result.find(r => r.check === 'OrphanTasks');
+
+  assert.ok(check);
+  assert.strictEqual(check?.status, 'OK');
+});
+
+test('OrphanTasks - OK for a transitive downstream chain from an active root', async () => {
+  const fs = makeBaseFs();
+  fs.directories['/repo/docs/tasks'] = ['TASK-001.md', 'TASK-002.md', 'TASK-003.md'];
+  fs.files['/repo/docs/tasks/TASK-001.md'] =
+    '## TASK-001: A\n**Meta:** P1 | S | READY | Focus:yes | 2-code-generation | claude | none\n**Depends:** none';
+  fs.files['/repo/docs/tasks/TASK-002.md'] =
+    '## TASK-002: B\n**Meta:** P2 | S | BLOCKED | Focus:no | 2-code-generation | claude | none\n**Depends:** TASK-001';
+  fs.files['/repo/docs/tasks/TASK-003.md'] =
+    '## TASK-003: C\n**Meta:** P3 | S | BLOCKED | Focus:no | 2-code-generation | claude | none\n**Depends:** TASK-002';
+
+  const checker = new DriftChecker(fs, new MockGitRepository(), '/repo', '0.2.0');
+  const result = await checker.check();
+  const check = result.find(r => r.check === 'OrphanTasks');
+
+  assert.ok(check);
+  assert.strictEqual(check?.status, 'OK');
+});
+
+test('OrphanTasks - WARN when a task is structurally disconnected from all active roots', async () => {
+  const fs = makeBaseFs();
+  fs.directories['/repo/docs/tasks'] = ['TASK-001.md', 'TASK-002.md'];
+  fs.files['/repo/docs/tasks/TASK-001.md'] =
+    '## TASK-001: A\n**Meta:** P1 | S | READY | Focus:yes | 2-code-generation | claude | none\n**Depends:** none';
+  fs.files['/repo/docs/tasks/TASK-002.md'] =
+    '## TASK-002: B\n**Meta:** P3 | S | BLOCKED | Focus:no | 2-code-generation | claude | none\n**Depends:** none';
+
+  const checker = new DriftChecker(fs, new MockGitRepository(), '/repo', '0.2.0');
+  const result = await checker.check();
+  const check = result.find(r => r.check === 'OrphanTasks');
+
+  assert.ok(check);
+  assert.strictEqual(check?.status, 'WARN');
+  assert.ok(check?.details.some(d => d.includes('TASK-002') && d.includes('orphan')));
+});
+
+test('OrphanTasks - OK when no active root set exists (empty system)', async () => {
+  const fs = makeBaseFs();
+  fs.directories['/repo/docs/tasks'] = ['TASK-001.md'];
+  fs.files['/repo/docs/tasks/TASK-001.md'] =
+    '## TASK-001: A\n**Meta:** P1 | S | BLOCKED | Focus:no | 2-code-generation | claude | none\n**Depends:** none';
+
+  const checker = new DriftChecker(fs, new MockGitRepository(), '/repo', '0.2.0');
+  const result = await checker.check();
+  const check = result.find(r => r.check === 'OrphanTasks');
 
   assert.ok(check);
   assert.strictEqual(check?.status, 'OK');
