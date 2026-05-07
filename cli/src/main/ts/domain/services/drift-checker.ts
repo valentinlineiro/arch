@@ -39,6 +39,7 @@ export class DriftChecker {
       this.checkHaltPolicy(),
       this.checkEscalationMaturity(),
       this.checkOrphanTasks(),
+      this.checkObsoleteGuidelines(),
     ]);
   }
 
@@ -678,6 +679,39 @@ export class DriftChecker {
       .map(t => `${t.id} is not reachable from any active node (orphan task).`);
 
     return { check: 'OrphanTasks', status: details.length === 0 ? 'OK' : 'WARN', details };
+  }
+
+  private async checkObsoleteGuidelines(): Promise<DriftResult> {
+    const guidelinesDir = `${this.rootPath}/docs/guidelines`;
+    if (!(await this.fileSystem.exists(guidelinesDir))) {
+      return { check: 'ObsoleteGuidelines', status: 'OK', details: [] };
+    }
+
+    const files = (await this.fileSystem.readDirectory(guidelinesDir)).filter(f => f.endsWith('.md'));
+    const details: string[] = [];
+
+    for (const file of files) {
+      const content = await this.fileSystem.readFile(`${guidelinesDir}/${file}`);
+      const refs = new Set<string>();
+
+      for (const match of content.matchAll(/`([a-zA-Z][a-zA-Z0-9/_\-\.]+\.[a-zA-Z]{1,5})`/g)) {
+        refs.add(match[1]);
+      }
+      for (const match of content.matchAll(/`(docs\/[a-zA-Z0-9/_\-\.]*)`/g)) {
+        refs.add(match[1]);
+      }
+
+      for (const ref of refs) {
+        if (ref.includes('*')) continue;
+        const normalizedRef = ref.replace(/\/$/, '');
+        const exists = await this.fileSystem.exists(`${this.rootPath}/${normalizedRef}`);
+        if (!exists) {
+          details.push(`docs/guidelines/${file}: dead reference '${ref}'`);
+        }
+      }
+    }
+
+    return { check: 'ObsoleteGuidelines', status: details.length === 0 ? 'OK' : 'WARN', details };
   }
 
   private async getMarkdownFiles(dirPath: string): Promise<string[]> {

@@ -491,3 +491,59 @@ test('OrphanTasks - OK when a REVIEW task exists alongside active roots', async 
   assert.ok(check);
   assert.strictEqual(check?.status, 'OK');
 });
+
+// ─── ObsoleteGuidelines ───────────────────────────────────────────────────────
+
+test('ObsoleteGuidelines - OK when all referenced paths exist', async () => {
+  const fs = makeBaseFs();
+  fs.directories['/repo/docs/guidelines'] = ['core.md'];
+  fs.files['/repo/docs/guidelines/core.md'] = 'See `docs/tasks/` for task files.';
+  fs.directories['/repo/docs/tasks'] = [];
+
+  const checker = new DriftChecker(fs, new MockGitRepository(), '/repo', '0.2.0');
+  const result = await checker.check();
+  const check = result.find(r => r.check === 'ObsoleteGuidelines');
+
+  assert.ok(check);
+  assert.strictEqual(check?.status, 'OK');
+});
+
+test('ObsoleteGuidelines - WARN when a guideline references a dead path', async () => {
+  const fs = makeBaseFs();
+  fs.directories['/repo/docs/guidelines'] = ['core.md'];
+  fs.files['/repo/docs/guidelines/core.md'] = 'Old rule: use `docs/sprint/` folder.';
+  // docs/sprint/ does NOT exist in the mock fs
+
+  const checker = new DriftChecker(fs, new MockGitRepository(), '/repo', '0.2.0');
+  const result = await checker.check();
+  const check = result.find(r => r.check === 'ObsoleteGuidelines');
+
+  assert.ok(check);
+  assert.strictEqual(check?.status, 'WARN');
+  assert.ok(check?.details.some(d => d.includes('core.md') && d.includes("docs/sprint/")));
+});
+
+test('ObsoleteGuidelines - OK when guidelines directory does not exist', async () => {
+  const fs = makeBaseFs();
+  // No docs/guidelines directory at all
+
+  const checker = new DriftChecker(fs, new MockGitRepository(), '/repo', '0.2.0');
+  const result = await checker.check();
+  const check = result.find(r => r.check === 'ObsoleteGuidelines');
+
+  assert.ok(check);
+  assert.strictEqual(check?.status, 'OK');
+});
+
+test('ObsoleteGuidelines - skips glob patterns (paths with *)', async () => {
+  const fs = makeBaseFs();
+  fs.directories['/repo/docs/guidelines'] = ['core.md'];
+  fs.files['/repo/docs/guidelines/core.md'] = 'Files matching `docs/tasks/*.md` are task files.';
+
+  const checker = new DriftChecker(fs, new MockGitRepository(), '/repo', '0.2.0');
+  const result = await checker.check();
+  const check = result.find(r => r.check === 'ObsoleteGuidelines');
+
+  assert.ok(check);
+  assert.strictEqual(check?.status, 'OK');
+});
