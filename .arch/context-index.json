@@ -1,0 +1,2373 @@
+{
+  "version": 1,
+  "builtAt": "2026-05-07T11:16:21.976Z",
+  "files": {
+    "cli/src/main/ts/application/commands/batch-command.ts": {
+      "symbols": [
+        "BatchCommand"
+      ],
+      "imports": [
+        "cli/src/main/ts/application/use-cases/batch-system.ts",
+        "cli/src/main/ts/domain/repositories/file-system.ts"
+      ],
+      "tags": [
+        "application",
+        "commands",
+        "batch",
+        "command"
+      ],
+      "criticality": "domain",
+      "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/application/commands/capture-command.ts": {
+      "symbols": [
+        "CaptureCommand"
+      ],
+      "imports": [
+        "cli/src/main/ts/application/use-cases/capture-intent.ts"
+      ],
+      "tags": [
+        "application",
+        "commands",
+        "capture",
+        "command"
+      ],
+      "criticality": "domain",
+      "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/application/commands/conduct-command.ts": {
+      "symbols": [
+        "ConductCommand"
+      ],
+      "imports": [],
+      "tags": [
+        "application",
+        "commands",
+        "conduct",
+        "command"
+      ],
+      "criticality": "domain",
+      "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/application/commands/exec-command.ts": {
+      "symbols": [
+        "ExecCommand"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/repositories/task-repository.ts",
+        "cli/src/main/ts/domain/repositories/file-system.ts",
+        "cli/src/main/ts/domain/models/task.ts",
+        "cli/src/main/ts/domain/services/config-loader.ts",
+        "cli/src/main/ts/application/use-cases/batch-system.ts",
+        "cli/src/main/ts/domain/services/provider-registry.ts",
+        "cli/src/main/ts/domain/services/bridge-provider.ts"
+      ],
+      "tags": [
+        "application",
+        "commands",
+        "exec",
+        "command"
+      ],
+      "criticality": "domain",
+      "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/application/commands/govern-command.ts": {
+      "symbols": [
+        "GovernCommand"
+      ],
+      "imports": [
+        "cli/src/main/ts/application/use-cases/govern-system.ts",
+        "cli/src/main/ts/application/use-cases/build-index.ts",
+        "cli/src/main/ts/domain/services/config-loader.ts",
+        "cli/src/main/ts/domain/repositories/task-repository.ts",
+        "cli/src/main/ts/domain/repositories/git-repository.ts",
+        "cli/src/main/ts/domain/repositories/file-system.ts"
+      ],
+      "tags": [
+        "application",
+        "commands",
+        "govern",
+        "command"
+      ],
+      "criticality": "domain",
+      "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/application/commands/inbox-command.ts": {
+      "symbols": [
+        "InboxCommand"
+      ],
+      "imports": [
+        "cli/src/main/ts/application/use-cases/generate-inbox.ts",
+        "cli/src/main/ts/domain/repositories/task-repository.ts",
+        "cli/src/main/ts/domain/services/reviewer.ts",
+        "cli/src/main/ts/domain/services/drift-checker.ts",
+        "cli/src/main/ts/domain/repositories/file-system.ts",
+        "cli/src/main/ts/infrastructure/cli/output-formatter.ts"
+      ],
+      "tags": [
+        "application",
+        "commands",
+        "inbox",
+        "command"
+      ],
+      "criticality": "domain",
+      "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/application/commands/index-command.ts": {
+      "symbols": [
+        "IndexCommand"
+      ],
+      "imports": [
+        "cli/src/main/ts/application/use-cases/build-index.ts",
+        "cli/src/main/ts/domain/services/config-loader.ts",
+        "cli/src/main/ts/domain/repositories/file-system.ts"
+      ],
+      "tags": [
+        "application",
+        "commands",
+        "index",
+        "command"
+      ],
+      "criticality": "domain",
+      "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/application/commands/lint-command.ts": {
+      "symbols": [
+        "LintCommand"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/repositories/task-repository.ts",
+        "cli/src/main/ts/domain/services/task-validator.ts",
+        "cli/src/main/ts/infrastructure/cli/output-formatter.ts",
+        "cli/src/main/ts/domain/repositories/file-system.ts"
+      ],
+      "tags": [
+        "application",
+        "commands",
+        "lint",
+        "command"
+      ],
+      "criticality": "domain",
+      "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/application/commands/loop-command.ts": {
+      "symbols": [
+        "LoopCommand"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/repositories/task-repository.ts",
+        "cli/src/main/ts/domain/repositories/git-repository.ts",
+        "cli/src/main/ts/domain/repositories/file-system.ts",
+        "cli/src/main/ts/domain/services/reviewer.ts",
+        "cli/src/main/ts/domain/services/drift-checker.ts",
+        "cli/src/main/ts/application/use-cases/loop-engine.ts"
+      ],
+      "tags": [
+        "application",
+        "commands",
+        "loop",
+        "command"
+      ],
+      "criticality": "domain",
+      "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/application/commands/merge-resolve-command.ts": {
+      "symbols": [
+        "MergeResolveCommand"
+      ],
+      "imports": [
+        "cli/src/main/ts/application/use-cases/merge-resolve.ts",
+        "cli/src/main/ts/domain/repositories/git-repository.ts",
+        "cli/src/main/ts/domain/repositories/file-system.ts",
+        "cli/src/main/ts/domain/services/config-loader.ts"
+      ],
+      "tags": [
+        "application",
+        "commands",
+        "merge",
+        "resolve",
+        "command"
+      ],
+      "criticality": "domain",
+      "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/application/commands/move-command.ts": {
+      "symbols": [
+        "MoveCommand"
+      ],
+      "imports": [
+        "cli/src/main/ts/application/use-cases/move-artifact.ts",
+        "cli/src/main/ts/domain/repositories/task-repository.ts",
+        "cli/src/main/ts/domain/repositories/git-repository.ts",
+        "cli/src/main/ts/domain/repositories/file-system.ts",
+        "cli/src/main/ts/infrastructure/cli/output-formatter.ts"
+      ],
+      "tags": [
+        "application",
+        "commands",
+        "move",
+        "command"
+      ],
+      "criticality": "domain",
+      "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/application/commands/next-command.ts": {
+      "symbols": [
+        "NextCommand"
+      ],
+      "imports": [
+        "cli/src/main/ts/application/use-cases/select-next-task.ts",
+        "cli/src/main/ts/domain/repositories/task-repository.ts"
+      ],
+      "tags": [
+        "application",
+        "commands",
+        "next",
+        "command"
+      ],
+      "criticality": "domain",
+      "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/application/commands/promote-command.ts": {
+      "symbols": [
+        "PromoteCommand"
+      ],
+      "imports": [
+        "cli/src/main/ts/application/use-cases/promote-idea.ts",
+        "cli/src/main/ts/domain/repositories/task-repository.ts",
+        "cli/src/main/ts/domain/repositories/file-system.ts",
+        "cli/src/main/ts/domain/repositories/git-repository.ts",
+        "cli/src/main/ts/infrastructure/cli/output-formatter.ts"
+      ],
+      "tags": [
+        "application",
+        "commands",
+        "promote",
+        "command"
+      ],
+      "criticality": "domain",
+      "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/application/commands/rank-command.ts": {
+      "symbols": [
+        "RankCommand"
+      ],
+      "imports": [
+        "cli/src/main/ts/application/use-cases/rank-tasks.ts",
+        "cli/src/main/ts/domain/repositories/task-repository.ts"
+      ],
+      "tags": [
+        "application",
+        "commands",
+        "rank",
+        "command"
+      ],
+      "criticality": "domain",
+      "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/application/commands/review-command.ts": {
+      "symbols": [
+        "ReviewCommand"
+      ],
+      "imports": [
+        "cli/src/main/ts/application/use-cases/review-system.ts",
+        "cli/src/main/ts/domain/repositories/task-repository.ts",
+        "cli/src/main/ts/domain/repositories/git-repository.ts",
+        "cli/src/main/ts/domain/repositories/file-system.ts",
+        "cli/src/main/ts/domain/services/reviewer.ts",
+        "cli/src/main/ts/domain/services/drift-checker.ts",
+        "cli/src/main/ts/infrastructure/cli/output-formatter.ts"
+      ],
+      "tags": [
+        "application",
+        "commands",
+        "review",
+        "command"
+      ],
+      "criticality": "domain",
+      "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/application/commands/sandbox-command.ts": {
+      "symbols": [
+        "SandboxCommand"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/services/sandbox.ts",
+        "cli/src/main/ts/domain/repositories/task-repository.ts",
+        "cli/src/main/ts/domain/repositories/file-system.ts",
+        "cli/src/main/ts/infrastructure/cli/output-formatter.ts"
+      ],
+      "tags": [
+        "application",
+        "commands",
+        "sandbox",
+        "command"
+      ],
+      "criticality": "domain",
+      "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/application/commands/status-command.ts": {
+      "symbols": [
+        "StatusCommand"
+      ],
+      "imports": [
+        "cli/src/main/ts/application/use-cases/get-sprint-status.ts",
+        "cli/src/main/ts/domain/repositories/task-repository.ts",
+        "cli/src/main/ts/domain/repositories/file-system.ts",
+        "cli/src/main/ts/infrastructure/cli/output-formatter.ts"
+      ],
+      "tags": [
+        "application",
+        "commands",
+        "status",
+        "command"
+      ],
+      "criticality": "domain",
+      "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/application/commands/task-command.ts": {
+      "symbols": [
+        "TaskCommand"
+      ],
+      "imports": [
+        "cli/src/main/ts/application/use-cases/mark-task-in-progress.ts",
+        "cli/src/main/ts/application/use-cases/mark-task-done.ts",
+        "cli/src/main/ts/application/use-cases/mark-task-review.ts",
+        "cli/src/main/ts/application/use-cases/task-reject.ts",
+        "cli/src/main/ts/application/use-cases/task-reject-stale.ts",
+        "cli/src/main/ts/application/use-cases/update-task-metrics.ts",
+        "cli/src/main/ts/domain/services/human-coordination-service.ts",
+        "cli/src/main/ts/domain/repositories/task-repository.ts",
+        "cli/src/main/ts/domain/services/reviewer.ts",
+        "cli/src/main/ts/domain/repositories/file-system.ts",
+        "cli/src/main/ts/domain/models/event.ts",
+        "cli/src/main/ts/infrastructure/cli/output-formatter.ts"
+      ],
+      "tags": [
+        "application",
+        "commands",
+        "task",
+        "command"
+      ],
+      "criticality": "domain",
+      "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/application/commands/validate-command.ts": {
+      "symbols": [
+        "ValidateCommand"
+      ],
+      "imports": [
+        "cli/src/main/ts/application/use-cases/validate-system.ts",
+        "cli/src/main/ts/application/use-cases/validate-task-acs.ts",
+        "cli/src/main/ts/domain/repositories/task-repository.ts",
+        "cli/src/main/ts/domain/repositories/file-system.ts",
+        "cli/src/main/ts/infrastructure/cli/output-formatter.ts"
+      ],
+      "tags": [
+        "application",
+        "commands",
+        "validate",
+        "command"
+      ],
+      "criticality": "domain",
+      "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/application/commands/version-command.ts": {
+      "symbols": [
+        "VersionCommand"
+      ],
+      "imports": [
+        "cli/src/main/ts/infrastructure/cli/output-formatter.ts"
+      ],
+      "tags": [
+        "application",
+        "commands",
+        "version",
+        "command"
+      ],
+      "criticality": "domain",
+      "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/application/use-cases/batch-system.ts": {
+      "symbols": [
+        "BatchSystem"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/repositories/file-system.ts",
+        "cli/src/main/ts/domain/models/batch-entry.ts"
+      ],
+      "tags": [
+        "application",
+        "cases",
+        "batch",
+        "system"
+      ],
+      "criticality": "domain",
+      "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/application/use-cases/build-index.ts": {
+      "symbols": [
+        "BuildIndex"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/repositories/file-system.ts",
+        "cli/src/main/ts/domain/models/context-index.ts"
+      ],
+      "tags": [
+        "application",
+        "cases",
+        "build",
+        "index"
+      ],
+      "criticality": "domain",
+      "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/application/use-cases/capture-intent.ts": {
+      "symbols": [
+        "CaptureIntent"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/repositories/intent-repository.ts",
+        "cli/src/main/ts/domain/repositories/git-repository.ts",
+        "cli/src/main/ts/domain/models/intent.ts"
+      ],
+      "tags": [
+        "application",
+        "cases",
+        "capture",
+        "intent"
+      ],
+      "criticality": "domain",
+      "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/application/use-cases/context-inference.ts": {
+      "symbols": [
+        "ScoredFile",
+        "ScoredAdr",
+        "ScoredGuideline",
+        "ContextResult",
+        "ContextInference"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/repositories/file-system.ts",
+        "cli/src/main/ts/domain/models/context-index.ts"
+      ],
+      "tags": [
+        "application",
+        "cases",
+        "context",
+        "inference",
+        "scored",
+        "file",
+        "guideline",
+        "result"
+      ],
+      "criticality": "domain",
+      "runtimeUsage": "cold"
+    },
+    "cli/src/main/ts/application/use-cases/generate-inbox.ts": {
+      "symbols": [
+        "InboxData",
+        "GenerateInbox"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/repositories/task-repository.ts",
+        "cli/src/main/ts/domain/repositories/file-system.ts",
+        "cli/src/main/ts/domain/models/task.ts",
+        "cli/src/main/ts/domain/services/reviewer.ts",
+        "cli/src/main/ts/domain/services/drift-checker.ts"
+      ],
+      "tags": [
+        "application",
+        "cases",
+        "generate",
+        "inbox",
+        "data"
+      ],
+      "criticality": "domain",
+      "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/application/use-cases/get-sprint-status.ts": {
+      "symbols": [
+        "GetSprintStatus"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/repositories/task-repository.ts",
+        "cli/src/main/ts/domain/models/task.ts",
+        "cli/src/main/ts/domain/repositories/file-system.ts"
+      ],
+      "tags": [
+        "application",
+        "cases",
+        "sprint",
+        "status"
+      ],
+      "criticality": "domain",
+      "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/application/use-cases/govern-system.ts": {
+      "symbols": [
+        "GovernSystem"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/repositories/task-repository.ts",
+        "cli/src/main/ts/domain/repositories/git-repository.ts",
+        "cli/src/main/ts/domain/repositories/file-system.ts",
+        "cli/src/main/ts/domain/models/task.ts",
+        "cli/src/main/ts/application/use-cases/select-next-task.ts",
+        "cli/src/main/ts/application/use-cases/batch-system.ts",
+        "cli/src/main/ts/infrastructure/cli/subprocess-runner.ts",
+        "cli/src/main/ts/domain/services/config-loader.ts"
+      ],
+      "tags": [
+        "application",
+        "cases",
+        "govern",
+        "system"
+      ],
+      "criticality": "domain",
+      "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/application/use-cases/loop-engine.ts": {
+      "symbols": [
+        "LoopOptions",
+        "LoopEngine"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/repositories/task-repository.ts",
+        "cli/src/main/ts/domain/repositories/git-repository.ts",
+        "cli/src/main/ts/domain/repositories/file-system.ts",
+        "cli/src/main/ts/domain/services/reviewer.ts",
+        "cli/src/main/ts/domain/services/drift-checker.ts",
+        "cli/src/main/ts/domain/models/task.ts",
+        "cli/src/main/ts/application/use-cases/select-next-task.ts",
+        "cli/src/main/ts/application/use-cases/govern-system.ts",
+        "cli/src/main/ts/application/use-cases/review-system.ts",
+        "cli/src/main/ts/application/use-cases/mark-task-done.ts",
+        "cli/src/main/ts/infrastructure/cli/subprocess-runner.ts",
+        "cli/src/main/ts/domain/services/config-loader.ts",
+        "cli/src/main/ts/domain/services/provider-registry.ts",
+        "cli/src/main/ts/domain/services/bridge-provider.ts"
+      ],
+      "tags": [
+        "application",
+        "cases",
+        "loop",
+        "engine",
+        "options"
+      ],
+      "criticality": "domain",
+      "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/application/use-cases/mark-task-done.ts": {
+      "symbols": [
+        "MarkTaskDone"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/repositories/task-repository.ts",
+        "cli/src/main/ts/domain/models/task.ts",
+        "cli/src/main/ts/domain/services/reviewer.ts",
+        "cli/src/main/ts/domain/repositories/file-system.ts",
+        "cli/src/main/ts/domain/models/event.ts"
+      ],
+      "tags": [
+        "application",
+        "cases",
+        "mark",
+        "task",
+        "done"
+      ],
+      "criticality": "domain",
+      "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/application/use-cases/mark-task-in-progress.ts": {
+      "symbols": [
+        "MarkTaskInProgress"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/repositories/task-repository.ts",
+        "cli/src/main/ts/domain/models/task.ts",
+        "cli/src/main/ts/domain/models/event.ts"
+      ],
+      "tags": [
+        "application",
+        "cases",
+        "mark",
+        "task",
+        "progress"
+      ],
+      "criticality": "domain",
+      "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/application/use-cases/mark-task-review.ts": {
+      "symbols": [
+        "MarkTaskReview"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/repositories/task-repository.ts",
+        "cli/src/main/ts/domain/models/task.ts",
+        "cli/src/main/ts/application/use-cases/validate-task-acs.ts"
+      ],
+      "tags": [
+        "application",
+        "cases",
+        "mark",
+        "task",
+        "review"
+      ],
+      "criticality": "domain",
+      "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/application/use-cases/merge-resolve.ts": {
+      "symbols": [
+        "MergeResolve"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/repositories/git-repository.ts",
+        "cli/src/main/ts/domain/repositories/file-system.ts"
+      ],
+      "tags": [
+        "application",
+        "cases",
+        "merge",
+        "resolve"
+      ],
+      "criticality": "domain",
+      "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/application/use-cases/move-artifact.ts": {
+      "symbols": [
+        "MoveArtifact"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/repositories/task-repository.ts",
+        "cli/src/main/ts/domain/repositories/git-repository.ts",
+        "cli/src/main/ts/domain/repositories/file-system.ts",
+        "cli/src/main/ts/infrastructure/cli/output-formatter.ts"
+      ],
+      "tags": [
+        "application",
+        "cases",
+        "move",
+        "artifact"
+      ],
+      "criticality": "domain",
+      "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/application/use-cases/promote-idea.ts": {
+      "symbols": [
+        "PromoteIdea"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/repositories/task-repository.ts",
+        "cli/src/main/ts/domain/repositories/file-system.ts",
+        "cli/src/main/ts/domain/repositories/git-repository.ts"
+      ],
+      "tags": [
+        "application",
+        "cases",
+        "promote",
+        "idea"
+      ],
+      "criticality": "domain",
+      "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/application/use-cases/rank-tasks.ts": {
+      "symbols": [
+        "RankTasks"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/repositories/task-repository.ts",
+        "cli/src/main/ts/domain/models/task.ts"
+      ],
+      "tags": [
+        "application",
+        "cases",
+        "rank",
+        "tasks"
+      ],
+      "criticality": "domain",
+      "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/application/use-cases/review-system.ts": {
+      "symbols": [
+        "ReviewSystem"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/repositories/task-repository.ts",
+        "cli/src/main/ts/domain/repositories/git-repository.ts",
+        "cli/src/main/ts/domain/repositories/file-system.ts",
+        "cli/src/main/ts/domain/services/reviewer.ts",
+        "cli/src/main/ts/domain/services/drift-checker.ts",
+        "cli/src/main/ts/domain/services/config-loader.ts"
+      ],
+      "tags": [
+        "application",
+        "cases",
+        "review",
+        "system"
+      ],
+      "criticality": "domain",
+      "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/application/use-cases/select-next-task.ts": {
+      "symbols": [
+        "MuriThreshold",
+        "MuriConfig",
+        "HaltReason",
+        "SelectNextResult",
+        "SelectNextTask"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/repositories/task-repository.ts",
+        "cli/src/main/ts/domain/models/task.ts"
+      ],
+      "tags": [
+        "application",
+        "cases",
+        "select",
+        "next",
+        "task",
+        "muri",
+        "threshold",
+        "config",
+        "halt",
+        "reason",
+        "result"
+      ],
+      "criticality": "domain",
+      "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/application/use-cases/task-reject-stale.ts": {
+      "symbols": [
+        "RejectStaleTask"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/models/task.ts",
+        "cli/src/main/ts/domain/repositories/task-repository.ts"
+      ],
+      "tags": [
+        "application",
+        "cases",
+        "task",
+        "reject",
+        "stale"
+      ],
+      "criticality": "domain",
+      "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/application/use-cases/task-reject.ts": {
+      "symbols": [
+        "RejectTask"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/models/task.ts",
+        "cli/src/main/ts/domain/repositories/task-repository.ts"
+      ],
+      "tags": [
+        "application",
+        "cases",
+        "task",
+        "reject"
+      ],
+      "criticality": "domain",
+      "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/application/use-cases/update-task-metrics.ts": {
+      "symbols": [
+        "UpdateTaskMetrics"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/repositories/task-repository.ts"
+      ],
+      "tags": [
+        "application",
+        "cases",
+        "update",
+        "task",
+        "metrics"
+      ],
+      "criticality": "domain",
+      "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/application/use-cases/validate-system.ts": {
+      "symbols": [
+        "ValidationResult",
+        "ValidateSystem"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/repositories/task-repository.ts",
+        "cli/src/main/ts/domain/services/task-validator.ts",
+        "cli/src/main/ts/domain/repositories/file-system.ts"
+      ],
+      "tags": [
+        "application",
+        "cases",
+        "validate",
+        "system",
+        "validation",
+        "result"
+      ],
+      "criticality": "domain",
+      "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/application/use-cases/validate-task-acs.ts": {
+      "symbols": [
+        "PredicateType",
+        "AcPredicateResult",
+        "ValidateAcsResult",
+        "ValidateTaskAcs"
+      ],
+      "imports": [],
+      "tags": [
+        "application",
+        "cases",
+        "validate",
+        "task",
+        "predicate",
+        "type",
+        "result"
+      ],
+      "criticality": "domain",
+      "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/domain/models/batch-entry.ts": {
+      "symbols": [
+        "BatchStatus",
+        "BatchEntry"
+      ],
+      "imports": [],
+      "tags": [
+        "domain",
+        "models",
+        "batch",
+        "entry",
+        "status"
+      ],
+      "criticality": "core",
+      "runtimeUsage": "warm"
+    },
+    "cli/src/main/ts/domain/models/context-index.ts": {
+      "symbols": [
+        "FileEntry",
+        "AdrEntry",
+        "GuidelineEntry",
+        "ContextIndex"
+      ],
+      "imports": [],
+      "tags": [
+        "domain",
+        "models",
+        "context",
+        "index",
+        "file",
+        "entry",
+        "guideline"
+      ],
+      "criticality": "core",
+      "runtimeUsage": "warm"
+    },
+    "cli/src/main/ts/domain/models/event.ts": {
+      "symbols": [
+        "ArchEvent",
+        "EventRepository"
+      ],
+      "imports": [],
+      "tags": [
+        "domain",
+        "models",
+        "event",
+        "arch",
+        "repository"
+      ],
+      "criticality": "core",
+      "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/domain/models/intent.ts": {
+      "symbols": [
+        "IntentStatus",
+        "IntentOrigin",
+        "Intent"
+      ],
+      "imports": [],
+      "tags": [
+        "domain",
+        "models",
+        "intent",
+        "status",
+        "origin"
+      ],
+      "criticality": "core",
+      "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/domain/models/task.ts": {
+      "symbols": [
+        "TaskStatus",
+        "AcceptanceCriterion",
+        "Task"
+      ],
+      "imports": [],
+      "tags": [
+        "domain",
+        "models",
+        "task",
+        "status",
+        "acceptance",
+        "criterion"
+      ],
+      "criticality": "core",
+      "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/domain/repositories/file-system.ts": {
+      "symbols": [
+        "FileSystem"
+      ],
+      "imports": [],
+      "tags": [
+        "domain",
+        "repositories",
+        "file",
+        "system"
+      ],
+      "criticality": "core",
+      "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/domain/repositories/git-repository.ts": {
+      "symbols": [
+        "GitRepository"
+      ],
+      "imports": [],
+      "tags": [
+        "domain",
+        "repositories",
+        "repository"
+      ],
+      "criticality": "core",
+      "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/domain/repositories/intent-repository.ts": {
+      "symbols": [
+        "IntentRepository"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/models/intent.ts"
+      ],
+      "tags": [
+        "domain",
+        "repositories",
+        "intent",
+        "repository"
+      ],
+      "criticality": "core",
+      "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/domain/repositories/task-repository.ts": {
+      "symbols": [
+        "TaskRepository"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/models/task.ts"
+      ],
+      "tags": [
+        "domain",
+        "repositories",
+        "task",
+        "repository"
+      ],
+      "criticality": "core",
+      "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/domain/services/bridge-provider.ts": {
+      "symbols": [
+        "BridgeConfig",
+        "BridgeProvider"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/services/llm-provider.ts"
+      ],
+      "tags": [
+        "domain",
+        "services",
+        "bridge",
+        "provider",
+        "config"
+      ],
+      "criticality": "core",
+      "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/domain/services/config-loader.ts": {
+      "symbols": [
+        "ConfigLoader"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/repositories/file-system.ts"
+      ],
+      "tags": [
+        "domain",
+        "services",
+        "config",
+        "loader"
+      ],
+      "criticality": "core",
+      "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/domain/services/drift-checker.ts": {
+      "symbols": [
+        "DriftResult",
+        "DriftChecker"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/repositories/file-system.ts",
+        "cli/src/main/ts/domain/repositories/git-repository.ts"
+      ],
+      "tags": [
+        "domain",
+        "services",
+        "drift",
+        "checker",
+        "result"
+      ],
+      "criticality": "core",
+      "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/domain/services/human-coordination-service.ts": {
+      "symbols": [
+        "HumanCoordinationService"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/repositories/task-repository.ts",
+        "cli/src/main/ts/domain/repositories/git-repository.ts",
+        "cli/src/main/ts/domain/models/task.ts"
+      ],
+      "tags": [
+        "domain",
+        "services",
+        "human",
+        "coordination",
+        "service"
+      ],
+      "criticality": "core",
+      "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/domain/services/llm-provider.ts": {
+      "symbols": [
+        "ChatMessage",
+        "ChatRequest",
+        "UsageMetadata",
+        "ChatResponse",
+        "LLMProvider"
+      ],
+      "imports": [],
+      "tags": [
+        "domain",
+        "services",
+        "provider",
+        "chat",
+        "message",
+        "request",
+        "usage",
+        "metadata",
+        "response"
+      ],
+      "criticality": "core",
+      "runtimeUsage": "warm"
+    },
+    "cli/src/main/ts/domain/services/native-provider.ts": {
+      "symbols": [
+        "NativeConfig",
+        "NativeProvider"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/services/llm-provider.ts"
+      ],
+      "tags": [
+        "domain",
+        "services",
+        "native",
+        "provider",
+        "config"
+      ],
+      "criticality": "core",
+      "runtimeUsage": "warm"
+    },
+    "cli/src/main/ts/domain/services/provider-registry.ts": {
+      "symbols": [
+        "ResolveResult",
+        "ProviderRegistry"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/services/bridge-provider.ts",
+        "cli/src/main/ts/domain/services/native-provider.ts",
+        "cli/src/main/ts/domain/services/llm-provider.ts"
+      ],
+      "tags": [
+        "domain",
+        "services",
+        "provider",
+        "registry",
+        "resolve",
+        "result"
+      ],
+      "criticality": "core",
+      "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/domain/services/reviewer.ts": {
+      "symbols": [
+        "ReviewResult",
+        "Reviewer"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/models/task.ts",
+        "cli/src/main/ts/domain/services/task-validator.ts"
+      ],
+      "tags": [
+        "domain",
+        "services",
+        "reviewer",
+        "review",
+        "result"
+      ],
+      "criticality": "core",
+      "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/domain/services/sandbox.ts": {
+      "symbols": [
+        "SandboxOptions",
+        "SandboxResult",
+        "SandboxService"
+      ],
+      "imports": [],
+      "tags": [
+        "domain",
+        "services",
+        "sandbox",
+        "options",
+        "result",
+        "service"
+      ],
+      "criticality": "core",
+      "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/domain/services/task-validator.ts": {
+      "symbols": [
+        "TaskValidator"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/models/task.ts"
+      ],
+      "tags": [
+        "domain",
+        "services",
+        "task",
+        "validator"
+      ],
+      "criticality": "core",
+      "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/domain/task.ts": {
+      "symbols": [
+        "TaskStatus",
+        "Task",
+        "TaskRepository"
+      ],
+      "imports": [],
+      "tags": [
+        "domain",
+        "task",
+        "status",
+        "repository"
+      ],
+      "criticality": "core",
+      "runtimeUsage": "cold"
+    },
+    "cli/src/main/ts/index.ts": {
+      "symbols": [],
+      "imports": [
+        "cli/src/main/ts/infrastructure/filesystem/node-file-system.ts",
+        "cli/src/main/ts/infrastructure/filesystem/markdown-task-repository.ts",
+        "cli/src/main/ts/infrastructure/cli/git-cli.ts",
+        "cli/src/main/ts/domain/services/reviewer.ts",
+        "cli/src/main/ts/domain/services/drift-checker.ts",
+        "cli/src/main/ts/infrastructure/cli/command-parser.ts",
+        "cli/src/main/ts/application/commands/status-command.ts",
+        "cli/src/main/ts/application/commands/validate-command.ts",
+        "cli/src/main/ts/application/commands/review-command.ts",
+        "cli/src/main/ts/application/commands/task-command.ts",
+        "cli/src/main/ts/application/commands/inbox-command.ts",
+        "cli/src/main/ts/application/commands/next-command.ts",
+        "cli/src/main/ts/application/commands/version-command.ts",
+        "cli/src/main/ts/application/commands/govern-command.ts",
+        "cli/src/main/ts/application/commands/rank-command.ts",
+        "cli/src/main/ts/application/commands/batch-command.ts",
+        "cli/src/main/ts/application/commands/conduct-command.ts",
+        "cli/src/main/ts/application/commands/promote-command.ts",
+        "cli/src/main/ts/application/commands/loop-command.ts",
+        "cli/src/main/ts/application/commands/sandbox-command.ts",
+        "cli/src/main/ts/domain/services/sandbox.ts",
+        "cli/src/main/ts/domain/services/human-coordination-service.ts",
+        "cli/src/main/ts/application/commands/lint-command.ts",
+        "cli/src/main/ts/application/commands/move-command.ts",
+        "cli/src/main/ts/application/commands/exec-command.ts",
+        "cli/src/main/ts/application/commands/merge-resolve-command.ts",
+        "cli/src/main/ts/infrastructure/filesystem/markdown-intent-repository.ts",
+        "cli/src/main/ts/application/use-cases/capture-intent.ts",
+        "cli/src/main/ts/application/commands/capture-command.ts",
+        "cli/src/main/ts/application/commands/index-command.ts",
+        "cli/src/main/ts/infrastructure/filesystem/chronicle-event-repository.ts"
+      ],
+      "tags": [
+        "index"
+      ],
+      "criticality": "utility",
+      "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/infrastructure/cli/command-parser.ts": {
+      "symbols": [
+        "ParsedCommand",
+        "parseCommand"
+      ],
+      "imports": [],
+      "tags": [
+        "infrastructure",
+        "command",
+        "parser",
+        "parsed",
+        "parse"
+      ],
+      "criticality": "support",
+      "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/infrastructure/cli/git-cli.ts": {
+      "symbols": [
+        "GitCli"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/repositories/git-repository.ts",
+        "cli/src/main/ts/infrastructure/cli/subprocess-runner.ts"
+      ],
+      "tags": [
+        "infrastructure"
+      ],
+      "criticality": "support",
+      "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/infrastructure/cli/output-formatter.ts": {
+      "symbols": [
+        "ok",
+        "fail",
+        "warn",
+        "info",
+        "arrow",
+        "check",
+        "driftIcon",
+        "header"
+      ],
+      "imports": [],
+      "tags": [
+        "infrastructure",
+        "output",
+        "formatter",
+        "fail",
+        "warn",
+        "info",
+        "arrow",
+        "check",
+        "drift",
+        "icon",
+        "header"
+      ],
+      "criticality": "support",
+      "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/infrastructure/cli/subprocess-runner.ts": {
+      "symbols": [
+        "SubprocessResult",
+        "SubprocessRunner"
+      ],
+      "imports": [],
+      "tags": [
+        "infrastructure",
+        "subprocess",
+        "runner",
+        "result"
+      ],
+      "criticality": "support",
+      "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/infrastructure/filesystem/chronicle-event-repository.ts": {
+      "symbols": [
+        "ChronicleEventRepository"
+      ],
+      "imports": [
+        "cli/src/main/ts/infrastructure/models/event.ts",
+        "cli/src/main/ts/infrastructure/repositories/file-system.ts"
+      ],
+      "tags": [
+        "infrastructure",
+        "filesystem",
+        "chronicle",
+        "event",
+        "repository"
+      ],
+      "criticality": "support",
+      "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/infrastructure/filesystem/markdown-intent-repository.ts": {
+      "symbols": [
+        "MarkdownIntentRepository"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/repositories/file-system.ts",
+        "cli/src/main/ts/domain/models/intent.ts",
+        "cli/src/main/ts/domain/repositories/intent-repository.ts"
+      ],
+      "tags": [
+        "infrastructure",
+        "filesystem",
+        "markdown",
+        "intent",
+        "repository"
+      ],
+      "criticality": "support",
+      "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/infrastructure/filesystem/markdown-task-repository.ts": {
+      "symbols": [
+        "MarkdownTaskRepository"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/models/task.ts",
+        "cli/src/main/ts/domain/repositories/file-system.ts"
+      ],
+      "tags": [
+        "infrastructure",
+        "filesystem",
+        "markdown",
+        "task",
+        "repository"
+      ],
+      "criticality": "support",
+      "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/infrastructure/filesystem/node-file-system.ts": {
+      "symbols": [
+        "NodeFileSystem"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/repositories/file-system.ts"
+      ],
+      "tags": [
+        "infrastructure",
+        "filesystem",
+        "node",
+        "file",
+        "system"
+      ],
+      "criticality": "support",
+      "runtimeUsage": "hot"
+    }
+  },
+  "adrs": {
+    "ADR-000": {
+      "title": "",
+      "keywords": [
+        "adr",
+        "nnn",
+        "short",
+        "title",
+        "imperative",
+        "present",
+        "tense",
+        "date",
+        "yyyy",
+        "status",
+        "proposed",
+        "accepted",
+        "deprecated",
+        "superseded",
+        "deciders",
+        "names",
+        "roles",
+        "context",
+        "what",
+        "situation",
+        "requires",
+        "decision",
+        "keep",
+        "under",
+        "100",
+        "tokens",
+        "just",
+        "enough",
+        "understand",
+        "problem",
+        "decided",
+        "state",
+        "clearly",
+        "sentences",
+        "rationale",
+        "why",
+        "option",
+        "over",
+        "alternatives",
+        "list",
+        "key",
+        "trade",
+        "offs",
+        "considered",
+        "consequences",
+        "becomes",
+        "easier",
+        "harder",
+        "constraints",
+        "does",
+        "impose",
+        "future",
+        "work",
+        "positive",
+        "negative",
+        "once",
+        "permanent",
+        "reverse",
+        "create",
+        "supersedes",
+        "reference",
+        "tasks",
+        "need",
+        "read",
+        "final"
+      ],
+      "affectedModules": [],
+      "strength": "advisory"
+    },
+    "ADR-001": {
+      "title": "Use git as the primary state engine",
+      "keywords": [
+        "git",
+        "primary",
+        "state",
+        "engine",
+        "adr",
+        "001",
+        "date",
+        "2026",
+        "status",
+        "accepted",
+        "deciders",
+        "arch",
+        "maintainers",
+        "context",
+        "autonomous",
+        "agent",
+        "frameworks",
+        "often",
+        "struggle",
+        "synchronization",
+        "auditability",
+        "collaboration",
+        "between",
+        "human",
+        "non",
+        "actors",
+        "traditional",
+        "databases",
+        "introduce",
+        "overhead",
+        "proprietary",
+        "lock",
+        "decision",
+        "filesystem",
+        "operating",
+        "system",
+        "every",
+        "task",
+        "transition",
+        "architectural",
+        "change",
+        "protocol",
+        "update",
+        "must",
+        "committed",
+        "repository",
+        "rationale",
+        "native",
+        "log",
+        "provides",
+        "immutable",
+        "cryptographically",
+        "signed",
+        "history",
+        "actions",
+        "anti",
+        "collision",
+        "merge",
+        "mechanisms",
+        "prevent",
+        "agents",
+        "overwriting",
+        "other",
+        "work",
+        "blindly",
+        "universality",
+        "works",
+        "developer",
+        "machine",
+        "integrates",
+        "existing",
+        "requires",
+        "external",
+        "infrastructure",
+        "alternatives",
+        "considered",
+        "saas",
+        "notion",
+        "airtable",
+        "high",
+        "laten"
+      ],
+      "affectedModules": [],
+      "strength": "enforced"
+    },
+    "ADR-002": {
+      "title": "Context as a budget, not a default",
+      "keywords": [
+        "context",
+        "budget",
+        "default",
+        "adr",
+        "002",
+        "date",
+        "2026",
+        "status",
+        "accepted",
+        "deciders",
+        "arch",
+        "maintainers",
+        "llms",
+        "finite",
+        "windows",
+        "loading",
+        "entire",
+        "codebase",
+        "documentation",
+        "every",
+        "small",
+        "task",
+        "leads",
+        "rot",
+        "increased",
+        "latency",
+        "higher",
+        "costs",
+        "degraded",
+        "reasoning",
+        "performance",
+        "model",
+        "sifts",
+        "through",
+        "irrelevant",
+        "noise",
+        "decision",
+        "treat",
+        "scarce",
+        "resource",
+        "must",
+        "explicitly",
+        "declared",
+        "agents",
+        "strictly",
+        "prohibited",
+        "reading",
+        "files",
+        "listed",
+        "field",
+        "rationale",
+        "forcing",
+        "declaration",
+        "specific",
+        "dependencies",
+        "ensure",
+        "remain",
+        "focused",
+        "relevant",
+        "logic",
+        "prevents",
+        "everything",
+        "important",
+        "fallacy",
+        "keeps",
+        "token",
+        "usage",
+        "predictable",
+        "explicit",
+        "budgets",
+        "act",
+        "function",
+        "clean",
+        "architecture",
+        "modularity",
+        "consequences",
+        "positive",
+        "measured",
+        "reduction",
+        "typical",
+        "tasks",
+        "compared",
+        "full"
+      ],
+      "affectedModules": [],
+      "strength": "enforced"
+    },
+    "ADR-003": {
+      "title": "DISPATCH output is ephemeral — exception to ADR-001",
+      "keywords": [
+        "dispatch",
+        "output",
+        "ephemeral",
+        "exception",
+        "adr",
+        "001",
+        "003",
+        "date",
+        "2026",
+        "status",
+        "accepted",
+        "deciders",
+        "arch",
+        "maintainers",
+        "supersedes",
+        "none",
+        "related",
+        "git",
+        "primary",
+        "state",
+        "engine",
+        "context",
+        "establishes",
+        "filesystem",
+        "every",
+        "task",
+        "transition",
+        "must",
+        "committed",
+        "repository",
+        "conductor",
+        "agent",
+        "writes",
+        "recommendations",
+        "docs",
+        "commits",
+        "file",
+        "creates",
+        "persistent",
+        "auditable",
+        "record",
+        "also",
+        "introduces",
+        "friction",
+        "becomes",
+        "stale",
+        "moment",
+        "changes",
+        "requires",
+        "explicit",
+        "invalidation",
+        "protocols",
+        "017",
+        "duplicates",
+        "information",
+        "already",
+        "present",
+        "sprint",
+        "backlog",
+        "question",
+        "whether",
+        "carries",
+        "unique",
+        "derived",
+        "view",
+        "lives",
+        "elsewhere",
+        "decision",
+        "written",
+        "terminal",
+        "only",
+        "persisted",
+        "officially",
+        "deprecat"
+      ],
+      "affectedModules": [],
+      "strength": "enforced"
+    },
+    "ADR-004": {
+      "title": "Flat docs/tasks/ directory with Focus field replaces sprint/backlog split",
+      "keywords": [
+        "flat",
+        "docs",
+        "tasks",
+        "directory",
+        "focus",
+        "field",
+        "replaces",
+        "sprint",
+        "backlog",
+        "split",
+        "adr",
+        "004",
+        "date",
+        "2026",
+        "status",
+        "accepted",
+        "deciders",
+        "valent",
+        "eiro",
+        "context",
+        "arch",
+        "maintained",
+        "directories",
+        "separate",
+        "active",
+        "work",
+        "queued",
+        "continuous",
+        "kaizen",
+        "think",
+        "phase",
+        "bugs",
+        "going",
+        "directly",
+        "planning",
+        "becoming",
+        "hoc",
+        "boundary",
+        "collapsed",
+        "practice",
+        "human",
+        "routinely",
+        "moved",
+        "single",
+        "operation",
+        "model",
+        "created",
+        "duplication",
+        "risk",
+        "same",
+        "task",
+        "referenced",
+        "places",
+        "added",
+        "cognitive",
+        "overhead",
+        "every",
+        "decision",
+        "merge",
+        "into",
+        "add",
+        "yes",
+        "meta",
+        "line",
+        "distinguish",
+        "archive",
+        "remains",
+        "unchanged",
+        "rationale",
+        "source",
+        "truth",
+        "file"
+      ],
+      "affectedModules": [],
+      "strength": "enforced"
+    },
+    "ADR-005": {
+      "title": "Non-Docker Sandbox Strategy",
+      "keywords": [
+        "non",
+        "docker",
+        "sandbox",
+        "strategy",
+        "adr",
+        "005",
+        "status",
+        "proposed",
+        "context",
+        "executing",
+        "acceptance",
+        "criteria",
+        "acs",
+        "involve",
+        "shell",
+        "commands",
+        "scripts",
+        "poses",
+        "security",
+        "risk",
+        "while",
+        "initially",
+        "considered",
+        "deemed",
+        "too",
+        "heavy",
+        "potentially",
+        "portable",
+        "certain",
+        "environments",
+        "wsl",
+        "without",
+        "desktop",
+        "lightweight",
+        "runners",
+        "need",
+        "execute",
+        "code",
+        "safely",
+        "overhead",
+        "full",
+        "containerization",
+        "decision",
+        "implement",
+        "multi",
+        "layered",
+        "node",
+        "isolation",
+        "native",
+        "isolate",
+        "higher",
+        "required",
+        "javascript",
+        "based",
+        "logic",
+        "command",
+        "allowlist",
+        "only",
+        "permit",
+        "hardcoded",
+        "list",
+        "safe",
+        "test",
+        "grep",
+        "git",
+        "filesystem",
+        "guard",
+        "restrict",
+        "write",
+        "access",
+        "tmp",
+        "designated",
+        "ephemeral",
+        "directory",
+        "timeouts",
+        "enforce",
+        "strict",
+        "30s",
+        "timeout",
+        "executions",
+        "privilege",
+        "escalation",
+        "gate",
+        "requiring",
+        "network",
+        "acce"
+      ],
+      "affectedModules": [],
+      "strength": "advisory"
+    },
+    "ADR-006": {
+      "title": "Depends Graph Validation in DriftChecker Domain Service",
+      "keywords": [
+        "depends",
+        "graph",
+        "validation",
+        "driftchecker",
+        "domain",
+        "service",
+        "adr",
+        "006",
+        "date",
+        "2026",
+        "status",
+        "accepted",
+        "deciders",
+        "valent",
+        "eiro",
+        "context",
+        "fields",
+        "task",
+        "files",
+        "validated",
+        "could",
+        "reference",
+        "non",
+        "existent",
+        "form",
+        "cycle",
+        "silently",
+        "blocked",
+        "backlog",
+        "feedback",
+        "arch",
+        "review",
+        "decision",
+        "extend",
+        "dependsgraph",
+        "check",
+        "validates",
+        "references",
+        "exist",
+        "docs",
+        "tasks",
+        "archive",
+        "detects",
+        "circular",
+        "dependencies",
+        "active",
+        "rationale",
+        "already",
+        "owns",
+        "structural",
+        "natural",
+        "extension",
+        "responsibility",
+        "keeping",
+        "layer",
+        "keeps",
+        "testable",
+        "isolation",
+        "reusable",
+        "application",
+        "case",
+        "calls",
+        "alternatives",
+        "considered",
+        "separate",
+        "validator",
+        "script",
+        "increases",
+        "surface",
+        "area",
+        "cli",
+        "breaks",
+        "layering",
+        "harder",
+        "test",
+        "consequences"
+      ],
+      "affectedModules": [],
+      "strength": "enforced"
+    },
+    "ADR-007": {
+      "title": "Census Context Budget Check in DriftChecker",
+      "keywords": [
+        "census",
+        "context",
+        "budget",
+        "check",
+        "driftchecker",
+        "adr",
+        "007",
+        "date",
+        "2026",
+        "status",
+        "accepted",
+        "deciders",
+        "valent",
+        "eiro",
+        "002",
+        "establishes",
+        "core",
+        "principle",
+        "directories",
+        "consumed",
+        "llm",
+        "agent",
+        "finite",
+        "line",
+        "count",
+        "capacity",
+        "before",
+        "they",
+        "exceed",
+        "model",
+        "effective",
+        "window",
+        "there",
+        "currently",
+        "enforcement",
+        "mechanism",
+        "silently",
+        "grow",
+        "past",
+        "warning",
+        "until",
+        "task",
+        "fails",
+        "produces",
+        "degraded",
+        "output",
+        "decision",
+        "add",
+        "contextbudget",
+        "block",
+        "arch",
+        "config",
+        "json",
+        "mapping",
+        "directory",
+        "paths",
+        "thresholds",
+        "reads",
+        "those",
+        "counts",
+        "lines",
+        "across",
+        "files",
+        "configured",
+        "emits",
+        "warn",
+        "suggested",
+        "purge",
+        "refactor",
+        "action",
+        "when",
+        "threshold",
+        "exceeded",
+        "rationale",
+        "established",
+        "home",
+        "structural",
+        "health",
+        "checks",
+        "configuring",
+        "keeps"
+      ],
+      "affectedModules": [],
+      "strength": "enforced"
+    },
+    "ADR-008": {
+      "title": "Centralize halt conditions in HALT.md",
+      "keywords": [
+        "centralize",
+        "halt",
+        "conditions",
+        "adr",
+        "008",
+        "date",
+        "2026",
+        "status",
+        "accepted",
+        "deciders",
+        "valentin",
+        "lineiro",
+        "gemini",
+        "cli",
+        "context",
+        "previously",
+        "scattered",
+        "across",
+        "prose",
+        "making",
+        "difficult",
+        "models",
+        "especially",
+        "weaker",
+        "ones",
+        "consistently",
+        "identify",
+        "when",
+        "they",
+        "should",
+        "stop",
+        "execution",
+        "leading",
+        "undesirable",
+        "drift",
+        "decision",
+        "structured",
+        "table",
+        "within",
+        "docs",
+        "implement",
+        "haltpolicy",
+        "check",
+        "ensure",
+        "presence",
+        "structural",
+        "integrity",
+        "rationale",
+        "centralized",
+        "easier",
+        "llms",
+        "reference",
+        "than",
+        "documentation",
+        "ensures",
+        "safety",
+        "mechanism",
+        "accidentally",
+        "removed",
+        "corrupted",
+        "consequences",
+        "positive",
+        "improved",
+        "model",
+        "reliability",
+        "reduced",
+        "clear",
+        "machine",
+        "readable",
+        "triggers",
+        "exit",
+        "codes",
+        "negative",
+        "trade",
+        "offs",
+        "adds",
+        "another",
+        "file",
+        "maintain",
+        "arch",
+        "review",
+        "now",
+        "requires"
+      ],
+      "affectedModules": [],
+      "strength": "enforced"
+    },
+    "ADR-010": {
+      "title": "Escalation Maturity Phase 1 (Level 3 Detectable)",
+      "keywords": [
+        "escalation",
+        "maturity",
+        "phase",
+        "level",
+        "detectable",
+        "adr",
+        "010",
+        "date",
+        "2026",
+        "status",
+        "proposed",
+        "deciders",
+        "gemini",
+        "cli",
+        "context",
+        "arch",
+        "system",
+        "moves",
+        "toward",
+        "higher",
+        "autonomy",
+        "need",
+        "automated",
+        "guards",
+        "detect",
+        "when",
+        "agent",
+        "struggling",
+        "task",
+        "high",
+        "risk",
+        "protocol",
+        "being",
+        "violated",
+        "relying",
+        "human",
+        "auditors",
+        "every",
+        "step",
+        "bottleneck",
+        "judgment",
+        "alone",
+        "leads",
+        "drift",
+        "decision",
+        "implement",
+        "framework",
+        "muri",
+        "detection",
+        "next",
+        "halt",
+        "currently",
+        "progress",
+        "exceeds",
+        "size",
+        "based",
+        "budget",
+        "turns",
+        "cost",
+        "protected",
+        "path",
+        "enforcement",
+        "review",
+        "flag",
+        "modifications",
+        "protectedpaths",
+        "lack",
+        "corresponding",
+        "same",
+        "change",
+        "set",
+        "failure",
+        "tasks",
+        "been",
+        "rejected",
+        "returned",
+        "indicating",
+        "potential",
+        "struggle",
+        "misalignment",
+        "rationale",
+        "these",
+        "trigg"
+      ],
+      "affectedModules": [],
+      "strength": "advisory"
+    },
+    "ADR-011": {
+      "title": "Unified Provider Strategies",
+      "keywords": [
+        "unified",
+        "provider",
+        "strategies",
+        "adr",
+        "011",
+        "status",
+        "accepted",
+        "context",
+        "universal",
+        "llm",
+        "bridge",
+        "task",
+        "199",
+        "fallback",
+        "mechanism",
+        "211",
+        "implemented",
+        "configuration",
+        "logic",
+        "became",
+        "fragmented",
+        "invocation",
+        "controlled",
+        "separate",
+        "redundant",
+        "tables",
+        "arch",
+        "config",
+        "json",
+        "routing",
+        "mapped",
+        "class",
+        "preferred",
+        "modeltiers",
+        "size",
+        "specific",
+        "model",
+        "strings",
+        "fragmentation",
+        "led",
+        "bugs",
+        "global",
+        "names",
+        "leaking",
+        "across",
+        "providers",
+        "significant",
+        "redundancy",
+        "when",
+        "defining",
+        "chains",
+        "decision",
+        "consolidate",
+        "into",
+        "single",
+        "hierarchical",
+        "schema",
+        "name",
+        "identifier",
+        "default",
+        "key",
+        "changes",
+        "locality",
+        "array",
+        "now",
+        "defines",
+        "both",
+        "well"
+      ],
+      "affectedModules": [],
+      "strength": "enforced"
+    }
+  },
+  "guidelines": {
+    "testing-a-change.md": {
+      "tags": [
+        "testing",
+        "change"
+      ],
+      "taskClasses": [
+        "2-code-generation",
+        "7-operations"
+      ]
+    },
+    "versioning.md": {
+      "tags": [
+        "versioning"
+      ],
+      "taskClasses": [
+        "2-code-generation"
+      ]
+    },
+    "core.md": {
+      "tags": [
+        "core"
+      ],
+      "taskClasses": [
+        "2-code-generation",
+        "6-writing",
+        "7-operations"
+      ]
+    },
+    "models.md": {
+      "tags": [
+        "models"
+      ],
+      "taskClasses": [
+        "2-code-generation"
+      ]
+    },
+    "autonomy.md": {
+      "tags": [
+        "autonomy"
+      ],
+      "taskClasses": [
+        "7-operations"
+      ]
+    },
+    "bugs.md": {
+      "tags": [
+        "bugs"
+      ],
+      "taskClasses": [
+        "2-code-generation",
+        "7-operations"
+      ]
+    },
+    "resources.md": {
+      "tags": [
+        "resources"
+      ],
+      "taskClasses": [
+        "2-code-generation",
+        "7-operations"
+      ]
+    },
+    "documentation.md": {
+      "tags": [
+        "documentation"
+      ],
+      "taskClasses": [
+        "6-writing"
+      ]
+    }
+  }
+}
