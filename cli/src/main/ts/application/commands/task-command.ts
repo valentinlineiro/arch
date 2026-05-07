@@ -4,6 +4,7 @@ import { MarkTaskReview } from '../use-cases/mark-task-review.js';
 import { RejectTask } from '../use-cases/task-reject.js';
 import { RejectStaleTask } from '../use-cases/task-reject-stale.js';
 import { UpdateTaskMetrics } from '../use-cases/update-task-metrics.js';
+import { ContextInference } from '../use-cases/context-inference.js';
 import { HumanCoordinationService } from '../../domain/services/human-coordination-service.js';
 import type { TaskRepository } from '../../domain/repositories/task-repository.js';
 import { Reviewer } from '../../domain/services/reviewer.js';
@@ -23,7 +24,7 @@ export class TaskCommand {
     taskRepository: TaskRepository,
     reviewer: Reviewer,
     private humanCoordinationService: HumanCoordinationService,
-    fileSystem: FileSystem,
+    private fileSystem: FileSystem,
     rootPath: string,
     eventRepository?: EventRepository
   ) {
@@ -45,8 +46,14 @@ export class TaskCommand {
 
     if (subCommand === 'start' && taskId) {
       try {
-        await this.markInProgress.execute(taskId, 'cli');
+        const task = await this.markInProgress.execute(taskId, 'cli');
         fmt.arrow(`marking ${taskId} as IN_PROGRESS`);
+
+        try {
+          const taskText = `${task.title} ${task.content}`;
+          const inference = new ContextInference(this.fileSystem);
+          await inference.execute(taskId, taskText, task.class ?? '');
+        } catch { /* inference errors must never block task start */ }
       } catch (error: any) {
         fmt.fail(error.message);
         process.exit(1);

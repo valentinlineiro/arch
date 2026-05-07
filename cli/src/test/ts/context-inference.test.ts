@@ -203,3 +203,60 @@ test('ContextInference.execute() skips gracefully when index file does not exist
   );
   assert.ok(!fs.written['docs/tasks/TASK-001.md'], 'task file should NOT be modified when index absent');
 });
+
+import { TaskCommand } from '../../main/ts/application/commands/task-command.js';
+import { TaskStatus } from '../../main/ts/domain/models/task.js';
+
+class MockTaskRepositoryForIntegration {
+  private task = {
+    id: 'TASK-001',
+    title: 'Add capture intent for auth flow',
+    status: TaskStatus.READY,
+    class: '2-code-generation',
+    content: '## TASK-001: Add capture intent for auth flow\n**Meta:** P2 | S | READY | Focus:yes | 2-code-generation | claude-code | none\n\n### Acceptance Criteria\n- [ ] implement CaptureIntent\n',
+    rawMetaLine: '**Meta:** P2 | S | READY | Focus:yes | 2-code-generation | claude-code | none',
+    filePath: 'docs/tasks/TASK-001.md',
+    focus: true,
+    depends: [],
+    priority: 'P2',
+    size: 'S',
+    sprint: '',
+    cli: 'claude-code',
+    context: [],
+  };
+  async getById(id: string) { return id === 'TASK-001' ? { ...this.task } : null; }
+  async save(task: any) { this.task = task; }
+  async getAll() { return [this.task]; }
+  async getActive() { return [this.task]; }
+  async findReady() { return [this.task]; }
+  async getNextId() { return 'TASK-002'; }
+}
+
+class MockFileSystemForIntegration {
+  files: Record<string, string> = {};
+  written: Record<string, string> = {};
+
+  async readFile(path: string): Promise<string> {
+    if (path in this.files) return this.files[path];
+    throw new Error(`Not found: ${path}`);
+  }
+  async writeFile(path: string, content: string): Promise<void> { this.written[path] = content; }
+  async exists(path: string): Promise<boolean> { return path in this.files; }
+  async readDirectory(): Promise<string[]> { return []; }
+  async rename(): Promise<void> {}
+  async mkdir(): Promise<void> {}
+}
+
+test('TaskCommand start writes Relevant Context to task file when index exists', async () => {
+  const taskRepo = new MockTaskRepositoryForIntegration();
+  const fs = new MockFileSystemForIntegration();
+  fs.files['.arch/context-index.json'] = JSON.stringify(FIXTURE_INDEX);
+  fs.files['docs/tasks/TASK-001.md'] = '## TASK-001: Add capture intent for auth flow\n**Meta:** P2 | S | READY | Focus:yes | 2-code-generation | claude-code | none\n\n### Acceptance Criteria\n- [ ] implement CaptureIntent\n';
+
+  const command = new TaskCommand(taskRepo as any, {} as any, {} as any, fs as any, '.');
+  await command.execute(['start', 'TASK-001']);
+
+  const written = fs.written['docs/tasks/TASK-001.md'];
+  assert.ok(written, 'task file should be written with Relevant Context');
+  assert.ok(written.includes('### Relevant Context'), 'should include Relevant Context section');
+});
