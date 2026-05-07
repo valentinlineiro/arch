@@ -162,6 +162,7 @@ Both phases produce IDEAs. This is intentional — they are distinct IDEA classe
 
 ## Extension Points
 
-- **Active Root Set**: when `docs/intents/` is introduced, CAPTURED and PROMOTED intent nodes extend the root set as the true causal origin of the system.
+- **Active Root Set → INTENT-centric model**: the current root set is execution-centric (READY/IN_PROGRESS tasks). When `docs/intents/` is introduced with CAPTURED/PROMOTED statuses, those nodes become the true causal origin. This is a paradigm shift — the system moves from "what is currently executing" to "what is currently intended." Plan this transition deliberately; it changes the semantics of every orphan result.
 - **checkUnappliedADRs**: include IDEA files in the search target when intents are formalized.
-- **Phase 3.5 IDEA classes**: formalize a `Source:` tag to distinguish task-oriented vs. system-oriented IDEAs.
+- **Phase 3.5 IDEA source typing**: Phase 3 produces task-oriented IDEAs; Phase 3.5 produces system-oriented IDEAs. When the IDEA volume scales, add a `Source: phase-3 | phase-3.5` field to `IDEA-*.md` files so the system knows why each IDEA exists. Without this, the refinement queue loses provenance.
+- **Phase 3.5 scope control**: Phase 3.5 is a global observer layer. It will tend to grow if not constrained. Consider a max-output rule (e.g., at most 3 new IDEAs per THINK run from Phase 3.5) to prevent it from flooding the refinement queue.
