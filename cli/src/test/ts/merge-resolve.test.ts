@@ -32,6 +32,9 @@ class MockGitRepository implements GitRepository {
   async getMergeCommits() { return []; }
   async rm() {}
   async mv() {}
+  async getStagedFiles() { return []; }
+  async getModifiedFiles() { return []; }
+  async getRepoRoot() { return ''; }
 }
 
 test('MergeResolve - auto-resolves pure-append on INBOX.md with chronological sorting', async () => {

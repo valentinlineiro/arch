@@ -70,4 +70,21 @@ export class GitCli implements GitRepository {
     const { stdout } = await SubprocessRunner.runWithOutput('git', ['rev-list', '--merges', `HEAD~${limit}..HEAD`]);
     return stdout.split('\n').map(line => line.trim()).filter(Boolean);
   }
+
+  async getStagedFiles(): Promise<string[]> {
+    const { stdout, code } = await SubprocessRunner.runWithOutput('git', ['diff', '--cached', '--name-only']);
+    if (code !== 0) return [];
+    return stdout.split('\n').map(s => s.trim()).filter(Boolean);
+  }
+
+  async getModifiedFiles(): Promise<string[]> {
+    const { stdout, code } = await SubprocessRunner.runWithOutput('git', ['diff', '--name-only']);
+    if (code !== 0) return [];
+    return stdout.split('\n').map(s => s.trim()).filter(Boolean);
+  }
+
+  async getRepoRoot(): Promise<string> {
+    const { stdout } = await SubprocessRunner.runWithOutput('git', ['rev-parse', '--show-toplevel']);
+    return stdout.trim();
+  }
 }

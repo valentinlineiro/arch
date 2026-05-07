@@ -35,6 +35,9 @@ class MockGitRepository implements GitRepository {
   async getMergeCommits() { return []; }
   async rm() {}
   async mv() {}
+  async getStagedFiles() { return []; }
+  async getModifiedFiles() { return []; }
+  async getRepoRoot() { return ''; }
 }
 
 test('DriftChecker - reports dirty worktree tracked deletions and runtime artifacts', async () => {

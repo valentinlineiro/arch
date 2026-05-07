@@ -11,4 +11,7 @@ export interface GitRepository {
   getFileLastModifiedDate(path: string): Promise<Date | null>;
   getChangedFilesInLastCommit(): Promise<string[]>;
   getMergeCommits(limit: number): Promise<string[]>;
+  getStagedFiles(): Promise<string[]>;
+  getModifiedFiles(): Promise<string[]>;
+  getRepoRoot(): Promise<string>;
 }
