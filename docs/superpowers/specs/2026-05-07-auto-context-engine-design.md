@@ -122,7 +122,7 @@ For non-TypeScript files (`.md`, `.json`), symbol/import extraction is skipped; 
    `confidence = (overlap_density × 0.4) + (adr_strength_consistency × 0.35) + (graph_coherence × 0.25)`
    — where overlap density = matched keywords / total task keywords; adr_strength_consistency = fraction of top ADRs that are `enforced`; graph_coherence = fraction of top files that are mutually connected in the import graph.
 
-6. Write `### Relevant Context` to the task file (inserted after `### Context` or appended before `### Acceptance Criteria`).
+6. Write `### Relevant Context` to the task file: appended after the `### Context` section if present, otherwise inserted before `### Acceptance Criteria`.
 
 **Output format in task file:**
 
