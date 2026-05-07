@@ -475,3 +475,19 @@ test('OrphanTasks - OK when no active root set exists (empty system)', async () 
   assert.ok(check);
   assert.strictEqual(check?.status, 'OK');
 });
+
+test('OrphanTasks - OK when a REVIEW task exists alongside active roots', async () => {
+  const fs = makeBaseFs();
+  fs.directories['/repo/docs/tasks'] = ['TASK-001.md', 'TASK-002.md'];
+  fs.files['/repo/docs/tasks/TASK-001.md'] =
+    '## TASK-001: A\n**Meta:** P1 | S | READY | Focus:yes | 2-code-generation | claude | none\n**Depends:** none';
+  fs.files['/repo/docs/tasks/TASK-002.md'] =
+    '## TASK-002: B\n**Meta:** P1 | S | REVIEW | Focus:no | 2-code-generation | claude | none\n**Depends:** none';
+
+  const checker = new DriftChecker(fs, new MockGitRepository(), '/repo', '0.2.0');
+  const result = await checker.check();
+  const check = result.find(r => r.check === 'OrphanTasks');
+
+  assert.ok(check);
+  assert.strictEqual(check?.status, 'OK');
+});

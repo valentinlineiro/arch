@@ -629,8 +629,7 @@ export class DriftChecker {
   private async checkOrphanTasks(): Promise<DriftResult> {
     const activeFiles = await this.getMarkdownFiles('docs/tasks');
 
-    interface TaskNode { id: string; status: string; dependsOn: string[] }
-    const tasks: TaskNode[] = [];
+    const tasks: { id: string; status: string; dependsOn: string[] }[] = [];
 
     for (const file of activeFiles) {
       const content = await this.fileSystem.readFile(`${this.rootPath}/docs/tasks/${file}`);
@@ -645,7 +644,7 @@ export class DriftChecker {
     }
 
     const activeRootIds = new Set(
-      tasks.filter(t => t.status === 'READY' || t.status === 'IN_PROGRESS').map(t => t.id)
+      tasks.filter(t => t.status === 'READY' || t.status === 'IN_PROGRESS' || t.status === 'REVIEW').map(t => t.id)
     );
 
     if (activeRootIds.size === 0) {
