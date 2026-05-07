@@ -66,16 +66,26 @@
     "docs/tasks": 1000,
     "docs/archive": 8000,
     "docs/refinement": 3000
-    },
-    "paths": {
+  },
+  "paths": {
     "tasks": "docs/tasks",
     "archive": "docs/archive",
     "guidelines": "docs/guidelines",
     "agents": "docs/agents",
     "refinement": "docs/refinement",
     "adr": "docs/adr"
-    },
-    "clis": [
+  },
+  "contextRules": {
+    "testing-a-change.md": { "taskClasses": ["2-code-generation", "7-operations"] },
+    "versioning.md": { "taskClasses": ["2-code-generation"] },
+    "core.md": { "taskClasses": ["2-code-generation", "6-writing", "7-operations"] },
+    "models.md": { "taskClasses": ["2-code-generation"] },
+    "autonomy.md": { "taskClasses": ["7-operations"] },
+    "bugs.md": { "taskClasses": ["2-code-generation", "7-operations"] },
+    "resources.md": { "taskClasses": ["2-code-generation", "7-operations"] },
+    "documentation.md": { "taskClasses": ["6-writing"] }
+  },
+  "clis": [
     {
       "name": "gemini",
       "bin": "gemini",
@@ -91,8 +101,8 @@
       "bin": "curl",
       "template": "jq -Rs '{model: \"{model}\", prompt: ., stream: true, options: {num_ctx: 8192, num_predict: 4096, temperature: 0.1}}' {prompt_file} | curl -N -s -X POST http://127.0.0.1:11434/api/generate -d @- | jq -j --unbuffered .response"
     }
-    ],
-    "providers": [
+  ],
+  "providers": [
     {
       "name": "claude-code",
       "type": "bridge",
@@ -135,5 +145,5 @@
       "endpoint": "https://openrouter.ai/api/v1",
       "apiKeyEnv": "OPENROUTER_API_KEY"
     }
-    ]
-    }
+  ]
+}
