@@ -1,26 +1,48 @@
 # THINK.md
 <!-- ARCH v0.6.0 — Modular Thinking & Continuous Kaizen -->
 
-## Phase 1: Context & Replenishment (Conductor)
-0. **Print:** `[THINK] Phase 1 — Context & Replenishment` to stdout.
+## Phase 1: Intent Operationalization (Signal Interpreter)
+0. **Print:** `[THINK] Phase 1 — Intent Operationalization` to stdout.
+1. Scan `docs/intents/` for all files with `status: CAPTURED`.
+2. For each CAPTURED intent, assess: **can this signal be transformed into bounded operational work?**
+3. Apply outcome:
+   - **PROMOTED:** Create a TASK draft in `docs/tasks/` with the raw intent as context. Set `promoted_to: [TASK-XXX]` in the INTENT file. Set `status: PROMOTED`. Do **not** set the task status to READY — human confirms READY.
+   - **SIGNAL:** Retained operational knowledge — friction, pattern, systemic observation. Append an interpretation entry, set `status: SIGNAL`. Record a note if it relates to an active concern.
+   - **SUPERSEDED:** Intent absorbed by an existing TASK or INTENT. Set `superseded_by: [TASK-XXX|INTENT-XXX]`, set `status: SUPERSEDED`.
+   - **DISCARDED:** No signal value. Set `status: DISCARDED` with a one-line note in the interpretation.
+4. For every processed intent, append to its `interpretations` block:
+   ```yaml
+   - timestamp: <ISO-8601>
+     actor: THINK
+     classification: <bug|refactor|arch-concern|friction|research|signal-only>
+     notes: "<reasoning>"
+     confidence: <low|medium|high>
+   ```
+   `confidence` is a **hint only** — it never affects routing, promotion, or state.
+5. **Phase boundary:** This phase does NOT perform governance, replenishment, or idea refinement. If a SIGNAL suggests a kaizen improvement, defer it to Phase 4.
+6. **Evidence Required:** Each outcome decision must cite a concrete signal (e.g., "maps to ADR-002 concern", "covered by TASK-077").
+
+## Phase 2: Context & Replenishment (Conductor)
+0. **Print:** `[THINK] Phase 2 — Context & Replenishment` to stdout.
 1. **Note:** `arch govern` was already executed by the CLI to trigger this session.
 2. **Health Evaluation:** Identify P0 tasks that are blocked or not focused. If a task is `IN_PROGRESS` with a lock > 3 days, create a P1 `READY` bug task in `docs/tasks/`.
 3. **INBOX Regeneration:** Overwrite `docs/INBOX.md` with current loop status, active/READY task counts, pending items (`AWAITING_PROMOTION`, `AWAITING_REVIEW`), and summaries of the last 5 completed tasks. **Refinement Queue:** Count all `IDEA-*.md` files in `docs/refinement/` (excluding `archive/` and `TEMPLATE.md`) and list each title; write "No pending ideas." only when the count is zero. Commit with `[THINK]` tag.
 4. **Evidence Required:** Every recommendation must cite a concrete signal (e.g., 'TASK-003 has stale lock').
 
-## Phase 2: Idea Refinement (Refine)
-0. **Print:** `[THINK] Phase 2 — Idea Refinement` to stdout.
+## Phase 3: Idea Refinement (Refine)
+0. **Print:** `[THINK] Phase 3 — Idea Refinement` to stdout.
 1. Scan `docs/refinement/` for `IDEA-*.md` files. Triage: process all IDEAs with a `Decision:` field first; for DRAFT IDEAs, process at most 3 per session.
 2. For each IDEA, apply lifecycle rules:
    - **DRAFT:** Identify gaps, dependencies, and estimate. Output to terminal only. Increment `**Sessions:** N` counter in the IDEA file (add field if missing). If `Sessions >= 3`, emit `[STALE-IDEA] IDEA-slug — N sessions without Decision` to stdout. If the IDEA was already flagged `[STALE-IDEA]` in the previous session (Sessions > 3) and still has no Decision, move it to `docs/refinement/archive/` with status `REJECTED: TTL expired`.
    - **DECIDED:** If human Decision is written and IDEA is XS + 6-writing/7-operations, promote autonomously: update status to `PROMOTED -> TASK-XXX`, create task file, and archive IDEA.
    - **REJECTED:** Move to `docs/refinement/archive/`.
+3. **Phase boundary:** This phase does NOT interpret INTENT signals or create tasks from intents.
 
-## Phase 3: Continuous Kaizen (Real-time Reviewer)
-0. **Print:** `[THINK] Phase 3 — Continuous Kaizen` to stdout.
+## Phase 4: Continuous Kaizen (Real-time Reviewer)
+0. **Print:** `[THINK] Phase 4 — Continuous Kaizen` to stdout.
 1. **Kaizen Learning:** Run `arch review --json`. If failures exist (and aren't in `docs/KAIZEN-LOG.md` exceptions), analyze violations/drift against `docs/PRINCIPLES.md` (primary context) and `docs/KAIZEN-LOG.md` (audit trail). If a violation matches an existing principle, reference it. If it represents a new pattern, propose a new principle entry and a hardening task (`fix:` or `feat:`) to prevent recurrence.
 2. **Mura Detection:** Read `Turns: N` from the last 10 archived tasks. For each size tier (XS/S/M/L), compute the average. If actual avg exceeds the expected range in `docs/METRICS.md` by >50%, emit `[MURA] <size>-tier avg=N turns (threshold=T)` to stdout and propose a re-estimation or decomposition task.
-3. **Immediate Improvements:** Identify context gaps or guideline changes based on patterns.
+3. **Immediate Improvements:** Identify context gaps or guideline changes based on patterns. SIGNALed intents from Phase 1 may surface relevant friction here.
 4. **Sprint Metrics:** On sprint close, generate `docs/METRICS.md` summary using the Sprint Template block.
 5. **Periodic Architecture Revision (bi-weekly):** Read the `Last-Revision:` field at the bottom of `docs/KAIZEN-LOG.md`. If the field is absent or its date is more than 14 days before today, run a focused architecture audit; otherwise skip this step. Use `docs/METRICS.md` cost-per-task and turns-per-task data as the primary signal for identifying friction candidates (skip if fewer than 5 tasks are recorded). Produce a numbered list of concrete streamlining proposals — each must be an actionable proposal, not an observation — formatted as:
    ```
