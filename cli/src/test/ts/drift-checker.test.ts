@@ -547,3 +547,87 @@ test('ObsoleteGuidelines - skips glob patterns (paths with *)', async () => {
   assert.ok(check);
   assert.strictEqual(check?.status, 'OK');
 });
+
+// ─── UnappliedADRs ────────────────────────────────────────────────────────────
+
+test('UnappliedADRs - OK when all ACCEPTED ADRs are referenced in task files', async () => {
+  const fs = makeBaseFs();
+  fs.directories['/repo/docs/adr'] = ['ADR-001-some-decision.md'];
+  fs.files['/repo/docs/adr/ADR-001-some-decision.md'] =
+    '# ADR-001\n**Status:** ACCEPTED\n\n## Decision\nWe use git.';
+  fs.directories['/repo/docs/tasks'] = ['TASK-010.md'];
+  fs.files['/repo/docs/tasks/TASK-010.md'] =
+    '## TASK-010: Implement ADR-001\n**Meta:** P1 | S | DONE | Focus:no | 2-code-generation | claude | none\n**Depends:** none\nImplements ADR-001.';
+
+  const checker = new DriftChecker(fs, new MockGitRepository(), '/repo', '0.2.0');
+  const result = await checker.check();
+  const check = result.find(r => r.check === 'UnappliedADRs');
+
+  assert.ok(check);
+  assert.strictEqual(check?.status, 'OK');
+});
+
+test('UnappliedADRs - WARN when an ACCEPTED ADR has no task reference', async () => {
+  const fs = makeBaseFs();
+  fs.directories['/repo/docs/adr'] = ['ADR-003-some-decision.md'];
+  fs.files['/repo/docs/adr/ADR-003-some-decision.md'] =
+    '# ADR-003\n**Status:** ACCEPTED\n\n## Decision\nWe use flat files.';
+  fs.directories['/repo/docs/tasks'] = ['TASK-010.md'];
+  fs.files['/repo/docs/tasks/TASK-010.md'] =
+    '## TASK-010: Something else\n**Meta:** P1 | S | READY | Focus:yes | 2-code-generation | claude | none\n**Depends:** none';
+
+  const checker = new DriftChecker(fs, new MockGitRepository(), '/repo', '0.2.0');
+  const result = await checker.check();
+  const check = result.find(r => r.check === 'UnappliedADRs');
+
+  assert.ok(check);
+  assert.strictEqual(check?.status, 'WARN');
+  assert.ok(check?.details.some(d => d.includes('ADR-003') && d.includes('never referenced')));
+});
+
+test('UnappliedADRs - OK for DRAFT and SUPERSEDED ADRs (not checked)', async () => {
+  const fs = makeBaseFs();
+  fs.directories['/repo/docs/adr'] = ['ADR-002-draft.md', 'ADR-004-old.md'];
+  fs.files['/repo/docs/adr/ADR-002-draft.md'] =
+    '# ADR-002\n**Status:** DRAFT\n\n## Decision\nTBD.';
+  fs.files['/repo/docs/adr/ADR-004-old.md'] =
+    '# ADR-004\n**Status:** SUPERSEDED\n\n## Decision\nOld way.';
+  fs.directories['/repo/docs/tasks'] = [];
+
+  const checker = new DriftChecker(fs, new MockGitRepository(), '/repo', '0.2.0');
+  const result = await checker.check();
+  const check = result.find(r => r.check === 'UnappliedADRs');
+
+  assert.ok(check);
+  assert.strictEqual(check?.status, 'OK');
+});
+
+test('UnappliedADRs - OK when ADR is referenced in archive (not just tasks)', async () => {
+  const fs = makeBaseFs();
+  fs.directories['/repo/docs/adr'] = ['ADR-005-archived-impl.md'];
+  fs.files['/repo/docs/adr/ADR-005-archived-impl.md'] =
+    '# ADR-005\n**Status:** ACCEPTED\n\n## Decision\nUse flat tasks.';
+  fs.directories['/repo/docs/tasks'] = [];
+  fs.directories['/repo/docs/archive'] = ['TASK-005.md'];
+  fs.files['/repo/docs/archive/TASK-005.md'] =
+    '## TASK-005: Implemented ADR-005\n**Meta:** P1 | S | DONE | Focus:no | 2-code-generation | claude | none\n**Depends:** none';
+
+  const checker = new DriftChecker(fs, new MockGitRepository(), '/repo', '0.2.0');
+  const result = await checker.check();
+  const check = result.find(r => r.check === 'UnappliedADRs');
+
+  assert.ok(check);
+  assert.strictEqual(check?.status, 'OK');
+});
+
+test('UnappliedADRs - OK when docs/adr directory does not exist', async () => {
+  const fs = makeBaseFs();
+  // No docs/adr directory
+
+  const checker = new DriftChecker(fs, new MockGitRepository(), '/repo', '0.2.0');
+  const result = await checker.check();
+  const check = result.find(r => r.check === 'UnappliedADRs');
+
+  assert.ok(check);
+  assert.strictEqual(check?.status, 'OK');
+});

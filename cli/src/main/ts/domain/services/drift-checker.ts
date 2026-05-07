@@ -40,6 +40,7 @@ export class DriftChecker {
       this.checkEscalationMaturity(),
       this.checkOrphanTasks(),
       this.checkObsoleteGuidelines(),
+      this.checkUnappliedADRs(),
     ]);
   }
 
@@ -712,6 +713,45 @@ export class DriftChecker {
     }
 
     return { check: 'ObsoleteGuidelines', status: details.length === 0 ? 'OK' : 'WARN', details };
+  }
+
+  private async checkUnappliedADRs(): Promise<DriftResult> {
+    const adrDir = `${this.rootPath}/docs/adr`;
+    if (!(await this.fileSystem.exists(adrDir))) {
+      return { check: 'UnappliedADRs', status: 'OK', details: [] };
+    }
+
+    const adrFiles = (await this.fileSystem.readDirectory(adrDir)).filter(f => f.endsWith('.md'));
+
+    // Build combined search corpus from tasks + archive
+    const searchDirs = ['docs/tasks', 'docs/archive'];
+    const corpus: string[] = [];
+    for (const dir of searchDirs) {
+      const dirPath = `${this.rootPath}/${dir}`;
+      if (!(await this.fileSystem.exists(dirPath))) continue;
+      const files = (await this.fileSystem.readDirectory(dirPath)).filter(f => f.endsWith('.md'));
+      for (const file of files) {
+        corpus.push(await this.fileSystem.readFile(`${dirPath}/${file}`));
+      }
+    }
+    const combinedCorpus = corpus.join('\n');
+
+    const details: string[] = [];
+    for (const adrFile of adrFiles) {
+      const content = await this.fileSystem.readFile(`${adrDir}/${adrFile}`);
+      const statusMatch = content.match(/^\*\*Status:\*\*\s*(.+)/m);
+      if (!statusMatch || statusMatch[1].trim() !== 'ACCEPTED') continue;
+
+      const idMatch = adrFile.match(/^(ADR-\d+)/);
+      if (!idMatch) continue;
+      const adrId = idMatch[1];
+
+      if (!combinedCorpus.includes(adrId)) {
+        details.push(`${adrId}: ACCEPTED but never referenced in any task file.`);
+      }
+    }
+
+    return { check: 'UnappliedADRs', status: details.length === 0 ? 'OK' : 'WARN', details };
   }
 
   private async getMarkdownFiles(dirPath: string): Promise<string[]> {
