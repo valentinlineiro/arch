@@ -1,3 +1,4 @@
+// Tests for Intent domain model and MarkdownIntentRepository (scaffold — repository tests added in Task 4)
 import { test } from 'node:test';
 import assert from 'node:assert';
 import { IntentStatus } from '../../main/ts/domain/models/intent.js';
