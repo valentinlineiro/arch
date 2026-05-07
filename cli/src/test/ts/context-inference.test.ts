@@ -139,7 +139,7 @@ test('ContextInference.formatSection produces correct markdown structure', () =>
   assert.ok(section.includes('### Relevant Context'));
   assert.ok(section.includes('_confidence: 0.82_'));
   assert.ok(section.includes('cli/src/main/ts/domain/models/intent.ts'));
-  assert.ok(section.includes('_(core, hot)_'));
+  assert.ok(section.includes('_(core)_'));
   assert.ok(section.includes('ADR-002: Context as a budget _(enforced)_'));
   assert.ok(section.includes('- testing-a-change.md'));
 });
@@ -259,4 +259,44 @@ test('TaskCommand start writes Relevant Context to task file when index exists',
   const written = fs.written['docs/tasks/TASK-001.md'];
   assert.ok(written, 'task file should be written with Relevant Context');
   assert.ok(written.includes('### Relevant Context'), 'should include Relevant Context section');
+});
+
+test('ContextInference.execute() appends Context Feedback section on first inference', async () => {
+  const fs = new MockFileSystem();
+  fs.files['.arch/context-index.json'] = JSON.stringify(FIXTURE_INDEX);
+  fs.files['docs/tasks/TASK-001.md'] = '## TASK-001: Add capture intent\n\n### Acceptance Criteria\n- [ ] implement\n';
+
+  const inference = new ContextInference(fs as any);
+  await inference.execute('TASK-001', 'Add capture intent CaptureIntent', '2-code-generation');
+
+  const written = fs.written['docs/tasks/TASK-001.md'];
+  assert.ok(written.includes('### Context Feedback'), 'feedback section should be appended');
+  assert.ok(written.includes('- [ ] accurate'), 'feedback checkboxes should be present');
+  assert.ok(written.includes('- [ ] wrong files'), 'reason checkboxes should be present');
+});
+
+test('ContextInference.execute() does not overwrite existing Context Feedback section', async () => {
+  const fs = new MockFileSystem();
+  fs.files['.arch/context-index.json'] = JSON.stringify(FIXTURE_INDEX);
+  fs.files['docs/tasks/TASK-001.md'] = '## TASK-001: Add capture intent\n\n### Relevant Context\n_confidence: 0.50_\n\n### Context Feedback\n_Was the Relevant Context above useful?_\n- [x] partial — correct direction, missing key files\n\n### Acceptance Criteria\n- [ ] implement\n';
+
+  const inference = new ContextInference(fs as any);
+  await inference.execute('TASK-001', 'Add capture intent CaptureIntent', '2-code-generation');
+
+  const written = fs.written['docs/tasks/TASK-001.md'];
+  assert.ok(written.includes('- [x] partial'), 'human feedback should be preserved');
+  assert.equal((written.match(/### Context Feedback/g) ?? []).length, 1, 'only one feedback section');
+});
+
+test('ContextInference file output does not include runtimeUsage in file labels', async () => {
+  const fs = new MockFileSystem();
+  fs.files['.arch/context-index.json'] = JSON.stringify(FIXTURE_INDEX);
+  fs.files['docs/tasks/TASK-001.md'] = '## TASK-001: Add capture intent\n\n### Acceptance Criteria\n- [ ] implement\n';
+
+  const inference = new ContextInference(fs as any);
+  await inference.execute('TASK-001', 'Add capture intent CaptureIntent', '2-code-generation');
+
+  const written = fs.written['docs/tasks/TASK-001.md'];
+  assert.ok(!written.match(/\(core, hot\)/), 'runtimeUsage should not appear in output');
+  assert.ok(!written.match(/\(domain, warm\)/), 'runtimeUsage should not appear in output');
 });

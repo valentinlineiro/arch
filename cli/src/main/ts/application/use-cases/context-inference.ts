@@ -56,8 +56,10 @@ export class ContextInference {
     const taskPath = `docs/tasks/${taskId}.md`;
     try {
       const content = await this.fileSystem.readFile(taskPath);
+      const needsFeedback = !content.includes('### Context Feedback');
       const updated = this.insertSection(content, section);
-      await this.fileSystem.writeFile(taskPath, updated);
+      const final = needsFeedback ? updated + this.feedbackSection() : updated;
+      await this.fileSystem.writeFile(taskPath, final);
     } catch { /* task file unavailable — skip write-back */ }
   }
 
@@ -74,7 +76,6 @@ export class ContextInference {
   score(index: ContextIndex, keywords: string[], taskClass: string): ContextResult {
     const kw = new Set(keywords);
     const critMult: Record<string, number> = { core: 1.5, domain: 1.2, support: 1.0, utility: 0.7 };
-    const usageMult: Record<string, number> = { hot: 1.3, warm: 1.0, cold: 0.7 };
 
     // Score files by symbol and tag match
     const fileScores: ScoredFile[] = [];
@@ -90,7 +91,7 @@ export class ContextInference {
         if (kw.has(tag)) score += 0.5;
       }
       if (score <= 0) continue;
-      score *= (critMult[entry.criticality] ?? 1.0) * (usageMult[entry.runtimeUsage] ?? 1.0);
+      score *= (critMult[entry.criticality] ?? 1.0);
       fileScores.push({ path: filePath, score, criticality: entry.criticality, runtimeUsage: entry.runtimeUsage });
     }
     fileScores.sort((a, b) => b.score - a.score);
@@ -105,7 +106,7 @@ export class ContextInference {
       for (const imp of entry.imports) {
         if (topPaths.has(imp) || !index.files[imp]) continue;
         const impEntry = index.files[imp];
-        const impScore = 3.0 * (critMult[impEntry.criticality] ?? 1.0) * (usageMult[impEntry.runtimeUsage] ?? 1.0);
+        const impScore = 3.0 * (critMult[impEntry.criticality] ?? 1.0);
         neighborCandidates.push({ path: imp, score: impScore, criticality: impEntry.criticality, runtimeUsage: impEntry.runtimeUsage });
         topPaths.add(imp);
       }
@@ -168,7 +169,7 @@ export class ContextInference {
     if (result.files.length > 0) {
       lines.push('**Files:**');
       for (const f of result.files) {
-        lines.push(`- ${f.path} _(${f.criticality}, ${f.runtimeUsage})_`);
+        lines.push(`- ${f.path} _(${f.criticality})_`);
       }
       lines.push('');
     }
@@ -193,7 +194,7 @@ export class ContextInference {
   }
 
   insertSection(content: string, section: string): string {
-    // Remove existing Relevant Context section if present
+    // Remove existing Relevant Context section — stops at ### Context Feedback if present
     const cleaned = content.replace(/\n### Relevant Context\n[\s\S]*?(?=\n###|\n##|$)/, '');
 
     // Insert after ### Context section if present
@@ -205,6 +206,12 @@ export class ContextInference {
       }
     }
 
+    // Insert before ### Context Feedback if already present (preserve human feedback position)
+    const feedbackIdx = cleaned.indexOf('\n### Context Feedback');
+    if (feedbackIdx !== -1) {
+      return cleaned.slice(0, feedbackIdx) + '\n\n' + section + cleaned.slice(feedbackIdx);
+    }
+
     // Otherwise insert before ### Acceptance Criteria
     const acIdx = cleaned.indexOf('\n### Acceptance Criteria');
     if (acIdx !== -1) {
@@ -212,6 +219,25 @@ export class ContextInference {
     }
 
     return cleaned.trimEnd() + '\n\n' + section + '\n';
+  }
+
+  private feedbackSection(): string {
+    return [
+      '',
+      '### Context Feedback',
+      '_Was the Relevant Context above useful?_',
+      '- [ ] accurate — files and ADRs were on-target',
+      '- [ ] partial — correct direction, missing key files',
+      '- [ ] off — wrong files dominated',
+      '',
+      '_If partial or off:_',
+      '- [ ] wrong files',
+      '- [ ] missing files',
+      '- [ ] wrong ADRs',
+      '- [ ] too much noise',
+      '- [ ] confidence misleading',
+      '',
+    ].join('\n');
   }
 
   private splitCamelCase(s: string): string[] {
