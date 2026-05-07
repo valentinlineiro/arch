@@ -84,7 +84,8 @@ export class GitCli implements GitRepository {
   }
 
   async getRepoRoot(): Promise<string> {
-    const { stdout } = await SubprocessRunner.runWithOutput('git', ['rev-parse', '--show-toplevel']);
+    const { stdout, code } = await SubprocessRunner.runWithOutput('git', ['rev-parse', '--show-toplevel']);
+    if (code !== 0) throw new Error('git rev-parse --show-toplevel failed');
     return stdout.trim();
   }
 }
