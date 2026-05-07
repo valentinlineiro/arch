@@ -54,9 +54,11 @@ export class ContextInference {
     const section = this.formatSection(result);
 
     const taskPath = `docs/tasks/${taskId}.md`;
-    const content = await this.fileSystem.readFile(taskPath);
-    const updated = this.insertSection(content, section);
-    await this.fileSystem.writeFile(taskPath, updated);
+    try {
+      const content = await this.fileSystem.readFile(taskPath);
+      const updated = this.insertSection(content, section);
+      await this.fileSystem.writeFile(taskPath, updated);
+    } catch { /* task file unavailable — skip write-back */ }
   }
 
   extractKeywords(text: string): string[] {

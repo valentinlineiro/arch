@@ -106,9 +106,8 @@ test('ContextInference ranks enforced ADRs before advisory ones', () => {
   const result = inference.score(FIXTURE_INDEX, ['context', 'agent', 'budget'], '2-code-generation');
   assert.ok(result.adrs.length > 0);
   // ADR-002 (enforced) should come before ADR-003 (advisory) if both match
-  if (result.adrs.length >= 2) {
-    assert.equal(result.adrs[0].id, 'ADR-002');
-  }
+  assert.ok(result.adrs.length >= 2, 'expected both ADRs to match the keywords');
+  assert.equal(result.adrs[0].id, 'ADR-002');
 });
 
 test('ContextInference matches guidelines by task class', () => {
