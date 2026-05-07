@@ -61,10 +61,9 @@ export class ContextInference {
 
   extractKeywords(text: string): string[] {
     return [...new Set(
-      text.toLowerCase()
-        .replace(/[^a-z0-9\s]/g, ' ')
+      text
+        .replace(/[^a-zA-Z0-9\s]/g, ' ')
         .split(/\s+/)
-        .filter(w => w.length > 2 && !this.stopwords.has(w))
         .flatMap(w => this.splitCamelCase(w))
         .filter(w => w.length > 2 && !this.stopwords.has(w))
     )];
