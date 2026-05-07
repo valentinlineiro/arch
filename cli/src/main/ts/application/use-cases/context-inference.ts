@@ -57,9 +57,11 @@ export class ContextInference {
     try {
       const content = await this.fileSystem.readFile(taskPath);
       const needsFeedback = !content.includes('### Context Feedback');
-      const updated = this.insertSection(content, section);
-      const final = needsFeedback ? updated + this.feedbackSection() : updated;
-      await this.fileSystem.writeFile(taskPath, final);
+      const sectionWithFeedback = needsFeedback
+        ? section + this.feedbackSection()
+        : section;
+      const updated = this.insertSection(content, sectionWithFeedback);
+      await this.fileSystem.writeFile(taskPath, updated);
     } catch { /* task file unavailable — skip write-back */ }
   }
 
