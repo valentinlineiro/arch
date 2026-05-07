@@ -125,3 +125,81 @@ test('ContextInference confidence is between 0 and 1', () => {
   const result = inference.score(FIXTURE_INDEX, ['intent', 'capture'], '2-code-generation');
   assert.ok(result.confidence >= 0 && result.confidence <= 1, `confidence ${result.confidence} out of range`);
 });
+
+test('ContextInference.formatSection produces correct markdown structure', () => {
+  const fs = new MockFileSystem();
+  const inference = new ContextInference(fs as any);
+  const result: ContextResult = {
+    confidence: 0.82,
+    files: [{ path: 'cli/src/main/ts/domain/models/intent.ts', score: 4.5, criticality: 'core', runtimeUsage: 'hot' }],
+    adrs: [{ id: 'ADR-002', title: 'Context as a budget', strength: 'enforced', score: 3 }],
+    guidelines: [{ name: 'testing-a-change.md', score: 2 }],
+  };
+  const section = inference.formatSection(result);
+  assert.ok(section.includes('### Relevant Context'));
+  assert.ok(section.includes('_confidence: 0.82_'));
+  assert.ok(section.includes('cli/src/main/ts/domain/models/intent.ts'));
+  assert.ok(section.includes('_(core, hot)_'));
+  assert.ok(section.includes('ADR-002: Context as a budget _(enforced)_'));
+  assert.ok(section.includes('- testing-a-change.md'));
+});
+
+test('ContextInference.insertSection inserts after ### Context when present', () => {
+  const fs = new MockFileSystem();
+  const inference = new ContextInference(fs as any);
+  const content = `## TASK-001: Title\n**Meta:** ...\n\n### Context\nSome context here.\n\n### Acceptance Criteria\n- [ ] AC1\n`;
+  const section = '### Relevant Context\n_confidence: 0.75_\n';
+  const updated = inference.insertSection(content, section);
+  const contextIdx = updated.indexOf('### Context');
+  const relevantIdx = updated.indexOf('### Relevant Context');
+  const acIdx = updated.indexOf('### Acceptance Criteria');
+  assert.ok(contextIdx < relevantIdx, 'Relevant Context should come after Context');
+  assert.ok(relevantIdx < acIdx, 'Relevant Context should come before Acceptance Criteria');
+});
+
+test('ContextInference.insertSection inserts before ### Acceptance Criteria when no ### Context', () => {
+  const fs = new MockFileSystem();
+  const inference = new ContextInference(fs as any);
+  const content = `## TASK-001: Title\n**Meta:** ...\n\n### Acceptance Criteria\n- [ ] AC1\n`;
+  const section = '### Relevant Context\n_confidence: 0.60_\n';
+  const updated = inference.insertSection(content, section);
+  assert.ok(updated.indexOf('### Relevant Context') < updated.indexOf('### Acceptance Criteria'));
+});
+
+test('ContextInference.insertSection replaces existing Relevant Context section', () => {
+  const fs = new MockFileSystem();
+  const inference = new ContextInference(fs as any);
+  const content = `## TASK-001\n\n### Relevant Context\n_confidence: 0.50_\n\n**Files:**\n- old-file.ts\n\n### Acceptance Criteria\n- [ ] AC1\n`;
+  const section = '### Relevant Context\n_confidence: 0.80_\n\n**Files:**\n- new-file.ts\n';
+  const updated = inference.insertSection(content, section);
+  assert.ok(!updated.includes('old-file.ts'), 'old content should be replaced');
+  assert.ok(updated.includes('new-file.ts'), 'new content should be present');
+  assert.equal((updated.match(/### Relevant Context/g) ?? []).length, 1, 'only one section');
+});
+
+test('ContextInference.execute() writes Relevant Context to task file', async () => {
+  const fs = new MockFileSystem();
+  fs.files['.arch/context-index.json'] = JSON.stringify(FIXTURE_INDEX);
+  fs.files['docs/tasks/TASK-001.md'] = `## TASK-001: Add capture intent support\n**Meta:** P2 | S | READY | Focus:yes | 2-code-generation | claude-code | none\n\n### Acceptance Criteria\n- [ ] implement CaptureIntent\n`;
+
+  const inference = new ContextInference(fs as any);
+  await inference.execute('TASK-001', 'Add capture intent support implement CaptureIntent capture intent flow', '2-code-generation');
+
+  const written = fs.written['docs/tasks/TASK-001.md'];
+  assert.ok(written, 'task file should be written');
+  assert.ok(written.includes('### Relevant Context'));
+  assert.ok(written.includes('_confidence:'));
+  assert.ok(written.includes('capture-intent.ts') || written.includes('intent.ts'));
+});
+
+test('ContextInference.execute() skips gracefully when index file does not exist', async () => {
+  const fs = new MockFileSystem();
+  fs.files['docs/tasks/TASK-001.md'] = `## TASK-001: Some task\n\n### Acceptance Criteria\n- [ ] AC\n`;
+  // No .arch/context-index.json
+
+  const inference = new ContextInference(fs as any);
+  await assert.doesNotReject(() =>
+    inference.execute('TASK-001', 'some task text', '2-code-generation')
+  );
+  assert.ok(!fs.written['docs/tasks/TASK-001.md'], 'task file should NOT be modified when index absent');
+});
