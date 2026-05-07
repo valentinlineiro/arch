@@ -81,7 +81,7 @@ test('BuildIndex.extractImports resolves relative imports to normalized paths', 
   const builder = new BuildIndex(fs as any);
   const content = `
 import { Foo } from './models/foo.js';
-import { Bar } from '../domain/bar.js';
+import { Bar } from '../../domain/bar.js';
 import { Baz } from 'node:path';
 `;
   const imports = (builder as any).extractImports(content, 'cli/src/main/ts/application/use-cases/my-use-case.ts');
