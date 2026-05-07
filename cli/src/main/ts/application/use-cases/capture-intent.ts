@@ -10,12 +10,15 @@ export class CaptureIntent {
   ) {}
 
   async execute(rawIntent: string): Promise<string> {
+    if (!rawIntent.trim()) throw new Error('rawIntent cannot be empty');
+
     const id = await this.intentRepository.getNextId();
     const now = new Date().toISOString();
 
     let branch: string | undefined;
     let recentFiles: string[] = [];
-    let cwd: string;
+    const absoluteCwd = this.getCwd();
+    let cwd: string = absoluteCwd;
 
     try {
       branch = await this.gitRepository.getCurrentBranch();
@@ -33,7 +36,6 @@ export class CaptureIntent {
       }
     } catch { /* git unavailable */ }
 
-    const absoluteCwd = this.getCwd();
     try {
       const repoRoot = await this.gitRepository.getRepoRoot();
       cwd = absoluteCwd.startsWith(repoRoot)
