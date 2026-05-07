@@ -14,7 +14,7 @@ export class MarkdownIntentRepository implements IntentRepository {
     }
     const files = await this.fileSystem.readDirectory(this.intentsDir);
     const ids = files
-      .filter(f => /^INTENT-\d{3}\.md$/.test(f))
+      .filter(f => /^INTENT-\d+\.md$/.test(f))
       .map(f => parseInt(f.replace('INTENT-', '').replace('.md', ''), 10));
     const maxId = ids.length > 0 ? Math.max(...ids) : 0;
     return `INTENT-${(maxId + 1).toString().padStart(3, '0')}`;
@@ -48,14 +48,19 @@ export class MarkdownIntentRepository implements IntentRepository {
       `  triggered_by: ${intent.origin.triggeredBy}`,
       recentFilesYaml,
       '',
+      // interpretations are written directly by THINK as an LLM agent — not serialized here
       'interpretations: []',
-      'promoted_to: []',
-      'superseded_by: []',
+      intent.promotedTo.length === 0
+        ? 'promoted_to: []'
+        : 'promoted_to:\n' + intent.promotedTo.map(t => `  - ${t}`).join('\n'),
+      intent.supersededBy.length === 0
+        ? 'superseded_by: []'
+        : 'superseded_by:\n' + intent.supersededBy.map(t => `  - ${t}`).join('\n'),
       '---',
       '',
       intent.rawIntent,
     ];
 
-    return lines.filter((l): l is string => l !== null).join('\n');
+    return lines.filter((l): l is string => l !== null).join('\n') + '\n';
   }
 }
