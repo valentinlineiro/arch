@@ -16,3 +16,4 @@
 - [ ] All ACs checked.
 - [ ] `arch review` passes.
 - [ ] Design spec: `docs/superpowers/specs/2026-05-07-drift-detection-design.md`
+- [ ] ADR-013 written and accepted.
