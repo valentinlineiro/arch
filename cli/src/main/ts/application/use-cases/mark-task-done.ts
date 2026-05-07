@@ -2,12 +2,15 @@ import { TaskRepository } from '../../domain/repositories/task-repository.js';
 import { TaskStatus } from '../../domain/models/task.js';
 import { Reviewer } from '../../domain/services/reviewer.js';
 import { FileSystem } from '../../domain/repositories/file-system.js';
+import { EventRepository } from '../../domain/models/event.js';
+import crypto from 'node:crypto';
 
 export class MarkTaskDone {
   constructor(
     private taskRepository: TaskRepository,
     private reviewer: Reviewer,
     private fileSystem: FileSystem,
+    private eventRepository?: EventRepository
   ) {}
 
   async execute(taskId: string, force = false) {
@@ -34,6 +37,20 @@ export class MarkTaskDone {
       task.closedAt = new Date().toISOString();
     }
     await this.taskRepository.save(task);
+
+    if (this.eventRepository) {
+      await this.eventRepository.append({
+        id: crypto.randomUUID(),
+        type: 'TASK_COMPLETED',
+        timestamp: new Date().toISOString(),
+        subject: taskId,
+        payload: {
+          cost: task.cost,
+          steps: task.steps
+        }
+      });
+    }
+
     return task;
   }
 

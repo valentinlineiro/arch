@@ -8,6 +8,7 @@ import { HumanCoordinationService } from '../../domain/services/human-coordinati
 import type { TaskRepository } from '../../domain/repositories/task-repository.js';
 import { Reviewer } from '../../domain/services/reviewer.js';
 import type { FileSystem } from '../../domain/repositories/file-system.js';
+import { EventRepository } from '../../domain/models/event.js';
 import * as fmt from '../../infrastructure/cli/output-formatter.js';
 
 export class TaskCommand {
@@ -24,11 +25,13 @@ export class TaskCommand {
     private humanCoordinationService: HumanCoordinationService,
     fileSystem: FileSystem,
     rootPath: string,
+    eventRepository?: EventRepository
   ) {
-    this.markInProgress = new MarkTaskInProgress(taskRepository);
-    this.markDone = new MarkTaskDone(taskRepository, reviewer, fileSystem);
+    this.markInProgress = new MarkTaskInProgress(taskRepository, eventRepository);
+    this.markDone = new MarkTaskDone(taskRepository, reviewer, fileSystem, eventRepository);
     this.markReview = new MarkTaskReview(taskRepository, rootPath);
     this.rejectTask = new RejectTask(taskRepository);
+
     this.rejectStaleTask = new RejectStaleTask(taskRepository);
     this.updateMetrics = new UpdateTaskMetrics(taskRepository);
   }

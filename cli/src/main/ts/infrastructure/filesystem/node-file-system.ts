@@ -30,4 +30,8 @@ export class NodeFileSystem implements FileSystem {
   async mkdir(path: string): Promise<void> {
     await fs.mkdir(path, { recursive: true });
   }
+
+  async appendFile(path: string, content: string): Promise<void> {
+    await fs.appendFile(path, content, 'utf-8');
+  }
 }

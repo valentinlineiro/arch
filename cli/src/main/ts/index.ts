@@ -30,11 +30,13 @@ import { MergeResolveCommand } from './application/commands/merge-resolve-comman
 import { MarkdownIntentRepository } from './infrastructure/filesystem/markdown-intent-repository.js';
 import { CaptureIntent } from './application/use-cases/capture-intent.js';
 import { CaptureCommand } from './application/commands/capture-command.js';
+import { ChronicleEventRepository } from './infrastructure/filesystem/chronicle-event-repository.js';
 
 async function main() {
   const fileSystem = new NodeFileSystem();
   const taskRepository = new MarkdownTaskRepository(fileSystem);
   const gitRepository = new GitCli();
+  const eventRepository = new ChronicleEventRepository(fileSystem);
   const reviewer = new Reviewer();
   const sandboxService = new SandboxService();
   const rootPath = path.resolve('.');
@@ -61,7 +63,7 @@ async function main() {
       await new ReviewCommand(taskRepository, gitRepository, reviewer, driftChecker, fileSystem).execute(args);
       break;
     case 'task':
-      await new TaskCommand(taskRepository, reviewer, humanCoordinationService, fileSystem, rootPath).execute(args);
+      await new TaskCommand(taskRepository, reviewer, humanCoordinationService, fileSystem, rootPath, eventRepository).execute(args);
       break;
     case 'inbox':
       await new InboxCommand(taskRepository, fileSystem, reviewer, driftChecker).execute();

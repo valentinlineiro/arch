@@ -5,4 +5,5 @@ export interface FileSystem {
   readDirectory(path: string): Promise<string[]>;
   rename(oldPath: string, newPath: string): Promise<void>;
   mkdir(path: string): Promise<void>;
+  appendFile(path: string, content: string): Promise<void>;
 }
