@@ -38,6 +38,17 @@
    - **REJECTED:** Move to `docs/refinement/archive/`.
 3. **Phase boundary:** This phase does NOT interpret INTENT signals or create tasks from intents.
 
+## Phase 3.5: Semantic Drift Analysis (Observer)
+0. **Print:** `[THINK] Phase 3.5 — Semantic Drift Analysis` to stdout.
+1. **Skip condition:** If running under time pressure or minimal-mode flag, skip this phase and print `[THINK] Phase 3.5 — skipped`.
+2. **Inputs to read:** `docs/guidelines/*.md` (full content), `docs/adr/*.md` (Context + Decision sections of ACCEPTED ADRs), `docs/tasks/` (Meta lines + ACs only), `docs/archive/` (Meta lines only), `docs/refinement/IDEA-*.md` (DRAFT and PROMOTED entries).
+3. **Analysis — Conceptual contradictions:** Identify any two guideline sections that assert conflicting behaviors for the same domain (e.g., commit frequency defined differently in two files). If found, emit `[SEMANTIC-DRIFT] contradiction: <file-A>:<section> vs <file-B>:<section> — <description>` to stdout.
+4. **Analysis — Structural duplication:** Identify materially identical sections or rules appearing in more than one guideline file. If found, emit `[SEMANTIC-DRIFT] duplication: <file-A>:<section> ≈ <file-B>:<section>` to stdout.
+5. **Analysis — ADR conceptual drift:** Identify ACCEPTED ADRs whose stated rationale conflicts with how the system currently operates (judged against active tasks and current guidelines). If found, emit `[SEMANTIC-DRIFT] adr-drift: <ADR-ID> — rationale no longer matches observed system behavior` to stdout.
+6. **Output rule:** For each finding that warrants action, create a new IDEA file in `docs/refinement/IDEA-<slug>.md` with `Source: Phase-3.5` in the Meta line. Do NOT create tasks directly. Do NOT modify DriftChecker or any enforcement layer.
+7. **Max output:** At most 3 new IDEAs per THINK run from this phase. If more findings exist, queue them for the next session.
+8. **Phase boundary:** This phase is a semantic observer, not an enforcement layer. Its output feeds Phase 3 (refinement queue) and Phase 4 (Kaizen). It never feeds `arch review` or `DriftChecker`.
+
 ## Phase 4: Continuous Kaizen (Real-time Reviewer)
 0. **Print:** `[THINK] Phase 4 — Continuous Kaizen` to stdout.
 1. **Kaizen Learning:** Run `arch review --json`. If failures exist (and aren't in `docs/KAIZEN-LOG.md` exceptions), analyze violations/drift against `docs/PRINCIPLES.md` (primary context) and `docs/KAIZEN-LOG.md` (audit trail). If a violation matches an existing principle, reference it. If it represents a new pattern, propose a new principle entry and a hardening task (`fix:` or `feat:`) to prevent recurrence.
