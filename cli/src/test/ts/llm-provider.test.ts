@@ -34,7 +34,7 @@ test('BridgeProvider.buildCommand - substitutes {prompt} with cat of temp file',
     template: 'claude -p "{prompt}" --dangerously-skip-permissions',
   };
   const provider = new BridgeProvider(config);
-  const cmd = provider.buildCommand('hello world', 'claude-3-5-sonnet-20240620', '/tmp/test.md');
+  const cmd = provider.buildCommand('claude-3-5-sonnet-20240620', '/tmp/test.md');
   assert.ok(cmd.includes('$(cat "/tmp/test.md")'), `cmd: ${cmd}`);
   assert.ok(cmd.includes('--dangerously-skip-permissions'), `cmd: ${cmd}`);
 });
@@ -47,7 +47,7 @@ test('BridgeProvider.buildCommand - injects model via {model} placeholder', () =
     template: 'ollama run {model} "{prompt}"',
   };
   const provider = new BridgeProvider(config);
-  const cmd = provider.buildCommand('hello', 'llama3.2', '/tmp/test.md');
+  const cmd = provider.buildCommand('llama3.2', '/tmp/test.md');
   assert.ok(cmd.includes('llama3.2'), `cmd: ${cmd}`);
   assert.ok(!cmd.includes('{model}'), `cmd: ${cmd}`);
 });
@@ -60,7 +60,7 @@ test('BridgeProvider.buildCommand - appends --model for claude when no {model} p
     template: 'claude -p "{prompt}"',
   };
   const provider = new BridgeProvider(config);
-  const cmd = provider.buildCommand('hello', 'claude-3-5-sonnet-20240620', '/tmp/test.md');
+  const cmd = provider.buildCommand('claude-3-5-sonnet-20240620', '/tmp/test.md');
   assert.ok(cmd.includes('--model "claude-3-5-sonnet-20240620"'), `cmd: ${cmd}`);
 });
 

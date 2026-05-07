@@ -115,18 +115,23 @@ export class LoopEngine {
           bin => spawnSync('which', [bin]).status === 0
         );
 
-        if (candidates.length === 0 || candidates[0].name === 'local') {
-          if (candidates[0]?.name === 'local') {
-            const reason = 'No provider resolved for task — halting';
-            await this.appendInbox(task.id, 'ANDON_HALT', reason);
-            console.error(`[LOOP] ${reason}`);
-            process.exit(1);
-          }
+        if (candidates.length === 0) {
+          const reason = `No AI provider detected for task class "${task.class}" size "${task.size}" — halting`;
+          await this.appendInbox(task.id, 'ANDON_HALT', reason);
+          console.error(`[LOOP] ${reason}`);
+          process.exit(1);
         }
 
         let success = false;
         for (const { provider, name, model } of candidates) {
-          if (!provider || name === 'local') continue;
+          if (name === 'local') {
+            const reason = 'Routing: local (human intervention required) — halting autonomous loop';
+            await this.appendInbox(task.id, 'ANDON_HALT', reason);
+            console.log(`[LOOP] ${reason}`);
+            process.exit(1);
+          }
+
+          if (!provider) continue;
           
           this.log(`[LOOP] Attempting ${name} | Model: ${model || 'default'}`);
 
@@ -136,12 +141,13 @@ export class LoopEngine {
           if (provider instanceof BridgeProvider) {
             const DO_PROMPT_FILE = 'docs/agents/DO.md';
             const promptContent = fs.readFileSync(DO_PROMPT_FILE, 'utf8');
-            const cmd = provider.buildCommand(promptContent, model, DO_PROMPT_FILE);
+            const cmd = provider.buildCommand(model || '', DO_PROMPT_FILE);
             const start = Date.now();
             const result = spawnSync('sh', ['-c', cmd], {
               stdio: ['ignore', 'pipe', 'inherit'],
               encoding: 'utf8',
               timeout: EXEC_TIMEOUT_MS,
+              maxBuffer: Infinity,
             });
             if (result.status !== 0) {
               const reason = result.signal === 'SIGTERM'
@@ -159,7 +165,7 @@ export class LoopEngine {
               const DO_PROMPT_FILE = 'docs/agents/DO.md';
               const promptContent = fs.readFileSync(DO_PROMPT_FILE, 'utf8');
               const response = await provider.complete({
-                model: model || 'default',
+                model: model || '',
                 messages: [{ role: 'user', content: promptContent }],
               });
               console.log(response.content);

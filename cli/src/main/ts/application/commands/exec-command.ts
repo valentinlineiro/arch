@@ -34,7 +34,7 @@ export class ExecCommand {
     if (!provider || !name) return null;
 
     if (provider instanceof BridgeProvider) {
-      const cmd = provider.buildCommand('', model, promptFile) + (extraFlags ? ` ${extraFlags}` : '');
+      const cmd = provider.buildCommand(model || '', promptFile) + (extraFlags ? ` ${extraFlags}` : '');
       return { name, cmd };
     }
 
@@ -72,15 +72,12 @@ export class ExecCommand {
       bin => spawnSync('which', [bin]).status === 0
     );
 
-    if (candidates.length > 0 && candidates[0].name === 'local') {
-      console.log('  Routing: local (no AI invocation)');
-      console.log('');
-      process.stdout.write(fs.readFileSync(DO_PROMPT_FILE, 'utf8'));
-      process.exit(0);
-    }
-
     if (candidates.length === 0) {
-      console.log('  Note: No AI provider detected. Showing protocol:');
+      if (!focusedTask) {
+        console.log('  Note: No focused task found. Showing protocol:');
+      } else {
+        console.log(`  Note: No AI provider detected for task class "${taskClass}" size "${taskSize}". Showing protocol:`);
+      }
       console.log(fs.readFileSync(DO_PROMPT_FILE, 'utf8'));
       process.exit(1);
     }
@@ -90,15 +87,26 @@ export class ExecCommand {
 
     let success = false;
     for (const { provider, name, model } of candidates) {
-      if (!provider || name === 'local') continue;
+      if (name === 'local') {
+        console.log('  Routing: local (no AI invocation)');
+        console.log('');
+        process.stdout.write(fs.readFileSync(DO_PROMPT_FILE, 'utf8'));
+        process.exit(0);
+      }
+
+      if (!provider) continue;
 
       console.log(`  Provider: ${name} | Model: ${model || 'default'}`);
 
       if (provider instanceof BridgeProvider) {
-        const cmd = provider.buildCommand(promptContent, model, DO_PROMPT_FILE) +
+        const cmd = provider.buildCommand(model || '', DO_PROMPT_FILE) +
           (extraFlags ? ` ${extraFlags}` : '');
         
-        const result = spawnSync('sh', ['-c', cmd], { stdio: ['ignore', 'pipe', 'pipe'], encoding: 'utf8' });
+        const result = spawnSync('sh', ['-c', cmd], { 
+          stdio: ['ignore', 'pipe', 'pipe'], 
+          encoding: 'utf8',
+          maxBuffer: Infinity 
+        });
         
         if (result.status === 0) {
           process.stdout.write(result.stdout);
@@ -114,7 +122,7 @@ export class ExecCommand {
         // NativeProvider: call REST endpoint
         try {
           const response = await provider.complete({
-            model: model || 'default',
+            model: model || '',
             messages: [{ role: 'user', content: promptContent }],
           });
           console.log(response.content);

@@ -75,6 +75,7 @@ export class SandboxService {
       timeout,
       encoding: 'utf-8',
       shell: false,
+      maxBuffer: Infinity,
     });
 
     const duration = performance.now() - start;

@@ -15,7 +15,7 @@ export interface BridgeConfig {
 export class BridgeProvider implements LLMProvider {
   constructor(private config: BridgeConfig) {}
 
-  buildCommand(content: string, model: string, promptFile: string): string {
+  buildCommand(model: string, promptFile: string): string {
     let cmd = this.config.template
       .replace(/\{prompt\}/g, `$(cat "${promptFile}")`)
       .replace(/\{prompt_file\}/g, promptFile);
@@ -51,10 +51,14 @@ export class BridgeProvider implements LLMProvider {
 
     try {
       writeFileSync(promptFile, userMessage);
-      const cmd = this.buildCommand(userMessage, request.model, promptFile);
+      const cmd = this.buildCommand(request.model, promptFile);
 
       const start = Date.now();
-      const result = spawnSync('sh', ['-c', cmd], { stdio: ['ignore', 'pipe', 'pipe'], encoding: 'utf8' });
+      const result = spawnSync('sh', ['-c', cmd], { 
+        stdio: ['ignore', 'pipe', 'pipe'], 
+        encoding: 'utf8',
+        maxBuffer: Infinity 
+      });
       const latencyMs = Date.now() - start;
 
       const stdout = result.stdout ?? '';
