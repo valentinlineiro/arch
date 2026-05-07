@@ -13,6 +13,7 @@ class MockFileSystem implements FileSystem {
   async exists(path: string) { return path in this.files || path in this.directories; }
   async readDirectory(path: string) { return this.directories[path] ?? []; }
   async rename(oldPath: string, newPath: string) {}
+  async mkdir(path: string) {}
 }
 
 class MockGitRepository implements GitRepository {

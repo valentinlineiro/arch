@@ -49,6 +49,7 @@ class MockFileSystem implements FileSystem {
   async exists(path: string) { return path in this.files; }
   async readDirectory() { return []; }
   async rename() {}
+  async mkdir(_path: string) {}
 }
 
 function makeReviewer(result: ReviewResult): Reviewer {

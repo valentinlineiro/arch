@@ -21,6 +21,7 @@ class MockFileSystem implements FileSystem {
   async exists(path: string) { return !!this.files[path]; }
   async readDirectory(path: string) { return []; }
   async rename(oldPath: string, newPath: string) {}
+  async mkdir(path: string) {}
 }
 
 test('ValidateSystem - success when everything is valid', async () => {
