@@ -1,12 +1,17 @@
 import { spawnSync } from 'node:child_process';
+import fs from 'node:fs';
+
+export type PredicateType = 'cmd' | 'file' | 'grep' | 'prose' | 'missing';
 
 export interface AcPredicateResult {
   ac: string;
-  command: string;
-  expectedExit: number;
-  actualExit: number;
+  type: PredicateType;
+  command?: string;
+  expectedExit?: number;
+  actualExit?: number;
   passed: boolean;
-  timedOut: boolean;
+  timedOut?: boolean;
+  reason?: string;
 }
 
 export interface ValidateAcsResult {
@@ -15,7 +20,10 @@ export interface ValidateAcsResult {
   allPassed: boolean;
 }
 
-const PREDICATE_REGEX = /→\s+cmd:\s+(.+?);\s+exit:\s+(\d+)/;
+const CMD_REGEX = /→\s+cmd:\s+(.+?);\s+exit:\s+(\d+)/;
+const FILE_REGEX = /→\s+file:\s+(.+)/;
+const GREP_REGEX = /→\s+grep:\s+"(.+?)"\s+(.+)/;
+const PROSE_REGEX = /→\s+prose:\s+(.+)/;
 
 export class ValidateTaskAcs {
   constructor(private rootPath: string, private timeoutMs: number = 30000) {}
@@ -25,31 +33,87 @@ export class ValidateTaskAcs {
 
     for (const line of taskContent.split('\n')) {
       if (!line.match(/^- \[.\] /)) continue;
-      const predicateMatch = line.match(PREDICATE_REGEX);
-      if (!predicateMatch) continue;
 
-      const [, command, exitCodeStr] = predicateMatch;
-      const expectedExit = parseInt(exitCodeStr, 10);
       const ac = line.replace(/^- \[.\] /, '').split('→')[0].trim();
+      
+      const cmdMatch = line.match(CMD_REGEX);
+      const fileMatch = line.match(FILE_REGEX);
+      const grepMatch = line.match(GREP_REGEX);
+      const proseMatch = line.match(PROSE_REGEX);
 
-      const result = spawnSync('sh', ['-c', command.trim()], {
-        cwd: this.rootPath,
-        encoding: 'utf8',
-        timeout: this.timeoutMs,
-        env: { ...process.env, PATH: `${this.rootPath}/scripts:${process.env.PATH ?? ''}` },
-      });
+      if (cmdMatch) {
+        const [, command, exitCodeStr] = cmdMatch;
+        const expectedExit = parseInt(exitCodeStr, 10);
+        
+        const result = spawnSync('sh', ['-c', command.trim()], {
+          cwd: this.rootPath,
+          encoding: 'utf8',
+          timeout: this.timeoutMs,
+          maxBuffer: Infinity,
+          env: { ...process.env, PATH: `${this.rootPath}/scripts:${process.env.PATH ?? ''}` },
+        });
 
-      const timedOut = result.error?.code === 'ETIMEDOUT';
-      const actualExit = timedOut ? -1 : (result.status ?? 1);
+        const timedOut = result.error?.code === 'ETIMEDOUT';
+        const actualExit = timedOut ? -1 : (result.status ?? 1);
 
-      results.push({
-        ac,
-        command: command.trim(),
-        expectedExit,
-        actualExit,
-        passed: !timedOut && actualExit === expectedExit,
-        timedOut,
-      });
+        results.push({
+          ac,
+          type: 'cmd',
+          command: command.trim(),
+          expectedExit,
+          actualExit,
+          passed: !timedOut && actualExit === expectedExit,
+          timedOut,
+        });
+      } else if (fileMatch) {
+        const filePath = fileMatch[1].trim();
+        const fullPath = filePath.startsWith('/') ? filePath : `${this.rootPath}/${filePath}`;
+        const exists = fs.existsSync(fullPath);
+        results.push({
+          ac,
+          type: 'file',
+          command: `file: ${filePath}`,
+          passed: exists,
+          reason: exists ? undefined : `File not found: ${filePath}`
+        });
+      } else if (grepMatch) {
+        const [, pattern, filePath] = grepMatch;
+        const fullPath = filePath.trim().startsWith('/') ? filePath.trim() : `${this.rootPath}/${filePath.trim()}`;
+        let passed = false;
+        let reason: string | undefined;
+        
+        if (!fs.existsSync(fullPath)) {
+          passed = false;
+          reason = `File not found: ${filePath.trim()}`;
+        } else {
+          const content = fs.readFileSync(fullPath, 'utf8');
+          passed = content.includes(pattern);
+          reason = passed ? undefined : `Pattern "${pattern}" not found in ${filePath.trim()}`;
+        }
+        
+        results.push({
+          ac,
+          type: 'grep',
+          command: `grep: "${pattern}" ${filePath.trim()}`,
+          passed,
+          reason
+        });
+      } else if (proseMatch) {
+        results.push({
+          ac,
+          type: 'prose',
+          command: `prose: ${proseMatch[1].trim()}`,
+          passed: true
+        });
+      } else {
+        // Missing predicate or marker
+        results.push({
+          ac,
+          type: 'missing',
+          passed: false,
+          reason: 'No predicate or prose: marker found'
+        });
+      }
     }
 
     return { taskId, results, allPassed: results.every(r => r.passed) };

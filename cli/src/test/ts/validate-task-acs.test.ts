@@ -4,12 +4,14 @@ import { ValidateTaskAcs } from '../../main/ts/application/use-cases/validate-ta
 
 const validator = new ValidateTaskAcs(process.cwd());
 
-test('ValidateTaskAcs - no predicates returns empty results and allPassed true', () => {
+test('ValidateTaskAcs - no predicates returns missing results and allPassed false', () => {
   const content = '- [x] Something was done\n- [ ] Another thing';
   const result = validator.execute(content, 'TASK-001');
   assert.strictEqual(result.taskId, 'TASK-001');
-  assert.deepStrictEqual(result.results, []);
-  assert.strictEqual(result.allPassed, true);
+  assert.strictEqual(result.results.length, 2);
+  assert.strictEqual(result.results[0].type, 'missing');
+  assert.strictEqual(result.results[1].type, 'missing');
+  assert.strictEqual(result.allPassed, false);
 });
 
 test('ValidateTaskAcs - passing predicate (exit 0)', () => {
@@ -39,16 +41,17 @@ test('ValidateTaskAcs - intentional non-zero expected exit', () => {
   assert.strictEqual(result.results[0].passed, true);
 });
 
-test('ValidateTaskAcs - mixed predicates reports all results', () => {
+test('ValidateTaskAcs - mixed predicates reports all results including missing', () => {
   const content = [
     '- [ ] Passes  →  cmd: true; exit: 0',
     '- [ ] Fails   →  cmd: false; exit: 0',
     '- [ ] Prose AC with no predicate',
   ].join('\n');
   const result = validator.execute(content, 'TASK-001');
-  assert.strictEqual(result.results.length, 2);
+  assert.strictEqual(result.results.length, 3);
   assert.strictEqual(result.results[0].passed, true);
   assert.strictEqual(result.results[1].passed, false);
+  assert.strictEqual(result.results[2].type, 'missing');
   assert.strictEqual(result.allPassed, false);
 });
 

@@ -16,7 +16,7 @@ function makeTask(overrides: Partial<Task> = {}): Task {
     class: '2-code-generation',
     cli: 'claude-code',
     context: [],
-    content: '- [x] Prose AC with no predicate\n',
+    content: '- [x] Manual verification → prose: verified manually\n',
     filePath: '/tmp/TASK-031.md',
     rawMetaLine: '',
     ...overrides,

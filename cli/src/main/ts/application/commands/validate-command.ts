@@ -50,21 +50,32 @@ export class ValidateCommand {
     const result = validator.execute(task.content, taskId);
 
     if (result.results.length === 0) {
-      fmt.ok(`${taskId}: no cmd: predicates found`);
+      fmt.ok(`${taskId}: no ACs found`);
       process.exit(0);
     }
 
     let anyFailed = false;
     for (const r of result.results) {
       if (r.timedOut) {
-        fmt.fail(`FAIL  ${r.ac}  (TIMEOUT after ${30}s)`);
+        fmt.fail(`FAIL  ${r.ac} (TIMEOUT after 30s)`);
         console.log(`      cmd: ${r.command}`);
         anyFailed = true;
       } else if (r.passed) {
-        fmt.check(`PASS  ${r.ac}`);
+        if (r.type === 'prose') {
+          fmt.arrow(`SKIP  ${r.ac} (prose: marker detected)`);
+        } else {
+          fmt.check(`PASS  ${r.ac}`);
+        }
       } else {
-        fmt.fail(`FAIL  ${r.ac}  (exit ${r.actualExit}, expected ${r.expectedExit})`);
-        console.log(`      cmd: ${r.command}`);
+        if (r.type === 'cmd') {
+          fmt.fail(`FAIL  ${r.ac} (exit ${r.actualExit}, expected ${r.expectedExit})`);
+          console.log(`      cmd: ${r.command}`);
+        } else if (r.type === 'missing') {
+          fmt.warn(`WARN  ${r.ac} (missing predicate or prose: marker)`);
+        } else {
+          fmt.fail(`FAIL  ${r.ac} (${r.reason || 'failed'})`);
+          if (r.command) console.log(`      ${r.command}`);
+        }
         anyFailed = true;
       }
     }

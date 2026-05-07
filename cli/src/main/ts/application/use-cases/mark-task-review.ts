@@ -22,7 +22,12 @@ export class MarkTaskReview {
     if (!validation.allPassed) {
       const failures = validation.results
         .filter(r => !r.passed)
-        .map(r => `[exit ${r.actualExit}, expected ${r.expectedExit}] ${r.ac}  (cmd: ${r.command})`);
+        .map(r => {
+          if (r.type === 'cmd') {
+            return `[exit ${r.actualExit}, expected ${r.expectedExit}] ${r.ac} (cmd: ${r.command})`;
+          }
+          return `${r.ac}: ${r.reason || 'failed'}`;
+        });
       return { passed: false, failures };
     }
 

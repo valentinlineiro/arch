@@ -18,8 +18,9 @@
 7. On completion:
    - **Hansei Check:** Before setting status, check if any trigger applies: (a) actual size differed from estimate, (b) a blocker was encountered, (c) task is `M` or larger. If any trigger applies, the Hansei should reflect that signal directly. For any task that will be archived as `DONE` from `TASK-195` onward, always append a `## Hansei` section (1–3 sentences), even on XS/S happy-path work, because the close transition enforces its presence.
    - **Predicate Check:** Run `arch task review TASK-XXX` to execute all `cmd:` predicates and atomically set status to REVIEW. If any predicate fails, fix the implementation before retrying — do not manually override the status. If the task has no `cmd:` predicates, set status to REVIEW manually and proceed.
-   - **Handover:** The agent that implements a task CANNOT archive it. It must yield to an Auditor.
-   - **Review Request:** Append a `REVIEW_REQUEST` entry to `docs/INBOX.md` with Task ID, AC list, and changed files.
+   - **Handover:** The agent that implements a task CANNOT archive it by default. It must yield to an Auditor.
+     - **Exception (Auditor Bypass):** If a task has **zero** `prose:` markers (meaning all ACs are machine-verified via `cmd:`, `file:`, or `grep:`), the implementing agent may autonomously mark it as `DONE` and move it to `docs/archive/` after the `Predicate Check` passes.
+   - **Review Request:** If the Auditor bypass does not apply, append a `REVIEW_REQUEST` entry to `docs/INBOX.md` with Task ID, AC list, and changed files.
    - Release lock and stop.
    - **Telemetry:** Finally, print `Turns: [count]` and `Cost: $[amount]` to stdout for loop tracking.
 7. **Auditor Step:**
