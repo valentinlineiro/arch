@@ -26,4 +26,8 @@ export class NodeFileSystem implements FileSystem {
   async rename(oldPath: string, newPath: string): Promise<void> {
     await fs.rename(oldPath, newPath);
   }
+
+  async mkdir(path: string): Promise<void> {
+    await fs.mkdir(path, { recursive: true });
+  }
 }
