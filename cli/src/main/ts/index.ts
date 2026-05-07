@@ -27,6 +27,9 @@ import { LintCommand } from './application/commands/lint-command.js';
 import { MoveCommand } from './application/commands/move-command.js';
 import { ExecCommand } from './application/commands/exec-command.js';
 import { MergeResolveCommand } from './application/commands/merge-resolve-command.js';
+import { MarkdownIntentRepository } from './infrastructure/filesystem/markdown-intent-repository.js';
+import { CaptureIntent } from './application/use-cases/capture-intent.js';
+import { CaptureCommand } from './application/commands/capture-command.js';
 
 async function main() {
   const fileSystem = new NodeFileSystem();
@@ -111,8 +114,14 @@ async function main() {
     case 'merge-resolve':
       await new MergeResolveCommand(gitRepository, fileSystem).execute();
       break;
+    case 'capture': {
+      const intentRepository = new MarkdownIntentRepository(fileSystem);
+      const captureIntent = new CaptureIntent(intentRepository, gitRepository);
+      await new CaptureCommand(captureIntent).execute(args);
+      break;
+    }
     default:
-      console.log('Usage: arch [status|validate|review|task|inbox|next|version|govern|rank|batch|drain|conduct|promote|loop|sandbox|lint|mv|exec|merge-resolve]');
+      console.log('Usage: arch [status|validate|review|task|inbox|next|version|govern|rank|batch|drain|conduct|promote|loop|sandbox|lint|mv|exec|merge-resolve|capture]');
       process.exit(1);
   }
 }
