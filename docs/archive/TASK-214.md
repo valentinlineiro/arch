@@ -1,6 +1,6 @@
 ## TASK-214: Fix exec/bridge layer: remove unused content param, add maxBuffer, fix local routing
-**Meta:** P1 | XS | IN_PROGRESS | Focus:yes | 9-bugfix | claude-code | cli/src/main/ts/domain/services/bridge-provider.ts, cli/src/main/ts/domain/services/sandbox.ts, cli/src/main/ts/application/commands/exec-command.ts, cli/src/main/ts/application/use-cases/loop-engine.ts
-**Lock:** claude-code
+**Meta:** P1 | XS | DONE | Focus:no | 9-bugfix | claude-code | cli/src/main/ts/domain/services/bridge-provider.ts, cli/src/main/ts/domain/services/sandbox.ts, cli/src/main/ts/application/commands/exec-command.ts, cli/src/main/ts/application/use-cases/loop-engine.ts
+**Closed-at: 2026-05-07T00:00:00.000Z**
 **Depends:** none
 
 ### Context
