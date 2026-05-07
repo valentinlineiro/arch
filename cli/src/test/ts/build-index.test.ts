@@ -127,3 +127,88 @@ test('BuildIndex.computeImportDepths assigns BFS depth from entry point', () => 
   assert.equal(depths['c.ts'], 1);
   assert.equal(depths['d.ts'], 2);
 });
+
+test('BuildIndex.parseAdr extracts title, keywords, strength, and affectedModules', () => {
+  const fs = new MockFileSystem();
+  const builder = new BuildIndex(fs as any);
+  const content = `# ADR-002: Context as a budget, not a default
+
+**Date:** 2026-04-23
+**Status:** ACCEPTED
+
+## Context
+LLMs have finite context windows. Loading the entire codebase leads to token waste.
+
+## Decision
+Treat context as a scarce resource. See \`cli/src/main/ts/domain/services/config-loader.ts\`.
+`;
+  const adr = builder.parseAdr(content);
+  assert.equal(adr.title, 'Context as a budget, not a default');
+  assert.equal(adr.strength, 'enforced');
+  assert.ok(adr.keywords.includes('context'));
+  assert.ok(adr.keywords.includes('budget'));
+  assert.ok(adr.affectedModules.includes('cli/src/main/ts/domain/services/config-loader.ts'));
+});
+
+test('BuildIndex.parseAdr marks PROPOSED ADRs as advisory', () => {
+  const fs = new MockFileSystem();
+  const builder = new BuildIndex(fs as any);
+  const content = `# ADR-099: Experimental feature\n\n**Status:** PROPOSED\n\n## Context\nSomething new.`;
+  const adr = builder.parseAdr(content);
+  assert.equal(adr.strength, 'advisory');
+});
+
+test('BuildIndex.buildGuidelineIndex maps contextRules to GuidelineEntry', () => {
+  const fs = new MockFileSystem();
+  const builder = new BuildIndex(fs as any);
+  const rules = {
+    'testing-a-change.md': { taskClasses: ['2-code-generation', '7-operations'] },
+    'versioning.md': { taskClasses: ['2-code-generation'] },
+  };
+  const guidelines = builder.buildGuidelineIndex(rules);
+  assert.deepEqual(guidelines['testing-a-change.md'].taskClasses, ['2-code-generation', '7-operations']);
+  assert.ok(guidelines['testing-a-change.md'].tags.includes('testing'));
+  assert.deepEqual(guidelines['versioning.md'].taskClasses, ['2-code-generation']);
+});
+
+test('BuildIndex.execute() writes a valid JSON index to .arch/context-index.json', async () => {
+  const fs = new MockFileSystem();
+  fs.directories['cli/src/main/ts'] = ['domain'];
+  fs.directories['cli/src/main/ts/domain'] = ['models'];
+  fs.directories['cli/src/main/ts/domain/models'] = ['task.ts'];
+  fs.files['cli/src/main/ts/domain/models/task.ts'] = `
+export enum TaskStatus { READY = 'READY' }
+export interface Task { id: string; }
+`;
+  fs.directories['docs/adr'] = ['ADR-002-context-as-budget.md'];
+  fs.files['docs/adr/ADR-002-context-as-budget.md'] = `# ADR-002: Context budget\n\n**Status:** ACCEPTED\n\n## Context\nTokens are scarce.`;
+  fs.directories['docs/guidelines'] = [];
+
+  const builder = new BuildIndex(fs as any);
+  await builder.execute({ 'testing-a-change.md': { taskClasses: ['2-code-generation'] } });
+
+  const written = fs.written['.arch/context-index.json'];
+  assert.ok(written, 'index file should be written');
+  const index = JSON.parse(written);
+  assert.equal(index.version, 1);
+  assert.ok(index.builtAt);
+  assert.ok('cli/src/main/ts/domain/models/task.ts' in index.files);
+  assert.ok(index.files['cli/src/main/ts/domain/models/task.ts'].symbols.includes('TaskStatus'));
+  assert.ok('ADR-002' in index.adrs);
+  assert.equal(index.adrs['ADR-002'].strength, 'enforced');
+  assert.ok('testing-a-change.md' in index.guidelines);
+});
+
+test('BuildIndex.execute() gracefully handles missing ADR and guideline directories', async () => {
+  const fs = new MockFileSystem();
+  fs.directories['cli/src/main/ts'] = [];
+  // docs/adr and docs/guidelines don't exist
+
+  const builder = new BuildIndex(fs as any);
+  await assert.doesNotReject(() => builder.execute());
+
+  const written = fs.written['.arch/context-index.json'];
+  const index = JSON.parse(written);
+  assert.deepEqual(index.adrs, {});
+  assert.deepEqual(index.guidelines, {});
+});
