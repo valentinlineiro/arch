@@ -5,7 +5,6 @@ export class BuildIndex {
   private readonly indexPath = '.arch/context-index.json';
   private readonly srcRoot = 'cli/src/main/ts';
   private readonly adrDir = 'docs/adr';
-  private readonly guidelinesDir = 'docs/guidelines';
   private readonly stopwords = new Set([
     'the', 'a', 'an', 'is', 'are', 'in', 'of', 'to', 'and', 'for', 'that',
     'this', 'it', 'not', 'as', 'at', 'by', 'or', 'be', 'do', 'if', 'on',
@@ -112,14 +111,14 @@ export class BuildIndex {
     const relative = filePath.replace(`${this.srcRoot}/`, '');
     const segments = relative.split('/');
     for (const seg of segments.slice(0, -1)) {
-      const words = seg.split('-').filter(w => w.length > 2);
+      const words = seg.split('-').filter(w => w.length >= 4);
       words.forEach(w => tags.add(w.toLowerCase()));
     }
     const filename = segments[segments.length - 1].replace('.ts', '');
-    filename.split('-').filter(w => w.length > 2).forEach(w => tags.add(w.toLowerCase()));
+    filename.split('-').filter(w => w.length >= 4).forEach(w => tags.add(w.toLowerCase()));
     for (const symbol of symbols) {
       this.splitCamelCase(symbol)
-        .filter(w => w.length > 2)
+        .filter(w => w.length >= 4)
         .forEach(w => tags.add(w.toLowerCase()));
     }
     return [...tags];
@@ -172,7 +171,9 @@ export class BuildIndex {
   parseAdr(content: string): AdrEntry {
     const titleMatch = content.match(/^#\s+ADR-\d+[:\s]+(.+)$/m);
     const title = titleMatch?.[1]?.trim() ?? '';
-    const statusMatch = content.match(/\*\*Status:\*\*\s+(\w+)/);
+    const statusMatch =
+      content.match(/\*\*Status:\*\*\s+(\w+)/) ??
+      content.match(/##\s+Status\s*\n+(\w+)/);
     const strength: 'enforced' | 'advisory' = statusMatch?.[1] === 'ACCEPTED' ? 'enforced' : 'advisory';
     const firstSection = content.slice(0, 1000);
     const keywords = this.extractKeywords(title + ' ' + firstSection);
@@ -184,7 +185,7 @@ export class BuildIndex {
   buildGuidelineIndex(contextRules: Record<string, { taskClasses: string[] }>): Record<string, GuidelineEntry> {
     const guidelines: Record<string, GuidelineEntry> = {};
     for (const [file, rule] of Object.entries(contextRules)) {
-      const tags = file.replace('.md', '').split('-').filter(w => w.length > 2);
+      const tags = file.replace('.md', '').split('-').filter(w => w.length >= 4);
       guidelines[file] = { tags, taskClasses: rule.taskClasses };
     }
     return guidelines;

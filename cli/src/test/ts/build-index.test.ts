@@ -66,7 +66,7 @@ export const VERSION = '1.0';
 export abstract class BaseService {}
 const notExported = 1;
 `;
-  const symbols = (builder as any).extractSymbols(content);
+  const symbols = builder.extractSymbols(content);
   assert.ok(symbols.includes('MyService'));
   assert.ok(symbols.includes('doThing'));
   assert.ok(symbols.includes('Config'));
@@ -84,7 +84,7 @@ import { Foo } from './models/foo.js';
 import { Bar } from '../../domain/bar.js';
 import { Baz } from 'node:path';
 `;
-  const imports = (builder as any).extractImports(content, 'cli/src/main/ts/application/use-cases/my-use-case.ts');
+  const imports = builder.extractImports(content, 'cli/src/main/ts/application/use-cases/my-use-case.ts');
   assert.ok(imports.includes('cli/src/main/ts/application/use-cases/models/foo.ts'));
   assert.ok(imports.includes('cli/src/main/ts/domain/bar.ts'));
   // External imports (no leading '.') are not included
@@ -94,16 +94,16 @@ import { Baz } from 'node:path';
 test('BuildIndex.inferCriticality maps path segments to criticality values', () => {
   const fs = new MockFileSystem();
   const builder = new BuildIndex(fs as any);
-  assert.equal((builder as any).inferCriticality('cli/src/main/ts/domain/models/task.ts'), 'core');
-  assert.equal((builder as any).inferCriticality('cli/src/main/ts/application/use-cases/capture.ts'), 'domain');
-  assert.equal((builder as any).inferCriticality('cli/src/main/ts/infrastructure/cli/git-cli.ts'), 'support');
-  assert.equal((builder as any).inferCriticality('cli/src/main/ts/index.ts'), 'utility');
+  assert.equal(builder.inferCriticality('cli/src/main/ts/domain/models/task.ts'), 'core');
+  assert.equal(builder.inferCriticality('cli/src/main/ts/application/use-cases/capture.ts'), 'domain');
+  assert.equal(builder.inferCriticality('cli/src/main/ts/infrastructure/cli/git-cli.ts'), 'support');
+  assert.equal(builder.inferCriticality('cli/src/main/ts/index.ts'), 'utility');
 });
 
 test('BuildIndex.extractTags produces lowercase tokens from path and symbols', () => {
   const fs = new MockFileSystem();
   const builder = new BuildIndex(fs as any);
-  const tags = (builder as any).extractTags(
+  const tags = builder.extractTags(
     'cli/src/main/ts/application/use-cases/capture-intent.ts',
     ['CaptureIntent']
   );
@@ -121,7 +121,7 @@ test('BuildIndex.computeImportDepths assigns BFS depth from entry point', () => 
     'c.ts': { symbols: [], imports: [], tags: [], criticality: 'utility' as const, runtimeUsage: 'cold' as const },
     'd.ts': { symbols: [], imports: [], tags: [], criticality: 'utility' as const, runtimeUsage: 'cold' as const },
   };
-  const depths = (builder as any).computeImportDepths(entries, 'a.ts');
+  const depths = builder.computeImportDepths(entries, 'a.ts');
   assert.equal(depths['a.ts'], 0);
   assert.equal(depths['b.ts'], 1);
   assert.equal(depths['c.ts'], 1);
