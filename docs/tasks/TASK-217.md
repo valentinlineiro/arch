@@ -1,4 +1,4 @@
-## TASK-217: Automatic entity linking — tasks↔commits
+## TASK-217: Automatic entity linking - tasks-to-commits
 **Meta:** P1 | M | DONE | Focus:no | 2-code-generation | claude-code | cli/src/main/ts/
 **Depends:** TASK-210
 
