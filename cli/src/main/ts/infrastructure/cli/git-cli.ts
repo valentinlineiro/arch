@@ -97,9 +97,10 @@ export class GitCli implements GitRepository {
   }>> {
     const { stdout, code } = await SubprocessRunner.runWithOutput('git', [
       'log',
-      `--format=%h|%s|%cI`,
+      '--no-merges',
+      '--format=%h|%s|%cI',
       '--name-only',
-      `-${limit}`,
+      '-n', limit.toString(),
     ]);
     if (code !== 0 || !stdout.trim()) return [];
 
