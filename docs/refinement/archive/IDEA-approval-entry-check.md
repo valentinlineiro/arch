@@ -1,8 +1,8 @@
 # IDEA: Approval entry check in arch review
 **Created:** 2026-05-05
 **Source:** Split from IDEA-mechanize-protocol-controls
-**Status:** DRAFT
-**Sessions:** 4
+**Status:** REJECTED: TTL expired
+**Sessions:** 5
 **Meta:** P2 | S | claude-code | cli/src/main/ts/domain/services/drift-checker.ts, docs/TASK-FORMAT.md, docs/agents/DO.md
 
 ## Problem

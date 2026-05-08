@@ -2,7 +2,7 @@
 **Created:** 2026-05-06
 **Source:** User request "idea: auto sprint sizing. ARCH should help human to know the kind of tasks being done in a spring"
 **Status:** DRAFT
-**Sessions:** 1
+**Sessions:** 2
 **Meta:** P2 | S | local | docs/agents/DO.md, docs/METRICS.md
 <!-- cli: local | claude | gemini | human -->
 

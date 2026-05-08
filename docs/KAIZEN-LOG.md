@@ -25,6 +25,10 @@
 
 - **Protocol Enforcement Lag** *(Sprint v0.6.0-final)*: Rollout of machine-enforced `## Hansei` (TASK-195) occurred before `DO.md` was updated (TASK-197), leading to agents following a stale protocol and being blocked by the CLI. **Proposal:** Mandate "Atomic Protocol Updates" where CLI enforcement and documentation changes are delivered in the same commit or task.
 
+- **Missing Mura Signals** *(Sprint v0.6.0-final)*: Although TASK-182 introduced the `Turns: N` metadata field, agents are not consistently recording this field at task completion. This creates a data gap for THINK Phase 4 (Mura detection). **Proposal:** Automate turn-count recording in the `arch task done` command or within the EXEC loop logic to remove reliance on agent judgment.
+
+- **Level Terminology Collision** *(Sprint v0.6.0-final)*: Simultaneous advancement of "Autonomy Levels" (L1-L4) and "Escalation Maturity" (L1-E7) has led to terminal confusion where "Level 3" has two different meanings. **Proposal:** Adopt distinct prefixes (Capability vs Enforcement) per IDEA-level-terminology-disambiguation.
+
 ---
 
 ## Tool
