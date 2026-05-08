@@ -63,6 +63,7 @@ const FIXTURE_INDEX: ContextIndex = {
     'versioning.md': { tags: ['versioning', 'schema', 'migration'], taskClasses: ['2-code-generation'] },
     'autonomy.md': { tags: ['autonomy', 'agent', 'loop'], taskClasses: ['7-operations'] },
   },
+  tasks: {},
 };
 
 test('ContextInference.extractKeywords removes stopwords and splits camelCase', () => {

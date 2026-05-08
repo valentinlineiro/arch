@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert';
-import type { ContextIndex, FileEntry, AdrEntry, GuidelineEntry } from '../../main/ts/domain/models/context-index.js';
+import type { ContextIndex, FileEntry, AdrEntry, GuidelineEntry, TaskEntry } from '../../main/ts/domain/models/context-index.js';
 import { BuildIndex } from '../../main/ts/application/use-cases/build-index.js';
 
 class MockFileSystem {
@@ -46,6 +46,7 @@ test('ContextIndex types are importable and structurally correct', () => {
     files: { 'cli/src/main/ts/domain/models/task.ts': file },
     adrs: { 'ADR-002': adr },
     guidelines: { 'testing-a-change.md': guideline },
+    tasks: {},
   };
 
   assert.equal(index.version, 1);
@@ -211,4 +212,31 @@ test('BuildIndex.execute() gracefully handles missing ADR and guideline director
   const index = JSON.parse(written);
   assert.deepEqual(index.adrs, {});
   assert.deepEqual(index.guidelines, {});
+});
+
+test('TaskEntry and ContextIndex.tasks are structurally correct', () => {
+  const task: TaskEntry = {
+    commitCount: 3,
+    lastCommitDate: '2026-05-08T10:00:00Z',
+    touchedFrequency: {
+      'cli/src/main/ts/application/use-cases/build-index.ts': 2,
+      'cli/src/main/ts/domain/models/context-index.ts': 1,
+    },
+    recentCommitRefs: ['abc1234', 'def5678', 'ghi9012'],
+    commitRefOverflow: false,
+  };
+
+  const index: ContextIndex = {
+    version: 2,
+    builtAt: '2026-05-08T10:00:00Z',
+    files: {},
+    adrs: {},
+    guidelines: {},
+    tasks: { 'TASK-217': task },
+  };
+
+  assert.equal(index.version, 2);
+  assert.equal(index.tasks['TASK-217'].commitCount, 3);
+  assert.equal(index.tasks['TASK-217'].commitRefOverflow, false);
+  assert.equal(index.tasks['TASK-217'].touchedFrequency['cli/src/main/ts/application/use-cases/build-index.ts'], 2);
 });
