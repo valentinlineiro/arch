@@ -14,7 +14,7 @@ ARCH infers context automatically before task execution: relevant files (from gi
 This is the true technical core of Phase 1. Without auto-context, every agent session starts cold. With it, ARCH compounds institutional knowledge into every execution. The difference is between a tool and an infrastructure.
 
 ## Dependencies
-arch capture (TASK-210).
+arch capture (TASK-219).
 
 ## Estimated size
 M
@@ -22,4 +22,4 @@ M
 ## Gaps
 
 ## Decision
-PROMOTE → TASK-210
+PROMOTE → TASK-219

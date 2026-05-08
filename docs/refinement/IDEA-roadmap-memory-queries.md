@@ -30,7 +30,7 @@ This is where ARCH starts to feel like an OS rather than a task manager. The moa
 - [IDEA-institutional-memory-document.md](IDEA-institutional-memory-document.md) — related memory surface
 
 ## Dependencies
-TASK-210 (ContextIndex), IDEA-roadmap-automatic-linking (for relationship traversal).
+TASK-219 (ContextIndex), IDEA-roadmap-automatic-linking (for relationship traversal).
 
 ## Estimated size
 L

@@ -13,3 +13,6 @@ First task of 7 implementing `arch capture`. Creates the core domain types for t
 ### Definition of Done
 - [x] All ACs checked.
 - [x] `npm test` passes in `cli/`.
+
+## Hansei
+Migrated from TASK-210 to resolve ID collision. Core domain model for capturing intent is stable.

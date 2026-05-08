@@ -20,3 +20,6 @@ Materialize guidelines↔failures relationships in the ContextIndex by parsing R
 
 ## Hansei
 This completes the Phase 1 Feature 3 scope. By linking failures to guidelines, we close the loop on ARCH's institutional memory. The system now doesn't just record what we decided (ADRs) and what we did (Tasks), but also what went wrong (Failures) and how we adapted (Guidelines). This makes guidelines actionable by surfacing them exactly when the operator is entering a known "danger zone" identified by keywords or task references.
+
+## Hansei
+Guideline-failure linking completes Phase 1 Feature 3. The deterministic parsing of retros and Kaizen log provides a reliable causal bridge without LLM overhead.

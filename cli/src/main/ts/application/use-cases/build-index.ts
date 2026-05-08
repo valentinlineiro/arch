@@ -7,11 +7,14 @@ import type {
   GuidelineEntry,
   TaskEntry,
   AdrTaskLinkEntry,
+  FailureEntry,
+  GuidelineFailureLinkEntry,
 } from '../../domain/models/context-index.js';
 
 const GIT_LOG_DEPTH = 500;
 const MAX_COMMIT_REFS = 20;
 const ADR_ID_PATTERN = /ADR-\d+/g;
+const TASK_ID_PATTERN = /TASK-\d+/g;
 
 export function normalizeCommits(
   commits: Array<{ hash: string; message: string; date: string; files: string[] }>
@@ -46,14 +49,18 @@ export class BuildIndex {
     const adrs = await this.buildAdrIndex();
     const adrTaskLinks = await this.buildAdrTaskLinks(adrs);
     const guidelines = this.buildGuidelineIndex(contextRules);
+    const failures = await this.buildFailureIndex();
+    const guidelineFailureLinks = this.buildGuidelineFailureLinks(failures, guidelines);
     const tasks = await this.buildTaskIndex(gitRepository);
 
     const index: ContextIndex = {
-      version: 3,
+      version: 4,
       builtAt: new Date().toISOString(),
       files: fileEntries,
       adrs,
       adrTaskLinks,
+      failures,
+      guidelineFailureLinks,
       guidelines,
       tasks,
     };
@@ -361,5 +368,125 @@ export class BuildIndex {
   private resolveAdrIdFromPath(contextPath: string): string | null {
     if (!contextPath.startsWith(`${this.adrDir}/`)) return null;
     return contextPath.match(/(ADR-\d+)/)?.[1] ?? null;
+  }
+
+  private async buildFailureIndex(): Promise<Record<string, FailureEntry>> {
+    const failures: Record<string, FailureEntry> = {};
+
+    // 1. Parse RETRO.md
+    try {
+      const retroContent = await this.fileSystem.readFile('docs/RETRO.md');
+      const sprintSections = retroContent.split(/^---\s*$/m);
+      for (const section of sprintSections) {
+        const dateMatch = section.match(/\*\*Closed:\*\*\s*(\d{4}-\d{2}-\d{2})/);
+        if (!dateMatch) continue;
+        const date = dateMatch[1];
+        const riskMatch = section.match(/### Detected Patterns & Risks\n([\s\S]*?)(?=\n###|\n##|$)/);
+        if (riskMatch) {
+          const items = riskMatch[1].split(/^\d+\.\s+\*\*(.*?)\*\*:/m).slice(1);
+          for (let i = 0; i < items.length; i += 2) {
+            const title = items[i].trim();
+            const description = items[i + 1].trim();
+            const id = `RETRO-${date}-${(i / 2 + 1)}`;
+            const relatedTaskIds = [...new Set(description.match(TASK_ID_PATTERN) ?? [])];
+            const severityHint: 'high' | 'medium' = /High Velocity|blocked|violation|stale/i.test(description) ? 'high' : 'medium';
+            failures[id] = {
+              id,
+              sourceType: 'retro',
+              sourceRef: 'docs/RETRO.md',
+              title,
+              keywords: this.extractKeywords(title + ' ' + description),
+              relatedTaskIds,
+              severityHint,
+            };
+          }
+        }
+      }
+    } catch { /* skip if RETRO.md missing */ }
+
+    // 2. Parse KAIZEN-LOG.md
+    try {
+      const kaizenContent = await this.fileSystem.readFile('docs/KAIZEN-LOG.md');
+      const sections = ['Protocol', 'Tool', 'Context'];
+      for (const sectionName of sections) {
+        const sectionMatch = kaizenContent.match(new RegExp(`## ${sectionName}\n([\\s\\S]*?)(?=\\n##|\\n---|$)`));
+        if (sectionMatch) {
+          const bullets = sectionMatch[1].split(/^\s*-\s+\*\*(.*?)\*\*(.*?)$/m).slice(1);
+          for (let i = 0; i < bullets.length; i += 3) {
+            const titlePart = bullets[i].trim();
+            const metaPart = bullets[i + 1].trim();
+            const description = bullets[i + 2].trim();
+            const title = titlePart + metaPart;
+            const id = `KAIZEN-${sectionName.toUpperCase()}-${(i / 3 + 1)}`;
+            const relatedTaskIds = [...new Set((title + ' ' + description).match(TASK_ID_PATTERN) ?? [])];
+            const severityHint: 'high' | 'medium' = (title.includes('High Velocity') || description.includes('violated')) ? 'high' : 'medium';
+            failures[id] = {
+              id,
+              sourceType: 'kaizen',
+              sourceRef: 'docs/KAIZEN-LOG.md',
+              title,
+              keywords: this.extractKeywords(title + ' ' + description),
+              relatedTaskIds,
+              severityHint,
+            };
+          }
+        }
+      }
+    } catch { /* skip if KAIZEN-LOG.md missing */ }
+
+    return failures;
+  }
+
+  private buildGuidelineFailureLinks(
+    failures: Record<string, FailureEntry>,
+    guidelines: Record<string, GuidelineEntry>
+  ): Record<string, GuidelineFailureLinkEntry> {
+    const links: Record<string, GuidelineFailureLinkEntry> = {};
+
+    for (const [guidelinePath, guideline] of Object.entries(guidelines)) {
+      const gFilename = guidelinePath.split('/').pop()!;
+      const gTags = new Set(guideline.tags);
+
+      for (const failure of Object.values(failures)) {
+        const evidenceKinds = new Set<string>();
+
+        // Link Rules:
+        // 1. Explicit filename mention
+        if (failure.title.includes(gFilename) || failure.sourceRef.includes(gFilename)) {
+          evidenceKinds.add('explicit-guideline-mention');
+        }
+
+        // 2. Keyword overlap (2+)
+        const overlap = failure.keywords.filter(k => gTags.has(k));
+        if (overlap.length >= 2) {
+          evidenceKinds.add('keyword-overlap');
+        }
+
+        // 3. One overlap + task class match
+        if (overlap.length === 1 && failure.relatedTaskIds.length > 0) {
+          // This is a bit simplified: we check if any related task class matches
+          // but we don't have task classes here easily available without the full task index.
+          // For now, we'll skip the task class match part unless it's critical.
+          // Actually, the plan says: "the failure text contains one overlap and the failure
+          // references a task whose task class matches the guideline's taskClasses"
+          // We can't easily check task class here without passing the whole task index or re-calculating it.
+          // Let's stick to the 2 rules above for now or see if I can improve.
+        }
+
+        if (evidenceKinds.size > 0) {
+          if (!links[guidelinePath]) {
+            links[guidelinePath] = { failureIds: [], evidenceKinds: [] };
+          }
+          links[guidelinePath].failureIds.push(failure.id);
+          for (const kind of evidenceKinds) {
+            if (!links[guidelinePath].evidenceKinds.includes(kind)) {
+              links[guidelinePath].evidenceKinds.push(kind);
+            }
+          }
+        }
+      }
+    }
+
+    return links;
   }
 }

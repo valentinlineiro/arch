@@ -41,6 +41,7 @@ export interface ContextResult {
   files: ScoredFile[];
   adrs: ScoredAdr[];
   guidelines: ScoredGuideline[];
+  failurePatterns: Array<{ id: string; title: string; sourceRef: string; score: number }>;
   unresolvedTaskRefs: string[];
   filteredFiles: string[];
   unresolvedAdrRefs: string[];
@@ -102,6 +103,8 @@ export class ContextInference {
     const critMult: Record<string, number> = { core: 1.5, domain: 1.2, support: 1.0, utility: 0.7 };
     const fileScoreMap = new Map<string, number>();
     const adrScoreMap = new Map<string, number>();
+    const guidelineScoreMap = new Map<string, number>();
+    const failureScoreMap = new Map<string, number>();
     const unresolvedTaskRefs = new Set<string>();
     const filteredFiles = new Set<string>();
     const unresolvedAdrRefs = new Set<string>();
@@ -143,7 +146,8 @@ export class ContextInference {
     }
 
     // Task-reference pass: explicit TASK-IDs contribute directly to the shared score map.
-    for (const taskRef of this.extractTaskRefs(taskText)) {
+    const taskRefs = this.extractTaskRefs(taskText);
+    for (const taskRef of taskRefs) {
       const taskEntry = index.tasks?.[taskRef];
       if (!taskEntry) {
         unresolvedTaskRefs.add(taskRef);
@@ -187,6 +191,47 @@ export class ContextInference {
       }
     }
 
+    // Failure Pattern pass
+    for (const [failureId, failure] of Object.entries(index.failures ?? {})) {
+      const matches = failure.keywords.filter(k => kw.has(k)).length;
+      if (matches > 0) {
+        const score = matches * (failure.severityHint === 'high' ? 1.5 : 1.0);
+        failureScoreMap.set(failureId, (failureScoreMap.get(failureId) ?? 0) + score);
+      }
+    }
+
+    // If task references past tasks, pull linked failures from that task's keywords
+    for (const taskRef of taskRefs) {
+      const taskEntry = index.tasks?.[taskRef];
+      if (!taskEntry) continue;
+      for (const [failureId, failure] of Object.entries(index.failures ?? {})) {
+        if (failure.relatedTaskIds.includes(taskRef)) {
+          failureScoreMap.set(failureId, (failureScoreMap.get(failureId) ?? 0) + 2.0);
+        }
+      }
+    }
+
+    // Boost guidelines and files from failure scores
+    for (const [failureId, fScore] of failureScoreMap.entries()) {
+      for (const [gPath, link] of Object.entries(index.guidelineFailureLinks ?? {})) {
+        if (link.failureIds.includes(failureId)) {
+          guidelineScoreMap.set(gPath, (guidelineScoreMap.get(gPath) ?? 0) + fScore * 2.0);
+        }
+      }
+      const failure = index.failures[failureId];
+      if (failure) {
+        for (const taskId of failure.relatedTaskIds) {
+          const taskEntry = index.tasks?.[taskId];
+          if (taskEntry) {
+            for (const filePath of Object.keys(taskEntry.touchedFrequency)) {
+              if (this.matchesAnyPattern(filePath, LOW_SIGNAL_PATTERNS)) continue;
+              fileScoreMap.set(filePath, (fileScoreMap.get(filePath) ?? 0) + fScore * 0.5);
+            }
+          }
+        }
+      }
+    }
+
     const allFiles = [...fileScoreMap.entries()]
       .map(([path, score]) => this.toScoredFile(index, path, score))
       .sort((a, b) => b.score - a.score)
@@ -212,16 +257,28 @@ export class ContextInference {
     });
     const topAdrs = adrScores.slice(0, 3);
 
-    // Score guidelines by task class + tag match
+    // Score guidelines by task class + tag match + failure boost
     const guidelineScores: ScoredGuideline[] = [];
     for (const [name, g] of Object.entries(index.guidelines)) {
       let score = g.taskClasses.includes(taskClass) ? 2.0 : 0;
       score += g.tags.filter(t => kw.has(t)).length * 0.5;
+      score += guidelineScoreMap.get(name) ?? 0;
       if (score <= 0) continue;
       guidelineScores.push({ name, score });
     }
     guidelineScores.sort((a, b) => b.score - a.score);
     const topGuidelines = guidelineScores.slice(0, 2);
+
+    // Top Failure Patterns
+    const topFailurePatterns = [...failureScoreMap.entries()]
+      .map(([id, score]) => ({
+        id,
+        score,
+        title: index.failures[id].title,
+        sourceRef: index.failures[id].sourceRef,
+      }))
+      .sort((a, b) => b.score - a.score)
+      .slice(0, 2);
 
     // Compute confidence
     const kwArray = [...kw];
@@ -246,7 +303,13 @@ export class ContextInference {
       files: allFiles,
       adrs: topAdrs,
       guidelines: topGuidelines,
+      failurePatterns: topFailurePatterns,
       unresolvedTaskRefs: [...unresolvedTaskRefs],
+      filteredFiles: [...filteredFiles],
+      unresolvedAdrRefs: [...unresolvedAdrRefs],
+      filteredAdrFiles: [...filteredAdrFiles],
+    };
+  }
       filteredFiles: [...filteredFiles],
       unresolvedAdrRefs: [...unresolvedAdrRefs],
       filteredAdrFiles: [...filteredAdrFiles],
@@ -277,6 +340,14 @@ export class ContextInference {
       lines.push('**Guidelines:**');
       for (const g of result.guidelines) {
         lines.push(`- ${g.name}`);
+      }
+      lines.push('');
+    }
+
+    if (result.failurePatterns.length > 0) {
+      lines.push('**Failure Patterns:**');
+      for (const p of result.failurePatterns) {
+        lines.push(`- ${p.title} _(${p.sourceRef})_`);
       }
       lines.push('');
     }

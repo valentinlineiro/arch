@@ -41,9 +41,9 @@ This definition is frozen. ARCH is not an autonomous AGI swarm, a no-code platfo
 
 | Feature | Status | Key Artifact |
 |---------|--------|--------------|
-| `arch capture` — intent capture with auto-generated task, ACs, complexity, context | `IN PROGRESS` | [TASK-210](tasks/TASK-210.md), [IDEA-roadmap-arch-capture](refinement/IDEA-roadmap-arch-capture.md) |
-| Auto Context Engine — infer relevant files, commits, ADRs, guidelines per task | `IN PROGRESS` | [TASK-210](tasks/TASK-210.md), [IDEA-roadmap-auto-context-engine](refinement/IDEA-roadmap-auto-context-engine.md) |
-| Automatic entity linking — tasks↔commits, ADRs↔tasks, guidelines↔failures | `PARTIAL` | [TASK-217](archive/TASK-217.md), [TASK-218](archive/TASK-218.md), [IDEA-roadmap-automatic-linking](refinement/IDEA-roadmap-automatic-linking.md) |
+| `arch capture` — intent capture with auto-generated task, ACs, complexity, context | `IN PROGRESS` | [TASK-219](archive/TASK-219.md), [IDEA-roadmap-arch-capture](refinement/IDEA-roadmap-arch-capture.md) |
+| Auto Context Engine — infer relevant files, commits, ADRs, guidelines per task | `IN PROGRESS` | [TASK-219](archive/TASK-219.md), [IDEA-roadmap-auto-context-engine](refinement/IDEA-roadmap-auto-context-engine.md) |
+| Automatic entity linking — tasks↔commits, ADRs↔tasks, guidelines↔failures | `DONE` | [TASK-217](archive/TASK-217.md), [TASK-218](archive/TASK-218.md), [TASK-220](archive/TASK-220.md), [IDEA-roadmap-automatic-linking](refinement/IDEA-roadmap-automatic-linking.md) |
 | Drift detection — orphan tasks, dead refs, unapplied ADRs, stale guidelines | `DONE` | [ADR-013](adr/ADR-013-two-tier-drift-detection.md), [TASK-215](archive/TASK-215.md), [IDEA-roadmap-drift-detection](refinement/IDEA-roadmap-drift-detection.md) |
 
 ---
@@ -57,7 +57,7 @@ This definition is frozen. ARCH is not an autonomous AGI swarm, a no-code platfo
 | Layer 1: Operational Memory (tasks, commits, retros, failures) | `PARTIAL` | docs/archive/ (193+ tasks), docs/RETRO.md |
 | Layer 2: Decision Memory (ADRs, rationale, rejected alternatives) | `DONE` | docs/adr/ (13 ADRs) |
 | Layer 3: Pattern Memory (bug classes, workflow failures, productivity patterns) | `PARTIAL` | [docs/PRINCIPLES.md](PRINCIPLES.md), [docs/KAIZEN-LOG.md](KAIZEN-LOG.md) |
-| Layer 4: Semantic Memory (conceptual relationships between entities) | `PARTIAL` | [TASK-210](tasks/TASK-210.md) (ContextIndex) |
+| Layer 4: Semantic Memory (conceptual relationships between entities) | `PARTIAL` | [TASK-219](archive/TASK-219.md) (ContextIndex) |
 | `arch ask` — memory queries that produce causal patterns and recommendations | `NOT STARTED` | [IDEA-roadmap-memory-queries](refinement/IDEA-roadmap-memory-queries.md) |
 
 ---

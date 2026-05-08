@@ -22,6 +22,21 @@ export interface AdrTaskLinkEntry {
   tasks: Record<string, AdrTaskLinkTaskEntry>;
 }
 
+export interface FailureEntry {
+  id: string;
+  sourceType: 'retro' | 'kaizen';
+  sourceRef: string;
+  title: string;
+  keywords: string[];
+  relatedTaskIds: string[];
+  severityHint: 'high' | 'medium' | 'low';
+}
+
+export interface GuidelineFailureLinkEntry {
+  failureIds: string[];
+  evidenceKinds: string[];
+}
+
 export interface GuidelineEntry {
   tags: string[];
   taskClasses: string[];
@@ -41,6 +56,8 @@ export interface ContextIndex {
   files: Record<string, FileEntry>;
   adrs: Record<string, AdrEntry>;
   adrTaskLinks: Record<string, AdrTaskLinkEntry>;
+  failures: Record<string, FailureEntry>;
+  guidelineFailureLinks: Record<string, GuidelineFailureLinkEntry>;
   guidelines: Record<string, GuidelineEntry>;
   tasks: Record<string, TaskEntry>;
 }
