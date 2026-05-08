@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert';
 import type { ContextIndex, FileEntry, AdrEntry, GuidelineEntry, TaskEntry } from '../../main/ts/domain/models/context-index.js';
-import { BuildIndex } from '../../main/ts/application/use-cases/build-index.js';
+import { BuildIndex, normalizeCommits } from '../../main/ts/application/use-cases/build-index.js';
 
 class MockFileSystem {
   files: Record<string, string> = {};
@@ -17,6 +17,33 @@ class MockFileSystem {
   async readDirectory(path: string): Promise<string[]> { return this.directories[path] ?? []; }
   async rename(): Promise<void> {}
   async mkdir(): Promise<void> {}
+}
+
+class MockGitRepository {
+  private commits: Array<{ hash: string; message: string; date: string; files: string[] }>;
+
+  constructor(commits: Array<{ hash: string; message: string; date: string; files: string[] }> = []) {
+    this.commits = commits;
+  }
+
+  async getDiff(): Promise<string> { return ''; }
+  async getLastCommitMessage(): Promise<string | null> { return null; }
+  async getCurrentBranch(): Promise<string> { return 'main'; }
+  async getStatusLines(): Promise<string[]> { return []; }
+  async getLog(): Promise<string[]> { return []; }
+  async add(): Promise<void> {}
+  async rm(): Promise<void> {}
+  async mv(): Promise<void> {}
+  async commit(): Promise<void> {}
+  async getFileLastModifiedDate(): Promise<Date | null> { return null; }
+  async getChangedFilesInLastCommit(): Promise<string[]> { return []; }
+  async getMergeCommits(): Promise<string[]> { return []; }
+  async getStagedFiles(): Promise<string[]> { return []; }
+  async getModifiedFiles(): Promise<string[]> { return []; }
+  async getRepoRoot(): Promise<string> { return '/repo'; }
+  async getCommitHistory(): Promise<Array<{ hash: string; message: string; date: string; files: string[] }>> {
+    return this.commits;
+  }
 }
 
 test('ContextIndex types are importable and structurally correct', () => {
@@ -186,12 +213,12 @@ export interface Task { id: string; }
   fs.directories['docs/guidelines'] = [];
 
   const builder = new BuildIndex(fs as any);
-  await builder.execute({ 'testing-a-change.md': { taskClasses: ['2-code-generation'] } });
+  await builder.execute({ 'testing-a-change.md': { taskClasses: ['2-code-generation'] } }, new MockGitRepository() as any);
 
   const written = fs.written['.arch/context-index.json'];
   assert.ok(written, 'index file should be written');
   const index = JSON.parse(written);
-  assert.equal(index.version, 1);
+  assert.equal(index.version, 2);
   assert.ok(index.builtAt);
   assert.ok('cli/src/main/ts/domain/models/task.ts' in index.files);
   assert.ok(index.files['cli/src/main/ts/domain/models/task.ts'].symbols.includes('TaskStatus'));
@@ -206,7 +233,7 @@ test('BuildIndex.execute() gracefully handles missing ADR and guideline director
   // docs/adr and docs/guidelines don't exist
 
   const builder = new BuildIndex(fs as any);
-  await assert.doesNotReject(() => builder.execute());
+  await assert.doesNotReject(() => builder.execute({}, new MockGitRepository() as any));
 
   const written = fs.written['.arch/context-index.json'];
   const index = JSON.parse(written);
@@ -239,4 +266,104 @@ test('TaskEntry and ContextIndex.tasks are structurally correct', () => {
   assert.equal(index.tasks['TASK-217'].commitCount, 3);
   assert.equal(index.tasks['TASK-217'].commitRefOverflow, false);
   assert.equal(index.tasks['TASK-217'].touchedFrequency['cli/src/main/ts/application/use-cases/build-index.ts'], 2);
+});
+
+test('normalizeCommits extracts TASK-IDs from commit messages', () => {
+  const commits = [
+    { hash: 'abc1234', message: 'feat: [TASK-42] add feature', date: '2026-05-08T10:00:00Z', files: ['src/a.ts'] },
+    { hash: 'def5678', message: 'fix: [TASK-42] fix bug', date: '2026-05-07T10:00:00Z', files: ['src/b.ts'] },
+    { hash: 'ghi9012', message: 'chore: no task ref', date: '2026-05-06T10:00:00Z', files: ['src/c.ts'] },
+  ];
+  const result = normalizeCommits(commits);
+  assert.equal(result.length, 3);
+  assert.deepEqual(result[0].taskIds, ['TASK-42']);
+  assert.deepEqual(result[1].taskIds, ['TASK-42']);
+  assert.deepEqual(result[2].taskIds, []);
+});
+
+test('normalizeCommits deduplicates TASK-IDs per commit', () => {
+  const commits = [
+    { hash: 'abc1234', message: 'feat: [TASK-10] [TASK-10] duplicate', date: '2026-05-08T10:00:00Z', files: ['src/a.ts'] },
+  ];
+  const result = normalizeCommits(commits);
+  assert.deepEqual(result[0].taskIds, ['TASK-10']);
+});
+
+test('normalizeCommits handles multiple TASK-IDs in one commit message', () => {
+  const commits = [
+    { hash: 'abc1234', message: 'feat: TASK-1 and TASK-2 combined', date: '2026-05-08T10:00:00Z', files: ['src/a.ts', 'src/b.ts'] },
+  ];
+  const result = normalizeCommits(commits);
+  assert.deepEqual(result[0].taskIds.sort(), ['TASK-1', 'TASK-2']);
+  assert.deepEqual(result[0].files, ['src/a.ts', 'src/b.ts']);
+});
+
+test('normalizeCommits is case-sensitive: task-123 is not a match', () => {
+  const commits = [
+    { hash: 'abc1234', message: 'feat: task-123 lowercase', date: '2026-05-08T10:00:00Z', files: [] },
+  ];
+  const result = normalizeCommits(commits);
+  assert.deepEqual(result[0].taskIds, []);
+});
+
+test('normalizeCommits passes through hash, date, files unchanged', () => {
+  const commits = [
+    { hash: 'abc1234', message: 'feat: [TASK-5] thing', date: '2026-05-08T10:00:00Z', files: ['x.ts', 'y.ts'] },
+  ];
+  const result = normalizeCommits(commits);
+  assert.equal(result[0].hash, 'abc1234');
+  assert.equal(result[0].date, '2026-05-08T10:00:00Z');
+  assert.deepEqual(result[0].files, ['x.ts', 'y.ts']);
+});
+
+test('BuildIndex.execute() writes tasks to context index from git history', async () => {
+  const fs = new MockFileSystem();
+  fs.directories['cli/src/main/ts'] = [];
+  fs.directories['docs/adr'] = [];
+
+  const git = new MockGitRepository([
+    { hash: 'abc1234', message: 'feat: [TASK-42] add feature', date: '2026-05-08T10:00:00Z', files: ['src/a.ts', 'src/b.ts'] },
+    { hash: 'def5678', message: 'fix: [TASK-42] fix bug', date: '2026-05-09T10:00:00Z', files: ['src/b.ts', 'src/c.ts'] },
+    { hash: 'ghi9012', message: 'chore: no task', date: '2026-05-06T10:00:00Z', files: ['src/d.ts'] },
+  ]);
+
+  const builder = new BuildIndex(fs as any);
+  await builder.execute({}, git as any);
+
+  const written = JSON.parse(fs.written['.arch/context-index.json']);
+  assert.equal(written.version, 2);
+  assert.ok(written.tasks['TASK-42']);
+  const task = written.tasks['TASK-42'];
+  assert.equal(task.commitCount, 2);
+  assert.equal(task.lastCommitDate, '2026-05-09T10:00:00Z');
+  assert.equal(task.touchedFrequency['src/a.ts'], 1);
+  assert.equal(task.touchedFrequency['src/b.ts'], 2);
+  assert.equal(task.touchedFrequency['src/c.ts'], 1);
+  assert.ok(!task.touchedFrequency['src/d.ts']);
+  assert.ok(task.recentCommitRefs.includes('abc1234'));
+  assert.ok(task.recentCommitRefs.includes('def5678'));
+  assert.equal(task.commitRefOverflow, false);
+});
+
+test('BuildIndex sets commitRefOverflow when commit count exceeds MAX_COMMIT_REFS', async () => {
+  const fs = new MockFileSystem();
+  fs.directories['cli/src/main/ts'] = [];
+  fs.directories['docs/adr'] = [];
+
+  const manyCommits = Array.from({ length: 25 }, (_, i) => ({
+    hash: `hash${i.toString().padStart(4, '0')}`,
+    message: `feat: [TASK-99] commit ${i}`,
+    date: `2026-05-${(i + 1).toString().padStart(2, '0')}T10:00:00Z`,
+    files: [`src/file${i}.ts`],
+  }));
+
+  const git = new MockGitRepository(manyCommits);
+  const builder = new BuildIndex(fs as any);
+  await builder.execute({}, git as any);
+
+  const written = JSON.parse(fs.written['.arch/context-index.json']);
+  const task = written.tasks['TASK-99'];
+  assert.equal(task.commitCount, 25);
+  assert.equal(task.recentCommitRefs.length, 20);
+  assert.equal(task.commitRefOverflow, true);
 });

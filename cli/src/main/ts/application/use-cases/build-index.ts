@@ -1,5 +1,20 @@
 import type { FileSystem } from '../../domain/repositories/file-system.js';
-import type { ContextIndex, FileEntry, AdrEntry, GuidelineEntry } from '../../domain/models/context-index.js';
+import type { GitRepository } from '../../domain/repositories/git-repository.js';
+import type { ContextIndex, FileEntry, AdrEntry, GuidelineEntry, TaskEntry } from '../../domain/models/context-index.js';
+
+const GIT_LOG_DEPTH = 500;
+const MAX_COMMIT_REFS = 20;
+
+export function normalizeCommits(
+  commits: Array<{ hash: string; message: string; date: string; files: string[] }>
+): Array<{ taskIds: string[]; hash: string; date: string; files: string[] }> {
+  return commits.map(c => ({
+    taskIds: [...new Set((c.message.match(/TASK-\d+/g) ?? []))],
+    hash: c.hash,
+    date: c.date,
+    files: c.files,
+  }));
+}
 
 export class BuildIndex {
   private readonly indexPath = '.arch/context-index.json';
@@ -14,22 +29,59 @@ export class BuildIndex {
 
   constructor(private fileSystem: FileSystem) {}
 
-  async execute(contextRules: Record<string, { taskClasses: string[] }> = {}): Promise<void> {
+  async execute(
+    contextRules: Record<string, { taskClasses: string[] }> = {},
+    gitRepository?: GitRepository,
+  ): Promise<void> {
     const fileEntries = await this.buildFileIndex();
     const adrs = await this.buildAdrIndex();
     const guidelines = this.buildGuidelineIndex(contextRules);
+    const tasks = gitRepository ? await this.buildTaskIndex(gitRepository) : {};
 
     const index: ContextIndex = {
-      version: 1,
+      version: 2,
       builtAt: new Date().toISOString(),
       files: fileEntries,
       adrs,
       guidelines,
-      tasks: {},
+      tasks,
     };
 
     await this.fileSystem.mkdir('.arch');
     await this.fileSystem.writeFile(this.indexPath, JSON.stringify(index, null, 2) + '\n');
+  }
+
+  private async buildTaskIndex(git: GitRepository): Promise<Record<string, TaskEntry>> {
+    const rawCommits = await git.getCommitHistory(GIT_LOG_DEPTH);
+    const normalized = normalizeCommits(rawCommits);
+
+    const entries: Record<string, TaskEntry> = {};
+    for (const { taskIds, hash, date, files } of normalized) {
+      for (const id of taskIds) {
+        if (!entries[id]) {
+          entries[id] = {
+            commitCount: 0,
+            lastCommitDate: date,
+            touchedFrequency: {},
+            recentCommitRefs: [],
+            commitRefOverflow: false,
+          };
+        }
+        const entry = entries[id];
+        entry.commitCount++;
+        if (date > entry.lastCommitDate) entry.lastCommitDate = date;
+        for (const file of files) {
+          entry.touchedFrequency[file] = (entry.touchedFrequency[file] ?? 0) + 1;
+        }
+        if (entry.recentCommitRefs.length < MAX_COMMIT_REFS) {
+          entry.recentCommitRefs.push(hash);
+        } else {
+          entry.commitRefOverflow = true;
+        }
+      }
+    }
+
+    return entries;
   }
 
   private async buildFileIndex(): Promise<Record<string, FileEntry>> {
