@@ -25,10 +25,15 @@ export class GovernCommand {
       const config = await ConfigLoader.load(this.fileSystem);
       const contextRules = (config.contextRules as Record<string, { taskClasses: string[] }>) ?? {};
       const buildIndex = new BuildIndex(this.fileSystem);
-      await buildIndex.execute(contextRules);
+      await buildIndex.execute(contextRules, this.gitRepository);
+      console.log('  \x1b[32m✔\x1b[0m context index rebuilt');
+    } catch {
+      throw new Error('failed to rebuild context index during govern');
+    }
+
+    try {
       await this.gitRepository.add('.arch/context-index.json');
       await this.gitRepository.commit('chore: [THINK] rebuild context index');
-      console.log('  \x1b[32m✔\x1b[0m context index rebuilt');
     } catch {
       // Nothing changed or git not available — acceptable
     }

@@ -19,7 +19,7 @@ class MockFileSystem {
 }
 
 const FIXTURE_INDEX: ContextIndex = {
-  version: 1,
+  version: 2,
   builtAt: '2026-05-07T00:00:00Z',
   files: {
     'cli/src/main/ts/domain/models/intent.ts': {
@@ -43,6 +43,13 @@ const FIXTURE_INDEX: ContextIndex = {
       criticality: 'support',
       runtimeUsage: 'hot',
     },
+    'cli/src/test/ts/context-inference.test.ts': {
+      symbols: ['ContextInferenceTest'],
+      imports: [],
+      tags: ['test', 'context', 'inference'],
+      criticality: 'utility',
+      runtimeUsage: 'cold',
+    },
   },
   adrs: {
     'ADR-002': {
@@ -63,7 +70,20 @@ const FIXTURE_INDEX: ContextIndex = {
     'versioning.md': { tags: ['versioning', 'schema', 'migration'], taskClasses: ['2-code-generation'] },
     'autonomy.md': { tags: ['autonomy', 'agent', 'loop'], taskClasses: ['7-operations'] },
   },
-  tasks: {},
+  tasks: {
+    'TASK-217': {
+      commitCount: 2,
+      lastCommitDate: '2026-05-08T10:00:00Z',
+      touchedFrequency: {
+        'cli/src/main/ts/domain/models/intent.ts': 2,
+        'cli/src/main/ts/application/use-cases/capture-intent.ts': 1,
+        'docs/ROADMAP.md': 1,
+        'cli/src/test/ts/context-inference.test.ts': 1,
+      },
+      recentCommitRefs: ['abc1234', 'def5678'],
+      commitRefOverflow: false,
+    },
+  },
 };
 
 test('ContextInference.extractKeywords removes stopwords and splits camelCase', () => {
@@ -135,6 +155,8 @@ test('ContextInference.formatSection produces correct markdown structure', () =>
     files: [{ path: 'cli/src/main/ts/domain/models/intent.ts', score: 4.5, criticality: 'core', runtimeUsage: 'hot' }],
     adrs: [{ id: 'ADR-002', title: 'Context as a budget', strength: 'enforced', score: 3 }],
     guidelines: [{ name: 'testing-a-change.md', score: 2 }],
+    unresolvedTaskRefs: [],
+    filteredFiles: [],
   };
   const section = inference.formatSection(result);
   assert.ok(section.includes('### Relevant Context'));
@@ -203,6 +225,63 @@ test('ContextInference.execute() skips gracefully when index file does not exist
     inference.execute('TASK-001', 'some task text', '2-code-generation')
   );
   assert.ok(!fs.written['docs/tasks/TASK-001.md'], 'task file should NOT be modified when index absent');
+});
+
+test('ContextInference task-reference pass boosts files from resolved TASK refs', () => {
+  const fs = new MockFileSystem();
+  const inference = new ContextInference(fs as any);
+
+  const result = inference.score(FIXTURE_INDEX, ['unrelated'], '2-code-generation', 'Follow TASK-217 before editing');
+  const filePaths = result.files.map((f: any) => f.path);
+
+  assert.ok(filePaths.includes('cli/src/main/ts/domain/models/intent.ts'));
+  assert.ok(filePaths.includes('cli/src/main/ts/application/use-cases/capture-intent.ts'));
+  assert.ok(filePaths.includes('docs/ROADMAP.md'));
+  assert.deepEqual(result.unresolvedTaskRefs, []);
+  assert.ok(!result.filteredFiles.includes('cli/src/main/ts/domain/models/intent.ts'));
+});
+
+test('ContextInference task-reference pass can surface non-indexed touched files', () => {
+  const fs = new MockFileSystem();
+  const inference = new ContextInference(fs as any);
+
+  const result = inference.score(FIXTURE_INDEX, ['unrelated'], '2-code-generation', 'See TASK-217');
+  const roadmap = result.files.find((f: any) => f.path === 'docs/ROADMAP.md');
+
+  assert.ok(roadmap, 'non-indexed touched file should still be eligible for ranking');
+  assert.equal(roadmap?.criticality, 'utility');
+  assert.equal(roadmap?.runtimeUsage, 'cold');
+});
+
+test('ContextInference records unresolved task refs and filtered files separately', () => {
+  const fs = new MockFileSystem();
+  const inference = new ContextInference(fs as any);
+
+  const result = inference.score(
+    FIXTURE_INDEX,
+    ['unrelated'],
+    '2-code-generation',
+    'Related work: TASK-217 and TASK-999',
+  );
+
+  assert.ok(result.unresolvedTaskRefs.includes('TASK-999'));
+  assert.ok(!result.unresolvedTaskRefs.includes('TASK-217'));
+  assert.ok(result.filteredFiles.includes('cli/src/test/ts/context-inference.test.ts'));
+  assert.ok(!result.files.some((f: any) => f.path === 'cli/src/test/ts/context-inference.test.ts'));
+});
+
+test('ContextInference.execute() writes context from explicit task refs even without normal keywords', async () => {
+  const fs = new MockFileSystem();
+  fs.files['.arch/context-index.json'] = JSON.stringify(FIXTURE_INDEX);
+  fs.files['docs/tasks/TASK-002.md'] = `## TASK-002: Follow prior task\n**Meta:** P2 | S | READY | Focus:yes | 2-code-generation | claude-code | none\n\n### Acceptance Criteria\n- [ ] continue TASK-217\n`;
+
+  const inference = new ContextInference(fs as any);
+  await inference.execute('TASK-002', 'TASK-217', '2-code-generation');
+
+  const written = fs.written['docs/tasks/TASK-002.md'];
+  assert.ok(written, 'task file should be written');
+  assert.ok(written.includes('### Relevant Context'));
+  assert.ok(written.includes('intent.ts') || written.includes('capture-intent.ts'));
 });
 
 import { TaskCommand } from '../../main/ts/application/commands/task-command.js';

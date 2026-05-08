@@ -1,6 +1,19 @@
 import type { FileSystem } from '../../domain/repositories/file-system.js';
 import type { ContextIndex } from '../../domain/models/context-index.js';
 
+const DIRECT_TASK_REFERENCE_BOOST = 4.0;
+const LOW_SIGNAL_PATTERNS: RegExp[] = [
+  /\.test\.ts$/,
+  /\.spec\.ts$/,
+  /README\.md$/i,
+  /package-lock\.json$/,
+  /yarn\.lock$/,
+  /\.eslintrc/,
+  /\.prettierrc/,
+  /tsconfig.*\.json$/,
+  /CHANGELOG\.md$/i,
+];
+
 export interface ScoredFile {
   path: string;
   score: number;
@@ -25,6 +38,8 @@ export interface ContextResult {
   files: ScoredFile[];
   adrs: ScoredAdr[];
   guidelines: ScoredGuideline[];
+  unresolvedTaskRefs: string[];
+  filteredFiles: string[];
 }
 
 export class ContextInference {
@@ -48,9 +63,10 @@ export class ContextInference {
     }
 
     const keywords = this.extractKeywords(taskText);
-    if (keywords.length === 0) return;
+    const taskRefs = this.extractTaskRefs(taskText);
+    if (keywords.length === 0 && taskRefs.length === 0) return;
 
-    const result = this.score(index, keywords, taskClass);
+    const result = this.score(index, keywords, taskClass, taskText);
     const section = this.formatSection(result);
 
     const taskPath = `docs/tasks/${taskId}.md`;
@@ -75,12 +91,14 @@ export class ContextInference {
     )];
   }
 
-  score(index: ContextIndex, keywords: string[], taskClass: string): ContextResult {
+  score(index: ContextIndex, keywords: string[], taskClass: string, taskText = ''): ContextResult {
     const kw = new Set(keywords);
     const critMult: Record<string, number> = { core: 1.5, domain: 1.2, support: 1.0, utility: 0.7 };
+    const fileScoreMap = new Map<string, number>();
+    const unresolvedTaskRefs = new Set<string>();
+    const filteredFiles = new Set<string>();
 
-    // Score files by symbol and tag match
-    const fileScores: ScoredFile[] = [];
+    // Keyword pass: base symbol/tag scoring into the shared score map.
     for (const [filePath, entry] of Object.entries(index.files)) {
       let score = 0;
       for (const symbol of entry.symbols) {
@@ -94,26 +112,45 @@ export class ContextInference {
       }
       if (score <= 0) continue;
       score *= (critMult[entry.criticality] ?? 1.0);
-      fileScores.push({ path: filePath, score, criticality: entry.criticality, runtimeUsage: entry.runtimeUsage });
+      fileScoreMap.set(filePath, (fileScoreMap.get(filePath) ?? 0) + score);
     }
-    fileScores.sort((a, b) => b.score - a.score);
-    const top5 = fileScores.slice(0, 5);
 
-    // Expand with direct import neighbors of top-5 (direct_import weight = 3.0)
-    const topPaths = new Set(top5.map(f => f.path));
-    const neighborCandidates: ScoredFile[] = [];
-    for (const { path: topPath } of top5) {
+    // Keep existing keyword-driven import expansion, but write contributions into the same score map.
+    const topKeywordPaths = [...fileScoreMap.entries()]
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 5)
+      .map(([path]) => path);
+    const expandedPaths = new Set(topKeywordPaths);
+    for (const topPath of topKeywordPaths) {
       const entry = index.files[topPath];
       if (!entry) continue;
       for (const imp of entry.imports) {
-        if (topPaths.has(imp) || !index.files[imp]) continue;
+        if (expandedPaths.has(imp) || !index.files[imp]) continue;
         const impEntry = index.files[imp];
         const impScore = 3.0 * (critMult[impEntry.criticality] ?? 1.0);
-        neighborCandidates.push({ path: imp, score: impScore, criticality: impEntry.criticality, runtimeUsage: impEntry.runtimeUsage });
-        topPaths.add(imp);
+        fileScoreMap.set(imp, (fileScoreMap.get(imp) ?? 0) + impScore);
+        expandedPaths.add(imp);
       }
     }
-    const allFiles = [...top5, ...neighborCandidates]
+
+    // Task-reference pass: explicit TASK-IDs contribute directly to the shared score map.
+    for (const taskRef of this.extractTaskRefs(taskText)) {
+      const taskEntry = index.tasks?.[taskRef];
+      if (!taskEntry) {
+        unresolvedTaskRefs.add(taskRef);
+        continue;
+      }
+      for (const filePath of Object.keys(taskEntry.touchedFrequency)) {
+        if (this.matchesAnyPattern(filePath, LOW_SIGNAL_PATTERNS)) {
+          filteredFiles.add(filePath);
+          continue;
+        }
+        fileScoreMap.set(filePath, (fileScoreMap.get(filePath) ?? 0) + DIRECT_TASK_REFERENCE_BOOST);
+      }
+    }
+
+    const allFiles = [...fileScoreMap.entries()]
+      .map(([path, score]) => this.toScoredFile(index, path, score))
       .sort((a, b) => b.score - a.score)
       .slice(0, 5);
 
@@ -154,14 +191,20 @@ export class ContextInference {
     const filePaths = new Set(allFiles.map(f => f.path));
     let mutualEdges = 0;
     for (const { path } of allFiles) {
-      const entry = index.files[path];
-      if (entry) entry.imports.forEach(imp => { if (filePaths.has(imp)) mutualEdges++; });
+      this.getImports(index, path).forEach(imp => { if (filePaths.has(imp)) mutualEdges++; });
     }
     const maxEdges = allFiles.length * (allFiles.length - 1);
     const graphCoherence = maxEdges > 0 ? Math.min(mutualEdges / maxEdges, 1) : 0;
     const confidence = Math.min(overlapDensity * 0.4 + enforcedFraction * 0.35 + graphCoherence * 0.25, 1);
 
-    return { confidence, files: allFiles, adrs: topAdrs, guidelines: topGuidelines };
+    return {
+      confidence,
+      files: allFiles,
+      adrs: topAdrs,
+      guidelines: topGuidelines,
+      unresolvedTaskRefs: [...unresolvedTaskRefs],
+      filteredFiles: [...filteredFiles],
+    };
   }
 
   formatSection(result: ContextResult): string {
@@ -244,5 +287,34 @@ export class ContextInference {
 
   private splitCamelCase(s: string): string[] {
     return s.replace(/([A-Z])/g, ' $1').trim().toLowerCase().split(/\s+/).filter(Boolean);
+  }
+
+  private extractTaskRefs(taskText: string): string[] {
+    return [...new Set(taskText.match(/TASK-\d+/g) ?? [])];
+  }
+
+  private matchesAnyPattern(value: string, patterns: RegExp[]): boolean {
+    return patterns.some(pattern => pattern.test(value));
+  }
+
+  private toScoredFile(index: ContextIndex, path: string, score: number): ScoredFile {
+    const entry = index.files[path];
+    return {
+      path,
+      score,
+      criticality: entry?.criticality ?? this.inferCriticality(path),
+      runtimeUsage: entry?.runtimeUsage ?? 'cold',
+    };
+  }
+
+  private getImports(index: ContextIndex, path: string): string[] {
+    return index.files[path]?.imports ?? [];
+  }
+
+  private inferCriticality(filePath: string): string {
+    if (filePath.includes('/domain/')) return 'core';
+    if (filePath.includes('/application/')) return 'domain';
+    if (filePath.includes('/infrastructure/')) return 'support';
+    return 'utility';
   }
 }

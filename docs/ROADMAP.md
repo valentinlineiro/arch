@@ -43,7 +43,7 @@ This definition is frozen. ARCH is not an autonomous AGI swarm, a no-code platfo
 |---------|--------|--------------|
 | `arch capture` — intent capture with auto-generated task, ACs, complexity, context | `IN PROGRESS` | [TASK-210](tasks/TASK-210.md), [IDEA-roadmap-arch-capture](refinement/IDEA-roadmap-arch-capture.md) |
 | Auto Context Engine — infer relevant files, commits, ADRs, guidelines per task | `IN PROGRESS` | [TASK-210](tasks/TASK-210.md), [IDEA-roadmap-auto-context-engine](refinement/IDEA-roadmap-auto-context-engine.md) |
-| Automatic entity linking — tasks↔commits, ADRs↔tasks, guidelines↔failures | `NOT STARTED` | [IDEA-roadmap-automatic-linking](refinement/IDEA-roadmap-automatic-linking.md) |
+| Automatic entity linking — tasks↔commits, ADRs↔tasks, guidelines↔failures | `PARTIAL` | [TASK-217](tasks/TASK-217.md), [IDEA-roadmap-automatic-linking](refinement/IDEA-roadmap-automatic-linking.md) |
 | Drift detection — orphan tasks, dead refs, unapplied ADRs, stale guidelines | `DONE` | [ADR-013](adr/ADR-013-two-tier-drift-detection.md), [TASK-215](archive/TASK-215.md), [IDEA-roadmap-drift-detection](refinement/IDEA-roadmap-drift-detection.md) |
 
 ---

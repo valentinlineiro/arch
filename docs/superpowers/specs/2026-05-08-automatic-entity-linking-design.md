@@ -204,15 +204,85 @@ Heuristic compression, not ontological classification. **Governance rule: any ad
 
 ---
 
+## Integration Points
+
+| Component | Change |
+|------|--------|
+| `arch govern` | Rebuilds the full ContextIndex, including `tasks`, by passing `gitRepository` into `BuildIndex.execute()` |
+| `arch index` | On-demand full rebuild path; same required `gitRepository` dependency |
+| `arch task start` | No new command contract; consumes the richer index indirectly through `ContextInference` when a task enters `IN_PROGRESS` |
+
+The integration model preserves the existing two-phase architecture:
+
+- **Build phase owns evidence capture.** Git history is read only while compiling the index.
+- **Lookup phase owns relevance interpretation.** Task start never shells out to git; it only reads `index.tasks`.
+
+This separation is non-negotiable. If lookup reaches back into git, the system stops being deterministic and reintroduces runtime cost and repo-state sensitivity into task execution.
+
+---
+
 ## Files changed
 
 | File | Change |
 |------|--------|
 | `cli/src/main/ts/domain/models/context-index.ts` | Add `TaskEntry`, add `tasks` field to `ContextIndex`, bump version to 2 |
 | `cli/src/main/ts/domain/repositories/git-repository.ts` | Add `getCommitHistory()` method |
-| `cli/src/main/ts/infrastructure/filesystem/node-git-repository.ts` | Implement `getCommitHistory()` |
+| `cli/src/main/ts/infrastructure/cli/git-cli.ts` | Implement `getCommitHistory()` |
 | `cli/src/main/ts/application/use-cases/build-index.ts` | Add required `gitRepository` param, add `buildTaskIndex()` method |
-| `cli/src/main/ts/application/use-cases/context-inference.ts` | Add second pass, `LOW_SIGNAL_PATTERNS`, `unresolvedTaskRefs` |
+| `cli/src/main/ts/application/use-cases/context-inference.ts` | Add second pass, shared score map, `LOW_SIGNAL_PATTERNS`, `unresolvedTaskRefs`, `filteredFiles` |
 | `cli/src/main/ts/application/commands/govern-command.ts` | Pass `gitRepository` to `BuildIndex.execute()` |
 | `cli/src/main/ts/application/commands/index-command.ts` | Pass `gitRepository` to `BuildIndex.execute()` |
 | `cli/src/main/ts/index.ts` | Wire `gitRepository` into `BuildIndex` invocation |
+
+---
+
+## Testing
+
+- `build-index.test.ts`: verifies `TaskEntry` structural shape, `normalizeCommits()` extraction behavior, case sensitivity, per-commit TASK-ID deduplication, multi-task commit handling, raw field pass-through, `buildTaskIndex()` aggregation, and `commitRefOverflow` observability.
+- `context-inference.test.ts`: verifies the task-reference pass adds file relevance without replacing keyword scoring, unresolved TASK-IDs are captured separately from filtered files, and filtered candidates remain observable even when excluded from ranking.
+- `git-cli.ts`: no direct unit test for shell interaction. Parsing correctness is validated through `normalizeCommits()` and `BuildIndex` fixtures; command execution remains integration responsibility.
+
+The test boundary is intentional:
+
+- Pure normalization and aggregation logic gets deterministic unit coverage.
+- Shelling out to git does not get mocked into a fake notion of correctness.
+
+---
+
+## Failure Behavior
+
+### Build phase
+
+Failure to supply or invoke `gitRepository` is a build failure. The system must not silently emit a version 2 index with an empty or missing `tasks` field under the pretense that auto-linking is active. A partial index here is corruption-by-omission.
+
+If git history returns no task-linked commits, `tasks` is `{}` and that is valid. "No evidence found" is distinct from "could not read evidence."
+
+### Lookup phase
+
+Lookup remains graceful:
+
+- If `.arch/context-index.json` is absent, task start skips context inference as before.
+- If `index.tasks` exists but the referenced TASK-ID is absent, inference records the ID in `unresolvedTaskRefs` and continues.
+- If all candidate files for a resolved task are filtered by `LOW_SIGNAL_PATTERNS`, inference still records them in `filteredFiles` and continues with whatever other signals remain.
+
+The rule is simple: build failures are hard failures; lookup gaps are soft degradations with traces.
+
+---
+
+## Deferred Calibration
+
+- Tune `DIRECT_TASK_REFERENCE_BOOST` using real task-start feedback. `4.0` is an initial forcing function, not a settled truth.
+- Revisit `GIT_LOG_DEPTH` once history coverage can be measured against actual missed references. The bound is operational, not semantic.
+- Consider recency weighting inside a single task's history only if real examples show old commits drowning newer causal files. Phase 1 deliberately avoids temporal interpretation.
+- Consider separate handling for merge commits only if observed commit discipline makes them necessary. Current design prefers explicit task-tagged commits over merge-derived inference.
+- Expose `unresolvedTaskRefs` or `filteredFiles` to operators only if debugging demand justifies a visible command or report. Phase 1 keeps them internal.
+
+---
+
+## Invariants
+
+- No synthetic task link may exist without a literal TASK-ID in commit history. The system links only on explicit references, never fuzzy similarity.
+- `tasks` is rebuilt wholesale with the rest of the ContextIndex; there is no incremental task-link patching.
+- `recentCommitRefs` is traceability metadata only. It must never be used as a scoring input.
+- `touchedFrequency` preserves repeated contact with a file, but task-reference scoring adds one boost per file per referenced TASK-ID, not per historical touch count.
+- A filtered file remains part of task provenance forever unless git history changes. Filtering is not deletion.

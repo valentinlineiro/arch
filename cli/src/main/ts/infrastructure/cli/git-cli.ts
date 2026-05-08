@@ -95,14 +95,17 @@ export class GitCli implements GitRepository {
     date: string;
     files: string[];
   }>> {
-    const { stdout, code } = await SubprocessRunner.runWithOutput('git', [
+    const { stdout, stderr, code } = await SubprocessRunner.runWithOutput('git', [
       'log',
       '--no-merges',
       '--format=%h|%s|%cI',
       '--name-only',
       '-n', limit.toString(),
     ]);
-    if (code !== 0 || !stdout.trim()) return [];
+    if (code !== 0) {
+      throw new Error(`git log failed: ${stderr.trim() || `exit code ${code}`}`);
+    }
+    if (!stdout.trim()) return [];
 
     const commits: Array<{ hash: string; message: string; date: string; files: string[] }> = [];
     const blocks = stdout.split(/\n\n+/);

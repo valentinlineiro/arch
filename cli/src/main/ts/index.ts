@@ -124,7 +124,7 @@ async function main() {
       break;
     }
     case 'index':
-      await new IndexCommand(fileSystem).execute();
+      await new IndexCommand(fileSystem, gitRepository).execute();
       break;
     default:
       console.log('Usage: arch [status|validate|review|task|inbox|next|version|govern|rank|batch|drain|conduct|promote|loop|sandbox|lint|mv|exec|merge-resolve|capture|index]');

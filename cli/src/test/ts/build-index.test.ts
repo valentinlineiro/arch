@@ -46,6 +46,12 @@ class MockGitRepository {
   }
 }
 
+class ThrowingGitRepository extends MockGitRepository {
+  override async getCommitHistory(): Promise<Array<{ hash: string; message: string; date: string; files: string[] }>> {
+    throw new Error('git log failed');
+  }
+}
+
 test('ContextIndex types are importable and structurally correct', () => {
   const file: FileEntry = {
     symbols: ['MyClass'],
@@ -239,6 +245,15 @@ test('BuildIndex.execute() gracefully handles missing ADR and guideline director
   const index = JSON.parse(written);
   assert.deepEqual(index.adrs, {});
   assert.deepEqual(index.guidelines, {});
+});
+
+test('BuildIndex.execute() fails when git history cannot be read', async () => {
+  const fs = new MockFileSystem();
+  fs.directories['cli/src/main/ts'] = [];
+
+  const builder = new BuildIndex(fs as any);
+  await assert.rejects(() => builder.execute({}, new ThrowingGitRepository() as any), /git log failed/);
+  assert.equal(fs.written['.arch/context-index.json'], undefined);
 });
 
 test('TaskEntry and ContextIndex.tasks are structurally correct', () => {
