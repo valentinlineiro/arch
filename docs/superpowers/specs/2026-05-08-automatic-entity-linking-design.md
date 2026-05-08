@@ -34,6 +34,8 @@ A file absent from scoring is not absent from the task's history. When debugging
 
 No pass may read the intermediate output of another pass during accumulation. All contributions from all passes (keyword, task-reference, and any future ADR, guideline, or similarity pass) merge into a single `Map<string, number>` before the final sort and slice. This guarantees that pipeline composition does not affect ranking — adding a new scoring pass cannot silently reorder existing results by virtue of execution order.
 
+**Idempotency rule:** scoring increments are idempotent per signal source per file per pass. The keyword pass contributes once per file. The task-reference pass contributes once per file per TASK-ID — not once per commit occurrence. This prevents hidden inflation bias when commit history is noisy (a file touched 12 times by the same task does not receive 12× the boost).
+
 ---
 
 ## Data Model
@@ -145,8 +147,12 @@ export interface ContextResult {
 
 `unresolvedTaskRefs` and `filteredFiles` are both deduplicated (Set → Array) before storing. Invisible to `formatSection()`. Internal observability only.
 
-- `unresolvedTaskRefs`: TASK-ID referenced in task text but absent from `index.tasks`. Systematic failures here indicate process gaps (old tasks, pre-index commits).
-- `filteredFiles`: file was in `touchedFrequency` of a resolved task reference, but matched `LOW_SIGNAL_PATTERNS`. It was considered and de-ranked — not missed. This is the trace that distinguishes "never evaluated" from "evaluated and rejected."
+These two fields represent distinct signal classes — not interchangeable noise:
+
+- `unresolvedTaskRefs`: **system integrity signal.** TASK-ID referenced in task text but absent from `index.tasks`. Indicates a structural gap — old task predates the index, or commit discipline broke. Failure mode: the system is missing causal data.
+- `filteredFiles`: **interpretation signal.** File was in `touchedFrequency` of a resolved task reference, but matched `LOW_SIGNAL_PATTERNS`. It was considered and de-ranked — not missed. Failure mode: the heuristic gate was too aggressive. This is the trace that distinguishes "never evaluated" from "evaluated and rejected."
+
+When debugging: `unresolvedTaskRefs` → investigate process/index integrity. `filteredFiles` → investigate filter calibration. These are different diagnosis paths.
 
 ### `score()` method: second pass
 
@@ -183,7 +189,7 @@ const LOW_SIGNAL_PATTERNS: RegExp[] = [
 ];
 ```
 
-Heuristic compression, not ontological classification. Revisit when configs, migrations, or tests prove execution-critical in practice.
+Heuristic compression, not ontological classification. **Governance rule: any addition to `LOW_SIGNAL_PATTERNS` must be justified by observed false-positive contribution in at least 3 tasks.** This prevents aesthetic filtering, premature "clean architecture" instincts, and accidental exclusion of signal classes (infra, migrations, docs-as-code).
 
 ---
 
