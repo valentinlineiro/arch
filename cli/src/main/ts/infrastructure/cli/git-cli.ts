@@ -88,4 +88,35 @@ export class GitCli implements GitRepository {
     if (code !== 0) throw new Error('git rev-parse --show-toplevel failed');
     return stdout.trim();
   }
+
+  async getCommitHistory(limit = 500): Promise<Array<{
+    hash: string;
+    message: string;
+    date: string;
+    files: string[];
+  }>> {
+    const { stdout, code } = await SubprocessRunner.runWithOutput('git', [
+      'log',
+      `--format=%h|%s|%cI`,
+      '--name-only',
+      `-${limit}`,
+    ]);
+    if (code !== 0 || !stdout.trim()) return [];
+
+    const commits: Array<{ hash: string; message: string; date: string; files: string[] }> = [];
+    const blocks = stdout.split(/\n\n+/);
+    for (const block of blocks) {
+      const lines = block.trim().split('\n').filter(Boolean);
+      if (lines.length === 0) continue;
+      const headerLine = lines[0];
+      const parts = headerLine.split('|');
+      if (parts.length < 3) continue;
+      const hash = parts[0].trim();
+      const date = parts[parts.length - 1].trim();
+      const message = parts.slice(1, -1).join('|').trim();
+      const files = lines.slice(1).map(l => l.trim()).filter(Boolean);
+      commits.push({ hash, message, date, files });
+    }
+    return commits;
+  }
 }

@@ -14,4 +14,10 @@ export interface GitRepository {
   getStagedFiles(): Promise<string[]>;
   getModifiedFiles(): Promise<string[]>;
   getRepoRoot(): Promise<string>;
+  getCommitHistory(limit?: number): Promise<Array<{
+    hash: string;
+    message: string;
+    date: string;
+    files: string[];
+  }>>;
 }
