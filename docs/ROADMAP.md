@@ -68,7 +68,7 @@ This definition is frozen. ARCH is not an autonomous AGI swarm, a no-code platfo
 
 | Feature | Status | Key Artifact |
 |---------|--------|--------------|
-| Intelligent routing by task class, size, and provider | `DONE` | [ADR-011](adr/ADR-011-unified-provider-strategies.md), [ADR-013](adr/ADR-013-two-tier-drift-detection.md), [IDEA-roadmap-routing-engine](refinement/IDEA-roadmap-routing-engine.md) |
+| Intelligent routing by task class, size, and provider | `DONE` | [ADR-011](adr/ADR-011-unified-provider-strategies.md), [IDEA-roadmap-routing-engine](refinement/IDEA-roadmap-routing-engine.md) |
 
 ---
 
