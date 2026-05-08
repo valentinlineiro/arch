@@ -30,13 +30,13 @@ export class BuildIndex {
   constructor(private fileSystem: FileSystem) {}
 
   async execute(
-    contextRules: Record<string, { taskClasses: string[] }> = {},
-    gitRepository?: GitRepository,
+    contextRules: Record<string, { taskClasses: string[] }>,
+    gitRepository: GitRepository,
   ): Promise<void> {
     const fileEntries = await this.buildFileIndex();
     const adrs = await this.buildAdrIndex();
     const guidelines = this.buildGuidelineIndex(contextRules);
-    const tasks = gitRepository ? await this.buildTaskIndex(gitRepository) : {};
+    const tasks = await this.buildTaskIndex(gitRepository);
 
     const index: ContextIndex = {
       version: 2,
