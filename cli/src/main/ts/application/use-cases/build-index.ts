@@ -25,6 +25,7 @@ export class BuildIndex {
       files: fileEntries,
       adrs,
       guidelines,
+      tasks: {},
     };
 
     await this.fileSystem.mkdir('.arch');
