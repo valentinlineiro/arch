@@ -22,6 +22,12 @@ This system implements a **curated relevance model**.
 - **scoring = interpretation layer.** Surviving files receive `DIRECT_TASK_REFERENCE_BOOST`. Score reflects causal likelihood for a new task, not commit proximity.
 - **Score aggregation priority:** Direct task-reference signals are additive and cannot be overridden by keyword scoring. They accumulate on top of the keyword pass. They only compete during final ranking.
 
+### Provenance invariant
+
+**TaskEntry defines provenance space. All files in `touchedFrequency` are canonical. Filtering only affects ranking, never identity.**
+
+A file absent from scoring is not absent from the task's history. When debugging "why did this file not appear," the answer is always one of: (a) not in `touchedFrequency` — it was never touched by a task-linked commit; or (b) in `touchedFrequency` but filtered at inference time — it exists, it was just de-ranked. These are different failure modes and must not be conflated.
+
 ---
 
 ## Data Model
@@ -34,6 +40,7 @@ export interface TaskEntry {
   lastCommitDate: string;                    // ISO committer date of most recent task-linked commit
   touchedFrequency: Record<string, number>;  // file path → commit count; unfiltered raw provenance
   recentCommitRefs: string[];                // short SHAs, bounded to MAX_COMMIT_REFS; for traceability only
+  commitRefOverflow: boolean;                // true when commitCount > MAX_COMMIT_REFS; truncation is observable, not silent
 }
 
 export interface ContextIndex {
@@ -92,22 +99,26 @@ Callers that currently omit git must be updated.
 
 ### New private method: `buildTaskIndex`
 
+The method is structured as a three-stage pipeline. Concerns are separated even within a single function — commit parsing does not depend on aggregation logic, and aggregation does not depend on git internals.
+
 ```typescript
 private async buildTaskIndex(git: GitRepository): Promise<Record<string, TaskEntry>>
 ```
 
-Algorithm:
-1. Call `git.getCommitHistory(GIT_LOG_DEPTH)`
-2. For each commit, scan `message` with `/TASK-\d+/g` (case-sensitive, canonical form only — no fuzzy matching, no lowercase tolerance)
-3. Deduplicate matched TASK-IDs per commit with `Set` before processing
-4. Accumulate into `Record<string, TaskEntry>`:
-   - Increment `commitCount`
-   - Update `lastCommitDate` if commit date is newer
-   - Increment `touchedFrequency[file]` for each file in the commit
-   - Append `hash` to `recentCommitRefs` if `recentCommitRefs.length < MAX_COMMIT_REFS`
-5. Return the map
+**Stage 1 — fetch:** `git.getCommitHistory(GIT_LOG_DEPTH)` → raw commit structs.
 
-One commit may reference multiple TASK-IDs. Each gets the full file set for that commit.
+**Stage 2 — normalize:** `normalizeCommits(commits)` — a pure function that takes the raw array and returns `Array<{ taskIds: string[], hash: string, date: string, files: string[] }>`. Responsibility: extract canonical TASK-IDs (`/TASK-\d+/g`, case-sensitive, deduplicated per commit via `Set`). No side effects, no accumulation.
+
+**Stage 3 — aggregate:** iterate normalized commits, build `Record<string, TaskEntry>`:
+- Increment `commitCount`
+- Update `lastCommitDate` if commit date is newer
+- Increment `touchedFrequency[file]` for each file in the commit
+- Append `hash` to `recentCommitRefs` if `recentCommitRefs.length < MAX_COMMIT_REFS`
+- Set `commitRefOverflow = true` when the first hash is dropped
+
+One commit may reference multiple TASK-IDs. Each ID gets the full file set for that commit.
+
+`normalizeCommits` is a pure function — separately testable without git infrastructure.
 
 ---
 
