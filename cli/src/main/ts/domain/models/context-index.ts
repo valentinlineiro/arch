@@ -13,6 +13,15 @@ export interface AdrEntry {
   strength: 'enforced' | 'advisory';
 }
 
+export interface AdrTaskLinkTaskEntry {
+  evidenceKinds: string[];
+  taskPath?: string;
+}
+
+export interface AdrTaskLinkEntry {
+  tasks: Record<string, AdrTaskLinkTaskEntry>;
+}
+
 export interface GuidelineEntry {
   tags: string[];
   taskClasses: string[];
@@ -31,6 +40,7 @@ export interface ContextIndex {
   builtAt: string;
   files: Record<string, FileEntry>;
   adrs: Record<string, AdrEntry>;
+  adrTaskLinks: Record<string, AdrTaskLinkEntry>;
   guidelines: Record<string, GuidelineEntry>;
   tasks: Record<string, TaskEntry>;
 }

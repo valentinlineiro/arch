@@ -1,6 +1,13 @@
 import { test } from 'node:test';
 import assert from 'node:assert';
-import type { ContextIndex, FileEntry, AdrEntry, GuidelineEntry, TaskEntry } from '../../main/ts/domain/models/context-index.js';
+import type {
+  ContextIndex,
+  FileEntry,
+  AdrEntry,
+  GuidelineEntry,
+  TaskEntry,
+  AdrTaskLinkEntry,
+} from '../../main/ts/domain/models/context-index.js';
 import { BuildIndex, normalizeCommits } from '../../main/ts/application/use-cases/build-index.js';
 
 class MockFileSystem {
@@ -78,6 +85,7 @@ test('ContextIndex types are importable and structurally correct', () => {
     builtAt: '2026-05-07T14:00:00Z',
     files: { 'cli/src/main/ts/domain/models/task.ts': file },
     adrs: { 'ADR-002': adr },
+    adrTaskLinks: {},
     guidelines: { 'testing-a-change.md': guideline },
     tasks: {},
   };
@@ -224,12 +232,13 @@ export interface Task { id: string; }
   const written = fs.written['.arch/context-index.json'];
   assert.ok(written, 'index file should be written');
   const index = JSON.parse(written);
-  assert.equal(index.version, 2);
+  assert.equal(index.version, 3);
   assert.ok(index.builtAt);
   assert.ok('cli/src/main/ts/domain/models/task.ts' in index.files);
   assert.ok(index.files['cli/src/main/ts/domain/models/task.ts'].symbols.includes('TaskStatus'));
   assert.ok('ADR-002' in index.adrs);
   assert.equal(index.adrs['ADR-002'].strength, 'enforced');
+  assert.deepEqual(index.adrTaskLinks, {});
   assert.ok('testing-a-change.md' in index.guidelines);
 });
 
@@ -244,6 +253,7 @@ test('BuildIndex.execute() gracefully handles missing ADR and guideline director
   const written = fs.written['.arch/context-index.json'];
   const index = JSON.parse(written);
   assert.deepEqual(index.adrs, {});
+  assert.deepEqual(index.adrTaskLinks, {});
   assert.deepEqual(index.guidelines, {});
 });
 
@@ -269,15 +279,16 @@ test('TaskEntry and ContextIndex.tasks are structurally correct', () => {
   };
 
   const index: ContextIndex = {
-    version: 2,
+    version: 3,
     builtAt: '2026-05-08T10:00:00Z',
     files: {},
     adrs: {},
+    adrTaskLinks: {},
     guidelines: {},
     tasks: { 'TASK-217': task },
   };
 
-  assert.equal(index.version, 2);
+  assert.equal(index.version, 3);
   assert.equal(index.tasks['TASK-217'].commitCount, 3);
   assert.equal(index.tasks['TASK-217'].commitRefOverflow, false);
   assert.equal(index.tasks['TASK-217'].touchedFrequency['cli/src/main/ts/application/use-cases/build-index.ts'], 2);
@@ -346,7 +357,7 @@ test('BuildIndex.execute() writes tasks to context index from git history', asyn
   await builder.execute({}, git as any);
 
   const written = JSON.parse(fs.written['.arch/context-index.json']);
-  assert.equal(written.version, 2);
+  assert.equal(written.version, 3);
   assert.ok(written.tasks['TASK-42']);
   const task = written.tasks['TASK-42'];
   assert.equal(task.commitCount, 2);
@@ -381,4 +392,141 @@ test('BuildIndex sets commitRefOverflow when commit count exceeds MAX_COMMIT_REF
   assert.equal(task.commitCount, 25);
   assert.equal(task.recentCommitRefs.length, 20);
   assert.equal(task.commitRefOverflow, true);
+});
+
+test('AdrTaskLinkEntry is structurally correct', () => {
+  const linkEntry: AdrTaskLinkEntry = {
+    tasks: {
+      'TASK-217': {
+        evidenceKinds: ['adr-field', 'literal-mention'],
+        taskPath: 'docs/archive/TASK-217.md',
+      },
+    },
+  };
+
+  assert.deepEqual(linkEntry.tasks['TASK-217'].evidenceKinds, ['adr-field', 'literal-mention']);
+  assert.equal(linkEntry.tasks['TASK-217'].taskPath, 'docs/archive/TASK-217.md');
+});
+
+test('BuildIndex.execute() links ADR field evidence from tasks', async () => {
+  const fs = new MockFileSystem();
+  fs.directories['cli/src/main/ts'] = [];
+  fs.directories['docs/adr'] = ['ADR-007-test.md'];
+  fs.files['docs/adr/ADR-007-test.md'] = '# ADR-007: Test ADR\n\n**Status:** ACCEPTED\n';
+  fs.directories['docs/tasks'] = ['TASK-301.md'];
+  fs.files['docs/tasks/TASK-301.md'] = `## TASK-301: Link ADR field
+**Meta:** P2 | S | READY | Focus:yes | 2-code-generation | claude-code | none
+**ADR:** ADR-007
+
+### Acceptance Criteria
+- [ ] done
+`;
+
+  const builder = new BuildIndex(fs as any);
+  await builder.execute({}, new MockGitRepository() as any);
+
+  const written = JSON.parse(fs.written['.arch/context-index.json']);
+  assert.deepEqual(written.adrTaskLinks['ADR-007'].tasks['TASK-301'].evidenceKinds, ['adr-field', 'literal-mention']);
+  assert.equal(written.adrTaskLinks['ADR-007'].tasks['TASK-301'].taskPath, 'docs/tasks/TASK-301.md');
+});
+
+test('BuildIndex.execute() links ADR depends evidence from tasks', async () => {
+  const fs = new MockFileSystem();
+  fs.directories['cli/src/main/ts'] = [];
+  fs.directories['docs/adr'] = ['ADR-005-test.md'];
+  fs.files['docs/adr/ADR-005-test.md'] = '# ADR-005: Test ADR\n\n**Status:** ACCEPTED\n';
+  fs.directories['docs/tasks'] = ['TASK-302.md'];
+  fs.files['docs/tasks/TASK-302.md'] = `## TASK-302: Link ADR depends
+**Meta:** P2 | S | READY | Focus:yes | 2-code-generation | claude-code | none
+**Depends:** TASK-001, ADR-005
+`;
+
+  const builder = new BuildIndex(fs as any);
+  await builder.execute({}, new MockGitRepository() as any);
+
+  const written = JSON.parse(fs.written['.arch/context-index.json']);
+  assert.deepEqual(written.adrTaskLinks['ADR-005'].tasks['TASK-302'].evidenceKinds, ['depends', 'literal-mention']);
+});
+
+test('BuildIndex.execute() links ADR context path evidence from tasks', async () => {
+  const fs = new MockFileSystem();
+  fs.directories['cli/src/main/ts'] = [];
+  fs.directories['docs/adr'] = ['ADR-008-context.md'];
+  fs.files['docs/adr/ADR-008-context.md'] = '# ADR-008: Context ADR\n\n**Status:** ACCEPTED\n';
+  fs.directories['docs/tasks'] = ['TASK-303.md'];
+  fs.files['docs/tasks/TASK-303.md'] = `## TASK-303: Link ADR context
+**Meta:** P2 | S | READY | Focus:yes | 2-code-generation | claude-code | docs/adr/ADR-008-context.md
+`;
+
+  const builder = new BuildIndex(fs as any);
+  await builder.execute({}, new MockGitRepository() as any);
+
+  const written = JSON.parse(fs.written['.arch/context-index.json']);
+  assert.deepEqual(written.adrTaskLinks['ADR-008'].tasks['TASK-303'].evidenceKinds, ['context-path', 'literal-mention']);
+});
+
+test('BuildIndex.execute() links literal ADR mentions from task bodies', async () => {
+  const fs = new MockFileSystem();
+  fs.directories['cli/src/main/ts'] = [];
+  fs.directories['docs/adr'] = ['ADR-001-constraints.md'];
+  fs.files['docs/adr/ADR-001-constraints.md'] = '# ADR-001: Constraints\n\n**Status:** ACCEPTED\n';
+  fs.directories['docs/archive'] = ['TASK-304.md'];
+  fs.files['docs/archive/TASK-304.md'] = `## TASK-304: Link ADR body
+**Meta:** P2 | S | DONE | Focus:yes | 2-code-generation | claude-code | none
+
+### Context
+Aligns with ADR-001.
+`;
+
+  const builder = new BuildIndex(fs as any);
+  await builder.execute({}, new MockGitRepository() as any);
+
+  const written = JSON.parse(fs.written['.arch/context-index.json']);
+  assert.deepEqual(written.adrTaskLinks['ADR-001'].tasks['TASK-304'].evidenceKinds, ['literal-mention']);
+  assert.equal(written.adrTaskLinks['ADR-001'].tasks['TASK-304'].taskPath, 'docs/archive/TASK-304.md');
+});
+
+test('BuildIndex.execute() deduplicates repeated ADR evidence within one task', async () => {
+  const fs = new MockFileSystem();
+  fs.directories['cli/src/main/ts'] = [];
+  fs.directories['docs/adr'] = ['ADR-011-repeat.md'];
+  fs.files['docs/adr/ADR-011-repeat.md'] = '# ADR-011: Repeat\n\n**Status:** ACCEPTED\n';
+  fs.directories['docs/tasks'] = ['TASK-305.md'];
+  fs.files['docs/tasks/TASK-305.md'] = `## TASK-305: Repeated ADR refs
+**Meta:** P2 | S | READY | Focus:yes | 2-code-generation | claude-code | docs/adr/ADR-011-repeat.md
+**ADR:** ADR-011
+**Depends:** ADR-011
+
+### Context
+ADR-011 still applies.
+`;
+
+  const builder = new BuildIndex(fs as any);
+  await builder.execute({}, new MockGitRepository() as any);
+
+  const written = JSON.parse(fs.written['.arch/context-index.json']);
+  const adrTasks = written.adrTaskLinks['ADR-011'].tasks;
+  assert.equal(Object.keys(adrTasks).length, 1);
+  assert.deepEqual(adrTasks['TASK-305'].evidenceKinds, ['adr-field', 'context-path', 'depends', 'literal-mention']);
+});
+
+test('BuildIndex.execute() ignores unknown ADR references for canonical links', async () => {
+  const fs = new MockFileSystem();
+  fs.directories['cli/src/main/ts'] = [];
+  fs.directories['docs/adr'] = ['ADR-012-known.md'];
+  fs.files['docs/adr/ADR-012-known.md'] = '# ADR-012: Known\n\n**Status:** ACCEPTED\n';
+  fs.directories['docs/tasks'] = ['TASK-306.md'];
+  fs.files['docs/tasks/TASK-306.md'] = `## TASK-306: Unknown ADR refs
+**Meta:** P2 | S | READY | Focus:yes | 2-code-generation | claude-code | none
+**ADR:** ADR-999
+
+### Context
+Also mentions ADR-999.
+`;
+
+  const builder = new BuildIndex(fs as any);
+  await builder.execute({}, new MockGitRepository() as any);
+
+  const written = JSON.parse(fs.written['.arch/context-index.json']);
+  assert.deepEqual(written.adrTaskLinks, {});
 });

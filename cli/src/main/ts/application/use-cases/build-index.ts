@@ -1,9 +1,17 @@
 import type { FileSystem } from '../../domain/repositories/file-system.js';
 import type { GitRepository } from '../../domain/repositories/git-repository.js';
-import type { ContextIndex, FileEntry, AdrEntry, GuidelineEntry, TaskEntry } from '../../domain/models/context-index.js';
+import type {
+  ContextIndex,
+  FileEntry,
+  AdrEntry,
+  GuidelineEntry,
+  TaskEntry,
+  AdrTaskLinkEntry,
+} from '../../domain/models/context-index.js';
 
 const GIT_LOG_DEPTH = 500;
 const MAX_COMMIT_REFS = 20;
+const ADR_ID_PATTERN = /ADR-\d+/g;
 
 export function normalizeCommits(
   commits: Array<{ hash: string; message: string; date: string; files: string[] }>
@@ -20,6 +28,7 @@ export class BuildIndex {
   private readonly indexPath = '.arch/context-index.json';
   private readonly srcRoot = 'cli/src/main/ts';
   private readonly adrDir = 'docs/adr';
+  private readonly taskDirs = ['docs/tasks', 'docs/archive'];
   private readonly stopwords = new Set([
     'the', 'a', 'an', 'is', 'are', 'in', 'of', 'to', 'and', 'for', 'that',
     'this', 'it', 'not', 'as', 'at', 'by', 'or', 'be', 'do', 'if', 'on',
@@ -35,14 +44,16 @@ export class BuildIndex {
   ): Promise<void> {
     const fileEntries = await this.buildFileIndex();
     const adrs = await this.buildAdrIndex();
+    const adrTaskLinks = await this.buildAdrTaskLinks(adrs);
     const guidelines = this.buildGuidelineIndex(contextRules);
     const tasks = await this.buildTaskIndex(gitRepository);
 
     const index: ContextIndex = {
-      version: 2,
+      version: 3,
       builtAt: new Date().toISOString(),
       files: fileEntries,
       adrs,
+      adrTaskLinks,
       guidelines,
       tasks,
     };
@@ -221,6 +232,45 @@ export class BuildIndex {
     return adrs;
   }
 
+  private async buildAdrTaskLinks(adrs: Record<string, AdrEntry>): Promise<Record<string, AdrTaskLinkEntry>> {
+    const links: Record<string, AdrTaskLinkEntry> = {};
+
+    for (const dir of this.taskDirs) {
+      let files: string[];
+      try {
+        files = await this.fileSystem.readDirectory(dir);
+      } catch {
+        continue;
+      }
+
+      for (const file of files) {
+        if (!file.endsWith('.md')) continue;
+        const taskPath = `${dir}/${file}`;
+
+        try {
+          const content = await this.fileSystem.readFile(taskPath);
+          const taskId = this.extractTaskId(content) ?? file.replace(/\.md$/, '');
+          if (!taskId.startsWith('TASK-')) continue;
+
+          const adrEvidence = this.extractTaskAdrEvidence(content);
+          for (const [adrId, evidenceKinds] of Object.entries(adrEvidence)) {
+            if (!adrs[adrId]) continue;
+            const entry = links[adrId] ?? { tasks: {} };
+            entry.tasks[taskId] = {
+              evidenceKinds: [...evidenceKinds].sort(),
+              taskPath,
+            };
+            links[adrId] = entry;
+          }
+        } catch {
+          // Soft-skip unreadable or malformed task files during index build.
+        }
+      }
+    }
+
+    return links;
+  }
+
   parseAdr(content: string): AdrEntry {
     const titleMatch = content.match(/^#\s+ADR-\d+[:\s]+(.+)$/m);
     const title = titleMatch?.[1]?.trim() ?? '';
@@ -255,5 +305,61 @@ export class BuildIndex {
 
   private splitCamelCase(s: string): string[] {
     return s.replace(/([A-Z])/g, ' $1').trim().split(/\s+/);
+  }
+
+  private extractTaskId(content: string): string | null {
+    return content.match(/^##\s+(TASK-\d{3}):/m)?.[1] ?? null;
+  }
+
+  private extractTaskAdrEvidence(content: string): Record<string, Set<string>> {
+    const evidence = new Map<string, Set<string>>();
+
+    for (const adrId of this.extractAdrRefsFromLine(content.match(/^\*\*ADR:\*\*\s*(.*)$/m)?.[1] ?? '')) {
+      this.addAdrEvidence(evidence, adrId, 'adr-field');
+    }
+
+    for (const adrId of this.extractAdrRefsFromLine(content.match(/^\*\*Depends:\*\*\s*(.*)$/m)?.[1] ?? '')) {
+      this.addAdrEvidence(evidence, adrId, 'depends');
+    }
+
+    for (const contextPath of this.extractTaskContextPaths(content)) {
+      const adrId = this.resolveAdrIdFromPath(contextPath);
+      if (adrId) this.addAdrEvidence(evidence, adrId, 'context-path');
+    }
+
+    for (const adrId of this.extractAdrRefsFromLine(content)) {
+      this.addAdrEvidence(evidence, adrId, 'literal-mention');
+    }
+
+    return Object.fromEntries([...evidence.entries()].map(([adrId, kinds]) => [adrId, kinds]));
+  }
+
+  private extractAdrRefsFromLine(text: string): string[] {
+    return [...new Set(text.match(ADR_ID_PATTERN) ?? [])];
+  }
+
+  private addAdrEvidence(evidence: Map<string, Set<string>>, adrId: string, kind: string): void {
+    const kinds = evidence.get(adrId) ?? new Set<string>();
+    kinds.add(kind);
+    evidence.set(adrId, kinds);
+  }
+
+  private extractTaskContextPaths(content: string): string[] {
+    const metaMatch = content.match(/^\*\*Meta:\*\*\s*(.*)$/m);
+    if (!metaMatch) return [];
+
+    const metaParts = metaMatch[1].split('|').map(part => part.trim());
+    const rawContext = metaParts[6] ?? '';
+    if (!rawContext || rawContext === 'none') return [];
+
+    return rawContext
+      .split(',')
+      .map(part => part.trim())
+      .filter(Boolean);
+  }
+
+  private resolveAdrIdFromPath(contextPath: string): string | null {
+    if (!contextPath.startsWith(`${this.adrDir}/`)) return null;
+    return contextPath.match(/(ADR-\d+)/)?.[1] ?? null;
   }
 }

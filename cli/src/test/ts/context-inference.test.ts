@@ -19,7 +19,7 @@ class MockFileSystem {
 }
 
 const FIXTURE_INDEX: ContextIndex = {
-  version: 2,
+  version: 3,
   builtAt: '2026-05-07T00:00:00Z',
   files: {
     'cli/src/main/ts/domain/models/intent.ts': {
@@ -50,12 +50,19 @@ const FIXTURE_INDEX: ContextIndex = {
       criticality: 'utility',
       runtimeUsage: 'cold',
     },
+    'cli/src/main/ts/application/use-cases/build-index.ts': {
+      symbols: ['BuildIndex'],
+      imports: [],
+      tags: ['application', 'build', 'index', 'context'],
+      criticality: 'domain',
+      runtimeUsage: 'warm',
+    },
   },
   adrs: {
     'ADR-002': {
       title: 'Context as a budget, not a default',
       keywords: ['context', 'budget', 'token', 'agent', 'cost'],
-      affectedModules: [],
+      affectedModules: ['cli/src/main/ts/application/use-cases/build-index.ts'],
       strength: 'enforced',
     },
     'ADR-003': {
@@ -63,6 +70,16 @@ const FIXTURE_INDEX: ContextIndex = {
       keywords: ['dispatch', 'ephemeral', 'agent', 'session'],
       affectedModules: [],
       strength: 'advisory',
+    },
+  },
+  adrTaskLinks: {
+    'ADR-002': {
+      tasks: {
+        'TASK-217': {
+          evidenceKinds: ['literal-mention'],
+          taskPath: 'docs/archive/TASK-217.md',
+        },
+      },
     },
   },
   guidelines: {
@@ -157,6 +174,8 @@ test('ContextInference.formatSection produces correct markdown structure', () =>
     guidelines: [{ name: 'testing-a-change.md', score: 2 }],
     unresolvedTaskRefs: [],
     filteredFiles: [],
+    unresolvedAdrRefs: [],
+    filteredAdrFiles: [],
   };
   const section = inference.formatSection(result);
   assert.ok(section.includes('### Relevant Context'));
@@ -239,6 +258,75 @@ test('ContextInference task-reference pass boosts files from resolved TASK refs'
   assert.ok(filePaths.includes('docs/ROADMAP.md'));
   assert.deepEqual(result.unresolvedTaskRefs, []);
   assert.ok(!result.filteredFiles.includes('cli/src/main/ts/domain/models/intent.ts'));
+});
+
+test('ContextInference explicit ADR refs boost the matching ADR in results', () => {
+  const fs = new MockFileSystem();
+  const inference = new ContextInference(fs as any);
+
+  const result = inference.score(FIXTURE_INDEX, ['unrelated'], '2-code-generation', 'Follow ADR-002 for this change');
+
+  assert.equal(result.adrs[0]?.id, 'ADR-002');
+  assert.deepEqual(result.unresolvedAdrRefs, []);
+});
+
+test('ContextInference ADR refs boost affectedModules', () => {
+  const fs = new MockFileSystem();
+  const inference = new ContextInference(fs as any);
+
+  const result = inference.score(FIXTURE_INDEX, ['unrelated'], '2-code-generation', 'Use ADR-002');
+  const filePaths = result.files.map((f: any) => f.path);
+
+  assert.ok(filePaths.includes('cli/src/main/ts/application/use-cases/build-index.ts'));
+});
+
+test('ContextInference ADR refs can surface files through linked tasks', () => {
+  const fs = new MockFileSystem();
+  const inference = new ContextInference(fs as any);
+
+  const result = inference.score(FIXTURE_INDEX, ['unrelated'], '2-code-generation', 'Continue ADR-002');
+  const filePaths = result.files.map((f: any) => f.path);
+
+  assert.ok(filePaths.includes('cli/src/main/ts/domain/models/intent.ts'));
+  assert.ok(filePaths.includes('cli/src/main/ts/application/use-cases/capture-intent.ts'));
+});
+
+test('ContextInference tracks unresolved ADR refs separately from resolved ones', () => {
+  const fs = new MockFileSystem();
+  const inference = new ContextInference(fs as any);
+
+  const result = inference.score(
+    FIXTURE_INDEX,
+    ['unrelated'],
+    '2-code-generation',
+    'Related ADRs: ADR-002 and ADR-999',
+  );
+
+  assert.ok(result.unresolvedAdrRefs.includes('ADR-999'));
+  assert.ok(!result.unresolvedAdrRefs.includes('ADR-002'));
+  assert.ok(result.adrs.some((a: any) => a.id === 'ADR-002'));
+});
+
+test('ContextInference records filtered ADR-derived files separately from ranked files', () => {
+  const fs = new MockFileSystem();
+  const inference = new ContextInference(fs as any);
+
+  const result = inference.score(FIXTURE_INDEX, ['unrelated'], '2-code-generation', 'See ADR-002');
+
+  assert.ok(result.filteredAdrFiles.includes('cli/src/test/ts/context-inference.test.ts'));
+  assert.ok(!result.files.some((f: any) => f.path === 'cli/src/test/ts/context-inference.test.ts'));
+});
+
+test('ContextInference keyword-only behavior remains intact without ADR refs', () => {
+  const fs = new MockFileSystem();
+  const inference = new ContextInference(fs as any);
+
+  const result = inference.score(FIXTURE_INDEX, ['capture'], '2-code-generation');
+  const filePaths = result.files.map((f: any) => f.path);
+
+  assert.ok(filePaths.includes('cli/src/main/ts/application/use-cases/capture-intent.ts'));
+  assert.deepEqual(result.unresolvedAdrRefs, []);
+  assert.deepEqual(result.filteredAdrFiles, []);
 });
 
 test('ContextInference task-reference pass can surface non-indexed touched files', () => {

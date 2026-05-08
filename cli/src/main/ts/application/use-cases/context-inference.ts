@@ -2,6 +2,9 @@ import type { FileSystem } from '../../domain/repositories/file-system.js';
 import type { ContextIndex } from '../../domain/models/context-index.js';
 
 const DIRECT_TASK_REFERENCE_BOOST = 4.0;
+const DIRECT_ADR_REFERENCE_BOOST = 4.0;
+const ADR_AFFECTED_MODULE_BOOST = 3.0;
+const ADR_LINKED_TASK_FILE_BOOST = 2.5;
 const LOW_SIGNAL_PATTERNS: RegExp[] = [
   /\.test\.ts$/,
   /\.spec\.ts$/,
@@ -40,6 +43,8 @@ export interface ContextResult {
   guidelines: ScoredGuideline[];
   unresolvedTaskRefs: string[];
   filteredFiles: string[];
+  unresolvedAdrRefs: string[];
+  filteredAdrFiles: string[];
 }
 
 export class ContextInference {
@@ -64,7 +69,8 @@ export class ContextInference {
 
     const keywords = this.extractKeywords(taskText);
     const taskRefs = this.extractTaskRefs(taskText);
-    if (keywords.length === 0 && taskRefs.length === 0) return;
+    const adrRefs = this.extractAdrRefs(taskText);
+    if (keywords.length === 0 && taskRefs.length === 0 && adrRefs.length === 0) return;
 
     const result = this.score(index, keywords, taskClass, taskText);
     const section = this.formatSection(result);
@@ -95,8 +101,11 @@ export class ContextInference {
     const kw = new Set(keywords);
     const critMult: Record<string, number> = { core: 1.5, domain: 1.2, support: 1.0, utility: 0.7 };
     const fileScoreMap = new Map<string, number>();
+    const adrScoreMap = new Map<string, number>();
     const unresolvedTaskRefs = new Set<string>();
     const filteredFiles = new Set<string>();
+    const unresolvedAdrRefs = new Set<string>();
+    const filteredAdrFiles = new Set<string>();
 
     // Keyword pass: base symbol/tag scoring into the shared score map.
     for (const [filePath, entry] of Object.entries(index.files)) {
@@ -149,17 +158,52 @@ export class ContextInference {
       }
     }
 
+    // ADR-reference pass: explicit ADR-IDs boost ADR ranking, direct ADR modules, and linked-task provenance.
+    for (const adrRef of this.extractAdrRefs(taskText)) {
+      const adrEntry = index.adrs?.[adrRef];
+      if (!adrEntry) {
+        unresolvedAdrRefs.add(adrRef);
+        continue;
+      }
+
+      const adrStrengthMultiplier = adrEntry.strength === 'enforced' ? 1.5 : 1.0;
+      adrScoreMap.set(adrRef, (adrScoreMap.get(adrRef) ?? 0) + DIRECT_ADR_REFERENCE_BOOST * adrStrengthMultiplier);
+
+      for (const filePath of adrEntry.affectedModules) {
+        fileScoreMap.set(filePath, (fileScoreMap.get(filePath) ?? 0) + ADR_AFFECTED_MODULE_BOOST);
+      }
+
+      const linkedTasks = index.adrTaskLinks?.[adrRef]?.tasks ?? {};
+      for (const taskId of Object.keys(linkedTasks)) {
+        const taskEntry = index.tasks?.[taskId];
+        if (!taskEntry) continue;
+        for (const filePath of Object.keys(taskEntry.touchedFrequency)) {
+          if (this.matchesAnyPattern(filePath, LOW_SIGNAL_PATTERNS)) {
+            filteredAdrFiles.add(filePath);
+            continue;
+          }
+          fileScoreMap.set(filePath, (fileScoreMap.get(filePath) ?? 0) + ADR_LINKED_TASK_FILE_BOOST);
+        }
+      }
+    }
+
     const allFiles = [...fileScoreMap.entries()]
       .map(([path, score]) => this.toScoredFile(index, path, score))
       .sort((a, b) => b.score - a.score)
       .slice(0, 5);
 
     // Score ADRs
-    const adrScores: ScoredAdr[] = [];
     for (const [adrId, adr] of Object.entries(index.adrs)) {
       const matches = adr.keywords.filter(k => kw.has(k)).length;
       if (matches === 0) continue;
-      const score = matches * (adr.strength === 'enforced' ? 1.5 : 1.0);
+      const keywordScore = matches * (adr.strength === 'enforced' ? 1.5 : 1.0);
+      adrScoreMap.set(adrId, (adrScoreMap.get(adrId) ?? 0) + keywordScore);
+    }
+
+    const adrScores: ScoredAdr[] = [];
+    for (const [adrId, adr] of Object.entries(index.adrs)) {
+      const score = adrScoreMap.get(adrId) ?? 0;
+      if (score <= 0) continue;
       adrScores.push({ id: adrId, title: adr.title, strength: adr.strength, score });
     }
     adrScores.sort((a, b) => {
@@ -204,6 +248,8 @@ export class ContextInference {
       guidelines: topGuidelines,
       unresolvedTaskRefs: [...unresolvedTaskRefs],
       filteredFiles: [...filteredFiles],
+      unresolvedAdrRefs: [...unresolvedAdrRefs],
+      filteredAdrFiles: [...filteredAdrFiles],
     };
   }
 
@@ -291,6 +337,10 @@ export class ContextInference {
 
   private extractTaskRefs(taskText: string): string[] {
     return [...new Set(taskText.match(/TASK-\d+/g) ?? [])];
+  }
+
+  private extractAdrRefs(taskText: string): string[] {
+    return [...new Set(taskText.match(/ADR-\d+/g) ?? [])];
   }
 
   private matchesAnyPattern(value: string, patterns: RegExp[]): boolean {
