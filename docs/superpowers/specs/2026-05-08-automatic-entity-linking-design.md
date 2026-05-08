@@ -28,6 +28,12 @@ This system implements a **curated relevance model**.
 
 A file absent from scoring is not absent from the task's history. When debugging "why did this file not appear," the answer is always one of: (a) not in `touchedFrequency` — it was never touched by a task-linked commit; or (b) in `touchedFrequency` but filtered at inference time — it exists, it was just de-ranked. These are different failure modes and must not be conflated.
 
+### Score accumulation invariant
+
+**All scoring passes accumulate into a shared score map before sorting. Passes are order-independent.**
+
+No pass may read the intermediate output of another pass during accumulation. All contributions from all passes (keyword, task-reference, and any future ADR, guideline, or similarity pass) merge into a single `Map<string, number>` before the final sort and slice. This guarantees that pipeline composition does not affect ranking — adding a new scoring pass cannot silently reorder existing results by virtue of execution order.
+
 ---
 
 ## Data Model
@@ -133,24 +139,33 @@ export interface ContextResult {
   adrs: ScoredAdr[];
   guidelines: ScoredGuideline[];
   unresolvedTaskRefs: string[];  // TASK-IDs found in task text but absent from index; not rendered to user
+  filteredFiles: string[];       // files eligible for boost but excluded by LOW_SIGNAL_PATTERNS; not rendered to user
 }
 ```
 
-`unresolvedTaskRefs` is deduplicated (Set → Array) before storing. Invisible to `formatSection()`. Internal observability only — systematic failures here indicate process gaps, not bugs.
+`unresolvedTaskRefs` and `filteredFiles` are both deduplicated (Set → Array) before storing. Invisible to `formatSection()`. Internal observability only.
+
+- `unresolvedTaskRefs`: TASK-ID referenced in task text but absent from `index.tasks`. Systematic failures here indicate process gaps (old tasks, pre-index commits).
+- `filteredFiles`: file was in `touchedFrequency` of a resolved task reference, but matched `LOW_SIGNAL_PATTERNS`. It was considered and de-ranked — not missed. This is the trace that distinguishes "never evaluated" from "evaluated and rejected."
 
 ### `score()` method: second pass
 
-After existing keyword-based scoring, add a second pass:
+`score()` is refactored to accumulate all file contributions into a shared `Map<string, number>` before final sort — per the score accumulation invariant. The keyword pass and task-reference pass both write into this map, never reading each other's intermediate state.
+
+**Keyword pass** (unchanged logic, new accumulation model): populate score map from symbol/tag matches.
+
+**Task-reference pass** (new):
 
 1. Extract canonical TASK-IDs from `taskText` using `/TASK-\d+/g`
 2. Deduplicate with `Set` before lookup
 3. For each unique ID:
    - If `index.tasks[id]` is absent → add to `unresolvedTaskRefs`, skip
-   - Derive files: `Object.keys(entry.touchedFrequency)`
-   - Apply `LOW_SIGNAL_PATTERNS` filter — files matching any pattern are excluded from boost (lower default weight, not removed from reality)
-   - Add surviving files to scored candidates with `DIRECT_TASK_REFERENCE_BOOST`
-   - If file already has a score from keyword pass → accumulate (convergence strengthens)
-4. Final sort and slice as before
+   - Derive candidates: `Object.keys(entry.touchedFrequency)`
+   - Partition into passing and filtered sets using `LOW_SIGNAL_PATTERNS`
+   - Add filtered files (deduplicated) to `filteredFiles`
+   - Accumulate `DIRECT_TASK_REFERENCE_BOOST` into score map for each passing file
+
+**Final step:** sort the unified score map, slice to top N, build `ScoredFile[]` as before.
 
 ### `LOW_SIGNAL_PATTERNS` constant
 
