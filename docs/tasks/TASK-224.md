@@ -1,4 +1,4 @@
-## TASK-224: Chronicle causal graph v1 — flat append-only relation store
+## TASK-224: Chronicle causal graph v1 - flat append-only relation store [ADR-014]
 **Meta:** P1 | S | IN_PROGRESS | Focus:yes | 2-code-generation | claude-code | cli/src/main/ts/, .arch/
 **Depends:** none
 
