@@ -386,3 +386,61 @@ test('causal synthesize with no entity exits 1', async () => {
   const io = makeIO(['synthesize']);
   await assert.rejects(() => new CausalCommand(graph, io).execute(), /exit:1/);
 });
+
+// ── causalRelevance ────────────────────────────────────────────────────────
+
+test('causalRelevance returns 1.0 with no query entities', async () => {
+  const fs = new MockFileSystem();
+  const graph = new CausalGraph(fs, '/root');
+  await graph.add('TASK-184', 'caused_by', 'TASK-220');
+  assert.strictEqual(await graph.causalRelevance('TASK-184', []), 1.0);
+});
+
+test('causalRelevance returns 1.0 when candidate has no direct path to query entities', async () => {
+  const fs = new MockFileSystem();
+  const graph = new CausalGraph(fs, '/root');
+  await graph.add('TASK-220', 'implements', 'ADR-011');
+  // TASK-184 is not in the graph at all relative to ADR-011
+  assert.strictEqual(await graph.causalRelevance('TASK-184', ['ADR-011']), 1.0);
+});
+
+test('causalRelevance returns > 1.0 for candidate with STRONG direct path', async () => {
+  const fs = new MockFileSystem();
+  const graph = new CausalGraph(fs, '/root');
+  await graph.add('TASK-184', 'caused_by', 'TASK-220');
+  const result = await graph.causalRelevance('TASK-184', ['TASK-220']);
+  assert.ok(result > 1.0);
+  // STRONG delta=0.5 → 1.0 + log(1.5)
+  assert.ok(Math.abs(result - (1.0 + Math.log(1.5))) < 1e-9);
+});
+
+test('causalRelevance accumulates multiple qualifying paths', async () => {
+  const fs = new MockFileSystem();
+  const graph = new CausalGraph(fs, '/root');
+  await graph.add('TASK-184', 'caused_by', 'TASK-220');   // STRONG, query: TASK-220
+  await graph.add('TASK-184', 'implements', 'ADR-011');   // MEDIUM, query: ADR-011
+  const single = await graph.causalRelevance('TASK-184', ['TASK-220']);
+  const both = await graph.causalRelevance('TASK-184', ['TASK-220', 'ADR-011']);
+  assert.ok(both > single);
+  // STRONG(0.5) + MEDIUM(0.3) = 0.8 → 1.0 + log(1.8)
+  assert.ok(Math.abs(both - (1.0 + Math.log(1.8))) < 1e-9);
+});
+
+test('causalRelevance selects dominant per pair — does not double-count competing edges', async () => {
+  const fs = new MockFileSystem();
+  const graph = new CausalGraph(fs, '/root');
+  // Two edges for same (TASK-184, TASK-220) pair — only dominant counts
+  await graph.add('TASK-184', 'caused_by', 'TASK-220', undefined, 'asserted');   // STRONG, score 10.8
+  await graph.add('TASK-184', 'references', 'TASK-220', undefined, 'heuristic', 'system'); // WEAK, score 1.0
+  const result = await graph.causalRelevance('TASK-184', ['TASK-220']);
+  // Only STRONG (delta=0.5) contributes, not WEAK (delta=0.1)
+  assert.ok(Math.abs(result - (1.0 + Math.log(1.5))) < 1e-9);
+});
+
+test('causalRelevance ignores inactive edges', async () => {
+  const fs = new MockFileSystem();
+  const graph = new CausalGraph(fs, '/root');
+  const e1 = await graph.add('TASK-184', 'caused_by', 'TASK-220');
+  await graph.invalidate(e1.id);
+  assert.strictEqual(await graph.causalRelevance('TASK-184', ['TASK-220']), 1.0);
+});

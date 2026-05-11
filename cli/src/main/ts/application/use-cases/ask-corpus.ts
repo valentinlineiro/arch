@@ -1,4 +1,5 @@
 import type { FileSystem } from '../../domain/repositories/file-system.js';
+import type { CausalGraph } from './causal-graph.js';
 
 export type QueryClass = 'DEFINITIONAL' | 'HISTORICAL' | 'STRUCTURAL' | 'PATTERN' | 'GENERAL';
 
@@ -93,6 +94,7 @@ export class AskCorpus {
   constructor(
     private fileSystem: FileSystem,
     private rootPath: string,
+    private causalGraph?: CausalGraph,
   ) {}
 
   async execute(question: string): Promise<AskResult> {
@@ -102,6 +104,7 @@ export class AskCorpus {
     }
 
     const queryClass = this.classifyQuery(question);
+    const queryEntities = this.extractQueryEntities(question);
     const files = await this.collectFiles();
     const scored: Array<{ path: string; score: number; excerpt: string; reasons: string[]; content: string }> = [];
 
@@ -125,8 +128,12 @@ export class AskCorpus {
 
       const totalHits = [...kwHits.values()].reduce((a, b) => a + b, 0);
       const multiplier = this.getMultiplier(queryClass, file);
-      const score = totalHits * multiplier;
+      const causalMultiplier = this.causalGraph && queryEntities.length > 0
+        ? await this.causalGraph.causalRelevance(this.extractCandidateEntity(file) ?? '', queryEntities)
+        : 1.0;
+      const score = totalHits * multiplier * causalMultiplier;
       const reasons = this.buildReasons(kwHits, multiplier, file, content);
+      if (causalMultiplier > 1.0) reasons.push(`causal ×${causalMultiplier.toFixed(2)}`);
       scored.push({ path: file, score, excerpt: this.extractExcerpt(content, keywords), reasons, content });
     }
 
@@ -299,6 +306,18 @@ export class AskCorpus {
       }
     }
     return files;
+  }
+
+  private extractQueryEntities(question: string): string[] {
+    return [...new Set([
+      ...(question.match(/TASK-\d+/g) ?? []),
+      ...(question.match(/ADR-\d+/g) ?? []),
+    ])];
+  }
+
+  private extractCandidateEntity(filePath: string): string | null {
+    const m = filePath.match(/(TASK-\d+|ADR-\d+)/);
+    return m ? m[1] : null;
   }
 
   private extractExcerpt(content: string, keywords: string[]): string {

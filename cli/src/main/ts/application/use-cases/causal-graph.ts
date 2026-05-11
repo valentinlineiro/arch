@@ -33,6 +33,13 @@ function scoreEdge(e: CausalRelation): number {
   return conf * str * src;
 }
 
+// Additive delta per edge relation strength, used as accumulation units before log compression.
+function edgeDelta(relation: RelationType): number {
+  return RELATION_STRENGTH[relation] === 'STRONG' ? 0.5
+    : RELATION_STRENGTH[relation] === 'MEDIUM' ? 0.3
+    : 0.1;
+}
+
 export class CausalGraph {
   constructor(
     private fileSystem: FileSystem,
@@ -138,6 +145,42 @@ export class CausalGraph {
       outgoing: edges.filter(r => r.from === entity).map(withStatus),
       incoming: edges.filter(r => r.to === entity).map(withStatus),
     };
+  }
+
+  // Path-conditioned activation: returns a score multiplier ≥ 1.0 for use in retrieval scoring.
+  // Candidate is boosted only when there is a direct active edge connecting it to a query entity.
+  // Multiple qualifying edges accumulate additively before log compression to prevent explosion.
+  // Inactive (weakened/invalidated) edges contribute nothing — the prior reflects current belief only.
+  async causalRelevance(candidate: string, queryEntities: string[]): Promise<number> {
+    if (queryEntities.length === 0 || !candidate) return 1.0;
+    const querySet = new Set(queryEntities);
+    const allEdges = await this.all();
+    const overrides = new Map<string, EdgeStatus>();
+    for (const e of allEdges) {
+      if (e.invalidates) overrides.set(e.invalidates, e.status);
+    }
+
+    // Dominant-per-pair selection: among active edges between candidate and a query entity,
+    // keep only the highest-scoring edge per (from, to) pair to avoid double-counting
+    // competing interpretations of the same relationship.
+    const pairDominant = new Map<string, CausalRelation>();
+    for (const edge of allEdges) {
+      if (edge.invalidates) continue;
+      if ((overrides.get(edge.id) ?? edge.status) !== 'active') continue;
+      const candidateIsFrom = edge.from === candidate;
+      const candidateIsTo = edge.to === candidate;
+      if (!candidateIsFrom && !candidateIsTo) continue;
+      const otherEnd = candidateIsFrom ? edge.to : edge.from;
+      if (!querySet.has(otherEnd)) continue;
+      const key = `${edge.from}||${edge.to}`;
+      const existing = pairDominant.get(key);
+      if (!existing || scoreEdge(edge) > scoreEdge(existing)) pairDominant.set(key, edge);
+    }
+
+    if (pairDominant.size === 0) return 1.0;
+
+    const accumulation = [...pairDominant.values()].reduce((sum, e) => sum + edgeDelta(e.relation), 0);
+    return 1.0 + Math.log(1 + accumulation);
   }
 
   async all(): Promise<CausalRelation[]> {

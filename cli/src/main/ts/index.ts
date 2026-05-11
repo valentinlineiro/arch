@@ -148,7 +148,7 @@ async function main() {
       break;
     }
     case 'ask':
-      await new AskCommand(new AskCorpus(fileSystem, rootPath), {
+      await new AskCommand(new AskCorpus(fileSystem, rootPath, new CausalGraph(fileSystem, rootPath)), {
         getArgs: () => args,
         log: (s) => console.log(s),
         error: (s) => console.error(s),

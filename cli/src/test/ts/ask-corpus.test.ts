@@ -1,6 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert';
 import { AskCorpus } from '../../main/ts/application/use-cases/ask-corpus.js';
+import { CausalGraph } from '../../main/ts/application/use-cases/causal-graph.js';
 
 class MockFileSystem {
   private files: Map<string, string>;
@@ -303,4 +304,64 @@ test('extractExcerpt falls back to first non-blank line when no keyword match', 
   const corpus = new AskCorpus(fs, '/root');
   const result = await corpus.execute('auth');
   assert.ok(result.matches[0].excerpt.length > 0);
+});
+
+// ── CausalGraph integration ────────────────────────────────────────────────
+
+class MutableMockFileSystem extends MockFileSystem {
+  constructor(files: Record<string, string>) { super(files); }
+  async appendFile(path: string, content: string): Promise<void> {
+    const existing = await this.readFile(path).catch(() => '');
+    // Write back via the private map — access via a cast
+    (this as any).files.set(path, existing + content);
+  }
+}
+
+test('causal graph boosts file with STRONG direct path to query entity', async () => {
+  const fs = new MutableMockFileSystem({
+    '/root/docs/archive/TASK-184.md': 'TASK-220 routing failure analysis',
+    '/root/docs/archive/TASK-001.md': 'TASK-220 something else routing',
+  });
+  const graph = new CausalGraph(fs, '/root');
+  await graph.add('TASK-184', 'caused_by', 'TASK-220');
+  const corpusWithGraph = new AskCorpus(fs, '/root', graph);
+  const corpusWithout = new AskCorpus(fs, '/root');
+
+  const withGraph = await corpusWithGraph.execute('routing TASK-220');
+  const without = await corpusWithout.execute('routing TASK-220');
+
+  const task184With = withGraph.matches.find(m => m.path.includes('TASK-184'));
+  const task184Without = without.matches.find(m => m.path.includes('TASK-184'));
+  assert.ok(task184With, 'TASK-184 should appear in results');
+  assert.ok(task184Without, 'TASK-184 should appear in results without graph too');
+  assert.ok(task184With!.score > task184Without!.score, 'causal graph should boost TASK-184 score');
+  assert.ok(task184With!.reasons.some(r => r.startsWith('causal')));
+});
+
+test('causal graph does not boost file without direct path to query entity', async () => {
+  const fs = new MutableMockFileSystem({
+    '/root/docs/archive/TASK-001.md': 'routing problem description',
+  });
+  const graph = new CausalGraph(fs, '/root');
+  await graph.add('TASK-184', 'caused_by', 'TASK-220');
+  const corpus = new AskCorpus(fs, '/root', graph);
+  const result = await corpus.execute('routing TASK-220');
+  const match = result.matches.find(m => m.path.includes('TASK-001'));
+  if (match) {
+    assert.ok(!match.reasons.some(r => r.startsWith('causal')));
+  }
+});
+
+test('causal graph does not activate when query has no entity refs', async () => {
+  const fs = new MutableMockFileSystem({
+    '/root/docs/archive/TASK-184.md': 'routing failure analysis in depth',
+  });
+  const graph = new CausalGraph(fs, '/root');
+  await graph.add('TASK-184', 'caused_by', 'TASK-220');
+  const corpus = new AskCorpus(fs, '/root', graph);
+  const result = await corpus.execute('routing failure');
+  const match = result.matches.find(m => m.path.includes('TASK-184'));
+  if (match) {
+    assert.ok(!match.reasons.some(r => r.startsWith('causal')), 'no entity ref in query → no causal activation');
+  }
 });
