@@ -33,12 +33,12 @@ A feature is `DONE` only when it is **Operational**. Implemented-but-not-operati
 > Discipline over creativity. The order below is not a preference — it is a dependency chain. Opening a later step before closing an earlier one is how systems fragment.
 
 1. ~~**`docs/IDENTITY.md`**~~ — shipped 2026-05-11
-2. **`arch ask`** — PARTIAL (v1–v3 shipped 2026-05-11) — cause grouping, match reasons, section-priority excerpts, query intent classification, corpus authority hierarchy all landed. Not yet integrated with causal graph; not yet operational by the full measure.
-3. ~~**Chronicle causal graph**~~ — **shipped 2026-05-11** — flat JSONL, 6 relation types, epistemic metadata (confidence/source/status), append-only corrections, belief synthesis with dominant/competing/superseded edges. Integration with `arch ask` is the remaining gap.
+2. ~~**`arch ask`**~~ — **shipped 2026-05-11** — v1–v3: keyword scoring, cause grouping, match reasons, query intent classification, corpus authority hierarchy. Causal-conditioned retrieval: `causalRelevance()` activates only edges with direct path to query entities (log-compressed, dominant-per-pair). Scoring and reasoning share a single activation predicate. **Operationally functional; not yet validated against real daily use.**
+3. ~~**Chronicle causal graph + signal arbitration**~~ — **shipped 2026-05-11** — causal graph v1 (ADR-014) + signal arbitration layer (ADR-015). Two invariants enforced: Query Isolation, Arbitration Determinism. Backward loop: lifecycle events → signal layer → cross-domain arbitration → graph mutation. Signal lifecycle: pending → applied | conflicted | stale.
 4. **Cross-task pattern distillation** — the moat becomes real when the system generates non-reconstructable knowledge
 5. **Policy engine** — governance only after memory and identity exist; policy without memory is automated bureaucracy
 
-Everything else is a distraction until step 2 is operational.
+Steps 2 and 3 are implemented. The question is whether they are operational — whether real use produces compounding advantage. That can only be answered by using them.
 
 ---
 
@@ -88,7 +88,7 @@ Everything else is a distraction until step 2 is operational.
 
 **Objective:** Move from documentation to operative memory. ARCH should understand, not just record.
 
-> **Current reality:** ARCH has memory storage, not yet memory intelligence. `arch ask` v1–v3 shipped 2026-05-11 — keyword scoring, ranked excerpts, entity refs (v1); query intent classification, corpus authority hierarchy (v2); cause grouping across archive tasks, per-match keyword reasons, section-priority excerpts (v3). The corpus is now queryable with primitive causal compression. Not yet integrated with the causal graph. Compounding advantage begins when `arch ask` uses `synthesize()` to distinguish asserted causality from co-occurrence when ranking results — that bridge is not yet built.
+> **Current reality:** `arch ask` is now a causal-conditioned retrieval engine. v1–v3 delivered keyword scoring, query classification, cause grouping, and match reasons. The causal integration is complete: `causalRelevance()` activates only edges with direct paths to query entities (path-conditioned, not global — TASK-184 is only boosted when the query references TASK-220 directly). Signal arbitration layer (ADR-015) closes the backward loop: lifecycle events generate signals, cross-domain corroboration commits inferred edges, contradictions surface for human review, stale signals drain automatically. The open question is no longer architecture — it is whether real daily use produces observable compounding advantage.
 
 | Feature | Status | Key Artifact |
 |---------|--------|--------------|
@@ -96,7 +96,7 @@ Everything else is a distraction until step 2 is operational.
 | Layer 2: Decision Memory (ADRs, rationale, rejected alternatives) | `DONE` | docs/adr/ (13 ADRs) |
 | Layer 3: Pattern Memory (bug classes, workflow failures, productivity patterns) | `PARTIAL` | [docs/PRINCIPLES.md](PRINCIPLES.md), [docs/KAIZEN-LOG.md](KAIZEN-LOG.md) — distilled manually, not automatically |
 | Layer 4: Semantic Memory (conceptual relationships between entities) | `PARTIAL` | ContextIndex v5 + feedback loop closed 2026-05-11. Inference adjusts boosts from completed task signals. Not yet consistently superior to human judgment. [TASK-219](archive/TASK-219.md), [TASK-220](archive/TASK-220.md) |
-| `arch ask` — memory queries that produce causal patterns and recommendations | `PARTIAL` | **CRITICAL INFLECTION POINT.** Before `arch ask`: protocol system. After `arch ask`: cognitive infrastructure. **v1–v3 shipped 2026-05-11.** v1: tokenize → score corpus → ranked excerpts + entity refs. v2: query intent classification (TASK / ADR / GUIDELINE / CROSS), corpus authority hierarchy. v3: cause groups (recurring failure tokens across archive), per-match reasons (keyword hits + multiplier + cross-refs), section-priority excerpts. No embeddings, no LLM, no vector DB. Open gap: integrate with `arch causal synthesize` so retrieval rank is informed by asserted causality, not just co-occurrence. [IDEA-roadmap-memory-queries](refinement/IDEA-roadmap-memory-queries.md) |
+| `arch ask` — causal-conditioned memory retrieval | `PARTIAL` | **CRITICAL INFLECTION POINT.** Before `arch ask`: protocol system. After: cognitive infrastructure. **v1–v3 + causal integration shipped 2026-05-11.** Scoring: `text_score × causalMultiplier` where multiplier = `1.0 + log(1 + Σ edgeDelta)` over activated edges — path-conditioned, log-compressed, dominant-per-pair. Activation predicate shared by scoring and reasoning. Query Isolation Invariant: pending signals never touch scoring. Cause groups surface recurring failure tokens across archive. Match reasons explain every result explicitly. No embeddings, no LLM, no vector DB. Not yet validated as operationally compounding. [IDEA-roadmap-memory-queries](refinement/IDEA-roadmap-memory-queries.md) |
 
 ---
 
@@ -158,7 +158,7 @@ Everything else is a distraction until step 2 is operational.
 | Feature | Status | Key Artifact |
 |---------|--------|--------------|
 | THINK / DO agent protocols | `DONE` | docs/agents/THINK.md, docs/agents/DO.md — instruction documents, not runtime components |
-| Chronicle — Causal Graph v1 | `PARTIAL` | **Shipped 2026-05-11.** `.arch/causal-graph.jsonl` — flat append-only JSONL. 6 relation types (implements, caused_by, violated, fixes, spawned, references) with STRONG/MEDIUM/WEAK internal taxonomy. Epistemic metadata: `confidence` (asserted/inferred/heuristic), `source` (human/system), `status` (active/weakened/invalidated). Append-only corrections via `invalidates` pointer — nothing deleted, full history. Belief synthesis: `synthesize(entity)` scores edges by `confidence × strength × source`, groups by (from, to) pair, returns dominant + competing + superseded. `arch causal add|show|weaken|invalidate|synthesize`. [ADR-014](adr/ADR-014-causal-graph-schema.md), [TASK-224](tasks/TASK-224.md). Open gap: integration with `arch ask`. [IDEA-roadmap-multiagent-runtime](refinement/IDEA-roadmap-multiagent-runtime.md) |
+| Chronicle — Causal Graph + Signal Arbitration | `PARTIAL` | **Shipped 2026-05-11.** Two-layer epistemic architecture. **Graph layer** (`causal-graph.jsonl`, ADR-014): committed truth. 6 relation types, epistemic metadata, append-only corrections, belief synthesis (dominant/competing/superseded). **Signal layer** (`causal-signal.jsonl`, ADR-015): observed hypotheses from lifecycle events. Arbitration: cross-domain corroboration → inferred edge committed; contradiction → conflict record; expiry after 3 review cycles → stale. Two invariants: Query Isolation (signals invisible to queries), Arbitration Determinism (same input → same output). `arch causal add|show|weaken|invalidate|synthesize|arbitrate`. Gap: signal generation not yet hooked into `arch task done` or `arch govern`. [ADR-014](adr/ADR-014-causal-graph-schema.md), [ADR-015](adr/ADR-015-causal-signal-arbitration.md), [TASK-224](tasks/TASK-224.md), [TASK-225](tasks/TASK-225.md) |
 | Planner / Historian / Reviewer / Conductor / Optimizer agents | `NOT STARTED` | [IDEA-roadmap-multiagent-runtime](refinement/IDEA-roadmap-multiagent-runtime.md) |
 
 ---
@@ -172,5 +172,5 @@ Everything else is a distraction until step 2 is operational.
 | Feature | Status | Key Artifact |
 |---------|--------|--------------|
 | Operational memory accumulation | `IN PROGRESS` | docs/archive/ (198 archived + 20 active tasks), docs/KAIZEN-LOG.md |
-| Causal event graph (Chronicle) | `PARTIAL` | `.arch/causal-graph.jsonl` — causal graph v1 live (add/weaken/invalidate/synthesize). Belief synthesis with dominant interpretation and evidence weights. Real data sparse — value compounds as task closures assert relations. `arch ask` ↔ causal graph integration not yet built. |
+| Causal event graph (Chronicle) | `PARTIAL` | Two-layer architecture live: graph (committed truth) + signal (observed hypotheses). `arch ask` causal integration complete — scoring is path-conditioned on active beliefs. Backward loop closed: lifecycle events → signal → arbitration → graph mutation. Real graph data sparse — moat begins when task closures consistently assert relations and signal corroboration produces inferred edges. Signal generation hooks (task done, govern violations) not yet wired. |
 | Cross-task pattern distillation | `NOT STARTED` | [IDEA-oracle-archive-distillation](refinement/IDEA-oracle-archive-distillation.md) |

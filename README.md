@@ -66,26 +66,27 @@ Every sprint ends with a retrospective where AI proposes rule changes. The syste
 
 ---
 
-## Agent hierarchy (v0.4.0)
+## Epistemic architecture (v0.6.0)
 
-> **Note:** ARCH v0.4.0 moves from a flat file structure to a modular, directory-based model (e.g., `docs/tasks/`, `docs/guidelines/`) to ensure scalability and better context management.
+Three layers, each with a distinct role:
 
 ```
-                    THINK mode
-            (System check + Refinement)
-            Reads: SPRINT + archive/ + BACKLOG
-            Writes: Ephemeral terminal report
-                         │
-          ┌──────────────┴──────────────┐
-          ▼                             ▼
-       DO mode                      RETRO mode
-   (Intent: Exec)                 (Sprint close)
-   (Intent: Human)                (Pattern detect)
-          │                             │
-    SPRINT.md                       INBOX.md
-    ◄── status                      ──► GUIDELINES.md
-    ◄── intent                      (Human approves)
+  Existence layer          Activation layer         Signal layer
+  ──────────────           ────────────────         ────────────
+  causal-graph.jsonl  →→→  causalRelevance()   ←←   causal-signal.jsonl
+  committed truth          path-conditioned         observed hypotheses
+  (human + arbitrated)     scoring multiplier       (pending arbitration)
+        ↑                                                  ↓
+        └──────────────── arch causal arbitrate ───────────┘
+                          cross-domain corroboration
+                          → inferred edge committed
+                          contradiction → conflict record
+                          expiry → stale (auditable)
 ```
+
+Two invariants enforced in code:
+- **Query Isolation** — pending signals never influence scoring. Queries read only the committed graph.
+- **Arbitration Determinism** — same signal set always produces the same mutations, regardless of insertion order.
 
 ---
 
@@ -93,18 +94,24 @@ Every sprint ends with a retrospective where AI proposes rule changes. The syste
 
 ```
 your-project/
-├── AGENTS.md              ← AI entry point
+├── AGENTS.md              ← AI entry point (symlinked to docs/AGENTS.md)
 ├── arch.config.json       ← Routing and path configuration
-├── cli/                   ← Node.js/TS Clean Architecture implementation
+├── cli/                   ← Node.js/TS Clean Architecture CLI
+├── .arch/
+│   ├── causal-graph.jsonl ← Committed causal truth (append-only)
+│   └── causal-signal.jsonl← Observed hypotheses pending arbitration
 └── docs/
-    ├── SPRINT.md          ← Active sprint tasks (Single Source of Truth)
-    ├── BACKLOG.md         ← All tasks and IDEAs
-    ├── GUIDELINES.md      ← Permanent rules (The project's DNA)
+    ├── tasks/             ← Active tasks
+    ├── archive/           ← Completed tasks (operational memory)
+    ├── adr/               ← Architectural decisions (ADR-001–015)
+    ├── guidelines/        ← Permanent rules
     ├── agents/
-    │   ├── THINK.md       ← Conductor + Refine consolidated protocol
-    │   └── DO.md          ← Exec + Human consolidated protocol
-    └── adr/
-        └── ADR-000-template.md
+    │   ├── THINK.md       ← Refinement + pattern detection protocol
+    │   └── DO.md          ← Execution protocol
+    ├── IDENTITY.md        ← What ARCH is (frozen definition)
+    ├── ROADMAP.md         ← Strategic state and phase tracking
+    ├── KAIZEN-LOG.md      ← Accumulated improvements
+    └── RETRO.md           ← Sprint retrospectives
 ```
 
 ---
@@ -135,23 +142,31 @@ your-project/
 npx arch-init my-project
 cd my-project
 
-# 1. Check sprint status
-./scripts/arch.sh status    # Shows READY / IN_PROGRESS / DONE counts
-./scripts/arch.sh inbox     # Show weekly dashboard and pending refinement
-./scripts/arch.sh next      # Suggests the next most relevant task
+# Sprint management
+arch status                           # READY / IN_PROGRESS / DONE counts
+arch inbox                            # Weekly dashboard and pending refinement
+arch next                             # Suggests next most relevant task
+arch task start TASK-001              # Mark IN_PROGRESS
+arch task done  TASK-001              # Archive as DONE
 
-# 2. Manage tasks
-./scripts/arch.sh task start TASK-001   # Mark a task as IN_PROGRESS
-./scripts/arch.sh task done  TASK-001   # Mark a task as DONE and archive it
+# Memory queries
+arch ask "why did auth routing keep failing?"
+# → query class, cause groups, ranked matches with causal context, entity refs
 
-# 3. Verify system integrity
-./scripts/arch.sh validate  # Structural validation (task format, required files)
-./scripts/arch.sh review    # Deterministic check of guidelines, task formats, and drift
-./scripts/arch.sh merge-resolve # Auto-resolve trivial merge conflicts
+# Causal graph
+arch causal add TASK-220 caused_by TASK-184 --note "routing debt"
+arch causal add TASK-220 implements ADR-011 --confidence asserted
+arch causal show TASK-220             # Active edges for entity
+arch causal show TASK-220 --all       # Full history including weakened/invalidated
+arch causal synthesize TASK-220       # Dominant belief + competing interpretations + superseded
+arch causal weaken <edge-id>          # Downgrade belief with new evidence
+arch causal invalidate <edge-id>      # Contradict — kept for audit, excluded from active queries
+arch causal arbitrate                 # Consume pending signals → apply/conflict/expire
 
-# Planned
-# arch conduct   # Invokes THINK mode (coming soon)
-# arch exec      # Invokes DO mode for next READY task (coming soon)
+# Integrity
+arch validate                         # Structural validation
+arch review                           # Drift detection, task format, integrity checks
+arch merge-resolve                    # Auto-resolve trivial merge conflicts
 ```
 
 ---
@@ -184,8 +199,8 @@ cd my-project
 
 ## Status
 
-**v0.4.0 — Scalable Context & Modular Protocols.**
-The methodology is supported by a deterministic CLI engine and modular repository structure.
+**v0.6.0 — Causal Memory + Conditioned Retrieval.**
+The system now has a closed epistemic loop: `arch ask` retrieval is conditioned on active causal beliefs, the causal graph is revisable via append-only corrections, and a signal arbitration layer closes the backward loop from lifecycle events to graph mutation.
 
 ---
 
