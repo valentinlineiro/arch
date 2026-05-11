@@ -8,6 +8,7 @@ import { SelectNextTask } from './select-next-task.js';
 import { GovernSystem } from './govern-system.js';
 import { ReviewSystem } from './review-system.js';
 import { MarkTaskDone } from './mark-task-done.js';
+import { NodeFeedbackRepository } from '../../infrastructure/filesystem/node-feedback-repository.js';
 import { SubprocessRunner } from '../../infrastructure/cli/subprocess-runner.js';
 import { ConfigLoader } from '../../domain/services/config-loader.js';
 import { ProviderRegistry } from '../../domain/services/provider-registry.js';
@@ -41,7 +42,7 @@ export class LoopEngine {
   ) {
     this.governSystem = new GovernSystem(taskRepository, gitRepository, fileSystem);
     this.reviewSystem = new ReviewSystem(taskRepository, gitRepository, reviewer, fileSystem, driftChecker);
-    this.markTaskDone = new MarkTaskDone(taskRepository, reviewer, fileSystem);
+    this.markTaskDone = new MarkTaskDone(taskRepository, reviewer, fileSystem, undefined, new NodeFeedbackRepository(fileSystem));
   }
 
   private log(message: string) {
