@@ -1,13 +1,17 @@
 import type { FileSystem } from '../../domain/repositories/file-system.js';
 
+export type QueryClass = 'DEFINITIONAL' | 'HISTORICAL' | 'STRUCTURAL' | 'PATTERN' | 'GENERAL';
+
 export interface CorpusMatch {
   path: string;
-  hits: number;
+  score: number;
   excerpt: string;
 }
 
 export interface AskResult {
+  queryClass: QueryClass;
   keywords: string[];
+  answer: string | null;
   matches: CorpusMatch[];
   taskRefs: string[];
   adrRefs: string[];
@@ -34,10 +38,48 @@ const CORPUS_DIRS = [
 ];
 
 const CORPUS_FILES = [
+  'docs/IDENTITY.md',
+  'docs/ROADMAP.md',
   'docs/KAIZEN-LOG.md',
   'docs/RETRO.md',
   'docs/PRINCIPLES.md',
+  'docs/GOVERNANCE.md',
 ];
+
+// Score multipliers applied after keyword hit count, by query class and file path pattern.
+// Order matters: first match wins.
+const CLASS_MULTIPLIERS: Record<QueryClass, Array<{ pattern: RegExp; multiplier: number }>> = {
+  DEFINITIONAL: [
+    { pattern: /docs\/IDENTITY\.md$/, multiplier: 8 },
+    { pattern: /docs\/ROADMAP\.md$/, multiplier: 5 },
+    { pattern: /docs\/PRINCIPLES\.md$/, multiplier: 4 },
+    { pattern: /docs\/GOVERNANCE\.md$/, multiplier: 4 },
+    { pattern: /docs\/adr\//, multiplier: 3 },
+    { pattern: /docs\/archive\//, multiplier: 0.2 },
+    { pattern: /docs\/tasks\//, multiplier: 0.2 },
+  ],
+  HISTORICAL: [
+    { pattern: /docs\/KAIZEN-LOG\.md$/, multiplier: 4 },
+    { pattern: /docs\/RETRO\.md$/, multiplier: 4 },
+    { pattern: /docs\/archive\//, multiplier: 3 },
+    { pattern: /docs\/adr\//, multiplier: 2 },
+    { pattern: /docs\/IDENTITY\.md$/, multiplier: 0.3 },
+  ],
+  STRUCTURAL: [
+    { pattern: /docs\/adr\//, multiplier: 4 },
+    { pattern: /docs\/guidelines\//, multiplier: 3 },
+    { pattern: /docs\/tasks\//, multiplier: 2 },
+    { pattern: /docs\/archive\//, multiplier: 1.5 },
+  ],
+  PATTERN: [
+    { pattern: /docs\/KAIZEN-LOG\.md$/, multiplier: 5 },
+    { pattern: /docs\/RETRO\.md$/, multiplier: 4 },
+    { pattern: /docs\/PRINCIPLES\.md$/, multiplier: 3 },
+    { pattern: /docs\/archive\//, multiplier: 2 },
+    { pattern: /docs\/adr\//, multiplier: 1.5 },
+  ],
+  GENERAL: [],
+};
 
 export class AskCorpus {
   constructor(
@@ -51,8 +93,9 @@ export class AskCorpus {
       throw new Error('No searchable keywords in question. Add specific terms to query.');
     }
 
+    const queryClass = this.classifyQuery(question);
     const files = await this.collectFiles();
-    const scored: Array<{ path: string; hits: number; excerpt: string; content: string }> = [];
+    const scored: Array<{ path: string; score: number; excerpt: string; content: string }> = [];
 
     for (const file of files) {
       const fullPath = `${this.rootPath}/${file}`;
@@ -71,14 +114,15 @@ export class AskCorpus {
       }
       if (hits === 0) continue;
 
-      scored.push({ path: file, hits, excerpt: this.extractExcerpt(content, keywords), content });
+      const multiplier = this.getMultiplier(queryClass, file);
+      const score = hits * multiplier;
+      scored.push({ path: file, score, excerpt: this.extractExcerpt(content, keywords), content });
     }
 
-    scored.sort((a, b) => b.hits - a.hits);
+    scored.sort((a, b) => b.score - a.score);
     const top = scored.slice(0, 10);
     const topForRefs = scored.slice(0, 5);
 
-    // Entity refs scoped to top-5 matches only to reduce noise
     const taskRefs = new Set<string>();
     const adrRefs = new Set<string>();
     const principleRefs = new Set<string>();
@@ -88,7 +132,6 @@ export class AskCorpus {
       for (const m of content.matchAll(/P-\d{3}/g)) principleRefs.add(m[0]);
     }
 
-    // Recurring signals: task IDs appearing in 3+ of the top-10 matches
     const taskIdCount = new Map<string, number>();
     for (const { content } of top) {
       const seen = new Set<string>();
@@ -101,14 +144,37 @@ export class AskCorpus {
       .sort((a, b) => b[1] - a[1])
       .map(([id, count]) => `${id} (${count} matches)`);
 
+    const answer = queryClass === 'DEFINITIONAL'
+      ? await this.extractDefinitionalAnswer()
+      : null;
+
     return {
+      queryClass,
       keywords,
-      matches: top.map(({ path, hits, excerpt }) => ({ path, hits, excerpt })),
+      answer,
+      matches: top.map(({ path, score, excerpt }) => ({ path, score, excerpt })),
       taskRefs: [...taskRefs].sort(),
       adrRefs: [...adrRefs].sort(),
       principleRefs: [...principleRefs].sort(),
       recurringSignals,
     };
+  }
+
+  classifyQuery(question: string): QueryClass {
+    const q = question.toLowerCase();
+    if (/\b(what is|what are|what('s| is) the (point|purpose|goal)|why (does|do) (this|it) exist|what does .* do|why exist|define|definition)\b/.test(q)) {
+      return 'DEFINITIONAL';
+    }
+    if (/\b(why did|when did|what caused|what went wrong|history of|fail(ed|ure)?|broke|broke down|incident)\b/.test(q)) {
+      return 'HISTORICAL';
+    }
+    if (/\b(where is|where (does|do)|which file|how is .* defined|where (can i find|are))\b/.test(q)) {
+      return 'STRUCTURAL';
+    }
+    if (/\b(what keeps|why (does|do) .* keep|pattern|recurring|always|every time|repeatedly|keeps (happening|failing))\b/.test(q)) {
+      return 'PATTERN';
+    }
+    return 'GENERAL';
   }
 
   tokenize(question: string): string[] {
@@ -118,6 +184,33 @@ export class AskCorpus {
         .split(/\s+/)
         .filter(w => w.length >= 3 && !STOP_WORDS.has(w)),
     )];
+  }
+
+  private getMultiplier(queryClass: QueryClass, filePath: string): number {
+    for (const { pattern, multiplier } of CLASS_MULTIPLIERS[queryClass]) {
+      if (pattern.test(filePath)) return multiplier;
+    }
+    return 1;
+  }
+
+  private async extractDefinitionalAnswer(): Promise<string | null> {
+    try {
+      const content = await this.fileSystem.readFile(`${this.rootPath}/docs/IDENTITY.md`);
+      // Extract the definition block: lines after "## 1. Definition" up to the next heading
+      const lines = content.split('\n');
+      const start = lines.findIndex(l => /^##\s+1\.\s+Definition/i.test(l));
+      if (start === -1) return null;
+      const end = lines.findIndex((l, i) => i > start && /^##/.test(l));
+      const block = (end === -1 ? lines.slice(start + 1) : lines.slice(start + 1, end))
+        .filter(l => l.trim() && !l.startsWith('<!--') && l.trim() !== '---')
+        .join(' ')
+        .replace(/>\s*/g, '')
+        .replace(/\*\*/g, '')
+        .trim();
+      return block.slice(0, 300) || null;
+    } catch {
+      return null;
+    }
   }
 
   private async collectFiles(): Promise<string[]> {

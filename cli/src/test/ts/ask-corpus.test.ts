@@ -30,6 +30,8 @@ class MockFileSystem {
   async deleteFile(_p: string): Promise<void> {}
 }
 
+// ── Tokenizer ──────────────────────────────────────────────────────────────
+
 test('tokenize strips stop words and short tokens', () => {
   const corpus = new AskCorpus(new MockFileSystem({}), '/root');
   assert.deepStrictEqual(corpus.tokenize('why do auth tasks fail?'), ['auth', 'tasks', 'fail']);
@@ -45,24 +47,109 @@ test('tokenize returns empty for all-stop-words question', () => {
   assert.deepStrictEqual(corpus.tokenize('why is that the'), []);
 });
 
+// ── Query classification ───────────────────────────────────────────────────
+
+test('classifyQuery detects DEFINITIONAL', () => {
+  const corpus = new AskCorpus(new MockFileSystem({}), '/root');
+  assert.strictEqual(corpus.classifyQuery('What is the point of this repo?'), 'DEFINITIONAL');
+  assert.strictEqual(corpus.classifyQuery('What is ARCH?'), 'DEFINITIONAL');
+  assert.strictEqual(corpus.classifyQuery("What's the purpose of this system?"), 'DEFINITIONAL');
+});
+
+test('classifyQuery detects HISTORICAL', () => {
+  const corpus = new AskCorpus(new MockFileSystem({}), '/root');
+  assert.strictEqual(corpus.classifyQuery('Why did auth tasks fail last sprint?'), 'HISTORICAL');
+  assert.strictEqual(corpus.classifyQuery('What caused the routing incident?'), 'HISTORICAL');
+});
+
+test('classifyQuery detects STRUCTURAL', () => {
+  const corpus = new AskCorpus(new MockFileSystem({}), '/root');
+  assert.strictEqual(corpus.classifyQuery('Where is provider routing defined?'), 'STRUCTURAL');
+  assert.strictEqual(corpus.classifyQuery('Which file handles drift detection?'), 'STRUCTURAL');
+});
+
+test('classifyQuery detects PATTERN', () => {
+  const corpus = new AskCorpus(new MockFileSystem({}), '/root');
+  assert.strictEqual(corpus.classifyQuery('What keeps failing in review?'), 'PATTERN');
+  assert.strictEqual(corpus.classifyQuery('Why do tasks keep getting blocked?'), 'PATTERN');
+});
+
+test('classifyQuery falls back to GENERAL', () => {
+  const corpus = new AskCorpus(new MockFileSystem({}), '/root');
+  assert.strictEqual(corpus.classifyQuery('context inference feedback loop'), 'GENERAL');
+});
+
+// ── Scoring with class multipliers ────────────────────────────────────────
+
+test('DEFINITIONAL query boosts IDENTITY.md over archive tasks', async () => {
+  const fs = new MockFileSystem({
+    '/root/docs/IDENTITY.md': '## 1. Definition\n> ARCH is a git-native protocol. arch arch arch arch arch',
+    '/root/docs/archive/TASK-001.md': 'arch arch arch arch arch arch arch arch',
+  });
+  const corpus = new AskCorpus(fs, '/root');
+  const result = await corpus.execute('What is arch?');
+
+  assert.strictEqual(result.queryClass, 'DEFINITIONAL');
+  assert.strictEqual(result.matches[0].path, 'docs/IDENTITY.md');
+});
+
+test('HISTORICAL query boosts archive over IDENTITY', async () => {
+  const fs = new MockFileSystem({
+    '/root/docs/IDENTITY.md': 'auth boundary auth auth auth auth auth auth auth',
+    '/root/docs/archive/TASK-010.md': '## TASK-010: auth failure\nauth auth auth',
+  });
+  const corpus = new AskCorpus(fs, '/root');
+  const result = await corpus.execute('Why did auth fail?');
+
+  assert.strictEqual(result.queryClass, 'HISTORICAL');
+  assert.strictEqual(result.matches[0].path, 'docs/archive/TASK-010.md');
+});
+
+test('DEFINITIONAL query extracts answer from IDENTITY.md', async () => {
+  const fs = new MockFileSystem({
+    '/root/docs/IDENTITY.md': '# IDENTITY\n## 1. Definition\n> ARCH is a git-native operational protocol.\nThis sentence is frozen.\n## 2. Scope',
+  });
+  const corpus = new AskCorpus(fs, '/root');
+  const result = await corpus.execute('What is ARCH?');
+
+  assert.ok(result.answer !== null);
+  assert.ok(result.answer!.includes('git-native'));
+});
+
+test('non-DEFINITIONAL query returns null answer', async () => {
+  const fs = new MockFileSystem({
+    '/root/docs/archive/TASK-001.md': '## TASK-001: auth failure\nauth failed. something broke.',
+  });
+  const corpus = new AskCorpus(fs, '/root');
+  const result = await corpus.execute('Why did auth fail?');
+
+  assert.strictEqual(result.answer, null);
+});
+
+// ── Core execution ─────────────────────────────────────────────────────────
+
 test('execute throws on empty keywords', async () => {
   const corpus = new AskCorpus(new MockFileSystem({}), '/root');
   await assert.rejects(() => corpus.execute('why is that'), /No searchable keywords/);
 });
 
-test('execute scores files by keyword hits', async () => {
+test('execute returns empty matches when no keywords hit', async () => {
   const fs = new MockFileSystem({
-    '/root/docs/archive/TASK-001.md': 'auth validation at service boundary. auth check missing.',
-    '/root/docs/archive/TASK-002.md': 'refactor routing layer',
-    '/root/docs/adr/ADR-003.md': 'auth boundary rule applied',
+    '/root/docs/archive/TASK-001.md': 'completely unrelated content here',
   });
   const corpus = new AskCorpus(fs, '/root');
-  const result = await corpus.execute('auth boundary');
+  const result = await corpus.execute('auth failure');
+  assert.strictEqual(result.matches.length, 0);
+});
 
-  assert.deepStrictEqual(result.keywords, ['auth', 'boundary']);
-  assert.strictEqual(result.matches.length, 2);
-  assert.strictEqual(result.matches[0].path, 'docs/archive/TASK-001.md');
-  assert.ok(result.matches[0].hits > result.matches[1].hits);
+test('execute caps matches at 10', async () => {
+  const files: Record<string, string> = {};
+  for (let i = 1; i <= 15; i++) {
+    files[`/root/docs/archive/TASK-${String(i).padStart(3, '0')}.md`] = `auth task number ${i}`;
+  }
+  const corpus = new AskCorpus(new MockFileSystem(files), '/root');
+  const result = await corpus.execute('auth task');
+  assert.ok(result.matches.length <= 10);
 });
 
 test('execute extracts task refs from matching files', async () => {
@@ -71,7 +158,6 @@ test('execute extracts task refs from matching files', async () => {
   });
   const corpus = new AskCorpus(fs, '/root');
   const result = await corpus.execute('auth failed');
-
   assert.ok(result.taskRefs.includes('TASK-010'));
   assert.ok(result.taskRefs.includes('TASK-031'));
   assert.ok(result.taskRefs.includes('TASK-044'));
@@ -83,59 +169,30 @@ test('execute extracts ADR refs from matching files', async () => {
   });
   const corpus = new AskCorpus(fs, '/root');
   const result = await corpus.execute('auth boundary');
-
   assert.ok(result.adrRefs.includes('ADR-001'));
   assert.ok(result.adrRefs.includes('ADR-003'));
   assert.ok(result.adrRefs.includes('ADR-005'));
 });
 
-test('execute returns empty matches when no keywords hit', async () => {
-  const fs = new MockFileSystem({
-    '/root/docs/archive/TASK-001.md': 'completely unrelated content here',
-  });
-  const corpus = new AskCorpus(fs, '/root');
-  const result = await corpus.execute('auth failure');
-
-  assert.strictEqual(result.matches.length, 0);
-});
-
-test('execute caps matches at 10', async () => {
-  const files: Record<string, string> = {};
-  for (let i = 1; i <= 15; i++) {
-    files[`/root/docs/archive/TASK-${String(i).padStart(3, '0')}.md`] = `auth task number ${i}`;
-  }
-  const corpus = new AskCorpus(new MockFileSystem(files), '/root');
-  const result = await corpus.execute('auth task');
-
-  assert.ok(result.matches.length <= 10);
-});
-
 test('execute scopes entity refs to top-5 matches', async () => {
   const files: Record<string, string> = {};
-  // 6 files matching "auth", only top-5 should contribute refs
   for (let i = 1; i <= 6; i++) {
-    // file i has i hits, so file 6 is top, file 1 is 6th
     files[`/root/docs/archive/TASK-${String(i).padStart(3, '0')}.md`] =
       `## TASK-${String(i).padStart(3, '0')}: auth\n` + 'auth '.repeat(i) + `ADR-${String(i).padStart(3, '0')} mentioned`;
   }
   const corpus = new AskCorpus(new MockFileSystem(files), '/root');
   const result = await corpus.execute('auth');
-
-  // ADR-001 is in file 1 (6th by score) — should NOT be in refs since only top-5 contribute
   assert.ok(!result.adrRefs.includes('ADR-001'));
-  // ADR-006 is in file 6 (1st by score) — should be in refs
   assert.ok(result.adrRefs.includes('ADR-006'));
 });
 
 test('execute detects recurring signals from 3+ top matches', async () => {
   const files: Record<string, string> = {};
-  // TASK-099 appears in 4 different files — should be a recurring signal
   for (let i = 1; i <= 5; i++) {
     const ref = i <= 4 ? 'see TASK-099 for history' : 'unrelated content here';
     files[`/root/docs/archive/TASK-${String(i).padStart(3, '0')}.md`] = `auth failure ${ref}`;
   }
   const corpus = new AskCorpus(new MockFileSystem(files), '/root');
   const result = await corpus.execute('auth failure');
-
   assert.ok(result.recurringSignals.some(s => s.startsWith('TASK-099')));
 });

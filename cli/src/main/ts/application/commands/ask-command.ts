@@ -29,15 +29,21 @@ export class AskCommand {
       this.io.exit(1);
     }
 
-    const { keywords, matches, taskRefs, adrRefs, principleRefs, recurringSignals } = result;
+    const { queryClass, keywords, answer, matches, taskRefs, adrRefs, principleRefs, recurringSignals } = result;
 
     this.io.log(`Query: ${question}`);
-    this.io.log(`Keywords: ${keywords.join(', ')}`);
+    this.io.log(`Class:    ${queryClass} | Keywords: ${keywords.join(', ')}`);
     this.io.log('');
 
     if (matches.length === 0) {
       this.io.log('No matches found in corpus.');
       return;
+    }
+
+    if (answer) {
+      this.io.log(`Answer:`);
+      this.io.log(`  ${answer}`);
+      this.io.log('');
     }
 
     if (recurringSignals.length > 0) {
@@ -48,7 +54,7 @@ export class AskCommand {
 
     this.io.log(`Corpus matches (${matches.length}):`);
     for (const m of matches) {
-      this.io.log(`  ${m.path} — ${m.hits} hit${m.hits === 1 ? '' : 's'}`);
+      this.io.log(`  ${m.path} — score ${Math.round(m.score)}`);
       this.io.log(`    ${m.excerpt}`);
     }
     this.io.log('');
