@@ -1,4 +1,5 @@
 export enum TaskStatus {
+  DRAFT = 'DRAFT',
   IDEA = 'IDEA',
   BACKLOG = 'BACKLOG',
   READY = 'READY',
