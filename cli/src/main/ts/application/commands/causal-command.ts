@@ -21,11 +21,17 @@ export class CausalCommand {
       await this.add(rest);
     } else if (subcommand === 'show') {
       await this.show(rest);
+    } else if (subcommand === 'weaken') {
+      await this.correct(rest, 'weaken');
+    } else if (subcommand === 'invalidate') {
+      await this.correct(rest, 'invalidate');
     } else {
       this.io.error(
-        'Usage: arch causal <add|show>\n' +
+        'Usage: arch causal <add|show|weaken|invalidate>\n' +
         '  add <from> <relation> <to> [--note "..."] [--confidence asserted|inferred|heuristic]\n' +
-        '  show <entity>\n\n' +
+        '  show <entity> [--all]\n' +
+        '  weaken <edge-id> [--note "..."]\n' +
+        '  invalidate <edge-id> [--note "..."]\n\n' +
         `Relations: ${VALID_RELATIONS.join(', ')}`,
       );
       this.io.exit(1);
@@ -66,37 +72,62 @@ export class CausalCommand {
     const entry = await this.graph.add(from, relation as RelationType, to, note, confidence);
     const strength = RELATION_STRENGTH[relation as RelationType];
     this.io.log(
-      `Recorded: ${entry.from} → ${entry.relation} → ${entry.to}` +
+      `Recorded [${entry.id.slice(0, 8)}]: ${entry.from} → ${entry.relation} → ${entry.to}` +
       ` [${entry.confidence}/${entry.source}, ${strength}]` +
       (entry.note ? ` · ${entry.note}` : ''),
     );
   }
 
-  private async show(args: string[]): Promise<void> {
-    if (args.length === 0) {
-      this.io.error('Usage: arch causal show <entity>');
+  private async correct(args: string[], action: 'weaken' | 'invalidate'): Promise<void> {
+    const { value: note, rest: core } = this.parseFlag(args, '--note');
+    if (core.length === 0) {
+      this.io.error(`Usage: arch causal ${action} <edge-id> [--note "..."]`);
       this.io.exit(1);
     }
 
-    const entity = args[0];
-    const { outgoing, incoming } = await this.graph.query(entity);
+    const id = core[0];
+    try {
+      const correction = action === 'weaken'
+        ? await this.graph.weaken(id, note)
+        : await this.graph.invalidate(id, note);
+      this.io.log(
+        `${action === 'weaken' ? 'Weakened' : 'Invalidated'} [${id.slice(0, 8)}]: ` +
+        `${correction.from} → ${correction.relation} → ${correction.to}` +
+        (correction.note ? ` · ${correction.note}` : ''),
+      );
+    } catch (e: any) {
+      this.io.error(`Error: ${e.message}`);
+      this.io.exit(1);
+    }
+  }
+
+  private async show(args: string[]): Promise<void> {
+    const { value: allFlag, rest: core } = this.parseFlag(args, '--all');
+    const showAll = allFlag !== undefined || args.includes('--all');
+
+    if (core.length === 0) {
+      this.io.error('Usage: arch causal show <entity> [--all]');
+      this.io.exit(1);
+    }
+
+    const entity = core[0];
+    const { outgoing, incoming } = await this.graph.query(entity, showAll);
 
     if (outgoing.length === 0 && incoming.length === 0) {
-      this.io.log(`No causal relations found for ${entity}.`);
+      this.io.log(`No ${showAll ? '' : 'active '}causal relations found for ${entity}.`);
       return;
     }
 
-    this.io.log(`Causal relations for ${entity}:`);
+    this.io.log(`Causal relations for ${entity}${showAll ? ' (all)' : ''}:`);
     this.io.log('');
 
     if (outgoing.length > 0) {
       this.io.log('  Outgoing:');
       for (const r of outgoing) {
         const strength = RELATION_STRENGTH[r.relation];
-        const conf = r.confidence ?? 'asserted';
         this.io.log(
-          `    ${r.from} → ${r.relation} → ${r.to}` +
-          ` [${conf}/${r.source ?? 'human'}, ${strength}]` +
+          `    [${r.id.slice(0, 8)}] ${r.from} → ${r.relation} → ${r.to}` +
+          ` [${r.confidence}/${r.source ?? 'human'}, ${strength}, ${r.status}]` +
           (r.note ? ` · ${r.note}` : ''),
         );
       }
@@ -106,10 +137,9 @@ export class CausalCommand {
       this.io.log('  Incoming:');
       for (const r of incoming) {
         const strength = RELATION_STRENGTH[r.relation];
-        const conf = r.confidence ?? 'asserted';
         this.io.log(
-          `    ${r.from} → ${r.relation} → ${r.to}` +
-          ` [${conf}/${r.source ?? 'human'}, ${strength}]` +
+          `    [${r.id.slice(0, 8)}] ${r.from} → ${r.relation} → ${r.to}` +
+          ` [${r.confidence}/${r.source ?? 'human'}, ${strength}, ${r.status}]` +
           (r.note ? ` · ${r.note}` : ''),
         );
       }

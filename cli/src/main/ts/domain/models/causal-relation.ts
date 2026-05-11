@@ -36,12 +36,21 @@ export const VALID_CONFIDENCES: readonly Confidence[] = ['asserted', 'inferred',
 // system: written by an automated process (govern, arch ask, etc.)
 export type CausalSource = 'human' | 'system';
 
+// Whether the edge is still the current interpretation.
+// active:      currently believed
+// weakened:    belief downgraded by new evidence — still recorded, lower weight
+// invalidated: contradicted — kept for audit, excluded from active queries
+export type EdgeStatus = 'active' | 'weakened' | 'invalidated';
+
 export interface CausalRelation {
+  id: string;            // UUID — needed for correction references
   from: string;
   to: string;
   relation: RelationType;
   confidence: Confidence;
   source: CausalSource;
+  status: EdgeStatus;
   timestamp: string;
   note?: string;
+  invalidates?: string;  // id of the edge this record corrects
 }

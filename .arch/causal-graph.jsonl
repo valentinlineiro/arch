@@ -1,4 +1,4 @@
-{"from":"TASK-220","to":"ADR-011","relation":"implements","confidence":"asserted","source":"human","timestamp":"2026-05-11T13:23:10.593Z"}
-{"from":"TASK-184","to":"TASK-220","relation":"caused_by","confidence":"asserted","source":"human","timestamp":"2026-05-11T13:23:10.625Z","note":"routing debt from sprint 4"}
-{"from":"TASK-220","to":"ADR-011","relation":"implements","confidence":"asserted","source":"human","timestamp":"2026-05-11T13:30:18.762Z"}
-{"from":"TASK-201","to":"GUIDELINE-core","relation":"violated","confidence":"heuristic","source":"human","timestamp":"2026-05-11T13:30:18.800Z","note":"co-occurrence signal only"}
+{"id":"a1b2c3d4-0001-0000-0000-000000000001","from":"TASK-220","to":"ADR-011","relation":"implements","confidence":"asserted","source":"human","status":"active","timestamp":"2026-05-11T13:23:10.593Z"}
+{"id":"a1b2c3d4-0002-0000-0000-000000000002","from":"TASK-184","to":"TASK-220","relation":"caused_by","confidence":"asserted","source":"human","status":"active","timestamp":"2026-05-11T13:23:10.625Z","note":"routing debt from sprint 4"}
+{"id":"84a42e47-b40f-4c1a-bb11-d461ab6f403e","from":"TASK-220","to":"ADR-011","relation":"implements","confidence":"asserted","source":"human","status":"active","timestamp":"2026-05-11T13:39:45.580Z"}
+{"id":"4379eb52-a55c-49cb-b3cd-d6d1feadb44d","from":"TASK-220","to":"ADR-011","relation":"implements","confidence":"asserted","source":"human","status":"weakened","timestamp":"2026-05-11T13:39:49.332Z","invalidates":"84a42e47-b40f-4c1a-bb11-d461ab6f403e","note":"new ADR supersedes this"}

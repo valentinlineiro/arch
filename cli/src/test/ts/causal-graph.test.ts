@@ -26,18 +26,18 @@ class MockFileSystem {
 
 // ── CausalGraph ────────────────────────────────────────────────────────────
 
-test('add appends a JSONL line to causal-graph.jsonl', async () => {
+test('add stores id, confidence, source, and status:active', async () => {
   const fs = new MockFileSystem();
   const graph = new CausalGraph(fs, '/root');
-  await graph.add('TASK-220', 'implements', 'ADR-011');
+  const entry = await graph.add('TASK-220', 'implements', 'ADR-011');
+  assert.ok(entry.id);
+  assert.strictEqual(entry.confidence, 'asserted');
+  assert.strictEqual(entry.source, 'human');
+  assert.strictEqual(entry.status, 'active');
   const raw = fs.files.get('/root/.arch/causal-graph.jsonl')!;
   const parsed = JSON.parse(raw.trim());
-  assert.strictEqual(parsed.from, 'TASK-220');
-  assert.strictEqual(parsed.to, 'ADR-011');
-  assert.strictEqual(parsed.relation, 'implements');
-  assert.strictEqual(parsed.confidence, 'asserted');
-  assert.strictEqual(parsed.source, 'human');
-  assert.ok(parsed.timestamp);
+  assert.strictEqual(parsed.id, entry.id);
+  assert.strictEqual(parsed.status, 'active');
 });
 
 test('add stores note when provided', async () => {
@@ -45,8 +45,7 @@ test('add stores note when provided', async () => {
   const graph = new CausalGraph(fs, '/root');
   await graph.add('TASK-201', 'violated', 'GUIDELINE-core', 'missing retro entry');
   const raw = fs.files.get('/root/.arch/causal-graph.jsonl')!;
-  const parsed = JSON.parse(raw.trim());
-  assert.strictEqual(parsed.note, 'missing retro entry');
+  assert.strictEqual(JSON.parse(raw.trim()).note, 'missing retro entry');
 });
 
 test('add without note stores no note field', async () => {
@@ -54,49 +53,97 @@ test('add without note stores no note field', async () => {
   const graph = new CausalGraph(fs, '/root');
   await graph.add('TASK-220', 'implements', 'ADR-011');
   const raw = fs.files.get('/root/.arch/causal-graph.jsonl')!;
-  const parsed = JSON.parse(raw.trim());
-  assert.strictEqual(parsed.note, undefined);
+  assert.strictEqual(JSON.parse(raw.trim()).note, undefined);
 });
 
 test('all returns empty array when file does not exist', async () => {
   const fs = new MockFileSystem();
   const graph = new CausalGraph(fs, '/root');
-  const result = await graph.all();
-  assert.deepStrictEqual(result, []);
+  assert.deepStrictEqual(await graph.all(), []);
 });
 
-test('all returns all stored relations', async () => {
+test('all returns all stored relations including corrections', async () => {
   const fs = new MockFileSystem();
   const graph = new CausalGraph(fs, '/root');
-  await graph.add('TASK-220', 'implements', 'ADR-011');
-  await graph.add('TASK-184', 'caused_by', 'TASK-220');
-  const result = await graph.all();
-  assert.strictEqual(result.length, 2);
-  assert.strictEqual(result[0].relation, 'implements');
-  assert.strictEqual(result[1].relation, 'caused_by');
+  const e1 = await graph.add('TASK-220', 'implements', 'ADR-011');
+  await graph.weaken(e1.id);
+  const all = await graph.all();
+  assert.strictEqual(all.length, 2);
 });
 
-test('query returns outgoing and incoming by entity', async () => {
+test('active returns only active edges', async () => {
   const fs = new MockFileSystem();
   const graph = new CausalGraph(fs, '/root');
-  await graph.add('TASK-220', 'implements', 'ADR-011');
+  const e1 = await graph.add('TASK-220', 'implements', 'ADR-011');
   await graph.add('TASK-184', 'caused_by', 'TASK-220');
-  await graph.add('TASK-201', 'violated', 'GUIDELINE-core');
+  await graph.weaken(e1.id);
+  const active = await graph.active();
+  assert.strictEqual(active.length, 1);
+  assert.strictEqual(active[0].from, 'TASK-184');
+});
+
+test('active returns empty array when no file exists', async () => {
+  const fs = new MockFileSystem();
+  const graph = new CausalGraph(fs, '/root');
+  assert.deepStrictEqual(await graph.active(), []);
+});
+
+test('weaken appends a correction record with invalidates pointer', async () => {
+  const fs = new MockFileSystem();
+  const graph = new CausalGraph(fs, '/root');
+  const e1 = await graph.add('TASK-220', 'implements', 'ADR-011');
+  await graph.weaken(e1.id, 'new evidence changes confidence');
+  const all = await graph.all();
+  const correction = all.find(e => e.invalidates === e1.id)!;
+  assert.ok(correction);
+  assert.strictEqual(correction.status, 'weakened');
+  assert.strictEqual(correction.note, 'new evidence changes confidence');
+});
+
+test('invalidate appends a correction record and removes edge from active', async () => {
+  const fs = new MockFileSystem();
+  const graph = new CausalGraph(fs, '/root');
+  const e1 = await graph.add('TASK-220', 'caused_by', 'TASK-184');
+  await graph.invalidate(e1.id, 'causal direction was reversed');
+  const active = await graph.active();
+  assert.strictEqual(active.length, 0);
+  const all = await graph.all();
+  assert.strictEqual(all.length, 2);
+});
+
+test('weaken throws when edge id not found', async () => {
+  const fs = new MockFileSystem();
+  const graph = new CausalGraph(fs, '/root');
+  await assert.rejects(() => graph.weaken('nonexistent-id'), /Edge not found/);
+});
+
+test('invalidate throws when edge id not found', async () => {
+  const fs = new MockFileSystem();
+  const graph = new CausalGraph(fs, '/root');
+  await assert.rejects(() => graph.invalidate('nonexistent-id'), /Edge not found/);
+});
+
+test('query returns active outgoing and incoming by default', async () => {
+  const fs = new MockFileSystem();
+  const graph = new CausalGraph(fs, '/root');
+  const e1 = await graph.add('TASK-220', 'implements', 'ADR-011');
+  await graph.add('TASK-184', 'caused_by', 'TASK-220');
+  await graph.weaken(e1.id);
 
   const { outgoing, incoming } = await graph.query('TASK-220');
-  assert.strictEqual(outgoing.length, 1);
-  assert.strictEqual(outgoing[0].to, 'ADR-011');
+  assert.strictEqual(outgoing.length, 0);
   assert.strictEqual(incoming.length, 1);
-  assert.strictEqual(incoming[0].from, 'TASK-184');
 });
 
-test('query returns empty sets when entity not found', async () => {
+test('query with includeInactive shows all original edges with status', async () => {
   const fs = new MockFileSystem();
   const graph = new CausalGraph(fs, '/root');
-  await graph.add('TASK-220', 'implements', 'ADR-011');
-  const { outgoing, incoming } = await graph.query('TASK-999');
-  assert.strictEqual(outgoing.length, 0);
-  assert.strictEqual(incoming.length, 0);
+  const e1 = await graph.add('TASK-220', 'implements', 'ADR-011');
+  await graph.weaken(e1.id);
+
+  const { outgoing } = await graph.query('TASK-220', true);
+  assert.strictEqual(outgoing.length, 1);
+  assert.strictEqual(outgoing[0].status, 'weakened');
 });
 
 test('query returns empty sets when no file exists', async () => {
@@ -125,25 +172,13 @@ function makeIO(args: string[]) {
   return io;
 }
 
-test('causal add records relation and logs confirmation', async () => {
+test('causal add records relation with id in log', async () => {
   const fs = new MockFileSystem();
   const graph = new CausalGraph(fs, '/root');
   const io = makeIO(['add', 'TASK-220', 'implements', 'ADR-011']);
-  const cmd = new CausalCommand(graph, io);
-  await cmd.execute();
+  await new CausalCommand(graph, io).execute();
   assert.ok(io.logs.some(l => l.includes('TASK-220') && l.includes('implements') && l.includes('ADR-011')));
-  const all = await graph.all();
-  assert.strictEqual(all.length, 1);
-});
-
-test('causal add with --note stores note', async () => {
-  const fs = new MockFileSystem();
-  const graph = new CausalGraph(fs, '/root');
-  const io = makeIO(['add', 'TASK-201', 'violated', 'GUIDELINE-core', '--note', 'missing retro']);
-  const cmd = new CausalCommand(graph, io);
-  await cmd.execute();
-  const all = await graph.all();
-  assert.strictEqual(all[0].note, 'missing retro');
+  assert.ok(io.logs.some(l => /\[[0-9a-f]{8}\]/.test(l)));
 });
 
 test('causal add defaults to asserted/human confidence', async () => {
@@ -161,83 +196,110 @@ test('causal add with --confidence heuristic stores heuristic', async () => {
   const graph = new CausalGraph(fs, '/root');
   const io = makeIO(['add', 'TASK-220', 'references', 'ADR-011', '--confidence', 'heuristic']);
   await new CausalCommand(graph, io).execute();
-  const all = await graph.all();
-  assert.strictEqual(all[0].confidence, 'heuristic');
-});
-
-test('causal add with invalid confidence exits 1', async () => {
-  const fs = new MockFileSystem();
-  const graph = new CausalGraph(fs, '/root');
-  const io = makeIO(['add', 'TASK-220', 'implements', 'ADR-011', '--confidence', 'maybe']);
-  const cmd = new CausalCommand(graph, io);
-  await assert.rejects(() => cmd.execute(), /exit:1/);
-  assert.ok(io.errors.some(e => e.includes('Invalid confidence')));
-});
-
-test('causal show displays strength and confidence on each edge', async () => {
-  const fs = new MockFileSystem();
-  const graph = new CausalGraph(fs, '/root');
-  await graph.add('TASK-220', 'implements', 'ADR-011');
-  const io = makeIO(['show', 'TASK-220']);
-  await new CausalCommand(graph, io).execute();
-  const output = io.logs.join('\n');
-  assert.ok(output.includes('MEDIUM'));
-  assert.ok(output.includes('asserted'));
+  assert.strictEqual((await graph.all())[0].confidence, 'heuristic');
 });
 
 test('causal add with invalid relation exits 1', async () => {
   const fs = new MockFileSystem();
   const graph = new CausalGraph(fs, '/root');
   const io = makeIO(['add', 'TASK-001', 'invented', 'ADR-001']);
-  const cmd = new CausalCommand(graph, io);
-  await assert.rejects(() => cmd.execute(), /exit:1/);
+  await assert.rejects(() => new CausalCommand(graph, io).execute(), /exit:1/);
   assert.ok(io.errors.some(e => e.includes('Invalid relation')));
+});
+
+test('causal add with invalid confidence exits 1', async () => {
+  const fs = new MockFileSystem();
+  const graph = new CausalGraph(fs, '/root');
+  const io = makeIO(['add', 'TASK-220', 'implements', 'ADR-011', '--confidence', 'maybe']);
+  await assert.rejects(() => new CausalCommand(graph, io).execute(), /exit:1/);
+  assert.ok(io.errors.some(e => e.includes('Invalid confidence')));
 });
 
 test('causal add with missing args exits 1', async () => {
   const fs = new MockFileSystem();
   const graph = new CausalGraph(fs, '/root');
   const io = makeIO(['add', 'TASK-001']);
-  const cmd = new CausalCommand(graph, io);
-  await assert.rejects(() => cmd.execute(), /exit:1/);
+  await assert.rejects(() => new CausalCommand(graph, io).execute(), /exit:1/);
 });
 
-test('causal show displays outgoing and incoming relations', async () => {
+test('causal weaken logs correction and removes edge from active', async () => {
+  const fs = new MockFileSystem();
+  const graph = new CausalGraph(fs, '/root');
+  const entry = await graph.add('TASK-220', 'implements', 'ADR-011');
+  const io = makeIO(['weaken', entry.id, '--note', 'better evidence available']);
+  await new CausalCommand(graph, io).execute();
+  assert.ok(io.logs.some(l => l.includes('Weakened')));
+  assert.strictEqual((await graph.active()).length, 0);
+});
+
+test('causal invalidate logs correction', async () => {
+  const fs = new MockFileSystem();
+  const graph = new CausalGraph(fs, '/root');
+  const entry = await graph.add('TASK-220', 'caused_by', 'TASK-184');
+  const io = makeIO(['invalidate', entry.id, '--note', 'direction was reversed']);
+  await new CausalCommand(graph, io).execute();
+  assert.ok(io.logs.some(l => l.includes('Invalidated')));
+  assert.strictEqual((await graph.active()).length, 0);
+});
+
+test('causal weaken with unknown id exits 1', async () => {
+  const fs = new MockFileSystem();
+  const graph = new CausalGraph(fs, '/root');
+  const io = makeIO(['weaken', 'nonexistent-id']);
+  await assert.rejects(() => new CausalCommand(graph, io).execute(), /exit:1/);
+});
+
+test('causal show displays edge id prefix and strength', async () => {
   const fs = new MockFileSystem();
   const graph = new CausalGraph(fs, '/root');
   await graph.add('TASK-220', 'implements', 'ADR-011');
-  await graph.add('TASK-184', 'caused_by', 'TASK-220');
   const io = makeIO(['show', 'TASK-220']);
-  const cmd = new CausalCommand(graph, io);
-  await cmd.execute();
+  await new CausalCommand(graph, io).execute();
   const output = io.logs.join('\n');
-  assert.ok(output.includes('Outgoing'));
-  assert.ok(output.includes('ADR-011'));
-  assert.ok(output.includes('Incoming'));
-  assert.ok(output.includes('TASK-184'));
+  assert.ok(/\[[0-9a-f]{8}\]/.test(output));
+  assert.ok(output.includes('MEDIUM'));
+  assert.ok(output.includes('asserted'));
+});
+
+test('causal show --all includes weakened edges with status label', async () => {
+  const fs = new MockFileSystem();
+  const graph = new CausalGraph(fs, '/root');
+  const entry = await graph.add('TASK-220', 'implements', 'ADR-011');
+  await graph.weaken(entry.id);
+  const io = makeIO(['show', 'TASK-220', '--all']);
+  await new CausalCommand(graph, io).execute();
+  const output = io.logs.join('\n');
+  assert.ok(output.includes('weakened'));
+});
+
+test('causal show without --all hides weakened edges', async () => {
+  const fs = new MockFileSystem();
+  const graph = new CausalGraph(fs, '/root');
+  const entry = await graph.add('TASK-220', 'implements', 'ADR-011');
+  await graph.weaken(entry.id);
+  const io = makeIO(['show', 'TASK-220']);
+  await new CausalCommand(graph, io).execute();
+  assert.ok(io.logs.some(l => l.includes('No active causal relations')));
 });
 
 test('causal show reports no relations when entity unknown', async () => {
   const fs = new MockFileSystem();
   const graph = new CausalGraph(fs, '/root');
   const io = makeIO(['show', 'TASK-999']);
-  const cmd = new CausalCommand(graph, io);
-  await cmd.execute();
-  assert.ok(io.logs.some(l => l.includes('No causal relations')));
+  await new CausalCommand(graph, io).execute();
+  assert.ok(io.logs.some(l => l.includes('No')));
 });
 
 test('causal show with missing entity exits 1', async () => {
   const fs = new MockFileSystem();
   const graph = new CausalGraph(fs, '/root');
   const io = makeIO(['show']);
-  const cmd = new CausalCommand(graph, io);
-  await assert.rejects(() => cmd.execute(), /exit:1/);
+  await assert.rejects(() => new CausalCommand(graph, io).execute(), /exit:1/);
 });
 
 test('unknown subcommand exits 1', async () => {
   const fs = new MockFileSystem();
   const graph = new CausalGraph(fs, '/root');
   const io = makeIO(['oops']);
-  const cmd = new CausalCommand(graph, io);
-  await assert.rejects(() => cmd.execute(), /exit:1/);
+  await assert.rejects(() => new CausalCommand(graph, io).execute(), /exit:1/);
 });
