@@ -3,7 +3,7 @@
 **Date:** 2026-05-11
 **Scope:** ARCH — Phase 1: Friction Reduction — Intent promotion engine
 **Status:** Approved
-**Supersedes:** Parts of `2026-05-07-arch-capture-design.md` — specifically THINK Phase 1 protocol and task draft mechanics.
+**Supersedes:** Parts of `2026-05-07-arch-capture-design.md` — THINK Phase 1 protocol and task draft mechanics.
 
 ---
 
@@ -18,14 +18,14 @@ capture (ingest)  →  think (promote)  →  human (approve)
 ```
 
 - `capture` = deterministic signal ingestion. Never interprets.
-- `think` = scaffold + cognitive enrichment. TASK is only actionable once `enrichment_status == success`.
+- `think` = scaffold + cognitive enrichment. TASK is actionable only once `enrichment_phase == finalized`.
 - `human` = sets READY. The only gate that legitimizes execution.
 
 ---
 
 ## Delta: `arch capture` — pipe support
 
-`arch capture` already works. One addition only:
+One addition only:
 
 ```bash
 arch capture "fix login flow"          # existing — unchanged
@@ -47,7 +47,7 @@ Usage:
 
 **Invariants:**
 - If both argv and stdin present: argv wins. Optional warning: `stdin ignored — explicit argument provided`.
-- Input is trimmed. Empty or whitespace-only after trim → hard error. No semantic garbage.
+- Input trimmed. Empty or whitespace-only after trim → hard error.
 - Multiline stdin is valid. THINK decides what it means.
 - Target latency: <1 second.
 
@@ -58,184 +58,235 @@ Usage:
 ### Invocation
 
 ```bash
-arch think              # process all CAPTURED intents
-arch think INTENT-104  # process one specific intent
+arch think              # process all CAPTURED intents + apply all pending patches
+arch think INTENT-104  # process one specific intent + apply its pending patch
 ```
 
-Primary operator: THINK agent running in THINK mode.
-Secondary operator: human (direct invocation supported).
+`arch think` is idempotent and stateless from the caller's perspective. Its behavior is determined entirely by what is already on disk. Run it twice — same outcome.
 
 ### Pipeline state machine
 
-`generation.enrichment_status` is the single source of operational truth. The pipeline state is always recoverable by reading this field.
+`enrichment_phase` is the single source of pipeline truth.
 
 ```
-INTENT.status = CAPTURED
-  │
-  ▼
-arch think → TASK created, enrichment_status = pending
-  │
-  ▼  (agent enriches TASK file — bounded sections only)
-  │
-  ▼
-arch intent promote → enrichment_status = success, INTENT.status = PROMOTED
+                                     (agent session)
+INTENT: CAPTURED                      ┌─────────────────────────────────────┐
+    │                                 │  reads scaffold                     │
+    ▼                                 │  writes .arch/pending/TASK-patch    │
+arch think → enrichment_phase: scaffolded                                   │
+    │                                 │  writes .arch/pending/INTENT-trans  │
+    │                                 └─────────────────────────────────────┘
+    ▼
+arch think → enrichment_phase: enriched   (patch + transition detected)
+    │
+    ▼ (CLI applies patch + runs PromoteIntent + RecordEnrichment)
+    │
+enrichment_phase: finalized
+INTENT: PROMOTED
 ```
 
-**A TASK is actionable only when `enrichment_status == success`.**
-A task with `enrichment_status == pending` or `failed` is not ready for human review — it is mid-pipeline.
+**Phase definitions:**
 
-`arch review`, `arch next`, and `arch exec` must treat DRAFT tasks with non-`success` enrichment status as invisible.
+| `enrichment_phase` | Meaning |
+|--------------------|---------|
+| `scaffolded` | CLI scaffold written; awaiting agent enrichment |
+| `enriched` | Agent patch received; CLI has not yet applied it |
+| `finalized` | Patch applied, INTENT promoted, snapshot written |
 
-### Phase 1 — Scaffold (CLI, deterministic)
+**A TASK is actionable only when `enrichment_phase == finalized`.**
 
-For each CAPTURED intent being processed:
+`arch review`, `arch next`, and `arch exec` treat all other phases as invisible.
 
-1. Assert promotion safety (see Safety Invariants).
-2. Allocate next TASK-ID from `MarkdownTaskRepository`.
-3. Run `ContextInference.score()` on the raw intent text.
-4. Write `docs/tasks/TASK-XXX.md` with:
-   - `status: DRAFT`
-   - `source: INTENT-XXX`
-   - `generation` block with `enrichment_status: pending`
-   - `### Relevant Context` section pre-filled from ContextInference
-   - Agent-owned sections with explicit markers (see TASK format)
-5. Print:
+### Ownership model
 
-```
-Scaffold created: TASK-212
-source: INTENT-104
-Awaiting enrichment — run arch intent promote after completing TASK-212
-```
-
-### Phase 2 — Enrichment (agent, bounded write)
-
-The THINK agent reads the scaffolded file and fills in **only agent-owned sections**:
-
-- Title (in the `## TASK-XXX:` heading)
-- Meta fields: priority, size, class, cli path
-- `### Objective`
-- `### Acceptance Criteria`
-- `### Complexity`
-- `### Confidence`
-- `### Risks`
-
-The agent does NOT touch: `### Generation`, `### Relevant Context`, `source:`, `status:`.
-
-Schema enforcement: agent-owned sections are marked with `<!-- agent-owned -->`. CLI-owned sections are marked `<!-- cli-owned -->`. Tooling can validate ownership boundaries.
-
-### Phase 3 — Finalize (agent calls CLI use case)
-
-After enrichment, the agent runs:
-
-```bash
-arch intent promote INTENT-104 TASK-212 --confidence medium
-```
-
-This invokes the `PromoteIntent` use case, which:
-1. Validates `TASK-212` exists and `enrichment_status != success` (prevents double-promotion).
-2. Sets `docs/tasks/TASK-212.md`: `generation.enriched_by`, `enrichment_status: success`.
-3. Sets `docs/intents/INTENT-104.md`: `status: PROMOTED`, `promoted_to: [TASK-212]`, `promotion_confidence: medium`.
-4. Serializes enrichment snapshot to `.arch/enrichments/TASK-212.json` for audit trail.
-5. Prints:
-
-```
-TASK-212 promoted to DRAFT
-Ready for human review
-```
-
-**INTENT is never written by the agent directly.** All INTENT mutations go through `PromoteIntent`. This is the single writer for INTENT state transitions.
-
----
-
-## Ownership table
+The agent NEVER writes TASK or INTENT files directly. It only writes to `.arch/pending/`. The CLI is the sole writer of all final state.
 
 | Artifact | Writer | Mechanism |
 |----------|--------|-----------|
 | `docs/intents/INTENT-XXX.md` | CLI only | `PromoteIntent` use case |
-| `docs/tasks/TASK-XXX.md` (scaffold) | CLI only | `arch think` Phase 1 |
-| `docs/tasks/TASK-XXX.md` (enrichment sections) | Agent only | Direct write, bounded by schema markers |
-| `docs/tasks/TASK-XXX.md` (generation block, final) | CLI only | `PromoteIntent` use case |
-| `.arch/enrichments/TASK-XXX.json` | CLI only | `PromoteIntent` use case |
+| `docs/tasks/TASK-XXX.md` (scaffold + generation) | CLI only | `arch think` Phase 1 |
+| `docs/tasks/TASK-XXX.md` (enrichment sections) | CLI only | `ApplyPatch` use case (from agent patch) |
+| `.arch/pending/TASK-XXX-patch.json` | Agent only | Agent's sole output mechanism |
+| `.arch/pending/INTENT-XXX-transition.json` | Agent only | Agent's intent transition request |
+| `.arch/enrichments/TASK-XXX.json` | CLI only | `RecordEnrichment` use case |
+
+No concurrent writers. No locking needed. State transitions are sequential and traceable.
+
+---
+
+## Phase 1 — Scaffold (CLI, deterministic)
+
+For each CAPTURED intent:
+
+1. Assert promotion safety (see Safety Invariants).
+2. Allocate TASK-ID from `MarkdownTaskRepository`.
+3. Run `ContextInference.score()` on raw intent text.
+4. Write `docs/tasks/TASK-XXX.md` with `enrichment_phase: scaffolded`.
+5. Print:
+
+```
+Scaffold created: TASK-212 ← INTENT-104
+enrichment_phase: scaffolded
+Agent: enrich TASK-212, then write patches to .arch/pending/
+```
+
+---
+
+## Phase 2 — Agent enrichment (produces structured output, no file writes)
+
+The THINK agent reads the scaffolded TASK file and produces two files in `.arch/pending/`:
+
+### TASK_PATCH: `.arch/pending/TASK-XXX-patch.json`
+
+```json
+{
+  "task_id": "TASK-212",
+  "schema_version": 1,
+  "produced_at": "2026-05-11T10:30:00Z",
+  "actor": {
+    "name": "think-agent",
+    "model": "claude-sonnet-4-6",
+    "version": "v1"
+  },
+  "fields": {
+    "title": "Fix OAuth callback session loss",
+    "meta": {
+      "priority": "P1",
+      "size": "M",
+      "class": "2-code-generation",
+      "cli": "cli/src/main/ts/..."
+    },
+    "objective": "...",
+    "acceptance_criteria": ["...", "..."],
+    "complexity": "M",
+    "complexity_reasoning": "...",
+    "confidence": "medium",
+    "confidence_reasoning": "...",
+    "risks": ["..."],
+    "depends": []
+  }
+}
+```
+
+### Intent transition request: `.arch/pending/INTENT-XXX-transition.json`
+
+```json
+{
+  "intent_id": "INTENT-104",
+  "task_id": "TASK-212",
+  "schema_version": 1,
+  "produced_at": "2026-05-11T10:30:00Z",
+  "action": "promote",
+  "promotion_confidence": "medium"
+}
+```
+
+**The agent does not execute any CLI commands for state transitions.** It produces data. The CLI acts on it.
+
+---
+
+## Phase 3 — Apply (CLI, atomic)
+
+`arch think` detects pending files in `.arch/pending/` and processes them.
+
+For each valid `TASK-XXX-patch.json` + `INTENT-XXX-transition.json` pair:
+
+1. **`ApplyPatch`** use case:
+   - Validates patch schema and task state (`enrichment_phase == scaffolded`)
+   - Writes agent-owned sections to `docs/tasks/TASK-XXX.md` atomically
+   - Sets `enrichment_phase: enriched`
+   - Sets `enriched_by` from patch actor metadata
+
+2. **`PromoteIntent`** use case (domain state change):
+   - Sets `INTENT.status = PROMOTED`
+   - Sets `INTENT.promoted_to = [TASK-XXX]`
+   - Sets `INTENT.promotion_confidence`
+   - Sets TASK `enrichment_phase: finalized`
+
+3. **`RecordEnrichment`** use case (audit):
+   - Writes enrichment snapshot to `.arch/enrichments/TASK-XXX.json`
+   - Snapshot captures all agent-owned fields at promotion time
+
+4. Cleans up `.arch/pending/TASK-XXX-patch.json` and `.arch/pending/INTENT-XXX-transition.json`.
+
+5. Prints:
+
+```
+TASK-212 promoted to DRAFT ← INTENT-104
+enrichment_phase: finalized
+Ready for human review
+```
+
+`PromoteIntent` and `RecordEnrichment` are separate use cases. They share no state. CLI orchestrates both — neither calls the other.
 
 ---
 
 ## TASK file format for DRAFT
 
+CLI-owned sections are written by the CLI only. Agent-owned sections are written by `ApplyPatch` use case (from the TASK_PATCH).
+
 ```markdown
-## TASK-XXX: <title — agent fills> <!-- agent-owned -->
+## TASK-XXX: <!-- agent-owned: title -->
 
-**Meta:** P? | ? | DRAFT | Focus:no | ? | claude-code | ?  <!-- agent-owned -->
+**Meta:** <!-- agent-owned: priority | size --> | DRAFT | Focus:no | <!-- agent-owned: class | cli --> <!-- cli-owned: status and focus -->
 **Source:** INTENT-XXX  <!-- cli-owned -->
-**Depends:** none  <!-- agent-owned -->
+**Depends:** <!-- agent-owned -->
 
-### Generation <!-- cli-owned -->
+### Generation  <!-- cli-owned: entire section -->
 
+enrichment_phase: scaffolded
 scaffolded_by: arch-cli
+scaffolded_at: 2026-05-11T10:00:00Z
 enriched_by:
   actor: ~
   model: ~
   version: ~
-generated_at: 2026-05-11T10:00:00Z
 enrichment_status: pending
-enrichment_error: ~
 
-### Objective <!-- agent-owned -->
+### Objective  <!-- agent-owned -->
 
-<!-- Write 1-2 sentences framing what must be achieved -->
+### Acceptance Criteria  <!-- agent-owned -->
 
-### Acceptance Criteria <!-- agent-owned -->
-
-<!-- Draft concrete, testable ACs -->
 - [ ] ...
 
-### Complexity <!-- agent-owned -->
+### Complexity  <!-- agent-owned -->
 
-<!-- XS / S / M / L / XL — include brief reasoning -->
+### Confidence  <!-- agent-owned -->
 
-### Confidence <!-- agent-owned -->
-
-<!-- low / medium / high — include brief reasoning -->
-
-### Relevant Context <!-- cli-owned -->
+### Relevant Context  <!-- cli-owned: entire section -->
 
 _Pre-filled by ContextInference — confidence: 0.72_
 
 **Files:**
-- cli/src/main/ts/... _(core)_
+...
 
 **ADRs:**
-- ADR-XXX: ... _(enforced)_
-
-**Guidelines:**
-- ...
+...
 
 **Similar Tasks:**
-- TASK-XXX (commitCount: N, lastCommitDate: YYYY-MM-DD)
+...
 
-### Risks <!-- agent-owned -->
-
-<!-- Suspected regressions, edge cases, systemic concerns -->
+### Risks  <!-- agent-owned -->
 ```
 
 ---
 
-## New command: `arch intent promote`
+## Use case summary
 
-```bash
-arch intent promote INTENT-XXX TASK-XXX --confidence low|medium|high
-```
-
-Invokes `PromoteIntent` use case. Not a user-facing workflow ritual — it is an explicit operational command that the agent calls after enrichment. It may also be called by a human if enrichment was done manually.
-
-**This command is NOT `arch think finalize`.** It is a standalone use case with clear semantics: "this intent has been promoted to this task."
+| Use Case | Responsibility | Writes |
+|----------|---------------|--------|
+| `CaptureIntent` | Save raw intent | `docs/intents/` |
+| `BuildIndex` | Compile context index | `.arch/context-index.json` |
+| `ContextInference` | Score relevance for task text | (pure computation) |
+| `ApplyPatch` | Apply agent TASK_PATCH to TASK file | `docs/tasks/TASK-XXX.md` (enrichment sections) |
+| `PromoteIntent` | Domain state: INTENT → PROMOTED | `docs/intents/INTENT-XXX.md`, TASK `enrichment_phase: finalized` |
+| `RecordEnrichment` | Audit snapshot | `.arch/enrichments/TASK-XXX.json` |
 
 ---
 
 ## Task status changes
 
 ### New status: `DRAFT`
-
-Added to `TaskStatus` enum.
 
 ```
 DRAFT → READY → IN_PROGRESS → REVIEW → DONE
@@ -244,7 +295,7 @@ DRAFT → READY → IN_PROGRESS → REVIEW → DONE
 
 | Status | Meaning |
 |--------|---------|
-| `DRAFT` | Created by THINK. Not actionable until `enrichment_status == success`. Awaiting human review after enrichment. |
+| `DRAFT` | Created by THINK. Actionable only at `enrichment_phase == finalized`. |
 | `READY` | Human approved. Available for execution. |
 | `IN_PROGRESS` | Actively being worked. |
 | `REVIEW` | Work complete, in review. |
@@ -253,42 +304,24 @@ DRAFT → READY → IN_PROGRESS → REVIEW → DONE
 
 ### `BACKLOG` deprecated
 
-`BACKLOG` is retained in the enum for backward compatibility. No new tasks will be created with `BACKLOG`. `arch think` never emits `BACKLOG`. Considered deprecated.
-
----
-
-## Generation metadata (CLI-owned)
-
-Written by CLI into `### Generation` section. Never touched by agent directly.
-
-```yaml
-scaffolded_by: arch-cli
-enriched_by:
-  actor: think-agent        # set by PromoteIntent use case
-  model: claude-sonnet-4-6  # set by PromoteIntent use case
-  version: v1               # set by PromoteIntent use case
-generated_at: <ISO-8601>
-enrichment_status: pending | success | failed
-enrichment_error: <message if failed, null otherwise>
-```
-
-`enriched_by` fields are passed as arguments to `arch intent promote` and written by the CLI, not harvested by the agent writing directly.
+Retained in enum for backward compatibility. No new tasks will use it. `arch think` never emits it.
 
 ---
 
 ## Enrichment snapshot (`.arch/enrichments/TASK-XXX.json`)
 
-Created by `PromoteIntent` use case at finalization. Contains a point-in-time snapshot of all agent-owned fields at the moment of promotion. Enables:
-- Audit: what did the model produce?
-- Replay: reproduce with same or different model
-- Quality analysis: compare across model versions
+Written by `RecordEnrichment` at finalization. Immutable after creation.
 
 ```json
 {
   "task_id": "TASK-212",
   "intent_id": "INTENT-104",
-  "promoted_at": "2026-05-11T10:30:00Z",
-  "enriched_by": { "actor": "think-agent", "model": "claude-sonnet-4-6", "version": "v1" },
+  "finalized_at": "2026-05-11T10:30:00Z",
+  "actor": {
+    "name": "think-agent",
+    "model": "claude-sonnet-4-6",
+    "version": "v1"
+  },
   "fields": {
     "title": "...",
     "objective": "...",
@@ -300,6 +333,8 @@ Created by `PromoteIntent` use case at finalization. Contains a point-in-time sn
 }
 ```
 
+Enables: audit, quality analysis, model comparison, replay.
+
 ---
 
 ## Safety invariants
@@ -308,43 +343,33 @@ Created by `PromoteIntent` use case at finalization. Contains a point-in-time sn
 |-----------|------|
 | Only CAPTURED intents are promotable | `INTENT.status != CAPTURED` → abort |
 | Promotion is single-shot | `INTENT.promoted_to` not empty → abort |
-| No task overwrite | `docs/tasks/TASK-XXX.md` already exists → abort |
-| INTENT only written by PromoteIntent | Agent never writes INTENT files directly |
-| No partial promotion | INTENT marked PROMOTED only after `enrichment_status` set to `success` |
-| Failure preserves audit trail | Failed enrichment leaves scaffold with `enrichment_status: failed`; INTENT stays CAPTURED |
-| Multi-intent failure isolation | When processing multiple intents, one failure does not abort the rest |
-
-**Abort messages are explicit:**
-
-```
-Error: INTENT-104 is already PROMOTED (promoted_to: TASK-212)
-       Only CAPTURED intents can be promoted.
-
-Error: TASK-212 already exists. Refusing to overwrite.
-       Something is wrong — investigate before retrying.
-
-Error: Cannot promote INTENT-104 — enrichment_status is 'failed'.
-       Fix enrichment before promoting.
-```
+| No task overwrite | `docs/tasks/TASK-XXX.md` exists → abort at scaffold phase |
+| No patch overwrite | Pending patch exists → warn and skip (do not re-enrich) |
+| INTENT written only by PromoteIntent | Enforced by architecture — no other code path writes INTENT status |
+| No partial promotion | INTENT marked PROMOTED only after `enrichment_phase: finalized` |
+| Patch pair required | Both TASK patch and INTENT transition must be present to apply |
+| Failure preserves audit trail | Failed apply leaves scaffold + pending files intact; INTENT stays CAPTURED |
+| Multi-intent isolation | One failure does not abort remaining intent processing |
 
 ---
 
 ## Testing
 
 - `arch capture` pipe support: stdin path, multiline input, trim + empty rejection, argv-wins
-- `PromoteIntent` use case: all five safety invariants, correct INTENT mutation, enrichment snapshot written
-- `arch think`: scaffold structure conformance, ContextInference pre-fill, `enrichment_status: pending` on creation
-- `arch intent promote`: INTENT status transition, `enrichment_status: success`, enrichment snapshot format
-- `TaskStatus.DRAFT` parsed and serialized correctly by `MarkdownTaskRepository`
-- Integration: full pipeline INTENT (CAPTURED) → scaffold → `arch intent promote` → DRAFT (success) → INTENT (PROMOTED)
+- `ApplyPatch`: validates schema, writes only agent sections, rejects non-`scaffolded` tasks
+- `PromoteIntent`: INTENT state transition, `enrichment_phase: finalized`, rejects already-promoted
+- `RecordEnrichment`: snapshot format, immutable after creation
+- `arch think`: full pipeline — scaffold → mock patch files → apply → finalized DRAFT + promoted INTENT
+- `TaskStatus.DRAFT` parsed and serialized by `MarkdownTaskRepository`
+- Integration: `enrichment_phase` progression through all four states
 
 ---
 
 ## Out of scope
 
 - Interactive stdin for `arch capture`
-- `arch think --ai` or direct model flag
-- Automatic DRAFT → READY transition (always human)
-- Clustering or deduplication of similar intents
+- Agent executing CLI commands for state transitions (by design: forbidden)
+- Automatic DRAFT → READY (always human)
+- Clustering or deduplication of intents
 - Multi-intent merging into a single task
 - Enrichment replay tooling (future)
