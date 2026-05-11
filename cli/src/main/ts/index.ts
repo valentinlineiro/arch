@@ -35,6 +35,8 @@ import { ChronicleEventRepository } from './infrastructure/filesystem/chronicle-
 import { ThinkCommand } from './application/commands/think-command.js';
 import { AskCommand } from './application/commands/ask-command.js';
 import { AskCorpus } from './application/use-cases/ask-corpus.js';
+import { CausalCommand } from './application/commands/causal-command.js';
+import { CausalGraph } from './application/use-cases/causal-graph.js';
 
 async function main() {
   const fileSystem = new NodeFileSystem();
@@ -153,8 +155,16 @@ async function main() {
         exit: (code) => process.exit(code) as never,
       }).execute();
       break;
+    case 'causal':
+      await new CausalCommand(new CausalGraph(fileSystem, rootPath), {
+        getArgs: () => args,
+        log: (s) => console.log(s),
+        error: (s) => console.error(s),
+        exit: (code) => process.exit(code) as never,
+      }).execute();
+      break;
     default:
-      console.log('Usage: arch [status|validate|review|task|inbox|next|version|govern|rank|batch|drain|conduct|promote|loop|sandbox|lint|mv|exec|merge-resolve|capture|index|think|ask]');
+      console.log('Usage: arch [status|validate|review|task|inbox|next|version|govern|rank|batch|drain|conduct|promote|loop|sandbox|lint|mv|exec|merge-resolve|capture|index|think|ask|causal]');
       process.exit(1);
   }
 }
