@@ -48,6 +48,7 @@ export class ThinkCommand {
 
       try {
         const inference = new ContextInference(this.fileSystem);
+        // task class is not yet known at scaffold time; enrichment will refine it
         await inference.execute(result.taskId, intent.rawIntent, '2-code-generation');
       } catch { /* context inference must never block scaffolding */ }
     } catch (err: any) {
