@@ -33,6 +33,8 @@ import { CaptureCommand } from './application/commands/capture-command.js';
 import { IndexCommand } from './application/commands/index-command.js';
 import { ChronicleEventRepository } from './infrastructure/filesystem/chronicle-event-repository.js';
 import { ThinkCommand } from './application/commands/think-command.js';
+import { AskCommand } from './application/commands/ask-command.js';
+import { AskCorpus } from './application/use-cases/ask-corpus.js';
 
 async function main() {
   const fileSystem = new NodeFileSystem();
@@ -143,8 +145,16 @@ async function main() {
       await new ThinkCommand(intentRepository, taskRepository, fileSystem).execute(args);
       break;
     }
+    case 'ask':
+      await new AskCommand(new AskCorpus(fileSystem, rootPath), {
+        getArgs: () => args,
+        log: (s) => console.log(s),
+        error: (s) => console.error(s),
+        exit: (code) => process.exit(code) as never,
+      }).execute();
+      break;
     default:
-      console.log('Usage: arch [status|validate|review|task|inbox|next|version|govern|rank|batch|drain|conduct|promote|loop|sandbox|lint|mv|exec|merge-resolve|capture|index|think]');
+      console.log('Usage: arch [status|validate|review|task|inbox|next|version|govern|rank|batch|drain|conduct|promote|loop|sandbox|lint|mv|exec|merge-resolve|capture|index|think|ask]');
       process.exit(1);
   }
 }

@@ -1,0 +1,54 @@
+import { AskCorpus } from '../use-cases/ask-corpus.js';
+
+export interface AskIO {
+  getArgs(): string[];
+  log(s: string): void;
+  error(s: string): void;
+  exit(code: number): never;
+}
+
+export class AskCommand {
+  constructor(
+    private askCorpus: AskCorpus,
+    private io: AskIO,
+  ) {}
+
+  async execute(): Promise<void> {
+    const args = this.io.getArgs();
+    if (args.length === 0) {
+      this.io.error('Error: question required\nUsage: arch ask "<question>"');
+      this.io.exit(1);
+    }
+
+    const question = args.join(' ');
+    let result;
+    try {
+      result = await this.askCorpus.execute(question);
+    } catch (e: any) {
+      this.io.error(`Error: ${e.message}`);
+      this.io.exit(1);
+    }
+
+    const { keywords, matches, taskRefs, adrRefs, principleRefs } = result;
+
+    this.io.log(`Query: ${question}`);
+    this.io.log(`Keywords: ${keywords.join(', ')}`);
+    this.io.log('');
+
+    if (matches.length === 0) {
+      this.io.log('No matches found in corpus.');
+      return;
+    }
+
+    this.io.log(`Corpus matches (${matches.length}):`);
+    for (const m of matches) {
+      this.io.log(`  ${m.path} — ${m.hits} hit${m.hits === 1 ? '' : 's'}`);
+      this.io.log(`    ${m.excerpt}`);
+    }
+    this.io.log('');
+
+    if (taskRefs.length > 0) this.io.log(`Related tasks:      ${taskRefs.join(', ')}`);
+    if (adrRefs.length > 0) this.io.log(`Related ADRs:       ${adrRefs.join(', ')}`);
+    if (principleRefs.length > 0) this.io.log(`Related principles: ${principleRefs.join(', ')}`);
+  }
+}
