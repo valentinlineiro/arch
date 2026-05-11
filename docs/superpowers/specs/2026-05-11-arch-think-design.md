@@ -62,11 +62,11 @@ arch think              # process all CAPTURED intents + apply all pending patch
 arch think INTENT-104  # process one specific intent + apply its pending patch
 ```
 
-`arch think` is idempotent and stateless from the caller's perspective. Its behavior is determined entirely by what is already on disk. Run it twice — same outcome.
+`arch think` is idempotent and stateless from the caller's perspective. Behavior is determined entirely by what is on disk. Run it twice — same outcome.
 
 ### Pipeline state machine
 
-`enrichment_phase` is the single source of pipeline truth.
+`enrichment_phase` is the **single source of pipeline truth**. There is no secondary status field.
 
 ```
                                      (agent session)
@@ -77,25 +77,28 @@ arch think → enrichment_phase: scaffolded                                   �
     │                                 │  writes .arch/pending/INTENT-trans  │
     │                                 └─────────────────────────────────────┘
     ▼
-arch think → enrichment_phase: enriched   (patch + transition detected)
+arch think → enrichment_phase: enriching  (patch detected, apply begins)
     │
-    ▼ (CLI applies patch + runs PromoteIntent + RecordEnrichment)
+    ▼  FinalizePromotion (all-or-nothing)
     │
 enrichment_phase: finalized
 INTENT: PROMOTED
+.arch/pending → empty
 ```
 
 **Phase definitions:**
 
 | `enrichment_phase` | Meaning |
 |--------------------|---------|
-| `scaffolded` | CLI scaffold written; awaiting agent enrichment |
-| `enriched` | Agent patch received; CLI has not yet applied it |
-| `finalized` | Patch applied, INTENT promoted, snapshot written |
+| `scaffolded` | CLI scaffold written; awaiting agent patch |
+| `enriching` | Patch detected; `FinalizePromotion` in progress (transient — not persisted on success) |
+| `enriched` | Patch applied; INTENT not yet promoted (only set if `FinalizePromotion` partially fails — see Failure) |
+| `finalized` | All-or-nothing apply complete; INTENT promoted; snapshot written |
+| `failed` | Unrecoverable error during finalization; audit record preserved |
 
 **A TASK is actionable only when `enrichment_phase == finalized`.**
 
-`arch review`, `arch next`, and `arch exec` treat all other phases as invisible.
+`arch review`, `arch next`, and `arch exec` treat every other phase as invisible.
 
 ### Ownership model
 
@@ -103,12 +106,12 @@ The agent NEVER writes TASK or INTENT files directly. It only writes to `.arch/p
 
 | Artifact | Writer | Mechanism |
 |----------|--------|-----------|
-| `docs/intents/INTENT-XXX.md` | CLI only | `PromoteIntent` use case |
+| `docs/intents/INTENT-XXX.md` | CLI only | `FinalizePromotion` use case |
 | `docs/tasks/TASK-XXX.md` (scaffold + generation) | CLI only | `arch think` Phase 1 |
-| `docs/tasks/TASK-XXX.md` (enrichment sections) | CLI only | `ApplyPatch` use case (from agent patch) |
+| `docs/tasks/TASK-XXX.md` (enrichment sections) | CLI only | `FinalizePromotion` use case (from patch) |
 | `.arch/pending/TASK-XXX-patch.json` | Agent only | Agent's sole output mechanism |
 | `.arch/pending/INTENT-XXX-transition.json` | Agent only | Agent's intent transition request |
-| `.arch/enrichments/TASK-XXX.json` | CLI only | `RecordEnrichment` use case |
+| `.arch/enrichments/TASK-XXX.json` | CLI only | `FinalizePromotion` use case |
 
 No concurrent writers. No locking needed. State transitions are sequential and traceable.
 
@@ -132,9 +135,9 @@ Agent: enrich TASK-212, then write patches to .arch/pending/
 
 ---
 
-## Phase 2 — Agent enrichment (produces structured output, no file writes)
+## Phase 2 — Agent enrichment (structured output only, no file writes)
 
-The THINK agent reads the scaffolded TASK file and produces two files in `.arch/pending/`:
+The THINK agent reads the scaffolded TASK file and produces two files in `.arch/pending/`.
 
 ### TASK_PATCH: `.arch/pending/TASK-XXX-patch.json`
 
@@ -181,35 +184,45 @@ The THINK agent reads the scaffolded TASK file and produces two files in `.arch/
 }
 ```
 
-**The agent does not execute any CLI commands for state transitions.** It produces data. The CLI acts on it.
+**The agent produces data. The CLI acts on it. No CLI commands are executed by the agent for state transitions.**
 
 ---
 
-## Phase 3 — Apply (CLI, atomic)
+## Phase 3 — Finalize (CLI, single transactional use case)
 
-`arch think` detects pending files in `.arch/pending/` and processes them.
+`arch think` detects a valid pending pair in `.arch/pending/` and calls `FinalizePromotion`.
 
-For each valid `TASK-XXX-patch.json` + `INTENT-XXX-transition.json` pair:
+### `FinalizePromotion` use case
 
-1. **`ApplyPatch`** use case:
-   - Validates patch schema and task state (`enrichment_phase == scaffolded`)
-   - Writes agent-owned sections to `docs/tasks/TASK-XXX.md` atomically
-   - Sets `enrichment_phase: enriched`
-   - Sets `enriched_by` from patch actor metadata
+All-or-nothing semantic. No visible intermediate committed state.
 
-2. **`PromoteIntent`** use case (domain state change):
-   - Sets `INTENT.status = PROMOTED`
-   - Sets `INTENT.promoted_to = [TASK-XXX]`
-   - Sets `INTENT.promotion_confidence`
-   - Sets TASK `enrichment_phase: finalized`
+**Preconditions (abort if violated):**
+- Patch schema valid
+- TASK `enrichment_phase == scaffolded`
+- INTENT `status == CAPTURED`
+- No existing enrichment snapshot
 
-3. **`RecordEnrichment`** use case (audit):
-   - Writes enrichment snapshot to `.arch/enrichments/TASK-XXX.json`
-   - Snapshot captures all agent-owned fields at promotion time
+**Operations (executed as a single unit):**
+1. Write agent-owned sections to `docs/tasks/TASK-XXX.md`
+2. Update `docs/tasks/TASK-XXX.md` Generation block: `enriched_by`, `enrichment_phase: finalized`
+3. Update `docs/intents/INTENT-XXX.md`: `status: PROMOTED`, `promoted_to`, `promotion_confidence`
+4. Write enrichment snapshot to `.arch/enrichments/TASK-XXX.json`
+5. Delete `.arch/pending/TASK-XXX-patch.json`
+6. Delete `.arch/pending/INTENT-XXX-transition.json`
 
-4. Cleans up `.arch/pending/TASK-XXX-patch.json` and `.arch/pending/INTENT-XXX-transition.json`.
+**On success:** `.arch/pending/` is empty. All state is consistent.
 
-5. Prints:
+**On failure (any step):**
+- No partial state is committed to git
+- `enrichment_phase` is set to `failed` in the TASK file
+- Error is written to `.arch/enrichments/TASK-XXX-error.json` for audit
+- Pending files are deleted (not left as garbage)
+- INTENT remains `CAPTURED`
+- `.arch/pending/` is empty after failure
+
+**Invariant: `.arch/pending/` must be empty after every `arch think` execution, success or failure.**
+
+5. Print on success:
 
 ```
 TASK-212 promoted to DRAFT ← INTENT-104
@@ -217,18 +230,16 @@ enrichment_phase: finalized
 Ready for human review
 ```
 
-`PromoteIntent` and `RecordEnrichment` are separate use cases. They share no state. CLI orchestrates both — neither calls the other.
-
 ---
 
 ## TASK file format for DRAFT
 
-CLI-owned sections are written by the CLI only. Agent-owned sections are written by `ApplyPatch` use case (from the TASK_PATCH).
+CLI-owned sections are written only by CLI. Agent-owned sections are written only by `FinalizePromotion` (from the TASK_PATCH). No section is written by two different paths.
 
 ```markdown
 ## TASK-XXX: <!-- agent-owned: title -->
 
-**Meta:** <!-- agent-owned: priority | size --> | DRAFT | Focus:no | <!-- agent-owned: class | cli --> <!-- cli-owned: status and focus -->
+**Meta:** <!-- agent-owned: priority | size --> | DRAFT | Focus:no | <!-- agent-owned: class | cli -->
 **Source:** INTENT-XXX  <!-- cli-owned -->
 **Depends:** <!-- agent-owned -->
 
@@ -241,7 +252,6 @@ enriched_by:
   actor: ~
   model: ~
   version: ~
-enrichment_status: pending
 
 ### Objective  <!-- agent-owned -->
 
@@ -278,9 +288,9 @@ _Pre-filled by ContextInference — confidence: 0.72_
 | `CaptureIntent` | Save raw intent | `docs/intents/` |
 | `BuildIndex` | Compile context index | `.arch/context-index.json` |
 | `ContextInference` | Score relevance for task text | (pure computation) |
-| `ApplyPatch` | Apply agent TASK_PATCH to TASK file | `docs/tasks/TASK-XXX.md` (enrichment sections) |
-| `PromoteIntent` | Domain state: INTENT → PROMOTED | `docs/intents/INTENT-XXX.md`, TASK `enrichment_phase: finalized` |
-| `RecordEnrichment` | Audit snapshot | `.arch/enrichments/TASK-XXX.json` |
+| `FinalizePromotion` | All-or-nothing: apply patch + promote INTENT + record audit | `docs/tasks/`, `docs/intents/`, `.arch/enrichments/` |
+
+`FinalizePromotion` subsumes what were previously `ApplyPatch`, `PromoteIntent`, and `RecordEnrichment`. They are now internal steps, not separate use cases.
 
 ---
 
@@ -310,7 +320,7 @@ Retained in enum for backward compatibility. No new tasks will use it. `arch thi
 
 ## Enrichment snapshot (`.arch/enrichments/TASK-XXX.json`)
 
-Written by `RecordEnrichment` at finalization. Immutable after creation.
+Written by `FinalizePromotion` at the end of successful finalization. Immutable after creation.
 
 ```json
 {
@@ -333,7 +343,7 @@ Written by `RecordEnrichment` at finalization. Immutable after creation.
 }
 ```
 
-Enables: audit, quality analysis, model comparison, replay.
+On failure: `.arch/enrichments/TASK-XXX-error.json` is written instead with error details and the patch that failed. Enables debugging and retry without information loss.
 
 ---
 
@@ -344,11 +354,12 @@ Enables: audit, quality analysis, model comparison, replay.
 | Only CAPTURED intents are promotable | `INTENT.status != CAPTURED` → abort |
 | Promotion is single-shot | `INTENT.promoted_to` not empty → abort |
 | No task overwrite | `docs/tasks/TASK-XXX.md` exists → abort at scaffold phase |
-| No patch overwrite | Pending patch exists → warn and skip (do not re-enrich) |
-| INTENT written only by PromoteIntent | Enforced by architecture — no other code path writes INTENT status |
-| No partial promotion | INTENT marked PROMOTED only after `enrichment_phase: finalized` |
-| Patch pair required | Both TASK patch and INTENT transition must be present to apply |
-| Failure preserves audit trail | Failed apply leaves scaffold + pending files intact; INTENT stays CAPTURED |
+| No patch overwrite | Pending patch exists for same TASK → warn and skip |
+| INTENT written only by FinalizePromotion | Enforced by architecture — no other code path writes INTENT status |
+| No partial promotion | INTENT marked PROMOTED only after all FinalizePromotion steps complete |
+| Patch pair required | Both TASK patch and INTENT transition required; orphan files rejected and cleaned up |
+| `.arch/pending/` always empty after execution | Invariant holds on success and failure |
+| Failure preserves error record | `enrichment_phase: failed` + `.arch/enrichments/TASK-XXX-error.json` |
 | Multi-intent isolation | One failure does not abort remaining intent processing |
 
 ---
@@ -356,12 +367,13 @@ Enables: audit, quality analysis, model comparison, replay.
 ## Testing
 
 - `arch capture` pipe support: stdin path, multiline input, trim + empty rejection, argv-wins
-- `ApplyPatch`: validates schema, writes only agent sections, rejects non-`scaffolded` tasks
-- `PromoteIntent`: INTENT state transition, `enrichment_phase: finalized`, rejects already-promoted
-- `RecordEnrichment`: snapshot format, immutable after creation
-- `arch think`: full pipeline — scaffold → mock patch files → apply → finalized DRAFT + promoted INTENT
+- `FinalizePromotion` happy path: all artifacts written, pending cleaned up, TASK/INTENT consistent
+- `FinalizePromotion` failure path: `enrichment_phase: failed`, error record written, pending cleared, INTENT unchanged
+- Safety invariants: non-CAPTURED intent rejected, double-promotion rejected, orphan patch rejected
+- `arch think` idempotency: running twice produces same outcome
+- `enrichment_phase` progression: scaffolded → finalized (happy), scaffolded → failed (error)
 - `TaskStatus.DRAFT` parsed and serialized by `MarkdownTaskRepository`
-- Integration: `enrichment_phase` progression through all four states
+- Integration: full pipeline INTENT(CAPTURED) → scaffold → agent patches → finalized DRAFT + INTENT(PROMOTED)
 
 ---
 
