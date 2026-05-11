@@ -33,9 +33,13 @@ export class ThinkCommand {
       return;
     }
 
-    const intent = await this.intentRepository.getById(intentId);
-
     try {
+      const intent = await this.intentRepository.getById(intentId);
+      if (!intent) {
+        this.log(`Intent ${intentId} not found`);
+        return;
+      }
+
       const scaffold = new ScaffoldTask(this.intentRepository, this.taskRepository, this.fileSystem);
       const result = await scaffold.execute(intentId);
       this.log(`Scaffold created: ${result.taskId} ← ${result.intentId}`);
@@ -44,7 +48,7 @@ export class ThinkCommand {
 
       try {
         const inference = new ContextInference(this.fileSystem);
-        await inference.execute(result.taskId, intent?.rawIntent ?? '', '2-code-generation');
+        await inference.execute(result.taskId, intent.rawIntent, '2-code-generation');
       } catch { /* context inference must never block scaffolding */ }
     } catch (err: any) {
       this.log(`Error scaffolding ${intentId}: ${err.message}`);
