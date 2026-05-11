@@ -54,7 +54,7 @@ export class BuildIndex {
     const tasks = await this.buildTaskIndex(gitRepository);
 
     const index: ContextIndex = {
-      version: 4,
+      version: 5,
       builtAt: new Date().toISOString(),
       files: fileEntries,
       adrs,
