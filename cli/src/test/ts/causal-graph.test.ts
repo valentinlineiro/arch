@@ -303,3 +303,86 @@ test('unknown subcommand exits 1', async () => {
   const io = makeIO(['oops']);
   await assert.rejects(() => new CausalCommand(graph, io).execute(), /exit:1/);
 });
+
+// ── Belief synthesis ───────────────────────────────────────────────────────
+
+test('synthesize returns empty when entity has no edges', async () => {
+  const fs = new MockFileSystem();
+  const graph = new CausalGraph(fs, '/root');
+  const result = await graph.synthesize('TASK-999');
+  assert.strictEqual(result.dominant.length, 0);
+  assert.strictEqual(result.competing.length, 0);
+  assert.strictEqual(result.superseded.length, 0);
+});
+
+test('synthesize assigns higher weight to asserted over heuristic', async () => {
+  const fs = new MockFileSystem();
+  const graph = new CausalGraph(fs, '/root');
+  await graph.add('TASK-220', 'implements', 'ADR-011', undefined, 'heuristic', 'system');
+  await graph.add('TASK-220', 'implements', 'ADR-011', undefined, 'asserted', 'human');
+  const { dominant, competing } = await graph.synthesize('TASK-220');
+  assert.strictEqual(dominant.length, 1);
+  assert.strictEqual(dominant[0].edge.confidence, 'asserted');
+  assert.strictEqual(competing.length, 1);
+  assert.strictEqual(competing[0].edge.confidence, 'heuristic');
+});
+
+test('synthesize assigns higher weight to STRONG over MEDIUM relation', async () => {
+  const fs = new MockFileSystem();
+  const graph = new CausalGraph(fs, '/root');
+  // Same (from, to) pair, different relation type — one dominates, one competes
+  await graph.add('TASK-220', 'implements', 'ADR-011');   // MEDIUM, weight 7.2
+  await graph.add('TASK-220', 'caused_by', 'ADR-011');    // STRONG, weight 10.8
+  const { dominant, competing } = await graph.synthesize('TASK-220');
+  assert.strictEqual(dominant.length, 1);
+  assert.strictEqual(competing.length, 1);
+  assert.strictEqual(dominant[0].edge.relation, 'caused_by');
+  assert.ok(dominant[0].weight > competing[0].weight);
+});
+
+test('synthesize puts weakened edges in superseded', async () => {
+  const fs = new MockFileSystem();
+  const graph = new CausalGraph(fs, '/root');
+  const e1 = await graph.add('TASK-220', 'implements', 'ADR-011');
+  await graph.weaken(e1.id, 'new evidence');
+  const { dominant, superseded } = await graph.synthesize('TASK-220');
+  assert.strictEqual(dominant.length, 0);
+  assert.strictEqual(superseded.length, 1);
+  assert.strictEqual(superseded[0].edge.status, 'weakened');
+});
+
+test('synthesize distinguishes competing interpretations for same entity pair', async () => {
+  const fs = new MockFileSystem();
+  const graph = new CausalGraph(fs, '/root');
+  // Two different claims about how TASK-220 relates to ADR-011
+  await graph.add('TASK-220', 'implements', 'ADR-011', undefined, 'asserted');
+  await graph.add('TASK-220', 'references', 'ADR-011', undefined, 'heuristic', 'system');
+  const { dominant, competing } = await graph.synthesize('TASK-220');
+  // Same (from, to) pair — one dominates, one competes
+  assert.strictEqual(dominant.length, 1);
+  assert.strictEqual(competing.length, 1);
+  assert.strictEqual(dominant[0].edge.confidence, 'asserted');
+  assert.strictEqual(competing[0].edge.confidence, 'heuristic');
+});
+
+test('causal synthesize command shows dominant with weight and superseded', async () => {
+  const fs = new MockFileSystem();
+  const graph = new CausalGraph(fs, '/root');
+  const e1 = await graph.add('TASK-220', 'implements', 'ADR-011', undefined, 'heuristic', 'system');
+  await graph.invalidate(e1.id, 'confirmed manually');
+  await graph.add('TASK-220', 'implements', 'ADR-011', undefined, 'asserted', 'human');
+  const io = makeIO(['synthesize', 'TASK-220']);
+  await new CausalCommand(graph, io).execute();
+  const output = io.logs.join('\n');
+  assert.ok(output.includes('Dominant'));
+  assert.ok(output.includes('Superseded'));
+  assert.ok(output.includes('asserted'));
+  assert.ok(output.includes('invalidated'));
+});
+
+test('causal synthesize with no entity exits 1', async () => {
+  const fs = new MockFileSystem();
+  const graph = new CausalGraph(fs, '/root');
+  const io = makeIO(['synthesize']);
+  await assert.rejects(() => new CausalCommand(graph, io).execute(), /exit:1/);
+});

@@ -1,4 +1,4 @@
-import { CausalGraph, VALID_RELATIONS } from '../use-cases/causal-graph.js';
+import { CausalGraph, VALID_RELATIONS, type ScoredEdge } from '../use-cases/causal-graph.js';
 import { VALID_CONFIDENCES, RELATION_STRENGTH, type RelationType, type Confidence } from '../../domain/models/causal-relation.js';
 
 export interface CausalIO {
@@ -25,13 +25,16 @@ export class CausalCommand {
       await this.correct(rest, 'weaken');
     } else if (subcommand === 'invalidate') {
       await this.correct(rest, 'invalidate');
+    } else if (subcommand === 'synthesize') {
+      await this.synthesize(rest);
     } else {
       this.io.error(
-        'Usage: arch causal <add|show|weaken|invalidate>\n' +
+        'Usage: arch causal <add|show|weaken|invalidate|synthesize>\n' +
         '  add <from> <relation> <to> [--note "..."] [--confidence asserted|inferred|heuristic]\n' +
         '  show <entity> [--all]\n' +
         '  weaken <edge-id> [--note "..."]\n' +
-        '  invalidate <edge-id> [--note "..."]\n\n' +
+        '  invalidate <edge-id> [--note "..."]\n' +
+        '  synthesize <entity>\n\n' +
         `Relations: ${VALID_RELATIONS.join(', ')}`,
       );
       this.io.exit(1);
@@ -99,6 +102,58 @@ export class CausalCommand {
       this.io.error(`Error: ${e.message}`);
       this.io.exit(1);
     }
+  }
+
+  private async synthesize(args: string[]): Promise<void> {
+    if (args.length === 0) {
+      this.io.error('Usage: arch causal synthesize <entity>');
+      this.io.exit(1);
+    }
+
+    const entity = args[0];
+    const { dominant, competing, superseded } = await this.graph.synthesize(entity);
+
+    if (dominant.length === 0 && superseded.length === 0) {
+      this.io.log(`No causal relations found for ${entity}.`);
+      return;
+    }
+
+    this.io.log(`Belief synthesis for ${entity}:`);
+    this.io.log('');
+
+    if (dominant.length > 0) {
+      this.io.log('  Dominant (by evidence weight):');
+      for (const s of dominant) this.io.log(this.formatScored(s));
+    }
+
+    if (competing.length > 0) {
+      this.io.log('');
+      this.io.log('  Competing (same pair, lower evidence):');
+      for (const s of competing) this.io.log(this.formatScored(s));
+    }
+
+    if (superseded.length > 0) {
+      this.io.log('');
+      this.io.log('  Superseded beliefs:');
+      for (const s of superseded) {
+        const strength = RELATION_STRENGTH[s.edge.relation];
+        this.io.log(
+          `    [${s.edge.id.slice(0, 8)}] ${s.edge.from} → ${s.edge.relation} → ${s.edge.to}` +
+          ` [${s.edge.status}, ${strength}]` +
+          (s.edge.note ? ` · ${s.edge.note}` : ''),
+        );
+      }
+    }
+  }
+
+  private formatScored(s: ScoredEdge): string {
+    const strength = RELATION_STRENGTH[s.edge.relation];
+    return (
+      `    [${s.weight.toFixed(1)}] [${s.edge.id.slice(0, 8)}] ` +
+      `${s.edge.from} → ${s.edge.relation} → ${s.edge.to}` +
+      ` [${s.edge.confidence}/${s.edge.source ?? 'human'}, ${strength}]` +
+      (s.edge.note ? ` · ${s.edge.note}` : '')
+    );
   }
 
   private async show(args: string[]): Promise<void> {

@@ -2,6 +2,7 @@ import { randomUUID } from 'node:crypto';
 import type { FileSystem } from '../../domain/repositories/file-system.js';
 import {
   VALID_RELATIONS,
+  RELATION_STRENGTH,
   type CausalRelation,
   type RelationType,
   type Confidence,
@@ -12,6 +13,25 @@ import {
 const GRAPH_PATH = '.arch/causal-graph.jsonl';
 
 export { VALID_RELATIONS };
+
+export interface ScoredEdge {
+  edge: CausalRelation;
+  weight: number;
+}
+
+export interface BeliefSynthesis {
+  entity: string;
+  dominant: ScoredEdge[];    // highest-weight active edge per (from, to) pair
+  competing: ScoredEdge[];   // lower-weight active edges for same (from, to) pairs
+  superseded: ScoredEdge[];  // once-active edges now weakened or invalidated
+}
+
+function scoreEdge(e: CausalRelation): number {
+  const conf = e.confidence === 'asserted' ? 3 : e.confidence === 'inferred' ? 2 : 1;
+  const str = RELATION_STRENGTH[e.relation] === 'STRONG' ? 3 : RELATION_STRENGTH[e.relation] === 'MEDIUM' ? 2 : 1;
+  const src = (e.source ?? 'human') === 'human' ? 1.2 : 1.0;
+  return conf * str * src;
+}
 
 export class CausalGraph {
   constructor(
@@ -65,6 +85,49 @@ export class CausalGraph {
     return all
       .filter(e => !e.invalidates)
       .filter(e => (overrides.get(e.id) ?? e.status) === 'active');
+  }
+
+  // Belief synthesis: for a given entity, returns the dominant interpretation
+  // (highest-weight active edge per entity pair), competing interpretations
+  // (lower-weight active edges for same pairs), and superseded beliefs
+  // (edges that were active but have since been weakened or invalidated).
+  async synthesize(entity: string): Promise<BeliefSynthesis> {
+    const allEdges = await this.all();
+    const overrides = new Map<string, EdgeStatus>();
+    for (const e of allEdges) {
+      if (e.invalidates) overrides.set(e.invalidates, e.status);
+    }
+
+    const originals = allEdges.filter(e => !e.invalidates);
+    const forEntity = originals.filter(e => e.from === entity || e.to === entity);
+
+    const active = forEntity.filter(e => (overrides.get(e.id) ?? e.status) === 'active');
+    const inactive = forEntity.filter(e => (overrides.get(e.id) ?? e.status) !== 'active');
+
+    // Group active edges by (from, to) pair — competing interpretations of the same relationship
+    const scored = active.map(e => ({ edge: e, weight: scoreEdge(e) }));
+    const groups = new Map<string, ScoredEdge[]>();
+    for (const s of scored) {
+      const key = `${s.edge.from}||${s.edge.to}`;
+      if (!groups.has(key)) groups.set(key, []);
+      groups.get(key)!.push(s);
+    }
+
+    const dominant: ScoredEdge[] = [];
+    const competing: ScoredEdge[] = [];
+    for (const [, group] of groups) {
+      group.sort((a, b) => b.weight - a.weight);
+      dominant.push(group[0]);
+      competing.push(...group.slice(1));
+    }
+    dominant.sort((a, b) => b.weight - a.weight);
+
+    const superseded = inactive.map(e => ({
+      edge: { ...e, status: overrides.get(e.id) ?? e.status },
+      weight: scoreEdge(e),
+    }));
+
+    return { entity, dominant, competing, superseded };
   }
 
   async query(entity: string, includeInactive = false): Promise<{ outgoing: CausalRelation[]; incoming: CausalRelation[] }> {
