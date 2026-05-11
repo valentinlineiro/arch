@@ -120,7 +120,18 @@ async function main() {
     case 'capture': {
       const intentRepository = new MarkdownIntentRepository(fileSystem);
       const captureIntent = new CaptureIntent(intentRepository, gitRepository);
-      await new CaptureCommand(captureIntent).execute(args);
+      await new CaptureCommand(captureIntent, {
+        getArgs: () => args,
+        readStdin: () => new Promise<string>((resolve) => {
+          const chunks: Buffer[] = [];
+          process.stdin.on('data', (c: Buffer) => chunks.push(c));
+          process.stdin.on('end', () => resolve(Buffer.concat(chunks).toString('utf8')));
+        }),
+        isStdinTTY: () => Boolean(process.stdin.isTTY),
+        log: (s) => console.log(s),
+        error: (s) => console.error(s),
+        exit: (code) => process.exit(code) as never,
+      }).execute();
       break;
     }
     case 'index':
