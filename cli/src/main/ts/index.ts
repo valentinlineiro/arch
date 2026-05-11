@@ -32,6 +32,7 @@ import { CaptureIntent } from './application/use-cases/capture-intent.js';
 import { CaptureCommand } from './application/commands/capture-command.js';
 import { IndexCommand } from './application/commands/index-command.js';
 import { ChronicleEventRepository } from './infrastructure/filesystem/chronicle-event-repository.js';
+import { ThinkCommand } from './application/commands/think-command.js';
 
 async function main() {
   const fileSystem = new NodeFileSystem();
@@ -137,8 +138,13 @@ async function main() {
     case 'index':
       await new IndexCommand(fileSystem, gitRepository).execute();
       break;
+    case 'think': {
+      const intentRepository = new MarkdownIntentRepository(fileSystem);
+      await new ThinkCommand(intentRepository, taskRepository, fileSystem).execute(args);
+      break;
+    }
     default:
-      console.log('Usage: arch [status|validate|review|task|inbox|next|version|govern|rank|batch|drain|conduct|promote|loop|sandbox|lint|mv|exec|merge-resolve|capture|index]');
+      console.log('Usage: arch [status|validate|review|task|inbox|next|version|govern|rank|batch|drain|conduct|promote|loop|sandbox|lint|mv|exec|merge-resolve|capture|index|think]');
       process.exit(1);
   }
 }
