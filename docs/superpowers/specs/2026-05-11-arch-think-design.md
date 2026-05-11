@@ -225,35 +225,73 @@ This prevents concurrent `arch think` invocations from double-processing the sam
 
 ### `FinalizePromotion` use case
 
-All-or-nothing semantic. No visible intermediate committed state.
+All-or-nothing semantic via **staging + atomic rename**. Each `rename()` is atomic on POSIX. The order of renames is defined to make partial failures detectable and recoverable.
 
 **Preconditions (abort if violated):**
 - Lock acquired
-- Patch schema valid, `content` field parseable
+- Patch schema valid, `content` field parseable as markdown
 - TASK `enrichment_phase == scaffolded`
 - INTENT `status == CAPTURED`
 - No existing enrichment snapshot
 
-**Operations (executed as a single unit):**
-1. Merge agent `content` block into `docs/tasks/TASK-XXX.md` (replace agent-owned sections)
-2. Update Generation block: `enriched_by`, `enrichment_phase: finalized`
-3. Update `docs/intents/INTENT-XXX.md`: `status: PROMOTED`, `promoted_to`, `promotion_confidence`
-4. Write enrichment snapshot to `.arch/enrichments/TASK-XXX.json`
-5. Delete `.arch/pending/TASK-XXX-patch.json`
-6. Delete `.arch/pending/INTENT-XXX-transition.json`
-7. Delete `.arch/locks/TASK-XXX.lock`
+**Transaction model — staging + ordered atomic rename:**
 
-**On success:** `.arch/pending/` is empty. All state is consistent.
+Stage all writes to temporary files first. No original is touched until all staged files are ready.
 
-**On failure (any step):**
-- `enrichment_phase` set to `failed` in TASK file
-- Error written to `.arch/enrichments/TASK-XXX-error.json` (includes original patch for retry)
-- Pending files deleted
-- Lock deleted
-- INTENT remains `CAPTURED`
-- `.arch/pending/` is empty
+```
+Stage:
+  .arch/staging/TASK-XXX.md       ← merged TASK content
+  .arch/staging/INTENT-XXX.md     ← updated INTENT (PROMOTED)
+  .arch/staging/snapshot.json     ← enrichment snapshot
 
-**Invariant: `.arch/pending/` and `.arch/locks/` are empty after every `arch think` execution.**
+Commit (rename in order — each rename is individually atomic):
+  rename staging/TASK-XXX.md       → docs/tasks/TASK-XXX.md      [step A]
+  rename staging/INTENT-XXX.md     → docs/intents/INTENT-XXX.md  [step B]
+  rename staging/snapshot.json     → .arch/enrichments/TASK.json  [step C]
+
+Cleanup:
+  delete .arch/pending/ files
+  delete .arch/locks/ file
+  delete .arch/staging/ files if any remain
+```
+
+**Rename order is intentional.** Recovery detection uses `enrichment_phase` as the authority:
+
+| After step A | After step B | After step C | State | Recovery |
+|---|---|---|---|---|
+| ✗ | ✗ | ✗ | Nothing written — TASK still `scaffolded` | Re-run `FinalizePromotion` |
+| ✓ | ✗ | ✗ | TASK `finalized`, INTENT still `CAPTURED` | Re-apply step B only |
+| ✓ | ✓ | ✗ | TASK + INTENT consistent, snapshot missing | Re-generate snapshot only |
+| ✓ | ✓ | ✓ | Fully consistent | Nothing to do |
+
+**On complete success:** `.arch/pending/`, `.arch/locks/`, and `.arch/staging/` are all empty.
+
+**On failure at any step:**
+- Staged files not yet renamed → delete staging, no originals touched
+- Staged files partially renamed → recoverable via table above; `arch think` detects and repairs on next run
+- `enrichment_phase: failed` set only for unrecoverable errors (e.g., content parse failure before staging)
+- Error written to `.arch/enrichments/TASK-XXX-error.json` (includes original patch)
+- Pending files deleted. Lock deleted.
+- INTENT remains `CAPTURED` until step B completes.
+
+**Invariant: `.arch/pending/`, `.arch/locks/`, and `.arch/staging/` are empty after every `arch think` execution.**
+
+---
+
+### Failure recovery policy — Manual (Option A)
+
+Failed tasks remain in `failed` state indefinitely. No automatic retry.
+
+**Recovery procedure:**
+1. Human inspects `.arch/enrichments/TASK-XXX-error.json` to understand the failure.
+2. Human deletes `docs/tasks/TASK-XXX.md` (the failed scaffold).
+3. Human runs `arch think INTENT-XXX` — re-scaffolds from the original CAPTURED intent.
+
+**Why manual only:**
+- LLM failures (bad content, schema drift) are not transient — retrying with the same input produces the same output.
+- Automatic retry amplifies bad agent output.
+- Human inspection of failures is operationally valuable — it surfaces prompt drift and model degradation.
+- The CAPTURED intent is never destroyed; recovery is always available.
 
 Print on success:
 
@@ -368,7 +406,7 @@ On failure: `.arch/enrichments/TASK-XXX-error.json` preserves the original patch
 | INTENT written only by FinalizePromotion | No other code path writes INTENT status |
 | No partial promotion | INTENT marked PROMOTED only after all steps complete |
 | Patch pair required | Both files required; orphan files cleaned up |
-| `.arch/pending/` and `.arch/locks/` empty after execution | Holds on success and failure |
+| `.arch/pending/`, `.arch/locks/`, `.arch/staging/` empty after execution | Holds on success and failure |
 | Failure preserves error record | `enrichment_phase: failed` + error artifact |
 | Multi-intent isolation | One failure does not abort remaining intents |
 
