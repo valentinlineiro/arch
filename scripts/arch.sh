@@ -12,7 +12,7 @@ BIN="node $(dirname "$0")/../cli/dist/index.js"
 
 # ── Router ────────────────────────────────────────────────────────
 case "$1" in
-  "status"|"validate"|"inbox"|"next"|"govern"|"rank"|"batch"|"drain"|"conduct"|"promote"|"version"|"loop"|"sandbox"|"lint"|"mv"|"exec"|"capture"|"index"|"think"|"--version"|"-v")
+  "status"|"validate"|"inbox"|"next"|"govern"|"rank"|"batch"|"drain"|"conduct"|"promote"|"version"|"loop"|"sandbox"|"lint"|"mv"|"exec"|"capture"|"index"|"think"|"ask"|"--version"|"-v")
     $BIN "$@"
     ;;
 
@@ -68,7 +68,7 @@ case "$1" in
     ;;
 
   *)
-    echo "Usage: $0 [status|validate|review|inbox|next|govern|rank|batch|drain|archive|task|promote|version|conduct|exec|loop|sandbox|lint|mv|think]"
+    echo "Usage: $0 [status|validate|review|inbox|next|govern|rank|batch|drain|archive|task|promote|version|conduct|exec|loop|sandbox|lint|mv|think|ask]"
     echo ""
     echo "Commands:"
     echo "  status     Show task counts"
@@ -93,6 +93,7 @@ case "$1" in
     echo "  capture    Capture a new intent"
     echo "  index      Rebuild the context index"
     echo "  think      Process intents and build tasks"
+  echo "  ask        Query operational memory"
     exit 1
     ;;
 esac
