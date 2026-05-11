@@ -3,14 +3,19 @@ import { TaskStatus } from '../../domain/models/task.js';
 import { Reviewer } from '../../domain/services/reviewer.js';
 import { FileSystem } from '../../domain/repositories/file-system.js';
 import { EventRepository } from '../../domain/models/event.js';
+import { FeedbackRepository } from '../../domain/repositories/feedback-repository.js';
+import { ExtractContextFeedback } from './extract-context-feedback.js';
 import crypto from 'node:crypto';
 
 export class MarkTaskDone {
+  private feedbackExtractor = new ExtractContextFeedback();
+
   constructor(
     private taskRepository: TaskRepository,
     private reviewer: Reviewer,
     private fileSystem: FileSystem,
-    private eventRepository?: EventRepository
+    private eventRepository?: EventRepository,
+    private feedbackRepository?: FeedbackRepository
   ) {}
 
   async execute(taskId: string, force = false) {
@@ -49,6 +54,13 @@ export class MarkTaskDone {
           steps: task.steps
         }
       });
+    }
+
+    if (this.feedbackRepository) {
+      const signal = this.feedbackExtractor.extract(taskId, task.content ?? '');
+      if (signal) {
+        await this.feedbackRepository.append(signal);
+      }
     }
 
     return task;

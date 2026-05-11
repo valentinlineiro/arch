@@ -10,6 +10,7 @@ import type { TaskRepository } from '../../domain/repositories/task-repository.j
 import { Reviewer } from '../../domain/services/reviewer.js';
 import type { FileSystem } from '../../domain/repositories/file-system.js';
 import { EventRepository } from '../../domain/models/event.js';
+import { NodeFeedbackRepository } from '../../infrastructure/filesystem/node-feedback-repository.js';
 import * as fmt from '../../infrastructure/cli/output-formatter.js';
 
 export class TaskCommand {
@@ -29,7 +30,7 @@ export class TaskCommand {
     eventRepository?: EventRepository
   ) {
     this.markInProgress = new MarkTaskInProgress(taskRepository, eventRepository);
-    this.markDone = new MarkTaskDone(taskRepository, reviewer, fileSystem, eventRepository);
+    this.markDone = new MarkTaskDone(taskRepository, reviewer, fileSystem, eventRepository, new NodeFeedbackRepository(fileSystem));
     this.markReview = new MarkTaskReview(taskRepository, rootPath);
     this.rejectTask = new RejectTask(taskRepository);
 
