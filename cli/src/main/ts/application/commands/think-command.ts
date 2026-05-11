@@ -3,6 +3,7 @@ import type { TaskRepository } from '../../domain/repositories/task-repository.j
 import type { FileSystem } from '../../domain/repositories/file-system.js';
 import { ScaffoldTask } from '../use-cases/scaffold-task.js';
 import { FinalizePromotion } from '../use-cases/finalize-promotion.js';
+import { ContextInference } from '../use-cases/context-inference.js';
 
 const LOCK_TTL_MS = 5 * 60 * 1000;
 
@@ -32,12 +33,19 @@ export class ThinkCommand {
       return;
     }
 
+    const intent = await this.intentRepository.getById(intentId);
+
     try {
       const scaffold = new ScaffoldTask(this.intentRepository, this.taskRepository, this.fileSystem);
       const result = await scaffold.execute(intentId);
       this.log(`Scaffold created: ${result.taskId} ← ${result.intentId}`);
       this.log(`enrichment_phase: scaffolded`);
       this.log(`Agent: enrich ${result.taskId}, then write patches to .arch/pending/`);
+
+      try {
+        const inference = new ContextInference(this.fileSystem);
+        await inference.execute(result.taskId, intent?.rawIntent ?? '', '2-code-generation');
+      } catch { /* context inference must never block scaffolding */ }
     } catch (err: any) {
       this.log(`Error scaffolding ${intentId}: ${err.message}`);
     }

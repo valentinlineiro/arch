@@ -240,6 +240,47 @@ test('ThinkCommand — multi-intent: one scaffold skip does not abort others', a
   assert.ok(task213.includes('**Source:** INTENT-002'), 'TASK-213 should reference INTENT-002');
 });
 
+test('ThinkCommand injects context into scaffolded task file', async () => {
+  const fs = new MockFS();
+  // Minimal context index so ContextInference has something to work with
+  fs.files['.arch/context-index.json'] = JSON.stringify({
+    version: 5,
+    builtAt: '2026-05-11T00:00:00Z',
+    files: {
+      'cli/src/main/ts/domain/models/intent.ts': {
+        symbols: ['Intent', 'IntentStatus'],
+        imports: [],
+        tags: ['intent', 'domain'],
+        criticality: 'core',
+        runtimeUsage: 'hot',
+      },
+    },
+    adrs: {},
+    adrTaskLinks: {},
+    failures: {},
+    guidelineFailureLinks: {},
+    guidelines: {},
+    tasks: {},
+  });
+  fs.files['docs/intents/INTENT-001.md'] = INTENT_CONTENT;
+  fs.directories['docs/tasks'] = [];
+
+  const intentRepo = new MockIntentRepo();
+  const taskRepo = new MockTaskRepo();
+  const logs: string[] = [];
+  const cmd = new ThinkCommand(intentRepo as any, taskRepo as any, fs as any, (s) => logs.push(s));
+
+  await cmd.execute([]);
+
+  const taskFile = Object.keys(fs.files).find(k => k.startsWith('docs/tasks/TASK-'));
+  assert.ok(taskFile, 'task file created');
+  const content = fs.files[taskFile!];
+  assert.ok(content.includes('### Relevant Context'), 'context section injected');
+  // ContextInference replaces the scaffold placeholder "_confidence: ~_" with a real numeric score
+  assert.ok(/\_confidence: 0\.\d\d\_/.test(content) || /\_confidence: 1\.00\_/.test(content), 'real confidence score injected by ContextInference');
+  assert.ok(!content.includes('_confidence: ~_'), 'placeholder confidence replaced');
+});
+
 // Invariant 5: Fresh lock causes skip
 test('ThinkCommand — fresh lock prevents processing', async () => {
   const freshTime = new Date().toISOString();
