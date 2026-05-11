@@ -310,11 +310,6 @@ export class ContextInference {
       filteredAdrFiles: [...filteredAdrFiles],
     };
   }
-      filteredFiles: [...filteredFiles],
-      unresolvedAdrRefs: [...unresolvedAdrRefs],
-      filteredAdrFiles: [...filteredAdrFiles],
-    };
-  }
 
   formatSection(result: ContextResult): string {
     const conf = result.confidence.toFixed(2);
