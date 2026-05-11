@@ -109,3 +109,33 @@ test('execute caps matches at 10', async () => {
 
   assert.ok(result.matches.length <= 10);
 });
+
+test('execute scopes entity refs to top-5 matches', async () => {
+  const files: Record<string, string> = {};
+  // 6 files matching "auth", only top-5 should contribute refs
+  for (let i = 1; i <= 6; i++) {
+    // file i has i hits, so file 6 is top, file 1 is 6th
+    files[`/root/docs/archive/TASK-${String(i).padStart(3, '0')}.md`] =
+      `## TASK-${String(i).padStart(3, '0')}: auth\n` + 'auth '.repeat(i) + `ADR-${String(i).padStart(3, '0')} mentioned`;
+  }
+  const corpus = new AskCorpus(new MockFileSystem(files), '/root');
+  const result = await corpus.execute('auth');
+
+  // ADR-001 is in file 1 (6th by score) — should NOT be in refs since only top-5 contribute
+  assert.ok(!result.adrRefs.includes('ADR-001'));
+  // ADR-006 is in file 6 (1st by score) — should be in refs
+  assert.ok(result.adrRefs.includes('ADR-006'));
+});
+
+test('execute detects recurring signals from 3+ top matches', async () => {
+  const files: Record<string, string> = {};
+  // TASK-099 appears in 4 different files — should be a recurring signal
+  for (let i = 1; i <= 5; i++) {
+    const ref = i <= 4 ? 'see TASK-099 for history' : 'unrelated content here';
+    files[`/root/docs/archive/TASK-${String(i).padStart(3, '0')}.md`] = `auth failure ${ref}`;
+  }
+  const corpus = new AskCorpus(new MockFileSystem(files), '/root');
+  const result = await corpus.execute('auth failure');
+
+  assert.ok(result.recurringSignals.some(s => s.startsWith('TASK-099')));
+});

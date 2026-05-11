@@ -12,6 +12,7 @@ export interface AskResult {
   taskRefs: string[];
   adrRefs: string[];
   principleRefs: string[];
+  recurringSignals: string[];
 }
 
 const STOP_WORDS = new Set([
@@ -51,10 +52,7 @@ export class AskCorpus {
     }
 
     const files = await this.collectFiles();
-    const matches: CorpusMatch[] = [];
-    const taskRefs = new Set<string>();
-    const adrRefs = new Set<string>();
-    const principleRefs = new Set<string>();
+    const scored: Array<{ path: string; hits: number; excerpt: string; content: string }> = [];
 
     for (const file of files) {
       const fullPath = `${this.rootPath}/${file}`;
@@ -73,22 +71,43 @@ export class AskCorpus {
       }
       if (hits === 0) continue;
 
-      const excerpt = this.extractExcerpt(content, keywords);
-      matches.push({ path: file, hits, excerpt });
+      scored.push({ path: file, hits, excerpt: this.extractExcerpt(content, keywords), content });
+    }
 
+    scored.sort((a, b) => b.hits - a.hits);
+    const top = scored.slice(0, 10);
+    const topForRefs = scored.slice(0, 5);
+
+    // Entity refs scoped to top-5 matches only to reduce noise
+    const taskRefs = new Set<string>();
+    const adrRefs = new Set<string>();
+    const principleRefs = new Set<string>();
+    for (const { content } of topForRefs) {
       for (const m of content.matchAll(/TASK-\d+/g)) taskRefs.add(m[0]);
       for (const m of content.matchAll(/ADR-\d+/g)) adrRefs.add(m[0]);
       for (const m of content.matchAll(/P-\d{3}/g)) principleRefs.add(m[0]);
     }
 
-    matches.sort((a, b) => b.hits - a.hits);
+    // Recurring signals: task IDs appearing in 3+ of the top-10 matches
+    const taskIdCount = new Map<string, number>();
+    for (const { content } of top) {
+      const seen = new Set<string>();
+      for (const m of content.matchAll(/TASK-\d+/g)) {
+        if (!seen.has(m[0])) { seen.add(m[0]); taskIdCount.set(m[0], (taskIdCount.get(m[0]) ?? 0) + 1); }
+      }
+    }
+    const recurringSignals = [...taskIdCount.entries()]
+      .filter(([, count]) => count >= 3)
+      .sort((a, b) => b[1] - a[1])
+      .map(([id, count]) => `${id} (${count} matches)`);
 
     return {
       keywords,
-      matches: matches.slice(0, 10),
+      matches: top.map(({ path, hits, excerpt }) => ({ path, hits, excerpt })),
       taskRefs: [...taskRefs].sort(),
       adrRefs: [...adrRefs].sort(),
       principleRefs: [...principleRefs].sort(),
+      recurringSignals,
     };
   }
 

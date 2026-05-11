@@ -29,7 +29,7 @@ export class AskCommand {
       this.io.exit(1);
     }
 
-    const { keywords, matches, taskRefs, adrRefs, principleRefs } = result;
+    const { keywords, matches, taskRefs, adrRefs, principleRefs, recurringSignals } = result;
 
     this.io.log(`Query: ${question}`);
     this.io.log(`Keywords: ${keywords.join(', ')}`);
@@ -40,6 +40,12 @@ export class AskCommand {
       return;
     }
 
+    if (recurringSignals.length > 0) {
+      this.io.log(`Recurring signals (appear in 3+ matches):`);
+      for (const s of recurringSignals) this.io.log(`  ${s}`);
+      this.io.log('');
+    }
+
     this.io.log(`Corpus matches (${matches.length}):`);
     for (const m of matches) {
       this.io.log(`  ${m.path} — ${m.hits} hit${m.hits === 1 ? '' : 's'}`);
@@ -47,8 +53,8 @@ export class AskCommand {
     }
     this.io.log('');
 
-    if (taskRefs.length > 0) this.io.log(`Related tasks:      ${taskRefs.join(', ')}`);
-    if (adrRefs.length > 0) this.io.log(`Related ADRs:       ${adrRefs.join(', ')}`);
-    if (principleRefs.length > 0) this.io.log(`Related principles: ${principleRefs.join(', ')}`);
+    if (taskRefs.length > 0) this.io.log(`Related tasks (top-5 matches): ${taskRefs.join(', ')}`);
+    if (adrRefs.length > 0) this.io.log(`Related ADRs:                  ${adrRefs.join(', ')}`);
+    if (principleRefs.length > 0) this.io.log(`Related principles:            ${principleRefs.join(', ')}`);
   }
 }

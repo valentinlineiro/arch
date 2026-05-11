@@ -21,23 +21,24 @@ These are three distinct states. Conflating them produces roadmap inflation and 
 | State | Meaning |
 |-------|---------|
 | **Implemented** | The code exists and the pipeline runs |
-| **Operational** | A new user can use it without learning internal ontology; it reduces real friction |
+| **Operational** | The user learns less than they save. Friction reduction is net positive after ontology cost. |
 | **Compounding** | The system generates accumulated advantage that cannot be reconstructed outside it |
 
 A feature is `DONE` only when it is **Operational**. Implemented-but-not-operational is `PARTIAL`.
+
+> **Calibration note on Operational:** ARCH has inherent ontology because the problem demands it. The correct bar is not "zero learning curve" — that would condemn protocol-layer features to permanent PARTIAL. The correct bar is: does the user get more back than they put in? That is measurable. "Zero ontology" is not.
 
 ## Current Priority Order
 
 > Discipline over creativity. The order below is not a preference — it is a dependency chain. Opening a later step before closing an earlier one is how systems fragment.
 
-1. ~~**`docs/IDENTITY.md`**~~ — done 2026-05-11
-2. ~~**`arch ask` v1**~~ — done 2026-05-11 (grep-based, primitive, real)
-3. **`arch ask` v2** — filter entity refs to top-N matches; add causal synthesis
-4. **Chronicle causal graph** — causal semantics, not just event timestamps
-5. **Cross-task pattern distillation** — the moat becomes real when the system generates non-reconstructable knowledge
-6. **Policy engine** — governance only after memory and identity exist; policy without memory is automated bureaucracy
+1. ~~**`docs/IDENTITY.md`**~~ — shipped 2026-05-11
+2. **`arch ask`** — PARTIAL (v1 shipped 2026-05-11; not yet operational) — top-N filtering, repeated-failure detection, causal synthesis still missing
+3. **Chronicle causal graph** — causal semantics, not just event timestamps
+4. **Cross-task pattern distillation** — the moat becomes real when the system generates non-reconstructable knowledge
+5. **Policy engine** — governance only after memory and identity exist; policy without memory is automated bureaucracy
 
-Everything else is a distraction until step 1 is done.
+Everything else is a distraction until step 2 is operational.
 
 ---
 
@@ -60,7 +61,7 @@ Everything else is a distraction until step 1 is done.
 
 | Feature | Status | Key Artifact |
 |---------|--------|--------------|
-| Identity definition frozen | `PARTIAL` | [docs/PRINCIPLES.md](PRINCIPLES.md) — operational KPIs, not identity |
+| Identity definition frozen | `DONE` | [docs/IDENTITY.md](IDENTITY.md) — definition, scope, layers, compounding condition, rejection criteria |
 | Operational model frozen (TASK / THINK / DO / REVIEW / RETRO / GUIDELINES / ADR) | `DONE` | [docs/GOVERNANCE.md](GOVERNANCE.md) |
 | Semantic stability (no constant renaming of core concepts) | `PARTIAL` | — |
 | `docs/IDENTITY.md` — unifying theory of what ARCH is across all layers | `DONE` | **Prerequisite for Phases 3–8.** [docs/IDENTITY.md](IDENTITY.md) — definition, scope boundaries, layer distinctions, compounding condition, rejection criteria, priority lock. |
@@ -87,7 +88,7 @@ Everything else is a distraction until step 1 is done.
 
 **Objective:** Move from documentation to operative memory. ARCH should understand, not just record.
 
-> **Current reality:** ARCH has memory storage, not memory intelligence. 218 tasks exist in archive. None are queryable. History is accumulating; compounding advantage is not. `arch ask` is the inflection point — everything before it is storage, everything after it is infrastructure.
+> **Current reality:** ARCH has memory storage, not yet memory intelligence. 218 tasks exist in archive. `arch ask` v1 shipped — keyword scoring, ranked excerpts, entity ref extraction. The corpus is now queryable in a primitive sense. It is not yet a causal engine. Compounding advantage begins when repeated-failure patterns and ADR contradictions surface automatically — not before.
 
 | Feature | Status | Key Artifact |
 |---------|--------|--------------|
@@ -105,7 +106,7 @@ Everything else is a distraction until step 1 is done.
 
 > **Clarification:** Current routing is heuristic, not intelligent. `arch.config.json` defines `strategies[taskClass][taskSize]` as ordered provider arrays. The registry evaluates them by availability. This is rule-based routing, not signal-driven routing. Correct and useful; not to be confused with something more sophisticated.
 >
-> **Strategic status:** Routing infrastructure exists and the feature is operational. However, this phase is not strategically closed: `docs/IDENTITY.md` is still unresolved, and identity precedes optimization. Until ARCH's boundaries are frozen, routing optimizes toward an undefined target. The feature is done; the phase is open.
+> **Strategic status:** Identity is now frozen. Routing is operational. The open question is whether routing decisions actually improve execution quality — or merely select providers. Strategy routing ≠ intelligence routing. The feature is done; whether the phase produces compounding advantage depends on whether routing signals evolve beyond static configuration.
 
 | Feature | Status | Key Artifact |
 |---------|--------|--------------|
