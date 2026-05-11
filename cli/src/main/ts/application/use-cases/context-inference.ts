@@ -1,5 +1,6 @@
 import type { FileSystem } from '../../domain/repositories/file-system.js';
 import type { ContextIndex } from '../../domain/models/context-index.js';
+import type { FeedbackSignal } from '../../domain/models/feedback-signal.js';
 
 const DIRECT_TASK_REFERENCE_BOOST = 4.0;
 const DIRECT_ADR_REFERENCE_BOOST = 4.0;
@@ -73,7 +74,8 @@ export class ContextInference {
     const adrRefs = this.extractAdrRefs(taskText);
     if (keywords.length === 0 && taskRefs.length === 0 && adrRefs.length === 0) return;
 
-    const result = this.score(index, keywords, taskClass, taskText);
+    const feedbackMap = await this.loadFeedbackMap();
+    const result = this.score(index, keywords, taskClass, taskText, feedbackMap);
     const section = this.formatSection(result);
 
     const taskPath = `docs/tasks/${taskId}.md`;
@@ -88,6 +90,20 @@ export class ContextInference {
     } catch { /* task file unavailable — skip write-back */ }
   }
 
+  private async loadFeedbackMap(): Promise<Map<string, FeedbackSignal>> {
+    try {
+      const raw = await this.fileSystem.readFile('.arch/context-feedback.json');
+      const signals = JSON.parse(raw) as FeedbackSignal[];
+      const map = new Map<string, FeedbackSignal>();
+      for (const s of signals) {
+        map.set(s.taskId, s);
+      }
+      return map;
+    } catch {
+      return new Map();
+    }
+  }
+
   extractKeywords(text: string): string[] {
     return [...new Set(
       text
@@ -98,7 +114,7 @@ export class ContextInference {
     )];
   }
 
-  score(index: ContextIndex, keywords: string[], taskClass: string, taskText = ''): ContextResult {
+  score(index: ContextIndex, keywords: string[], taskClass: string, taskText = '', feedbackMap?: Map<string, FeedbackSignal>): ContextResult {
     const kw = new Set(keywords);
     const critMult: Record<string, number> = { core: 1.5, domain: 1.2, support: 1.0, utility: 0.7 };
     const fileScoreMap = new Map<string, number>();
@@ -158,7 +174,11 @@ export class ContextInference {
           filteredFiles.add(filePath);
           continue;
         }
-        fileScoreMap.set(filePath, (fileScoreMap.get(filePath) ?? 0) + DIRECT_TASK_REFERENCE_BOOST);
+        const feedback = feedbackMap?.get(taskRef);
+        const boost = feedback?.verdict === 'off'
+          ? DIRECT_TASK_REFERENCE_BOOST * 0.1
+          : DIRECT_TASK_REFERENCE_BOOST;
+        fileScoreMap.set(filePath, (fileScoreMap.get(filePath) ?? 0) + boost);
       }
     }
 
