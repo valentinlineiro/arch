@@ -37,6 +37,7 @@ import { AskCommand } from './application/commands/ask-command.js';
 import { AskCorpus } from './application/use-cases/ask-corpus.js';
 import { CausalCommand } from './application/commands/causal-command.js';
 import { CausalGraph } from './application/use-cases/causal-graph.js';
+import { CausalSignalLog } from './application/use-cases/causal-signal-log.js';
 
 async function main() {
   const fileSystem = new NodeFileSystem();
@@ -155,14 +156,17 @@ async function main() {
         exit: (code) => process.exit(code) as never,
       }).execute();
       break;
-    case 'causal':
-      await new CausalCommand(new CausalGraph(fileSystem, rootPath), {
+    case 'causal': {
+      const causalGraph = new CausalGraph(fileSystem, rootPath);
+      const causalSignalLog = new CausalSignalLog(fileSystem, rootPath);
+      await new CausalCommand(causalGraph, {
         getArgs: () => args,
         log: (s) => console.log(s),
         error: (s) => console.error(s),
         exit: (code) => process.exit(code) as never,
-      }).execute();
+      }, causalSignalLog).execute();
       break;
+    }
     default:
       console.log('Usage: arch [status|validate|review|task|inbox|next|version|govern|rank|batch|drain|conduct|promote|loop|sandbox|lint|mv|exec|merge-resolve|capture|index|think|ask|causal]');
       process.exit(1);

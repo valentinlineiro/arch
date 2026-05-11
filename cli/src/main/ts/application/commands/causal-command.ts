@@ -1,4 +1,6 @@
 import { CausalGraph, VALID_RELATIONS, type ScoredEdge } from '../use-cases/causal-graph.js';
+import { CausalArbitrator, type ArbitrationResult } from '../use-cases/causal-arbitrator.js';
+import { CausalSignalLog } from '../use-cases/causal-signal-log.js';
 import { VALID_CONFIDENCES, RELATION_STRENGTH, type RelationType, type Confidence } from '../../domain/models/causal-relation.js';
 
 export interface CausalIO {
@@ -12,6 +14,8 @@ export class CausalCommand {
   constructor(
     private graph: CausalGraph,
     private io: CausalIO,
+    private signalLog?: CausalSignalLog,
+    private expiryReviews: number = 3,
   ) {}
 
   async execute(): Promise<void> {
@@ -27,17 +31,70 @@ export class CausalCommand {
       await this.correct(rest, 'invalidate');
     } else if (subcommand === 'synthesize') {
       await this.synthesize(rest);
+    } else if (subcommand === 'arbitrate') {
+      await this.arbitrate();
     } else {
       this.io.error(
-        'Usage: arch causal <add|show|weaken|invalidate|synthesize>\n' +
+        'Usage: arch causal <add|show|weaken|invalidate|synthesize|arbitrate>\n' +
         '  add <from> <relation> <to> [--note "..."] [--confidence asserted|inferred|heuristic]\n' +
         '  show <entity> [--all]\n' +
         '  weaken <edge-id> [--note "..."]\n' +
         '  invalidate <edge-id> [--note "..."]\n' +
-        '  synthesize <entity>\n\n' +
+        '  synthesize <entity>\n' +
+        '  arbitrate\n\n' +
         `Relations: ${VALID_RELATIONS.join(', ')}`,
       );
       this.io.exit(1);
+    }
+  }
+
+  private async arbitrate(): Promise<void> {
+    if (!this.signalLog) {
+      this.io.error('Signal log not available. Ensure causal signal log is configured.');
+      this.io.exit(1);
+    }
+    const arbitrator = new CausalArbitrator(this.signalLog, this.graph, this.expiryReviews);
+    const result = await arbitrator.arbitrate();
+    this.formatArbitrationResult(result);
+  }
+
+  private formatArbitrationResult(result: ArbitrationResult): void {
+    const { applied, conflicted, stale, still_pending } = result;
+    const total = applied.length + conflicted.length + stale.length + still_pending;
+
+    if (total === 0) {
+      this.io.log('No pending signals. Causal graph is up to date.');
+      return;
+    }
+
+    this.io.log(`Causal arbitration — ${total} signal(s) processed:`);
+    this.io.log('');
+
+    if (applied.length > 0) {
+      this.io.log(`  Applied (${applied.length}):`);
+      for (const a of applied) {
+        const edgeRef = a.new_edge_id ? ` → [${a.new_edge_id.slice(0, 8)}]` : '';
+        this.io.log(`    ${a.action}: ${a.edge_from} → ${a.edge_relation} → ${a.edge_to}${edgeRef}`);
+      }
+    }
+
+    if (conflicted.length > 0) {
+      this.io.log('');
+      this.io.log(`  Conflicted — human review needed (${conflicted.length}):`);
+      for (const c of conflicted) {
+        this.io.log(`    ${c.candidate_from} → ${c.candidate_relation} → ${c.candidate_to}`);
+        this.io.log(`    signals: ${c.signal_ids.map(id => id.slice(0, 8)).join(', ')}`);
+      }
+    }
+
+    if (stale.length > 0) {
+      this.io.log('');
+      this.io.log(`  Expired without corroboration (${stale.length}): ${stale.map(id => id.slice(0, 8)).join(', ')}`);
+    }
+
+    if (still_pending > 0) {
+      this.io.log('');
+      this.io.log(`  Still pending (insufficient corroboration): ${still_pending}`);
     }
   }
 
