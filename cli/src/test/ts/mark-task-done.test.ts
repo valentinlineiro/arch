@@ -50,6 +50,8 @@ class MockFileSystem implements FileSystem {
   async readDirectory() { return []; }
   async rename() {}
   async mkdir(_path: string) {}
+  async appendFile(_path: string, _content: string) {}
+  async deleteFile(_path: string) {}
 }
 
 function makeReviewer(result: ReviewResult): Reviewer {

@@ -17,6 +17,8 @@ class MockFileSystem {
   async readDirectory(path: string) { return this.directories[path] ?? []; }
   async rename() {}
   async mkdir(path: string) { this.directories[path] = this.directories[path] ?? []; }
+  async appendFile(path: string, content: string) { this.files[path] = (this.files[path] ?? '') + content; }
+  async deleteFile(path: string) { delete this.files[path]; }
 }
 
 test('IntentStatus has all required values', () => {

@@ -14,6 +14,8 @@ class MockFileSystem implements FileSystem {
   async readDirectory(path: string) { return this.directories[path] ?? []; }
   async rename(oldPath: string, newPath: string) {}
   async mkdir(path: string) {}
+  async appendFile(path: string, content: string) {}
+  async deleteFile(path: string) {}
 }
 
 class MockGitRepository implements GitRepository {
@@ -38,6 +40,7 @@ class MockGitRepository implements GitRepository {
   async getStagedFiles() { return []; }
   async getModifiedFiles() { return []; }
   async getRepoRoot() { return ''; }
+  async getCommitHistory() { return []; }
 }
 
 test('DriftChecker - reports dirty worktree tracked deletions and runtime artifacts', async () => {

@@ -1,6 +1,6 @@
 import path from 'node:path';
 import type { FileSystem } from '../../domain/repositories/file-system.js';
-import { Intent } from '../../domain/models/intent.js';
+import { Intent, IntentStatus } from '../../domain/models/intent.js';
 import type { IntentRepository } from '../../domain/repositories/intent-repository.js';
 
 export class MarkdownIntentRepository implements IntentRepository {
@@ -24,6 +24,110 @@ export class MarkdownIntentRepository implements IntentRepository {
     await this.fileSystem.mkdir(this.intentsDir);
     const filePath = path.join(this.intentsDir, `${intent.id}.md`);
     await this.fileSystem.writeFile(filePath, this.serialize(intent));
+  }
+
+  async getById(id: string): Promise<Intent | null> {
+    const filePath = path.join(this.intentsDir, `${id}.md`);
+    if (!(await this.fileSystem.exists(filePath))) return null;
+    const content = await this.fileSystem.readFile(filePath);
+    return this.deserialize(content);
+  }
+
+  async update(intent: Intent): Promise<void> {
+    const filePath = path.join(this.intentsDir, `${intent.id}.md`);
+    await this.fileSystem.writeFile(filePath, this.serialize(intent));
+  }
+
+  async findCaptured(): Promise<Intent[]> {
+    if (!(await this.fileSystem.exists(this.intentsDir))) return [];
+    const files = await this.fileSystem.readDirectory(this.intentsDir);
+    const intents: Intent[] = [];
+    for (const file of files) {
+      if (!/^INTENT-\d+\.md$/.test(file)) continue;
+      const content = await this.fileSystem.readFile(path.join(this.intentsDir, file));
+      const intent = this.deserialize(content);
+      if (intent && intent.status === IntentStatus.CAPTURED) {
+        intents.push(intent);
+      }
+    }
+    return intents;
+  }
+
+  private deserialize(content: string): Intent | null {
+    // Extract front matter between --- delimiters
+    const match = content.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
+    if (!match) return null;
+
+    const frontMatter = match[1];
+    const body = match[2].trim();
+
+    const getField = (key: string): string | undefined => {
+      const m = frontMatter.match(new RegExp(`^${key}:\\s*(.+)$`, 'm'));
+      return m ? m[1].trim() : undefined;
+    };
+
+    const getIntField = (key: string): number => {
+      const v = getField(key);
+      return v !== undefined ? parseInt(v, 10) : 0;
+    };
+
+    const getBlockList = (key: string): string[] => {
+      // Match either inline `key: []` or block list `key:\n  - item`
+      const inlineMatch = frontMatter.match(new RegExp(`^${key}:\\s*\\[\\]`, 'm'));
+      if (inlineMatch) return [];
+      const blockMatch = frontMatter.match(new RegExp(`^${key}:\\n((?:  - .+\\n?)*)`, 'm'));
+      if (!blockMatch) return [];
+      return blockMatch[1]
+        .split('\n')
+        .filter(l => l.trim().startsWith('- '))
+        .map(l => l.trim().slice(2).trim());
+    };
+
+    // Parse origin block
+    const originMatch = frontMatter.match(/^origin:\n((?:  .+\n?)*)/m);
+    const originBlock = originMatch ? originMatch[1] : '';
+
+    const originField = (key: string): string | undefined => {
+      const m = originBlock.match(new RegExp(`^  ${key}:\\s*(.+)$`, 'm'));
+      return m ? m[1].trim() : undefined;
+    };
+
+    const recentFilesInline = originBlock.match(/^  recent_files:\s*\[\]$/m);
+    const recentFiles: string[] = recentFilesInline
+      ? []
+      : (() => {
+          const blockM = originBlock.match(/^  recent_files:\n((?:    - .+\n?)*)/m);
+          if (!blockM) return [];
+          return blockM[1]
+            .split('\n')
+            .filter(l => l.trim().startsWith('- '))
+            .map(l => l.trim().slice(2).trim());
+        })();
+
+    const id = getField('id');
+    const statusStr = getField('status');
+    if (!id || !statusStr) return null;
+
+    const status = statusStr as IntentStatus;
+
+    return {
+      id,
+      schemaVersion: getIntField('schema_version'),
+      status,
+      createdAt: getField('created_at') ?? '',
+      updatedAt: getField('updated_at') ?? '',
+      origin: {
+        source: originField('source') ?? '',
+        branch: originField('branch'),
+        cwd: originField('cwd'),
+        triggeredBy: originField('triggered_by') ?? '',
+        recentFiles,
+      },
+      interpretations: [],
+      promotedTo: getBlockList('promoted_to'),
+      supersededBy: getBlockList('superseded_by'),
+      rawIntent: body,
+    };
   }
 
   private serialize(intent: Intent): string {

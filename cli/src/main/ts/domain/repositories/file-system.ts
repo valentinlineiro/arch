@@ -6,4 +6,5 @@ export interface FileSystem {
   rename(oldPath: string, newPath: string): Promise<void>;
   mkdir(path: string): Promise<void>;
   appendFile(path: string, content: string): Promise<void>;
+  deleteFile(path: string): Promise<void>;
 }

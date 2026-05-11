@@ -34,4 +34,8 @@ export class NodeFileSystem implements FileSystem {
   async appendFile(path: string, content: string): Promise<void> {
     await fs.appendFile(path, content, 'utf-8');
   }
+
+  async deleteFile(path: string): Promise<void> {
+    await fs.unlink(path);
+  }
 }
