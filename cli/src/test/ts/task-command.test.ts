@@ -39,6 +39,7 @@ class MockFileSystem {
   async exists() { return true; }
   async readDirectory() { return []; }
   async rename() {}
+  async deleteFile(_p: string) {}
 }
 
 function captureExit(fn: () => Promise<void>): Promise<number | undefined> {

@@ -24,6 +24,7 @@ class MockFileSystem {
   async readDirectory(path: string): Promise<string[]> { return this.directories[path] ?? []; }
   async rename(): Promise<void> {}
   async mkdir(): Promise<void> {}
+  async deleteFile(_p: string) {}
 }
 
 class MockGitRepository {
@@ -86,6 +87,8 @@ test('ContextIndex types are importable and structurally correct', () => {
     files: { 'cli/src/main/ts/domain/models/task.ts': file },
     adrs: { 'ADR-002': adr },
     adrTaskLinks: {},
+    failures: {},
+    guidelineFailureLinks: {},
     guidelines: { 'testing-a-change.md': guideline },
     tasks: {},
   };
@@ -232,7 +235,7 @@ export interface Task { id: string; }
   const written = fs.written['.arch/context-index.json'];
   assert.ok(written, 'index file should be written');
   const index = JSON.parse(written);
-  assert.equal(index.version, 3);
+  assert.equal(index.version, 5);
   assert.ok(index.builtAt);
   assert.ok('cli/src/main/ts/domain/models/task.ts' in index.files);
   assert.ok(index.files['cli/src/main/ts/domain/models/task.ts'].symbols.includes('TaskStatus'));
@@ -268,6 +271,8 @@ test('BuildIndex.execute() fails when git history cannot be read', async () => {
 
 test('TaskEntry and ContextIndex.tasks are structurally correct', () => {
   const task: TaskEntry = {
+    title: 'Automatic Entity Linking',
+    keywords: ['entity', 'linking', 'automatic'],
     commitCount: 3,
     lastCommitDate: '2026-05-08T10:00:00Z',
     touchedFrequency: {
@@ -284,6 +289,8 @@ test('TaskEntry and ContextIndex.tasks are structurally correct', () => {
     files: {},
     adrs: {},
     adrTaskLinks: {},
+    failures: {},
+    guidelineFailureLinks: {},
     guidelines: {},
     tasks: { 'TASK-217': task },
   };
@@ -357,7 +364,7 @@ test('BuildIndex.execute() writes tasks to context index from git history', asyn
   await builder.execute({}, git as any);
 
   const written = JSON.parse(fs.written['.arch/context-index.json']);
-  assert.equal(written.version, 3);
+  assert.equal(written.version, 5);
   assert.ok(written.tasks['TASK-42']);
   const task = written.tasks['TASK-42'];
   assert.equal(task.commitCount, 2);

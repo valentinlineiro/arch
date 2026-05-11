@@ -16,6 +16,7 @@ class MockFileSystem {
   async readDirectory(): Promise<string[]> { return []; }
   async rename(): Promise<void> {}
   async mkdir(): Promise<void> {}
+  async deleteFile(_p: string) {}
 }
 
 const FIXTURE_INDEX: ContextIndex = {
@@ -82,6 +83,8 @@ const FIXTURE_INDEX: ContextIndex = {
       },
     },
   },
+  failures: {},
+  guidelineFailureLinks: {},
   guidelines: {
     'testing-a-change.md': { tags: ['testing', 'change', 'validation'], taskClasses: ['2-code-generation'] },
     'versioning.md': { tags: ['versioning', 'schema', 'migration'], taskClasses: ['2-code-generation'] },
@@ -89,6 +92,8 @@ const FIXTURE_INDEX: ContextIndex = {
   },
   tasks: {
     'TASK-217': {
+      title: 'Automatic Entity Linking',
+      keywords: ['entity', 'linking', 'automatic'],
       commitCount: 2,
       lastCommitDate: '2026-05-08T10:00:00Z',
       touchedFrequency: {
@@ -172,6 +177,7 @@ test('ContextInference.formatSection produces correct markdown structure', () =>
     files: [{ path: 'cli/src/main/ts/domain/models/intent.ts', score: 4.5, criticality: 'core', runtimeUsage: 'hot' }],
     adrs: [{ id: 'ADR-002', title: 'Context as a budget', strength: 'enforced', score: 3 }],
     guidelines: [{ name: 'testing-a-change.md', score: 2 }],
+    failurePatterns: [],
     unresolvedTaskRefs: [],
     filteredFiles: [],
     unresolvedAdrRefs: [],
@@ -413,6 +419,7 @@ class MockFileSystemForIntegration {
   async readDirectory(): Promise<string[]> { return []; }
   async rename(): Promise<void> {}
   async mkdir(): Promise<void> {}
+  async deleteFile(_p: string) {}
 }
 
 test('TaskCommand start writes Relevant Context to task file when index exists', async () => {

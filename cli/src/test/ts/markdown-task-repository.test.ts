@@ -11,6 +11,7 @@ class MockFileSystem {
   async exists(path: string) { return path in this.files || path in this.directories; }
   async readDirectory(path: string) { return this.directories[path] ?? []; }
   async rename() {}
+  async deleteFile(_p: string) {}
 }
 
 test('MarkdownTaskRepository parses Sprint line separately from Meta', async () => {

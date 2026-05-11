@@ -16,6 +16,7 @@ class MockFileSystem {
   async readDirectory(): Promise<string[]> { return []; }
   async rename(): Promise<void> {}
   async mkdir(): Promise<void> {}
+  async deleteFile(_p: string) {}
 }
 
 class EmptyTaskRepository {

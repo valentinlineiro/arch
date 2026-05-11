@@ -29,6 +29,7 @@ class StubGitRepository {
 class StubFileSystem {
   async exists() { return false; }
   async readFile() { return '{}'; }
+  async deleteFile(_p: string) {}
 }
 
 class ViolatingReviewer {

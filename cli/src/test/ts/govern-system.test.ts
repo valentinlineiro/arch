@@ -43,6 +43,7 @@ class SpyFileSystem {
   async exists(p: string) { return p in this.files || p in this.directories; }
   async readDirectory(p: string) { return this.directories[p] ?? []; }
   async rename() {}
+  async deleteFile(_p: string) {}
 }
 
 class SpyTaskRepository {

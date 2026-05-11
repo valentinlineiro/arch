@@ -58,6 +58,7 @@ class StubGitRepository {
 class StubFileSystem {
   async exists() { return false; }
   async readFile() { return '{}'; }
+  async deleteFile(_p: string) {}
 }
 
 test('ReviewSystem does not validate archived tasks', async () => {

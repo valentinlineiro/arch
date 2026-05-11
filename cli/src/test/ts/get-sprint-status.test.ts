@@ -22,6 +22,7 @@ class MockFileSystem {
   async exists(path: string) { return path in this.files; }
   async readDirectory() { return []; }
   async rename() {}
+  async deleteFile(_p: string) {}
 }
 
 const makeTask = (overrides: Partial<Task>): Task => ({
