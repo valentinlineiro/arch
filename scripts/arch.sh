@@ -12,7 +12,7 @@ BIN="node $(dirname "$0")/../cli/dist/index.js"
 
 # ── Router ────────────────────────────────────────────────────────
 case "$1" in
-  "status"|"validate"|"inbox"|"next"|"govern"|"rank"|"batch"|"drain"|"conduct"|"promote"|"version"|"loop"|"sandbox"|"lint"|"mv"|"exec"|"--version"|"-v")
+  "status"|"validate"|"inbox"|"next"|"govern"|"rank"|"batch"|"drain"|"conduct"|"promote"|"version"|"loop"|"sandbox"|"lint"|"mv"|"exec"|"capture"|"index"|"think"|"--version"|"-v")
     $BIN "$@"
     ;;
 
@@ -68,7 +68,7 @@ case "$1" in
     ;;
 
   *)
-    echo "Usage: $0 [status|validate|review|inbox|next|govern|rank|batch|drain|archive|task|promote|version|conduct|exec|loop|sandbox|lint|mv]"
+    echo "Usage: $0 [status|validate|review|inbox|next|govern|rank|batch|drain|archive|task|promote|version|conduct|exec|loop|sandbox|lint|mv|think]"
     echo ""
     echo "Commands:"
     echo "  status     Show task counts"
@@ -90,6 +90,9 @@ case "$1" in
     echo "  sandbox    Secure execution wrapper (non-AI)"
     echo "  lint       Validate task format"
     echo "  mv         Move a file and update task contexts"
+    echo "  capture    Capture a new intent"
+    echo "  index      Rebuild the context index"
+    echo "  think      Process intents and build tasks"
     exit 1
     ;;
 esac
