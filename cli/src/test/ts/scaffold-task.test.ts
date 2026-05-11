@@ -104,3 +104,110 @@ test('MarkdownIntentRepository.update serializes status and promotedTo', async (
   assert.ok(written.includes('status: PROMOTED'));
   assert.ok(written.includes('- TASK-212'));
 });
+
+import { ScaffoldTask } from '../../main/ts/application/use-cases/scaffold-task.js';
+import type { Task } from '../../main/ts/domain/models/task.js';
+
+class MockIntentRepo {
+  intents = [{
+    id: 'INTENT-001',
+    schemaVersion: 1,
+    status: IntentStatus.CAPTURED,
+    createdAt: '2026-05-11T10:00:00Z',
+    updatedAt: '2026-05-11T10:00:00Z',
+    origin: { source: 'cli', branch: 'main', cwd: 'cli/src', triggeredBy: 'capture', recentFiles: [] },
+    interpretations: [],
+    promotedTo: [],
+    supersededBy: [],
+    rawIntent: 'fix oauth callback session loss',
+  }];
+  async getNextId() { return 'INTENT-001'; }
+  async save(_i: any) {}
+  async getById(id: string) { return this.intents.find(i => i.id === id) ?? null; }
+  async update(_i: any) {}
+  async findCaptured() { return this.intents.filter(i => i.status === IntentStatus.CAPTURED); }
+}
+
+class MockTaskRepo {
+  tasks: Task[] = [];
+  async getNextId() { return 'TASK-212'; }
+  async getAll() { return this.tasks; }
+  async getActive() { return this.tasks; }
+  async getById(id: string) { return this.tasks.find(t => t.id === id) ?? null; }
+  async findReady() { return []; }
+  async save(_t: Task) {}
+}
+
+test('ScaffoldTask writes a DRAFT task file with enrichment_phase: scaffolded', async () => {
+  const fs = new MockFS();
+  const intentRepo = new MockIntentRepo();
+  const taskRepo = new MockTaskRepo();
+  const useCase = new ScaffoldTask(intentRepo as any, taskRepo as any, fs as any);
+
+  const result = await useCase.execute('INTENT-001');
+
+  assert.strictEqual(result.taskId, 'TASK-212');
+  assert.strictEqual(result.intentId, 'INTENT-001');
+
+  const taskFile = fs.files['docs/tasks/TASK-212.md'];
+  assert.ok(taskFile, 'task file should exist');
+  assert.ok(taskFile.includes('## TASK-212:'));
+  assert.ok(taskFile.includes('DRAFT'));
+  assert.ok(taskFile.includes('enrichment_phase: scaffolded'));
+  assert.ok(taskFile.includes('**Source:** INTENT-001'));
+});
+
+test('ScaffoldTask aborts if intent not CAPTURED', async () => {
+  const fs = new MockFS();
+  const intentRepo = new MockIntentRepo();
+  intentRepo.intents[0] = { ...intentRepo.intents[0], status: IntentStatus.PROMOTED };
+  const taskRepo = new MockTaskRepo();
+  const useCase = new ScaffoldTask(intentRepo as any, taskRepo as any, fs as any);
+
+  await assert.rejects(
+    () => useCase.execute('INTENT-001'),
+    /not CAPTURED/,
+  );
+});
+
+test('ScaffoldTask aborts if task file already exists', async () => {
+  const fs = new MockFS();
+  fs.files['docs/tasks/TASK-212.md'] = 'existing content';
+  const intentRepo = new MockIntentRepo();
+  const taskRepo = new MockTaskRepo();
+  const useCase = new ScaffoldTask(intentRepo as any, taskRepo as any, fs as any);
+
+  await assert.rejects(
+    () => useCase.execute('INTENT-001'),
+    /already exists/,
+  );
+});
+
+test('ScaffoldTask aborts if intent already has promotedTo', async () => {
+  const fs = new MockFS();
+  const intentRepo = new MockIntentRepo();
+  intentRepo.intents[0] = { ...intentRepo.intents[0], promotedTo: ['TASK-100'] };
+  const taskRepo = new MockTaskRepo();
+  const useCase = new ScaffoldTask(intentRepo as any, taskRepo as any, fs as any);
+
+  await assert.rejects(
+    () => useCase.execute('INTENT-001'),
+    /already promoted/,
+  );
+});
+
+test('ScaffoldTask title is truncated to 60 chars when rawIntent is long', async () => {
+  const fs = new MockFS();
+  const intentRepo = new MockIntentRepo();
+  intentRepo.intents[0] = { ...intentRepo.intents[0], rawIntent: 'a'.repeat(80) };
+  const taskRepo = new MockTaskRepo();
+  const useCase = new ScaffoldTask(intentRepo as any, taskRepo as any, fs as any);
+
+  await useCase.execute('INTENT-001');
+
+  const content = fs.files['docs/tasks/TASK-212.md'];
+  const headerMatch = content.match(/^## TASK-212: (.+)$/m);
+  assert.ok(headerMatch, 'Header should be present');
+  assert.ok(headerMatch![1].endsWith('...'), 'Long title should end with ...');
+  assert.ok(headerMatch![1].length <= 63, 'Title part should not exceed 60 + 3 chars');
+});
