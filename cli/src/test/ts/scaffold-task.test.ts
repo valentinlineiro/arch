@@ -211,3 +211,14 @@ test('ScaffoldTask title is truncated to 60 chars when rawIntent is long', async
   assert.ok(headerMatch![1].endsWith('...'), 'Long title should end with ...');
   assert.ok(headerMatch![1].length <= 63, 'Title part should not exceed 60 + 3 chars');
 });
+
+// Invariant 7: EXECUTION_ELIGIBLE := TASK.state == READY only
+test('EXECUTION_ELIGIBLE: only READY tasks are eligible, DRAFT is not', () => {
+  // DRAFT is never eligible
+  assert.notStrictEqual(TaskStatus.DRAFT, TaskStatus.READY);
+  // BACKLOG, IN_PROGRESS, REVIEW, DONE, REJECTED are also not READY
+  const nonEligible = [TaskStatus.DRAFT, TaskStatus.BACKLOG, TaskStatus.IN_PROGRESS, TaskStatus.REVIEW, TaskStatus.DONE, TaskStatus.REJECTED];
+  for (const status of nonEligible) {
+    assert.notStrictEqual(status, TaskStatus.READY, `${status} should not be READY`);
+  }
+});

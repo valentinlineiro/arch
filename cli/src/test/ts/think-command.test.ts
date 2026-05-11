@@ -206,3 +206,67 @@ test('ThinkCommand processes specific intent when INTENT-ID provided', async () 
   assert.strictEqual(files.length, 1);
   assert.ok(fs.files[files[0]].includes('**Source:** INTENT-002'));
 });
+
+// Invariant 11: Multi-intent isolation — one skipped/failed scaffold does not abort remaining intents
+test('ThinkCommand — multi-intent: one scaffold skip does not abort others', async () => {
+  const fs = new MockFS();
+  const intent1 = CAPTURED_INTENT;
+  const intent2: Intent = { ...CAPTURED_INTENT, id: 'INTENT-002', rawIntent: 'second intent' };
+
+  const intentRepo = new MockIntentRepo();
+  intentRepo.intents = [intent1, intent2];
+
+  // Inline task repo: INTENT-001 is skipped (existing scaffold found), so only one getNextId call occurs for INTENT-002
+  const taskRepo = {
+    async getNextId() { return 'TASK-213'; },
+    async getAll() { return []; },
+    async getActive() { return []; },
+    async getById(_id: string) { return null; },
+    async findReady() { return []; },
+    async save(_t: any) {},
+  };
+
+  // Pre-create TASK-212 referencing INTENT-001 so findExistingScaffold skips it
+  fs.files['docs/tasks/TASK-212.md'] = `## TASK-212: existing\n**Source:** INTENT-001\nenrichment_phase: scaffolded\n`;
+  fs.directories['docs/tasks'] = ['TASK-212.md'];
+
+  const out: string[] = [];
+  const cmd = new ThinkCommand(intentRepo as any, taskRepo as any, fs as any, (s) => out.push(s));
+  await cmd.execute([]);
+
+  // INTENT-001 was skipped (existing scaffold found), INTENT-002 was scaffolded as TASK-213
+  const task213 = fs.files['docs/tasks/TASK-213.md'];
+  assert.ok(task213, 'INTENT-002 should have been scaffolded despite INTENT-001 being skipped');
+  assert.ok(task213.includes('**Source:** INTENT-002'), 'TASK-213 should reference INTENT-002');
+});
+
+// Invariant 5: Fresh lock causes skip
+test('ThinkCommand — fresh lock prevents processing', async () => {
+  const freshTime = new Date().toISOString();
+  const fs = new MockFS();
+  fs.files['.arch/locks/TASK-212.lock'] = freshTime;
+  fs.files['.arch/pending/TASK-212-patch.json'] = JSON.stringify({
+    task_id: 'TASK-212', intent_id: 'INTENT-001', schema_version: 1,
+    produced_at: '2026-05-11T10:30:00Z',
+    actor: { name: 'think-agent', model: 'claude-sonnet-4-6', version: 'v1' },
+    content: '### Objective\n\nTest.\n\n### Acceptance Criteria\n\n- [ ] Done\n\n### Complexity\n\nS\n\n### Confidence\n\nhigh\n\n### Risks\n\nnone',
+  });
+  fs.files['.arch/pending/INTENT-001-transition.json'] = JSON.stringify({
+    intent_id: 'INTENT-001', task_id: 'TASK-212', schema_version: 1,
+    produced_at: '2026-05-11T10:30:00Z', action: 'promote', promotion_confidence: 'high',
+  });
+  fs.directories['.arch/pending'] = ['TASK-212-patch.json', 'INTENT-001-transition.json'];
+
+  const intentRepo = new MockIntentRepo();
+  intentRepo.intents = []; // no captured intents
+  const taskRepo = new MockTaskRepo();
+  const out: string[] = [];
+
+  const cmd = new ThinkCommand(intentRepo as any, taskRepo as any, fs as any, (s) => out.push(s));
+  await cmd.execute([]);
+
+  // Lock was fresh, finalization should have been skipped
+  assert.ok(out.some(l => l.includes('lock')), 'should log lock-related message');
+  // Task should NOT be finalized — lock blocked it
+  assert.ok(!(fs.files['docs/tasks/TASK-212.md']?.includes('enrichment_phase: finalized')));
+});

@@ -256,3 +256,55 @@ test('FinalizePromotion - aborts if snapshot already exists', async () => {
   assert.strictEqual(result.success, false);
   assert.ok(result.reason?.includes('snapshot already exists'));
 });
+
+// Invariant 8: Patch pair required — transition file missing → ThinkCommand skips;
+// FinalizePromotion itself does not check transition file, so direct call still succeeds.
+test('FinalizePromotion - returns success when transition file is missing (transition check is ThinkCommand responsibility)', async () => {
+  const fs = new MockFS();
+  fs.files['docs/tasks/TASK-212.md'] = SCAFFOLD_CONTENT;
+  fs.files['docs/intents/INTENT-001.md'] = INTENT_CONTENT;
+  fs.files['.arch/pending/TASK-212-patch.json'] = VALID_PATCH;
+  // No transition file — FinalizePromotion does not check for it
+
+  const useCase = new FinalizePromotion(fs as any);
+  const result = await useCase.execute('TASK-212', 'INTENT-001');
+  // All FinalizePromotion preconditions are met: scaffolded + CAPTURED + no snapshot
+  assert.strictEqual(result.success, true);
+});
+
+// Invariant 9: .arch/staging/ is clean after execution (success case)
+test('FinalizePromotion - staging files are cleaned up on success', async () => {
+  const fs = new MockFS();
+  setupHappyPath(fs);
+
+  const useCase = new FinalizePromotion(fs as any);
+  await useCase.execute('TASK-212', 'INTENT-001');
+
+  // No staging files remain
+  const stagingFiles = Object.keys(fs.files).filter(k => k.startsWith('.arch/staging/'));
+  assert.strictEqual(stagingFiles.length, 0, 'staging directory should be empty after success');
+});
+
+// Invariant 7: No partial promotion — INTENT only marked PROMOTED after step B rename
+test('FinalizePromotion - rename order is A (task) then B (intent) then C (snapshot)', async () => {
+  const fs = new MockFS();
+  setupHappyPath(fs);
+
+  const useCase = new FinalizePromotion(fs as any);
+  await useCase.execute('TASK-212', 'INTENT-001');
+
+  // Step A: task renamed from staging to docs/tasks
+  const stepA = fs.renames.find(([from]) => from.includes('.arch/staging/TASK-212.md'));
+  const stepB = fs.renames.find(([from]) => from.includes('.arch/staging/INTENT-001.md'));
+  const stepC = fs.renames.find(([from]) => from.includes('.arch/staging/TASK-212-snapshot.json'));
+
+  assert.ok(stepA, 'step A rename (task) should have occurred');
+  assert.ok(stepB, 'step B rename (intent) should have occurred');
+  assert.ok(stepC, 'step C rename (snapshot) should have occurred');
+
+  const stepAIndex = fs.renames.indexOf(stepA!);
+  const stepBIndex = fs.renames.indexOf(stepB!);
+  const stepCIndex = fs.renames.indexOf(stepC!);
+  assert.ok(stepAIndex < stepBIndex, 'step A must precede step B');
+  assert.ok(stepBIndex < stepCIndex, 'step B must precede step C');
+});
