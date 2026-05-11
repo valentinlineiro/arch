@@ -196,3 +196,111 @@ test('execute detects recurring signals from 3+ top matches', async () => {
   const result = await corpus.execute('auth failure');
   assert.ok(result.recurringSignals.some(s => s.startsWith('TASK-099')));
 });
+
+// ── Cause groups ───────────────────────────────────────────────────────────
+
+test('causeGroups surfaces token appearing in failure lines of 2+ archive tasks', async () => {
+  const fs = new MockFileSystem({
+    '/root/docs/archive/TASK-010.md': '## TASK-010: auth failure\nauth failed due to missing coverage.',
+    '/root/docs/archive/TASK-011.md': '## TASK-011: auth failure\nauth error: missing coverage in module.',
+    '/root/docs/archive/TASK-012.md': '## TASK-012: auth failure\nauth broke: coverage incomplete.',
+  });
+  const corpus = new AskCorpus(fs, '/root');
+  const result = await corpus.execute('auth failure');
+  assert.ok(result.causeGroups.some(g => g.token === 'coverage'));
+  const g = result.causeGroups.find(g => g.token === 'coverage')!;
+  assert.ok(g.count >= 2);
+});
+
+test('causeGroups excludes query keywords from cause tokens', async () => {
+  const fs = new MockFileSystem({
+    '/root/docs/archive/TASK-010.md': '## TASK-010: auth\nauth failed.',
+    '/root/docs/archive/TASK-011.md': '## TASK-011: auth\nauth failed.',
+  });
+  const corpus = new AskCorpus(fs, '/root');
+  const result = await corpus.execute('auth failure');
+  assert.ok(!result.causeGroups.some(g => g.token === 'auth'));
+  assert.ok(!result.causeGroups.some(g => g.token === 'failure'));
+});
+
+test('causeGroups returns empty when no failure lines in archive', async () => {
+  const fs = new MockFileSystem({
+    '/root/docs/archive/TASK-010.md': '## TASK-010: auth\nauth completed successfully.',
+    '/root/docs/archive/TASK-011.md': '## TASK-011: auth\nauth done without issues.',
+  });
+  const corpus = new AskCorpus(fs, '/root');
+  const result = await corpus.execute('auth task');
+  assert.strictEqual(result.causeGroups.length, 0);
+});
+
+test('causeGroups ignores canonical docs (only archives/tasks)', async () => {
+  const fs = new MockFileSystem({
+    '/root/docs/IDENTITY.md': 'auth failed coverage coverage coverage coverage',
+    '/root/docs/ROADMAP.md': 'auth failed coverage coverage coverage',
+  });
+  const corpus = new AskCorpus(fs, '/root');
+  const result = await corpus.execute('auth failure');
+  assert.strictEqual(result.causeGroups.length, 0);
+});
+
+// ── Match reasons ──────────────────────────────────────────────────────────
+
+test('match reasons include keyword hit counts', async () => {
+  const fs = new MockFileSystem({
+    '/root/docs/archive/TASK-010.md': '## TASK-010: auth\nauth auth auth failed.',
+  });
+  const corpus = new AskCorpus(fs, '/root');
+  const result = await corpus.execute('auth failure');
+  const reasons = result.matches[0].reasons;
+  assert.ok(reasons.some(r => r.includes('auth ×')));
+});
+
+test('match reasons include multiplier label when non-1', async () => {
+  const fs = new MockFileSystem({
+    '/root/docs/archive/TASK-010.md': '## TASK-010: auth\nauth failed.',
+  });
+  const corpus = new AskCorpus(fs, '/root');
+  const result = await corpus.execute('Why did auth fail?');
+  const reasons = result.matches[0].reasons;
+  assert.ok(reasons.some(r => r.includes('archive') && r.includes('×')));
+});
+
+test('match reasons include ADR refs found in content', async () => {
+  const fs = new MockFileSystem({
+    '/root/docs/adr/ADR-005.md': '## ADR-005: auth boundary\nauth boundary enforced per ADR-001.',
+  });
+  const corpus = new AskCorpus(fs, '/root');
+  const result = await corpus.execute('auth boundary');
+  const reasons = result.matches[0].reasons;
+  assert.ok(reasons.some(r => r.includes('ADR-001')));
+});
+
+// ── Section-priority excerpt ───────────────────────────────────────────────
+
+test('extractExcerpt prefers content after keyword-containing heading', async () => {
+  const fs = new MockFileSystem({
+    '/root/docs/archive/TASK-010.md':
+      '# Unrelated heading\nsome preamble\n## auth failure details\nThis is the real context.\n## other section\nother stuff',
+  });
+  const corpus = new AskCorpus(fs, '/root');
+  const result = await corpus.execute('auth failure');
+  assert.strictEqual(result.matches[0].excerpt, 'This is the real context.');
+});
+
+test('extractExcerpt falls back to first non-heading keyword line', async () => {
+  const fs = new MockFileSystem({
+    '/root/docs/archive/TASK-010.md': '# Title\nno keywords here\nauth failure happened here\nmore content',
+  });
+  const corpus = new AskCorpus(fs, '/root');
+  const result = await corpus.execute('auth failure');
+  assert.strictEqual(result.matches[0].excerpt, 'auth failure happened here');
+});
+
+test('extractExcerpt falls back to first non-blank line when no keyword match', async () => {
+  const fs = new MockFileSystem({
+    '/root/docs/archive/TASK-010.md': '\n\n# Task title\nauth description here',
+  });
+  const corpus = new AskCorpus(fs, '/root');
+  const result = await corpus.execute('auth');
+  assert.ok(result.matches[0].excerpt.length > 0);
+});

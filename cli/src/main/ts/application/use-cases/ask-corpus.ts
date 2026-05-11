@@ -6,6 +6,13 @@ export interface CorpusMatch {
   path: string;
   score: number;
   excerpt: string;
+  reasons: string[];
+}
+
+export interface CauseGroup {
+  token: string;
+  count: number;
+  taskIds: string[];
 }
 
 export interface AskResult {
@@ -17,6 +24,7 @@ export interface AskResult {
   adrRefs: string[];
   principleRefs: string[];
   recurringSignals: string[];
+  causeGroups: CauseGroup[];
 }
 
 const STOP_WORDS = new Set([
@@ -95,7 +103,7 @@ export class AskCorpus {
 
     const queryClass = this.classifyQuery(question);
     const files = await this.collectFiles();
-    const scored: Array<{ path: string; score: number; excerpt: string; content: string }> = [];
+    const scored: Array<{ path: string; score: number; excerpt: string; reasons: string[]; content: string }> = [];
 
     for (const file of files) {
       const fullPath = `${this.rootPath}/${file}`;
@@ -107,16 +115,19 @@ export class AskCorpus {
       }
 
       const lower = content.toLowerCase();
-      let hits = 0;
+      const kwHits = new Map<string, number>();
       for (const kw of keywords) {
-        let pos = 0;
-        while ((pos = lower.indexOf(kw, pos)) !== -1) { hits++; pos++; }
+        let count = 0, pos = 0;
+        while ((pos = lower.indexOf(kw, pos)) !== -1) { count++; pos++; }
+        if (count > 0) kwHits.set(kw, count);
       }
-      if (hits === 0) continue;
+      if (kwHits.size === 0) continue;
 
+      const totalHits = [...kwHits.values()].reduce((a, b) => a + b, 0);
       const multiplier = this.getMultiplier(queryClass, file);
-      const score = hits * multiplier;
-      scored.push({ path: file, score, excerpt: this.extractExcerpt(content, keywords), content });
+      const score = totalHits * multiplier;
+      const reasons = this.buildReasons(kwHits, multiplier, file, content);
+      scored.push({ path: file, score, excerpt: this.extractExcerpt(content, keywords), reasons, content });
     }
 
     scored.sort((a, b) => b.score - a.score);
@@ -144,6 +155,8 @@ export class AskCorpus {
       .sort((a, b) => b[1] - a[1])
       .map(([id, count]) => `${id} (${count} matches)`);
 
+    const causeGroups = this.buildCauseGroups(top, keywords);
+
     const answer = queryClass === 'DEFINITIONAL'
       ? await this.extractDefinitionalAnswer()
       : null;
@@ -152,11 +165,12 @@ export class AskCorpus {
       queryClass,
       keywords,
       answer,
-      matches: top.map(({ path, score, excerpt }) => ({ path, score, excerpt })),
+      matches: top.map(({ path, score, excerpt, reasons }) => ({ path, score, excerpt, reasons })),
       taskRefs: [...taskRefs].sort(),
       adrRefs: [...adrRefs].sort(),
       principleRefs: [...principleRefs].sort(),
       recurringSignals,
+      causeGroups,
     };
   }
 
@@ -191,6 +205,65 @@ export class AskCorpus {
       if (pattern.test(filePath)) return multiplier;
     }
     return 1;
+  }
+
+  private buildReasons(kwHits: Map<string, number>, multiplier: number, filePath: string, content: string): string[] {
+    const reasons: string[] = [];
+
+    const kwParts = [...kwHits.entries()]
+      .sort((a, b) => b[1] - a[1])
+      .map(([kw, n]) => `${kw} ×${n}`);
+    reasons.push(`keywords: ${kwParts.join(', ')}`);
+
+    if (multiplier !== 1) {
+      const dir = multiplier >= 1 ? 'boost' : 'suppressed';
+      const tag = filePath.includes('/archive/') ? 'archive'
+        : filePath.includes('/adr/') ? 'ADR'
+        : filePath.includes('/tasks/') ? 'tasks'
+        : filePath.includes('/guidelines/') ? 'guidelines'
+        : filePath.split('/').pop()!.replace('.md', '');
+      reasons.push(`${tag} ${multiplier}× ${dir}`);
+    }
+
+    const adrRefs = [...new Set(content.match(/ADR-\d+/g) ?? [])].slice(0, 3);
+    if (adrRefs.length > 0) reasons.push(`refs ${adrRefs.join(', ')}`);
+
+    return reasons;
+  }
+
+  private buildCauseGroups(
+    top: Array<{ path: string; content: string }>,
+    queryKeywords: string[],
+  ): CauseGroup[] {
+    const FAILURE_SIGNALS = /\b(fail|reject|block|miss|incomplete|error|broke|issue|gap|stuck|stale|delay)/i;
+    // Structural tokens that appear in every archive file — no causal signal
+    const NOISE = new Set(['task', 'tasks', 'arch', 'docs', 'file', 'files', 'code', 'work', 'item', 'done', 'meta', 'focus', 'context', 'section', 'content', 'archive', 'review', 'result', 'results', 'output', 'status', 'update', 'change', 'changes']);
+    const queryKwSet = new Set(queryKeywords);
+    const tokenToTasks = new Map<string, Set<string>>();
+
+    for (const { path, content } of top) {
+      if (!path.includes('/archive/') && !path.includes('/tasks/')) continue;
+      const taskId = path.match(/TASK-\d+/)?.[0];
+      if (!taskId) continue;
+
+      const failureLines = content.split('\n').filter(l => FAILURE_SIGNALS.test(l));
+      if (failureLines.length === 0) continue;
+
+      // Also exclude tokens that are derived forms of query keywords (e.g. 'failures' from 'fail')
+      const tokens = this.tokenize(failureLines.join(' '))
+        .filter(t => !queryKwSet.has(t) && !NOISE.has(t) && t.length >= 5
+          && ![...queryKwSet].some(kw => t.startsWith(kw)));
+      for (const token of tokens) {
+        if (!tokenToTasks.has(token)) tokenToTasks.set(token, new Set());
+        tokenToTasks.get(token)!.add(taskId);
+      }
+    }
+
+    return [...tokenToTasks.entries()]
+      .filter(([, tasks]) => tasks.size >= 2)
+      .sort((a, b) => b[1].size - a[1].size)
+      .slice(0, 5)
+      .map(([token, tasks]) => ({ token, count: tasks.size, taskIds: [...tasks].sort() }));
   }
 
   private async extractDefinitionalAnswer(): Promise<string | null> {
@@ -230,7 +303,21 @@ export class AskCorpus {
 
   private extractExcerpt(content: string, keywords: string[]): string {
     const lines = content.split('\n');
-    const hit = lines.find(l => keywords.some(kw => l.toLowerCase().includes(kw))) ?? lines[0];
-    return hit.replace(/^#+\s*/, '').trim().slice(0, 120);
+    const hasKw = (s: string) => keywords.some(kw => s.toLowerCase().includes(kw));
+
+    // Prefer: first content line after a heading that contains a keyword
+    for (let i = 0; i < lines.length; i++) {
+      if (/^#+\s/.test(lines[i]) && hasKw(lines[i])) {
+        const next = lines.slice(i + 1).find(l => l.trim() && !/^#+\s/.test(l));
+        if (next) return next.replace(/^[>*-]\s*/, '').trim().slice(0, 120);
+      }
+    }
+
+    // Fallback: first non-heading keyword-matching line
+    const hit = lines.find(l => !/^#+\s/.test(l) && hasKw(l));
+    if (hit) return hit.replace(/^[>*-]\s*/, '').trim().slice(0, 120);
+
+    // Last resort: first non-blank line
+    return (lines.find(l => l.trim()) ?? lines[0]).replace(/^#+\s*/, '').trim().slice(0, 120);
   }
 }
