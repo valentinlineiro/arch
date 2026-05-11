@@ -1,5 +1,5 @@
 import { CausalGraph, VALID_RELATIONS } from '../use-cases/causal-graph.js';
-import type { RelationType } from '../../domain/models/causal-relation.js';
+import { VALID_CONFIDENCES, RELATION_STRENGTH, type RelationType, type Confidence } from '../../domain/models/causal-relation.js';
 
 export interface CausalIO {
   getArgs(): string[];
@@ -24,21 +24,28 @@ export class CausalCommand {
     } else {
       this.io.error(
         'Usage: arch causal <add|show>\n' +
-        '  add <from> <relation> <to> [--note "..."]\n' +
-        `  show <entity>\n` +
-        `\nRelations: ${VALID_RELATIONS.join(', ')}`,
+        '  add <from> <relation> <to> [--note "..."] [--confidence asserted|inferred|heuristic]\n' +
+        '  show <entity>\n\n' +
+        `Relations: ${VALID_RELATIONS.join(', ')}`,
       );
       this.io.exit(1);
     }
   }
 
+  private parseFlag(args: string[], flag: string): { value: string | undefined; rest: string[] } {
+    const idx = args.indexOf(flag);
+    if (idx === -1) return { value: undefined, rest: args };
+    const value = args[idx + 1];
+    const rest = [...args.slice(0, idx), ...args.slice(idx + 2)];
+    return { value, rest };
+  }
+
   private async add(args: string[]): Promise<void> {
-    const noteIdx = args.indexOf('--note');
-    const core = noteIdx === -1 ? args : args.slice(0, noteIdx);
-    const note = noteIdx !== -1 ? args.slice(noteIdx + 1).join(' ') || undefined : undefined;
+    const { value: note, rest: afterNote } = this.parseFlag(args, '--note');
+    const { value: confidenceRaw, rest: core } = this.parseFlag(afterNote, '--confidence');
 
     if (core.length < 3) {
-      this.io.error('Usage: arch causal add <from> <relation> <to> [--note "..."]');
+      this.io.error('Usage: arch causal add <from> <relation> <to> [--note "..."] [--confidence asserted|inferred|heuristic]');
       this.io.exit(1);
     }
 
@@ -50,8 +57,19 @@ export class CausalCommand {
       this.io.exit(1);
     }
 
-    const entry = await this.graph.add(from, relation as RelationType, to, note);
-    this.io.log(`Recorded: ${entry.from} → ${entry.relation} → ${entry.to}${entry.note ? ` · ${entry.note}` : ''}`);
+    const confidence: Confidence = (confidenceRaw as Confidence) ?? 'asserted';
+    if (!(VALID_CONFIDENCES as readonly string[]).includes(confidence)) {
+      this.io.error(`Invalid confidence: "${confidenceRaw}"\nValid: ${VALID_CONFIDENCES.join(', ')}`);
+      this.io.exit(1);
+    }
+
+    const entry = await this.graph.add(from, relation as RelationType, to, note, confidence);
+    const strength = RELATION_STRENGTH[relation as RelationType];
+    this.io.log(
+      `Recorded: ${entry.from} → ${entry.relation} → ${entry.to}` +
+      ` [${entry.confidence}/${entry.source}, ${strength}]` +
+      (entry.note ? ` · ${entry.note}` : ''),
+    );
   }
 
   private async show(args: string[]): Promise<void> {
@@ -74,14 +92,26 @@ export class CausalCommand {
     if (outgoing.length > 0) {
       this.io.log('  Outgoing:');
       for (const r of outgoing) {
-        this.io.log(`    ${r.from} → ${r.relation} → ${r.to}${r.note ? ` · ${r.note}` : ''}`);
+        const strength = RELATION_STRENGTH[r.relation];
+        const conf = r.confidence ?? 'asserted';
+        this.io.log(
+          `    ${r.from} → ${r.relation} → ${r.to}` +
+          ` [${conf}/${r.source ?? 'human'}, ${strength}]` +
+          (r.note ? ` · ${r.note}` : ''),
+        );
       }
     }
 
     if (incoming.length > 0) {
       this.io.log('  Incoming:');
       for (const r of incoming) {
-        this.io.log(`    ${r.from} → ${r.relation} → ${r.to}${r.note ? ` · ${r.note}` : ''}`);
+        const strength = RELATION_STRENGTH[r.relation];
+        const conf = r.confidence ?? 'asserted';
+        this.io.log(
+          `    ${r.from} → ${r.relation} → ${r.to}` +
+          ` [${conf}/${r.source ?? 'human'}, ${strength}]` +
+          (r.note ? ` · ${r.note}` : ''),
+        );
       }
     }
   }

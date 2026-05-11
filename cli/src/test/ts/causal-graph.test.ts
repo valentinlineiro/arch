@@ -35,6 +35,8 @@ test('add appends a JSONL line to causal-graph.jsonl', async () => {
   assert.strictEqual(parsed.from, 'TASK-220');
   assert.strictEqual(parsed.to, 'ADR-011');
   assert.strictEqual(parsed.relation, 'implements');
+  assert.strictEqual(parsed.confidence, 'asserted');
+  assert.strictEqual(parsed.source, 'human');
   assert.ok(parsed.timestamp);
 });
 
@@ -142,6 +144,45 @@ test('causal add with --note stores note', async () => {
   await cmd.execute();
   const all = await graph.all();
   assert.strictEqual(all[0].note, 'missing retro');
+});
+
+test('causal add defaults to asserted/human confidence', async () => {
+  const fs = new MockFileSystem();
+  const graph = new CausalGraph(fs, '/root');
+  const io = makeIO(['add', 'TASK-220', 'implements', 'ADR-011']);
+  await new CausalCommand(graph, io).execute();
+  const all = await graph.all();
+  assert.strictEqual(all[0].confidence, 'asserted');
+  assert.strictEqual(all[0].source, 'human');
+});
+
+test('causal add with --confidence heuristic stores heuristic', async () => {
+  const fs = new MockFileSystem();
+  const graph = new CausalGraph(fs, '/root');
+  const io = makeIO(['add', 'TASK-220', 'references', 'ADR-011', '--confidence', 'heuristic']);
+  await new CausalCommand(graph, io).execute();
+  const all = await graph.all();
+  assert.strictEqual(all[0].confidence, 'heuristic');
+});
+
+test('causal add with invalid confidence exits 1', async () => {
+  const fs = new MockFileSystem();
+  const graph = new CausalGraph(fs, '/root');
+  const io = makeIO(['add', 'TASK-220', 'implements', 'ADR-011', '--confidence', 'maybe']);
+  const cmd = new CausalCommand(graph, io);
+  await assert.rejects(() => cmd.execute(), /exit:1/);
+  assert.ok(io.errors.some(e => e.includes('Invalid confidence')));
+});
+
+test('causal show displays strength and confidence on each edge', async () => {
+  const fs = new MockFileSystem();
+  const graph = new CausalGraph(fs, '/root');
+  await graph.add('TASK-220', 'implements', 'ADR-011');
+  const io = makeIO(['show', 'TASK-220']);
+  await new CausalCommand(graph, io).execute();
+  const output = io.logs.join('\n');
+  assert.ok(output.includes('MEDIUM'));
+  assert.ok(output.includes('asserted'));
 });
 
 test('causal add with invalid relation exits 1', async () => {

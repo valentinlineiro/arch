@@ -1,5 +1,11 @@
 import type { FileSystem } from '../../domain/repositories/file-system.js';
-import { VALID_RELATIONS, type CausalRelation, type RelationType } from '../../domain/models/causal-relation.js';
+import {
+  VALID_RELATIONS,
+  type CausalRelation,
+  type RelationType,
+  type Confidence,
+  type CausalSource,
+} from '../../domain/models/causal-relation.js';
 
 const GRAPH_PATH = '.arch/causal-graph.jsonl';
 
@@ -11,11 +17,20 @@ export class CausalGraph {
     private rootPath: string,
   ) {}
 
-  async add(from: string, relation: RelationType, to: string, note?: string): Promise<CausalRelation> {
+  async add(
+    from: string,
+    relation: RelationType,
+    to: string,
+    note?: string,
+    confidence: Confidence = 'asserted',
+    source: CausalSource = 'human',
+  ): Promise<CausalRelation> {
     const entry: CausalRelation = {
       from,
       to,
       relation,
+      confidence,
+      source,
       timestamp: new Date().toISOString(),
       ...(note ? { note } : {}),
     };

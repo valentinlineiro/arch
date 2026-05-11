@@ -1,2 +1,4 @@
-{"from":"TASK-220","to":"ADR-011","relation":"implements","timestamp":"2026-05-11T13:23:10.593Z"}
-{"from":"TASK-184","to":"TASK-220","relation":"caused_by","timestamp":"2026-05-11T13:23:10.625Z","note":"routing debt from sprint 4"}
+{"from":"TASK-220","to":"ADR-011","relation":"implements","confidence":"asserted","source":"human","timestamp":"2026-05-11T13:23:10.593Z"}
+{"from":"TASK-184","to":"TASK-220","relation":"caused_by","confidence":"asserted","source":"human","timestamp":"2026-05-11T13:23:10.625Z","note":"routing debt from sprint 4"}
+{"from":"TASK-220","to":"ADR-011","relation":"implements","confidence":"asserted","source":"human","timestamp":"2026-05-11T13:30:18.762Z"}
+{"from":"TASK-201","to":"GUIDELINE-core","relation":"violated","confidence":"heuristic","source":"human","timestamp":"2026-05-11T13:30:18.800Z","note":"co-occurrence signal only"}
