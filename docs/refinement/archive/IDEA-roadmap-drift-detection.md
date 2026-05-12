@@ -1,7 +1,7 @@
 # IDEA: Drift detection — two-tier structural and semantic integrity checks
 **Created:** 2026-05-08
 **Source:** Roadmap reflection
-**Status:** DECIDED
+**Status:** PROMOTED → ADR-013, TASK-215 (archived 2026-05-12 — work complete)
 **Meta:** P1 | M | claude-code | cli/src/main/ts/domain/services/drift-checker.ts
 
 ## Problem

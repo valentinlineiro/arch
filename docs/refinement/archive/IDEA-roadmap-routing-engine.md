@@ -1,7 +1,7 @@
 # IDEA: Routing Engine — intelligent model and provider selection per task
 **Created:** 2026-05-08
 **Source:** Roadmap reflection
-**Status:** DECIDED
+**Status:** PROMOTED → ADR-011, ADR-013 (archived 2026-05-12 — work complete)
 **Meta:** P1 | S | claude-code | arch.config.json, cli/src/main/ts/domain/services/provider-registry.ts
 
 ## Problem
