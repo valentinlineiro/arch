@@ -11,8 +11,22 @@
 ## Phase 2: Idea Refinement (Refine)
 0. **Print:** `[THINK] Phase 2 — Idea Refinement` to stdout.
 1. Scan `docs/refinement/` for `IDEA-*.md` files. Triage: process all IDEAs with a `Decision:` field first; for DRAFT IDEAs, process at most 3 per session.
-2. For each IDEA, apply lifecycle rules:
-   - **DRAFT:** Identify gaps, dependencies, and estimate. Output to terminal only. Increment `**Sessions:** N` counter in the IDEA file (add field if missing). If `Sessions >= 3`, emit `[STALE-IDEA] IDEA-slug — N sessions without Decision` to stdout. If `Sessions > 3` and still no Decision, move it to `docs/refinement/archive/` with status `REJECTED: TTL expired` — do not re-evaluate.
+2. **Constraint evaluation framework (apply to every DRAFT IDEA):** Each dimension is an independent axis. Multiple can be active simultaneously. Identify which axes are violated before writing any lifecycle output.
+
+   | Axis | Violation signal | Notes |
+   |------|-----------------|-------|
+   | **Dependency ordering** | Requires something not yet built or operational | Distinct from temporal validity — prerequisites may be done but evidence absent |
+   | **Temporal validity** | Insufficient empirical base for this to be meaningful | "The data that would make this useful doesn't exist yet" |
+   | **Abstraction layer** | Wrong level of the system stack; a simpler/lower layer could solve the same problem | Common failure: new layer where a direct fix would do |
+   | **Observability validity** | Required observable doesn't exist in reliable form | Distinct from temporal validity — data may never be reliably producible, not just absent now |
+   | **Priority displacement** | Valid idea, valid data, wrong bottleneck for current system pressure | Rarely causes rejection alone; primarily sets priority; reference IDENTITY.md §6 |
+
+   A DRAFT IDEA that passes all five axes is **structurally admissible**. That is necessary but not sufficient for promotion. Structural admissibility means: no known constraint axis is violated. It does not mean the IDEA is good — only that it is not currently inadmissible. Human decision is required to activate it.
+
+   New axes may be discovered during adjudication. When a rejection rationale genuinely doesn't fit any existing axis, name it explicitly in the rejection — the taxonomy is empirically derived, not closed.
+
+3. For each IDEA, apply lifecycle rules:
+   - **DRAFT:** Identify gaps, map active constraint axes, and estimate. Output to terminal only. Increment `**Sessions:** N` counter in the IDEA file (add field if missing). If `Sessions >= 3`, emit `[STALE-IDEA] IDEA-slug — N sessions without Decision` to stdout. If `Sessions > 3` and still no Decision, move it to `docs/refinement/archive/` with status `REJECTED: TTL expired` — do not re-evaluate.
    - **REJECTED (human-written):** If the Decision field contains `REJECT:`, move the IDEA to `docs/refinement/archive/` immediately. No re-evaluation. No session increment. Commit with `chore: [THINK] archive [IDEA-slug] — REJECTED by human decision`.
    - **DECIDED (PROMOTE):** If human Decision is written and IDEA is XS + 6-writing/7-operations, promote autonomously: update status to `PROMOTED -> TASK-XXX`, create task file, and archive IDEA. Then:
      1. Append a PROMOTE record to `.arch/reflect-proposals.jsonl` at confidence 1.0 (records that THINK executed a human decision, not that THINK proposed it).

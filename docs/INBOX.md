@@ -35,3 +35,16 @@ Wire causal signal generation into arch task done and arch govern. Verified all 
 
 ## [2026-05-12] REVIEW_PASS | TASK-227
 Relocate drift-checker to application layer and define domain boundary. Verified all ACs. archived.
+
+## [2026-05-12] AWAITING_PROMOTION | IDEA-govern-reflect-split
+
+**Constraint-space analysis:** All five axes evaluated — none violated.
+- Dependency ordering: no blocking prerequisites
+- Temporal validity: evidence base is IDENTITY.md §7, which already articulates this split
+- Abstraction layer: CLI command surface is the correct layer for naming/identity fixes
+- Observability validity: no measurement required; structural change
+- Priority displacement: directly named in IDENTITY.md §7 as a target; prevents specific degradation ("THINK already participates in govern, so it can also…")
+
+**Structural position:** Sits in a region of the constraint space where no known axis is violated. Should be done before any feature that expands THINK's output surface.
+
+**Decision required:** PROMOTE → TASK-XXX (write task number in IDEA file) or REJECT with rationale.
