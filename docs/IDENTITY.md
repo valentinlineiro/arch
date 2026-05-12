@@ -2,6 +2,14 @@
 <!-- Frozen system boundaries. This document is a constraint, not an inspiration. -->
 <!-- Updated: 2026-05-12 | §8 added: Epistemic Plane Separation -->
 
+<!-- Re-entry index — fast path back to the relevant constraint:
+     "Is this feature inside ARCH?"                   → §2 Scope Boundaries + §5 Rejection Criteria
+     "Can this LLM output affect a governance gate?"  → §7 Deterministic Core Invariant (Prohibited table)
+     "Should this event go to Chronicle?"             → §8 Epistemic Plane Separation (Three Domains)
+     "Is THINK/REFLECT making an enforcement claim?"  → §7 Governance: the mandatory split
+     "Does this change what ARCH IS?"                 → §1 Definition (frozen — do not rephrase)
+     "What's the implementation priority?"            → §6 Current Priority Lock -->
+
 ---
 
 ## 1. Definition

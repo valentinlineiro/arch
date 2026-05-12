@@ -3,6 +3,15 @@
 
 This document establishes the governance contract between the ARCH Agent and the Human. It defines who holds authority for various types of decisions.
 
+<!-- Re-entry index — find the relevant section for the decision you're making:
+     Introducing a new DriftChecker check or governance rule → §Governance Rule Introduction Protocol
+     Handling a THINK signal about class boundary or degeneration  → §Governance Epistemological Boundary
+     Deciding whether something is Class I or Class II             → §Canonical case (2026-05-12), then §Boundary
+     Processing an INBOX escalation                               → §Escalation
+     Responding to a governance stale or cross-rule signal        → §Terminal failure mode + §Boundary audit in THINK.md
+     If re-reading this whole document feels necessary            → you're probably doing maintenance, not a decision;
+                                                                    find the specific decision trigger above instead -->
+
 ## Decision Matrix
 
 | Category | Decider | Protocol |
