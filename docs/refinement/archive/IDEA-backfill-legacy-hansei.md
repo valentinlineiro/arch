@@ -15,4 +15,4 @@ Update the `HanseiPresent` check in `DriftChecker` to only enforce the section f
 Cleans up the `arch review` signal and adheres to P-003 (Quality gates must be machine-enforced) while acknowledging legacy state.
 
 ## Decision
-<!-- Human writes here after THINK evaluation -->
+PROMOTE → TASK-232 [influenced-by: none]

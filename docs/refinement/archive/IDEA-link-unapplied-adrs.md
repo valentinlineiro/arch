@@ -15,4 +15,4 @@ Create a small "administrative" task to verify the implementation of these ADRs 
 Maintains the integrity of the ADR-to-Task causal graph.
 
 ## Decision
-<!-- Human writes here after THINK evaluation -->
+PROMOTE → TASK-233 [influenced-by: none]

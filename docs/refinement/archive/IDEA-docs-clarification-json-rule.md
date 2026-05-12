@@ -15,4 +15,4 @@ Clarify that the "no JSON/YAML" rule applies strictly to protocol definitions, t
 Removes conceptual contradiction and aligns documentation with observed system behavior.
 
 ## Decision
-<!-- Human writes here after THINK evaluation -->
+PROMOTE → TASK-234 [influenced-by: none]

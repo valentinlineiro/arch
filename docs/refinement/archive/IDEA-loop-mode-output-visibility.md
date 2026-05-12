@@ -27,5 +27,4 @@ XS
 - Output interleaving: ensure that metadata parsing (cost, turns) still works if the agent's output is mixed with terminal control sequences.
 
 ## Decision
-<!-- Human writes here after THINK evaluation -->
-<!-- PROMOTE → TASK-XXX | REJECT: reason -->
+PROMOTE → TASK-239 [influenced-by: none]

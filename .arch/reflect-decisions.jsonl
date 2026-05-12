@@ -1,1 +1,13 @@
 {"decision_id":"D-a3f2c1b8","timestamp":"2026-05-12T00:00:00Z","target":"IDEA-govern-reflect-split","outcome":"PROMOTE","finality":"committed","influence_declared":true,"based_on_proposals":[]}
+{"decision_id":"D-b1c2d3e4","timestamp":"2026-05-12T00:00:00Z","target":"IDEA-adr-013-phase-label-drift","outcome":"PROMOTE","finality":"committed","influence_declared":true,"based_on_proposals":[]}
+{"decision_id":"D-e5f6a7b8","timestamp":"2026-05-12T00:00:00Z","target":"IDEA-backfill-legacy-hansei","outcome":"PROMOTE","finality":"committed","influence_declared":true,"based_on_proposals":[]}
+{"decision_id":"D-c9d0e1f2","timestamp":"2026-05-12T00:00:00Z","target":"IDEA-link-unapplied-adrs","outcome":"PROMOTE","finality":"committed","influence_declared":true,"based_on_proposals":[]}
+{"decision_id":"D-a3b4c5d6","timestamp":"2026-05-12T00:00:00Z","target":"IDEA-docs-clarification-json-rule","outcome":"PROMOTE","finality":"committed","influence_declared":true,"based_on_proposals":[]}
+{"decision_id":"D-e7f8a9b0","timestamp":"2026-05-12T00:00:00Z","target":"IDEA-docs-drift-guidelines-file-reference","outcome":"PROMOTE","finality":"committed","influence_declared":true,"based_on_proposals":[]}
+{"decision_id":"D-c1d2e3f4","timestamp":"2026-05-12T00:00:00Z","target":"IDEA-think-replenishment-link","outcome":"PROMOTE","finality":"committed","influence_declared":true,"based_on_proposals":[]}
+{"decision_id":"D-a5b6c7d8","timestamp":"2026-05-12T00:00:00Z","target":"IDEA-consolidate-autonomy-rules","outcome":"PROMOTE","finality":"committed","influence_declared":true,"based_on_proposals":[]}
+{"decision_id":"D-e9f0a1b2","timestamp":"2026-05-12T00:00:00Z","target":"IDEA-level-terminology-disambiguation","outcome":"PROMOTE","finality":"committed","influence_declared":true,"based_on_proposals":[]}
+{"decision_id":"D-c3d4e5f6","timestamp":"2026-05-12T00:00:00Z","target":"IDEA-loop-mode-output-visibility","outcome":"PROMOTE","finality":"committed","influence_declared":true,"based_on_proposals":[]}
+{"decision_id":"D-a7b8c9d0","timestamp":"2026-05-12T00:00:00Z","target":"IDEA-verbose-fallback-logging","outcome":"PROMOTE","finality":"committed","influence_declared":true,"based_on_proposals":[]}
+{"decision_id":"D-e1f2a3b4","timestamp":"2026-05-12T00:00:00Z","target":"IDEA-escalation-event-structured-store","outcome":"PROMOTE","finality":"committed","influence_declared":true,"based_on_proposals":[]}
+{"decision_id":"D-c5d6e7f8","timestamp":"2026-05-12T00:00:00Z","target":"IDEA-cli-npm","outcome":"PROMOTE","finality":"committed","influence_declared":true,"based_on_proposals":[]}

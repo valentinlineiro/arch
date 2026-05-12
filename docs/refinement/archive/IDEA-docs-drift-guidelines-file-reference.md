@@ -15,4 +15,4 @@ Update the guideline to reference the `docs/guidelines/` directory and the proto
 Ensures guidelines accurately reflect the current repository structure.
 
 ## Decision
-<!-- Human writes here after THINK evaluation -->
+PROMOTE → TASK-235 [influenced-by: none]

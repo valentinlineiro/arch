@@ -24,4 +24,4 @@ XS
 ## Gaps
 
 ## Decision
-<!-- Human writes here after THINK evaluation -->
+PROMOTE → TASK-237 [influenced-by: none]

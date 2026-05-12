@@ -29,4 +29,4 @@ XS — updating docs/guidelines/autonomy.md, docs/adr/ADR-010-escalation-maturit
 ## Gaps
 
 ## Decision
-<!-- Human writes here after THINK evaluation -->
+PROMOTE → TASK-238 [influenced-by: none]

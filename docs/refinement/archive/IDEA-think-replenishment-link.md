@@ -15,4 +15,4 @@ Update `docs/agents/THINK.md` Phase 2 (Context & Replenishment) to include a che
 Ensures the operational protocol implements the rules defined in core guidelines.
 
 ## Decision
-<!-- Human writes here after THINK evaluation -->
+PROMOTE → TASK-236 [influenced-by: none]

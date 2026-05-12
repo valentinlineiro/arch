@@ -26,5 +26,4 @@ XS
 - Performance: ensure verbose logging doesn't slow down the loop in high-throughput scenarios.
 
 ## Decision
-<!-- Human writes here after THINK evaluation -->
-<!-- PROMOTE → TASK-XXX | REJECT: reason -->
+PROMOTE → TASK-240 [influenced-by: none]
