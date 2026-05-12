@@ -1,5 +1,5 @@
 ## TASK-200: Implement arch task compress - lossy archive compression for Kaizen signal
-**Meta:** P2 | M | READY | Focus:no | 2-code-generation | claude-code | docs/archive/, cli/src/main/ts/
+**Meta:** P1 | M | READY | Focus:yes | 2-code-generation | claude-code | docs/archive/, cli/src/main/ts/
 **Depends:** none
 
 ### Acceptance Criteria

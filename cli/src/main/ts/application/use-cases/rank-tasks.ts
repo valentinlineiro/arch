@@ -5,7 +5,7 @@ export class RankTasks {
   constructor(private taskRepository: TaskRepository) {}
 
   async execute(): Promise<Task[]> {
-    const allTasks = await this.taskRepository.getAll();
+    const allTasks = await this.taskRepository.getActive();
     const readyTasks = allTasks.filter(t => t.status === TaskStatus.READY);
     
     const sizeMap: Record<string, number> = { 'XS': 1, 'S': 2, 'M': 3, 'L': 5, 'XL': 8 };
