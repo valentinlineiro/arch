@@ -16,6 +16,8 @@ Implement context reset for agents:
 2. Add context budget limit before task start
 3. Implement context usage tracking
 
+**Sessions:** 1
+
 ## Source
 
 Internal discussion — user feedback

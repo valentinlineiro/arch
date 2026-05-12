@@ -17,6 +17,8 @@ Handle parallel task execution:
 3. Implement automatic merge conflict resolution
 4. Queue tasks that would collide
 
+**Sessions:** 1
+
 ## Source
 
 Internal discussion — user feedback

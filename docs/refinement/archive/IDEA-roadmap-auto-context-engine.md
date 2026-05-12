@@ -1,7 +1,7 @@
 # IDEA: Auto Context Engine — infer relevant files, commits, ADRs, and guidelines per task
 **Created:** 2026-05-08
 **Source:** Roadmap reflection
-**Status:** DECIDED
+**Status:** REJECTED: dependency removed — arch capture excised from system (2026-05-12); promotion target TASK-219 taken by unrelated archived task
 **Meta:** P1 | M | claude-code | cli/src/main/ts/domain/
 
 ## Problem
