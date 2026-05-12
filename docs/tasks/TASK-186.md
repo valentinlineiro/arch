@@ -1,5 +1,5 @@
 ## TASK-186: Consolidate CLI - absorb validate and lint into review
-**Meta:** P2 | M | IN_PROGRESS | Focus:no | 2-code-generation | claude-code | cli/src/main/ts/index.ts, cli/src/main/ts/application/commands/review-command.ts, scripts/arch.sh
+**Meta:** P2 | M | REVIEW | Focus:no | 2-code-generation | claude-code | cli/src/main/ts/index.ts, cli/src/main/ts/application/commands/review-command.ts, scripts/arch.sh
 **Depends:** none
 
 ### Context
@@ -39,13 +39,16 @@ _If partial or off:_
 - [ ] confidence misleading
 
 ### Acceptance Criteria
-- [ ] `arch validate` removed — `arch review` covers config + meta format validation
-- [ ] `arch lint` removed — `arch review` covers task format validation
-- [ ] `arch review --fast` added as an alias that skips drift checks (for contexts where only format validation is needed, replacing validate/lint use cases)
-- [ ] `arch validate` and `arch lint` emit a deprecation warning for one version before removal
-- [ ] arch.sh and index.ts updated; removed commands no longer appear in usage output
+- [x] `arch validate` removed — `arch review` covers config + meta format validation
+- [x] `arch lint` removed — `arch review` covers task format validation
+- [x] `arch review --fast` added as an alias that skips drift checks (for contexts where only format validation is needed, replacing validate/lint use cases)
+- [x] `arch validate` and `arch lint` emit a deprecation warning for one version before removal
+- [x] arch.sh and index.ts updated; removed commands no longer appear in usage output
 
 ### Definition of Done
-- [ ] `arch review` passes
-- [ ] `npm test` passes in `cli/`
-- [ ] CHANGELOG entry for removed commands
+- [x] `arch review` passes
+- [x] `npm test` passes in `cli/`
+- [x] CHANGELOG entry for removed commands
+
+## Hansei
+Minimal change: `--fast` is a single flag that skips passing driftChecker to ReviewSystem, which already supports optional driftChecker. The pre-commit hook fires `arch lint` (now deprecated) during commits — it still works since the deprecated alias is kept for one version, so no disruption. The deprecated aliases emit warnings to stderr so they don't pollute stdout-parsed output.

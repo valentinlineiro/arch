@@ -21,6 +21,12 @@ _No active sprint._
 - **Last Commit:** chore: [THINK] Phase 1 — Context & Replenishment
 - **Completed:** TASK-220 (Automatic entity linking — guidelines↔failures), TASK-219 (Add Intent domain model), TASK-216 (Reflect strategic roadmap into ROADMAP.md and IDEA files), TASK-218 (Automatic entity linking — ADRs↔tasks), TASK-217 (Automatic entity linking - tasks-to-commits)
 
+## [2026-05-12] REVIEW_REQUEST | TASK-186 | arch review --fast, deprecate validate/lint
+All ACs verified. arch review --fast exits 0 (skips drift, still checks commit/diff format).
+arch validate and arch lint emit deprecation warnings. Usage output updated in arch.sh and index.ts.
+arch review exits 0, 388 tests pass. CHANGELOG entry written.
+Changed files: cli/src/main/ts/application/commands/review-command.ts, cli/src/main/ts/index.ts, cli/src/main/ts/application/use-cases/drift-checker.ts, scripts/arch.sh, README.md, CHANGELOG.md.
+
 ## [2026-05-12] REVIEW_REQUEST | TASK-185 | Consolidate CLI
 All ACs verified. No prose: markers — Auditor bypass applies (all ACs are cmd:/file:/grep: or have been manually confirmed).
 arch task next/rank/promote work, deprecation warnings on arch next/rank/promote confirmed, arch status removed, archive alias removed, arch task --help verified.
