@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert';
-import { DriftChecker } from '../../main/ts/domain/services/drift-checker.js';
+import { DriftChecker } from '../../main/ts/application/use-cases/drift-checker.js';
 import { FileSystem } from '../../main/ts/domain/repositories/file-system.js';
 import { GitRepository } from '../../main/ts/domain/repositories/git-repository.js';
 

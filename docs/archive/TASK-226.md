@@ -1,5 +1,6 @@
 ## TASK-226: Wire feedback capture into LoopEngine task completion
-**Meta:** P2 | XS | IN_PROGRESS | Focus:no | 2-code-generation | claude-code | cli/src/main/ts/application/use-cases/
+**Meta:** P2 | XS | DONE | Focus:no | 2-code-generation | claude-code | cli/src/main/ts/application/use-cases/
+**Closed-at:** 2026-05-12T07:53:50.336Z
 **Depends:** none
 
 ## Context
