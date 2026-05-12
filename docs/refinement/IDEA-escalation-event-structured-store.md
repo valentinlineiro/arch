@@ -73,6 +73,8 @@ This constraint is absolute. The following uses are prohibited even when locally
 
 All of these are inference paths. Any automated process that reads INBOX.md is treating it as authoritative regardless of intent. The constraint is on the read, not on the purpose of the read.
 
+No secondary representation of `docs/INBOX.md` content may be introduced for the purpose of state reconstruction, validation, or monitoring. A structured mirror, sync index, or completeness overlay of INBOX.md content is a shadow inference surface — it violates the machine invariant without violating its wording. The prohibition applies to all representations derived from INBOX.md, not only to direct reads.
+
 #### Human invariant (interpretation contract)
 
 Divergence between `docs/INBOX.md` and `arch inbox` output is **expected behavior, not a defect**. INBOX.md is an append-only audit trail written at event time. `arch inbox` is a live projection from structured state. They will differ after any governance event occurs, because INBOX.md records the event and the command reflects current state. A human observing that INBOX.md shows AWAITING_PROMOTION while `arch inbox` does not (or vice versa) is observing intentional projection divergence — not a consistency failure to be fixed.
