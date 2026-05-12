@@ -143,10 +143,10 @@ export class GovernSystem {
             console.log(`  ⚠ REFLECT breach continues (${newConsecutive}/${thresholds.persistenceN}): ${violation!.message}`);
           }
         } else if (wasBreachedLastTick) {
-          // Breach cleared
-          const clearMsg = `${rule} threshold breach cleared`;
+          // Breach cleared — interpretive question is mandatory, not decorative
+          const clearMsg = `${rule} threshold breach cleared. Verify: did health improve (more decisions attributed) — or did operators adapt behavior to the threshold (worked around the measurement)? These are opposite outcomes that look identical in the data.`;
           await this.appendInbox('REFLECT', 'INFLUENCE_BREACH_CLEARED', clearMsg);
-          console.log(`  ✔ REFLECT breach cleared: ${clearMsg}`);
+          console.log(`  ✔ REFLECT breach cleared: ${rule}`);
         }
       }
     } catch {
