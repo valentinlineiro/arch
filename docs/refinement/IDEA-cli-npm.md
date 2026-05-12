@@ -2,7 +2,7 @@
 **Created:** 2026-05-12
 **Source:** Internal discussion — user feedback
 **Status:** DRAFT
-**Sessions:** 1
+**Sessions:** 2
 **Meta:** P2 | M | local | cli/
 
 - **Class:** 6-writing

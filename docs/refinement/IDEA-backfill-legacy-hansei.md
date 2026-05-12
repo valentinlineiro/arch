@@ -2,7 +2,7 @@
 **Created:** 2026-05-12
 **Source:** Phase-4 Kaizen
 **Status:** DRAFT
-**Sessions:** 1
+**Sessions:** 2
 **Meta:** P3 | XS | operations | docs/archive/
 
 ## Problem

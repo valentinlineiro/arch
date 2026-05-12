@@ -2,7 +2,7 @@
 **Created:** 2026-05-08
 **Source:** Phase-3.5
 **Status:** DRAFT
-**Sessions:** 1
+**Sessions:** 2
 **Meta:** P2 | XS | writing | docs/
 
 ## Problem

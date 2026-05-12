@@ -20,7 +20,7 @@ none
 ## Estimated size
 XS
 
-**Sessions:** 1
+**Sessions:** 2
 
 ## Gaps
 - Technical trade-off between `spawnSync` (simpler but blocks) and `spawn` (asynchronous, allows streaming).

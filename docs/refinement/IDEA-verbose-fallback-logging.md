@@ -19,7 +19,7 @@ Implement more descriptive and visually distinct logging when the `ProviderRegis
 ## Estimated size
 XS
 
-**Sessions:** 1
+**Sessions:** 2
 
 ## Gaps
 - Integration with `cli/src/main/ts/infrastructure/cli/format.ts`: should fallback logs have a dedicated visual style (e.g., `fmt.warn`)?
