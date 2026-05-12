@@ -99,9 +99,55 @@ export class GovernSystem {
       const thresholds = { ...DEFAULT_THRESHOLDS, ...(config.reflect?.thresholds ?? {}) };
       const reporter = new ReflectInfluenceReport(this.fileSystem, this.rootPath);
       const report = await reporter.compute(thresholds);
-      for (const v of report.violations) {
-        await this.appendInbox('REFLECT', 'INFLUENCE_THRESHOLD_VIOLATION', v.message);
-        console.log(`  ⚠ REFLECT threshold violation: ${v.message}`);
+
+      const breachLogPath = `${this.rootPath}/.arch/reflect-breach-log.jsonl`;
+      const now = new Date().toISOString();
+
+      // Load recent breach history
+      let history: Array<{ timestamp: string; rule: string; breached: boolean }> = [];
+      try {
+        const raw = await this.fileSystem.readFile(breachLogPath);
+        history = raw.trim().split('\n').filter(Boolean).map(l => JSON.parse(l));
+      } catch { /* no history yet */ }
+
+      const breachedRules = new Set(report.violations.map(v => v.rule));
+      const allRules: Array<'engagement' | 'observability_gap'> = ['engagement', 'observability_gap'];
+
+      for (const rule of allRules) {
+        const isBreached = breachedRules.has(rule);
+        const ruleHistory = history.filter(h => h.rule === rule);
+        const wasBreachedLastTick = ruleHistory.length > 0 && ruleHistory[ruleHistory.length - 1].breached;
+        const consecutiveBreaches = [...ruleHistory].reverse().findIndex(h => !h.breached);
+        const consecutiveCount = consecutiveBreaches === -1 ? ruleHistory.length : consecutiveBreaches;
+
+        // Append this tick's record
+        await this.fileSystem.appendFile(
+          breachLogPath,
+          JSON.stringify({ timestamp: now, rule, breached: isBreached }) + '\n'
+        );
+
+        const violation = report.violations.find(v => v.rule === rule);
+        if (isBreached) {
+          const newConsecutive = consecutiveCount + 1;
+          if (!wasBreachedLastTick) {
+            // First breach — emit VIOLATION to INBOX + stdout
+            await this.appendInbox('REFLECT', 'INFLUENCE_THRESHOLD_VIOLATION', violation!.message);
+            console.log(`  ⚠ REFLECT threshold breach: ${violation!.message}`);
+          } else if (newConsecutive >= thresholds.persistenceN) {
+            // Persistent breach — escalation signal to INBOX + stdout
+            const persistMsg = `Persistent breach (${newConsecutive} consecutive cycles): ${violation!.message}`;
+            await this.appendInbox('REFLECT', 'INFLUENCE_BREACH_PERSISTENT', persistMsg);
+            console.log(`  ✖ REFLECT persistent breach: ${persistMsg}`);
+          } else {
+            // In between — stdout only, no INBOX noise
+            console.log(`  ⚠ REFLECT breach continues (${newConsecutive}/${thresholds.persistenceN}): ${violation!.message}`);
+          }
+        } else if (wasBreachedLastTick) {
+          // Breach cleared
+          const clearMsg = `${rule} threshold breach cleared`;
+          await this.appendInbox('REFLECT', 'INFLUENCE_BREACH_CLEARED', clearMsg);
+          console.log(`  ✔ REFLECT breach cleared: ${clearMsg}`);
+        }
       }
     } catch {
       // Reflect threshold check must never block governance

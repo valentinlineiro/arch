@@ -60,7 +60,8 @@
   "reflect": {
     "thresholds": {
       "minEngagementRate": 0.5,
-      "maxUnobservedWithProposalRate": 0.3
+      "maxUnobservedWithProposalRate": 0.3,
+      "persistenceN": 3
     }
   },
   "muri": {

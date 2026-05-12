@@ -5,11 +5,13 @@ import type { FileSystem } from '../../domain/repositories/file-system.js';
 export interface ReflectThresholds {
   minEngagementRate: number;
   maxUnobservedWithProposalRate: number;
+  persistenceN: number;
 }
 
 export const DEFAULT_THRESHOLDS: ReflectThresholds = {
   minEngagementRate: 0.5,
   maxUnobservedWithProposalRate: 0.3,
+  persistenceN: 3,
 };
 
 export interface ThresholdViolation {
