@@ -52,6 +52,11 @@
 
 [→ TENSION-001 (partially addresses — enforcement/analysis split frozen, but full command surface disambiguation is not yet done)]
 
+## 2026-05-12 — additive legitimacy bias in DriftChecker [structural-governance]
+**Adjudicate by:** after 3 THINK reviews
+
+EscalationMaturity treats any modification to a "protected path" (domain models, repositories) as suspicious and demands an ADR. This made sense when the primary risk was unreviewed additions. But it encodes a hidden asymmetry: addition is presumed neutral, deletion is presumed suspicious, and the checker has no vocabulary for *ontological excision* — intentional removal of an artifact that has outlived its design rationale. The symptom appeared when removing INTENT: the checker flagged the deletion as a governance violation even though the explicit decision record (REJECT in the IDEA file, cleaned references, no orphan dependencies) was structurally complete. The bias matters because ARCH depends on the ability to kill dead ontology. If the audit layer structurally discourages subtraction, it will produce a selection pressure toward accumulation — and accumulation eventually looks like health until it doesn't. What would need to be true to PROMOTE: a second instance where legitimate excision triggers a false governance signal, or evidence that contributors hold back intentional removals to avoid audit friction. The fix, if promoted, is not "ignore deletions" — it is a legitimacy check with different semantics: was there an explicit REJECT/supersession? were references cleaned? do orphan operational dependencies remain? That is a richer question than "was a protected path touched?"
+
 ## 2026-05-12 — Chronicle write/synthesize symmetry [epistemic]
 **Adjudicate by:** after 2 THINK reviews
 
