@@ -1,4 +1,4 @@
-# IDEA: excision-legitimacy-check
+# IDEA: excision-structural-consistency-check
 **Created:** 2026-05-12
 **Source:** Post-INTENT removal observation — EscalationMaturity false positive on legitimate excision
 **Status:** DRAFT
@@ -10,39 +10,35 @@ EscalationMaturity currently evaluates commits that touch protected domain paths
 
 This is not a cosmetic problem. ARCH depends on the ability to remove ontology that has outlived its design rationale. If the audit layer structurally discourages removal, it produces selection pressure toward accumulation.
 
+## Scope correction (Class I only)
+This check evaluates **structural consistency and traceability** of excision — not legitimacy. Legitimacy (semantic correctness, architectural intent) is Class II governance: it requires human judgment and is registered in human-authored artifacts. This check verifies that the structural prerequisites for a legitimate excision are present — it does not evaluate whether the excision was architecturally correct. See `docs/GOVERNANCE.md §Governance Epistemological Boundary`.
+
 ## Proposed solution
-Add an `ExcisionLegitimacy` check to DriftChecker. When a commit deletes one or more files from a protected domain path, evaluate a three-gate legitimacy test instead of requiring an ADR:
+Add an `ExcisionStructuralCheck` to DriftChecker. When a commit deletes one or more files from a protected domain path, evaluate a three-gate consistency test instead of requiring an ADR:
 
 **Gate 1 — Reference-clean**
-`grep -r <deleted-module-name> cli/src/ docs/ --include="*.ts" --include="*.md"` returns zero results outside `docs/refinement/archive/` and `docs/superpowers/`. If orphan references remain in operational code or active docs, the excision is incomplete.
+`grep -r <deleted-module-name> cli/src/ docs/ --include="*.ts" --include="*.md"` returns zero results outside `docs/refinement/archive/` and `docs/superpowers/`. Orphan references in operational code or active docs indicate incomplete removal.
 
-**Gate 2 — Decision-backed**
-The commit chain that introduced the deletion includes a commit message containing at least one of: `REJECT`, `archive`, `remove`, `excision`, `superseded`, `[THINK]`. This verifies that the removal was deliberate, not accidental.
+**Gate 2 — Decision-record exists** *(not: "git log string match")*
+`docs/refinement/archive/` contains at least one file added in recent commits whose `## Decision` section begins with `REJECT:` and whose content references the removed artifact by name — OR — an ADR in `docs/adr/` explicitly addresses the removal. This gate checks artifact existence, not artifact content. Content correctness is Class II and belongs to human review.
 
 **Gate 3 — Build-clean**
-The CLI builds without errors after the deletion. Dead imports fail the build; surviving build confirms no hidden coupling.
+The CLI builds without errors after the deletion. This is runtime integrity (structural consistency), not semantic correctness. A passing build confirms no hidden coupling; it does not confirm the removal was right.
 
 **Result logic:**
-- All 3 gates pass → `ExcisionLegitimacy: PASS` (no ADR required)
-- Any gate fails → `ExcisionLegitimacy: FAIL` (requires ADR or explicit override)
-- Gate 2 inconclusive (cannot read commit history) → `ExcisionLegitimacy: WARN` (flag for manual review, do not block)
+- All 3 gates pass → `ExcisionCheck: PASS` (no ADR required — structural prerequisites met)
+- Gate 1 or 3 fails → `ExcisionCheck: FAIL` (requires ADR — structural gaps remain)
+- Gate 2 fails → `ExcisionCheck: FAIL` (requires human decision record — Class II artifact missing)
+- Gate 2 inconclusive (archive unreadable) → `ExcisionCheck: WARN` (flag for manual review, do not block)
 
 **EscalationMaturity new logic:**
 ```
-protected path modified → requires ADR
-protected path deleted → run ExcisionLegitimacy gate
-  PASS → no ADR required
-  FAIL → requires ADR
+protected path modified → requires ADR (unchanged)
+protected path deleted → run ExcisionStructuralCheck
+  PASS → no ADR required (Class I gates satisfied; Class II recorded separately)
+  FAIL → requires ADR or human decision record
   WARN → ⚠ flag, do not fail
 ```
-
-## Why this is deterministic
-Each gate produces YES/NO without narrative interpretation:
-- Gate 1: grep exit code
-- Gate 2: git log string match
-- Gate 3: build exit code
-
-"Net friction reduction" is excluded from the gate — it is inherently interpretive and belongs to the TENSION record, not the check. The three gates above are sufficient to distinguish negligent deletion from legitimate excision in all cases observed so far.
 
 ## Dependencies
 None. DriftChecker is already reading git log (for MergeCommits, EscalationMaturity). Gate 2 reuses that infrastructure.
@@ -52,6 +48,7 @@ S
 
 ## Gaps
 - Protected path definition is currently implicit (any file matching domain model/repository patterns). The gate needs a canonical list — probably derived from `arch.config.json` or hardcoded in DriftChecker alongside the existing protected path patterns.
-- Gate 2 commit message convention is informal. If commit prefixes are standardized in a future guideline, Gate 2 should reference that list.
+- Gate 2 requires linking a deleted TypeScript file to a REJECT decision in a markdown file. That link is currently informal (matching by artifact name substring). A structured cross-reference (e.g., `Removes: <module-path>` in the REJECT field) would make Gate 2 deterministic without false positives.
+- The Class I/Class II boundary is stated in GOVERNANCE.md but not enforced in check naming conventions. This IDEA should be revisited if the naming convention is ever formalized.
 
 ## Decision
