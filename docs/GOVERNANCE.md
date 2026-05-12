@@ -79,6 +79,18 @@ THINK Phase 2.5 includes a governance boundary audit: scan existing DriftChecker
 
 The protocol is intentionally not automated. Automating the boundary review would itself be an instance of the failure it is designed to prevent.
 
+**Terminal failure mode: protocol degeneration**
+
+The introduction protocol is subject to its own version of the failure it was designed to prevent. A `Does NOT evaluate` field filled with plausible-sounding but generic language ("does not evaluate semantic correctness") is formally complete and conceptually empty. The form passes; the discipline is absent. This cannot be detected by structural checks — it requires evaluating whether a claim was made with genuine analysis or with ritual compliance. That is irreducibly Class II.
+
+Two surface-level proxies make degeneration visible without claiming to measure it:
+
+1. **Cross-rule repetition**: If `Does NOT evaluate` statements across multiple governance rules are textually similar, at least one may be templated rather than discovered. THINK Phase 2.5 surfaces this as a signal for human re-examination — not a violation, not an automated judgment.
+
+2. **Rule longevity**: A governance rule whose class assignment has not been re-examined against actual system behavior in 6+ months may have drifted from its declared class without anyone noticing. THINK Phase 2.5 surfaces rules past this threshold.
+
+Neither proxy is reliable. Both can be satisfied with ritual compliance. The honest position: beyond these proxies, protocol integrity requires periodic fresh engagement with first principles — not "does the form say the right thing?" but "is the system actually doing what the form claims?" No mechanism can substitute for this. Naming this as an open limit is more useful than adding a third proxy layer.
+
 ## Conflict Resolution
 
 In case of ambiguity regarding a task's category, the system must default to escalation (requiring human approval).
