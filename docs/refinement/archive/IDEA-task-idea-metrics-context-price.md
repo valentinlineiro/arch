@@ -29,3 +29,6 @@ M
 ## Decision
 <!-- Human writes here after THINK evaluation -->
 <!-- PROMOTE → TASK-XXX | REJECT: reason -->
+
+## Decision
+REJECT: Under-specified to the point of being unevaluable. The Gaps section outlines more unknowns than the Proposed Solution resolves: metric set undefined, ContextPrice estimability unresolved, migration scope unaddressed, consumer unclear, sizing disputed. An IDEA where the gaps dwarf the proposal is not ready for refinement — it is a problem statement. If a specific metric (e.g., estimated turns) is worth adding, write a new IDEA scoped to that single addition.

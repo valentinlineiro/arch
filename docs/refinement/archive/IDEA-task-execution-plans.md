@@ -25,3 +25,6 @@ S
 ## Decision
 <!-- Human writes here after THINK evaluation -->
 <!-- PROMOTE → TASK-XXX | REJECT: reason -->
+
+## Decision
+REJECT: Wrong layer. The problem (smaller models failing at multi-step execution) is correctly addressed by model routing (arch.config.json assigns task classes to capable models) not by adding plan fields to task files. An `### Execution Plan` section requires the agent creating the task to predict the execution sequence — which requires the same capability the plan was supposed to compensate for. IDENTITY.md §5: adds abstraction without removing friction.

@@ -24,3 +24,6 @@ S
 ## Decision
 <!-- Human writes here after THINK evaluation -->
 <!-- PROMOTE → TASK-XXX | REJECT: reason -->
+
+## Decision
+REJECT: Wrong time. Kaizen (Phase 3 in THINK) currently has no structured data consumption model. Building a step log before there is a defined consumer creates a maintenance burden with no feedback loop. The granularity question (every tool call? every 5 turns? manual signal?) is genuinely unresolved and cannot be resolved without first knowing what patterns Kaizen is trying to detect. Return when THINK Phase 3 has a concrete signal it needs that step logs would provide.
