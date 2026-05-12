@@ -1,4 +1,4 @@
-## TASK-232: Grandfather legacy tasks in arch review — silence Hansei warnings
+## TASK-232: Grandfather legacy tasks in arch review - silence Hansei warnings
 **Meta:** P3 | XS | READY | Focus:no | 7-operations | claude-code | cli/src/main/ts/application/use-cases/drift-checker.ts
 **Depends:** none
 
