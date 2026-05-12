@@ -12,7 +12,7 @@ BIN="node $(dirname "$0")/../cli/dist/index.js"
 
 # ── Router ────────────────────────────────────────────────────────
 case "$1" in
-  "validate"|"inbox"|"next"|"govern"|"rank"|"batch"|"drain"|"conduct"|"promote"|"version"|"loop"|"sandbox"|"lint"|"mv"|"exec"|"capture"|"index"|"think"|"ask"|"causal"|"--version"|"-v")
+  "validate"|"lint"|"inbox"|"next"|"govern"|"rank"|"batch"|"drain"|"conduct"|"promote"|"version"|"loop"|"sandbox"|"mv"|"exec"|"capture"|"index"|"think"|"ask"|"causal"|"--version"|"-v")
     $BIN "$@"
     ;;
 
@@ -63,11 +63,10 @@ case "$1" in
     ;;
 
   *)
-    echo "Usage: $0 [validate|review|inbox|task|govern|version|batch|drain|conduct|exec|loop|sandbox|lint|mv|capture|index|think|ask|causal]"
+    echo "Usage: $0 [review|task|inbox|govern|version|batch|drain|conduct|loop|sandbox|mv|exec|capture|index|think|ask|causal]"
     echo ""
     echo "Commands:"
-    echo "  validate          Check repository structure"
-    echo "  review            Run deep audit and drift check"
+    echo "  review            Run deep audit and drift check (--fast to skip drift)"
     echo "  inbox             Show weekly dashboard"
     echo "  task              Manage tasks (start|done|next|rank|promote|compress|...)"
     echo "  govern            Autonomous governance tick"
@@ -78,7 +77,6 @@ case "$1" in
     echo "  exec              Invoke DO mode with an AI agent"
     echo "  loop              Autonomous execution loop"
     echo "  sandbox           Secure execution wrapper (non-AI)"
-    echo "  lint              Validate task format"
     echo "  mv                Move a file and update task contexts"
     echo "  capture           Capture a new intent"
     echo "  index             Rebuild the context index"
@@ -86,7 +84,9 @@ case "$1" in
     echo "  ask               Query operational memory"
     echo "  causal            Record and query causal relations between entities"
     echo ""
-    echo "Deprecated (use 'arch task <cmd>' instead):"
+    echo "Deprecated (use canonical replacements instead):"
+    echo "  validate          → arch review --fast"
+    echo "  lint              → arch review --fast"
     echo "  next              → arch task next"
     echo "  rank              → arch task rank"
     echo "  promote           → arch task promote"

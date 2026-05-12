@@ -21,7 +21,11 @@ export class ReviewCommand {
 
   async execute(args: string[] = []): Promise<void> {
     const isJson = args.includes('--json');
-    const result = await this.useCase.execute();
+    const isFast = args.includes('--fast');
+    const system = isFast
+      ? new ReviewSystem(this.taskRepository, this.gitRepository, this.reviewer, this.fileSystem)
+      : this.useCase;
+    const result = await system.execute();
 
     if (isJson) {
       console.log(JSON.stringify(result, null, 2));

@@ -15,15 +15,19 @@ Versioning rules:
 ## [Unreleased]
 
 ### Added
+- [TASK-186] `arch review --fast` — format-only review that skips drift checks (replaces `arch validate` and `arch lint`)
 - [TASK-185] `arch task next` — delegates to SelectNextTask (replaces top-level `arch next`)
 - [TASK-185] `arch task rank` — delegates to RankTasks (replaces top-level `arch rank`)
 - [TASK-185] `arch task promote <slug>` — delegates to PromoteIdea (replaces top-level `arch promote`)
 - [TASK-185] `arch task --help` lists all subcommands
 
 ### Changed
+- [TASK-186] `arch validate` and `arch lint` emit a deprecation warning and will be removed in the next version
 - [TASK-185] `arch next`, `arch rank`, `arch promote` emit a deprecation warning and will be removed in the next version
 
 ### Removed
+- [TASK-186] `arch validate` — use `arch review --fast`
+- [TASK-186] `arch lint` — use `arch review --fast`
 - [TASK-185] `arch status` — use `arch inbox` (superset dashboard)
 - [TASK-185] `archive` shell alias in `arch.sh` — use `arch task done`
 

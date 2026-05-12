@@ -165,8 +165,8 @@ arch causal invalidate <edge-id>      # Contradict — kept for audit, excluded 
 arch causal arbitrate                 # Consume pending signals → apply/conflict/expire
 
 # Integrity
-arch validate                         # Structural validation
-arch review                           # Drift detection, task format, integrity checks
+arch review                           # Full audit: task format, commit, drift checks
+arch review --fast                    # Format-only: skips drift checks (replaces arch validate/lint)
 arch merge-resolve                    # Auto-resolve trivial merge conflicts
 ```
 

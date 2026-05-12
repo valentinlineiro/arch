@@ -62,6 +62,7 @@ async function main() {
 
   switch (name) {
     case 'validate':
+      process.stderr.write("Warning: 'arch validate' is deprecated. Use 'arch review' or 'arch review --fast' instead.\n");
       await new ValidateCommand(taskRepository, fileSystem, rootPath).execute(args);
       break;
     case 'review':
@@ -119,6 +120,7 @@ async function main() {
       await new SandboxCommand(sandboxService, taskRepository, fileSystem).execute(args);
       break;
     case 'lint':
+      process.stderr.write("Warning: 'arch lint' is deprecated. Use 'arch review' or 'arch review --fast' instead.\n");
       await new LintCommand(taskRepository, fileSystem).execute(args);
       break;
     case 'mv':
@@ -174,7 +176,7 @@ async function main() {
       break;
     }
     default:
-      console.log('Usage: arch [validate|review|task|inbox|next|version|govern|rank|batch|drain|conduct|promote|loop|sandbox|lint|mv|exec|merge-resolve|capture|index|think|ask|causal]');
+      console.log('Usage: arch [review|task|inbox|version|govern|batch|drain|conduct|loop|sandbox|mv|exec|merge-resolve|capture|index|think|ask|causal]');
       process.exit(1);
   }
 }
