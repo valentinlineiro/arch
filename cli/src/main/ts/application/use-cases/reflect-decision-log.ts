@@ -13,6 +13,7 @@ export class ReflectDecisionLog {
   async append(params: {
     target: string;
     outcome: DecisionOutcome;
+    influence_declared: boolean;
     based_on_proposals: string[];
   }): Promise<ReflectDecision> {
     const decision: ReflectDecision = {
@@ -20,6 +21,7 @@ export class ReflectDecisionLog {
       timestamp: new Date().toISOString(),
       target: params.target,
       outcome: params.outcome,
+      influence_declared: params.influence_declared,
       based_on_proposals: params.based_on_proposals,
     };
     await this.fileSystem.appendFile(`${this.rootPath}/${DECISION_PATH}`, JSON.stringify(decision) + '\n');
@@ -42,20 +44,24 @@ export class ReflectDecisionLog {
 
   /**
    * Parse attribution annotation from a Decision field string.
-   * Returns proposal IDs cited, or null if INDEPENDENT declared, or undefined if absent.
    *
-   * "[influenced-by: THINK-abc123, THINK-def456]" → ["THINK-abc123", "THINK-def456"]
-   * "[independent]"                                → []  (outcome = INDEPENDENT)
-   * (no annotation)                                → undefined (attribution not declared)
+   * Tristate — three epistemically distinct outcomes:
+   *   "[influenced-by: THINK-abc123]" → {declared: true,  proposals: ["THINK-abc123"]}  attributed
+   *   "[influenced-by: none]"         → {declared: true,  proposals: []}                declared non-influence
+   *   (no annotation)                 → {declared: false, proposals: []}                undeclared
+   *
+   * Undeclared ≠ non-influenced. Absence of declaration is an observability gap,
+   * not an epistemic claim. Do not conflate with declared non-influence.
    */
-  static parseAttribution(decisionText: string): string[] | undefined {
+  static parseAttribution(decisionText: string): { declared: boolean; proposals: string[] } {
     const influenced = decisionText.match(/\[influenced-by:\s*([^\]]+)\]/);
     if (influenced) {
-      return influenced[1].split(',').map(s => s.trim()).filter(Boolean);
+      const raw = influenced[1].trim();
+      if (raw === 'none') {
+        return { declared: true, proposals: [] };
+      }
+      return { declared: true, proposals: raw.split(',').map(s => s.trim()).filter(Boolean) };
     }
-    if (/\[independent\]/i.test(decisionText)) {
-      return [];
-    }
-    return undefined;
+    return { declared: false, proposals: [] };
   }
 }

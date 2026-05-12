@@ -36,11 +36,14 @@
    - **DRAFT:** Identify gaps, dependencies, and estimate. Output to terminal only. Increment `**Sessions:** N` counter in the IDEA file (add field if missing). If `Sessions >= 3`, emit `[STALE-IDEA] IDEA-slug — N sessions without Decision` to stdout. If the IDEA was already flagged `[STALE-IDEA]` in the previous session (Sessions > 3) and still has no Decision, move it to `docs/refinement/archive/` with status `REJECTED: TTL expired`.
    - **DECIDED:** If human Decision is written and IDEA is XS + 6-writing/7-operations, promote autonomously: update status to `PROMOTED -> TASK-XXX`, create task file, and archive IDEA. Then:
      1. Append a PROMOTE record to `.arch/reflect-proposals.jsonl` at confidence 1.0 (records that THINK executed a human decision, not that THINK proposed it).
-     2. Parse the Decision field for an attribution annotation:
-        - `[influenced-by: THINK-abc123, THINK-def456]` → outcome `PROMOTE`, proposals cited
-        - `[independent]` → outcome `INDEPENDENT`, no proposals cited
-        - No annotation → outcome `PROMOTE`, `based_on_proposals: []` (attribution undeclared — distinct from independent)
-     3. Append to `.arch/reflect-decisions.jsonl`: `{"decision_id":"D-<8-char-uuid>","timestamp":"<ISO-8601>","target":"<IDEA-slug>","outcome":"PROMOTE|INDEPENDENT","based_on_proposals":["THINK-abc123"]}`
+     2. Parse the Decision field for an attribution annotation using this tristate:
+        - `[influenced-by: THINK-abc123, THINK-def456]` → `influence_declared: true`, proposals cited
+        - `[influenced-by: none]` → `influence_declared: true`, `based_on_proposals: []` (declared non-influence — human engaged with attribution and confirmed REFLECT did not influence the decision)
+        - No annotation → `influence_declared: false`, `based_on_proposals: []` (undeclared — distinct from declared non-influence; do not conflate)
+     3. Append to `.arch/reflect-decisions.jsonl`:
+        ```json
+        {"decision_id":"D-<8-char-uuid>","timestamp":"<ISO-8601>","target":"<IDEA-slug>","outcome":"PROMOTE","influence_declared":<true|false>,"based_on_proposals":["THINK-abc123"]}
+        ```
      Attribution must be explicit or absent — never inferred from temporal proximity to a proposal.
    - **REJECTED:** Move to `docs/refinement/archive/`.
 3. **Phase boundary:** This phase does NOT interpret INTENT signals or create tasks from intents.

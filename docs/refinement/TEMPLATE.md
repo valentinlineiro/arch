@@ -23,6 +23,7 @@
 ## Decision
 <!-- Human writes here after THINK evaluation -->
 <!-- PROMOTE → TASK-XXX | REJECT: reason -->
-<!-- Attribution: append [influenced-by: THINK-abc123] or [independent] to enable divergence tracking -->
-<!-- Example: PROMOTE → TASK-XXX [influenced-by: THINK-abc123] -->
-<!-- Example: PROMOTE → TASK-XXX [independent] -->
+<!-- Attribution (tracked for divergence measurement — three distinct states):      -->
+<!--   [influenced-by: THINK-abc123]  REFLECT influenced this decision              -->
+<!--   [influenced-by: none]          REFLECT did not influence (explicitly declared) -->
+<!--   (no annotation)                undeclared — not the same as "independent"    -->
