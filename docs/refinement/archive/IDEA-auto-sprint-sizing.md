@@ -31,5 +31,4 @@ S
 - **Dependency completeness:** TASK-176 must be DONE before this IDEA can be accurately scoped. The sizing report format depends on how sprint state is persisted.
 
 ## Decision
-<!-- Human writes here after THINK evaluation -->
-<!-- PROMOTE → TASK-XXX | REJECT: reason -->
+REJECT: Sprint profile sizing belongs to SCRUM planning semantics, not to ARCH's current causal-flow and governance model. Sprint cadence exists for execution rhythm, not as a primary planning ontology. This feature optimizes a layer the system no longer depends on and would not be created under the current architecture.
