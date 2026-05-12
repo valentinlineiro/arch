@@ -1,6 +1,6 @@
 # IDENTITY.md
 <!-- Frozen system boundaries. This document is a constraint, not an inspiration. -->
-<!-- Updated: 2026-05-12 -->
+<!-- Updated: 2026-05-12 | §8 added: Epistemic Plane Separation -->
 
 ---
 
@@ -196,3 +196,63 @@ LLM at the bottom of the stack. Never at the top.
 **Ratio target:** 90% deterministic core, 10% LLM interface. Inverting this is not innovation. It is architectural debt with a latency cost and no audit trail.
 
 **The decay pattern to avoid:** Using LLM because it avoids designing the ontology. Pereza arquitectónica disguised as innovation. The competitive advantage of ARCH is needing LLMs less than comparable systems — because the system already knows how to think before it asks.
+
+---
+
+## 8. Epistemic Plane Separation
+
+> **Chronicle encodes only events whose meaning derives from the content of work. System control events are not domain-causal and must not enter the causal graph.**
+
+This is a constitutional constraint on what can be projected as causal truth within ARCH. It is not a logging policy or an architectural preference. It defines the boundary of what can become *knowledge* — as opposed to what happened operationally.
+
+### Three Domains of Signification
+
+These three domains must never be conflated:
+
+**Domain 1 — Domain-causal events → Chronicle**
+
+Events whose meaning depends on *what was done* — the content, relationships, and consequences within the task domain.
+
+Examples: `TASK implements ADR`, `TASK caused_by TASK`, `TASK violates invariant`.
+
+Chronicle is the only repository authorized to receive these. Their significance is semantic: they describe how domain entities relate.
+
+**Domain 2 — Control-operational events → Git history / system logs**
+
+Events whose meaning is the operational state of the system as a scheduling machine — queue management, cycle execution, flow control.
+
+Examples: focus selection, replenishment triggers, conduct cadence, task sequencing.
+
+These events must not enter Chronicle. Their meaning is mechanical, not semantic. Git history is already a complete, auditable record of all control-layer decisions. Projecting control events into the causal graph would contaminate domain-causal inference with scheduling noise and make the graph epistemically unreliable.
+
+**Domain 3 — Semantic ruptures → Chronicle (ANDON_HALT class)**
+
+Events where a control-layer failure directly constitutes a domain-semantic failure — where machine stoppage is evidence that a domain invariant was violated.
+
+Examples: archival blocked by missing Hansei section, governance halt due to constraint violation.
+
+These events may emit to Chronicle. The rationale: the control layer stopped not because of a scheduling failure but because the domain produced something that violated a known invariant. That violation is domain-causal evidence. The system halted because the work content was wrong — not because the queue was empty.
+
+### The Constraint
+
+Chronicle receives Domain 1 and Domain 3 events only. The following arguments must be rejected on contact:
+
+- *"Useful for debugging"* — operational utility does not confer epistemic legitimacy.
+- *"We already have the hook"* — infrastructure does not grant semantic authorization.
+- *"Similar enough to a domain event"* — similarity arguments cross the plane. Similarity is not identity.
+
+Any argument that a control event should enter Chronicle for convenience is an argument to contaminate the causal graph. The graph's value depends entirely on the integrity of what it encodes.
+
+### Why This Is Constitutional, Not Architectural
+
+An architectural decision governs how a system is built. A constitutional constraint governs what can be interpreted as true within the system.
+
+This principle is constitutional because it restricts which parts of ARCH's own execution can become causal knowledge about its domain. Without it, the boundary between the system's mechanical behavior and the system's understanding of its domain dissolves. Once dissolved, every scheduling decision becomes a candidate for causal inference, and Chronicle ceases to be epistemically meaningful.
+
+**The failure mode to name and refuse:**
+
+> "govern should emit signals for focus decisions because that's useful context."
+
+This argument is a plane collapse. `arch govern` deciding to focus TASK-X is machine behavior — it tells you what the queue did next, not why domain entities are causally related. Accepting it means the system begins confusing its own operational mechanics with knowledge about its domain. A system that cannot make this distinction cannot generate reliable causal inference about anything.
+
+**The current implementation is correct by this principle.** `arch task done` emits domain-causal signals (task→ADR, task→task). `arch govern` normal path emits nothing to Chronicle — it operates as a scheduling machine and leaves its trace in git. `arch govern` error path emits to Chronicle because archival failures are Domain 3 events: control stopped because domain content violated a known invariant.
