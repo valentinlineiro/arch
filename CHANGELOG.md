@@ -15,6 +15,19 @@ Versioning rules:
 ## [Unreleased]
 
 ### Added
+- [TASK-185] `arch task next` — delegates to SelectNextTask (replaces top-level `arch next`)
+- [TASK-185] `arch task rank` — delegates to RankTasks (replaces top-level `arch rank`)
+- [TASK-185] `arch task promote <slug>` — delegates to PromoteIdea (replaces top-level `arch promote`)
+- [TASK-185] `arch task --help` lists all subcommands
+
+### Changed
+- [TASK-185] `arch next`, `arch rank`, `arch promote` emit a deprecation warning and will be removed in the next version
+
+### Removed
+- [TASK-185] `arch status` — use `arch inbox` (superset dashboard)
+- [TASK-185] `archive` shell alias in `arch.sh` — use `arch task done`
+
+### Added
 - [TASK-175] `ExecCommand` TypeScript class — agent routing logic (`invoke_agent`) moved from `arch.sh` into typed, tested TypeScript. Supports preferred CLI, model tier injection, `{prompt}`/`{prompt_file}` substitution, local routing mode, and CLI fallback order.
 
 ### Changed

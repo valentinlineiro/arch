@@ -61,22 +61,26 @@ async function main() {
   }
 
   switch (name) {
-    case 'status':
-      await new StatusCommand(taskRepository, fileSystem).execute();
-      break;
     case 'validate':
       await new ValidateCommand(taskRepository, fileSystem, rootPath).execute(args);
       break;
     case 'review':
       await new ReviewCommand(taskRepository, gitRepository, reviewer, driftChecker, fileSystem).execute(args);
       break;
-    case 'task':
-      await new TaskCommand(taskRepository, reviewer, humanCoordinationService, fileSystem, rootPath, eventRepository, causalSignalLog).execute(args);
+    case 'task': {
+      let muriConfig;
+      try {
+        const configRaw = await fileSystem.readFile(`${rootPath}/arch.config.json`);
+        muriConfig = JSON.parse(configRaw).muri;
+      } catch { /* use default */ }
+      await new TaskCommand(taskRepository, reviewer, humanCoordinationService, fileSystem, rootPath, eventRepository, causalSignalLog, gitRepository, muriConfig).execute(args);
       break;
+    }
     case 'inbox':
       await new InboxCommand(taskRepository, fileSystem, reviewer, driftChecker).execute();
       break;
     case 'next': {
+      process.stderr.write("Warning: 'arch next' is deprecated. Use 'arch task next' instead.\n");
       let muriConfig;
       try {
         const configRaw = await fileSystem.readFile(`${rootPath}/arch.config.json`);
@@ -92,6 +96,7 @@ async function main() {
       await new GovernCommand(taskRepository, gitRepository, fileSystem, causalSignalLog).execute(args);
       break;
     case 'rank':
+      process.stderr.write("Warning: 'arch rank' is deprecated. Use 'arch task rank' instead.\n");
       await new RankCommand(taskRepository).execute();
       break;
     case 'batch':
@@ -104,6 +109,7 @@ async function main() {
       await new ConductCommand().execute(args);
       break;
     case 'promote':
+      process.stderr.write("Warning: 'arch promote' is deprecated. Use 'arch task promote' instead.\n");
       await new PromoteCommand(taskRepository, gitRepository, fileSystem).execute(args);
       break;
     case 'loop':
@@ -168,7 +174,7 @@ async function main() {
       break;
     }
     default:
-      console.log('Usage: arch [status|validate|review|task|inbox|next|version|govern|rank|batch|drain|conduct|promote|loop|sandbox|lint|mv|exec|merge-resolve|capture|index|think|ask|causal]');
+      console.log('Usage: arch [validate|review|task|inbox|next|version|govern|rank|batch|drain|conduct|promote|loop|sandbox|lint|mv|exec|merge-resolve|capture|index|think|ask|causal]');
       process.exit(1);
   }
 }

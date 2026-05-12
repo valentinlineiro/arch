@@ -12,7 +12,7 @@ BIN="node $(dirname "$0")/../cli/dist/index.js"
 
 # ── Router ────────────────────────────────────────────────────────
 case "$1" in
-  "status"|"validate"|"inbox"|"next"|"govern"|"rank"|"batch"|"drain"|"conduct"|"promote"|"version"|"loop"|"sandbox"|"lint"|"mv"|"exec"|"capture"|"index"|"think"|"ask"|"causal"|"--version"|"-v")
+  "validate"|"inbox"|"next"|"govern"|"rank"|"batch"|"drain"|"conduct"|"promote"|"version"|"loop"|"sandbox"|"lint"|"mv"|"exec"|"capture"|"index"|"think"|"ask"|"causal"|"--version"|"-v")
     $BIN "$@"
     ;;
 
@@ -62,39 +62,34 @@ case "$1" in
     $BIN "$@"
     ;;
 
-  "archive")
-    shift
-    $0 task done "$@"
-    ;;
-
   *)
-    echo "Usage: $0 [status|validate|review|inbox|next|govern|rank|batch|drain|archive|task|promote|version|conduct|exec|loop|sandbox|lint|mv|think|ask|causal]"
+    echo "Usage: $0 [validate|review|inbox|task|govern|version|batch|drain|conduct|exec|loop|sandbox|lint|mv|capture|index|think|ask|causal]"
     echo ""
     echo "Commands:"
-    echo "  status     Show task counts"
-    echo "  validate   Check repository structure"
-    echo "  review     Run deep audit and drift check"
-    echo "  inbox      Show weekly dashboard"
-    echo "  next       Suggest the next task"
-    echo "  govern     Autonomous governance tick"
-    echo "  rank       Rank READY tasks by Value/Size ratio"
-    echo "  batch      Manage batch queue"
-    echo "  drain      Submit and process batch queue"
-    echo "  archive    Alias for task done"
-    echo "  task       Manage tasks (start/done)"
-    echo "  promote    Promote an IDEA to a TASK"
-    echo "  version    Show current version"
-    echo "  conduct    Invoke THINK mode with an AI agent"
-    echo "  exec       Invoke DO mode with an AI agent"
-    echo "  loop       Autonomous execution loop"
-    echo "  sandbox    Secure execution wrapper (non-AI)"
-    echo "  lint       Validate task format"
-    echo "  mv         Move a file and update task contexts"
-    echo "  capture    Capture a new intent"
-    echo "  index      Rebuild the context index"
-    echo "  think      Process intents and build tasks"
-  echo "  ask        Query operational memory"
-  echo "  causal     Record and query causal relations between entities"
+    echo "  validate          Check repository structure"
+    echo "  review            Run deep audit and drift check"
+    echo "  inbox             Show weekly dashboard"
+    echo "  task              Manage tasks (start|done|next|rank|promote|compress|...)"
+    echo "  govern            Autonomous governance tick"
+    echo "  version           Show current version"
+    echo "  batch             Manage batch queue"
+    echo "  drain             Submit and process batch queue"
+    echo "  conduct           Invoke THINK mode with an AI agent"
+    echo "  exec              Invoke DO mode with an AI agent"
+    echo "  loop              Autonomous execution loop"
+    echo "  sandbox           Secure execution wrapper (non-AI)"
+    echo "  lint              Validate task format"
+    echo "  mv                Move a file and update task contexts"
+    echo "  capture           Capture a new intent"
+    echo "  index             Rebuild the context index"
+    echo "  think             Process intents and build tasks"
+    echo "  ask               Query operational memory"
+    echo "  causal            Record and query causal relations between entities"
+    echo ""
+    echo "Deprecated (use 'arch task <cmd>' instead):"
+    echo "  next              → arch task next"
+    echo "  rank              → arch task rank"
+    echo "  promote           → arch task promote"
     exit 1
     ;;
 esac

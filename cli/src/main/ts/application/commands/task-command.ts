@@ -6,10 +6,14 @@ import { RejectStaleTask } from '../use-cases/task-reject-stale.js';
 import { UpdateTaskMetrics } from '../use-cases/update-task-metrics.js';
 import { ContextInference } from '../use-cases/context-inference.js';
 import { CompressTask } from '../use-cases/compress-task.js';
+import { NextCommand } from './next-command.js';
+import { RankCommand } from './rank-command.js';
+import { PromoteCommand } from './promote-command.js';
 import { HumanCoordinationService } from '../../domain/services/human-coordination-service.js';
 import type { TaskRepository } from '../../domain/repositories/task-repository.js';
 import { Reviewer } from '../../domain/services/reviewer.js';
 import type { FileSystem } from '../../domain/repositories/file-system.js';
+import type { GitRepository } from '../../domain/repositories/git-repository.js';
 import { EventRepository } from '../../domain/models/event.js';
 import { NodeFeedbackRepository } from '../../infrastructure/filesystem/node-feedback-repository.js';
 import { CausalSignalLog } from '../use-cases/causal-signal-log.js';
@@ -22,6 +26,9 @@ export class TaskCommand {
   private rejectTask: RejectTask;
   private rejectStaleTask: RejectStaleTask;
   private updateMetrics: UpdateTaskMetrics;
+  private taskRepository: TaskRepository;
+  private gitRepository: GitRepository;
+  private muriConfig: any;
 
   constructor(
     taskRepository: TaskRepository,
@@ -30,13 +37,17 @@ export class TaskCommand {
     private fileSystem: FileSystem,
     rootPath: string,
     eventRepository?: EventRepository,
-    causalSignalLog?: CausalSignalLog
+    causalSignalLog?: CausalSignalLog,
+    gitRepository?: GitRepository,
+    muriConfig?: any
   ) {
+    this.taskRepository = taskRepository;
+    this.gitRepository = gitRepository!;
+    this.muriConfig = muriConfig;
     this.markInProgress = new MarkTaskInProgress(taskRepository, eventRepository);
     this.markDone = new MarkTaskDone(taskRepository, reviewer, fileSystem, eventRepository, new NodeFeedbackRepository(fileSystem), causalSignalLog);
     this.markReview = new MarkTaskReview(taskRepository, rootPath);
     this.rejectTask = new RejectTask(taskRepository);
-
     this.rejectStaleTask = new RejectStaleTask(taskRepository);
     this.updateMetrics = new UpdateTaskMetrics(taskRepository);
   }
@@ -140,6 +151,12 @@ export class TaskCommand {
         fmt.fail(error.message);
         process.exit(1);
       }
+    } else if (subCommand === 'next') {
+      await new NextCommand(this.taskRepository, args.slice(1), this.muriConfig).execute();
+    } else if (subCommand === 'rank') {
+      await new RankCommand(this.taskRepository).execute();
+    } else if (subCommand === 'promote') {
+      await new PromoteCommand(this.taskRepository, this.gitRepository, this.fileSystem).execute(args.slice(1));
     } else if (subCommand === 'compress') {
       const compressor = new CompressTask(this.fileSystem, process.cwd());
       const all = args.includes('--all');
@@ -158,8 +175,27 @@ export class TaskCommand {
         fmt.fail(error.message);
         process.exit(1);
       }
+    } else if (subCommand === '--help' || subCommand === 'help' || !subCommand) {
+      console.log([
+        'Usage: arch task <subcommand> [args]',
+        '',
+        'Subcommands:',
+        '  start TASK-XXX          Mark a task as IN_PROGRESS',
+        '  review TASK-XXX         Run cmd: predicates and set status to REVIEW',
+        '  done TASK-XXX           Archive a task as DONE',
+        '  reject TASK-XXX         Move a task back to READY',
+        '  reject-stale TASK-XXX   Archive a stale task',
+        '  approve TASK-XXX        Human approval gate',
+        '  redirect TASK-XXX --to  Redirect with new instruction',
+        '  metrics TASK-XXX        Update cost/step metrics',
+        '  compress [TASK-XXX|--all]  Lossy-compress archive files',
+        '  next                    Suggest next highest-priority task',
+        '  rank                    Rank READY tasks by priority and size',
+        '  promote <idea-slug>     Promote an IDEA to a TASK',
+      ].join('\n'));
     } else {
-      console.log('Usage: arch task [start|review|done|reject|reject-stale|metrics|approve|redirect|compress] [TASK-ID] [--force] [--reason "<text>"] [--to "<instruction>"] [--cost <val>] [--steps <val>]');
+      fmt.fail(`Unknown subcommand: ${subCommand}. Run 'arch task --help' for usage.`);
+      process.exit(1);
     }
   }
 }

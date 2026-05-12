@@ -143,11 +143,12 @@ npx arch-init my-project
 cd my-project
 
 # Sprint management
-arch status                           # READY / IN_PROGRESS / DONE counts
 arch inbox                            # Weekly dashboard and pending refinement
-arch next                             # Suggests next most relevant task
+arch task next                        # Suggests next most relevant task
+arch task rank                        # Rank READY tasks by priority and size
 arch task start TASK-001              # Mark IN_PROGRESS
 arch task done  TASK-001              # Archive as DONE
+arch task promote my-idea             # Promote an IDEA to a TASK
 
 # Memory queries
 arch ask "why did auth routing keep failing?"
