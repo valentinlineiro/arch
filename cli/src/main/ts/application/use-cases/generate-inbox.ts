@@ -68,7 +68,7 @@ export class GenerateInbox {
       for (const file of ideaFiles) {
         if (file.startsWith('IDEA-') && file.endsWith('.md')) {
           const content = await this.fileSystem.readFile(path.join(this.refinementDir, file));
-          if (content.includes('Status: DRAFT')) {
+          if (/\*{0,2}Status:\*{0,2} DRAFT/.test(content)) {
             const titleMatch = content.match(/^# IDEA: (.*)/m) || content.match(/^## (IDEA-.*)/m);
             const title = titleMatch ? titleMatch[1] : file;
             pendingIdeas.push(`${title} (${file})`);
