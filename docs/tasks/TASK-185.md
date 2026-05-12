@@ -1,5 +1,5 @@
 ## TASK-185: Consolidate CLI - merge read-only subcommands into `task`
-**Meta:** P2 | M | IN_PROGRESS | Focus:no | 2-code-generation | claude-code | cli/src/main/ts/index.ts, cli/src/main/ts/application/commands/task-command.ts, scripts/arch.sh
+**Meta:** P2 | M | REVIEW | Focus:no | 2-code-generation | claude-code | cli/src/main/ts/index.ts, cli/src/main/ts/application/commands/task-command.ts, scripts/arch.sh
 **Depends:** none
 
 ### Context
@@ -39,15 +39,18 @@ _If partial or off:_
 - [ ] confidence misleading
 
 ### Acceptance Criteria
-- [ ] `arch task next` replaces `arch next` (delegates to existing SelectNextTask logic)
-- [ ] `arch task rank` replaces `arch rank` (delegates to existing RankCommand logic)
-- [ ] `arch task promote <IDEA-slug>` replaces `arch promote` (delegates to existing PromoteCommand logic)
-- [ ] `arch next`, `arch rank`, `arch promote` removed from index.ts and arch.sh (backward-compat aliases emit a deprecation warning for one version)
-- [ ] `arch status` removed — `arch inbox` is the canonical dashboard
-- [ ] `archive` shell alias in arch.sh removed (`arch task done` is canonical)
-- [ ] `arch task --help` output lists all subcommands including next/rank/promote
+- [x] `arch task next` replaces `arch next` (delegates to existing SelectNextTask logic)
+- [x] `arch task rank` replaces `arch rank` (delegates to existing RankCommand logic)
+- [x] `arch task promote <IDEA-slug>` replaces `arch promote` (delegates to existing PromoteCommand logic)
+- [x] `arch next`, `arch rank`, `arch promote` removed from index.ts and arch.sh (backward-compat aliases emit a deprecation warning for one version)
+- [x] `arch status` removed — `arch inbox` is the canonical dashboard
+- [x] `archive` shell alias in arch.sh removed (`arch task done` is canonical)
+- [x] `arch task --help` output lists all subcommands including next/rank/promote
 
 ### Definition of Done
-- [ ] `arch review` passes
-- [ ] `npm test` passes in `cli/`
-- [ ] CHANGELOG entry for removed commands
+- [x] `arch review` passes
+- [x] `npm test` passes in `cli/`
+- [x] CHANGELOG entry for removed commands
+
+## Hansei
+Straightforward delegation — NextCommand, RankCommand, PromoteCommand already existed, so subcommands are thin wrappers. The tricky part was CLI_COMMANDS in drift-checker: deprecated aliases needed to be removed from the set since they no longer appear in README, otherwise Commands check WARNed. Also had to separate the compressed-archive commit (207 files) from the implementation commit to keep the diff atomic for review.
