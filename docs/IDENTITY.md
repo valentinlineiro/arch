@@ -105,6 +105,9 @@ Opening step N before closing step N-1 is how this system fragments.
 ---
 
 ## 7. Deterministic Core Invariant
+<!-- Prior question (answer before reading — if you can state it, you can skip the section):
+     "A system that uses LLM output to decide whether to archive a task has violated this invariant.
+      State why — not what the invariant says, but what property of LLM output makes it unfit for this." -->
 
 > **LLMs may assist semantic compression under ambiguity, but must never be the source of truth for execution, governance, causal mutation, or policy enforcement.**
 
@@ -208,6 +211,9 @@ LLM at the bottom of the stack. Never at the top.
 ---
 
 ## 8. Epistemic Plane Separation
+<!-- Prior question (answer before reading — if you can state it, you can skip the section):
+     "Classify this event: 'arch govern selected TASK-X as next focus.'
+      Which domain — and why does it matter which one?" -->
 
 > **Chronicle encodes only events whose meaning derives from the content of work. System control events are not domain-causal and must not enter the causal graph.**
 

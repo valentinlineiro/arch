@@ -50,6 +50,9 @@ Humans respond to INBOX entries by writing a triage token inline or as a reply:
 - `REDIRECT: [instruction]`: Override the current path with new instructions.
 
 ## Governance Epistemological Boundary
+<!-- Prior question (answer before reading — if you can state it, you can skip the section):
+     "State one thing the automated governance layer can verify about a deletion,
+      and one thing it cannot, even if all structural checks pass." -->
 
 ARCH's governance layer operates across two distinct classes of decision. This distinction is not cosmetic — conflating them produces a system that optimizes for traceability instead of truth.
 
@@ -69,6 +72,9 @@ ARCH's governance layer operates across two distinct classes of decision. This d
 **Boundary stability risk:** The Class I / Class II boundary is not fixed. It drifts when Class I checks accumulate heuristics that implicitly make Class II claims — each addition individually seems reasonable, the system does not break, but its nature changes silently. This is the primary long-term failure mode of ARCH's governance layer: not a crash, but a gradual slide into automated adjudication of decisions that should remain human.
 
 ## Governance Rule Introduction Protocol
+<!-- Prior question (answer before reading — if you can state it, you can skip the section):
+     "For the rule you're introducing: describe the specific scenario in which it returns PASS
+      while the failure it was designed to catch is actually present." -->
 
 Every new DriftChecker check or governance constraint must declare its class before being promoted to a task. This is a required section in any IDEA that proposes a governance rule. It is also a required section in any ADR that creates one.
 
