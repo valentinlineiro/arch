@@ -5,6 +5,7 @@ import { RejectTask } from '../use-cases/task-reject.js';
 import { RejectStaleTask } from '../use-cases/task-reject-stale.js';
 import { UpdateTaskMetrics } from '../use-cases/update-task-metrics.js';
 import { ContextInference } from '../use-cases/context-inference.js';
+import { CompressTask } from '../use-cases/compress-task.js';
 import { HumanCoordinationService } from '../../domain/services/human-coordination-service.js';
 import type { TaskRepository } from '../../domain/repositories/task-repository.js';
 import { Reviewer } from '../../domain/services/reviewer.js';
@@ -139,8 +140,26 @@ export class TaskCommand {
         fmt.fail(error.message);
         process.exit(1);
       }
+    } else if (subCommand === 'compress') {
+      const compressor = new CompressTask(this.fileSystem, process.cwd());
+      const all = args.includes('--all');
+      try {
+        if (all) {
+          const ids = await compressor.executeAll();
+          fmt.check(`compressed ${ids.length} archive files`);
+        } else if (taskId) {
+          await compressor.execute(taskId);
+          fmt.check(`compressed ${taskId}`);
+        } else {
+          fmt.fail('Usage: arch task compress TASK-XXX | arch task compress --all');
+          process.exit(1);
+        }
+      } catch (error: any) {
+        fmt.fail(error.message);
+        process.exit(1);
+      }
     } else {
-      console.log('Usage: arch task [start|review|done|reject|reject-stale|metrics|approve|redirect] [TASK-ID] [--force] [--reason "<text>"] [--to "<instruction>"] [--cost <val>] [--steps <val>]');
+      console.log('Usage: arch task [start|review|done|reject|reject-stale|metrics|approve|redirect|compress] [TASK-ID] [--force] [--reason "<text>"] [--to "<instruction>"] [--cost <val>] [--steps <val>]');
     }
   }
 }

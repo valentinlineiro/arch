@@ -587,7 +587,9 @@ export class DriftChecker {
       }
 
       if (totalLines > threshold) {
-        const action = dirPath.includes('archive') ? 'PURGE' : 'REFACTOR';
+        const action = dirPath.includes('archive')
+          ? 'PURGE — run: arch task compress --all'
+          : 'REFACTOR';
         details.push(`${dirPath}: ${totalLines} lines exceeds budget of ${threshold} — suggested action: ${action}`);
       }
     }
