@@ -53,6 +53,8 @@ ARCH's governance layer operates across two distinct classes of decision. This d
 - These two claims must not be conflated. A system that treats "artifact exists" as equivalent to "decision was right" has hidden its interpretation inside tooling.
 - Class II decisions require human-authored artifacts: REJECT fields, ADRs, TENSION records, weak signals. Absence of such an artifact triggers Class I escalation. Presence closes the Class I gate — regardless of artifact content.
 
+**Canonical case (2026-05-12):** When the INTENT artifact was removed — `CaptureCommand`, `ThinkCommand`, `IntentRepository`, `MarkdownIntentRepository`, `ScaffoldTask`, `FinalizePromotion` — EscalationMaturity fired: "Last commit modifies protected path(s) without a new ADR." The removal was structurally complete: decision record existed (`IDEA-roadmap-arch-capture` archived with `REJECT:`), references cleaned, build passing, no orphan dependencies. The check could not distinguish this from a careless deletion. This case motivated the Class I/II distinction. When the distinction feels abstract, this case is what it's describing.
+
 **Consequence:** ARCH's governance layer is epistemologically bounded. It enforces process and traceability; it does not adjudicate truth. Any governance rule that claims to evaluate legitimacy through mechanism alone is claiming more than it can deliver. Such rules should be scoped as "structural consistency check" or "traceability check" — not "legitimacy check."
 
 **Boundary stability risk:** The Class I / Class II boundary is not fixed. It drifts when Class I checks accumulate heuristics that implicitly make Class II claims — each addition individually seems reasonable, the system does not break, but its nature changes silently. This is the primary long-term failure mode of ARCH's governance layer: not a crash, but a gradual slide into automated adjudication of decisions that should remain human.
@@ -68,10 +70,13 @@ Every new DriftChecker check or governance constraint must declare its class bef
 Class: I | II
 Evaluates: [what the check actually measures — be narrow]
 Does NOT evaluate: [explicit statement of what it cannot determine]
-Boundary risk: [what would need to happen for this check to start making Class II claims — name the specific heuristic creep path]
+Boundary risk: [worked scenario — "If <specific thing happens>, this check would be making a Class II claim
+                because <mechanism>. Concretely: an operator who reads <output> as <wrong conclusion>
+                has crossed the boundary." Generic statements ("could drift toward Class II if heuristics
+                are added") do not pass. Name the specific check behavior and the specific misreading.]
 ```
 
-If a proposed check cannot complete the `Does NOT evaluate` and `Boundary risk` fields without vagueness, it is not ready to be a Class I rule. It should remain a TENSION candidate until its scope is defined precisely enough to name its own failure modes.
+The `Boundary risk` field requires a worked scenario grounded in the actual rule's behavior — not a category statement. A generic sentence that could describe any governance rule does not pass. If the worked scenario cannot be completed without fabricating specifics, the rule's scope is not defined precisely enough to be introduced. This friction is intentional: it makes ritual compliance harder, not impossible. It does not guarantee genuine engagement. It should remain a TENSION candidate until its scope is defined precisely enough to name its own failure modes.
 
 **Periodic boundary review (human obligation, not automated check):**
 
