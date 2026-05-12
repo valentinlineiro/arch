@@ -34,3 +34,6 @@ XL — requires external community/documentation work beyond the repository itse
 ## Decision
 <!-- Human writes here after THINK evaluation -->
 <!-- PROMOTE → TASK-XXX | REJECT: reason -->
+
+## Decision
+REJECT: Designing a heterogeneous multi-agent collaboration interface before any single agent reliably executes the full protocol loop is premature. IDENTITY.md §5: future-proofs against unvalidated requirements. The problem is real but belongs to a system that has first validated single-agent execution at L2+.

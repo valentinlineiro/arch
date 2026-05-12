@@ -32,3 +32,6 @@ L — must be decomposed before entering READY.
 ## Decision
 <!-- Human writes here after THINK evaluation -->
 <!-- PROMOTE → TASK-XXX | REJECT: reason -->
+
+## Decision
+REJECT: Model update regression is a real risk, but the detection mechanism (replay + diff of agent outputs) requires stable, deterministic expected outputs — which prose protocol runs don't have. The problem is better addressed by tightening what the protocol makes deterministic (DriftChecker, arch review) and testing those, not by replaying non-deterministic agent sessions. IDENTITY.md §5: simulates automation through human discipline — passing a replay test requires humans to define "correct" output for every protocol step, which is the wrong layer to formalize.

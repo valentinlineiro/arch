@@ -31,3 +31,6 @@ XL — must be decomposed before entering READY.
 ## Decision
 <!-- Human writes here after THINK evaluation -->
 <!-- PROMOTE → TASK-XXX | REJECT: reason -->
+
+## Decision
+REJECT: Formal protocol schema for prose instructions attacks the wrong layer. What makes protocol runs diverge is not lack of schema — it's model behavior variation. The right fix is reducing surface area exposed to model interpretation (fewer prose steps, more deterministic CLI calls). A schema that validates prose output is validation theater. The executable layer (DriftChecker, arch review) is already schema-enforced; invest there.

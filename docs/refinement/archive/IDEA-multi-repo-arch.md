@@ -25,3 +25,6 @@ XL
 ## Decision
 <!-- Human writes here after THINK evaluation -->
 <!-- PROMOTE → TASK-XXX | REJECT: reason -->
+
+## Decision
+REJECT: History bloat is a real concern for very long-running repos, but at the current scale (not approaching the stated thresholds) this optimizes a problem that doesn't yet exist. IDENTITY.md §5: future-proofs against unvalidated requirements. Revisit when git clone or CI duration becomes measurably impacted.

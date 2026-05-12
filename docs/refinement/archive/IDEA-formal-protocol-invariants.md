@@ -38,3 +38,6 @@ M
 ## Decision
 <!-- Human writes here after THINK evaluation -->
 <!-- PROMOTE → TASK-XXX | REJECT: reason -->
+
+## Decision
+REJECT: Machine-checked protocol invariants belong to IDENTITY.md §6 step 5 (Policy engine), which is downstream of queryable memory (step 2), Chronicle (step 3), and pattern distillation (step 4). Promoting this skips three prerequisite steps. arch review already catches structural violations deterministically; deeper invariant checking requires the memory layer to have meaning.

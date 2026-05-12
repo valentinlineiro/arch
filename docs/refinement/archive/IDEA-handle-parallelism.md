@@ -25,3 +25,6 @@ S
 ## Decision
 <!-- Human writes here after THINK evaluation -->
 <!-- PROMOTE → TASK-XXX | REJECT: reason -->
+
+## Decision
+REJECT: ARCH is designed for sequential, single-actor execution. Parallelism is a valid future concern, but the lock mechanism (.arch/locks/) already handles the basic case. Designing a full concurrency model before sequential execution is stable at L2+ optimizes a failure mode that hasn't appeared. IDENTITY.md §5: future-proofs against unvalidated requirements.

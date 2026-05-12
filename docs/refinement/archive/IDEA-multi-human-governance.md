@@ -40,3 +40,6 @@ L — must be decomposed before entering READY.
 ## Decision
 <!-- Human writes here after THINK evaluation -->
 <!-- PROMOTE → TASK-XXX | REJECT: reason -->
+
+## Decision
+REJECT: The single-human-governor model is the correct constraint at this stage. Multi-human governance introduces role differentiation and conflict resolution before the single-human loop is validated at scale. IDENTITY.md §5: adds abstraction without removing friction, and opens governance before memory exists. Revisit when arch ask is operational and there is evidence of actual multi-human usage.

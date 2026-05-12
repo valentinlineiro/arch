@@ -36,3 +36,6 @@ L — must be decomposed before entering READY.
 ## Decision
 <!-- Human writes here after THINK evaluation -->
 <!-- PROMOTE → TASK-XXX | REJECT: reason -->
+
+## Decision
+REJECT: Statistical trust requires a sufficient sample of agent decisions to be meaningful — which requires operational history that doesn't exist yet. Binary autonomy levels (L1-L4) are appropriate scaffolding until that history accumulates. IDENTITY.md §5: future-proofs against unvalidated requirements. The model is intellectually interesting but has no empirical grounding in this system yet.

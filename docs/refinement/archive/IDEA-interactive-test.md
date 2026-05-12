@@ -19,3 +19,6 @@ XS
 ## Gaps
 
 ## Decision
+
+## Decision
+REJECT: Not an idea. Artifact from a test of the capture/refinement pipeline.
