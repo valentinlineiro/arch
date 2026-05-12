@@ -1,6 +1,6 @@
 # IDENTITY.md
 <!-- Frozen system boundaries. This document is a constraint, not an inspiration. -->
-<!-- Updated: 2026-05-11 -->
+<!-- Updated: 2026-05-12 -->
 
 ---
 
@@ -93,3 +93,106 @@ The following order is a hard dependency chain, not a preference:
 5. Policy engine
 
 Opening step N before closing step N-1 is how this system fragments.
+
+---
+
+## 7. Deterministic Core Invariant
+
+> **LLMs may assist semantic compression under ambiguity, but must never be the source of truth for execution, governance, causal mutation, or policy enforcement.**
+
+This is a constitutional constraint. It is not a guideline, best practice, or suggestion. Every feature that touches the LLM boundary must pass this test before implementation begins.
+
+**Operational test:** If the LLM disappears tomorrow, the system must remain correct — only less convenient. If the answer is "no, it breaks," the feature is not designed yet.
+
+### Permitted
+
+| Use | Justification |
+|-----|---------------|
+| Belief synthesis | Given valid facts, what is the dominant interpretation? Ambiguity is genuine — multiple true facts conflict. |
+| Explanation layer | Narrating what the graph already knows. Structure → human-readable decision. LLM explains; it does not decide. |
+| Conflict surfacing | Heuristic signal: "these two decisions appear incompatible." Emits a signal for arbitration. Never commits truth. |
+| Cross-task pattern distillation | Semantic abstraction over structured operational history. Pattern emergence that does not reduce to SQL. |
+| Human-facing summarization | Translating JSONL, graph output, or structured data into decision-quality prose. |
+
+### Prohibited
+
+| Domain | Reason |
+|--------|--------|
+| Retrieval and ranking | Scoring must be explainable edge by edge. Unexplainable ranking is astrology, not epistemology. |
+| Governance enforcement | "Seems reasonable to the model" is not a rule. Governance by LLM is automated corruption. See the split below. |
+| Causal graph mutation | LLMs emit signals. Arbitration commits truth. Collapsing this boundary destroys the epistemic architecture. |
+| Task extraction and entity linking | Commit parsing, branch mapping, task references: deterministic before probabilistic, always. |
+| AC verification as a gate | Pass/fail on a governance decision requires a deterministic, auditable answer. Not a confidence score. |
+
+### Governance: the mandatory split
+
+Governance is not a single concept. It is two structurally distinct layers that must never be conflated.
+
+**Governance Enforcement** — deterministic, auditable, reproducible.
+
+May: block transitions, require escalation, enforce policy, assign focus by rule, archive tasks, validate completion.
+
+Must never: depend on LLM judgment for any of the above. A governance enforcement decision must be reproducible by re-running the same rule against the same state. If it isn't, it is not enforcement — it is a guess.
+
+**Governance Analysis** — LLM-permitted proposal layer.
+
+May: summarize system state, detect possible drift, surface tensions, propose replenishment, suggest kaizen, generate INBOX items.
+
+Must never: mutate task state directly, satisfy policy gates, close tasks, bypass escalation, or accumulate implicit authority over time.
+
+This layer emits signals and proposals. It never emits truth. The distinction is architectural, not stylistic.
+
+**The slippery slope to name and refuse:**
+
+> "THINK already participates in govern, so it can also…"
+
+This argument is invalid. It will be used. It must be rejected on contact. THINK participates in the *analysis* layer that governance *triggers* — not in enforcement itself. That participation does not extend authority. It never becomes a precedent for LLM judgment entering enforcement decisions.
+
+Degradations do not begin with a single large betrayal. They begin with a small semantic continuity: one reasonable exception, one "it's basically the same," one "confidence is high enough." Freeze the boundary before it is tested.
+
+**Current naming tension:**
+
+`arch govern` triggers THINK (via `arch conduct`). This is technically correct — the enforcement rules run first, deterministically; THINK runs afterward in the analysis layer. But the naming conflates enforcement with reflection and makes the boundary invisible to anyone reading the command surface.
+
+The target architecture separates these explicitly:
+
+```
+arch govern   → Governance Enforcement (deterministic, always correct)
+arch reflect  → Governance Analysis (LLM, proposals only, never authority)
+```
+
+`arch govern` may trigger `arch reflect` as an optional side-effect, but they are not the same layer and must not share a name. **This separation is a future implementation target, not yet complete.** Until it is done, the current behavior must not be cited as precedent for expanding THINK's authority.
+
+**A system survives by invariants that are comprehensible to anyone entering the codebase — not by private intentions of the original author.**
+
+> **REFLECT may influence interpretation of system state but may never determine system state transitions.**
+
+This is the authority invariant. REFLECT (THINK, synthesis, signal analysis) is a weather system — it reports conditions, surfaces risks, proposes classifications. GOVERN is air traffic control — it makes the final call on what changes. The weather system never cancels the flight.
+
+Consequence: no output of REFLECT can be consumed by GOVERN as authoritative input. REFLECT emits pressure signals. Humans or GOVERN consume them. The decision to PROMOTE, DEMOTE, or transition any artifact is never REFLECT's to make — regardless of deadline, confidence, or batching.
+
+**Influence measurement is not optional.** Formal authority and actual authority are not the same thing. If humans consistently follow REFLECT's suggestions, governance authority drifts toward the LLM without any explicit decision to allow it. This is soft delegation — invisible, gradual, and harder to reverse than explicit authority grant. To prevent it: every adjudication decision must record what REFLECT suggested and whether the human diverged. Low divergence rate over time is a warning signal, not a success metric. The system is not "human-governed" if the human is ratifying REFLECT suggestions without exercising independent judgment.
+
+> **ARCH should not only remember decisions. It must learn where its own categories fail.**
+
+This is the test for whether ARCH is operational infrastructure or an externalized checklist. Most serious architectural failures do not come from broken rules — they come from badly named categories that pass every check.
+
+### Architecture
+
+```
+deterministic substrate
+        ↓
+signal generation
+        ↓
+arbitration
+        ↓
+truth graph
+        ↓
+LLM synthesis / explanation
+```
+
+LLM at the bottom of the stack. Never at the top.
+
+**Ratio target:** 90% deterministic core, 10% LLM interface. Inverting this is not innovation. It is architectural debt with a latency cost and no audit trail.
+
+**The decay pattern to avoid:** Using LLM because it avoids designing the ontology. Pereza arquitectónica disguised as innovation. The competitive advantage of ARCH is needing LLMs less than comparable systems — because the system already knows how to think before it asks.

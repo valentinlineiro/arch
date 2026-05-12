@@ -1,12 +1,26 @@
 # ROADMAP.md
 <!-- ARCH Strategic Roadmap | v0.6.0 → 1.0.0 → 2.0 -->
-<!-- Updated: 2026-05-11 -->
+<!-- Updated: 2026-05-12 -->
 
 ## Identity
 
 > **ARCH is a git-native operational protocol for human+AI collaborative work.**
 
 This definition is frozen. ARCH is not an autonomous AGI swarm, a no-code platform, a chat UI, a SaaS workspace, a Jira replacement, or a second brain.
+
+## What ARCH Is Actually Building
+
+As of 2026-05-12, ARCH crossed a design threshold. The question is no longer "how does the system remember and execute better?" It is:
+
+> **How does a system that understands its own structure prevent its interpretation layer from becoming accidental authority?**
+
+This is epistemic governance design, not product development. The roadmap is no longer organized around features. It is organized around a single property:
+
+> **Epistemic integrity under use pressure.**
+
+The moat is not irreplaceable knowledge alone. It is irreplaceable knowledge that cannot be contaminated by its own interpretation layer. An ARCH that accumulates operational memory while allowing REFLECT to gradually shape governance decisions is not a compounding system — it is a system that corrupts its own truth structure over time.
+
+**What this means for every phase:** features are evaluated not just by "does this reduce friction?" but "does this preserve the authority boundary under real use pressure?" Phases that increase intelligence without protecting authority are not progress. They are surface area for future corruption.
 
 ## Fundamental Principle
 
@@ -28,17 +42,77 @@ A feature is `DONE` only when it is **Operational**. Implemented-but-not-operati
 
 > **Calibration note on Operational:** ARCH has inherent ontology because the problem demands it. The correct bar is not "zero learning curve" — that would condemn protocol-layer features to permanent PARTIAL. The correct bar is: does the user get more back than they put in? That is measurable. "Zero ontology" is not.
 
-## Current Priority Order
+## Deterministic Core Invariant
 
-> Discipline over creativity. The order below is not a preference — it is a dependency chain. Opening a later step before closing an earlier one is how systems fragment.
+> **LLMs may assist semantic compression under ambiguity, but must never be the source of truth for execution, governance, causal mutation, or policy enforcement.**
+
+**Implementation gate:** Before any feature that involves an LLM is designed or built, it must pass: *"If the LLM disappears tomorrow, does the system remain correct?"* If the answer is no, the feature is not yet designed.
+
+**Permitted:** belief synthesis, explanation layer, conflict surfacing (as signal), cross-task pattern distillation, human-facing summarization, governance *analysis* (proposals, INBOX summaries, Kaizen signals).
+
+**Prohibited:** retrieval ranking, governance *enforcement*, causal graph mutation, task/entity extraction as primary method, AC verification as a gate.
+
+**Governance is two layers, not one.** Enforcement is deterministic and must remain so. Analysis is the LLM-permitted proposal layer. They must not share a name or a command boundary. Current state: `arch govern` triggers THINK — enforcement is deterministic, analysis runs after. Target state: `arch govern` (enforcement) and `arch reflect` (analysis) are explicitly separate. See [docs/IDENTITY.md § 7](IDENTITY.md) — the slippery slope to refuse is named there.
+
+Full treatment: [docs/IDENTITY.md § 7](IDENTITY.md).
+
+---
+
+## Phase Structure
+
+The old linear priority list is replaced by four structural phases. These are not sequential milestones — they are concurrent concerns. But they have a dependency order: later phases depend on earlier ones being stable, not complete.
+
+### Phase A — Constitutional Authority *(~80% closed)*
+
+**What it is:** Freeze the invariants that prevent authority from leaking. REFLECT/GOVERN separation. LLM exclusion zones. Decision ownership. Signal vs state distinction.
+
+**Status:** Mostly closed. IDENTITY.md §7 frozen. Deterministic Core Invariant frozen. REFLECT authority invariant frozen. Influence measurement introduced. The remaining gap: `arch govern` / `arch reflect` command split is not yet implemented — the boundary exists constitutionally but not structurally at the command surface.
+
+**This phase is never truly closed.** Every new feature that touches the REFLECT/GOVERN boundary is a Phase A test.
+
+### Phase B — Signal System *(in progress)*
+
+**What it is:** Structured epistemic pressure infrastructure. The goal is not to capture knowledge — it is to prevent false stabilization of categories. Weak signals (Layer 0), validated TENSIONS, decay pressure, promotion/demotion lifecycle, divergence tracking.
+
+**Status:** Format defined. TENSION-001 written. Decay protocol operational (REFLECT emits pressure, human decides). Divergence tracking introduced. No automated detection yet — corpus must precede automation.
+
+**The axis is not "better memory." It is: can the system detect when its own ontology is lying?**
+
+### Phase C — Governance Engine *(not started)*
+
+**What it is:** Enforcement of epistemic separation itself — not just "what is allowed" but "who can decide what is operational truth." This is Phase 4 (Policy Engine) reframed at its correct level.
+
+**Prerequisites:** Phase A stable. Signal system generating real data (Phase B corpus exists). Policy without memory is bureaucracy; policy without constitutional authority is theater.
+
+**The question it answers:** When `arch govern` enforces a rule, is that rule traceable to a deterministic source? Or has REFLECT's output contaminated the rule's origin?
+
+### Phase D — Reflexive Closure *(not started)*
+
+**What it is:** The system detects when its interpretation layer is starting to influence its authority layer — before it becomes structural. REFLECT influence tracking, human decision drift monitoring, semantic authority leakage detection.
+
+**Prerequisites:** Phase C operational. Without governance enforcement, reflexive closure has nothing to protect.
+
+**This phase does not exist in any other system.** It is what separates ARCH from a sophisticated retrieval + synthesis pipeline with governance theater on top.
+
+---
+
+### Deprioritized (not removed — downgraded from primary axis)
+
+These were previously treated as core milestones. They are now supporting infrastructure:
+
+- `arch ask` quality improvements — useful, not on the critical path. Retrieval quality does not protect epistemic integrity.
+- LLM synthesis quality improvements — permitted zone, but not the constraint. Better synthesis with weak authority separation is more dangerous, not better.
+- Feature velocity — not the metric. Epistemic integrity under use pressure is the metric.
+
+---
+
+### Original priority sequence (historical record)
 
 1. ~~**`docs/IDENTITY.md`**~~ — shipped 2026-05-11
-2. ~~**`arch ask`**~~ — **shipped 2026-05-11** — v1–v3: keyword scoring, cause grouping, match reasons, query intent classification, corpus authority hierarchy. Causal-conditioned retrieval: `causalRelevance()` activates only edges with direct path to query entities (log-compressed, dominant-per-pair). Scoring and reasoning share a single activation predicate. **Operationally functional; not yet validated against real daily use.**
-3. ~~**Chronicle causal graph + signal arbitration**~~ — **shipped 2026-05-11** — causal graph v1 (ADR-014) + signal arbitration layer (ADR-015). Two invariants enforced: Query Isolation, Arbitration Determinism. Backward loop: lifecycle events → signal layer → cross-domain arbitration → graph mutation. Signal lifecycle: pending → applied | conflicted | stale.
-4. **Cross-task pattern distillation** — the moat becomes real when the system generates non-reconstructable knowledge
-5. **Policy engine** — governance only after memory and identity exist; policy without memory is automated bureaucracy
-
-Steps 2 and 3 are implemented. The question is whether they are operational — whether real use produces compounding advantage. That can only be answered by using them.
+2. ~~**`arch ask`**~~ — **shipped 2026-05-11** — operational; not yet validated as compounding
+3. ~~**Chronicle causal graph + signal arbitration**~~ — **shipped 2026-05-11** — signal hooks wired (TASK-228). Real graph data sparse.
+4. **Cross-task pattern distillation** — still valid; now belongs to Phase B/D
+5. **Governance Engine** — renamed from "Policy Engine"; reframed as Phase C
 
 ---
 
@@ -53,11 +127,11 @@ Steps 2 and 3 are implemented. The question is whether they are operational — 
 
 ---
 
-## Phase 0 — Conceptual Consolidation
+## Phase 0 — Constitutional Authority *(formerly: Conceptual Consolidation)*
 
-**Objective:** Close the mental model. Freeze invariants: what ARCH is, what it is not, and the operational model that governs it.
+**Objective:** Freeze the invariants that prevent authority from leaking between layers. What ARCH is, what it is not, and — critically — which layer can decide what.
 
-> **`docs/IDENTITY.md` written 2026-05-11.** System boundaries, layer distinctions, compounding condition, and rejection criteria are now frozen. The unresolved gap that remained is semantic stability — core concepts are still renamed across sessions. That is the only open item in this phase.
+> **Core invariants frozen 2026-05-12:** REFLECT/GOVERN separation (IDENTITY.md §7), Deterministic Core Invariant, authority boundary (REFLECT may influence interpretation but may never determine state transitions), influence measurement requirement. The remaining open item: semantic stability — core concepts still drift across sessions. Second remaining item: `arch govern` / `arch reflect` command split not yet implemented — the boundary is constitutionally frozen but structurally leaky at the command surface (IDEA-govern-reflect-split.md).
 
 | Feature | Status | Key Artifact |
 |---------|--------|--------------|
@@ -114,16 +188,17 @@ Steps 2 and 3 are implemented. The question is whether they are operational — 
 
 ---
 
-## Phase 4 — Policy Engine
+## Phase 4 — Governance Engine *(formerly: Policy Engine)*
 
-**Objective:** Convert `arch review` into governance. Structural constraints become machine-enforced invariants.
+**Objective:** Enforce epistemic separation itself. Not just "what is allowed" but "who can decide what is operational truth." Structural constraints become machine-enforced invariants anchored in deterministic, auditable rules.
 
-> **Gated on:** `docs/IDENTITY.md` (Phase 0) and `arch ask` (Phase 2). Policy without memory is automated bureaucracy. Policy without identity is policy for an undefined system. Do not open this phase until both prerequisites exist.
+> **Gated on:** Phase A stable (constitutional authority frozen), Phase B corpus exists (real TENSION data), `arch ask` operational (Phase 2). Policy without memory is automated bureaucracy. Policy without constitutional authority is theater. Do not open this phase until REFLECT/GOVERN separation is structurally enforced at the command surface, not only constitutionally documented.
 
 | Feature | Status | Key Artifact |
 |---------|--------|--------------|
 | Structural policies (forbidden deps, arch boundaries, naming invariants, mandatory tests) | `NOT STARTED` | [IDEA-roadmap-structural-policies](refinement/IDEA-roadmap-structural-policies.md) |
-| AI-proposed policies (ARCH detects patterns → proposes guidelines → human approves) | `NOT STARTED` | [IDEA-roadmap-ai-proposed-policies](refinement/IDEA-roadmap-ai-proposed-policies.md) |
+| AI-proposed policies — ARCH detects patterns → proposes → human approves | `NOT STARTED` | [IDEA-roadmap-ai-proposed-policies](refinement/IDEA-roadmap-ai-proposed-policies.md). **Constraint:** proposals must be tagged as `[REFLECT-SUGGESTS]` and require human approval before entering any enforcement rule. LLM-originated policies that become enforcement rules without explicit human promotion violate the Deterministic Core Invariant. |
+| `arch govern` / `arch reflect` command split | `NOT STARTED` | [IDEA-govern-reflect-split](refinement/IDEA-govern-reflect-split.md) — prerequisite for Phase C operational status |
 
 ---
 
@@ -165,12 +240,27 @@ Steps 2 and 3 are implemented. The question is whether they are operational — 
 
 ## Phase 8 — The Moat
 
-**Objective:** Accumulate operational memory that is irreplaceable. The competitive advantage is not the CLI — it is the institutional knowledge that compounds inside the repo.
+**Objective:** Accumulate operational memory that is irreplaceable and epistemically stable. The competitive advantage is not the CLI and not raw accumulated knowledge — it is institutional knowledge that compounds while remaining protected from contamination by its own interpretation layer.
 
-> **Current reality:** ARCH has potential for a moat, not a moat. The moat begins when the system knows something that cannot be reconstructed outside it. Today, if the repo were lost, no inference would be lost — only history and protocol. That is the gap. `arch ask` + Chronicle causal semantics are what close it.
+> **Revised definition (2026-05-12):** A moat requires two conditions, not one. (1) Knowledge that cannot be reconstructed outside the repo — this is the original condition, still unmet. (2) That knowledge must be protected from REFLECT contamination: inferences must remain traceable to deterministic sources, not gradually shaped by LLM suggestions that accumulated authority without explicit human grant. An ARCH that meets condition 1 but not condition 2 is a system that corrupts its own advantage over time. Both conditions must be met simultaneously.
 
 | Feature | Status | Key Artifact |
 |---------|--------|--------------|
 | Operational memory accumulation | `IN PROGRESS` | docs/archive/ (198 archived + 20 active tasks), docs/KAIZEN-LOG.md |
-| Causal event graph (Chronicle) | `PARTIAL` | Two-layer architecture live: graph (committed truth) + signal (observed hypotheses). `arch ask` causal integration complete — scoring is path-conditioned on active beliefs. Backward loop closed: lifecycle events → signal → arbitration → graph mutation. Real graph data sparse — moat begins when task closures consistently assert relations and signal corroboration produces inferred edges. Signal generation hooks (task done, govern violations) not yet wired. |
+| Causal event graph (Chronicle) | `PARTIAL` | Two-layer architecture live: graph (committed truth) + signal (observed hypotheses). `arch ask` causal integration complete — scoring is path-conditioned on active beliefs. Backward loop closed: lifecycle events → signal → arbitration → graph mutation. Signal generation wired into `arch task done` and `arch govern` (TASK-228, 2026-05-12). Real graph data sparse — moat begins when consistent task closures produce corroborating signal pairs. |
 | Cross-task pattern distillation | `NOT STARTED` | [IDEA-oracle-archive-distillation](refinement/IDEA-oracle-archive-distillation.md) |
+| Ontological Tension Detection | `PARTIAL` | **Not a THINK enhancement. Epistemic infrastructure, closer to Chronicle than to summarization.** TENSION records capture category errors and boundary ambiguities *before* they are violated — with the specific future misuse argument named. Format defined: `docs/tensions/TEMPLATE.md`. First record written 2026-05-12: TENSION-001 (governance enforcement vs governance analysis). **Correct development order:** manual corpus first → pattern classification → heuristics → structured THINK emission (much later). Without corpus, automated detection produces eloquent paranoia. The key signal: every human correction of "system passed but ontology is wrong" is a TENSION record waiting to be written. [IDEA-architectural-tension-capture](refinement/IDEA-architectural-tension-capture.md), [TENSION-001](tensions/TENSION-001.md) |
+
+---
+
+## Phase D — Reflexive Closure *(not started — gated on Phase C)*
+
+**Objective:** The system detects when its interpretation layer is starting to influence its authority layer before it becomes structural. This phase does not exist in any other system. It is what separates ARCH from a sophisticated retrieval + synthesis pipeline with governance theater on top.
+
+> **Gated on:** Phase C operational. Without governance enforcement, reflexive closure has nothing to protect. Without real REFLECT/GOVERN separation at the command surface, measuring their interaction is premature.
+
+| Feature | Status | Key Artifact |
+|---------|--------|--------------|
+| REFLECT influence tracking | `PARTIAL` | Divergence tracking protocol introduced in `docs/tensions/weak-signals.md` (2026-05-12). Every adjudication records REFLECT suggestion vs human decision. Low divergence rate over time is a warning signal, not success. No corpus yet — mechanism is in place, data accumulation begins with first real adjudication. |
+| Human decision drift monitoring | `NOT STARTED` | Requires REFLECT influence corpus. Pattern: if REFLECT suggests X and human decides X at high rate without documented rationale for alignment, governance authority has drifted. Detection requires Chronicle edges linking REFLECT emissions to human decisions over time. |
+| Semantic authority leakage detection | `NOT STARTED` | Structural analog of influence tracking: detect naming, command surface, or artifact class changes that implicitly grant REFLECT authority without a formal boundary decision. TENSION records are the current manual mechanism. Automated detection requires TENSION corpus + pattern analysis. |

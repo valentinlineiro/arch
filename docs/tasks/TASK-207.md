@@ -1,20 +1,33 @@
-## TASK-207: Implement SemanticACVerifier - LLM-based AC completion check
+## TASK-207: Implement DeterministicACVerifier - structural AC completion check
 **Meta:** P2 | M | READY | Focus:no | 2-code-generation | claude-code | cli/src/main/ts/domain/services/, cli/src/main/ts/application/commands/, cli/src/main/ts/application/use-cases/review-system.ts
 **Depends:** none
 
 ### Context
-AC completion is currently checkbox state only — the agent marks its own checkboxes with no independent verification. This task introduces a `SemanticACVerifier` service that routes the task spec, completed ACs, and git diff to a reasoning model via `ProviderRegistry` (TASK-199), returning a structured pass/fail with confidence level. This is the prerequisite for L3 self-archive (TASK-208).
+AC completion is currently checkbox state only — the agent marks its own checkboxes with no independent verification. This task introduces a `DeterministicACVerifier` service that evaluates each AC against its declared verification type, returning a structured pass/fail with auditable evidence.
+
+This replaces the previous LLM-based design. Verification of governance conditions is a structural question with a binary answer. It must not depend on model confidence. See [IDENTITY.md § 7](../IDENTITY.md) — Deterministic Core Invariant.
+
+**AC verification types** (declared inline in the AC string after `→`):
+- `cmd: <shell-command>; exit: <code>` — run command, assert exit code
+- `file: <path>` — assert file exists
+- `code: <description>` — read the file, check the condition structurally (AST or text match)
+- `test: <description>` — assert test suite passes (delegates to `npm test`)
+- `prose: <description>` — checkbox state only; no automated verification possible
 
 A prerequisite sub-task is storing `lockedCommit` SHA in `MarkTaskInProgress` so the diff boundary is deterministic.
 
 ### Acceptance Criteria
-- [ ] `MarkTaskInProgress` stores the current `git rev-parse HEAD` SHA as `lockedCommit` in the task file meta line → prose: verified by checking a task file after `arch exec` starts it
-- [ ] `SemanticACVerifier` service at `cli/src/main/ts/domain/services/semantic-ac-verifier.ts` with `verify(task: Task, diff: string): Promise<VerificationResult>` where `VerificationResult = { pass: boolean; confidence: 'high' | 'medium' | 'low'; evidence: string }` → code: verified by reading the file
-- [ ] Verifier builds prompt from task description + ACs + diff, routes through `ProviderRegistry` at M tier → prose: verified by reading the implementation
-- [ ] Circuit-breaker: if diff exceeds 500 lines, skip LLM call and return `{ pass: false, confidence: 'low', evidence: 'diff too large for automated verification' }` → code: verified by unit test
-- [ ] `arch verify-acs <task-id>` command added: resolves the task, computes diff from `lockedCommit` to HEAD, calls verifier, prints result → prose: verified by running the command manually
-- [ ] `ReviewSystem` calls verifier after `arch review` passes; if confidence is `low`, adds `AWAITING_REVIEW` to INBOX instead of proceeding → code: verified by reading review-system.ts
-- [ ] Unit tests cover: high-confidence pass, low-confidence fallback, circuit-breaker (diff > 500 lines), missing lockedCommit graceful degradation → test: `npm test` passes in `cli/`
+- [ ] `MarkTaskInProgress` stores the current `git rev-parse HEAD` SHA as `lockedCommit` in the task file meta line → prose: verified by checking a task file after `arch task start` runs
+- [ ] `DeterministicACVerifier` service at `cli/src/main/ts/domain/services/deterministic-ac-verifier.ts` with `verify(task: Task): Promise<VerificationResult>` where `VerificationResult = { pass: boolean; evidence: ACEvidence[] }` and `ACEvidence = { ac: string; type: VerificationType; pass: boolean; detail: string }` → code: verified by reading the file
+- [ ] Verifier parses each AC string for its `→ <type>:` suffix and dispatches to the matching check strategy → code: verified by reading the implementation
+- [ ] `cmd:` strategy: executes the declared shell command, asserts exit code matches expectation, captures stdout/stderr as `detail` → code: verified by unit test
+- [ ] `file:` strategy: asserts the declared path exists on disk → code: verified by unit test
+- [ ] `test:` strategy: runs `npm test` in the declared directory, asserts exit 0 → code: verified by unit test
+- [ ] `prose:` and `code:` strategies: return `pass: true` (human-verified or reader-verified), logged as non-automated in evidence → code: verified by unit test
+- [ ] If any `cmd:` or `file:` AC fails, overall result is `pass: false` → code: verified by unit test
+- [ ] `arch verify-acs <task-id>` command: resolves task, calls verifier, prints per-AC evidence table and overall pass/fail → prose: verified by running the command
+- [ ] `ReviewSystem` calls verifier before archive; if `pass: false`, blocks archive with evidence printed to stderr → code: verified by reading review-system.ts
+- [ ] Unit tests cover: all-pass, cmd-fail, file-missing, prose-only (no automation), mixed types → test: `npm test` passes in `cli/`
 - [ ] `arch review` passes → cmd: `arch review`
 - [ ] `npm test` passes in `cli/` → cmd: `cd cli && npm test`
 
@@ -22,3 +35,4 @@ A prerequisite sub-task is storing `lockedCommit` SHA in `MarkTaskInProgress` so
 - [ ] All ACs checked.
 - [ ] `arch review` passes.
 - [ ] `npm test` passes in `cli/`.
+- [ ] No LLM call exists anywhere in the verification path.
