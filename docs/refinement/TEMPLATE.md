@@ -23,3 +23,6 @@
 ## Decision
 <!-- Human writes here after THINK evaluation -->
 <!-- PROMOTE → TASK-XXX | REJECT: reason -->
+<!-- Attribution: append [influenced-by: THINK-abc123] or [independent] to enable divergence tracking -->
+<!-- Example: PROMOTE → TASK-XXX [influenced-by: THINK-abc123] -->
+<!-- Example: PROMOTE → TASK-XXX [independent] -->

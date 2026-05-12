@@ -34,7 +34,14 @@
 1. Scan `docs/refinement/` for `IDEA-*.md` files. Triage: process all IDEAs with a `Decision:` field first; for DRAFT IDEAs, process at most 3 per session.
 2. For each IDEA, apply lifecycle rules:
    - **DRAFT:** Identify gaps, dependencies, and estimate. Output to terminal only. Increment `**Sessions:** N` counter in the IDEA file (add field if missing). If `Sessions >= 3`, emit `[STALE-IDEA] IDEA-slug — N sessions without Decision` to stdout. If the IDEA was already flagged `[STALE-IDEA]` in the previous session (Sessions > 3) and still has no Decision, move it to `docs/refinement/archive/` with status `REJECTED: TTL expired`.
-   - **DECIDED:** If human Decision is written and IDEA is XS + 6-writing/7-operations, promote autonomously: update status to `PROMOTED -> TASK-XXX`, create task file, and archive IDEA. Append a PROMOTE record to `.arch/reflect-proposals.jsonl`: `{"proposal_id":"THINK-<8-char-uuid>","timestamp":"<ISO-8601>","target":"<IDEA-slug>","type":"PROMOTE","confidence":1.0,"signals_used":[]}` — confidence 1.0 because the human already decided; this records that THINK executed the promotion, not that THINK proposed it.
+   - **DECIDED:** If human Decision is written and IDEA is XS + 6-writing/7-operations, promote autonomously: update status to `PROMOTED -> TASK-XXX`, create task file, and archive IDEA. Then:
+     1. Append a PROMOTE record to `.arch/reflect-proposals.jsonl` at confidence 1.0 (records that THINK executed a human decision, not that THINK proposed it).
+     2. Parse the Decision field for an attribution annotation:
+        - `[influenced-by: THINK-abc123, THINK-def456]` → outcome `PROMOTE`, proposals cited
+        - `[independent]` → outcome `INDEPENDENT`, no proposals cited
+        - No annotation → outcome `PROMOTE`, `based_on_proposals: []` (attribution undeclared — distinct from independent)
+     3. Append to `.arch/reflect-decisions.jsonl`: `{"decision_id":"D-<8-char-uuid>","timestamp":"<ISO-8601>","target":"<IDEA-slug>","outcome":"PROMOTE|INDEPENDENT","based_on_proposals":["THINK-abc123"]}`
+     Attribution must be explicit or absent — never inferred from temporal proximity to a proposal.
    - **REJECTED:** Move to `docs/refinement/archive/`.
 3. **Phase boundary:** This phase does NOT interpret INTENT signals or create tasks from intents.
 
@@ -43,11 +50,11 @@
 1. **Skip condition:** If running under time pressure or minimal-mode flag, skip this phase and print `[THINK] Phase 3.5 — skipped`.
 2. **Inputs to read:** `docs/guidelines/*.md` (full content), `docs/adr/*.md` (Context + Decision sections of ACCEPTED ADRs), `docs/tasks/` (Meta lines + ACs only), `docs/archive/` (Meta lines only), `docs/refinement/IDEA-*.md` (DRAFT and PROMOTED entries), `docs/tensions/weak-signals.md` (full content).
 3. **Analysis — Weak signal decay:** Read `docs/tensions/weak-signals.md`. For each signal with an `**Adjudicate by:**` deadline that has now been reached (count this THINK session as one review against that deadline), emit to stdout: `[TENSION-DECAY] <signal-area>: resolution due — <current classification> — [REFLECT-SUGGESTS] PROMOTE | DEMOTE | EXTEND — rationale: <one sentence>`. Tag suggestions explicitly as `[REFLECT-SUGGESTS]` so they are distinguishable from human decisions in the divergence record. Do NOT make the decision. Do NOT modify the signal record. The pressure signal is output only — human or GOVERN decides the outcome. If a signal has already been extended once and is past its extended deadline, add `FINAL — no further extension valid` to the emission.
-   **After each `[REFLECT-SUGGESTS]` emission**, append a structured record to `.arch/reflect-proposals.jsonl`:
+   **After each `[REFLECT-SUGGESTS]` emission**, generate a `proposal_id` of the form `THINK-<8-char-uuid>` and include it in the stdout line: `[REFLECT-SUGGESTS] PROMOTE — id: THINK-abc123 — rationale: <one sentence>`. Then append to `.arch/reflect-proposals.jsonl`:
    ```json
-   {"proposal_id":"THINK-<8-char-uuid>","timestamp":"<ISO-8601>","target":"<signal-area>","type":"PROMOTE|DEMOTE|EXTEND","confidence":<0.0-1.0>,"rationale_ref":"<one-sentence rationale>","signals_used":["<signal-area>"]}
+   {"proposal_id":"THINK-abc123","timestamp":"<ISO-8601>","target":"<signal-area>","type":"PROMOTE|DEMOTE|EXTEND","confidence":<0.0-1.0>,"rationale_ref":"<one-sentence rationale>","signals_used":["<signal-area>"]}
    ```
-   Use confidence 0.7 for standard suggestions, 0.9 for FINAL (no further extension valid) signals. This record is the persistent trace of what REFLECT proposed — it enables future divergence measurement between REFLECT suggestions and human decisions. It is not a decision record.
+   Use confidence 0.7 for standard suggestions, 0.9 for FINAL (no further extension valid) signals. The `proposal_id` must appear in stdout so that humans can cite it in their subsequent Decision annotation (`[influenced-by: THINK-abc123]`). This record is the persistent trace of what REFLECT proposed — it is not a decision record.
 4. **Analysis — Conceptual contradictions:** Identify any two guideline sections that assert conflicting behaviors for the same domain (e.g., commit frequency defined differently in two files). If found, emit `[SEMANTIC-DRIFT] contradiction: <file-A>:<section> vs <file-B>:<section> — <description>` to stdout.
 5. **Analysis — Structural duplication:** Identify materially identical sections or rules appearing in more than one guideline file. If found, emit `[SEMANTIC-DRIFT] duplication: <file-A>:<section> ≈ <file-B>:<section>` to stdout.
 6. **Analysis — ADR conceptual drift:** Identify ACCEPTED ADRs whose stated rationale conflicts with how the system currently operates (judged against active tasks and current guidelines). If found, emit `[SEMANTIC-DRIFT] adr-drift: <ADR-ID> — rationale no longer matches observed system behavior` to stdout.
