@@ -22,4 +22,4 @@ M
 ## Gaps
 
 ## Decision
-PROMOTE → TASK-219
+REJECT: arch capture and the INTENT artifact were removed from ARCH. The problem it solved (task creation friction) belongs to the DO protocol, not to a capture→scaffold pipeline. The artifact no longer has a target to promote into.

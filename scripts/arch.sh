@@ -12,7 +12,7 @@ BIN="node $(dirname "$0")/../cli/dist/index.js"
 
 # ── Router ────────────────────────────────────────────────────────
 case "$1" in
-  "validate"|"lint"|"inbox"|"next"|"govern"|"rank"|"batch"|"drain"|"conduct"|"promote"|"version"|"loop"|"sandbox"|"mv"|"exec"|"capture"|"index"|"think"|"ask"|"causal"|"--version"|"-v")
+  "validate"|"lint"|"inbox"|"next"|"govern"|"rank"|"batch"|"drain"|"conduct"|"promote"|"version"|"loop"|"sandbox"|"mv"|"exec"|"index"|"ask"|"causal"|"reflect"|"--version"|"-v")
     $BIN "$@"
     ;;
 
@@ -63,7 +63,7 @@ case "$1" in
     ;;
 
   *)
-    echo "Usage: $0 [review|task|inbox|govern|version|batch|drain|conduct|loop|sandbox|mv|exec|capture|index|think|ask|causal]"
+    echo "Usage: $0 [review|task|inbox|govern|version|batch|drain|conduct|loop|sandbox|mv|exec|index|ask|causal|reflect]"
     echo ""
     echo "Commands:"
     echo "  review            Run deep audit and drift check (--fast to skip drift)"
@@ -78,11 +78,10 @@ case "$1" in
     echo "  loop              Autonomous execution loop"
     echo "  sandbox           Secure execution wrapper (non-AI)"
     echo "  mv                Move a file and update task contexts"
-    echo "  capture           Capture a new intent"
     echo "  index             Rebuild the context index"
-    echo "  think             Process intents and build tasks"
     echo "  ask               Query operational memory"
     echo "  causal            Record and query causal relations between entities"
+    echo "  reflect           Inspect REFLECT influence diagnostics"
     echo ""
     echo "Deprecated (use canonical replacements instead):"
     echo "  validate          → arch review --fast"
