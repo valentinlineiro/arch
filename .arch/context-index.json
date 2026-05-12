@@ -1,7 +1,23 @@
 {
-  "version": 1,
-  "builtAt": "2026-05-08T12:59:28.659Z",
+  "version": 5,
+  "builtAt": "2026-05-12T09:32:15.524Z",
   "files": {
+    "cli/src/main/ts/application/commands/ask-command.ts": {
+      "symbols": [
+        "AskIO",
+        "AskCommand"
+      ],
+      "imports": [
+        "cli/src/main/ts/application/use-cases/ask-corpus.ts"
+      ],
+      "tags": [
+        "application",
+        "commands",
+        "command"
+      ],
+      "criticality": "domain",
+      "runtimeUsage": "hot"
+    },
     "cli/src/main/ts/application/commands/batch-command.ts": {
       "symbols": [
         "BatchCommand"
@@ -21,6 +37,7 @@
     },
     "cli/src/main/ts/application/commands/capture-command.ts": {
       "symbols": [
+        "CaptureIO",
         "CaptureCommand"
       ],
       "imports": [
@@ -30,6 +47,26 @@
         "application",
         "commands",
         "capture",
+        "command"
+      ],
+      "criticality": "domain",
+      "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/application/commands/causal-command.ts": {
+      "symbols": [
+        "CausalIO",
+        "CausalCommand"
+      ],
+      "imports": [
+        "cli/src/main/ts/application/use-cases/causal-graph.ts",
+        "cli/src/main/ts/application/use-cases/causal-arbitrator.ts",
+        "cli/src/main/ts/application/use-cases/causal-signal-log.ts",
+        "cli/src/main/ts/domain/models/causal-relation.ts"
+      ],
+      "tags": [
+        "application",
+        "commands",
+        "causal",
         "command"
       ],
       "criticality": "domain",
@@ -81,7 +118,8 @@
         "cli/src/main/ts/domain/services/config-loader.ts",
         "cli/src/main/ts/domain/repositories/task-repository.ts",
         "cli/src/main/ts/domain/repositories/git-repository.ts",
-        "cli/src/main/ts/domain/repositories/file-system.ts"
+        "cli/src/main/ts/domain/repositories/file-system.ts",
+        "cli/src/main/ts/application/use-cases/causal-signal-log.ts"
       ],
       "tags": [
         "application",
@@ -100,7 +138,7 @@
         "cli/src/main/ts/application/use-cases/generate-inbox.ts",
         "cli/src/main/ts/domain/repositories/task-repository.ts",
         "cli/src/main/ts/domain/services/reviewer.ts",
-        "cli/src/main/ts/domain/services/drift-checker.ts",
+        "cli/src/main/ts/application/use-cases/drift-checker.ts",
         "cli/src/main/ts/domain/repositories/file-system.ts",
         "cli/src/main/ts/infrastructure/cli/output-formatter.ts"
       ],
@@ -160,7 +198,7 @@
         "cli/src/main/ts/domain/repositories/git-repository.ts",
         "cli/src/main/ts/domain/repositories/file-system.ts",
         "cli/src/main/ts/domain/services/reviewer.ts",
-        "cli/src/main/ts/domain/services/drift-checker.ts",
+        "cli/src/main/ts/application/use-cases/drift-checker.ts",
         "cli/src/main/ts/application/use-cases/loop-engine.ts"
       ],
       "tags": [
@@ -276,7 +314,7 @@
         "cli/src/main/ts/domain/repositories/git-repository.ts",
         "cli/src/main/ts/domain/repositories/file-system.ts",
         "cli/src/main/ts/domain/services/reviewer.ts",
-        "cli/src/main/ts/domain/services/drift-checker.ts",
+        "cli/src/main/ts/application/use-cases/drift-checker.ts",
         "cli/src/main/ts/infrastructure/cli/output-formatter.ts"
       ],
       "tags": [
@@ -338,17 +376,45 @@
         "cli/src/main/ts/application/use-cases/task-reject-stale.ts",
         "cli/src/main/ts/application/use-cases/update-task-metrics.ts",
         "cli/src/main/ts/application/use-cases/context-inference.ts",
+        "cli/src/main/ts/application/use-cases/compress-task.ts",
+        "cli/src/main/ts/application/commands/next-command.ts",
+        "cli/src/main/ts/application/commands/rank-command.ts",
+        "cli/src/main/ts/application/commands/promote-command.ts",
         "cli/src/main/ts/domain/services/human-coordination-service.ts",
         "cli/src/main/ts/domain/repositories/task-repository.ts",
         "cli/src/main/ts/domain/services/reviewer.ts",
         "cli/src/main/ts/domain/repositories/file-system.ts",
+        "cli/src/main/ts/domain/repositories/git-repository.ts",
         "cli/src/main/ts/domain/models/event.ts",
+        "cli/src/main/ts/infrastructure/filesystem/node-feedback-repository.ts",
+        "cli/src/main/ts/application/use-cases/causal-signal-log.ts",
         "cli/src/main/ts/infrastructure/cli/output-formatter.ts"
       ],
       "tags": [
         "application",
         "commands",
         "task",
+        "command"
+      ],
+      "criticality": "domain",
+      "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/application/commands/think-command.ts": {
+      "symbols": [
+        "ThinkCommand"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/repositories/intent-repository.ts",
+        "cli/src/main/ts/domain/repositories/task-repository.ts",
+        "cli/src/main/ts/domain/repositories/file-system.ts",
+        "cli/src/main/ts/application/use-cases/scaffold-task.ts",
+        "cli/src/main/ts/application/use-cases/finalize-promotion.ts",
+        "cli/src/main/ts/application/use-cases/context-inference.ts"
+      ],
+      "tags": [
+        "application",
+        "commands",
+        "think",
         "command"
       ],
       "criticality": "domain",
@@ -386,6 +452,32 @@
         "commands",
         "version",
         "command"
+      ],
+      "criticality": "domain",
+      "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/application/use-cases/ask-corpus.ts": {
+      "symbols": [
+        "QueryClass",
+        "CorpusMatch",
+        "CauseGroup",
+        "AskResult",
+        "AskCorpus"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/repositories/file-system.ts",
+        "cli/src/main/ts/application/use-cases/causal-graph.ts"
+      ],
+      "tags": [
+        "application",
+        "cases",
+        "corpus",
+        "query",
+        "class",
+        "match",
+        "cause",
+        "group",
+        "result"
       ],
       "criticality": "domain",
       "runtimeUsage": "hot"
@@ -446,6 +538,90 @@
       "criticality": "domain",
       "runtimeUsage": "hot"
     },
+    "cli/src/main/ts/application/use-cases/causal-arbitrator.ts": {
+      "symbols": [
+        "ArbitrationAction",
+        "ConflictRecord",
+        "ArbitrationResult",
+        "CausalArbitrator"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/models/causal-signal.ts",
+        "cli/src/main/ts/domain/models/causal-relation.ts",
+        "cli/src/main/ts/application/use-cases/causal-signal-log.ts",
+        "cli/src/main/ts/application/use-cases/causal-graph.ts"
+      ],
+      "tags": [
+        "application",
+        "cases",
+        "causal",
+        "arbitrator",
+        "arbitration",
+        "action",
+        "conflict",
+        "record",
+        "result"
+      ],
+      "criticality": "domain",
+      "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/application/use-cases/causal-graph.ts": {
+      "symbols": [
+        "ScoredEdge",
+        "BeliefSynthesis",
+        "CausalGraph"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/repositories/file-system.ts",
+        "cli/src/main/ts/domain/models/causal-relation.ts"
+      ],
+      "tags": [
+        "application",
+        "cases",
+        "causal",
+        "graph",
+        "scored",
+        "edge",
+        "belief",
+        "synthesis"
+      ],
+      "criticality": "domain",
+      "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/application/use-cases/causal-signal-log.ts": {
+      "symbols": [
+        "CausalSignalLog"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/repositories/file-system.ts",
+        "cli/src/main/ts/domain/models/causal-relation.ts",
+        "cli/src/main/ts/domain/models/causal-signal.ts"
+      ],
+      "tags": [
+        "application",
+        "cases",
+        "causal",
+        "signal"
+      ],
+      "criticality": "domain",
+      "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/application/use-cases/compress-task.ts": {
+      "symbols": [
+        "CompressTask"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/repositories/file-system.ts"
+      ],
+      "tags": [
+        "application",
+        "cases",
+        "compress",
+        "task"
+      ],
+      "criticality": "domain",
+      "runtimeUsage": "hot"
+    },
     "cli/src/main/ts/application/use-cases/context-inference.ts": {
       "symbols": [
         "ScoredFile",
@@ -456,7 +632,8 @@
       ],
       "imports": [
         "cli/src/main/ts/domain/repositories/file-system.ts",
-        "cli/src/main/ts/domain/models/context-index.ts"
+        "cli/src/main/ts/domain/models/context-index.ts",
+        "cli/src/main/ts/domain/models/feedback-signal.ts"
       ],
       "tags": [
         "application",
@@ -466,6 +643,60 @@
         "scored",
         "file",
         "guideline",
+        "result"
+      ],
+      "criticality": "domain",
+      "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/application/use-cases/drift-checker.ts": {
+      "symbols": [
+        "DriftResult",
+        "DriftChecker"
+      ],
+      "imports": [
+        "cli/src/main/ts/application/repositories/file-system.ts",
+        "cli/src/main/ts/application/repositories/git-repository.ts"
+      ],
+      "tags": [
+        "application",
+        "cases",
+        "drift",
+        "checker",
+        "result"
+      ],
+      "criticality": "domain",
+      "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/application/use-cases/extract-context-feedback.ts": {
+      "symbols": [
+        "ExtractContextFeedback"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/models/feedback-signal.ts"
+      ],
+      "tags": [
+        "application",
+        "cases",
+        "extract",
+        "context",
+        "feedback"
+      ],
+      "criticality": "domain",
+      "runtimeUsage": "warm"
+    },
+    "cli/src/main/ts/application/use-cases/finalize-promotion.ts": {
+      "symbols": [
+        "FinalizeResult",
+        "FinalizePromotion"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/repositories/file-system.ts"
+      ],
+      "tags": [
+        "application",
+        "cases",
+        "finalize",
+        "promotion",
         "result"
       ],
       "criticality": "domain",
@@ -481,7 +712,7 @@
         "cli/src/main/ts/domain/repositories/file-system.ts",
         "cli/src/main/ts/domain/models/task.ts",
         "cli/src/main/ts/domain/services/reviewer.ts",
-        "cli/src/main/ts/domain/services/drift-checker.ts"
+        "cli/src/main/ts/application/use-cases/drift-checker.ts"
       ],
       "tags": [
         "application",
@@ -523,7 +754,8 @@
         "cli/src/main/ts/application/use-cases/select-next-task.ts",
         "cli/src/main/ts/application/use-cases/batch-system.ts",
         "cli/src/main/ts/infrastructure/cli/subprocess-runner.ts",
-        "cli/src/main/ts/domain/services/config-loader.ts"
+        "cli/src/main/ts/domain/services/config-loader.ts",
+        "cli/src/main/ts/application/use-cases/causal-signal-log.ts"
       ],
       "tags": [
         "application",
@@ -544,12 +776,13 @@
         "cli/src/main/ts/domain/repositories/git-repository.ts",
         "cli/src/main/ts/domain/repositories/file-system.ts",
         "cli/src/main/ts/domain/services/reviewer.ts",
-        "cli/src/main/ts/domain/services/drift-checker.ts",
+        "cli/src/main/ts/application/use-cases/drift-checker.ts",
         "cli/src/main/ts/domain/models/task.ts",
         "cli/src/main/ts/application/use-cases/select-next-task.ts",
         "cli/src/main/ts/application/use-cases/govern-system.ts",
         "cli/src/main/ts/application/use-cases/review-system.ts",
         "cli/src/main/ts/application/use-cases/mark-task-done.ts",
+        "cli/src/main/ts/infrastructure/filesystem/node-feedback-repository.ts",
         "cli/src/main/ts/infrastructure/cli/subprocess-runner.ts",
         "cli/src/main/ts/domain/services/config-loader.ts",
         "cli/src/main/ts/domain/services/provider-registry.ts",
@@ -574,7 +807,10 @@
         "cli/src/main/ts/domain/models/task.ts",
         "cli/src/main/ts/domain/services/reviewer.ts",
         "cli/src/main/ts/domain/repositories/file-system.ts",
-        "cli/src/main/ts/domain/models/event.ts"
+        "cli/src/main/ts/domain/models/event.ts",
+        "cli/src/main/ts/domain/repositories/feedback-repository.ts",
+        "cli/src/main/ts/application/use-cases/extract-context-feedback.ts",
+        "cli/src/main/ts/application/use-cases/causal-signal-log.ts"
       ],
       "tags": [
         "application",
@@ -704,7 +940,7 @@
         "cli/src/main/ts/domain/repositories/git-repository.ts",
         "cli/src/main/ts/domain/repositories/file-system.ts",
         "cli/src/main/ts/domain/services/reviewer.ts",
-        "cli/src/main/ts/domain/services/drift-checker.ts",
+        "cli/src/main/ts/application/use-cases/drift-checker.ts",
         "cli/src/main/ts/domain/services/config-loader.ts"
       ],
       "tags": [
@@ -712,6 +948,27 @@
         "cases",
         "review",
         "system"
+      ],
+      "criticality": "domain",
+      "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/application/use-cases/scaffold-task.ts": {
+      "symbols": [
+        "ScaffoldResult",
+        "ScaffoldTask"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/repositories/intent-repository.ts",
+        "cli/src/main/ts/domain/repositories/task-repository.ts",
+        "cli/src/main/ts/domain/repositories/file-system.ts",
+        "cli/src/main/ts/domain/models/intent.ts"
+      ],
+      "tags": [
+        "application",
+        "cases",
+        "scaffold",
+        "task",
+        "result"
       ],
       "criticality": "domain",
       "runtimeUsage": "hot"
@@ -853,6 +1110,56 @@
       "criticality": "core",
       "runtimeUsage": "warm"
     },
+    "cli/src/main/ts/domain/models/causal-relation.ts": {
+      "symbols": [
+        "RelationType",
+        "VALID_RELATIONS",
+        "RELATION_STRENGTH",
+        "Confidence",
+        "VALID_CONFIDENCES",
+        "CausalSource",
+        "EdgeStatus",
+        "CausalRelation"
+      ],
+      "imports": [],
+      "tags": [
+        "domain",
+        "models",
+        "causal",
+        "relation",
+        "type",
+        "confidence",
+        "source",
+        "edge",
+        "status"
+      ],
+      "criticality": "core",
+      "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/domain/models/causal-signal.ts": {
+      "symbols": [
+        "SignalType",
+        "SignalDomain",
+        "SignalStatus",
+        "SIGNAL_DOMAIN_PRIORITY",
+        "CausalSignal",
+        "CausalSignalUpdate"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/models/causal-relation.ts"
+      ],
+      "tags": [
+        "domain",
+        "models",
+        "causal",
+        "signal",
+        "type",
+        "status",
+        "update"
+      ],
+      "criticality": "core",
+      "runtimeUsage": "hot"
+    },
     "cli/src/main/ts/domain/models/context-index.ts": {
       "symbols": [
         "FileEntry",
@@ -897,6 +1204,24 @@
       "criticality": "core",
       "runtimeUsage": "hot"
     },
+    "cli/src/main/ts/domain/models/feedback-signal.ts": {
+      "symbols": [
+        "FeedbackVerdict",
+        "FeedbackDetail",
+        "FeedbackSignal"
+      ],
+      "imports": [],
+      "tags": [
+        "domain",
+        "models",
+        "feedback",
+        "signal",
+        "verdict",
+        "detail"
+      ],
+      "criticality": "core",
+      "runtimeUsage": "warm"
+    },
     "cli/src/main/ts/domain/models/intent.ts": {
       "symbols": [
         "IntentStatus",
@@ -931,6 +1256,22 @@
       ],
       "criticality": "core",
       "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/domain/repositories/feedback-repository.ts": {
+      "symbols": [
+        "FeedbackRepository"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/models/feedback-signal.ts"
+      ],
+      "tags": [
+        "domain",
+        "repositories",
+        "feedback",
+        "repository"
+      ],
+      "criticality": "core",
+      "runtimeUsage": "warm"
     },
     "cli/src/main/ts/domain/repositories/file-system.ts": {
       "symbols": [
@@ -1021,25 +1362,6 @@
         "services",
         "config",
         "loader"
-      ],
-      "criticality": "core",
-      "runtimeUsage": "hot"
-    },
-    "cli/src/main/ts/domain/services/drift-checker.ts": {
-      "symbols": [
-        "DriftResult",
-        "DriftChecker"
-      ],
-      "imports": [
-        "cli/src/main/ts/domain/repositories/file-system.ts",
-        "cli/src/main/ts/domain/repositories/git-repository.ts"
-      ],
-      "tags": [
-        "domain",
-        "services",
-        "drift",
-        "checker",
-        "result"
       ],
       "criticality": "core",
       "runtimeUsage": "hot"
@@ -1201,7 +1523,7 @@
         "cli/src/main/ts/infrastructure/filesystem/markdown-task-repository.ts",
         "cli/src/main/ts/infrastructure/cli/git-cli.ts",
         "cli/src/main/ts/domain/services/reviewer.ts",
-        "cli/src/main/ts/domain/services/drift-checker.ts",
+        "cli/src/main/ts/application/use-cases/drift-checker.ts",
         "cli/src/main/ts/infrastructure/cli/command-parser.ts",
         "cli/src/main/ts/application/commands/status-command.ts",
         "cli/src/main/ts/application/commands/validate-command.ts",
@@ -1227,7 +1549,13 @@
         "cli/src/main/ts/application/use-cases/capture-intent.ts",
         "cli/src/main/ts/application/commands/capture-command.ts",
         "cli/src/main/ts/application/commands/index-command.ts",
-        "cli/src/main/ts/infrastructure/filesystem/chronicle-event-repository.ts"
+        "cli/src/main/ts/infrastructure/filesystem/chronicle-event-repository.ts",
+        "cli/src/main/ts/application/commands/think-command.ts",
+        "cli/src/main/ts/application/commands/ask-command.ts",
+        "cli/src/main/ts/application/use-cases/ask-corpus.ts",
+        "cli/src/main/ts/application/commands/causal-command.ts",
+        "cli/src/main/ts/application/use-cases/causal-graph.ts",
+        "cli/src/main/ts/application/use-cases/causal-signal-log.ts"
       ],
       "tags": [
         "index"
@@ -1358,6 +1686,25 @@
         "filesystem",
         "markdown",
         "task",
+        "repository"
+      ],
+      "criticality": "support",
+      "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/infrastructure/filesystem/node-feedback-repository.ts": {
+      "symbols": [
+        "NodeFeedbackRepository"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/repositories/feedback-repository.ts",
+        "cli/src/main/ts/domain/models/feedback-signal.ts",
+        "cli/src/main/ts/domain/repositories/file-system.ts"
+      ],
+      "tags": [
+        "infrastructure",
+        "filesystem",
+        "node",
+        "feedback",
         "repository"
       ],
       "criticality": "support",
@@ -2491,8 +2838,1141 @@
       ],
       "affectedModules": [],
       "strength": "enforced"
+    },
+    "ADR-014": {
+      "title": "Causal Graph Schema for Chronicle",
+      "keywords": [
+        "causal",
+        "graph",
+        "schema",
+        "chronicle",
+        "adr",
+        "014",
+        "date",
+        "2026",
+        "status",
+        "accepted",
+        "deciders",
+        "valent",
+        "eiro",
+        "context",
+        "records",
+        "operational",
+        "events",
+        "task",
+        "started",
+        "completed",
+        "stores",
+        "relationships",
+        "between",
+        "entities",
+        "means",
+        "arch",
+        "ask",
+        "surface",
+        "occurrence",
+        "tasks",
+        "decisions",
+        "cannot",
+        "answer",
+        "questions",
+        "why",
+        "did",
+        "exist",
+        "which",
+        "guideline",
+        "violated",
+        "implements",
+        "without",
+        "structure",
+        "recurring",
+        "failure",
+        "detection",
+        "limited",
+        "lexical",
+        "proxy",
+        "causality",
+        "itself",
+        "memory",
+        "layer",
+        "compound",
+        "decision",
+        "add",
+        "flat",
+        "append",
+        "only",
+        "relation",
+        "store",
+        "jsonl",
+        "line",
+        "json",
+        "object",
+        "220",
+        "011",
+        "timestamp",
+        "note",
+        "allowed",
+        "types",
+        "caused",
+        "fixes",
+        "spawned",
+        "references",
+        "invariants"
+      ],
+      "affectedModules": [
+        "cli/src/main/ts/domain/models/causal-relation.ts"
+      ],
+      "strength": "enforced"
+    },
+    "ADR-015": {
+      "title": "Causal Signal Arbitration Layer",
+      "keywords": [
+        "causal",
+        "signal",
+        "arbitration",
+        "layer",
+        "adr",
+        "015",
+        "status",
+        "accepted",
+        "date",
+        "2026",
+        "task",
+        "225",
+        "context",
+        "014",
+        "established",
+        "graph",
+        "append",
+        "only",
+        "jsonl",
+        "human",
+        "asserted",
+        "system",
+        "inferred",
+        "edges",
+        "design",
+        "handles",
+        "causalgraph",
+        "askcorpus",
+        "influence",
+        "forward",
+        "direction",
+        "backward",
+        "learning",
+        "without",
+        "feedback",
+        "path",
+        "becomes",
+        "frozen",
+        "truth",
+        "coherent",
+        "epistemologically",
+        "rigid",
+        "under",
+        "evidence",
+        "needed",
+        "loop",
+        "does",
+        "collapse",
+        "uncertainty",
+        "prematurely",
+        "remains",
+        "auditable",
+        "reproducible",
+        "decision",
+        "introduce",
+        "epistemic",
+        "architecture",
+        "arch",
+        "observation",
+        "records",
+        "generated",
+        "automatically",
+        "lifecycle",
+        "events",
+        "completion",
+        "recurrence",
+        "detection",
+        "govern",
+        "violations",
+        "never",
+        "directly",
+        "consumed",
+        "queries",
+        "signals",
+        "hypotheses",
+        "facts",
+        "existing",
+        "committ"
+      ],
+      "affectedModules": [],
+      "strength": "enforced"
+    },
+    "ADR-016": {
+      "title": "Define the semantic boundary of the domain layer",
+      "keywords": [
+        "define",
+        "semantic",
+        "boundary",
+        "domain",
+        "layer",
+        "adr",
+        "016",
+        "date",
+        "2026",
+        "status",
+        "accepted",
+        "deciders",
+        "valent",
+        "eiro",
+        "context",
+        "cli",
+        "src",
+        "main",
+        "contained",
+        "mix",
+        "true",
+        "models",
+        "repositories",
+        "operational",
+        "enforcement",
+        "services",
+        "drift",
+        "checker",
+        "protected",
+        "path",
+        "arch",
+        "config",
+        "json",
+        "covered",
+        "entire",
+        "directory",
+        "causing",
+        "escalationmaturity",
+        "fire",
+        "structural",
+        "governance",
+        "changes",
+        "opposite",
+        "what",
+        "protection",
+        "depends",
+        "filesystem",
+        "gitrepository",
+        "infrastructure",
+        "consumed",
+        "exclusively",
+        "application",
+        "enforces",
+        "invariants",
+        "rather",
+        "than",
+        "representing",
+        "business",
+        "rules",
+        "model",
+        "decision",
+        "means",
+        "value",
+        "objects",
+        "repository",
+        "interfaces",
+        "whose",
+        "logic",
+        "derived",
+        "purely",
+        "dependencies",
+        "checking",
+        "system",
+        "review",
+        "belong"
+      ],
+      "affectedModules": [],
+      "strength": "enforced"
     }
   },
+  "adrTaskLinks": {
+    "ADR-001": {
+      "tasks": {
+        "TASK-002": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-002.md"
+        },
+        "TASK-023": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-023.md"
+        },
+        "TASK-157": {
+          "evidenceKinds": [
+            "depends",
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-157.md"
+        }
+      }
+    },
+    "ADR-000": {
+      "tasks": {
+        "TASK-002": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-002.md"
+        },
+        "TASK-003": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-003.md"
+        }
+      }
+    },
+    "ADR-002": {
+      "tasks": {
+        "TASK-003": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-003.md"
+        }
+      }
+    },
+    "ADR-003": {
+      "tasks": {
+        "TASK-023": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-023.md"
+        },
+        "TASK-074": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-074.md"
+        },
+        "TASK-160": {
+          "evidenceKinds": [
+            "depends",
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-160.md"
+        }
+      }
+    },
+    "ADR-004": {
+      "tasks": {
+        "TASK-047": {
+          "evidenceKinds": [
+            "depends",
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-047.md"
+        },
+        "TASK-185": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-185.md"
+        },
+        "TASK-186": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-186.md"
+        },
+        "TASK-200": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-200.md"
+        }
+      }
+    },
+    "ADR-005": {
+      "tasks": {
+        "TASK-164": {
+          "evidenceKinds": [
+            "depends",
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-164.md"
+        }
+      }
+    },
+    "ADR-006": {
+      "tasks": {
+        "TASK-185": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-185.md"
+        },
+        "TASK-186": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-186.md"
+        },
+        "TASK-200": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-200.md"
+        }
+      }
+    },
+    "ADR-012": {
+      "tasks": {
+        "TASK-185": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-185.md"
+        }
+      }
+    },
+    "ADR-007": {
+      "tasks": {
+        "TASK-186": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-186.md"
+        },
+        "TASK-200": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-200.md"
+        }
+      }
+    },
+    "ADR-016": {
+      "tasks": {
+        "TASK-202": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-202.md"
+        },
+        "TASK-227": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-227.md"
+        }
+      }
+    },
+    "ADR-011": {
+      "tasks": {
+        "TASK-213": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-213.md"
+        }
+      }
+    },
+    "ADR-014": {
+      "tasks": {
+        "TASK-224": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-224.md"
+        }
+      }
+    },
+    "ADR-015": {
+      "tasks": {
+        "TASK-225": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-225.md"
+        }
+      }
+    }
+  },
+  "failures": {
+    "KAIZEN-PROTOCOL-1": {
+      "id": "KAIZEN-PROTOCOL-1",
+      "sourceType": "kaizen",
+      "sourceRef": "docs/KAIZEN-LOG.md",
+      "title": "Decision Blindness (High Velocity)*(Sprint 3)*: The agent executes architectural changes (ADR) and detects bugs (TASK-061) that stay in logs or PRs without immediate human visibility. High velocity (35 tasks/48h) makes individual monitoring impossible. **Proposal:** GOVERNANCE.md contract + INBOX.md weekly dashboard + `arch inbox` agent.",
+      "keywords": [
+        "decision",
+        "blindness",
+        "high",
+        "velocity",
+        "sprint",
+        "agent",
+        "executes",
+        "architectural",
+        "changes",
+        "adr",
+        "detects",
+        "bugs",
+        "task",
+        "061",
+        "stay",
+        "logs",
+        "prs",
+        "without",
+        "immediate",
+        "human",
+        "visibility",
+        "tasks",
+        "48h",
+        "makes",
+        "individual",
+        "monitoring",
+        "impossible",
+        "proposal",
+        "governance",
+        "contract",
+        "inbox",
+        "weekly",
+        "dashboard",
+        "arch"
+      ],
+      "relatedTaskIds": [
+        "TASK-061"
+      ],
+      "severityHint": "high"
+    },
+    "KAIZEN-PROTOCOL-2": {
+      "id": "KAIZEN-PROTOCOL-2",
+      "sourceType": "kaizen",
+      "sourceRef": "docs/KAIZEN-LOG.md",
+      "title": "Bugs without formal registration*(Sprint 3)*: `arch review` WARNs had no defined path to the backlog. TASK-041/042/043 were created manually after detection. The bug protocol (TASK-040) resolved this, but friction persisted throughout Sprint 2 and part of Sprint 3.",
+      "keywords": [
+        "bugs",
+        "without",
+        "formal",
+        "registration",
+        "sprint",
+        "arch",
+        "review",
+        "warns",
+        "had",
+        "defined",
+        "path",
+        "backlog",
+        "task",
+        "041",
+        "042",
+        "043",
+        "created",
+        "manually",
+        "after",
+        "detection",
+        "bug",
+        "protocol",
+        "040",
+        "resolved",
+        "friction",
+        "persisted",
+        "throughout",
+        "part"
+      ],
+      "relatedTaskIds": [
+        "TASK-041",
+        "TASK-040"
+      ],
+      "severityHint": "medium"
+    },
+    "KAIZEN-PROTOCOL-3": {
+      "id": "KAIZEN-PROTOCOL-3",
+      "sourceType": "kaizen",
+      "sourceRef": "docs/KAIZEN-LOG.md",
+      "title": "Legacy tasks with stale dependencies*(Sprint 3)*: TASK-007, TASK-014, TASK-021 referenced RETRO.md, HUMAN.md, and monolithic SPRINT.md — all deleted in Sprint 3. Required manual triage. Signal: when an artifact is deleted, actively search for references in the backlog.",
+      "keywords": [
+        "legacy",
+        "tasks",
+        "stale",
+        "dependencies",
+        "sprint",
+        "task",
+        "007",
+        "014",
+        "021",
+        "referenced",
+        "retro",
+        "human",
+        "monolithic",
+        "deleted",
+        "required",
+        "manual",
+        "triage",
+        "signal",
+        "when",
+        "artifact",
+        "actively",
+        "search",
+        "references",
+        "backlog"
+      ],
+      "relatedTaskIds": [
+        "TASK-007",
+        "TASK-014",
+        "TASK-021"
+      ],
+      "severityHint": "medium"
+    },
+    "KAIZEN-PROTOCOL-4": {
+      "id": "KAIZEN-PROTOCOL-4",
+      "sourceType": "kaizen",
+      "sourceRef": "docs/KAIZEN-LOG.md",
+      "title": "Sprint vs backlog as structural duplication*(Sprint 3)*: Saying \"move everything to sprint\" left the backlog empty — evidence the separation was artificial. TASK-047 was promoted to resolve this with a single-directory model + Focus field.",
+      "keywords": [
+        "sprint",
+        "backlog",
+        "structural",
+        "duplication",
+        "saying",
+        "move",
+        "everything",
+        "left",
+        "empty",
+        "evidence",
+        "separation",
+        "artificial",
+        "task",
+        "047",
+        "promoted",
+        "resolve",
+        "single",
+        "directory",
+        "model",
+        "focus",
+        "field"
+      ],
+      "relatedTaskIds": [
+        "TASK-047"
+      ],
+      "severityHint": "medium"
+    },
+    "KAIZEN-PROTOCOL-5": {
+      "id": "KAIZEN-PROTOCOL-5",
+      "sourceType": "kaizen",
+      "sourceRef": "docs/KAIZEN-LOG.md",
+      "title": "Recursive review violation tasks*(Sprint 4)*: TASK-112, 113, and 114 show a pattern where a task is created to fix a review violation, but then marked DONE with its own violations (e.g. pending ACs), leading to a chain of cleanup tasks. **Proposal:** Implement pre-archive guards (TASK-115) and enforce AC validation during `arch review`.",
+      "keywords": [
+        "recursive",
+        "review",
+        "violation",
+        "tasks",
+        "sprint",
+        "task",
+        "112",
+        "113",
+        "114",
+        "show",
+        "pattern",
+        "where",
+        "created",
+        "fix",
+        "then",
+        "marked",
+        "done",
+        "own",
+        "violations",
+        "pending",
+        "acs",
+        "leading",
+        "chain",
+        "cleanup",
+        "proposal",
+        "implement",
+        "pre",
+        "archive",
+        "guards",
+        "115",
+        "enforce",
+        "validation",
+        "during",
+        "arch"
+      ],
+      "relatedTaskIds": [
+        "TASK-112",
+        "TASK-115"
+      ],
+      "severityHint": "medium"
+    },
+    "KAIZEN-PROTOCOL-6": {
+      "id": "KAIZEN-PROTOCOL-6",
+      "sourceType": "kaizen",
+      "sourceRef": "docs/KAIZEN-LOG.md",
+      "title": "Stealth Merge Commits*(Sprint 6)*: Implicit merges from `git pull` violated the \"No-Merge\" policy. `arch review` initially failed to block them effectively due to a bug in `MergeCommitCheck` (it found the last 20 merges instead of checking the last 20 commits). **Resolved:** Fixed `MergeCommitCheck` in `cli/src/main/ts/infrastructure/cli/git-cli.ts` and hardened protocol.",
+      "keywords": [
+        "stealth",
+        "merge",
+        "commits",
+        "sprint",
+        "implicit",
+        "merges",
+        "git",
+        "pull",
+        "violated",
+        "policy",
+        "arch",
+        "review",
+        "initially",
+        "failed",
+        "block",
+        "them",
+        "effectively",
+        "due",
+        "bug",
+        "mergecommitcheck",
+        "found",
+        "last",
+        "instead",
+        "checking",
+        "resolved",
+        "fixed",
+        "cli",
+        "src",
+        "main",
+        "infrastructure",
+        "hardened",
+        "protocol"
+      ],
+      "relatedTaskIds": [],
+      "severityHint": "medium"
+    },
+    "KAIZEN-PROTOCOL-7": {
+      "id": "KAIZEN-PROTOCOL-7",
+      "sourceType": "kaizen",
+      "sourceRef": "docs/KAIZEN-LOG.md",
+      "title": "Completed Task Stagnation*(Sprint 5)*: `TASK-117` was marked DONE but remained in `docs/tasks/`, consuming context and potentially misleading agents. **Proposal:** Implement \"Archival Guard\" in THINK mode to autonomously move DONE tasks to `docs/archive/`.",
+      "keywords": [
+        "completed",
+        "task",
+        "stagnation",
+        "sprint",
+        "117",
+        "marked",
+        "done",
+        "remained",
+        "docs",
+        "tasks",
+        "consuming",
+        "context",
+        "potentially",
+        "misleading",
+        "agents",
+        "proposal",
+        "implement",
+        "archival",
+        "guard",
+        "think",
+        "mode",
+        "autonomously",
+        "move",
+        "archive"
+      ],
+      "relatedTaskIds": [
+        "TASK-117"
+      ],
+      "severityHint": "medium"
+    },
+    "KAIZEN-PROTOCOL-8": {
+      "id": "KAIZEN-PROTOCOL-8",
+      "sourceType": "kaizen",
+      "sourceRef": "docs/KAIZEN-LOG.md",
+      "title": "Focus Interruption*(Sprint 5)*: When a task is completed, if no other task is `Focus:yes`, velocity drops to zero until human intervention. **Proposal:** \"Continuous Flow Guard\" in THINK mode should autonomously pick the highest Value/Size ratio task if focus is lost.",
+      "keywords": [
+        "focus",
+        "interruption",
+        "sprint",
+        "when",
+        "task",
+        "completed",
+        "other",
+        "yes",
+        "velocity",
+        "drops",
+        "zero",
+        "until",
+        "human",
+        "intervention",
+        "proposal",
+        "continuous",
+        "flow",
+        "guard",
+        "think",
+        "mode",
+        "should",
+        "autonomously",
+        "pick",
+        "highest",
+        "value",
+        "size",
+        "ratio",
+        "lost"
+      ],
+      "relatedTaskIds": [],
+      "severityHint": "medium"
+    },
+    "KAIZEN-PROTOCOL-9": {
+      "id": "KAIZEN-PROTOCOL-9",
+      "sourceType": "kaizen",
+      "sourceRef": "docs/KAIZEN-LOG.md",
+      "title": "Protocol Enforcement Lag*(Sprint v0.6.0-final)*: Rollout of machine-enforced `## Hansei` (TASK-195) occurred before `DO.md` was updated (TASK-197), leading to agents following a stale protocol and being blocked by the CLI. **Proposal:** Mandate \"Atomic Protocol Updates\" where CLI enforcement and documentation changes are delivered in the same commit or task.",
+      "keywords": [
+        "protocol",
+        "enforcement",
+        "lag",
+        "sprint",
+        "final",
+        "rollout",
+        "machine",
+        "enforced",
+        "hansei",
+        "task",
+        "195",
+        "occurred",
+        "before",
+        "updated",
+        "197",
+        "leading",
+        "agents",
+        "following",
+        "stale",
+        "being",
+        "blocked",
+        "cli",
+        "proposal",
+        "mandate",
+        "atomic",
+        "updates",
+        "where",
+        "documentation",
+        "changes",
+        "delivered",
+        "same",
+        "commit"
+      ],
+      "relatedTaskIds": [
+        "TASK-195",
+        "TASK-197"
+      ],
+      "severityHint": "medium"
+    },
+    "KAIZEN-PROTOCOL-10": {
+      "id": "KAIZEN-PROTOCOL-10",
+      "sourceType": "kaizen",
+      "sourceRef": "docs/KAIZEN-LOG.md",
+      "title": "Missing Mura Signals*(Sprint v0.6.0-final)*: Although TASK-182 introduced the `Turns: N` metadata field, agents are not consistently recording this field at task completion. This creates a data gap for THINK Phase 4 (Mura detection). **Proposal:** Automate turn-count recording in the `arch task done` command or within the EXEC loop logic to remove reliance on agent judgment.",
+      "keywords": [
+        "missing",
+        "mura",
+        "signals",
+        "sprint",
+        "final",
+        "although",
+        "task",
+        "182",
+        "introduced",
+        "turns",
+        "metadata",
+        "field",
+        "agents",
+        "consistently",
+        "recording",
+        "completion",
+        "creates",
+        "data",
+        "gap",
+        "think",
+        "phase",
+        "detection",
+        "proposal",
+        "automate",
+        "turn",
+        "count",
+        "arch",
+        "done",
+        "command",
+        "within",
+        "exec",
+        "loop",
+        "logic",
+        "remove",
+        "reliance",
+        "agent",
+        "judgment"
+      ],
+      "relatedTaskIds": [
+        "TASK-182"
+      ],
+      "severityHint": "medium"
+    },
+    "KAIZEN-PROTOCOL-11": {
+      "id": "KAIZEN-PROTOCOL-11",
+      "sourceType": "kaizen",
+      "sourceRef": "docs/KAIZEN-LOG.md",
+      "title": "Level Terminology Collision*(Sprint v0.6.0-final)*: Simultaneous advancement of \"Autonomy Levels\" (L1-L4) and \"Escalation Maturity\" (L1-E7) has led to terminal confusion where \"Level 3\" has two different meanings. **Proposal:** Adopt distinct prefixes (Capability vs Enforcement) per IDEA-level-terminology-disambiguation.",
+      "keywords": [
+        "level",
+        "terminology",
+        "collision",
+        "sprint",
+        "final",
+        "simultaneous",
+        "advancement",
+        "autonomy",
+        "levels",
+        "escalation",
+        "maturity",
+        "led",
+        "terminal",
+        "confusion",
+        "where",
+        "different",
+        "meanings",
+        "proposal",
+        "adopt",
+        "distinct",
+        "prefixes",
+        "capability",
+        "enforcement",
+        "per",
+        "idea",
+        "disambiguation"
+      ],
+      "relatedTaskIds": [],
+      "severityHint": "medium"
+    },
+    "KAIZEN-TOOL-1": {
+      "id": "KAIZEN-TOOL-1",
+      "sourceType": "kaizen",
+      "sourceRef": "docs/KAIZEN-LOG.md",
+      "title": "Phantom Archive Sync Latency*(Sprint v0.6.0-final)*: Tasks marked `DONE` by an Auditor (human or agent) remain in `docs/tasks/` until the next `arch govern` tick. This creates a \"stale backlog\" window where `arch status` and INBOX show tasks that are technically complete. **Proposal:** Integrate phantom-archive sync directly into `arch task done`.",
+      "keywords": [
+        "phantom",
+        "archive",
+        "sync",
+        "latency",
+        "sprint",
+        "final",
+        "tasks",
+        "marked",
+        "done",
+        "auditor",
+        "human",
+        "agent",
+        "remain",
+        "docs",
+        "until",
+        "next",
+        "arch",
+        "govern",
+        "tick",
+        "creates",
+        "stale",
+        "backlog",
+        "window",
+        "where",
+        "status",
+        "inbox",
+        "show",
+        "technically",
+        "complete",
+        "proposal",
+        "integrate",
+        "directly",
+        "into",
+        "task"
+      ],
+      "relatedTaskIds": [],
+      "severityHint": "medium"
+    },
+    "KAIZEN-TOOL-2": {
+      "id": "KAIZEN-TOOL-2",
+      "sourceType": "kaizen",
+      "sourceRef": "docs/KAIZEN-LOG.md",
+      "title": "`arch review` does not validate ACs before archiving*(Sprint 3)*: TASK-031 was archived as DONE but with unchecked ACs. The reviewer detected the inconsistency but did not block archival at the time. Detection arrived late (next session). *(Resolved by TASK-078)*",
+      "keywords": [
+        "arch",
+        "review",
+        "does",
+        "validate",
+        "acs",
+        "before",
+        "archiving",
+        "sprint",
+        "task",
+        "031",
+        "archived",
+        "done",
+        "unchecked",
+        "reviewer",
+        "detected",
+        "inconsistency",
+        "did",
+        "block",
+        "archival",
+        "time",
+        "detection",
+        "arrived",
+        "late",
+        "next",
+        "session",
+        "resolved",
+        "078"
+      ],
+      "relatedTaskIds": [
+        "TASK-031",
+        "TASK-078"
+      ],
+      "severityHint": "medium"
+    },
+    "KAIZEN-TOOL-3": {
+      "id": "KAIZEN-TOOL-3",
+      "sourceType": "kaizen",
+      "sourceRef": "docs/KAIZEN-LOG.md",
+      "title": "Batch lock commit fails TASK-ID validator*(Sprint 3)*: Locking 4 tasks in a `[SPRINT]` commit caused `arch review` to report a format violation. The validator assumes a single TASK-ID per commit — batch planning commits are an uncovered edge case.",
+      "keywords": [
+        "batch",
+        "lock",
+        "commit",
+        "fails",
+        "task",
+        "validator",
+        "sprint",
+        "locking",
+        "tasks",
+        "caused",
+        "arch",
+        "review",
+        "report",
+        "format",
+        "violation",
+        "assumes",
+        "single",
+        "per",
+        "planning",
+        "commits",
+        "uncovered",
+        "edge",
+        "case"
+      ],
+      "relatedTaskIds": [],
+      "severityHint": "medium"
+    },
+    "KAIZEN-TOOL-4": {
+      "id": "KAIZEN-TOOL-4",
+      "sourceType": "kaizen",
+      "sourceRef": "docs/KAIZEN-LOG.md",
+      "title": "`arch --version` does not exist as a subcommand*(Sprint 3)*: The drift checker compares versions by reading package.json directly because the CLI does not implement `--version`. This is a functional workaround but inconsistent with standard CLI conventions. *(Resolved by TASK-072)*",
+      "keywords": [
+        "arch",
+        "version",
+        "does",
+        "exist",
+        "subcommand",
+        "sprint",
+        "drift",
+        "checker",
+        "compares",
+        "versions",
+        "reading",
+        "package",
+        "json",
+        "directly",
+        "because",
+        "cli",
+        "implement",
+        "functional",
+        "workaround",
+        "inconsistent",
+        "standard",
+        "conventions",
+        "resolved",
+        "task",
+        "072"
+      ],
+      "relatedTaskIds": [
+        "TASK-072"
+      ],
+      "severityHint": "medium"
+    },
+    "KAIZEN-CONTEXT-1": {
+      "id": "KAIZEN-CONTEXT-1",
+      "sourceType": "kaizen",
+      "sourceRef": "docs/KAIZEN-LOG.md",
+      "title": "Unstructured IDEAs before TASK-033*(Sprint 3)*: The original TEMPLATE only had `## Proposal` with no structured fields. THINK had to infer gaps without dependency or size context. The first 8 IDEAs were refined with more friction than necessary.",
+      "keywords": [
+        "unstructured",
+        "ideas",
+        "before",
+        "task",
+        "033",
+        "sprint",
+        "original",
+        "template",
+        "only",
+        "had",
+        "proposal",
+        "structured",
+        "fields",
+        "think",
+        "infer",
+        "gaps",
+        "without",
+        "dependency",
+        "size",
+        "context",
+        "first",
+        "refined",
+        "more",
+        "friction",
+        "than",
+        "necessary"
+      ],
+      "relatedTaskIds": [
+        "TASK-033"
+      ],
+      "severityHint": "medium"
+    },
+    "KAIZEN-CONTEXT-2": {
+      "id": "KAIZEN-CONTEXT-2",
+      "sourceType": "kaizen",
+      "sourceRef": "docs/KAIZEN-LOG.md",
+      "title": "Legacy terminology in legacy backlog*(Sprint 3)*: CONDUCTOR, EXEC, DISPATCH.md, monolithic SPRINT.md — v0.1 terms that survived the modular migration. Required manual triage to detect and update.",
+      "keywords": [
+        "legacy",
+        "terminology",
+        "backlog",
+        "sprint",
+        "conductor",
+        "exec",
+        "dispatch",
+        "monolithic",
+        "terms",
+        "survived",
+        "modular",
+        "migration",
+        "required",
+        "manual",
+        "triage",
+        "detect",
+        "update"
+      ],
+      "relatedTaskIds": [],
+      "severityHint": "medium"
+    }
+  },
+  "guidelineFailureLinks": {},
   "guidelines": {
     "testing-a-change.md": {
       "tags": [
