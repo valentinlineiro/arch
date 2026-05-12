@@ -13,9 +13,10 @@ export class GovernCommand {
     taskRepository: TaskRepository,
     private gitRepository: GitRepository,
     private fileSystem: FileSystem,
-    causalSignalLog?: CausalSignalLog
+    causalSignalLog?: CausalSignalLog,
+    rootPath: string = '.'
   ) {
-    this.useCase = new GovernSystem(taskRepository, gitRepository, fileSystem, causalSignalLog);
+    this.useCase = new GovernSystem(taskRepository, gitRepository, fileSystem, causalSignalLog, rootPath);
   }
 
   async execute(args: string[] = []): Promise<void> {

@@ -7,6 +7,7 @@ import { BatchSystem } from './batch-system.js';
 import { SubprocessRunner } from '../../infrastructure/cli/subprocess-runner.js';
 import { ConfigLoader } from '../../domain/services/config-loader.js';
 import { CausalSignalLog } from './causal-signal-log.js';
+import { ReflectInfluenceReport, DEFAULT_THRESHOLDS } from './reflect-influence-report.js';
 
 export class GovernSystem {
   private batchSystem: BatchSystem;
@@ -15,7 +16,8 @@ export class GovernSystem {
     private taskRepository: TaskRepository,
     private gitRepository: GitRepository,
     private fileSystem: FileSystem,
-    private causalSignalLog?: CausalSignalLog
+    private causalSignalLog?: CausalSignalLog,
+    private rootPath: string = '.'
   ) {
     this.batchSystem = new BatchSystem(fileSystem);
   }
@@ -87,6 +89,22 @@ export class GovernSystem {
       }
     } else {
       console.log(`  Task already focused: ${focusedTask.id}. Run arch exec to start.`);
+    }
+
+    await this.checkReflectThresholds(config);
+  }
+
+  private async checkReflectThresholds(config: any): Promise<void> {
+    try {
+      const thresholds = { ...DEFAULT_THRESHOLDS, ...(config.reflect?.thresholds ?? {}) };
+      const reporter = new ReflectInfluenceReport(this.fileSystem, this.rootPath);
+      const report = await reporter.compute(thresholds);
+      for (const v of report.violations) {
+        await this.appendInbox('REFLECT', 'INFLUENCE_THRESHOLD_VIOLATION', v.message);
+        console.log(`  ⚠ REFLECT threshold violation: ${v.message}`);
+      }
+    } catch {
+      // Reflect threshold check must never block governance
     }
   }
 

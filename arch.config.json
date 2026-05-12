@@ -57,6 +57,12 @@
     ],
     "hanseiSinceTaskId": 195
   },
+  "reflect": {
+    "thresholds": {
+      "minEngagementRate": 0.5,
+      "maxUnobservedWithProposalRate": 0.3
+    }
+  },
   "muri": {
     "XS": { "turns": 5, "cost": 0.05 },
     "S": { "turns": 15, "cost": 0.15 },

@@ -95,7 +95,7 @@ async function main() {
       await new VersionCommand(cliVersion).execute();
       break;
     case 'govern':
-      await new GovernCommand(taskRepository, gitRepository, fileSystem, causalSignalLog).execute(args);
+      await new GovernCommand(taskRepository, gitRepository, fileSystem, causalSignalLog, rootPath).execute(args);
       break;
     case 'rank':
       process.stderr.write("Warning: 'arch rank' is deprecated. Use 'arch task rank' instead.\n");
