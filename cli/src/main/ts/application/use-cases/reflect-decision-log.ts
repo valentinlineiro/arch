@@ -1,8 +1,18 @@
 import { randomUUID } from 'node:crypto';
 import type { FileSystem } from '../../domain/repositories/file-system.js';
-import type { DecisionOutcome, ReflectDecision } from '../../domain/models/reflect-decision.js';
+import type {
+  DecisionOutcome,
+  ReflectDecision,
+  ReflectDecisionUpdate,
+} from '../../domain/models/reflect-decision.js';
 
 const DECISION_PATH = '.arch/reflect-decisions.jsonl';
+
+type RawRecord = ReflectDecision | ReflectDecisionUpdate;
+
+function isUpdate(r: RawRecord): r is ReflectDecisionUpdate {
+  return 'superseded_by' in r || ('finality' in r && !('outcome' in r));
+}
 
 export class ReflectDecisionLog {
   constructor(
@@ -21,6 +31,7 @@ export class ReflectDecisionLog {
       timestamp: new Date().toISOString(),
       target: params.target,
       outcome: params.outcome,
+      finality: 'committed',
       influence_declared: params.influence_declared,
       based_on_proposals: params.based_on_proposals,
     };
@@ -28,17 +39,24 @@ export class ReflectDecisionLog {
     return decision;
   }
 
-  async all(): Promise<ReflectDecision[]> {
-    try {
-      const raw = await this.fileSystem.readFile(`${this.rootPath}/${DECISION_PATH}`);
-      return raw.trim().split('\n').filter(Boolean).map(l => JSON.parse(l) as ReflectDecision);
-    } catch {
-      return [];
-    }
+  async supersede(decisionId: string, supersededBy?: string): Promise<void> {
+    const update: ReflectDecisionUpdate = {
+      decision_id: decisionId,
+      finality: 'superseded',
+      timestamp: new Date().toISOString(),
+      ...(supersededBy ? { superseded_by: supersededBy } : {}),
+    };
+    await this.fileSystem.appendFile(`${this.rootPath}/${DECISION_PATH}`, JSON.stringify(update) + '\n');
+  }
+
+  /** Returns only committed decisions (canonical view for measurement). */
+  async committed(): Promise<ReflectDecision[]> {
+    const state = await this.currentState();
+    return [...state.values()].filter(d => d.finality === 'committed');
   }
 
   async forTarget(target: string): Promise<ReflectDecision[]> {
-    const all = await this.all();
+    const all = await this.committed();
     return all.filter(d => d.target === target);
   }
 
@@ -63,5 +81,32 @@ export class ReflectDecisionLog {
       return { declared: true, proposals: raw.split(',').map(s => s.trim()).filter(Boolean) };
     }
     return { declared: false, proposals: [] };
+  }
+
+  private async currentState(): Promise<Map<string, ReflectDecision>> {
+    let raw: string;
+    try {
+      raw = await this.fileSystem.readFile(`${this.rootPath}/${DECISION_PATH}`);
+    } catch {
+      return new Map();
+    }
+
+    const records = raw.trim().split('\n').filter(Boolean).map(l => JSON.parse(l) as RawRecord);
+    const decisions = new Map<string, ReflectDecision>();
+    const superseded = new Set<string>();
+
+    for (const r of records) {
+      if (isUpdate(r)) {
+        superseded.add(r.decision_id);
+      } else {
+        decisions.set(r.decision_id, r);
+      }
+    }
+
+    const result = new Map<string, ReflectDecision>();
+    for (const [id, decision] of decisions) {
+      result.set(id, superseded.has(id) ? { ...decision, finality: 'superseded' } : decision);
+    }
+    return result;
   }
 }

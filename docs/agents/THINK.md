@@ -42,8 +42,9 @@
         - No annotation → `influence_declared: false`, `based_on_proposals: []` (undeclared — distinct from declared non-influence; do not conflate)
      3. Append to `.arch/reflect-decisions.jsonl`:
         ```json
-        {"decision_id":"D-<8-char-uuid>","timestamp":"<ISO-8601>","target":"<IDEA-slug>","outcome":"PROMOTE","influence_declared":<true|false>,"based_on_proposals":["THINK-abc123"]}
+        {"decision_id":"D-<8-char-uuid>","timestamp":"<ISO-8601>","target":"<IDEA-slug>","outcome":"PROMOTE","finality":"committed","influence_declared":<true|false>,"based_on_proposals":["THINK-abc123"]}
         ```
+        All decisions written here carry `finality: "committed"` — there is no provisional state in the current flow. A committed decision can only be corrected by appending a supersession record; never by mutation.
      Attribution must be explicit or absent — never inferred from temporal proximity to a proposal.
    - **REJECTED:** Move to `docs/refinement/archive/`.
 3. **Phase boundary:** This phase does NOT interpret INTENT signals or create tasks from intents.
