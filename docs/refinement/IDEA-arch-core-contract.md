@@ -2,7 +2,7 @@
 **Created:** 2026-05-05
 **Source:** Codex external review — "shrink the live protocol; give a minimal execution contract and keep the rest enforced by tooling"
 **Status:** DRAFT
-**Sessions:** 3
+**Sessions:** 4
 **Meta:** P2 | M | local | docs/
 
 ## Problem
