@@ -1,7 +1,7 @@
 # IDEA: ARCH-Core — minimal execution contract for weak models
 **Created:** 2026-05-05
 **Source:** Codex external review — "shrink the live protocol; give a minimal execution contract and keep the rest enforced by tooling"
-**Status:** DRAFT
+**Status:** REJECTED: TTL expired
 **Sessions:** 4
 **Meta:** P2 | M | local | docs/
 

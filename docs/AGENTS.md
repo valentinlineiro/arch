@@ -14,7 +14,7 @@
 ### THINK mode
 **Invoked for:** System check, refinement, planning, and continuous Kaizen.
 **Protocol:** `docs/agents/THINK.md`
-1. Phase 1: Governance & Replenishment (Status check, archival, and replenishment).
+1. Phase 1: Context & Replenishment (Status check, archival, and replenishment).
 2. Phase 2: Refine draft IDEAs in `docs/refinement/`. 
    - *Autonomy (L2):* Agent may autonomously **execute** promotion of IDEAs that are XS and class operations/writing, **only when the human has already written a Decision in the IDEA file.** The agent never decides to promote — it executes a human decision.
 3. Phase 3: Continuous Kaizen (Simplification and metrics).

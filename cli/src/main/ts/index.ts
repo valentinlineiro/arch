@@ -27,12 +27,8 @@ import { LintCommand } from './application/commands/lint-command.js';
 import { MoveCommand } from './application/commands/move-command.js';
 import { ExecCommand } from './application/commands/exec-command.js';
 import { MergeResolveCommand } from './application/commands/merge-resolve-command.js';
-import { MarkdownIntentRepository } from './infrastructure/filesystem/markdown-intent-repository.js';
-import { CaptureIntent } from './application/use-cases/capture-intent.js';
-import { CaptureCommand } from './application/commands/capture-command.js';
 import { IndexCommand } from './application/commands/index-command.js';
 import { ChronicleEventRepository } from './infrastructure/filesystem/chronicle-event-repository.js';
-import { ThinkCommand } from './application/commands/think-command.js';
 import { AskCommand } from './application/commands/ask-command.js';
 import { AskCorpus } from './application/use-cases/ask-corpus.js';
 import { CausalCommand } from './application/commands/causal-command.js';
@@ -133,31 +129,9 @@ async function main() {
     case 'merge-resolve':
       await new MergeResolveCommand(gitRepository, fileSystem).execute();
       break;
-    case 'capture': {
-      const intentRepository = new MarkdownIntentRepository(fileSystem);
-      const captureIntent = new CaptureIntent(intentRepository, gitRepository);
-      await new CaptureCommand(captureIntent, {
-        getArgs: () => args,
-        readStdin: () => new Promise<string>((resolve) => {
-          const chunks: Buffer[] = [];
-          process.stdin.on('data', (c: Buffer) => chunks.push(c));
-          process.stdin.on('end', () => resolve(Buffer.concat(chunks).toString('utf8')));
-        }),
-        isStdinTTY: () => Boolean(process.stdin.isTTY),
-        log: (s) => console.log(s),
-        error: (s) => console.error(s),
-        exit: (code) => process.exit(code) as never,
-      }).execute();
-      break;
-    }
     case 'index':
       await new IndexCommand(fileSystem, gitRepository).execute();
       break;
-    case 'think': {
-      const intentRepository = new MarkdownIntentRepository(fileSystem);
-      await new ThinkCommand(intentRepository, taskRepository, fileSystem).execute(args);
-      break;
-    }
     case 'ask':
       await new AskCommand(new AskCorpus(fileSystem, rootPath, new CausalGraph(fileSystem, rootPath)), {
         getArgs: () => args,
@@ -180,7 +154,7 @@ async function main() {
       break;
     }
     default:
-      console.log('Usage: arch [review|task|inbox|version|govern|batch|drain|conduct|loop|sandbox|mv|exec|merge-resolve|capture|index|think|ask|causal|reflect]');
+      console.log('Usage: arch [review|task|inbox|version|govern|batch|drain|conduct|loop|sandbox|mv|exec|merge-resolve|index|ask|causal|reflect]');
       process.exit(1);
   }
 }
