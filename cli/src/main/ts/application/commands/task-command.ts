@@ -11,6 +11,7 @@ import { Reviewer } from '../../domain/services/reviewer.js';
 import type { FileSystem } from '../../domain/repositories/file-system.js';
 import { EventRepository } from '../../domain/models/event.js';
 import { NodeFeedbackRepository } from '../../infrastructure/filesystem/node-feedback-repository.js';
+import { CausalSignalLog } from '../use-cases/causal-signal-log.js';
 import * as fmt from '../../infrastructure/cli/output-formatter.js';
 
 export class TaskCommand {
@@ -27,10 +28,11 @@ export class TaskCommand {
     private humanCoordinationService: HumanCoordinationService,
     private fileSystem: FileSystem,
     rootPath: string,
-    eventRepository?: EventRepository
+    eventRepository?: EventRepository,
+    causalSignalLog?: CausalSignalLog
   ) {
     this.markInProgress = new MarkTaskInProgress(taskRepository, eventRepository);
-    this.markDone = new MarkTaskDone(taskRepository, reviewer, fileSystem, eventRepository, new NodeFeedbackRepository(fileSystem));
+    this.markDone = new MarkTaskDone(taskRepository, reviewer, fileSystem, eventRepository, new NodeFeedbackRepository(fileSystem), causalSignalLog);
     this.markReview = new MarkTaskReview(taskRepository, rootPath);
     this.rejectTask = new RejectTask(taskRepository);
 

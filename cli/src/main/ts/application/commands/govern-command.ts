@@ -4,6 +4,7 @@ import { ConfigLoader } from '../../domain/services/config-loader.js';
 import type { TaskRepository } from '../../domain/repositories/task-repository.js';
 import type { GitRepository } from '../../domain/repositories/git-repository.js';
 import type { FileSystem } from '../../domain/repositories/file-system.js';
+import { CausalSignalLog } from '../use-cases/causal-signal-log.js';
 
 export class GovernCommand {
   private useCase: GovernSystem;
@@ -11,9 +12,10 @@ export class GovernCommand {
   constructor(
     taskRepository: TaskRepository,
     private gitRepository: GitRepository,
-    private fileSystem: FileSystem
+    private fileSystem: FileSystem,
+    causalSignalLog?: CausalSignalLog
   ) {
-    this.useCase = new GovernSystem(taskRepository, gitRepository, fileSystem);
+    this.useCase = new GovernSystem(taskRepository, gitRepository, fileSystem, causalSignalLog);
   }
 
   async execute(args: string[] = []): Promise<void> {

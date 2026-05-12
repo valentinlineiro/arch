@@ -6,6 +6,7 @@ import { SelectNextTask } from './select-next-task.js';
 import { BatchSystem } from './batch-system.js';
 import { SubprocessRunner } from '../../infrastructure/cli/subprocess-runner.js';
 import { ConfigLoader } from '../../domain/services/config-loader.js';
+import { CausalSignalLog } from './causal-signal-log.js';
 
 export class GovernSystem {
   private batchSystem: BatchSystem;
@@ -13,7 +14,8 @@ export class GovernSystem {
   constructor(
     private taskRepository: TaskRepository,
     private gitRepository: GitRepository,
-    private fileSystem: FileSystem
+    private fileSystem: FileSystem,
+    private causalSignalLog?: CausalSignalLog
   ) {
     this.batchSystem = new BatchSystem(fileSystem);
   }
@@ -176,8 +178,22 @@ export class GovernSystem {
     } catch (error: any) {
       console.error(`  ✖ Failed to archive ${taskId}: ${error.message}`);
       await this.appendInbox(taskId, 'ANDON_HALT', error.message);
+      await this.emitGovernViolationSignal(taskId, error.message);
       throw error;
     }
+  }
+
+  private async emitGovernViolationSignal(taskId: string, violation: string): Promise<void> {
+    if (!this.causalSignalLog) return;
+    await this.causalSignalLog.append({
+      domain: 'normative',
+      signal_type: 'create',
+      candidate_from: taskId,
+      candidate_relation: 'violated',
+      candidate_to: 'docs/HALT.md',
+      confidence: 0.8,
+      event: `govern_violation:${taskId}:${violation}`,
+    });
   }
 
   private async appendInbox(taskId: string, type: string, evidence: string): Promise<void> {

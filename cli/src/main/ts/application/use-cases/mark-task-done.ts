@@ -5,6 +5,7 @@ import { FileSystem } from '../../domain/repositories/file-system.js';
 import { EventRepository } from '../../domain/models/event.js';
 import { FeedbackRepository } from '../../domain/repositories/feedback-repository.js';
 import { ExtractContextFeedback } from './extract-context-feedback.js';
+import { CausalSignalLog } from './causal-signal-log.js';
 import crypto from 'node:crypto';
 
 export class MarkTaskDone {
@@ -15,7 +16,8 @@ export class MarkTaskDone {
     private reviewer: Reviewer,
     private fileSystem: FileSystem,
     private eventRepository?: EventRepository,
-    private feedbackRepository?: FeedbackRepository
+    private feedbackRepository?: FeedbackRepository,
+    private causalSignalLog?: CausalSignalLog
   ) {}
 
   async execute(taskId: string, force = false) {
@@ -63,7 +65,43 @@ export class MarkTaskDone {
       }
     }
 
+    if (this.causalSignalLog) {
+      await this.emitCompletionSignals(taskId, task.content ?? '', task.depends ?? []);
+    }
+
     return task;
+  }
+
+  private async emitCompletionSignals(taskId: string, content: string, depends: string[]): Promise<void> {
+    const event = `task_completed:${taskId}`;
+
+    // Emit implements signal for each referenced ADR
+    const adrMatches = content.matchAll(/\*\*ADR:\*\*\s*(ADR-\d+)/g);
+    for (const match of adrMatches) {
+      await this.causalSignalLog!.append({
+        domain: 'ontological',
+        signal_type: 'create',
+        candidate_from: taskId,
+        candidate_relation: 'implements',
+        candidate_to: match[1],
+        confidence: 0.6,
+        event,
+      });
+    }
+
+    // Emit fixes signal for each dependency (task completion is evidence deps were causal)
+    for (const dep of depends) {
+      if (dep === 'none' || !dep.startsWith('TASK-')) continue;
+      await this.causalSignalLog!.append({
+        domain: 'ontological',
+        signal_type: 'create',
+        candidate_from: taskId,
+        candidate_relation: 'caused_by',
+        confidence: 0.5,
+        candidate_to: dep,
+        event,
+      });
+    }
   }
 
   private async validateHanseiRequirement(taskId: string, content: string): Promise<string | null> {

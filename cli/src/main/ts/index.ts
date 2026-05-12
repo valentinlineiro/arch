@@ -51,6 +51,7 @@ async function main() {
   const { version: cliVersion } = require('../package.json') as { version: string };
   const driftChecker = new DriftChecker(fileSystem, gitRepository, rootPath, cliVersion);
   const humanCoordinationService = new HumanCoordinationService(taskRepository, gitRepository);
+  const causalSignalLog = new CausalSignalLog(fileSystem, rootPath);
 
   const { name, args } = parseCommand(process.argv.slice(2));
 
@@ -70,7 +71,7 @@ async function main() {
       await new ReviewCommand(taskRepository, gitRepository, reviewer, driftChecker, fileSystem).execute(args);
       break;
     case 'task':
-      await new TaskCommand(taskRepository, reviewer, humanCoordinationService, fileSystem, rootPath, eventRepository).execute(args);
+      await new TaskCommand(taskRepository, reviewer, humanCoordinationService, fileSystem, rootPath, eventRepository, causalSignalLog).execute(args);
       break;
     case 'inbox':
       await new InboxCommand(taskRepository, fileSystem, reviewer, driftChecker).execute();
@@ -88,7 +89,7 @@ async function main() {
       await new VersionCommand(cliVersion).execute();
       break;
     case 'govern':
-      await new GovernCommand(taskRepository, gitRepository, fileSystem).execute(args);
+      await new GovernCommand(taskRepository, gitRepository, fileSystem, causalSignalLog).execute(args);
       break;
     case 'rank':
       await new RankCommand(taskRepository).execute();
@@ -158,7 +159,6 @@ async function main() {
       break;
     case 'causal': {
       const causalGraph = new CausalGraph(fileSystem, rootPath);
-      const causalSignalLog = new CausalSignalLog(fileSystem, rootPath);
       await new CausalCommand(causalGraph, {
         getArgs: () => args,
         log: (s) => console.log(s),
