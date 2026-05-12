@@ -33,8 +33,9 @@
 0. **Print:** `[THINK] Phase 3 — Idea Refinement` to stdout.
 1. Scan `docs/refinement/` for `IDEA-*.md` files. Triage: process all IDEAs with a `Decision:` field first; for DRAFT IDEAs, process at most 3 per session.
 2. For each IDEA, apply lifecycle rules:
-   - **DRAFT:** Identify gaps, dependencies, and estimate. Output to terminal only. Increment `**Sessions:** N` counter in the IDEA file (add field if missing). If `Sessions >= 3`, emit `[STALE-IDEA] IDEA-slug — N sessions without Decision` to stdout. If the IDEA was already flagged `[STALE-IDEA]` in the previous session (Sessions > 3) and still has no Decision, move it to `docs/refinement/archive/` with status `REJECTED: TTL expired`.
-   - **DECIDED:** If human Decision is written and IDEA is XS + 6-writing/7-operations, promote autonomously: update status to `PROMOTED -> TASK-XXX`, create task file, and archive IDEA. Then:
+   - **DRAFT:** Identify gaps, dependencies, and estimate. Output to terminal only. Increment `**Sessions:** N` counter in the IDEA file (add field if missing). If `Sessions >= 3`, emit `[STALE-IDEA] IDEA-slug — N sessions without Decision` to stdout. If `Sessions > 3` and still no Decision, move it to `docs/refinement/archive/` with status `REJECTED: TTL expired` — do not re-evaluate.
+   - **REJECTED (human-written):** If the Decision field contains `REJECT:`, move the IDEA to `docs/refinement/archive/` immediately. No re-evaluation. No session increment. Commit with `chore: [THINK] archive [IDEA-slug] — REJECTED by human decision`.
+   - **DECIDED (PROMOTE):** If human Decision is written and IDEA is XS + 6-writing/7-operations, promote autonomously: update status to `PROMOTED -> TASK-XXX`, create task file, and archive IDEA. Then:
      1. Append a PROMOTE record to `.arch/reflect-proposals.jsonl` at confidence 1.0 (records that THINK executed a human decision, not that THINK proposed it).
      2. Parse the Decision field for an attribution annotation using this tristate:
         - `[influenced-by: THINK-abc123, THINK-def456]` → `influence_declared: true`, proposals cited

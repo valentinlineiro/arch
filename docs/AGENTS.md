@@ -34,6 +34,16 @@
 - Direct task description (no prefix) → BACKLOG directly, no refinement required
 - Promoting a draft: the **decision** to promote requires explicit human instruction (human writes `PROMOTE → TASK-XXX` in the IDEA's Decision section). The **execution** of an already-decided promotion is THINK-autonomous for XS ops/writing IDEAs.
 
+### Decision cost asymmetry (explicit protocol)
+
+**REJECT** — may be written directly by any human at any time, with a one-line rationale. No THINK evaluation required. No prior sessions required. Rejection is legitimate architecture work: it reduces future cognitive load and is never a failure.
+
+**EXTEND** — costs more than REJECT. Requires stating explicitly: what specific gap or external dependency prevents decision now, and what event would trigger adjudication. "Needs more thought" is not a valid EXTEND rationale. EXTEND consumes future attention; REJECT frees it.
+
+**PROMOTE** — commits to execution. Requires prior THINK evaluation unless the idea is trivially scoped.
+
+The gradient is intentional: the system biases toward reducing entropy, not toward generating options.
+
 ## Hard limits
 - Never merge a PR without human approval.
 - One commit per operation.

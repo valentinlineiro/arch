@@ -21,9 +21,11 @@
 <!-- THINK fills this section when invoked — do not edit manually -->
 
 ## Decision
-<!-- Human writes here after THINK evaluation -->
-<!-- PROMOTE → TASK-XXX | REJECT: reason -->
-<!-- Attribution (tracked for divergence measurement — three distinct states):      -->
-<!--   [influenced-by: THINK-abc123]  REFLECT influenced this decision              -->
-<!--   [influenced-by: none]          REFLECT did not influence (explicitly declared) -->
-<!--   (no annotation)                undeclared — not the same as "independent"    -->
+<!-- REJECT: <one-line rationale>                    — no THINK evaluation required. Write it now. -->
+<!-- PROMOTE → TASK-XXX                              — commits to execution. THINK evaluation expected. -->
+<!-- EXTEND: <specific gap or dependency> until <event that triggers re-evaluation> — costs more than REJECT. -->
+<!--                                                                                                         -->
+<!-- Attribution (optional, tracked for influence measurement):                                              -->
+<!--   [influenced-by: THINK-abc123]  REFLECT influenced this decision                                       -->
+<!--   [influenced-by: none]          REFLECT did not influence (explicitly declared)                        -->
+<!--   (no annotation)                undeclared — not the same as "independent"                             -->
