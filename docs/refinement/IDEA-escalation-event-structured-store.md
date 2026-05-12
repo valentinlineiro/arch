@@ -61,6 +61,24 @@ Introduce `.arch/escalations.jsonl` as the structured state layer for escalation
 
 `docs/INBOX.md` becomes a rendered audit view. It retains the append-only ANDON_HALT and AWAITING_PROMOTION sections for human readability and historical continuity. It is no longer the source of truth for active escalation state. `generate-inbox.ts` does not read it.
 
+#### Machine invariant (hard constraint — not a guideline)
+
+> `docs/INBOX.md` is a human-only projection artifact. It is non-authoritative, potentially stale by design, and must not be used by any automated process for inference, validation, reconciliation, or control-flow decisions about system state. All governance decisions must be derived exclusively from structured state sources: `.arch/escalations.jsonl`, task files, IDEA files, and DriftChecker outputs.
+
+This constraint is absolute. The following uses are prohibited even when locally reasonable:
+
+- Reading INBOX.md to check completeness ("it's just a debug pass")
+- Comparing INBOX.md against JSONL to detect divergence ("it's just reconciliation")
+- Using INBOX.md as a validation overlay ("it's just a hint")
+
+All of these are inference paths. Any automated process that reads INBOX.md is treating it as authoritative regardless of intent. The constraint is on the read, not on the purpose of the read.
+
+#### Human invariant (interpretation contract)
+
+Divergence between `docs/INBOX.md` and `arch inbox` output is **expected behavior, not a defect**. INBOX.md is an append-only audit trail written at event time. `arch inbox` is a live projection from structured state. They will differ after any governance event occurs, because INBOX.md records the event and the command reflects current state. A human observing that INBOX.md shows AWAITING_PROMOTION while `arch inbox` does not (or vice versa) is observing intentional projection divergence — not a consistency failure to be fixed.
+
+Do not add reconciliation logic, sync passes, or "make them match" code. The divergence is structural and correct.
+
 ## What this does NOT change
 
 `.arch/reflect-proposals.jsonl` and `.arch/reflect-decisions.jsonl` are a separate event domain (governance decisions). `.arch/escalations.jsonl` is a third domain (execution interrupts). They share naming convention and append-only semantics but are orthogonal schemas. Do not merge them.
