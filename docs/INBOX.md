@@ -21,6 +21,13 @@ _No active sprint._
 - **Last Commit:** chore: [THINK] Phase 1 — Context & Replenishment
 - **Completed:** TASK-220 (Automatic entity linking — guidelines↔failures), TASK-219 (Add Intent domain model), TASK-216 (Reflect strategic roadmap into ROADMAP.md and IDEA files), TASK-218 (Automatic entity linking — ADRs↔tasks), TASK-217 (Automatic entity linking - tasks-to-commits)
 
+## [2026-05-12] REVIEW_REQUEST | TASK-200 | arch task compress
+All cmd: predicates verified: `arch review` exits 0, `npm test --prefix cli` passes (388 tests).
+AC1 (`test -f docs/archive/TASK-200.md`) is self-referential — passes only after Auditor archives this task.
+Prose ACs verified manually: compressed TASK-222 to inspect format, ran `arch validate --acs TASK-222`.
+Census PURGE message now includes `arch task compress --all`.
+Changed files: `cli/src/main/ts/application/use-cases/compress-task.ts` (new), `cli/src/test/ts/compress-task.test.ts` (new), `cli/src/main/ts/application/commands/task-command.ts`, `cli/src/main/ts/application/use-cases/drift-checker.ts`, `docs/archive/TASK-222.md` (compressed).
+
 ## [2026-05-08] PHASE_1 | INTENT-001
 Verified `arch capture` functionality. SIGNALed.
 
