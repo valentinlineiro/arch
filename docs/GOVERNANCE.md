@@ -55,6 +55,30 @@ ARCH's governance layer operates across two distinct classes of decision. This d
 
 **Consequence:** ARCH's governance layer is epistemologically bounded. It enforces process and traceability; it does not adjudicate truth. Any governance rule that claims to evaluate legitimacy through mechanism alone is claiming more than it can deliver. Such rules should be scoped as "structural consistency check" or "traceability check" — not "legitimacy check."
 
+**Boundary stability risk:** The Class I / Class II boundary is not fixed. It drifts when Class I checks accumulate heuristics that implicitly make Class II claims — each addition individually seems reasonable, the system does not break, but its nature changes silently. This is the primary long-term failure mode of ARCH's governance layer: not a crash, but a gradual slide into automated adjudication of decisions that should remain human.
+
+## Governance Rule Introduction Protocol
+
+Every new DriftChecker check or governance constraint must declare its class before being promoted to a task. This is a required section in any IDEA that proposes a governance rule. It is also a required section in any ADR that creates one.
+
+**Required declaration:**
+
+```
+## Governance class
+Class: I | II
+Evaluates: [what the check actually measures — be narrow]
+Does NOT evaluate: [explicit statement of what it cannot determine]
+Boundary risk: [what would need to happen for this check to start making Class II claims — name the specific heuristic creep path]
+```
+
+If a proposed check cannot complete the `Does NOT evaluate` and `Boundary risk` fields without vagueness, it is not ready to be a Class I rule. It should remain a TENSION candidate until its scope is defined precisely enough to name its own failure modes.
+
+**Periodic boundary review (human obligation, not automated check):**
+
+THINK Phase 2.5 includes a governance boundary audit: scan existing DriftChecker checks for evidence that their declared class no longer matches their actual behavior. If a Class I check is found to be implicitly making Class II claims (e.g., using commit message content as a proxy for intent, or file presence as a proxy for correctness), emit `[SEMANTIC-DRIFT] class-boundary-violation: <check-name> — declared Class I but evaluating: <claim>`. This is a THINK observation, not a DriftChecker failure. The audit is Class II itself — it requires human interpretation to evaluate whether drift has occurred.
+
+The protocol is intentionally not automated. Automating the boundary review would itself be an instance of the failure it is designed to prevent.
+
 ## Conflict Resolution
 
 In case of ambiguity regarding a task's category, the system must default to escalation (requiring human approval).
