@@ -1,5 +1,6 @@
 ## TASK-205: Extend executable ACs - file:, grep:, prose: predicates + Auditor bypass
-**Meta:** P1 | M | REVIEW | Focus:no | 2-code-generation | claude-code | cli/src/main/ts/, docs/TASK-FORMAT.md, docs/agents/DO.md
+**Meta:** P1 | M | DONE | Focus:no | 2-code-generation | claude-code | cli/src/main/ts/, docs/TASK-FORMAT.md, docs/agents/DO.md
+**Closed-at:** 2026-05-12T08:16:21.027Z
 **Depends:** none
 
 ### Context
