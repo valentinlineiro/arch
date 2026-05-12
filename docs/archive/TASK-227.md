@@ -1,5 +1,6 @@
 ## TASK-227: Relocate drift-checker to application layer and define domain boundary
-**Meta:** P1 | S | IN_PROGRESS | Focus:yes | 2-code-generation | claude-code | cli/src/main/ts/
+**Meta:** P1 | S | DONE | Focus:no | 2-code-generation | claude-code | cli/src/main/ts/
+**Closed-at:** 2026-05-12T07:30:48.268Z
 **Depends:** none
 
 ## Context
