@@ -2,11 +2,3 @@
 **Meta:** P0 | S | DONE | Focus:no | 7-operations | local | cli/src/main/ts/domain/services/sandbox.ts
 **Closed-at:** 2026-05-04T07:31:22.643Z
 **Depends:** TASK-157, ADR-005
-
-### Acceptance Criteria
-- [x] POC using `node:vm` or `isolate-vm` for basic command execution.
-- [x] Benchmarking overhead and security boundaries.
-
-### Definition of Done
-- [x] Sandbox approach selected and documented.
-- [x] `arch review` passes.

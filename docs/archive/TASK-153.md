@@ -2,14 +2,3 @@
 **Meta:** P1 | S | DONE | Focus:no | 7-operations | local | docs/agents/DO.md, arch.config.json
 **Closed-at:** 2026-04-30T14:40:00Z
 **Sprint:** sprint/v0.7-foundations
-
-### Acceptance Criteria
-- [x] Add a "Sentinel Pre-flight" step to `DO.md` Intent: Execute Task, between task selection and locking.
-- [x] The step requires an XS reasoning call to verify the task's ACs and description against a `negativeConstraints` list in `arch.config.json`.
-- [x] Add an initial `negativeConstraints` list to `arch.config.json` with at least three constraints (e.g., no new npm deps for < M tasks, no modifying protectedPaths without ADR).
-- [x] Define the escalation path: if the pre-flight check fails, the agent must pause and append an `AWAITING_APPROVAL | SENTINEL_VIOLATION` entry to `docs/INBOX.md`.
-- [x] `arch review` passes.
-
-### Definition of Done
-- [x] All ACs checked.
-- [x] `arch review` passes.

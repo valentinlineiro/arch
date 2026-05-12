@@ -2,13 +2,3 @@
 **Meta:** P2 | XS | DONE | Focus:no | 6-writing | local | docs/agents/DO.md, arch.config.json
 **Closed-at:** 2026-05-04T14:20:32.370Z
 **Depends:** none
-
-### Context
-DO.md defines a full Sprint Close sequence but has no Sprint Open protocol. Sprint naming and scoping happen ad-hoc, making sprint boundaries inconsistent and hard to trace in git history.
-
-### Acceptance Criteria
-- [x] DO.md Intent: Operations includes a Sprint Open sequence: set `currentSprint` in arch.config.json, assign `**Sprint:**` to designated tasks, commit with `chore: open sprint/<slug> [THINK]`
-- [x] Sprint Open mirrors Sprint Close structure and is symmetrical in DO.md
-
-### Definition of Done
-- [x] `arch review` passes

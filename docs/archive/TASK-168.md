@@ -2,13 +2,3 @@
 **Meta:** P2 | S | DONE | Focus:no | 7-operations | local | docs/tasks/
 **Closed-at:** 2026-05-04T13:37:15.014Z
 **Depends:** none
-
-### Acceptance Criteria
-- [x] Implement `arch mv <source> <destination>` command.
-- [x] Command should perform `git mv` for the file.
-- [x] Command should scan all tasks in `docs/tasks/` and update `Context:` paths matching the source.
-- [x] Support both file and directory moves.
-
-### Definition of Done
-- [x] Moving a file with `arch mv` updates all relevant task Meta lines.
-- [x] `arch review` (DeadContext check) passes after move.
