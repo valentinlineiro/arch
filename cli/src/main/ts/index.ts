@@ -5,7 +5,7 @@ import { NodeFileSystem } from './infrastructure/filesystem/node-file-system.js'
 import { MarkdownTaskRepository } from './infrastructure/filesystem/markdown-task-repository.js';
 import { GitCli } from './infrastructure/cli/git-cli.js';
 import { Reviewer } from './domain/services/reviewer.js';
-import { DriftChecker } from './domain/services/drift-checker.js';
+import { DriftChecker } from './application/use-cases/drift-checker.js';
 import { parseCommand } from './infrastructure/cli/command-parser.js';
 import { StatusCommand } from './application/commands/status-command.js';
 import { ValidateCommand } from './application/commands/validate-command.js';

@@ -3,7 +3,7 @@ import { TaskRepository } from '../../domain/repositories/task-repository.js';
 import { FileSystem } from '../../domain/repositories/file-system.js';
 import { TaskStatus, Task } from '../../domain/models/task.js';
 import { Reviewer } from '../../domain/services/reviewer.js';
-import { DriftChecker, DriftResult } from '../../domain/services/drift-checker.js';
+import { DriftChecker, DriftResult } from '../use-cases/drift-checker.js';
 
 export interface InboxData {
   summary: {

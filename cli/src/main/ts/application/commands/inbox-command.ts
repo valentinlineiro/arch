@@ -1,7 +1,7 @@
 import { GenerateInbox, InboxData } from '../use-cases/generate-inbox.js';
 import type { TaskRepository } from '../../domain/repositories/task-repository.js';
 import type { Reviewer } from '../../domain/services/reviewer.js';
-import type { DriftChecker } from '../../domain/services/drift-checker.js';
+import type { DriftChecker } from '../use-cases/drift-checker.js';
 import type { FileSystem } from '../../domain/repositories/file-system.js';
 import * as fmt from '../../infrastructure/cli/output-formatter.js';
 

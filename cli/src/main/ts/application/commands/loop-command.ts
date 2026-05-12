@@ -2,7 +2,7 @@ import { TaskRepository } from '../../domain/repositories/task-repository.js';
 import { GitRepository } from '../../domain/repositories/git-repository.js';
 import { FileSystem } from '../../domain/repositories/file-system.js';
 import { Reviewer } from '../../domain/services/reviewer.js';
-import { DriftChecker } from '../../domain/services/drift-checker.js';
+import { DriftChecker } from '../use-cases/drift-checker.js';
 import { LoopEngine, LoopOptions } from '../use-cases/loop-engine.js';
 
 export class LoopCommand {

@@ -3,7 +3,7 @@ import type { TaskRepository } from '../../domain/repositories/task-repository.j
 import type { GitRepository } from '../../domain/repositories/git-repository.js';
 import type { FileSystem } from '../../domain/repositories/file-system.js';
 import type { Reviewer } from '../../domain/services/reviewer.js';
-import type { DriftChecker } from '../../domain/services/drift-checker.js';
+import type { DriftChecker } from '../use-cases/drift-checker.js';
 import * as fmt from '../../infrastructure/cli/output-formatter.js';
 
 export class ReviewCommand {

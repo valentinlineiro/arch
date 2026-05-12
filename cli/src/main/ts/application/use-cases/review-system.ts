@@ -2,7 +2,7 @@ import { TaskRepository } from '../../domain/repositories/task-repository.js';
 import { GitRepository } from '../../domain/repositories/git-repository.js';
 import { FileSystem } from '../../domain/repositories/file-system.js';
 import { Reviewer, ReviewResult } from '../../domain/services/reviewer.js';
-import { DriftChecker, DriftResult } from '../../domain/services/drift-checker.js';
+import { DriftChecker, DriftResult } from '../use-cases/drift-checker.js';
 import { ConfigLoader } from '../../domain/services/config-loader.js';
 
 export class ReviewSystem {
