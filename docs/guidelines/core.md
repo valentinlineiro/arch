@@ -12,7 +12,7 @@
 - **Atomicity:** One task per commit where possible. Use `git commit --amend` for follow-up fixes on unpushed commits.
 
 ### 3. Authority & Governance
-- **No Self-Merging:** Agents cannot merge their own PRs (Exception: L3 Autonomy in `autonomy.md`).
+- **No Self-Merging:** Agents cannot merge their own PRs (Exception: L3 Autonomy in `docs/guidelines/autonomy.md`).
 - **Breaking Changes:** MAJOR changes require an ADR before implementation.
 
 ### 4. Task Lifecycle

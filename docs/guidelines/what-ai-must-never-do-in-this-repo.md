@@ -3,7 +3,7 @@
 - Promote tasks to BACKLOG without explicit human approval
 - Change task format without a MAJOR version bump and migration guide
 - Run history-changing git operations (`git pull`, `git merge`, `git rebase`) without explicit human approval
-- Merge PRs (Exception: Authorized under Level 3 Autonomy, see `autonomy.md`)
+- Merge PRs (Exception: Authorized under Level 3 Autonomy, see `docs/guidelines/autonomy.md`)
 
 ## Engineering Hygiene
 - **Zero-Day .gitignore:** Any commit that initializes a new code directory must include a relevant `.gitignore` to prevent tracking build artifacts or dependencies.
