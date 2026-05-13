@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-13T07:36:36.179Z",
+  "builtAt": "2026-05-13T08:17:39.707Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -336,6 +336,7 @@
         "cli/src/main/ts/domain/services/sandbox.ts",
         "cli/src/main/ts/domain/repositories/task-repository.ts",
         "cli/src/main/ts/domain/repositories/file-system.ts",
+        "cli/src/main/ts/application/use-cases/escalation-store.ts",
         "cli/src/main/ts/infrastructure/cli/output-formatter.ts"
       ],
       "tags": [
@@ -630,6 +631,28 @@
       "criticality": "domain",
       "runtimeUsage": "hot"
     },
+    "cli/src/main/ts/application/use-cases/escalation-store.ts": {
+      "symbols": [
+        "EscalationType",
+        "EscalationStatus",
+        "EscalationEntry",
+        "EscalationStore"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/repositories/file-system.ts"
+      ],
+      "tags": [
+        "application",
+        "cases",
+        "escalation",
+        "store",
+        "type",
+        "status",
+        "entry"
+      ],
+      "criticality": "domain",
+      "runtimeUsage": "hot"
+    },
     "cli/src/main/ts/application/use-cases/extract-context-feedback.ts": {
       "symbols": [
         "ExtractContextFeedback"
@@ -657,7 +680,8 @@
         "cli/src/main/ts/domain/repositories/file-system.ts",
         "cli/src/main/ts/domain/models/task.ts",
         "cli/src/main/ts/domain/services/reviewer.ts",
-        "cli/src/main/ts/application/use-cases/drift-checker.ts"
+        "cli/src/main/ts/application/use-cases/drift-checker.ts",
+        "cli/src/main/ts/application/use-cases/escalation-store.ts"
       ],
       "tags": [
         "application",
@@ -729,6 +753,7 @@
         "cli/src/main/ts/application/use-cases/govern-system.ts",
         "cli/src/main/ts/application/use-cases/review-system.ts",
         "cli/src/main/ts/application/use-cases/mark-task-done.ts",
+        "cli/src/main/ts/application/use-cases/escalation-store.ts",
         "cli/src/main/ts/infrastructure/filesystem/node-feedback-repository.ts",
         "cli/src/main/ts/infrastructure/cli/subprocess-runner.ts",
         "cli/src/main/ts/domain/services/config-loader.ts",
@@ -4138,10 +4163,10 @@
   "tasks": {
     "TASK-241": {
       "commitCount": 1,
-      "lastCommitDate": "2026-05-13T09:36:35+02:00",
+      "lastCommitDate": "2026-05-13T09:59:57+02:00",
       "touchedFrequency": {},
       "recentCommitRefs": [
-        "afebf06"
+        "50d04a5"
       ],
       "commitRefOverflow": false
     }
