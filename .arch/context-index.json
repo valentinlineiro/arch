@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-13T11:39:45.304Z",
+  "builtAt": "2026-05-13T11:40:02.554Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -3096,17 +3096,7 @@
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-233.md"
-        }
-      }
-    },
-    "ADR-008": {
-      "tasks": {
-        "TASK-233": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/tasks/TASK-233.md"
+          "taskPath": "docs/archive/TASK-233.md"
         }
       }
     },
@@ -3313,6 +3303,16 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-225.md"
+        }
+      }
+    },
+    "ADR-008": {
+      "tasks": {
+        "TASK-233": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-233.md"
         }
       }
     },
@@ -4159,12 +4159,12 @@
     }
   },
   "tasks": {
-    "TASK-240": {
+    "TASK-233": {
       "commitCount": 1,
-      "lastCommitDate": "2026-05-13T13:38:43+02:00",
+      "lastCommitDate": "2026-05-13T13:40:02+02:00",
       "touchedFrequency": {},
       "recentCommitRefs": [
-        "362ac2c"
+        "752e544"
       ],
       "commitRefOverflow": false
     }
