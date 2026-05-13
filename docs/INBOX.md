@@ -65,3 +65,8 @@ Changed files: `cli/src/main/ts/application/use-cases/loop-engine.ts`
 TASK-240 "Verbose fallback logging for provider switching" is ready for review.
 All 4 ACs met. Changes: (1) loop-command.ts wires --verbose/--quiet to LoopOptions; (2) loop-engine.ts logs full candidate list on --verbose and emits yellow ANSI "WARN — {name} failed: {reason} → next: {nextName}" on fallback; (3) exec-command.ts same improvements plus stderr block demarcation before WARN line; (4) fixed extraFlags to filter out --prefixed flags so --verbose isn't forwarded to the provider CLI.
 Changed files: loop-engine.ts, exec-command.ts, loop-command.ts
+
+## [2026-05-13 16:10] REVIEW_REQUEST | TASK-233
+TASK-233 "Add task references for ADR-008 and ADR-013 to clear UnappliedADRs drift" is ready for review.
+All 3 ACs met. Added "Implements: ADR-008, ADR-013" to the task context section. UnappliedADRs now passes cleanly.
+Changed files: docs/tasks/TASK-233.md
