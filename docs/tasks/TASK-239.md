@@ -1,5 +1,5 @@
 ## TASK-239: Stream arch loop output to terminal
-**Meta:** P2 | XS | READY | Focus:no | 2-code-generation | claude-code | cli/src/main/ts/application/use-cases/loop-engine.ts
+**Meta:** P2 | XS | IN_PROGRESS | Focus:yes | 2-code-generation | claude-code | cli/src/main/ts/application/use-cases/loop-engine.ts
 **Depends:** none
 
 ### Context
