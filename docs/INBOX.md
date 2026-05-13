@@ -33,3 +33,14 @@ _No active sprint._
 **Structural position:** Sits in a region of the constraint space where no known axis is violated. Should be done before any feature that expands THINK's output surface.
 
 **Decision required:** PROMOTE → TASK-XXX (write task number in IDEA file) or REJECT with rationale.
+
+## [2026-05-13 10:00] REVIEW_REQUEST | TASK-190
+**Task:** Implement L3 sprint autonomy (arch loop --sprint)
+**ACs:**
+- [x] `arch loop --sprint <slug>` scopes to sprint tasks only (prose: verify sprint filter works end-to-end)
+- [x] Sprint halts with ANDON_HALT if >2 consecutive Andon conditions (prose: verify counter resets on success)
+- [x] SPRINT_CHECKPOINT written at 50% (prose: verify checkpoint pauses loop and --resume continues)
+- [x] `docs/guidelines/autonomy.md` documents L3 eligibility (file: docs/guidelines/autonomy.md)
+- [x] `arch review` passes (cmd: ./scripts/arch.sh review)
+- [x] `npm test` passes in `cli/` (cmd: npm test)
+**Changed files:** cli/src/main/ts/application/use-cases/loop-engine.ts, cli/src/main/ts/application/use-cases/select-next-task.ts, cli/src/test/ts/loop-sprint.test.ts, docs/agents/DO.md, docs/guidelines/autonomy.md
