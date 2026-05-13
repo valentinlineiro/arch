@@ -1,5 +1,5 @@
 ## TASK-230: Separate arch govern (enforcement) from arch reflect (analysis)
-**Meta:** P1 | M | READY | Focus:no | 2-code-generation | claude-code | cli/src/main/ts/index.ts, cli/src/main/ts/application/use-cases/govern-system.ts, docs/agents/THINK.md
+**Meta:** P1 | M | IN_PROGRESS | Focus:yes | 2-code-generation | claude-code | cli/src/main/ts/index.ts, cli/src/main/ts/application/use-cases/govern-system.ts, docs/agents/THINK.md
 **Depends:** none
 
 ### Context
