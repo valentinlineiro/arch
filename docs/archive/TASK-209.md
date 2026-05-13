@@ -1,5 +1,5 @@
 ## TASK-209: Fix commit message checker to recognize chore: [THINK] as governance tag
-**Meta:** P2 | XS | REVIEW | Focus:yes | 2-code-generation | claude-code | cli/src/main/ts/domain/services/reviewer.ts
+**Meta:** P2 | XS | DONE | Focus:yes | 2-code-generation | claude-code | cli/src/main/ts/domain/services/reviewer.ts | Closed-at: 2026-05-13T13:20:00Z
 **Depends:** none
 
 ### Context
