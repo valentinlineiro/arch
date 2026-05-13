@@ -47,3 +47,14 @@ _No active sprint._
 
 ## [2026-05-13 10:30] REVIEW_PASS | TASK-190
 All ACs verified against repository state. sprint scoping, Andon count, checkpoint, and autonomy.md all confirmed. arch review OK, npm test 341 pass (6 pre-existing). Archived.
+
+## [2026-05-13 11:00] REVIEW_REQUEST | TASK-230
+**Task:** Separate arch govern (enforcement) from arch reflect (analysis)
+**ACs:**
+- [x] arch govern — enforcement only, no LLM (prose: verify GovernSystem has no runConduct call)
+- [x] arch reflect — analysis only, THINK invocation, no task state mutation (prose: verify ReflectCommand)
+- [x] arch govern triggers arch reflect as labeled side-effect (prose: verify GovernCommand)
+- [x] scripts/arch.sh routes both commands (prose: verify routing + help text)
+- [x] IDENTITY.md §7 note updated (grep: "future implementation target" removed)
+- [x] arch review --commands passes (cmd: ./scripts/arch.sh review)
+**Changed files:** cli/src/main/ts/application/use-cases/govern-system.ts, cli/src/main/ts/application/commands/govern-command.ts, cli/src/main/ts/application/commands/reflect-command.ts, cli/src/main/ts/application/use-cases/drift-checker.ts, docs/IDENTITY.md, docs/agents/THINK.md, README.md, scripts/arch.sh
