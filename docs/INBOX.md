@@ -40,3 +40,8 @@ _No active sprint._
 ## [2026-05-13 14:30] REVIEW_REQUEST | TASK-241
 TASK-241 "Introduce .arch/escalations.jsonl structured escalation store" is ready for review.
 All 7 ACs met. EscalationStore written to `.arch/escalations.jsonl` (append-only, OPEN/RESOLVED semantics). INBOX.md remains human-only. `arch inbox` now surfaces escalations from the structured store.
+
+## [2026-05-13 15:00] REVIEW_REQUEST | TASK-209
+TASK-209 "Fix commit message checker to recognize chore: [THINK] as governance tag" is ready for review.
+All 5 ACs met. The `isGovernance` regex in `reviewer.ts:86` already handled `chore: [THINK]` correctly; this task added explicit test coverage for `chore: [THINK] Phase 1 — foo`, `chore: [KAIZEN]`, `chore: [SELF-PROMOTION]`, and a regression guard for commits without TASK-ID.
+Changed files: `cli/src/test/ts/reviewer.test.ts`
