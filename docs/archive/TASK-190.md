@@ -1,5 +1,5 @@
 ## TASK-190: Implement L3 sprint autonomy (arch loop --sprint)
-**Meta:** P2 | M | REVIEW | Focus:yes | 2-code-generation | claude-code | cli/src/main/ts/application/commands/loop-command.ts, docs/agents/DO.md, docs/guidelines/
+**Meta:** P2 | M | DONE | Focus:no | 2-code-generation | claude-code | cli/src/main/ts/application/commands/loop-command.ts, docs/agents/DO.md, docs/guidelines/
 **Depends:** TASK-189
 
 ### Context

@@ -44,3 +44,6 @@ _No active sprint._
 - [x] `arch review` passes (cmd: ./scripts/arch.sh review)
 - [x] `npm test` passes in `cli/` (cmd: npm test)
 **Changed files:** cli/src/main/ts/application/use-cases/loop-engine.ts, cli/src/main/ts/application/use-cases/select-next-task.ts, cli/src/test/ts/loop-sprint.test.ts, docs/agents/DO.md, docs/guidelines/autonomy.md
+
+## [2026-05-13 10:30] REVIEW_PASS | TASK-190
+All ACs verified against repository state. sprint scoping, Andon count, checkpoint, and autonomy.md all confirmed. arch review OK, npm test 341 pass (6 pre-existing). Archived.
