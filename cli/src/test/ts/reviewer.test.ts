@@ -37,6 +37,22 @@ test('Reviewer - validateCommitMessage', () => {
 
   const selfPromotionTag = reviewer.validateCommitMessage('[SELF-PROMOTION] IDEA-001 to TASK-001');
   assert.strictEqual(selfPromotionTag.valid, true);
+
+  // chore: [THINK] format — the real commit format used by governance sessions
+  const choreThink = reviewer.validateCommitMessage('chore: [THINK] Phase 1 — foo');
+  assert.strictEqual(choreThink.valid, true);
+
+  // chore: [KAIZEN] and chore: [SELF-PROMOTION] variants
+  const choreKaizen = reviewer.validateCommitMessage('chore: [KAIZEN] improve review logic');
+  assert.strictEqual(choreKaizen.valid, true);
+
+  const choreSelfPromotion = reviewer.validateCommitMessage('chore: [SELF-PROMOTION] IDEA-001 to TASK-001');
+  assert.strictEqual(choreSelfPromotion.valid, true);
+
+  // regression guard: conventional commit without TASK-ID must still fail
+  const noTaskId = reviewer.validateCommitMessage('feat: add something');
+  assert.strictEqual(noTaskId.valid, false);
+  assert.ok(noTaskId.violations.some(v => v.includes('must reference a TASK-ID')));
 });
 
 test('Reviewer - reviewTask (AC completion)', () => {
