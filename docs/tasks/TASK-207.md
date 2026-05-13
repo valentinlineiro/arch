@@ -1,5 +1,5 @@
 ## TASK-207: Implement DeterministicACVerifier - structural AC completion check
-**Meta:** P2 | M | READY | Focus:no | 2-code-generation | claude-code | cli/src/main/ts/domain/services/, cli/src/main/ts/application/commands/, cli/src/main/ts/application/use-cases/review-system.ts
+**Meta:** P2 | M | READY | Focus:yes | 2-code-generation | claude-code | cli/src/main/ts/domain/services/, cli/src/main/ts/application/commands/, cli/src/main/ts/application/use-cases/review-system.ts
 **Depends:** none
 
 ### Context
