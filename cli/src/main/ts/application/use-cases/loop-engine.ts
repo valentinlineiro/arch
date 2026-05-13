@@ -3,7 +3,7 @@ import { GitRepository } from '../../domain/repositories/git-repository.js';
 import { FileSystem } from '../../domain/repositories/file-system.js';
 import { Reviewer } from '../../domain/services/reviewer.js';
 import { DriftChecker } from '../use-cases/drift-checker.js';
-import { TaskStatus } from '../../domain/models/task.js';
+import { Task, TaskStatus } from '../../domain/models/task.js';
 import { SelectNextTask } from './select-next-task.js';
 import { GovernSystem } from './govern-system.js';
 import { ReviewSystem } from './review-system.js';
@@ -24,10 +24,13 @@ export interface LoopOptions {
 }
 
 const ANDON_MAX_FAILURES = 3;
+const SPRINT_ANDON_MAX = 2;
 const ARCH_SH = './scripts/arch.sh';
 
 export class LoopEngine {
   private reviewFailures = new Map<string, number>();
+  private sprintAndonCount = 0;
+  private checkpointWritten = false;
   private governSystem: GovernSystem;
   private reviewSystem: ReviewSystem;
   private markTaskDone: MarkTaskDone;
@@ -48,6 +51,10 @@ export class LoopEngine {
   private log(message: string) {
     const ts = new Date().toISOString().slice(11, 19);
     console.log(`[${ts}] ${message}`);
+  }
+
+  private normalizeSprintSlug(slug: string): string {
+    return slug.startsWith('sprint/') ? slug : `sprint/${slug}`;
   }
 
   async execute(options: LoopOptions): Promise<void> {
@@ -72,29 +79,28 @@ export class LoopEngine {
         this.log('[dry-run] Would run: arch govern --no-conduct');
       }
 
-      // 2. SELECT — prioritize focused task, otherwise find next unblocked task
+      // 2. SELECT — scoped to sprint if --sprint, then focused task, then priority order
       this.log('[LOOP] Phase: SELECT');
       const activeTasks = await this.taskRepository.getActive();
-      let task = activeTasks.find(t => t.focus && (t.status === TaskStatus.IN_PROGRESS || t.status === TaskStatus.READY || t.status === TaskStatus.REVIEW));
+
+      let sprintCandidates = activeTasks;
+      if (options.sprint) {
+        const normalised = this.normalizeSprintSlug(options.sprint);
+        sprintCandidates = activeTasks.filter(t => t.sprint === normalised || t.sprint === options.sprint);
+      }
+
+      let task: Task | undefined = sprintCandidates.find(
+        t => t.focus && (t.status === TaskStatus.IN_PROGRESS || t.status === TaskStatus.READY || t.status === TaskStatus.REVIEW)
+      );
 
       if (!task) {
         const selector = new SelectNextTask(this.taskRepository);
-        task = await selector.execute();
-      }
-
-      if (!task) {
-        this.log('[LOOP] No unblocked READY tasks. Loop complete.');
-        break;
-      }
-
-      // Sprint scope: skip tasks outside the requested sprint
-      if (options.sprint) {
-        const sprintValue = task.sprint ?? '';
-        const normalised = options.sprint.startsWith('sprint/') ? options.sprint : `sprint/${options.sprint}`;
-        if (sprintValue !== normalised && sprintValue !== options.sprint) {
-          this.log(`[LOOP] Next task ${task.id} is outside sprint ${options.sprint}. No matching tasks remain.`);
+        const result = await selector.execute(options.sprint ? { sprintSlug: options.sprint } : undefined);
+        if (!result.ok) {
+          this.log('[LOOP] No unblocked READY tasks. Loop complete.');
           break;
         }
+        task = result.task;
       }
 
       this.log(`[LOOP] Selected: ${task.id} — ${task.title} (${task.priority} | ${task.size})`);
@@ -118,9 +124,12 @@ export class LoopEngine {
 
         if (candidates.length === 0) {
           const reason = `No AI provider detected for task class "${task.class}" size "${task.size}" — halting`;
-          await this.appendInbox(task.id, 'ANDON_HALT', reason);
-          console.error(`[LOOP] ${reason}`);
-          process.exit(1);
+          const shouldContinue = await this.triggerAndon(task.id, reason, options);
+          if (!shouldContinue) {
+            console.error(`[LOOP] ${reason}`);
+            process.exit(1);
+          }
+          continue;
         }
 
         let success = false;
@@ -133,7 +142,7 @@ export class LoopEngine {
           }
 
           if (!provider) continue;
-          
+
           this.log(`[LOOP] Attempting ${name} | Model: ${model || 'default'}`);
 
           let turns: number | undefined;
@@ -141,9 +150,7 @@ export class LoopEngine {
 
           if (provider instanceof BridgeProvider) {
             const DO_PROMPT_FILE = 'docs/agents/DO.md';
-            const promptContent = fs.readFileSync(DO_PROMPT_FILE, 'utf8');
             const cmd = provider.buildCommand(model || '', DO_PROMPT_FILE);
-            const start = Date.now();
             const result = spawnSync('sh', ['-c', cmd], {
               stdio: ['ignore', 'pipe', 'inherit'],
               encoding: 'utf8',
@@ -157,7 +164,7 @@ export class LoopEngine {
               this.log(`[LOOP] Provider ${name} failed: ${reason}. Trying next...`);
               continue;
             }
-            const meta = provider.parseMetadata(result.stdout ?? '', Date.now() - start);
+            const meta = provider.parseMetadata(result.stdout ?? '', Date.now() - cycleStart);
             turns = meta.turns;
             cost = meta.cost;
           } else {
@@ -188,9 +195,12 @@ export class LoopEngine {
 
         if (!success) {
           const reason = 'All candidate providers failed — halting';
-          await this.appendInbox(task.id, 'ANDON_HALT', reason);
-          console.error(`[LOOP] ${reason}. INBOX updated.`);
-          process.exit(1);
+          const shouldContinue = await this.triggerAndon(task.id, reason, options);
+          if (!shouldContinue) {
+            console.error(`[LOOP] ${reason}. INBOX updated.`);
+            process.exit(1);
+          }
+          continue;
         }
       } else {
         // Legacy path: shell out to arch.sh exec
@@ -203,9 +213,12 @@ export class LoopEngine {
           const reason = execCode === 124
             ? `EXEC timeout exceeded (${timeoutMinutes}m)`
             : `arch exec exited with code ${execCode}`;
-          await this.appendInbox(task.id, 'ANDON_HALT', reason);
-          console.error(`[LOOP] Exec failed for ${task.id}. ${reason}. INBOX updated. Halting.`);
-          process.exit(1);
+          const shouldContinue = await this.triggerAndon(task.id, reason, options);
+          if (!shouldContinue) {
+            console.error(`[LOOP] Exec failed for ${task.id}. ${reason}. INBOX updated. Halting.`);
+            process.exit(1);
+          }
+          continue;
         }
 
         const turnMatch = stdout.match(/Turns: (\d+)/);
@@ -230,9 +243,13 @@ export class LoopEngine {
         reviewResult.violations.forEach(v => console.warn(`    - ${v}`));
 
         if (failures >= ANDON_MAX_FAILURES) {
-          await this.appendInbox(task.id, 'ANDON_HALT', `arch review failed ${failures} consecutive times. Write APPROVE or REDIRECT in INBOX then run arch loop --resume.`);
-          console.error(`[LOOP] Andon Cord: ${task.id} halted after ${failures} review failures.`);
-          process.exit(1);
+          const reason = `arch review failed ${failures} consecutive times. Write APPROVE or REDIRECT in INBOX then run arch loop --resume.`;
+          const shouldContinue = await this.triggerAndon(task.id, reason, options);
+          if (!shouldContinue) {
+            console.error(`[LOOP] Andon Cord: ${task.id} halted after ${failures} review failures.`);
+            process.exit(1);
+          }
+          continue;
         }
 
         this.log(`[LOOP] Retrying ${task.id} (${ANDON_MAX_FAILURES - failures} attempt(s) remaining).`);
@@ -251,11 +268,63 @@ export class LoopEngine {
         process.exit(1);
       }
 
+      // Reset sprint Andon counter on successful task completion
+      this.sprintAndonCount = 0;
+
       const elapsed = Math.round((Date.now() - cycleStart) / 1000);
       this.log(`[LOOP] ✓ ${task.id} done in ${elapsed}s.`);
+
+      // 6. SPRINT_CHECKPOINT — pause at 50% for async human review
+      if (options.sprint && !this.checkpointWritten) {
+        const allTasks = await this.taskRepository.getAll();
+        const normalised = this.normalizeSprintSlug(options.sprint);
+        const sprintTasks = allTasks.filter(t => t.sprint === normalised || t.sprint === options.sprint);
+        const doneTasks = sprintTasks.filter(t => t.status === TaskStatus.DONE);
+
+        if (sprintTasks.length > 0 && doneTasks.length / sprintTasks.length >= 0.5) {
+          const alreadyWritten = await this.hasSprintCheckpoint(options.sprint);
+          if (!alreadyWritten) {
+            this.log(`[LOOP] Sprint checkpoint: ${doneTasks.length}/${sprintTasks.length} tasks done. Pausing for review.`);
+            await this.appendSprintCheckpoint(options.sprint, doneTasks.length, sprintTasks.length);
+            this.checkpointWritten = true;
+            this.log('[LOOP] SPRINT_CHECKPOINT written to INBOX. Run arch loop --sprint --resume to continue.');
+            break;
+          }
+          this.checkpointWritten = true;
+        }
+      }
     }
 
     this.log('[LOOP] Done.');
+  }
+
+  private async triggerAndon(taskId: string, reason: string, options: LoopOptions): Promise<boolean> {
+    await this.appendInbox(taskId, 'ANDON_HALT', reason);
+
+    if (!options.sprint) {
+      return false;
+    }
+
+    this.sprintAndonCount += 1;
+    if (this.sprintAndonCount > SPRINT_ANDON_MAX) {
+      const sprintReason = `${this.sprintAndonCount} consecutive Andon conditions in sprint ${options.sprint}. Manual intervention required.`;
+      await this.appendInbox(taskId, 'ANDON_HALT', sprintReason);
+      console.error(`[LOOP] Sprint Andon limit exceeded (${this.sprintAndonCount} consecutive). Halting.`);
+      return false;
+    }
+
+    console.warn(`[LOOP] Andon condition for ${taskId} (${this.sprintAndonCount}/${SPRINT_ANDON_MAX} sprint limit). Continuing to next task.`);
+    return true;
+  }
+
+  private async hasSprintCheckpoint(sprint: string): Promise<boolean> {
+    try {
+      const inbox = await this.fileSystem.readFile('docs/INBOX.md');
+      const normalised = this.normalizeSprintSlug(sprint);
+      return inbox.includes('SPRINT_CHECKPOINT') && (inbox.includes(normalised) || inbox.includes(sprint));
+    } catch {
+      return false;
+    }
   }
 
   private async handleResume(options: LoopOptions): Promise<void> {
@@ -270,22 +339,43 @@ export class LoopEngine {
     }
 
     const halts = [...inbox.matchAll(/^## \[.*?\] (ANDON_HALT|AWAITING_\w+) \| (TASK-\d{3})/gm)];
-    if (halts.length === 0) {
+    const checkpoints = [...inbox.matchAll(/^## \[.*?\] SPRINT_CHECKPOINT \| sprint\//gm)];
+
+    if (halts.length === 0 && checkpoints.length === 0) {
       console.log('[LOOP] No pending halt conditions in INBOX. Resuming loop...');
       await this.execute({ ...options, resume: false });
       return;
     }
 
-    console.log('[LOOP] Pending INBOX items (resolve before resuming):');
-    for (const m of halts) {
-      console.log(`  ${m[1]}: ${m[2]}`);
+    if (halts.length > 0) {
+      console.log('[LOOP] Pending INBOX items (resolve before resuming):');
+      for (const m of halts) {
+        console.log(`  ${m[1]}: ${m[2]}`);
+      }
+      console.log('\n  Write APPROVE or REDIRECT: <instruction> inline in INBOX, then run arch loop --resume.');
+      return;
     }
-    console.log('\n  Write APPROVE or REDIRECT: <instruction> inline in INBOX, then run arch loop --resume.');
+
+    if (checkpoints.length > 0) {
+      console.log('[LOOP] Sprint checkpoint detected — async human review complete. Resuming sprint...');
+      this.checkpointWritten = true;
+      await this.execute({ ...options, resume: false });
+    }
   }
 
   private async appendInbox(taskId: string, type: string, evidence: string): Promise<void> {
     const ts = new Date().toISOString().slice(0, 16).replace('T', ' ');
     const entry = `\n## [${ts}] ${type} | ${taskId}\nEvidence: ${evidence}\n`;
+    const inboxPath = 'docs/INBOX.md';
+    let existing = '';
+    try { existing = await this.fileSystem.readFile(inboxPath); } catch {}
+    await this.fileSystem.writeFile(inboxPath, existing + entry);
+  }
+
+  private async appendSprintCheckpoint(sprint: string, done: number, total: number): Promise<void> {
+    const ts = new Date().toISOString().slice(0, 16).replace('T', ' ');
+    const normalised = this.normalizeSprintSlug(sprint);
+    const entry = `\n## [${ts}] SPRINT_CHECKPOINT | ${normalised}\nProgress: ${done}/${total} tasks done (${Math.round(done / total * 100)}%). Review sprint state before continuing.\n`;
     const inboxPath = 'docs/INBOX.md';
     let existing = '';
     try { existing = await this.fileSystem.readFile(inboxPath); } catch {}

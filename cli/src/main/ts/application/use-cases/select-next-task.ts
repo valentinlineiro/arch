@@ -45,9 +45,15 @@ function compareTasksForSort(a: Task, b: Task, priorityOrder: Record<string, num
 export class SelectNextTask {
   constructor(private taskRepository: TaskRepository, private muriConfig?: MuriConfig) {}
 
-  async execute(): Promise<SelectNextResult> {
+  async execute(filter?: { sprintSlug?: string }): Promise<SelectNextResult> {
     const allTasks = await this.taskRepository.getAll();
-    const activeTasks = await this.taskRepository.getActive();
+    let activeTasks = await this.taskRepository.getActive();
+
+    if (filter?.sprintSlug) {
+      const slug = filter.sprintSlug;
+      const normalised = slug.startsWith('sprint/') ? slug : `sprint/${slug}`;
+      activeTasks = activeTasks.filter(t => t.sprint === normalised || t.sprint === slug);
+    }
 
     // Check stale lock: any P0 IN_PROGRESS task locked > 3 days
     const staleP0 = activeTasks.find(

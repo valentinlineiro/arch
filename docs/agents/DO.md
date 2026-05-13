@@ -62,6 +62,16 @@
 | `action:deploy` | Manual | Human Approval |
 | `action:pr-create` | Manual | Human Approval |
 
+## L3 Sprint Autonomy (`arch loop --sprint`)
+
+`arch loop --sprint <slug>` runs the autonomous loop scoped to a single sprint. Only tasks tagged `**Sprint:** sprint/<slug>` are eligible; all other tasks are ignored regardless of priority.
+
+**Sprint-level governance gates:**
+- **Sprint Andon:** If more than 2 consecutive tasks hit Andon Cord conditions, the loop writes an `ANDON_HALT` entry to `docs/INBOX.md` and halts. The counter resets on each successful task completion.
+- **Sprint Checkpoint:** When 50% of sprint tasks are archived, the loop writes a `SPRINT_CHECKPOINT` entry to `docs/INBOX.md` and pauses. Resume with `arch loop --sprint <slug> --resume` after async human review.
+
+**L3 eligibility** (see `docs/guidelines/autonomy.md`): `6-writing` and `7-operations` tasks are L3-eligible by default. `2-code-generation` tasks require an explicit `L3:yes` annotation in the sprint definition.
+
 ## Andon Cord (Halt Conditions)
 The autonomous execution loop must halt and yield to a human when any of these conditions are met:
 
