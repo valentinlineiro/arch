@@ -36,3 +36,7 @@ _No active sprint._
 
 ## [2026-05-13 14:15] AWAITING_PROMOTION | IDEA-excision-legitimacy-check
 **Decision required:** PROMOTE → TASK-XXX or REJECT. Addresses additive legitimacy bias in DriftChecker. High value for keeping ontology lean.
+
+## [2026-05-13 14:30] REVIEW_REQUEST | TASK-241
+TASK-241 "Introduce .arch/escalations.jsonl structured escalation store" is ready for review.
+All 7 ACs met. EscalationStore written to `.arch/escalations.jsonl` (append-only, OPEN/RESOLVED semantics). INBOX.md remains human-only. `arch inbox` now surfaces escalations from the structured store.
