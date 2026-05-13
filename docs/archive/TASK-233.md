@@ -1,5 +1,5 @@
 ## TASK-233: Add task references for ADR-008 and ADR-013 to clear UnappliedADRs drift
-**Meta:** P2 | XS | REVIEW | Focus:yes | 6-writing | claude-code | docs/adr/
+**Meta:** P2 | XS | DONE | Focus:yes | 6-writing | claude-code | docs/adr/ | Closed-at: 2026-05-13T14:15:00Z
 **Depends:** none
 
 ### Context
