@@ -35,6 +35,7 @@ import { CausalCommand } from './application/commands/causal-command.js';
 import { CausalGraph } from './application/use-cases/causal-graph.js';
 import { CausalSignalLog } from './application/use-cases/causal-signal-log.js';
 import { ReflectCommand } from './application/commands/reflect-command.js';
+import { ReportCommand } from './application/commands/report-command.js';
 
 async function main() {
   const fileSystem = new NodeFileSystem();
@@ -142,6 +143,9 @@ async function main() {
       break;
     case 'reflect':
       await new ReflectCommand(fileSystem, rootPath).execute(args);
+      break;
+    case 'report':
+      await new ReportCommand(fileSystem, gitRepository).execute();
       break;
     case 'causal': {
       const causalGraph = new CausalGraph(fileSystem, rootPath);

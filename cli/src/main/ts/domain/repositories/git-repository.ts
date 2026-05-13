@@ -14,6 +14,7 @@ export interface GitRepository {
   getStagedFiles(): Promise<string[]>;
   getModifiedFiles(): Promise<string[]>;
   getRepoRoot(): Promise<string>;
+  getFileFirstCommitDate(path: string): Promise<Date | null>;
   getCommitHistory(limit?: number): Promise<Array<{
     hash: string;
     message: string;

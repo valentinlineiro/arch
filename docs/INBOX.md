@@ -70,3 +70,5 @@ Changed files: loop-engine.ts, exec-command.ts, loop-command.ts
 TASK-233 "Add task references for ADR-008 and ADR-013 to clear UnappliedADRs drift" is ready for review.
 All 3 ACs met. Added "Implements: ADR-008, ADR-013" to the task context section. UnappliedADRs now passes cleanly.
 Changed files: docs/tasks/TASK-233.md
+
+REVIEW_REQUEST | TASK-201: Implement arch report - auto-populate METRICS.md from archived task data

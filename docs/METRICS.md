@@ -126,3 +126,28 @@
 ## Insights
 - Autonomous loop efficiency is high.
 - REVIEW_FAIL rate is below the 5% threshold for L3 Autonomy.
+
+<!-- GENERATED:START -->
+## Operational Metrics
+
+*Last updated: 2026-05-13T12:03:16.947Z*
+
+| Metric | Value | Notes |
+|--------|-------|-------|
+| **Completed Tasks** | 220 | total archived |
+| **REVIEW_FAIL Rate** | pending (insufficient event history) | rejected / total review exits |
+| **Avg Cost / Task** | $0.12 | token-estimate heuristic v1 |
+
+### Cycle Time (P50/P90)
+
+| Size | P50 | P90 | Count |
+|------|-----|-----|-------|
+| XS | 0.7h | 22.0h | 35 |
+| S | 2.7h | 27.9h | 41 |
+| M | 4.1h | 161.4h | 24 |
+| L | 4.7h | 4.7h | 1 |
+
+
+*Cost per task uses token-estimate heuristic v1 if absent from meta: XS=$0.05, S=$0.10, M=$0.25, L=$0.50*
+
+<!-- GENERATED:END -->

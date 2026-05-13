@@ -89,6 +89,19 @@ export class GitCli implements GitRepository {
     return stdout.trim();
   }
 
+  async getFileFirstCommitDate(path: string): Promise<Date | null> {
+    try {
+      // --diff-filter=A only shows the addition of the file.
+      // --follow ensures we find it even if it was moved (archived).
+      const { stdout } = await SubprocessRunner.runWithOutput('git', ['log', '--diff-filter=A', '--follow', '--format=%cI', '--', path]);
+      const lines = stdout.trim().split('\n').filter(Boolean);
+      const dateStr = lines[lines.length - 1]; // Earliest commit is at the bottom of the log
+      return dateStr ? new Date(dateStr) : null;
+    } catch {
+      return null;
+    }
+  }
+
   async getCommitHistory(limit = 500): Promise<Array<{
     hash: string;
     message: string;

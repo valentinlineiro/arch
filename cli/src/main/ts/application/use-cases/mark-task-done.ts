@@ -6,6 +6,7 @@ import { EventRepository } from '../../domain/models/event.js';
 import { FeedbackRepository } from '../../domain/repositories/feedback-repository.js';
 import { ExtractContextFeedback } from './extract-context-feedback.js';
 import { CausalSignalLog } from './causal-signal-log.js';
+import { EventLogger } from '../../domain/services/event-logger.js';
 import crypto from 'node:crypto';
 
 export class MarkTaskDone {
@@ -17,7 +18,8 @@ export class MarkTaskDone {
     private fileSystem: FileSystem,
     private eventRepository?: EventRepository,
     private feedbackRepository?: FeedbackRepository,
-    private causalSignalLog?: CausalSignalLog
+    private causalSignalLog?: CausalSignalLog,
+    private eventLogger?: EventLogger
   ) {}
 
   async execute(taskId: string, force = false) {
@@ -38,12 +40,22 @@ export class MarkTaskDone {
       }
     }
 
+    const fromStatus = task.status;
     task.status = TaskStatus.DONE;
     task.focus = false;
     if (!task.closedAt) {
       task.closedAt = new Date().toISOString();
     }
     await this.taskRepository.save(task);
+
+    if (this.eventLogger) {
+      await this.eventLogger.append({
+        taskId: task.id,
+        from: fromStatus,
+        to: task.status,
+        timestamp: new Date().toISOString()
+      });
+    }
 
     if (this.eventRepository) {
       await this.eventRepository.append({
