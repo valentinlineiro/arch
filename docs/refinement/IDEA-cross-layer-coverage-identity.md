@@ -2,7 +2,7 @@
 **Created:** 2026-05-12
 **Source:** Diagnostic session — drift/IDEA semantic coupling without structural unification
 **Status:** DRAFT
-**Sessions:** 1
+**Sessions:** 2
 **Meta:** P2 | M | local | docs/refinement/ + cli/src/main/ts/application/use-cases/drift-checker.ts
 
 ## Problem

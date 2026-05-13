@@ -88,6 +88,20 @@ L (the format is defined; the capability matures over time through corpus accumu
 
 ## Gaps
 
+**Sessions:** 1
+
+## Structural admissibility (5-axis)
+
+| Axis | Status | Note |
+|------|--------|------|
+| Dependency ordering | Satisfied | TENSION-001 exists as corpus seed. |
+| Temporal validity | Satisfied | Exemplar case (govern/THINK split) confirmed the need. |
+| Abstraction layer | Satisfied | Correct layer for ontological stability. |
+| Observability validity | Satisfied | Formally defined in Layer 1. |
+| Priority displacement | Satisfied | P1. |
+
+**Structural admissibility:** satisfied.
+
 ## Decision
 <!-- Human writes here after THINK evaluation -->
 <!-- PROMOTE → TASK-XXX | REJECT: reason -->

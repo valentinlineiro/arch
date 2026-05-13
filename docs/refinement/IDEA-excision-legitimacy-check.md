@@ -51,4 +51,18 @@ S
 - Gate 2 requires linking a deleted TypeScript file to a REJECT decision in a markdown file. That link is currently informal (matching by artifact name substring). A structured cross-reference (e.g., `Removes: <module-path>` in the REJECT field) would make Gate 2 deterministic without false positives.
 - The Class I/Class II boundary is stated in GOVERNANCE.md but not enforced in check naming conventions. This IDEA should be revisited if the naming convention is ever formalized.
 
+**Sessions:** 1
+
+## Structural admissibility (5-axis)
+
+| Axis | Status | Note |
+|------|--------|------|
+| Dependency ordering | Satisfied | Uses existing DriftChecker / git log infra. |
+| Temporal validity | Satisfied | INTENT removal case confirmed the gap. |
+| Abstraction layer | Satisfied | Correct layer for structural consistency. |
+| Observability validity | Satisfied | Deletions and references are grep-able. |
+| Priority displacement | Satisfied | P1. |
+
+**Structural admissibility:** satisfied.
+
 ## Decision

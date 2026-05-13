@@ -16,13 +16,18 @@ Implement context reset for agents:
 2. Add context budget limit before task start
 3. Implement context usage tracking
 
-**Sessions:** 1
+**Sessions:** 2
 
-## Source
+## Structural admissibility (5-axis)
 
-Internal discussion — user feedback
+| Axis | Status | Note |
+|------|--------|------|
+| Dependency ordering | Satisfied | None. |
+| Temporal validity | Satisfied | Observable token accumulation in agent loops. |
+| Abstraction layer | Satisfied | Operational/runtime layer. |
+| Observability validity | Satisfied | Token counts are machine-readable. |
+| Priority displacement | Satisfied | P1. |
 
----
+**Structural admissibility:** satisfied.
 
-**Promoted by:** human
-**Promoted on:**
+## Decision
