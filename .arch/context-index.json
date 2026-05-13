@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-12T14:33:14.234Z",
+  "builtAt": "2026-05-13T07:36:36.179Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -99,6 +99,7 @@
         "cli/src/main/ts/application/use-cases/govern-system.ts",
         "cli/src/main/ts/application/use-cases/build-index.ts",
         "cli/src/main/ts/domain/services/config-loader.ts",
+        "cli/src/main/ts/infrastructure/cli/subprocess-runner.ts",
         "cli/src/main/ts/domain/repositories/task-repository.ts",
         "cli/src/main/ts/domain/repositories/git-repository.ts",
         "cli/src/main/ts/domain/repositories/file-system.ts",
@@ -688,6 +689,7 @@
     },
     "cli/src/main/ts/application/use-cases/govern-system.ts": {
       "symbols": [
+        "GovernResult",
         "GovernSystem"
       ],
       "imports": [
@@ -697,7 +699,6 @@
         "cli/src/main/ts/domain/models/task.ts",
         "cli/src/main/ts/application/use-cases/select-next-task.ts",
         "cli/src/main/ts/application/use-cases/batch-system.ts",
-        "cli/src/main/ts/infrastructure/cli/subprocess-runner.ts",
         "cli/src/main/ts/domain/services/config-loader.ts",
         "cli/src/main/ts/application/use-cases/causal-signal-log.ts",
         "cli/src/main/ts/application/use-cases/reflect-influence-report.ts"
@@ -706,7 +707,8 @@
         "application",
         "cases",
         "govern",
-        "system"
+        "system",
+        "result"
       ],
       "criticality": "domain",
       "runtimeUsage": "hot"
@@ -3058,6 +3060,43 @@
     }
   },
   "adrTaskLinks": {
+    "ADR-013": {
+      "tasks": {
+        "TASK-231": {
+          "evidenceKinds": [
+            "context-path",
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-231.md"
+        },
+        "TASK-233": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-233.md"
+        }
+      }
+    },
+    "ADR-008": {
+      "tasks": {
+        "TASK-233": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-233.md"
+        }
+      }
+    },
+    "ADR-010": {
+      "tasks": {
+        "TASK-238": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-238.md"
+        }
+      }
+    },
     "ADR-001": {
       "tasks": {
         "TASK-002": {
@@ -4097,12 +4136,12 @@
     }
   },
   "tasks": {
-    "TASK-190": {
+    "TASK-241": {
       "commitCount": 1,
-      "lastCommitDate": "2026-05-12T16:33:13+02:00",
+      "lastCommitDate": "2026-05-13T09:36:35+02:00",
       "touchedFrequency": {},
       "recentCommitRefs": [
-        "8e6fee4"
+        "afebf06"
       ],
       "commitRefOverflow": false
     }
