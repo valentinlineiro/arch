@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-13T11:25:25.011Z",
+  "builtAt": "2026-05-13T11:28:14.102Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -2486,12 +2486,11 @@
       "strength": "enforced"
     },
     "ADR-010": {
-      "title": "Escalation Maturity Phase 1 (Level 3 Detectable)",
+      "title": "Escalation Maturity Phase 1 (E3 Detectable)",
       "keywords": [
         "escalation",
         "maturity",
         "phase",
-        "level",
         "detectable",
         "adr",
         "010",
@@ -2569,8 +2568,7 @@
         "struggle",
         "misalignment",
         "rationale",
-        "these",
-        "trigg"
+        "these"
       ],
       "affectedModules": [],
       "strength": "advisory"
@@ -3112,16 +3110,6 @@
         }
       }
     },
-    "ADR-010": {
-      "tasks": {
-        "TASK-238": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/tasks/TASK-238.md"
-        }
-      }
-    },
     "ADR-001": {
       "tasks": {
         "TASK-002": {
@@ -3325,6 +3313,16 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-225.md"
+        }
+      }
+    },
+    "ADR-010": {
+      "tasks": {
+        "TASK-238": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-238.md"
         }
       }
     }
@@ -4161,12 +4159,12 @@
     }
   },
   "tasks": {
-    "TASK-232": {
+    "TASK-238": {
       "commitCount": 1,
-      "lastCommitDate": "2026-05-13T13:25:24+02:00",
+      "lastCommitDate": "2026-05-13T13:28:13+02:00",
       "touchedFrequency": {},
       "recentCommitRefs": [
-        "334bb2d"
+        "5c09d25"
       ],
       "commitRefOverflow": false
     }
