@@ -164,6 +164,11 @@ arch causal weaken <edge-id>          # Downgrade belief with new evidence
 arch causal invalidate <edge-id>      # Contradict — kept for audit, excluded from active queries
 arch causal arbitrate                 # Consume pending signals → apply/conflict/expire
 
+# Governance and analysis
+arch govern                           # Enforcement tick: archive DONE, assign focus, check thresholds
+arch reflect                          # Analysis: regenerate INBOX, surface Kaizen, detect drift (THINK)
+arch reflect influence                # Epistemic influence report — engagement, attribution, gaps
+
 # Integrity
 arch review                           # Full audit: task format, commit, drift checks
 arch review --fast                    # Format-only: skips drift checks (replaces arch validate/lint)

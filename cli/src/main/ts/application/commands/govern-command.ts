@@ -1,6 +1,7 @@
 import { GovernSystem } from '../use-cases/govern-system.js';
 import { BuildIndex } from '../use-cases/build-index.js';
 import { ConfigLoader } from '../../domain/services/config-loader.js';
+import { SubprocessRunner } from '../../infrastructure/cli/subprocess-runner.js';
 import type { TaskRepository } from '../../domain/repositories/task-repository.js';
 import type { GitRepository } from '../../domain/repositories/git-repository.js';
 import type { FileSystem } from '../../domain/repositories/file-system.js';
@@ -22,7 +23,7 @@ export class GovernCommand {
   async execute(args: string[] = []): Promise<void> {
     const noConduct = args.includes('--no-conduct');
     console.log('\n  ARCH — Governance Tick');
-    await this.useCase.execute(noConduct);
+    const result = await this.useCase.execute(noConduct);
 
     try {
       const config = await ConfigLoader.load(this.fileSystem);
@@ -39,6 +40,13 @@ export class GovernCommand {
       await this.gitRepository.commit('chore: [THINK] rebuild context index');
     } catch {
       // Nothing changed or git not available — acceptable
+    }
+
+    // Analysis side-effect: trigger arch reflect when replenishment or cadence conditions are met.
+    // This is labeled explicitly as analysis — it never affects enforcement decisions.
+    if (result.analysisNeeded && !noConduct) {
+      console.log(`  → Triggering arch reflect [analysis] (reasons: ${result.reasons.join(', ')})`);
+      SubprocessRunner.runSync('./scripts/arch.sh', ['reflect']);
     }
 
     console.log('');

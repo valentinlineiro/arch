@@ -4,10 +4,14 @@ import { FileSystem } from '../../domain/repositories/file-system.js';
 import { Task, TaskStatus } from '../../domain/models/task.js';
 import { SelectNextTask } from './select-next-task.js';
 import { BatchSystem } from './batch-system.js';
-import { SubprocessRunner } from '../../infrastructure/cli/subprocess-runner.js';
 import { ConfigLoader } from '../../domain/services/config-loader.js';
 import { CausalSignalLog } from './causal-signal-log.js';
 import { ReflectInfluenceReport, DEFAULT_THRESHOLDS } from './reflect-influence-report.js';
+
+export interface GovernResult {
+  analysisNeeded: boolean;
+  reasons: string[];
+}
 
 export class GovernSystem {
   private batchSystem: BatchSystem;
@@ -22,9 +26,10 @@ export class GovernSystem {
     this.batchSystem = new BatchSystem(fileSystem);
   }
 
-  async execute(noConduct = false): Promise<void> {
+  async execute(noConduct = false): Promise<GovernResult> {
     const config = await ConfigLoader.load(this.fileSystem);
     const conductEveryN = config.governance?.conductEveryN ?? 3;
+    const analysisReasons: string[] = [];
 
     // 0. Batch Drain
     await this.batchSystem.drain();
@@ -36,28 +41,18 @@ export class GovernSystem {
       throw error; // Halt execution on archival escalation
     }
 
-    // 1. Rule 2 — Replenishment
+    // 1. Rule 2 — Replenishment check (enforcement: detect low READY count and signal)
     const readyTasks = await this.taskRepository.findReady();
     if (readyTasks.length < 3) {
-      if (noConduct) {
-        console.log('  READY tasks < 3 (conduct skipped — running in loop mode).');
-      } else {
-        console.log('  READY tasks < 3. Running arch conduct...');
-        await this.runConduct();
-        return;
-      }
+      console.log(`  READY tasks < 3 — analysis needed (run arch reflect to surface Kaizen).`);
+      analysisReasons.push('replenishment');
     }
 
-    // 2. Rule 3 — Conduct cadence
+    // 2. Rule 3 — Conduct cadence check (enforcement: detect cadence and signal)
     const execCount = await this.getExecCountSinceLastThink();
     if (execCount >= conductEveryN) {
-      if (noConduct) {
-        console.log(`  Exec count (${execCount}) >= N (${conductEveryN}) (conduct skipped — running in loop mode).`);
-      } else {
-        console.log(`  Exec count (${execCount}) >= N (${conductEveryN}). Running arch conduct...`);
-        await this.runConduct();
-        return;
-      }
+      console.log(`  Exec count (${execCount}) >= N (${conductEveryN}) — analysis due (run arch reflect).`);
+      analysisReasons.push('cadence');
     }
 
     // 3. Rule 1 — Critical first
@@ -69,7 +64,6 @@ export class GovernSystem {
       if (result.ok && result.task.priority === 'P0') {
          console.log(`  P0 task READY: ${result.task.id}. Focusing...`);
          await this.focusTask(result.task);
-         return;
       }
     }
 
@@ -78,7 +72,6 @@ export class GovernSystem {
     const focusedTask = activeTasksForFocus.find(t => t.rawMetaLine?.includes('Focus:yes') && t.status !== TaskStatus.DONE);
 
     if (!focusedTask) {
-
       const selector = new SelectNextTask(this.taskRepository);
       const result = await selector.execute();
       if (result.ok) {
@@ -92,6 +85,8 @@ export class GovernSystem {
     }
 
     await this.checkReflectThresholds(config);
+
+    return { analysisNeeded: analysisReasons.length > 0, reasons: analysisReasons };
   }
 
   private async checkReflectThresholds(config: any): Promise<void> {
@@ -152,10 +147,6 @@ export class GovernSystem {
     } catch {
       // Reflect threshold check must never block governance
     }
-  }
-
-  private async runConduct(): Promise<void> {
-    SubprocessRunner.runSync('./scripts/arch.sh', ['conduct']);
   }
 
   private async getExecCountSinceLastThink(): Promise<number> {
