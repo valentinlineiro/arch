@@ -60,3 +60,8 @@ Changed files: docs/adr/ADR-010-escalation-maturity.md, docs/guidelines/autonomy
 TASK-239 "Stream arch loop output to terminal" is ready for review.
 All 3 ACs met. Replaced `spawnSync` (stdio: pipe) with a private `runStreaming` helper using async `spawn` — tees stdout to `process.stdout` in real-time while buffering for metadata parsing. Added `quiet?: boolean` to `LoopOptions` to suppress streaming for non-interactive use.
 Changed files: `cli/src/main/ts/application/use-cases/loop-engine.ts`
+
+## [2026-05-13 16:00] REVIEW_REQUEST | TASK-240
+TASK-240 "Verbose fallback logging for provider switching" is ready for review.
+All 4 ACs met. Changes: (1) loop-command.ts wires --verbose/--quiet to LoopOptions; (2) loop-engine.ts logs full candidate list on --verbose and emits yellow ANSI "WARN — {name} failed: {reason} → next: {nextName}" on fallback; (3) exec-command.ts same improvements plus stderr block demarcation before WARN line; (4) fixed extraFlags to filter out --prefixed flags so --verbose isn't forwarded to the provider CLI.
+Changed files: loop-engine.ts, exec-command.ts, loop-command.ts
