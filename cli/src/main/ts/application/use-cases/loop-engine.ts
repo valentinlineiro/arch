@@ -8,6 +8,7 @@ import { SelectNextTask } from './select-next-task.js';
 import { GovernSystem } from './govern-system.js';
 import { ReviewSystem } from './review-system.js';
 import { MarkTaskDone } from './mark-task-done.js';
+import { EscalationStore } from './escalation-store.js';
 import { NodeFeedbackRepository } from '../../infrastructure/filesystem/node-feedback-repository.js';
 import { SubprocessRunner } from '../../infrastructure/cli/subprocess-runner.js';
 import { ConfigLoader } from '../../domain/services/config-loader.js';
@@ -370,6 +371,11 @@ export class LoopEngine {
     let existing = '';
     try { existing = await this.fileSystem.readFile(inboxPath); } catch {}
     await this.fileSystem.writeFile(inboxPath, existing + entry);
+
+    if (type === 'ANDON_HALT') {
+      const store = new EscalationStore(this.fileSystem);
+      await store.append('ANDON_HALT', taskId, evidence);
+    }
   }
 
   private async appendSprintCheckpoint(sprint: string, done: number, total: number): Promise<void> {

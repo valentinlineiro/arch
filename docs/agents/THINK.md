@@ -6,6 +6,7 @@
 1. **Note:** `arch reflect` (or `arch govern` as an analysis side-effect) triggered this session. `arch govern` is enforcement-only; this THINK session is the analysis layer.
 2. **Health Evaluation:** Identify P0 tasks that are blocked or not focused. If a task is `IN_PROGRESS` with a lock > 3 days, create a P1 `READY` bug task in `docs/tasks/`.
 3. **INBOX Regeneration:** Overwrite `docs/INBOX.md` with current loop status, active/READY task counts, pending items (`AWAITING_PROMOTION`, `AWAITING_REVIEW`), and summaries of the last 5 completed tasks. **Refinement Queue:** Count all `IDEA-*.md` files in `docs/refinement/` (excluding `archive/` and `TEMPLATE.md`) and list each title; write "No pending ideas." only when the count is zero. Commit with `[THINK]` tag.
+   **Escalation write:** For each IDEA surfaced requiring human decision (promote or reject), append one record to `.arch/escalations.jsonl` with `type: "AWAITING_PROMOTION"`, `subject: "<idea-slug>"`, `status: "OPEN"`. Use schema: `{ escalation_id, timestamp, type, subject, reason, status, resolved_at, resolved_by }`. Do not read `.arch/escalations.jsonl` to check for prior entries — always append.
 4. **Evidence Required:** Every recommendation must cite a concrete signal (e.g., 'TASK-003 has stale lock').
 
 ## Phase 2: Idea Refinement (Refine)

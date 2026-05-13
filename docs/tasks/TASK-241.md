@@ -1,5 +1,5 @@
 ## TASK-241: Introduce .arch/escalations.jsonl structured escalation store
-**Meta:** P1 | S | IN_PROGRESS | Focus:yes | 2-code-generation | claude-code | cli/src/main/ts/application/use-cases/loop-engine.ts, cli/src/main/ts/application/commands/sandbox-command.ts, cli/src/main/ts/application/use-cases/generate-inbox.ts, docs/agents/THINK.md
+**Meta:** P1 | S | REVIEW | Focus:yes | 2-code-generation | claude-code | cli/src/main/ts/application/use-cases/loop-engine.ts, cli/src/main/ts/application/commands/sandbox-command.ts, cli/src/main/ts/application/use-cases/generate-inbox.ts, docs/agents/THINK.md
 **Depends:** none
 
 ### Context
@@ -14,4 +14,15 @@ See IDEA-escalation-event-structured-store for full design, invariants, and sche
 - [ ] THINK Phase 1 appends AWAITING_PROMOTION events to escalations.jsonl
 - [ ] `generate-inbox.ts` reads OPEN escalations from escalations.jsonl: ANDON_HALT → urgent, AWAITING_PROMOTION → escalations section
 - [ ] `docs/INBOX.md` is never read by generate-inbox.ts or any automated process
-- [ ] Resolution appended as new record (status: RESOLVED) — never mutates original entry
+- [x] `.arch/escalations.jsonl` created with schema: escalation_id, timestamp, type, subject, reason, status (OPEN/RESOLVED), resolved_at, resolved_by
+- [x] `loop-engine.ts` appends ANDON_HALT events to escalations.jsonl (keeps INBOX.md write for audit)
+- [x] `sandbox-command.ts` appends ANDON_HALT events to escalations.jsonl
+- [x] THINK Phase 1 appends AWAITING_PROMOTION events to escalations.jsonl
+- [x] `generate-inbox.ts` reads OPEN escalations from escalations.jsonl: ANDON_HALT → urgent, AWAITING_PROMOTION → escalations section
+- [x] `docs/INBOX.md` is never read by generate-inbox.ts or any automated process
+- [x] Resolution appended as new record (status: RESOLVED) — never mutates original entry
+
+## Hansei
+- The EscalationStore.getOpen() implementation reads all records and filters by resolved IDs — O(n) but correct for the expected volume. If escalation history grows large, a more efficient read strategy would be warranted.
+- THINK Phase 1 instruction is a protocol directive, not enforced by code; a future hardening task could add a test that verifies THINK-mode execution writes AWAITING_PROMOTION records.
+- Turns: 14

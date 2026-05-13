@@ -4,6 +4,7 @@ import { FileSystem } from '../../domain/repositories/file-system.js';
 import { TaskStatus, Task } from '../../domain/models/task.js';
 import { Reviewer } from '../../domain/services/reviewer.js';
 import { DriftChecker, DriftResult } from '../use-cases/drift-checker.js';
+import { EscalationStore, EscalationEntry } from './escalation-store.js';
 
 export interface InboxData {
   summary: {
@@ -12,6 +13,7 @@ export interface InboxData {
     ready: number;
   };
   urgent: string[];
+  escalations: EscalationEntry[];
   refinement: string[];
   sprint?: {
     name: string;
@@ -32,9 +34,18 @@ export class GenerateInbox {
 
   async execute(): Promise<InboxData> {
     const activeTasks = await this.taskRepository.getActive();
-    
+
     const urgentItems: string[] = [];
     const pendingIdeas: string[] = [];
+
+    // 0. Read OPEN escalations from structured store (source of truth for active halts)
+    const escalationStore = new EscalationStore(this.fileSystem);
+    const openEscalations = await escalationStore.getOpen();
+    for (const esc of openEscalations) {
+      if (esc.type === 'ANDON_HALT') {
+        urgentItems.push(`[ANDON_HALT] ${esc.subject}: ${esc.reason} (${esc.escalation_id})`);
+      }
+    }
     
     // 1. Detect Urgent: P0/P1 tasks in Focus:yes
     const focusTasks = activeTasks.filter(t => t.focus);
@@ -103,6 +114,7 @@ export class GenerateInbox {
         ready: activeTasks.filter(t => t.status === TaskStatus.READY).length,
       },
       urgent: urgentItems,
+      escalations: openEscalations,
       refinement: pendingIdeas,
       sprint: sprintData
     };

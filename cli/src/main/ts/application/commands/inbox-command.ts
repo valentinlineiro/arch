@@ -41,6 +41,14 @@ export class InboxCommand {
       console.log(`    _No urgent items._`);
     }
 
+    const awaitingPromotion = data.escalations.filter(e => e.type === 'AWAITING_PROMOTION');
+    if (awaitingPromotion.length > 0) {
+      console.log(`\n  Escalations (Awaiting Human Decision):`);
+      awaitingPromotion.forEach(e => {
+        console.log(`    - [${e.escalation_id}] AWAITING_PROMOTION ${e.subject}: ${e.reason}`);
+      });
+    }
+
     if (data.sprint) {
       console.log(`\n  Sprint: ${data.sprint.name} (${data.sprint.progress})`);
       if (data.sprint.openTasks.length > 0) {

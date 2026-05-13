@@ -1,6 +1,7 @@
 import { SandboxService } from '../../domain/services/sandbox.js';
 import { TaskRepository } from '../../domain/repositories/task-repository.js';
 import { FileSystem } from '../../domain/repositories/file-system.js';
+import { EscalationStore } from '../use-cases/escalation-store.js';
 import * as fmt from '../../infrastructure/cli/output-formatter.js';
 
 export class SandboxCommand {
@@ -63,6 +64,9 @@ export class SandboxCommand {
       const entry = `\n## [${ts}] AWAITING_APPROVAL | PRIVILEGED_EXECUTION | ${focusedTask.id}\nEvidence: Agent requested privileged execution for task ${focusedTask.id}.\n`;
       await this.fileSystem.writeFile(inboxPath, inbox + entry);
       
+      const store = new EscalationStore(this.fileSystem);
+      await store.append('ANDON_HALT', focusedTask.id, `Agent requested privileged execution for task ${focusedTask.id}.`);
+
       fmt.warn(`Privileged execution requested for ${focusedTask.id}.`);
       fmt.info('Halted: Awaiting human approval in INBOX.md. Write APPROVED to proceed.');
       process.exit(1);
