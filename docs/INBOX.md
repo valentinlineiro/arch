@@ -50,3 +50,8 @@ Changed files: `cli/src/test/ts/reviewer.test.ts`
 TASK-232 "Grandfather legacy tasks in arch review - silence Hansei warnings" is ready for review.
 All 3 ACs met. Root cause: `checkHanseiPresent` read `config.hanseiSinceTaskId` but the value lives at `config.governance.hanseiSinceTaskId`. Fixed with a one-line fallback. `arch review` now shows only TASK-229 under HanseiPresent. Added 1 new test confirming the governance-nested path.
 Changed files: `cli/src/main/ts/application/use-cases/drift-checker.ts`, `cli/src/test/ts/drift-checker.test.ts`
+
+## [2026-05-13 15:30] REVIEW_REQUEST | TASK-238
+TASK-238 "Disambiguate Level terminology - autonomy vs escalation scales" is ready for review.
+All 3 ACs met. Decision: Autonomy keeps L1–L4 (lower churn, clearly qualified in context); Escalation Maturity renamed to E1–E7. Changed: ADR-010 title ("E3 Detectable"), body ("Autonomy L3+"), TASK-203 title ("E4 Fail-Closed"), TASK-204 title ("E5 Verifiable"), plus a disambiguation blockquote added to autonomy.md. grep confirms no remaining ambiguous "Level N" in guidelines/, adr/, agents/.
+Changed files: docs/adr/ADR-010-escalation-maturity.md, docs/guidelines/autonomy.md, docs/tasks/TASK-203.md, docs/tasks/TASK-204.md
