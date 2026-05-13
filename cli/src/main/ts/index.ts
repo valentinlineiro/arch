@@ -4,6 +4,7 @@ import { createRequire } from 'node:module';
 import { NodeFileSystem } from './infrastructure/filesystem/node-file-system.js';
 import { MarkdownTaskRepository } from './infrastructure/filesystem/markdown-task-repository.js';
 import { GitCli } from './infrastructure/cli/git-cli.js';
+import { EventLogger } from './domain/services/event-logger.js';
 import { Reviewer } from './domain/services/reviewer.js';
 import { DriftChecker } from './application/use-cases/drift-checker.js';
 import { parseCommand } from './infrastructure/cli/command-parser.js';
@@ -42,6 +43,7 @@ async function main() {
   const taskRepository = new MarkdownTaskRepository(fileSystem);
   const gitRepository = new GitCli();
   const eventRepository = new ChronicleEventRepository(fileSystem);
+  const eventLogger = new EventLogger(fileSystem);
   const reviewer = new Reviewer();
   const sandboxService = new SandboxService();
   const rootPath = path.resolve('.');
@@ -72,7 +74,7 @@ async function main() {
         const configRaw = await fileSystem.readFile(`${rootPath}/arch.config.json`);
         muriConfig = JSON.parse(configRaw).muri;
       } catch { /* use default */ }
-      await new TaskCommand(taskRepository, reviewer, humanCoordinationService, fileSystem, rootPath, eventRepository, causalSignalLog, gitRepository, muriConfig).execute(args);
+      await new TaskCommand(taskRepository, reviewer, humanCoordinationService, fileSystem, rootPath, eventRepository, causalSignalLog, gitRepository, muriConfig, eventLogger).execute(args);
       break;
     }
     case 'inbox':

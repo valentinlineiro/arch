@@ -2,6 +2,11 @@ import { FileSystem } from '../repositories/file-system.js';
 import { GitRepository } from '../repositories/git-repository.js';
 import path from 'node:path';
 
+export interface EpistemicDigest {
+  methodId: string;
+  gitRevRange: string;
+}
+
 export interface ArchivedTaskMetrics {
   id: string;
   size: string;
@@ -10,9 +15,13 @@ export interface ArchivedTaskMetrics {
   createdAt: string | null;
   turns: number | null;
   cost: number | null;
+  integrity: 'HIGH' | 'MEDIUM' | 'LOW' | 'INVALID';
+  provenance?: EpistemicDigest;
 }
 
 export class ArchiveParser {
+  private creationDateMap: Map<string, string> = new Map();
+
   constructor(
     private fileSystem: FileSystem,
     private gitRepository: GitRepository
@@ -23,6 +32,9 @@ export class ArchiveParser {
     if (!(await this.fileSystem.exists(archiveDir))) {
       return [];
     }
+
+    // Severity 3: Scalable Git Ops - Single pass to map all creation dates
+    await this.warmCreationDateMap();
 
     const files = await this.fileSystem.readDirectory(archiveDir);
     const taskFiles = files.filter(f => f.startsWith('TASK-') && f.endsWith('.md'));
@@ -40,12 +52,25 @@ export class ArchiveParser {
     return metrics;
   }
 
+  private async warmCreationDateMap(): Promise<void> {
+    const commits = await this.gitRepository.getCommitHistory(1000);
+    // Commits are newest first. To get first commit, we iterate backwards or use a map
+    // and only set if not already present.
+    for (let i = commits.length - 1; i >= 0; i--) {
+      const commit = commits[i];
+      for (const file of commit.files) {
+        if (!this.creationDateMap.has(file)) {
+          this.creationDateMap.set(file, commit.date);
+        }
+      }
+    }
+  }
+
   private async parseTaskContent(id: string, content: string, filePath: string): Promise<ArchivedTaskMetrics> {
     const metaMatch = content.match(/\*\*Meta:\*\*\s*(.+)/);
     const metaLine = metaMatch ? metaMatch[1] : '';
     const metaParts = metaLine.split('|').map(p => p.trim());
 
-    // Meta: P[0-3] | [Size] | [STATUS] | Focus:yes/no | [Class] | [CLI] | [Context] | Turns: N | Cost: $N
     const size = metaParts[1] || 'Unknown';
     const taskClass = metaParts[4] || 'Unknown';
 
@@ -58,10 +83,23 @@ export class ArchiveParser {
     const costMatch = metaLine.match(/Cost:\s*\$?(\d+\.\d+)/);
     const cost = costMatch ? parseFloat(costMatch[1]) : null;
 
-    let createdAt: string | null = null;
-    const firstCommitDate = await this.gitRepository.getFileFirstCommitDate(filePath);
-    if (firstCommitDate) {
-      createdAt = firstCommitDate.toISOString();
+    // ADR-018: Inferred baseline from git history
+    let createdAt = this.creationDateMap.get(filePath) || null;
+    
+    // Graded Integrity logic
+    let integrity: ArchivedTaskMetrics['integrity'] = 'HIGH';
+    let provenance: EpistemicDigest | undefined;
+
+    if (!createdAt) {
+      integrity = 'LOW'; // Unverifiable history
+    } else {
+      // If we used git history to infer createdAt (because it's not in meta), 
+      // it's MEDIUM integrity per ADR-018.
+      integrity = 'MEDIUM';
+      provenance = {
+        methodId: 'git-history-inference-v1',
+        gitRevRange: 'HEAD~1000'
+      };
     }
 
     return {
@@ -71,7 +109,9 @@ export class ArchiveParser {
       completedAt,
       createdAt,
       turns,
-      cost
+      cost,
+      integrity,
+      provenance
     };
   }
 }

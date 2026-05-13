@@ -72,3 +72,4 @@ All 3 ACs met. Added "Implements: ADR-008, ADR-013" to the task context section.
 Changed files: docs/tasks/TASK-233.md
 
 REVIEW_REQUEST | TASK-201: Implement arch report - auto-populate METRICS.md from archived task data
+REJECTED | TASK-201: REVIEW invalidated due to unverifiable completion claims and broken build state.

@@ -17,6 +17,7 @@ import type { GitRepository } from '../../domain/repositories/git-repository.js'
 import { EventRepository } from '../../domain/models/event.js';
 import { NodeFeedbackRepository } from '../../infrastructure/filesystem/node-feedback-repository.js';
 import { CausalSignalLog } from '../use-cases/causal-signal-log.js';
+import { EventLogger } from '../../domain/services/event-logger.js';
 import * as fmt from '../../infrastructure/cli/output-formatter.js';
 
 export class TaskCommand {
@@ -39,15 +40,16 @@ export class TaskCommand {
     eventRepository?: EventRepository,
     causalSignalLog?: CausalSignalLog,
     gitRepository?: GitRepository,
-    muriConfig?: any
+    muriConfig?: any,
+    eventLogger?: EventLogger
   ) {
     this.taskRepository = taskRepository;
     this.gitRepository = gitRepository!;
     this.muriConfig = muriConfig;
     this.markInProgress = new MarkTaskInProgress(taskRepository, eventRepository);
-    this.markDone = new MarkTaskDone(taskRepository, reviewer, fileSystem, eventRepository, new NodeFeedbackRepository(fileSystem), causalSignalLog);
+    this.markDone = new MarkTaskDone(taskRepository, reviewer, fileSystem, eventRepository, new NodeFeedbackRepository(fileSystem), causalSignalLog, eventLogger);
     this.markReview = new MarkTaskReview(taskRepository, rootPath);
-    this.rejectTask = new RejectTask(taskRepository);
+    this.rejectTask = new RejectTask(taskRepository, eventLogger);
     this.rejectStaleTask = new RejectStaleTask(taskRepository);
     this.updateMetrics = new UpdateTaskMetrics(taskRepository);
   }

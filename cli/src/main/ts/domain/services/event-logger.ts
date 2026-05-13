@@ -13,15 +13,11 @@ export class EventLogger {
   constructor(private fileSystem: FileSystem) {}
 
   async append(event: LifecycleEvent): Promise<void> {
-    const entry = `## ${event.timestamp}\n${event.taskId} | ${event.from} -> ${event.to}\n\n`;
-    
-    let existing = '';
-    try {
-      existing = await this.fileSystem.readFile(this.EVENTS_PATH);
-    } catch {
-      existing = '# Event Log\n\n';
+    if (!(await this.fileSystem.exists(this.EVENTS_PATH))) {
+      await this.fileSystem.writeFile(this.EVENTS_PATH, '# Event Log\n\n');
     }
 
-    await this.fileSystem.writeFile(this.EVENTS_PATH, existing + entry);
+    const entry = `## ${event.timestamp}\n${event.taskId} | ${event.from} -> ${event.to}\n\n`;
+    await this.fileSystem.appendFile(this.EVENTS_PATH, entry);
   }
 }
