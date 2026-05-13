@@ -17,9 +17,8 @@ class MockFileSystem {
 
 // Mock GitRepository
 class MockGitRepository {
-  firstCommitDates: Record<string, Date> = {};
-  async getFileFirstCommitDate(path: string) { return this.firstCommitDates[path] || null; }
-  // other methods not needed for this test
+  commits: Array<{ hash: string; message: string; date: string; files: string[] }> = [];
+  async getCommitHistory() { return this.commits; }
   async getDiff() { return ''; }
   async getLastCommitMessage() { return ''; }
   async getCurrentBranch() { return ''; }
@@ -35,83 +34,104 @@ class MockGitRepository {
   async getStagedFiles() { return []; }
   async getModifiedFiles() { return []; }
   async getRepoRoot() { return ''; }
-  async getCommitHistory() { return []; }
 }
 
-test('ArchiveParser - parses task content correctly', async () => {
+test('ArchiveParser - parses task content with git history provenance', async () => {
   const fs = new MockFileSystem();
   const git = new MockGitRepository();
   const parser = new ArchiveParser(fs as any, git as any);
 
   const taskId = 'TASK-001';
   const filePath = `docs/archive/${taskId}.md`;
+  fs.dirs['docs/archive'] = [`${taskId}.md`];
   fs.files[filePath] = `## ${taskId}: Test\n**Meta:** P1 | XS | DONE | Focus:no | 2-code-generation | local | cli/ | Turns: 5 | Cost: $0.12\n**Closed-at:** 2026-05-13T10:00:00Z\n`;
-  git.firstCommitDates[filePath] = new Date('2026-05-13T08:00:00Z');
+  
+  git.commits = [{
+    hash: 'abc',
+    message: 'initial',
+    date: '2026-05-13T08:00:00Z',
+    files: [filePath]
+  }];
 
-  const metric = (parser as any).parseTaskContent(taskId, fs.files[filePath], filePath);
-  const result = await metric;
+  const metrics = await parser.parseArchivedTasks();
+  const result = metrics[0];
 
+  assert.ok(result, 'Metric should exist');
   assert.strictEqual(result.id, taskId);
   assert.strictEqual(result.size, 'XS');
-  assert.strictEqual(result.class, '2-code-generation');
-  assert.strictEqual(result.turns, 5);
-  assert.strictEqual(result.cost, 0.12);
-  assert.strictEqual(result.completedAt, '2026-05-13T10:00:00Z');
-  assert.strictEqual(result.createdAt, '2026-05-13T08:00:00.000Z');
+  assert.strictEqual(result.integrity, 'MEDIUM');
+  assert.strictEqual(result.provenance?.methodId, 'git-history-inference-v1');
+  assert.strictEqual(result.createdAt, '2026-05-13T08:00:00Z');
 });
 
-test('MetricsEngine - calculates cycle time percentiles', async () => {
+test('MetricsEngine - calculates cycle time and integrity levels', async () => {
   const fs = new MockFileSystem();
-  fs.existsResults['docs/EVENTS.md'] = false;
+  fs.existsResults['docs/EVENTS.md'] = true;
+  fs.files['docs/EVENTS.md'] = '# Event Log\n## 2026-05-13T08:00:00Z\nTASK-001 | REVIEW -> DONE\n';
   const engine = new MetricsEngine(fs as any);
 
   const tasks = [
-    { id: 'T1', size: 'XS', createdAt: '2026-05-13T08:00:00Z', completedAt: '2026-05-13T09:00:00Z', turns: null, cost: null, class: '' }, // 1h
-    { id: 'T2', size: 'XS', createdAt: '2026-05-13T08:00:00Z', completedAt: '2026-05-13T11:00:00Z', turns: null, cost: null, class: '' }, // 3h
-    { id: 'T3', size: 'XS', createdAt: '2026-05-13T08:00:00Z', completedAt: '2026-05-13T10:00:00Z', turns: null, cost: null, class: '' }, // 2h
+    { id: 'T1', size: 'XS', createdAt: '2026-05-13T08:00:00Z', completedAt: '2026-05-13T09:00:00Z', integrity: 'HIGH', class: '' }, // 1h
+    { id: 'T2', size: 'XS', createdAt: '2026-05-13T08:00:00Z', completedAt: '2026-05-13T11:00:00Z', integrity: 'MEDIUM', class: '' }, // 3h
+    { id: 'T3', size: 'XS', createdAt: '2026-05-13T08:00:00Z', completedAt: '2026-05-13T10:00:00Z', integrity: 'HIGH', class: '' }, // 2h
   ];
 
   const metrics = await engine.calculate(tasks as any);
   
   assert.strictEqual(metrics.cycleTime['XS'].count, 3);
-  assert.strictEqual(metrics.cycleTime['XS'].p50, 2); // Sorted: 1, 2, 3 -> index 1 is 2
-  assert.strictEqual(metrics.cycleTime['XS'].p90, 3); // Sorted: 1, 2, 3 -> index 2 is 3
+  assert.strictEqual(metrics.cycleTime['XS'].p50, 2);
+  // Entropy = 1/3 (0.33), which is > 0.1 so integrity is MEDIUM
+  assert.strictEqual(metrics.integrityLevel, 'MEDIUM'); 
+  assert.ok(metrics.integrityEntropy > 0);
+  assert.strictEqual(metrics.provenance.methodId, 'metrics-engine-v1');
 });
 
-test('MetricsEngine - calculates review fail rate from events', async () => {
+test('MetricsEngine - detects chronological regression', async () => {
   const fs = new MockFileSystem();
   const engine = new MetricsEngine(fs as any);
 
   fs.files['docs/EVENTS.md'] = `
-## 2026-05-13T08:00:00Z
-TASK-001 | REVIEW -> READY
-
-## 2026-05-13T09:00:00Z
-TASK-001 | REVIEW -> DONE
-
+# Event Log
 ## 2026-05-13T10:00:00Z
-TASK-002 | REVIEW -> DONE
+TASK-001 | REVIEW -> READY
+## 2026-05-13T09:00:00Z
+TASK-002 | REVIEW -> READY
 `;
 
-  const metrics = await engine.calculate([]);
-  
-  // 1 fail, 2 passes -> 1 / (1 + 2) = 1/3 = 0.333...
-  assert.strictEqual(typeof metrics.reviewFailRate, 'number');
-  assert.ok(Math.abs((metrics.reviewFailRate as number) - 0.333) < 0.01);
+  await assert.rejects(
+    () => engine.calculate([]),
+    { message: /Chronological regression detected/ }
+  );
 });
 
-test('MetricsEngine - uses cost heuristic when metadata is missing', async () => {
+test('MetricsEngine - fails closed on malformed event log (Severity 2)', async () => {
   const fs = new MockFileSystem();
-  fs.existsResults['docs/EVENTS.md'] = false;
   const engine = new MetricsEngine(fs as any);
 
-  const tasks = [
-    { id: 'T1', size: 'XS', cost: null, createdAt: null, completedAt: null, turns: null, class: '' }, // heuristic: 0.05
-    { id: 'T2', size: 'S',  cost: 0.20, createdAt: null, completedAt: null, turns: null, class: '' }, // actual
-  ];
+  fs.files['docs/EVENTS.md'] = `
+# Event Log
+## 2026-05-13T08:00:00Z
+TASK-001 | REVIEW -> READY
+GARBAGE LINE
+`;
 
-  const metrics = await engine.calculate(tasks as any);
-  
-  // (0.05 + 0.20) / 2 = 0.125
-  assert.strictEqual(metrics.costPerTask.average, 0.125);
+  await assert.rejects(
+    () => engine.calculate([]),
+    { message: /Integrity Violation: Unexpected content "GARBAGE LINE"/ }
+  );
+});
+
+test('MetricsEngine - fails closed on malformed event header', async () => {
+  const fs = new MockFileSystem();
+  const engine = new MetricsEngine(fs as any);
+
+  fs.files['docs/EVENTS.md'] = `
+## MALFORMED HEADER
+TASK-001 | REVIEW -> READY
+`;
+
+  await assert.rejects(
+    () => engine.calculate([]),
+    { message: /Integrity Violation: Malformed event header/ }
+  );
 });

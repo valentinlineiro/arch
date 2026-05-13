@@ -52,7 +52,8 @@ export class ReportCommand {
     report += `| **REVIEW_FAIL Rate** | ${failRateStr} | rejected / total review exits |\n`;
     report += `| **Avg Cost / Task** | $${metrics.costPerTask.average.toFixed(2)} | token-estimate heuristic v1 |\n\n`;
 
-    report += `> **Epistemic Note:** ${this.getIntegrityNote(metrics)}\n\n`;
+    report += `> **Epistemic Digest:** \`${metrics.provenance.methodId}\` (Range: \`${metrics.provenance.gitRevRange}\`)\n\n`;
+    report += `> **Integrity Note:** ${this.getIntegrityNote(metrics)}\n\n`;
 
     report += `### Cycle Time (P50/P90)\n\n`;
     report += `| Size | P50 | P90 | Count |\n`;

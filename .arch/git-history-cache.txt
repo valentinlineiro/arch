@@ -1,0 +1,430 @@
+707adaa 2026-05-13T16:45:50+02:00 chore: [TASK-201] establish Clean Execution Context by archiving orphan tests
+cli/src/test/ts/archive/capture-command.test.ts
+cli/src/test/ts/archive/capture-intent.test.ts
+cli/src/test/ts/archive/finalize-promotion.test.ts
+cli/src/test/ts/archive/markdown-intent-repository.test.ts
+cli/src/test/ts/archive/scaffold-task.test.ts
+cli/src/test/ts/archive/think-command.test.ts
+
+651cc4a 2026-05-13T16:43:41+02:00 feat: [TASK-201] lock task and freeze ADR-018 resilient epistemology
+.arch/reflect-breach-log.jsonl
+docs/adr/ADR-018-clean-execution-context.md
+docs/tasks/TASK-201.md
+
+ece7065 2026-05-13T14:03:46+02:00 feat: [TASK-201] implement deterministic arch report observability system
+.arch/reflect-breach-log.jsonl
+cli/src/main/ts/application/commands/report-command.ts
+cli/src/main/ts/application/use-cases/mark-task-done.ts
+cli/src/main/ts/application/use-cases/task-reject.ts
+cli/src/main/ts/domain/repositories/git-repository.ts
+cli/src/main/ts/domain/services/archive-parser.ts
+cli/src/main/ts/domain/services/event-logger.ts
+cli/src/main/ts/domain/services/metrics-engine.ts
+cli/src/main/ts/index.ts
+cli/src/main/ts/infrastructure/cli/git-cli.ts
+cli/src/test/ts/report.test.ts
+docs/INBOX.md
+docs/METRICS.md
+docs/adr/ADR-017-deterministic-observability.md
+docs/agents/THINK.md
+docs/tasks/TASK-201.md
+scripts/arch.sh
+
+a816087 2026-05-13T13:43:50+02:00 fix: [TASK-239] stream arch exec stdout in real-time via spawn inherit
+cli/src/main/ts/application/commands/exec-command.ts
+
+4c297e9 2026-05-13T13:43:11+02:00 chore: [THINK] rebuild context index
+.arch/context-index.json
+
+f8f4554 2026-05-13T13:41:46+02:00 fix: correct TASK-233 meta line format to pass arch review [TASK-233]
+docs/archive/TASK-233.md
+
+303d3c3 2026-05-13T13:40:04+02:00 chore: [TASK-233] set status to DONE and add Closed-at
+docs/archive/TASK-233.md
+
+ee35676 2026-05-13T13:40:02+02:00 chore: [THINK] rebuild context index
+.arch/context-index.json
+
+752e544 2026-05-13T13:40:02+02:00 chore: archive [TASK-233] DONE [TASK-233] [THINK]
+docs/archive/TASK-233.md
+
+8d4b477 2026-05-13T13:39:45+02:00 chore: [THINK] rebuild context index
+.arch/context-index.json
+
+362ac2c 2026-05-13T13:38:43+02:00 chore: [TASK-240] set status to DONE and add Closed-at
+docs/archive/TASK-240.md
+
+4eca956 2026-05-13T13:38:41+02:00 chore: [THINK] rebuild context index
+.arch/context-index.json
+
+58fea2a 2026-05-13T13:38:40+02:00 chore: archive [TASK-240] DONE [TASK-240] [THINK]
+docs/archive/TASK-240.md
+
+685ef01 2026-05-13T13:38:12+02:00 chore: [TASK-233] REVIEW_REQUEST
+docs/INBOX.md
+
+e1d2fe4 2026-05-13T13:38:06+02:00 docs: [TASK-233] add ADR-008 and ADR-013 references to clear UnappliedADRs drift
+docs/tasks/TASK-233.md
+
+5d25ff2 2026-05-13T13:37:26+02:00 chore: [TASK-233] set IN_PROGRESS
+docs/tasks/TASK-233.md
+
+f4da63a 2026-05-13T13:36:43+02:00 chore: [TASK-233] [TASK-242] [TASK-207] reprioritize backlog — focus on governance integrity over distribution theater
+docs/tasks/TASK-207.md
+docs/tasks/TASK-233.md
+docs/tasks/TASK-242.md
+
+c6e4825 2026-05-13T13:35:22+02:00 chore: [TASK-239] set status to DONE and add Closed-at
+docs/archive/TASK-239.md
+
+aba28e6 2026-05-13T13:35:20+02:00 chore: [THINK] rebuild context index
+.arch/context-index.json
+
+60e1714 2026-05-13T13:35:20+02:00 chore: archive [TASK-239] DONE [TASK-239] [THINK]
+docs/archive/TASK-239.md
+
+b6937de 2026-05-13T13:33:56+02:00 chore: [TASK-240] REVIEW_REQUEST
+docs/INBOX.md
+
+6075462 2026-05-13T13:33:46+02:00 feat: [TASK-240] verbose fallback logging for provider switching
+cli/src/main/ts/application/commands/exec-command.ts
+cli/src/main/ts/application/commands/loop-command.ts
+cli/src/main/ts/application/use-cases/loop-engine.ts
+docs/tasks/TASK-240.md
+
+4e74b00 2026-05-13T13:32:31+02:00 chore: [THINK] rebuild context index
+.arch/context-index.json
+
+2477ba1 2026-05-13T13:32:18+02:00 chore: [TASK-240] set IN_PROGRESS
+docs/tasks/TASK-240.md
+
+33cb188 2026-05-13T13:29:04+02:00 chore: [TASK-239] REVIEW_REQUEST
+docs/INBOX.md
+
+f36edf8 2026-05-13T13:28:51+02:00 feat: [TASK-239] stream provider stdout to terminal during arch loop
+cli/src/main/ts/application/use-cases/loop-engine.ts
+docs/tasks/TASK-239.md
+
+1fc5eb0 2026-05-13T13:28:43+02:00 chore: [TASK-238] set status to DONE and add Closed-at
+docs/archive/TASK-238.md
+
+f9047eb 2026-05-13T13:28:14+02:00 chore: [THINK] rebuild context index
+.arch/context-index.json
+
+5c09d25 2026-05-13T13:28:13+02:00 chore: archive [TASK-238] DONE [TASK-238] [THINK]
+docs/archive/TASK-238.md
+
+034f499 2026-05-13T13:27:32+02:00 chore: [TASK-239] set IN_PROGRESS
+docs/tasks/TASK-239.md
+
+ba96b93 2026-05-13T13:27:16+02:00 chore: [TASK-238] REVIEW_REQUEST
+docs/INBOX.md
+
+afd3e97 2026-05-13T13:27:06+02:00 docs: [TASK-238] disambiguate Level terminology — Autonomy L1-L4, Escalation E1-E7
+docs/adr/ADR-010-escalation-maturity.md
+docs/guidelines/autonomy.md
+docs/tasks/TASK-203.md
+docs/tasks/TASK-204.md
+docs/tasks/TASK-238.md
+
+b5dfbe2 2026-05-13T13:25:26+02:00 chore: [TASK-232] set status to DONE and add Closed-at
+docs/archive/TASK-232.md
+
+cd8b438 2026-05-13T13:25:25+02:00 chore: [THINK] rebuild context index
+.arch/context-index.json
+
+334bb2d 2026-05-13T13:25:24+02:00 chore: archive [TASK-232] DONE [TASK-232] [THINK]
+docs/archive/TASK-232.md
+
+5a34304 2026-05-13T13:24:47+02:00 chore: [TASK-238] set IN_PROGRESS
+docs/tasks/TASK-238.md
+
+2b56402 2026-05-13T13:24:14+02:00 chore: [TASK-232] REVIEW_REQUEST
+docs/INBOX.md
+
+cacb47f 2026-05-13T13:24:06+02:00 fix: [TASK-232] grandfather legacy tasks in HanseiPresent — read governance.hanseiSinceTaskId
+cli/src/main/ts/application/use-cases/drift-checker.ts
+cli/src/test/ts/drift-checker.test.ts
+docs/tasks/TASK-232.md
+
+5dbce85 2026-05-13T13:21:56+02:00 chore: [TASK-232] set IN_PROGRESS
+docs/tasks/TASK-232.md
+
+f5f92d7 2026-05-13T13:21:28+02:00 chore: [TASK-209] set status to DONE and add Closed-at
+docs/archive/TASK-209.md
+
+6f9674e 2026-05-13T13:21:11+02:00 chore: [THINK] rebuild context index
+.arch/context-index.json
+
+4ff69b1 2026-05-13T13:21:05+02:00 chore: archive [TASK-209] DONE [TASK-209] [THINK]
+docs/archive/TASK-209.md
+
+14c75dd 2026-05-13T13:08:50+02:00 chore: [TASK-209] REVIEW_REQUEST
+docs/INBOX.md
+
+6999a0f 2026-05-13T13:08:37+02:00 fix: [TASK-209] add governance commit format test cases to reviewer
+cli/src/test/ts/reviewer.test.ts
+docs/tasks/TASK-209.md
+
+a2ca064 2026-05-13T13:06:56+02:00 chore: [TASK-209] set IN_PROGRESS
+docs/tasks/TASK-209.md
+
+7316667 2026-05-13T13:06:01+02:00 chore: [TASK-232] elevate to P2 — HanseiPresent noise blocks clean review on every session
+docs/tasks/TASK-232.md
+
+e9bf131 2026-05-13T10:47:50+02:00 chore: [TASK-201] remove CLAUDE.md self-reference from AGENTS.md — symlink makes it circular
+docs/AGENTS.md
+
+3c15642 2026-05-13T10:29:06+02:00 docs: [TASK-201] expand AGENTS.md with lifecycle, invariants, and onboarding clarity
+docs/AGENTS.md
+
+121e360 2026-05-13T10:17:51+02:00 chore: [THINK] rebuild context index
+.arch/context-index.json
+
+fac8827 2026-05-13T10:17:51+02:00 chore: [TASK-201] focus task via arch govern
+docs/tasks/TASK-201.md
+
+93b1ded 2026-05-13T10:17:50+02:00 chore: archive [TASK-241] DONE [TASK-241] [THINK]
+docs/archive/TASK-241.md
+
+02935e9 2026-05-13T10:17:50+02:00 chore: [TASK-241] mark DONE
+docs/tasks/TASK-241.md
+
+344b0f1 2026-05-13T10:17:39+02:00 chore: [THINK] rebuild context index
+.arch/context-index.json
+
+50d04a5 2026-05-13T09:59:57+02:00 chore: [TASK-241] fix duplicate ACs, add Hansei gap note, create IDEA for residual INBOX reads
+docs/refinement/IDEA-inbox-approval-gate-reads.md
+docs/tasks/TASK-241.md
+
+7825003 2026-05-13T09:47:41+02:00 chore: [TASK-241] add REVIEW_REQUEST to INBOX
+docs/INBOX.md
+
+4b334f0 2026-05-13T09:47:31+02:00 feat: [TASK-241] introduce .arch/escalations.jsonl structured escalation store
+cli/src/main/ts/application/commands/inbox-command.ts
+cli/src/main/ts/application/commands/sandbox-command.ts
+cli/src/main/ts/application/use-cases/escalation-store.ts
+cli/src/main/ts/application/use-cases/generate-inbox.ts
+cli/src/main/ts/application/use-cases/loop-engine.ts
+docs/agents/THINK.md
+docs/tasks/TASK-241.md
+
+eb43eff 2026-05-13T09:44:19+02:00 [THINK] update INBOX and refine 3 IDEAs
+docs/INBOX.md
+docs/refinement/IDEA-architectural-tension-capture.md
+docs/refinement/IDEA-automate-turn-count-recording.md
+docs/refinement/IDEA-context-control.md
+docs/refinement/IDEA-cross-layer-coverage-identity.md
+docs/refinement/IDEA-excision-legitimacy-check.md
+docs/refinement/IDEA-fix-phase-naming-drift.md
+
+6adeffb 2026-05-13T09:41:14+02:00 chore: set TASK-241 IN_PROGRESS [TASK-241]
+docs/tasks/TASK-241.md
+
+cc7f6e5 2026-05-13T09:36:36+02:00 chore: [THINK] rebuild context index
+.arch/context-index.json
+
+afebf06 2026-05-13T09:36:35+02:00 chore: [TASK-241] focus task via arch govern
+docs/tasks/TASK-241.md
+
+73fe1fc 2026-05-13T09:35:49+02:00 chore: archive TASK-230 DONE — govern/reflect split [TASK-230]
+docs/INBOX.md
+docs/archive/TASK-230.md
+
+4ac3204 2026-05-13T09:31:05+02:00 chore: add REVIEW_REQUEST for TASK-230 [TASK-230]
+docs/INBOX.md
+
+7ef6149 2026-05-13T09:30:54+02:00 chore: set TASK-230 REVIEW with Hansei [TASK-230]
+docs/tasks/TASK-230.md
+
+a3e6e05 2026-05-13T09:30:28+02:00 feat: separate arch govern (enforcement) from arch reflect (analysis) [TASK-230]
+README.md
+cli/src/main/ts/application/commands/govern-command.ts
+cli/src/main/ts/application/commands/reflect-command.ts
+cli/src/main/ts/application/use-cases/drift-checker.ts
+cli/src/main/ts/application/use-cases/govern-system.ts
+docs/IDENTITY.md
+docs/agents/THINK.md
+scripts/arch.sh
+
+b4dbd22 2026-05-13T09:25:57+02:00 chore: set TASK-230 IN_PROGRESS [TASK-230]
+docs/tasks/TASK-230.md
+
+9fd4c5b 2026-05-13T09:21:36+02:00 chore: archive TASK-190 DONE — L3 sprint autonomy [TASK-190]
+docs/INBOX.md
+docs/archive/TASK-190.md
+
+ea278cc 2026-05-13T08:39:39+02:00 chore: add REVIEW_REQUEST for TASK-190 [TASK-190]
+docs/INBOX.md
+
+279d9f1 2026-05-13T08:39:08+02:00 feat: implement L3 sprint autonomy (arch loop --sprint) [TASK-190]
+cli/src/main/ts/application/use-cases/loop-engine.ts
+cli/src/main/ts/application/use-cases/select-next-task.ts
+cli/src/test/ts/loop-sprint.test.ts
+docs/agents/DO.md
+docs/guidelines/autonomy.md
+docs/tasks/TASK-190.md
+
+81efcc2 2026-05-13T08:34:08+02:00 chore: set TASK-190 IN_PROGRESS [TASK-190]
+docs/tasks/TASK-190.md
+
+af80445 2026-05-13T03:30:46+00:00 chore: aggregate project registry
+docs/registry/aggregate.json
+
+827f012 2026-05-12T18:19:07+02:00 chore: [THINK] fix non-ASCII em-dash in TASK-232 and TASK-238 titles
+docs/tasks/TASK-232.md
+docs/tasks/TASK-238.md
+
+e358f4e 2026-05-12T18:17:46+02:00 feat: [THINK] promote 12 IDEAs → TASK-231 through TASK-242
+.arch/reflect-decisions.jsonl
+docs/refinement/archive/IDEA-adr-013-phase-label-drift.md
+docs/refinement/archive/IDEA-backfill-legacy-hansei.md
+docs/refinement/archive/IDEA-cli-npm.md
+docs/refinement/archive/IDEA-consolidate-autonomy-rules.md
+docs/refinement/archive/IDEA-docs-clarification-json-rule.md
+docs/refinement/archive/IDEA-docs-drift-guidelines-file-reference.md
+docs/refinement/archive/IDEA-escalation-event-structured-store.md
+docs/refinement/archive/IDEA-level-terminology-disambiguation.md
+docs/refinement/archive/IDEA-link-unapplied-adrs.md
+docs/refinement/archive/IDEA-loop-mode-output-visibility.md
+docs/refinement/archive/IDEA-think-replenishment-link.md
+docs/refinement/archive/IDEA-verbose-fallback-logging.md
+docs/tasks/TASK-231.md
+docs/tasks/TASK-232.md
+docs/tasks/TASK-233.md
+docs/tasks/TASK-234.md
+docs/tasks/TASK-235.md
+docs/tasks/TASK-236.md
+docs/tasks/TASK-237.md
+docs/tasks/TASK-238.md
+docs/tasks/TASK-239.md
+docs/tasks/TASK-240.md
+docs/tasks/TASK-241.md
+docs/tasks/TASK-242.md
+
+ee4793a 2026-05-12T18:13:07+02:00 idea: [THINK] re-evaluate 12 IDEAs — 10 admissible, 2 blocked
+docs/refinement/IDEA-backfill-legacy-hansei.md
+docs/refinement/IDEA-cli-npm.md
+docs/refinement/IDEA-consolidate-autonomy-rules.md
+docs/refinement/IDEA-docs-clarification-json-rule.md
+docs/refinement/IDEA-docs-drift-guidelines-file-reference.md
+docs/refinement/IDEA-level-terminology-disambiguation.md
+docs/refinement/IDEA-link-unapplied-adrs.md
+docs/refinement/IDEA-loop-load-balancing.md
+docs/refinement/IDEA-loop-mode-output-visibility.md
+docs/refinement/IDEA-sentinel-log-infrastructure.md
+docs/refinement/IDEA-think-replenishment-link.md
+docs/refinement/IDEA-verbose-fallback-logging.md
+
+8971d06 2026-05-12T18:10:19+02:00 feat: [THINK] promote IDEA-govern-reflect-split → TASK-230
+.arch/reflect-decisions.jsonl
+docs/refinement/archive/IDEA-govern-reflect-split.md
+docs/tasks/TASK-230.md
+
+e2e8c7f 2026-05-12T18:05:04+02:00 chore: [THINK] archive IDEA-roadmap-drift-detection and IDEA-roadmap-routing-engine
+docs/refinement/archive/IDEA-roadmap-drift-detection.md
+docs/refinement/archive/IDEA-roadmap-routing-engine.md
+
+04428ff 2026-05-12T18:01:14+02:00 fix: [TASK-209] recognize [THINK] inline governance tag in commit message validator
+cli/src/main/ts/domain/services/reviewer.ts
+
+8d1f493 2026-05-12T18:00:00+02:00 chore: [THINK] Phase 2.5 + Phase 3 — Semantic Drift + Kaizen
+docs/KAIZEN-LOG.md
+docs/refinement/IDEA-adr-013-phase-label-drift.md
+
+18e1e5d 2026-05-12T17:57:03+02:00 idea: [THINK] Phase 2 — Idea Refinement
+docs/refinement/IDEA-context-control.md
+docs/refinement/IDEA-parallel-tasks.md
+docs/refinement/archive/IDEA-roadmap-auto-context-engine.md
+
+9e24eb4 2026-05-12T17:55:44+02:00 chore: [THINK] Phase 1 — Context & Replenishment
+docs/INBOX.md
+docs/archive/TASK-229.md
+docs/tasks/TASK-210.md
+
+8a8dad6 2026-05-12T17:53:23+02:00 docs: [THINK] escalation IDEA — close shadow inference surface loophole
+docs/refinement/IDEA-escalation-event-structured-store.md
+
+678e730 2026-05-12T16:58:41+02:00 docs: [THINK] escalation IDEA — encode machine invariant and human interpretation contract for INBOX.md
+docs/refinement/IDEA-escalation-event-structured-store.md
+
+f1ad78e 2026-05-12T16:45:38+02:00 idea: [THINK] escalation-event-structured-store — normalize ANDON_HALT + AWAITING_PROMOTION into .arch/escalations.jsonl
+docs/refinement/IDEA-escalation-event-structured-store.md
+
+dc2b86c 2026-05-12T16:37:24+02:00 fix: [TASK-210] generate-inbox IDEA status filter broken by markdown bold format
+cli/src/main/ts/application/use-cases/generate-inbox.ts
+docs/tasks/TASK-210.md
+
+d5d2852 2026-05-12T16:33:14+02:00 chore: [THINK] rebuild context index
+.arch/context-index.json
+
+8e6fee4 2026-05-12T16:33:13+02:00 chore: [TASK-190] focus task via arch govern
+docs/tasks/TASK-190.md
+
+8bceaab 2026-05-12T16:28:11+02:00 docs: [THINK] add weak signal — capability-triggered state transition missing from IDEA lifecycle
+docs/tensions/weak-signals.md
+
+4837a00 2026-05-12T16:19:55+02:00 idea: cross-layer coverage identity — structural placeholder, identity model deferred
+docs/refinement/IDEA-cross-layer-coverage-identity.md
+
+ad86afb 2026-05-12T16:08:35+02:00 docs: [THINK] add weak signal — constraint axis drift without retroactive re-projection
+docs/tensions/weak-signals.md
+
+e4808c9 2026-05-12T16:03:28+02:00 chore: [THINK] formalize 5-axis constraint space in Phase 2; surface govern-reflect-split for promotion
+docs/INBOX.md
+docs/agents/THINK.md
+
+81c10af 2026-05-12T16:00:54+02:00 chore: [THINK] adjudicate 5 IDEAs — REJECTED; 2 new failure classes: measurement-gap, priority-displacement
+docs/refinement/archive/IDEA-cost-aware-protocol.md
+docs/refinement/archive/IDEA-do-step-registry-for-kaizen.md
+docs/refinement/archive/IDEA-task-execution-plans.md
+docs/refinement/archive/IDEA-task-idea-metrics-context-price.md
+docs/refinement/archive/IDEA-value-cost-task-ordering.md
+
+b8ec734 2026-05-12T15:49:48+02:00 chore: [THINK] adjudicate 13 IDEAs — REJECTED (scope, priority chain, premature abstraction)
+docs/refinement/archive/IDEA-cross-repo-learning-network.md
+docs/refinement/archive/IDEA-formal-protocol-invariants.md
+docs/refinement/archive/IDEA-handle-parallelism.md
+docs/refinement/archive/IDEA-interactive-test.md
+docs/refinement/archive/IDEA-multi-human-governance.md
+docs/refinement/archive/IDEA-multi-repo-arch.md
+docs/refinement/archive/IDEA-open-standard-portability.md
+docs/refinement/archive/IDEA-oracle-archive-distillation.md
+docs/refinement/archive/IDEA-probabilistic-trust-model.md
+docs/refinement/archive/IDEA-protocol-replay-regression.md
+docs/refinement/archive/IDEA-prune-stale-documentation.md
+docs/refinement/archive/IDEA-separate-arch-core-from-content.md
+docs/refinement/archive/IDEA-typed-protocol-schema.md
+
+b0f06cc 2026-05-12T15:39:54+02:00 docs: [THINK] prior questions on high-stakes sections — force generative reconstruction at point of use
+docs/GOVERNANCE.md
+docs/IDENTITY.md
+
+e75442f 2026-05-12T15:35:40+02:00 docs: [THINK] re-entry indexes — reduce cognitive cost of accessing deep governance invariants
+docs/GOVERNANCE.md
+docs/IDENTITY.md
+
+06b5084 2026-05-12T15:33:19+02:00 docs: [THINK] friction design and case embedding — governance limits require worked scenarios and lived cases
+docs/GOVERNANCE.md
+
+82638ff 2026-05-12T15:29:43+02:00 docs: [THINK] protocol degeneration — terminal limit named; two proxies in Phase 2.5
+docs/GOVERNANCE.md
+docs/agents/THINK.md
+
+c4ee8c5 2026-05-12T15:26:06+02:00 docs: [THINK] governance rule introduction protocol; boundary audit in Phase 2.5
+docs/GOVERNANCE.md
+docs/agents/THINK.md
+
+c83194f 2026-05-12T15:23:12+02:00 docs: [THINK] governance epistemological boundary — Class I/II distinction; narrow excision IDEA claim
+docs/GOVERNANCE.md
+docs/refinement/IDEA-excision-legitimacy-check.md
+
+9aa8558 2026-05-12T15:19:37+02:00 idea: [THINK] excision-legitimacy-check — deterministic gate for ontological removal
+docs/refinement/IDEA-excision-legitimacy-check.md
+
+6886ed7 2026-05-12T15:17:38+02:00 signal: [THINK] additive legitimacy bias — DriftChecker cannot represent ontological excision
+docs/tensions/weak-signals.md
+
+73df720 2026-05-12T15:16:06+02:00 chore: [THINK] clean arch.sh post-INTENT removal; archive IDEA-roadmap-arch-capture
+docs/refinement/archive/IDEA-roadmap-arch-capture.md
+scripts/arch.sh

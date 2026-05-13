@@ -1,7 +1,7 @@
 # ADR-018: Adversarially Robust Epistemology & Graded Integrity
 
 **Date:** 2026-05-13
-**Status:** PROPOSED
+**Status:** ACCEPTED
 **Deciders:** Gemini CLI, Human Auditor
 
 ---

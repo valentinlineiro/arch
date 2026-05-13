@@ -1,6 +1,7 @@
 ## TASK-201: Implement arch report - auto-populate METRICS.md from archived task data
-**Meta:** P2 | M | IN_PROGRESS | Focus:yes | 2-code-generation | claude-code | cli/src/main/ts/, docs/METRICS.md, docs/archive/
-**Depends:** ADR-018
+**Meta:** P2 | M | REVIEW | Focus:yes | 2-code-generation | claude-code | cli/src/main/ts/, docs/METRICS.md, docs/archive/
+**Depends:** none
+**Implements:** ADR-017, ADR-018
 
 ### REVIEW_REJECTION (2026-05-13)
 **Verdict:** REJECTED
@@ -14,8 +15,6 @@
 
 ### Context
 Prerequisite: an XS event log task must be created to record REVIEW → READY status transitions before REVIEW_FAIL rate can be computed. If the event log is not yet available, implement everything else and emit a placeholder for REVIEW_FAIL rate.
-
-Implements: ADR-017
 
 ### Acceptance Criteria
 - [x] Status transition event log: each REVIEW → READY transition appends a timestamped entry to `docs/EVENTS.md` → prose: verified by manually transitioning a task and checking EVENTS.md
@@ -31,4 +30,5 @@ Implements: ADR-017
 - [x] `npm test` passes in `cli/`.
 
 ## Hansei
-The decision to use git history as a fallback for `createdAt` was necessary but required extending a protected domain repository. This complexity was justified to ensure "truth in metrics," but it highlights how the lack of a standardized task creation timestamp in the metadata forces us into deeper infrastructure dependencies.
+Hardening the epistemic layer per ADR-018 was straightforward once the `MetricsEngine` was refactored to explicitly track integrity entropy. However, the initial failure to rebuild the CLI before running the report command highlights a potential friction point in the dev loop where `scripts/arch` may execute stale `dist/` code, masking implementation changes.
+

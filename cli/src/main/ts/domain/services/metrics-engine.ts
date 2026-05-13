@@ -1,6 +1,11 @@
 import { ArchivedTaskMetrics } from './archive-parser.js';
 import { FileSystem } from '../repositories/file-system.js';
 
+export interface EpistemicDigest {
+  methodId: string;
+  gitRevRange: string;
+}
+
 export interface CalculatedMetrics {
   cycleTime: {
     [size: string]: {
@@ -16,6 +21,7 @@ export interface CalculatedMetrics {
   totalCompleted: number;
   integrityEntropy: number; // Ratio of LOW/MEDIUM data
   integrityLevel: 'HIGH' | 'MEDIUM' | 'LOW' | 'INVALID';
+  provenance: EpistemicDigest;
 }
 
 export class MetricsEngine {
@@ -38,7 +44,11 @@ export class MetricsEngine {
       reviewFailRate,
       totalCompleted: archivedTasks.length,
       integrityEntropy: entropy,
-      integrityLevel: globalIntegrity
+      integrityLevel: globalIntegrity,
+      provenance: {
+        methodId: 'metrics-engine-v1',
+        gitRevRange: 'HEAD' // In a real impl, this might be a specific range
+      }
     };
   }
 
@@ -53,17 +63,28 @@ export class MetricsEngine {
     
     const uniqueEvents: string[] = [];
     let currentHeader = '';
+    let lastTimestamp = 0;
 
     for (const line of lines) {
       const trimmedLine = line.trim();
       if (!trimmedLine || trimmedLine === '# Event Log') continue;
 
       if (trimmedLine.startsWith('## ')) {
-        // Simple append-only check: headers must be ISO timestamps and strictly increasing
-        // (Simplified for now, but following the 'must throw if malformed' directive)
-        if (!trimmedLine.match(/^## \d{4}-\d{2}-\d{2}T/)) {
+        const tsMatch = trimmedLine.match(/^## (\d{4}-\d{2}-\d{2}T[^\s]+)/);
+        if (!tsMatch) {
           throw new Error(`Integrity Violation: Malformed event header "${trimmedLine}" in docs/EVENTS.md`);
         }
+        
+        const timestamp = new Date(tsMatch[1]).getTime();
+        if (isNaN(timestamp)) {
+          throw new Error(`Integrity Violation: Invalid timestamp in header "${trimmedLine}"`);
+        }
+
+        if (timestamp < lastTimestamp) {
+          throw new Error(`Integrity Violation: Chronological regression detected in docs/EVENTS.md. "${trimmedLine}" is older than previous entry.`);
+        }
+
+        lastTimestamp = timestamp;
         currentHeader = trimmedLine;
       } else if (trimmedLine.includes(' | ') && trimmedLine.includes(' -> ')) {
         const match = trimmedLine.match(/^TASK-\d{3} \| [A-Z_]+ -> [A-Z_]+$/);

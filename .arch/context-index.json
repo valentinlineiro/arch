@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-13T11:43:11.868Z",
+  "builtAt": "2026-05-13T15:25:11.797Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -306,6 +306,25 @@
       "criticality": "domain",
       "runtimeUsage": "hot"
     },
+    "cli/src/main/ts/application/commands/report-command.ts": {
+      "symbols": [
+        "ReportCommand"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/repositories/file-system.ts",
+        "cli/src/main/ts/domain/repositories/git-repository.ts",
+        "cli/src/main/ts/domain/services/archive-parser.ts",
+        "cli/src/main/ts/domain/services/metrics-engine.ts"
+      ],
+      "tags": [
+        "application",
+        "commands",
+        "report",
+        "command"
+      ],
+      "criticality": "domain",
+      "runtimeUsage": "hot"
+    },
     "cli/src/main/ts/application/commands/review-command.ts": {
       "symbols": [
         "ReviewCommand"
@@ -391,6 +410,7 @@
         "cli/src/main/ts/domain/models/event.ts",
         "cli/src/main/ts/infrastructure/filesystem/node-feedback-repository.ts",
         "cli/src/main/ts/application/use-cases/causal-signal-log.ts",
+        "cli/src/main/ts/domain/services/event-logger.ts",
         "cli/src/main/ts/infrastructure/cli/output-formatter.ts"
       ],
       "tags": [
@@ -782,7 +802,8 @@
         "cli/src/main/ts/domain/models/event.ts",
         "cli/src/main/ts/domain/repositories/feedback-repository.ts",
         "cli/src/main/ts/application/use-cases/extract-context-feedback.ts",
-        "cli/src/main/ts/application/use-cases/causal-signal-log.ts"
+        "cli/src/main/ts/application/use-cases/causal-signal-log.ts",
+        "cli/src/main/ts/domain/services/event-logger.ts"
       ],
       "tags": [
         "application",
@@ -1036,7 +1057,8 @@
       ],
       "imports": [
         "cli/src/main/ts/domain/models/task.ts",
-        "cli/src/main/ts/domain/repositories/task-repository.ts"
+        "cli/src/main/ts/domain/repositories/task-repository.ts",
+        "cli/src/main/ts/domain/services/event-logger.ts"
       ],
       "tags": [
         "application",
@@ -1346,6 +1368,30 @@
       "criticality": "core",
       "runtimeUsage": "hot"
     },
+    "cli/src/main/ts/domain/services/archive-parser.ts": {
+      "symbols": [
+        "EpistemicDigest",
+        "ArchivedTaskMetrics",
+        "ArchiveParser"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/repositories/file-system.ts",
+        "cli/src/main/ts/domain/repositories/git-repository.ts"
+      ],
+      "tags": [
+        "domain",
+        "services",
+        "archive",
+        "parser",
+        "epistemic",
+        "digest",
+        "archived",
+        "task",
+        "metrics"
+      ],
+      "criticality": "core",
+      "runtimeUsage": "hot"
+    },
     "cli/src/main/ts/domain/services/bridge-provider.ts": {
       "symbols": [
         "BridgeConfig",
@@ -1376,6 +1422,24 @@
         "services",
         "config",
         "loader"
+      ],
+      "criticality": "core",
+      "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/domain/services/event-logger.ts": {
+      "symbols": [
+        "LifecycleEvent",
+        "EventLogger"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/repositories/file-system.ts"
+      ],
+      "tags": [
+        "domain",
+        "services",
+        "event",
+        "logger",
+        "lifecycle"
       ],
       "criticality": "core",
       "runtimeUsage": "hot"
@@ -1421,6 +1485,28 @@
       ],
       "criticality": "core",
       "runtimeUsage": "warm"
+    },
+    "cli/src/main/ts/domain/services/metrics-engine.ts": {
+      "symbols": [
+        "EpistemicDigest",
+        "CalculatedMetrics",
+        "MetricsEngine"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/services/archive-parser.ts",
+        "cli/src/main/ts/domain/repositories/file-system.ts"
+      ],
+      "tags": [
+        "domain",
+        "services",
+        "metrics",
+        "engine",
+        "epistemic",
+        "digest",
+        "calculated"
+      ],
+      "criticality": "core",
+      "runtimeUsage": "hot"
     },
     "cli/src/main/ts/domain/services/native-provider.ts": {
       "symbols": [
@@ -1536,6 +1622,7 @@
         "cli/src/main/ts/infrastructure/filesystem/node-file-system.ts",
         "cli/src/main/ts/infrastructure/filesystem/markdown-task-repository.ts",
         "cli/src/main/ts/infrastructure/cli/git-cli.ts",
+        "cli/src/main/ts/domain/services/event-logger.ts",
         "cli/src/main/ts/domain/services/reviewer.ts",
         "cli/src/main/ts/application/use-cases/drift-checker.ts",
         "cli/src/main/ts/infrastructure/cli/command-parser.ts",
@@ -1566,7 +1653,8 @@
         "cli/src/main/ts/application/commands/causal-command.ts",
         "cli/src/main/ts/application/use-cases/causal-graph.ts",
         "cli/src/main/ts/application/use-cases/causal-signal-log.ts",
-        "cli/src/main/ts/application/commands/reflect-command.ts"
+        "cli/src/main/ts/application/commands/reflect-command.ts",
+        "cli/src/main/ts/application/commands/report-command.ts"
       ],
       "tags": [
         "index"
@@ -3080,9 +3168,210 @@
       ],
       "affectedModules": [],
       "strength": "enforced"
+    },
+    "ADR-017": {
+      "title": "Deterministic Observability & Operational Metrics",
+      "keywords": [
+        "deterministic",
+        "observability",
+        "operational",
+        "metrics",
+        "adr",
+        "017",
+        "date",
+        "2026",
+        "status",
+        "accepted",
+        "deciders",
+        "gemini",
+        "cli",
+        "human",
+        "auditor",
+        "context",
+        "arch",
+        "lacked",
+        "formal",
+        "mechanism",
+        "measuring",
+        "health",
+        "like",
+        "review",
+        "fail",
+        "rate",
+        "cycle",
+        "time",
+        "either",
+        "manually",
+        "computed",
+        "leading",
+        "clerical",
+        "errors",
+        "probabilistic",
+        "decision",
+        "implement",
+        "system",
+        "consisting",
+        "structured",
+        "event",
+        "logging",
+        "readable",
+        "strictly",
+        "formatted",
+        "append",
+        "only",
+        "log",
+        "docs",
+        "events",
+        "record",
+        "constitutional",
+        "transitions",
+        "ready",
+        "done",
+        "git",
+        "aware",
+        "archive",
+        "parser",
+        "extracts",
+        "task",
+        "metadata",
+        "uses",
+        "first",
+        "commit",
+        "absolute",
+        "fallback",
+        "creation",
+        "dates",
+        "ensure",
+        "accurate",
+        "calculation",
+        "automated",
+        "reporting",
+        "report",
+        "command",
+        "surgically",
+        "updates",
+        "using",
+        "generated",
+        "block",
+        "delimiters",
+        "preserving",
+        "annotations",
+        "while"
+      ],
+      "affectedModules": [],
+      "strength": "enforced"
+    },
+    "ADR-018": {
+      "title": "Adversarially Robust Epistemology & Graded Integrity",
+      "keywords": [
+        "adversarially",
+        "robust",
+        "epistemology",
+        "graded",
+        "integrity",
+        "adr",
+        "018",
+        "date",
+        "2026",
+        "status",
+        "accepted",
+        "deciders",
+        "gemini",
+        "cli",
+        "human",
+        "auditor",
+        "context",
+        "model",
+        "rev",
+        "solved",
+        "governance",
+        "rigidity",
+        "introduced",
+        "risks",
+        "medium",
+        "collapse",
+        "semantic",
+        "noise",
+        "lack",
+        "provenance",
+        "inferred",
+        "history",
+        "potential",
+        "agents",
+        "game",
+        "violation",
+        "decay",
+        "curves",
+        "must",
+        "transition",
+        "reporting",
+        "system",
+        "truth",
+        "calibration",
+        "layer",
+        "resilient",
+        "even",
+        "when",
+        "own",
+        "rules",
+        "known",
+        "decision",
+        "implement",
+        "through",
+        "traceable",
+        "non",
+        "decaying",
+        "reputation",
+        "anchors",
+        "hardened",
+        "scale",
+        "every",
+        "metric",
+        "score",
+        "backed",
+        "epistemic",
+        "digest",
+        "level",
+        "requirement",
+        "confidence",
+        "cap",
+        "high",
+        "explicit",
+        "baseline",
+        "snapshot",
+        "file",
+        "hash",
+        "based",
+        "zero",
+        "worktree",
+        "drift"
+      ],
+      "affectedModules": [],
+      "strength": "enforced"
     }
   },
   "adrTaskLinks": {
+    "ADR-018": {
+      "tasks": {
+        "TASK-201": {
+          "evidenceKinds": [
+            "depends",
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-201.md"
+        }
+      }
+    },
+    "ADR-017": {
+      "tasks": {
+        "TASK-201": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-201.md"
+        }
+      }
+    },
     "ADR-013": {
       "tasks": {
         "TASK-231": {
@@ -4159,12 +4448,12 @@
     }
   },
   "tasks": {
-    "TASK-233": {
+    "TASK-201": {
       "commitCount": 1,
-      "lastCommitDate": "2026-05-13T13:41:46+02:00",
+      "lastCommitDate": "2026-05-13T16:52:47+02:00",
       "touchedFrequency": {},
       "recentCommitRefs": [
-        "f8f4554"
+        "5aa4de1"
       ],
       "commitRefOverflow": false
     }

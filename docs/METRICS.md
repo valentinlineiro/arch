@@ -130,7 +130,7 @@
 <!-- GENERATED:START -->
 ## Operational Metrics
 
-*Last updated: 2026-05-13T14:52:44.570Z*
+*Last updated: 2026-05-13T15:21:28.735Z*
 
 | Metric | Value | Notes |
 |--------|-------|-------|
@@ -139,7 +139,9 @@
 | **REVIEW_FAIL Rate** | 100.0% | rejected / total review exits |
 | **Avg Cost / Task** | $0.12 | token-estimate heuristic v1 |
 
-> **Epistemic Note:** Truth calibration is LOW. Significant environmental noise or missing baselines detected. Metrics are for diagnostic use only.
+> **Epistemic Digest:** `metrics-engine-v1` (Range: `HEAD`)
+
+> **Integrity Note:** Truth calibration is LOW. Significant environmental noise or missing baselines detected. Metrics are for diagnostic use only.
 
 ### Cycle Time (P50/P90)
 
