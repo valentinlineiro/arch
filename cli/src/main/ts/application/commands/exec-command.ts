@@ -1,4 +1,4 @@
-import { spawnSync } from 'node:child_process';
+import { spawnSync, spawn } from 'node:child_process';
 import fs from 'node:fs';
 import { TaskRepository } from '../../domain/repositories/task-repository.js';
 import { FileSystem } from '../../domain/repositories/file-system.js';
@@ -109,26 +109,18 @@ export class ExecCommand {
       if (provider instanceof BridgeProvider) {
         const cmd = provider.buildCommand(model || '', DO_PROMPT_FILE) +
           (extraFlags ? ` ${extraFlags}` : '');
-        
-        const result = spawnSync('sh', ['-c', cmd], { 
-          stdio: ['ignore', 'pipe', 'pipe'], 
-          encoding: 'utf8',
-          maxBuffer: Infinity 
+
+        const exitCode = await new Promise<number>((resolve) => {
+          const child = spawn('sh', ['-c', cmd], { stdio: ['ignore', 'inherit', 'inherit'] });
+          child.on('close', (code) => resolve(code ?? 1));
         });
-        
-        if (result.status === 0) {
-          process.stdout.write(result.stdout);
-          if (result.stderr) process.stderr.write(result.stderr);
+
+        if (exitCode === 0) {
           success = true;
           break;
         } else {
           const next = nextName ? ` → next: ${nextName}` : ' → no more candidates';
-          if (result.stderr) {
-            process.stderr.write(`--- ${name} stderr ---\n`);
-            process.stderr.write(result.stderr);
-            process.stderr.write('---\n');
-          }
-          process.stderr.write(`\x1b[33m  WARN\x1b[0m — ${name} failed (exit ${result.status})${next}\n`);
+          process.stderr.write(`\x1b[33m  WARN\x1b[0m — ${name} failed (exit ${exitCode})${next}\n`);
         }
       } else {
         // NativeProvider: call REST endpoint
