@@ -14,7 +14,7 @@ import { SubprocessRunner } from '../../infrastructure/cli/subprocess-runner.js'
 import { ConfigLoader } from '../../domain/services/config-loader.js';
 import { ProviderRegistry } from '../../domain/services/provider-registry.js';
 import { BridgeProvider } from '../../domain/services/bridge-provider.js';
-import { spawnSync } from 'node:child_process';
+import { spawnSync, spawn } from 'node:child_process';
 import fs from 'node:fs';
 
 export interface LoopOptions {
@@ -22,6 +22,7 @@ export interface LoopOptions {
   dryRun?: boolean;
   resume?: boolean;
   verbose?: boolean;
+  quiet?: boolean;
 }
 
 const ANDON_MAX_FAILURES = 3;
@@ -152,12 +153,7 @@ export class LoopEngine {
           if (provider instanceof BridgeProvider) {
             const DO_PROMPT_FILE = 'docs/agents/DO.md';
             const cmd = provider.buildCommand(model || '', DO_PROMPT_FILE);
-            const result = spawnSync('sh', ['-c', cmd], {
-              stdio: ['ignore', 'pipe', 'inherit'],
-              encoding: 'utf8',
-              timeout: EXEC_TIMEOUT_MS,
-              maxBuffer: Infinity,
-            });
+            const result = await this.runStreaming(cmd, EXEC_TIMEOUT_MS, !options.quiet);
             if (result.status !== 0) {
               const reason = result.signal === 'SIGTERM'
                 ? `EXEC timeout exceeded (${timeoutMinutes}m)`
@@ -165,7 +161,7 @@ export class LoopEngine {
               this.log(`[LOOP] Provider ${name} failed: ${reason}. Trying next...`);
               continue;
             }
-            const meta = provider.parseMetadata(result.stdout ?? '', Date.now() - cycleStart);
+            const meta = provider.parseMetadata(result.stdout, Date.now() - cycleStart);
             turns = meta.turns;
             cost = meta.cost;
           } else {
@@ -297,6 +293,28 @@ export class LoopEngine {
     }
 
     this.log('[LOOP] Done.');
+  }
+
+  private runStreaming(
+    cmd: string,
+    timeoutMs: number,
+    stream: boolean
+  ): Promise<{ status: number; signal: string | null; stdout: string }> {
+    return new Promise((resolve) => {
+      const chunks: string[] = [];
+      const child = spawn('sh', ['-c', cmd], {
+        stdio: ['ignore', 'pipe', 'inherit'],
+        timeout: timeoutMs,
+      });
+      child.stdout?.on('data', (chunk: Buffer) => {
+        const text = chunk.toString('utf8');
+        if (stream) process.stdout.write(text);
+        chunks.push(text);
+      });
+      child.on('close', (code, signal) => {
+        resolve({ status: code ?? 1, signal, stdout: chunks.join('') });
+      });
+    });
   }
 
   private async triggerAndon(taskId: string, reason: string, options: LoopOptions): Promise<boolean> {
