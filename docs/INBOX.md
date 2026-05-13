@@ -45,3 +45,8 @@ All 7 ACs met. EscalationStore written to `.arch/escalations.jsonl` (append-only
 TASK-209 "Fix commit message checker to recognize chore: [THINK] as governance tag" is ready for review.
 All 5 ACs met. The `isGovernance` regex in `reviewer.ts:86` already handled `chore: [THINK]` correctly; this task added explicit test coverage for `chore: [THINK] Phase 1 — foo`, `chore: [KAIZEN]`, `chore: [SELF-PROMOTION]`, and a regression guard for commits without TASK-ID.
 Changed files: `cli/src/test/ts/reviewer.test.ts`
+
+## [2026-05-13 15:15] REVIEW_REQUEST | TASK-232
+TASK-232 "Grandfather legacy tasks in arch review - silence Hansei warnings" is ready for review.
+All 3 ACs met. Root cause: `checkHanseiPresent` read `config.hanseiSinceTaskId` but the value lives at `config.governance.hanseiSinceTaskId`. Fixed with a one-line fallback. `arch review` now shows only TASK-229 under HanseiPresent. Added 1 new test confirming the governance-nested path.
+Changed files: `cli/src/main/ts/application/use-cases/drift-checker.ts`, `cli/src/test/ts/drift-checker.test.ts`
