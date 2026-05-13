@@ -134,8 +134,15 @@ export class LoopEngine {
           continue;
         }
 
+        if (options.verbose) {
+          this.log(`[LOOP] Candidates: ${candidates.map(c => c.name).join(' → ')}`);
+        }
+
         let success = false;
-        for (const { provider, name, model } of candidates) {
+        for (let ci = 0; ci < candidates.length; ci++) {
+          const { provider, name, model } = candidates[ci];
+          const nextName = ci + 1 < candidates.length ? candidates[ci + 1].name : null;
+
           if (name === 'local') {
             const reason = 'Routing: local (human intervention required) — halting autonomous loop';
             await this.appendInbox(task.id, 'ANDON_HALT', reason);
@@ -157,8 +164,9 @@ export class LoopEngine {
             if (result.status !== 0) {
               const reason = result.signal === 'SIGTERM'
                 ? `EXEC timeout exceeded (${timeoutMinutes}m)`
-                : `provider ${name} exited with code ${result.status}`;
-              this.log(`[LOOP] Provider ${name} failed: ${reason}. Trying next...`);
+                : `exited with code ${result.status}`;
+              const next = nextName ? ` → next: ${nextName}` : ' → no more candidates';
+              process.stderr.write(`\x1b[33m[LOOP] WARN\x1b[0m — ${name} failed: ${reason}${next}\n`);
               continue;
             }
             const meta = provider.parseMetadata(result.stdout, Date.now() - cycleStart);
@@ -177,7 +185,8 @@ export class LoopEngine {
               turns = response.usage.turns;
               cost = response.usage.cost;
             } catch (err: any) {
-              this.log(`[LOOP] Provider ${name} error: ${err.message}. Trying next...`);
+              const next = nextName ? ` → next: ${nextName}` : ' → no more candidates';
+              process.stderr.write(`\x1b[33m[LOOP] WARN\x1b[0m — ${name} error: ${err.message}${next}\n`);
               continue;
             }
           }

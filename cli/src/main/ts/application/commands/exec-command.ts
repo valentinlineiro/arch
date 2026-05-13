@@ -82,11 +82,19 @@ export class ExecCommand {
       process.exit(1);
     }
 
+    const verbose = args.includes('--verbose');
     const promptContent = fs.readFileSync(DO_PROMPT_FILE, 'utf8');
-    const extraFlags = args.join(' ');
+    const extraFlags = args.filter(a => !a.startsWith('--')).join(' ');
+
+    if (verbose) {
+      console.log(`  Candidates: ${candidates.map(c => c.name).join(' → ')}`);
+    }
 
     let success = false;
-    for (const { provider, name, model } of candidates) {
+    for (let ci = 0; ci < candidates.length; ci++) {
+      const { provider, name, model } = candidates[ci];
+      const nextName = ci + 1 < candidates.length ? candidates[ci + 1].name : null;
+
       if (name === 'local') {
         console.log('  Routing: local (no AI invocation)');
         console.log('');
@@ -114,9 +122,13 @@ export class ExecCommand {
           success = true;
           break;
         } else {
-          console.warn(`  \x1b[33mWARN\x1b[0m — Provider ${name} failed (exit ${result.status}). Trying next...`);
-          if (result.stdout) process.stdout.write(result.stdout);
-          if (result.stderr) process.stderr.write(result.stderr);
+          const next = nextName ? ` → next: ${nextName}` : ' → no more candidates';
+          if (result.stderr) {
+            process.stderr.write(`--- ${name} stderr ---\n`);
+            process.stderr.write(result.stderr);
+            process.stderr.write('---\n');
+          }
+          process.stderr.write(`\x1b[33m  WARN\x1b[0m — ${name} failed (exit ${result.status})${next}\n`);
         }
       } else {
         // NativeProvider: call REST endpoint
@@ -132,7 +144,8 @@ export class ExecCommand {
           success = true;
           break;
         } catch (err: any) {
-          console.warn(`  \x1b[33mWARN\x1b[0m — Provider ${name} error: ${err.message}. Trying next...`);
+          const next = nextName ? ` → next: ${nextName}` : ' → no more candidates';
+          process.stderr.write(`\x1b[33m  WARN\x1b[0m — ${name} error: ${err.message}${next}\n`);
         }
       }
     }

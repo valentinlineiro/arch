@@ -23,6 +23,8 @@ export class LoopCommand {
       dryRun: args.includes('--dry-run'),
       resume: args.includes('--resume'),
       sprint: this.parseSprint(args),
+      verbose: args.includes('--verbose'),
+      quiet: args.includes('--quiet'),
     };
     await this.engine.execute(options);
   }
