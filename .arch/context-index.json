@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-13T11:35:20.481Z",
+  "builtAt": "2026-05-13T11:38:41.172Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -4159,12 +4159,12 @@
     }
   },
   "tasks": {
-    "TASK-239": {
+    "TASK-240": {
       "commitCount": 1,
-      "lastCommitDate": "2026-05-13T13:35:20+02:00",
+      "lastCommitDate": "2026-05-13T13:38:40+02:00",
       "touchedFrequency": {},
       "recentCommitRefs": [
-        "60e1714"
+        "58fea2a"
       ],
       "commitRefOverflow": false
     }
