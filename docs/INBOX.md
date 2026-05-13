@@ -55,3 +55,8 @@ Changed files: `cli/src/main/ts/application/use-cases/drift-checker.ts`, `cli/sr
 TASK-238 "Disambiguate Level terminology - autonomy vs escalation scales" is ready for review.
 All 3 ACs met. Decision: Autonomy keeps L1–L4 (lower churn, clearly qualified in context); Escalation Maturity renamed to E1–E7. Changed: ADR-010 title ("E3 Detectable"), body ("Autonomy L3+"), TASK-203 title ("E4 Fail-Closed"), TASK-204 title ("E5 Verifiable"), plus a disambiguation blockquote added to autonomy.md. grep confirms no remaining ambiguous "Level N" in guidelines/, adr/, agents/.
 Changed files: docs/adr/ADR-010-escalation-maturity.md, docs/guidelines/autonomy.md, docs/tasks/TASK-203.md, docs/tasks/TASK-204.md
+
+## [2026-05-13 15:45] REVIEW_REQUEST | TASK-239
+TASK-239 "Stream arch loop output to terminal" is ready for review.
+All 3 ACs met. Replaced `spawnSync` (stdio: pipe) with a private `runStreaming` helper using async `spawn` — tees stdout to `process.stdout` in real-time while buffering for metadata parsing. Added `quiet?: boolean` to `LoopOptions` to suppress streaming for non-interactive use.
+Changed files: `cli/src/main/ts/application/use-cases/loop-engine.ts`
