@@ -604,7 +604,7 @@ export class DriftChecker {
   private async checkHanseiPresent(): Promise<DriftResult> {
     const configRaw = await this.fileSystem.readFile(`${this.rootPath}/arch.config.json`);
     const config = JSON.parse(configRaw);
-    const hanseiSinceTaskId = config.hanseiSinceTaskId as number | undefined;
+    const hanseiSinceTaskId = (config.governance?.hanseiSinceTaskId ?? config.hanseiSinceTaskId) as number | undefined;
     const archiveFiles = await this.getMarkdownFiles('docs/archive');
     const details: string[] = [];
 

@@ -271,6 +271,26 @@ test('DriftChecker - HanseiPresent flags archived task missing Hansei section af
   assert.ok(check?.details.some(d => d.includes('TASK-195')));
 });
 
+test('DriftChecker - HanseiPresent respects hanseiSinceTaskId nested under governance block', async () => {
+  const fs = makeBaseFs();
+  fs.files['/repo/arch.config.json'] = JSON.stringify({
+    version: '0.2.0',
+    governance: { hanseiSinceTaskId: 195 },
+  });
+  fs.directories['/repo/docs/archive'] = ['TASK-010.md', 'TASK-200.md'];
+  fs.files['/repo/docs/archive/TASK-010.md'] = '## TASK-010: Legacy\n**Meta:** P1 | S | DONE | Focus:no\n\nNo Hansei.\n';
+  fs.files['/repo/docs/archive/TASK-200.md'] = '## TASK-200: New\n**Meta:** P1 | S | DONE | Focus:no\n\nNo Hansei.\n';
+
+  const checker = new DriftChecker(fs, new MockGitRepository(), '/repo', '0.2.0');
+  const result = await checker.check();
+  const check = result.find(r => r.check === 'HanseiPresent');
+
+  assert.ok(check);
+  assert.strictEqual(check?.status, 'WARN');
+  assert.ok(!check?.details.some(d => d.includes('TASK-010')), 'legacy task should be grandfathered');
+  assert.ok(check?.details.some(d => d.includes('TASK-200')), 'post-protocol task should be flagged');
+});
+
 test('DriftChecker - HanseiPresent passes when all archived tasks have Hansei section', async () => {
   const fs = makeBaseFs();
   fs.files['/repo/arch.config.json'] = JSON.stringify({
