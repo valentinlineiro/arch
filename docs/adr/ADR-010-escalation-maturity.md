@@ -1,4 +1,4 @@
-# ADR-010: Escalation Maturity Phase 1 (Level 3 Detectable)
+# ADR-010: Escalation Maturity Phase 1 (E3 Detectable)
 
 **Date:** 2026-05-06
 **Status:** PROPOSED
@@ -7,7 +7,7 @@
 ---
 
 ## Context
-As the ARCH system moves toward higher autonomy (L3+), we need automated guards to detect when an agent is struggling, when a task is high-risk, or when the system protocol is being violated. Relying on human auditors for every step is a bottleneck, but relying on agent judgment alone leads to drift.
+As the ARCH system moves toward higher autonomy (Autonomy L3+), we need automated guards to detect when an agent is struggling, when a task is high-risk, or when the system protocol is being violated. Relying on human auditors for every step is a bottleneck, but relying on agent judgment alone leads to drift.
 
 ## Decision
 Implement Phase 1 of the Escalation Maturity framework:

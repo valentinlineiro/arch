@@ -1,4 +1,4 @@
-## TASK-204: Escalation maturity Phase 3 - Level 5 Verifiable
+## TASK-204: Escalation maturity Phase 3 - E5 Verifiable
 **Meta:** P2 | M | READY | Focus:no | 2-code-generation | claude-code | cli/src/main/ts/, docs/
 **Depends:** TASK-203, TASK-194
 

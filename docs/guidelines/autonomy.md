@@ -12,6 +12,8 @@ Coordination between the Human and the Agent is facilitated via `docs/INBOX.md`.
 
 ## Autonomy Levels
 
+> **Terminology note:** Autonomy levels use the **L prefix** (L1–L4). Escalation Maturity levels are a separate scale using the **E prefix** (E1–E7, see ADR-010). "L3" always means Autonomy Level 3; "E3" means Escalation Maturity Level 3.
+
 | Level | Name | Description | Human Involvement |
 |-------|------|-------------|-------------------|
 | **L1** | **Assisted** | Agent implements human-defined tasks. Human approves every commit and promotion. | High (Every step) |
