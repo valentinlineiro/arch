@@ -100,9 +100,6 @@ Source of truth for ANDON_HALT and AWAITING_PROMOTION events. Append-only: resol
 Format: `**Meta:** P[0-3] | [XS|S|M|L|XL] | [STATUS] | Focus:yes/no | [class] | [cli] | [context]`
 Lock fields (`lockedBy`, `lockedAt`) are in-memory only. Never write them to the meta line.
 
-**`CLAUDE.md` is a symlink to `docs/AGENTS.md`.**
-Always stage and commit `docs/AGENTS.md` directly. `git add CLAUDE.md` stages nothing.
-
 **Every commit must reference a TASK-ID and use an authoritative prefix.**
 Prefixes: `feat:`, `fix:`, `chore:`, `docs:`, `refactor:`, `idea:`
 Exception: `idea:` commits for IDEA drafts do not require a TASK-ID.
