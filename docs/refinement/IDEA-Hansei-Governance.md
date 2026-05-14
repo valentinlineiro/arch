@@ -49,5 +49,4 @@ The `arch review` command (and the human Auditor) must verify the **fidelity** o
 - `arch report` aggregates Hansei categories to identify "Systemic Friction" (e.g., "80% of tasks report [ContextWaste] in Module Y").
 
 ### Decision
-(To be filled by human)
-PROMOTE → TASK-XXX | REJECT | EXTEND
+PROMOTE → TASK-244, TASK-245, TASK-246
