@@ -67,6 +67,22 @@ export class GovernSystem {
     return { analysisNeeded: analysisReasons.length > 0, reasons: analysisReasons };
   }
 
+  // ─────────────────────────────────────────────────────────────────────────
+  // ARCH NOTE (latent boundary — not implemented)
+  //
+  // If system complexity ever requires separation of the pure decision core,
+  // the natural decomposition is:
+  //
+  //   1. evaluateState(world, ledger)    → DecisionContext
+  //   2. resolveFocus(context, config)   → Ruling[]
+  //   3. applyRulings(world, ledger, rulings) → { world, ledger }
+  //
+  // Current implementation intentionally keeps these embedded in a single
+  // deterministic orchestrator to minimize surface area and operational
+  // complexity. No refactor required unless testing or simulation demands
+  // isolated decision execution.
+  // ─────────────────────────────────────────────────────────────────────────
+
   private priorityNum(p: string): number {
     return parseInt(p.replace('P', ''), 10);
   }
