@@ -22,6 +22,9 @@ export class MarkTaskInProgress {
     task.status = TaskStatus.IN_PROGRESS;
     task.lockedBy = user;
     task.lockedAt = new Date().toISOString();
+    if (!task.createdAt) {
+      task.createdAt = task.lockedAt;
+    }
 
     await this.taskRepository.save(task);
 

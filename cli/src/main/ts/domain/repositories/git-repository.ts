@@ -15,10 +15,13 @@ export interface GitRepository {
   getModifiedFiles(): Promise<string[]>;
   getRepoRoot(): Promise<string>;
   getFileFirstCommitDate(path: string): Promise<Date | null>;
+  getLastCommitHash(): Promise<string | null>;
+  isValidCommitHash(hash: string): Promise<boolean>;
+  getCommitAuthor(hash: string): Promise<string | null>;
   getCommitHistory(limit?: number): Promise<Array<{
     hash: string;
     message: string;
     date: string;
-    files: string[];
+    files: Array<{ path: string; status: string; oldPath?: string }>;
   }>>;
 }

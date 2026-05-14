@@ -47,6 +47,14 @@ Append-only history must be witnessed to prevent "local rewrite" fraud:
 - **Integrity Entropy:** The ratio of LOW/MEDIUM data in the set.
 - **Evidence Provenance:** A link to the git range and logs that generated the result.
 
+### 6. Observer Integrity & Hard-Fail Invariants
+The system must distinguish between **Integrity Entropy** (Uncertainty) and **Integrity Corruption** (Malfunction).
+
+-   **Integrity Entropy (Class A - Missing Evidence):** Graceful degradation of confidence (HIGH → MEDIUM → LOW). Acceptable when the observer is trusted but data is absent.
+-   **Integrity Corruption (Class B - Broken Engine):** Parser failures, corrupted deterministic functions, or broken commit attribution. **MUST result in a hard fail (INVALID / Exit 1).**
+
+**The Observer Invariant:** Confidence degradation is only allowed when the observer is trusted. If the observer itself is compromised (e.g., parser bug detected), confidence scoring is forbidden, and the system must halt to prevent "epistemic fraud."
+
 ## Rationale
 In an adversarial environment, simplicity is a vulnerability. By anchoring truth to the Merkle tree and the lifetime audit log, we ensure that the system's "memory" of integrity is longer than the agent's strategy for gaming the rules. We accept entropy but **bound its influence** through explicit provenance.
 

@@ -89,6 +89,21 @@ export class GitCli implements GitRepository {
     return stdout.trim();
   }
 
+  async getLastCommitHash(): Promise<string | null> {
+    const { stdout, code } = await SubprocessRunner.runWithOutput('git', ['rev-parse', '--short', 'HEAD']);
+    return code === 0 ? stdout.trim() : null;
+  }
+
+  async isValidCommitHash(hash: string): Promise<boolean> {
+    const { code } = await SubprocessRunner.runWithOutput('git', ['rev-parse', '--verify', `${hash}^{commit}`]);
+    return code === 0;
+  }
+
+  async getCommitAuthor(hash: string): Promise<string | null> {
+    const { stdout, code } = await SubprocessRunner.runWithOutput('git', ['show', '-s', '--format=%an', hash]);
+    return code === 0 ? stdout.trim() : null;
+  }
+
   async getFileFirstCommitDate(path: string): Promise<Date | null> {
     try {
       // --diff-filter=A only shows the addition of the file.
@@ -106,13 +121,14 @@ export class GitCli implements GitRepository {
     hash: string;
     message: string;
     date: string;
-    files: string[];
+    files: Array<{ path: string; status: string; oldPath?: string }>;
   }>> {
+    const DELIM = '\x1f';
     const { stdout, stderr, code } = await SubprocessRunner.runWithOutput('git', [
       'log',
       '--no-merges',
-      '--format=%h|%s|%cI',
-      '--name-only',
+      `--format=%h${DELIM}%s${DELIM}%cI`,
+      '--name-status',
       '-n', limit.toString(),
     ]);
     if (code !== 0) {
@@ -120,20 +136,39 @@ export class GitCli implements GitRepository {
     }
     if (!stdout.trim()) return [];
 
-    const commits: Array<{ hash: string; message: string; date: string; files: string[] }> = [];
-    const blocks = stdout.split(/\n\n+/);
-    for (const block of blocks) {
-      const lines = block.trim().split('\n').filter(Boolean);
-      if (lines.length === 0) continue;
-      const headerLine = lines[0];
-      const parts = headerLine.split('|');
-      if (parts.length < 3) continue;
-      const hash = parts[0].trim();
-      const date = parts[parts.length - 1].trim();
-      const message = parts.slice(1, -1).join('|').trim();
-      const files = lines.slice(1).map(l => l.trim()).filter(Boolean);
-      commits.push({ hash, message, date, files });
+    const commits: Array<{ hash: string; message: string; date: string; files: Array<{ path: string; status: string; oldPath?: string }> }> = [];
+    const lines = stdout.split('\n');
+    let currentCommit: { hash: string; message: string; date: string; files: Array<{ path: string; status: string; oldPath?: string }> } | null = null;
+
+    for (const line of lines) {
+      const trimmed = line.trim();
+      if (!trimmed) continue;
+
+      if (trimmed.includes(DELIM)) {
+        const parts = trimmed.split(DELIM);
+        if (parts.length >= 3) {
+          if (currentCommit) commits.push(currentCommit);
+          currentCommit = {
+            hash: parts[0],
+            date: parts[parts.length - 1],
+            message: parts.slice(1, -1).join(DELIM),
+            files: []
+          };
+          continue;
+        }
+      }
+
+      if (currentCommit) {
+        const parts = trimmed.split(/\s+/);
+        const status = parts[0];
+        if (status.startsWith('R') || status.startsWith('C')) {
+          currentCommit.files.push({ status, oldPath: parts[1], path: parts[2] });
+        } else {
+          currentCommit.files.push({ status, path: parts[parts.length - 1] });
+        }
+      }
     }
+    if (currentCommit) commits.push(currentCommit);
     return commits;
   }
 }

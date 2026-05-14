@@ -30,5 +30,5 @@ Prerequisite: an XS event log task must be created to record REVIEW → READY st
 - [x] `npm test` passes in `cli/`.
 
 ## Hansei
-Hardening the epistemic layer per ADR-018 was straightforward once the `MetricsEngine` was refactored to explicitly track integrity entropy. However, the initial failure to rebuild the CLI before running the report command highlights a potential friction point in the dev loop where `scripts/arch` may execute stale `dist/` code, masking implementation changes.
+The initial implementation of the metrics engine was too trusting of narrative prose in markdown. By anchoring completion truth to immutable git move events (docs/tasks -> docs/archive), we have successfully decoupled narrative from evidence. This refactoring also highlighted that 'broken measurements' (parser failures) must be treated as constitutional invalidations rather than mere uncertainty, a critical distinction for maintainable observability.
 

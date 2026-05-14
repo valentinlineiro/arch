@@ -85,6 +85,7 @@ export class MarkdownTaskRepository implements TaskRepository {
       }
     };
 
+    ensureField('Created-at', task.createdAt);
     ensureField('Closed-at', task.closedAt);
     ensureField('Rejected-at', task.rejectedAt);
     ensureField('Reason', task.rejectionReason);
@@ -141,6 +142,7 @@ export class MarkdownTaskRepository implements TaskRepository {
       }
 
       const closedAtMatch = content.match(/^\*\*Closed-at:\*\* (.*)/m);
+      const createdAtMatch = content.match(/^\*\*Created-at:\*\* (.*)/m);
       const rejectedAtMatch = content.match(/^\*\*Rejected-at:\*\* (.*)/m);
       const rejectionReasonMatch = content.match(/^\*\*Reason:\*\* (.*)/m);
       const sprintMatch = content.match(/^\*\*Sprint:\*\* (.*)/m);
@@ -157,9 +159,9 @@ export class MarkdownTaskRepository implements TaskRepository {
         class: metaParts[4] || '',
         cli: metaParts[5] || '',
         context: (metaParts[6] || '').split(',').map(s => s.trim()),
-        closedAt: closedAtMatch?.[1],
-        rejectedAt: rejectedAtMatch?.[1],
-        rejectionReason: rejectionReasonMatch?.[1],
+        createdAt: createdAtMatch?.[1]?.trim(),
+        closedAt: closedAtMatch?.[1]?.trim(),
+        rejectedAt: rejectedAtMatch?.[1]?.trim(),
         depends: dependsMatch ? dependsMatch[1].split(',').map(s => s.trim()) : undefined,
         acceptanceCriteria,
         cost: costMatch ? parseFloat(costMatch[1]) : (inProgressMetricsMatch?.groups?.cost ? parseFloat(inProgressMetricsMatch.groups.cost) : undefined),

@@ -29,6 +29,7 @@ export interface Task {
   depends?: string[];
   lockedBy?: string;
   lockedAt?: string;
+  createdAt?: string;
   closedAt?: string;
   rejectedAt?: string;
   rejectionReason?: string;
