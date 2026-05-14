@@ -10,6 +10,25 @@ The fix is not simply "switch on higher priority". Without a protected execution
 
 **ADR-first constraint:** The ADR must be written and committed before any implementation code is touched. The principle precedes the code — not the other way around.
 
+#### PriorityDrift is escalatory, not advisory
+
+`PriorityDrift` detected by `arch review` is not a warning. When the drift threshold is exceeded it is a constitutional failure that requires govern adjudication on the next tick. Govern either preempts or logs an explicit reason why it preserves. There is no silent preservation path.
+
+A warning that cannot resolve what it detects is noise. Repeated unresolved warnings destroy trust in the signal. `arch review` must fail — not warn — when drift exceeds the threshold and the protected window has expired.
+
+#### Reason-for-focus ledger
+
+Every `Focus:yes` assignment requires an explicit reason recorded in `.arch/focus-ledger.jsonl`. No task may hold focus without a traceable adjudication entry. Six weeks from now the audit trail must answer: who assigned focus, on what grounds, and what was the staleness score at that moment.
+
+Example entries:
+
+```jsonl
+{"taskId":"TASK-207","event":"focus_preserved","reason":"protected_window","stalenessScore":1,"tick":3,"timestamp":"2026-05-14T12:00:00Z"}
+{"taskId":"TASK-245","event":"focus_preempted","layer":"hard","source":"integrity_corruption","previousTask":"TASK-207","stalenessScore":4,"tick":4,"timestamp":"2026-05-14T13:00:00Z"}
+```
+
+The meta line `Focus:yes` is a projection of the ledger's last `focus_assigned` or `focus_preempted` entry. The ledger is the source of truth; the meta line is a cache.
+
 #### Who certifies a validated state transition
 
 Progress certification uses a three-source hybrid model, evaluated in this order:
@@ -63,7 +82,9 @@ Score cannot go below 0. Score is stored per-task in `.arch/focus-ledger.jsonl` 
 - [ ] When govern preempts focus it logs a `focus_preempted` entry stating which layer triggered (hard | soft), the candidate task, and the staleness score at time of preemption.
 - [ ] When govern preserves focus it logs a `focus_preserved` entry with the reason (protected_window | rank_sufficient | score_below_threshold).
 - [ ] H3a escalation in `.arch/escalations.jsonl` adds +3 to staleness score for the focused task on the next govern tick. This is automatically applied — no manual step required.
-- [ ] `arch review` gains a `FocusSovereignty` check: warns when a P1+ READY task exists while a lower-priority task is focused and the protected window has expired, regardless of staleness score (visibility-only, not a block).
+- [ ] `arch review` gains a `FocusSovereignty` check that **fails** (not warns) when: a P1+ READY unblocked task exists while a lower-priority task is focused AND the protected window has expired AND the staleness score exceeds `stalenessThreshold`. Silent preservation is not permitted — govern must either preempt or append an explicit `focus_preserved` entry with a reason before `arch review` will pass.
+- [ ] There is no silent preservation path. Every govern tick where focus is preserved under PriorityDrift conditions must produce a ledger entry. A missing entry is treated as a govern fault.
+- [ ] Migration path is explicit: existing `Focus:yes` tasks without a ledger entry are assigned a synthetic `focus_assigned` entry on first govern tick after deployment, with `reason: "pre-sovereignty-migration"` and `stalenessScore: 0`. No task is silently grandfathered with unknown grounds.
 
 ### Definition of Done
 
@@ -74,7 +95,9 @@ Score cannot go below 0. Score is stored per-task in `.arch/focus-ledger.jsonl` 
 - [ ] `arch exec --progress "reason"` reduces staleness score by 1 and is logged with `certified_by: operator`.
 - [ ] `.arch/focus-ledger.jsonl` contains a complete, auditable trail for all focus changes and score mutations.
 - [ ] Unit tests cover all three layers, the staleness score table, the H3a +3 path, and the operator assertion path.
-- [ ] `arch review FocusSovereignty` warns on the current state (P1 TASK-245 and TASK-247 unblocked while P2 focused) — validates the check fires on real data.
+- [ ] `arch review FocusSovereignty` **fails** on the current state (P1 TASK-245 and TASK-247 unblocked while P2 TASK-207 focused, window expired) — validates the check fires on real data and that it is a blocking error, not a warning.
+- [ ] `.arch/focus-ledger.jsonl` exists after first govern tick and contains a traceable entry for every focus-holding task.
+- [ ] `arch govern` output explicitly states the adjudication decision (preempted | preserved + reason) on every tick where PriorityDrift conditions are active.
 
 ## Hansei
 **Severity:** H0
