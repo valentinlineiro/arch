@@ -98,6 +98,9 @@ candidate exists). Done.
 **Rule 4 — Minimum inercia window.** Count ticks since the last `FOCUS_ACQUIRED` ruling.
 If fewer than `minTicksBeforeSwitch` (default: 2, configurable in `arch.config.json`):
 emit `FOCUS_PRESERVED`. Done.
+Rule 4 protects only valid focus. Rules 1–3 bypass it entirely: an integrity fix,
+a missing focus assignment, and a focus task that lost eligibility all act immediately
+regardless of inercia window.
 
 **Rule 5 — Priority preemption.** If a candidate C exists with `priority(C) < priority(focused)`:
 emit `FOCUS_ACQUIRED` with `previousTask = focused.id`. Done.
@@ -123,12 +126,13 @@ ruling in the committed ledger. Emitted if true.
 **`FOCUS_SOVEREIGNTY`** — an eligible task C exists with `priority(C) < priority(focused)`,
 AND the number of ticks since the last `FOCUS_ACQUIRED` ruling is `>= minTicksBeforeSwitch`
 (i.e., Rule 4 would not prevent preemption at this tick),
-AND no `FOCUS_ACQUIRED` ruling for C exists in the committed ledger at tick >= the tick
-when C last became eligible. Emitted if true.
+AND no `FOCUS_ACQUIRED` ruling for C exists in the committed ledger that was emitted
+while C was currently eligible (i.e., C's eligibility was satisfied at the tick of that ruling).
+Emitted if true.
 
-This condition is isomorphic with govern's Rules 4+5: review fires exactly when govern
-would preempt, and is silent exactly when govern would preserve. No false positives from
-inercia window; no false negatives from stale rulings.
+This condition mirrors govern's Rules 4+5 exactly — no eligibility history required,
+no filesystem diffs, no implicit state. Eligibility is evaluated at the ruling's tick
+against the world state govern read at that tick, which is already in the ledger entry.
 
 Review writes nothing. It emits exactly one condition per invocation:
 `NONE`, `FOCUS_SOVEREIGNTY`, or `FOCUS_INTEGRITY_VIOLATION`.
