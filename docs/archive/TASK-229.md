@@ -8,3 +8,19 @@
 ### Acceptance Criteria
 - [x] `arch inbox` refinement queue shows all DRAFT IDEAs
 - [x] Filter regex handles both `Status: DRAFT` and `**Status:** DRAFT` formats
+
+## Hansei
+**Severity:** H1
+**Category:** [SpecDrift]
+
+**Decision:**
+The inbox IDEA filter used a plain substring match for `Status: DRAFT`, but IDEA files use markdown-bold format `**Status:** DRAFT`. This caused 100% of DRAFT IDEAs to be silently excluded from `arch inbox` output. Fix applied regex to handle both format variants.
+
+**Constraint:**
+No formal spec existed for the IDEA file markdown format when the filter was originally written; the mismatch was not caught by existing tests.
+
+**Cost:**
+Silent data loss in inbox output while the bug existed. No residual debt after fix; filter now handles both format variants.
+
+**Forward Action:**
+No forward action required. Filter is verified against both format variants; IDEA file format is now implicitly documented through the regex pattern.

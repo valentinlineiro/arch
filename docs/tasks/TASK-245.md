@@ -1,5 +1,5 @@
 ## TASK-245: Hansei Review Reconciliation Engine
-**Meta:** P1 | L | READY | Focus:yes | 7-operations | local | cli/src/main/ts/domain/services/reviewer.ts, cli/src/main/ts/domain/services/hansei-auditor.ts
+**Meta:** P1 | L | READY | Focus:yes | 7-operations | local | cli/src/main/ts/domain/services/reviewer.ts
 
 **Depends:** TASK-244
 
