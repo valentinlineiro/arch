@@ -17,13 +17,13 @@ const ADR_ID_PATTERN = /ADR-\d+/g;
 const TASK_ID_PATTERN = /TASK-\d+/g;
 
 export function normalizeCommits(
-  commits: Array<{ hash: string; message: string; date: string; files: string[] }>
+  commits: Array<{ hash: string; message: string; date: string; files: Array<{ path: string; status: string; oldPath?: string }> }>
 ): Array<{ taskIds: string[]; hash: string; date: string; files: string[] }> {
   return commits.map(c => ({
     taskIds: [...new Set((c.message.match(/TASK-\d+/g) ?? []))],
     hash: c.hash,
     date: c.date,
-    files: c.files,
+    files: c.files.map(f => f.path),
   }));
 }
 

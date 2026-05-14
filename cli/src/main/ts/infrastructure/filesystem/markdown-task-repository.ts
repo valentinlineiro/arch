@@ -174,6 +174,7 @@ export class MarkdownTaskRepository implements TaskRepository {
         createdAt: createdAtMatch?.[1]?.trim(),
         closedAt: closedAtMatch?.[1]?.trim(),
         rejectedAt: rejectedAtMatch?.[1]?.trim(),
+        rejectionReason: rejectionReasonMatch?.[1]?.trim(),
         depends: dependsMatch ? dependsMatch[1].split(',').map(s => s.trim()) : undefined,
         acceptanceCriteria,
         hansei,

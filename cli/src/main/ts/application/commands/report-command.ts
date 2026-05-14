@@ -19,8 +19,11 @@ export class ReportCommand {
     const metrics = await engine.calculate(archivedTasks);
 
     if (metrics.integrityLevel === 'INVALID') {
+      const reportContent = this.formatReport(metrics);
+      await this.updateMetricsFile(reportContent);
       console.error('\n  ✖ CRITICAL INTEGRITY BREACH: Report data is INVALID due to protocol violations or ledger corruption.');
-      console.error('  Manual intervention required. Check docs/EVENTS.md and task metadata for discrepancies.\n');
+      console.error('  Manual intervention required. Check docs/EVENTS.md and task metadata for discrepancies.');
+      console.error('  docs/METRICS.md updated with INVALID report for diagnostics.\n');
       process.exit(1);
     }
 

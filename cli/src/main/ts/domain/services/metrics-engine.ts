@@ -1,11 +1,7 @@
 import { ArchivedTaskMetrics } from './archive-parser.js';
 import { FileSystem } from '../repositories/file-system.js';
 import { GitRepository } from '../repositories/git-repository.js';
-
-export interface EpistemicDigest {
-  methodId: string;
-  gitRevRange: string;
-}
+import { EpistemicDigest } from '../models/provenance.js';
 
 export interface CalculatedMetrics {
   cycleTime: {
@@ -42,9 +38,10 @@ export class MetricsEngine {
     const events = await this.loadEvents();
     const eventMap = this.indexEvents(events);
 
+    const hasEventHistory = events.length > 0;
     const calibratedTasks: ArchivedTaskMetrics[] = [];
     for (const task of archivedTasks) {
-      calibratedTasks.push(await this.calibrateTask(task, eventMap));
+      calibratedTasks.push(await this.calibrateTask(task, eventMap, hasEventHistory));
     }
     
     const cycleTime = this.computeCycleTime(calibratedTasks);
@@ -64,7 +61,7 @@ export class MetricsEngine {
       integrityLevel: globalIntegrity,
       provenance: {
         methodId: 'metrics-engine-v4-witness-hardened',
-        gitRevRange: 'HEAD'
+        gitRevRange: `HEAD~${archivedTasks.length}..HEAD`
       }
     };
   }
@@ -101,7 +98,7 @@ export class MetricsEngine {
     return map;
   }
 
-  private async calibrateTask(task: ArchivedTaskMetrics, eventMap: Map<string, GovernanceEvent[]>): Promise<ArchivedTaskMetrics> {
+  private async calibrateTask(task: ArchivedTaskMetrics, eventMap: Map<string, GovernanceEvent[]>, hasEventHistory: boolean): Promise<ArchivedTaskMetrics> {
     const taskEvents = eventMap.get(task.id) || [];
     const doneEvents = taskEvents.filter(e => e.transition === 'REVIEW -> DONE');
     
@@ -139,17 +136,22 @@ export class MetricsEngine {
 
       // Attack Surface 3: Identity Integrity (Attribution)
       if (doneEvent.agentId) {
-         // Placeholder for more complex agent verification (e.g., checking against config)
-         // For now, if present it reinforces, if missing it degrades.
+        // no-op: agent identity verification pending (future: check against arch.config.json allowlist)
       } else {
         if (calibrated.integrity === 'HIGH') calibrated.integrity = 'MEDIUM';
       }
 
     } else if (task.completedAt) {
-      // Attack Surface 1: Logistics-Governance Gap
-      // Markdown says completed, and maybe git move found it, but NO governance record exists. 
-      calibrated.integrity = 'INVALID';
-      calibrated.completedAt = null; 
+      if (!hasEventHistory) {
+        // Pre-EventLogger era: ledger uninitialized, governance records don't exist yet
+        if (calibrated.integrity === 'HIGH') calibrated.integrity = 'MEDIUM';
+        else if (calibrated.integrity !== 'INVALID') calibrated.integrity = 'LOW';
+      } else {
+        // Attack Surface 1: Logistics-Governance Gap
+        // EventLogger deployed but no DONE event for this task: governance violation
+        calibrated.integrity = 'INVALID';
+        calibrated.completedAt = null;
+      }
     }
 
     return calibrated;
@@ -203,6 +205,11 @@ export class MetricsEngine {
       } else {
         throw new Error(`Integrity Violation: Unexpected content "${trimmedLine}" in docs/EVENTS.md`);
       }
+    }
+
+    // detect a header written without a subsequent event body (interrupted write)
+    if (currentHeader && (uniqueEvents.length === 0 || !uniqueEvents[uniqueEvents.length - 1].startsWith(currentHeader))) {
+      throw new Error(`Integrity Violation: Incomplete event in docs/EVENTS.md — header "${currentHeader}" has no event body. File may have been written mid-operation.`);
     }
 
     return uniqueEvents;

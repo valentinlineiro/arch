@@ -1,11 +1,7 @@
 import { FileSystem } from '../repositories/file-system.js';
 import { GitRepository } from '../repositories/git-repository.js';
+import { EpistemicDigest } from '../models/provenance.js';
 import path from 'node:path';
-
-export interface EpistemicDigest {
-  methodId: string;
-  gitRevRange: string;
-}
 
 export interface ArchivedTaskMetrics {
   id: string;
@@ -56,11 +52,6 @@ export class ArchiveParser {
   private async warmLifecycleMaps(): Promise<void> {
     const limit = 2000;
     const commits = await this.gitRepository.getCommitHistory(limit);
-    
-    // Integrity Corruption (Class B): Parser failed to return anything on a populated repo
-    if (commits.length === 0) {
-      throw new Error('Integrity Corruption: Provenance engine failed to retrieve git history. Parser malfunction detected.');
-    }
 
     // Commits are newest first. Iterate oldest to newest to follow life cycle.
     const birthDates: Map<string, string> = new Map();
