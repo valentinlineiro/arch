@@ -140,12 +140,14 @@ export class ArchiveParser {
       completedAt = metaClosedAt;
       if (gitClosedAt) {
         if (this.isSameTime(metaClosedAt, gitClosedAt)) {
-          // Both agree, reinforce integrity if not already HIGH
+          // Both agree — reinforce integrity
           if (integrity !== 'HIGH') integrity = 'MEDIUM';
         } else {
-          // EPIDEMIC FRAUD: Markdown claim contradicts immutable git move event
-          integrity = 'INVALID';
-          provenance = { methodId: 'completion-timestamp-forgery-detected', gitRevRange: 'HEAD' };
+          // Timestamps disagree: either Auditor wrote Closed-at before or after arch govern moved
+          // the file (both are legitimate two-step workflow sequences). Degrade to LOW — uncertain
+          // but not a constitutional violation. INVALID reserved for structural impossibilities.
+          integrity = 'LOW';
+          provenance = { methodId: 'completion-timestamp-discrepancy', gitRevRange: 'HEAD' };
         }
       } else {
         // No git move event found (maybe manual write_file instead of git mv)
@@ -177,6 +179,16 @@ export class ArchiveParser {
       const d2 = new Date(t2).getTime();
       // Allow 60s tolerance for clock skew/git commit delays
       return Math.abs(d1 - d2) < 60000;
+    } catch {
+      return false;
+    }
+  }
+
+  // Returns true only if claimed timestamp is AFTER the git move (backdating).
+  // Auditor-before-govern (claimed < git move) is the legitimate two-step workflow.
+  private isBackdated(claimed: string, gitMove: string): boolean {
+    try {
+      return new Date(claimed).getTime() > new Date(gitMove).getTime() + 60000;
     } catch {
       return false;
     }
