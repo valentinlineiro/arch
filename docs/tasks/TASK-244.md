@@ -1,5 +1,5 @@
 ## TASK-244: Hansei Validator Enforcement (ADR-019)
-**Meta:** P1 | M | READY | Focus:no | 7-operations | local | cli/src/main/ts/domain/services/task-validator.ts, docs/TASK-FORMAT.md, GEMINI.md
+**Meta:** P1 | M | IN_PROGRESS | Focus:yes | 7-operations | local | cli/src/main/ts/domain/services/task-validator.ts, docs/TASK-FORMAT.md, GEMINI.md
 **Depends:** none
 
 ### Acceptance Criteria
