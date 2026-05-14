@@ -28,9 +28,9 @@ Severity measures architectural impact, not emotional gravity.
 
 *   **H0 — Observation:** No actual debt. A note on optimization or preference.
 *   **H1 — Localized Debt:** Contained compromise. Does not alter architecture or induce repetition.
-*   **H2 — Systemic Friction:** A repeating problem revealing poor system ergonomics. Must generate an obligatory `IDEA`.
+*   **H2 — Systemic Friction:** A repeating problem revealing poor system ergonomics. **Requires Evidence:** ≥3 repeated occurrences across tasks or explicit cross-module friction. Must generate an obligatory `IDEA`.
 *   **H3a — Blocking Invalidity:** Violates core ARCH operating principles (integrity, provenance). Immediate rejection.
-*   **H3b — Escalated Risk:** Significant constitutional risk that requires explicit Architect (human) override to proceed.
+*   **H3b — Escalated Risk:** Significant constitutional risk that requires explicit Architect (human) override. **Requires Expiry:** Must specify a cleanup task (TASK-XXX) and an expiration trigger.
 
 ### 2. Controlled Vocabulary (Categories)
 Categories are strictly limited to the following closed list.
@@ -53,15 +53,25 @@ Severity directly maps to automated system consequences enforced by `arch review
 | :--- | :--- |
 | **H0** | None. Tracked for metadata. |
 | **H1** | Tracked in task history. |
-| **H2** | **IDEA Required.** Link in "Forward Action" field. |
+| **H2** | **IDEA Required.** Evidence-backed link in "Forward Action". |
 | **H3a** | **Blocking Reject.** `arch review` fails immediately. |
-| **H3b** | **Human Override Required.** Merge blocked until human adds a `DECISION` record to `.arch/escalations.jsonl`. |
+| **H3b** | **Human Override + Expiry.** Merge blocked until human adds a `DECISION` record to `.arch/escalations.jsonl` with Owner and Expiry TASK. |
+
+### 5. Anti-Goodhart Principle: Fidelity Over Safety
+Hansei must optimize for fidelity, not defensive signaling. Both under-declaration (concealment) and defensive over-declaration (inflation) are governance failures.
+
+*   **Under-declaration (Concealment):** Hidden debt or minimized severity to bypass review. -> **[AuditGap], H3a**.
+*   **Over-declaration (Inflation):** Inflated severity or unnecessary escalation used as a "safety ritual" to appear honest or avoid scrutiny. -> **[ProcessViolation]**. Reviewer may downgrade severity and reject unnecessary IDEA creation.
+*   **The Auditor's Mandate:** The goal is accurate constitutional mapping. The Reviewer has the authority to adjust both Declared and Observed Hansei to match reality.
 
 ## Rationale
 By moving from narrative to a constrained ontology, we convert subjective regret into actionable governance.
 *   **Declared vs. Observed:** Prevents the system from being "gamed" by ensuring that the statement of truth is audited against implementation reality.
 *   **AuditGap as H3a:** Establishes that concealment is fatal to system integrity.
 *   **H3a/H3b Split:** Provides a release valve (human override) for complex architectural trade-offs that are risky but necessary, preventing the system from becoming completely stagnant while maintaining high-friction visibility.
+*   **H2 Thresholds:** Prevents the backlog from becoming a "zombie yard" of single-occurrence issues mislabeled as systemic.
+*   **Override Expiry:** Prevents H3b overrides from becoming permanent exceptions or "nuclear waste tombs" in the codebase.
+*   **Anti-Inflation:** Ensures Hansei remains a high-signal diagnostic tool rather than a bureaucratic game.
 
 ## Consequences
 
