@@ -1,8 +1,11 @@
 # ARCH Governance Execution Model (AGFM)
 
 This document defines the operational execution semantics of the ARCH focus sovereignty
-system. It is not a decision record — see ADR-020 for policy and invariants. It is the
-bridge between ADR-020 and `govern-system.ts`.
+system. It is the canonical contract for the implementation.
+
+See ADR-020 for the policy decisions and invariants that motivated this design.
+Where ADR-020 and this document conflict — particularly on ruling vocabulary — this
+document takes precedence. ADR-020's ruling names in §6 were redesigned here.
 
 **Guiding principle:** The system decides which task holds focus each tick, using current
 state and a simple decision history. Nothing else.

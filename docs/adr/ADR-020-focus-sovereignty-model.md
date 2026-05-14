@@ -1,8 +1,13 @@
 # ADR-020: Focus Sovereignty Model
 
 **Date:** 2026-05-14
-**Status:** PROPOSED
+**Status:** SUPERSEDED (policy intent retained; execution semantics superseded by AGFM)
 **Deciders:** Human Architect, Claude Sonnet 4.6
+
+> **Implementation note:** The ruling vocabulary in §6 was redesigned during implementation.
+> `docs/agents/governance-execution-model.md` (AGFM) is the canonical operational contract.
+> ADR-020 records the policy decisions and invariants that motivated the design.
+> Where ADR-020 and the AGFM conflict on ruling names or execution detail, the AGFM wins.
 
 ---
 
