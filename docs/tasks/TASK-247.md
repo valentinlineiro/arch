@@ -24,23 +24,29 @@ A warning that cannot resolve what it detects is noise. Repeated unresolved warn
 
 This eliminates the mid-tick race unconditionally: govern's tick N is either fully committed (visible) or not committed at all (invisible). There is no partial visibility window.
 
+**`arch review` is a transaction precondition validator, not an observer.** Review failures are blocking system state transitions. `arch govern` must not proceed to adjudication if review is inconsistent — an inconsistent review means the system's structural preconditions are unmet, and any ruling produced against an inconsistent state is unsafe. Review is the gate. Govern is what happens after the gate opens.
+
 **`arch review` emits exactly one of three `ReviewCondition` values — nothing else:**
 
 | `ReviewCondition` | Meaning |
 |---|---|
-| `NONE` | No sovereignty condition detected. Review passes. |
-| `FOCUS_SOVEREIGNTY` | A higher-priority READY unblocked task exists and no govern ruling exists in the committed ledger for the current state. Govern must adjudicate. |
+| `NONE` | No sovereignty condition detected. Review passes. Gate opens. |
+| `FOCUS_SOVEREIGNTY` | An eligible higher-priority READY task exists and no govern ruling covers the current state in the committed ledger. Govern must adjudicate. |
 | `FOCUS_INTEGRITY_VIOLATION` | A task holds `Focus:yes` with no lawful acquisition ruling in the committed ledger. |
 
-`ReviewCondition` is a closed enum. No other values are valid. `FOCUS_SOVEREIGNTY` and `FOCUS_INTEGRITY_VIOLATION` are mutually exclusive — if both conditions exist, `FOCUS_INTEGRITY_VIOLATION` takes precedence. Review never emits both simultaneously.
+`ReviewCondition` is a closed enum. No other values are valid. `FOCUS_SOVEREIGNTY` and `FOCUS_INTEGRITY_VIOLATION` are mutually exclusive — if both conditions exist simultaneously, `FOCUS_INTEGRITY_VIOLATION` takes precedence and `FOCUS_SOVEREIGNTY` is suppressed until integrity is restored. Review never emits both.
 
-`arch review` does not evaluate staleness score, protected window state, or preemption layer eligibility. It does not compute whether drift threshold is exceeded. It only checks structural conditions visible in committed state: (a) does focus have a lawful acquisition ruling, (b) does a higher-priority READY task exist with no covering ruling. Govern receives the `ReviewCondition` and applies the full precedence evaluation.
+**`READY unblocked` is a structural property, not a label.** For a task to be eligible to trigger `FOCUS_SOVEREIGNTY`, it must satisfy all of the following in the committed ledger state: (a) status is `READY`, (b) no `BLOCKED` flag is set, (c) all entries in `Depends:` resolve to tasks with `DONE` status in the committed task index. A task that is `READY` by label but has unresolved dependencies or an internal blocked state is not eligible. Review evaluates eligibility structurally — it does not infer, estimate, or apply staleness. If a task fails eligibility, it is not a candidate and does not trigger `FOCUS_SOVEREIGNTY`.
+
+`arch review` does not evaluate staleness score, protected window state, or preemption layer eligibility. It does not compute whether drift threshold is exceeded. Govern receives the `ReviewCondition` and applies the full precedence evaluation.
+
+**`FOCUS_SOVEREIGNTY` is a trigger, not a claim.** It does not assert that focus must change — it asserts that govern must produce a ruling. Govern is required to emit exactly one closed ruling for every `FOCUS_SOVEREIGNTY` condition, even if the result is `PROTECTED_PRESERVATION`. A `FOCUS_SOVEREIGNTY` condition with no corresponding govern ruling in the committed ledger on the next tick is an orphan condition and causes review to fail again. There are no orphan conditions. Every trigger closes with a ruling.
 
 **FocusSovereignty evaluation precedence (govern only, triggered by `FOCUS_SOVEREIGNTY`):**
 1. Hard preemption eligibility (P0, integrity corruption, constitutional violation) — overrides all layers
 2. Protected execution window — if active, emit `PROTECTED_PRESERVATION`, stop
-3. Staleness score vs threshold — if below threshold, preserve and log reason, stop
-4. Drift condition (candidate outranks focused) — emit `SOFT_PREEMPTION`
+3. Staleness score vs threshold — if below threshold, emit `PROTECTED_PRESERVATION` with reason `score_below_threshold`, stop
+4. Drift condition (eligible candidate outranks focused) — emit `SOFT_PREEMPTION`
 
 #### Reason-for-focus ledger
 
@@ -172,8 +178,10 @@ This boundary is what makes the adjudication lock meaningful. A tick is a transa
 - [ ] **Adjudication lock is enforced.** Once govern has emitted a ruling for tick N, the staleness score used in that ruling cannot be retroactively changed. H3a entries and other escalations appended after tick N apply their deltas only starting at tick N+1. The ledger entry for tick N is immutable after govern's write batch for that tick completes.
 - [ ] **Tick boundary is a transaction.** Govern reads all state (task meta lines, focus-ledger, escalations) as a single atomic snapshot at tick start. All decisions are made against that snapshot. All rulings are written as a single atomic batch at tick end. State arriving between snapshot read and ruling write is invisible to the current tick.
 - [ ] **`arch review` evaluates committed ticks only.** Review reads `lastCommittedGovernTick` from the ledger header before scanning any entries. It evaluates state at `tick <= lastCommittedGovernTick`. Any in-progress govern write batch is invisible to the current review run. This eliminates mid-tick phantom failures.
-- [ ] **`arch review` emits exactly one `ReviewCondition` value — closed enum, no others permitted:** `NONE` (review passes), `FOCUS_SOVEREIGNTY` (higher-priority READY task exists with no covering govern ruling in committed ledger), `FOCUS_INTEGRITY_VIOLATION` (focused task has no lawful acquisition ruling in committed ledger). If both conditions exist simultaneously, `FOCUS_INTEGRITY_VIOLATION` takes precedence; `FOCUS_SOVEREIGNTY` is suppressed. Review never emits both.
-- [ ] **`arch review` does not evaluate staleness score, protected window state, or preemption layer eligibility.** `FOCUS_SOVEREIGNTY` is emitted based solely on: (a) higher-priority READY unblocked task exists, (b) focused task priority is lower, (c) no govern ruling covers the current state in the committed ledger. Govern receives the `ReviewCondition` and applies the full four-step precedence evaluation.
+- [ ] **`arch review` is a transaction precondition validator.** Review failures are blocking. `arch govern` must not adjudicate against an inconsistent review state.
+- [ ] **`arch review` emits exactly one `ReviewCondition` value — closed enum:** `NONE`, `FOCUS_SOVEREIGNTY`, `FOCUS_INTEGRITY_VIOLATION`. If both conditions exist, `FOCUS_INTEGRITY_VIOLATION` takes precedence and suppresses `FOCUS_SOVEREIGNTY`. Review never emits both simultaneously. No other value is valid.
+- [ ] **`READY unblocked` eligibility is structural.** A task is eligible to trigger `FOCUS_SOVEREIGNTY` only if: status is `READY`, no `BLOCKED` flag is set, and all `Depends:` entries resolve to `DONE` in the committed task index. Tasks failing eligibility are not candidates and do not trigger `FOCUS_SOVEREIGNTY`. Review evaluates eligibility structurally — no inference, no staleness.
+- [ ] **`FOCUS_SOVEREIGNTY` is a trigger, not a claim.** Govern must emit exactly one closed ruling for every `FOCUS_SOVEREIGNTY` condition, even when the result is `PROTECTED_PRESERVATION`. A `FOCUS_SOVEREIGNTY` with no corresponding ruling in the committed ledger by the next tick is an orphan condition and causes review to fail again. Orphan conditions are not permitted.
 - [ ] **`lastCommittedGovernTick` durability invariant.** The counter is updated as the final atomic write of each govern batch, after all ruling entries are durable. It is never written mid-batch. Any read of `lastCommittedGovernTick` observes a consistent state: either the batch is fully committed and the counter reflects it, or the batch is not yet committed and the counter does not. No partial visibility exists between the counter and the entries it covers.
 - [ ] **`MIGRATION_SYNTHESIS` legitimacy is immutable; structure is repairable.** No `FocusIntegrityViolation` check may challenge a focus state established by `MIGRATION_SYNTHESIS`. If the entry is later found structurally corrupt, `INTEGRITY_RECOVERY` repairs it without revoking its legitimacy. The original ruling is superseded, not deleted.
 - [ ] H3a escalation in `.arch/escalations.jsonl` adds +3 to staleness score for the focused task on the next govern tick. This is automatically applied — no manual step required.
