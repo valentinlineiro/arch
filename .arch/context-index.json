@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-14T09:06:49.289Z",
+  "builtAt": "2026-05-14T10:24:27.910Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -3465,26 +3465,6 @@
     }
   },
   "adrTaskLinks": {
-    "ADR-017": {
-      "tasks": {
-        "TASK-201": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/tasks/TASK-201.md"
-        }
-      }
-    },
-    "ADR-018": {
-      "tasks": {
-        "TASK-201": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/tasks/TASK-201.md"
-        }
-      }
-    },
     "ADR-013": {
       "tasks": {
         "TASK-231": {
@@ -3669,6 +3649,26 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-200.md"
+        }
+      }
+    },
+    "ADR-017": {
+      "tasks": {
+        "TASK-201": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-201.md"
+        }
+      }
+    },
+    "ADR-018": {
+      "tasks": {
+        "TASK-201": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-201.md"
         }
       }
     },
@@ -4571,6 +4571,113 @@
     }
   },
   "tasks": {
+    "TASK-201": {
+      "commitCount": 18,
+      "lastCommitDate": "2026-05-14T12:24:27+02:00",
+      "touchedFrequency": {
+        "docs/archive/TASK-201.md": 1,
+        "docs/tasks/TASK-201.md": 8,
+        "cli/src/main/ts/domain/services/archive-parser.ts": 5,
+        "docs/METRICS.md": 5,
+        "docs/EVENTS.md": 4,
+        "cli/src/test/ts/report.test.ts": 3,
+        "cli/src/main/ts/application/commands/report-command.ts": 5,
+        "cli/src/main/ts/application/use-cases/build-index.ts": 1,
+        "cli/src/main/ts/domain/models/provenance.ts": 1,
+        "cli/src/main/ts/domain/services/metrics-engine.ts": 5,
+        "cli/src/main/ts/infrastructure/filesystem/markdown-task-repository.ts": 2,
+        "cli/src/main/ts/application/use-cases/mark-task-in-progress.ts": 1,
+        "cli/src/main/ts/domain/models/task.ts": 1,
+        "cli/src/main/ts/domain/repositories/git-repository.ts": 2,
+        "cli/src/main/ts/domain/services/event-logger.ts": 3,
+        "cli/src/main/ts/index.ts": 3,
+        "cli/src/main/ts/infrastructure/cli/git-cli.ts": 2,
+        "docs/INBOX.md": 4,
+        "docs/adr/ADR-018-clean-execution-context.md": 3,
+        "docs/archive/TASK-999.md": 2,
+        ".arch/context-index.json": 1,
+        ".arch/git-history-cache.txt": 1,
+        "docs/archive/TASK-888.md": 1,
+        ".arch/chronicle.jsonl": 1,
+        "cli/src/main/ts/application/commands/task-command.ts": 1,
+        "cli/src/test/ts/capture-command.test.ts": 1,
+        "cli/src/test/ts/capture-intent.test.ts": 1,
+        "cli/src/test/ts/finalize-promotion.test.ts": 1,
+        "cli/src/test/ts/markdown-intent-repository.test.ts": 1,
+        "cli/src/test/ts/scaffold-task.test.ts": 1,
+        "cli/src/test/ts/think-command.test.ts": 1,
+        "cli/src/test/ts/archive/capture-command.test.ts": 1,
+        "cli/src/test/ts/archive/capture-intent.test.ts": 1,
+        "cli/src/test/ts/archive/finalize-promotion.test.ts": 1,
+        "cli/src/test/ts/archive/markdown-intent-repository.test.ts": 1,
+        "cli/src/test/ts/archive/scaffold-task.test.ts": 1,
+        "cli/src/test/ts/archive/think-command.test.ts": 1,
+        ".arch/reflect-breach-log.jsonl": 2,
+        "cli/src/main/ts/application/use-cases/mark-task-done.ts": 1,
+        "cli/src/main/ts/application/use-cases/task-reject.ts": 1,
+        "docs/adr/ADR-017-deterministic-observability.md": 1,
+        "docs/agents/THINK.md": 1,
+        "scripts/arch.sh": 1,
+        "docs/AGENTS.md": 2,
+        "docs/tasks/TASK-202.md": 1,
+        "docs/tasks/TASK-203.md": 1,
+        "docs/tasks/TASK-204.md": 1,
+        "docs/tasks/TASK-205.md": 1,
+        "docs/tasks/TASK-200.md": 1
+      },
+      "recentCommitRefs": [
+        "1063ba8",
+        "a3f5b44",
+        "8f05988",
+        "0eb45d4",
+        "a97ed35",
+        "2bee0be",
+        "24a438d",
+        "afc6fdc",
+        "93a22bd",
+        "5aa4de1",
+        "707adaa",
+        "651cc4a",
+        "ece7065",
+        "e9bf131",
+        "3c15642",
+        "fac8827",
+        "a4c5495",
+        "d79fc50"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-244": {
+      "commitCount": 4,
+      "lastCommitDate": "2026-05-14T11:32:13+02:00",
+      "touchedFrequency": {
+        ".arch/reflect-breach-log.jsonl": 1,
+        "cli/src/main/ts/domain/services/metrics-engine.ts": 1,
+        "cli/src/main/ts/domain/services/task-validator.ts": 2,
+        "cli/src/main/ts/index.ts": 1,
+        "cli/src/test/ts/hansei-validation.test.ts": 2,
+        "cli/src/test/ts/report.test.ts": 1,
+        "docs/INBOX.md": 1,
+        "docs/tasks/TASK-244.md": 4,
+        "cli/src/main/ts/application/commands/lint-command.ts": 1,
+        "cli/src/main/ts/domain/models/task.ts": 1,
+        "cli/src/main/ts/domain/repositories/task-repository.ts": 1,
+        "cli/src/main/ts/infrastructure/filesystem/markdown-task-repository.ts": 1,
+        "docs/AGENTS.md": 1,
+        "docs/METRICS.md": 1,
+        "docs/TASK-FORMAT.md": 1,
+        "docs/refinement/IDEA-Hansei-Governance.md": 1,
+        "docs/tasks/TASK-245.md": 1,
+        "docs/tasks/TASK-246.md": 1
+      },
+      "recentCommitRefs": [
+        "f5bcf7c",
+        "bc9ddce",
+        "d530bb2",
+        "b7bd0d1"
+      ],
+      "commitRefOverflow": false
+    },
     "TASK-243": {
       "commitCount": 6,
       "lastCommitDate": "2026-05-14T11:06:49+02:00",
@@ -4604,101 +4711,6 @@
         "6f2ece3",
         "1d06585",
         "38585ce"
-      ],
-      "commitRefOverflow": false
-    },
-    "TASK-201": {
-      "commitCount": 13,
-      "lastCommitDate": "2026-05-14T10:54:51+02:00",
-      "touchedFrequency": {
-        "cli/src/main/ts/application/commands/report-command.ts": 5,
-        "cli/src/main/ts/application/use-cases/build-index.ts": 1,
-        "cli/src/main/ts/domain/models/provenance.ts": 1,
-        "cli/src/main/ts/domain/services/archive-parser.ts": 4,
-        "cli/src/main/ts/domain/services/metrics-engine.ts": 5,
-        "cli/src/main/ts/infrastructure/filesystem/markdown-task-repository.ts": 2,
-        "cli/src/main/ts/application/use-cases/mark-task-in-progress.ts": 1,
-        "cli/src/main/ts/domain/models/task.ts": 1,
-        "cli/src/main/ts/domain/repositories/git-repository.ts": 2,
-        "cli/src/main/ts/domain/services/event-logger.ts": 3,
-        "cli/src/main/ts/index.ts": 3,
-        "cli/src/main/ts/infrastructure/cli/git-cli.ts": 2,
-        "docs/EVENTS.md": 2,
-        "docs/INBOX.md": 4,
-        "docs/METRICS.md": 4,
-        "docs/adr/ADR-018-clean-execution-context.md": 3,
-        "docs/archive/TASK-999.md": 2,
-        "docs/tasks/TASK-201.md": 6,
-        ".arch/context-index.json": 1,
-        ".arch/git-history-cache.txt": 1,
-        "cli/src/test/ts/report.test.ts": 2,
-        "docs/archive/TASK-888.md": 1,
-        ".arch/chronicle.jsonl": 1,
-        "cli/src/main/ts/application/commands/task-command.ts": 1,
-        "cli/src/test/ts/capture-command.test.ts": 1,
-        "cli/src/test/ts/capture-intent.test.ts": 1,
-        "cli/src/test/ts/finalize-promotion.test.ts": 1,
-        "cli/src/test/ts/markdown-intent-repository.test.ts": 1,
-        "cli/src/test/ts/scaffold-task.test.ts": 1,
-        "cli/src/test/ts/think-command.test.ts": 1,
-        "cli/src/test/ts/archive/capture-command.test.ts": 1,
-        "cli/src/test/ts/archive/capture-intent.test.ts": 1,
-        "cli/src/test/ts/archive/finalize-promotion.test.ts": 1,
-        "cli/src/test/ts/archive/markdown-intent-repository.test.ts": 1,
-        "cli/src/test/ts/archive/scaffold-task.test.ts": 1,
-        "cli/src/test/ts/archive/think-command.test.ts": 1,
-        ".arch/reflect-breach-log.jsonl": 2,
-        "cli/src/main/ts/application/use-cases/mark-task-done.ts": 1,
-        "cli/src/main/ts/application/use-cases/task-reject.ts": 1,
-        "docs/adr/ADR-017-deterministic-observability.md": 1,
-        "docs/agents/THINK.md": 1,
-        "scripts/arch.sh": 1,
-        "docs/AGENTS.md": 2,
-        "docs/tasks/TASK-202.md": 1,
-        "docs/tasks/TASK-203.md": 1,
-        "docs/tasks/TASK-204.md": 1,
-        "docs/tasks/TASK-205.md": 1,
-        "docs/tasks/TASK-200.md": 1
-      },
-      "recentCommitRefs": [
-        "2bee0be",
-        "24a438d",
-        "afc6fdc",
-        "93a22bd",
-        "5aa4de1",
-        "707adaa",
-        "651cc4a",
-        "ece7065",
-        "e9bf131",
-        "3c15642",
-        "fac8827",
-        "a4c5495",
-        "d79fc50"
-      ],
-      "commitRefOverflow": false
-    },
-    "TASK-244": {
-      "commitCount": 3,
-      "lastCommitDate": "2026-05-14T10:45:04+02:00",
-      "touchedFrequency": {
-        "cli/src/main/ts/application/commands/lint-command.ts": 1,
-        "cli/src/main/ts/domain/models/task.ts": 1,
-        "cli/src/main/ts/domain/repositories/task-repository.ts": 1,
-        "cli/src/main/ts/domain/services/task-validator.ts": 1,
-        "cli/src/main/ts/infrastructure/filesystem/markdown-task-repository.ts": 1,
-        "cli/src/test/ts/hansei-validation.test.ts": 1,
-        "docs/AGENTS.md": 1,
-        "docs/METRICS.md": 1,
-        "docs/TASK-FORMAT.md": 1,
-        "docs/tasks/TASK-244.md": 3,
-        "docs/refinement/IDEA-Hansei-Governance.md": 1,
-        "docs/tasks/TASK-245.md": 1,
-        "docs/tasks/TASK-246.md": 1
-      },
-      "recentCommitRefs": [
-        "bc9ddce",
-        "d530bb2",
-        "b7bd0d1"
       ],
       "commitRefOverflow": false
     },
@@ -6423,17 +6435,16 @@
       "commitRefOverflow": false
     },
     "TASK-161": {
-      "commitCount": 2,
+      "commitCount": 1,
       "lastCommitDate": "2026-05-05T10:27:01+02:00",
       "touchedFrequency": {
         "docs/adr/ADR-006-depends-graph-validation-in-drift-checker.md": 1,
         "docs/tasks/TASK-159.md": 1,
-        "docs/tasks/TASK-161.md": 2,
+        "docs/tasks/TASK-161.md": 1,
         "docs/tasks/TASK-181.md": 1
       },
       "recentCommitRefs": [
-        "0eee198",
-        "acf96be"
+        "0eee198"
       ],
       "commitRefOverflow": false
     },
@@ -6572,19 +6583,18 @@
       "commitRefOverflow": false
     },
     "TASK-168": {
-      "commitCount": 8,
+      "commitCount": 7,
       "lastCommitDate": "2026-05-04T15:37:15+02:00",
       "touchedFrequency": {
         "docs/archive/TASK-168.md": 1,
         "cli/src/main/ts/application/commands/move-command.ts": 1,
         "cli/src/main/ts/application/use-cases/move-artifact.ts": 1,
         "cli/src/main/ts/index.ts": 1,
-        "docs/tasks/TASK-168.md": 3,
+        "docs/tasks/TASK-168.md": 2,
         "scripts/arch.sh": 1,
         "test-file-final.txt": 2,
         "test-file-context.txt": 1,
-        "test-file.txt": 1,
-        "docs/tasks/TASK-167.md": 1
+        "test-file.txt": 1
       },
       "recentCommitRefs": [
         "9305a5e",
@@ -6593,8 +6603,7 @@
         "2851a9d",
         "afb3818",
         "b335438",
-        "0724189",
-        "806550d"
+        "0724189"
       ],
       "commitRefOverflow": false
     },
@@ -6660,26 +6669,24 @@
       "commitRefOverflow": false
     },
     "TASK-167": {
-      "commitCount": 6,
+      "commitCount": 5,
       "lastCommitDate": "2026-05-04T14:17:32+02:00",
       "touchedFrequency": {
         "docs/archive/TASK-167.md": 1,
         "cli/src/main/ts/application/commands/lint-command.ts": 1,
         "cli/src/main/ts/index.ts": 1,
-        "docs/tasks/TASK-167.md": 4,
+        "docs/tasks/TASK-167.md": 3,
         "scripts/arch.sh": 1,
         "scripts/git-hooks/pre-commit.template": 1,
         "scripts/install-hooks.sh": 1,
-        "docs/tasks/TASK-999.md": 1,
-        "docs/tasks/TASK-168.md": 1
+        "docs/tasks/TASK-999.md": 1
       },
       "recentCommitRefs": [
         "0bb904a",
         "337031a",
         "b67f1d3",
         "50805a2",
-        "cc7a654",
-        "806550d"
+        "cc7a654"
       ],
       "commitRefOverflow": false
     },
@@ -6796,17 +6803,6 @@
       "recentCommitRefs": [
         "955020a",
         "0697993"
-      ],
-      "commitRefOverflow": false
-    },
-    "TASK-169": {
-      "commitCount": 1,
-      "lastCommitDate": "2026-05-04T09:23:17+02:00",
-      "touchedFrequency": {
-        "docs/archive/TASK-169.md": 1
-      },
-      "recentCommitRefs": [
-        "c4139ec"
       ],
       "commitRefOverflow": false
     }
