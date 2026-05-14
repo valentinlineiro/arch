@@ -4,9 +4,9 @@
 
 A Git-native operational protocol for human+AI collaborative work.
 
-A methodology for running work with AI. Not just code — entire companies.
+ARCH provides the missing layer between AI CLIs (Claude Code, Gemini CLI, Codex) and real work: a structured protocol for capturing, routing, executing, and improving tasks — with humans as decision-makers and AI as the execution layer.
 
-ARCH is an open framework that sits on top of `AGENTS.md`, `MCP`, and any AI CLI. It provides the missing layer: *how* to structure, route, and improve work across AI agents without losing human control, burning through context budgets, or locking into a single provider.
+**What ARCH is not:** a chat UI, a Jira replacement, a second brain, or an autonomous agent system. If a proposed use case doesn't require a git repo and a set of tasks to execute, it's outside ARCH.
 
 ---
 

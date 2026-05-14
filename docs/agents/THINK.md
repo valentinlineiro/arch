@@ -5,9 +5,10 @@
 0. **Print:** `[THINK] Phase 1 — Context & Replenishment` to stdout.
 1. **Note:** `arch reflect` (or `arch govern` as an analysis side-effect) triggered this session. `arch govern` is enforcement-only; this THINK session is the analysis layer.
 2. **Health Evaluation:** Identify P0 tasks that are blocked or not focused. If a task is `IN_PROGRESS` with a lock > 3 days, create a P1 `READY` bug task in `docs/tasks/`.
-3. **INBOX Regeneration:** Overwrite `docs/INBOX.md` with current loop status, active/READY task counts, pending items (`AWAITING_PROMOTION`, `AWAITING_REVIEW`), and summaries of the last 5 completed tasks. **Refinement Queue:** Count all `IDEA-*.md` files in `docs/refinement/` (excluding `archive/` and `TEMPLATE.md`) and list each title; write "No pending ideas." only when the count is zero. Commit with `[THINK]` tag.
+3. **Replenishment check:** Count `READY` tasks in `docs/tasks/`. If count < 3, propose at least one new IDEA in `docs/refinement/` before continuing. This threshold is a hard rule (core.md §5) — not optional.
+4. **INBOX Regeneration:** Overwrite `docs/INBOX.md` with current loop status, active/READY task counts, pending items (`AWAITING_PROMOTION`, `AWAITING_REVIEW`), and summaries of the last 5 completed tasks. **Refinement Queue:** Count all `IDEA-*.md` files in `docs/refinement/` (excluding `archive/` and `TEMPLATE.md`) and list each title; write "No pending ideas." only when the count is zero. Commit with `[THINK]` tag.
    **Escalation write:** For each IDEA surfaced requiring human decision (promote or reject), append one record to `.arch/escalations.jsonl` with `type: "AWAITING_PROMOTION"`, `subject: "<idea-slug>"`, `status: "OPEN"`. Use schema: `{ escalation_id, timestamp, type, subject, reason, status, resolved_at, resolved_by }`. Do not read `.arch/escalations.jsonl` to check for prior entries — always append.
-4. **Evidence Required:** Every recommendation must cite a concrete signal (e.g., 'TASK-003 has stale lock').
+5. **Evidence Required:** Every recommendation must cite a concrete signal (e.g., 'TASK-003 has stale lock').
 
 ## Phase 2: Idea Refinement (Refine)
 0. **Print:** `[THINK] Phase 2 — Idea Refinement` to stdout.
@@ -29,7 +30,7 @@
 3. For each IDEA, apply lifecycle rules:
    - **DRAFT:** Identify gaps, map active constraint axes, and estimate. Output to terminal only. Increment `**Sessions:** N` counter in the IDEA file (add field if missing). If `Sessions >= 3`, emit `[STALE-IDEA] IDEA-slug — N sessions without Decision` to stdout. If `Sessions > 3` and still no Decision, move it to `docs/refinement/archive/` with status `REJECTED: TTL expired` — do not re-evaluate.
    - **REJECTED (human-written):** If the Decision field contains `REJECT:`, move the IDEA to `docs/refinement/archive/` immediately. No re-evaluation. No session increment. Commit with `chore: [THINK] archive [IDEA-slug] — REJECTED by human decision`.
-   - **DECIDED (PROMOTE):** If human Decision is written and IDEA is XS + 6-writing/7-operations, promote autonomously: update status to `PROMOTED -> TASK-XXX`, create task file, and archive IDEA. Then:
+   - **DECIDED (PROMOTE):** If human Decision is written and IDEA meets the L2 autonomy rule (see `docs/guidelines/autonomy.md` — Autonomy Pilot section), promote autonomously: update status to `PROMOTED -> TASK-XXX`, create task file, and archive IDEA. Then:
      1. Append a PROMOTE record to `.arch/reflect-proposals.jsonl` at confidence 1.0 (records that THINK executed a human decision, not that THINK proposed it).
      2. Parse the Decision field for an attribution annotation using this tristate:
         - `[influenced-by: THINK-abc123, THINK-def456]` → `influence_declared: true`, proposals cited

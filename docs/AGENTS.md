@@ -77,7 +77,7 @@ Rules most often broken:
 ## Refinement flow
 - `idea:` prefix in DO → draft in `docs/refinement/` → THINK evaluates → human promotes → BACKLOG
 - Direct task description (no prefix) → BACKLOG directly, no refinement required
-- Promoting a draft: the **decision** requires explicit human instruction (human writes `PROMOTE → TASK-XXX` in the IDEA's Decision field). The **execution** of an already-decided promotion is THINK-autonomous for XS ops/writing IDEAs.
+- Promoting a draft: the **decision** requires explicit human instruction (human writes `PROMOTE → TASK-XXX` in the IDEA's Decision field). The **execution** of an already-decided promotion follows the L2 autonomy rule — see `docs/guidelines/autonomy.md` (Autonomy Pilot section).
 
 ### Decision cost asymmetry
 

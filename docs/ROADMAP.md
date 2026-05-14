@@ -200,7 +200,7 @@ These were previously treated as core milestones. They are now supporting infras
 |---------|--------|--------------|
 | Structural policies (forbidden deps, arch boundaries, naming invariants, mandatory tests) | `NOT STARTED` | [IDEA-roadmap-structural-policies](refinement/IDEA-roadmap-structural-policies.md) |
 | AI-proposed policies — ARCH detects patterns → proposes → human approves | `NOT STARTED` | [IDEA-roadmap-ai-proposed-policies](refinement/IDEA-roadmap-ai-proposed-policies.md). **Constraint:** proposals must be tagged as `[REFLECT-SUGGESTS]` and require human approval before entering any enforcement rule. LLM-originated policies that become enforcement rules without explicit human promotion violate the Deterministic Core Invariant. |
-| `arch govern` / `arch reflect` command split | `NOT STARTED` | [IDEA-govern-reflect-split](refinement/IDEA-govern-reflect-split.md) — prerequisite for Phase C operational status |
+| `arch govern` / `arch reflect` command split | `DONE` | TASK-230 — `arch govern` runs enforcement only (deterministic, no LLM); `arch reflect` runs analysis only (proposals, never enforcement authority). `arch govern` may trigger `arch reflect` as an explicit named side-effect — labeled as analysis, not enforcement. |
 
 ---
 
