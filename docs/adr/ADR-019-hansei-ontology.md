@@ -10,12 +10,12 @@
 The current Hansei (retrospective) implementation in ARCH is narrative prose appended at the end of a task. It relies on the implementing agent's virtue to admit mistakes rather than structural enforcement. This leads to post-hoc rationalization, "roleplay" retrospectives ("I could have been clearer"), and hides technical debt. Hansei is currently a "metrical footnote" rather than a "constitutional gate," making it impossible to systematically route architectural pain into governance or the causal graph. We need to formalize Hansei's ontology—severity levels, controlled vocabulary, and escalation policies—before implementing validation rules.
 
 ## Decision
-We redefine Hansei as a mandatory, structured diagnostic tool evaluated during the `arch review` phase. It is governed by a strict ontology with automated escalation paths. A task cannot move to `DONE` without a structurally valid Hansei. 
+We redefine Hansei as a mandatory, structured diagnostic tool evaluated during the `arch review` phase. It is governed by a strict ontology with automated escalation paths. A task cannot move to `DONE` without a structurally valid and **epistemologically reconciled** Hansei.
 
 Hansei must follow this exact schema:
 ```markdown
 ## Hansei
-**Severity:** [H0|H1|H2|H3]
+**Severity:** [H0|H1|H2|H3a|H3b]
 **Category:** [Controlled Vocabulary]
 **Decision:** [The specific technical or process compromise made.]
 **Constraint:** [The pressure or missing info that forced the compromise.]
@@ -26,33 +26,42 @@ Hansei must follow this exact schema:
 ### 1. Severity Levels (Constitutional Impact)
 Severity measures architectural impact, not emotional gravity.
 
-*   **H0 — Observation:** No actual debt. A note on optimization or preference. Generates no mandatory action.
-*   **H1 — Localized Debt:** Contained compromise (e.g., a messy inline function). Does not alter architecture or induce repetition. Resolved opportunistically.
-*   **H2 — Systemic Friction:** A repeating problem revealing poor system ergonomics (e.g., constantly fighting the type checker in a specific module). Must generate an obligatory `IDEA`.
-*   **H3 — Constitutional Breach:** Violates core ARCH operating principles (e.g., integrity, provenance, fail-closed, auditability). This is invalidity, not just debt. Blocks closure.
+*   **H0 — Observation:** No actual debt. A note on optimization or preference.
+*   **H1 — Localized Debt:** Contained compromise. Does not alter architecture or induce repetition.
+*   **H2 — Systemic Friction:** A repeating problem revealing poor system ergonomics. Must generate an obligatory `IDEA`.
+*   **H3a — Blocking Invalidity:** Violates core ARCH operating principles (integrity, provenance). Immediate rejection.
+*   **H3b — Escalated Risk:** Significant constitutional risk that requires explicit Architect (human) override to proceed.
 
 ### 2. Controlled Vocabulary (Categories)
-Categories are strictly limited to the following closed list. Extension requires a new ADR.
+Categories are strictly limited to the following closed list.
 
 *   **Technical:** `[TypeHack]`, `[LeakyAbstraction]`, `[DeferredTest]`, `[ContextWaste]`, `[SymbolDiscovery]`, `[HiddenDependency]`, `[SpecDrift]`
 *   **Process:** `[ProcessViolation]`, `[PrematureOptimization]`, `[ReviewBlindspot]`, `[MissingDecisionRecord]`
 *   **Constitutional:** `[ProvenanceBreak]`, `[IntegrityCorruption]`, `[FailOpenBehavior]`, `[AuditGap]`
 
-### 3. Automated Escalation Policy
+### 3. Epistemological Reconciliation (The Audit Gate)
+To prevent "strategic under-declaration," `arch review` distinguishes between **Declared Hansei** (agent statement) and **Observed Hansei** (Reviewer audit).
+
+*   **Audit Principle:** Hiding debt is a higher violation than the debt itself.
+*   **Meta-Violation [AuditGap]:** If the Reviewer detects hidden debt, understated severity, or omitted constitutional compromise, the task is automatically reclassified as **Severity: H3a** with category `[AuditGap]`.
+*   **Reconciliation Flow:** `Declared Hansei` -> `Reviewer Audit` -> `Observed Hansei`. If `Observed > Declared`, the task is rejected for epistemological corruption.
+
+### 4. Automated Escalation Policy
 Severity directly maps to automated system consequences enforced by `arch review`.
 
 | Severity | Mandatory Consequence |
 | :--- | :--- |
-| **H0** | None. Tracked for long-term metadata. |
-| **H1** | Tracked in task history. (Optionally flagged for next relevant cleanup). |
-| **H2** | **IDEA Required.** An IDEA task must be linked in the "Forward Action" field. |
-| **H3** | **REVIEW Reject + Escalation.** `arch review` fails immediately. An `ANDON_HALT` or `.arch/escalations.jsonl` entry is generated. |
+| **H0** | None. Tracked for metadata. |
+| **H1** | Tracked in task history. |
+| **H2** | **IDEA Required.** Link in "Forward Action" field. |
+| **H3a** | **Blocking Reject.** `arch review` fails immediately. |
+| **H3b** | **Human Override Required.** Merge blocked until human adds a `DECISION` record to `.arch/escalations.jsonl`. |
 
 ## Rationale
-By moving from narrative to a constrained ontology, we convert subjective regret into actionable governance. 
-*   **Why not H1/H2 for constitutional breaches?** Breaking invariants (like provenance) is fatal in a highly autonomous system; it requires immediate halting, whereas localized technical debt is an acceptable sprint compromise.
-*   **Why a closed vocabulary?** Free-text categories (`[WeirdBug]`) prevent aggregation. A closed list allows `arch report` to group frictions and identify failing sub-systems algorithmically.
-*   **Why strict escalation mapping?** Without automated consequences, Hansei remains theater. Tying H3 to `REVIEW Reject` enforces the "epistemological audit"—hiding a hack becomes an immediate system failure.
+By moving from narrative to a constrained ontology, we convert subjective regret into actionable governance.
+*   **Declared vs. Observed:** Prevents the system from being "gamed" by ensuring that the statement of truth is audited against implementation reality.
+*   **AuditGap as H3a:** Establishes that concealment is fatal to system integrity.
+*   **H3a/H3b Split:** Provides a release valve (human override) for complex architectural trade-offs that are risky but necessary, preventing the system from becoming completely stagnant while maintaining high-friction visibility.
 
 ## Consequences
 
