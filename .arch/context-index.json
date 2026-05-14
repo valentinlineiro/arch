@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-14T12:19:23.412Z",
+  "builtAt": "2026-05-14T12:20:27.476Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -6803,17 +6803,6 @@
       },
       "recentCommitRefs": [
         "7caf4bb"
-      ],
-      "commitRefOverflow": false
-    },
-    "TASK-164": {
-      "commitCount": 1,
-      "lastCommitDate": "2026-05-04T09:36:45+02:00",
-      "touchedFrequency": {
-        "docs/INBOX.md": 1
-      },
-      "recentCommitRefs": [
-        "955020a"
       ],
       "commitRefOverflow": false
     }
