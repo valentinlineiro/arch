@@ -1,5 +1,6 @@
 import { ArchivedTaskMetrics } from './archive-parser.js';
 import { FileSystem } from '../repositories/file-system.js';
+import { GitRepository } from '../repositories/git-repository.js';
 
 export interface EpistemicDigest {
   methodId: string;
@@ -24,32 +25,134 @@ export interface CalculatedMetrics {
   provenance: EpistemicDigest;
 }
 
+export interface GovernanceEvent {
+  timestamp: string;
+  transition: string;
+  commitHash?: string;
+  agentId?: string;
+}
+
 export class MetricsEngine {
-  constructor(private fileSystem: FileSystem) {}
+  constructor(
+    private fileSystem: FileSystem,
+    private gitRepository: GitRepository
+  ) {}
 
   async calculate(archivedTasks: ArchivedTaskMetrics[]): Promise<CalculatedMetrics> {
-    const cycleTime = this.computeCycleTime(archivedTasks);
-    const costPerTask = this.computeCostPerTask(archivedTasks);
-    
-    // Severity 2: Truth Anchors - fail-closed on rewrite/malformed events
     const events = await this.loadEvents();
+    const eventMap = this.indexEvents(events);
+
+    const calibratedTasks: ArchivedTaskMetrics[] = [];
+    for (const task of archivedTasks) {
+      calibratedTasks.push(await this.calibrateTask(task, eventMap));
+    }
+    
+    const cycleTime = this.computeCycleTime(calibratedTasks);
+    const costPerTask = this.computeCostPerTask(calibratedTasks);
+    
     const reviewFailRate = this.computeReviewFailRate(events);
 
-    const entropy = this.computeIntegrityEntropy(archivedTasks);
-    const globalIntegrity = this.computeGlobalIntegrity(archivedTasks, reviewFailRate);
+    const entropy = this.computeIntegrityEntropy(calibratedTasks);
+    const globalIntegrity = this.computeGlobalIntegrity(calibratedTasks, reviewFailRate);
 
     return {
       cycleTime,
       costPerTask,
       reviewFailRate,
-      totalCompleted: archivedTasks.length,
+      totalCompleted: calibratedTasks.length,
       integrityEntropy: entropy,
       integrityLevel: globalIntegrity,
       provenance: {
-        methodId: 'metrics-engine-v1',
-        gitRevRange: 'HEAD' // In a real impl, this might be a specific range
+        methodId: 'metrics-engine-v4-witness-hardened',
+        gitRevRange: 'HEAD'
       }
     };
+  }
+
+  private isSameTime(t1: string, t2: string, toleranceMs: number): boolean {
+    try {
+      const d1 = new Date(t1).getTime();
+      const d2 = new Date(t2).getTime();
+      return Math.abs(d1 - d2) < toleranceMs;
+    } catch {
+      return false;
+    }
+  }
+
+  private indexEvents(events: string[]): Map<string, GovernanceEvent[]> {
+    const map = new Map();
+    for (const event of events) {
+      const [header, body] = event.split('\n');
+      const tsMatch = header.match(/^## (\d{4}-\d{2}-\d{2}T[^\s]+)/);
+      // TASK-001 | REVIEW -> DONE | commit:abc | agent:human
+      const bodyMatch = body.match(/^(TASK-\d{3}) \| ([^|]+)(?: \| commit:([^|]+))?(?: \| agent:([^|]+))?$/);
+      
+      if (tsMatch && bodyMatch) {
+        const taskId = bodyMatch[1];
+        const transition = bodyMatch[2].trim();
+        const commitHash = bodyMatch[3]?.trim();
+        const agentId = bodyMatch[4]?.trim();
+        const timestamp = tsMatch[1];
+        
+        if (!map.has(taskId)) map.set(taskId, []);
+        map.get(taskId).push({ timestamp, transition, commitHash, agentId });
+      }
+    }
+    return map;
+  }
+
+  private async calibrateTask(task: ArchivedTaskMetrics, eventMap: Map<string, GovernanceEvent[]>): Promise<ArchivedTaskMetrics> {
+    const taskEvents = eventMap.get(task.id) || [];
+    const doneEvents = taskEvents.filter(e => e.transition === 'REVIEW -> DONE');
+    
+    let calibrated = { ...task };
+
+    if (doneEvents.length > 1) {
+      // Attack Surface 3: Ambiguous Attribution (Multiple DONE events)
+      calibrated.integrity = 'INVALID';
+      return calibrated;
+    }
+
+    const doneEvent = doneEvents[0];
+
+    if (doneEvent) {
+      const anchorTs = doneEvent.timestamp;
+
+      // Severity 2: Completion Timestamp Forgery Detection
+      if (task.completedAt && !this.isSameTime(task.completedAt, anchorTs, 2000)) {
+        calibrated.integrity = 'INVALID';
+      }
+      calibrated.completedAt = anchorTs;
+
+      // Attack Surface 2: Git Witness Illusion (Commit Verification)
+      if (doneEvent.commitHash) {
+        const commitExists = await this.gitRepository.isValidCommitHash(doneEvent.commitHash);
+        if (!commitExists) {
+          // Witness is missing or history was rewritten
+          calibrated.integrity = 'INVALID';
+        }
+      } else {
+        // Missing commit hash for a post-hardening event
+        // (We could check a date threshold here, but for now degrade)
+        if (calibrated.integrity !== 'INVALID') calibrated.integrity = 'MEDIUM';
+      }
+
+      // Attack Surface 3: Identity Integrity (Attribution)
+      if (doneEvent.agentId) {
+         // Placeholder for more complex agent verification (e.g., checking against config)
+         // For now, if present it reinforces, if missing it degrades.
+      } else {
+        if (calibrated.integrity === 'HIGH') calibrated.integrity = 'MEDIUM';
+      }
+
+    } else if (task.completedAt) {
+      // Attack Surface 1: Logistics-Governance Gap
+      // Markdown says completed, and maybe git move found it, but NO governance record exists. 
+      calibrated.integrity = 'INVALID';
+      calibrated.completedAt = null; 
+    }
+
+    return calibrated;
   }
 
   private async loadEvents(): Promise<string[]> {
@@ -59,6 +162,10 @@ export class MetricsEngine {
     }
 
     const content = await this.fileSystem.readFile(eventsPath);
+
+    // Severity 2: Truth Anchors - Detect non-append-only rewrites via git
+    await this.verifyAppendOnly(eventsPath, content);
+
     const lines = content.split('\n');
     
     const uniqueEvents: string[] = [];
@@ -86,19 +193,40 @@ export class MetricsEngine {
 
         lastTimestamp = timestamp;
         currentHeader = trimmedLine;
-      } else if (trimmedLine.includes(' | ') && trimmedLine.includes(' -> ')) {
-        const match = trimmedLine.match(/^TASK-\d{3} \| [A-Z_]+ -> [A-Z_]+$/);
+      } else if (trimmedLine.includes(' | ')) {
+        // Broadened regex to support optional commit/agent fields
+        const match = trimmedLine.match(/^TASK-\d{3} \| [A-Z_]+ -> [A-Z_]+( \| commit:[a-zA-Z0-9-]+)?( \| agent:[^|]+)?$/);
         if (!match) {
           throw new Error(`Integrity Violation: Malformed event entry "${trimmedLine}" in docs/EVENTS.md`);
         }
         uniqueEvents.push(`${currentHeader}\n${trimmedLine}`);
       } else {
-        // Unexpected line content (Garbage)
         throw new Error(`Integrity Violation: Unexpected content "${trimmedLine}" in docs/EVENTS.md`);
       }
     }
 
     return uniqueEvents;
+  }
+
+  private async verifyAppendOnly(path: string, currentContent: string): Promise<void> {
+    try {
+      const diff = await this.gitRepository.getDiff(['HEAD', '--', path]);
+      if (!diff) return;
+
+      if (diff.includes('\n-') && !diff.includes('\n---')) {
+        const lines = diff.split('\n');
+        const hasDeletions = lines.some(line => line.startsWith('-') && !line.startsWith('---'));
+        if (hasDeletions) {
+           throw new Error(`Integrity Violation: Non-append-only rewrite detected in ${path}. Deletions found in git diff.`);
+        }
+      }
+    } catch (e) {
+      if (e instanceof Error && e.message.includes('Integrity Violation')) throw e;
+      // git errors (git not found, etc.) should not silently pass verification
+      if (e instanceof Error && !e.message.includes('not a git repository') && !e.message.includes('No such file')) {
+        throw new Error(`Integrity Violation: Cannot verify append-only constraint for ${path}: ${e.message}`);
+      }
+    }
   }
 
   private computeReviewFailRate(events: string[]): number | 'pending' {
@@ -169,7 +297,7 @@ export class MetricsEngine {
 
   private computeGlobalIntegrity(tasks: ArchivedTaskMetrics[], reviewFailRate: number | 'pending'): CalculatedMetrics['integrityLevel'] {
     if (tasks.some(t => t.integrity === 'INVALID')) return 'INVALID';
-    if (reviewFailRate === 'pending') return 'LOW';
+    if (reviewFailRate === 'pending') return 'MEDIUM';
 
     const entropy = this.computeIntegrityEntropy(tasks);
     if (entropy > 0.5) return 'LOW';

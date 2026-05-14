@@ -13,10 +13,16 @@ export class ReportCommand {
 
   async execute(): Promise<void> {
     const parser = new ArchiveParser(this.fileSystem, this.gitRepository);
-    const engine = new MetricsEngine(this.fileSystem);
+    const engine = new MetricsEngine(this.fileSystem, this.gitRepository);
 
     const archivedTasks = await parser.parseArchivedTasks();
     const metrics = await engine.calculate(archivedTasks);
+
+    if (metrics.integrityLevel === 'INVALID') {
+      console.error('\n  ✖ CRITICAL INTEGRITY BREACH: Report data is INVALID due to protocol violations or ledger corruption.');
+      console.error('  Manual intervention required. Check docs/EVENTS.md and task metadata for discrepancies.\n');
+      process.exit(1);
+    }
 
     const reportContent = this.formatReport(metrics);
     await this.updateMetricsFile(reportContent);
