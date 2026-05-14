@@ -1,82 +1,42 @@
 # INBOX
-<!-- Weekly dashboard for human-agent coordination -->
-<!-- Generated on: 2026-05-13 -->
 
-## Status Summary
-- **Active Tasks:** 0
-- **In Review:** 0
-- **Backlog (Ready):** 32
+## Loop Status
+- **Active Tasks:** 1 (TASK-247)
+- **Ready Tasks:** 20
+- **Pending Promotion:** 26
+- **Pending Review:** 0
 
-## Urgent / Actions Required
-_No urgent actions._
+## Refinement Queue (26)
+- IDEA: Constitutional Hansei - From Narrative to Governance (IDEA-Hansei-Governance.md)
+- IDEA: Ontological Tension Detection — a new artifact class and detection capability (IDEA-architectural-tension-capture.md)
+- IDEA: automate-turn-count-recording (IDEA-automate-turn-count-recording.md)
+- idea: Agent context control (IDEA-context-control.md)
+- IDEA: cross-layer-coverage-identity (IDEA-cross-layer-coverage-identity.md)
+- IDEA: dynamic-model-provisioning (IDEA-dynamic-model-provisioning.md)
+- IDEA: excision-structural-consistency-check (IDEA-excision-legitimacy-check.md)
+- IDEA: Feature branch workflow — fully automatic branch-per-task execution (IDEA-feature-branch-workflow.md)
+- IDEA: fix-phase-naming-drift (IDEA-fix-phase-naming-drift.md)
+- IDEA: Grandfather legacy tasks in arch review (IDEA-grandfather-legacy-tasks.md)
+- IDEA: inbox-approval-gate-reads (IDEA-inbox-approval-gate-reads.md)
+- IDEA: Loop mode load balancing (IDEA-loop-load-balancing.md)
+- IDEA: OpenClaw integration — mobile bridge for ARCH (IDEA-openclaw-integration.md)
+- IDEA: optimize-decomposition-for-local-llms (IDEA-optimize-decomposition-for-local-llms.md)
+- idea: Parallel task execution with merge conflict handling (IDEA-parallel-tasks.md)
+- IDEA: RAG context retrieval — semantic search over ARCH corpus (IDEA-rag-context-retrieval.md)
+- IDEA: Adaptive planning — task states that model energy, context, and cognitive cost (IDEA-roadmap-adaptive-planning.md)
+- IDEA: AI-proposed policies — ARCH detects patterns and proposes guidelines for human approval (IDEA-roadmap-ai-proposed-policies.md)
+- IDEA: Automatic entity linking — tasks, commits, ADRs, and guidelines auto-connect (IDEA-roadmap-automatic-linking.md)
+- IDEA: Domain packs — protocol extensions for software, startup, household, and personal use (IDEA-roadmap-domain-packs.md)
+- IDEA: arch ask — memory queries over the full ARCH operational corpus (IDEA-roadmap-memory-queries.md)
+- IDEA: Multiagent runtime — Planner, Historian, Reviewer, Conductor, Optimizer agents (IDEA-roadmap-multiagent-runtime.md)
+- IDEA: Operational load tracking — model cognitive load, WIP, fatigue, and rework (IDEA-roadmap-operational-load.md)
+- IDEA: Structural policies — machine-enforced architectural boundaries in arch review (IDEA-roadmap-structural-policies.md)
+- IDEA: Sentinel call log infrastructure (IDEA-sentinel-log-infrastructure.md)
+- IDEA: task-template-linter (IDEA-task-template-linter.md)
 
-## Refinement Queue
-22 pending IDEAs:
-architectural-tension-capture, context-control, cross-layer-coverage-identity, dynamic-model-provisioning, excision-legitimacy-check, feature-branch-workflow, grandfather-legacy-tasks, loop-load-balancing, openclaw-integration, optimize-decomposition-for-local-llms, parallel-tasks, rag-context-retrieval, roadmap-adaptive-planning, roadmap-ai-proposed-policies, roadmap-automatic-linking, roadmap-domain-packs, roadmap-memory-queries, roadmap-multiagent-runtime, roadmap-operational-load, roadmap-structural-policies, sentinel-log-infrastructure, task-template-linter
-
-## Current Sprint
-_No active sprint._
-
-## Recent Activity
-- **Last Commit:** docs: [THINK] Phase 1 — Context & Replenishment
-- **Completed (last 5):** TASK-230 (Separate arch govern from arch reflect), TASK-190 (Implement L3 sprint autonomy), TASK-229 (Fix generate-inbox IDEA status filter), TASK-186 (Consolidate CLI - absorb validate and lint into review), TASK-185 (Consolidate CLI - merge read-only subcommands into task)
-
-## [2026-05-13 14:00] THINK_REPLENISHMENT
-**Context:** THINK mode executed. 0 active tasks detected. Backlog has 32 READY tasks.
-**Refinement:** 3 IDEAs evaluated.
-- `architectural-tension-capture`: Admissible (L).
-- `context-control`: Admissible (S).
-- `cross-layer-coverage-identity`: DEFERRED (blocked by `arch ask` v1).
-**Semantic Drift:**
-- `ADR-013` mentions Phase 3.5, but `THINK.md` says 2.5. Corrected in Phase 2.5 analysis.
-- `Mura`: 0 signals recorded. `KAIZEN-LOG.md` proposal for automated turn-count recording is high priority.
-
-## [2026-05-13 14:15] AWAITING_PROMOTION | IDEA-architectural-tension-capture
-**Decision required:** PROMOTE → TASK-XXX or REJECT. Passes all 5 constraint axes. Essential for scaling ontological stability.
-
-## [2026-05-13 14:15] AWAITING_PROMOTION | IDEA-excision-legitimacy-check
-**Decision required:** PROMOTE → TASK-XXX or REJECT. Addresses additive legitimacy bias in DriftChecker. High value for keeping ontology lean.
-
-## [2026-05-13 14:30] REVIEW_REQUEST | TASK-241
-TASK-241 "Introduce .arch/escalations.jsonl structured escalation store" is ready for review.
-All 7 ACs met. EscalationStore written to `.arch/escalations.jsonl` (append-only, OPEN/RESOLVED semantics). INBOX.md remains human-only. `arch inbox` now surfaces escalations from the structured store.
-
-## [2026-05-13 15:00] REVIEW_REQUEST | TASK-209
-TASK-209 "Fix commit message checker to recognize chore: [THINK] as governance tag" is ready for review.
-All 5 ACs met. The `isGovernance` regex in `reviewer.ts:86` already handled `chore: [THINK]` correctly; this task added explicit test coverage for `chore: [THINK] Phase 1 — foo`, `chore: [KAIZEN]`, `chore: [SELF-PROMOTION]`, and a regression guard for commits without TASK-ID.
-Changed files: `cli/src/test/ts/reviewer.test.ts`
-
-## [2026-05-13 15:15] REVIEW_REQUEST | TASK-232
-TASK-232 "Grandfather legacy tasks in arch review - silence Hansei warnings" is ready for review.
-All 3 ACs met. Root cause: `checkHanseiPresent` read `config.hanseiSinceTaskId` but the value lives at `config.governance.hanseiSinceTaskId`. Fixed with a one-line fallback. `arch review` now shows only TASK-229 under HanseiPresent. Added 1 new test confirming the governance-nested path.
-Changed files: `cli/src/main/ts/application/use-cases/drift-checker.ts`, `cli/src/test/ts/drift-checker.test.ts`
-
-## [2026-05-13 15:30] REVIEW_REQUEST | TASK-238
-TASK-238 "Disambiguate Level terminology - autonomy vs escalation scales" is ready for review.
-All 3 ACs met. Decision: Autonomy keeps L1–L4 (lower churn, clearly qualified in context); Escalation Maturity renamed to E1–E7. Changed: ADR-010 title ("E3 Detectable"), body ("Autonomy L3+"), TASK-203 title ("E4 Fail-Closed"), TASK-204 title ("E5 Verifiable"), plus a disambiguation blockquote added to autonomy.md. grep confirms no remaining ambiguous "Level N" in guidelines/, adr/, agents/.
-Changed files: docs/adr/ADR-010-escalation-maturity.md, docs/guidelines/autonomy.md, docs/tasks/TASK-203.md, docs/tasks/TASK-204.md
-
-## [2026-05-13 15:45] REVIEW_REQUEST | TASK-239
-TASK-239 "Stream arch loop output to terminal" is ready for review.
-All 3 ACs met. Replaced `spawnSync` (stdio: pipe) with a private `runStreaming` helper using async `spawn` — tees stdout to `process.stdout` in real-time while buffering for metadata parsing. Added `quiet?: boolean` to `LoopOptions` to suppress streaming for non-interactive use.
-Changed files: `cli/src/main/ts/application/use-cases/loop-engine.ts`
-
-## [2026-05-13 16:00] REVIEW_REQUEST | TASK-240
-TASK-240 "Verbose fallback logging for provider switching" is ready for review.
-All 4 ACs met. Changes: (1) loop-command.ts wires --verbose/--quiet to LoopOptions; (2) loop-engine.ts logs full candidate list on --verbose and emits yellow ANSI "WARN — {name} failed: {reason} → next: {nextName}" on fallback; (3) exec-command.ts same improvements plus stderr block demarcation before WARN line; (4) fixed extraFlags to filter out --prefixed flags so --verbose isn't forwarded to the provider CLI.
-Changed files: loop-engine.ts, exec-command.ts, loop-command.ts
-
-## [2026-05-13 16:10] REVIEW_REQUEST | TASK-233
-TASK-233 "Add task references for ADR-008 and ADR-013 to clear UnappliedADRs drift" is ready for review.
-All 3 ACs met. Added "Implements: ADR-008, ADR-013" to the task context section. UnappliedADRs now passes cleanly.
-Changed files: docs/tasks/TASK-233.md
-
-REVIEW_REQUEST | TASK-201: Implement arch report - auto-populate METRICS.md from archived task data
-REJECTED | TASK-201: REVIEW invalidated due to unverifiable completion claims and broken build state.
-REVIEW_REQUEST | TASK-201: Implement arch report - auto-populate METRICS.md from archived task data
-REVIEW_REQUEST: TASK-201 Hardened Provenance Engine
-
-## [2026-05-14] REVIEW_REQUEST | TASK-243
-REVIEW_REQUEST | TASK-243: Consolidate test mocks into shared module to prevent interface drift
-Changed files: cli/src/test/ts/mocks/index.ts, cli/src/test/ts/*.test.ts (15 migrated), cli/src/test/ts/git-cli-integration.test.ts
-REVIEW_REQUEST: [TASK-244] Hansei Validator Enforcement (ADR-019)
+## Recently Completed
+- TASK-244: Hansei Validator Enforcement (ADR-019)
+- TASK-201: Implement arch report - auto-populate METRICS.md from archived task data
+- TASK-243: Consolidate test mocks into shared module to prevent interface drift
+- TASK-189: Add executable AC predicates to task format and DO close step
+- TASK-888: No Size
