@@ -40,3 +40,20 @@
 - TASK-243: Consolidate test mocks into shared module to prevent interface drift
 - TASK-189: Add executable AC predicates to task format and DO close step
 - TASK-888: No Size
+
+## [2026-05-14 15:35] REVIEW_REQUEST | TASK-247
+TASK-247 Focus Sovereignty Model is ready for audit.
+
+**What was built:**
+- `focus-ledger.ts`: FocusRuling type + parseLedger/committedRulings/serializeLedger
+- `govern-system.ts`: 6-rule AGFM tick cycle replacing naive focus assignment
+- `review-system.ts`: FOCUS_INTEGRITY_VIOLATION + FOCUS_SOVEREIGNTY detection
+- 8 unit tests covering all AC scenarios
+
+**Verified live:**
+- First govern tick: INTEGRITY_FIX emitted for TASK-207 and TASK-247 (migration case), FOCUS_ACQUIRED for TASK-245
+- `arch review` passes after govern tick
+- `.arch/focus-ledger.jsonl` contains ruling for every tick
+
+**Known divergence (see Hansei):**
+ADR-020 ruling names differ from AGFM ruling names. AGFM is authoritative for implementation.

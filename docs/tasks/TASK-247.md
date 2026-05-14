@@ -1,5 +1,5 @@
 ## TASK-247: Focus Sovereignty Model - Constitutional Preemption Engine
-**Meta:** P1 | M | IN_PROGRESS | Focus:yes | 7-operations | local | cli/src/main/ts/application/use-cases/govern-system.ts, docs/agents/
+**Meta:** P1 | M | REVIEW | Focus:no | 7-operations | local | cli/src/main/ts/application/use-cases/govern-system.ts, docs/agents/
 **Depends:** none
 
 ### Context
@@ -165,39 +165,39 @@ This boundary is what makes the adjudication lock meaningful. A tick is a transa
 
 - [x] ADR-020 written and committed before any implementation code is touched.
 - [x] AGFM (`docs/agents/governance-execution-model.md`) written and committed; defines the operational execution model that `govern-system.ts` must implement.
-- [ ] `govern-system.ts` implements the AGFM tick cycle (§III): read state → compute eligible candidates → identify focused task → decide → write ruling → update World State → increment `lastCommittedTick`.
-- [ ] Eligibility is evaluated per AGFM §II: `status === 'READY'`, not blocked, all depends resolved. No other criteria.
-- [ ] Decision logic follows AGFM §IV rules in order: integrity fix → no focus → focus lost eligibility → inercia window → priority preemption → preserve.
-- [ ] `minTicksBeforeSwitch` (default: 2) is read from `arch.config.json`. Governs the inercia window in Rule 4.
-- [ ] Ledger entries use the schema in AGFM §I: `tick`, `taskId`, `action` (`FOCUS_ACQUIRED` | `FOCUS_PRESERVED` | `FOCUS_RELEASED` | `INTEGRITY_FIX`), `previousTask?`, `timestamp`.
-- [ ] `arch review` detects `FOCUS_INTEGRITY_VIOLATION` (focused task with no `FOCUS_ACQUIRED` ruling in committed ledger) and `FOCUS_SOVEREIGNTY` (eligible higher-priority candidate exists AND inercia window has expired). Emits exactly one of `NONE`, `FOCUS_SOVEREIGNTY`, `FOCUS_INTEGRITY_VIOLATION`. Writes nothing.
-- [ ] `arch review` reads only committed ledger entries (at `tick <= lastCommittedTick`). Ruling entries at tick > lastCommittedTick are ignored.
-- [ ] Recovery: on govern invocation, discard any ledger entries at tick > `lastCommittedTick`, then re-run tick cycle from current state.
-- [ ] Migration: on first govern tick after deployment, any task with `Focus:yes` in World State and no `FOCUS_ACQUIRED` ruling in ledger receives an `INTEGRITY_FIX` ruling (not MIGRATION_SYNTHESIS — it is a correction, not a synthesis).
-- [ ] `arch govern` output states the ruling emitted each tick: task ID, action, reason.
-- [ ] Unit tests cover: no-focus assignment, priority preemption after inercia window, inercia window preservation, integrity fix, no-candidate case, eligibility filter (blocked, unresolved deps).
+- [x] `govern-system.ts` implements the AGFM tick cycle (§III): read state → compute eligible candidates → identify focused task → decide → write ruling → update World State → increment `lastCommittedTick`.
+- [x] Eligibility is evaluated per AGFM §II: `status === 'READY'`, not blocked, all depends resolved. No other criteria.
+- [x] Decision logic follows AGFM §IV rules in order: integrity fix → no focus → focus lost eligibility → inercia window → priority preemption → preserve.
+- [x] `minTicksBeforeSwitch` (default: 2) is read from `arch.config.json`. Governs the inercia window in Rule 4.
+- [x] Ledger entries use the schema in AGFM §I: `tick`, `taskId`, `action` (`FOCUS_ACQUIRED` | `FOCUS_PRESERVED` | `FOCUS_RELEASED` | `INTEGRITY_FIX`), `previousTask?`, `timestamp`.
+- [x] `arch review` detects `FOCUS_INTEGRITY_VIOLATION` (focused task with no `FOCUS_ACQUIRED` ruling in committed ledger) and `FOCUS_SOVEREIGNTY` (eligible higher-priority candidate exists AND inercia window has expired). Emits exactly one of `NONE`, `FOCUS_SOVEREIGNTY`, `FOCUS_INTEGRITY_VIOLATION`. Writes nothing.
+- [x] `arch review` reads only committed ledger entries (at `tick <= lastCommittedTick`). Ruling entries at tick > lastCommittedTick are ignored.
+- [x] Recovery: on govern invocation, discard any ledger entries at tick > `lastCommittedTick`, then re-run tick cycle from current state.
+- [x] Migration: on first govern tick after deployment, any task with `Focus:yes` in World State and no `FOCUS_ACQUIRED` ruling in ledger receives an `INTEGRITY_FIX` ruling (not MIGRATION_SYNTHESIS — it is a correction, not a synthesis).
+- [x] `arch govern` output states the ruling emitted each tick: task ID, action, reason.
+- [x] Unit tests cover: no-focus assignment, priority preemption after inercia window, inercia window preservation, integrity fix, no-candidate case, eligibility filter (blocked, unresolved deps).
 
 ### Definition of Done
 
-- [ ] `arch govern` assigns focus to TASK-245 (P1) when TASK-207 (P2) has been focused for ≥ `minTicksBeforeSwitch` ticks.
-- [ ] `arch govern` preserves TASK-207 focus when fewer than `minTicksBeforeSwitch` ticks have elapsed, even with TASK-245 in the eligible set.
-- [ ] `arch govern` immediately reassigns when the focused task loses eligibility (becomes BLOCKED or moves to IN_PROGRESS by another path).
-- [ ] `arch review` emits `FOCUS_SOVEREIGNTY` on current state (TASK-245 and TASK-247 unblocked while TASK-207 focused, inercia window expired, no covering ruling).
-- [ ] `.arch/focus-ledger.jsonl` exists and contains a ruling entry for every govern tick run.
-- [ ] All unit tests pass. `arch review` passes after a clean govern tick.
+- [x] `arch govern` assigns focus to TASK-245 (P1) when TASK-207 (P2) has been focused for ≥ `minTicksBeforeSwitch` ticks.
+- [x] `arch govern` preserves TASK-207 focus when fewer than `minTicksBeforeSwitch` ticks have elapsed, even with TASK-245 in the eligible set.
+- [x] `arch govern` immediately reassigns when the focused task loses eligibility (becomes BLOCKED or moves to IN_PROGRESS by another path).
+- [x] `arch review` emits `FOCUS_SOVEREIGNTY` on current state (TASK-245 and TASK-247 unblocked while TASK-207 focused, inercia window expired, no covering ruling).
+- [x] `.arch/focus-ledger.jsonl` exists and contains a ruling entry for every govern tick run.
+- [x] All unit tests pass. `arch review` passes after a clean govern tick.
 
 ## Hansei
-**Severity:** H0
-**Category:** [SymbolDiscovery]
+**Severity:** H1
+**Category:** [SpecDrift]
 
 **Decision:**
-No implementation decisions made yet — this Hansei entry is a structural placeholder required by the validator for READY tasks that have not started implementation.
+ADR-020 and AGFM diverge on ruling vocabulary: ADR uses HARD_PREEMPTION/SOFT_PREEMPTION/PROTECTED_PRESERVATION while AGFM uses FOCUS_ACQUIRED/FOCUS_PRESERVED/INTEGRITY_FIX. Implementation follows AGFM (simpler, machine-computable). ADR-020 is a policy document written before the AGFM was simplified; its ruling names are aspirational, not implemented. The in-memory task focus flag becomes stale after INTEGRITY_FIX in a tick — resolved by tracking fixed IDs and treating them as focus=false for the eligible computation within the same tick.
 
 **Constraint:**
-Validator requires structured Hansei on all tasks regardless of lifecycle phase; this is a known false-positive for READY tasks where no technical decisions have been taken.
+ADR-020 cannot be retroactively updated to match implementation without a new commit touching a protected path (docs/adr/). The divergence is visible to any future auditor who reads both documents.
 
 **Cost:**
-Placeholder fields carry no semantic weight; cost will be reassessed at REVIEW time when actual implementation tradeoffs are known.
+An auditor reading ADR-020 ruling names (HARD_PREEMPTION etc.) and then reading focus-ledger.jsonl (FOCUS_ACQUIRED etc.) will see a mismatch. This is a documentation debt, not a functional defect. The AGFM is the canonical execution model.
 
 **Forward Action:**
-none
+Add a note to ADR-020 §6 clarifying that ruling names were simplified in the AGFM; the AGFM is authoritative for implementation. File as IDEA for a follow-up reconciliation pass if the divergence causes confusion during future audits.
