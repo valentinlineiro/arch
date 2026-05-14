@@ -1,5 +1,5 @@
 ## TASK-245: Hansei Review Reconciliation Engine
-**Meta:** P1 | L | READY | Focus:no | 7-operations | local | cli/src/main/ts/domain/services/reviewer.ts, cli/src/main/ts/domain/services/hansei-auditor.ts
+**Meta:** P1 | L | READY | Focus:yes | 7-operations | local | cli/src/main/ts/domain/services/reviewer.ts, cli/src/main/ts/domain/services/hansei-auditor.ts
 
 **Depends:** TASK-244
 
@@ -15,3 +15,19 @@
 - [ ] `arch review` correctly identifies and rejects a task where a code hack (e.g., `any` cast) is present but not declared in Hansei.
 - [ ] `arch review` correctly identifies and warns/downgrades a task with inflated severity (H2 for a local minor fix).
 - [ ] Auditor logic is covered by integration tests.
+
+## Hansei
+**Severity:** H0
+**Category:** [SpecDrift]
+
+**Decision:**
+Focused per constitutional preemption.
+
+**Constraint:**
+Metadata update only; task remains in READY status.
+
+**Cost:**
+None. Staged metadata update for focus-sovereignty alignment.
+
+**Forward Action:**
+No forward action required for this metadata change.

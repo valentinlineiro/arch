@@ -1,5 +1,5 @@
 ## TASK-207: Implement DeterministicACVerifier - structural AC completion check
-**Meta:** P2 | M | READY | Focus:yes | 2-code-generation | claude-code | cli/src/main/ts/domain/services/, cli/src/main/ts/application/commands/, cli/src/main/ts/application/use-cases/review-system.ts
+**Meta:** P2 | M | READY | Focus:no | 2-code-generation | claude-code | cli/src/main/ts/domain/services/, cli/src/main/ts/application/commands/, cli/src/main/ts/application/use-cases/review-system.ts
 **Depends:** none
 
 ### Context
@@ -36,3 +36,19 @@ A prerequisite sub-task is storing `lockedCommit` SHA in `MarkTaskInProgress` so
 - [ ] `arch review` passes.
 - [ ] `npm test` passes in `cli/`.
 - [ ] No LLM call exists anywhere in the verification path.
+
+## Hansei
+**Severity:** H0
+**Category:** [SpecDrift]
+
+**Decision:**
+Focus shifted to TASK-245 per constitutional preemption rules (AGFM).
+
+**Constraint:**
+Metadata update only; task remains in READY status.
+
+**Cost:**
+None. Staged metadata update for focus-sovereignty alignment.
+
+**Forward Action:**
+No forward action required for this metadata change.
