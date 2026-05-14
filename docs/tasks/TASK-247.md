@@ -29,6 +29,44 @@ Example entries:
 
 The meta line `Focus:yes` is a projection of the ledger's last `focus_assigned` or `focus_preempted` entry. The ledger is the source of truth; the meta line is a cache.
 
+#### FocusIntegrityViolation — a distinct failure class
+
+PriorityDrift is wrong priority. `FocusIntegrityViolation` is wrong legitimacy. They are not the same thing and must not be merged.
+
+A task has a `FocusIntegrityViolation` when `Focus:yes` exists in the meta line but no lawful acquisition event (`focus_assigned`, `focus_preempted`, or `MIGRATION_SYNTHESIS`) can be found in `.arch/focus-ledger.jsonl` for that task. The cause does not matter — manual edit, merge conflict corruption, partial state write, migration defect. The result is the same: the system holds a focus state it cannot justify.
+
+This is constitutional corruption, not scheduling disagreement. It must be treated as a hard-preemption-class event:
+- `arch review` fails immediately on detection, regardless of priority or staleness score.
+- Govern's response is `INTEGRITY_RECOVERY`: revoke focus, log the violation, trigger synthetic reassignment from top-ranked READY task.
+- The violation entry is appended to `.arch/escalations.jsonl` as well as the ledger.
+
+`FocusIntegrityViolation` cannot be silenced by operator assertion. The only resolution is govern running `INTEGRITY_RECOVERY`.
+
+#### Govern ruling types — closed enumeration
+
+Every ledger entry carries a `ruling` field. The value must be one of the following closed set. Free text is permitted only in the additional `reason` string alongside the ruling — never as a substitute for it.
+
+| Ruling | Meaning |
+|---|---|
+| `HARD_PREEMPTION` | Layer 1 trigger: P0, integrity corruption, constitutional violation |
+| `SOFT_PREEMPTION` | Layer 3 trigger: outranked + stale + window expired |
+| `PROTECTED_PRESERVATION` | Layer 2 active: within minimum execution window |
+| `STALE_OVERRIDE` | Operator assertion accepted (`arch exec --progress`) |
+| `MIGRATION_SYNTHESIS` | Synthetic entry created for pre-sovereignty task |
+| `INTEGRITY_RECOVERY` | FocusIntegrityViolation detected and resolved |
+
+No other ruling values are valid. An unrecognised ruling value is treated as a ledger parse error and triggers `FocusIntegrityViolation` on the affected task.
+
+**No operator exceptionalism.** A human who needs to override govern's decision must do so through `arch exec --progress` (producing a `STALE_OVERRIDE` ruling) or by explicitly promoting a task to P0 (producing `HARD_PREEMPTION`). There is no bypass path. There is no `reason: "seemed better"`. Every focus change is a ruling or it is a violation.
+
+Updated ledger entry examples:
+
+```jsonl
+{"taskId":"TASK-207","ruling":"PROTECTED_PRESERVATION","reason":"tick 1 of 2 in protected window","stalenessScore":0,"tick":1,"timestamp":"2026-05-14T12:00:00Z"}
+{"taskId":"TASK-245","ruling":"HARD_PREEMPTION","reason":"P0 integrity corruption task","previousTask":"TASK-207","stalenessScore":4,"tick":2,"timestamp":"2026-05-14T13:00:00Z"}
+{"taskId":"TASK-209","ruling":"INTEGRITY_RECOVERY","reason":"Focus:yes with no acquisition event found in ledger","violation":"FocusIntegrityViolation","tick":3,"timestamp":"2026-05-14T14:00:00Z"}
+```
+
 #### Who certifies a validated state transition
 
 Progress certification uses a three-source hybrid model, evaluated in this order:
@@ -71,16 +109,18 @@ Score cannot go below 0. Score is stored per-task in `.arch/focus-ledger.jsonl` 
 
 ### Acceptance Criteria
 
-- [ ] **ADR-020 written first.** ADR documents: who has the right to interrupt work, the three-layer preemption model, the certified-transition hybrid model, the staleness score table, and the audit trail schema. No implementation code is written until ADR-020 is committed.
+- [ ] **ADR-020 written first.** ADR documents: who has the right to interrupt work, the three-layer preemption model, the certified-transition hybrid model, the staleness score table, the closed ruling enumeration, `FocusIntegrityViolation` as a distinct failure class, and the full audit trail schema. No implementation code is written until ADR-020 is committed.
 - [ ] `govern-system.ts` implements the three-layer preemption model:
   - **Layer 1 — Hard Preemption**: P0 tasks, integrity/provenance corruption tasks, constitutional invariant violations always preempt immediately. No protected window. No staleness check. No exceptions.
   - **Layer 2 — Protected Execution Window**: A focused task is immune to soft preemption for the first `protectedWindowTicks` governance ticks after focus assignment (default: 2). Configurable in `arch.config.json`. Hard preemption bypasses this layer.
   - **Layer 3 — Soft Preemption**: Triggers only when all three conditions hold: (a) candidate strictly outranks focused task, (b) focused task staleness score exceeds `stalenessThreshold`, (c) protected window has expired.
 - [ ] Staleness score is computed from the three-source hybrid model above. Git commit timestamps and commit counts are never used as progress signals.
 - [ ] `arch exec --progress "<reason>"` appends a certified transition to `.arch/focus-ledger.jsonl` with `certified_by: operator` and reduces staleness score by 1 for the current tick. Requires a non-empty reason string.
-- [ ] `.arch/focus-ledger.jsonl` is append-only. Each entry records: `taskId`, `event` (`focus_assigned` | `meta_transition` | `artifact_completion` | `operator_assertion` | `focus_preempted` | `focus_preserved`), `reason`, `stalenessScore`, `tick`, `timestamp`.
-- [ ] When govern preempts focus it logs a `focus_preempted` entry stating which layer triggered (hard | soft), the candidate task, and the staleness score at time of preemption.
-- [ ] When govern preserves focus it logs a `focus_preserved` entry with the reason (protected_window | rank_sufficient | score_below_threshold).
+- [ ] `.arch/focus-ledger.jsonl` is append-only. Each entry records: `taskId`, `ruling` (closed enum), `reason` (free text, supplementary), `stalenessScore`, `tick`, `timestamp`. Entries carrying `HARD_PREEMPTION` or `INTEGRITY_RECOVERY` also carry `previousTask`. Entries carrying `INTEGRITY_RECOVERY` also carry `violation: "FocusIntegrityViolation"`.
+- [ ] The `ruling` field accepts exactly: `HARD_PREEMPTION`, `SOFT_PREEMPTION`, `PROTECTED_PRESERVATION`, `STALE_OVERRIDE`, `MIGRATION_SYNTHESIS`, `INTEGRITY_RECOVERY`. Any other value is a ledger parse error.
+- [ ] `arch review` detects `FocusIntegrityViolation`: any task with `Focus:yes` in the meta line that has no corresponding acquisition ruling (`HARD_PREEMPTION`, `SOFT_PREEMPTION`, `MIGRATION_SYNTHESIS`, `focus_assigned`) in the ledger causes an immediate `arch review` failure, independent of priority or staleness score.
+- [ ] Govern responds to `FocusIntegrityViolation` with `INTEGRITY_RECOVERY`: revoke focus, log to both `.arch/focus-ledger.jsonl` and `.arch/escalations.jsonl`, reassign to top-ranked READY task. `INTEGRITY_RECOVERY` cannot be blocked by operator assertion.
+- [ ] There is no operator bypass path. Human intervention enters the system as `STALE_OVERRIDE` (via `arch exec --progress`) or as a task priority change that triggers `HARD_PREEMPTION`. The word "bypass" does not exist in the govern vocabulary.
 - [ ] H3a escalation in `.arch/escalations.jsonl` adds +3 to staleness score for the focused task on the next govern tick. This is automatically applied — no manual step required.
 - [ ] `arch review` gains a `FocusSovereignty` check that **fails** (not warns) when: a P1+ READY unblocked task exists while a lower-priority task is focused AND the protected window has expired AND the staleness score exceeds `stalenessThreshold`. Silent preservation is not permitted — govern must either preempt or append an explicit `focus_preserved` entry with a reason before `arch review` will pass.
 - [ ] There is no silent preservation path. Every govern tick where focus is preserved under PriorityDrift conditions must produce a ledger entry. A missing entry is treated as a govern fault.
@@ -94,7 +134,7 @@ Score cannot go below 0. Score is stored per-task in `.arch/focus-ledger.jsonl` 
 - [ ] `arch govern` within the protected window preserves focus even when candidate outranks and score is above threshold.
 - [ ] `arch exec --progress "reason"` reduces staleness score by 1 and is logged with `certified_by: operator`.
 - [ ] `.arch/focus-ledger.jsonl` contains a complete, auditable trail for all focus changes and score mutations.
-- [ ] Unit tests cover all three layers, the staleness score table, the H3a +3 path, and the operator assertion path.
+- [ ] Unit tests cover all three preemption layers, the staleness score table, the H3a +3 path, the operator assertion path (`STALE_OVERRIDE`), `FocusIntegrityViolation` detection and `INTEGRITY_RECOVERY` response, and rejection of unknown ruling values.
 - [ ] `arch review FocusSovereignty` **fails** on the current state (P1 TASK-245 and TASK-247 unblocked while P2 TASK-207 focused, window expired) — validates the check fires on real data and that it is a blocking error, not a warning.
 - [ ] `.arch/focus-ledger.jsonl` exists after first govern tick and contains a traceable entry for every focus-holding task.
 - [ ] `arch govern` output explicitly states the adjudication decision (preempted | preserved + reason) on every tick where PriorityDrift conditions are active.
