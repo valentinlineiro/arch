@@ -2,12 +2,15 @@ import { TaskRepository } from '../../domain/repositories/task-repository.js';
 import { GitRepository } from '../../domain/repositories/git-repository.js';
 import { FileSystem } from '../../domain/repositories/file-system.js';
 import { Task, TaskStatus } from '../../domain/models/task.js';
-import { SelectNextTask } from './select-next-task.js';
 import { BatchSystem } from './batch-system.js';
 import { ConfigLoader } from '../../domain/services/config-loader.js';
 import { CausalSignalLog } from './causal-signal-log.js';
 import { ReflectInfluenceReport, DEFAULT_THRESHOLDS } from './reflect-influence-report.js';
 import { TaskValidator } from '../../domain/services/task-validator.js';
+import {
+  FocusRuling, LedgerState, FOCUS_LEDGER_PATH,
+  parseLedger, committedRulings, serializeLedger,
+} from './focus-ledger.js';
 
 export interface GovernResult {
   analysisNeeded: boolean;
@@ -42,52 +45,207 @@ export class GovernSystem {
       throw error; // Halt execution on archival escalation
     }
 
-    // 1. Rule 2 — Replenishment check (enforcement: detect low READY count and signal)
+    // 1. Rule 2 — Replenishment check
     const readyTasks = await this.taskRepository.findReady();
     if (readyTasks.length < 3) {
       console.log(`  READY tasks < 3 — analysis needed (run arch reflect to surface Kaizen).`);
       analysisReasons.push('replenishment');
     }
 
-    // 2. Rule 3 — Conduct cadence check (enforcement: detect cadence and signal)
+    // 2. Rule 3 — Conduct cadence check
     const execCount = await this.getExecCountSinceLastThink();
     if (execCount >= conductEveryN) {
       console.log(`  Exec count (${execCount}) >= N (${conductEveryN}) — analysis due (run arch reflect).`);
       analysisReasons.push('cadence');
     }
 
-    // 3. Rule 1 — Critical first
-    const p0Tasks = readyTasks.filter(t => t.priority === 'P0');
-    if (p0Tasks.length > 0) {
-      // Find unblocked P0
-      const selector = new SelectNextTask(this.taskRepository);
-      const result = await selector.execute();
-      if (result.ok && result.task.priority === 'P0') {
-         console.log(`  P0 task READY: ${result.task.id}. Focusing...`);
-         await this.focusTask(result.task);
-      }
-    }
-
-    // 4. Pick next task if none focused
-    const activeTasksForFocus = await this.taskRepository.getActive();
-    const focusedTask = activeTasksForFocus.find(t => t.rawMetaLine?.includes('Focus:yes') && t.status !== TaskStatus.DONE);
-
-    if (!focusedTask) {
-      const selector = new SelectNextTask(this.taskRepository);
-      const result = await selector.execute();
-      if (result.ok) {
-        console.log(`  No focused task. Picking next: ${result.task.id}`);
-        await this.focusTask(result.task);
-      } else {
-        console.log('  No unblocked tasks available.');
-      }
-    } else {
-      console.log(`  Task already focused: ${focusedTask.id}. Run arch exec to start.`);
-    }
+    // 3. Focus Sovereignty — run the AGFM tick cycle
+    await this.decideFocus(config);
 
     await this.checkReflectThresholds(config);
 
     return { analysisNeeded: analysisReasons.length > 0, reasons: analysisReasons };
+  }
+
+  private priorityNum(p: string): number {
+    return parseInt(p.replace('P', ''), 10);
+  }
+
+  private isEligible(task: Task, doneTaskIds: Set<string>): boolean {
+    if (task.status !== TaskStatus.READY) return false;
+    if (task.focus) return false;
+    const deps = (task.depends ?? []).filter(d => d.toLowerCase() !== 'none');
+    return deps.every(dep => doneTaskIds.has(dep));
+  }
+
+  private isEligibleAfterFix(task: Task, doneTaskIds: Set<string>, fixedIds: Set<string>): boolean {
+    if (task.status !== TaskStatus.READY) return false;
+    if (task.focus && !fixedIds.has(task.id)) return false;
+    const deps = (task.depends ?? []).filter(d => d.toLowerCase() !== 'none');
+    return deps.every(dep => doneTaskIds.has(dep));
+  }
+
+  private isFocusRetainable(task: Task, doneTaskIds: Set<string>): boolean {
+    if (task.status !== TaskStatus.READY) return false;
+    const deps = (task.depends ?? []).filter(d => d.toLowerCase() !== 'none');
+    return deps.every(dep => doneTaskIds.has(dep));
+  }
+
+  private get ledgerPath(): string {
+    return this.rootPath && this.rootPath !== '.' ? `${this.rootPath}/${FOCUS_LEDGER_PATH}` : FOCUS_LEDGER_PATH;
+  }
+
+  private async loadLedger(): Promise<LedgerState> {
+    try {
+      const content = await this.fileSystem.readFile(this.ledgerPath);
+      return parseLedger(content);
+    } catch {
+      return { lastCommittedTick: 0, rulings: [] };
+    }
+  }
+
+  private async updateFocusFlag(task: Task, focusYes: boolean): Promise<boolean> {
+    if (!task.rawMetaLine) return false;
+    const filePath = `docs/tasks/${task.id}.md`;
+    const original = await this.fileSystem.readFile(filePath);
+    const from = focusYes ? 'Focus:no' : 'Focus:yes';
+    const to = focusYes ? 'Focus:yes' : 'Focus:no';
+    if (!task.rawMetaLine.includes(from)) return false;
+    const updated = original.replace(task.rawMetaLine, task.rawMetaLine.replace(from, to));
+    if (updated === original) return false;
+    await this.fileSystem.writeFile(filePath, updated);
+    return true;
+  }
+
+  private async writeLedgerTick(
+    ledger: LedgerState,
+    newRulings: FocusRuling[],
+    nextTick: number,
+    changedTaskFiles: string[]
+  ): Promise<void> {
+    const ledgerPath = this.ledgerPath;
+    const allRulings = [...committedRulings(ledger), ...newRulings];
+    const content = serializeLedger(allRulings, nextTick);
+
+    await this.fileSystem.writeFile(ledgerPath, content);
+
+    const filesToStage = [ledgerPath, ...changedTaskFiles];
+    for (const f of filesToStage) {
+      try { await this.gitRepository.add(f); } catch { /* ok if already staged */ }
+    }
+
+    if (newRulings.length > 0) {
+      const primary = newRulings[newRulings.length - 1];
+      const msg = `chore: [${primary.taskId}] govern tick ${nextTick}: ${primary.action}`;
+      try {
+        await this.gitRepository.commit(msg);
+        console.log(`  Committed: ${msg}`);
+      } catch (err: any) {
+        if (!err.message?.includes('nothing to commit')) throw err;
+      }
+    }
+  }
+
+  private async decideFocus(config: any): Promise<void> {
+    const allTasks = await this.taskRepository.getAll();
+    const doneTaskIds = new Set(allTasks.filter(t => t.status === TaskStatus.DONE).map(t => t.id));
+    const activeTasks = await this.taskRepository.getActive();
+
+    const ledger = await this.loadLedger();
+    const committed = committedRulings(ledger);
+    const nextTick = ledger.lastCommittedTick + 1;
+    const minTicks: number = config?.minTicksBeforeSwitch ?? 2;
+
+    const acquiredRulings = committed.filter(r => r.action === 'FOCUS_ACQUIRED');
+    const lastAcquired = acquiredRulings[acquiredRulings.length - 1] ?? null;
+    const ledgerFocusedId = lastAcquired?.taskId ?? null;
+    const ledgerFocused = ledgerFocusedId
+      ? (activeTasks.find(t => t.id === ledgerFocusedId) ?? null)
+      : null;
+
+    const newRulings: FocusRuling[] = [];
+    const changedFiles: string[] = [];
+
+    // Rule 1: Integrity fix — Focus:yes in world state with no FOCUS_ACQUIRED in committed ledger
+    const integrityFixedIds = new Set<string>();
+    for (const t of activeTasks.filter(t => t.focus)) {
+      const hasAcquisition = committed.some(r => r.action === 'FOCUS_ACQUIRED' && r.taskId === t.id);
+      if (!hasAcquisition) {
+        integrityFixedIds.add(t.id);
+        newRulings.push({ tick: nextTick, taskId: t.id, action: 'INTEGRITY_FIX', timestamp: new Date().toISOString() });
+        const changed = await this.updateFocusFlag(t, false);
+        if (changed) changedFiles.push(`docs/tasks/${t.id}.md`);
+        console.log(`  INTEGRITY_FIX: ${t.id} held Focus:yes with no acquisition ruling`);
+      }
+    }
+
+    // Eligible candidates: treat integrity-fixed tasks as focus=false (their in-memory flag is stale)
+    const eligible = activeTasks
+      .filter(t => this.isEligibleAfterFix(t, doneTaskIds, integrityFixedIds))
+      .sort((a, b) => this.priorityNum(a.priority) - this.priorityNum(b.priority));
+
+    const focused = ledgerFocused;
+
+    // Rule 2: No current focus — assign top eligible
+    if (!focused) {
+      if (eligible.length > 0) {
+        const top = eligible[0];
+        newRulings.push({ tick: nextTick, taskId: top.id, action: 'FOCUS_ACQUIRED', timestamp: new Date().toISOString() });
+        const changed = await this.updateFocusFlag(top, true);
+        if (changed) changedFiles.push(`docs/tasks/${top.id}.md`);
+        console.log(`  FOCUS_ACQUIRED: ${top.id} (no previous focus)`);
+      } else {
+        console.log('  No eligible tasks. No focus assigned.');
+      }
+      await this.writeLedgerTick(ledger, newRulings, nextTick, changedFiles);
+      return;
+    }
+
+    // Rule 3: Focused task lost eligibility
+    if (!this.isFocusRetainable(focused, doneTaskIds)) {
+      const cleared = await this.updateFocusFlag(focused, false);
+      if (cleared) changedFiles.push(`docs/tasks/${focused.id}.md`);
+      if (eligible.length > 0) {
+        const top = eligible[0];
+        newRulings.push({ tick: nextTick, taskId: top.id, action: 'FOCUS_ACQUIRED', previousTask: focused.id, timestamp: new Date().toISOString() });
+        const changed = await this.updateFocusFlag(top, true);
+        if (changed) changedFiles.push(`docs/tasks/${top.id}.md`);
+        console.log(`  FOCUS_ACQUIRED: ${top.id} (${focused.id} lost eligibility)`);
+      } else {
+        newRulings.push({ tick: nextTick, taskId: focused.id, action: 'FOCUS_RELEASED', timestamp: new Date().toISOString() });
+        console.log(`  FOCUS_RELEASED: ${focused.id} (lost eligibility, no candidates)`);
+      }
+      await this.writeLedgerTick(ledger, newRulings, nextTick, changedFiles);
+      return;
+    }
+
+    // Rule 4: Minimum inercia window
+    const ticksSinceAcquired = nextTick - (lastAcquired?.tick ?? 0);
+    if (ticksSinceAcquired < minTicks) {
+      newRulings.push({ tick: nextTick, taskId: focused.id, action: 'FOCUS_PRESERVED', timestamp: new Date().toISOString() });
+      console.log(`  FOCUS_PRESERVED: ${focused.id} (inercia window: ${ticksSinceAcquired}/${minTicks} ticks)`);
+      await this.writeLedgerTick(ledger, newRulings, nextTick, changedFiles);
+      return;
+    }
+
+    // Rule 5: Priority preemption
+    const focusedPriority = this.priorityNum(focused.priority);
+    const preemptor = eligible.find(c => this.priorityNum(c.priority) < focusedPriority);
+    if (preemptor) {
+      const clearedOld = await this.updateFocusFlag(focused, false);
+      if (clearedOld) changedFiles.push(`docs/tasks/${focused.id}.md`);
+      const changedNew = await this.updateFocusFlag(preemptor, true);
+      if (changedNew) changedFiles.push(`docs/tasks/${preemptor.id}.md`);
+      newRulings.push({ tick: nextTick, taskId: preemptor.id, action: 'FOCUS_ACQUIRED', previousTask: focused.id, timestamp: new Date().toISOString() });
+      console.log(`  FOCUS_ACQUIRED: ${preemptor.id} preempts ${focused.id} (P${this.priorityNum(preemptor.priority)} > P${focusedPriority})`);
+      await this.writeLedgerTick(ledger, newRulings, nextTick, changedFiles);
+      return;
+    }
+
+    // Rule 6: Preserve
+    newRulings.push({ tick: nextTick, taskId: focused.id, action: 'FOCUS_PRESERVED', timestamp: new Date().toISOString() });
+    console.log(`  FOCUS_PRESERVED: ${focused.id}`);
+    await this.writeLedgerTick(ledger, newRulings, nextTick, changedFiles);
   }
 
   private async checkReflectThresholds(config: any): Promise<void> {
@@ -99,7 +257,6 @@ export class GovernSystem {
       const breachLogPath = `${this.rootPath}/.arch/reflect-breach-log.jsonl`;
       const now = new Date().toISOString();
 
-      // Load recent breach history
       let history: Array<{ timestamp: string; rule: string; breached: boolean }> = [];
       try {
         const raw = await this.fileSystem.readFile(breachLogPath);
@@ -116,7 +273,6 @@ export class GovernSystem {
         const consecutiveBreaches = [...ruleHistory].reverse().findIndex(h => !h.breached);
         const consecutiveCount = consecutiveBreaches === -1 ? ruleHistory.length : consecutiveBreaches;
 
-        // Append this tick's record
         await this.fileSystem.appendFile(
           breachLogPath,
           JSON.stringify({ timestamp: now, rule, breached: isBreached }) + '\n'
@@ -126,20 +282,16 @@ export class GovernSystem {
         if (isBreached) {
           const newConsecutive = consecutiveCount + 1;
           if (!wasBreachedLastTick) {
-            // First breach — emit VIOLATION to INBOX + stdout
             await this.appendInbox('REFLECT', 'INFLUENCE_THRESHOLD_VIOLATION', violation!.message);
             console.log(`  ⚠ REFLECT threshold breach: ${violation!.message}`);
           } else if (newConsecutive >= thresholds.persistenceN) {
-            // Persistent breach — escalation signal to INBOX + stdout
             const persistMsg = `Persistent breach (${newConsecutive} consecutive cycles): ${violation!.message}`;
             await this.appendInbox('REFLECT', 'INFLUENCE_BREACH_PERSISTENT', persistMsg);
             console.log(`  ✖ REFLECT persistent breach: ${persistMsg}`);
           } else {
-            // In between — stdout only, no INBOX noise
             console.log(`  ⚠ REFLECT breach continues (${newConsecutive}/${thresholds.persistenceN}): ${violation!.message}`);
           }
         } else if (wasBreachedLastTick) {
-          // Breach cleared — interpretive question is mandatory, not decorative
           const clearMsg = `${rule} threshold breach cleared. Verify: did health improve (more decisions attributed) — or did operators adapt behavior to the threshold (worked around the measurement)? These are opposite outcomes that look identical in the data.`;
           await this.appendInbox('REFLECT', 'INFLUENCE_BREACH_CLEARED', clearMsg);
           console.log(`  ✔ REFLECT breach cleared: ${rule}`);
@@ -151,7 +303,6 @@ export class GovernSystem {
   }
 
   private async getExecCountSinceLastThink(): Promise<number> {
-    // Commits with [TASK-XXX] since last commit with [THINK]
     const log = await this.gitRepository.getLog(100);
     let count = 0;
     for (const msg of log) {
@@ -161,24 +312,7 @@ export class GovernSystem {
     return count;
   }
 
-  private async focusTask(task: Task): Promise<void> {
-    if (!task.rawMetaLine) return;
-    const filePath = `docs/tasks/${task.id}.md`;
-    const original = await this.fileSystem.readFile(filePath);
-    const updated = original.replace(task.rawMetaLine, task.rawMetaLine.replace('Focus:no', 'Focus:yes'));
-    await this.fileSystem.writeFile(filePath, updated);
-    try {
-      await this.gitRepository.add(filePath);
-      await this.gitRepository.commit(`chore: [${task.id}] focus task via arch govern`);
-      console.log(`  Focused and committed: ${task.id}`);
-    } catch (error: any) {
-      await this.fileSystem.writeFile(filePath, original);
-      throw new Error(`Failed to commit focus for ${task.id}: ${error.message}`);
-    }
-  }
-
   private async archiveDoneTasks(): Promise<void> {
-    // 1. Check for tasks in docs/tasks/ that are DONE/REJECTED
     const activeTasks = await this.taskRepository.getActive();
     const toArchive = activeTasks.filter(t => t.status === TaskStatus.DONE || t.status === TaskStatus.REJECTED);
 
@@ -186,10 +320,9 @@ export class GovernSystem {
       await this.archiveFile(task.id);
     }
 
-    // 2. Check for "phantom archives" — files already in docs/archive/ but not staged/committed in git
     const statusLines = await this.gitRepository.getStatusLines();
     const phantomIds = new Set<string>();
-    
+
     for (const line of statusLines) {
       const match = line.match(/(D docs\/tasks\/|\?\? docs\/archive\/)(TASK-\d{3})\.md/);
       if (match) {
@@ -206,7 +339,7 @@ export class GovernSystem {
   private async archiveFile(taskId: string): Promise<void> {
     const sourcePath = `docs/tasks/${taskId}.md`;
     const targetPath = `docs/archive/${taskId}.md`;
-    
+
     try {
       const archiveContent = await this.getArchiveCandidateContent(sourcePath, targetPath);
       if (archiveContent) {
@@ -228,7 +361,7 @@ export class GovernSystem {
       } else {
         return;
       }
-      
+
       await this.gitRepository.commit(`chore: archive [${taskId}] DONE [${taskId}] [THINK]`);
       console.log(`  ✓ ${taskId} archived and committed.`);
     } catch (error: any) {
@@ -260,7 +393,7 @@ export class GovernSystem {
     try {
       existing = await this.fileSystem.readFile(inboxPath);
     } catch {
-      // If INBOX.md doesn't exist, we'll start with just the entry
+      // If INBOX.md doesn't exist, start with just the entry
     }
     await this.fileSystem.writeFile(inboxPath, existing + entry);
   }
@@ -269,11 +402,9 @@ export class GovernSystem {
     if (await this.fileSystem.exists(sourcePath)) {
       return this.fileSystem.readFile(sourcePath);
     }
-
     if (await this.fileSystem.exists(targetPath)) {
       return this.fileSystem.readFile(targetPath);
     }
-
     return null;
   }
 
