@@ -16,7 +16,23 @@ The fix is not simply "switch on higher priority". Without a protected execution
 
 A warning that cannot resolve what it detects is noise. Repeated unresolved warnings destroy trust in the signal. `arch review` must fail — not warn — when drift exceeds the threshold and the protected window has expired.
 
-**Authority split — review detects, govern resolves.** `arch review` is the sensor and the blocker. It emits a failure when a sovereignty condition is violated. It cannot clear that failure. Only govern can clear a `FocusSovereignty` or `FocusIntegrityViolation` failure, by emitting a ruling in the ledger that post-dates the detected tick. Once govern has emitted a ruling, the next `arch review` run recognises it as resolved. There is no intermediate state where review fails and govern has already adjudicated but review has not yet seen the ruling — `arch review` always reads the full ledger before emitting any failure. This eliminates the "failed-but-resolved-unrecognised" state.
+**Authority split — review detects, govern resolves, committed ticks only.**
+
+`arch review` is the sensor and the blocker. `govern` is the adjudicator and the resolver. Their responsibilities do not overlap.
+
+`arch review` evaluates only committed ticks — ticks whose ruling write batch is fully persisted in `.arch/focus-ledger.jsonl` before review starts reading. The current in-progress govern tick (if any) is invisible to review. Formally: review evaluates state at `tick <= lastCommittedGoverTick`, where `lastCommittedGovernTick` is the tick counter value written at the end of the most recent completed govern write batch.
+
+This eliminates the mid-tick race: if govern is writing tick N's rulings while review is running, review sees only through tick N-1. It does not see a partially written tick N and does not emit phantom failures for conditions govern is in the process of resolving. When review next runs after govern completes tick N, it sees the full ruling and the condition is resolved.
+
+`arch review` never evaluates staleness score, protected window state, or preemption layer eligibility. It only checks: (a) does a `Focus:yes` task have a lawful acquisition ruling in the committed ledger, and (b) does a sovereignty-condition-requiring-adjudication exist that has no corresponding ruling in the committed ledger. Staleness computation and preemption decisions belong entirely to govern.
+
+**FocusSovereignty evaluation precedence (govern only):**
+1. Hard preemption eligibility (P0, integrity corruption, constitutional violation) — evaluated first, overrides all
+2. Protected execution window state — if active, no further evaluation; emit `PROTECTED_PRESERVATION`
+3. Staleness score against threshold — if below threshold, emit `STALE_OVERRIDE` candidate (blocked); if above, proceed
+4. Drift condition (candidate outranks focused) — final gate for `SOFT_PREEMPTION`
+
+`arch review` emits a condition flag. Govern evaluates the condition against this precedence order. Review is never the evaluator of staleness or window — only the reporter of the unresolved condition.
 
 #### Reason-for-focus ledger
 
@@ -37,7 +53,13 @@ PriorityDrift is wrong priority. `FocusIntegrityViolation` is wrong legitimacy. 
 
 A task has a `FocusIntegrityViolation` when `Focus:yes` exists in the meta line but no lawful acquisition event — a ruling of `HARD_PREEMPTION`, `SOFT_PREEMPTION`, `MIGRATION_SYNTHESIS`, or a legacy `focus_assigned` entry — can be found in `.arch/focus-ledger.jsonl` for that task. The cause does not matter — manual edit, merge conflict corruption, partial state write, migration defect. The result is the same: the system holds a focus state it cannot justify.
 
-**Migration-synthesized entries are canonical origins.** A `MIGRATION_SYNTHESIS` ruling is a lawful acquisition event. It cannot be challenged as illegitimate by a future `FocusIntegrityViolation` check. If an auditor re-evaluates a migration-synthesized entry after the fact, the presence of the `MIGRATION_SYNTHESIS` ruling is sufficient proof of legitimacy. A future governance run must not retroactively invalidate it. This prevents migration from triggering the very violation class it was designed to forestall.
+**Migration-synthesized entries are canonical origins — legitimacy is immutable, structure is repairable.**
+
+A `MIGRATION_SYNTHESIS` ruling is a lawful acquisition event. Its legitimacy cannot be challenged by a future `FocusIntegrityViolation` check. The presence of the ruling is proof that focus was lawfully assigned at migration time — no future auditor may override that determination.
+
+However, legitimacy and structural integrity are separate properties. If ledger corruption is later detected (e.g. the entry is structurally malformed, has an invalid ruling value, or is missing required fields), the entry may be repaired via `INTEGRITY_RECOVERY` without reclassifying the original focus as illegitimate. The repair ruling records what was corrected and why, preserving the chain of custody. The original `MIGRATION_SYNTHESIS` ruling is not deleted — it is superseded by the repair entry, which inherits its legitimacy.
+
+This prevents two failure modes: migration triggering the violation class it was designed to forestall, and a corrupt ledger becoming immutably valid by hiding behind migration immunity.
 
 This is constitutional corruption, not scheduling disagreement. It must be treated as a hard-preemption-class event:
 - `arch review` fails immediately on detection, regardless of priority or staleness score.
@@ -141,8 +163,9 @@ This boundary is what makes the adjudication lock meaningful. A tick is a transa
 - [ ] There is no operator bypass path. Human intervention enters the system as `STALE_OVERRIDE` (via `arch exec --progress`) or as a task priority change that triggers `HARD_PREEMPTION`. The word "bypass" does not exist in the govern vocabulary.
 - [ ] **Adjudication lock is enforced.** Once govern has emitted a ruling for tick N, the staleness score used in that ruling cannot be retroactively changed. H3a entries and other escalations appended after tick N apply their deltas only starting at tick N+1. The ledger entry for tick N is immutable after govern's write batch for that tick completes.
 - [ ] **Tick boundary is a transaction.** Govern reads all state (task meta lines, focus-ledger, escalations) as a single atomic snapshot at tick start. All decisions are made against that snapshot. All rulings are written as a single atomic batch at tick end. State arriving between snapshot read and ruling write is invisible to the current tick.
-- [ ] **`arch review` always reads the full ledger before emitting any failure.** A `FocusSovereignty` or `FocusIntegrityViolation` failure is not emitted if the ledger already contains a govern ruling for the same tick that resolves it. This eliminates the "failed-but-already-resolved" phantom state.
-- [ ] **`MIGRATION_SYNTHESIS` is an irrevocable canonical origin.** No future `FocusIntegrityViolation` check may challenge a focus state that was established by a `MIGRATION_SYNTHESIS` ruling. The ruling is proof of legitimacy.
+- [ ] **`arch review` evaluates committed ticks only.** Review reads `lastCommittedGovernTick` from the ledger header before scanning any entries. It evaluates state at `tick <= lastCommittedGovernTick`. Any in-progress govern write batch is invisible to the current review run. This eliminates mid-tick phantom failures.
+- [ ] **`arch review` does not evaluate staleness score, window state, or preemption layer.** It emits a condition flag (`FocusSovereignty`, `FocusIntegrityViolation`) for govern to adjudicate. Govern is the sole evaluator of the four-step precedence order.
+- [ ] **`MIGRATION_SYNTHESIS` legitimacy is immutable; structure is repairable.** No `FocusIntegrityViolation` check may challenge a focus state established by `MIGRATION_SYNTHESIS`. If the entry is later found structurally corrupt, `INTEGRITY_RECOVERY` repairs it without revoking its legitimacy. The original ruling is superseded, not deleted.
 - [ ] H3a escalation in `.arch/escalations.jsonl` adds +3 to staleness score for the focused task on the next govern tick. This is automatically applied — no manual step required.
 - [ ] `arch review` gains a `FocusSovereignty` check that **fails** (not warns) when: a P1+ READY unblocked task exists while a lower-priority task is focused AND the protected window has expired AND the staleness score exceeds `stalenessThreshold`. Silent preservation is not permitted — govern must either preempt or append an explicit `focus_preserved` entry with a reason before `arch review` will pass.
 - [ ] There is no silent preservation path. Every govern tick where focus is preserved under PriorityDrift conditions must produce a ledger entry. A missing entry is treated as a govern fault.
