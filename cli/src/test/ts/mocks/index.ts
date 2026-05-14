@@ -25,6 +25,7 @@ export class MockFileSystem implements FileSystem {
   }
 
   async rename(oldPath: string, newPath: string): Promise<void> {
+    // only moves files; dirs entries are not tracked through rename
     if (oldPath in this.files) {
       this.files[newPath] = this.files[oldPath];
       delete this.files[oldPath];
@@ -35,6 +36,7 @@ export class MockFileSystem implements FileSystem {
 
   async appendFile(path: string, content: string): Promise<void> {
     this.files[path] = (this.files[path] ?? '') + content;
+    this.written[path] = this.files[path];
   }
 
   async deleteFile(path: string): Promise<void> {
@@ -59,6 +61,7 @@ export class MockGitRepository implements GitRepository {
   changedFilesInLastCommit: string[] = [];
   addedFiles: string[] = [];
   repoRoot = '';
+  lastCommitHash: string | null = null;
 
   async getDiff(_args?: string[]): Promise<string> { return this.diff; }
   async getLastCommitMessage(): Promise<string | null> { return this.lastCommitMessage; }
@@ -76,7 +79,7 @@ export class MockGitRepository implements GitRepository {
   async getModifiedFiles(): Promise<string[]> { return []; }
   async getRepoRoot(): Promise<string> { return this.repoRoot; }
   async getFileFirstCommitDate(_path: string): Promise<Date | null> { return null; }
-  async getLastCommitHash(): Promise<string | null> { return 'abc'; }
+  async getLastCommitHash(): Promise<string | null> { return this.lastCommitHash; }
   async isValidCommitHash(hash: string): Promise<boolean> { return this.validHashes.has(hash); }
   async getCommitAuthor(_hash: string): Promise<string | null> { return 'test-user'; }
   async getCommitHistory(_limit?: number): Promise<CommitRecord[]> { return this.commits; }

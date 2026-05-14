@@ -59,6 +59,8 @@ test('GitCli - getLastCommitHash returns a hash after a commit', { skip: !gitAva
     try {
       const hash = await git.getLastCommitHash();
       assert.ok(hash !== null && hash.length > 0, `Expected a hash, got: ${hash}`);
+      const fullHash = execSync('git rev-parse HEAD', { cwd: dir }).toString().trim();
+      assert.ok(fullHash.startsWith(hash!), `Short hash ${hash} should be a prefix of full hash ${fullHash}`);
     } finally {
       process.chdir(originalCwd);
     }

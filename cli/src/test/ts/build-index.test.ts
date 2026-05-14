@@ -260,9 +260,9 @@ test('TaskEntry and ContextIndex.tasks are structurally correct', () => {
 
 test('normalizeCommits extracts TASK-IDs from commit messages', () => {
   const commits = [
-    { hash: 'abc1234', message: 'feat: [TASK-42] add feature', date: '2026-05-08T10:00:00Z', files: ['src/a.ts'] },
-    { hash: 'def5678', message: 'fix: [TASK-42] fix bug', date: '2026-05-07T10:00:00Z', files: ['src/b.ts'] },
-    { hash: 'ghi9012', message: 'chore: no task ref', date: '2026-05-06T10:00:00Z', files: ['src/c.ts'] },
+    { hash: 'abc1234', message: 'feat: [TASK-42] add feature', date: '2026-05-08T10:00:00Z', files: [{ path: 'src/a.ts', status: 'M' }] },
+    { hash: 'def5678', message: 'fix: [TASK-42] fix bug', date: '2026-05-07T10:00:00Z', files: [{ path: 'src/b.ts', status: 'M' }] },
+    { hash: 'ghi9012', message: 'chore: no task ref', date: '2026-05-06T10:00:00Z', files: [{ path: 'src/c.ts', status: 'M' }] },
   ];
   const result = normalizeCommits(commits);
   assert.equal(result.length, 3);
@@ -273,7 +273,7 @@ test('normalizeCommits extracts TASK-IDs from commit messages', () => {
 
 test('normalizeCommits deduplicates TASK-IDs per commit', () => {
   const commits = [
-    { hash: 'abc1234', message: 'feat: [TASK-10] [TASK-10] duplicate', date: '2026-05-08T10:00:00Z', files: ['src/a.ts'] },
+    { hash: 'abc1234', message: 'feat: [TASK-10] [TASK-10] duplicate', date: '2026-05-08T10:00:00Z', files: [{ path: 'src/a.ts', status: 'M' }] },
   ];
   const result = normalizeCommits(commits);
   assert.deepEqual(result[0].taskIds, ['TASK-10']);
@@ -281,7 +281,7 @@ test('normalizeCommits deduplicates TASK-IDs per commit', () => {
 
 test('normalizeCommits handles multiple TASK-IDs in one commit message', () => {
   const commits = [
-    { hash: 'abc1234', message: 'feat: TASK-1 and TASK-2 combined', date: '2026-05-08T10:00:00Z', files: ['src/a.ts', 'src/b.ts'] },
+    { hash: 'abc1234', message: 'feat: TASK-1 and TASK-2 combined', date: '2026-05-08T10:00:00Z', files: [{ path: 'src/a.ts', status: 'M' }, { path: 'src/b.ts', status: 'M' }] },
   ];
   const result = normalizeCommits(commits);
   assert.deepEqual(result[0].taskIds.sort(), ['TASK-1', 'TASK-2']);
@@ -290,7 +290,7 @@ test('normalizeCommits handles multiple TASK-IDs in one commit message', () => {
 
 test('normalizeCommits is case-sensitive: task-123 is not a match', () => {
   const commits = [
-    { hash: 'abc1234', message: 'feat: task-123 lowercase', date: '2026-05-08T10:00:00Z', files: [] },
+    { hash: 'abc1234', message: 'feat: task-123 lowercase', date: '2026-05-08T10:00:00Z', files: [] as Array<{ path: string; status: string; oldPath?: string }> },
   ];
   const result = normalizeCommits(commits);
   assert.deepEqual(result[0].taskIds, []);
@@ -298,7 +298,7 @@ test('normalizeCommits is case-sensitive: task-123 is not a match', () => {
 
 test('normalizeCommits passes through hash, date, files unchanged', () => {
   const commits = [
-    { hash: 'abc1234', message: 'feat: [TASK-5] thing', date: '2026-05-08T10:00:00Z', files: ['x.ts', 'y.ts'] },
+    { hash: 'abc1234', message: 'feat: [TASK-5] thing', date: '2026-05-08T10:00:00Z', files: [{ path: 'x.ts', status: 'M' }, { path: 'y.ts', status: 'A' }] },
   ];
   const result = normalizeCommits(commits);
   assert.equal(result[0].hash, 'abc1234');
@@ -313,10 +313,10 @@ test('BuildIndex.execute() writes tasks to context index from git history', asyn
 
   const git = new MockGitRepository();
   git.commits = [
-    { hash: 'abc1234', message: 'feat: [TASK-42] add feature', date: '2026-05-08T10:00:00Z', files: ['src/a.ts', 'src/b.ts'] },
-    { hash: 'def5678', message: 'fix: [TASK-42] fix bug', date: '2026-05-09T10:00:00Z', files: ['src/b.ts', 'src/c.ts'] },
-    { hash: 'ghi9012', message: 'chore: no task', date: '2026-05-06T10:00:00Z', files: ['src/d.ts'] },
-  ] as any;
+    { hash: 'abc1234', message: 'feat: [TASK-42] add feature', date: '2026-05-08T10:00:00Z', files: [{ path: 'src/a.ts', status: 'A' }, { path: 'src/b.ts', status: 'M' }] },
+    { hash: 'def5678', message: 'fix: [TASK-42] fix bug', date: '2026-05-09T10:00:00Z', files: [{ path: 'src/b.ts', status: 'M' }, { path: 'src/c.ts', status: 'M' }] },
+    { hash: 'ghi9012', message: 'chore: no task', date: '2026-05-06T10:00:00Z', files: [{ path: 'src/d.ts', status: 'M' }] },
+  ];
 
   const builder = new BuildIndex(fs as any);
   await builder.execute({}, git as any);
@@ -345,11 +345,11 @@ test('BuildIndex sets commitRefOverflow when commit count exceeds MAX_COMMIT_REF
     hash: `hash${i.toString().padStart(4, '0')}`,
     message: `feat: [TASK-99] commit ${i}`,
     date: `2026-05-${(i + 1).toString().padStart(2, '0')}T10:00:00Z`,
-    files: [`src/file${i}.ts`],
+    files: [{ path: `src/file${i}.ts`, status: 'M' }],
   }));
 
   const git = new MockGitRepository();
-  git.commits = manyCommits as any;
+  git.commits = manyCommits;
   const builder = new BuildIndex(fs as any);
   await builder.execute({}, git as any);
 
