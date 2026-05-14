@@ -129,10 +129,10 @@ export class GovernSystem {
 
     await this.fileSystem.writeFile(ledgerPath, content);
 
-    const filesToStage = [ledgerPath, ...changedTaskFiles];
-    for (const f of filesToStage) {
-      try { await this.gitRepository.add(f); } catch { /* ok if already staged */ }
-    }
+    // Stage and commit only the ledger — task meta files are updated on disk
+    // but not committed by govern (pre-commit hook requires Hansei on M+ task files,
+    // which govern does not add; the ledger is the durable record).
+    try { await this.gitRepository.add(ledgerPath); } catch { /* ok */ }
 
     if (newRulings.length > 0) {
       const primary = newRulings[newRulings.length - 1];
