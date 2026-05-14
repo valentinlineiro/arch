@@ -120,9 +120,15 @@ Rule 3 (focus no longer eligible) and `INTEGRITY_FIX` bypass the inercia window.
 **`FOCUS_INTEGRITY_VIOLATION`** — a task has `focus: true` with no `FOCUS_ACQUIRED`
 ruling in the committed ledger. Emitted if true.
 
-**`FOCUS_SOVEREIGNTY`** — an eligible task exists with higher priority than the focused
-task, and more than `minTicksBeforeSwitch` ticks have elapsed since the last
-`FOCUS_ACQUIRED` ruling. Emitted if true.
+**`FOCUS_SOVEREIGNTY`** — an eligible task C exists with `priority(C) < priority(focused)`,
+AND the number of ticks since the last `FOCUS_ACQUIRED` ruling is `>= minTicksBeforeSwitch`
+(i.e., Rule 4 would not prevent preemption at this tick),
+AND no `FOCUS_ACQUIRED` ruling for C exists in the committed ledger at tick >= the tick
+when C last became eligible. Emitted if true.
+
+This condition is isomorphic with govern's Rules 4+5: review fires exactly when govern
+would preempt, and is silent exactly when govern would preserve. No false positives from
+inercia window; no false negatives from stale rulings.
 
 Review writes nothing. It emits exactly one condition per invocation:
 `NONE`, `FOCUS_SOVEREIGNTY`, or `FOCUS_INTEGRITY_VIOLATION`.
