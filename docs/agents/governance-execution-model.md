@@ -149,21 +149,165 @@ entries (tick number > lastCommittedGovernTick) and either commit or discard the
 
 ---
 
-## Part II — FocusStateMachine
+## Part II — State Projection and Causality Model
 
-_To be written after Event Ontology is reviewed._
+The ledger is a decision log. It records rulings — not world state.
+World state evolves independently of decisions. A task can change priority, resolve a
+dependency, or acquire an H3a escalation without any govern tick occurring.
+
+This part defines the missing layer: how world state is projected at a given tick,
+how rulings relate to the state they adjudicated, and what it means for a ruling to
+"cover" a current condition.
+
+### 2.1 StateView — world state at a tick
+
+`StateView(tick)` is the projection of the governance-relevant world state at a given
+govern tick. It is computed on demand from two sources:
+
+1. **Committed task index at tick**: All task meta lines as they existed at the start
+   of the snapshot phase for tick N. This is the mutable world. It includes status,
+   priority, blocked flags, dependencies, and focus assignments.
+
+2. **Committed ledger at tick**: All ruling entries at `tick <= N`. This is the
+   immutable decision history. Staleness scores, window state, and acquisition history
+   are derived from the ledger.
+
+`StateView(tick)` is NOT stored. It is computed fresh at the start of each govern tick
+and at the start of each review invocation. It is the input to all evaluation logic.
+
+```
+StateView(tick) := {
+  focusedTask:         TaskId | null,          // from task index
+  eligibleCandidates:  [(TaskId, Priority)],   // structural eligibility (§1.7)
+  stalenessScores:     Map<TaskId, Score>,      // derived from ledger + observation events
+  windowState:         Map<TaskId, TicksRemaining>,  // derived from ledger
+  lastAcquisition:     Map<TaskId, (Ruling, Tick)>   // most recent acquisition ruling per task
+}
+```
+
+StateView separates the two planes that must not be conflated:
+- **World state** — what the tasks look like now (from task index, mutable)
+- **Decision history** — what govern has decided (from ledger, immutable)
+
+Staleness scores bridge the planes: they are computed from observation events detected
+against the world state, but accumulated through the ledger (each tick's ruling records
+the score at adjudication time).
+
+### 2.2 RulingCoverage — when a ruling covers a condition
+
+A ruling covers a sovereignty predicate if and only if all of the following hold:
+
+1. The ruling was emitted at tick R
+2. The ruling's `stateSnapshotTick` equals R (i.e., it was made against StateView(R))
+3. The candidate task that created the predicate existed and was eligible at StateView(R)
+4. No observation event has occurred since tick R that would create a new sovereignty
+   predicate — specifically, no new eligible task with higher priority than the focused
+   task has become READY since tick R
+
+Condition 4 is the load-bearing rule. It means that a `PROTECTED_PRESERVATION` ruling
+at tick 5 does NOT cover a P0 task that became READY at tick 6. The new condition is
+uncovered. Review will emit `FOCUS_SOVEREIGNTY` again. Govern must adjudicate again.
+
+**Formal coverage check at review time:**
+
+For each currently eligible higher-priority task C:
+- Find the most recent ruling in the committed ledger where C was the triggering candidate
+- If no such ruling exists: predicate is uncovered → emit `FOCUS_SOVEREIGNTY`
+- If the ruling exists but C's eligibility changed after the ruling (e.g. C became BLOCKED,
+  then READY again): the ruling does not cover the current appearance → emit `FOCUS_SOVEREIGNTY`
+- If the ruling exists and C's eligibility is continuous since the ruling: predicate is covered
+
+An eligibility change is defined as: any observation event (§1.2) that would have changed
+whether C satisfied the §1.7 eligibility criteria between tick R and now.
+
+### 2.3 FOCUS_SOVEREIGNTY as sovereignty predicate — not trigger
+
+A sovereignty predicate is an unresolved obligation for govern to adjudicate.
+It is not a trigger (triggers have side-effect semantics). It is not a command.
+It is a formal proposition: "there exists an eligible task C of higher priority than
+focused task F, and no ruling covers this condition in the committed ledger."
+
+The predicate is true or false. If true, govern has an unresolved obligation.
+If false, review emits `NONE`. The obligation's resolution is govern's responsibility;
+review's responsibility ends at evaluating the predicate.
+
+This distinction matters in two ways:
+
+1. Review remains a pure function from StateView → ReviewCondition. It produces no side
+   effects. The predicate's truth value is the sole output.
+
+2. The obligation is causal, not temporal. It does not expire by elapsed time.
+   It resolves only when govern emits a ruling that satisfies the coverage check (§2.2).
+
+Updated condition table — reframed as predicates:
+
+| Predicate | True when |
+|---|---|
+| `NONE` | No sovereignty predicate is true in StateView(lastCommittedGovernTick) |
+| `FOCUS_SOVEREIGNTY(C, F)` | Eligible candidate C has higher priority than focused task F, and no ruling covers C's current eligibility in the committed ledger |
+| `FOCUS_INTEGRITY_VIOLATION(F)` | Focused task F has `Focus:yes` in the task index but no lawful acquisition ruling in the committed ledger |
+
+### 2.4 Tick as transaction boundary, not state model
+
+A tick is a transaction boundary. It is not a unit of causal time.
+
+The distinction: between two govern ticks, the world state can change arbitrarily —
+tasks can change status, acquire escalations, have dependencies resolved. These changes
+are observation events (§1.2) that accumulate in the world. They are not ticks.
+
+A tick is the moment govern reads the accumulated world state, adjudicates, and writes
+rulings. The tick counter measures the number of completed adjudication transactions,
+not the amount of time elapsed or the amount of world-state change that occurred.
+
+This means:
+
+- Staleness score +1 per tick without certified transition measures **adjudication cycles
+  without causal advancement**, not time elapsed. The tick is the operational unit.
+  This is not purely causal — it is causal-within-ticks. The system explicitly acknowledges
+  that tick frequency is an operational parameter that affects score accumulation rate.
+
+- **Operational invariant (not system invariant):** The tick boundary's atomicity depends
+  on single-process sequential execution. It is not a database transaction. It is not
+  crash-consistent. If the process is killed mid-Phase 3, ledger entries for that tick
+  may be partially written. Recovery: on next govern invocation, detect entries with
+  `tick > lastCommittedGovernTick`, treat as uncommitted, discard and re-adjudicate.
+  This recovery is correct only if the process is not killed again during the same Phase 3.
+  This is the system's known fragility boundary; it does not claim to be stronger than it is.
+
+### 2.5 Ledger integrity classes
+
+The ledger can fail in three distinct ways. These require different responses:
+
+| Failure class | Definition | Recoverable? | Response |
+|---|---|---|---|
+| **Structural corruption** | Entry is not valid JSON, or is missing required fields | Yes, with data loss risk | `INTEGRITY_RECOVERY`: discard malformed entry, emit repair ruling, re-adjudicate from last clean entry |
+| **Semantic corruption** | Entry has valid structure but invalid ruling value or impossible state | Yes | `INTEGRITY_RECOVERY`: supersede with corrected ruling |
+| **Legitimacy gap** | `Focus:yes` exists in task index with no acquisition ruling | Yes | `INTEGRITY_RECOVERY`: `FOCUS_INTEGRITY_VIOLATION` → reassign via `MIGRATION_SYNTHESIS` path |
+| **Irrecoverable corruption** | Ledger cannot be parsed at all; `lastCommittedGovernTick` unreadable | No — requires human | Nuclear option: delete ledger, run govern with full `MIGRATION_SYNTHESIS` for all `Focus:yes` tasks. Requires explicit human authorisation. This is not an automated recovery path. |
+
+The `MIGRATION_SYNTHESIS` irrevocability rule applies only to legitimacy class:
+a `MIGRATION_SYNTHESIS` ruling is proof of lawful focus assignment and cannot be
+challenged as illegitimate. If the entry itself is structurally or semantically corrupt
+(failure classes 1 or 2), it may be repaired via `INTEGRITY_RECOVERY` without the
+repair being treated as a legitimacy challenge.
 
 ---
 
-## Part III — ReviewState Model
+## Part III — FocusStateMachine
 
-_To be written after Event Ontology is reviewed._
+_To be written._
 
 ---
 
-## Part IV — LedgerTruthModel
+## Part IV — ReviewState Model
 
-_To be written after Event Ontology is reviewed._
+_To be written._
+
+---
+
+## Part V — LedgerTruthModel
+
+_To be written._
 
 ---
 
