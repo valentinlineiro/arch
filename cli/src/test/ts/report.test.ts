@@ -17,7 +17,7 @@ class MockFileSystem extends BaseMockFileSystem {
 test('ArchiveParser - parses task content with git history provenance', async () => {
   const fs = new MockFileSystem();
   const git = new MockGitRepository();
-  const parser = new ArchiveParser(fs as any, git as any);
+  const parser = new ArchiveParser(fs, git);
 
   const taskId = 'TASK-001';
   const archivePath = `docs/archive/${taskId}.md`;
@@ -62,7 +62,7 @@ test('MetricsEngine - calculates cycle time and integrity levels', async () => {
   fs.existsResults['docs/EVENTS.md'] = true;
   // Events must be in chronological order
   fs.files['docs/EVENTS.md'] = '# Event Log\n\n## 2026-05-13T09:00:00Z\nTASK-001 | REVIEW -> DONE | commit:abc | agent:human\n\n## 2026-05-13T10:00:00Z\nTASK-003 | REVIEW -> DONE | commit:def | agent:human\n\n## 2026-05-13T11:00:00Z\nTASK-002 | REVIEW -> DONE | commit:ghi | agent:human\n';
-  const engine = new MetricsEngine(fs as any, git as any);
+  const engine = new MetricsEngine(fs, git);
 
   const tasks = [
     { id: 'TASK-001', size: 'XS', createdAt: '2026-05-13T08:00:00Z', completedAt: '2026-05-13T09:00:00Z', integrity: 'HIGH', class: '' }, // 1h
@@ -88,7 +88,7 @@ test('MetricsEngine - Hostile: detects logistics-only archival (Attack Surface 1
   fs.existsResults['docs/EVENTS.md'] = true;
   fs.files['docs/EVENTS.md'] = '# Event Log\n\n## 2026-05-13T09:00:00Z\nTASK-001 | REVIEW -> DONE | commit:abc\n';
   git.validHashes.add('abc');
-  const engine = new MetricsEngine(fs as any, git as any);
+  const engine = new MetricsEngine(fs, git);
 
   const tasks = [
     { id: 'TASK-001', size: 'XS', createdAt: '2026-05-13T08:00:00Z', completedAt: '2026-05-13T09:00:00Z', integrity: 'HIGH', class: '' },
@@ -107,7 +107,7 @@ test('MetricsEngine - Hostile: detects rewritten history (Attack Surface 2)', as
   fs.existsResults['docs/EVENTS.md'] = true;
   // TASK-001 event references commit 'bad-hash' which is NOT in git
   fs.files['docs/EVENTS.md'] = '# Event Log\n\n## 2026-05-13T09:00:00Z\nTASK-001 | REVIEW -> DONE | commit:bad-hash\n';
-  const engine = new MetricsEngine(fs as any, git as any);
+  const engine = new MetricsEngine(fs, git);
 
   const tasks = [
     { id: 'TASK-001', size: 'XS', createdAt: '2026-05-13T08:00:00Z', completedAt: '2026-05-13T09:00:00Z', integrity: 'HIGH', class: '' },
@@ -126,7 +126,7 @@ test('MetricsEngine - Hostile: detects ambiguous attribution (Attack Surface 3)'
   fs.files['docs/EVENTS.md'] = '# Event Log\n\n## 2026-05-13T09:00:00Z\nTASK-001 | REVIEW -> DONE | commit:abc | agent:agent-1\n\n## 2026-05-13T10:00:00Z\nTASK-001 | REVIEW -> DONE | commit:def | agent:agent-2\n';
   git.validHashes.add('abc');
   git.validHashes.add('def');
-  const engine = new MetricsEngine(fs as any, git as any);
+  const engine = new MetricsEngine(fs, git);
 
   const tasks = [
     { id: 'TASK-001', size: 'XS', createdAt: '2026-05-13T08:00:00Z', completedAt: '2026-05-13T09:00:00Z', integrity: 'HIGH', class: '' },
@@ -140,7 +140,7 @@ test('MetricsEngine - Hostile: detects ambiguous attribution (Attack Surface 3)'
 test('MetricsEngine - detects chronological regression', async () => {
   const fs = new MockFileSystem();
   const git = new MockGitRepository();
-  const engine = new MetricsEngine(fs as any, git as any);
+  const engine = new MetricsEngine(fs, git);
 
   fs.files['docs/EVENTS.md'] = `
 # Event Log
@@ -159,7 +159,7 @@ TASK-002 | REVIEW -> READY
 test('MetricsEngine - fails closed on malformed event log (Severity 2)', async () => {
   const fs = new MockFileSystem();
   const git = new MockGitRepository();
-  const engine = new MetricsEngine(fs as any, git as any);
+  const engine = new MetricsEngine(fs, git);
 
   fs.files['docs/EVENTS.md'] = `
 # Event Log
