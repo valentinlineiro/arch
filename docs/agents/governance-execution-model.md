@@ -175,3 +175,32 @@ It answers one question each tick: **which task should have focus right now, and
 The ledger answers one question for any past tick: **why did govern decide what it decided?**
 
 That is the complete scope of this system.
+
+---
+
+## IX. System invariants (enforced, not formally verified)
+
+These are properties of the valid state space — not postconditions of a tick, but
+constraints on what states can legally exist in the system at any point, regardless
+of how they were reached.
+
+**A. Causal correspondence.**
+Every `focus: true` in World State is justified by exactly one `FOCUS_ACQUIRED` ruling
+in the committed ledger for that task. No more, no fewer. Enforced by: `INTEGRITY_FIX`.
+
+**B. Uniqueness of authority.**
+At most one task holds focus authority in any StateView. A second `FOCUS_ACQUIRED`
+implicitly releases the previous holder. Enforced by: Rule 5 + `FOCUS_ACQUIRED` semantics.
+
+**C. Ledger monotonicity.**
+The ledger is a total order of non-contradictory decisions on the same causal axis.
+No two rulings can be incompatible for the same base state without an intervening
+event that justifies the transition. Enforced by: append-only structure + `lastCommittedTick`.
+
+**D. Detectable divergence.**
+World State may be temporarily inconsistent with the ledger (e.g. mid-tick crash),
+but any divergence is detectable and surfaces as `FOCUS_INTEGRITY_VIOLATION`.
+There is no silent corruption. Enforced by: `arch review`.
+
+These invariants are already load-bearing in the design. They are stated here for
+auditability, not because they require additional enforcement.
