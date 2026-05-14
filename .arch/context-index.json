@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-14T12:20:27.476Z",
+  "builtAt": "2026-05-14T15:32:14.171Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -690,6 +690,33 @@
       "criticality": "domain",
       "runtimeUsage": "warm"
     },
+    "cli/src/main/ts/application/use-cases/focus-ledger.ts": {
+      "symbols": [
+        "RulingAction",
+        "FocusRuling",
+        "LedgerState",
+        "FOCUS_LEDGER_PATH",
+        "parseLedger",
+        "committedRulings",
+        "serializeLedger"
+      ],
+      "imports": [],
+      "tags": [
+        "application",
+        "cases",
+        "focus",
+        "ledger",
+        "ruling",
+        "action",
+        "state",
+        "parse",
+        "committed",
+        "rulings",
+        "serialize"
+      ],
+      "criticality": "domain",
+      "runtimeUsage": "warm"
+    },
     "cli/src/main/ts/application/use-cases/generate-inbox.ts": {
       "symbols": [
         "InboxData",
@@ -741,12 +768,12 @@
         "cli/src/main/ts/domain/repositories/git-repository.ts",
         "cli/src/main/ts/domain/repositories/file-system.ts",
         "cli/src/main/ts/domain/models/task.ts",
-        "cli/src/main/ts/application/use-cases/select-next-task.ts",
         "cli/src/main/ts/application/use-cases/batch-system.ts",
         "cli/src/main/ts/domain/services/config-loader.ts",
         "cli/src/main/ts/application/use-cases/causal-signal-log.ts",
         "cli/src/main/ts/application/use-cases/reflect-influence-report.ts",
-        "cli/src/main/ts/domain/services/task-validator.ts"
+        "cli/src/main/ts/domain/services/task-validator.ts",
+        "cli/src/main/ts/application/use-cases/focus-ledger.ts"
       ],
       "tags": [
         "application",
@@ -989,21 +1016,25 @@
     },
     "cli/src/main/ts/application/use-cases/review-system.ts": {
       "symbols": [
+        "ReviewCondition",
         "ReviewSystem"
       ],
       "imports": [
         "cli/src/main/ts/domain/repositories/task-repository.ts",
         "cli/src/main/ts/domain/repositories/git-repository.ts",
         "cli/src/main/ts/domain/repositories/file-system.ts",
+        "cli/src/main/ts/domain/models/task.ts",
         "cli/src/main/ts/domain/services/reviewer.ts",
         "cli/src/main/ts/application/use-cases/drift-checker.ts",
-        "cli/src/main/ts/domain/services/config-loader.ts"
+        "cli/src/main/ts/domain/services/config-loader.ts",
+        "cli/src/main/ts/application/use-cases/focus-ledger.ts"
       ],
       "tags": [
         "application",
         "cases",
         "review",
-        "system"
+        "system",
+        "condition"
       ],
       "criticality": "domain",
       "runtimeUsage": "hot"
@@ -3465,6 +3496,95 @@
       ],
       "affectedModules": [],
       "strength": "advisory"
+    },
+    "ADR-020": {
+      "title": "Focus Sovereignty Model",
+      "keywords": [
+        "focus",
+        "sovereignty",
+        "model",
+        "adr",
+        "020",
+        "date",
+        "2026",
+        "status",
+        "proposed",
+        "deciders",
+        "human",
+        "architect",
+        "claude",
+        "sonnet",
+        "context",
+        "arch",
+        "govern",
+        "preserves",
+        "yes",
+        "unconditionally",
+        "once",
+        "set",
+        "higher",
+        "priority",
+        "task",
+        "entering",
+        "backlog",
+        "after",
+        "assigned",
+        "ignored",
+        "until",
+        "focused",
+        "archived",
+        "sticky",
+        "drift",
+        "system",
+        "appears",
+        "actually",
+        "remembering",
+        "review",
+        "detects",
+        "prioritydrift",
+        "warning",
+        "cannot",
+        "resolve",
+        "what",
+        "produce",
+        "resolution",
+        "becomes",
+        "noise",
+        "repeated",
+        "destroys",
+        "trust",
+        "signal",
+        "current",
+        "rule",
+        "when",
+        "may",
+        "legitimately",
+        "interrupted",
+        "problems",
+        "compound",
+        "stateless",
+        "meta",
+        "line",
+        "carries",
+        "causal",
+        "history",
+        "there",
+        "record",
+        "why",
+        "holds",
+        "authority",
+        "granted",
+        "six",
+        "weeks",
+        "now",
+        "audit",
+        "reconstruct",
+        "legitimacy",
+        "state",
+        "detection"
+      ],
+      "affectedModules": [],
+      "strength": "advisory"
     }
   },
   "adrTaskLinks": {
@@ -3482,6 +3602,16 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-233.md"
+        }
+      }
+    },
+    "ADR-020": {
+      "tasks": {
+        "TASK-247": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-247.md"
         }
       }
     },
@@ -4574,6 +4704,40 @@
     }
   },
   "tasks": {
+    "TASK-247": {
+      "commitCount": 18,
+      "lastCommitDate": "2026-05-14T17:32:10+02:00",
+      "touchedFrequency": {
+        "cli/src/main/ts/application/use-cases/focus-ledger.ts": 1,
+        "cli/src/main/ts/application/use-cases/govern-system.ts": 1,
+        "cli/src/main/ts/application/use-cases/review-system.ts": 1,
+        "cli/src/test/ts/govern-system.test.ts": 1,
+        "docs/tasks/TASK-247.md": 10,
+        "docs/agents/governance-execution-model.md": 7,
+        "docs/adr/ADR-020-focus-sovereignty-model.md": 1
+      },
+      "recentCommitRefs": [
+        "3fdbe77",
+        "0ea6800",
+        "877e491",
+        "833a002",
+        "ab673b3",
+        "0a7a0de",
+        "b4c2988",
+        "7e7bcc4",
+        "4af1883",
+        "c64d17c",
+        "6efaa25",
+        "bf3b0fa",
+        "260754d",
+        "756d0e0",
+        "81ff433",
+        "c113cd4",
+        "430414e",
+        "04d2ffe"
+      ],
+      "commitRefOverflow": false
+    },
     "TASK-244": {
       "commitCount": 7,
       "lastCommitDate": "2026-05-14T14:19:22+02:00",
@@ -6579,21 +6743,20 @@
       "commitRefOverflow": false
     },
     "TASK-171": {
-      "commitCount": 5,
+      "commitCount": 4,
       "lastCommitDate": "2026-05-04T16:05:40+02:00",
       "touchedFrequency": {
         "cli/src/test/ts/task-validator.test.ts": 1,
         "docs/archive/TASK-171.md": 1,
         "cli/src/main/ts/domain/services/reviewer.ts": 1,
         "cli/src/main/ts/domain/services/task-validator.ts": 1,
-        "docs/tasks/TASK-171.md": 3
+        "docs/tasks/TASK-171.md": 2
       },
       "recentCommitRefs": [
         "a2b5f82",
         "2c2c23e",
         "9e80a65",
-        "4748f3f",
-        "1e3087a"
+        "4748f3f"
       ],
       "commitRefOverflow": false
     },
@@ -6663,10 +6826,10 @@
       "commitRefOverflow": false
     },
     "TASK-070": {
-      "commitCount": 11,
+      "commitCount": 6,
       "lastCommitDate": "2026-05-04T15:00:35+02:00",
       "touchedFrequency": {
-        "docs/INBOX.md": 11
+        "docs/INBOX.md": 6
       },
       "recentCommitRefs": [
         "1f845a6",
@@ -6674,12 +6837,7 @@
         "4571e7c",
         "2ca55cf",
         "56290fa",
-        "ebc593c",
-        "b555c48",
-        "fa21f52",
-        "beb7579",
-        "46eaa85",
-        "2b94159"
+        "ebc593c"
       ],
       "commitRefOverflow": false
     },
@@ -6716,93 +6874,27 @@
       "commitRefOverflow": false
     },
     "TASK-166": {
-      "commitCount": 5,
+      "commitCount": 1,
       "lastCommitDate": "2026-05-04T14:12:55+02:00",
       "touchedFrequency": {
-        "docs/archive/TASK-166.md": 1,
-        "docs/tasks/TASK-166.md": 4,
-        "cli/src/main/ts/application/commands/sandbox-command.ts": 1,
-        "cli/src/main/ts/index.ts": 1,
-        "cli/src/main/ts/infrastructure/cli/output-formatter.ts": 1,
-        "docs/INBOX.md": 1,
-        "docs/tasks/TASK-167.md": 1,
-        "scripts/arch.sh": 1
+        "docs/archive/TASK-166.md": 1
       },
       "recentCommitRefs": [
-        "312bf01",
-        "0e90831",
-        "e968026",
-        "72e7df3",
-        "dc6f655"
+        "312bf01"
       ],
       "commitRefOverflow": false
     },
     "TASK-170": {
-      "commitCount": 4,
+      "commitCount": 2,
       "lastCommitDate": "2026-05-04T14:12:14+02:00",
       "touchedFrequency": {
         "docs/refinement/archive/IDEA-dynamic-interactive-inbox.md": 2,
         "docs/tasks/TASK-172.md": 2,
-        "docs/archive/TASK-170.md": 1,
-        "docs/INBOX.md": 1,
-        "docs/tasks/TASK-170.md": 2,
-        "docs/refinement/IDEA-interactive-inbox.md": 1,
-        "docs/refinement/archive/IDEA-loop-hitl-ux-improvement.md": 1
+        "docs/archive/TASK-170.md": 1
       },
       "recentCommitRefs": [
         "79a6095",
-        "cac27c2",
-        "d9cf73a",
-        "189e078"
-      ],
-      "commitRefOverflow": false
-    },
-    "TASK-165": {
-      "commitCount": 5,
-      "lastCommitDate": "2026-05-04T11:48:13+02:00",
-      "touchedFrequency": {
-        "docs/INBOX.md": 2,
-        "docs/archive/TASK-165.md": 1,
-        "docs/tasks/TASK-170.md": 1,
-        "cli/src/main/ts/domain/services/sandbox.ts": 1,
-        "cli/src/test/ts/sandbox.test.ts": 1,
-        "docs/tasks/TASK-165.md": 2
-      },
-      "recentCommitRefs": [
-        "449a136",
-        "b509352",
-        "d9cf73a",
-        "ef115d7",
-        "0e7fb91"
-      ],
-      "commitRefOverflow": false
-    },
-    "TASK-152": {
-      "commitCount": 1,
-      "lastCommitDate": "2026-05-04T10:40:16+02:00",
-      "touchedFrequency": {
-        ".gitignore": 1,
-        "arch.config.json": 1,
-        "cli/src/main/ts/application/commands/review-command.ts": 1,
-        "cli/src/main/ts/application/use-cases/govern-system.ts": 1,
-        "cli/src/main/ts/application/use-cases/loop-engine.ts": 1,
-        "cli/src/main/ts/application/use-cases/review-system.ts": 1,
-        "cli/src/main/ts/domain/services/config-loader.ts": 1,
-        "cli/src/main/ts/index.ts": 1,
-        "cli/src/main/ts/infrastructure/cli/subprocess-runner.ts": 1,
-        "cli/src/test/ts/drift-checker.test.ts": 1,
-        "cli/src/test/ts/govern-system.test.ts": 1,
-        "cli/src/test/ts/review-command.test.ts": 1,
-        "cli/src/test/ts/review-system.test.ts": 1,
-        "docs/INBOX.md": 1,
-        "docs/agents/DO.md": 1,
-        "docs/tasks/TASK-161.md": 1,
-        "scripts/arch-init.sh": 1,
-        "scripts/arch-install.sh": 1,
-        "scripts/arch.sh": 1
-      },
-      "recentCommitRefs": [
-        "7caf4bb"
+        "cac27c2"
       ],
       "commitRefOverflow": false
     }
