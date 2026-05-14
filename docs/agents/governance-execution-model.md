@@ -4,190 +4,161 @@ This document defines the operational execution semantics of the ARCH focus sove
 system. It is not a decision record — see ADR-020 for policy and invariants. It is the
 bridge between ADR-020 and `govern-system.ts`.
 
-**Guiding principle:** The ledger is the only causal source of truth.
-The filesystem is current state. Review reads. Govern writes. Nothing else has causal authority.
+**Guiding principle:** The system decides which task holds focus each tick, using current
+state and a simple decision history. Nothing else.
 
 ---
 
-## I. Two states, nothing more
+## I. State
 
-The system has exactly two state types.
+The system has two state types.
 
 **World State** — mutable, from filesystem.
-Tasks: status, priority, blocked, depends, Focus:yes/no.
-This is current reality. It has no historical authority.
 
-**Decision State** — immutable, append-only, from `.arch/focus-ledger.jsonl`.
-This is causal history. It is the only thing that explains the past.
-Every focus transition ever made by govern lives here.
-
-No other state exists with causal authority.
-
----
-
-## II. Two event classes, nothing more
-
-**Observations** — derived from World State on demand.
-Examples: task became READY, dependency resolved, task blocked.
-These are inputs to govern's decision logic. They are NOT stored.
-Observations have no independent existence; they are computed fresh each tick.
-
-**Rulings** — emitted by govern, appended to the ledger.
-Examples: `FOCUS_ACQUIRED`, `FOCUS_PRESERVED`, `INTEGRITY_RESTORED`.
-These ARE stored. They are the system. The ledger is the sequence of rulings.
-
----
-
-## III. StateView — what govern reads
-
-At the start of each tick, govern reads:
-
-```
-StateView := {
-  currentFocusedTask:  TaskId | null,      // from World State
-  eligibleTasks:       [(TaskId, Priority)], // from World State (see §IV)
-  ledgerHistory:       Ruling[],            // from Decision State
-  worldSnapshot:       TaskMeta[]           // raw World State
+```typescript
+type Task = {
+  id:       string;
+  status:   'READY' | 'BLOCKED' | 'DONE' | 'IN_PROGRESS';
+  priority: number;          // lower number = higher priority (P0 > P1 > P2 > P3)
+  depends:  string[];        // task IDs
+  focus:    boolean;
 }
 ```
 
-This is computed once per tick at tick start. It is not stored. It is the complete
-input to the decision phase. Govern makes all decisions against this snapshot.
-No additional reads occur during the decision phase.
-
----
-
-## IV. Eligibility — binary, structural, now
-
-A task is eligible if and only if all three hold in the current World State:
-
-1. `status == READY`
-2. `blocked == false`
-3. All task IDs in `Depends:` have `status == DONE` in World State
-
-Eligibility is evaluated at the moment of the tick snapshot. It has no history.
-There are no eligibility intervals. There are no candidate instances.
-A task is eligible now or it is not.
-
----
-
-## V. FOCUS_SOVEREIGNTY — the one condition that matters
-
-`FOCUS_SOVEREIGNTY` is present when:
-
-- There exists an eligible task C such that `priority(C) > priority(focusedTask)`
-- AND no ruling exists in `ledgerHistory` that resolves this condition
-
-Translation: something better is ready, and the system has not addressed it yet.
-
-`FOCUS_INTEGRITY_VIOLATION` is present when:
-
-- `currentFocusedTask` has `Focus:yes` in World State
-- AND no acquisition ruling (`FOCUS_ACQUIRED` or `MIGRATION_SYNTHESIS`) exists in `ledgerHistory` for that task
-
-If both are present, `FOCUS_INTEGRITY_VIOLATION` takes precedence.
-
-`arch review` evaluates these two predicates against `StateView` and emits exactly one:
-`NONE`, `FOCUS_SOVEREIGNTY`, or `FOCUS_INTEGRITY_VIOLATION`. Review writes nothing.
-
----
-
-## VI. Govern — the only writer
-
-**Input:** `StateView`
-**Output:** 0..N rulings appended to ledger, then World State updated
-
-**Decision logic — evaluated in order, stop at first match:**
-
-1. `FOCUS_INTEGRITY_VIOLATION` present → emit `INTEGRITY_RESTORED`, reassign focus, stop
-2. Hard preemption candidate exists (P0, integrity corruption class) → emit `FOCUS_ACQUIRED(HARD)`, stop
-3. Within protected window (first `protectedWindowTicks` ticks since last `FOCUS_ACQUIRED`) → emit `FOCUS_PRESERVED(PROTECTED_WINDOW)`, stop
-4. `FOCUS_SOVEREIGNTY` present AND staleness score > threshold → emit `FOCUS_ACQUIRED(SOFT)`, stop
-5. Otherwise → emit `FOCUS_PRESERVED(NO_PREEMPTION_CONDITION)`
-
-**Staleness score** is an integer stored in the most recent ruling for the focused task.
-It is updated each tick by observation deltas (see ADR-020 §5 for the delta table).
-It is not a separate data structure. It lives in the ledger as a field on ruling entries.
-
----
-
-## VII. Tick — sequential execution, not a transaction
-
-A tick is a sequential execution unit:
-
-1. Read `StateView` from filesystem + ledger
-2. Run decision logic against `StateView`
-3. Append ruling(s) to ledger
-4. Update World State (task meta lines)
-5. Increment `lastCommittedGovernTick`
-
-**What this guarantees:** sequential consistency within a single process. No concurrent
-govern invocations are supported. If two invocations occur simultaneously, behaviour is
-undefined — callers must prevent this.
-
-**What this does NOT guarantee:** crash consistency, atomicity in the database sense,
-or deterministic recovery.
-
----
-
-## VIII. Recovery — converge from current state
-
-If govern is interrupted mid-tick (crash between steps 3 and 5):
-- On next invocation, ledger entries with `tick > lastCommittedGovernTick` exist
-- Discard them (they are uncommitted)
-- Re-evaluate from current `StateView`
-- Produce a new ruling for the current tick
-
-The new ruling may differ from the discarded one. That is correct: govern produces
-a valid ruling for current state, not a replay of the interrupted one.
-
-**There is no "lost truth."** The discarded entries were not committed. The system
-converges to a valid new state. Historical continuity between the interrupted tick
-and the recovery tick is not guaranteed — and not required.
-
----
-
-## IX. Ruling schema
+**Decision State** — immutable, append-only, `.arch/focus-ledger.jsonl`.
 
 ```typescript
 type Ruling = {
-  taskId:        string;
-  ruling:        'FOCUS_ACQUIRED' | 'FOCUS_PRESERVED' | 'INTEGRITY_RESTORED' | 'MIGRATION_SYNTHESIS';
-  reason:        string;           // free text, supplementary
-  layer?:        'HARD' | 'SOFT' | 'PROTECTED_WINDOW' | 'NO_PREEMPTION_CONDITION';
-  stalenessScore: number;
   tick:          number;
-  timestamp:     string;           // ISO 8601
-  previousTask?: string;           // FOCUS_ACQUIRED only
-  violation?:    string;           // INTEGRITY_RESTORED only
+  taskId:        string;
+  action:        'FOCUS_ACQUIRED' | 'FOCUS_PRESERVED' | 'FOCUS_RELEASED' | 'INTEGRITY_FIX';
+  previousTask?: string;     // FOCUS_ACQUIRED only
+  timestamp:     string;     // ISO 8601
 }
 ```
 
-`lastCommittedGovernTick` is stored as the first line of `focus-ledger.jsonl`:
-```jsonl
-{"meta": true, "lastCommittedGovernTick": 5}
-{"taskId": "TASK-207", "ruling": "FOCUS_PRESERVED", ...}
+The ledger header line: `{"meta": true, "lastCommittedTick": N}`
+
+---
+
+## II. Eligibility — binary, now
+
+A task is eligible if and only if, in current World State:
+
+1. `status === 'READY'`
+2. `focus === false` (not already focused)
+3. All `depends` task IDs have `status === 'DONE'`
+
+Eligibility has no history. It is true or false at the moment of evaluation.
+
+---
+
+## III. Tick — the execution cycle
+
+Each govern invocation executes one tick:
+
+**Step 1 — Read state**
+Load all tasks from filesystem. Load ledger. Read `lastCommittedTick`.
+
+**Step 2 — Compute eligible candidates**
+Apply §II to all tasks. Sort by priority ascending (P0 first).
+
+**Step 3 — Identify focused task**
+The focused task is the most recent `FOCUS_ACQUIRED` in the ledger.
+If none exists: focused = null.
+
+**Step 4 — Decide** (see §IV)
+
+**Step 5 — Write ruling to ledger**
+
+**Step 6 — Update World State** (set `focus: true/false` in task meta lines)
+
+**Step 7 — Increment `lastCommittedTick`**
+
+Steps 5-7 execute in this order. If the process is killed between 5 and 7,
+recovery restores from the last committed tick (see §VI).
+
+---
+
+## IV. Decision logic
+
+Evaluated in order. Stop at first match.
+
+**Rule 1 — Integrity fix.** If a task has `focus: true` in World State but no
+`FOCUS_ACQUIRED` ruling in the ledger: emit `INTEGRITY_FIX`, clear that task's focus,
+continue to Rule 2.
+
+**Rule 2 — No current focus.** If focused = null: assign the top eligible candidate.
+Emit `FOCUS_ACQUIRED`. Done.
+
+**Rule 3 — Current focus no longer eligible.** If the focused task is not in the
+eligible set: emit `FOCUS_ACQUIRED` for top candidate (or `FOCUS_RELEASED` if no
+candidate exists). Done.
+
+**Rule 4 — Minimum inercia window.** Count ticks since the last `FOCUS_ACQUIRED` ruling.
+If fewer than `minTicksBeforeSwitch` (default: 2, configurable in `arch.config.json`):
+emit `FOCUS_PRESERVED`. Done.
+
+**Rule 5 — Priority preemption.** If a candidate C exists with `priority(C) < priority(focused)`:
+emit `FOCUS_ACQUIRED` with `previousTask = focused.id`. Done.
+
+**Rule 6 — No change.** Emit `FOCUS_PRESERVED`. Done.
+
+**The minimum inercia window (Rule 4) prevents the scheduler from reacting to every
+priority change immediately.** Without it the system is a reactive reflex, not a
+scheduler. `minTicksBeforeSwitch = 2` means a focused task gets at least 2 consecutive
+ticks before it can be preempted by a soft priority advantage.
+Rule 3 (focus no longer eligible) and `INTEGRITY_FIX` bypass the inercia window.
+
+---
+
+## V. What review does
+
+`arch review` reads World State and the committed ledger (entries at
+`tick <= lastCommittedTick`). It evaluates two predicates:
+
+**`FOCUS_INTEGRITY_VIOLATION`** — a task has `focus: true` with no `FOCUS_ACQUIRED`
+ruling in the committed ledger. Emitted if true.
+
+**`FOCUS_SOVEREIGNTY`** — an eligible task exists with higher priority than the focused
+task, and more than `minTicksBeforeSwitch` ticks have elapsed since the last
+`FOCUS_ACQUIRED` ruling. Emitted if true.
+
+Review writes nothing. It emits exactly one condition per invocation:
+`NONE`, `FOCUS_SOVEREIGNTY`, or `FOCUS_INTEGRITY_VIOLATION`.
+
+---
+
+## VI. Recovery
+
+If interrupted mid-tick:
+1. Load ledger. Read `lastCommittedTick`.
+2. The current tick is `lastCommittedTick + 1`. Any ledger entries at this tick number
+   are uncommitted; discard them.
+3. Re-run from Step 2 of the tick cycle against current World State.
+
+The recovery tick may produce a different ruling than the interrupted tick. That is
+correct: govern produces a valid ruling for current state, not a replay of the interrupted one.
+
+---
+
+## VII. Configuration
+
+`arch.config.json`:
+```json
+{
+  "minTicksBeforeSwitch": 2
+}
 ```
 
 ---
 
-## X. What this system is
+## VIII. What this system is
 
-A priority arbitration scheduler with decision history.
+A deterministic priority scheduler with decision history.
 
-Not: a formal causal system.
-Not: a temporal state machine with complete history.
-Not: a crash-consistent distributed ledger.
+It answers one question each tick: **which task should have focus right now, and why?**
 
-It is: a scheduler that records why it made each decision, so that drift can be detected
-and adjudicated on the next tick.
+The ledger answers one question for any past tick: **why did govern decide what it decided?**
 
----
-
-## Relationship to other documents
-
-| Document | Role |
-|---|---|
-| ADR-020 | Policy: ruling enum, authority split, invariants |
-| This document (AGFM) | Execution semantics: what govern reads, decides, and writes |
-| `govern-system.ts` | Implementation: must be consistent with both |
+That is the complete scope of this system.

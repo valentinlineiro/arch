@@ -163,44 +163,28 @@ This boundary is what makes the adjudication lock meaningful. A tick is a transa
 
 ### Acceptance Criteria
 
-- [ ] **ADR-020 written first.** ADR documents: who has the right to interrupt work, the three-layer preemption model, the certified-transition hybrid model, the staleness score table, the closed ruling enumeration, the `ReviewCondition` closed enum, `FocusIntegrityViolation` as a distinct failure class, authority split (review = structural detector only; govern = sole evaluator of staleness/window/precedence), `lastCommittedGovernTick` durability invariant, adjudication lock, tick transaction boundary, and the full audit trail schema. No implementation code is written until ADR-020 is committed.
-- [ ] `govern-system.ts` implements the three-layer preemption model:
-  - **Layer 1 — Hard Preemption**: P0 tasks, integrity/provenance corruption tasks, constitutional invariant violations always preempt immediately. No protected window. No staleness check. No exceptions.
-  - **Layer 2 — Protected Execution Window**: A focused task is immune to soft preemption for the first `protectedWindowTicks` governance ticks after focus assignment (default: 2). Configurable in `arch.config.json`. Hard preemption bypasses this layer.
-  - **Layer 3 — Soft Preemption**: Triggers only when all three conditions hold: (a) candidate strictly outranks focused task, (b) focused task staleness score exceeds `stalenessThreshold`, (c) protected window has expired.
-- [ ] Staleness score is computed from the three-source hybrid model above. Git commit timestamps and commit counts are never used as progress signals.
-- [ ] `arch exec --progress "<reason>"` appends a certified transition to `.arch/focus-ledger.jsonl` with `certified_by: operator` and reduces staleness score by 1 for the current tick. Requires a non-empty reason string.
-- [ ] `.arch/focus-ledger.jsonl` is append-only. Each entry records: `taskId`, `ruling` (closed enum), `reason` (free text, supplementary), `stalenessScore`, `tick`, `timestamp`. Entries carrying `HARD_PREEMPTION` or `INTEGRITY_RECOVERY` also carry `previousTask`. Entries carrying `INTEGRITY_RECOVERY` also carry `violation: "FocusIntegrityViolation"`.
-- [ ] The `ruling` field accepts exactly: `HARD_PREEMPTION`, `SOFT_PREEMPTION`, `PROTECTED_PRESERVATION`, `STALE_OVERRIDE`, `MIGRATION_SYNTHESIS`, `INTEGRITY_RECOVERY`. Any other value is a ledger parse error.
-- [ ] `arch review` detects `FocusIntegrityViolation`: any task with `Focus:yes` in the meta line that has no corresponding acquisition ruling (`HARD_PREEMPTION`, `SOFT_PREEMPTION`, `MIGRATION_SYNTHESIS`, `focus_assigned`) in the ledger causes an immediate `arch review` failure, independent of priority or staleness score.
-- [ ] Govern responds to `FocusIntegrityViolation` with `INTEGRITY_RECOVERY`: revoke focus, log to both `.arch/focus-ledger.jsonl` and `.arch/escalations.jsonl`, reassign to top-ranked READY task. `INTEGRITY_RECOVERY` cannot be blocked by operator assertion.
-- [ ] There is no operator bypass path. Human intervention enters the system as `STALE_OVERRIDE` (via `arch exec --progress`) or as a task priority change that triggers `HARD_PREEMPTION`. The word "bypass" does not exist in the govern vocabulary.
-- [ ] **Adjudication lock is enforced.** Once govern has emitted a ruling for tick N, the staleness score used in that ruling cannot be retroactively changed. H3a entries and other escalations appended after tick N apply their deltas only starting at tick N+1. The ledger entry for tick N is immutable after govern's write batch for that tick completes.
-- [ ] **Tick boundary is a transaction.** Govern reads all state (task meta lines, focus-ledger, escalations) as a single atomic snapshot at tick start. All decisions are made against that snapshot. All rulings are written as a single atomic batch at tick end. State arriving between snapshot read and ruling write is invisible to the current tick.
-- [ ] **`arch review` evaluates committed ticks only.** Review reads `lastCommittedGovernTick` from the ledger header before scanning any entries. It evaluates state at `tick <= lastCommittedGovernTick`. Any in-progress govern write batch is invisible to the current review run. This eliminates mid-tick phantom failures.
-- [ ] **`arch review` is a transaction precondition validator.** Review failures are blocking. `arch govern` must not adjudicate against an inconsistent review state.
-- [ ] **`arch review` emits exactly one `ReviewCondition` value — closed enum:** `NONE`, `FOCUS_SOVEREIGNTY`, `FOCUS_INTEGRITY_VIOLATION`. If both conditions exist, `FOCUS_INTEGRITY_VIOLATION` takes precedence and suppresses `FOCUS_SOVEREIGNTY`. Review never emits both simultaneously. No other value is valid.
-- [ ] **`READY unblocked` eligibility is structural.** A task is eligible to trigger `FOCUS_SOVEREIGNTY` only if: status is `READY`, no `BLOCKED` flag is set, and all `Depends:` entries resolve to `DONE` in the committed task index. Tasks failing eligibility are not candidates and do not trigger `FOCUS_SOVEREIGNTY`. Review evaluates eligibility structurally — no inference, no staleness.
-- [ ] **`FOCUS_SOVEREIGNTY` is a trigger, not a claim.** Govern must emit exactly one closed ruling for every `FOCUS_SOVEREIGNTY` condition, even when the result is `PROTECTED_PRESERVATION`. A `FOCUS_SOVEREIGNTY` with no corresponding ruling in the committed ledger by the next tick is an orphan condition and causes review to fail again. Orphan conditions are not permitted.
-- [ ] **`lastCommittedGovernTick` durability invariant.** The counter is updated as the final atomic write of each govern batch, after all ruling entries are durable. It is never written mid-batch. Any read of `lastCommittedGovernTick` observes a consistent state: either the batch is fully committed and the counter reflects it, or the batch is not yet committed and the counter does not. No partial visibility exists between the counter and the entries it covers.
-- [ ] **`MIGRATION_SYNTHESIS` legitimacy is immutable; structure is repairable.** No `FocusIntegrityViolation` check may challenge a focus state established by `MIGRATION_SYNTHESIS`. If the entry is later found structurally corrupt, `INTEGRITY_RECOVERY` repairs it without revoking its legitimacy. The original ruling is superseded, not deleted.
-- [ ] H3a escalation in `.arch/escalations.jsonl` adds +3 to staleness score for the focused task on the next govern tick. This is automatically applied — no manual step required.
-- [ ] `arch review` emits `FOCUS_SOVEREIGNTY` and **fails** when a higher-priority READY unblocked task exists with no covering govern ruling in the committed ledger. Staleness threshold and protected window are not evaluated by review. Silent preservation is not permitted — govern must produce a ledger ruling before review will emit `NONE`.
-- [ ] There is no silent preservation path. Every govern tick where focus is preserved under drift conditions must produce a ledger entry with a closed ruling. A missing entry is treated as a govern fault and causes `FOCUS_SOVEREIGNTY` on the next review run.
-- [ ] Migration path is explicit: existing `Focus:yes` tasks without a ledger entry are assigned a synthetic `focus_assigned` entry on first govern tick after deployment, with `reason: "pre-sovereignty-migration"` and `stalenessScore: 0`. No task is silently grandfathered with unknown grounds.
+- [x] ADR-020 written and committed before any implementation code is touched.
+- [x] AGFM (`docs/agents/governance-execution-model.md`) written and committed; defines the operational execution model that `govern-system.ts` must implement.
+- [ ] `govern-system.ts` implements the AGFM tick cycle (§III): read state → compute eligible candidates → identify focused task → decide → write ruling → update World State → increment `lastCommittedTick`.
+- [ ] Eligibility is evaluated per AGFM §II: `status === 'READY'`, not blocked, all depends resolved. No other criteria.
+- [ ] Decision logic follows AGFM §IV rules in order: integrity fix → no focus → focus lost eligibility → inercia window → priority preemption → preserve.
+- [ ] `minTicksBeforeSwitch` (default: 2) is read from `arch.config.json`. Governs the inercia window in Rule 4.
+- [ ] Ledger entries use the schema in AGFM §I: `tick`, `taskId`, `action` (`FOCUS_ACQUIRED` | `FOCUS_PRESERVED` | `FOCUS_RELEASED` | `INTEGRITY_FIX`), `previousTask?`, `timestamp`.
+- [ ] `arch review` detects `FOCUS_INTEGRITY_VIOLATION` (focused task with no `FOCUS_ACQUIRED` ruling in committed ledger) and `FOCUS_SOVEREIGNTY` (eligible higher-priority candidate exists AND inercia window has expired). Emits exactly one of `NONE`, `FOCUS_SOVEREIGNTY`, `FOCUS_INTEGRITY_VIOLATION`. Writes nothing.
+- [ ] `arch review` reads only committed ledger entries (at `tick <= lastCommittedTick`). Ruling entries at tick > lastCommittedTick are ignored.
+- [ ] Recovery: on govern invocation, discard any ledger entries at tick > `lastCommittedTick`, then re-run tick cycle from current state.
+- [ ] Migration: on first govern tick after deployment, any task with `Focus:yes` in World State and no `FOCUS_ACQUIRED` ruling in ledger receives an `INTEGRITY_FIX` ruling (not MIGRATION_SYNTHESIS — it is a correction, not a synthesis).
+- [ ] `arch govern` output states the ruling emitted each tick: task ID, action, reason.
+- [ ] Unit tests cover: no-focus assignment, priority preemption after inercia window, inercia window preservation, integrity fix, no-candidate case, eligibility filter (blocked, unresolved deps).
 
 ### Definition of Done
 
-- [ ] ADR-020 committed before any implementation file is modified.
-- [ ] `arch govern` with a stale P2 task (score > threshold, window expired) and a P1 candidate correctly soft-preempts.
-- [ ] `arch govern` with a P0 READY task hard-preempts regardless of protected window or staleness score.
-- [ ] `arch govern` within the protected window preserves focus even when candidate outranks and score is above threshold.
-- [ ] `arch exec --progress "reason"` reduces staleness score by 1 and is logged with `certified_by: operator`.
-- [ ] `.arch/focus-ledger.jsonl` contains a complete, auditable trail for all focus changes and score mutations.
-- [ ] Unit tests cover all three preemption layers, the staleness score table, the H3a +3 path, the operator assertion path (`STALE_OVERRIDE`), `FocusIntegrityViolation` detection and `INTEGRITY_RECOVERY` response, and rejection of unknown ruling values.
-- [ ] `arch review` emits `FOCUS_SOVEREIGNTY` and fails on the current state (P1 TASK-245 and TASK-247 unblocked while P2 TASK-207 focused, no covering govern ruling in committed ledger) — validates the structural condition check fires on real data. Staleness and window are not factors in this check.
-- [ ] `.arch/focus-ledger.jsonl` exists after first govern tick and contains a traceable entry for every focus-holding task.
-- [ ] `arch govern` output explicitly states the adjudication decision (preempted | preserved + reason) on every tick where PriorityDrift conditions are active.
+- [ ] `arch govern` assigns focus to TASK-245 (P1) when TASK-207 (P2) has been focused for ≥ `minTicksBeforeSwitch` ticks.
+- [ ] `arch govern` preserves TASK-207 focus when fewer than `minTicksBeforeSwitch` ticks have elapsed, even with TASK-245 in the eligible set.
+- [ ] `arch govern` immediately reassigns when the focused task loses eligibility (becomes BLOCKED or moves to IN_PROGRESS by another path).
+- [ ] `arch review` emits `FOCUS_SOVEREIGNTY` on current state (TASK-245 and TASK-247 unblocked while TASK-207 focused, inercia window expired, no covering ruling).
+- [ ] `.arch/focus-ledger.jsonl` exists and contains a ruling entry for every govern tick run.
+- [ ] All unit tests pass. `arch review` passes after a clean govern tick.
 
 ## Hansei
 **Severity:** H0
