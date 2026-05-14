@@ -15,6 +15,15 @@ export interface AcceptanceCriterion {
   completed: boolean;
 }
 
+export interface Hansei {
+  severity: 'H0' | 'H1' | 'H2' | 'H3a' | 'H3b';
+  category: string;
+  decision: string;
+  constraint: string;
+  cost: string;
+  forwardAction: string;
+}
+
 export interface Task {
   id: string;
   title: string;
@@ -34,10 +43,21 @@ export interface Task {
   rejectedAt?: string;
   rejectionReason?: string;
   acceptanceCriteria?: AcceptanceCriterion[];
+  hansei?: Hansei;
   cost?: number;
   steps?: number;
   rawMetaLine?: string;
   rawDependsLine?: string;
   content: string;
   filePath: string;
+}
+
+export interface TaskRepository {
+  getById(id: string): Promise<Task | null>;
+  getAll(): Promise<Task[]>;
+  getActive(): Promise<Task[]>;
+  save(task: Task): Promise<void>;
+  findReady(): Promise<Task[]>;
+  getNextId(): Promise<string>;
+  parseTask(content: string): Task | null;
 }

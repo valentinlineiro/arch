@@ -35,27 +35,32 @@ export class LintCommand {
         continue;
       }
       const content = await this.fileSystem.readFile(filePath);
-      const lines = content.split('\n');
-      
-      const headerLine = lines.find(l => l.startsWith('## TASK-'));
-      const metaLine = lines.find(l => l.startsWith('**Meta:**'));
-      const dependsLine = lines.find(l => l.startsWith('**Depends:**'));
+      const task = this.taskRepository.parseTask(content);
+
+      if (!task) {
+        fmt.fail(`${filePath}:`);
+        console.log('    - Could not parse task header or meta line');
+        failureCount++;
+        continue;
+      }
 
       let fileOk = true;
       const errors: string[] = [];
 
-      if (!headerLine || !TaskValidator.isValidHeader(headerLine)) {
-        errors.push('Invalid or missing Header (## TASK-XXX: Title)');
+      const metaErrors = TaskValidator.validateMeta(task.rawMetaLine || '');
+      if (metaErrors.length > 0) {
+        errors.push(...metaErrors);
         fileOk = false;
       }
 
-      if (!metaLine || !TaskValidator.isValidMeta(metaLine)) {
-        errors.push('Invalid or missing Meta line');
+      if (task.rawDependsLine && !TaskValidator.isValidDepends(task.rawDependsLine)) {
+        errors.push('Invalid Depends line');
         fileOk = false;
       }
 
-      if (!dependsLine || !TaskValidator.isValidDepends(dependsLine)) {
-        errors.push('Invalid or missing Depends line');
+      const hanseiErrors = TaskValidator.validateHansei(task);
+      if (hanseiErrors.length > 0) {
+        errors.push(...hanseiErrors);
         fileOk = false;
       }
 

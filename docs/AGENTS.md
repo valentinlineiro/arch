@@ -35,7 +35,7 @@ TASK: READY → IN_PROGRESS → REVIEW → DONE → archived (docs/archive/)
 
 ### Archiving requirements (TASK-195 onward)
 Every task archived as DONE must include:
-- `## Hansei` section — 1–3 sentences: one thing done poorly or one way this could have been cleaner.
+- `## Hansei` section — Structured diagnostic block per ADR-019. Narrative prose is prohibited and fails review.
 - `Closed-at: <ISO 8601>` in the meta line (added by the Auditor at DONE time).
 
 ### What `arch govern` does vs. what agents do

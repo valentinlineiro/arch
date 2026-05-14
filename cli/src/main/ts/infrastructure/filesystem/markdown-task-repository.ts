@@ -51,7 +51,7 @@ export class MarkdownTaskRepository implements TaskRepository {
         const content = await this.fileSystem.readFile(filePath);
         const task = this.parseTask(content);
         if (task) {
-          task.filePath = filePath; // Adding filePath dynamically for easier access
+          task.filePath = filePath;
           tasks.push(task);
         }
       }
@@ -90,14 +90,12 @@ export class MarkdownTaskRepository implements TaskRepository {
     ensureField('Rejected-at', task.rejectedAt);
     ensureField('Reason', task.rejectionReason);
 
-    // Save/Update in-progress metrics as comment if task is not DONE
     if (task.status !== TaskStatus.DONE && (task.cost !== undefined || task.steps !== undefined)) {
       const metricsComment = `<!-- arch-metrics: cost=${task.cost?.toFixed(2) || '0.00'}, steps=${task.steps || '0'} -->`;
       const existingMetricsMatch = content.match(/<!-- arch-metrics: .*? -->/);
       if (existingMetricsMatch) {
         content = content.replace(existingMetricsMatch[0], metricsComment);
       } else {
-        // Append after meta line
         content = content.replace(/^(\*\*Meta:\*\*.*?\n)/m, `$1${metricsComment}\n`);
       }
     }
@@ -113,7 +111,7 @@ export class MarkdownTaskRepository implements TaskRepository {
     }
   }
 
-  private parseTask(content: string): Task | null {
+  public parseTask(content: string): Task | null {
     const headerMatch = content.match(/^## (TASK-\d{3}): (.*)/m);
     const metaMatch = content.match(/^\*\*Meta:\*\* (.*)/m);
 
@@ -122,13 +120,11 @@ export class MarkdownTaskRepository implements TaskRepository {
       const title = headerMatch[2];
       const metaLine = metaMatch[0];
 
-      // Use a basic split for initial extraction, but regex for detailed fields
       const metaParts = metaMatch[1].split('|').map(s => s.trim());
       
       const costMatch = metaMatch[1].match(/Cost: \$(\d+\.\d{2})/);
       const stepsMatch = metaMatch[1].match(/Steps: (\d+)/);
 
-      // Also check for in-progress metrics in comments
       const inProgressMetricsMatch = content.match(/<!-- arch-metrics: cost=(?<cost>\d+\.\d{2}), steps=(?<steps>\d+) -->/);
 
       const acceptanceCriteria: AcceptanceCriterion[] = [];
@@ -148,6 +144,22 @@ export class MarkdownTaskRepository implements TaskRepository {
       const sprintMatch = content.match(/^\*\*Sprint:\*\* (.*)/m);
       const dependsMatch = content.match(/^\*\*Depends:\*\* (.*)/m);
 
+      const hanseiMatch = content.match(/## Hansei\n([\s\S]*?)(\n## |$)/);
+      let hansei: any = undefined;
+      if (hanseiMatch) {
+        const hContent = hanseiMatch[1];
+        const severity = hContent.match(/\*\*Severity:\*\* (H0|H1|H2|H3a|H3b)/)?.[1];
+        const category = hContent.match(/\*\*Category:\*\* (.*)/)?.[1]?.trim();
+        const decision = hContent.match(/\*\*Decision:\*\*\n?([\s\S]*?)(?=\n\*\*|$)/)?.[1]?.trim();
+        const constraint = hContent.match(/\*\*Constraint:\*\*\n?([\s\S]*?)(?=\n\*\*|$)/)?.[1]?.trim();
+        const cost = hContent.match(/\*\*Cost:\*\*\n?([\s\S]*?)(?=\n\*\*|$)/)?.[1]?.trim();
+        const forwardAction = hContent.match(/\*\*Forward Action:\*\*\n?([\s\S]*?)(?=\n\*\*|$)/)?.[1]?.trim();
+
+        if (severity || category || decision) {
+          hansei = { severity, category, decision, constraint, cost, forwardAction };
+        }
+      }
+
       return {
         id,
         title,
@@ -164,6 +176,7 @@ export class MarkdownTaskRepository implements TaskRepository {
         rejectedAt: rejectedAtMatch?.[1]?.trim(),
         depends: dependsMatch ? dependsMatch[1].split(',').map(s => s.trim()) : undefined,
         acceptanceCriteria,
+        hansei,
         cost: costMatch ? parseFloat(costMatch[1]) : (inProgressMetricsMatch?.groups?.cost ? parseFloat(inProgressMetricsMatch.groups.cost) : undefined),
         steps: stepsMatch ? parseInt(stepsMatch[1], 10) : (inProgressMetricsMatch?.groups?.steps ? parseInt(inProgressMetricsMatch.groups.steps, 10) : undefined),
         rawMetaLine: metaLine,

@@ -7,4 +7,5 @@ export interface TaskRepository {
   save(task: Task): Promise<void>;
   findReady(): Promise<Task[]>;
   getNextId(): Promise<string>;
+  parseTask(content: string): Task | null;
 }

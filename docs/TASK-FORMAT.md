@@ -100,13 +100,40 @@ An AC item may include an executable predicate or an exemption marker appended a
 - **Required:** When the agent records a Hansei section (i.e., same triggers: size delta, blocker, or M+).
 - **Purpose:** Input for Mura detection in THINK Phase 3 and Turns-per-Size trend in METRICS.md.
 
-### 9. Hansei
-- A brief retrospective written by the implementing agent before marking `REVIEW`.
-- **Required when** any of the following apply: (a) actual size differed from estimate, (b) a blocker was encountered during execution, (c) task is `M` or larger.
-- **Archived task requirement:** DONE tasks archived from `TASK-195` onward must include a `## Hansei` section so the close/archival path can verify the record. When no trigger applies, a minimal 1-sentence Hansei is still required for those post-rollout tasks.
-- **Format:** `## Hansei` section with 1–3 sentences maximum.
-- **Prompt:** *"One thing done poorly or one way this could have been cleaner."*
-- **Purpose:** raw input for KAIZEN-LOG and Mura detection.
+## Hansei
+- **Required:** (a) actual size differed from estimate, (b) a blocker was encountered, (c) task is `M` or larger, (d) task is moving to `REVIEW` or `DONE`.
+- **Format:** Structured diagnostic block (ADR-019).
+- **Audit:** Hansei is audited for epistemological reconciliation. Under-declaration or inflation are governance violations.
+
+```markdown
+## Hansei
+**Severity:** [H0|H1|H2|H3a|H3b]
+**Category:** [Controlled Vocabulary]
+
+**Decision:**
+[The specific technical or process compromise made.]
+
+**Constraint:**
+[The pressure or missing info that forced the compromise.]
+
+**Cost:**
+[The specific debt or risk introduced.]
+
+**Forward Action:**
+[Link to an IDEA, escalation, or specific cleanup task, if applicable.]
+```
+
+### Severity Levels
+- **H0 (Observation):** No debt. Optimization note.
+- **H1 (Localized Debt):** Contained compromise.
+- **H2 (Systemic Friction):** Repeating issue. **Requires Evidence** (≥3 occurrences). Must generate an obligatory `IDEA`.
+- **H3a (Blocking Invalidity):** Violates principles. Blocks closure.
+- **H3b (Escalated Risk):** Constitutional risk. Requires **Architect Override** and **Expiry Task**.
+
+### Category (Controlled Vocabulary)
+- **Technical:** `[TypeHack]`, `[LeakyAbstraction]`, `[DeferredTest]`, `[ContextWaste]`, `[SymbolDiscovery]`, `[HiddenDependency]`, `[SpecDrift]`
+- **Process:** `[ProcessViolation]`, `[PrematureOptimization]`, `[ReviewBlindspot]`, `[MissingDecisionRecord]`
+- **Constitutional:** `[ProvenanceBreak]`, `[IntegrityCorruption]`, `[FailOpenBehavior]`, `[AuditGap]`
 
 ---
 
