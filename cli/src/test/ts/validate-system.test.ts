@@ -2,8 +2,8 @@ import { test } from 'node:test';
 import assert from 'node:assert';
 import { ValidateSystem } from '../../main/ts/application/use-cases/validate-system.js';
 import { TaskRepository } from '../../main/ts/domain/repositories/task-repository.js';
-import { FileSystem } from '../../main/ts/domain/repositories/file-system.js';
 import { Task, TaskStatus } from '../../main/ts/domain/models/task.js';
+import { MockFileSystem } from './mocks/index.js';
 
 class MockTaskRepository implements TaskRepository {
   tasks: Task[] = [];
@@ -14,17 +14,6 @@ class MockTaskRepository implements TaskRepository {
   async findReady() { return []; }
   async getNextId() { return 'TASK-001'; }
   }
-class MockFileSystem implements FileSystem {
-  files: Record<string, string> = {};
-  async readFile(path: string) { return this.files[path]; }
-  async writeFile(path: string, content: string) { this.files[path] = content; }
-  async exists(path: string) { return !!this.files[path]; }
-  async readDirectory(path: string) { return []; }
-  async rename(oldPath: string, newPath: string) {}
-  async mkdir(path: string) {}
-  async appendFile(path: string, content: string) {}
-  async deleteFile(path: string) {}
-}
 
 test('ValidateSystem - success when everything is valid', async () => {
   const repo = new MockTaskRepository();

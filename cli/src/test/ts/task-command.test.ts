@@ -2,6 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert';
 import { TaskCommand } from '../../main/ts/application/commands/task-command.js';
 import { TaskStatus } from '../../main/ts/domain/models/task.js';
+import { MockFileSystem } from './mocks/index.js';
 
 class MockTaskRepository {
   async getById(id: string) {
@@ -28,18 +29,10 @@ class MockReviewer {
   reviewTask() { return { valid: true, violations: [] }; }
 }
 
-class MockFileSystem {
-  async readFile(path: string) {
-    if (path === 'arch.config.json') {
-      return JSON.stringify({ hanseiSinceTaskId: 195 });
-    }
-    throw new Error(`File not found: ${path}`);
-  }
-  async writeFile() {}
-  async exists() { return true; }
-  async readDirectory() { return []; }
-  async rename() {}
-  async deleteFile(_p: string) {}
+function makeFs(): MockFileSystem {
+  const fs = new MockFileSystem();
+  fs.files['arch.config.json'] = JSON.stringify({ hanseiSinceTaskId: 195 });
+  return fs;
 }
 
 function captureExit(fn: () => Promise<void>): Promise<number | undefined> {
@@ -69,7 +62,7 @@ test('TaskCommand done - exits 1 when transition fails (e.g. missing Hansei)', a
     repo as any,
     new MockReviewer() as any,
     {} as any,
-    new MockFileSystem() as any,
+    makeFs() as any,
     '.',
   );
 
@@ -84,7 +77,7 @@ test('TaskCommand start - exits 1 when transition fails', async () => {
     repo as any,
     new MockReviewer() as any,
     {} as any,
-    new MockFileSystem() as any,
+    makeFs() as any,
     '.',
   );
 
@@ -99,7 +92,7 @@ test('TaskCommand metrics - exits 1 when update fails', async () => {
     repo as any,
     new MockReviewer() as any,
     {} as any,
-    new MockFileSystem() as any,
+    makeFs() as any,
     '.',
   );
 
@@ -110,7 +103,7 @@ test('TaskCommand metrics - exits 1 when update fails', async () => {
 
 test('TaskCommand done - exits 0 when transition passes', async () => {
   const repo = new MockTaskRepository();
-  const fileSystem = new MockFileSystem();
+  const fileSystem = makeFs();
   // Provide content WITH Hansei
   const getByIdOriginal = repo.getById;
   repo.getById = async (id: string) => {

@@ -9,53 +9,10 @@ import type {
   AdrTaskLinkEntry,
 } from '../../main/ts/domain/models/context-index.js';
 import { BuildIndex, normalizeCommits } from '../../main/ts/application/use-cases/build-index.js';
-
-class MockFileSystem {
-  files: Record<string, string> = {};
-  directories: Record<string, string[]> = {};
-  written: Record<string, string> = {};
-
-  async readFile(path: string): Promise<string> {
-    if (!(path in this.files)) throw new Error(`File not found: ${path}`);
-    return this.files[path];
-  }
-  async writeFile(path: string, content: string): Promise<void> { this.written[path] = content; }
-  async exists(path: string): Promise<boolean> { return path in this.files || path in this.directories; }
-  async readDirectory(path: string): Promise<string[]> { return this.directories[path] ?? []; }
-  async rename(): Promise<void> {}
-  async mkdir(): Promise<void> {}
-  async deleteFile(_p: string) {}
-}
-
-class MockGitRepository {
-  private commits: Array<{ hash: string; message: string; date: string; files: string[] }>;
-
-  constructor(commits: Array<{ hash: string; message: string; date: string; files: string[] }> = []) {
-    this.commits = commits;
-  }
-
-  async getDiff(): Promise<string> { return ''; }
-  async getLastCommitMessage(): Promise<string | null> { return null; }
-  async getCurrentBranch(): Promise<string> { return 'main'; }
-  async getStatusLines(): Promise<string[]> { return []; }
-  async getLog(): Promise<string[]> { return []; }
-  async add(): Promise<void> {}
-  async rm(): Promise<void> {}
-  async mv(): Promise<void> {}
-  async commit(): Promise<void> {}
-  async getFileLastModifiedDate(): Promise<Date | null> { return null; }
-  async getChangedFilesInLastCommit(): Promise<string[]> { return []; }
-  async getMergeCommits(): Promise<string[]> { return []; }
-  async getStagedFiles(): Promise<string[]> { return []; }
-  async getModifiedFiles(): Promise<string[]> { return []; }
-  async getRepoRoot(): Promise<string> { return '/repo'; }
-  async getCommitHistory(): Promise<Array<{ hash: string; message: string; date: string; files: string[] }>> {
-    return this.commits;
-  }
-}
+import { MockFileSystem, MockGitRepository, CommitRecord } from './mocks/index.js';
 
 class ThrowingGitRepository extends MockGitRepository {
-  override async getCommitHistory(): Promise<Array<{ hash: string; message: string; date: string; files: string[] }>> {
+  override async getCommitHistory(): Promise<CommitRecord[]> {
     throw new Error('git log failed');
   }
 }
@@ -218,16 +175,16 @@ test('BuildIndex.buildGuidelineIndex maps contextRules to GuidelineEntry', () =>
 
 test('BuildIndex.execute() writes a valid JSON index to .arch/context-index.json', async () => {
   const fs = new MockFileSystem();
-  fs.directories['cli/src/main/ts'] = ['domain'];
-  fs.directories['cli/src/main/ts/domain'] = ['models'];
-  fs.directories['cli/src/main/ts/domain/models'] = ['task.ts'];
+  fs.dirs['cli/src/main/ts'] = ['domain'];
+  fs.dirs['cli/src/main/ts/domain'] = ['models'];
+  fs.dirs['cli/src/main/ts/domain/models'] = ['task.ts'];
   fs.files['cli/src/main/ts/domain/models/task.ts'] = `
 export enum TaskStatus { READY = 'READY' }
 export interface Task { id: string; }
 `;
-  fs.directories['docs/adr'] = ['ADR-002-context-as-budget.md'];
+  fs.dirs['docs/adr'] = ['ADR-002-context-as-budget.md'];
   fs.files['docs/adr/ADR-002-context-as-budget.md'] = `# ADR-002: Context budget\n\n**Status:** ACCEPTED\n\n## Context\nTokens are scarce.`;
-  fs.directories['docs/guidelines'] = [];
+  fs.dirs['docs/guidelines'] = [];
 
   const builder = new BuildIndex(fs as any);
   await builder.execute({ 'testing-a-change.md': { taskClasses: ['2-code-generation'] } }, new MockGitRepository() as any);
@@ -247,7 +204,7 @@ export interface Task { id: string; }
 
 test('BuildIndex.execute() gracefully handles missing ADR and guideline directories', async () => {
   const fs = new MockFileSystem();
-  fs.directories['cli/src/main/ts'] = [];
+  fs.dirs['cli/src/main/ts'] = [];
   // docs/adr and docs/guidelines don't exist
 
   const builder = new BuildIndex(fs as any);
@@ -262,7 +219,7 @@ test('BuildIndex.execute() gracefully handles missing ADR and guideline director
 
 test('BuildIndex.execute() fails when git history cannot be read', async () => {
   const fs = new MockFileSystem();
-  fs.directories['cli/src/main/ts'] = [];
+  fs.dirs['cli/src/main/ts'] = [];
 
   const builder = new BuildIndex(fs as any);
   await assert.rejects(() => builder.execute({}, new ThrowingGitRepository() as any), /git log failed/);
@@ -351,14 +308,15 @@ test('normalizeCommits passes through hash, date, files unchanged', () => {
 
 test('BuildIndex.execute() writes tasks to context index from git history', async () => {
   const fs = new MockFileSystem();
-  fs.directories['cli/src/main/ts'] = [];
-  fs.directories['docs/adr'] = [];
+  fs.dirs['cli/src/main/ts'] = [];
+  fs.dirs['docs/adr'] = [];
 
-  const git = new MockGitRepository([
+  const git = new MockGitRepository();
+  git.commits = [
     { hash: 'abc1234', message: 'feat: [TASK-42] add feature', date: '2026-05-08T10:00:00Z', files: ['src/a.ts', 'src/b.ts'] },
     { hash: 'def5678', message: 'fix: [TASK-42] fix bug', date: '2026-05-09T10:00:00Z', files: ['src/b.ts', 'src/c.ts'] },
     { hash: 'ghi9012', message: 'chore: no task', date: '2026-05-06T10:00:00Z', files: ['src/d.ts'] },
-  ]);
+  ] as any;
 
   const builder = new BuildIndex(fs as any);
   await builder.execute({}, git as any);
@@ -380,8 +338,8 @@ test('BuildIndex.execute() writes tasks to context index from git history', asyn
 
 test('BuildIndex sets commitRefOverflow when commit count exceeds MAX_COMMIT_REFS', async () => {
   const fs = new MockFileSystem();
-  fs.directories['cli/src/main/ts'] = [];
-  fs.directories['docs/adr'] = [];
+  fs.dirs['cli/src/main/ts'] = [];
+  fs.dirs['docs/adr'] = [];
 
   const manyCommits = Array.from({ length: 25 }, (_, i) => ({
     hash: `hash${i.toString().padStart(4, '0')}`,
@@ -390,7 +348,8 @@ test('BuildIndex sets commitRefOverflow when commit count exceeds MAX_COMMIT_REF
     files: [`src/file${i}.ts`],
   }));
 
-  const git = new MockGitRepository(manyCommits);
+  const git = new MockGitRepository();
+  git.commits = manyCommits as any;
   const builder = new BuildIndex(fs as any);
   await builder.execute({}, git as any);
 
@@ -417,10 +376,10 @@ test('AdrTaskLinkEntry is structurally correct', () => {
 
 test('BuildIndex.execute() links ADR field evidence from tasks', async () => {
   const fs = new MockFileSystem();
-  fs.directories['cli/src/main/ts'] = [];
-  fs.directories['docs/adr'] = ['ADR-007-test.md'];
+  fs.dirs['cli/src/main/ts'] = [];
+  fs.dirs['docs/adr'] = ['ADR-007-test.md'];
   fs.files['docs/adr/ADR-007-test.md'] = '# ADR-007: Test ADR\n\n**Status:** ACCEPTED\n';
-  fs.directories['docs/tasks'] = ['TASK-301.md'];
+  fs.dirs['docs/tasks'] = ['TASK-301.md'];
   fs.files['docs/tasks/TASK-301.md'] = `## TASK-301: Link ADR field
 **Meta:** P2 | S | READY | Focus:yes | 2-code-generation | claude-code | none
 **ADR:** ADR-007
@@ -439,10 +398,10 @@ test('BuildIndex.execute() links ADR field evidence from tasks', async () => {
 
 test('BuildIndex.execute() links ADR depends evidence from tasks', async () => {
   const fs = new MockFileSystem();
-  fs.directories['cli/src/main/ts'] = [];
-  fs.directories['docs/adr'] = ['ADR-005-test.md'];
+  fs.dirs['cli/src/main/ts'] = [];
+  fs.dirs['docs/adr'] = ['ADR-005-test.md'];
   fs.files['docs/adr/ADR-005-test.md'] = '# ADR-005: Test ADR\n\n**Status:** ACCEPTED\n';
-  fs.directories['docs/tasks'] = ['TASK-302.md'];
+  fs.dirs['docs/tasks'] = ['TASK-302.md'];
   fs.files['docs/tasks/TASK-302.md'] = `## TASK-302: Link ADR depends
 **Meta:** P2 | S | READY | Focus:yes | 2-code-generation | claude-code | none
 **Depends:** TASK-001, ADR-005
@@ -457,10 +416,10 @@ test('BuildIndex.execute() links ADR depends evidence from tasks', async () => {
 
 test('BuildIndex.execute() links ADR context path evidence from tasks', async () => {
   const fs = new MockFileSystem();
-  fs.directories['cli/src/main/ts'] = [];
-  fs.directories['docs/adr'] = ['ADR-008-context.md'];
+  fs.dirs['cli/src/main/ts'] = [];
+  fs.dirs['docs/adr'] = ['ADR-008-context.md'];
   fs.files['docs/adr/ADR-008-context.md'] = '# ADR-008: Context ADR\n\n**Status:** ACCEPTED\n';
-  fs.directories['docs/tasks'] = ['TASK-303.md'];
+  fs.dirs['docs/tasks'] = ['TASK-303.md'];
   fs.files['docs/tasks/TASK-303.md'] = `## TASK-303: Link ADR context
 **Meta:** P2 | S | READY | Focus:yes | 2-code-generation | claude-code | docs/adr/ADR-008-context.md
 `;
@@ -474,10 +433,10 @@ test('BuildIndex.execute() links ADR context path evidence from tasks', async ()
 
 test('BuildIndex.execute() links literal ADR mentions from task bodies', async () => {
   const fs = new MockFileSystem();
-  fs.directories['cli/src/main/ts'] = [];
-  fs.directories['docs/adr'] = ['ADR-001-constraints.md'];
+  fs.dirs['cli/src/main/ts'] = [];
+  fs.dirs['docs/adr'] = ['ADR-001-constraints.md'];
   fs.files['docs/adr/ADR-001-constraints.md'] = '# ADR-001: Constraints\n\n**Status:** ACCEPTED\n';
-  fs.directories['docs/archive'] = ['TASK-304.md'];
+  fs.dirs['docs/archive'] = ['TASK-304.md'];
   fs.files['docs/archive/TASK-304.md'] = `## TASK-304: Link ADR body
 **Meta:** P2 | S | DONE | Focus:yes | 2-code-generation | claude-code | none
 
@@ -495,10 +454,10 @@ Aligns with ADR-001.
 
 test('BuildIndex.execute() deduplicates repeated ADR evidence within one task', async () => {
   const fs = new MockFileSystem();
-  fs.directories['cli/src/main/ts'] = [];
-  fs.directories['docs/adr'] = ['ADR-011-repeat.md'];
+  fs.dirs['cli/src/main/ts'] = [];
+  fs.dirs['docs/adr'] = ['ADR-011-repeat.md'];
   fs.files['docs/adr/ADR-011-repeat.md'] = '# ADR-011: Repeat\n\n**Status:** ACCEPTED\n';
-  fs.directories['docs/tasks'] = ['TASK-305.md'];
+  fs.dirs['docs/tasks'] = ['TASK-305.md'];
   fs.files['docs/tasks/TASK-305.md'] = `## TASK-305: Repeated ADR refs
 **Meta:** P2 | S | READY | Focus:yes | 2-code-generation | claude-code | docs/adr/ADR-011-repeat.md
 **ADR:** ADR-011
@@ -519,10 +478,10 @@ ADR-011 still applies.
 
 test('BuildIndex.execute() ignores unknown ADR references for canonical links', async () => {
   const fs = new MockFileSystem();
-  fs.directories['cli/src/main/ts'] = [];
-  fs.directories['docs/adr'] = ['ADR-012-known.md'];
+  fs.dirs['cli/src/main/ts'] = [];
+  fs.dirs['docs/adr'] = ['ADR-012-known.md'];
   fs.files['docs/adr/ADR-012-known.md'] = '# ADR-012: Known\n\n**Status:** ACCEPTED\n';
-  fs.directories['docs/tasks'] = ['TASK-306.md'];
+  fs.dirs['docs/tasks'] = ['TASK-306.md'];
   fs.files['docs/tasks/TASK-306.md'] = `## TASK-306: Unknown ADR refs
 **Meta:** P2 | S | READY | Focus:yes | 2-code-generation | claude-code | none
 **ADR:** ADR-999

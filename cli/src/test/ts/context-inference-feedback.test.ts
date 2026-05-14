@@ -3,18 +3,7 @@ import assert from 'node:assert';
 import { ContextInference } from '../../main/ts/application/use-cases/context-inference.js';
 import type { ContextIndex } from '../../main/ts/domain/models/context-index.js';
 import type { FeedbackSignal } from '../../main/ts/domain/models/feedback-signal.js';
-
-class MockFS {
-  files: Record<string, string> = {};
-  written: Record<string, string> = {};
-  async readFile(p: string) { if (!(p in this.files)) throw new Error(`Not found: ${p}`); return this.files[p]; }
-  async writeFile(p: string, c: string) { this.written[p] = c; }
-  async exists(p: string) { return p in this.files; }
-  async readDirectory() { return []; }
-  async rename() {}
-  async mkdir() {}
-  async deleteFile(_p: string) {}
-}
+import { MockFileSystem } from './mocks/index.js';
 
 const BASE_INDEX: ContextIndex = {
   version: 5,
@@ -45,7 +34,7 @@ const BASE_INDEX: ContextIndex = {
 };
 
 test('score() with off feedback reduces task-reference boost vs without feedback', () => {
-  const fs = new MockFS() as any;
+  const fs = new MockFileSystem() as any;
   const inference = new ContextInference(fs);
 
   const withoutFeedback = inference.score(BASE_INDEX, [], '2-code-generation', 'fix oauth TASK-099');
@@ -62,7 +51,7 @@ test('score() with off feedback reduces task-reference boost vs without feedback
 });
 
 test('score() with accurate feedback keeps normal boost', () => {
-  const fs = new MockFS() as any;
+  const fs = new MockFileSystem() as any;
   const inference = new ContextInference(fs);
 
   const withoutFeedback = inference.score(BASE_INDEX, [], '2-code-generation', 'fix oauth TASK-099');
@@ -80,7 +69,7 @@ test('score() with accurate feedback keeps normal boost', () => {
 });
 
 test('execute() loads feedback from .arch/context-feedback.json', async () => {
-  const fs = new MockFS() as any;
+  const fs = new MockFileSystem() as any;
   fs.files['.arch/context-index.json'] = JSON.stringify(BASE_INDEX);
   fs.files['.arch/context-feedback.json'] = JSON.stringify([
     { taskId: 'TASK-099', timestamp: '2026-05-10T00:00:00Z', verdict: 'off', details: { wrongFiles: true, missingFiles: false, wrongAdrs: false, tooMuchNoise: false, confidenceMisleading: false } },

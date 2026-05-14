@@ -2,27 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert';
 import { CausalGraph } from '../../main/ts/application/use-cases/causal-graph.js';
 import { CausalCommand } from '../../main/ts/application/commands/causal-command.js';
-
-class MockFileSystem {
-  files = new Map<string, string>();
-
-  async readFile(path: string): Promise<string> {
-    const c = this.files.get(path);
-    if (c === undefined) throw new Error(`Not found: ${path}`);
-    return c;
-  }
-
-  async appendFile(path: string, content: string): Promise<void> {
-    this.files.set(path, (this.files.get(path) ?? '') + content);
-  }
-
-  async exists(_p: string): Promise<boolean> { return false; }
-  async writeFile(_p: string, _c: string): Promise<void> {}
-  async readDirectory(_p: string): Promise<string[]> { return []; }
-  async rename(_o: string, _n: string): Promise<void> {}
-  async mkdir(_p: string): Promise<void> {}
-  async deleteFile(_p: string): Promise<void> {}
-}
+import { MockFileSystem } from './mocks/index.js';
 
 // ── CausalGraph ────────────────────────────────────────────────────────────
 
@@ -34,7 +14,7 @@ test('add stores id, confidence, source, and status:active', async () => {
   assert.strictEqual(entry.confidence, 'asserted');
   assert.strictEqual(entry.source, 'human');
   assert.strictEqual(entry.status, 'active');
-  const raw = fs.files.get('/root/.arch/causal-graph.jsonl')!;
+  const raw = fs.files['/root/.arch/causal-graph.jsonl'];
   const parsed = JSON.parse(raw.trim());
   assert.strictEqual(parsed.id, entry.id);
   assert.strictEqual(parsed.status, 'active');
@@ -44,7 +24,7 @@ test('add stores note when provided', async () => {
   const fs = new MockFileSystem();
   const graph = new CausalGraph(fs, '/root');
   await graph.add('TASK-201', 'violated', 'GUIDELINE-core', 'missing retro entry');
-  const raw = fs.files.get('/root/.arch/causal-graph.jsonl')!;
+  const raw = fs.files['/root/.arch/causal-graph.jsonl'];
   assert.strictEqual(JSON.parse(raw.trim()).note, 'missing retro entry');
 });
 
@@ -52,7 +32,7 @@ test('add without note stores no note field', async () => {
   const fs = new MockFileSystem();
   const graph = new CausalGraph(fs, '/root');
   await graph.add('TASK-220', 'implements', 'ADR-011');
-  const raw = fs.files.get('/root/.arch/causal-graph.jsonl')!;
+  const raw = fs.files['/root/.arch/causal-graph.jsonl'];
   assert.strictEqual(JSON.parse(raw.trim()).note, undefined);
 });
 

@@ -1,47 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert';
 import { DriftChecker } from '../../main/ts/application/use-cases/drift-checker.js';
-import { FileSystem } from '../../main/ts/domain/repositories/file-system.js';
-import { GitRepository } from '../../main/ts/domain/repositories/git-repository.js';
-
-class MockFileSystem implements FileSystem {
-  files: Record<string, string> = {};
-  directories: Record<string, string[]> = {};
-
-  async readFile(path: string) { return this.files[path]; }
-  async writeFile(path: string, content: string) { this.files[path] = content; }
-  async exists(path: string) { return path in this.files || path in this.directories; }
-  async readDirectory(path: string) { return this.directories[path] ?? []; }
-  async rename(oldPath: string, newPath: string) {}
-  async mkdir(path: string) {}
-  async appendFile(path: string, content: string) {}
-  async deleteFile(path: string) {}
-}
-
-class MockGitRepository implements GitRepository {
-  diff = '';
-  lastCommitMessage: string | null = null;
-  currentBranch = 'main';
-  statusLines: string[] = [];
-  changedFilesInLastCommit: string[] = [];
-
-  async getDiff() { return this.diff; }
-  async getLastCommitMessage() { return this.lastCommitMessage; }
-  async getCurrentBranch() { return this.currentBranch; }
-  async getStatusLines() { return this.statusLines; }
-  async getLog() { return []; }
-  async add() {}
-  async commit() {}
-  async getFileLastModifiedDate() { return new Date(); }
-  async getChangedFilesInLastCommit() { return this.changedFilesInLastCommit; }
-  async getMergeCommits() { return []; }
-  async rm() {}
-  async mv() {}
-  async getStagedFiles() { return []; }
-  async getModifiedFiles() { return []; }
-  async getRepoRoot() { return ''; }
-  async getCommitHistory() { return []; }
-}
+import { MockFileSystem, MockGitRepository } from './mocks/index.js';
 
 test('DriftChecker - reports dirty worktree tracked deletions and runtime artifacts', async () => {
   const fs = new MockFileSystem();
@@ -49,8 +9,8 @@ test('DriftChecker - reports dirty worktree tracked deletions and runtime artifa
   fs.files['/repo/README.md'] = '';
   fs.files['/repo/arch.config.json'] = JSON.stringify({ version: '0.2.0' });
   fs.files['/repo/docs/AGENTS.md'] = '';
-  fs.directories['/repo/docs/tasks'] = [];
-  fs.directories['/repo/docs/archive'] = [];
+  fs.dirs['/repo/docs/tasks'] = [];
+  fs.dirs['/repo/docs/archive'] = [];
   git.statusLines = [' D docs/tasks/TASK-038.md', '?? .codex'];
 
   const checker = new DriftChecker(fs, git, '/repo', '0.2.0');
@@ -68,8 +28,8 @@ test('DriftChecker - reports duplicated task ids across active and archive', asy
   fs.files['/repo/README.md'] = '';
   fs.files['/repo/arch.config.json'] = JSON.stringify({ version: '0.2.0' });
   fs.files['/repo/docs/AGENTS.md'] = '';
-  fs.directories['/repo/docs/tasks'] = ['TASK-038.md', 'TASK-045.md'];
-  fs.directories['/repo/docs/archive'] = ['TASK-038.md', 'TASK-047.md'];
+  fs.dirs['/repo/docs/tasks'] = ['TASK-038.md', 'TASK-045.md'];
+  fs.dirs['/repo/docs/archive'] = ['TASK-038.md', 'TASK-047.md'];
   
   // Provide content for the files to avoid readFile returning undefined
   fs.files['/repo/docs/tasks/TASK-038.md'] = '**Meta:** P1 | S | READY | Focus:no | 7-operations | local | none';
@@ -92,13 +52,13 @@ function makeBaseFs() {
   fs.files['/repo/README.md'] = '';
   fs.files['/repo/arch.config.json'] = JSON.stringify({ version: '0.2.0' });
   fs.files['/repo/docs/AGENTS.md'] = '';
-  fs.directories['/repo/docs/archive'] = [];
+  fs.dirs['/repo/docs/archive'] = [];
   return fs;
 }
 
 test('DependsGraph - OK when no dependencies exist', async () => {
   const fs = makeBaseFs();
-  fs.directories['/repo/docs/tasks'] = ['TASK-001.md', 'TASK-002.md'];
+  fs.dirs['/repo/docs/tasks'] = ['TASK-001.md', 'TASK-002.md'];
   fs.files['/repo/docs/tasks/TASK-001.md'] = '## TASK-001: A\n**Meta:** P1 | S | READY | Focus:no | 6-writing | local | none\n**Depends:** none';
   fs.files['/repo/docs/tasks/TASK-002.md'] = '## TASK-002: B\n**Meta:** P1 | S | READY | Focus:no | 6-writing | local | none\n**Depends:** none';
 
@@ -112,7 +72,7 @@ test('DependsGraph - OK when no dependencies exist', async () => {
 
 test('DependsGraph - WARN on unknown dependency reference', async () => {
   const fs = makeBaseFs();
-  fs.directories['/repo/docs/tasks'] = ['TASK-001.md'];
+  fs.dirs['/repo/docs/tasks'] = ['TASK-001.md'];
   fs.files['/repo/docs/tasks/TASK-001.md'] = '## TASK-001: A\n**Meta:** P1 | S | READY | Focus:no | 6-writing | local | none\n**Depends:** TASK-999';
 
   const checker = new DriftChecker(fs, new MockGitRepository(), '/repo', '0.2.0');
@@ -126,7 +86,7 @@ test('DependsGraph - WARN on unknown dependency reference', async () => {
 
 test('DependsGraph - WARN on circular dependency', async () => {
   const fs = makeBaseFs();
-  fs.directories['/repo/docs/tasks'] = ['TASK-001.md', 'TASK-002.md', 'TASK-003.md'];
+  fs.dirs['/repo/docs/tasks'] = ['TASK-001.md', 'TASK-002.md', 'TASK-003.md'];
   fs.files['/repo/docs/tasks/TASK-001.md'] = '## TASK-001: A\n**Meta:** P1 | S | READY | Focus:no | 6-writing | local | none\n**Depends:** TASK-003';
   fs.files['/repo/docs/tasks/TASK-002.md'] = '## TASK-002: B\n**Meta:** P1 | S | READY | Focus:no | 6-writing | local | none\n**Depends:** TASK-001';
   fs.files['/repo/docs/tasks/TASK-003.md'] = '## TASK-003: C\n**Meta:** P1 | S | READY | Focus:no | 6-writing | local | none\n**Depends:** TASK-002';
@@ -146,7 +106,7 @@ test('Census - OK when all directories are under budget', async () => {
     version: '0.2.0',
     contextBudget: { 'docs/tasks': 1000 },
   });
-  fs.directories['/repo/docs/tasks'] = ['TASK-001.md'];
+  fs.dirs['/repo/docs/tasks'] = ['TASK-001.md'];
   fs.files['/repo/docs/tasks/TASK-001.md'] = 'line1\nline2\nline3';
 
   const checker = new DriftChecker(fs, new MockGitRepository(), '/repo', '0.2.0');
@@ -163,7 +123,7 @@ test('Census - WARN when directory exceeds budget with REFACTOR suggestion', asy
     version: '0.2.0',
     contextBudget: { 'docs/tasks': 2 },
   });
-  fs.directories['/repo/docs/tasks'] = ['TASK-001.md'];
+  fs.dirs['/repo/docs/tasks'] = ['TASK-001.md'];
   fs.files['/repo/docs/tasks/TASK-001.md'] = 'line1\nline2\nline3\nline4\nline5';
 
   const checker = new DriftChecker(fs, new MockGitRepository(), '/repo', '0.2.0');
@@ -181,7 +141,7 @@ test('Census - WARN with PURGE suggestion for archive directory', async () => {
     version: '0.2.0',
     contextBudget: { 'docs/archive': 2 },
   });
-  fs.directories['/repo/docs/archive'] = ['TASK-001.md'];
+  fs.dirs['/repo/docs/archive'] = ['TASK-001.md'];
   fs.files['/repo/docs/archive/TASK-001.md'] = 'line1\nline2\nline3\nline4\nline5';
 
   const checker = new DriftChecker(fs, new MockGitRepository(), '/repo', '0.2.0');
@@ -195,7 +155,7 @@ test('Census - WARN with PURGE suggestion for archive directory', async () => {
 
 test('Census - OK when no contextBudget configured', async () => {
   const fs = makeBaseFs();
-  fs.directories['/repo/docs/tasks'] = ['TASK-001.md'];
+  fs.dirs['/repo/docs/tasks'] = ['TASK-001.md'];
   fs.files['/repo/docs/tasks/TASK-001.md'] = 'lots of content\n'.repeat(10000);
 
   const checker = new DriftChecker(fs, new MockGitRepository(), '/repo', '0.2.0');
@@ -223,8 +183,8 @@ test('Census - skips missing directories gracefully', async () => {
 
 test('DependsGraph - OK when dependency is in archive', async () => {
   const fs = makeBaseFs();
-  fs.directories['/repo/docs/tasks'] = ['TASK-002.md'];
-  fs.directories['/repo/docs/archive'] = ['TASK-001.md'];
+  fs.dirs['/repo/docs/tasks'] = ['TASK-002.md'];
+  fs.dirs['/repo/docs/archive'] = ['TASK-001.md'];
   fs.files['/repo/docs/tasks/TASK-002.md'] = '## TASK-002: B\n**Meta:** P1 | S | READY | Focus:no | 6-writing | local | none\n**Depends:** TASK-001';
   fs.files['/repo/docs/archive/TASK-001.md'] = '## TASK-001: A\n**Meta:** P1 | S | DONE | Focus:no | 6-writing | local | none\n**Depends:** none';
 
@@ -242,7 +202,7 @@ test('DriftChecker - HanseiPresent flags archived task missing Hansei section', 
     version: '0.2.0',
     hanseiSinceTaskId: 195,
   });
-  fs.directories['/repo/docs/archive'] = ['TASK-010.md'];
+  fs.dirs['/repo/docs/archive'] = ['TASK-010.md'];
   fs.files['/repo/docs/archive/TASK-010.md'] = '## TASK-010: Something\n**Meta:** P1 | S | DONE | Focus:no\n\nNo Hansei here.\n';
 
   const checker = new DriftChecker(fs, new MockGitRepository(), '/repo', '0.2.0');
@@ -259,7 +219,7 @@ test('DriftChecker - HanseiPresent flags archived task missing Hansei section af
     version: '0.2.0',
     hanseiSinceTaskId: 195,
   });
-  fs.directories['/repo/docs/archive'] = ['TASK-195.md'];
+  fs.dirs['/repo/docs/archive'] = ['TASK-195.md'];
   fs.files['/repo/docs/archive/TASK-195.md'] = '## TASK-195: Something\n**Meta:** P1 | S | DONE | Focus:no\n\nNo Hansei here.\n';
 
   const checker = new DriftChecker(fs, new MockGitRepository(), '/repo', '0.2.0');
@@ -277,7 +237,7 @@ test('DriftChecker - HanseiPresent respects hanseiSinceTaskId nested under gover
     version: '0.2.0',
     governance: { hanseiSinceTaskId: 195 },
   });
-  fs.directories['/repo/docs/archive'] = ['TASK-010.md', 'TASK-200.md'];
+  fs.dirs['/repo/docs/archive'] = ['TASK-010.md', 'TASK-200.md'];
   fs.files['/repo/docs/archive/TASK-010.md'] = '## TASK-010: Legacy\n**Meta:** P1 | S | DONE | Focus:no\n\nNo Hansei.\n';
   fs.files['/repo/docs/archive/TASK-200.md'] = '## TASK-200: New\n**Meta:** P1 | S | DONE | Focus:no\n\nNo Hansei.\n';
 
@@ -297,7 +257,7 @@ test('DriftChecker - HanseiPresent passes when all archived tasks have Hansei se
     version: '0.2.0',
     hanseiSinceTaskId: 195,
   });
-  fs.directories['/repo/docs/archive'] = ['TASK-195.md', 'TASK-196.md'];
+  fs.dirs['/repo/docs/archive'] = ['TASK-195.md', 'TASK-196.md'];
   fs.files['/repo/docs/archive/TASK-195.md'] = '## TASK-195: Something\n**Meta:** P1 | S | DONE | Focus:no\n\n## Hansei\nReflection here.\n';
   fs.files['/repo/docs/archive/TASK-196.md'] = '## TASK-196: Another\n**Meta:** P1 | S | DONE | Focus:no\n\n## Hansei\nMore reflection.\n';
 
@@ -341,8 +301,8 @@ test('EscalationMaturity - WARN when last commit touches protected path without 
     version: '0.2.0',
     governance: { protectedPaths: ['cli/src/main/ts/domain/'] },
   });
-  fs.directories['/repo/docs/tasks'] = [];
-  fs.directories['/repo/docs/adr'] = [];
+  fs.dirs['/repo/docs/tasks'] = [];
+  fs.dirs['/repo/docs/adr'] = [];
 
   const git = new MockGitRepository();
   git.changedFilesInLastCommit = ['cli/src/main/ts/domain/services/drift-checker.ts'];
@@ -362,8 +322,8 @@ test('EscalationMaturity - OK when last commit touches protected path WITH ADR',
     version: '0.2.0',
     governance: { protectedPaths: ['cli/src/main/ts/domain/'] },
   });
-  fs.directories['/repo/docs/tasks'] = [];
-  fs.directories['/repo/docs/adr'] = [];
+  fs.dirs['/repo/docs/tasks'] = [];
+  fs.dirs['/repo/docs/adr'] = [];
 
   const git = new MockGitRepository();
   git.changedFilesInLastCommit = [
@@ -388,7 +348,7 @@ test('EscalationMaturity - WARN when task is in REVIEW after prior rejection (RE
     version: '0.2.0',
     governance: { protectedPaths: [] },
   });
-  fs.directories['/repo/docs/tasks'] = ['TASK-010.md'];
+  fs.dirs['/repo/docs/tasks'] = ['TASK-010.md'];
   fs.files['/repo/docs/tasks/TASK-010.md'] =
     '## TASK-010: Something\n**Meta:** P1 | S | REVIEW | Focus:no | 2-code-generation | local | none\n**Rejected-at:** 2026-05-01T00:00:00.000Z\n**Reason:** AC not met\n\n### Acceptance Criteria\n- [x] Done\n';
 
@@ -420,7 +380,7 @@ test('DriftChecker - HaltPolicy passes with valid files', async () => {
 
 test('OrphanTasks - OK when all tasks are in the active root set', async () => {
   const fs = makeBaseFs();
-  fs.directories['/repo/docs/tasks'] = ['TASK-001.md', 'TASK-002.md'];
+  fs.dirs['/repo/docs/tasks'] = ['TASK-001.md', 'TASK-002.md'];
   fs.files['/repo/docs/tasks/TASK-001.md'] =
     '## TASK-001: A\n**Meta:** P1 | S | READY | Focus:yes | 2-code-generation | claude | none\n**Depends:** none';
   fs.files['/repo/docs/tasks/TASK-002.md'] =
@@ -436,7 +396,7 @@ test('OrphanTasks - OK when all tasks are in the active root set', async () => {
 
 test('OrphanTasks - OK when a downstream task is reachable from an active root', async () => {
   const fs = makeBaseFs();
-  fs.directories['/repo/docs/tasks'] = ['TASK-001.md', 'TASK-002.md'];
+  fs.dirs['/repo/docs/tasks'] = ['TASK-001.md', 'TASK-002.md'];
   fs.files['/repo/docs/tasks/TASK-001.md'] =
     '## TASK-001: A\n**Meta:** P1 | S | READY | Focus:yes | 2-code-generation | claude | none\n**Depends:** none';
   fs.files['/repo/docs/tasks/TASK-002.md'] =
@@ -452,7 +412,7 @@ test('OrphanTasks - OK when a downstream task is reachable from an active root',
 
 test('OrphanTasks - OK for a transitive downstream chain from an active root', async () => {
   const fs = makeBaseFs();
-  fs.directories['/repo/docs/tasks'] = ['TASK-001.md', 'TASK-002.md', 'TASK-003.md'];
+  fs.dirs['/repo/docs/tasks'] = ['TASK-001.md', 'TASK-002.md', 'TASK-003.md'];
   fs.files['/repo/docs/tasks/TASK-001.md'] =
     '## TASK-001: A\n**Meta:** P1 | S | READY | Focus:yes | 2-code-generation | claude | none\n**Depends:** none';
   fs.files['/repo/docs/tasks/TASK-002.md'] =
@@ -470,7 +430,7 @@ test('OrphanTasks - OK for a transitive downstream chain from an active root', a
 
 test('OrphanTasks - WARN when a task is structurally disconnected from all active roots', async () => {
   const fs = makeBaseFs();
-  fs.directories['/repo/docs/tasks'] = ['TASK-001.md', 'TASK-002.md'];
+  fs.dirs['/repo/docs/tasks'] = ['TASK-001.md', 'TASK-002.md'];
   fs.files['/repo/docs/tasks/TASK-001.md'] =
     '## TASK-001: A\n**Meta:** P1 | S | READY | Focus:yes | 2-code-generation | claude | none\n**Depends:** none';
   fs.files['/repo/docs/tasks/TASK-002.md'] =
@@ -487,7 +447,7 @@ test('OrphanTasks - WARN when a task is structurally disconnected from all activ
 
 test('OrphanTasks - OK when no active root set exists (empty system)', async () => {
   const fs = makeBaseFs();
-  fs.directories['/repo/docs/tasks'] = ['TASK-001.md'];
+  fs.dirs['/repo/docs/tasks'] = ['TASK-001.md'];
   fs.files['/repo/docs/tasks/TASK-001.md'] =
     '## TASK-001: A\n**Meta:** P1 | S | BLOCKED | Focus:no | 2-code-generation | claude | none\n**Depends:** none';
 
@@ -501,7 +461,7 @@ test('OrphanTasks - OK when no active root set exists (empty system)', async () 
 
 test('OrphanTasks - OK when a REVIEW task exists alongside active roots', async () => {
   const fs = makeBaseFs();
-  fs.directories['/repo/docs/tasks'] = ['TASK-001.md', 'TASK-002.md'];
+  fs.dirs['/repo/docs/tasks'] = ['TASK-001.md', 'TASK-002.md'];
   fs.files['/repo/docs/tasks/TASK-001.md'] =
     '## TASK-001: A\n**Meta:** P1 | S | READY | Focus:yes | 2-code-generation | claude | none\n**Depends:** none';
   fs.files['/repo/docs/tasks/TASK-002.md'] =
@@ -519,9 +479,9 @@ test('OrphanTasks - OK when a REVIEW task exists alongside active roots', async 
 
 test('ObsoleteGuidelines - OK when all referenced paths exist', async () => {
   const fs = makeBaseFs();
-  fs.directories['/repo/docs/guidelines'] = ['core.md'];
+  fs.dirs['/repo/docs/guidelines'] = ['core.md'];
   fs.files['/repo/docs/guidelines/core.md'] = 'See `docs/tasks/` for task files.';
-  fs.directories['/repo/docs/tasks'] = [];
+  fs.dirs['/repo/docs/tasks'] = [];
 
   const checker = new DriftChecker(fs, new MockGitRepository(), '/repo', '0.2.0');
   const result = await checker.check();
@@ -533,7 +493,7 @@ test('ObsoleteGuidelines - OK when all referenced paths exist', async () => {
 
 test('ObsoleteGuidelines - WARN when a guideline references a dead path', async () => {
   const fs = makeBaseFs();
-  fs.directories['/repo/docs/guidelines'] = ['core.md'];
+  fs.dirs['/repo/docs/guidelines'] = ['core.md'];
   fs.files['/repo/docs/guidelines/core.md'] = 'Old rule: use `docs/sprint/` folder.';
   // docs/sprint/ does NOT exist in the mock fs
 
@@ -560,7 +520,7 @@ test('ObsoleteGuidelines - OK when guidelines directory does not exist', async (
 
 test('ObsoleteGuidelines - skips glob patterns (paths with *)', async () => {
   const fs = makeBaseFs();
-  fs.directories['/repo/docs/guidelines'] = ['core.md'];
+  fs.dirs['/repo/docs/guidelines'] = ['core.md'];
   fs.files['/repo/docs/guidelines/core.md'] = 'Files matching `docs/tasks/*.md` are task files.';
 
   const checker = new DriftChecker(fs, new MockGitRepository(), '/repo', '0.2.0');
@@ -575,10 +535,10 @@ test('ObsoleteGuidelines - skips glob patterns (paths with *)', async () => {
 
 test('UnappliedADRs - OK when all ACCEPTED ADRs are referenced in task files', async () => {
   const fs = makeBaseFs();
-  fs.directories['/repo/docs/adr'] = ['ADR-001-some-decision.md'];
+  fs.dirs['/repo/docs/adr'] = ['ADR-001-some-decision.md'];
   fs.files['/repo/docs/adr/ADR-001-some-decision.md'] =
     '# ADR-001\n**Status:** ACCEPTED\n\n## Decision\nWe use git.';
-  fs.directories['/repo/docs/tasks'] = ['TASK-010.md'];
+  fs.dirs['/repo/docs/tasks'] = ['TASK-010.md'];
   fs.files['/repo/docs/tasks/TASK-010.md'] =
     '## TASK-010: Implement ADR-001\n**Meta:** P1 | S | DONE | Focus:no | 2-code-generation | claude | none\n**Depends:** none\nImplements ADR-001.';
 
@@ -592,10 +552,10 @@ test('UnappliedADRs - OK when all ACCEPTED ADRs are referenced in task files', a
 
 test('UnappliedADRs - WARN when an ACCEPTED ADR has no task reference', async () => {
   const fs = makeBaseFs();
-  fs.directories['/repo/docs/adr'] = ['ADR-003-some-decision.md'];
+  fs.dirs['/repo/docs/adr'] = ['ADR-003-some-decision.md'];
   fs.files['/repo/docs/adr/ADR-003-some-decision.md'] =
     '# ADR-003\n**Status:** ACCEPTED\n\n## Decision\nWe use flat files.';
-  fs.directories['/repo/docs/tasks'] = ['TASK-010.md'];
+  fs.dirs['/repo/docs/tasks'] = ['TASK-010.md'];
   fs.files['/repo/docs/tasks/TASK-010.md'] =
     '## TASK-010: Something else\n**Meta:** P1 | S | READY | Focus:yes | 2-code-generation | claude | none\n**Depends:** none';
 
@@ -610,12 +570,12 @@ test('UnappliedADRs - WARN when an ACCEPTED ADR has no task reference', async ()
 
 test('UnappliedADRs - OK for DRAFT and SUPERSEDED ADRs (not checked)', async () => {
   const fs = makeBaseFs();
-  fs.directories['/repo/docs/adr'] = ['ADR-002-draft.md', 'ADR-004-old.md'];
+  fs.dirs['/repo/docs/adr'] = ['ADR-002-draft.md', 'ADR-004-old.md'];
   fs.files['/repo/docs/adr/ADR-002-draft.md'] =
     '# ADR-002\n**Status:** DRAFT\n\n## Decision\nTBD.';
   fs.files['/repo/docs/adr/ADR-004-old.md'] =
     '# ADR-004\n**Status:** SUPERSEDED\n\n## Decision\nOld way.';
-  fs.directories['/repo/docs/tasks'] = [];
+  fs.dirs['/repo/docs/tasks'] = [];
 
   const checker = new DriftChecker(fs, new MockGitRepository(), '/repo', '0.2.0');
   const result = await checker.check();
@@ -627,11 +587,11 @@ test('UnappliedADRs - OK for DRAFT and SUPERSEDED ADRs (not checked)', async () 
 
 test('UnappliedADRs - OK when ADR is referenced in archive (not just tasks)', async () => {
   const fs = makeBaseFs();
-  fs.directories['/repo/docs/adr'] = ['ADR-005-archived-impl.md'];
+  fs.dirs['/repo/docs/adr'] = ['ADR-005-archived-impl.md'];
   fs.files['/repo/docs/adr/ADR-005-archived-impl.md'] =
     '# ADR-005\n**Status:** ACCEPTED\n\n## Decision\nUse flat tasks.';
-  fs.directories['/repo/docs/tasks'] = [];
-  fs.directories['/repo/docs/archive'] = ['TASK-005.md'];
+  fs.dirs['/repo/docs/tasks'] = [];
+  fs.dirs['/repo/docs/archive'] = ['TASK-005.md'];
   fs.files['/repo/docs/archive/TASK-005.md'] =
     '## TASK-005: Implemented ADR-005\n**Meta:** P1 | S | DONE | Focus:no | 2-code-generation | claude | none\n**Depends:** none';
 

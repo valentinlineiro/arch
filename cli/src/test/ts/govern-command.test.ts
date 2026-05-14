@@ -1,23 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert';
 import { GovernCommand } from '../../main/ts/application/commands/govern-command.js';
-
-class MockFileSystem {
-  files: Record<string, string> = {
-    'arch.config.json': JSON.stringify({ governance: { conductEveryN: 3 }, contextRules: {} }),
-  };
-
-  async readFile(path: string): Promise<string> {
-    if (!(path in this.files)) throw new Error(`Not found: ${path}`);
-    return this.files[path];
-  }
-  async writeFile(path: string, content: string): Promise<void> { this.files[path] = content; }
-  async exists(path: string): Promise<boolean> { return path in this.files; }
-  async readDirectory(): Promise<string[]> { return []; }
-  async rename(): Promise<void> {}
-  async mkdir(): Promise<void> {}
-  async deleteFile(_p: string) {}
-}
+import { MockFileSystem } from './mocks/index.js';
 
 class EmptyTaskRepository {
   async getById() { return null; }
@@ -50,10 +34,12 @@ class FailingHistoryGitRepository {
 }
 
 test('GovernCommand fails when context index rebuild fails', async () => {
+  const fs = new MockFileSystem();
+  fs.files['arch.config.json'] = JSON.stringify({ governance: { conductEveryN: 3 }, contextRules: {} });
   const command = new GovernCommand(
     new EmptyTaskRepository() as any,
     new FailingHistoryGitRepository() as any,
-    new MockFileSystem() as any,
+    fs as any,
   );
 
   await assert.rejects(

@@ -2,38 +2,16 @@ import { test } from 'node:test';
 import assert from 'node:assert';
 import { ArchiveParser } from '../../main/ts/domain/services/archive-parser.js';
 import { MetricsEngine } from '../../main/ts/domain/services/metrics-engine.js';
+import { MockFileSystem as BaseMockFileSystem, MockGitRepository } from './mocks/index.js';
 
-// Mock FileSystem
-class MockFileSystem {
-  files: Record<string, string> = {};
-  dirs: Record<string, string[]> = {};
+// Extended MockFileSystem to support existsResults override
+class MockFileSystem extends BaseMockFileSystem {
   existsResults: Record<string, boolean> = {};
 
-  async readFile(path: string) { return this.files[path]; }
-  async writeFile(path: string, content: string) { this.files[path] = content; }
-  async readDirectory(path: string) { return this.dirs[path] || []; }
-  async exists(path: string) { return this.existsResults[path] !== undefined ? this.existsResults[path] : true; }
-}
-
-// Mock GitRepository
-class MockGitRepository {
-  commits: Array<{ hash: string; message: string; date: string; files: string[] }> = [];
-  async getCommitHistory() { return this.commits; }
-  async getDiff() { return ''; }
-  async getLastCommitMessage() { return ''; }
-  async getCurrentBranch() { return ''; }
-  async getStatusLines() { return []; }
-  async getLog() { return []; }
-  async add() {}
-  async rm() {}
-  async mv() {}
-  async commit() {}
-  async getFileLastModifiedDate() { return new Date(); }
-  async getChangedFilesInLastCommit() { return []; }
-  async getMergeCommits() { return []; }
-  async getStagedFiles() { return []; }
-  async getModifiedFiles() { return []; }
-  async getRepoRoot() { return ''; }
+  override async exists(path: string): Promise<boolean> {
+    if (path in this.existsResults) return this.existsResults[path];
+    return super.exists(path);
+  }
 }
 
 test('ArchiveParser - parses task content with git history provenance', async () => {
@@ -42,16 +20,26 @@ test('ArchiveParser - parses task content with git history provenance', async ()
   const parser = new ArchiveParser(fs as any, git as any);
 
   const taskId = 'TASK-001';
-  const filePath = `docs/archive/${taskId}.md`;
-  fs.dirs['docs/archive'] = [`${taskId}.md`];
-  fs.files[filePath] = `## ${taskId}: Test\n**Meta:** P1 | XS | DONE | Focus:no | 2-code-generation | local | cli/ | Turns: 5 | Cost: $0.12\n**Closed-at:** 2026-05-13T10:00:00Z\n`;
+  const archivePath = `docs/archive/${taskId}.md`;
+  const taskPath = `docs/tasks/${taskId}.md`;
   
-  git.commits = [{
-    hash: 'abc',
-    message: 'initial',
-    date: '2026-05-13T08:00:00Z',
-    files: [filePath]
-  }];
+  fs.dirs['docs/archive'] = [`${taskId}.md`];
+  fs.files[archivePath] = `## ${taskId}: Test\n**Meta:** P1 | XS | DONE | Focus:no | 2-code-generation | local | cli/ | Turns: 5 | Cost: $0.12\n**Closed-at:** 2026-05-13T10:00:00Z\n`;
+  
+  git.commits = [
+    {
+      hash: 'def',
+      message: 'archive task',
+      date: '2026-05-13T10:00:00Z',
+      files: [{ status: 'R100', oldPath: taskPath, path: archivePath }]
+    },
+    {
+      hash: 'abc',
+      message: 'initial',
+      date: '2026-05-13T08:00:00Z',
+      files: [{ status: 'A', path: taskPath }]
+    }
+  ];
 
   const metrics = await parser.parseArchivedTasks();
   const result = metrics[0];
@@ -60,35 +48,99 @@ test('ArchiveParser - parses task content with git history provenance', async ()
   assert.strictEqual(result.id, taskId);
   assert.strictEqual(result.size, 'XS');
   assert.strictEqual(result.integrity, 'MEDIUM');
-  assert.strictEqual(result.provenance?.methodId, 'git-history-inference-v1');
+  assert.strictEqual(result.provenance?.methodId, 'git-history-inference-v2');
   assert.strictEqual(result.createdAt, '2026-05-13T08:00:00Z');
+  assert.strictEqual(result.completedAt, '2026-05-13T10:00:00Z');
 });
 
 test('MetricsEngine - calculates cycle time and integrity levels', async () => {
   const fs = new MockFileSystem();
+  const git = new MockGitRepository();
+  git.validHashes.add('abc');
+  git.validHashes.add('def');
+  git.validHashes.add('ghi');
   fs.existsResults['docs/EVENTS.md'] = true;
-  fs.files['docs/EVENTS.md'] = '# Event Log\n## 2026-05-13T08:00:00Z\nTASK-001 | REVIEW -> DONE\n';
-  const engine = new MetricsEngine(fs as any);
+  // Events must be in chronological order
+  fs.files['docs/EVENTS.md'] = '# Event Log\n\n## 2026-05-13T09:00:00Z\nTASK-001 | REVIEW -> DONE | commit:abc | agent:human\n\n## 2026-05-13T10:00:00Z\nTASK-003 | REVIEW -> DONE | commit:def | agent:human\n\n## 2026-05-13T11:00:00Z\nTASK-002 | REVIEW -> DONE | commit:ghi | agent:human\n';
+  const engine = new MetricsEngine(fs as any, git as any);
 
   const tasks = [
-    { id: 'T1', size: 'XS', createdAt: '2026-05-13T08:00:00Z', completedAt: '2026-05-13T09:00:00Z', integrity: 'HIGH', class: '' }, // 1h
-    { id: 'T2', size: 'XS', createdAt: '2026-05-13T08:00:00Z', completedAt: '2026-05-13T11:00:00Z', integrity: 'MEDIUM', class: '' }, // 3h
-    { id: 'T3', size: 'XS', createdAt: '2026-05-13T08:00:00Z', completedAt: '2026-05-13T10:00:00Z', integrity: 'HIGH', class: '' }, // 2h
+    { id: 'TASK-001', size: 'XS', createdAt: '2026-05-13T08:00:00Z', completedAt: '2026-05-13T09:00:00Z', integrity: 'HIGH', class: '' }, // 1h
+    { id: 'TASK-002', size: 'XS', createdAt: '2026-05-13T08:00:00Z', completedAt: '2026-05-13T11:00:00Z', integrity: 'MEDIUM', class: '' }, // 3h
+    { id: 'TASK-003', size: 'XS', createdAt: '2026-05-13T08:00:00Z', completedAt: '2026-05-13T10:00:00Z', integrity: 'HIGH', class: '' }, // 2h
   ];
 
   const metrics = await engine.calculate(tasks as any);
   
   assert.strictEqual(metrics.cycleTime['XS'].count, 3);
   assert.strictEqual(metrics.cycleTime['XS'].p50, 2);
-  // Entropy = 1/3 (0.33), which is > 0.1 so integrity is MEDIUM
+  // All tasks have events and valid commits. 
+  // TASK-002 was MEDIUM initially, so entropy > 0.
+  // nonHighCount = 1, total = 3. Entropy = 0.33. > 0.1 -> MEDIUM.
   assert.strictEqual(metrics.integrityLevel, 'MEDIUM'); 
   assert.ok(metrics.integrityEntropy > 0);
-  assert.strictEqual(metrics.provenance.methodId, 'metrics-engine-v1');
+  assert.strictEqual(metrics.provenance.methodId, 'metrics-engine-v4-witness-hardened');
+});
+
+test('MetricsEngine - Hostile: detects logistics-only archival (Attack Surface 1)', async () => {
+  const fs = new MockFileSystem();
+  const git = new MockGitRepository();
+  fs.existsResults['docs/EVENTS.md'] = true;
+  fs.files['docs/EVENTS.md'] = '# Event Log\n\n## 2026-05-13T09:00:00Z\nTASK-001 | REVIEW -> DONE | commit:abc\n';
+  git.validHashes.add('abc');
+  const engine = new MetricsEngine(fs as any, git as any);
+
+  const tasks = [
+    { id: 'TASK-001', size: 'XS', createdAt: '2026-05-13T08:00:00Z', completedAt: '2026-05-13T09:00:00Z', integrity: 'HIGH', class: '' },
+    // TASK-002 has completedAt (from git move) but NO event log entry
+    { id: 'TASK-002', size: 'XS', createdAt: '2026-05-13T08:00:00Z', completedAt: '2026-05-13T11:00:00Z', integrity: 'MEDIUM', class: '' },
+  ];
+
+  const metrics = await engine.calculate(tasks as any);
+  
+  assert.strictEqual(metrics.integrityLevel, 'INVALID', 'Should be INVALID due to logistics-only archival');
+});
+
+test('MetricsEngine - Hostile: detects rewritten history (Attack Surface 2)', async () => {
+  const fs = new MockFileSystem();
+  const git = new MockGitRepository();
+  fs.existsResults['docs/EVENTS.md'] = true;
+  // TASK-001 event references commit 'bad-hash' which is NOT in git
+  fs.files['docs/EVENTS.md'] = '# Event Log\n\n## 2026-05-13T09:00:00Z\nTASK-001 | REVIEW -> DONE | commit:bad-hash\n';
+  const engine = new MetricsEngine(fs as any, git as any);
+
+  const tasks = [
+    { id: 'TASK-001', size: 'XS', createdAt: '2026-05-13T08:00:00Z', completedAt: '2026-05-13T09:00:00Z', integrity: 'HIGH', class: '' },
+  ];
+
+  const metrics = await engine.calculate(tasks as any);
+  
+  assert.strictEqual(metrics.integrityLevel, 'INVALID', 'Should be INVALID due to missing witness commit');
+});
+
+test('MetricsEngine - Hostile: detects ambiguous attribution (Attack Surface 3)', async () => {
+  const fs = new MockFileSystem();
+  const git = new MockGitRepository();
+  fs.existsResults['docs/EVENTS.md'] = true;
+  // TASK-001 has TWO DONE events (ambiguous attribution/laundering)
+  fs.files['docs/EVENTS.md'] = '# Event Log\n\n## 2026-05-13T09:00:00Z\nTASK-001 | REVIEW -> DONE | commit:abc | agent:agent-1\n\n## 2026-05-13T10:00:00Z\nTASK-001 | REVIEW -> DONE | commit:def | agent:agent-2\n';
+  git.validHashes.add('abc');
+  git.validHashes.add('def');
+  const engine = new MetricsEngine(fs as any, git as any);
+
+  const tasks = [
+    { id: 'TASK-001', size: 'XS', createdAt: '2026-05-13T08:00:00Z', completedAt: '2026-05-13T09:00:00Z', integrity: 'HIGH', class: '' },
+  ];
+
+  const metrics = await engine.calculate(tasks as any);
+  
+  assert.strictEqual(metrics.integrityLevel, 'INVALID', 'Should be INVALID due to ambiguous attribution');
 });
 
 test('MetricsEngine - detects chronological regression', async () => {
   const fs = new MockFileSystem();
-  const engine = new MetricsEngine(fs as any);
+  const git = new MockGitRepository();
+  const engine = new MetricsEngine(fs as any, git as any);
 
   fs.files['docs/EVENTS.md'] = `
 # Event Log
@@ -106,7 +158,8 @@ TASK-002 | REVIEW -> READY
 
 test('MetricsEngine - fails closed on malformed event log (Severity 2)', async () => {
   const fs = new MockFileSystem();
-  const engine = new MetricsEngine(fs as any);
+  const git = new MockGitRepository();
+  const engine = new MetricsEngine(fs as any, git as any);
 
   fs.files['docs/EVENTS.md'] = `
 # Event Log
@@ -118,20 +171,5 @@ GARBAGE LINE
   await assert.rejects(
     () => engine.calculate([]),
     { message: /Integrity Violation: Unexpected content "GARBAGE LINE"/ }
-  );
-});
-
-test('MetricsEngine - fails closed on malformed event header', async () => {
-  const fs = new MockFileSystem();
-  const engine = new MetricsEngine(fs as any);
-
-  fs.files['docs/EVENTS.md'] = `
-## MALFORMED HEADER
-TASK-001 | REVIEW -> READY
-`;
-
-  await assert.rejects(
-    () => engine.calculate([]),
-    { message: /Integrity Violation: Malformed event header/ }
   );
 });

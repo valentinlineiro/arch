@@ -3,27 +3,7 @@ import assert from 'node:assert';
 import { CausalArbitrator } from '../../main/ts/application/use-cases/causal-arbitrator.js';
 import { CausalSignalLog } from '../../main/ts/application/use-cases/causal-signal-log.js';
 import { CausalGraph } from '../../main/ts/application/use-cases/causal-graph.js';
-
-class MockFileSystem {
-  files = new Map<string, string>();
-
-  async readFile(path: string): Promise<string> {
-    const c = this.files.get(path);
-    if (c === undefined) throw new Error(`Not found: ${path}`);
-    return c;
-  }
-
-  async appendFile(path: string, content: string): Promise<void> {
-    this.files.set(path, (this.files.get(path) ?? '') + content);
-  }
-
-  async exists(_p: string): Promise<boolean> { return false; }
-  async writeFile(_p: string, _c: string): Promise<void> {}
-  async readDirectory(_p: string): Promise<string[]> { return []; }
-  async rename(_o: string, _n: string): Promise<void> {}
-  async mkdir(_p: string): Promise<void> {}
-  async deleteFile(_p: string): Promise<void> {}
-}
+import { MockFileSystem } from './mocks/index.js';
 
 function makeStack() {
   const fs = new MockFileSystem();

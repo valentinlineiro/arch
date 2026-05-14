@@ -1,44 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert';
 import { MergeResolve } from '../../main/ts/application/use-cases/merge-resolve.js';
-import { FileSystem } from '../../main/ts/domain/repositories/file-system.js';
-import { GitRepository } from '../../main/ts/domain/repositories/git-repository.js';
-
-class MockFileSystem implements FileSystem {
-  files: Record<string, string> = {};
-  directories: Record<string, string[]> = {};
-
-  async readFile(path: string) { return this.files[path]; }
-  async writeFile(path: string, content: string) { this.files[path] = content; }
-  async exists(path: string) { return path in this.files || path in this.directories; }
-  async readDirectory(path: string) { return this.directories[path] ?? []; }
-  async rename(oldPath: string, newPath: string) {}
-  async mkdir(path: string) {}
-  async appendFile(path: string, content: string) {}
-  async deleteFile(path: string) {}
-}
-
-class MockGitRepository implements GitRepository {
-  statusLines: string[] = [];
-  addedFiles: string[] = [];
-
-  async getDiff() { return ''; }
-  async getLastCommitMessage() { return null; }
-  async getCurrentBranch() { return 'main'; }
-  async getStatusLines() { return this.statusLines; }
-  async getLog() { return []; }
-  async add(path: string) { this.addedFiles.push(path); }
-  async commit() {}
-  async getFileLastModifiedDate() { return new Date(); }
-  async getChangedFilesInLastCommit() { return []; }
-  async getMergeCommits() { return []; }
-  async rm() {}
-  async mv() {}
-  async getStagedFiles() { return []; }
-  async getModifiedFiles() { return []; }
-  async getRepoRoot() { return ''; }
-  async getCommitHistory() { return []; }
-}
+import { MockFileSystem, MockGitRepository } from './mocks/index.js';
 
 test('MergeResolve - auto-resolves pure-append on INBOX.md with chronological sorting', async () => {
   const fs = new MockFileSystem();

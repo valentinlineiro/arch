@@ -1,27 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert';
 import { CompressTask } from '../../main/ts/application/use-cases/compress-task.ts';
-
-class MockFileSystem {
-  files: Record<string, string> = {};
-  dirs: Record<string, string[]> = {};
-
-  async readFile(path: string): Promise<string> {
-    if (this.files[path] !== undefined) return this.files[path];
-    throw new Error(`File not found: ${path}`);
-  }
-  async writeFile(path: string, content: string): Promise<void> {
-    this.files[path] = content;
-  }
-  async exists(path: string): Promise<boolean> {
-    return path in this.files || path in this.dirs;
-  }
-  async readDirectory(path: string): Promise<string[]> {
-    return this.dirs[path] ?? [];
-  }
-  async rename() {}
-  async deleteFile(_p: string) {}
-}
+import { MockFileSystem } from './mocks/index.js';
 
 const FULL_TASK = `## TASK-222: arch ask v1+v2
 **Meta:** P1 | M | DONE | Focus:no | 2-code-generation | claude-code | cli/src/main/ts/

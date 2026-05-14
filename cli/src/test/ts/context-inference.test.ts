@@ -2,22 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert';
 import { ContextInference, type ContextResult } from '../../main/ts/application/use-cases/context-inference.js';
 import type { ContextIndex } from '../../main/ts/domain/models/context-index.js';
-
-class MockFileSystem {
-  files: Record<string, string> = {};
-  written: Record<string, string> = {};
-
-  async readFile(path: string): Promise<string> {
-    if (!(path in this.files)) throw new Error(`Not found: ${path}`);
-    return this.files[path];
-  }
-  async writeFile(path: string, content: string): Promise<void> { this.written[path] = content; }
-  async exists(path: string): Promise<boolean> { return path in this.files; }
-  async readDirectory(): Promise<string[]> { return []; }
-  async rename(): Promise<void> {}
-  async mkdir(): Promise<void> {}
-  async deleteFile(_p: string) {}
-}
+import { MockFileSystem } from './mocks/index.js';
 
 const FIXTURE_INDEX: ContextIndex = {
   version: 3,

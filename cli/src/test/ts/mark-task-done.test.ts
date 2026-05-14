@@ -4,7 +4,7 @@ import { MarkTaskDone } from '../../main/ts/application/use-cases/mark-task-done
 import { Task, TaskStatus } from '../../main/ts/domain/models/task.js';
 import { TaskRepository } from '../../main/ts/domain/repositories/task-repository.js';
 import { Reviewer, ReviewResult } from '../../main/ts/domain/services/reviewer.js';
-import { FileSystem } from '../../main/ts/domain/repositories/file-system.js';
+import { MockFileSystem } from './mocks/index.js';
 
 function makeTask(overrides: Partial<Task> = {}): Task {
   return {
@@ -39,19 +39,11 @@ class MockTaskRepository implements TaskRepository {
   async save(task: Task) { this.saved = task; }
 }
 
-class MockFileSystem implements FileSystem {
-  files: Record<string, string> = {
-    'arch.config.json': JSON.stringify({ version: '0.2.0', hanseiSinceTaskId: 195 }),
-  };
 
-  async readFile(path: string) { return this.files[path]; }
-  async writeFile(path: string, content: string) { this.files[path] = content; }
-  async exists(path: string) { return path in this.files; }
-  async readDirectory() { return []; }
-  async rename() {}
-  async mkdir(_path: string) {}
-  async appendFile(_path: string, _content: string) {}
-  async deleteFile(_path: string) {}
+function makeFs(): MockFileSystem {
+  const fs = new MockFileSystem();
+  fs.files['arch.config.json'] = JSON.stringify({ version: '0.2.0', hanseiSinceTaskId: 195 });
+  return fs;
 }
 
 function makeReviewer(result: ReviewResult): Reviewer {
@@ -63,7 +55,7 @@ function makeReviewer(result: ReviewResult): Reviewer {
 test('MarkTaskDone - sets status to DONE', async () => {
   const task = makeTask();
   const repo = new MockTaskRepository(task);
-  const useCase = new MarkTaskDone(repo, makeReviewer({ valid: true, violations: [] }), new MockFileSystem());
+  const useCase = new MarkTaskDone(repo, makeReviewer({ valid: true, violations: [] }), makeFs());
 
   await useCase.execute('TASK-031');
 
@@ -72,7 +64,7 @@ test('MarkTaskDone - sets status to DONE', async () => {
 
 test('MarkTaskDone - throws when task not found', async () => {
   const repo = new MockTaskRepository(null);
-  const useCase = new MarkTaskDone(repo, new Reviewer(), new MockFileSystem());
+  const useCase = new MarkTaskDone(repo, new Reviewer(), makeFs());
 
   await assert.rejects(
     () => useCase.execute('TASK-999'),
@@ -83,7 +75,7 @@ test('MarkTaskDone - throws when task not found', async () => {
 test('MarkTaskDone - works from REVIEW status', async () => {
   const task = makeTask({ status: TaskStatus.REVIEW });
   const repo = new MockTaskRepository(task);
-  const useCase = new MarkTaskDone(repo, makeReviewer({ valid: true, violations: [] }), new MockFileSystem());
+  const useCase = new MarkTaskDone(repo, makeReviewer({ valid: true, violations: [] }), makeFs());
 
   await useCase.execute('TASK-031');
 
@@ -98,7 +90,7 @@ test('MarkTaskDone - blocks transition when pending ACs exist', async () => {
     ],
   });
   const repo = new MockTaskRepository(task);
-  const useCase = new MarkTaskDone(repo, new Reviewer(), new MockFileSystem());
+  const useCase = new MarkTaskDone(repo, new Reviewer(), makeFs());
 
   await assert.rejects(
     () => useCase.execute('TASK-031'),
@@ -114,7 +106,7 @@ test('MarkTaskDone - force bypasses pending AC guard', async () => {
     ],
   });
   const repo = new MockTaskRepository(task);
-  const useCase = new MarkTaskDone(repo, new Reviewer(), new MockFileSystem());
+  const useCase = new MarkTaskDone(repo, new Reviewer(), makeFs());
 
   await useCase.execute('TASK-031', true);
 
@@ -124,7 +116,7 @@ test('MarkTaskDone - force bypasses pending AC guard', async () => {
 test('MarkTaskDone - injects closedAt timestamp on DONE transition', async () => {
   const task = makeTask();
   const repo = new MockTaskRepository(task);
-  const useCase = new MarkTaskDone(repo, makeReviewer({ valid: true, violations: [] }), new MockFileSystem());
+  const useCase = new MarkTaskDone(repo, makeReviewer({ valid: true, violations: [] }), makeFs());
 
   await useCase.execute('TASK-031');
 
@@ -136,7 +128,7 @@ test('MarkTaskDone - does not overwrite existing closedAt (idempotent)', async (
   const existing = '2026-01-01T00:00:00.000Z';
   const task = makeTask({ closedAt: existing });
   const repo = new MockTaskRepository(task);
-  const useCase = new MarkTaskDone(repo, makeReviewer({ valid: true, violations: [] }), new MockFileSystem());
+  const useCase = new MarkTaskDone(repo, makeReviewer({ valid: true, violations: [] }), makeFs());
 
   await useCase.execute('TASK-031');
 
@@ -146,7 +138,7 @@ test('MarkTaskDone - does not overwrite existing closedAt (idempotent)', async (
 test('MarkTaskDone - force path also injects closedAt', async () => {
   const task = makeTask({ acceptanceCriteria: [{ description: 'AC', completed: false }] });
   const repo = new MockTaskRepository(task);
-  const useCase = new MarkTaskDone(repo, new Reviewer(), new MockFileSystem());
+  const useCase = new MarkTaskDone(repo, new Reviewer(), makeFs());
 
   await useCase.execute('TASK-031', true);
 
@@ -160,7 +152,7 @@ test('MarkTaskDone - blocks post-rollout task without Hansei section', async () 
     status: TaskStatus.REVIEW,
   });
   const repo = new MockTaskRepository(task);
-  const useCase = new MarkTaskDone(repo, makeReviewer({ valid: true, violations: [] }), new MockFileSystem());
+  const useCase = new MarkTaskDone(repo, makeReviewer({ valid: true, violations: [] }), makeFs());
 
   await assert.rejects(
     () => useCase.execute('TASK-195'),
@@ -176,7 +168,7 @@ test('MarkTaskDone - allows pre-rollout task without Hansei section', async () =
     status: TaskStatus.REVIEW,
   });
   const repo = new MockTaskRepository(task);
-  const useCase = new MarkTaskDone(repo, makeReviewer({ valid: true, violations: [] }), new MockFileSystem());
+  const useCase = new MarkTaskDone(repo, makeReviewer({ valid: true, violations: [] }), makeFs());
 
   await useCase.execute('TASK-194');
 
@@ -190,7 +182,7 @@ test('MarkTaskDone - allows post-rollout task with Hansei section', async () => 
     status: TaskStatus.REVIEW,
   });
   const repo = new MockTaskRepository(task);
-  const useCase = new MarkTaskDone(repo, makeReviewer({ valid: true, violations: [] }), new MockFileSystem());
+  const useCase = new MarkTaskDone(repo, makeReviewer({ valid: true, violations: [] }), makeFs());
 
   await useCase.execute('TASK-195');
 
