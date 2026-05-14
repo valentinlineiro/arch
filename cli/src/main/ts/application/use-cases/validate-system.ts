@@ -34,6 +34,10 @@ export class ValidateSystem {
       if (task.rawMetaLine && !TaskValidator.isValidMeta(task.rawMetaLine)) {
         errors.push(`[docs/tasks/${task.id}.md] Task ${task.id} has an invalid Meta line: ${task.rawMetaLine}`);
       }
+      const hanseiErrors = TaskValidator.validateHansei(task);
+      for (const e of hanseiErrors) {
+        errors.push(`[${task.filePath ?? task.id}] ${e}`);
+      }
     }
 
     return {

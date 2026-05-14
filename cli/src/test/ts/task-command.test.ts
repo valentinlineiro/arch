@@ -104,12 +104,19 @@ test('TaskCommand metrics - exits 1 when update fails', async () => {
 test('TaskCommand done - exits 0 when transition passes', async () => {
   const repo = new MockTaskRepository();
   const fileSystem = makeFs();
-  // Provide content WITH Hansei
+  // Provide structured Hansei on the task object (parsed field, not raw content)
   const getByIdOriginal = repo.getById;
   repo.getById = async (id: string) => {
     const task: any = await getByIdOriginal.call(repo, id);
     if (task) {
-      task.content += '\n\n## Hansei\nAll good.';
+      task.hansei = {
+        severity: 'H1',
+        category: '[TypeHack]',
+        decision: 'Used any cast to bypass complex type circular dependency in repository.',
+        constraint: 'P1 deadline and lack of specialized domain provider at the time.',
+        cost: 'Type safety is degraded specifically in the parseTask method.',
+        forwardAction: 'none',
+      };
     }
     return task;
   };

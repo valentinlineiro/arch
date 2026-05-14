@@ -92,6 +92,11 @@ export class TaskValidator {
     validateFieldContent(hansei.constraint, 'Constraint');
     validateFieldContent(hansei.cost, 'Cost');
 
+    // Logic: H3a is a blocking invalidity — requires immediate rejection before closure
+    if (hansei.severity === 'H3a') {
+      errors.push('BLOCKING: Hansei Severity H3a (Blocking Invalidity) requires task rejection before closure. Resolve the constitutional violation before re-submitting.');
+    }
+
     // Logic: H2 requires evidence (IDEA- link or repetition markers)
     if (hansei.severity === 'H2') {
       const hasIdeaLink = (hansei.forwardAction && hansei.forwardAction.includes('IDEA-'));

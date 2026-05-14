@@ -6,6 +6,15 @@ import { TaskRepository } from '../../main/ts/domain/repositories/task-repositor
 import { Reviewer, ReviewResult } from '../../main/ts/domain/services/reviewer.js';
 import { MockFileSystem } from './mocks/index.js';
 
+const validHansei = {
+  severity: 'H1',
+  category: '[TypeHack]',
+  decision: 'Used any cast to bypass complex type circular dependency in repository.',
+  constraint: 'P1 deadline and lack of specialized domain provider at the time.',
+  cost: 'Type safety is degraded specifically in the parseTask method.',
+  forwardAction: 'none',
+};
+
 function makeTask(overrides: Partial<Task> = {}): Task {
   return {
     id: 'TASK-031',
@@ -19,6 +28,7 @@ function makeTask(overrides: Partial<Task> = {}): Task {
     context: ['src/'],
     acceptanceCriteria: [],
     rawMetaLine: '**Meta:** P1 | S | IN_PROGRESS | Sprint 3 | 2-code-generation | claude-code | src/',
+    hansei: validHansei,
     ...overrides,
   };
 }
@@ -150,6 +160,7 @@ test('MarkTaskDone - blocks post-rollout task without Hansei section', async () 
     id: 'TASK-195',
     content: '## TASK-195: Test Task\n**Meta:** P1 | S | REVIEW | Focus:no | 2-code-generation | claude-code | src/\n',
     status: TaskStatus.REVIEW,
+    hansei: undefined,
   });
   const repo = new MockTaskRepository(task);
   const useCase = new MarkTaskDone(repo, makeReviewer({ valid: true, violations: [] }), makeFs());
@@ -178,8 +189,9 @@ test('MarkTaskDone - allows pre-rollout task without Hansei section', async () =
 test('MarkTaskDone - allows post-rollout task with Hansei section', async () => {
   const task = makeTask({
     id: 'TASK-195',
-    content: '## TASK-195: Test Task\n**Meta:** P1 | S | REVIEW | Focus:no | 2-code-generation | claude-code | src/\n\n## Hansei\nReflection.\n',
+    content: '## TASK-195: Test Task\n**Meta:** P1 | S | REVIEW | Focus:no | 2-code-generation | claude-code | src/\n',
     status: TaskStatus.REVIEW,
+    hansei: validHansei,
   });
   const repo = new MockTaskRepository(task);
   const useCase = new MarkTaskDone(repo, makeReviewer({ valid: true, violations: [] }), makeFs());

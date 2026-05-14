@@ -1,6 +1,7 @@
 import { TaskRepository } from '../../domain/repositories/task-repository.js';
 import { TaskStatus } from '../../domain/models/task.js';
 import { Reviewer } from '../../domain/services/reviewer.js';
+import { TaskValidator } from '../../domain/services/task-validator.js';
 import { FileSystem } from '../../domain/repositories/file-system.js';
 import { EventRepository } from '../../domain/models/event.js';
 import { FeedbackRepository } from '../../domain/repositories/feedback-repository.js';
@@ -34,9 +35,14 @@ export class MarkTaskDone {
         throw new Error(`Cannot mark ${taskId} as DONE due to violations:\n- ${reviewResult.violations.join('\n- ')}`);
       }
 
-      const hanseiRequirement = await this.validateHanseiRequirement(task.id, task.content);
+      const hanseiRequirement = await this.validateHanseiRequirement(task.id, task.content, task.hansei);
       if (hanseiRequirement) {
         throw new Error(`Cannot mark ${taskId} as DONE:\n- ${hanseiRequirement}`);
+      }
+
+      const hanseiErrors = TaskValidator.validateHansei({ ...task, status: TaskStatus.DONE });
+      if (hanseiErrors.length > 0) {
+        throw new Error(`Cannot mark ${taskId} as DONE — Hansei validation failed:\n- ${hanseiErrors.join('\n- ')}`);
       }
     }
 
@@ -116,7 +122,7 @@ export class MarkTaskDone {
     }
   }
 
-  private async validateHanseiRequirement(taskId: string, content: string): Promise<string | null> {
+  private async validateHanseiRequirement(taskId: string, content: string, hansei?: unknown): Promise<string | null> {
     const configRaw = await this.fileSystem.readFile('arch.config.json');
     const config = JSON.parse(configRaw);
     const hanseiSinceTaskId = config.hanseiSinceTaskId as number | undefined;
@@ -126,7 +132,7 @@ export class MarkTaskDone {
       return null;
     }
 
-    if (!content.includes('## Hansei')) {
+    if (!hansei && !content.includes('## Hansei')) {
       return `missing ## Hansei section for post-rollout task (TASK-${hanseiSinceTaskId}+).`;
     }
 

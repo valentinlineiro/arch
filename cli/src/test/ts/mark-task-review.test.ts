@@ -4,6 +4,15 @@ import { MarkTaskReview } from '../../main/ts/application/use-cases/mark-task-re
 import { Task, TaskStatus } from '../../main/ts/domain/models/task.js';
 import { TaskRepository } from '../../main/ts/domain/repositories/task-repository.js';
 
+const validHansei = {
+  severity: 'H1',
+  category: '[TypeHack]',
+  decision: 'Used any cast to bypass complex type circular dependency in repository.',
+  constraint: 'P1 deadline and lack of specialized domain provider at the time.',
+  cost: 'Type safety is degraded specifically in the parseTask method.',
+  forwardAction: 'none',
+};
+
 function makeTask(overrides: Partial<Task> = {}): Task {
   return {
     id: 'TASK-031',
@@ -19,6 +28,7 @@ function makeTask(overrides: Partial<Task> = {}): Task {
     content: '- [x] Manual verification → prose: verified manually\n',
     filePath: '/tmp/TASK-031.md',
     rawMetaLine: '',
+    hansei: validHansei,
     ...overrides,
   };
 }

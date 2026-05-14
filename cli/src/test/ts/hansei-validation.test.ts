@@ -87,6 +87,71 @@ test('TaskValidator - validateHansei - H2 evidence requirement', () => {
   assert.strictEqual(errorsWithIdea.length, 0, 'Should be valid with IDEA link');
 });
 
+test('TaskValidator - validateHansei - valid H0 (no debt, no forward action required)', () => {
+  const task: Task = {
+    ...baseTask,
+    hansei: {
+      severity: 'H0',
+      category: '[SymbolDiscovery]',
+      decision: 'Discovered that process.chdir is required for GitCli isolation in tests.',
+      constraint: 'No alternative without exposing cwd on the constructor, which is out of scope.',
+      cost: 'No debt introduced. Discovery is documented for future reference.',
+      forwardAction: 'none'
+    }
+  };
+  const errors = TaskValidator.validateHansei(task);
+  assert.strictEqual(errors.length, 0, `H0 should be valid, but got: ${errors.join(', ')}`);
+});
+
+test('TaskValidator - validateHansei - H3a blocks closure', () => {
+  const task: Task = {
+    ...baseTask,
+    hansei: {
+      severity: 'H3a',
+      category: '[IntegrityCorruption]',
+      decision: 'Violated the append-only invariant of the event ledger during migration.',
+      constraint: 'Migration deadline forced a manual rewrite of the event log.',
+      cost: 'Event log integrity cannot be verified for the affected period.',
+      forwardAction: 'none'
+    }
+  };
+  const errors = TaskValidator.validateHansei(task);
+  assert.ok(errors.some(e => e.includes('BLOCKING')), 'H3a must produce a BLOCKING error');
+  assert.ok(errors.some(e => e.includes('H3a')), 'Error must reference H3a severity');
+});
+
+test('TaskValidator - validateHansei - invalid severity string', () => {
+  const task: Task = {
+    ...baseTask,
+    hansei: {
+      severity: 'H5' as any,
+      category: '[TypeHack]',
+      decision: 'Some decision about the implementation.',
+      constraint: 'Some constraint that applies here.',
+      cost: 'Some cost introduced by this decision.',
+      forwardAction: 'none'
+    }
+  };
+  const errors = TaskValidator.validateHansei(task);
+  assert.ok(errors.some(e => e.includes('Invalid Hansei Severity')), 'Should reject unknown severity');
+});
+
+test('TaskValidator - validateHansei - bracket-formatted but invalid category', () => {
+  const task: Task = {
+    ...baseTask,
+    hansei: {
+      severity: 'H1',
+      category: '[TemporaryHack]' as any,
+      decision: 'Some decision about the implementation.',
+      constraint: 'Some constraint that applies here.',
+      cost: 'Some cost introduced by this decision.',
+      forwardAction: 'none'
+    }
+  };
+  const errors = TaskValidator.validateHansei(task);
+  assert.ok(errors.some(e => e.includes('Invalid Hansei Category')), 'Should reject bracket-formatted but non-vocabulary category');
+});
+
 test('TaskValidator - validateHansei - H3b requirements', () => {
   const task: Task = {
     ...baseTask,

@@ -7,6 +7,7 @@ import { BatchSystem } from './batch-system.js';
 import { ConfigLoader } from '../../domain/services/config-loader.js';
 import { CausalSignalLog } from './causal-signal-log.js';
 import { ReflectInfluenceReport, DEFAULT_THRESHOLDS } from './reflect-influence-report.js';
+import { TaskValidator } from '../../domain/services/task-validator.js';
 
 export interface GovernResult {
   analysisNeeded: boolean;
@@ -291,6 +292,14 @@ export class GovernSystem {
 
     if (!content.includes('## Hansei')) {
       return `missing ## Hansei section for post-rollout task (TASK-${hanseiSinceTaskId}+).`;
+    }
+
+    const task = await this.taskRepository.getById(taskId);
+    if (task) {
+      const hanseiErrors = TaskValidator.validateHansei({ ...task, status: TaskStatus.DONE });
+      if (hanseiErrors.length > 0) {
+        return `Hansei validation failed:\n- ${hanseiErrors.join('\n- ')}`;
+      }
     }
 
     return null;

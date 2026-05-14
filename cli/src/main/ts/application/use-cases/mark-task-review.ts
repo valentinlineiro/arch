@@ -1,6 +1,7 @@
 import { TaskRepository } from '../../domain/repositories/task-repository.js';
 import { TaskStatus } from '../../domain/models/task.js';
 import { ValidateTaskAcs } from './validate-task-acs.js';
+import { TaskValidator } from '../../domain/services/task-validator.js';
 
 export class MarkTaskReview {
   private validateAcs: ValidateTaskAcs;
@@ -29,6 +30,11 @@ export class MarkTaskReview {
           return `${r.ac}: ${r.reason || 'failed'}`;
         });
       return { passed: false, failures };
+    }
+
+    const hanseiErrors = TaskValidator.validateHansei({ ...task, status: TaskStatus.REVIEW });
+    if (hanseiErrors.length > 0) {
+      return { passed: false, failures: hanseiErrors };
     }
 
     task.status = TaskStatus.REVIEW;
