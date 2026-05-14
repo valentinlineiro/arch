@@ -16,7 +16,7 @@ Implement context reset for agents:
 2. Add context budget limit before task start
 3. Implement context usage tracking
 
-**Sessions:** 2
+**Sessions:** 3
 
 ## Structural admissibility (5-axis)
 
