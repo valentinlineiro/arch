@@ -293,6 +293,155 @@ repair being treated as a legitimacy challenge.
 
 ---
 
+## Part II-b — Causal Identity and Predicate Closure Model
+
+Part II established what StateView is and how rulings relate to world state.
+This part defines the four missing causal primitives that make the model stable
+under real state evolution: candidate temporal identity, StateView decomposition,
+predicate closure conditions, and honest recovery semantics.
+
+### 2b.1 StateView decomposition — three distinct layers
+
+`StateView` is not a single object. It is a projection pipeline over three layers
+with different natures, different mutability, and different failure modes.
+Collapsing them produces an object where a bug cannot be attributed to its origin.
+
+```
+WorldStateSnapshot   — task meta lines at tick start
+                       mutable, from filesystem
+                       can change between ticks without govern running
+                       source of truth for: status, priority, blocked, depends, Focus:yes
+
+DecisionHistoryView  — ledger entries at tick <= lastCommittedGovernTick
+                       immutable, append-only
+                       source of truth for: ruling history, acquisition events, tick counter
+
+DerivedMetricsView   — computed from WorldStateSnapshot + DecisionHistoryView + observation events
+                       not stored, recomputed each tick
+                       source of truth for: staleness scores, window state, coverage status
+```
+
+When a governance bug occurs, the first diagnostic question is: which layer did it originate in?
+- Wrong decision against correct state → DecisionHistoryView or DerivedMetricsView error
+- Correct decision against wrong state → WorldStateSnapshot read error
+- State and decision correct, metric wrong → DerivedMetricsView derivation error
+
+### 2b.2 CandidateInstance — temporal identity of eligibility
+
+A candidate is not a task. A candidate is a task with a specific, continuous eligibility interval.
+
+```
+CandidateInstance(taskId, eligibilityInterval[t_start, t_end | ∞])
+```
+
+An eligibility interval begins when all §1.7 criteria become simultaneously true
+(status = READY, not BLOCKED, all deps DONE). It ends when any one criterion breaks.
+A task that becomes eligible, then blocked, then eligible again has two distinct
+candidate instances — not one candidate with a gap.
+
+This matters for coverage. A ruling at tick R covers CandidateInstance(C, [t0, t_end])
+only if R falls within [t0, t_end]. If C re-emerges as a new instance after a gap
+(new eligibility interval starting at t2 > R), the old ruling does not cover the
+new instance. Review will detect the new instance as an uncovered predicate and
+emit `FOCUS_SOVEREIGNTY` again.
+
+**Practical implementation:** Eligibility intervals are derived from WorldStateSnapshot
+change history (git log of meta line changes). This is expensive to compute fully.
+For implementation purposes, a simplified approximation is permitted:
+
+> If the current WorldStateSnapshot shows C as eligible, and the most recent ruling
+> in DecisionHistoryView for C was emitted while C was eligible in the committed state
+> at that tick, the instance is considered continuous. If C's eligibility was broken
+> and restored between the ruling tick and now, coverage does not apply.
+
+This approximation is auditable: any state reconstruction from git history can
+retrospectively verify or refute coverage claims.
+
+### 2b.3 Causal closure of sovereignty predicates
+
+A sovereignty predicate `FOCUS_SOVEREIGNTY(C, F)` is causally closed when:
+
+1. A ruling exists in DecisionHistoryView where C was the candidate (i.e., `ruling.candidateTaskId = C`)
+2. That ruling was emitted within C's current eligibility interval (§2b.2)
+3. No new eligibility event has occurred since the ruling tick that would start a new candidate instance
+
+Condition 3 is the causal closure condition — distinct from coverage (§2.2), which is
+about log existence. Closure is about whether the world has evolved beyond what the ruling addressed.
+
+A predicate is **not** causally closed by:
+- A ruling that predates C's current eligibility interval
+- A ruling that addressed a different candidate D (even if D has the same priority as C)
+- Time elapsed without a govern tick (time alone does not close predicates)
+
+If no causally closed ruling exists for C, review emits `FOCUS_SOVEREIGNTY(C, F)`.
+The predicate is not closed. Govern must adjudicate.
+
+**Loop condition.** A sovereignty predicate cannot cycle infinitely without state change.
+Every govern invocation either produces a ruling (closing the predicate for the current
+candidate instance) or detects that the world has changed (creating a new candidate instance
+that requires a new ruling). The only scenario where re-detection without closure continues
+indefinitely is if govern is never invoked. The system does not self-adjudicate.
+
+### 2b.4 Recovery semantics — explicit non-determinism
+
+Recovery from a partial Phase 3 write is **best-effort reconciliation**, not deterministic replay.
+
+There is no write-ahead log. There is no snapshot hashing. There is no guaranteed idempotent replay.
+
+The recovery procedure is:
+1. On govern invocation, read `lastCommittedGovernTick`
+2. Find ledger entries with `tick > lastCommittedGovernTick` — these are uncommitted entries
+3. Discard them (truncate the ledger to the last committed entry)
+4. Re-run Phase 2 adjudication against the current WorldStateSnapshot
+5. Write a new ruling batch for the current tick
+
+This is correct under the assumption that Phase 3 produced no observable side effects
+(meta line updates) before the process was killed. If meta lines were partially updated
+before the kill — which can happen if the process was killed between the ledger write
+and the meta line update — the WorldStateSnapshot and DecisionHistoryView will disagree.
+
+In this case, recovery may produce a different ruling than the killed tick would have
+produced, because the WorldStateSnapshot now reflects partial meta updates. This is
+a known divergence scenario. It does not corrupt the system, but it can produce
+a different but equally valid ruling.
+
+**Declaration:** The tick transaction model provides logical atomicity under normal operation.
+It does not provide crash consistency. Recovery is best-effort. Silent divergence across
+recovery events is possible but bounded: each recovery produces a valid ruling against the
+current state; it does not guarantee identity with the killed tick's ruling.
+
+### 2b.5 Specification closure boundary
+
+This model is formally open. Every layer of the model reveals the next missing primitive.
+That is correct behavior for specification work — but it is not the same as correctness
+criteria for implementation.
+
+The following table distinguishes what is **required for correctness** (the system
+produces valid rulings under normal operation) from what is **required for formal completeness**
+(the system is provably consistent under all possible state evolutions):
+
+| Element | Required for correctness | Required for formal completeness |
+|---|---|---|
+| Durable/ephemeral event split | Yes | Yes |
+| RulingCoverage for common cases | Yes | Yes |
+| CandidateInstance temporal identity | Approximation sufficient | Full interval tracking required |
+| StateView decomposition (three layers) | Yes — for auditability | Yes |
+| Causal closure condition | Yes — governs re-detection logic | Yes |
+| Deterministic crash recovery | No — best-effort is sufficient | Yes (requires WAL) |
+| Formal proof of predicate loop termination | No | Yes |
+
+**Implementation decision:** This specification targets correctness, not formal completeness.
+The known gaps (deterministic crash recovery, full eligibility interval tracking, formal
+termination proof) are documented here as open problems, not as blockers for implementation.
+They become blockers only if the system is deployed in a multi-user or high-availability
+context — which is outside the current scope (single-user, single-process CLI tool).
+
+Any implementation that satisfies the "required for correctness" column is compliant
+with this specification. Any implementation that claims to satisfy the "required for
+formal completeness" column must provide evidence for each row.
+
+---
+
 ## Part III — FocusStateMachine
 
 _To be written._
