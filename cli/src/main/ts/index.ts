@@ -160,7 +160,7 @@ async function main() {
       break;
     }
     default:
-      console.log('Usage: arch [review|task|inbox|version|govern|batch|drain|conduct|loop|sandbox|mv|exec|merge-resolve|index|ask|causal|reflect]');
+      console.log('Usage: arch [review|task|inbox|version|govern|batch|drain|conduct|loop|sandbox|mv|exec|merge-resolve|index|ask|causal|reflect|report]');
       process.exit(1);
   }
 }

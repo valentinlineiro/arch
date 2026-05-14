@@ -2,6 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert';
 import { ArchiveParser } from '../../main/ts/domain/services/archive-parser.js';
 import { MetricsEngine } from '../../main/ts/domain/services/metrics-engine.js';
+import { EventLogger } from '../../main/ts/domain/services/event-logger.js';
 import { MockFileSystem as BaseMockFileSystem, MockGitRepository } from './mocks/index.js';
 
 // Extended MockFileSystem to support existsResults override
@@ -172,4 +173,25 @@ GARBAGE LINE
     () => engine.calculate([]),
     { message: /Integrity Violation: Unexpected content "GARBAGE LINE"/ }
   );
+});
+
+test('EventLogger.append produces output parseable by MetricsEngine.loadEvents', async () => {
+  const fs = new MockFileSystem();
+  const git = new MockGitRepository();
+  git.lastCommitHash = 'abc123';
+  fs.existsResults['docs/EVENTS.md'] = true;
+  git.validHashes.add('abc123');
+
+  const logger = new EventLogger(fs, git);
+  await logger.append({ taskId: 'TASK-001', from: 'REVIEW', to: 'DONE', timestamp: '2026-05-14T10:00:00.000Z' });
+  await logger.append({ taskId: 'TASK-002', from: 'REVIEW', to: 'READY', timestamp: '2026-05-14T11:00:00.000Z' });
+
+  const engine = new MetricsEngine(fs, git);
+  const tasks = [
+    { id: 'TASK-001', size: 'XS', createdAt: '2026-05-14T09:00:00Z', completedAt: '2026-05-14T10:00:00Z', integrity: 'HIGH', class: '' },
+  ];
+
+  // Should not throw — EventLogger format must be parseable by loadEvents
+  const metrics = await engine.calculate(tasks as any);
+  assert.strictEqual(metrics.reviewFailRate, 0.5, 'One DONE, one READY -> 50% fail rate');
 });

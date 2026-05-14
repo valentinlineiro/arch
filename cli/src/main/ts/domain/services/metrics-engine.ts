@@ -220,12 +220,10 @@ export class MetricsEngine {
       const diff = await this.gitRepository.getDiff(['HEAD', '--', path]);
       if (!diff) return;
 
-      if (diff.includes('\n-') && !diff.includes('\n---')) {
-        const lines = diff.split('\n');
-        const hasDeletions = lines.some(line => line.startsWith('-') && !line.startsWith('---'));
-        if (hasDeletions) {
-           throw new Error(`Integrity Violation: Non-append-only rewrite detected in ${path}. Deletions found in git diff.`);
-        }
+      const lines = diff.split('\n');
+      const hasDeletions = lines.some(line => line.startsWith('-') && !line.startsWith('---'));
+      if (hasDeletions) {
+        throw new Error(`Integrity Violation: Non-append-only rewrite detected in ${path}. Deletions found in git diff.`);
       }
     } catch (e) {
       if (e instanceof Error && e.message.includes('Integrity Violation')) throw e;

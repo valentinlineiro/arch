@@ -75,34 +75,43 @@ export class TaskValidator {
     }
 
     // Validate Fields
-    if (!hansei.decision || hansei.decision.length < 5) {
-      errors.push('Hansei Decision is too brief or missing.');
-    }
-    if (!hansei.constraint || hansei.constraint.length < 5) {
-      errors.push('Hansei Constraint is too brief or missing.');
-    }
-    if (!hansei.cost || hansei.cost.length < 5) {
-      errors.push('Hansei Cost is too brief or missing.');
-    }
+    const vaguePhrases = [
+      'temporary workaround', 'some debt', 'minor debt', 'cleanup later', 
+      'later cleanup', 'due to complexity', 'no major impact', 'fix later'
+    ];
 
-    // Logic: H2 requires evidence (Forward Action or Decision)
+    const validateFieldContent = (field: string, name: string) => {
+      if (!field || field.length < 10) {
+        errors.push(`Hansei ${name} is too brief (minimum 10 characters).`);
+      } else if (vaguePhrases.some(v => field.toLowerCase().includes(v))) {
+        errors.push(`Hansei ${name} contains vague phrasing; provide specific diagnostic detail.`);
+      }
+    };
+
+    validateFieldContent(hansei.decision, 'Decision');
+    validateFieldContent(hansei.constraint, 'Constraint');
+    validateFieldContent(hansei.cost, 'Cost');
+
+    // Logic: H2 requires evidence (IDEA- link or repetition markers)
     if (hansei.severity === 'H2') {
-      const hasEvidence = (hansei.forwardAction && hansei.forwardAction.includes('TASK-')) || 
-                          (hansei.decision && (hansei.decision.includes('repeated') || hansei.decision.includes('occurrence')));
-      if (!hasEvidence) {
-        errors.push('Hansei Severity H2 requires evidence of systemic friction (e.g., link to IDEA/TASK in Forward Action).');
+      const hasIdeaLink = (hansei.forwardAction && hansei.forwardAction.includes('IDEA-'));
+      const hasRepetitionMarker = (hansei.decision && (hansei.decision.toLowerCase().includes('repeated') || hansei.decision.toLowerCase().includes('occurrence')));
+      
+      if (!hasIdeaLink && !hasRepetitionMarker) {
+        errors.push('Hansei Severity H2 requires systemic evidence: an IDEA-XXX link in Forward Action or evidence of repetition in Decision.');
       }
     }
 
     // Logic: H3b requires Expiry Task and Owner
     if (hansei.severity === 'H3b') {
-      const hasExpiry = hansei.forwardAction && /TASK-\d{3}/.test(hansei.forwardAction);
-      const hasOwner = hansei.decision && (hansei.decision.includes('Owner:') || hansei.decision.includes('Approved by:'));
-      if (!hasExpiry) {
-        errors.push('Hansei Severity H3b requires an Expiry Task in Forward Action.');
+      const hasExpiryTask = hansei.forwardAction && /(TASK|IDEA)-\d{3}/.test(hansei.forwardAction);
+      const hasOwner = hansei.decision && /(Owner|Approved by):/i.test(hansei.decision);
+      
+      if (!hasExpiryTask) {
+        errors.push('Hansei Severity H3b requires a specific Expiry Resource (TASK-XXX or IDEA-XXX) in Forward Action.');
       }
       if (!hasOwner) {
-        errors.push('Hansei Severity H3b requires an Owner/Architect in Decision field.');
+        errors.push('Hansei Severity H3b requires a clear Owner/Architect (e.g., "Owner: <Name>") in Decision field.');
       }
     }
 
