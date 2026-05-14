@@ -75,3 +75,7 @@ REVIEW_REQUEST | TASK-201: Implement arch report - auto-populate METRICS.md from
 REJECTED | TASK-201: REVIEW invalidated due to unverifiable completion claims and broken build state.
 REVIEW_REQUEST | TASK-201: Implement arch report - auto-populate METRICS.md from archived task data
 REVIEW_REQUEST: TASK-201 Hardened Provenance Engine
+
+## [2026-05-14] REVIEW_REQUEST | TASK-243
+REVIEW_REQUEST | TASK-243: Consolidate test mocks into shared module to prevent interface drift
+Changed files: cli/src/test/ts/mocks/index.ts, cli/src/test/ts/*.test.ts (15 migrated), cli/src/test/ts/git-cli-integration.test.ts
