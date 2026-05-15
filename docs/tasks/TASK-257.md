@@ -27,11 +27,11 @@ The lightweight refresh should be fast enough to not add meaningful latency to t
 - [ ] A govern tick updates `docs/METRICS.md` Trusted section.
 - [ ] `arch review` passes.  →  cmd: bash scripts/arch.sh review; exit: 0
 
-### Gaps
+### Decisions
 
-- **Cycle Time in lightweight path**: Cycle Time requires scanning archive timestamps, which may be slow on large archives. Decide: (a) include Cycle Time in the lightweight refresh (acceptable cost at current archive size), or (b) update only Completed Tasks and REVIEW_FAIL Rate in the lightweight path and leave Cycle Time to full `arch report`. Decision should be explicit in the implementation — not left to the implementing agent's judgment.
-- **METRICS.md partial-update safety**: The current `updateMetricsFile` in `report-command.ts` replaces the entire `GENERATED:START/END` block. A lightweight refresh that replaces only the Trusted section needs a more surgical update mechanism. Needs a design for partial section replacement without corrupting the Experimental section.
-- **Refresh on govern vs. refresh after closure**: These two triggers have different frequencies. Govern runs at most once per explicit invocation; task closure happens per task. Clarify whether both always trigger a refresh, or whether the govern refresh only runs if no task was closed in the same session.
+- **Cycle Time excluded from lightweight path**: Lightweight refresh updates only Completed Tasks and REVIEW_FAIL Rate — both are incrementally maintainable without archive scanning. Cycle Time stays in full `arch report` until an explicit incremental index or cached aggregate exists for archive-derived timing data.
+- **METRICS.md partial-update**: The lightweight refresh writes only the `### Trusted Metrics` table (two rows: Completed Tasks, REVIEW_FAIL Rate). The `### Cycle Time`, `### Experimental Metrics`, and Epistemic Digest sections are left unchanged. Implementation must surgically replace the Trusted table without touching surrounding content — not use the existing full-block replacement.
+- **Both triggers always refresh**: Both task closure and govern tick unconditionally trigger the lightweight refresh. No session-level deduplication. The refresh is cheap enough that double-execution within a session is acceptable.
 
 ## Hansei
 **Severity:** H0

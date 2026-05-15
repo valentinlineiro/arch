@@ -41,11 +41,11 @@ The target split:
 - [ ] `arch reflect --deep` produces Phase 2.5 and Kaizen output and updates the state file.
 - [ ] `arch review` passes.  →  cmd: bash scripts/arch.sh review; exit: 0
 
-### Gaps
+### Decisions
 
-- **Cadence state location**: `.arch/deep-analysis-state.json` is proposed. Verify this path doesn't conflict with existing `.arch/` files before implementing. Alternative: add a `lastDeepRunTick` field to the focus ledger or a new `arch.state.json`.
-- **Weak signal date parsing**: `docs/tensions/weak-signals.md` adjudication dates need machine-readable parsing. Verify the date format is consistent before building the immediate-trigger logic.
-- **Phase 2 DRAFT evaluation in --deep**: The audit classified DRAFT evaluation as deferrable, not structural. Confirm it moves entirely to `--deep` and is not rate-limited per session in deep mode (the 3-per-session cap was a structural-mode concession; deep mode should process all eligible DRAFTs).
+- **Cadence state location**: Store in `.arch/deep-analysis-state.json`. This is operational runtime state, not durable product knowledge — it does not belong in `docs/` or `arch.config.json`.
+- **Weak signal date format**: Require ISO `YYYY-MM-DD` for all `Adjudicate by:` fields in `docs/tensions/weak-signals.md`. If existing entries use free-form dates, this task must either normalize them to ISO format or implement fail-closed skip (log a warning, do not trigger immediate run) for unparseable entries. Silent skip is not acceptable.
+- **DRAFT evaluation cap in --deep**: Keep the 3-per-session cap. `--deep` adds deeper phases; it does not reopen unbounded queue consumption. The cap remains 3 DRAFTs per session regardless of mode.
 
 ## Hansei
 **Severity:** H0
