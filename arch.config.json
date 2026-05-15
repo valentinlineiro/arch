@@ -109,6 +109,7 @@
     "hanseiSinceTaskId": 195
   },
   "reflect": {
+    "deepCadenceN": 5,
     "thresholds": {
       "minEngagementRate": 0.5,
       "maxUnobservedWithProposalRate": 0.3,
