@@ -1,3 +1,4 @@
+import { EditTaskMetadata } from '../use-cases/edit-task-metadata.js';
 import { MarkTaskInProgress } from '../use-cases/mark-task-in-progress.js';
 import { MarkTaskDone } from '../use-cases/mark-task-done.js';
 import { MarkTaskReview } from '../use-cases/mark-task-review.js';
@@ -71,6 +72,15 @@ export class TaskCommand {
           const inference = new ContextInference(this.fileSystem);
           await inference.execute(taskId, taskText, task.class ?? '');
         } catch { /* inference errors must never block task start */ }
+      } catch (error: any) {
+        fmt.fail(error.message);
+        process.exit(1);
+      }
+    } else if (subCommand === 'edit' && taskId) {
+      try {
+        const editor = new EditTaskMetadata(this.taskRepository, this.gitRepository);
+        await editor.execute(taskId);
+        fmt.check(`metadata updated for ${taskId}`);
       } catch (error: any) {
         fmt.fail(error.message);
         process.exit(1);
@@ -183,6 +193,7 @@ export class TaskCommand {
         '',
         'Subcommands:',
         '  start TASK-XXX          Mark a task as IN_PROGRESS',
+        '  edit TASK-XXX           Interactively update task metadata (priority, size, class, context)',
         '  review TASK-XXX         Run cmd: predicates and set status to REVIEW',
         '  done TASK-XXX           Archive a task as DONE',
         '  reject TASK-XXX         Move a task back to READY',
