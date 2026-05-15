@@ -1,5 +1,5 @@
 ## TASK-254: Audit THINK phases for structural necessity vs. optional analysis
-**Meta:** P2 | S | IN_PROGRESS | Focus:yes | 6-writing | claude | docs/agents/THINK.md, docs/adr/
+**Meta:** P2 | S | REVIEW | Focus:no | 6-writing | claude | docs/agents/THINK.md, docs/adr/
 
 ### Context
 
@@ -11,13 +11,26 @@ This task produces a classification document — not code changes. Its output is
 
 ### Acceptance Criteria
 
-- [ ] A classification document is written at `docs/agents/THINK-audit.md` that lists every THINK phase with its classification: `structural` / `deferrable` / `overhead`.  →  file: docs/agents/THINK-audit.md
-- [ ] Each classification includes a one-sentence rationale: what breaks (or doesn't) if the phase is skipped.  →  prose: verified by reading THINK-audit.md rationale column
-- [ ] The document identifies which phases are candidates for `arch improve --deep` (deferrable) vs. the default THINK loop (structural only).  →  prose: verified by reading THINK-audit.md recommendation section
-- [ ] Weak-signal decay and governance boundary audit are explicitly classified with rationale — these were flagged as potentially load-bearing in session analysis.  →  prose: verified by reading those specific entries
-- [ ] `arch review` passes.  →  cmd: bash scripts/arch.sh review; exit: 0
+- [x] A classification document is written at `docs/agents/THINK-audit.md` that lists every THINK phase with its classification: `structural` / `deferrable` / `overhead`.  →  file: docs/agents/THINK-audit.md
+- [x] Each classification includes a one-sentence rationale: what breaks (or doesn't) if the phase is skipped.  →  prose: verified by reading THINK-audit.md rationale column
+- [x] The document identifies which phases are candidates for `arch improve --deep` (deferrable) vs. the default THINK loop (structural only).  →  prose: verified by reading THINK-audit.md recommendation section
+- [x] Weak-signal decay and governance boundary audit are explicitly classified with rationale — these were flagged as potentially load-bearing in session analysis.  →  prose: verified by reading those specific entries
+- [x] `arch review` passes.  →  cmd: bash scripts/arch.sh review; exit: 0
 
 ### Definition of Done
 
-- [ ] `docs/agents/THINK-audit.md` exists and is complete (all current THINK phases classified).
+- [x] `docs/agents/THINK-audit.md` exists and is complete (all current THINK phases classified).
 - [ ] A human has reviewed the classifications and confirmed or corrected them before this task moves to DONE.  →  prose: human review confirmed
+
+## Hansei
+**Severity:** H0
+**Category:** [MissingDecisionRecord]
+
+**Decision:**
+Classification produced three open questions that couldn't be resolved from the protocol text alone: weak signal decay frequency when Phase 2.5 is deferred, whether Phase 3 "Immediate Improvements" is providing signal or noise, and whether arch report needs a lighter trigger outside the deep loop. These are surfaced in the audit document rather than resolved unilaterally.
+
+**Constraint:**
+The audit is based on reading the protocol text, not on observing actual THINK session outputs. The "overhead" classification for Phase 3 Step 3 is a structural observation, but empirical confirmation requires hansei-category-log data that doesn't exist yet.
+
+**Cost:**
+The open questions delay the THINK simplification task until a human reviews and decides on them. This is intentional — the audit is pre-work, not a decision.
