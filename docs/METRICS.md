@@ -5,6 +5,8 @@
 
 *Last updated: 2026-05-17T21:32:56.157Z*
 
+### Trusted Metrics
+
 | Metric | Value | Notes |
 |--------|-------|-------|
 | **Completed Tasks** | 265 | total archived |
@@ -25,7 +27,15 @@
 | M | 2.5h | 211.2h | 50 |
 | L | 0.7h | 4.7h | 3 |
 
+### Experimental Metrics
 
-*Cost per task uses token-estimate heuristic v1 if absent from meta: XS=$0.05, S=$0.10, M=$0.25, L=$0.50*
+> Confidence is below the threshold required for canonical use. Do not use for decisions.
+
+| Metric | Value | Notes |
+|--------|-------|-------|
+| **Integrity Level** | LOW | CONFIDENCE: 0% — calibration insufficient |
+| **Avg Cost / Task** | $0.13 | token-estimate heuristic v1 — not measured from billing |
+
+> **Epistemic Digest:** `metrics-engine-v4-witness-hardened` (Range: `HEAD~229..HEAD`)
 
 <!-- GENERATED:END -->

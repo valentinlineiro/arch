@@ -32,7 +32,6 @@ export class ReportCommand {
 
     console.log('\n  ARCH — Operational Report\n');
     console.log(`  Completed: ${metrics.totalCompleted} tasks`);
-    console.log(`  Integrity: ${metrics.integrityLevel} (Entropy: ${(metrics.integrityEntropy * 100).toFixed(1)}%)`);
     console.log(`  REVIEW_FAIL: ${metrics.reviewFailRate === 'pending' ? 'pending' : (metrics.reviewFailRate * 100).toFixed(1) + '%'}`);
     const costLabel = metrics.costPerTask.realCount > 0
       ? `$${metrics.costPerTask.average.toFixed(2)} (${metrics.costPerTask.realCount} real, ${metrics.costPerTask.heuristicCount} heuristic)`
@@ -68,22 +67,18 @@ export class ReportCommand {
 
   private formatReport(metrics: CalculatedMetrics): string {
     const ts = new Date().toISOString();
-    const failRateStr = metrics.reviewFailRate === 'pending' 
-      ? 'pending (insufficient event history)' 
+    const failRateStr = metrics.reviewFailRate === 'pending'
+      ? 'pending (insufficient event history)'
       : (metrics.reviewFailRate * 100).toFixed(1) + '%';
 
     let report = `## Operational Metrics\n\n`;
     report += `*Last updated: ${ts}*\n\n`;
-    
+
+    report += `### Trusted Metrics\n\n`;
     report += `| Metric | Value | Notes |\n`;
     report += `|--------|-------|-------|\n`;
     report += `| **Completed Tasks** | ${metrics.totalCompleted} | total archived |\n`;
-    report += `| **Integrity Level** | ${metrics.integrityLevel} | **CONFIDENCE: ${(100 - metrics.integrityEntropy * 100).toFixed(0)}%** |\n`;
-    report += `| **REVIEW_FAIL Rate** | ${failRateStr} | rejected / total review exits |\n`;
-    report += `| **Avg Cost / Task** | $${metrics.costPerTask.average.toFixed(2)} | token-estimate heuristic v1 |\n\n`;
-
-    report += `> **Epistemic Digest:** \`${metrics.provenance.methodId}\` (Range: \`${metrics.provenance.gitRevRange}\`)\n\n`;
-    report += `> **Integrity Note:** ${this.getIntegrityNote(metrics)}\n\n`;
+    report += `| **REVIEW_FAIL Rate** | ${failRateStr} | rejected / total review exits |\n\n`;
 
     report += `### Cycle Time (P50/P90)\n\n`;
     report += `| Size | P50 | P90 | Count |\n`;
@@ -92,8 +87,15 @@ export class ReportCommand {
       const { p50, p90, count } = metrics.cycleTime[size];
       report += `| ${size} | ${p50 !== null ? p50.toFixed(1) + 'h' : 'N/A'} | ${p90 !== null ? p90.toFixed(1) + 'h' : 'N/A'} | ${count} |\n`;
     }
-    
-    report += `\n\n*Cost per task uses token-estimate heuristic v1 if absent from meta: XS=$0.05, S=$0.10, M=$0.25, L=$0.50*\n`;
+
+    report += `\n### Experimental Metrics\n\n`;
+    report += `> Confidence is below the threshold required for canonical use. Do not use for decisions.\n\n`;
+    report += `| Metric | Value | Notes |\n`;
+    report += `|--------|-------|-------|\n`;
+    report += `| **Integrity Level** | ${metrics.integrityLevel} | CONFIDENCE: ${(100 - metrics.integrityEntropy * 100).toFixed(0)}% — calibration insufficient |\n`;
+    report += `| **Avg Cost / Task** | $${metrics.costPerTask.average.toFixed(2)} | token-estimate heuristic v1 — not measured from billing |\n\n`;
+
+    report += `> **Epistemic Digest:** \`${metrics.provenance.methodId}\` (Range: \`${metrics.provenance.gitRevRange}\`)\n`;
 
     return report;
   }
