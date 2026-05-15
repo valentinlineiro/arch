@@ -4,49 +4,49 @@
 - **Active Tasks:** 0
 - **READY Tasks:** 25
 - **Pending Promotion:** 33
-- **Pending Review:** 6
+- **Pending Review:** 3
 
 ## Recent Activity
-1. **TASK-892:** arch task create - Template-based Acceptance Criteria
-2. **TASK-891:** arch task create - Instant Task Scaffolding
-3. **TASK-890:** arch task start - Contextual Memory Injection
-4. **TASK-889:** arch task edit - Interactive Metadata Management
-5. **TASK-248:** Fix arch review drift warnings - dead context paths and missing Hansei sections
+1. **TASK-256:** Cut Phase 3 "Immediate Improvements" and add Kaizen evidence gate
+2. **TASK-255:** Split THINK into structural default loop and --deep mode
+3. **TASK-257:** Lightweight trusted-metrics refresh on task closure and govern ticks
+4. **TASK-892:** arch task create - Template-based Acceptance Criteria
+5. **TASK-891:** arch task create - Instant Task Scaffolding
 
 ## Refinement Queue (33)
-- IDEA: Ontological Tension Detection — a new artifact class and detection capability
+- IDEA: architectural-tension-capture
 - IDEA: automate-turn-count-recording
 - IDEA: consolidate-root-agent-docs
 - IDEA: cross-layer-coverage-identity
-- IDEA: `arch task done` — Socratic Hansei Wizard
-- IDEA: Discipline as a Service (DaaS) — Vision
+- IDEA: daas-hansei-wizard
+- IDEA: daas-vision
 - IDEA: dynamic-model-provisioning
-- IDEA: excision-structural-consistency-check
-- IDEA: Feature branch workflow — fully automatic branch-per-task execution
+- IDEA: excision-legitimacy-check
+- IDEA: feature-branch-workflow
 - IDEA: fix-archive-meta-drift
 - IDEA: fix-commit-exception-contradiction
 - IDEA: fix-decomposition-duplication
 - IDEA: fix-governance-terminology-collision
 - IDEA: fix-phase-naming-drift
 - IDEA: focus-status-alignment
-- IDEA: Grandfather legacy tasks in arch review
-- IDEA: Loop mode load balancing
-- IDEA: OpenClaw integration — mobile bridge for ARCH
+- IDEA: grandfather-legacy-tasks
+- IDEA: loop-load-balancing
+- IDEA: openclaw-integration
 - IDEA: optimize-decomposition-for-local-llms
-- IDEA: Parallel task execution with merge conflict handling
-- IDEA: RAG context retrieval — semantic search over ARCH corpus
-- IDEA: Adaptive planning — task states that model energy, context, and cognitive cost
-- IDEA: AI-proposed policies — ARCH detects patterns and proposes guidelines for human approval
-- IDEA: Automatic entity linking — tasks, commits, ADRs, and guidelines auto-connect
-- IDEA: Roadmap — Deterministic Drift & Contextual Checks
-- IDEA: Domain packs — protocol extensions for software, startup, household, and personal use
-- IDEA: arch ask — memory queries over the full ARCH operational corpus
-- IDEA: Multiagent runtime — Planner, Historian, Reviewer, Conductor, Optimizer agents
-- IDEA: Operational load tracking — model cognitive load, WIP, fatigue, and rework
-- IDEA: Structural policies — machine-enforced architectural boundaries in arch review
-- IDEA: Sentinel call log infrastructure
+- IDEA: parallel-tasks
+- IDEA: rag-context-retrieval
+- IDEA: roadmap-adaptive-planning
+- IDEA: roadmap-ai-proposed-policies
+- IDEA: roadmap-automatic-linking
+- IDEA: roadmap-deterministic-drift
+- IDEA: roadmap-domain-packs
+- IDEA: roadmap-memory-queries
+- IDEA: roadmap-multiagent-runtime
+- IDEA: roadmap-operational-load
+- IDEA: roadmap-structural-policies
+- IDEA: sentinel-log-infrastructure
 - IDEA: task-template-linter
-- IDEA: Temporal Pattern Layer for Causal Discovery
+- IDEA: temporal-pattern-layer
 
 ## Recently Completed
 - TASK-892: arch task create - Template-based Acceptance Criteria (P1|S)
