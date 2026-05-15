@@ -3,9 +3,18 @@ import assert from 'node:assert';
 import { computeTrustedMetrics } from '../../main/ts/application/use-cases/compute-trusted-metrics.js';
 import { MockFileSystem } from './mocks/index.js';
 
+test('completedTasks counts files in docs/archive/', async () => {
+  const fs = new MockFileSystem();
+  fs.dirs['docs/archive'] = ['TASK-001.md', 'TASK-002.md'];
+  fs.dirs['docs/tasks'] = []; // explicitly empty tasks dir
+  const metrics = await computeTrustedMetrics(fs);
+  assert.strictEqual(metrics.completedTasks, 2);
+});
+
 test('computeTrustedMetrics - counts .md files in docs/archive', async () => {
   const fs = new MockFileSystem();
   fs.dirs['docs/archive'] = ['TASK-001.md', 'TASK-002.md', 'TASK-003.md'];
+  fs.dirs['docs/tasks'] = [];
 
   const metrics = await computeTrustedMetrics(fs);
   assert.strictEqual(metrics.completedTasks, 3);
@@ -91,4 +100,23 @@ test('computeTrustedMetrics - computes correct rate with rejections', async () =
   // rejections=2, approvals=2, rate=0.5
   const metrics = await computeTrustedMetrics(fs);
   assert.strictEqual(metrics.reviewFailRate, 0.5);
+});
+
+test('completedTasks counts DONE tasks in docs/tasks/ that are not yet archived', async () => {
+  const fs = new MockFileSystem();
+  fs.files['docs/tasks/TASK-001.md'] = '**Meta:** P1 | M | DONE | Focus:no | ...';
+  fs.files['docs/tasks/TASK-002.md'] = '**Meta:** P1 | M | IN_PROGRESS | Focus:yes | ...';
+  fs.dirs['docs/tasks'] = ['TASK-001.md', 'TASK-002.md'];
+  fs.dirs['docs/archive'] = [];
+  const metrics = await computeTrustedMetrics(fs);
+  assert.strictEqual(metrics.completedTasks, 1); // DONE counts, IN_PROGRESS does not
+});
+
+test('completedTasks adds archive count and DONE-in-tasks count together', async () => {
+  const fs = new MockFileSystem();
+  fs.files['docs/tasks/TASK-003.md'] = '**Meta:** P1 | M | DONE | Focus:no | ...';
+  fs.dirs['docs/archive'] = ['TASK-001.md', 'TASK-002.md'];
+  fs.dirs['docs/tasks'] = ['TASK-003.md'];
+  const metrics = await computeTrustedMetrics(fs);
+  assert.strictEqual(metrics.completedTasks, 3); // 2 archived + 1 DONE in tasks
 });

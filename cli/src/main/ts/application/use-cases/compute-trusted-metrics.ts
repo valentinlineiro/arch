@@ -20,12 +20,27 @@ export async function computeTrustedMetrics(fileSystem: FileSystem): Promise<Tru
 }
 
 async function countArchivedTasks(fileSystem: FileSystem): Promise<number> {
+  let count = 0;
   try {
-    const entries = await fileSystem.readDirectory('docs/archive');
-    return entries.filter(f => f.endsWith('.md')).length;
+    const archiveFiles = await fileSystem.readDirectory('docs/archive');
+    count += archiveFiles.filter(f => f.endsWith('.md')).length;
   } catch {
-    return 0;
+    // archive may not exist yet
   }
+  try {
+    const taskFiles = await fileSystem.readDirectory('docs/tasks');
+    for (const file of taskFiles.filter(f => f.endsWith('.md'))) {
+      try {
+        const content = await fileSystem.readFile(`docs/tasks/${file}`);
+        if (content.includes('| DONE |')) count++;
+      } catch {
+        // skip unreadable files
+      }
+    }
+  } catch {
+    // tasks dir may not exist
+  }
+  return count;
 }
 
 async function computeReviewFailRate(fileSystem: FileSystem): Promise<number | 'pending'> {
