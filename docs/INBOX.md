@@ -58,12 +58,11 @@ TASK-247 Focus Sovereignty Model is ready for audit.
 **Known divergence (see Hansei):**
 ADR-020 ruling names differ from AGFM ruling names. AGFM is authoritative for implementation.
 
-
 ---
 
 ## REVIEW_REQUEST
-**Task:** TASK-890 — arch task start - Contextual Memory Injection
+**Task:** TASK-891 — arch task create - Instant Task Scaffolding
 **Status:** REVIEW
 **Date:** 2026-05-15
-**Summary:** Implements load-bearing memory injection in `arch task start`. A new `LoadBearingMemory` use case reads the ContextIndex for enforced ADRs matching the task's context paths, and scans the archive for H1+ Hansei failures with same class and overlapping context. Results are printed as a delimited stdout block after the IN_PROGRESS confirmation. All errors are swallowed silently so start is never blocked. All 8 ACs pass predicate verification. arch review exits 0. npm test 369/369.
-**Hansei note:** AdrEntry lacks a constraint field — ADR injection shows title only, not constraint text. Flagged as H1 SpecDrift.
+**Summary:** Implements `arch task create "<intent>"`. A new `CreateTask` use case calls `ProviderRegistry` to attempt LLM drafting (title, ACs, size, class) using the existing provider infrastructure. On any failure it falls back to a skeleton task. `ContextInference` runs after scaffolding. The meta line is validated by `TaskValidator` before file write; invalid LLM output falls back to safe defaults. The task is committed automatically. LLM-drafted titles are quote-stripped and ASCII-sanitized. All 8 ACs pass. arch review exits 0. npm test 369/369.
+**Hansei note:** H1 SpecDrift — LLM returned quoted titles; sanitized in parseDraft.
