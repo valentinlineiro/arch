@@ -26,4 +26,5 @@ Ensures 100% reliability for core task scaffolding even without an internet conn
 S
 
 ## Decision
-<!-- PROMOTE → TASK-XXX | REJECT: reason -->
+PROMOTE → TASK-892
+
