@@ -13,19 +13,19 @@ The lightweight refresh should be fast enough to not add meaningful latency to t
 
 ### Acceptance Criteria
 
-- [ ] A `LightweightMetricsRefresh` use case (or equivalent) computes only the three canonical metrics: Completed Tasks, REVIEW_FAIL Rate, and Cycle Time by size.  →  grep: "LightweightMetrics\|lightweight.*metrics\|trustedMetrics" cli/src/main/ts/application/use-cases/
-- [ ] `mark-task-done.ts` calls the lightweight refresh after successful task closure. Refresh failure is non-fatal and does not roll back task closure.  →  prose: verified by reading mark-task-done.ts post-close call and error handling
-- [ ] `govern-system.ts` calls the lightweight refresh on each tick. Refresh failure is non-fatal and does not fail the govern tick.  →  prose: verified by reading govern-system.ts tick completion logic
-- [ ] The lightweight refresh updates only the `### Trusted Metrics` and `### Cycle Time` sections of `docs/METRICS.md`, leaving the `### Experimental Metrics` section and Epistemic Digest unchanged.  →  prose: verified by inspecting METRICS.md after a task closure — Experimental section is preserved
-- [ ] `arch report` (full) continues to work as before and regenerates all sections.  →  prose: verified by running arch report and inspecting output
-- [ ] CLI tests cover: refresh runs after task closure, refresh failure does not revert closure, govern tick triggers refresh, Experimental section is preserved after lightweight refresh.  →  cmd: npm test --prefix cli; exit: 0
-- [ ] `arch review` passes.  →  cmd: bash scripts/arch.sh review; exit: 0
+- [x] A `LightweightMetricsRefresh` use case (or equivalent) computes only the three canonical metrics: Completed Tasks, REVIEW_FAIL Rate, and Cycle Time by size.  →  grep: "LightweightMetrics\|lightweight.*metrics\|trustedMetrics" cli/src/main/ts/application/use-cases/
+- [x] `mark-task-done.ts` calls the lightweight refresh after successful task closure. Refresh failure is non-fatal and does not roll back task closure.  →  prose: verified by reading mark-task-done.ts post-close call and error handling
+- [x] `govern-system.ts` calls the lightweight refresh on each tick. Refresh failure is non-fatal and does not fail the govern tick.  →  prose: verified by reading govern-system.ts tick completion logic
+- [x] The lightweight refresh updates only the `### Trusted Metrics` and `### Cycle Time` sections of `docs/METRICS.md`, leaving the `### Experimental Metrics` section and Epistemic Digest unchanged.  →  prose: verified by inspecting METRICS.md after a task closure — Experimental section is preserved
+- [x] `arch report` (full) continues to work as before and regenerates all sections.  →  prose: verified by running arch report and inspecting output
+- [x] CLI tests cover: refresh runs after task closure, refresh failure does not revert closure, govern tick triggers refresh, Experimental section is preserved after lightweight refresh.  →  cmd: npm test --prefix cli; exit: 0
+- [x] `arch review` passes.  →  cmd: bash scripts/arch.sh review; exit: 0
 
 ### Definition of Done
 
-- [ ] Closing a task updates `docs/METRICS.md` Trusted section without invoking `arch report`.
-- [ ] A govern tick updates `docs/METRICS.md` Trusted section.
-- [ ] `arch review` passes.  →  cmd: bash scripts/arch.sh review; exit: 0
+- [x] Closing a task updates `docs/METRICS.md` Trusted section without invoking `arch report`.
+- [x] A govern tick updates `docs/METRICS.md` Trusted section.
+- [x] `arch review` passes.  →  cmd: bash scripts/arch.sh review; exit: 0
 
 ### Decisions
 
