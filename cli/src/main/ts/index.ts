@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+
 import path from 'node:path';
 import { createRequire } from 'node:module';
 import { NodeFileSystem } from './infrastructure/filesystem/node-file-system.js';
@@ -37,6 +37,7 @@ import { CausalGraph } from './application/use-cases/causal-graph.js';
 import { CausalSignalLog } from './application/use-cases/causal-signal-log.js';
 import { ReflectCommand } from './application/commands/reflect-command.js';
 import { ReportCommand } from './application/commands/report-command.js';
+import { InitCommand } from './application/commands/init-command.js';
 
 async function main() {
   const fileSystem = new NodeFileSystem();
@@ -149,6 +150,9 @@ async function main() {
     case 'report':
       await new ReportCommand(fileSystem, gitRepository).execute();
       break;
+    case 'init':
+      await new InitCommand(rootPath).execute(args);
+      break;
     case 'causal': {
       const causalGraph = new CausalGraph(fileSystem, rootPath);
       await new CausalCommand(causalGraph, {
@@ -160,7 +164,7 @@ async function main() {
       break;
     }
     default:
-      console.log('Usage: arch [review|task|inbox|version|govern|batch|drain|conduct|loop|sandbox|mv|exec|merge-resolve|index|ask|causal|reflect|report]');
+      console.log('Usage: arch [init|review|task|inbox|version|govern|batch|drain|conduct|loop|sandbox|mv|exec|merge-resolve|index|ask|causal|reflect|report]');
       process.exit(1);
   }
 }

@@ -13,9 +13,14 @@
   "type": "module",
   "scripts": {
     "test": "node --import tsx --test src/test/ts/*.test.ts",
-    "build": "tsup src/main/ts/index.ts --format esm --clean --minify",
-    "dev": "tsup src/main/ts/index.ts --format esm --watch"
+    "build": "tsup",
+    "dev": "tsup src/main/ts/index.ts --format esm --watch",
+    "prepublishOnly": "npm run build"
   },
+  "files": [
+    "dist/",
+    "scripts/arch-init.sh"
+  ],
   "keywords": [
     "arch",
     "framework",
