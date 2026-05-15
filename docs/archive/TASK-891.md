@@ -1,5 +1,5 @@
 ## TASK-891: arch task create - Instant Task Scaffolding
-**Meta:** P1 | M | REVIEW | Focus:no | 2-code-generation | local | cli/src/main/ts/
+**Meta:** P1 | M | DONE | Focus:no | 2-code-generation | local | cli/src/main/ts/ | Closed-at: 2026-05-15T12:30:00Z
 **Created-at:** 2026-05-15T08:10:19.685Z
 **Depends:** none
 

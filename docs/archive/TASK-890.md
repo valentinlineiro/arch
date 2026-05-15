@@ -1,5 +1,5 @@
 ## TASK-890: arch task start - Contextual Memory Injection
-**Meta:** P1 | M | REVIEW | Focus:no | 2-code-generation | local | cli/src/main/ts/
+**Meta:** P1 | M | DONE | Focus:no | 2-code-generation | local | cli/src/main/ts/ | Closed-at: 2026-05-15T12:00:00Z
 **Created-at:** 2026-05-15T08:00:27.007Z
 **Depends:** none
 

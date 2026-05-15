@@ -1,5 +1,6 @@
 ## TASK-892: arch task create - Template-based Acceptance Criteria
-**Meta:** P1 | S | REVIEW | Focus:no | 2-code-generation | local | cli/src/main/ts/
+**Meta:** P1 | S | DONE | Focus:no | 2-code-generation | local | cli/src/main/ts/
+**Closed-at:** 2026-05-15T08:32:38.047Z
 **Created-at:** 2026-05-15T08:15:00Z
 **Depends:** none
 
