@@ -12,13 +12,14 @@ export function hasOverdueWeakSignal(content: string, today: Date, warnings: str
     .split('\n')
     .filter(l => l.includes('**Adjudicate by:**'));
 
-  const activeDates = adjLines
-    .map(l => parseAdjudicationDate(l))
-    .filter((d): d is string => d !== null);
-
-  if (activeDates.length === 0 && adjLines.length > 0) {
-    warnings.push(`[WEAK-SIGNAL] no ISO date found in ${adjLines.length} Adjudicate by entries — skipping immediate trigger (fail-closed)`);
-    return false;
+  const activeDates: string[] = [];
+  for (const line of adjLines) {
+    const date = parseAdjudicationDate(line);
+    if (date !== null) {
+      activeDates.push(date);
+    } else {
+      warnings.push(`[WEAK-SIGNAL] Adjudicate by line has no ISO date — skipping (fail-closed): "${line.trim()}"`);
+    }
   }
 
   const todayStr = today.toISOString().slice(0, 10);

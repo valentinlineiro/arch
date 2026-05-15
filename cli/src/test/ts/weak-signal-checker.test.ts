@@ -28,8 +28,20 @@ test('hasOverdueWeakSignal returns false and warns when no ISO dates found', () 
   const content = '**Adjudicate by:** after 6 THINK reviews\n**Adjudicate by:** after 3 THINK reviews';
   const result = hasOverdueWeakSignal(content, new Date('2026-05-15'), warnings);
   assert.strictEqual(result, false);
-  assert.ok(warnings.length > 0);
-  assert.ok(warnings[0].includes('no ISO date'));
+  assert.strictEqual(warnings.length, 2);
+  assert.ok(warnings[0].includes('[WEAK-SIGNAL]'));
+});
+
+test('hasOverdueWeakSignal warns for each malformed line in a mixed file', () => {
+  const warnings: string[] = [];
+  const content = [
+    '**Adjudicate by:** 2026-06-26 (ISO date — valid)',
+    '**Adjudicate by:** after 6 THINK reviews (no ISO date)',
+  ].join('\n');
+  const result = hasOverdueWeakSignal(content, new Date('2026-05-15'), warnings);
+  assert.strictEqual(result, false);   // 2026-06-26 is future, so not overdue
+  assert.strictEqual(warnings.length, 1); // one warning for the malformed line
+  assert.ok(warnings[0].includes('[WEAK-SIGNAL]'));
 });
 
 test('hasOverdueWeakSignal returns true when a date is past today', () => {
