@@ -21,6 +21,7 @@ import { EventRepository } from '../../domain/models/event.js';
 import { NodeFeedbackRepository } from '../../infrastructure/filesystem/node-feedback-repository.js';
 import { CausalSignalLog } from '../use-cases/causal-signal-log.js';
 import { EventLogger } from '../../domain/services/event-logger.js';
+import { LightweightMetricsRefresh } from '../use-cases/lightweight-metrics-refresh.js';
 import * as fmt from '../../infrastructure/cli/output-formatter.js';
 
 export class TaskCommand {
