@@ -46,7 +46,7 @@
 ---
 
 ## 2026-05-12 — governance naming surface [unclassified]
-**Adjudicate by:** after 6 THINK reviews (extended once — 2026-05-15)
+**Adjudicate by:** 2026-06-26 (after 6 THINK reviews, extended once 2026-05-15)
 
 `arch govern`, `arch conduct`, and THINK all touch the governance domain but represent different layers (enforcement, trigger, analysis). The current command surface does not make these distinctions visible. A contributor navigating the CLI sees three things that feel related without knowing which ones are deterministic. Whether this is cosmetic or structural depends on a question I cannot answer from current data: is the IDENTITY.md §7 invariant sufficient to block misuse at the command surface, or does proximity in the CLI cause contributors to wire enforcement dependencies before reading the invariant? Classification is genuinely unresolved. Forcing it now would be false precision. The govern/THINK split is frozen in TENSION-001; this signal asks whether the rest of the command surface carries the same risk at a lower intensity. Revisit when there is evidence of actual contributor navigation paths.
 
@@ -63,7 +63,7 @@ EscalationMaturity treats any modification to a "protected path" (domain models,
 **Adjudication 2026-05-15:** REFLECT suggested: PROMOTE (id: THINK-cd04e55a). Human decided: PROMOTE. Diverged: no. IDEA-excision-legitimacy-check exists and is structurally admissible.
 
 ## 2026-05-12 — constraint axis drift without retroactive re-projection [epistemic-governance]
-**Adjudicate by:** after 6 THINK reviews (extended once — 2026-05-15)
+**Adjudicate by:** 2026-06-26 (after 6 THINK reviews, extended once 2026-05-15)
 
 The constraint evaluation framework for IDEA adjudication evolved mid-session from an informal 3-cluster taxonomy (prerequisite chain / wrong layer / premature generalization) to a 5-axis orthogonal space (dependency ordering / temporal validity / abstraction layer / observability validity / priority displacement). The 18 decisions made during this session are documented under inconsistent vocabulary: 13 under the 3-cluster framing, 5 under the 5-axis framing. The archive does not flag this discontinuity — old entries look structurally complete but are incomparable with new entries under a shared rubric. The hidden risk is not that past decisions were wrong, but that future THINK sessions will treat the archive as a uniform corpus and derive patterns from incomparable records. A related design implication: when a new axis is introduced, the system currently has no mechanism to re-project prior decisions under the new constraint space. "Structurally admissible" in session N means something different than "structurally admissible" in session N+3 if two new axes have been added in between. What would need to be true to PROMOTE: evidence that a future THINK session draws a pattern inference from the archive that is invalidated by the vocabulary discontinuity, or a second axis introduction that makes the re-projection cost concrete enough to design against.
 
