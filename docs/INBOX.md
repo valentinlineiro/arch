@@ -38,8 +38,8 @@
 - TASK-244: Hansei Validator Enforcement (ADR-019)
 - TASK-201: Implement arch report - auto-populate METRICS.md from archived task data
 - TASK-243: Consolidate test mocks into shared module to prevent interface drift
-- TASK-189: Add executable AC predicates to task format and DO close step
-- TASK-888: No Size
+
+---
 
 ## [2026-05-14 15:35] REVIEW_REQUEST | TASK-247
 TASK-247 Focus Sovereignty Model is ready for audit.
@@ -58,10 +58,12 @@ TASK-247 Focus Sovereignty Model is ready for audit.
 **Known divergence (see Hansei):**
 ADR-020 ruling names differ from AGFM ruling names. AGFM is authoritative for implementation.
 
+
 ---
 
 ## REVIEW_REQUEST
-**Task:** TASK-889 — arch task edit - Interactive Metadata Management
+**Task:** TASK-890 — arch task start - Contextual Memory Injection
 **Status:** REVIEW
 **Date:** 2026-05-15
-**Summary:** Implements `arch task edit TASK-XXX` interactive CLI subcommand. Users are prompted for priority, size, status (READY/BLOCKED), class, and context with current values shown in brackets. Input is validated by TaskValidator before writing; on success the file is saved and committed. All 5 ACs pass predicate verification. arch review exits 0.
+**Summary:** Implements load-bearing memory injection in `arch task start`. A new `LoadBearingMemory` use case reads the ContextIndex for enforced ADRs matching the task's context paths, and scans the archive for H1+ Hansei failures with same class and overlapping context. Results are printed as a delimited stdout block after the IN_PROGRESS confirmation. All errors are swallowed silently so start is never blocked. All 8 ACs pass predicate verification. arch review exits 0. npm test 369/369.
+**Hansei note:** AdrEntry lacks a constraint field — ADR injection shows title only, not constraint text. Flagged as H1 SpecDrift.
