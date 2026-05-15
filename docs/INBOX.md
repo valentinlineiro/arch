@@ -5,25 +5,14 @@
 - **Date:** 2026-05-15
 - **Active Tasks:** 0
 - **READY Tasks:** 25
-- **Refinement Queue:** 32 pending ideas
 
 ## Pending Items
 ### AWAITING_REVIEW
-- [ ] #TASK-208: Implement L3 Self-Archive - audited autonomous task completion
-- [ ] #TASK-252: Introduce size-tiered closure and review obligations
+- None
 
 ### AWAITING_PROMOTION
-- [ ] IDEA: IDEA: automate-turn-count-recording
-- [ ] IDEA: IDEA: consolidate-root-agent-docs
-- [ ] IDEA: IDEA: cross-layer-coverage-identity
-- [ ] IDEA: IDEA: `arch task done` — Socratic Hansei Wizard
-- [ ] IDEA: IDEA: Discipline as a Service (DaaS) — Vision
-- [ ] IDEA: IDEA: dynamic-model-provisioning
-- [ ] IDEA: IDEA: excision-structural-consistency-check
-- [ ] IDEA: IDEA: Feature branch workflow — fully automatic branch-per-task execution
-- [ ] IDEA: IDEA: fix-archive-meta-drift
-- [ ] IDEA: IDEA: fix-commit-exception-contradiction
-- (and 22 more...)
+- [ ] IDEA: consolidate-root-agent-docs
+- [ ] IDEA: automate-turn-count-recording
 
 ## Recently Completed
 - TASK-892: arch task create - Template-based Acceptance Criteria (P1|S)

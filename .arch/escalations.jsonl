@@ -101,3 +101,5 @@
 {"escalation_id":"e1a2b3c4","timestamp":"2026-05-15T15:45:00Z","type":"AWAITING_PROMOTION","subject":"architectural-tension-capture","reason":"High priority P1 idea awaiting human decision for promotion.","status":"OPEN"}
 {"escalation_id":"d5e6f7g8","timestamp":"2026-05-15T15:45:01Z","type":"AWAITING_PROMOTION","subject":"automate-turn-count-recording","reason":"Efficiency improvement awaiting human decision.","status":"OPEN"}
 {"escalation_id":"h9i0j1k2","timestamp":"2026-05-15T15:45:02Z","type":"AWAITING_PROMOTION","subject":"consolidate-root-agent-docs","reason":"Documentation cleanup awaiting human decision.","status":"OPEN"}
+{"escalation_id":"THINK-b1c2d3e4","timestamp":"2026-05-15T00:00:00Z","type":"AWAITING_PROMOTION","subject":"IDEA-consolidate-root-agent-docs","status":"OPEN"}
+{"escalation_id":"THINK-a1b2c3d4","timestamp":"2026-05-15T00:00:00Z","type":"AWAITING_PROMOTION","subject":"IDEA-automate-turn-count-recording","status":"OPEN"}
