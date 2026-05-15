@@ -1,5 +1,5 @@
 ## TASK-256: Cut Phase 3 "Immediate Improvements" and add Kaizen evidence gate
-**Meta:** P1 | S | READY | Focus:no | 6-writing | claude | docs/agents/THINK.md
+**Meta:** P1 | S | IN_PROGRESS | Focus:yes | 6-writing | claude | docs/agents/THINK.md
 **Depends:** TASK-255
 
 ### Context
