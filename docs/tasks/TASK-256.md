@@ -12,10 +12,10 @@ The change is to `docs/agents/THINK.md` only. No CLI changes required.
 
 ### Acceptance Criteria
 
-- [ ] `docs/agents/THINK.md` Phase 3 no longer contains "Immediate Improvements" as a named step or numbered item.  →  prose: verified by reading THINK.md Phase 3
-- [ ] Phase 3 Kaizen Learning includes an explicit evidence gate: an improvement proposal is only emitted when it can cite a concrete repeated signal from Phase 1, Phase 2, Phase 2.5, or `docs/METRICS.md`. Proposals without a cited signal are suppressed.  →  prose: verified by reading Kaizen Learning output rule in THINK.md
-- [ ] The evidence gate rule is stated as a single testable condition in THINK.md, not as narrative guidance.  →  prose: verified — rule is phrased as "only emit if [condition]", not "try to ground proposals"
-- [ ] `arch review` passes.  →  cmd: bash scripts/arch.sh review; exit: 0
+- [x] `docs/agents/THINK.md` Phase 3 no longer contains "Immediate Improvements" as a named step or numbered item.  →  prose: verified by reading THINK.md Phase 3
+- [x] Phase 3 Kaizen Learning includes an explicit evidence gate: an improvement proposal is only emitted when it can cite a concrete repeated signal from Phase 1, Phase 2, Phase 2.5, or `docs/METRICS.md`. Proposals without a cited signal are suppressed.  →  prose: verified by reading Kaizen Learning output rule in THINK.md
+- [x] The evidence gate rule is stated as a single testable condition in THINK.md, not as narrative guidance.  →  prose: verified — rule is phrased as "only emit if [condition]", not "try to ground proposals"
+- [x] `arch review` passes.  →  cmd: bash scripts/arch.sh review; exit: 0
 
 ### Definition of Done
 
