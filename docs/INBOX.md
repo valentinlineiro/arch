@@ -60,9 +60,16 @@ ADR-020 ruling names differ from AGFM ruling names. AGFM is authoritative for im
 
 ---
 
-## REVIEW_REQUEST
-**Task:** TASK-891 — arch task create - Instant Task Scaffolding
-**Status:** REVIEW
-**Date:** 2026-05-15
-**Summary:** Implements `arch task create "<intent>"`. A new `CreateTask` use case calls `ProviderRegistry` to attempt LLM drafting (title, ACs, size, class) using the existing provider infrastructure. On any failure it falls back to a skeleton task. `ContextInference` runs after scaffolding. The meta line is validated by `TaskValidator` before file write; invalid LLM output falls back to safe defaults. The task is committed automatically. LLM-drafted titles are quote-stripped and ASCII-sanitized. All 8 ACs pass. arch review exits 0. npm test 369/369.
-**Hansei note:** H1 SpecDrift — LLM returned quoted titles; sanitized in parseDraft.
+## [2026-05-15 00:00] REVIEW_REQUEST | TASK-892
+TASK-892 Template-based Acceptance Criteria is ready for audit.
+
+**What was built:**
+- `TEMPLATE_REGISTRY` constant in `create-task.ts` mapping 3 task classes + default to standard AC arrays
+- `scaffold()` method combines template ACs first, then LLM ACs (deduped via Set) — templates always present
+- LLM prompt updated to supplement template ACs rather than generate all ACs from scratch
+
+**Verified:**
+- `grep: "TEMPLATE_REGISTRY" cli/src/main/ts/application/use-cases/create-task.ts` passes
+- `arch review` passes (all drift checks green)
+- `npm test --prefix cli` passes (369 tests, 0 failures)
+
