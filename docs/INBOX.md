@@ -4,27 +4,26 @@
 ## Loop Status
 - **Date:** 2026-05-15
 - **Active Tasks:** 0
-- **READY Tasks:** 24
-- **Refinement Queue:** 33 pending ideas
+- **READY Tasks:** 25
+- **Refinement Queue:** 32 pending ideas
 
 ## Pending Items
 ### AWAITING_REVIEW
-- [ ] TASK-247: Meta transition and focus-ledger automation
-- [ ] TASK-251: arch report - Metrics persistence and threshold checks
-- [ ] TASK-254: ADR-019/ADR-020 integration into THINK/GOVERN
+- [ ] #TASK-208: Implement L3 Self-Archive - audited autonomous task completion
+- [ ] #TASK-252: Introduce size-tiered closure and review obligations
 
 ### AWAITING_PROMOTION
-- [ ] IDEA: Ontological Tension Detection
-- [ ] IDEA: automate-turn-count-recording
-- [ ] IDEA: consolidate-root-agent-docs
-- [ ] IDEA: cross-layer-coverage-identity
-- [ ] IDEA: `arch task done` — Socratic Hansei Wizard
-- [ ] IDEA: Discipline as a Service (DaaS) — Vision
-- [ ] IDEA: dynamic-model-provisioning
-- [ ] IDEA: excision-structural-consistency-check
-- [ ] IDEA: Feature branch workflow
-- [ ] IDEA: fix-archive-meta-drift
-- (and 23 more...)
+- [ ] IDEA: IDEA: automate-turn-count-recording
+- [ ] IDEA: IDEA: consolidate-root-agent-docs
+- [ ] IDEA: IDEA: cross-layer-coverage-identity
+- [ ] IDEA: IDEA: `arch task done` — Socratic Hansei Wizard
+- [ ] IDEA: IDEA: Discipline as a Service (DaaS) — Vision
+- [ ] IDEA: IDEA: dynamic-model-provisioning
+- [ ] IDEA: IDEA: excision-structural-consistency-check
+- [ ] IDEA: IDEA: Feature branch workflow — fully automatic branch-per-task execution
+- [ ] IDEA: IDEA: fix-archive-meta-drift
+- [ ] IDEA: IDEA: fix-commit-exception-contradiction
+- (and 22 more...)
 
 ## Recently Completed
 - TASK-892: arch task create - Template-based Acceptance Criteria (P1|S)
