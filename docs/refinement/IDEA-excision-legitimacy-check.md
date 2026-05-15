@@ -2,7 +2,7 @@
 **Created:** 2026-05-12
 **Source:** Post-INTENT removal observation — EscalationMaturity false positive on legitimate excision
 **Status:** DRAFT
-**Sessions:** 0
+**Sessions:** 2
 **Meta:** P1 | S | local | cli/src/main/ts/application/use-cases/drift-checker.ts
 
 ## Problem
@@ -50,8 +50,6 @@ S
 - Protected path definition is currently implicit (any file matching domain model/repository patterns). The gate needs a canonical list — probably derived from `arch.config.json` or hardcoded in DriftChecker alongside the existing protected path patterns.
 - Gate 2 requires linking a deleted TypeScript file to a REJECT decision in a markdown file. That link is currently informal (matching by artifact name substring). A structured cross-reference (e.g., `Removes: <module-path>` in the REJECT field) would make Gate 2 deterministic without false positives.
 - The Class I/Class II boundary is stated in GOVERNANCE.md but not enforced in check naming conventions. This IDEA should be revisited if the naming convention is ever formalized.
-
-**Sessions:** 1
 
 ## Structural admissibility (5-axis)
 

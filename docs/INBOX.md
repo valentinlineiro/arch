@@ -3,16 +3,19 @@
 ## Loop Status
 - **Active Tasks:** 0
 - **Ready Tasks:** 20
-- **Pending Promotion:** 29
+- **Pending Promotion:** 28 (IDEA-context-control TTL-archived this session)
 - **Pending Review:** 1 (TASK-247)
 
-## Refinement Queue (29)
+## Pending Escalations
+- `AWAITING_PROMOTION` (open): IDEA-roadmap-adaptive-planning, IDEA-roadmap-ai-proposed-policies, IDEA-roadmap-automatic-linking, IDEA-roadmap-domain-packs, IDEA-roadmap-memory-queries, IDEA-roadmap-multiagent-runtime, IDEA-roadmap-operational-load, IDEA-roadmap-structural-policies, IDEA-sentinel-log-infrastructure, IDEA-task-template-linter
+- `AWAITING_PROMOTION` (new this session): IDEA-daas-vision, IDEA-daas-hansei-wizard
+
+## Refinement Queue (28)
 - IDEA: Ontological Tension Detection — a new artifact class and detection capability (IDEA-architectural-tension-capture.md)
 - IDEA: automate-turn-count-recording (IDEA-automate-turn-count-recording.md)
-- idea: Agent context control (IDEA-context-control.md)
 - IDEA: cross-layer-coverage-identity (IDEA-cross-layer-coverage-identity.md)
-- IDEA: `arch task done` — Socratic Hansei Wizard (IDEA-daas-hansei-wizard.md)
-- IDEA: Discipline as a Service (DaaS) — Vision (IDEA-daas-vision.md)
+- IDEA: `arch task done` — Socratic Hansei Wizard ⭐ structurally admissible, REVIEW session 1 (IDEA-daas-hansei-wizard.md)
+- IDEA: Discipline as a Service (DaaS) — Vision ⭐ partially executed (Features 1–3 done), session 1 (IDEA-daas-vision.md)
 - IDEA: dynamic-model-provisioning (IDEA-dynamic-model-provisioning.md)
 - IDEA: excision-structural-consistency-check (IDEA-excision-legitimacy-check.md)
 - IDEA: Feature branch workflow — fully automatic branch-per-task execution (IDEA-feature-branch-workflow.md)
@@ -38,11 +41,16 @@
 - IDEA: task-template-linter (IDEA-task-template-linter.md)
 
 ## Recently Completed
-- TASK-892: arch task create - Template-based Acceptance Criteria
-- TASK-891: arch task create - Instant Task Scaffolding
-- TASK-890: arch task start - Contextual Memory Injection
-- TASK-889: arch task edit - Interactive Metadata Management
-- TASK-248: Fix arch review drift warnings - dead context paths and missing Hansei sections
+- TASK-892: arch task create - Template-based Acceptance Criteria (P1|S)
+- TASK-891: arch task create - Instant Task Scaffolding (P1|M)
+- TASK-890: arch task start - Contextual Memory Injection (P1|M)
+- TASK-889: arch task edit - Interactive Metadata Management (P1|S)
+- TASK-248: Fix arch review drift warnings - dead context paths and missing Hansei sections (P2|XS)
+
+---
+
+## [2026-05-15] THINK_NOTE | arch report INVALID
+`arch report` returned `CRITICAL INTEGRITY BREACH` with 0% confidence. Metrics engine shows cycle time only for 1 task. Likely: focus-ledger migration edge case or missing cost metadata. Needs investigation before next metrics review.
 
 ---
 

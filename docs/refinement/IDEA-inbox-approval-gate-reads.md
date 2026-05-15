@@ -1,5 +1,5 @@
 # IDEA: inbox-approval-gate-reads
-**Meta:** Source: TASK-241-audit | Status: DRAFT | Size: S | Sessions: 1
+**Meta:** Source: TASK-241-audit | Status: DRAFT | Size: S | Sessions: 2
 **Decision:**
 
 ### Problem

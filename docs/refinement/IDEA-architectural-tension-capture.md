@@ -88,7 +88,7 @@ L (the format is defined; the capability matures over time through corpus accumu
 
 ## Gaps
 
-**Sessions:** 1
+**Sessions:** 2
 
 ## Structural admissibility (5-axis)
 

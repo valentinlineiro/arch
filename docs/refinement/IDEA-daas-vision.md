@@ -2,6 +2,7 @@
 **Created:** 2026-05-15
 **Source:** Usability reflection
 **Status:** DRAFT
+**Sessions:** 1
 **Meta:** P1 | S | local | docs/refinement/
 
 ## Problem
@@ -25,6 +26,9 @@ The system should:
 
 ## Rationale
 By reducing the friction of the "ARCH ceremony," we ensure the protocol is followed not because of human willpower, but because the CLI makes the correct path the easiest path.
+
+## Session 1 Evaluation (2026-05-15)
+Features 1–3 (task edit, task create, task start memory injection) are DONE as of 2026-05-15. Feature 4 (Socratic Wizard) has its own IDEA (IDEA-daas-hansei-wizard). Feature 5 (arch explain) has no IDEA yet. This document now functions as a tracking artifact for remaining DaaS scope. Human: decide whether to promote this as a tracking task for Feature 5 scope, or close it since sub-IDEAs exist for the remaining work.
 
 ## Decision
 <!-- PROMOTE → TASK-XXX | REJECT: reason -->
