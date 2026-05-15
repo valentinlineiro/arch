@@ -38,10 +38,13 @@ export class MetricsEngine {
     const events = await this.loadEvents();
     const eventMap = this.indexEvents(events);
 
-    const hasEventHistory = events.length > 0;
+    // Use the first event's timestamp as the "EventLogger operational threshold".
+    // Tasks completed before this threshold are pre-operational and get MEDIUM/LOW (not INVALID)
+    // even if no EVENTS.md entry exists for them.
+    const firstEventTimestamp = this.extractFirstEventTimestamp(events);
     const calibratedTasks: ArchivedTaskMetrics[] = [];
     for (const task of archivedTasks) {
-      calibratedTasks.push(await this.calibrateTask(task, eventMap, hasEventHistory));
+      calibratedTasks.push(await this.calibrateTask(task, eventMap, firstEventTimestamp));
     }
     
     const cycleTime = this.computeCycleTime(calibratedTasks);
@@ -98,7 +101,19 @@ export class MetricsEngine {
     return map;
   }
 
-  private async calibrateTask(task: ArchivedTaskMetrics, eventMap: Map<string, GovernanceEvent[]>, hasEventHistory: boolean): Promise<ArchivedTaskMetrics> {
+  private extractFirstEventTimestamp(events: string[]): number | null {
+    for (const event of events) {
+      const header = event.split('\n')[0];
+      const tsMatch = header.match(/^## (\d{4}-\d{2}-\d{2}T[^\s]+)/);
+      if (tsMatch) {
+        const ts = new Date(tsMatch[1]).getTime();
+        if (!isNaN(ts)) return ts;
+      }
+    }
+    return null;
+  }
+
+  private async calibrateTask(task: ArchivedTaskMetrics, eventMap: Map<string, GovernanceEvent[]>, firstEventTimestamp: number | null): Promise<ArchivedTaskMetrics> {
     const taskEvents = eventMap.get(task.id) || [];
     const doneEvents = taskEvents.filter(e => e.transition === 'REVIEW -> DONE');
     
@@ -142,13 +157,19 @@ export class MetricsEngine {
       }
 
     } else if (task.completedAt) {
-      if (!hasEventHistory) {
-        // Pre-EventLogger era: ledger uninitialized, governance records don't exist yet
+      // Determine whether the EventLogger was operational when this task was completed.
+      // Tasks completed before the first recorded event are "pre-operational" — the ledger
+      // did not yet exist for them, so absence of an entry is not a governance violation.
+      const completedAtMs = new Date(task.completedAt).getTime();
+      const isPostOperational = firstEventTimestamp !== null && !isNaN(completedAtMs) && completedAtMs > firstEventTimestamp;
+
+      if (!isPostOperational) {
+        // Pre-operational: EventLogger not yet active for this task's completion
         if (calibrated.integrity === 'HIGH') calibrated.integrity = 'MEDIUM';
         else if (calibrated.integrity !== 'INVALID') calibrated.integrity = 'LOW';
       } else {
         // Attack Surface 1: Logistics-Governance Gap
-        // EventLogger deployed but no DONE event for this task: governance violation
+        // EventLogger was operational but no DONE event recorded: governance violation
         calibrated.integrity = 'INVALID';
         calibrated.completedAt = null;
       }
