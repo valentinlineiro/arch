@@ -1,19 +1,19 @@
 # ARCH INBOX
 
 ## System Status
-- **Active Tasks:** 1 (TASK-255)
-- **READY Tasks:** 26
-- **Pending Promotion:** 34
-- **Pending Review:** 4 (TASK-247, TASK-251, TASK-254, TASK-257)
+- **Active Tasks:** 0
+- **READY Tasks:** 25
+- **Pending Promotion:** 33
+- **Pending Review:** 6
 
 ## Recent Activity
-1. **TASK-892:** archive DONE tasks and update governance logs
-2. **TASK-891:** archive [TASK-891] DONE
-3. **TASK-890:** archive [TASK-890] DONE
-4. **TASK-889:** archive [TASK-889] DONE
-5. **TASK-248:** archive [TASK-248] DONE
+1. **TASK-892:** arch task create - Template-based Acceptance Criteria
+2. **TASK-891:** arch task create - Instant Task Scaffolding
+3. **TASK-890:** arch task start - Contextual Memory Injection
+4. **TASK-889:** arch task edit - Interactive Metadata Management
+5. **TASK-248:** Fix arch review drift warnings - dead context paths and missing Hansei sections
 
-## Refinement Queue (34)
+## Refinement Queue (33)
 - IDEA: Ontological Tension Detection — a new artifact class and detection capability
 - IDEA: automate-turn-count-recording
 - IDEA: consolidate-root-agent-docs
@@ -30,7 +30,6 @@
 - IDEA: fix-phase-naming-drift
 - IDEA: focus-status-alignment
 - IDEA: Grandfather legacy tasks in arch review
-- IDEA: inbox-approval-gate-reads
 - IDEA: Loop mode load balancing
 - IDEA: OpenClaw integration — mobile bridge for ARCH
 - IDEA: optimize-decomposition-for-local-llms

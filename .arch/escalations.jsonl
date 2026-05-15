@@ -30,3 +30,38 @@
 {"escalation_id": "ff7be49a-3d82-4441-bc12-1f87c24219a3", "timestamp": "2026-05-15T08:46:53Z", "type": "AWAITING_PROMOTION", "subject": "IDEA-daas-hansei-wizard", "reason": "Structurally admissible; ready for promotion to task after human decision", "status": "OPEN", "resolved_at": null, "resolved_by": null}
 {"escalation_id":"E-daas-vis","timestamp":"2026-05-15T15:00:00.000Z","type":"AWAITING_PROMOTION","subject":"IDEA-daas-vision","reason":"Surfaced for human decision","status":"OPEN"}
 {"escalation_id":"E-daas-han","timestamp":"2026-05-15T15:00:01.000Z","type":"AWAITING_PROMOTION","subject":"IDEA-daas-hansei-wizard","reason":"Surfaced for human decision","status":"OPEN"}
+{"escalation_id":"THINK-INIT-001","timestamp":"2026-05-15T15:00:00Z","type":"AWAITING_PROMOTION","subject":"IDEA-daas-vision","reason":"Periodic replenishment check","status":"OPEN"}
+{"escalation_id":"THINK-INIT-002","timestamp":"2026-05-15T15:00:00Z","type":"AWAITING_PROMOTION","subject":"IDEA-architectural-tension-capture","reason":"Periodic replenishment check","status":"OPEN"}
+{"escalation_id": "E-93a29fd0", "timestamp": "2026-05-15T15:29:25Z", "type": "Awaiting Promotion", "subject": "IDEA-focus-status-alignment", "status": "OPEN"}
+{"escalation_id": "E-54bc3c29", "timestamp": "2026-05-15T15:29:25Z", "type": "Awaiting Promotion", "subject": "IDEA-automate-turn-count-recording", "status": "OPEN"}
+{"escalation_id": "E-4e97e623", "timestamp": "2026-05-15T15:29:25Z", "type": "Awaiting Promotion", "subject": "IDEA-dynamic-model-provisioning", "status": "OPEN"}
+{"escalation_id": "E-6dc649e9", "timestamp": "2026-05-15T15:29:25Z", "type": "Awaiting Promotion", "subject": "IDEA-roadmap-automatic-linking", "status": "OPEN"}
+{"escalation_id": "E-8d2687df", "timestamp": "2026-05-15T15:29:25Z", "type": "Awaiting Promotion", "subject": "IDEA-roadmap-domain-packs", "status": "OPEN"}
+{"escalation_id": "E-07012ac5", "timestamp": "2026-05-15T15:29:25Z", "type": "Awaiting Promotion", "subject": "IDEA-roadmap-adaptive-planning", "status": "OPEN"}
+{"escalation_id": "E-01325668", "timestamp": "2026-05-15T15:29:25Z", "type": "Awaiting Promotion", "subject": "IDEA-daas-hansei-wizard", "status": "OPEN"}
+{"escalation_id": "E-acce707b", "timestamp": "2026-05-15T15:29:25Z", "type": "Awaiting Promotion", "subject": "IDEA-temporal-pattern-layer", "status": "OPEN"}
+{"escalation_id": "E-1c46b4db", "timestamp": "2026-05-15T15:29:25Z", "type": "Awaiting Promotion", "subject": "IDEA-feature-branch-workflow", "status": "OPEN"}
+{"escalation_id": "E-3f80dfca", "timestamp": "2026-05-15T15:29:25Z", "type": "Awaiting Promotion", "subject": "IDEA-roadmap-deterministic-drift", "status": "OPEN"}
+{"escalation_id": "E-8277cd4c", "timestamp": "2026-05-15T15:29:25Z", "type": "Awaiting Promotion", "subject": "IDEA-openclaw-integration", "status": "OPEN"}
+{"escalation_id": "E-e9826095", "timestamp": "2026-05-15T15:29:25Z", "type": "Awaiting Promotion", "subject": "IDEA-fix-commit-exception-contradiction", "status": "OPEN"}
+{"escalation_id": "E-cc6a9c54", "timestamp": "2026-05-15T15:29:25Z", "type": "Awaiting Promotion", "subject": "IDEA-daas-vision", "status": "OPEN"}
+{"escalation_id": "E-104ee40b", "timestamp": "2026-05-15T15:29:25Z", "type": "Awaiting Promotion", "subject": "IDEA-cross-layer-coverage-identity", "status": "OPEN"}
+{"escalation_id": "E-119404be", "timestamp": "2026-05-15T15:29:25Z", "type": "Awaiting Promotion", "subject": "IDEA-rag-context-retrieval", "status": "OPEN"}
+{"escalation_id": "E-7530fcc0", "timestamp": "2026-05-15T15:29:25Z", "type": "Awaiting Promotion", "subject": "IDEA-roadmap-operational-load", "status": "OPEN"}
+{"escalation_id": "E-da3c6ef4", "timestamp": "2026-05-15T15:29:25Z", "type": "Awaiting Promotion", "subject": "IDEA-fix-governance-terminology-collision", "status": "OPEN"}
+{"escalation_id": "E-c7f1dc60", "timestamp": "2026-05-15T15:29:25Z", "type": "Awaiting Promotion", "subject": "IDEA-excision-legitimacy-check", "status": "OPEN"}
+{"escalation_id": "E-e03cd674", "timestamp": "2026-05-15T15:29:25Z", "type": "Awaiting Promotion", "subject": "IDEA-roadmap-multiagent-runtime", "status": "OPEN"}
+{"escalation_id": "E-e4bef868", "timestamp": "2026-05-15T15:29:25Z", "type": "Awaiting Promotion", "subject": "IDEA-roadmap-ai-proposed-policies", "status": "OPEN"}
+{"escalation_id": "E-300e4bde", "timestamp": "2026-05-15T15:29:25Z", "type": "Awaiting Promotion", "subject": "IDEA-grandfather-legacy-tasks", "status": "OPEN"}
+{"escalation_id": "E-d7646f75", "timestamp": "2026-05-15T15:29:25Z", "type": "Awaiting Promotion", "subject": "IDEA-parallel-tasks", "status": "OPEN"}
+{"escalation_id": "E-3841a8b0", "timestamp": "2026-05-15T15:29:25Z", "type": "Awaiting Promotion", "subject": "IDEA-fix-decomposition-duplication", "status": "OPEN"}
+{"escalation_id": "E-038d16ca", "timestamp": "2026-05-15T15:29:25Z", "type": "Awaiting Promotion", "subject": "IDEA-optimize-decomposition-for-local-llms", "status": "OPEN"}
+{"escalation_id": "E-2aa645cd", "timestamp": "2026-05-15T15:29:25Z", "type": "Awaiting Promotion", "subject": "IDEA-sentinel-log-infrastructure", "status": "OPEN"}
+{"escalation_id": "E-706aa826", "timestamp": "2026-05-15T15:29:25Z", "type": "Awaiting Promotion", "subject": "IDEA-fix-phase-naming-drift", "status": "OPEN"}
+{"escalation_id": "E-bd7451ff", "timestamp": "2026-05-15T15:29:25Z", "type": "Awaiting Promotion", "subject": "IDEA-consolidate-root-agent-docs", "status": "OPEN"}
+{"escalation_id": "E-4a6e7a75", "timestamp": "2026-05-15T15:29:25Z", "type": "Awaiting Promotion", "subject": "IDEA-roadmap-memory-queries", "status": "OPEN"}
+{"escalation_id": "E-e7979387", "timestamp": "2026-05-15T15:29:25Z", "type": "Awaiting Promotion", "subject": "IDEA-loop-load-balancing", "status": "OPEN"}
+{"escalation_id": "E-2181c210", "timestamp": "2026-05-15T15:29:25Z", "type": "Awaiting Promotion", "subject": "IDEA-architectural-tension-capture", "status": "OPEN"}
+{"escalation_id": "E-029dfd1a", "timestamp": "2026-05-15T15:29:25Z", "type": "Awaiting Promotion", "subject": "IDEA-task-template-linter", "status": "OPEN"}
+{"escalation_id": "E-20f3d58a", "timestamp": "2026-05-15T15:29:25Z", "type": "Awaiting Promotion", "subject": "IDEA-fix-archive-meta-drift", "status": "OPEN"}
+{"escalation_id": "E-e024e559", "timestamp": "2026-05-15T15:29:25Z", "type": "Awaiting Promotion", "subject": "IDEA-roadmap-structural-policies", "status": "OPEN"}
