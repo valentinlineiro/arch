@@ -1,24 +1,25 @@
 # INBOX
 
 ## Loop Status
-- **Active Tasks:** 0
-- **Ready Tasks:** 20
-- **Pending Promotion:** 28 (IDEA-context-control TTL-archived this session)
-- **Pending Review:** 1 (TASK-247)
+- **Active Tasks:** 1
+- **Ready Tasks:** 26
+- **Pending Promotion:** 31
+- **Pending Review:** 3
 
 ## Pending Escalations
-- `AWAITING_PROMOTION` (open): IDEA-roadmap-adaptive-planning, IDEA-roadmap-ai-proposed-policies, IDEA-roadmap-automatic-linking, IDEA-roadmap-domain-packs, IDEA-roadmap-memory-queries, IDEA-roadmap-multiagent-runtime, IDEA-roadmap-operational-load, IDEA-roadmap-structural-policies, IDEA-sentinel-log-infrastructure, IDEA-task-template-linter
-- `AWAITING_PROMOTION` (new this session): IDEA-daas-vision, IDEA-daas-hansei-wizard
+- `AWAITING_PROMOTION` (open): IDEA-roadmap-adaptive-planning, IDEA-roadmap-ai-proposed-policies, IDEA-roadmap-automatic-linking, IDEA-roadmap-domain-packs, IDEA-roadmap-memory-queries, IDEA-roadmap-multiagent-runtime, IDEA-roadmap-operational-load, IDEA-roadmap-structural-policies, IDEA-sentinel-log-infrastructure, IDEA-task-template-linter, IDEA-daas-vision, IDEA-daas-hansei-wizard
 
-## Refinement Queue (28)
+## Refinement Queue (31)
 - IDEA: Ontological Tension Detection — a new artifact class and detection capability (IDEA-architectural-tension-capture.md)
 - IDEA: automate-turn-count-recording (IDEA-automate-turn-count-recording.md)
+- IDEA: consolidate-root-agent-docs (IDEA-consolidate-root-agent-docs.md)
 - IDEA: cross-layer-coverage-identity (IDEA-cross-layer-coverage-identity.md)
-- IDEA: `arch task done` — Socratic Hansei Wizard ⭐ structurally admissible, REVIEW session 1 (IDEA-daas-hansei-wizard.md)
-- IDEA: Discipline as a Service (DaaS) — Vision ⭐ partially executed (Features 1–3 done), session 1 (IDEA-daas-vision.md)
+- IDEA: `arch task done` — Socratic Hansei Wizard (IDEA-daas-hansei-wizard.md)
+- IDEA: Discipline as a Service (DaaS) — Vision (IDEA-daas-vision.md)
 - IDEA: dynamic-model-provisioning (IDEA-dynamic-model-provisioning.md)
 - IDEA: excision-structural-consistency-check (IDEA-excision-legitimacy-check.md)
 - IDEA: Feature branch workflow — fully automatic branch-per-task execution (IDEA-feature-branch-workflow.md)
+- IDEA: fix-archive-meta-drift (IDEA-fix-archive-meta-drift.md)
 - IDEA: fix-phase-naming-drift (IDEA-fix-phase-naming-drift.md)
 - IDEA: focus-status-alignment (IDEA-focus-status-alignment.md)
 - IDEA: Grandfather legacy tasks in arch review (IDEA-grandfather-legacy-tasks.md)
@@ -26,7 +27,7 @@
 - IDEA: Loop mode load balancing (IDEA-loop-load-balancing.md)
 - IDEA: OpenClaw integration — mobile bridge for ARCH (IDEA-openclaw-integration.md)
 - IDEA: optimize-decomposition-for-local-llms (IDEA-optimize-decomposition-for-local-llms.md)
-- idea: Parallel task execution with merge conflict handling (IDEA-parallel-tasks.md)
+- IDEA: Parallel task execution with merge conflict handling (IDEA-parallel-tasks.md)
 - IDEA: RAG context retrieval — semantic search over ARCH corpus (IDEA-rag-context-retrieval.md)
 - IDEA: Adaptive planning — task states that model energy, context, and cognitive cost (IDEA-roadmap-adaptive-planning.md)
 - IDEA: AI-proposed policies — ARCH detects patterns and proposes guidelines for human approval (IDEA-roadmap-ai-proposed-policies.md)
@@ -39,6 +40,7 @@
 - IDEA: Structural policies — machine-enforced architectural boundaries in arch review (IDEA-roadmap-structural-policies.md)
 - IDEA: Sentinel call log infrastructure (IDEA-sentinel-log-infrastructure.md)
 - IDEA: task-template-linter (IDEA-task-template-linter.md)
+- IDEA: Temporal Pattern Layer for Causal Discovery (IDEA-temporal-pattern-layer.md)
 
 ## Recently Completed
 - TASK-892: arch task create - Template-based Acceptance Criteria (P1|S)

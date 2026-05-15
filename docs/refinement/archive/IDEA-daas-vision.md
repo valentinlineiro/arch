@@ -2,7 +2,7 @@
 **Created:** 2026-05-15
 **Source:** Usability reflection
 **Status:** DRAFT
-**Sessions:** 1
+**Sessions:** 2
 **Meta:** P1 | S | local | docs/refinement/
 
 ## Problem
