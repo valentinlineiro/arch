@@ -1,5 +1,5 @@
 ## TASK-889: arch task edit - Interactive Metadata Management
-**Meta:** P1 | S | IN_PROGRESS | Focus:no | 2-code-generation | local | cli/src/main/ts/
+**Meta:** P1 | S | REVIEW | Focus:no | 2-code-generation | local | cli/src/main/ts/
 **Created-at:** 2026-05-15T07:23:10.296Z
 **Depends:** none
 

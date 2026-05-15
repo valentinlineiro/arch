@@ -57,3 +57,11 @@ TASK-247 Focus Sovereignty Model is ready for audit.
 
 **Known divergence (see Hansei):**
 ADR-020 ruling names differ from AGFM ruling names. AGFM is authoritative for implementation.
+
+---
+
+## REVIEW_REQUEST
+**Task:** TASK-889 — arch task edit - Interactive Metadata Management
+**Status:** REVIEW
+**Date:** 2026-05-15
+**Summary:** Implements `arch task edit TASK-XXX` interactive CLI subcommand. Users are prompted for priority, size, status (READY/BLOCKED), class, and context with current values shown in brackets. Input is validated by TaskValidator before writing; on success the file is saved and committed. All 5 ACs pass predicate verification. arch review exits 0.
