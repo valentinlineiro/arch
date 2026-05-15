@@ -1,3 +1,4 @@
+import { CreateTask } from '../use-cases/create-task.js';
 import { EditTaskMetadata } from '../use-cases/edit-task-metadata.js';
 import { LoadBearingMemory } from '../use-cases/load-bearing-memory.js';
 import { MarkTaskInProgress } from '../use-cases/mark-task-in-progress.js';
@@ -79,6 +80,21 @@ export class TaskCommand {
           const block = await memory.execute(task);
           if (block) console.log(block);
         } catch { /* memory injection errors must never block task start */ }
+      } catch (error: any) {
+        fmt.fail(error.message);
+        process.exit(1);
+      }
+    } else if (subCommand === 'create') {
+      const intent = args.slice(1).join(' ').replace(/^["']|["']$/g, '');
+      if (!intent) {
+        fmt.fail('Usage: arch task create "<intent>"');
+        process.exit(1);
+      }
+      try {
+        fmt.arrow('scaffolding task from intent...');
+        const creator = new CreateTask(this.taskRepository, this.fileSystem, this.gitRepository);
+        const newId = await creator.execute(intent);
+        fmt.check(`created ${newId}`);
       } catch (error: any) {
         fmt.fail(error.message);
         process.exit(1);
@@ -200,6 +216,7 @@ export class TaskCommand {
         '',
         'Subcommands:',
         '  start TASK-XXX          Mark a task as IN_PROGRESS',
+        '  create "<intent>"       Scaffold a new task from an intent string (LLM-assisted, with fallback)',
         '  edit TASK-XXX           Interactively update task metadata (priority, size, class, context)',
         '  review TASK-XXX         Run cmd: predicates and set status to REVIEW',
         '  done TASK-XXX           Archive a task as DONE',
