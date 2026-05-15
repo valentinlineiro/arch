@@ -144,6 +144,16 @@ export class MarkTaskDone {
       }
     }
 
+    if (this.metricsRefresh) {
+      try {
+        const { computeTrustedMetrics } = await import('./compute-trusted-metrics.js');
+        const metrics = await computeTrustedMetrics(this.fileSystem);
+        await this.metricsRefresh.execute(metrics);
+      } catch {
+        // Refresh failure is non-fatal — task closure is already committed
+      }
+    }
+
     return task;
   }
 

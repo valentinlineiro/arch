@@ -4,6 +4,7 @@ import { MarkTaskDone } from '../../main/ts/application/use-cases/mark-task-done
 import { Task, TaskStatus } from '../../main/ts/domain/models/task.js';
 import { TaskRepository } from '../../main/ts/domain/repositories/task-repository.js';
 import { Reviewer, ReviewResult } from '../../main/ts/domain/services/reviewer.js';
+import { TrustedMetrics } from '../../main/ts/application/use-cases/compute-trusted-metrics.js';
 import { MockFileSystem } from './mocks/index.js';
 
 const validHansei = {
