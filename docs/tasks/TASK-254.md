@@ -20,7 +20,7 @@ This task produces a classification document — not code changes. Its output is
 ### Definition of Done
 
 - [x] `docs/agents/THINK-audit.md` exists and is complete (all current THINK phases classified).
-- [ ] A human has reviewed the classifications and confirmed or corrected them before this task moves to DONE.  →  prose: human review confirmed
+- [x] A human has reviewed the classifications and confirmed or corrected them before this task moves to DONE.  →  prose: human review confirmed 2026-05-15 — all three open questions resolved, decisions recorded in THINK-audit.md
 
 ## Hansei
 **Severity:** H0

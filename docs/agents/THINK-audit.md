@@ -82,8 +82,17 @@ This reduces the default THINK cost significantly while preserving the guarantee
 
 ---
 
-## Open questions for human review
+## Decisions (human review 2026-05-15)
 
-1. **Weak signal decay frequency**: If Phase 2.5 moves to `arch improve --deep`, how often should it run? Weekly? On every `arch govern` call? The current "all due signals in one session" rule needs a frequency anchor.
-2. **Phase 3 "Immediate Improvements" removal**: Is this step providing value in practice, or is it generating noise? The hansei-category-log will eventually answer this empirically — worth revisiting after 10+ tasks.
-3. **arch report in the default loop**: `arch report` updates METRICS.md. If it moves to `--deep`, METRICS.md only updates when someone explicitly runs deep analysis. Acceptable, or does it need a lighter trigger?
+**1. Phase 2.5 cadence**
+Run every N=5 govern ticks, not purely ad hoc. Immediate run triggered if any weak signal is at or past its adjudication date. `arch govern` and `arch reflect` surface "deep analysis due" once the cadence threshold is hit. Default THINK skips Phase 2.5; the cadence gate owns the trigger. This prevents silent deadline passing without burdening every THINK session.
+
+**2. Phase 3 "Immediate Improvements"**
+Cut as a named step. Fold into Kaizen output with a strict evidence rule: only emit an improvement when grounded in repeated evidence from phases 1–2.5 or metrics. No concrete trigger → no emission. The phase is removed; the output rule is absorbed into Phase 3 Kaizen Learning output constraints.
+
+**3. arch report / metrics refresh split**
+Split into two tiers:
+- **Lightweight trusted-metrics refresh**: runs automatically after task closure or every few govern ticks. Updates only the three canonical metrics (Completed Tasks, REVIEW_FAIL Rate, Cycle Time). Does not run full report generation.
+- **Full report (`arch report`)**: remains on-demand, stays in `arch improve --deep`. Generates the complete Experimental section and Epistemic Digest.
+
+The lightweight refresh prevents canonical metrics from drifting stale in the normal loop without paying the cost of full report generation.

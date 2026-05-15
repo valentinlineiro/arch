@@ -54,6 +54,24 @@
 
 ---
 
+## [2026-05-15] REVIEW_REQUEST | TASK-251
+TASK-251 Narrow official metrics to trusted subset is ready for audit.
+- AC1: docs/METRICS.md has Trusted section with Completed Tasks and REVIEW_FAIL Rate
+- AC2: Integrity Level and Avg Cost marked [EXPERIMENTAL] with confidence note
+- AC3: report-command.ts formatReport restructured; console output mirrors split
+- AC4: arch review passes
+- Changed: docs/METRICS.md, cli/src/main/ts/application/commands/report-command.ts
+
+## [2026-05-15] REVIEW_REQUEST | TASK-254
+TASK-254 Audit THINK phases for structural necessity is ready for audit.
+- AC1: docs/agents/THINK-audit.md created with all phases classified
+- AC2: Each classification includes one-sentence rationale
+- AC3: Structural vs deferrable recommendations documented; arch improve --deep candidates identified
+- AC4: Weak-signal decay and governance boundary audit explicitly classified
+- AC5: arch review passes
+- AC6: Human review completed 2026-05-15 — three open questions resolved, decisions recorded
+- Changed: docs/agents/THINK-audit.md
+
 ## [2026-05-14 15:35] REVIEW_REQUEST | TASK-247
 TASK-247 Focus Sovereignty Model is ready for audit.
 
