@@ -1,5 +1,5 @@
 # IDEA: consolidate-root-agent-docs
-**Meta:** Source: Phase-2.5 | Status: DRAFT | Size: XS | Sessions: 0
+**Meta:** Source: Phase-2.5 | Status: DRAFT | Size: XS | Sessions: 1
 
 ### Problem
 Structural duplication and stale content in root documentation.

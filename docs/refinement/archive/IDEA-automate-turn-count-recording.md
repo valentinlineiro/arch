@@ -16,6 +16,18 @@ Class: I
 Evaluates: Presence of metadata field.
 Does NOT evaluate: Accuracy of the count if derived from non-deterministic sources.
 
+## Structural admissibility (5-axis)
+
+| Axis | Status | Note |
+|------|--------|------|
+| Dependency ordering | Satisfied | Internal ArchiveTask use-case exists. |
+| Temporal validity | Satisfied | Mura detection currently blind due to lack of turn data. |
+| Abstraction layer | Satisfied | Correct layer for operational metadata. |
+| Observability validity | Satisfied | Turns are derivable from git history or session context. |
+| Priority displacement | Satisfied | P1 — required for cycle-time metrics. |
+
+**Structural admissibility:** satisfied.
+
 ## Decision
 PROMOTE → TASK-905
 
