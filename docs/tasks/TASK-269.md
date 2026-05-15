@@ -1,5 +1,5 @@
 ## TASK-269: Grandfather legacy tasks in arch review HanseiPresent check
-**Meta:** P2 | XS | READY | Focus:no | 2-code-generation | claude | cli/src/main/ts/domain/services/drift-checker.ts
+**Meta:** P2 | XS | READY | Focus:no | 2-code-generation | claude | cli/src/main/ts/application/use-cases/drift-checker.ts
 
 ### Context
 

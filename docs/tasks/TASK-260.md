@@ -1,4 +1,4 @@
-## TASK-260: Consolidate root agent docs — remove stale AGENTS.md
+## TASK-260: Consolidate root agent docs - remove stale AGENTS.md
 **Meta:** P2 | XS | READY | Focus:no | 6-writing | claude | AGENTS.md, GEMINI.md, docs/AGENTS.md
 
 ### Context
