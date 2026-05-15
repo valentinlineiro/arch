@@ -39,6 +39,7 @@ const CONFIG = JSON.stringify({
 
 class SpyFileSystem {
   files: Record<string, string> = { 'arch.config.json': CONFIG };
+  dirs: Record<string, string[]> = {};
   writeCalls: Array<{ path: string; content: string }> = [];
 
   addFile(path: string, content: string) { this.files[path] = content; }
@@ -51,8 +52,8 @@ class SpyFileSystem {
     this.writeCalls.push({ path: p, content });
     this.files[p] = content;
   }
-  async exists(p: string) { return p in this.files; }
-  async readDirectory(_p: string) { return []; }
+  async exists(p: string) { return p in this.files || p in this.dirs; }
+  async readDirectory(p: string) { return this.dirs[p] ?? []; }
   async rename() {}
   async deleteFile(_p: string) {}
   async appendFile(p: string, content: string) {
@@ -300,4 +301,65 @@ test('archiveDoneTasks appends ANDON_HALT to INBOX.md on Hansei violation', asyn
   const inboxContent = fs.files['docs/INBOX.md'];
   assert.ok(inboxContent.includes('ANDON_HALT | TASK-195'), 'INBOX must contain ANDON_HALT');
   assert.ok(inboxContent.includes('Evidence: missing ## Hansei section'), 'INBOX must contain violation evidence');
+});
+
+// ─── Metrics refresh on govern tick ──────────────────────────────────────────
+
+test('govern tick updates METRICS.md Trusted section', async () => {
+  const task = makeTask('TASK-042', 'P2');
+  const fs = new SpyFileSystem();
+  fs.addFile('docs/tasks/TASK-042.md', task.content);
+  // Seed METRICS.md with parseable Trusted rows
+  fs.addFile('docs/METRICS.md', [
+    '# ARCH Metrics',
+    '<!-- GENERATED:START -->',
+    '## Operational Metrics',
+    '',
+    '*Last updated: 2026-01-01T00:00:00.000Z*',
+    '',
+    '### Trusted Metrics',
+    '',
+    '| Metric | Value | Notes |',
+    '|--------|-------|-------|',
+    '| **Completed Tasks** | 10 | total archived |',
+    '| **REVIEW_FAIL Rate** | 0.0% | rejected / total review exits |',
+    '',
+    '### Cycle Time (P50/P90)',
+    '',
+    '| Size | P50 | P90 | Count |',
+    '|------|-----|-----|-------|',
+    '',
+    '### Experimental Metrics',
+    '',
+    '> Confidence placeholder',
+    '',
+    '<!-- GENERATED:END -->',
+  ].join('\n'));
+  // Seed archive dir with 3 .md files so completedTasks = 3
+  fs.dirs['docs/archive'] = ['T1.md', 'T2.md', 'T3.md'];
+
+  const repo = new SpyTaskRepository([task]);
+  const git = new SpyGitRepository();
+
+  const system = new GovernSystem(repo as any, git as any, fs as any);
+  await system.execute();
+
+  const metricsContent = fs.files['docs/METRICS.md'];
+  assert.ok(metricsContent.includes('| **Completed Tasks** | 3 | total archived |'), 'Completed Tasks must be updated to 3');
+  assert.ok(metricsContent.includes('### Experimental Metrics'), 'Experimental section must be preserved');
+});
+
+test('govern tick continues when metrics refresh fails', async () => {
+  const task = makeTask('TASK-042', 'P2');
+  const fs = new SpyFileSystem();
+  fs.addFile('docs/tasks/TASK-042.md', task.content);
+  // No METRICS.md — refresh will throw, but govern must not fail
+
+  const repo = new SpyTaskRepository([task]);
+  const git = new SpyGitRepository();
+
+  const system = new GovernSystem(repo as any, git as any, fs as any);
+  // Should not throw even though refresh will fail (METRICS.md missing)
+  const result = await system.execute();
+  assert.ok(result !== undefined, 'govern execute should return a result');
 });

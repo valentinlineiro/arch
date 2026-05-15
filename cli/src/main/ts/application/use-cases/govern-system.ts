@@ -64,6 +64,16 @@ export class GovernSystem {
 
     await this.checkReflectThresholds(config);
 
+    // Lightweight metrics refresh — non-fatal
+    try {
+      const { computeTrustedMetrics } = await import('./compute-trusted-metrics.js');
+      const { LightweightMetricsRefresh } = await import('./lightweight-metrics-refresh.js');
+      const metrics = await computeTrustedMetrics(this.fileSystem);
+      await new LightweightMetricsRefresh(this.fileSystem).execute(metrics);
+    } catch {
+      // Refresh failure must never block govern
+    }
+
     return { analysisNeeded: analysisReasons.length > 0, reasons: analysisReasons };
   }
 
