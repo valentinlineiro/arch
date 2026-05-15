@@ -146,11 +146,11 @@ export class MarkTaskDone {
 
     if (this.metricsRefresh) {
       try {
-        const { computeTrustedMetrics } = await import('./compute-trusted-metrics.js');
         const metrics = await computeTrustedMetrics(this.fileSystem);
         await this.metricsRefresh.execute(metrics);
-      } catch {
-        // Refresh failure is non-fatal — task closure is already committed
+      } catch (err) {
+        // non-fatal — metrics refresh failure does not affect task operations
+        if (process.env.ARCH_DEBUG) console.error('[TASK-257] metrics refresh failed:', err);
       }
     }
 

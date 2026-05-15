@@ -103,14 +103,10 @@ test('LightweightMetricsRefresh - does not write file when content is unchanged'
   fs.files['docs/METRICS.md'] = SAMPLE_METRICS;
 
   const refresh = new LightweightMetricsRefresh(fs);
-  // Use exact same values as in SAMPLE_METRICS
+  // Use exact same values as in SAMPLE_METRICS (completedTasks: 100, reviewFailRate: 0 → "0.0%")
   await refresh.execute({ completedTasks: 100, reviewFailRate: 0 });
 
-  // written should contain the update (0.0% matches 0%)
-  // We expect a write since 0% renders as "0.0%" which may match
-  // Let's verify the file content is consistent
-  const result = fs.written['docs/METRICS.md'] ?? fs.files['docs/METRICS.md'];
-  assert.ok(result.includes('### Experimental Metrics'), 'file remains valid');
+  assert.strictEqual(fs.written['docs/METRICS.md'], undefined, 'should not write if no change');
 });
 
 test('LightweightMetricsRefresh - throws on missing METRICS.md', async () => {

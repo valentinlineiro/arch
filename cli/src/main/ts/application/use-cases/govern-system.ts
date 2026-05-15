@@ -11,6 +11,8 @@ import {
   FocusRuling, LedgerState, FOCUS_LEDGER_PATH,
   parseLedger, committedRulings, serializeLedger,
 } from './focus-ledger.js';
+import { computeTrustedMetrics } from './compute-trusted-metrics.js';
+import { LightweightMetricsRefresh } from './lightweight-metrics-refresh.js';
 
 export interface GovernResult {
   analysisNeeded: boolean;
@@ -66,12 +68,11 @@ export class GovernSystem {
 
     // Lightweight metrics refresh — non-fatal
     try {
-      const { computeTrustedMetrics } = await import('./compute-trusted-metrics.js');
-      const { LightweightMetricsRefresh } = await import('./lightweight-metrics-refresh.js');
       const metrics = await computeTrustedMetrics(this.fileSystem);
       await new LightweightMetricsRefresh(this.fileSystem).execute(metrics);
-    } catch {
-      // Refresh failure must never block govern
+    } catch (err) {
+      // non-fatal — metrics refresh failure does not affect task operations
+      if (process.env.ARCH_DEBUG) console.error('[TASK-257] metrics refresh failed:', err);
     }
 
     return { analysisNeeded: analysisReasons.length > 0, reasons: analysisReasons };
