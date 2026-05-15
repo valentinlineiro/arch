@@ -1,52 +1,30 @@
 # ARCH INBOX
+<!-- ARCH Framework v0.6.0 | Human-only | Automated processes must never read this file. -->
 
-## System Status
+## Loop Status
+- **Date:** 2026-05-15
 - **Active Tasks:** 0
-- **READY Tasks:** 25
-- **Pending Promotion:** 33
-- **Pending Review:** 3
+- **READY Tasks:** 24
+- **Refinement Queue:** 33 pending ideas
 
-## Recent Activity
-1. **TASK-256:** Cut Phase 3 "Immediate Improvements" and add Kaizen evidence gate
-2. **TASK-255:** Split THINK into structural default loop and --deep mode
-3. **TASK-257:** Lightweight trusted-metrics refresh on task closure and govern ticks
-4. **TASK-892:** arch task create - Template-based Acceptance Criteria
-5. **TASK-891:** arch task create - Instant Task Scaffolding
+## Pending Items
+### AWAITING_REVIEW
+- [ ] TASK-247: Meta transition and focus-ledger automation
+- [ ] TASK-251: arch report - Metrics persistence and threshold checks
+- [ ] TASK-254: ADR-019/ADR-020 integration into THINK/GOVERN
 
-## Refinement Queue (33)
-- IDEA: architectural-tension-capture
-- IDEA: automate-turn-count-recording
-- IDEA: consolidate-root-agent-docs
-- IDEA: cross-layer-coverage-identity
-- IDEA: daas-hansei-wizard
-- IDEA: daas-vision
-- IDEA: dynamic-model-provisioning
-- IDEA: excision-legitimacy-check
-- IDEA: feature-branch-workflow
-- IDEA: fix-archive-meta-drift
-- IDEA: fix-commit-exception-contradiction
-- IDEA: fix-decomposition-duplication
-- IDEA: fix-governance-terminology-collision
-- IDEA: fix-phase-naming-drift
-- IDEA: focus-status-alignment
-- IDEA: grandfather-legacy-tasks
-- IDEA: loop-load-balancing
-- IDEA: openclaw-integration
-- IDEA: optimize-decomposition-for-local-llms
-- IDEA: parallel-tasks
-- IDEA: rag-context-retrieval
-- IDEA: roadmap-adaptive-planning
-- IDEA: roadmap-ai-proposed-policies
-- IDEA: roadmap-automatic-linking
-- IDEA: roadmap-deterministic-drift
-- IDEA: roadmap-domain-packs
-- IDEA: roadmap-memory-queries
-- IDEA: roadmap-multiagent-runtime
-- IDEA: roadmap-operational-load
-- IDEA: roadmap-structural-policies
-- IDEA: sentinel-log-infrastructure
-- IDEA: task-template-linter
-- IDEA: temporal-pattern-layer
+### AWAITING_PROMOTION
+- [ ] IDEA: Ontological Tension Detection
+- [ ] IDEA: automate-turn-count-recording
+- [ ] IDEA: consolidate-root-agent-docs
+- [ ] IDEA: cross-layer-coverage-identity
+- [ ] IDEA: `arch task done` — Socratic Hansei Wizard
+- [ ] IDEA: Discipline as a Service (DaaS) — Vision
+- [ ] IDEA: dynamic-model-provisioning
+- [ ] IDEA: excision-structural-consistency-check
+- [ ] IDEA: Feature branch workflow
+- [ ] IDEA: fix-archive-meta-drift
+- (and 23 more...)
 
 ## Recently Completed
 - TASK-892: arch task create - Template-based Acceptance Criteria (P1|S)
