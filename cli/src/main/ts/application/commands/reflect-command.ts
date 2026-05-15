@@ -4,6 +4,7 @@ import { aggregateHanseiSignals, WEAK_SIGNAL_THRESHOLD } from '../../domain/serv
 import { NodeFileSystem } from '../../infrastructure/filesystem/node-file-system.js';
 import { ReflectInfluenceReport, DEFAULT_THRESHOLDS } from '../use-cases/reflect-influence-report.js';
 import { ConfigLoader } from '../../domain/services/config-loader.js';
+import { writeDeepAnalysisState } from '../use-cases/deep-analysis-state.js';
 import { spawnSync } from 'node:child_process';
 import fs from 'node:fs';
 
@@ -11,10 +12,12 @@ export class ReflectCommand {
   constructor(private fileSystem: FileSystem, private rootPath: string, private taskRepository?: any) {}
 
   async execute(args: string[]): Promise<void> {
-    const sub = args[0];
+    const deepMode = args.includes('--deep');
+    const filteredArgs = args.filter(a => a !== '--deep');
+    const sub = filteredArgs[0];
 
     if (!sub || sub === 'run') {
-      await this.runAnalysis();
+      await this.runAnalysis(deepMode);
       return;
     }
 
@@ -36,10 +39,13 @@ export class ReflectCommand {
     }
 
     console.log([
-      'Usage: arch reflect [subcommand]',
+      'Usage: arch reflect [--deep] [subcommand]',
+      '',
+      'Flags:',
+      '  --deep      Run full analysis including Phase 2.5 and Phase 3 (cadence-gated)',
       '',
       'Subcommands:',
-      '  (none)      Run THINK analysis: regenerate INBOX, surface Kaizen, refine ideas, detect drift',
+      '  (none)      Run THINK analysis (DEFAULT mode: Phase 1 + Phase 2 execution only)',
       '  run         Same as no subcommand',
       '  hansei      LLM-assisted Hansei reconciliation: compare declared vs observed debt in REVIEW tasks',
       '  influence   Epistemic influence report — engagement, attribution, observability gaps',
@@ -232,23 +238,63 @@ ${taskSections}`;
 
     try {
       const config = JSON.parse(fs.readFileSync('arch.config.json', 'utf8'));
+      const thinkContent = fs.readFileSync(promptFile, 'utf8');
+      const prompt = modePreamble + thinkContent;
+
+      // Write to a temp file so CLI templates using $(cat file) work correctly
+      const tmpPath = `.arch/.think-prompt-${Date.now()}.md`;
+      fs.writeFileSync(tmpPath, prompt);
+
       const clis = config.clis || [];
+      try {
+        for (const cli of clis) {
+          const which = spawnSync('which', [cli.bin]);
+          if (which.status !== 0) continue;
 
-      for (const cli of clis) {
-        const which = spawnSync('which', [cli.bin]);
-        if (which.status !== 0) continue;
+          const cmd = cli.template.replace(/\{prompt\}/g, `$(cat ${tmpPath})`);
+          const result = spawnSync('sh', ['-c', cmd], { stdio: 'inherit' });
 
-        const cmd = cli.template.replace(/\{prompt\}/g, `$(cat ${promptFile})`);
-        const result = spawnSync('sh', ['-c', cmd], { stdio: 'inherit' });
-        process.exit(result.status ?? 0);
+          if (deepMode) {
+            await this.updateDeepState();
+          }
+
+          process.exit(result.status ?? 0);
+        }
+      } finally {
+        try { fs.unlinkSync(tmpPath); } catch {}
       }
 
       console.log('  Note: No AI CLI detected. Showing THINK protocol:');
-      console.log(fs.readFileSync(promptFile, 'utf8'));
+      console.log(prompt);
       process.exit(1);
     } catch (e: any) {
       console.error('Error in arch reflect:', e.message);
       process.exit(1);
+    }
+  }
+
+  private async updateDeepState(): Promise<void> {
+    try {
+      const tick = await this.getCurrentTick();
+      await writeDeepAnalysisState(this.fileSystem, {
+        lastDeepRunTick: tick,
+        lastDeepRunTimestamp: new Date().toISOString(),
+      });
+    } catch {
+      // non-fatal
+    }
+  }
+
+  private async getCurrentTick(): Promise<number> {
+    try {
+      const ledgerPath = `${this.rootPath && this.rootPath !== '.' ? this.rootPath + '/' : ''}.arch/focus-ledger.jsonl`;
+      const content = fs.readFileSync(ledgerPath, 'utf8');
+      const lines = content.trim().split('\n').filter(Boolean);
+      if (lines.length === 0) return 0;
+      const last = JSON.parse(lines[lines.length - 1]);
+      return last.tick ?? 0;
+    } catch {
+      return 0;
     }
   }
 }
