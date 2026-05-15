@@ -5,7 +5,7 @@
 
 ### Acceptance Criteria
 - [ ] ContextInference extended to retrieve Hansei failures from archive/ based on class match and context overlap → prose: verified by inspecting edit-task-metadata output for Hansei block
-- [ ] TaskCommand.execute('start') captures and prints the inferred Load-bearing Memory block → grep: "LOAD-BEARING" cli/src/main/ts/application/commands/task-command.ts
+- [ ] TaskCommand.execute('start') captures and prints the inferred Load-bearing Memory block → grep: "LoadBearingMemory" cli/src/main/ts/application/commands/task-command.ts
 - [ ] Stdout block includes enforced ADRs (ID, title, core constraint) → prose: verified by running arch task start on a task with matching ADRs
 - [ ] Stdout block includes past Hansei failures (Task ID, Category, Decision, Cost) → prose: verified by running arch task start on a task with archive matches
 - [ ] Output block is clearly delimited from standard command output → prose: verified visually — dashed separator lines present

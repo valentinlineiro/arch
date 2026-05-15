@@ -1,4 +1,5 @@
 import { EditTaskMetadata } from '../use-cases/edit-task-metadata.js';
+import { LoadBearingMemory } from '../use-cases/load-bearing-memory.js';
 import { MarkTaskInProgress } from '../use-cases/mark-task-in-progress.js';
 import { MarkTaskDone } from '../use-cases/mark-task-done.js';
 import { MarkTaskReview } from '../use-cases/mark-task-review.js';
@@ -72,6 +73,12 @@ export class TaskCommand {
           const inference = new ContextInference(this.fileSystem);
           await inference.execute(taskId, taskText, task.class ?? '');
         } catch { /* inference errors must never block task start */ }
+
+        try {
+          const memory = new LoadBearingMemory(this.taskRepository, this.fileSystem);
+          const block = await memory.execute(task);
+          if (block) console.log(block);
+        } catch { /* memory injection errors must never block task start */ }
       } catch (error: any) {
         fmt.fail(error.message);
         process.exit(1);
