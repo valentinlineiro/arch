@@ -4353,6 +4353,16 @@
           "taskPath": "docs/archive/TASK-247.md"
         }
       }
+    },
+    "ADR-020": {
+      "tasks": {
+        "TASK-247": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-247.md"
+        }
+      }
     }
   },
   "failures": {
