@@ -1,5 +1,5 @@
 # IDEA: focus-status-alignment
-**Meta:** Source: Phase-2.5 | Status: DRAFT | Size: XS | Sessions: 1
+**Meta:** Source: Phase-2.5 | Status: DRAFT | Size: XS | Sessions: 2
 
 ### Problem
 Discovered drift between task `Status` and `Focus` field during THINK Phase 1/2.5.
