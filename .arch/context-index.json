@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-15T07:43:34.514Z",
+  "builtAt": "2026-05-15T08:07:07.620Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -406,6 +406,7 @@
       ],
       "imports": [
         "cli/src/main/ts/application/use-cases/edit-task-metadata.ts",
+        "cli/src/main/ts/application/use-cases/load-bearing-memory.ts",
         "cli/src/main/ts/application/use-cases/mark-task-in-progress.ts",
         "cli/src/main/ts/application/use-cases/mark-task-done.ts",
         "cli/src/main/ts/application/use-cases/mark-task-review.ts",
@@ -816,6 +817,26 @@
         "govern",
         "system",
         "result"
+      ],
+      "criticality": "domain",
+      "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/application/use-cases/load-bearing-memory.ts": {
+      "symbols": [
+        "LoadBearingMemory"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/repositories/file-system.ts",
+        "cli/src/main/ts/domain/repositories/task-repository.ts",
+        "cli/src/main/ts/domain/models/task.ts",
+        "cli/src/main/ts/domain/models/context-index.ts"
+      ],
+      "tags": [
+        "application",
+        "cases",
+        "load",
+        "bearing",
+        "memory"
       ],
       "criticality": "domain",
       "runtimeUsage": "hot"
@@ -3779,6 +3800,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-200.md"
+        },
+        "TASK-890": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-890.md"
         }
       }
     },
@@ -3789,6 +3816,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-185.md"
+        },
+        "TASK-890": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-890.md"
         }
       }
     },
@@ -3815,6 +3848,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-201.md"
+        },
+        "TASK-890": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-890.md"
         }
       }
     },
@@ -4738,10 +4777,10 @@
   },
   "tasks": {
     "TASK-245": {
-      "commitCount": 3,
-      "lastCommitDate": "2026-05-15T09:43:34+02:00",
+      "commitCount": 4,
+      "lastCommitDate": "2026-05-15T10:07:07+02:00",
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 1,
+        ".arch/focus-ledger.jsonl": 2,
         "docs/tasks/TASK-207.md": 1,
         "docs/tasks/TASK-245.md": 2,
         "docs/refinement/IDEA-Hansei-Governance.md": 1,
@@ -4749,9 +4788,32 @@
         "docs/tasks/TASK-246.md": 1
       },
       "recentCommitRefs": [
+        "90f9d83",
         "439e0a0",
         "8efdb8e",
         "da71de9"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-890": {
+      "commitCount": 6,
+      "lastCommitDate": "2026-05-15T10:07:07+02:00",
+      "touchedFrequency": {
+        "docs/archive/TASK-890.md": 1,
+        "docs/INBOX.md": 1,
+        "docs/tasks/TASK-890.md": 5,
+        "cli/src/main/ts/application/commands/task-command.ts": 1,
+        "cli/src/main/ts/application/use-cases/load-bearing-memory.ts": 1,
+        ".arch/chronicle.jsonl": 1,
+        "docs/refinement/archive/IDEA-daas-memory-injection.md": 1
+      },
+      "recentCommitRefs": [
+        "0943436",
+        "96bc0ee",
+        "d8e4d4b",
+        "0476d5b",
+        "e8d72b0",
+        "c5d8003"
       ],
       "commitRefOverflow": false
     },
@@ -6716,13 +6778,13 @@
       "commitRefOverflow": false
     },
     "TASK-174": {
-      "commitCount": 7,
+      "commitCount": 6,
       "lastCommitDate": "2026-05-04T16:36:33+02:00",
       "touchedFrequency": {
         "docs/archive/TASK-174.md": 1,
         "docs/archive/TASK-187.md": 1,
         "docs/INBOX.md": 1,
-        "docs/tasks/TASK-174.md": 5,
+        "docs/tasks/TASK-174.md": 4,
         "cli/src/main/ts/application/commands/loop-command.ts": 1,
         "cli/src/main/ts/application/use-cases/loop-engine.ts": 1,
         "cli/src/main/ts/index.ts": 1
@@ -6733,8 +6795,7 @@
         "4c93ecf",
         "28ae2cb",
         "f87e8a3",
-        "d0222f7",
-        "0551120"
+        "d0222f7"
       ],
       "commitRefOverflow": false
     },
@@ -6838,31 +6899,6 @@
       },
       "recentCommitRefs": [
         "a2b5f82"
-      ],
-      "commitRefOverflow": false
-    },
-    "TASK-168": {
-      "commitCount": 7,
-      "lastCommitDate": "2026-05-04T15:37:15+02:00",
-      "touchedFrequency": {
-        "docs/archive/TASK-168.md": 1,
-        "cli/src/main/ts/application/commands/move-command.ts": 1,
-        "cli/src/main/ts/application/use-cases/move-artifact.ts": 1,
-        "cli/src/main/ts/index.ts": 1,
-        "docs/tasks/TASK-168.md": 2,
-        "scripts/arch.sh": 1,
-        "test-file-final.txt": 2,
-        "test-file-context.txt": 1,
-        "test-file.txt": 1
-      },
-      "recentCommitRefs": [
-        "9305a5e",
-        "fa2e6fe",
-        "b6e6514",
-        "2851a9d",
-        "afb3818",
-        "b335438",
-        "0724189"
       ],
       "commitRefOverflow": false
     }
