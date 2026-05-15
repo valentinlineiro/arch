@@ -148,11 +148,15 @@ These were previously treated as core milestones. They are now supporting infras
 
 **Objective:** Eliminate ceremonial work. The system should feel like an operational copilot, not a documentation burden.
 
-> **Phase status:** Infrastructure exists. Operational friction reduction not yet validated. A new user still needs to learn internal ontology to use the system effectively. Until that changes, Phase 1 is not complete.
+> **Phase status:** Infrastructure exists. Current focus: **Simplification without feature loss.** Diagnosed 2026-05-15: CLI unification (intent-based verbs), Refinement funnel tightening (TTL and higher entry bar), and Metrics narrowing (focus on trusted signals).
 
 | Feature | Status | Key Artifact |
 |---------|--------|--------------|
-| `arch capture` — intent capture with auto-generated task, ACs, complexity, context | `PARTIAL` | Pipeline implemented (ScaffoldTask + FinalizePromotion + ContextInference at scaffold time). ACs still require manual correction; context ranking not validated against real use. **Implemented, not yet Operational.** [TASK-219](archive/TASK-219.md), [IDEA-roadmap-arch-capture](refinement/IDEA-roadmap-arch-capture.md) |
+| CLI Unification (Intent-based verbs) | `NOT STARTED` | Collapse commands into `review`, `task`, `memory`, `govern`. |
+| Refinement Funnel Tightening | `NOT STARTED` | Strict TTL for IDEAs; only executable ideas get files; higher entry bar. |
+| Metrics Narrowing | `NOT STARTED` | Focus on Completed Tasks, Review Fail Rate, Cycle Time. Suppress untrusted 0% confidence signals. |
+| Tiered Obligations | `NOT STARTED` | Proportional protocol weight (Hansei/Audit/Review) based on task size (XS vs L). |
+| `arch capture` — intent capture with auto-generated task, ACs, complexity, context | `PARTIAL` | Pipeline implemented... |
 | Auto Context Engine — infer relevant files, commits, ADRs, guidelines per task | `PARTIAL` | Infrastructure complete (ContextIndex v5). Feedback loop fully closed 2026-05-11: `ExtractContextFeedback` parses `### Context Feedback` checkboxes on task completion; `FeedbackRepository` persists signals to `.arch/context-feedback.json`; `ContextInference` applies 0.1× boost to task-refs rated `off`. Both `arch task done` and `arch loop` paths capture feedback (TASK-226). Ranking superiority over human intuition not yet validated — feedback accumulation has just begun. **Implemented, not yet Compounding.** [TASK-217](archive/TASK-217.md), [TASK-218](archive/TASK-218.md), [TASK-220](archive/TASK-220.md), [TASK-226](tasks/TASK-226.md), [IDEA-roadmap-auto-context-engine](refinement/IDEA-roadmap-auto-context-engine.md) |
 | Automatic entity linking — tasks↔commits, ADRs↔tasks, guidelines↔failures | `PARTIAL` | Links exist when naming conventions and commit hygiene are followed. Connectivity does not emerge automatically — it depends on human discipline. Inconsistent naming silently breaks the graph. Broken linking corrupts `arch ask`. [TASK-217](archive/TASK-217.md), [TASK-218](archive/TASK-218.md), [TASK-220](archive/TASK-220.md), [IDEA-roadmap-automatic-linking](refinement/IDEA-roadmap-automatic-linking.md) |
 | Drift detection — structural validation | `DONE` | 20+ checks in DriftChecker: orphan tasks, dead refs, unapplied ADRs, stale depends graph, census, escalation maturity. Violations are detected reliably. [ADR-013](adr/ADR-013-two-tier-drift-detection.md), [TASK-215](archive/TASK-215.md) |

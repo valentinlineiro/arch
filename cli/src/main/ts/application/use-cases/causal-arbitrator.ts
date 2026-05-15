@@ -50,6 +50,13 @@ export class CausalArbitrator {
 
   async arbitrate(): Promise<ArbitrationResult> {
     const raw = await this.signalLog.pending();
+    const activeEdges = await this.graph.active();
+    
+    // BOOTSTRAP MODE: If the graph is sparse (< 100 edges), lower the corroboration 
+    // threshold to 1. In a small corpus, requiring cross-domain evidence is hostile 
+    // to learning. High-volume maturity (size >= 100) requires >= 2 domains.
+    const bootstrapMode = activeEdges.length < 100;
+    const requiredDomains = bootstrapMode ? 1 : 2;
 
     // ARBITRATION DETERMINISM INVARIANT: sort before any grouping or evaluation
     const signals = sortForDeterminism(raw);

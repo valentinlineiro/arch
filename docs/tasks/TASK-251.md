@@ -1,5 +1,5 @@
 ## TASK-251: Narrow official metrics output to trusted subset
-**Meta:** P2 | XS | REVIEW | Focus:yes | 2-code-generation | claude | docs/METRICS.md, cli/src/main/ts/application/use-cases/
+**Meta:** P2 | XS | REVIEW | Focus:no | 2-code-generation | claude | docs/METRICS.md, cli/src/main/ts/application/use-cases/
 
 ### Context
 

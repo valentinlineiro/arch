@@ -68,6 +68,10 @@ ARCH has a moat when: **if the repo were deleted, the system's accumulated infer
 
 Today that condition is not met. The repo contains history and protocol. No inference has been generated that does not exist in some other form elsewhere.
 
+**Current state (v0.6.0):** The system is a brain with synapses but no neurotransmitters. The structure is built, but the corpus of history is too sparse for the arbitration layer to confirm autonomous patterns. Compounding begins when consistent task closures produce corroborating signal pairs.
+
+**Strategic Mandate:** The causal graph must operate as an **invisible default**, not an optional capability. It is fed automatically at task completion and surfaces patterns without requiring operator intent. Frictionless accumulation is the prerequisite for compounding value.
+
 The condition will be met when:
 - `arch ask` produces causal patterns derived from the specific operational history of this repo
 - The Chronicle captures event causality, not just timestamps
