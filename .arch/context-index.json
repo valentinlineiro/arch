@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-15T08:07:07.620Z",
+  "builtAt": "2026-05-15T08:20:20.107Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -405,6 +405,7 @@
         "TaskCommand"
       ],
       "imports": [
+        "cli/src/main/ts/application/use-cases/create-task.ts",
         "cli/src/main/ts/application/use-cases/edit-task-metadata.ts",
         "cli/src/main/ts/application/use-cases/load-bearing-memory.ts",
         "cli/src/main/ts/application/use-cases/mark-task-in-progress.ts",
@@ -644,6 +645,28 @@
         "file",
         "guideline",
         "result"
+      ],
+      "criticality": "domain",
+      "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/application/use-cases/create-task.ts": {
+      "symbols": [
+        "CreateTask"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/repositories/task-repository.ts",
+        "cli/src/main/ts/domain/repositories/file-system.ts",
+        "cli/src/main/ts/domain/repositories/git-repository.ts",
+        "cli/src/main/ts/domain/services/task-validator.ts",
+        "cli/src/main/ts/domain/services/provider-registry.ts",
+        "cli/src/main/ts/domain/services/config-loader.ts",
+        "cli/src/main/ts/application/use-cases/context-inference.ts"
+      ],
+      "tags": [
+        "application",
+        "cases",
+        "create",
+        "task"
       ],
       "criticality": "domain",
       "runtimeUsage": "hot"
@@ -3689,6 +3712,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-157.md"
+        },
+        "TASK-891": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-891.md"
         }
       }
     },
@@ -3822,6 +3851,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-890.md"
+        },
+        "TASK-891": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-891.md"
         }
       }
     },
@@ -3854,6 +3889,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-890.md"
+        },
+        "TASK-891": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-891.md"
         }
       }
     },
@@ -4777,10 +4818,10 @@
   },
   "tasks": {
     "TASK-245": {
-      "commitCount": 4,
-      "lastCommitDate": "2026-05-15T10:07:07+02:00",
+      "commitCount": 5,
+      "lastCommitDate": "2026-05-15T10:20:19+02:00",
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 2,
+        ".arch/focus-ledger.jsonl": 3,
         "docs/tasks/TASK-207.md": 1,
         "docs/tasks/TASK-245.md": 2,
         "docs/refinement/IDEA-Hansei-Governance.md": 1,
@@ -4788,10 +4829,45 @@
         "docs/tasks/TASK-246.md": 1
       },
       "recentCommitRefs": [
+        "b47f887",
         "90f9d83",
         "439e0a0",
         "8efdb8e",
         "da71de9"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-891": {
+      "commitCount": 6,
+      "lastCommitDate": "2026-05-15T10:20:19+02:00",
+      "touchedFrequency": {
+        "docs/archive/TASK-891.md": 1,
+        "docs/INBOX.md": 1,
+        "docs/tasks/TASK-891.md": 4,
+        "cli/src/main/ts/application/commands/task-command.ts": 1,
+        "cli/src/main/ts/application/use-cases/create-task.ts": 1,
+        "docs/tasks/TASK-892.md": 1,
+        ".arch/chronicle.jsonl": 1,
+        "docs/refinement/archive/IDEA-daas-task-create.md": 1
+      },
+      "recentCommitRefs": [
+        "f9f7381",
+        "3299234",
+        "ca018a3",
+        "c7c39a5",
+        "7aa1225",
+        "9ad51d8"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-892": {
+      "commitCount": 1,
+      "lastCommitDate": "2026-05-15T10:12:31+02:00",
+      "touchedFrequency": {
+        "docs/tasks/TASK-892.md": 1
+      },
+      "recentCommitRefs": [
+        "8b24540"
       ],
       "commitRefOverflow": false
     },
@@ -6778,24 +6854,14 @@
       "commitRefOverflow": false
     },
     "TASK-174": {
-      "commitCount": 6,
+      "commitCount": 1,
       "lastCommitDate": "2026-05-04T16:36:33+02:00",
       "touchedFrequency": {
         "docs/archive/TASK-174.md": 1,
-        "docs/archive/TASK-187.md": 1,
-        "docs/INBOX.md": 1,
-        "docs/tasks/TASK-174.md": 4,
-        "cli/src/main/ts/application/commands/loop-command.ts": 1,
-        "cli/src/main/ts/application/use-cases/loop-engine.ts": 1,
-        "cli/src/main/ts/index.ts": 1
+        "docs/archive/TASK-187.md": 1
       },
       "recentCommitRefs": [
-        "cd223ba",
-        "8549132",
-        "4c93ecf",
-        "28ae2cb",
-        "f87e8a3",
-        "d0222f7"
+        "cd223ba"
       ],
       "commitRefOverflow": false
     },
@@ -6817,31 +6883,27 @@
       "commitRefOverflow": false
     },
     "TASK-175": {
-      "commitCount": 7,
+      "commitCount": 5,
       "lastCommitDate": "2026-05-04T16:23:52+02:00",
       "touchedFrequency": {
         "docs/archive/TASK-175.md": 1,
         "docs/archive/TASK-176.md": 1,
         "docs/archive/TASK-177.md": 1,
         "docs/INBOX.md": 1,
-        "docs/tasks/TASK-175.md": 3,
+        "docs/tasks/TASK-175.md": 2,
         "CHANGELOG.md": 1,
         "cli/src/main/ts/application/commands/exec-command.ts": 1,
         "cli/src/main/ts/index.ts": 1,
         "cli/src/test/ts/exec-command.test.ts": 1,
         "scripts/arch.sh": 1,
-        "docs/refinement/IDEA-consolidate-cli-commands.md": 1,
-        "docs/refinement/archive/IDEA-simplify-cli-ux.md": 1,
-        "docs/refinement/IDEA-migrate-arch-sh-routing-to-typescript.md": 1
+        "docs/refinement/IDEA-consolidate-cli-commands.md": 1
       },
       "recentCommitRefs": [
         "6befd3c",
         "459c666",
         "1a79bc6",
         "1a10c64",
-        "2e3b376",
-        "2efbb98",
-        "4bd5dd9"
+        "2e3b376"
       ],
       "commitRefOverflow": false
     },
