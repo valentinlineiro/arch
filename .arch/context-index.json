@@ -489,6 +489,7 @@
         "cli/src/main/ts/infrastructure/filesystem/node-feedback-repository.ts",
         "cli/src/main/ts/application/use-cases/causal-signal-log.ts",
         "cli/src/main/ts/domain/services/event-logger.ts",
+        "cli/src/main/ts/application/use-cases/lightweight-metrics-refresh.ts",
         "cli/src/main/ts/infrastructure/cli/output-formatter.ts"
       ],
       "tags": [
@@ -701,6 +702,23 @@
       ],
       "criticality": "domain",
       "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/application/use-cases/compute-trusted-metrics.ts": {
+      "symbols": [
+        "TrustedMetrics"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/repositories/file-system.ts"
+      ],
+      "tags": [
+        "application",
+        "cases",
+        "compute",
+        "trusted",
+        "metrics"
+      ],
+      "criticality": "domain",
+      "runtimeUsage": "warm"
     },
     "cli/src/main/ts/application/use-cases/context-inference.ts": {
       "symbols": [
