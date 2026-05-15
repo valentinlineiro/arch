@@ -10,6 +10,30 @@ import { ContextInference } from './context-inference.js';
 const DEFAULT_SIZE = 'S';
 const DEFAULT_CLASS = '2-code-generation';
 const DEFAULT_PRIORITY = 'P3';
+
+const TEMPLATE_REGISTRY: Record<string, string[]> = {
+  '2-code-generation': [
+    'Implement logic',
+    'Add unit tests',
+    'arch review passes',
+    'npm test passes'
+  ],
+  '6-writing': [
+    'Draft content',
+    'Verify accuracy',
+    'arch review passes'
+  ],
+  '7-operations': [
+    'Execute operation',
+    'Verify outcome',
+    'arch review passes'
+  ],
+  'default': [
+    'Implement intent',
+    'arch review passes'
+  ]
+};
+
 const DRAFT_PROMPT_PREFIX = `You are helping scaffold an ARCH task file. Given the intent below, output ONLY the following fields — no other text:
 
 Title: <concise task title, max 60 chars, ASCII only>
@@ -36,17 +60,17 @@ export class CreateTask {
     private gitRepository: GitRepository
   ) {}
 
-  async execute(intent: string): Promise<string> {
+  async execute(intent: string, taskClassOverride?: string): Promise<string> {
     const nextId = await this.taskRepository.getNextId();
     const draft = await this.tryLlmDraft(intent);
-    const content = this.scaffold(nextId, intent, draft);
+    const content = this.scaffold(nextId, intent, draft, taskClassOverride);
 
     const taskPath = `docs/tasks/${nextId}.md`;
     await this.fileSystem.writeFile(taskPath, content);
 
     try {
       const inference = new ContextInference(this.fileSystem);
-      await inference.execute(nextId, intent, draft?.taskClass ?? DEFAULT_CLASS);
+      await inference.execute(nextId, intent, taskClassOverride ?? draft?.taskClass ?? DEFAULT_CLASS);
     } catch { /* inference errors must not block create */ }
 
     await this.gitRepository.add(taskPath);
@@ -55,10 +79,10 @@ export class CreateTask {
     return nextId;
   }
 
-  private scaffold(nextId: string, intent: string, draft: LlmDraft | null): string {
+  private scaffold(nextId: string, intent: string, draft: LlmDraft | null, taskClassOverride?: string): string {
     const title = draft?.title ?? intent.slice(0, 60).replace(/[^\x20-\x7E]/g, '');
     const size = draft?.size ?? DEFAULT_SIZE;
-    const cls = draft?.taskClass ?? DEFAULT_CLASS;
+    const cls = taskClassOverride ?? draft?.taskClass ?? DEFAULT_CLASS;
     const metaLine = `**Meta:** ${DEFAULT_PRIORITY} | ${size} | READY | Focus:no | ${cls} | local | docs/tasks/`;
 
     const errors = TaskValidator.validateMeta(metaLine);
@@ -66,9 +90,13 @@ export class CreateTask {
       ? metaLine
       : `**Meta:** ${DEFAULT_PRIORITY} | ${DEFAULT_SIZE} | READY | Focus:no | ${DEFAULT_CLASS} | local | docs/tasks/`;
 
-    const acs = draft?.acs?.length
-      ? draft.acs.map(ac => `- [ ] ${ac} → prose: verified`).join('\n')
-      : `- [ ] ${title} → prose: verified`;
+    const templateAcs = TEMPLATE_REGISTRY[cls] ?? TEMPLATE_REGISTRY['default'];
+    const llmAcs = draft?.acs ?? [];
+    const combinedAcs = [...new Set([...templateAcs, ...llmAcs])];
+
+    const acs = combinedAcs
+      .map(ac => `- [ ] ${ac} → prose: verified`)
+      .join('\n');
 
     return [
       `## ${nextId}: ${title}`,

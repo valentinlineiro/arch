@@ -85,15 +85,23 @@ export class TaskCommand {
         process.exit(1);
       }
     } else if (subCommand === 'create') {
-      const intent = args.slice(1).join(' ').replace(/^["']|["']$/g, '');
+      const classIdx = args.indexOf('--class');
+      let taskClass: string | undefined;
+      const filteredArgs = [...args];
+      if (classIdx !== -1) {
+        taskClass = filteredArgs[classIdx + 1];
+        filteredArgs.splice(classIdx, 2);
+      }
+
+      const intent = filteredArgs.slice(1).join(' ').replace(/^["']|["']$/g, '');
       if (!intent) {
-        fmt.fail('Usage: arch task create "<intent>"');
+        fmt.fail('Usage: arch task create "<intent>" [--class <class>]');
         process.exit(1);
       }
       try {
         fmt.arrow('scaffolding task from intent...');
         const creator = new CreateTask(this.taskRepository, this.fileSystem, this.gitRepository);
-        const newId = await creator.execute(intent);
+        const newId = await creator.execute(intent, taskClass);
         fmt.check(`created ${newId}`);
       } catch (error: any) {
         fmt.fail(error.message);
