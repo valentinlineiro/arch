@@ -1,7 +1,10 @@
 # THINK.md
 <!-- ARCH v0.6.0 — Modular Thinking & Continuous Kaizen -->
+<!-- MODE INSTRUCTION: check the first line of this prompt for <!-- MODE: DEFAULT --> or <!-- MODE: DEEP -->. -->
+<!-- DEFAULT MODE: execute Phase 1 and Phase 2 execution steps only (steps marked [DEFAULT]). -->
+<!-- DEEP MODE: execute all phases. -->
 
-## Phase 1: Context & Replenishment (Conductor)
+## Phase 1 [DEFAULT]: Context & Replenishment (Conductor)
 0. **Print:** `[THINK] Phase 1 — Context & Replenishment` to stdout.
 1. **Note:** `arch reflect` (or `arch govern` as an analysis side-effect) triggered this session. `arch govern` is enforcement-only; this THINK session is the analysis layer.
 2. **Health Evaluation:** Identify P0 tasks that are blocked or not focused. If a task is `IN_PROGRESS` with a lock > 3 days, create a P1 `READY` bug task in `docs/tasks/`.
@@ -10,7 +13,7 @@
    **Escalation write:** For each IDEA surfaced requiring human decision (promote or reject), append one record to `.arch/escalations.jsonl` with `type: "AWAITING_PROMOTION"`, `subject: "<idea-slug>"`, `status: "OPEN"`. Use schema: `{ escalation_id, timestamp, type, subject, reason, status, resolved_at, resolved_by }`. Do not read `.arch/escalations.jsonl` to check for prior entries — always append.
 5. **Evidence Required:** Every recommendation must cite a concrete signal (e.g., 'TASK-003 has stale lock').
 
-## Phase 2: Idea Refinement (Refine)
+## Phase 2 [DEFAULT/DEEP split]: Idea Refinement (Refine)
 0. **Print:** `[THINK] Phase 2 — Idea Refinement` to stdout.
 
 **Hansei Pattern Synthesis (runs before Idea Refinement):**
@@ -35,6 +38,8 @@ THINK never modifies `docs/guidelines/` directly. All output is proposals. Human
 
    New axes may be discovered during adjudication. When a rejection rationale genuinely doesn't fit any existing axis, name it explicitly in the rejection — the taxonomy is empirically derived, not closed.
 
+> **[DEEP only]** The following sub-step (DRAFT evaluation, up to 3 per session) runs only in DEEP mode. In DEFAULT mode, skip directly to the Phase boundary.
+
 3. For each IDEA, apply lifecycle rules:
    - **DRAFT:** Identify gaps, map active constraint axes, and estimate. Output to terminal only. Increment `**Sessions:** N` counter in the IDEA file (add field if missing).
      - If `Sessions >= 2` and Decision field is empty or missing: add `**Decision-required:** yes` marker to the IDEA file. Emit `[DECISION-REQUIRED] IDEA-slug — N sessions, human decision needed` to stdout.
@@ -57,7 +62,7 @@ THINK never modifies `docs/guidelines/` directly. All output is proposals. Human
    - **REJECTED:** Move to `docs/refinement/archive/`.
 3. **Phase boundary:** This phase does NOT create tasks directly. All IDEA promotion requires a human Decision field.
 
-## Phase 2.5: Semantic Drift Analysis (Observer)
+## Phase 2.5 [DEEP]: Semantic Drift Analysis (Observer)
 0. **Print:** `[THINK] Phase 2.5 — Semantic Drift Analysis` to stdout.
 1. **Skip condition:** If running under time pressure or minimal-mode flag, skip this phase and print `[THINK] Phase 2.5 — skipped`.
 2. **Inputs to read:** `docs/guidelines/*.md` (full content), `docs/adr/*.md` (Context + Decision sections of ACCEPTED ADRs), `docs/tasks/` (Meta lines + ACs only), `docs/archive/` (Meta lines only), `docs/refinement/IDEA-*.md` (DRAFT and PROMOTED entries), `docs/tensions/weak-signals.md` (full content).
@@ -79,7 +84,7 @@ THINK never modifies `docs/guidelines/` directly. All output is proposals. Human
 9. **Max output:** At most 3 new IDEAs per THINK run from steps 4–7. Weak signal decay emissions (step 3) are not subject to this cap — all due signals must be surfaced in the same session.
 10. **Phase boundary:** This phase is a semantic observer, not an enforcement layer. Its output feeds Phase 2 (refinement queue) and Phase 3 (Kaizen). It never feeds `arch review` or `DriftChecker`.
 
-## Phase 3: Continuous Kaizen (Real-time Reviewer)
+## Phase 3 [DEEP]: Continuous Kaizen (Real-time Reviewer)
 0. **Print:** `[THINK] Phase 3 — Continuous Kaizen` to stdout.
 1. **Kaizen Learning:** Run `arch review --json`. If failures exist (and aren't in `docs/KAIZEN-LOG.md` exceptions), analyze violations/drift against `docs/PRINCIPLES.md` (primary context) and `docs/KAIZEN-LOG.md` (audit trail). If a violation matches an existing principle, reference it. If it represents a new pattern, propose a new principle entry and a hardening task (`fix:` or `feat:`) to prevent recurrence.
 2. **Mura Detection:** Read `Turns: N` from the last 10 archived tasks. For each size tier (XS/S/M/L), compute the average. If actual avg exceeds the expected range in `docs/METRICS.md` by >50%, emit `[MURA] <size>-tier avg=N turns (threshold=T)` to stdout and propose a re-estimation or decomposition task.
