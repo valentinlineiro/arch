@@ -1,21 +1,23 @@
 # INBOX
 
 ## Loop Status
-- **Active Tasks:** 1 (TASK-247)
+- **Active Tasks:** 0
 - **Ready Tasks:** 20
-- **Pending Promotion:** 26
-- **Pending Review:** 0
+- **Pending Promotion:** 29
+- **Pending Review:** 1 (TASK-247)
 
-## Refinement Queue (26)
-- IDEA: Constitutional Hansei - From Narrative to Governance (IDEA-Hansei-Governance.md)
+## Refinement Queue (29)
 - IDEA: Ontological Tension Detection — a new artifact class and detection capability (IDEA-architectural-tension-capture.md)
 - IDEA: automate-turn-count-recording (IDEA-automate-turn-count-recording.md)
 - idea: Agent context control (IDEA-context-control.md)
 - IDEA: cross-layer-coverage-identity (IDEA-cross-layer-coverage-identity.md)
+- IDEA: `arch task done` — Socratic Hansei Wizard (IDEA-daas-hansei-wizard.md)
+- IDEA: Discipline as a Service (DaaS) — Vision (IDEA-daas-vision.md)
 - IDEA: dynamic-model-provisioning (IDEA-dynamic-model-provisioning.md)
 - IDEA: excision-structural-consistency-check (IDEA-excision-legitimacy-check.md)
 - IDEA: Feature branch workflow — fully automatic branch-per-task execution (IDEA-feature-branch-workflow.md)
 - IDEA: fix-phase-naming-drift (IDEA-fix-phase-naming-drift.md)
+- IDEA: focus-status-alignment (IDEA-focus-status-alignment.md)
 - IDEA: Grandfather legacy tasks in arch review (IDEA-grandfather-legacy-tasks.md)
 - IDEA: inbox-approval-gate-reads (IDEA-inbox-approval-gate-reads.md)
 - IDEA: Loop mode load balancing (IDEA-loop-load-balancing.md)
@@ -26,6 +28,7 @@
 - IDEA: Adaptive planning — task states that model energy, context, and cognitive cost (IDEA-roadmap-adaptive-planning.md)
 - IDEA: AI-proposed policies — ARCH detects patterns and proposes guidelines for human approval (IDEA-roadmap-ai-proposed-policies.md)
 - IDEA: Automatic entity linking — tasks, commits, ADRs, and guidelines auto-connect (IDEA-roadmap-automatic-linking.md)
+- IDEA: Roadmap — Deterministic Drift & Contextual Checks (IDEA-roadmap-deterministic-drift.md)
 - IDEA: Domain packs — protocol extensions for software, startup, household, and personal use (IDEA-roadmap-domain-packs.md)
 - IDEA: arch ask — memory queries over the full ARCH operational corpus (IDEA-roadmap-memory-queries.md)
 - IDEA: Multiagent runtime — Planner, Historian, Reviewer, Conductor, Optimizer agents (IDEA-roadmap-multiagent-runtime.md)
@@ -35,9 +38,11 @@
 - IDEA: task-template-linter (IDEA-task-template-linter.md)
 
 ## Recently Completed
-- TASK-244: Hansei Validator Enforcement (ADR-019)
-- TASK-201: Implement arch report - auto-populate METRICS.md from archived task data
-- TASK-243: Consolidate test mocks into shared module to prevent interface drift
+- TASK-892: arch task create - Template-based Acceptance Criteria
+- TASK-891: arch task create - Instant Task Scaffolding
+- TASK-890: arch task start - Contextual Memory Injection
+- TASK-889: arch task edit - Interactive Metadata Management
+- TASK-248: Fix arch review drift warnings - dead context paths and missing Hansei sections
 
 ---
 
@@ -57,19 +62,3 @@ TASK-247 Focus Sovereignty Model is ready for audit.
 
 **Known divergence (see Hansei):**
 ADR-020 ruling names differ from AGFM ruling names. AGFM is authoritative for implementation.
-
----
-
-## [2026-05-15 00:00] REVIEW_REQUEST | TASK-892
-TASK-892 Template-based Acceptance Criteria is ready for audit.
-
-**What was built:**
-- `TEMPLATE_REGISTRY` constant in `create-task.ts` mapping 3 task classes + default to standard AC arrays
-- `scaffold()` method combines template ACs first, then LLM ACs (deduped via Set) — templates always present
-- LLM prompt updated to supplement template ACs rather than generate all ACs from scratch
-
-**Verified:**
-- `grep: "TEMPLATE_REGISTRY" cli/src/main/ts/application/use-cases/create-task.ts` passes
-- `arch review` passes (all drift checks green)
-- `npm test --prefix cli` passes (369 tests, 0 failures)
-
