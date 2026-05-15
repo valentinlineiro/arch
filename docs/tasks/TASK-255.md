@@ -1,5 +1,5 @@
 ## TASK-255: Split THINK into structural default loop and --deep mode
-**Meta:** P1 | M | IN_PROGRESS | Focus:yes | 6-writing | claude | docs/agents/THINK.md, arch.config.json, cli/src/main/ts/application/commands/reflect-command.ts, cli/src/main/ts/application/use-cases/govern-system.ts
+**Meta:** P1 | M | REVIEW | Focus:no | 6-writing | claude | docs/agents/THINK.md, arch.config.json, cli/src/main/ts/application/commands/reflect-command.ts, cli/src/main/ts/application/use-cases/govern-system.ts
 **Depends:** TASK-254
 
 ### Context
@@ -59,3 +59,6 @@ Combining THINK split and Kaizen evidence gate changes in one task would make th
 
 **Cost:**
 TASK-255 and TASK-256 must be sequenced — TASK-256 should not start until TASK-255 is at REVIEW or DONE, to avoid conflicting edits to THINK.md.
+
+**Forward Action:**
+Start TASK-256 only after this task is audited at DONE; monitor for Phase 3 Kaizen evidence gate compliance in subsequent THINK sessions.
