@@ -1,5 +1,5 @@
 # IDEA: fix-archive-meta-drift
-**Meta:** Source: Phase-3 | Status: DRAFT | Size: S | Sessions: 0
+**Meta:** Source: Phase-3 | Status: DRAFT | Size: S | Sessions: 1
 
 ### Problem
 `arch report` failed with CRITICAL INTEGRITY BREACH because of malformed meta lines in `docs/archive/`.
