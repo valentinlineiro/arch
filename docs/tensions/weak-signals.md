@@ -46,31 +46,43 @@
 ---
 
 ## 2026-05-12 — governance naming surface [unclassified]
-**Adjudicate by:** after 3 THINK reviews
+**Adjudicate by:** after 6 THINK reviews (extended once — 2026-05-15)
 
 `arch govern`, `arch conduct`, and THINK all touch the governance domain but represent different layers (enforcement, trigger, analysis). The current command surface does not make these distinctions visible. A contributor navigating the CLI sees three things that feel related without knowing which ones are deterministic. Whether this is cosmetic or structural depends on a question I cannot answer from current data: is the IDENTITY.md §7 invariant sufficient to block misuse at the command surface, or does proximity in the CLI cause contributors to wire enforcement dependencies before reading the invariant? Classification is genuinely unresolved. Forcing it now would be false precision. The govern/THINK split is frozen in TENSION-001; this signal asks whether the rest of the command surface carries the same risk at a lower intensity. Revisit when there is evidence of actual contributor navigation paths.
 
 [→ TENSION-001 (partially addresses — enforcement/analysis split frozen, but full command surface disambiguation is not yet done)]
 
+**Adjudication 2026-05-15:** REFLECT suggested: EXTEND. Human decided: EXTEND. Diverged: no.
+Extension reason: no concrete contributor navigation incident has been documented; the question cannot be answered from current data alone.
+
 ## 2026-05-12 — additive legitimacy bias in DriftChecker [structural-governance]
-**Adjudicate by:** after 3 THINK reviews
+**Adjudicate by:** after 3 THINK reviews — PROMOTED 2026-05-15 [→ TENSION-002 (pending)]
 
 EscalationMaturity treats any modification to a "protected path" (domain models, repositories) as suspicious and demands an ADR. This made sense when the primary risk was unreviewed additions. But it encodes a hidden asymmetry: addition is presumed neutral, deletion is presumed suspicious, and the checker has no vocabulary for *ontological excision* — intentional removal of an artifact that has outlived its design rationale. The symptom appeared when removing INTENT: the checker flagged the deletion as a governance violation even though the explicit decision record (REJECT in the IDEA file, cleaned references, no orphan dependencies) was structurally complete. The bias matters because ARCH depends on the ability to kill dead ontology. If the audit layer structurally discourages subtraction, it will produce a selection pressure toward accumulation — and accumulation eventually looks like health until it doesn't. What would need to be true to PROMOTE: a second instance where legitimate excision triggers a false governance signal, or evidence that contributors hold back intentional removals to avoid audit friction. The fix, if promoted, is not "ignore deletions" — it is a legitimacy check with different semantics: was there an explicit REJECT/supersession? were references cleaned? do orphan operational dependencies remain? That is a richer question than "was a protected path touched?"
 
+**Adjudication 2026-05-15:** REFLECT suggested: PROMOTE (id: THINK-cd04e55a). Human decided: PROMOTE. Diverged: no. IDEA-excision-legitimacy-check exists and is structurally admissible. Human write validated TENSION-002 record.
+
 ## 2026-05-12 — constraint axis drift without retroactive re-projection [epistemic-governance]
-**Adjudicate by:** after 3 THINK reviews
+**Adjudicate by:** after 6 THINK reviews (extended once — 2026-05-15)
 
 The constraint evaluation framework for IDEA adjudication evolved mid-session from an informal 3-cluster taxonomy (prerequisite chain / wrong layer / premature generalization) to a 5-axis orthogonal space (dependency ordering / temporal validity / abstraction layer / observability validity / priority displacement). The 18 decisions made during this session are documented under inconsistent vocabulary: 13 under the 3-cluster framing, 5 under the 5-axis framing. The archive does not flag this discontinuity — old entries look structurally complete but are incomparable with new entries under a shared rubric. The hidden risk is not that past decisions were wrong, but that future THINK sessions will treat the archive as a uniform corpus and derive patterns from incomparable records. A related design implication: when a new axis is introduced, the system currently has no mechanism to re-project prior decisions under the new constraint space. "Structurally admissible" in session N means something different than "structurally admissible" in session N+3 if two new axes have been added in between. What would need to be true to PROMOTE: evidence that a future THINK session draws a pattern inference from the archive that is invalidated by the vocabulary discontinuity, or a second axis introduction that makes the re-projection cost concrete enough to design against.
 
+**Adjudication 2026-05-15:** REFLECT suggested: EXTEND. Human decided: EXTEND. Diverged: no.
+Extension reason: no concrete misdirection case from archive incomparability has emerged yet.
+
 ## 2026-05-12 — capability-triggered state transition missing from IDEA lifecycle [structural-lifecycle]
-**Adjudicate by:** after 3 THINK reviews
+**Adjudicate by:** after 3 THINK reviews — PROMOTED 2026-05-15 [→ TENSION-003 (pending)]
 
 ARCH currently has three state machines that are not synchronized: IDEA lifecycle state (DRAFT / PROMOTED / REJECTED), dependency evaluation (static text parsing by THINK), and system capability state (implicit — not modeled anywhere). When a system capability changes — e.g., `arch ask` v1 becomes operational — there is no mechanism by which capability-gated IDEAs re-enter evaluation. The dependency is recorded as prose ("blocked until arch ask v1"). THINK reads it as a fixed string and correctly defers again. TTL eventually fires and archives the IDEA as stale. Both outcomes are wrong: the IDEA was valid, it was structurally complete, but it was capability-bound. The current lifecycle has no third state between READY and STALE that means "semantically valid, evaluation is impossible until a runtime capability exists." The practical consequence is silent false negatives: valid deferred work that was correctly logged gets silently misclassified and lost — not through bad decisions, but through state machine disjointness. This is worse than duplication (which is visible) because the loss is invisible. No implementation expected from this signal. No dependency on arch ask v1 work to resolve the signal itself. The purpose of this entry is to prevent re-derivation and to prevent THINK from misclassifying capability-gated IDEAs as stale artifacts. What would need to be true to PROMOTE: a concrete case where a previously-valid capability-gated IDEA is archived by TTL, or a second artifact requiring the same latent-valid state.
 
+**Adjudication 2026-05-15:** REFLECT suggested: PROMOTE (id: THINK-662afdc8). Human decided: PROMOTE. Diverged: no. IDEA-context-control TTL-archiving this session is a concrete instance of the failure mode. Human to write TENSION-003 record.
+
 ## 2026-05-12 — Chronicle write/synthesize symmetry [epistemic]
-**Adjudicate by:** after 2 THINK reviews
+**Adjudicate by:** after 2 THINK reviews — PROMOTED 2026-05-15 [→ TENSION-004 (pending)]
 
 `arch causal add` and `arch causal synthesize` both write to the graph layer, but they represent fundamentally different epistemic operations: `add` asserts a human-authored belief, `synthesize` derives a belief from existing edges using a rule. If a contributor treats them as equivalent writes to a causal database, the signal → arbitration → truth pipeline collapses — direct mutation bypasses arbitration and contaminates committed truth with unverified inference. The command names look symmetric; the operations are not. Impact class is probably epistemic: the error corrupts what the system believes, not just what it executes. Promote to validated TENSION when there is a concrete scenario where a normal contributor makes this mistake in real use.
+
+**Adjudication 2026-05-15:** REFLECT suggested: PROMOTE — FINAL (id: THINK-4d4c215d). Human decided: PROMOTE. Diverged: no. The risk is asymmetric and the command naming issue is concrete and actionable. Human to write TENSION-004 record.
 
 ---
 

@@ -27,8 +27,8 @@ TASK: READY → IN_PROGRESS → REVIEW → DONE → archived (docs/archive/)
 
 | Status | Location | Agent action |
 |--------|----------|--------------|
-| `READY` | `docs/tasks/` | Available for selection. `Focus:no`. |
-| `IN_PROGRESS` | `docs/tasks/` | Set `Focus:yes`, commit **before** any implementation. |
+| `READY` | `docs/tasks/` | Available for selection. Default `Focus:no`; `arch govern` may assign `Focus:yes` to the highest-priority READY task (see ADR-020). |
+| `IN_PROGRESS` | `docs/tasks/` | `Focus:yes` (assigned by govern or set before implementation commit). |
 | `REVIEW` | `docs/tasks/` | Run predicates, write Hansei, append `REVIEW_REQUEST` to `docs/INBOX.md`, commit, stop. |
 | `DONE` | `docs/tasks/` → `docs/archive/` | Auditor sets DONE + `Closed-at`. `arch govern` moves the file. |
 | `BLOCKED` | `docs/tasks/` | Halted on missing dependency. |
