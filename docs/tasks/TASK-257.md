@@ -1,5 +1,5 @@
 ## TASK-257: Lightweight trusted-metrics refresh on task closure and govern ticks
-**Meta:** P1 | M | IN_PROGRESS | Focus:no | 2-code-generation | claude | cli/src/main/ts/application/use-cases/mark-task-done.ts, cli/src/main/ts/application/use-cases/govern-system.ts, cli/src/main/ts/application/commands/report-command.ts, docs/METRICS.md
+**Meta:** P1 | M | REVIEW | Focus:no | 2-code-generation | claude | cli/src/main/ts/application/use-cases/mark-task-done.ts, cli/src/main/ts/application/use-cases/govern-system.ts, cli/src/main/ts/application/commands/report-command.ts, docs/METRICS.md
 
 ### Context
 
@@ -37,11 +37,10 @@ The lightweight refresh should be fast enough to not add meaningful latency to t
 **Severity:** H0
 **Category:** [SpecDrift]
 
-**Decision:**
-Lightweight refresh is scoped to the three Trusted metrics only. Experimental metrics computation remains exclusively in `arch report` to avoid adding arbitration and calibration cost to the normal execution path.
+**Decision:** Implementation scope matches spec exactly — Completed Tasks (archive count) and REVIEW_FAIL Rate only. Cycle Time excluded per the task's Decisions section. Both mark-task-done and govern-system trigger refresh non-fatally. Dynamic import used to avoid circular dependency at module load time.
 
-**Constraint:**
-Partial update of METRICS.md (only the Trusted section) requires a new update path in the report infrastructure. The existing full-replace mechanism cannot be reused without modification.
+**Constraint:** LightweightMetricsRefresh uses regex replacement on raw METRICS.md content. If the Trusted Metrics table format changes (e.g. column order, row wording), the regex will fail silently and return unchanged content. The table format is stable and matches report-command.ts output.
 
-**Cost:**
-Two update paths for METRICS.md (lightweight + full) must remain consistent. If `arch report` and the lightweight refresh produce different Trusted section formats, METRICS.md will drift. The format must be shared or the lightweight refresh must delegate format rendering to `report-command.ts`.
+**Cost:** Two update paths for METRICS.md (lightweight + full arch report) must maintain consistent row formatting. Divergence would cause the lightweight refresh to silently no-op. Current format is shared by inspection — not enforced by a shared constant.
+
+**Forward Action:** If METRICS.md row format ever changes, update the regex in lightweight-metrics-refresh.ts in the same commit. No separate tracking required while the format remains stable.
