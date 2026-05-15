@@ -369,7 +369,8 @@
         "cli/src/main/ts/infrastructure/filesystem/node-file-system.ts",
         "cli/src/main/ts/application/use-cases/reflect-influence-report.ts",
         "cli/src/main/ts/domain/services/config-loader.ts",
-        "cli/src/main/ts/application/use-cases/deep-analysis-state.ts"
+        "cli/src/main/ts/application/use-cases/deep-analysis-state.ts",
+        "cli/src/main/ts/application/use-cases/focus-ledger.ts"
       ],
       "tags": [
         "application",
@@ -891,7 +892,7 @@
         "serialize"
       ],
       "criticality": "domain",
-      "runtimeUsage": "warm"
+      "runtimeUsage": "hot"
     },
     "cli/src/main/ts/application/use-cases/generate-inbox.ts": {
       "symbols": [
