@@ -1,5 +1,6 @@
 ## TASK-255: Split THINK into structural default loop and --deep mode
-**Meta:** P1 | M | REVIEW | Focus:no | 6-writing | claude | docs/agents/THINK.md, arch.config.json, cli/src/main/ts/application/commands/reflect-command.ts, cli/src/main/ts/application/use-cases/govern-system.ts
+**Meta:** P1 | M | DONE | Focus:no | 6-writing | claude | docs/agents/THINK.md, arch.config.json, cli/src/main/ts/application/commands/reflect-command.ts, cli/src/main/ts/application/use-cases/govern-system.ts
+**Closed-at:** 2026-05-15T00:00:00Z
 **Depends:** TASK-254
 
 ### Context
