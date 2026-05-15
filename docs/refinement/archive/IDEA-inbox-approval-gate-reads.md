@@ -1,5 +1,5 @@
 # IDEA: inbox-approval-gate-reads
-**Meta:** Source: TASK-241-audit | Status: DRAFT | Size: S | Sessions: 3
+**Meta:** Source: TASK-241-audit | Status: REJECTED: TTL expired | Size: S | Sessions: 4
 **Decision:**
 
 ### Problem
