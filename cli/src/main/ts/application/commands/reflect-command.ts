@@ -5,6 +5,7 @@ import { NodeFileSystem } from '../../infrastructure/filesystem/node-file-system
 import { ReflectInfluenceReport, DEFAULT_THRESHOLDS } from '../use-cases/reflect-influence-report.js';
 import { ConfigLoader } from '../../domain/services/config-loader.js';
 import { writeDeepAnalysisState } from '../use-cases/deep-analysis-state.js';
+import { parseLedger } from '../use-cases/focus-ledger.js';
 import { spawnSync } from 'node:child_process';
 import fs from 'node:fs';
 
@@ -254,10 +255,11 @@ ${taskSections}`;
           const cmd = cli.template.replace(/\{prompt\}/g, `$(cat ${tmpPath})`);
           const result = spawnSync('sh', ['-c', cmd], { stdio: 'inherit' });
 
-          if (deepMode) {
+          if (deepMode && result.status === 0) {
             await this.updateDeepState();
           }
 
+          try { fs.unlinkSync(tmpPath); } catch {}
           process.exit(result.status ?? 0);
         }
       } finally {
@@ -287,12 +289,11 @@ ${taskSections}`;
 
   private async getCurrentTick(): Promise<number> {
     try {
-      const ledgerPath = `${this.rootPath && this.rootPath !== '.' ? this.rootPath + '/' : ''}.arch/focus-ledger.jsonl`;
-      const content = fs.readFileSync(ledgerPath, 'utf8');
-      const lines = content.trim().split('\n').filter(Boolean);
-      if (lines.length === 0) return 0;
-      const last = JSON.parse(lines[lines.length - 1]);
-      return last.tick ?? 0;
+      const ledgerPath = '.arch/focus-ledger.jsonl';
+      if (!(await this.fileSystem.exists(ledgerPath))) return 0;
+      const content = await this.fileSystem.readFile(ledgerPath);
+      const state = parseLedger(content);
+      return state.lastCommittedTick;
     } catch {
       return 0;
     }
