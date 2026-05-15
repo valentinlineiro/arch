@@ -363,3 +363,75 @@ test('govern tick continues when metrics refresh fails', async () => {
   const result = await system.execute();
   assert.ok(result !== undefined, 'govern execute should return a result');
 });
+
+// ─── Deep analysis cadence check ─────────────────────────────────────────────
+
+test('govern surfaces deep analysis due when cadence threshold reached', async () => {
+  const task = makeTask('TASK-042', 'P2');
+  const fs = new SpyFileSystem();
+  fs.addFile('docs/tasks/TASK-042.md', task.content);
+
+  // Seed ledger at tick 6
+  const ledgerContent = [
+    JSON.stringify({ meta: true, lastCommittedTick: 6 }),
+    JSON.stringify({ tick: 1, taskId: 'TASK-042', action: 'FOCUS_ACQUIRED', timestamp: '2026-01-01T00:00:00Z' }),
+  ].join('\n') + '\n';
+  fs.addFile('.arch/focus-ledger.jsonl', ledgerContent);
+
+  // Seed deep analysis state at tick 1 — 6-1=5 >= 5 → due
+  fs.addFile('.arch/deep-analysis-state.json', JSON.stringify({ lastDeepRunTick: 1, lastDeepRunTimestamp: '2026-05-01T00:00:00Z' }));
+
+  const repo = new SpyTaskRepository([task]);
+  const git = new SpyGitRepository();
+
+  const system = new GovernSystem(repo as any, git as any, fs as any);
+  const result = await system.execute();
+
+  assert.ok(result.reasons.includes('deep-analysis-due'), 'reasons must include deep-analysis-due');
+});
+
+test('govern does not surface deep analysis due when within cadence window', async () => {
+  const task = makeTask('TASK-042', 'P2');
+  const fs = new SpyFileSystem();
+  fs.addFile('docs/tasks/TASK-042.md', task.content);
+
+  // Seed ledger at tick 4
+  const ledgerContent = [
+    JSON.stringify({ meta: true, lastCommittedTick: 4 }),
+    JSON.stringify({ tick: 1, taskId: 'TASK-042', action: 'FOCUS_ACQUIRED', timestamp: '2026-01-01T00:00:00Z' }),
+  ].join('\n') + '\n';
+  fs.addFile('.arch/focus-ledger.jsonl', ledgerContent);
+
+  // Seed deep analysis state at tick 1 — 4-1=3 < 5 → not due
+  fs.addFile('.arch/deep-analysis-state.json', JSON.stringify({ lastDeepRunTick: 1, lastDeepRunTimestamp: '2026-05-01T00:00:00Z' }));
+
+  const repo = new SpyTaskRepository([task]);
+  const git = new SpyGitRepository();
+
+  const system = new GovernSystem(repo as any, git as any, fs as any);
+  const result = await system.execute();
+
+  assert.ok(!result.reasons.includes('deep-analysis-due'), 'reasons must NOT include deep-analysis-due when within window');
+});
+
+test('govern surfaces deep analysis due when weak signal is overdue', async () => {
+  const task = makeTask('TASK-042', 'P2');
+  const fs = new SpyFileSystem();
+  fs.addFile('docs/tasks/TASK-042.md', task.content);
+
+  // Seed deep analysis state as recent (not cadence-due)
+  const ledgerContent = JSON.stringify({ meta: true, lastCommittedTick: 2 }) + '\n';
+  fs.addFile('.arch/focus-ledger.jsonl', ledgerContent);
+  fs.addFile('.arch/deep-analysis-state.json', JSON.stringify({ lastDeepRunTick: 1, lastDeepRunTimestamp: '2026-05-14T00:00:00Z' }));
+
+  // Seed weak signals with a past-due date
+  fs.addFile('docs/tensions/weak-signals.md', '**Adjudicate by:** 2026-01-01 (past deadline)');
+
+  const repo = new SpyTaskRepository([task]);
+  const git = new SpyGitRepository();
+
+  const system = new GovernSystem(repo as any, git as any, fs as any);
+  const result = await system.execute();
+
+  assert.ok(result.reasons.includes('deep-analysis-due'), 'reasons must include deep-analysis-due from weak signal');
+});

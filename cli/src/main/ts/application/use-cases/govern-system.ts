@@ -13,6 +13,8 @@ import {
 } from './focus-ledger.js';
 import { computeTrustedMetrics } from './compute-trusted-metrics.js';
 import { LightweightMetricsRefresh } from './lightweight-metrics-refresh.js';
+import { readDeepAnalysisState, isDeepAnalysisDue } from './deep-analysis-state.js';
+import { hasOverdueWeakSignal } from './weak-signal-checker.js';
 
 export interface GovernResult {
   analysisNeeded: boolean;
@@ -59,6 +61,29 @@ export class GovernSystem {
     if (execCount >= conductEveryN) {
       console.log(`  Exec count (${execCount}) >= N (${conductEveryN}) — analysis due (run arch reflect).`);
       analysisReasons.push('cadence');
+    }
+
+    // 2.5. Deep analysis cadence check
+    const deepCadenceN = config.reflect?.deepCadenceN ?? 5;
+    const deepState = await readDeepAnalysisState(this.fileSystem);
+    const currentTick = await this.getCurrentTick();
+    const deepDue = isDeepAnalysisDue(deepState, currentTick, deepCadenceN);
+
+    let weakSignalOverdue = false;
+    const weakSignalsPath = 'docs/tensions/weak-signals.md';
+    if (await this.fileSystem.exists(weakSignalsPath)) {
+      const content = await this.fileSystem.readFile(weakSignalsPath);
+      const warnings: string[] = [];
+      weakSignalOverdue = hasOverdueWeakSignal(content, new Date(), warnings);
+      warnings.forEach(w => console.log(`  ${w}`));
+    }
+
+    if (deepDue || weakSignalOverdue) {
+      const reason = weakSignalOverdue
+        ? 'weak signal past adjudication deadline'
+        : `${currentTick - (deepState?.lastDeepRunTick ?? 0)} ticks since last deep run`;
+      console.log(`  Deep analysis due (${reason}) — run arch reflect --deep`);
+      analysisReasons.push('deep-analysis-due');
     }
 
     // 3. Focus Sovereignty — run the AGFM tick cycle
@@ -326,6 +351,15 @@ export class GovernSystem {
       }
     } catch {
       // Reflect threshold check must never block governance
+    }
+  }
+
+  private async getCurrentTick(): Promise<number> {
+    try {
+      const ledger = await this.loadLedger();
+      return ledger.lastCommittedTick;
+    } catch {
+      return 0;
     }
   }
 
