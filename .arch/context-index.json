@@ -368,7 +368,8 @@
         "cli/src/main/ts/domain/services/signal-router.ts",
         "cli/src/main/ts/infrastructure/filesystem/node-file-system.ts",
         "cli/src/main/ts/application/use-cases/reflect-influence-report.ts",
-        "cli/src/main/ts/domain/services/config-loader.ts"
+        "cli/src/main/ts/domain/services/config-loader.ts",
+        "cli/src/main/ts/application/use-cases/deep-analysis-state.ts"
       ],
       "tags": [
         "application",
@@ -768,6 +769,24 @@
       "criticality": "domain",
       "runtimeUsage": "hot"
     },
+    "cli/src/main/ts/application/use-cases/deep-analysis-state.ts": {
+      "symbols": [
+        "DeepAnalysisState",
+        "isDeepAnalysisDue"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/repositories/file-system.ts"
+      ],
+      "tags": [
+        "application",
+        "cases",
+        "deep",
+        "analysis",
+        "state"
+      ],
+      "criticality": "domain",
+      "runtimeUsage": "hot"
+    },
     "cli/src/main/ts/application/use-cases/drift-checker.ts": {
       "symbols": [
         "DriftResult",
@@ -933,7 +952,11 @@
         "cli/src/main/ts/application/use-cases/causal-signal-log.ts",
         "cli/src/main/ts/application/use-cases/reflect-influence-report.ts",
         "cli/src/main/ts/domain/services/task-validator.ts",
-        "cli/src/main/ts/application/use-cases/focus-ledger.ts"
+        "cli/src/main/ts/application/use-cases/focus-ledger.ts",
+        "cli/src/main/ts/application/use-cases/compute-trusted-metrics.ts",
+        "cli/src/main/ts/application/use-cases/lightweight-metrics-refresh.ts",
+        "cli/src/main/ts/application/use-cases/deep-analysis-state.ts",
+        "cli/src/main/ts/application/use-cases/weak-signal-checker.ts"
       ],
       "tags": [
         "application",
@@ -1366,6 +1389,26 @@
       ],
       "criticality": "domain",
       "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/application/use-cases/weak-signal-checker.ts": {
+      "symbols": [
+        "parseAdjudicationDate",
+        "hasOverdueWeakSignal"
+      ],
+      "imports": [],
+      "tags": [
+        "application",
+        "cases",
+        "weak",
+        "signal",
+        "checker",
+        "parse",
+        "adjudication",
+        "date",
+        "overdue"
+      ],
+      "criticality": "domain",
+      "runtimeUsage": "warm"
     },
     "cli/src/main/ts/domain/models/batch-entry.ts": {
       "symbols": [
