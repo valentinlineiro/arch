@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-16T17:20:42.512Z",
+  "builtAt": "2026-05-16T17:24:26.873Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -2780,6 +2780,92 @@
       "affectedModules": [],
       "strength": "enforced"
     },
+    "ADR-009": {
+      "title": "L3 Self-Archive — Audited Autonomous Task Completion",
+      "keywords": [
+        "self",
+        "archive",
+        "audited",
+        "autonomous",
+        "task",
+        "completion",
+        "adr",
+        "009",
+        "date",
+        "2026",
+        "status",
+        "accepted",
+        "deciders",
+        "human",
+        "architect",
+        "claude",
+        "sonnet",
+        "depends",
+        "019",
+        "hansei",
+        "ontology",
+        "207",
+        "deterministicacverifier",
+        "context",
+        "every",
+        "currently",
+        "requires",
+        "auditor",
+        "verify",
+        "acs",
+        "move",
+        "file",
+        "docs",
+        "tasks",
+        "where",
+        "acceptance",
+        "criteria",
+        "deterministic",
+        "predicates",
+        "cmd",
+        "pure",
+        "overhead",
+        "verifier",
+        "already",
+        "produces",
+        "binary",
+        "reproducible",
+        "evidence",
+        "judgment",
+        "required",
+        "autonomy",
+        "model",
+        "see",
+        "guidelines",
+        "defines",
+        "four",
+        "levels",
+        "allows",
+        "idea",
+        "promotion",
+        "ops",
+        "writing",
+        "extends",
+        "archival",
+        "when",
+        "gate",
+        "passes",
+        "risk",
+        "agent",
+        "could",
+        "certify",
+        "verification",
+        "weak",
+        "fabricated",
+        "prevents",
+        "path",
+        "only",
+        "available",
+        "retur"
+      ],
+      "affectedModules": [],
+      "strength": "advisory"
+    },
     "ADR-010": {
       "title": "Escalation Maturity Phase 1 (E3 Detectable)",
       "keywords": [
@@ -3738,6 +3824,16 @@
     }
   },
   "adrTaskLinks": {
+    "ADR-009": {
+      "tasks": {
+        "TASK-208": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-208.md"
+        }
+      }
+    },
     "ADR-013": {
       "tasks": {
         "TASK-231": {
@@ -4890,17 +4986,34 @@
     }
   },
   "tasks": {
-    "TASK-208": {
+    "TASK-246": {
       "commitCount": 2,
-      "lastCommitDate": "2026-05-16T17:20:42+00:00",
+      "lastCommitDate": "2026-05-16T17:24:26+00:00",
       "touchedFrequency": {
+        ".arch/focus-ledger.jsonl": 1,
+        "docs/refinement/IDEA-Hansei-Governance.md": 1,
+        "docs/tasks/TASK-244.md": 1,
+        "docs/tasks/TASK-245.md": 1,
+        "docs/tasks/TASK-246.md": 1
+      },
+      "recentCommitRefs": [
+        "96985a6",
+        "da71de9"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-208": {
+      "commitCount": 3,
+      "lastCommitDate": "2026-05-16T17:21:16+00:00",
+      "touchedFrequency": {
+        "docs/tasks/TASK-208.md": 2,
         ".arch/focus-ledger.jsonl": 1,
         "docs/refinement/archive/IDEA-l3-self-archive.md": 1,
         "docs/refinement/archive/IDEA-semantic-ac-verification.md": 1,
-        "docs/tasks/TASK-207.md": 1,
-        "docs/tasks/TASK-208.md": 1
+        "docs/tasks/TASK-207.md": 1
       },
       "recentCommitRefs": [
+        "137f817",
         "58d18b3",
         "c437348"
       ],
@@ -5893,20 +6006,6 @@
       ],
       "commitRefOverflow": false
     },
-    "TASK-246": {
-      "commitCount": 1,
-      "lastCommitDate": "2026-05-14T17:55:14+02:00",
-      "touchedFrequency": {
-        "docs/refinement/IDEA-Hansei-Governance.md": 1,
-        "docs/tasks/TASK-244.md": 1,
-        "docs/tasks/TASK-245.md": 1,
-        "docs/tasks/TASK-246.md": 1
-      },
-      "recentCommitRefs": [
-        "da71de9"
-      ],
-      "commitRefOverflow": false
-    },
     "TASK-239": {
       "commitCount": 6,
       "lastCommitDate": "2026-05-14T17:55:14+02:00",
@@ -6257,7 +6356,7 @@
       "commitRefOverflow": false
     },
     "TASK-200": {
-      "commitCount": 6,
+      "commitCount": 5,
       "lastCommitDate": "2026-05-12T10:42:57+02:00",
       "touchedFrequency": {
         "docs/archive/TASK-001.md": 1,
@@ -6465,7 +6564,7 @@
         "docs/archive/TASK-226.md": 1,
         "docs/archive/TASK-227.md": 1,
         "docs/archive/TASK-228.md": 1,
-        "docs/tasks/TASK-200.md": 4,
+        "docs/tasks/TASK-200.md": 3,
         "docs/archive/TASK-200.md": 1,
         "docs/INBOX.md": 1,
         "cli/src/main/ts/application/commands/task-command.ts": 1,
@@ -6474,27 +6573,16 @@
         "cli/src/test/ts/compress-task.test.ts": 1,
         "docs/archive/TASK-222.md": 1,
         "cli/src/main/ts/application/use-cases/rank-tasks.ts": 1,
-        "docs/tasks/TASK-206.md": 2,
+        "docs/tasks/TASK-206.md": 1,
         "docs/tasks/TASK-207.md": 1,
-        "docs/tasks/TASK-208.md": 1,
-        "docs/refinement/archive/IDEA-archive-compression.md": 1,
-        "docs/refinement/archive/IDEA-escalation-maturity.md": 1,
-        "docs/refinement/archive/IDEA-executable-acceptance-criteria.md": 1,
-        "docs/refinement/archive/IDEA-metrics-auto-population.md": 1,
-        "docs/refinement/archive/IDEA-separate-arch-repo-from-cli.md": 1,
-        "docs/tasks/TASK-201.md": 1,
-        "docs/tasks/TASK-202.md": 1,
-        "docs/tasks/TASK-203.md": 1,
-        "docs/tasks/TASK-204.md": 1,
-        "docs/tasks/TASK-205.md": 1
+        "docs/tasks/TASK-208.md": 1
       },
       "recentCommitRefs": [
         "32d8be5",
         "928b15a",
         "36dbaad",
         "ca86893",
-        "e552216",
-        "b23e8c9"
+        "e552216"
       ],
       "commitRefOverflow": false
     },
@@ -7111,27 +7199,6 @@
         "f70d002",
         "354310b",
         "7bda862"
-      ],
-      "commitRefOverflow": false
-    },
-    "TASK-183": {
-      "commitCount": 1,
-      "lastCommitDate": "2026-05-05T17:17:03+02:00",
-      "touchedFrequency": {
-        "docs/archive/TASK-183.md": 1,
-        "docs/tasks/TASK-098.md": 1,
-        "docs/tasks/TASK-099.md": 1,
-        "docs/tasks/TASK-100.md": 1,
-        "docs/tasks/TASK-101.md": 1,
-        "docs/tasks/TASK-161.md": 1,
-        "docs/tasks/TASK-162.md": 1,
-        "docs/tasks/TASK-163.md": 1,
-        "docs/tasks/TASK-194.md": 1,
-        "docs/tasks/TASK-203.md": 1,
-        "docs/tasks/TASK-204.md": 1
-      },
-      "recentCommitRefs": [
-        "67b0bbd"
       ],
       "commitRefOverflow": false
     }
