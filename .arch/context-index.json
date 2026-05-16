@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-16T20:52:02.133Z",
+  "builtAt": "2026-05-16T20:58:16.304Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -5019,14 +5019,72 @@
     }
   },
   "tasks": {
-    "TASK-898": {
+    "TASK-900": {
       "commitCount": 1,
-      "lastCommitDate": "2026-05-16T20:52:01+00:00",
+      "lastCommitDate": "2026-05-16T20:58:16+00:00",
       "touchedFrequency": {
         ".arch/focus-ledger.jsonl": 1
       },
       "recentCommitRefs": [
+        "5548bfd"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-898": {
+      "commitCount": 4,
+      "lastCommitDate": "2026-05-16T20:58:16+00:00",
+      "touchedFrequency": {
+        "docs/archive/TASK-898.md": 1,
+        "cli/src/main/ts/application/use-cases/drift-checker.ts": 1,
+        "docs/METRICS.md": 1,
+        "docs/archive/TASK-038.md": 1,
+        "docs/archive/TASK-888.md": 1,
+        "docs/tasks/TASK-898.md": 2,
+        ".arch/focus-ledger.jsonl": 1
+      },
+      "recentCommitRefs": [
+        "10cf662",
+        "c17a8ee",
+        "2f9f680",
         "9be3d00"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-206": {
+      "commitCount": 5,
+      "lastCommitDate": "2026-05-16T20:52:14+00:00",
+      "touchedFrequency": {
+        ".arch/reflect-breach-log.jsonl": 1,
+        "docs/refinement/archive/IDEA-architectural-tension-capture.md": 1,
+        "docs/refinement/archive/IDEA-automate-turn-count-recording.md": 1,
+        "docs/refinement/archive/IDEA-cross-layer-coverage-identity.md": 1,
+        "docs/refinement/archive/IDEA-dynamic-model-provisioning.md": 1,
+        "docs/refinement/archive/IDEA-excision-legitimacy-check.md": 1,
+        "docs/refinement/archive/IDEA-feature-branch-workflow.md": 1,
+        "docs/refinement/archive/IDEA-focus-status-alignment.md": 1,
+        "docs/refinement/archive/IDEA-loop-load-balancing.md": 1,
+        "docs/refinement/archive/IDEA-openclaw-integration.md": 1,
+        "docs/refinement/archive/IDEA-optimize-decomposition-for-local-llms.md": 1,
+        "docs/refinement/archive/IDEA-parallel-tasks.md": 1,
+        "docs/refinement/archive/IDEA-rag-context-retrieval.md": 1,
+        "docs/refinement/archive/IDEA-resurrection-review.md": 1,
+        "docs/refinement/archive/IDEA-sentinel-log-infrastructure.md": 1,
+        "docs/refinement/archive/IDEA-task-template-linter.md": 1,
+        "docs/tasks/TASK-898.md": 1,
+        "docs/tasks/TASK-903.md": 1,
+        "docs/tasks/TASK-904.md": 1,
+        "docs/tasks/TASK-905.md": 1,
+        "docs/tasks/TASK-906.md": 1,
+        "docs/tasks/TASK-907.md": 1,
+        "docs/tasks/TASK-901.md": 1,
+        ".arch/focus-ledger.jsonl": 3
+      },
+      "recentCommitRefs": [
+        "fb9c483",
+        "c07bb38",
+        "500347b",
+        "c977c01",
+        "60a9dee"
       ],
       "commitRefOverflow": false
     },
@@ -5038,21 +5096,6 @@
       },
       "recentCommitRefs": [
         "c07bb38"
-      ],
-      "commitRefOverflow": false
-    },
-    "TASK-206": {
-      "commitCount": 4,
-      "lastCommitDate": "2026-05-16T20:48:26+00:00",
-      "touchedFrequency": {
-        "docs/tasks/TASK-901.md": 1,
-        ".arch/focus-ledger.jsonl": 3
-      },
-      "recentCommitRefs": [
-        "c07bb38",
-        "500347b",
-        "c977c01",
-        "60a9dee"
       ],
       "commitRefOverflow": false
     },
@@ -5170,7 +5213,7 @@
       "commitRefOverflow": false
     },
     "TASK-208": {
-      "commitCount": 5,
+      "commitCount": 4,
       "lastCommitDate": "2026-05-16T17:26:48+00:00",
       "touchedFrequency": {
         "docs/archive/TASK-208.md": 1,
@@ -5184,19 +5227,15 @@
         "docs/KAIZEN-LOG.md": 1,
         "docs/adr/ADR-009-l3-self-archive.md": 1,
         "docs/agents/DO.md": 1,
-        "docs/tasks/TASK-208.md": 3,
+        "docs/tasks/TASK-208.md": 2,
         "docs/tasks/TASK-246.md": 1,
-        ".arch/focus-ledger.jsonl": 1,
-        "docs/refinement/archive/IDEA-l3-self-archive.md": 1,
-        "docs/refinement/archive/IDEA-semantic-ac-verification.md": 1,
-        "docs/tasks/TASK-207.md": 1
+        ".arch/focus-ledger.jsonl": 1
       },
       "recentCommitRefs": [
         "947aad6",
         "0926332",
         "137f817",
-        "58d18b3",
-        "c437348"
+        "58d18b3"
       ],
       "commitRefOverflow": false
     },
@@ -5225,7 +5264,7 @@
       "commitRefOverflow": false
     },
     "TASK-207": {
-      "commitCount": 8,
+      "commitCount": 7,
       "lastCommitDate": "2026-05-16T17:12:36+00:00",
       "touchedFrequency": {
         ".arch/chronicle.jsonl": 2,
@@ -5243,13 +5282,10 @@
         "cli/src/main/ts/infrastructure/filesystem/markdown-task-repository.ts": 1,
         "cli/src/test/ts/deterministic-ac-verifier.test.ts": 1,
         "docs/tasks/TASK-204.md": 1,
-        "docs/tasks/TASK-207.md": 4,
+        "docs/tasks/TASK-207.md": 3,
         ".arch/focus-ledger.jsonl": 2,
         "docs/tasks/TASK-233.md": 1,
-        "docs/tasks/TASK-242.md": 1,
-        "docs/refinement/archive/IDEA-l3-self-archive.md": 1,
-        "docs/refinement/archive/IDEA-semantic-ac-verification.md": 1,
-        "docs/tasks/TASK-208.md": 1
+        "docs/tasks/TASK-242.md": 1
       },
       "recentCommitRefs": [
         "38ef1df",
@@ -5258,8 +5294,7 @@
         "b212193",
         "cd18b22",
         "9f4946b",
-        "f4da63a",
-        "c437348"
+        "f4da63a"
       ],
       "commitRefOverflow": false
     },
@@ -7257,24 +7292,19 @@
       "commitRefOverflow": false
     },
     "TASK-199": {
-      "commitCount": 6,
+      "commitCount": 4,
       "lastCommitDate": "2026-05-06T12:46:50+02:00",
       "touchedFrequency": {
         "arch.config.json": 1,
         "docs/archive/TASK-199.md": 1,
         "docs/INBOX.md": 1,
-        "docs/tasks/TASK-199.md": 1,
-        "docs/refinement/IDEA-l3-self-archive.md": 1,
-        "docs/refinement/IDEA-semantic-ac-verification.md": 1,
-        "cli/src/main/ts/application/use-cases/loop-engine.ts": 1
+        "docs/tasks/TASK-199.md": 1
       },
       "recentCommitRefs": [
         "9b4073d",
         "97026cb",
         "a13b412",
-        "6ca6d6c",
-        "c2f06ac",
-        "3e760c2"
+        "6ca6d6c"
       ],
       "commitRefOverflow": false
     },
