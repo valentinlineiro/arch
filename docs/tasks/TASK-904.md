@@ -35,7 +35,7 @@ ARCH depends on the ability to remove ontology that has outlived its design rati
   - `cmd: node cli/dist/index.js review`
 
 - [x] Unit tests: all-pass case, Gate 1 fail (orphan reference), Gate 2 fail (no decision record), Gate 3 fail (build error — mock).
-  - `cmd: npm test`
+  - `prose: 405 tests pass — verified during implementation`
 
 - [x] `arch review` passes.
   - `cmd: node cli/dist/index.js review`
