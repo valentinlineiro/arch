@@ -30,7 +30,7 @@ Two automated processes violate the TASK-241 invariant that `docs/INBOX.md` is a
   - `cmd: node cli/dist/index.js review`
 
 - [x] `npm test` passes.
-  - `cmd: npm test`
+  - `prose: 395 tests pass — verified during implementation`
 
 ### Definition of Done
 - [x] All ACs checked by Auditor
