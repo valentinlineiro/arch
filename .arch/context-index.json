@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-15T08:42:26.447Z",
+  "builtAt": "2026-05-16T10:41:12.241Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -3682,16 +3682,6 @@
         }
       }
     },
-    "ADR-020": {
-      "tasks": {
-        "TASK-247": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/tasks/TASK-247.md"
-        }
-      }
-    },
     "ADR-001": {
       "tasks": {
         "TASK-002": {
@@ -3981,6 +3971,16 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-244.md"
+        }
+      }
+    },
+    "ADR-020": {
+      "tasks": {
+        "TASK-247": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-247.md"
         }
       }
     }
@@ -4818,10 +4818,10 @@
   },
   "tasks": {
     "TASK-245": {
-      "commitCount": 6,
-      "lastCommitDate": "2026-05-15T10:42:26+02:00",
+      "commitCount": 7,
+      "lastCommitDate": "2026-05-16T10:41:12+00:00",
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 4,
+        ".arch/focus-ledger.jsonl": 5,
         "docs/tasks/TASK-207.md": 1,
         "docs/tasks/TASK-245.md": 2,
         "docs/refinement/IDEA-Hansei-Governance.md": 1,
@@ -4829,6 +4829,7 @@
         "docs/tasks/TASK-246.md": 1
       },
       "recentCommitRefs": [
+        "1290ee3",
         "8d55b72",
         "b47f887",
         "90f9d83",
@@ -4837,6 +4838,45 @@
         "da71de9"
       ],
       "commitRefOverflow": false
+    },
+    "TASK-247": {
+      "commitCount": 25,
+      "lastCommitDate": "2026-05-16T10:41:12+00:00",
+      "touchedFrequency": {
+        "docs/archive/TASK-247.md": 1,
+        "docs/agents/governance-execution-model.md": 9,
+        "cli/src/main/ts/application/use-cases/govern-system.ts": 3,
+        "docs/adr/ADR-020-focus-sovereignty-model.md": 2,
+        ".arch/focus-ledger.jsonl": 1,
+        "docs/INBOX.md": 1,
+        "docs/tasks/TASK-247.md": 11,
+        "cli/src/main/ts/application/use-cases/focus-ledger.ts": 1,
+        "cli/src/main/ts/application/use-cases/review-system.ts": 1,
+        "cli/src/test/ts/govern-system.test.ts": 1
+      },
+      "recentCommitRefs": [
+        "d0499af",
+        "3bb3927",
+        "89ef5ba",
+        "554d926",
+        "bdd1a13",
+        "d4dadeb",
+        "8b6285d",
+        "9c2af43",
+        "eccd462",
+        "cf86f7f",
+        "e5a6a88",
+        "4aeaccc",
+        "b866820",
+        "082eecb",
+        "c20558a",
+        "aed2af7",
+        "a9564d1",
+        "ab94895",
+        "c68d609",
+        "a7fa391"
+      ],
+      "commitRefOverflow": true
     },
     "TASK-892": {
       "commitCount": 7,
@@ -4997,44 +5037,6 @@
         "e358f4e"
       ],
       "commitRefOverflow": false
-    },
-    "TASK-247": {
-      "commitCount": 23,
-      "lastCommitDate": "2026-05-14T17:55:38+02:00",
-      "touchedFrequency": {
-        "docs/agents/governance-execution-model.md": 9,
-        "cli/src/main/ts/application/use-cases/govern-system.ts": 3,
-        "docs/adr/ADR-020-focus-sovereignty-model.md": 2,
-        ".arch/focus-ledger.jsonl": 1,
-        "docs/INBOX.md": 1,
-        "docs/tasks/TASK-247.md": 11,
-        "cli/src/main/ts/application/use-cases/focus-ledger.ts": 1,
-        "cli/src/main/ts/application/use-cases/review-system.ts": 1,
-        "cli/src/test/ts/govern-system.test.ts": 1
-      },
-      "recentCommitRefs": [
-        "89ef5ba",
-        "554d926",
-        "bdd1a13",
-        "d4dadeb",
-        "8b6285d",
-        "9c2af43",
-        "eccd462",
-        "cf86f7f",
-        "e5a6a88",
-        "4aeaccc",
-        "b866820",
-        "082eecb",
-        "c20558a",
-        "aed2af7",
-        "a9564d1",
-        "ab94895",
-        "c68d609",
-        "a7fa391",
-        "3a9a94b",
-        "1910f0f"
-      ],
-      "commitRefOverflow": true
     },
     "TASK-244": {
       "commitCount": 7,
@@ -6736,7 +6738,7 @@
       "commitRefOverflow": false
     },
     "TASK-178": {
-      "commitCount": 3,
+      "commitCount": 1,
       "lastCommitDate": "2026-05-05T11:14:55+02:00",
       "touchedFrequency": {
         "docs/INBOX.md": 1,
@@ -6745,20 +6747,15 @@
         "docs/archive/TASK-179.md": 1,
         "docs/archive/TASK-180.md": 1,
         "docs/archive/TASK-181.md": 1,
-        "docs/archive/TASK-182.md": 1,
-        "docs/TASK-FORMAT.md": 1,
-        "docs/agents/DO.md": 1,
-        "docs/tasks/TASK-178.md": 2
+        "docs/archive/TASK-182.md": 1
       },
       "recentCommitRefs": [
-        "917e54b",
-        "9478b9c",
-        "8fe1242"
+        "917e54b"
       ],
       "commitRefOverflow": false
     },
     "TASK-179": {
-      "commitCount": 3,
+      "commitCount": 1,
       "lastCommitDate": "2026-05-05T11:14:55+02:00",
       "touchedFrequency": {
         "docs/INBOX.md": 1,
@@ -6767,19 +6764,15 @@
         "docs/archive/TASK-179.md": 1,
         "docs/archive/TASK-180.md": 1,
         "docs/archive/TASK-181.md": 1,
-        "docs/archive/TASK-182.md": 1,
-        "docs/agents/THINK.md": 1,
-        "docs/tasks/TASK-179.md": 2
+        "docs/archive/TASK-182.md": 1
       },
       "recentCommitRefs": [
-        "917e54b",
-        "ddbf402",
-        "db6216a"
+        "917e54b"
       ],
       "commitRefOverflow": false
     },
     "TASK-180": {
-      "commitCount": 3,
+      "commitCount": 2,
       "lastCommitDate": "2026-05-05T11:14:55+02:00",
       "touchedFrequency": {
         "docs/INBOX.md": 1,
@@ -6791,12 +6784,11 @@
         "docs/archive/TASK-182.md": 1,
         "docs/PRINCIPLES.md": 1,
         "docs/agents/THINK.md": 1,
-        "docs/tasks/TASK-180.md": 2
+        "docs/tasks/TASK-180.md": 1
       },
       "recentCommitRefs": [
         "917e54b",
-        "5fc9b65",
-        "ccaf329"
+        "5fc9b65"
       ],
       "commitRefOverflow": false
     },
@@ -6860,76 +6852,6 @@
       },
       "recentCommitRefs": [
         "0eee198"
-      ],
-      "commitRefOverflow": false
-    },
-    "TASK-174": {
-      "commitCount": 1,
-      "lastCommitDate": "2026-05-04T16:36:33+02:00",
-      "touchedFrequency": {
-        "docs/archive/TASK-174.md": 1,
-        "docs/archive/TASK-187.md": 1
-      },
-      "recentCommitRefs": [
-        "cd223ba"
-      ],
-      "commitRefOverflow": false
-    },
-    "TASK-187": {
-      "commitCount": 4,
-      "lastCommitDate": "2026-05-04T16:36:33+02:00",
-      "touchedFrequency": {
-        "docs/archive/TASK-174.md": 1,
-        "docs/archive/TASK-187.md": 1,
-        "docs/INBOX.md": 2,
-        "docs/tasks/TASK-187.md": 3
-      },
-      "recentCommitRefs": [
-        "cd223ba",
-        "0f607a7",
-        "3e85d89",
-        "aed5d2f"
-      ],
-      "commitRefOverflow": false
-    },
-    "TASK-175": {
-      "commitCount": 1,
-      "lastCommitDate": "2026-05-04T16:23:52+02:00",
-      "touchedFrequency": {
-        "docs/archive/TASK-175.md": 1,
-        "docs/archive/TASK-176.md": 1,
-        "docs/archive/TASK-177.md": 1
-      },
-      "recentCommitRefs": [
-        "6befd3c"
-      ],
-      "commitRefOverflow": false
-    },
-    "TASK-176": {
-      "commitCount": 2,
-      "lastCommitDate": "2026-05-04T16:23:52+02:00",
-      "touchedFrequency": {
-        "docs/archive/TASK-175.md": 1,
-        "docs/archive/TASK-176.md": 1,
-        "docs/archive/TASK-177.md": 1,
-        "docs/tasks/TASK-176.md": 1
-      },
-      "recentCommitRefs": [
-        "6befd3c",
-        "4649467"
-      ],
-      "commitRefOverflow": false
-    },
-    "TASK-177": {
-      "commitCount": 1,
-      "lastCommitDate": "2026-05-04T16:23:52+02:00",
-      "touchedFrequency": {
-        "docs/archive/TASK-175.md": 1,
-        "docs/archive/TASK-176.md": 1,
-        "docs/archive/TASK-177.md": 1
-      },
-      "recentCommitRefs": [
-        "6befd3c"
       ],
       "commitRefOverflow": false
     }
