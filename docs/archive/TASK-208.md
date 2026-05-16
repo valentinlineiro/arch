@@ -37,3 +37,6 @@ See [IDENTITY.md § 7](../IDENTITY.md) — Deterministic Core Invariant. L3 self
 **Constraint:** The commit message for L3-archived tasks does not yet use the `done:` prefix — it uses the standard `arch task done` flow commit. The `[L3-AUTO]` marker is written to INBOX but not the commit message directly. This is a minor spec deviation.
 **Cost:** The commit message format deviation means `[L3-AUTO]` is not grep-able in git log without reading INBOX. Low-severity — INBOX is the authoritative audit trail.
 **Forward Action:** Consider adding git commit tagging in a follow-up XS task.
+
+## Approval
+Approved-by: Auditor | 2026-05-16

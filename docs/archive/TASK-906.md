@@ -37,3 +37,6 @@ TTL-rejection is not a human decision — it is a timeout. IDEAs archived as `RE
 **Constraint:** Resurrection is display-only — the mechanic for moving IDEAs back is documented in the UI but not automated. Human performs the move manually.
 **Cost:** None — no architectural debt introduced.
 **Forward Action:** None required.
+
+## Approval
+Approved-by: Auditor | 2026-05-16

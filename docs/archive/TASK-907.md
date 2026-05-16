@@ -44,3 +44,6 @@
 **Constraint:** Class is validated as non-empty only — no enum check. Class values are open-ended per routing strategy.
 **Cost:** O(n) scan over docs/tasks/ on every arch review. Acceptable at current backlog size.
 **Forward Action:** None required.
+
+## Approval
+Approved-by: Auditor | 2026-05-16

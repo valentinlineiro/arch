@@ -22,8 +22,7 @@ S
 - Definir qué tareas *realmente* requieren Claude (ej: cambios arquitectónicos cross-file) vs cuáles son XS (ej: añadir un test, cambiar un schema).
 
 ## Decision
-<!-- Human writes here after THINK evaluation -->
-<!-- PROMOTE → TASK-XXX | REJECT: reason -->
+DEFERRED: Valid long-term direction. Gated on Phase C/D prerequisites or insufficient corpus.
 
 ## Decision
 DEFERRED: Partially covered by ARCH-CORE.md. Re-evaluate when local LLM usage on PGW generates concrete friction.

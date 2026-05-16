@@ -17,6 +17,7 @@ Evaluates: Textual consistency between ADR and documentation.
 Does NOT evaluate: Semantic correctness of the phase ordering.
 
 ## Decision
+REJECT: Out of scope, premature, or superseded by existing implementation.
 
 ## Decision
 REJECT: Already fixed in session 2026-05-16. ADR-013 now correctly references Phase 2.5 (Semantic Drift Analysis) throughout.

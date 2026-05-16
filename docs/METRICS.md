@@ -3,16 +3,16 @@
 <!-- GENERATED:START -->
 ## Operational Metrics
 
-*Last updated: 2026-05-16T22:28:36.689Z*
+*Last updated: 2026-05-16T22:44:31.313Z*
 
 | Metric | Value | Notes |
 |--------|-------|-------|
-| **Completed Tasks** | 250 | total archived |
+| **Completed Tasks** | 255 | total archived |
 | **Integrity Level** | INVALID | **CONFIDENCE: 0%** |
 | **REVIEW_FAIL Rate** | 0.0% | rejected / total review exits |
 | **Avg Cost / Task** | $0.13 | token-estimate heuristic v1 |
 
-> **Epistemic Digest:** `metrics-engine-v4-witness-hardened` (Range: `HEAD~250..HEAD`)
+> **Epistemic Digest:** `metrics-engine-v4-witness-hardened` (Range: `HEAD~255..HEAD`)
 
 > **Integrity Note:** CRITICAL INTEGRITY BREACH: Report data is INVALID due to protocol violations or ledger corruption.
 
@@ -20,8 +20,8 @@
 
 | Size | P50 | P90 | Count |
 |------|-----|-----|-------|
-| XS | 0.7h | 22.7h | 57 |
-| S | 1.0h | 27.4h | 65 |
+| XS | 0.8h | 22.7h | 58 |
+| S | 1.0h | 27.4h | 67 |
 | M | 2.8h | 186.7h | 40 |
 | L | 4.7h | 4.7h | 2 |
 

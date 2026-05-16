@@ -72,6 +72,7 @@ This stub exists to:
 3. Mark the dependency — any work that adds coverage-like behavior to either layer before this IDEA is resolved is implicitly choosing an ontology without authorization
 
 ## Decision
+DEFERRED: Valid long-term direction. Gated on Phase C/D prerequisites or insufficient corpus.
 
 ## Decision
 DEFERRED: Abstract without concrete signal. Re-evaluate when cross-layer coupling produces a detectable failure.

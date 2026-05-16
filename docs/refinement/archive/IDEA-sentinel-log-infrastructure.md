@@ -36,7 +36,7 @@ L — new CLI command, log parser, drift check, DO.md/TASK-FORMAT.md updates, te
 Not structurally admissible. The Gaps section correctly identifies the blocker: resolve Sentinel call semantics first.
 
 ## Decision
-<!-- Human writes here after THINK evaluation -->
+DEFERRED: Valid long-term direction. Gated on Phase C/D prerequisites or insufficient corpus.
 
 ## Decision
 DEFERRED: DO.md Sentinel preflight is rarely triggered. Premature until loop mode sees regular use.

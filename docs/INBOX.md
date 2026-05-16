@@ -167,3 +167,15 @@ ADR-020 ruling names differ from AGFM ruling names. AGFM is authoritative for im
 | Unit test: focus task with all passing cmd predicates trigge | prose | ✔ | prose: human-verified (non-automated) |
 | Unit test: focus task with failing cmd predicate emits no wa | prose | ✔ | prose: human-verified (non-automated) |
 | `arch review` passes. | cmd | ✔ | exit 0 (expected 0) |
+
+## [AWAITING_REVIEW] TASK-906 [L3-AUTO]
+**Closed:** 2026-05-16T22:39:21.648Z
+**Title:** arch inbox --resurrect: surface TTL-rejected IDEAs for re-evaluation
+
+| AC | Type | Pass | Detail |
+|---|---|---|---|
+| `GenerateInbox.getResurrectQueue()` added: reads `docs/refin | file | ✔ | exists: cli/src/main/ts/application/use-cases/generate-inbox |
+| `arch inbox --resurrect` subcommand renders the resurrection | cmd | ✔ | exit 0 (expected 0) |
+| THINK Phase 3 doc updated: every 20 govern ticks (or when RE | file | ✔ | exists: docs/agents/THINK.md |
+| `arch review` passes. | cmd | ✔ | exit 0 (expected 0) |
+| `npm test` passes. | prose | ✔ | prose: human-verified (non-automated) |

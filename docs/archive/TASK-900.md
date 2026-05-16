@@ -45,3 +45,6 @@ Two automated processes violate the TASK-241 invariant that `docs/INBOX.md` is a
 **Constraint:** Sprint checkpoint detection (SPRINT_CHECKPOINT in INBOX) was removed from handleResume — it depended on INBOX.md. Sprint flow now relies on escalation store for all resume signals.
 **Cost:** Existing loops that used APPROVE/REDIRECT inline in INBOX.md will not be recognized. Operators must use arch approve going forward.
 **Forward Action:** Document arch approve in AGENTS.md and ARCH-CORE.md.
+
+## Approval
+Approved-by: Auditor | 2026-05-16

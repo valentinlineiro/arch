@@ -37,3 +37,6 @@ Mura detection depends on `Turns: N` metadata in archived tasks. The field is ma
 **Constraint:** getCommitCountBetween counts commits since lockedCommit was set — this includes all commits from task start to close, not just agent turns. In multi-commit tasks the count reflects total commits, which is a reasonable proxy.
 **Cost:** Minor: git rev-list call on every arch task done. Negligible overhead.
 **Forward Action:** None required.
+
+## Approval
+Approved-by: Auditor | 2026-05-16

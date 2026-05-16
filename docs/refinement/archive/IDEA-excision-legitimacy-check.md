@@ -64,6 +64,4 @@ S
 **Structural admissibility:** satisfied.
 
 ## Decision
-
-## Decision
 PROMOTE → TASK-904

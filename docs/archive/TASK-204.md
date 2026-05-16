@@ -24,3 +24,6 @@ Phase 3 of 3. Escalations become verifiable: `arch review` checks that every hal
 **Constraint:** DriftChecker test mocking requires careful rootPath/file key alignment — mock file keys must be prefixed with './' when rootPath is '.'.
 **Cost:** None — no architectural debt introduced.
 **Forward Action:** None required.
+
+## Approval
+Approved-by: Auditor | 2026-05-16

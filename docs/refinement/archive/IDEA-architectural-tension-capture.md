@@ -103,8 +103,7 @@ L (the format is defined; the capability matures over time through corpus accumu
 **Structural admissibility:** satisfied.
 
 ## Decision
-<!-- Human writes here after THINK evaluation -->
-<!-- PROMOTE → TASK-XXX | REJECT: reason -->
+DEFERRED: Valid long-term direction. Gated on Phase C/D prerequisites or insufficient corpus.
 
 ## Decision
 DEFERRED: Phase B prerequisite — requires signal corpus to be meaningful. Re-evaluate when arch ask is compounding.

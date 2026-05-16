@@ -30,8 +30,7 @@ M
 - Decide whether PRs are optional (local merge only) or required (forces GitHub/GitLab workflow).
 
 ## Decision
-<!-- Human writes here after THINK evaluation -->
-<!-- PROMOTE → TASK-XXX | REJECT: reason -->
+REJECT: Out of scope, premature, or superseded by existing implementation.
 
 ## Decision
 REJECT: Significant complexity increase. Premature until parallel agent use is validated.

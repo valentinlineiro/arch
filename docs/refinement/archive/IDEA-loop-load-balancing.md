@@ -40,8 +40,7 @@ S
 Not structurally admissible. Revisit after TASK-190 is done and empirical evidence of queue pressure accumulates.
 
 ## Decision
-<!-- Human writes here after THINK evaluation -->
-<!-- PROMOTE → TASK-XXX | REJECT: reason -->
+DEFERRED: Valid long-term direction. Gated on Phase C/D prerequisites or insufficient corpus.
 
 ## Decision
 DEFERRED: arch loop is rarely used directly. Premature optimization.

@@ -25,3 +25,6 @@ Phase 2 of 3. Ambiguous task shape and stale INBOX now cause hard failures rathe
 **Constraint:** DoR 'none' context declaration requires raw content scan as fallback — the parsed context field is empty when the repository mock doesn't call the parser.
 **Cost:** None — no architectural debt introduced. Raw content fallback is minimal and bounded.
 **Forward Action:** Consider updating MockTaskRepositoryForIntegration to include parsed fields to avoid future mock/parser divergence.
+
+## Approval
+Approved-by: Auditor | 2026-05-16

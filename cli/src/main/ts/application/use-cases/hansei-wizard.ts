@@ -1,6 +1,8 @@
 import * as readline from 'node:readline/promises';
-import { stdin, stdout } from 'node:process';
+import { stdin, stdout, stderr } from 'node:process';
 import type { Task } from '../../domain/models/task.js';
+
+const out = (msg: string) => stdout.write(msg + '\n');
 
 // Valid categories from ADR-019
 const CATEGORIES = [
@@ -78,20 +80,20 @@ export class HanseiWizard {
     const rl = readline.createInterface({ input: stdin, output: stdout });
 
     try {
-      console.log('\n  ── Hansei Wizard ──────────────────────────────────────');
-      console.log(`  Task: ${task.id} — ${task.title}`);
-      if (task.size) console.log(`  Size: ${task.size}`);
-      console.log('  ────────────────────────────────────────────────────────\n');
+      out('\n  ── Hansei Wizard ──────────────────────────────────────');
+      out(`  Task: ${task.id} — ${task.title}`);
+      if (task.size) out(`  Size: ${task.size}`);
+      out('  ────────────────────────────────────────────────────────\n');
 
       // Q1: Severity
-      console.log('  1. Severity — what level of issue occurred?\n');
-      SEVERITIES.forEach((s, i) => console.log(`     ${i + 1}. ${s.value}  ${s.label}`));
+      out('  1. Severity — what level of issue occurred?\n');
+      SEVERITIES.forEach((s, i) => out(`     ${i + 1}. ${s.value}  ${s.label}`));
       const sevIdx = await this.askNumber(rl, '\n  Select (1-5): ', 1, 5);
       const severity = SEVERITIES[sevIdx - 1].value;
 
       // Q2: Category
-      console.log('\n  2. Category — what type of issue is this?\n');
-      CATEGORIES.forEach((c, i) => console.log(`     ${String(i + 1).padStart(2)}. ${c.value.padEnd(26)} ${c.label}`));
+      out('\n  2. Category — what type of issue is this?\n');
+      CATEGORIES.forEach((c, i) => out(`     ${String(i + 1).padStart(2)}. ${c.value.padEnd(26)} ${c.label}`));
       const catIdx = await this.askNumber(rl, `\n  Select (1-${CATEGORIES.length}): `, 1, CATEGORIES.length);
       const category = CATEGORIES[catIdx - 1].value;
 
@@ -119,7 +121,7 @@ export class HanseiWizard {
         5, 'Forward Action'
       );
 
-      console.log('\n  ✔ Hansei complete.\n');
+      out('\n  ✔ Hansei complete.\n');
 
       return this.format({ severity, category, decision, constraint, cost, forwardAction });
     } finally {
@@ -144,7 +146,7 @@ export class HanseiWizard {
       const answer = await rl.question(prompt);
       const n = parseInt(answer.trim(), 10);
       if (!isNaN(n) && n >= min && n <= max) return n;
-      console.log(`  Please enter a number between ${min} and ${max}.`);
+      out(`  Please enter a number between ${min} and ${max}.`);
     }
   }
 
@@ -153,7 +155,7 @@ export class HanseiWizard {
       const answer = await rl.question(prompt);
       const val = answer.trim();
       if (val.length >= minLen) return val;
-      console.log(`  ${fieldName} must be at least ${minLen} characters.`);
+      out(`  ${fieldName} must be at least ${minLen} characters.`);
     }
   }
 }

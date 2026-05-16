@@ -17,6 +17,7 @@ Evaluates: Presence of metadata field.
 Does NOT evaluate: Accuracy of the count if derived from non-deterministic sources.
 
 ## Decision
+PROMOTE → TASK-905
 
 ## Decision
 PROMOTE → TASK-905

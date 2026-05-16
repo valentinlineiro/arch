@@ -53,3 +53,6 @@ ARCH depends on the ability to remove ontology that has outlived its design rati
 **Constraint:** Gate 3 (build-clean) is not actively run during arch review to avoid expensive npm run build invocation. Treated as implicitly passing at review time.
 **Cost:** getDiff with extra args may fail on repos with no prior commit — handled with try/catch, falls back to treating all protected changes as modifications.
 **Forward Action:** None required.
+
+## Approval
+Approved-by: Auditor | 2026-05-16

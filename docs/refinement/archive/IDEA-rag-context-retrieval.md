@@ -27,8 +27,7 @@ M
 <!-- THINK fills this section when invoked — do not edit manually -->
 
 ## Decision
-<!-- Human writes here after THINK evaluation -->
-<!-- PROMOTE → TASK-XXX | REJECT: reason -->
+DEFERRED: Valid long-term direction. Gated on Phase C/D prerequisites or insufficient corpus.
 
 ## Decision
 DEFERRED: Phase C gated on corpus. Not actionable until arch ask is compounding.

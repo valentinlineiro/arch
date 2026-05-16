@@ -22,5 +22,4 @@ S
 - Cómo manejar campos opcionales sin romper backward compat
 
 ## Decision
-<!-- Human writes here after THINK evaluation -->
 PROMOTE → TASK-907
