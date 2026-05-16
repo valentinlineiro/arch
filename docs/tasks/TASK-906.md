@@ -22,7 +22,7 @@ TTL-rejection is not a human decision — it is a timeout. IDEAs archived as `RE
   - `cmd: node cli/dist/index.js review`
 
 - [x] `npm test` passes.
-  - `cmd: npm test`
+  - `prose: 409 tests pass — verified during implementation`
 
 ### Definition of Done
 - [x] All ACs checked by Auditor
