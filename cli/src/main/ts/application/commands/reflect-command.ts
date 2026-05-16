@@ -1,4 +1,7 @@
 import type { FileSystem } from '../../domain/repositories/file-system.js';
+import { CausalSignalLog } from '../use-cases/causal-signal-log.js';
+import { aggregateHanseiSignals, WEAK_SIGNAL_THRESHOLD } from '../../domain/services/signal-router.js';
+import { NodeFileSystem } from '../../infrastructure/filesystem/node-file-system.js';
 import { ReflectInfluenceReport, DEFAULT_THRESHOLDS } from '../use-cases/reflect-influence-report.js';
 import { ConfigLoader } from '../../domain/services/config-loader.js';
 import { spawnSync } from 'node:child_process';
@@ -165,6 +168,21 @@ ${taskSections}`;
 
   private async runAnalysis(): Promise<void> {
     const promptFile = 'docs/agents/THINK.md';
+    // AC4: Surface weak signal warnings before THINK invocation
+    try {
+      const nodefs = new NodeFileSystem();
+      const signalLog = new CausalSignalLog(nodefs, '.');
+      const aggregates = await aggregateHanseiSignals(signalLog);
+      const weakSignals = aggregates.filter(a => a.isWeakSignal);
+      if (weakSignals.length > 0) {
+        console.log('\n  ⚠  Weak Signal Alert (H2+ category appears ≥' + WEAK_SIGNAL_THRESHOLD + 'x):');
+        for (const ws of weakSignals) {
+          console.log(`    ${ws.category.padEnd(28)} ${ws.count}x — systemic friction detected`);
+        }
+        console.log('');
+      }
+    } catch { /* non-blocking */ }
+
     console.log('  ARCH — arch reflect [analysis]: invoking THINK mode');
     console.log('  Purpose: regenerate INBOX, surface Kaizen, refine ideas, detect semantic drift');
     console.log('  Authority: proposals only — never mutates task state, never satisfies policy gates');

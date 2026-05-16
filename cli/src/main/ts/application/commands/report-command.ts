@@ -42,6 +42,15 @@ export class ReportCommand {
       const p90Str = p90 !== null ? p90.toFixed(1) + 'h' : 'N/A';
       console.log(`    ${size}: ${p50Str} / ${p90Str} (${count} tasks)`);
     }
+    // Hansei category breakdown
+    if (metrics.hanseiBreakdown && metrics.hanseiBreakdown.length > 0) {
+      console.log('\n  Hansei Signals (H2+):');
+      for (const entry of metrics.hanseiBreakdown) {
+        const weakTag = entry.isWeakSignal ? ' ⚠ WEAK SIGNAL' : '';
+        console.log(`    ${entry.category.padEnd(28)} ${String(entry.count).padStart(3)}x  [${entry.severities.join(', ')}]${weakTag}`);
+      }
+    }
+
     console.log('\n  ✔ docs/METRICS.md updated.');
   }
 
