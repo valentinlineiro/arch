@@ -1,7 +1,7 @@
 # IDEA: Roadmap — Deterministic Drift & Contextual Checks
 **Created:** 2026-05-15
 **Source:** DaaS Sprint Reflection
-**Status:** DRAFT
+**Status:** DEFERRED
 **Meta:** P2 | M | local | cli/src/main/ts/
 
 ## Problem
@@ -26,3 +26,6 @@ M
 
 ## Decision
 <!-- PROMOTE → TASK-XXX | REJECT: reason -->
+
+### Decision
+DEFERRED: Scope absorbed by TENSION-002 (ExcisionStructuralCheck) and active DriftChecker work.

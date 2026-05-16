@@ -31,4 +31,4 @@ By reducing the friction of the "ARCH ceremony," we ensure the protocol is follo
 Features 1–3 (task edit, task create, task start memory injection) are DONE as of 2026-05-15. Feature 4 (Socratic Wizard) has its own IDEA (IDEA-daas-hansei-wizard). Feature 5 (arch explain) has no IDEA yet. This document now functions as a tracking artifact for remaining DaaS scope. Human: decide whether to promote this as a tracking task for Feature 5 scope, or close it since sub-IDEAs exist for the remaining work.
 
 ## Decision
-<!-- PROMOTE → TASK-XXX | REJECT: reason -->
+REJECT: Tracking artifact. Features 1-3 DONE. Feature 4 tracked by IDEA-daas-hansei-wizard. Feature 5 (arch explain) is a future IDEA when warranted.

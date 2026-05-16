@@ -1,7 +1,7 @@
 # IDEA: Adaptive planning — task states that model energy, context, and cognitive cost
 **Created:** 2026-05-08
 **Source:** Roadmap reflection
-**Status:** DRAFT
+**Status:** DEFERRED
 **Meta:** P3 | S | claude-code | docs/TASK-FORMAT.md, docs/guidelines/
 
 ## Problem
@@ -35,3 +35,6 @@ S
 ## Decision
 <!-- Human writes here after THINK evaluation -->
 <!-- PROMOTE → TASK-XXX | REJECT: reason -->
+
+### Decision
+DEFERRED: Valid long-term direction. Gated on Phase C/D prerequisites (signal corpus, arch ask compounding). Re-evaluate when READY count drops below 5 or Phase B reaches 50%.

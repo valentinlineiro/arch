@@ -1,7 +1,7 @@
 # IDEA: Structural policies — machine-enforced architectural boundaries in arch review
 **Created:** 2026-05-08
 **Source:** Roadmap reflection
-**Status:** DRAFT
+**Status:** DEFERRED
 **Meta:** P2 | M | claude-code | cli/src/main/ts/domain/services/drift-checker.ts, arch.config.json
 
 ## Problem
@@ -44,3 +44,6 @@ M
 ## Decision
 <!-- Human writes here after THINK evaluation -->
 <!-- PROMOTE → TASK-XXX | REJECT: reason -->
+
+### Decision
+DEFERRED: Valid long-term direction. Gated on Phase C/D prerequisites (signal corpus, arch ask compounding). Re-evaluate when READY count drops below 5 or Phase B reaches 50%.

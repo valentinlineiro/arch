@@ -1,7 +1,7 @@
 # IDEA: Domain packs — protocol extensions for software, startup, household, and personal use
 **Created:** 2026-05-08
 **Source:** Roadmap reflection
-**Status:** DRAFT
+**Status:** DEFERRED
 **Meta:** P3 | XL | claude-code | docs/guidelines/, arch.config.json
 
 ## Problem
@@ -41,3 +41,6 @@ XL
 ## Decision
 <!-- Human writes here after THINK evaluation -->
 <!-- PROMOTE → TASK-XXX | REJECT: reason -->
+
+### Decision
+DEFERRED: Valid long-term direction. Gated on Phase C/D prerequisites (signal corpus, arch ask compounding). Re-evaluate when READY count drops below 5 or Phase B reaches 50%.
