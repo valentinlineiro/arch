@@ -153,3 +153,17 @@ ADR-020 ruling names differ from AGFM ruling names. AGFM is authoritative for im
 | `arch review` produces zero HanseiPresent WARNs for pre-thre | cmd | ✔ | exit 0 (expected 0) |
 | `arch review` still WARNs on post-threshold tasks missing a  | cmd | ✔ | exit 0 (expected 0) |
 | `npm test` passes. | prose | ✔ | prose: human-verified (non-automated) |
+
+## [AWAITING_REVIEW] TASK-902 [L3-AUTO]
+**Closed:** 2026-05-16T22:37:18.165Z
+**Title:** Pre-implementation detection: arch task next --verify
+
+| AC | Type | Pass | Detail |
+|---|---|---|---|
+| `arch task next --verify` runs `DeterministicACVerifier.veri | cmd | ✔ | exit 0 (expected 0) |
+| If all `cmd:` and `file:` predicates pass AND evidence conta | cmd | ✔ | exit 0 (expected 0) |
+| If any predicate fails or evidence is prose-only: no warning | cmd | ✔ | exit 0 (expected 0) |
+| `arch task next` (without `--verify`) is unchanged — no pred | cmd | ✔ | exit 0 (expected 0) |
+| Unit test: focus task with all passing cmd predicates trigge | prose | ✔ | prose: human-verified (non-automated) |
+| Unit test: focus task with failing cmd predicate emits no wa | prose | ✔ | prose: human-verified (non-automated) |
+| `arch review` passes. | cmd | ✔ | exit 0 (expected 0) |

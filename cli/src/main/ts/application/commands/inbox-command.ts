@@ -24,10 +24,31 @@ export class InboxCommand {
         this.renderDecisions(items);
         return;
       }
+      if (args.includes('--resurrect')) {
+        const items = await this.useCase.getResurrectQueue();
+        this.renderResurrect(items);
+        return;
+      }
       const data = await this.useCase.execute();
       this.render(data);
     } catch (error: any) {
       fmt.warn(error.message);
+    }
+  }
+
+  private renderResurrect(items: DecisionItem[]): void {
+    fmt.header('Resurrection Queue');
+    if (items.length === 0) {
+      console.log('\n  No TTL-rejected or DEFERRED IDEAs in archive.\n');
+      return;
+    }
+    console.log(`\n  ${items.length} IDEA(s) eligible for resurrection (oldest first):\n`);
+    for (const item of items) {
+      console.log(`  [${item.created}] ${item.sessions}s  ${item.slug}`);
+      console.log(`    Title:   ${item.title}`);
+      console.log(`    Problem: ${item.problem}`);
+      console.log(`    Resurrect: move from docs/refinement/archive/ to docs/refinement/, clear Decision, reset Status to DRAFT`);
+      console.log('');
     }
   }
 

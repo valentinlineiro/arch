@@ -177,4 +177,59 @@ export class GenerateInbox {
 
     return items.sort((a, b) => b.sessions - a.sessions);
   }
+  async getResurrectQueue(): Promise<DecisionItem[]> {
+    const archiveDir = `${this.refinementDir}/archive`;
+    const items: DecisionItem[] = [];
+
+    let files: string[] = [];
+    try {
+      const allFiles = await this.fileSystem.readDirectory(archiveDir);
+      files = allFiles.filter(f => f.startsWith('IDEA-') && f.endsWith('.md'));
+    } catch {
+      return [];
+    }
+
+    for (const file of files) {
+      const content = await this.fileSystem.readFile(`${archiveDir}/${file}`);
+
+      // Only include TTL-expired or DEFERRED IDEAs
+      const statusMatch = content.match(/\*\*Status:\*\*\s*(\S+)/);
+      const status = statusMatch?.[1] ?? '';
+      if (!status.includes('DEFERRED') && !status.includes('REJECTED')) continue;
+
+      // Check Decision field for TTL expired or DEFERRED
+      const dIdx = content.indexOf('## Decision');
+      const dStart = dIdx >= 0 ? content.indexOf('\n', dIdx) + 1 : -1;
+      const dEnd = dStart > 0 ? content.indexOf('\n##', dStart) : -1;
+      const dLine = dStart > 0 ? (dEnd > 0 ? content.slice(dStart, dEnd) : content.slice(dStart)).trim() : '';
+
+      const isResurrectable = dLine.includes('TTL expired') || status.includes('DEFERRED');
+      if (!isResurrectable) continue;
+
+      const slug = file.replace('.md', '');
+
+      const titleMatch = content.match(/^# IDEA: (.*)/m);
+      const title = titleMatch ? titleMatch[1].trim() : slug;
+
+      const problemStart = content.indexOf('## Problem');
+      const problemBodyStart = problemStart >= 0 ? content.indexOf('\n', problemStart) + 1 : -1;
+      const problemBodyEnd = problemBodyStart > 0 ? content.indexOf('\n##', problemBodyStart) : -1;
+      const problem = problemBodyStart > 0 && problemBodyEnd > 0
+        ? content.slice(problemBodyStart, problemBodyEnd).trim().split('\n')[0].slice(0, 100)
+        : 'No problem description.';
+
+      const sessionsMatch = content.match(/\*\*Sessions:\*\*\s*(\d+)/);
+      const sessions = sessionsMatch ? parseInt(sessionsMatch[1], 10) : 0;
+
+      const createdMatch = content.match(/\*\*Created:\*\*\s*([\d-]+)/);
+      const created = createdMatch ? createdMatch[1] : 'unknown';
+
+      items.push({ slug, title, problem, sessions, created, decisionRequired: false });
+    }
+
+    // Sort by created date ascending (oldest first)
+    return items.sort((a, b) => a.created.localeCompare(b.created));
+  }
+
+
 }
