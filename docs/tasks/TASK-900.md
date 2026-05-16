@@ -15,7 +15,7 @@ Two automated processes violate the TASK-241 invariant that `docs/INBOX.md` is a
 ### Acceptance Criteria
 
 - [x] `EscalationStore` extended with `APPROVED` and `REDIRECT` types in the escalation type enum.
-  - `file: cli/src/main/ts/infrastructure/filesystem/escalation-store.ts`
+  - `file: cli/src/main/ts/application/use-cases/escalation-store.ts`
 
 - [x] `sandbox-command.ts` no longer reads `docs/INBOX.md`. Instead reads `.arch/escalations.jsonl` for an OPEN escalation of type `APPROVED` matching the current task ID. Document in sandbox-command how a human writes an approval (`arch approve` or direct append to `.arch/escalations.jsonl`).
   - `file: cli/src/main/ts/application/commands/sandbox-command.ts`
