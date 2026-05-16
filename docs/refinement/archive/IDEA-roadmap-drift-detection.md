@@ -22,4 +22,4 @@ M
 ## Gaps
 
 ## Decision
-PROMOTE → ADR-013, TASK-215
+PROMOTE → TASK-215

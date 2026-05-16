@@ -36,5 +36,4 @@ S
 - Decide whether Turns is self-reported by the agent or derived from session metadata.
 
 ## Decision
-<!-- Human writes here after THINK evaluation -->
-<!-- PROMOTE → TASK-XXX | REJECT: reason -->
+PROMOTE → TASK-182

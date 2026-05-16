@@ -33,8 +33,7 @@ S
 ## Gaps
 
 ## Decision
-<!-- Human writes here after THINK evaluation -->
-<!-- PROMOTE → TASK-XXX | REJECT: reason -->
+DEFERRED: Valid long-term direction. Gated on Phase C/D prerequisites (signal corpus, arch ask compounding).
 
 ### Decision
 DEFERRED: Valid long-term direction. Gated on Phase C/D prerequisites (signal corpus, arch ask compounding). Re-evaluate when READY count drops below 5 or Phase B reaches 50%.

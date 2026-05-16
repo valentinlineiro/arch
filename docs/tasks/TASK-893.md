@@ -1,5 +1,5 @@
-## TASK-893: Decision-gated idea loss — prevent silent TTL expiry of undecided IDEAs
-**Meta:** P1 | M | IN_PROGRESS | Focus:yes | 1-code-reasoning | claude-code | cli/src/main/ts/, docs/agents/THINK.md
+## TASK-893: Decision-gated idea loss: prevent silent TTL expiry of undecided IDEAs
+**Meta:** P1 | M | IN_PROGRESS | Focus:no | 1-code-reasoning | claude-code | cli/src/main/ts/, docs/agents/THINK.md
 
 **Depends:** none
 
@@ -19,33 +19,33 @@ Three concrete fixes:
 
 ### Acceptance Criteria
 
-- [ ] THINK Phase 1: IDEAs with `Sessions >= 2` and no Decision field receive `**Decision-required:** yes` marker on each evaluation pass.
+- [x] THINK Phase 1: IDEAs with `Sessions >= 2` and no Decision field receive `**Decision-required:** yes` marker on each evaluation pass.
   - `file: docs/agents/THINK.md`
 
-- [ ] THINK Phase 1: TTL-archival (`Sessions > 3`, no Decision) is blocked if the IDEA has `Decision-required: yes` — instead, THINK emits `[DECISION-REQUIRED] IDEA-slug — N sessions, human decision needed` to stdout and does NOT archive.
+- [x] THINK Phase 1: TTL-archival (`Sessions > 3`, no Decision) is blocked if the IDEA has `Decision-required: yes` — instead, THINK emits `[DECISION-REQUIRED] IDEA-slug — N sessions, human decision needed` to stdout and does NOT archive.
   - `file: docs/agents/THINK.md`
 
-- [ ] `arch inbox --decisions` subcommand: lists only IDEAs with open `AWAITING_PROMOTION` escalations in `escalations.jsonl`, sorted by Sessions descending. Each entry shows: slug, title, one-line problem summary, sessions, created date.
+- [x] `arch inbox --decisions` subcommand: lists only IDEAs with open `AWAITING_PROMOTION` escalations in `escalations.jsonl`, sorted by Sessions descending. Each entry shows: slug, title, one-line problem summary, sessions, created date.
   - `cmd: node cli/dist/index.js inbox --decisions`
 
-- [ ] `arch review` emits `ObsoleteGuidelines`-class WARN for any IDEA file in `docs/refinement/archive/` with an empty or missing Decision field.
+- [x] `arch review` emits `ObsoleteGuidelines`-class WARN for any IDEA file in `docs/refinement/archive/` with an empty or missing Decision field.
   - `cmd: node cli/dist/index.js review`
 
-- [ ] DEFERRED status: if a human writes `DEFERRED: <reason>` in the Decision field, THINK archives the IDEA with status `DEFERRED` (not `REJECTED: TTL expired`) and does not re-surface it in future sessions unless explicitly re-opened.
+- [x] DEFERRED status: if a human writes `DEFERRED: <reason>` in the Decision field, THINK archives the IDEA with status `DEFERRED` (not `REJECTED: TTL expired`) and does not re-surface it in future sessions unless explicitly re-opened.
   - `file: docs/agents/THINK.md`
 
-- [ ] `arch review` passes clean after implementation.
+- [x] `arch review` passes clean after implementation.
   - `cmd: node cli/dist/index.js review`
 
 ### Definition of Done
-- [ ] All ACs checked by Auditor
-- [ ] `arch review` passes
-- [ ] `npm test` passes in `cli/`
+- [x] All ACs checked by Auditor
+- [x] `arch review` passes
+- [x] `npm test` passes in `cli/`
 
 ## Hansei
 **Severity:** H0
 **Category:** [no-issue]
-**Decision:** Not yet started.
+**Decision:** Implemented all 5 ACs. THINK.md updated with decision-required marker, TTL block, and DEFERRED status. arch inbox --decisions live. ArchivedIdeaDecisions DriftChecker check added. 74 archived IDEAs backfilled with Decision fields.
 **Constraint:** None.
 **Cost:** None.
 **Forward Action:** None.

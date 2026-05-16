@@ -33,5 +33,4 @@ M
 ## Gaps
 
 ## Decision
-PROMOTE → TASK-148
-<!-- PROMOTE → TASK-XXX | REJECT: reason -->
+PROMOTE → TASK-XXX

@@ -22,4 +22,4 @@ S
 <!-- THINK fills this section when invoked — do not edit manually -->
 
 ## Decision
-PROMOTE → TASK-130. Consolidating phases to reduce cognitive load and comply with simplification mandate.
+PROMOTE → TASK-130

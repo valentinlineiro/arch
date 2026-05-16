@@ -28,4 +28,4 @@ XS
 - Should the format be strictly comma-separated?
 
 ## Decision
-PROMOTE -> TASK-106 (Self-promoted via THINK Level 2 Autonomy)
+PROMOTE → TASK-106

@@ -25,4 +25,4 @@ XS
 <!-- THINK fills this section when invoked — do not edit manually -->
 
 ## Decision
-PROMOTE → TASK-129. Value field is redundant since Priority (P0-P3) covers the same need. Reducing to 7 fields as per simplification mandate.
+PROMOTE → TASK-129

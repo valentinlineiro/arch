@@ -22,4 +22,4 @@ M (due to schema change across all tools)
 - What defines "Value" for an agent vs. a human?
 
 ## Decision
-PROMOTE -> TASK-108 (Addresses human request for value-based live reprioritization)
+PROMOTE → TASK-108

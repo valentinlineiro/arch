@@ -21,4 +21,4 @@ S
 - Performance impact of scanning every task file for every review.
 
 ## Decision
-PROMOTE -> TASK-107 (Self-promoted: addresses recurring stale dependency friction)
+PROMOTE → TASK-107

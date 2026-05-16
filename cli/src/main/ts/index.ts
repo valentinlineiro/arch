@@ -79,7 +79,7 @@ async function main() {
       break;
     }
     case 'inbox':
-      await new InboxCommand(taskRepository, fileSystem, reviewer, driftChecker).execute();
+      await new InboxCommand(taskRepository, fileSystem, reviewer, driftChecker).execute(args);
       break;
     case 'next': {
       process.stderr.write("Warning: 'arch next' is deprecated. Use 'arch task next' instead.\n");

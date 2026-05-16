@@ -55,4 +55,4 @@ Every IDEA archived must have a Decision field with at least one of: `PROMOTE`, 
 - **IDEA-daas-hansei-wizard** — pattern: same DaaS philosophy — reduce ceremony friction by making the correct action the easiest one.
 
 ## Decision
-PROMOTE → TASK-893
+PROMOTE → TASK-XXX

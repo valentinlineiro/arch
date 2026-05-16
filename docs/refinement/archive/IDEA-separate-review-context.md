@@ -22,5 +22,4 @@ S
 - **L3 Autonomy:** `arch loop` spawns Auditor as a child process with `--no-session-inherit`. If Auditor returns FAIL, loop increments the Andon Cord counter (see IDEA-andon-cord) rather than retrying implementation directly.
 
 ## Decision
-PROMOTE → TASK-142
-<!-- PROMOTE → TASK-XXX | REJECT: reason -->
+PROMOTE → TASK-XXX

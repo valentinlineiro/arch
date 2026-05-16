@@ -23,4 +23,4 @@ S
 - Format decision needed: who writes `## Approval` for tasks closed autonomously vs. human-reviewed tasks? This is a governance question, not an implementation question.
 
 ## Decision
-<!-- Human writes here after THINK evaluation -->
+REJECT: TTL expired — no human engagement across 4+ THINK sessions.

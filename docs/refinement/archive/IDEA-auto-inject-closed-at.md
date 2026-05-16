@@ -21,5 +21,4 @@ XS
 - Decide format: insert as a new line after `**Depends:**`, or append to the Meta line.
 
 ## Decision
-<!-- Human writes here after THINK evaluation -->
-<!-- PROMOTE → TASK-XXX | REJECT: reason -->
+PROMOTE → TASK-081

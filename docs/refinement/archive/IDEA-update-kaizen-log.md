@@ -22,5 +22,4 @@ XS
 None — scope is fully defined. Both entries and their resolving tasks are known.
 
 ## Decision
-<!-- Human writes here after THINK evaluation -->
-<!-- PROMOTE → TASK-XXX | REJECT: reason -->
+PROMOTE → TASK-080

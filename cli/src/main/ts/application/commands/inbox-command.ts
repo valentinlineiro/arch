@@ -1,4 +1,4 @@
-import { GenerateInbox, InboxData } from '../use-cases/generate-inbox.js';
+import { GenerateInbox, InboxData, DecisionItem } from '../use-cases/generate-inbox.js';
 import type { TaskRepository } from '../../domain/repositories/task-repository.js';
 import type { Reviewer } from '../../domain/services/reviewer.js';
 import type { DriftChecker } from '../use-cases/drift-checker.js';
@@ -17,12 +17,35 @@ export class InboxCommand {
     this.useCase = new GenerateInbox(taskRepository, fileSystem, reviewer, driftChecker);
   }
 
-  async execute(): Promise<void> {
+  async execute(args: string[] = []): Promise<void> {
     try {
+      if (args.includes('--decisions')) {
+        const items = await this.useCase.getDecisionQueue();
+        this.renderDecisions(items);
+        return;
+      }
       const data = await this.useCase.execute();
       this.render(data);
     } catch (error: any) {
       fmt.warn(error.message);
+    }
+  }
+
+  private renderDecisions(items: DecisionItem[]): void {
+    fmt.header('Decisions Required');
+    if (items.length === 0) {
+      console.log('\n  No IDEAs pending decision.\n');
+      return;
+    }
+    console.log(`\n  ${items.length} IDEA(s) awaiting your decision:\n`);
+    for (const item of items) {
+      const marker = item.decisionRequired ? ' ⚠' : '';
+      console.log(`  [${item.sessions} sessions]${marker} ${item.slug}`);
+      console.log(`    Title:   ${item.title}`);
+      console.log(`    Problem: ${item.problem}`);
+      console.log(`    Created: ${item.created}`);
+      console.log(`    Write in Decision field: PROMOTE → TASK-XXX | REJECT: <reason> | DEFERRED: <reason>`);
+      console.log('');
     }
   }
 

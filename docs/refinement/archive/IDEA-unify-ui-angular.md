@@ -24,5 +24,4 @@ L (must be decomposed before execution)
 - L size requires decomposition into sub-tasks before promotion.
 
 ## Decision
-<!-- Human writes here after THINK evaluation -->
-<!-- PROMOTE → TASK-XXX | REJECT: reason -->
+PROMOTE → TASK-097

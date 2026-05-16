@@ -41,4 +41,4 @@ L
 - **Metrics Integration:** The loop must automatically capture Cost/Steps for each task in the cycle and aggregate them into a session report.
 
 ## Decision
-PROMOTE → TASK-152
+PROMOTE → TASK-XXX

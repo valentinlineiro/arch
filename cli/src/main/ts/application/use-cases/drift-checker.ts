@@ -41,6 +41,7 @@ export class DriftChecker {
       this.checkOrphanTasks(),
       this.checkObsoleteGuidelines(),
       this.checkUnappliedADRs(),
+      this.checkArchivedIdeaDecisions(),
     ]);
   }
 
@@ -754,6 +755,41 @@ export class DriftChecker {
     }
 
     return { check: 'UnappliedADRs', status: details.length === 0 ? 'OK' : 'WARN', details };
+  }
+
+  private async checkArchivedIdeaDecisions(): Promise<DriftResult> {
+    const archiveDir = `${this.rootPath}/docs/refinement/archive`;
+    if (!(await this.fileSystem.exists(archiveDir))) {
+      return { check: 'ArchivedIdeaDecisions', status: 'OK', details: [] };
+    }
+
+    const files = (await this.fileSystem.readDirectory(archiveDir))
+      .filter(f => f.startsWith('IDEA-') && f.endsWith('.md'));
+
+    const details: string[] = [];
+
+    for (const file of files) {
+      const content = await this.fileSystem.readFile(`${archiveDir}/${file}`);
+
+      // Find Decision field content
+      const decisionMatch = content.match(/^## Decision\n([\s\S]*?)(?=\n##|$)/m);
+      if (!decisionMatch) {
+        details.push(`docs/refinement/archive/${file}: missing Decision section — every archived IDEA must have a human decision (PROMOTE, REJECT, or DEFERRED).`);
+        continue;
+      }
+
+      const decision = decisionMatch[1].trim();
+      // Empty or only a placeholder comment
+      if (decision === '' || decision.startsWith('<!--')) {
+        details.push(`docs/refinement/archive/${file}: empty Decision field — archived without a recorded human decision.`);
+      }
+    }
+
+    return {
+      check: 'ArchivedIdeaDecisions',
+      status: details.length === 0 ? 'OK' : 'WARN',
+      details,
+    };
   }
 
   private async getMarkdownFiles(dirPath: string): Promise<string[]> {

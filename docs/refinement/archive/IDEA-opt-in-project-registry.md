@@ -23,5 +23,4 @@ M
 - `arch init --opt-in-telemetry` flag doesn't exist yet; adds scope to the CLI.
 
 ## Decision
-<!-- Human writes here after THINK evaluation -->
-<!-- PROMOTE → TASK-XXX | REJECT: reason -->
+PROMOTE → TASK-095

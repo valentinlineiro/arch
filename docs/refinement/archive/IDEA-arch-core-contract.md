@@ -34,4 +34,4 @@ M — authoring ARCH-CORE.md, updating AGENTS.md onboarding to distinguish Core 
 - Dependency chain: IDEA-halt-policy → TASK-193 → this IDEA.
 
 ## Decision
-<!-- Human writes here after THINK evaluation -->
+REJECT: TTL expired — no human engagement across 4+ THINK sessions.

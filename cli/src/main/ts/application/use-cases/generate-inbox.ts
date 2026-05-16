@@ -22,6 +22,15 @@ export interface InboxData {
   };
 }
 
+export interface DecisionItem {
+  slug: string;
+  title: string;
+  problem: string;
+  sessions: number;
+  created: string;
+  decisionRequired: boolean;
+}
+
 export class GenerateInbox {
   private refinementDir = 'docs/refinement';
 
@@ -118,5 +127,54 @@ export class GenerateInbox {
       refinement: pendingIdeas,
       sprint: sprintData
     };
+  }
+
+  async getDecisionQueue(): Promise<DecisionItem[]> {
+    const refinementDir = `${this.refinementDir}`;
+    const items: DecisionItem[] = [];
+
+    let files: string[] = [];
+    try {
+      const allFiles = await this.fileSystem.readDirectory(refinementDir);
+      files = allFiles.filter(f => f.startsWith('IDEA-') && f.endsWith('.md'));
+    } catch {
+      return [];
+    }
+
+    for (const file of files) {
+      const content = await this.fileSystem.readFile(`${refinementDir}/${file}`);
+
+      // Only include if Decision field is empty/missing
+      const dIdx = content.indexOf('## Decision');
+      const dStart = dIdx >= 0 ? content.indexOf('\n', dIdx) + 1 : -1;
+      const dEnd = dStart > 0 ? content.indexOf('\n', dStart) : -1;
+      const dLine = dStart > 0 && dEnd > 0 ? content.slice(dStart, dEnd).trim() : '';
+      const hasDecision = dIdx >= 0 && dLine !== '' && !dLine.startsWith('<!--');
+      if (hasDecision) continue;
+
+      const slug = file.replace('.md', '');
+
+      const titleMatch = content.match(/^# IDEA: (.*)/m);
+      const title = titleMatch ? titleMatch[1].trim() : slug;
+
+      const problemStart = content.indexOf('## Problem');
+      const problemBodyStart = problemStart >= 0 ? content.indexOf('\n', problemStart) + 1 : -1;
+      const problemBodyEnd = problemBodyStart > 0 ? content.indexOf('\n##', problemBodyStart) : -1;
+      const problem = problemBodyStart > 0 && problemBodyEnd > 0
+        ? content.slice(problemBodyStart, problemBodyEnd).trim().split('\n')[0].slice(0, 100)
+        : 'No problem description.';
+
+      const sessionsMatch = content.match(/\*\*Sessions:\*\*\s*(\d+)/);
+      const sessions = sessionsMatch ? parseInt(sessionsMatch[1], 10) : 0;
+
+      const createdMatch = content.match(/\*\*Created:\*\*\s*([\d-]+)/);
+      const created = createdMatch ? createdMatch[1] : 'unknown';
+
+      const decisionRequired = content.includes('**Decision-required:** yes');
+
+      items.push({ slug, title, problem, sessions, created, decisionRequired });
+    }
+
+    return items.sort((a, b) => b.sessions - a.sessions);
   }
 }

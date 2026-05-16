@@ -27,5 +27,4 @@ S (Requires CLI code changes + doc cleanup)
 <!-- THINK fills this section when invoked — do not edit manually -->
 
 ## Decision
-<!-- Human writes here after THINK evaluation -->
-<!-- PROMOTE → TASK-XXX | REJECT: reason -->
+PROMOTE → TASK-076

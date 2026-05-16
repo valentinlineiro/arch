@@ -34,4 +34,4 @@ S — doc authoring, one new `arch review` drift check, no new commands
 - Dependency on TASK-193 is soft — doc and drift check can be done independently; TASK-193 implements some conditions but doesn't block this IDEA.
 
 ## Decision
-PROMOTE -> TASK-194
+PROMOTE → TASK-194

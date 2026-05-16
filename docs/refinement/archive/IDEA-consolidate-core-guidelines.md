@@ -24,4 +24,4 @@ S
 <!-- THINK fills this section when invoked — do not edit manually -->
 
 ## Decision
-PROMOTE → TASK-131. Merging and delegating rules to stay within the 8-section threshold for core guidelines.
+PROMOTE → TASK-131

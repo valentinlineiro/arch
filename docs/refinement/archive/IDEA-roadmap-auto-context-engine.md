@@ -22,4 +22,4 @@ M
 ## Gaps
 
 ## Decision
-PROMOTE → TASK-219
+REJECT: TTL expired — no human engagement across 4+ THINK sessions.

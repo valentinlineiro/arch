@@ -25,4 +25,4 @@ S
 <!-- THINK fills this section when invoked — do not edit manually -->
 
 ## Decision
-PROMOTE → TASK-132. Automating the promotion workflow to reduce human friction and ensure consistent protocol execution.
+PROMOTE → TASK-132

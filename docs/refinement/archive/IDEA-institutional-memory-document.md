@@ -33,5 +33,4 @@ M
 - Decide whether PRINCIPLES.md is loaded into every agent context by default or only during THINK Phase 3.
 
 ## Decision
-<!-- Human writes here after THINK evaluation -->
-<!-- PROMOTE → TASK-XXX | REJECT: reason -->
+PROMOTE → TASK-180

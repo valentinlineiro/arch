@@ -28,7 +28,11 @@
    New axes may be discovered during adjudication. When a rejection rationale genuinely doesn't fit any existing axis, name it explicitly in the rejection — the taxonomy is empirically derived, not closed.
 
 3. For each IDEA, apply lifecycle rules:
-   - **DRAFT:** Identify gaps, map active constraint axes, and estimate. Output to terminal only. Increment `**Sessions:** N` counter in the IDEA file (add field if missing). If `Sessions >= 3`, emit `[STALE-IDEA] IDEA-slug — N sessions without Decision` to stdout. If `Sessions > 3` and still no Decision, move it to `docs/refinement/archive/` with status `REJECTED: TTL expired` — do not re-evaluate.
+   - **DRAFT:** Identify gaps, map active constraint axes, and estimate. Output to terminal only. Increment `**Sessions:** N` counter in the IDEA file (add field if missing).
+     - If `Sessions >= 2` and Decision field is empty or missing: add `**Decision-required:** yes` marker to the IDEA file. Emit `[DECISION-REQUIRED] IDEA-slug — N sessions, human decision needed` to stdout.
+     - If `Sessions >= 3` and Decision field is empty: emit `[STALE-IDEA] IDEA-slug — N sessions without Decision` to stdout.
+     - If `Sessions > 3` and Decision field is still empty: **do NOT archive**. Instead, emit `[DECISION-REQUIRED] IDEA-slug — N sessions, TTL would expire but Decision-required blocks archival. Human must decide: PROMOTE, REJECT: <reason>, or DEFERRED: <reason>.` Do not re-evaluate until Decision field is written.
+   - **DEFERRED (human-written):** If the Decision field contains `DEFERRED:`, move the IDEA to `docs/refinement/archive/` with status `DEFERRED`. Do not re-surface unless explicitly re-opened by human. Commit with `chore: [THINK] archive [IDEA-slug] — DEFERRED by human decision`.
    - **REJECTED (human-written):** If the Decision field contains `REJECT:`, move the IDEA to `docs/refinement/archive/` immediately. No re-evaluation. No session increment. Commit with `chore: [THINK] archive [IDEA-slug] — REJECTED by human decision`.
    - **DECIDED (PROMOTE):** If human Decision is written and IDEA meets the L2 autonomy rule (see `docs/guidelines/autonomy.md` — Autonomy Pilot section), promote autonomously: update status to `PROMOTED -> TASK-XXX`, create task file, and archive IDEA. Then:
      1. Append a PROMOTE record to `.arch/reflect-proposals.jsonl` at confidence 1.0 (records that THINK executed a human decision, not that THINK proposed it).

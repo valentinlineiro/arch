@@ -18,5 +18,3 @@ High - governance conflict
 
 ## Decision
 PROMOTE → TASK-127
-Split "promote" into two acts: human decides (writes Decision), THINK executes (creates file, moves IDEA).
-L2 autonomy applies to execution only — never to the decision itself.

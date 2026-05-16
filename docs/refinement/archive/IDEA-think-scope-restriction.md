@@ -34,5 +34,4 @@ S
 - Define the escalation path when `arch govern` encounters a condition it cannot resolve deterministically (e.g. all READY tasks are blocked) — it must hand off to the AI layer with a clear signal.
 
 ## Decision
-PROMOTE → TASK-149
-<!-- PROMOTE → TASK-XXX | REJECT: reason -->
+PROMOTE → TASK-XXX

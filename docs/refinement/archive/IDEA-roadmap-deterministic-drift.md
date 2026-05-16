@@ -25,7 +25,7 @@ Moves "Thinking" tasks into the "Governance" layer. By detecting structural anom
 M
 
 ## Decision
-<!-- PROMOTE → TASK-XXX | REJECT: reason -->
+DEFERRED: Valid long-term direction. Gated on Phase C/D prerequisites (signal corpus, arch ask compounding).
 
 ### Decision
 DEFERRED: Scope absorbed by TENSION-002 (ExcisionStructuralCheck) and active DriftChecker work.

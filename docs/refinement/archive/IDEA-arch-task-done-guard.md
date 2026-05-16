@@ -23,4 +23,4 @@ XS
 - Define the exact regex for AC detection: `^[\s]*- \[ \] `
 
 ## Decision
-PROMOTED to TASK-115 by THINK agent (L2 Autonomy).
+PROMOTE → TASK-115

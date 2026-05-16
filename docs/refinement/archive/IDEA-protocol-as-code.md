@@ -34,5 +34,4 @@ M
 - Decide whether THINK.md fully removes the prose descriptions or retains them as collapsed reference (inline comments vs deleted).
 
 ## Decision
-PROMOTE → TASK-147
-<!-- PROMOTE → TASK-XXX | REJECT: reason -->
+PROMOTE → TASK-XXX
