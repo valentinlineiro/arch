@@ -1,5 +1,5 @@
 ## TASK-896: Introduce .arch/escalations.jsonl as structured escalation state store
-**Meta:** P1 | S | READY | Focus:no | 1-code-reasoning | claude-code | cli/src/main/ts/application/use-cases/loop-engine.ts, cli/src/main/ts/application/commands/sandbox-command.ts, cli/src/main/ts/application/use-cases/generate-inbox.ts, docs/agents/THINK.md
+**Meta:** P1 | S | IN_PROGRESS | Focus:yes | 1-code-reasoning | claude-code | cli/src/main/ts/application/use-cases/loop-engine.ts, cli/src/main/ts/application/commands/sandbox-command.ts, cli/src/main/ts/application/use-cases/generate-inbox.ts, docs/agents/THINK.md
 
 **Depends:** none
 
