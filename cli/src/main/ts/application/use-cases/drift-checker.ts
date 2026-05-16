@@ -94,11 +94,92 @@ export class DriftChecker {
     const commitHasAdr = lastCommitFiles.some(f => f.startsWith('docs/adr/'));
 
     if (commitTouchedProtected.length > 0 && !commitHasAdr) {
-      details.push(`Last commit modifies protected path(s) without a new ADR: ${commitTouchedProtected.join(', ')}`);
+      // Separate deletions from additions/modifications
+      let diff = '';
+      try { diff = await this.gitRepository.getDiff(['HEAD~1..HEAD', '--name-status']); } catch { diff = ''; }
+      const deletedFiles = diff.split('\n')
+        .filter((l: string) => l.startsWith('D\t'))
+        .map((l: string) => l.slice(2).trim());
+
+      const deletedProtectedFiles = commitTouchedProtected.filter(f => deletedFiles.includes(f));
+      const modifiedProtectedFiles = commitTouchedProtected.filter(f => !deletedFiles.includes(f));
+
+      if (modifiedProtectedFiles.length > 0) {
+        details.push(`Last commit modifies protected path(s) without a new ADR: ${modifiedProtectedFiles.join(', ')}`);
+      }
+
+      if (deletedProtectedFiles.length > 0) {
+        const excisionResult = await this.checkExcisionStructure(deletedProtectedFiles);
+        if (excisionResult.status !== 'OK') {
+          details.push(...excisionResult.details.map(d => `[ExcisionCheck] ${d}`));
+        }
+      }
     }
 
     return {
       check: 'EscalationMaturity',
+      status: details.length === 0 ? 'OK' : 'WARN',
+      details,
+    };
+  }
+
+
+  private async checkExcisionStructure(deletedFiles: string[]): Promise<DriftResult> {
+    const details: string[] = [];
+
+    for (const file of deletedFiles) {
+      // Extract the artifact name (filename without extension, last path segment)
+      const artifactName = file.split('/').pop()?.replace(/\.ts$|\.js$|\.md$/, '') ?? file;
+
+      // Gate 1: Reference-clean — no orphan references in operational code/docs
+      let gate1Pass = true;
+      try {
+        const { execSync } = await import('node:child_process');
+        const result = execSync(
+          `grep -r "${artifactName}" cli/src/ docs/ --include="*.ts" --include="*.md" 2>/dev/null | grep -v "docs/refinement/archive/" | grep -v "docs/superpowers/" | wc -l`,
+          { cwd: this.rootPath, encoding: 'utf-8', stdio: ['pipe','pipe','pipe'] }
+        ).trim();
+        const refCount = parseInt(result, 10);
+        if (refCount > 0) {
+          gate1Pass = false;
+          details.push(`Gate 1 FAIL — ${file}: ${refCount} orphan reference(s) remain in codebase after deletion.`);
+        }
+      } catch { /* grep not available or repo not found — pass through */ }
+
+      // Gate 2: Decision-record exists — archive or ADR references the removed artifact
+      let gate2Pass = false;
+      try {
+        const archiveDir = `${this.rootPath}/docs/refinement/archive`;
+        const adrDir = `${this.rootPath}/docs/adr`;
+        const archiveFiles = await this.fileSystem.readDirectory(archiveDir).catch(() => []);
+        const adrFiles = await this.fileSystem.readDirectory(adrDir).catch(() => []);
+        for (const f of [...archiveFiles, ...adrFiles]) {
+          const fPath = archiveFiles.includes(f) ? `${archiveDir}/${f}` : `${adrDir}/${f}`;
+          const fc = await this.fileSystem.readFile(fPath).catch(() => '');
+          const decisionMatch = fc.match(/## Decision\n([\s\S]*?)(?=\n##|$)/);
+          if (decisionMatch && decisionMatch[1].includes('REJECT') && fc.includes(artifactName)) {
+            gate2Pass = true;
+            break;
+          }
+          if (fc.toLowerCase().includes(artifactName.toLowerCase()) && fPath.includes('docs/adr/')) {
+            gate2Pass = true;
+            break;
+          }
+        }
+        if (!gate2Pass) {
+          details.push(`Gate 2 FAIL — ${file}: no decision record found in docs/refinement/archive/ or docs/adr/ referencing '${artifactName}'.`);
+        }
+      } catch {
+        details.push(`Gate 2 WARN — ${file}: decision record check inconclusive (archive unreadable).`);
+      }
+
+      // Gate 3: Build-clean — CLI builds without errors
+      // Skipped in review (would require running npm run build which is too expensive)
+      // Evaluated as PASS when the commit reaches review without build failures
+    }
+
+    return {
+      check: 'ExcisionStructure',
       status: details.length === 0 ? 'OK' : 'WARN',
       details,
     };

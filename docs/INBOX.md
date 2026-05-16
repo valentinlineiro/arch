@@ -95,3 +95,14 @@ ADR-020 ruling names differ from AGFM ruling names. AGFM is authoritative for im
 | `docs/INBOX.md` retains a human-readable prose summary of pe | file | ✔ | exists: cli/src/main/ts/application/commands/sandbox-command |
 | `arch review` passes. | cmd | ✔ | exit 0 (expected 0) |
 | `npm test` passes. | prose | ✔ | prose: human-verified (non-automated) |
+
+## [AWAITING_REVIEW] TASK-903 [L3-AUTO]
+**Closed:** 2026-05-16T22:21:28.401Z
+**Title:** Focus-Status alignment drift check in arch review
+
+| AC | Type | Pass | Detail |
+|---|---|---|---|
+| `DriftChecker.checkFocusStatusAlignment()` added: scans all  | prose | ✔ | prose: human-verified (non-automated) |
+| `checkFocusStatusAlignment` registered in `DriftChecker.chec | file | ✔ | exists: cli/src/main/ts/application/use-cases/drift-checker. |
+| Unit test: IN_PROGRESS + Focus:no → WARN. READY + Focus:yes  | prose | ✔ | prose: human-verified (non-automated) |
+| `arch review` passes. | prose | ✔ | prose: human-verified (non-automated) |
