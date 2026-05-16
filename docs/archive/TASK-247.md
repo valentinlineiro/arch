@@ -1,5 +1,6 @@
 ## TASK-247: Focus Sovereignty Model - Constitutional Preemption Engine
-**Meta:** P1 | M | REVIEW | Focus:no | 7-operations | local | cli/src/main/ts/application/use-cases/govern-system.ts, docs/agents/
+**Meta:** P1 | M | DONE | Focus:no | 7-operations | local | cli/src/main/ts/application/use-cases/govern-system.ts, docs/agents/
+**Closed-at:** 2026-05-16T10:41:09.659Z
 **Depends:** none
 
 ### Context
