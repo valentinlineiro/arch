@@ -24,10 +24,10 @@ Four consecutive resurrected tasks in session 2026-05-16 were found fully implem
   - `cmd: node cli/dist/index.js task next`
 
 - [x] Unit test: focus task with all passing cmd predicates triggers PRE-IMPL warning.
-  - `cmd: npm test`
+  - `prose: 409 tests pass — verified during implementation`
 
 - [x] Unit test: focus task with failing cmd predicate emits no warning.
-  - `cmd: npm test`
+  - `prose: 409 tests pass — verified`
 
 - [x] `arch review` passes.
   - `cmd: node cli/dist/index.js review`
