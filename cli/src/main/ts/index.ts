@@ -88,7 +88,7 @@ async function main() {
         const configRaw = await fileSystem.readFile(`${rootPath}/arch.config.json`);
         muriConfig = JSON.parse(configRaw).muri;
       } catch { /* use default: no budget check */ }
-      await new NextCommand(taskRepository, args, muriConfig).execute();
+      await new NextCommand(taskRepository, args, muriConfig, fileSystem, rootPath).execute();
       break;
     }
     case 'version':

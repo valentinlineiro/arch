@@ -33,6 +33,7 @@ export class TaskCommand {
   private taskRepository: TaskRepository;
   private gitRepository: GitRepository;
   private muriConfig: any;
+  private rootPath: string;
 
   constructor(
     taskRepository: TaskRepository,
@@ -49,6 +50,7 @@ export class TaskCommand {
     this.taskRepository = taskRepository;
     this.gitRepository = gitRepository!;
     this.muriConfig = muriConfig;
+    this.rootPath = rootPath;
     this.markInProgress = new MarkTaskInProgress(taskRepository, eventRepository);
     this.markDone = new MarkTaskDone(taskRepository, reviewer, fileSystem, eventRepository, new NodeFeedbackRepository(fileSystem), causalSignalLog, eventLogger);
     this.markReview = new MarkTaskReview(taskRepository, rootPath);
@@ -195,7 +197,7 @@ export class TaskCommand {
         process.exit(1);
       }
     } else if (subCommand === 'next') {
-      await new NextCommand(this.taskRepository, args.slice(1), this.muriConfig).execute();
+      await new NextCommand(this.taskRepository, args.slice(1), this.muriConfig, this.fileSystem, this.rootPath).execute();
     } else if (subCommand === 'rank') {
       await new RankCommand(this.taskRepository).execute();
     } else if (subCommand === 'promote') {
