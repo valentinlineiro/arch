@@ -43,3 +43,6 @@ The full ARCH governance stack (THINK.md, DO.md, PRINCIPLES.md, KAIZEN-LOG.md) r
 **Constraint:** ARCH-CORE.md is a doc artifact — no CLI enforcement of Core mode boundary. Relies on human routing the right doc to the right model.
 **Cost:** ARCH-CORE.md is not enforced by the CLI — no runtime boundary between Core and Governance mode. Relies entirely on human routing the correct doc.
 **Forward Action:** None.
+
+## Approval
+Approved-by: Auditor | 2026-05-16

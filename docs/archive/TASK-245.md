@@ -28,3 +28,6 @@
 **Cost:** HanseiReconciliation check adds one file-read per REVIEW task on every arch review run. Negligible for current task volume.
 
 **Forward Action:** arch reflect hansei is wired but requires a live AI CLI to run. Test with a real REVIEW task once the PGW project uses ARCH.
+
+## Approval
+Approved-by: Auditor | 2026-05-16
