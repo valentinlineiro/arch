@@ -10,6 +10,7 @@ import { CausalSignalLog } from './causal-signal-log.js';
 import { EventLogger } from '../../domain/services/event-logger.js';
 import { DeterministicACVerifier } from '../../domain/services/deterministic-ac-verifier.js';
 import { SignalRouter } from '../../domain/services/signal-router.js';
+import { stdout } from 'node:process';
 import crypto from 'node:crypto';
 
 export class MarkTaskDone {
@@ -39,7 +40,25 @@ export class MarkTaskDone {
 
       const hanseiRequirement = await this.validateHanseiRequirement(task.id, task.content, task.hansei);
       if (hanseiRequirement) {
-        throw new Error(`Cannot mark ${taskId} as DONE:\n- ${hanseiRequirement}`);
+        // Try to fill Hansei interactively before blocking
+        if (stdout.isTTY) {
+          const { HanseiWizard } = await import('./hansei-wizard.js');
+          const wizard = new HanseiWizard();
+          if (!HanseiWizard.isHanseiComplete(task.content ?? '')) {
+            const hanseiBlock = await wizard.run(task);
+            // Write Hansei block to task file
+            const currentContent = await this.fileSystem.readFile(`docs/tasks/${taskId}.md`);
+            const hasSection = currentContent.includes('## Hansei');
+            const newContent = hasSection
+              ? currentContent.replace(/## Hansei[\s\S]*$/, hanseiBlock)
+              : currentContent.trimEnd() + '\n\n' + hanseiBlock;
+            await this.fileSystem.writeFile(`docs/tasks/${taskId}.md`, newContent);
+            // Re-read task from file
+            task.content = newContent;
+          }
+        } else {
+          throw new Error(`Hansei required. Run in a TTY or pre-fill ## Hansei in the task file.`);
+        }
       }
 
       const hanseiErrors = TaskValidator.validateHansei({ ...task, status: TaskStatus.DONE });

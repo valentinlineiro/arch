@@ -167,7 +167,7 @@ test('MarkTaskDone - blocks post-rollout task without Hansei section', async () 
 
   await assert.rejects(
     () => useCase.execute('TASK-195'),
-    /missing ## Hansei section/
+    /Hansei required/
   );
   assert.strictEqual(repo.saved, null);
 });

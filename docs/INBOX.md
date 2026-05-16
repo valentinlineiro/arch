@@ -82,3 +82,16 @@ ADR-020 ruling names differ from AGFM ruling names. AGFM is authoritative for im
 | Add `checkArchiveMetaIntegrity` check to `DriftChecker`: sca | cmd | ✔ | exit 0 (expected 0) |
 | `arch review` passes clean after implementation. | cmd | ✔ | exit 0 (expected 0) |
 | `arch report` exits 0 after backfill (no CRITICAL INTEGRITY  | prose | ✔ | prose: human-verified (non-automated) |
+
+## [AWAITING_REVIEW] TASK-900 [L3-AUTO]
+**Closed:** 2026-05-16T22:03:51.465Z
+**Title:** Replace INBOX.md approval-gate reads with .arch/approvals.jsonl
+
+| AC | Type | Pass | Detail |
+|---|---|---|---|
+| `EscalationStore` extended with `APPROVED` and `REDIRECT` ty | file | ✔ | exists: cli/src/main/ts/application/use-cases/escalation-sto |
+| `sandbox-command.ts` no longer reads `docs/INBOX.md`. Instea | file | ✔ | exists: cli/src/main/ts/application/commands/sandbox-command |
+| `loop-engine.ts handleResume()` no longer reads `docs/INBOX. | file | ✔ | exists: cli/src/main/ts/application/use-cases/loop-engine.ts |
+| `docs/INBOX.md` retains a human-readable prose summary of pe | file | ✔ | exists: cli/src/main/ts/application/commands/sandbox-command |
+| `arch review` passes. | cmd | ✔ | exit 0 (expected 0) |
+| `npm test` passes. | prose | ✔ | prose: human-verified (non-automated) |

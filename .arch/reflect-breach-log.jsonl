@@ -95,3 +95,7 @@
 {"timestamp":"2026-05-16T20:58:16.197Z","rule":"observability_gap","breached":false}
 {"timestamp":"2026-05-16T22:02:14.236Z","rule":"engagement","breached":false}
 {"timestamp":"2026-05-16T22:02:14.236Z","rule":"observability_gap","breached":false}
+{"timestamp":"2026-05-16T22:03:51.634Z","rule":"engagement","breached":false}
+{"timestamp":"2026-05-16T22:03:51.634Z","rule":"observability_gap","breached":false}
+{"timestamp":"2026-05-16T22:13:47.741Z","rule":"engagement","breached":false}
+{"timestamp":"2026-05-16T22:13:47.741Z","rule":"observability_gap","breached":false}

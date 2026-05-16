@@ -1,5 +1,5 @@
 ## TASK-903: Focus-Status alignment drift check in arch review
-**Meta:** P1 | XS | READY | Focus:no | 7-operations | claude-code | cli/src/main/ts/application/use-cases/drift-checker.ts
+**Meta:** P1 | XS | READY | Focus:yes | 7-operations | claude-code | cli/src/main/ts/application/use-cases/drift-checker.ts
 
 **Depends:** none
 
