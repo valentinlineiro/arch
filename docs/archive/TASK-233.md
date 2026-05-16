@@ -13,6 +13,9 @@ Implements: ADR-008, ADR-013
 - [x] ADR-013 is referenced in at least one task file
 - [x] `arch review` UnappliedADRs check passes
 
+## Approval
+Approved-by: Auditor | 2026-05-13
+
 ## Hansei
 Adding "Implements: ADR-008, ADR-013" to this task's own context is the minimal correct fix. Ideally the original implementation commits for these ADRs would have referenced a task that cited the ADR — the gap exists because both ADRs were applied without a corresponding task.
 

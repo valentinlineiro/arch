@@ -16,6 +16,9 @@ See IDEA-escalation-event-structured-store for full design, invariants, and sche
 - [x] `docs/INBOX.md` is never read by generate-inbox.ts or any automated process
 - [x] Resolution appended as new record (status: RESOLVED) — never mutates original entry
 
+## Approval
+Approved-by: Auditor | 2026-05-16
+
 ## Hansei
 - The EscalationStore.getOpen() implementation reads all records and filters by resolved IDs — O(n) but correct for the expected volume. If escalation history grows large, a more efficient read strategy would be warranted.
 - THINK Phase 1 instruction is a protocol directive, not enforced by code; a future hardening task could add a test that verifies THINK-mode execution writes AWAITING_PROMOTION records.

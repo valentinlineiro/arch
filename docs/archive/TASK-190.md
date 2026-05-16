@@ -18,5 +18,8 @@ Current autonomy is L2: one task per human trigger. L3 lets the agent execute an
 - [x] `arch review` passes.
 - [x] `npm test` passes in `cli/`.
 
+## Approval
+Approved-by: Auditor | 2026-05-16
+
 ## Hansei
 The pre-existing type bug in `loop-engine.ts` (assigning `SelectNextResult` to `Task | undefined`) was a silent runtime hazard that I fixed as part of this task. The sprint scoping and checkpoint logic were implemented in `loop-engine.ts` without touching protected paths, and the new `SelectNextTask` filter parameter preserves backward compatibility with the existing test suite (341 passing, 6 pre-existing failures unchanged).

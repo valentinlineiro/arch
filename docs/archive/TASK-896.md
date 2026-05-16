@@ -35,6 +35,9 @@
 - [x] `arch review` passes
 - [x] `npm test` passes in `cli/`
 
+## Approval
+Approved-by: Auditor | 2026-05-16
+
 ## Hansei
 **Severity:** H1
 **Category:** [SpecDrift]

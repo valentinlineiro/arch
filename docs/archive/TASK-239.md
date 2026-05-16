@@ -10,6 +10,9 @@
 - [x] Streaming does not break metadata parsing (turns, cost extraction still works)
 - [x] Optional: `--quiet` flag suppresses streaming for non-interactive use
 
+## Approval
+Approved-by: Auditor | 2026-05-16
+
 ## Hansei
 Replaced `spawnSync` with an async `spawn`-based `runStreaming` helper that tees stdout. The `spawnSync` import is now unused and could be removed, but TASK-240 may rely on it — left for the next task to clean up.
 

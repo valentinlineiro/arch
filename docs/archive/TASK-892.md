@@ -28,6 +28,9 @@ Implement a template registry in `CreateTask.ts` that maps task class to a set o
 - [x] All ACs checked → prose: all ACs above verified
 - [x] arch review passes → cmd: node cli/dist/index.js review; exit: 0
 
+## Approval
+Approved-by: Auditor | 2026-05-15
+
 ## Hansei
 **Severity:** H0
 **Category:** [SpecDrift]

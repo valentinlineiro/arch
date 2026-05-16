@@ -30,6 +30,19 @@ One sentence: one thing done poorly or one way this could have been cleaner.
 
 ---
 
+## Approval
+
+```markdown
+## Approval
+Approved-by: Auditor | <ISO-date>
+```
+
+Written by the Auditor when verifying ACs and setting status to DONE. Required on all tasks closed via human Auditor review.
+
+**Exempt:** Tasks promoted autonomously via L2 rule (XS + class `6-writing` or `7-operations`) — approval is implicit in the autonomous promotion log.
+
+---
+
 ## Fields
 
 ### 1. TASK-ID

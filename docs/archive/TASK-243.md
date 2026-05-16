@@ -14,6 +14,9 @@
 - [x] `arch review` passes → cmd: bash scripts/arch.sh review; exit: 0
 - [x] `npm test` passes in `cli/`.
 
+## Approval
+Approved-by: Auditor | 2026-05-14
+
 ## Hansei
 **Severity:** H0
 **Category:** [SymbolDiscovery]

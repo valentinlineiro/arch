@@ -42,6 +42,7 @@ export class DriftChecker {
       this.checkObsoleteGuidelines(),
       this.checkUnappliedADRs(),
       this.checkArchivedIdeaDecisions(),
+      this.checkApprovalPresent(),
     ]);
   }
 
@@ -755,6 +756,46 @@ export class DriftChecker {
     }
 
     return { check: 'UnappliedADRs', status: details.length === 0 ? 'OK' : 'WARN', details };
+  }
+
+  private async checkApprovalPresent(): Promise<DriftResult> {
+    const configRaw = await this.fileSystem.readFile(`${this.rootPath}/arch.config.json`);
+    const config = JSON.parse(configRaw);
+    const sinceTaskId = (config.governance?.hanseiSinceTaskId ?? config.hanseiSinceTaskId) as number | undefined;
+
+    const archiveFiles = await this.getMarkdownFiles('docs/archive');
+    const details: string[] = [];
+
+    for (const file of archiveFiles) {
+      const taskIdMatch = file.match(/^TASK-(\d+)\.md$/);
+      if (!taskIdMatch) continue;
+
+      const taskId = parseInt(taskIdMatch[1], 10);
+      if (sinceTaskId !== undefined && taskId < sinceTaskId) continue;
+
+      const content = await this.fileSystem.readFile(`${this.rootPath}/docs/archive/${file}`);
+
+      // L2 exempt: XS size + 6-writing or 7-operations class
+      const metaMatch = content.match(/^\*\*Meta:\*\* .*/m);
+      if (metaMatch) {
+        const parts = metaMatch[0].split('|').map((s: string) => s.trim());
+        const size = parts[1];
+        const taskClass = parts[5] ?? '';
+        if (size === 'XS' && (taskClass.includes('6-writing') || taskClass.includes('7-operations'))) {
+          continue;
+        }
+      }
+
+      if (!content.includes('## Approval')) {
+        details.push(`${file.replace('.md', '')}: missing ## Approval section — required for human-reviewed tasks.`);
+      }
+    }
+
+    return {
+      check: 'ApprovalPresent',
+      status: details.length === 0 ? 'OK' : 'WARN',
+      details,
+    };
   }
 
   private async checkArchivedIdeaDecisions(): Promise<DriftResult> {

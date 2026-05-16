@@ -9,6 +9,9 @@
 - [x] `arch inbox` refinement queue shows all DRAFT IDEAs
 - [x] Filter regex handles both `Status: DRAFT` and `**Status:** DRAFT` formats
 
+## Approval
+Approved-by: Auditor | 2026-05-16
+
 ## Hansei
 **Severity:** H1
 **Category:** [SpecDrift]

@@ -11,6 +11,9 @@ When the system falls back from a preferred provider to an alternative, the tran
 - [x] Full candidate list logged when `--verbose` flag is present
 - [x] Error from failing provider clearly demarcated before "Trying next…" message
 
+## Approval
+Approved-by: Auditor | 2026-05-16
+
 ## Hansei
 The `extraFlags` filter in exec-command previously passed `--verbose` through to the provider command. Fixed by filtering `--` prefixed args out. Should have been caught by a test — there's no test covering the `extraFlags` passthrough behavior.
 

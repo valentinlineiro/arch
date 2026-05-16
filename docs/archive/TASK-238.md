@@ -10,6 +10,9 @@ Two scales share "Level N" terminology: Autonomy Levels (L1-L4 in autonomy.md) a
 - [x] All references updated consistently across docs/guidelines/, docs/adr/, docs/agents/
 - [x] No remaining ambiguous "Level N" references that could apply to either scale
 
+## Approval
+Approved-by: Auditor | 2026-05-16
+
 ## Hansei
 Keeping L1–L4 for Autonomy and introducing E1–E7 for Escalation Maturity was the right minimum-churn choice, but the decision should have been recorded as an ADR entry rather than a inline comment in autonomy.md. A brief ADR amendment to ADR-010 noting the renaming would have been cleaner provenance.
 

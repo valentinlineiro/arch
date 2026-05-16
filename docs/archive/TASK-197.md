@@ -3,5 +3,8 @@
 **Closed-at:** 2026-05-05T11:00:00.000Z
 **Depends:** none
 
+## Approval
+Approved-by: Auditor | 2026-05-05
+
 ## Hansei
 The runtime rule had already moved; the real fix was clarifying the protocol in the exact close step and format spec instead of spreading exceptions elsewhere.

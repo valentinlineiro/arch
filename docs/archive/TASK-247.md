@@ -187,6 +187,9 @@ This boundary is what makes the adjudication lock meaningful. A tick is a transa
 - [x] `.arch/focus-ledger.jsonl` exists and contains a ruling entry for every govern tick run.
 - [x] All unit tests pass. `arch review` passes after a clean govern tick.
 
+## Approval
+Approved-by: Auditor | 2026-05-16
+
 ## Hansei
 **Severity:** H1
 **Category:** [SpecDrift]

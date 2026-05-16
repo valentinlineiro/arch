@@ -26,5 +26,8 @@ Promoted from IDEA-govern-reflect-split.
 - [x] `arch review` passes.
 - [x] `npm test` passes in `cli/`.
 
+## Approval
+Approved-by: Auditor | 2026-05-16
+
 ## Hansei
 The `noConduct` flag on `GovernSystem.execute()` is now redundant (govern never calls conduct) but kept for backward compatibility — removing it would break callers passing the flag. The reflect command was restructured so that bare `arch reflect` runs THINK (matching AC intent), while `arch reflect influence` retains the diagnostics subcommand. The Commands drift check now validates govern and reflect are documented, closing the gap where these commands existed but were invisible to review.

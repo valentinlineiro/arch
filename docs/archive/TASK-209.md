@@ -19,6 +19,9 @@ Detected by Kaizen in session 2026-05-06. Matches P-003 (quality gates must not 
 - [x] `arch review` passes.
 - [x] `npm test` passes in `cli/`.
 
+## Approval
+Approved-by: Auditor | 2026-05-16
+
 ## Hansei
 The bug was already partially fixed in a prior session — the `isGovernance` regex was correct but no test covered the `chore: [THINK]` format specifically. A cleaner approach would have been to add these tests at the same time the regex was introduced, not as a retroactive fix.
 

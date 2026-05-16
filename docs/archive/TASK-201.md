@@ -30,6 +30,9 @@ Prerequisite: an XS event log task must be created to record REVIEW → READY st
 - [x] `arch review` passes.
 - [x] `npm test` passes in `cli/`.
 
+## Approval
+Approved-by: Auditor | 2026-05-14
+
 ## Hansei
 **Severity:** H1
 **Category:** [DeferredTest]

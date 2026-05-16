@@ -10,6 +10,9 @@
 - [x] `arch review` output no longer lists legacy archived tasks as HanseiPresent violations
 - [x] TASK-229 (and any post-protocol tasks missing Hansei) still correctly flagged
 
+## Approval
+Approved-by: Auditor | 2026-05-16
+
 ## Hansei
 The root cause was a path mismatch: `hanseiSinceTaskId` lives under `config.governance` in `arch.config.json` but the checker read it from the root. The fix was one line; the better fix would have been consistent nesting from the start.
 

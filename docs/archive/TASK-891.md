@@ -55,6 +55,9 @@ Implement `arch task create "<intent>"` to scaffold a task file instantly.
 - [x] All ACs checked → prose: all ACs above verified
 - [x] arch review passes → cmd: node cli/dist/index.js review; exit: 0
 
+## Approval
+Approved-by: Auditor | 2026-05-16
+
 ## Hansei
 **Severity:** H1
 **Category:** [SpecDrift]

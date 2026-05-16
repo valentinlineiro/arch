@@ -43,6 +43,9 @@ Three concrete fixes:
 - [x] `arch review` passes
 - [x] `npm test` passes in `cli/`
 
+## Approval
+Approved-by: Auditor | 2026-05-16
+
 ## Hansei
 **Severity:** H0
 **Category:** [AuditGap]

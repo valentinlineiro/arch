@@ -51,5 +51,8 @@ _If partial or off:_
 - [x] `npm test` passes in `cli/`
 - [x] CHANGELOG entry for removed commands
 
+## Approval
+Approved-by: Auditor | 2026-05-12
+
 ## Hansei
 Minimal change: `--fast` is a single flag that skips passing driftChecker to ReviewSystem, which already supports optional driftChecker. The pre-commit hook fires `arch lint` (now deprecated) during commits — it still works since the deprecated alias is kept for one version, so no disruption. The deprecated aliases emit warnings to stderr so they don't pollute stdout-parsed output.

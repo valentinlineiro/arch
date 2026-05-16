@@ -53,5 +53,8 @@ _If partial or off:_
 - [x] `npm test` passes in `cli/`
 - [x] CHANGELOG entry for removed commands
 
+## Approval
+Approved-by: Auditor | 2026-05-12
+
 ## Hansei
 Straightforward delegation — NextCommand, RankCommand, PromoteCommand already existed, so subcommands are thin wrappers. The tricky part was CLI_COMMANDS in drift-checker: deprecated aliases needed to be removed from the set since they no longer appear in README, otherwise Commands check WARNed. Also had to separate the compressed-archive commit (207 files) from the implementation commit to keep the diff atomic for review.
