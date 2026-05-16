@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-16T20:58:16.304Z",
+  "builtAt": "2026-05-16T22:02:15.517Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -5019,13 +5019,28 @@
     }
   },
   "tasks": {
-    "TASK-900": {
-      "commitCount": 1,
-      "lastCommitDate": "2026-05-16T20:58:16+00:00",
+    "TASK-901": {
+      "commitCount": 2,
+      "lastCommitDate": "2026-05-16T22:02:14+00:00",
       "touchedFrequency": {
+        ".arch/focus-ledger.jsonl": 1,
+        "docs/tasks/TASK-901.md": 1
+      },
+      "recentCommitRefs": [
+        "29edbd3",
+        "c07bb38"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-900": {
+      "commitCount": 2,
+      "lastCommitDate": "2026-05-16T20:58:26+00:00",
+      "touchedFrequency": {
+        "docs/tasks/TASK-900.md": 1,
         ".arch/focus-ledger.jsonl": 1
       },
       "recentCommitRefs": [
+        "2af3378",
         "5548bfd"
       ],
       "commitRefOverflow": false
@@ -5085,17 +5100,6 @@
         "500347b",
         "c977c01",
         "60a9dee"
-      ],
-      "commitRefOverflow": false
-    },
-    "TASK-901": {
-      "commitCount": 1,
-      "lastCommitDate": "2026-05-16T20:48:26+00:00",
-      "touchedFrequency": {
-        "docs/tasks/TASK-901.md": 1
-      },
-      "recentCommitRefs": [
-        "c07bb38"
       ],
       "commitRefOverflow": false
     },
@@ -6322,15 +6326,14 @@
       "commitRefOverflow": false
     },
     "TASK-209": {
-      "commitCount": 7,
+      "commitCount": 6,
       "lastCommitDate": "2026-05-13T13:21:28+02:00",
       "touchedFrequency": {
         "docs/archive/TASK-209.md": 2,
         "docs/INBOX.md": 1,
         "cli/src/test/ts/reviewer.test.ts": 1,
-        "docs/tasks/TASK-209.md": 3,
-        "cli/src/main/ts/domain/services/reviewer.ts": 1,
-        "docs/KAIZEN-LOG.md": 1
+        "docs/tasks/TASK-209.md": 2,
+        "cli/src/main/ts/domain/services/reviewer.ts": 1
       },
       "recentCommitRefs": [
         "f5f92d7",
@@ -6338,8 +6341,7 @@
         "14c75dd",
         "6999a0f",
         "a2ca064",
-        "04428ff",
-        "fcd0d92"
+        "04428ff"
       ],
       "commitRefOverflow": false
     },
