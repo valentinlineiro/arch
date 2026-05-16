@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-16T22:28:46.409Z",
+  "builtAt": "2026-05-16T22:30:50.046Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -5038,13 +5038,39 @@
     }
   },
   "tasks": {
-    "TASK-907": {
-      "commitCount": 2,
-      "lastCommitDate": "2026-05-16T22:28:46+00:00",
+    "TASK-899": {
+      "commitCount": 1,
+      "lastCommitDate": "2026-05-16T22:30:49+00:00",
       "touchedFrequency": {
+        ".arch/focus-ledger.jsonl": 1
+      },
+      "recentCommitRefs": [
+        "54ac94e"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-907": {
+      "commitCount": 6,
+      "lastCommitDate": "2026-05-16T22:30:49+00:00",
+      "touchedFrequency": {
+        "docs/archive/TASK-907.md": 1,
+        "docs/tasks/TASK-907.md": 3,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/reflect-breach-log.jsonl": 1,
+        "cli/src/main/ts/application/use-cases/drift-checker.ts": 1,
+        "docs/EVENTS.md": 1,
+        "docs/INBOX.md": 1,
+        "docs/METRICS.md": 1,
+        "docs/TASK-FORMAT.md": 1,
+        "docs/tasks/TASK-206.md": 1,
+        "docs/tasks/TASK-242.md": 1,
         ".arch/focus-ledger.jsonl": 2
       },
       "recentCommitRefs": [
+        "d2cfd49",
+        "9f25fb8",
+        "4259a1c",
+        "dd7d349",
         "e6636f5",
         "732f0d2"
       ],
@@ -6555,7 +6581,7 @@
       "commitRefOverflow": false
     },
     "TASK-210": {
-      "commitCount": 20,
+      "commitCount": 15,
       "lastCommitDate": "2026-05-12T16:37:24+02:00",
       "touchedFrequency": {
         "cli/src/main/ts/application/use-cases/generate-inbox.ts": 1,
@@ -6567,14 +6593,10 @@
         "arch.config.json": 1,
         "cli/src/main/ts/application/commands/govern-command.ts": 1,
         "cli/src/main/ts/application/commands/index-command.ts": 1,
-        "cli/src/main/ts/index.ts": 2,
+        "cli/src/main/ts/index.ts": 1,
         "cli/src/test/ts/build-index.test.ts": 5,
         "cli/src/main/ts/application/use-cases/build-index.ts": 2,
-        "cli/src/main/ts/domain/models/context-index.ts": 1,
-        "docs/superpowers/plans/2026-05-07-auto-context-engine.md": 1,
-        "docs/superpowers/specs/2026-05-07-auto-context-engine-design.md": 2,
-        "cli/src/main/ts/application/commands/capture-command.ts": 1,
-        "cli/src/main/ts/application/use-cases/capture-intent.ts": 1
+        "cli/src/main/ts/domain/models/context-index.ts": 1
       },
       "recentCommitRefs": [
         "dc2b86c",
@@ -6591,12 +6613,7 @@
         "4c7aced",
         "772e25d",
         "8121ae6",
-        "e091808",
-        "6bbe631",
-        "3924a27",
-        "0ea7e26",
-        "565e9e3",
-        "1c08c75"
+        "e091808"
       ],
       "commitRefOverflow": false
     },
