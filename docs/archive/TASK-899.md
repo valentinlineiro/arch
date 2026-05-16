@@ -1,5 +1,6 @@
 ## TASK-899: Grandfather legacy tasks in HanseiPresent drift check
-**Meta:** P2 | XS | REVIEW | Focus:no | 7-operations | claude-code | cli/src/main/ts/application/use-cases/drift-checker.ts
+**Meta:** P2 | XS | DONE | Focus:no | 7-operations | claude-code | cli/src/main/ts/application/use-cases/drift-checker.ts
+**Closed-at:** 2026-05-16T22:32:23.288Z
 
 **Depends:** none
 
