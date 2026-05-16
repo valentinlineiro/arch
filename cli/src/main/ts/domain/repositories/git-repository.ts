@@ -16,6 +16,7 @@ export interface GitRepository {
   getRepoRoot(): Promise<string>;
   getFileFirstCommitDate(path: string): Promise<Date | null>;
   getLastCommitHash(): Promise<string | null>;
+  getCommitCountBetween(fromHash: string, toRef?: string): Promise<number | null>;
   isValidCommitHash(hash: string): Promise<boolean>;
   getCommitAuthor(hash: string): Promise<string | null>;
   getCommitHistory(limit?: number): Promise<Array<{

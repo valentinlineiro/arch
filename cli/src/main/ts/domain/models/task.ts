@@ -39,6 +39,7 @@ export interface Task {
   lockedBy?: string;
   lockedAt?: string;
   lockedCommit?: string;
+  turns?: number | null;
   createdAt?: string;
   closedAt?: string;
   rejectedAt?: string;

@@ -90,6 +90,9 @@ export class MarkdownTaskRepository implements TaskRepository {
     ensureField('Rejected-at', task.rejectedAt);
     ensureField('Reason', task.rejectionReason);
     ensureField('Locked-commit', task.lockedCommit);
+    if (task.turns !== undefined && task.turns !== null) {
+      ensureField('Turns', String(task.turns));
+    }
 
     if (task.status !== TaskStatus.DONE && (task.cost !== undefined || task.steps !== undefined)) {
       const metricsComment = `<!-- arch-metrics: cost=${task.cost?.toFixed(2) || '0.00'}, steps=${task.steps || '0'} -->`;

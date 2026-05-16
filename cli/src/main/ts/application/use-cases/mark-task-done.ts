@@ -10,6 +10,7 @@ import { CausalSignalLog } from './causal-signal-log.js';
 import { EventLogger } from '../../domain/services/event-logger.js';
 import { DeterministicACVerifier } from '../../domain/services/deterministic-ac-verifier.js';
 import { SignalRouter } from '../../domain/services/signal-router.js';
+import type { GitRepository } from '../../domain/repositories/git-repository.js';
 import { stdout } from 'node:process';
 import crypto from 'node:crypto';
 
@@ -23,7 +24,8 @@ export class MarkTaskDone {
     private eventRepository?: EventRepository,
     private feedbackRepository?: FeedbackRepository,
     private causalSignalLog?: CausalSignalLog,
-    private eventLogger?: EventLogger
+    private eventLogger?: EventLogger,
+    private gitRepository?: GitRepository,
   ) {}
 
   async execute(taskId: string, force = false) {
@@ -81,6 +83,16 @@ export class MarkTaskDone {
     task.focus = false;
     if (!task.closedAt) {
       task.closedAt = new Date().toISOString();
+    }
+
+    // Compute turn count from git log if lockedCommit is available
+    if (this.gitRepository && task.lockedCommit) {
+      try {
+        const count = await this.gitRepository.getCommitCountBetween(task.lockedCommit);
+        if (count !== null) {
+          task.turns = count;
+        }
+      } catch { /* non-blocking */ }
     }
 
     // L3 self-archive gate — only for XS/S tasks with all verifiable ACs passing

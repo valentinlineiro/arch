@@ -106,3 +106,15 @@ ADR-020 ruling names differ from AGFM ruling names. AGFM is authoritative for im
 | `checkFocusStatusAlignment` registered in `DriftChecker.chec | file | ✔ | exists: cli/src/main/ts/application/use-cases/drift-checker. |
 | Unit test: IN_PROGRESS + Focus:no → WARN. READY + Focus:yes  | prose | ✔ | prose: human-verified (non-automated) |
 | `arch review` passes. | prose | ✔ | prose: human-verified (non-automated) |
+
+## [AWAITING_REVIEW] TASK-904 [L3-AUTO]
+**Closed:** 2026-05-16T22:23:17.592Z
+**Title:** ExcisionStructuralCheck: structural consistency gates for protected path deletions
+
+| AC | Type | Pass | Detail |
+|---|---|---|---|
+| `DriftChecker.checkExcisionStructure()` added. When the last | cmd | ✔ | exit 0 (expected 0) |
+| `EscalationMaturity` check updated: when last commit deletes | file | ✔ | exists: cli/src/main/ts/application/use-cases/drift-checker. |
+| `checkExcisionStructure` result is surfaced as a named check | cmd | ✔ | exit 0 (expected 0) |
+| Unit tests: all-pass case, Gate 1 fail (orphan reference), G | prose | ✔ | prose: human-verified (non-automated) |
+| `arch review` passes. | cmd | ✔ | exit 0 (expected 0) |

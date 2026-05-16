@@ -94,6 +94,15 @@ export class GitCli implements GitRepository {
     return code === 0 ? stdout.trim() : null;
   }
 
+  async getCommitCountBetween(fromHash: string, toRef: string = 'HEAD'): Promise<number | null> {
+    const { stdout, code } = await SubprocessRunner.runWithOutput('git', [
+      'rev-list', '--count', `${fromHash}..${toRef}`
+    ]);
+    if (code !== 0) return null;
+    const count = parseInt(stdout.trim(), 10);
+    return isNaN(count) ? null : count;
+  }
+
   async isValidCommitHash(hash: string): Promise<boolean> {
     const { code } = await SubprocessRunner.runWithOutput('git', ['rev-parse', '--verify', `${hash}^{commit}`]);
     return code === 0;

@@ -297,3 +297,91 @@ test('L3 gate — S prose-only task falls back to human review (no L3-AUTO)', as
   const inbox = fs.files['docs/INBOX.md'] ?? '';
   assert.ok(!inbox.includes('[L3-AUTO]'), 'prose-only task should NOT get L3-AUTO');
 });
+
+// ── Turn Count Recording Tests ─────────────────────────────────────────────
+
+test('MarkTaskDone — computes turn count from git log when lockedCommit present', async () => {
+  const task = makeTask({
+    id: 'TASK-500',
+    status: TaskStatus.IN_PROGRESS,
+    lockedCommit: 'abc1234',
+    hansei: {
+      severity: 'H0' as any,
+      category: '[AuditGap]',
+      decision: 'Turn count recording test task — verified during implementation.',
+      constraint: 'No constraint — this is a unit test fixture task.',
+      cost: 'No cost introduced by this test fixture task.',
+      forwardAction: 'No forward action required for test fixture.',
+    },
+  });
+
+  let savedTask: any = null;
+  const repo = {
+    getById: async () => task,
+    save: async (t: any) => { savedTask = t; },
+  };
+  const fs = {
+    readFile: async (p: string) => {
+      if (p === 'arch.config.json') return JSON.stringify({ hanseiSinceTaskId: 1 });
+      if (p === 'docs/INBOX.md') return '# INBOX\n';
+      throw new Error(`Not found: ${p}`);
+    },
+    writeFile: async () => {},
+    exists: async () => true,
+  };
+  const reviewer = {
+    reviewTask: () => ({ valid: true, violations: [] }),
+    validateCommitMessage: () => ({ valid: true, violations: [] }),
+  };
+  const git = {
+    getCommitCountBetween: async (fromHash: string) => 7,
+  };
+
+  const useCase = new MarkTaskDone(repo as any, reviewer as any, fs as any, undefined, undefined, undefined, undefined, git as any);
+  await useCase.execute('TASK-500');
+
+  assert.equal(savedTask?.turns, 7, 'turns should be 7 (mocked git count)');
+});
+
+test('MarkTaskDone — turns is null when lockedCommit absent', async () => {
+  const task = makeTask({
+    id: 'TASK-501',
+    status: TaskStatus.IN_PROGRESS,
+    lockedCommit: undefined,
+    hansei: {
+      severity: 'H0' as any,
+      category: '[AuditGap]',
+      decision: 'No lockedCommit test — turns should remain null.',
+      constraint: 'No constraint — this is a unit test fixture task.',
+      cost: 'No cost introduced by this test fixture task.',
+      forwardAction: 'No forward action required for test fixture.',
+    },
+  });
+
+  let savedTask: any = null;
+  const repo = {
+    getById: async () => task,
+    save: async (t: any) => { savedTask = t; },
+  };
+  const fs = {
+    readFile: async (p: string) => {
+      if (p === 'arch.config.json') return JSON.stringify({ hanseiSinceTaskId: 1 });
+      if (p === 'docs/INBOX.md') return '# INBOX\n';
+      throw new Error(`Not found: ${p}`);
+    },
+    writeFile: async () => {},
+    exists: async () => true,
+  };
+  const reviewer = {
+    reviewTask: () => ({ valid: true, violations: [] }),
+    validateCommitMessage: () => ({ valid: true, violations: [] }),
+  };
+  const git = {
+    getCommitCountBetween: async () => 5,
+  };
+
+  const useCase = new MarkTaskDone(repo as any, reviewer as any, fs as any, undefined, undefined, undefined, undefined, git as any);
+  await useCase.execute('TASK-501');
+
+  assert.equal(savedTask?.turns ?? null, null, 'turns should be null when no lockedCommit');
+});
