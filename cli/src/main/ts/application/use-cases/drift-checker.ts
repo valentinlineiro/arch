@@ -45,6 +45,7 @@ export class DriftChecker {
       this.checkArchivedIdeaDecisions(),
       this.checkApprovalPresent(),
       this.checkHanseiReconciliation(),
+      this.checkArchiveMetaIntegrity(),
     ]);
   }
 
@@ -810,6 +811,41 @@ export class DriftChecker {
 
     return {
       check: 'ApprovalPresent',
+      status: details.length === 0 ? 'OK' : 'WARN',
+      details,
+    };
+  }
+
+
+  private async checkArchiveMetaIntegrity(): Promise<DriftResult> {
+    const archiveDir = `${this.rootPath}/docs/archive`;
+    if (!(await this.fileSystem.exists(archiveDir))) {
+      return { check: 'ArchiveMetaIntegrity', status: 'OK', details: [] };
+    }
+
+    const files = (await this.fileSystem.readDirectory(archiveDir))
+      .filter(f => f.startsWith('TASK-') && f.endsWith('.md'));
+
+    const details: string[] = [];
+    const VALID_SIZES = new Set(['XS', 'S', 'M', 'L', 'XL']);
+
+    for (const file of files) {
+      const content = await this.fileSystem.readFile(`${archiveDir}/${file}`);
+      const metaMatch = content.match(/\*\*Meta:\*\*\s*(\S+)\s*\|\s*(\S*)\s*\|\s*(\S+)/);
+
+      if (!metaMatch) {
+        details.push(`${file}: missing or unparseable Meta line — run backfill`);
+        continue;
+      }
+
+      const size = metaMatch[2].replace(/<!--.*-->/, '').trim();
+      if (!size || !VALID_SIZES.has(size)) {
+        details.push(`${file}: invalid Size field '${size}' — expected XS/S/M/L`);
+      }
+    }
+
+    return {
+      check: 'ArchiveMetaIntegrity',
       status: details.length === 0 ? 'OK' : 'WARN',
       details,
     };
