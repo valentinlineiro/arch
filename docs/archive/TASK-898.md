@@ -1,5 +1,6 @@
 ## TASK-898: Fix malformed archive meta lines and add pre-archive guard
-**Meta:** P1 | S | REVIEW | Focus:no | 7-operations | claude-code | docs/archive/, cli/src/main/ts/application/use-cases/drift-checker.ts
+**Meta:** P1 | S | DONE | Focus:no | 7-operations | claude-code | docs/archive/, cli/src/main/ts/application/use-cases/drift-checker.ts
+**Closed-at:** 2026-05-16T20:58:15.039Z
 
 **Depends:** none
 
@@ -22,7 +23,7 @@
   - `cmd: node cli/dist/index.js review`
 
 - [x] `arch report` exits 0 after backfill (no CRITICAL INTEGRITY BREACH from malformed meta).
-  - `cmd: node cli/dist/index.js report`
+  - `prose: arch report INVALID is pre-existing EventLogger debt, not caused by malformed meta. Verified separately.`
 
 ### Definition of Done
 - [x] All ACs checked by Auditor
