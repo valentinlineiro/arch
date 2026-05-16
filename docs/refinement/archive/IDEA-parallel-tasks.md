@@ -2,7 +2,7 @@
 
 - **Class:** 7-operations
 - **Size:** L
-- **Status:** draft
+- **Status:** REJECTED
 
 ## Problem
 
@@ -27,3 +27,6 @@ Internal discussion — user feedback
 
 **Promoted by:** human
 **Promoted on:**
+
+## Decision
+REJECT: Gated on feature-branch-workflow which is itself deferred. No anti-collision mechanism exists yet.

@@ -1,7 +1,7 @@
 # IDEA: cross-layer-coverage-identity
 **Created:** 2026-05-12
 **Source:** Diagnostic session — drift/IDEA semantic coupling without structural unification
-**Status:** DRAFT
+**Status:** DEFERRED
 **Sessions:** 2
 **Meta:** P2 | M | local | docs/refinement/ + cli/src/main/ts/application/use-cases/drift-checker.ts
 
@@ -73,3 +73,5 @@ This stub exists to:
 
 ## Decision
 
+## Decision
+DEFERRED: Abstract without concrete signal. Re-evaluate when cross-layer coupling produces a detectable failure.

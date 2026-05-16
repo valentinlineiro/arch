@@ -20,3 +20,6 @@ Harden `arch govern` and `arch review` to detect and fix these mismatches:
 - Abstraction layer: Satisfied (governance layer).
 - Observability validity: Satisfied.
 - Priority displacement: Satisfied (P1 correctness).
+
+## Decision
+PROMOTE → TASK-903

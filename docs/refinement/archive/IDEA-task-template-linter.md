@@ -1,7 +1,7 @@
 # IDEA: task-template-linter
 **Created:** 2026-05-01
 **Source:** CORE.md "Definition of Ready" + KAIZEN-LOG TASK-031 drift
-**Status:** DRAFT
+**Status:** PROMOTED
 **Meta:** P1 | S | arch review | cli
 <!-- cli: local | claude | gemini | human -->
 
@@ -23,4 +23,4 @@ S
 
 ## Decision
 <!-- Human writes here after THINK evaluation -->
-<!-- PROMOTE → TASK-XXX | REJECT: reason -->
+PROMOTE → TASK-907

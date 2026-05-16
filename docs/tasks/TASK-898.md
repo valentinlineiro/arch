@@ -1,5 +1,5 @@
 ## TASK-898: Fix malformed archive meta lines and add pre-archive guard
-**Meta:** P1 | S | READY | Focus:no | 7-operations | claude-code | docs/archive/, cli/src/main/ts/application/use-cases/drift-checker.ts
+**Meta:** P1 | S | READY | Focus:yes | 7-operations | claude-code | docs/archive/, cli/src/main/ts/application/use-cases/drift-checker.ts
 
 **Depends:** none
 

@@ -1,7 +1,7 @@
 # IDEA: automate-turn-count-recording
 **Created:** 2026-05-13
 **Source:** Phase-3
-**Status:** DRAFT
+**Status:** PROMOTED
 **Sessions:** 0
 **Meta:** P1 | S | cli/src/main/ts/application/use-cases/loop-engine.ts, docs/KAIZEN-LOG.md
 
@@ -17,3 +17,6 @@ Evaluates: Presence of metadata field.
 Does NOT evaluate: Accuracy of the count if derived from non-deterministic sources.
 
 ## Decision
+
+## Decision
+PROMOTE → TASK-905

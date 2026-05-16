@@ -1,7 +1,7 @@
 # IDEA: dynamic-model-provisioning
 **Created:** 2026-05-06
 **Source:** User request "idea: run llm-checker in local and select the best models fitting the machine. If we are in cloud, we need to replace them for free alternatives performing similar"
-**Status:** DRAFT
+**Status:** DEFERRED
 **Meta:** P2 | M | local | arch.config.json, cli/src/main/ts/domain/services/
 <!-- cli: local | claude | gemini | human -->
 
@@ -33,3 +33,6 @@ M
 ## Decision
 <!-- Human writes here after THINK evaluation -->
 <!-- PROMOTE → TASK-XXX | REJECT: reason -->
+
+## Decision
+DEFERRED: Nice-to-have. Not blocking any current workflow.

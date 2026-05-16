@@ -1,7 +1,7 @@
 # IDEA: Loop mode load balancing
 **Created:** 2026-05-06
 **Source:** human report
-**Status:** DRAFT
+**Status:** DEFERRED
 **Meta:** P2 | S | cli | local
 
 ## Problem
@@ -42,3 +42,6 @@ Not structurally admissible. Revisit after TASK-190 is done and empirical eviden
 ## Decision
 <!-- Human writes here after THINK evaluation -->
 <!-- PROMOTE → TASK-XXX | REJECT: reason -->
+
+## Decision
+DEFERRED: arch loop is rarely used directly. Premature optimization.

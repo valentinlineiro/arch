@@ -1,7 +1,7 @@
 # IDEA: RAG context retrieval — semantic search over ARCH corpus
 **Created:** 2026-05-05
 **Source:** User-identified friction — agents duplicate past work and context windows overflow
-**Status:** DRAFT
+**Status:** DEFERRED
 **Meta:** P2 | M | claude | docs/tasks/, docs/archive/, docs/guidelines/, docs/adr/, docs/refinement/
 
 ## Problem
@@ -29,3 +29,6 @@ M
 ## Decision
 <!-- Human writes here after THINK evaluation -->
 <!-- PROMOTE → TASK-XXX | REJECT: reason -->
+
+## Decision
+DEFERRED: Phase C gated on corpus. Not actionable until arch ask is compounding.

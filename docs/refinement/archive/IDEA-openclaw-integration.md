@@ -2,7 +2,7 @@
 
 **Created:** 2026-05-06
 **Source:** Human — `idea:` DO mode submission
-**Status:** DRAFT
+**Status:** REJECTED
 
 ## Problem
 
@@ -26,3 +26,6 @@ Discussion — user inquiry about OpenClaw + ARCH synergy (2026-05-06).
 
 **Promoted by:**
 **Promoted on:**
+
+## Decision
+REJECT: Product decision outside protocol scope. Not a protocol concern.

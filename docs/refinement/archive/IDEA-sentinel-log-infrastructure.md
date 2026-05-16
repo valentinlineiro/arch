@@ -1,7 +1,7 @@
 # IDEA: Sentinel call log infrastructure
 **Created:** 2026-05-05
 **Source:** Split from IDEA-mechanize-protocol-controls
-**Status:** DRAFT
+**Status:** DEFERRED
 **Sessions:** 2
 **Meta:** P2 | L | claude-code | cli/src/main/ts/, docs/agents/DO.md
 
@@ -37,3 +37,6 @@ Not structurally admissible. The Gaps section correctly identifies the blocker: 
 
 ## Decision
 <!-- Human writes here after THINK evaluation -->
+
+## Decision
+DEFERRED: DO.md Sentinel preflight is rarely triggered. Premature until loop mode sees regular use.

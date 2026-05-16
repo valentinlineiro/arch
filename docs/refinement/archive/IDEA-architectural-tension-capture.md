@@ -1,7 +1,7 @@
 # IDEA: Ontological Tension Detection — a new artifact class and detection capability
 **Created:** 2026-05-12
 **Source:** TENSION-001 (govern/THINK boundary) — detected by human, not by system
-**Status:** DRAFT
+**Status:** DEFERRED
 **Meta:** P1 | L | protocol | docs/tensions/, docs/agents/THINK.md, docs/IDENTITY.md
 
 ## Problem
@@ -105,3 +105,6 @@ L (the format is defined; the capability matures over time through corpus accumu
 ## Decision
 <!-- Human writes here after THINK evaluation -->
 <!-- PROMOTE → TASK-XXX | REJECT: reason -->
+
+## Decision
+DEFERRED: Phase B prerequisite — requires signal corpus to be meaningful. Re-evaluate when arch ask is compounding.

@@ -1,7 +1,7 @@
 # IDEA: excision-structural-consistency-check
 **Created:** 2026-05-12
 **Source:** Post-INTENT removal observation — EscalationMaturity false positive on legitimate excision
-**Status:** DRAFT
+**Status:** PROMOTED
 **Sessions:** 2
 **Meta:** P1 | S | local | cli/src/main/ts/application/use-cases/drift-checker.ts
 
@@ -64,3 +64,6 @@ S
 **Structural admissibility:** satisfied.
 
 ## Decision
+
+## Decision
+PROMOTE → TASK-904

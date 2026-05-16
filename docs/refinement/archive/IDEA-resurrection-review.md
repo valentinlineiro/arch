@@ -1,7 +1,7 @@
 # IDEA: Resurrection review — surface TTL-rejected IDEAs for human re-evaluation
 **Created:** 2026-05-16
 **Source:** Human observation — operational debt
-**Status:** DRAFT
+**Status:** PROMOTED
 **Sessions:** 0
 **Meta:** P2 | S | 6-writing | docs/refinement/archive/
 
@@ -35,4 +35,4 @@ Every N govern ticks (configurable, default 20), THINK Phase 3 emits a reminder 
 - Priority displacement: P2 — useful but not blocking anything
 
 ## Decision
-<!-- PROMOTE → TASK-XXX | REJECT: reason | DEFERRED: reason + condition -->
+PROMOTE → TASK-906

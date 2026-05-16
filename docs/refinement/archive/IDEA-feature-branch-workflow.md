@@ -1,7 +1,7 @@
 # IDEA: Feature branch workflow — fully automatic branch-per-task execution
 **Created:** 2026-05-05
 **Source:** Human proposal — current single-branch model prevents parallel task isolation and worktree-based tooling
-**Status:** DRAFT
+**Status:** REJECTED
 **Meta:** P2 | M | claude | docs/agents/DO.md, arch.config.json, cli/src/main/ts/
 
 ## Problem
@@ -32,3 +32,6 @@ M
 ## Decision
 <!-- Human writes here after THINK evaluation -->
 <!-- PROMOTE → TASK-XXX | REJECT: reason -->
+
+## Decision
+REJECT: Significant complexity increase. Premature until parallel agent use is validated.

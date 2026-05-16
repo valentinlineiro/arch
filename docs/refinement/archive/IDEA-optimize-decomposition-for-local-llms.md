@@ -1,7 +1,7 @@
 # IDEA: optimize-decomposition-for-local-llms
 **Created:** 2026-05-01
 **Source:** User request "idea: mejorar refine para que exista mayor cantidad de tareas XS y S"
-**Status:** DRAFT
+**Status:** DEFERRED
 **Meta:** P1 | M | docs/agents/THINK.md | refinement
 <!-- cli: local | claude | gemini | human -->
 
@@ -24,3 +24,6 @@ S
 ## Decision
 <!-- Human writes here after THINK evaluation -->
 <!-- PROMOTE → TASK-XXX | REJECT: reason -->
+
+## Decision
+DEFERRED: Partially covered by ARCH-CORE.md. Re-evaluate when local LLM usage on PGW generates concrete friction.
