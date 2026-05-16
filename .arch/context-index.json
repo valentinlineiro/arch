@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-16T22:20:47.785Z",
+  "builtAt": "2026-05-16T22:21:28.650Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -5038,24 +5038,32 @@
   },
   "tasks": {
     "TASK-904": {
-      "commitCount": 1,
-      "lastCommitDate": "2026-05-16T22:20:47+00:00",
+      "commitCount": 2,
+      "lastCommitDate": "2026-05-16T22:21:28+00:00",
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 1
+        ".arch/focus-ledger.jsonl": 2
       },
       "recentCommitRefs": [
+        "207110c",
         "d1323e1"
       ],
       "commitRefOverflow": false
     },
     "TASK-903": {
-      "commitCount": 2,
-      "lastCommitDate": "2026-05-16T22:17:03+00:00",
+      "commitCount": 4,
+      "lastCommitDate": "2026-05-16T22:21:28+00:00",
       "touchedFrequency": {
-        "docs/tasks/TASK-903.md": 1,
+        "docs/archive/TASK-903.md": 1,
+        ".arch/reflect-breach-log.jsonl": 1,
+        "cli/src/main/ts/application/use-cases/drift-checker.ts": 1,
+        "cli/src/test/ts/escalation-maturity-e5.test.ts": 1,
+        "docs/tasks/TASK-901.md": 1,
+        "docs/tasks/TASK-903.md": 2,
         ".arch/focus-ledger.jsonl": 1
       },
       "recentCommitRefs": [
+        "6b5b6ef",
+        "5caf4b1",
         "4620fd5",
         "3b45255"
       ],
@@ -6829,25 +6837,17 @@
       "commitRefOverflow": false
     },
     "TASK-202": {
-      "commitCount": 5,
+      "commitCount": 1,
       "lastCommitDate": "2026-05-12T10:16:38+02:00",
       "touchedFrequency": {
         ".arch/causal-graph.jsonl": 1,
         ".arch/causal-signal.jsonl": 1,
         ".arch/chronicle.jsonl": 1,
         "docs/archive/TASK-202.md": 1,
-        "docs/archive/TASK-205.md": 1,
-        "docs/tasks/TASK-202.md": 2,
-        "docs/INBOX.md": 2,
-        "cli/src/main/ts/application/use-cases/validate-task-acs.ts": 1,
-        "scripts/arch": 1
+        "docs/archive/TASK-205.md": 1
       },
       "recentCommitRefs": [
-        "08a0de0",
-        "f9cda66",
-        "b83e645",
-        "42c218f",
-        "521119b"
+        "08a0de0"
       ],
       "commitRefOverflow": false
     },
