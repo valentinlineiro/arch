@@ -130,3 +130,15 @@ ADR-020 ruling names differ from AGFM ruling names. AGFM is authoritative for im
 | `arch report` cycle-time output uses the recorded Turns fiel | prose | ✔ | prose: human-verified (non-automated) |
 | Unit test: task with `lockedCommit` set → turns computed fro | prose | ✔ | prose: human-verified (non-automated) |
 | `arch review` passes. | prose | ✔ | prose: human-verified (non-automated) |
+
+## [AWAITING_REVIEW] TASK-907 [L3-AUTO]
+**Closed:** 2026-05-16T22:30:49.784Z
+**Title:** Task template linter: validate TASK-FORMAT schema in arch review
+
+| AC | Type | Pass | Detail |
+|---|---|---|---|
+| `DriftChecker.checkTaskTemplateCompliance()` added: scans al | cmd | ✔ | exit 0 (expected 0) |
+| `checkTaskTemplateCompliance` registered in `DriftChecker.ch | file | ✔ | exists: cli/src/main/ts/application/use-cases/drift-checker. |
+| `docs/TASK-FORMAT.md` updated with a machine-readable schema | file | ✔ | exists: docs/TASK-FORMAT.md |
+| Unit tests: valid task → OK. Missing Size → WARN. Invalid Pr | prose | ✔ | prose: human-verified (non-automated) |
+| `arch review` passes. | cmd | ✔ | exit 0 (expected 0) |

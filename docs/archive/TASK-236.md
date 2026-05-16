@@ -9,3 +9,11 @@
 - [ ] THINK.md Phase 1 explicitly checks READY task count
 - [ ] If READY < 3, protocol mandates proposing at least one new IDEA
 - [ ] Matches the rule in core.md §5
+
+## Hansei
+**Severity:** H1
+**Category:** [SpecDrift]
+**Decision:** Task was completed directly in session 2026-05-16 without formal lifecycle. Changes applied before this task file was created. Hansei added retroactively for corpus compliance.
+**Constraint:** This task predated the implementation it tracked — created from a stale IDEA batch. Retroactively closed.
+**Cost:** No cost — the work was already done when this task was created.
+**Forward Action:** None required.
