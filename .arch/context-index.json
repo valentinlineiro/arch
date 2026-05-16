@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-16T16:07:21.879Z",
+  "builtAt": "2026-05-16T16:27:09.832Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -4847,10 +4847,10 @@
   },
   "tasks": {
     "TASK-207": {
-      "commitCount": 3,
-      "lastCommitDate": "2026-05-16T16:07:21+00:00",
+      "commitCount": 4,
+      "lastCommitDate": "2026-05-16T16:27:09+00:00",
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 1,
+        ".arch/focus-ledger.jsonl": 2,
         "docs/tasks/TASK-207.md": 2,
         "docs/tasks/TASK-233.md": 1,
         "docs/tasks/TASK-242.md": 1,
@@ -4859,6 +4859,7 @@
         "docs/tasks/TASK-208.md": 1
       },
       "recentCommitRefs": [
+        "cd18b22",
         "9f4946b",
         "f4da63a",
         "c437348"
@@ -4866,11 +4867,18 @@
       "commitRefOverflow": false
     },
     "TASK-203": {
-      "commitCount": 7,
-      "lastCommitDate": "2026-05-16T16:05:39+00:00",
+      "commitCount": 9,
+      "lastCommitDate": "2026-05-16T16:27:09+00:00",
       "touchedFrequency": {
-        "docs/tasks/TASK-203.md": 1,
-        ".arch/reflect-breach-log.jsonl": 2,
+        "docs/archive/TASK-203.md": 1,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/reflect-breach-log.jsonl": 3,
+        "cli/src/main/ts/application/commands/next-command.ts": 1,
+        "cli/src/main/ts/application/commands/task-command.ts": 1,
+        "cli/src/main/ts/application/use-cases/mark-task-in-progress.ts": 1,
+        "cli/src/main/ts/index.ts": 1,
+        "docs/tasks/TASK-203.md": 2,
+        "docs/tasks/TASK-207.md": 1,
         "docs/archive/TASK-015.md": 1,
         "docs/archive/TASK-018.md": 1,
         "docs/archive/TASK-019.md": 1,
@@ -4925,6 +4933,8 @@
         "docs/refinement/IDEA-preimpl-detection.md": 1
       },
       "recentCommitRefs": [
+        "853d02a",
+        "089e8b3",
         "2e122cd",
         "05627ee",
         "61cb01b",
@@ -7061,33 +7071,6 @@
         "b6b3f42",
         "b648b21",
         "ffba8f3"
-      ],
-      "commitRefOverflow": false
-    },
-    "TASK-198": {
-      "commitCount": 3,
-      "lastCommitDate": "2026-05-05T13:50:27+02:00",
-      "touchedFrequency": {
-        "docs/archive/TASK-198.md": 1,
-        "docs/tasks/TASK-198.md": 1,
-        "cli/src/main/ts/application/use-cases/govern-system.ts": 1,
-        "cli/src/test/ts/govern-system.test.ts": 1
-      },
-      "recentCommitRefs": [
-        "8f1d121",
-        "db175dd",
-        "7173007"
-      ],
-      "commitRefOverflow": false
-    },
-    "TASK-196": {
-      "commitCount": 1,
-      "lastCommitDate": "2026-05-05T13:50:27+02:00",
-      "touchedFrequency": {
-        "docs/archive/TASK-196.md": 1
-      },
-      "recentCommitRefs": [
-        "5323fd5"
       ],
       "commitRefOverflow": false
     }
