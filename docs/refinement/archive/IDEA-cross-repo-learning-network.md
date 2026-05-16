@@ -30,8 +30,7 @@ XL — must be decomposed before entering READY. Requires external infrastructur
 - Decide the distribution mechanism: Git submodule, npm package, or a dedicated `arch knowledge` CLI command.
 
 ## Decision
-<!-- Human writes here after THINK evaluation -->
-<!-- PROMOTE → TASK-XXX | REJECT: reason -->
+PROMOTE → TASK-XXX
 
 ## Decision
 REJECT: Requires queryable cross-repo memory infrastructure that doesn't exist. IDENTITY.md §6 locks priority to arch ask v1 → Chronicle → distillation within one repo. Multi-repo learning is a valid idea for a future system; it optimizes a layer ARCH hasn't built yet in the single-repo case.

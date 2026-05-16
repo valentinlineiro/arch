@@ -14,3 +14,6 @@ Add a check in `arch review` that detects REVIEW-state tasks where every accepta
 - Scope: single check in the existing `arch review` validation pipeline.
 - No new files required; extends the existing review command.
 - Size: XS — one additional condition in the validator.
+
+## Decision
+PROMOTE → TASK-083

@@ -26,4 +26,4 @@ Update ADR-013 to reference "THINK Phase 2.5 (Semantic Drift Analysis)" instead 
 | Priority displacement | Satisfied — XS fix, no bottleneck |
 
 ## Decision
-
+REJECT: TTL expired — archived without human engagement across multiple THINK sessions.

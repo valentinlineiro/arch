@@ -22,3 +22,6 @@
 
 ### Estimate
 M — TypeScript ExecCommand + tests + arch.sh simplification + CHANGELOG note.
+
+## Decision
+PROMOTE → TASK-175

@@ -17,3 +17,6 @@ None
 
 ## Estimated size
 S
+
+## Decision
+PROMOTE → TASK-079

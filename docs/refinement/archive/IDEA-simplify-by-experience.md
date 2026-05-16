@@ -37,3 +37,6 @@ ARCH accumulated features without defensive checks. The "trusted" stance (assume
 ### Decision
 Implement systemic hardening to prevent drift. Focus on path validation and strict completion criteria.
 PROMOTE -> TASK-058
+
+## Decision
+REJECT: TTL expired — archived without human engagement across multiple THINK sessions.

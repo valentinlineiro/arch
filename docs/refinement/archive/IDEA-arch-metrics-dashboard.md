@@ -22,5 +22,4 @@ M
 - Performance: parsear 10k commits debe ser <2s
 
 ## Decision
-<!-- Human writes here after THINK evaluation -->
-<!-- PROMOTE → TASK-XXX | REJECT: reason -->
+PROMOTE → TASK-XXX

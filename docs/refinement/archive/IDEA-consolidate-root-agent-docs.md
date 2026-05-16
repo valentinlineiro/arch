@@ -23,3 +23,6 @@ This creates a cognitive trap for new agents/contributors who might read the roo
 ### Decision
 REJECT: Fixed directly. Root `AGENTS.md` converted to symlink → `docs/AGENTS.md`. No task needed.
 **Closed:** 2026-05-16T10:35:11Z
+
+## Decision
+REJECT: Fixed directly — root AGENTS.md converted to symlink in session 2026-05-16.

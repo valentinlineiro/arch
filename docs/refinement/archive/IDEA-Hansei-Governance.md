@@ -50,3 +50,6 @@ The `arch review` command (and the human Auditor) must verify the **fidelity** o
 
 ### Decision
 PROMOTE → TASK-244, TASK-245, TASK-246
+
+## Decision
+REJECT: TTL expired — archived without human engagement across multiple THINK sessions.

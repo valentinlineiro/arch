@@ -18,3 +18,6 @@ Add a rule to `arch review` (or the `DriftChecker` service) that:
 
 ### Sizing Estimate
 XS — It's a logic check in the existing drift checker.
+
+## Decision
+REJECT: TTL expired — archived without human engagement across multiple THINK sessions.

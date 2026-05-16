@@ -32,8 +32,7 @@ XL — requires external community/documentation work beyond the repository itse
 - Determine minimum viable compliance: what does "ARCH-compatible" mean for a tool that only implements a subset?
 
 ## Decision
-<!-- Human writes here after THINK evaluation -->
-<!-- PROMOTE → TASK-XXX | REJECT: reason -->
+PROMOTE → TASK-XXX
 
 ## Decision
 REJECT: Designing a heterogeneous multi-agent collaboration interface before any single agent reliably executes the full protocol loop is premature. IDENTITY.md §5: future-proofs against unvalidated requirements. The problem is real but belongs to a system that has first validated single-agent execution at L2+.

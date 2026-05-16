@@ -18,3 +18,6 @@ Add a "Staleness Check" to `arch review` or a new command `arch prune` that:
 
 ### Sizing Estimate
 S — Logic for git log check per file.
+
+## Decision
+PROMOTE → TASK-118

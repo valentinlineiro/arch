@@ -46,3 +46,6 @@ M — ADR + DO.md + CLAUDE.md + MarkTaskDone + integration tests
 **Decision:**
 **Promoted by:**
 **Promoted on:**
+
+## Decision
+PROMOTE → TASK-208

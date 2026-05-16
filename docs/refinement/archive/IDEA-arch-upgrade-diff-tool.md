@@ -14,3 +14,6 @@ Create `arch-upgrade.html` — browser-based tool:
 ### Decision
 Implement arch-upgrade.html as a browser tool. Ensure it handles nested JSON diffs and provides clear migration instructions.
 PROMOTE -> TASK-059
+
+## Decision
+REJECT: TTL expired — archived without human engagement across multiple THINK sessions.

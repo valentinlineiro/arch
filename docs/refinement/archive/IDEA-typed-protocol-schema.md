@@ -29,8 +29,7 @@ XL — must be decomposed before entering READY.
 - Determine how the interpreter handles schema rules the AI must still resolve with judgment (e.g. "which task has highest priority?" is not fully deterministic).
 
 ## Decision
-<!-- Human writes here after THINK evaluation -->
-<!-- PROMOTE → TASK-XXX | REJECT: reason -->
+PROMOTE → TASK-XXX
 
 ## Decision
 REJECT: Formal protocol schema for prose instructions attacks the wrong layer. What makes protocol runs diverge is not lack of schema — it's model behavior variation. The right fix is reducing surface area exposed to model interpretation (fewer prose steps, more deterministic CLI calls). A schema that validates prose output is validation theater. The executable layer (DriftChecker, arch review) is already schema-enforced; invest there.

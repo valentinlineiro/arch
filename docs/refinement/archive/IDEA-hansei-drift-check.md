@@ -25,4 +25,4 @@ XS
 None identified.
 
 ## Decision
-<!-- Human writes here after THINK evaluation -->
+REJECT: TTL expired — archived without human engagement across multiple THINK sessions.

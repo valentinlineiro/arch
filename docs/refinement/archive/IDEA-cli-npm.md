@@ -29,3 +29,6 @@ Internal discussion — user feedback
 
 **Promoted by:** human
 **Promoted on:**
+
+## Decision
+REJECT: TTL expired — archived without human engagement across multiple THINK sessions.

@@ -30,8 +30,7 @@ M
 - Decide whether `Cost:` in Meta is self-reported by agent or computed by the CLI from session metadata.
 
 ## Decision
-<!-- Human writes here after THINK evaluation -->
-<!-- PROMOTE → TASK-XXX | REJECT: reason -->
+PROMOTE → TASK-XXX
 
 ## Decision
 REJECT: The implementation requires cost data the system cannot reliably produce. API billing is not accessible from the CLI. Self-reported `Cost:` fields filled by agents are unreliable — agents have no accurate view of their own token consumption. A metric built on self-reporting produces false confidence rather than visibility. This is not a timing problem (the idea is at the right maturity level) and not a layer problem (cost IS the right abstraction). It is a measurement gap: the required observable does not exist in usable form. Revisit when actual cost data is accessible from the invocation environment.

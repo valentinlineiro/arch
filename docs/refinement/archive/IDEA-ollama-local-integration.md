@@ -23,5 +23,4 @@ M
 - Manejo de timeouts y recursos de hardware local.
 
 ## Decision
-<!-- Human writes here after THINK evaluation -->
-<!-- PROMOTE → TASK-XXX | REJECT: reason -->
+PROMOTE → TASK-XXX

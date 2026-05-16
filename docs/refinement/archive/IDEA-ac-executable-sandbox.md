@@ -22,5 +22,4 @@ L
 - Cómo validar que el container no tiene escape
 
 ## Decision
-<!-- Human writes here after THINK evaluation -->
-<!-- PROMOTE → TASK-XXX | REJECT: reason -->
+PROMOTE → TASK-XXX

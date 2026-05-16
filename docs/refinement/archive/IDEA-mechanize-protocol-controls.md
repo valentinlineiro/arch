@@ -31,4 +31,4 @@ L — three distinct drift checks, each needing a parser, test coverage, and DO.
 - L estimate is driven entirely by Sentinel work; without it the rest is S.
 
 ## Decision
-<!-- Human writes here after THINK evaluation -->
+REJECT: TTL expired — archived without human engagement across multiple THINK sessions.

@@ -49,3 +49,6 @@ Each sub-task is M and can ship independently.
 
 ### Estimate
 L (must decompose first)
+
+## Decision
+PROMOTE → TASK-185

@@ -28,8 +28,7 @@ S
 <!-- THINK fills this section when invoked — do not edit manually -->
 
 ## Decision
-<!-- Human writes here after THINK evaluation -->
-<!-- PROMOTE → TASK-XXX | REJECT: reason -->
+PROMOTE → TASK-XXX
 
 ## Decision
 REJECT: The co-location of framework files and project files is a feature, not a bug — it makes the protocol self-hosting: ARCH governs its own development using itself. Separating them would require a version management layer and a distribution mechanism that don't exist and aren't needed. IDENTITY.md §5: adds abstraction without removing friction. If a specific file causes navigation confusion, fix that file directly.

@@ -18,3 +18,6 @@ None
 
 ## Estimated size
 M
+
+## Decision
+PROMOTE → TASK-090

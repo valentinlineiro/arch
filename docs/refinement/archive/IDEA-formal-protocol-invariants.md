@@ -36,8 +36,7 @@ M
 - Decide whether invariant violations halt the loop immediately (Andon Cord) or are reported as P0 bugs in the next THINK cycle.
 
 ## Decision
-<!-- Human writes here after THINK evaluation -->
-<!-- PROMOTE → TASK-XXX | REJECT: reason -->
+PROMOTE → TASK-XXX
 
 ## Decision
 REJECT: Machine-checked protocol invariants belong to IDENTITY.md §6 step 5 (Policy engine), which is downstream of queryable memory (step 2), Chronicle (step 3), and pattern distillation (step 4). Promoting this skips three prerequisite steps. arch review already catches structural violations deterministically; deeper invariant checking requires the memory layer to have meaning.

@@ -20,8 +20,7 @@ S
 <!-- THINK fills this section when invoked — do not edit manually -->
 
 ## Decision
-<!-- Human writes here after THINK evaluation -->
-<!-- PROMOTE → TASK-XXX | REJECT: reason -->
+PROMOTE → TASK-XXX
 
 ## Decision
 REJECT: The overlap between docs/*.md and docs/course/ is intentional — course/ is onboarding, docs/ is operational reference. They serve different audiences at different points in the decision cycle. Pruning them conflates reference documentation with learning material. If specific duplication causes real confusion, raise it as a concrete issue with file citations.

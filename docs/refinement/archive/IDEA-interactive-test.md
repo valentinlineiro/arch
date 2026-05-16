@@ -19,6 +19,7 @@ XS
 ## Gaps
 
 ## Decision
+REJECT: TTL expired — archived without human engagement across multiple THINK sessions.
 
 ## Decision
 REJECT: Not an idea. Artifact from a test of the capture/refinement pipeline.

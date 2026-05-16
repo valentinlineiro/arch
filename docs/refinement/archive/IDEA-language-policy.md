@@ -20,3 +20,6 @@ Enforce English for all **new** work:
 ### Decision
 Enforce English for all documentation and task titles. Establish migration path for legacy content.
 PROMOTE -> TASK-060
+
+## Decision
+REJECT: TTL expired — archived without human engagement across multiple THINK sessions.

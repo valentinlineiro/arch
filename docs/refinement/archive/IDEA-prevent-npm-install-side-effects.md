@@ -12,3 +12,6 @@ Add `npm install --prefer-offline` or document that `npm install` in `cli/` shou
 
 ### Constraint
 Minimal. Low priority since the impact is cosmetic.
+
+## Decision
+PROMOTE → TASK-065

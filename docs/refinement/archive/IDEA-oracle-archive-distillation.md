@@ -27,8 +27,7 @@ L
 - Decide whether ORACLE runs as part of the main THINK cycle or as a separate `arch oracle` command triggered manually.
 
 ## Decision
-<!-- Human writes here after THINK evaluation -->
-<!-- PROMOTE → TASK-XXX | REJECT: reason -->
+PROMOTE → TASK-XXX
 
 ## Decision
 REJECT: This is a valid problem and the right direction — but it is IDENTITY.md §6 step 4 (cross-task pattern distillation), which is downstream of arch ask v1 (step 2) and Chronicle causal graph (step 3). Both prerequisites are unbuilt. Promoting this now would open step N before closing step N-1. Return to this when Chronicle is operational.

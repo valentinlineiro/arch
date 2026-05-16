@@ -32,8 +32,7 @@ S — update `SelectNextTask` scoring, add `--explain` flag to `next-command.ts`
 - **Human override:** If a human prefers a more expensive task, today they set it to Focus:yes. Is that sufficient, or is a `Value: high` override field needed?
 
 ## Decision
-<!-- Human writes here after THINK evaluation -->
-<!-- PROMOTE → TASK-XXX | REJECT: reason -->
+PROMOTE → TASK-XXX
 
 ## Decision
 REJECT: The heuristic is honest and technically implementable. The failure class is priority displacement: IDENTITY.md §6 names arch ask v1 as the current bottleneck — not task selection quality within a tier. Improving `arch next` tiebreaking while the primary constraint is queryable memory is optimizing the wrong thing. The unvalidated multipliers (0.5/0.7/1.0) are also a concern — they would require empirical calibration from cost data that doesn't yet exist (see IDEA-cost-aware-protocol). Return to this after arch ask v1 is operational and actual cost distribution across task classes is observable.
