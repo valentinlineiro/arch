@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-16T17:24:26.873Z",
+  "builtAt": "2026-05-16T17:26:48.329Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -3824,16 +3824,6 @@
     }
   },
   "adrTaskLinks": {
-    "ADR-009": {
-      "tasks": {
-        "TASK-208": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/tasks/TASK-208.md"
-        }
-      }
-    },
     "ADR-013": {
       "tasks": {
         "TASK-231": {
@@ -4080,6 +4070,16 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-227.md"
+        }
+      }
+    },
+    "ADR-009": {
+      "tasks": {
+        "TASK-208": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-208.md"
         }
       }
     },
@@ -4987,32 +4987,47 @@
   },
   "tasks": {
     "TASK-246": {
-      "commitCount": 2,
-      "lastCommitDate": "2026-05-16T17:24:26+00:00",
+      "commitCount": 3,
+      "lastCommitDate": "2026-05-16T17:26:48+00:00",
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 1,
+        ".arch/focus-ledger.jsonl": 2,
         "docs/refinement/IDEA-Hansei-Governance.md": 1,
         "docs/tasks/TASK-244.md": 1,
         "docs/tasks/TASK-245.md": 1,
         "docs/tasks/TASK-246.md": 1
       },
       "recentCommitRefs": [
+        "0f4e4cd",
         "96985a6",
         "da71de9"
       ],
       "commitRefOverflow": false
     },
     "TASK-208": {
-      "commitCount": 3,
-      "lastCommitDate": "2026-05-16T17:21:16+00:00",
+      "commitCount": 5,
+      "lastCommitDate": "2026-05-16T17:26:48+00:00",
       "touchedFrequency": {
-        "docs/tasks/TASK-208.md": 2,
+        "docs/archive/TASK-208.md": 1,
+        ".arch/causal-signal.jsonl": 1,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/reflect-breach-log.jsonl": 1,
+        "cli/src/main/ts/application/use-cases/mark-task-done.ts": 1,
+        "cli/src/test/ts/mark-task-done.test.ts": 1,
+        "docs/AGENTS.md": 1,
+        "docs/EVENTS.md": 1,
+        "docs/KAIZEN-LOG.md": 1,
+        "docs/adr/ADR-009-l3-self-archive.md": 1,
+        "docs/agents/DO.md": 1,
+        "docs/tasks/TASK-208.md": 3,
+        "docs/tasks/TASK-246.md": 1,
         ".arch/focus-ledger.jsonl": 1,
         "docs/refinement/archive/IDEA-l3-self-archive.md": 1,
         "docs/refinement/archive/IDEA-semantic-ac-verification.md": 1,
         "docs/tasks/TASK-207.md": 1
       },
       "recentCommitRefs": [
+        "947aad6",
+        "0926332",
         "137f817",
         "58d18b3",
         "c437348"
@@ -7159,26 +7174,19 @@
       "commitRefOverflow": false
     },
     "TASK-193": {
-      "commitCount": 8,
+      "commitCount": 4,
       "lastCommitDate": "2026-05-06T12:46:37+02:00",
       "touchedFrequency": {
         "docs/archive/TASK-193.md": 1,
-        "docs/tasks/TASK-193.md": 3,
+        "docs/tasks/TASK-193.md": 2,
         "cli/src/main/ts/application/use-cases/govern-system.ts": 1,
-        "docs/INBOX.md": 1,
-        "cli/src/main/ts/application/use-cases/select-next-task.ts": 2,
-        "cli/src/test/ts/select-next-task.test.ts": 3,
-        "cli/src/main/ts/application/commands/next-command.ts": 1
+        "docs/INBOX.md": 1
       },
       "recentCommitRefs": [
         "08f0a3a",
         "2dbf044",
         "a65e6b2",
-        "a11d567",
-        "40a88b1",
-        "7902880",
-        "7ebd9af",
-        "9855dad"
+        "a11d567"
       ],
       "commitRefOverflow": false
     },
