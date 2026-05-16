@@ -16,12 +16,13 @@ export interface VerificationResult {
   evidence: ACEvidence[];
 }
 
-// Pattern: `- [ ] AC text → <type>: <spec>` or inline `- [ ] ...  - \`<type>: <spec>\``
-const CMD_PATTERN = /`cmd:\s*([^`]+?)(?:;\s*exit:\s*(\d+))?`/i;
-const FILE_PATTERN = /`file:\s*([^`]+?)`/i;
-const TEST_PATTERN = /`test:\s*([^`]*?)`/i;
-const PROSE_PATTERN = /`prose:\s*([^`]*?)`/i;
-const CODE_PATTERN = /`code:\s*([^`]*?)`/i;
+// Predicate lines: indented sub-lines starting with `- \`type: ...\``
+// We match only lines that are standalone predicate declarations, not inline references
+const CMD_PATTERN = /^\s*-\s+`cmd:\s*([^`]+?)(?:;\s*exit:\s*(\d+))?`/im;
+const FILE_PATTERN = /^\s*-\s+`file:\s*([^`]+?)`/im;
+const TEST_PATTERN = /^\s*-\s+`test:\s*([^`]*?)`/im;
+const PROSE_PATTERN = /^\s*-\s+`prose:\s*([^`]*?)`/im;
+const CODE_PATTERN = /^\s*-\s+`code:\s*([^`]*?)`/im;
 
 export class DeterministicACVerifier {
   constructor(private rootPath: string = '.') {}
