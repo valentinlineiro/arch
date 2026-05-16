@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-16T22:22:42.064Z",
+  "builtAt": "2026-05-16T22:23:17.842Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -5038,24 +5038,35 @@
   },
   "tasks": {
     "TASK-905": {
-      "commitCount": 1,
-      "lastCommitDate": "2026-05-16T22:22:41+00:00",
+      "commitCount": 2,
+      "lastCommitDate": "2026-05-16T22:23:17+00:00",
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 1
+        ".arch/focus-ledger.jsonl": 2
       },
       "recentCommitRefs": [
+        "15e1462",
         "1696697"
       ],
       "commitRefOverflow": false
     },
     "TASK-904": {
-      "commitCount": 3,
-      "lastCommitDate": "2026-05-16T22:21:35+00:00",
+      "commitCount": 6,
+      "lastCommitDate": "2026-05-16T22:23:17+00:00",
       "touchedFrequency": {
-        "docs/tasks/TASK-904.md": 1,
+        "docs/archive/TASK-904.md": 1,
+        "docs/tasks/TASK-904.md": 3,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/reflect-breach-log.jsonl": 1,
+        "cli/src/main/ts/application/use-cases/drift-checker.ts": 1,
+        "docs/EVENTS.md": 1,
+        "docs/INBOX.md": 1,
+        "docs/tasks/TASK-905.md": 1,
         ".arch/focus-ledger.jsonl": 2
       },
       "recentCommitRefs": [
+        "f8bb7ed",
+        "d19a1e8",
+        "78bf182",
         "228ed1a",
         "207110c",
         "d1323e1"
@@ -6513,11 +6524,11 @@
       "commitRefOverflow": false
     },
     "TASK-210": {
-      "commitCount": 29,
+      "commitCount": 28,
       "lastCommitDate": "2026-05-12T16:37:24+02:00",
       "touchedFrequency": {
         "cli/src/main/ts/application/use-cases/generate-inbox.ts": 1,
-        "docs/tasks/TASK-210.md": 2,
+        "docs/tasks/TASK-210.md": 1,
         "cli/src/main/ts/application/use-cases/context-inference.ts": 5,
         "cli/src/test/ts/context-inference.test.ts": 5,
         ".arch/context-index.json": 1,
@@ -6536,7 +6547,7 @@
         "cli/src/test/ts/capture-intent.test.ts": 1,
         "cli/src/main/ts/infrastructure/filesystem/markdown-intent-repository.ts": 2,
         "cli/src/main/ts/domain/repositories/intent-repository.ts": 1,
-        "cli/src/test/ts/markdown-intent-repository.test.ts": 5,
+        "cli/src/test/ts/markdown-intent-repository.test.ts": 4,
         "cli/src/main/ts/infrastructure/cli/git-cli.ts": 2,
         "cli/src/main/ts/domain/repositories/git-repository.ts": 1,
         "cli/src/test/ts/drift-checker.test.ts": 2,
@@ -6544,8 +6555,7 @@
         "cli/src/test/ts/mark-task-done.test.ts": 1,
         "cli/src/test/ts/validate-system.test.ts": 1,
         "cli/src/main/ts/domain/repositories/file-system.ts": 1,
-        "cli/src/main/ts/infrastructure/filesystem/node-file-system.ts": 1,
-        "cli/src/main/ts/domain/models/intent.ts": 1
+        "cli/src/main/ts/infrastructure/filesystem/node-file-system.ts": 1
       },
       "recentCommitRefs": [
         "dc2b86c",
