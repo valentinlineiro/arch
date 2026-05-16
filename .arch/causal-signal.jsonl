@@ -4,3 +4,4 @@
 {"id":"eb0fdea1-2ecd-4294-a0a1-5c1d4f6f1ff6","domain":"ontological","signal_type":"create","candidate_from":"TASK-202","candidate_relation":"caused_by","confidence":0.5,"candidate_to":"TASK-193","event":"task_completed:TASK-202","source":"system","status":"pending","review_count":0,"timestamp":"2026-05-12T08:16:20.951Z"}
 {"signal_id":"54b3af83-2158-48ad-82b7-d7b4bb61b5e2","status":"stale","review_count":3,"timestamp":"2026-05-12T08:19:48.317Z"}
 {"signal_id":"eb0fdea1-2ecd-4294-a0a1-5c1d4f6f1ff6","status":"pending","review_count":1,"timestamp":"2026-05-12T08:19:48.317Z"}
+{"id":"93eeab4b-b0ad-4706-b86d-a9b7e0ba1946","domain":"ontological","signal_type":"create","candidate_from":"TASK-245","candidate_relation":"caused_by","confidence":0.5,"candidate_to":"TASK-244","event":"task_completed:TASK-245","source":"system","status":"pending","review_count":0,"timestamp":"2026-05-16T15:43:08.586Z"}

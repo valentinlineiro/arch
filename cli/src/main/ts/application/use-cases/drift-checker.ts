@@ -1,5 +1,6 @@
 import { FileSystem } from '../repositories/file-system.js';
 import { GitRepository } from '../repositories/git-repository.js';
+import { HanseiAuditor } from '../../domain/services/hansei-auditor.js';
 
 export interface DriftResult {
   check: string;
@@ -43,6 +44,7 @@ export class DriftChecker {
       this.checkUnappliedADRs(),
       this.checkArchivedIdeaDecisions(),
       this.checkApprovalPresent(),
+      this.checkHanseiReconciliation(),
     ]);
   }
 
@@ -828,6 +830,71 @@ export class DriftChecker {
 
     return {
       check: 'ArchivedIdeaDecisions',
+      status: details.length === 0 ? 'OK' : 'WARN',
+      details,
+    };
+  }
+
+  private async checkHanseiReconciliation(): Promise<DriftResult> {
+    const tasksDir = `${this.rootPath}/docs/tasks`;
+    const auditor = new HanseiAuditor(this.fileSystem, this.rootPath);
+    const details: string[] = [];
+
+    let taskFiles: string[] = [];
+    try {
+      taskFiles = (await this.fileSystem.readDirectory(tasksDir))
+        .filter(f => f.startsWith('TASK-') && f.endsWith('.md'));
+    } catch {
+      return { check: 'HanseiReconciliation', status: 'OK', details: [] };
+    }
+
+    for (const file of taskFiles) {
+      const content = await this.fileSystem.readFile(`${tasksDir}/${file}`);
+
+      // Only audit tasks in REVIEW — they have complete implementation
+      if (!content.includes('| REVIEW |') && !content.includes('| REVIEW\n')) continue;
+
+      // Parse task minimally for audit
+      const idMatch = content.match(/^## (TASK-\d+)/m);
+      if (!idMatch) continue;
+
+      const hanseiMatch = content.match(/## Hansei\n\*\*Severity:\*\*\s*(\S+)\n\*\*Category:\*\*\s*(\S+)\n\*\*Decision:\*\*\s*([\s\S]*?)\n\*\*Constraint:\*\*\s*([\s\S]*?)\n\*\*Cost:\*\*\s*([\s\S]*?)\n\*\*Forward Action:\*\*\s*([\s\S]*?)(?=\n##|$)/m);
+      if (!hanseiMatch) continue;
+
+      const task = {
+        id: idMatch[1],
+        title: '',
+        priority: '',
+        size: '',
+        status: 'REVIEW' as any,
+        focus: false,
+        sprint: '',
+        class: '',
+        cli: '',
+        context: [],
+        acceptanceCriteria: [],
+        hansei: {
+          severity: hanseiMatch[1].trim() as any,
+          category: hanseiMatch[2].trim(),
+          decision: hanseiMatch[3].trim(),
+          constraint: hanseiMatch[4].trim(),
+          cost: hanseiMatch[5].trim(),
+          forwardAction: hanseiMatch[6].trim(),
+        },
+      };
+
+      const changedFiles = HanseiAuditor.extractChangedFiles(content);
+      const result = await auditor.audit(task, changedFiles);
+
+      if (result.verdict === 'CONCEALMENT') {
+        details.push(`${result.taskId}: ${result.details.join(' | ')}`);
+      } else if (result.verdict === 'INFLATION') {
+        details.push(`${result.taskId} (WARN): ${result.details.join(' | ')}`);
+      }
+    }
+
+    return {
+      check: 'HanseiReconciliation',
       status: details.length === 0 ? 'OK' : 'WARN',
       details,
     };

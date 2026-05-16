@@ -1,5 +1,5 @@
 ## TASK-203: Escalation maturity Phase 2 - E4 Fail-Closed
-**Meta:** P2 | M | READY | Focus:no | 2-code-generation | claude-code | cli/src/main/ts/, docs/agents/DO.md
+**Meta:** P2 | M | READY | Focus:yes | 2-code-generation | claude-code | cli/src/main/ts/, docs/agents/DO.md
 **Depends:** TASK-202
 
 ### Context
