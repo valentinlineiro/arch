@@ -1,5 +1,6 @@
 ## TASK-905: Automate turn-count recording in arch task done
-**Meta:** P1 | S | IN_PROGRESS | Focus:no | 7-operations | claude-code | cli/src/main/ts/application/use-cases/mark-task-done.ts, cli/src/main/ts/infrastructure/filesystem/markdown-task-repository.ts
+**Meta:** P1 | S | DONE | Focus:no | 7-operations | claude-code | cli/src/main/ts/application/use-cases/mark-task-done.ts, cli/src/main/ts/infrastructure/filesystem/markdown-task-repository.ts
+**Closed-at:** 2026-05-16T22:28:46.125Z
 
 **Depends:** none
 
