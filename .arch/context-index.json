@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-16T13:52:13.555Z",
+  "builtAt": "2026-05-16T15:41:51.333Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -678,7 +678,8 @@
       ],
       "imports": [
         "cli/src/main/ts/application/repositories/file-system.ts",
-        "cli/src/main/ts/application/repositories/git-repository.ts"
+        "cli/src/main/ts/application/repositories/git-repository.ts",
+        "cli/src/main/ts/domain/services/hansei-auditor.ts"
       ],
       "tags": [
         "application",
@@ -1574,6 +1575,26 @@
         "event",
         "logger",
         "lifecycle"
+      ],
+      "criticality": "core",
+      "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/domain/services/hansei-auditor.ts": {
+      "symbols": [
+        "HanseiAuditResult",
+        "HanseiAuditor"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/repositories/file-system.ts",
+        "cli/src/main/ts/domain/models/task.ts"
+      ],
+      "tags": [
+        "domain",
+        "services",
+        "hansei",
+        "auditor",
+        "audit",
+        "result"
       ],
       "criticality": "core",
       "runtimeUsage": "hot"
@@ -4820,10 +4841,22 @@
     }
   },
   "tasks": {
-    "TASK-245": {
-      "commitCount": 20,
-      "lastCommitDate": "2026-05-16T13:52:13+00:00",
+    "TASK-203": {
+      "commitCount": 1,
+      "lastCommitDate": "2026-05-16T15:41:51+00:00",
       "touchedFrequency": {
+        ".arch/focus-ledger.jsonl": 1
+      },
+      "recentCommitRefs": [
+        "56d0664"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-245": {
+      "commitCount": 21,
+      "lastCommitDate": "2026-05-16T15:39:47+00:00",
+      "touchedFrequency": {
+        "docs/tasks/TASK-245.md": 3,
         ".arch/focus-ledger.jsonl": 13,
         "docs/refinement/archive/IDEA-approval-entry-check.md": 1,
         "docs/refinement/archive/IDEA-arch-core-contract.md": 1,
@@ -4883,12 +4916,12 @@
         "docs/tasks/TASK-893.md": 1,
         "docs/refinement/IDEA-decision-gate-loss.md": 1,
         "docs/tasks/TASK-207.md": 1,
-        "docs/tasks/TASK-245.md": 2,
         "docs/refinement/IDEA-Hansei-Governance.md": 1,
         "docs/tasks/TASK-244.md": 1,
         "docs/tasks/TASK-246.md": 1
       },
       "recentCommitRefs": [
+        "9a16dcf",
         "0e146f4",
         "4213a8e",
         "f043e9a",
@@ -4907,10 +4940,9 @@
         "b47f887",
         "90f9d83",
         "439e0a0",
-        "8efdb8e",
-        "da71de9"
+        "8efdb8e"
       ],
-      "commitRefOverflow": false
+      "commitRefOverflow": true
     },
     "TASK-897": {
       "commitCount": 3,
@@ -6949,39 +6981,6 @@
         "e8cf678",
         "d8de197",
         "e3acf08"
-      ],
-      "commitRefOverflow": false
-    },
-    "TASK-197": {
-      "commitCount": 1,
-      "lastCommitDate": "2026-05-05T12:59:18+02:00",
-      "touchedFrequency": {
-        "docs/archive/TASK-197.md": 1
-      },
-      "recentCommitRefs": [
-        "ade62ad"
-      ],
-      "commitRefOverflow": false
-    },
-    "TASK-195": {
-      "commitCount": 1,
-      "lastCommitDate": "2026-05-05T12:59:18+02:00",
-      "touchedFrequency": {
-        "docs/archive/TASK-195.md": 1
-      },
-      "recentCommitRefs": [
-        "765b489"
-      ],
-      "commitRefOverflow": false
-    },
-    "TASK-192": {
-      "commitCount": 1,
-      "lastCommitDate": "2026-05-05T12:59:18+02:00",
-      "touchedFrequency": {
-        "docs/archive/TASK-192.md": 1
-      },
-      "recentCommitRefs": [
-        "d7a165c"
       ],
       "commitRefOverflow": false
     }
