@@ -14,7 +14,7 @@ Two automated processes violate the TASK-241 invariant that `docs/INBOX.md` is a
 
 ### Acceptance Criteria
 
-- [ ] `EscalationStore` extended with `APPROVED` and `REDIRECT` types in the escalation type enum.
+- [x] `EscalationStore` extended with `APPROVED` and `REDIRECT` types in the escalation type enum.
   - `file: cli/src/main/ts/infrastructure/filesystem/escalation-store.ts`
 
 - [x] `sandbox-command.ts` no longer reads `docs/INBOX.md`. Instead reads `.arch/escalations.jsonl` for an OPEN escalation of type `APPROVED` matching the current task ID. Document in sandbox-command how a human writes an approval (`arch approve` or direct append to `.arch/escalations.jsonl`).
@@ -23,7 +23,7 @@ Two automated processes violate the TASK-241 invariant that `docs/INBOX.md` is a
 - [x] `loop-engine.ts handleResume()` no longer reads `docs/INBOX.md`. Instead reads `.arch/escalations.jsonl` for OPEN `APPROVED` or `REDIRECT` escalations. Both code paths (approve → continue, redirect → re-route) work against structured store.
   - `file: cli/src/main/ts/application/use-cases/loop-engine.ts`
 
-- [ ] `docs/INBOX.md` retains a human-readable prose summary of pending approvals (written by the processes that write escalations), but is not read by any automated process.
+- [x] `docs/INBOX.md` retains a human-readable prose summary of pending approvals (written by the processes that write escalations), but is not read by any automated process.
   - `file: cli/src/main/ts/application/commands/sandbox-command.ts`
 
 - [x] `arch review` passes.
