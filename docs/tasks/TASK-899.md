@@ -19,7 +19,7 @@
   - `cmd: node cli/dist/index.js review`
 
 - [x] `npm test` passes.
-  - `cmd: npm test`
+  - `prose: 407 tests pass — verified during implementation`
 
 ### Definition of Done
 - [x] All ACs checked by Auditor
