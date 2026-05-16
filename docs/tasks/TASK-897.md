@@ -1,5 +1,5 @@
 ## TASK-897: Author ARCH-Core minimal execution contract for weak models
-**Meta:** P2 | M | READY | Focus:no | 6-writing | claude-code | docs/
+**Meta:** P2 | M | IN_PROGRESS | Focus:yes | 6-writing | claude-code | docs/
 
 **Depends:** none
 
