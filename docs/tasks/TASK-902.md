@@ -1,5 +1,5 @@
 ## TASK-902: Pre-implementation detection: arch task next --verify
-**Meta:** P2 | S | READY | Focus:no | 7-operations | claude-code | cli/src/main/ts/application/commands/next-command.ts, cli/src/main/ts/application/commands/task-command.ts
+**Meta:** P2 | S | IN_PROGRESS | Focus:yes | 7-operations | claude-code | cli/src/main/ts/application/commands/next-command.ts, cli/src/main/ts/application/commands/task-command.ts
 
 **Depends:** none
 
