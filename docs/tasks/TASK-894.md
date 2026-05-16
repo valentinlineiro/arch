@@ -1,5 +1,5 @@
 ## TASK-894: Add ApprovalPresent drift check to arch review
-**Meta:** P2 | S | READY | Focus:no | 1-code-reasoning | claude-code | cli/src/main/ts/application/use-cases/drift-checker.ts, docs/TASK-FORMAT.md
+**Meta:** P2 | S | IN_PROGRESS | Focus:yes | 1-code-reasoning | claude-code | cli/src/main/ts/application/use-cases/drift-checker.ts, docs/TASK-FORMAT.md
 
 **Depends:** none
 
