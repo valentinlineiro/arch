@@ -47,6 +47,7 @@ export class DriftChecker {
       this.checkHanseiReconciliation(),
       this.checkArchiveMetaIntegrity(),
       this.checkFocusStatusAlignment(),
+      this.checkTaskTemplateCompliance(),
     ]);
   }
 
@@ -899,6 +900,74 @@ export class DriftChecker {
   }
 
 
+
+
+  private async checkTaskTemplateCompliance(): Promise<DriftResult> {
+    const tasksDir = `${this.rootPath}/docs/tasks`;
+    if (!(await this.fileSystem.exists(tasksDir))) {
+      return { check: 'TaskTemplateCompliance', status: 'OK', details: [] };
+    }
+
+    let hanseiSinceTaskId = 195;
+    try {
+      const configRaw = await this.fileSystem.readFile(`${this.rootPath}/arch.config.json`);
+      const config = JSON.parse(configRaw);
+      hanseiSinceTaskId = config.governance?.hanseiSinceTaskId ?? 195;
+    } catch { /* use default */ }
+
+    const VALID_PRIORITIES = new Set(['P0', 'P1', 'P2', 'P3']);
+    const VALID_SIZES = new Set(['XS', 'S', 'M', 'L']);
+    const TARGET_STATUSES = new Set(['READY', 'REVIEW']);
+
+    const files = (await this.fileSystem.readDirectory(tasksDir))
+      .filter(f => f.startsWith('TASK-') && f.endsWith('.md'));
+
+    const details: string[] = [];
+
+    for (const file of files) {
+      const content = await this.fileSystem.readFile(`${tasksDir}/${file}`);
+      const taskId = file.replace('.md', '');
+      const taskNum = parseInt(taskId.replace('TASK-', ''), 10);
+
+      // Only lint READY and REVIEW tasks
+      const metaMatch = content.match(/\*\*Meta:\*\*\s*([^\n]*)/);
+      if (!metaMatch) {
+        details.push(`${taskId}: missing Meta line`);
+        continue;
+      }
+      const metaLine = metaMatch[1];
+      const parts = metaLine.split('|').map((s: string) => s.replace(/<!--.*-->/, '').trim());
+
+      const [priority, size, status] = [parts[0], parts[1], parts[2]];
+
+      if (!TARGET_STATUSES.has(status)) continue;
+
+      if (!priority || !VALID_PRIORITIES.has(priority)) {
+        details.push(`${taskId}: invalid Priority '${priority}' — expected P0/P1/P2/P3`);
+      }
+      if (!size || !VALID_SIZES.has(size)) {
+        details.push(`${taskId}: invalid Size '${size}' — expected XS/S/M/L`);
+      }
+      if (!parts[4] || parts[4].trim() === '') {
+        details.push(`${taskId}: missing Class field in Meta line`);
+      }
+
+      const hasACs = content.includes('- [ ]') || content.includes('- [x]');
+      if (!hasACs) {
+        details.push(`${taskId}: no Acceptance Criteria found`);
+      }
+
+      if (!isNaN(taskNum) && taskNum >= hanseiSinceTaskId && !content.includes('## Hansei')) {
+        details.push(`${taskId}: missing ## Hansei section (required for TASK-${hanseiSinceTaskId}+)`);
+      }
+    }
+
+    return {
+      check: 'TaskTemplateCompliance',
+      status: details.length === 0 ? 'OK' : 'WARN',
+      details,
+    };
+  }
 
   private async checkFocusStatusAlignment(): Promise<DriftResult> {
     const tasksDir = `${this.rootPath}/docs/tasks`;

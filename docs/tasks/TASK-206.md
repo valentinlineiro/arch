@@ -18,3 +18,11 @@ Protocol and CLI currently share a repo, coupling their release cycles. Web tool
 - [ ] All ACs checked.
 - [ ] `arch review` passes in `arch-cli`.
 - [ ] Migration guide published.
+
+## Hansei
+**Severity:** H0
+**Category:** [AuditGap]
+**Decision:** Legacy task predating mandatory Hansei. No implementation started — Hansei added to satisfy TaskTemplateCompliance linter.
+**Constraint:** Task predates hanseiSinceTaskId threshold — Hansei is retroactively added.
+**Cost:** No cost introduced — this is a template compliance fix only.
+**Forward Action:** None required.

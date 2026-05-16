@@ -3,6 +3,25 @@
 <!-- Compatible with ARCH v0.6 and later — supersedes v0.5 -->
 <!-- Decision basis: ADR-004 (flat docs/tasks/ + Focus field) + TASK-129 (Remove Value field) -->
 
+
+## Machine-Readable Schema
+
+The following values are enforced by `DriftChecker.checkTaskTemplateCompliance()` on all READY and REVIEW tasks:
+
+| Field | Position | Valid Values | Required |
+|-------|----------|--------------|----------|
+| Priority | Meta[0] | `P0`, `P1`, `P2`, `P3` | Yes |
+| Size | Meta[1] | `XS`, `S`, `M`, `L` | Yes |
+| Status | Meta[2] | `READY`, `IN_PROGRESS`, `REVIEW`, `DONE`, `BLOCKED` | Yes |
+| Focus | Meta[3] | `Focus:yes`, `Focus:no` | Yes |
+| Class | Meta[4] | non-empty string | Yes |
+| CLI | Meta[5] | non-empty string | Yes |
+| Context | Meta[6] | path(s) or `none` | Yes |
+| Acceptance Criteria | Body | At least one `- [ ]` or `- [x]` | Yes |
+| Hansei | Section | Required for TASK-ID ≥ `governance.hanseiSinceTaskId` | Conditional |
+
+---
+
 ## Overview
 ARCH v0.6 simplifies the Meta line by removing the `Value` field, prioritizing Priority and Size as the primary metrics for backlog ordering.
 

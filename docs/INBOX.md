@@ -118,3 +118,15 @@ ADR-020 ruling names differ from AGFM ruling names. AGFM is authoritative for im
 | `checkExcisionStructure` result is surfaced as a named check | cmd | ✔ | exit 0 (expected 0) |
 | Unit tests: all-pass case, Gate 1 fail (orphan reference), G | prose | ✔ | prose: human-verified (non-automated) |
 | `arch review` passes. | cmd | ✔ | exit 0 (expected 0) |
+
+## [AWAITING_REVIEW] TASK-905 [L3-AUTO]
+**Closed:** 2026-05-16T22:28:46.126Z
+**Title:** Automate turn-count recording in arch task done
+
+| AC | Type | Pass | Detail |
+|---|---|---|---|
+| `MarkTaskDone.execute()` computes turn count from git log wh | file | ✔ | exists: cli/src/main/ts/application/use-cases/mark-task-done |
+| Turn count is written to the task file as `**Turns:** N` in  | file | ✔ | exists: cli/src/main/ts/infrastructure/filesystem/markdown-t |
+| `arch report` cycle-time output uses the recorded Turns fiel | prose | ✔ | prose: human-verified (non-automated) |
+| Unit test: task with `lockedCommit` set → turns computed fro | prose | ✔ | prose: human-verified (non-automated) |
+| `arch review` passes. | prose | ✔ | prose: human-verified (non-automated) |
