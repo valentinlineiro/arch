@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-16T15:45:38.777Z",
+  "builtAt": "2026-05-16T15:48:16.546Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -4842,12 +4842,16 @@
   },
   "tasks": {
     "TASK-203": {
-      "commitCount": 3,
-      "lastCommitDate": "2026-05-16T15:45:38+00:00",
+      "commitCount": 5,
+      "lastCommitDate": "2026-05-16T15:48:16+00:00",
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 3
+        ".arch/focus-ledger.jsonl": 4,
+        ".arch/reflect-breach-log.jsonl": 1,
+        "docs/refinement/IDEA-preimpl-detection.md": 1
       },
       "recentCommitRefs": [
+        "61cb01b",
+        "a172118",
         "456ec7b",
         "d0b2bd6",
         "56d0664"
@@ -4855,12 +4859,13 @@
       "commitRefOverflow": false
     },
     "TASK-245": {
-      "commitCount": 23,
-      "lastCommitDate": "2026-05-16T15:43:23+00:00",
+      "commitCount": 24,
+      "lastCommitDate": "2026-05-16T15:45:47+00:00",
       "touchedFrequency": {
+        ".arch/reflect-breach-log.jsonl": 4,
+        "docs/refinement/IDEA-preimpl-detection.md": 1,
         ".arch/causal-signal.jsonl": 1,
         ".arch/chronicle.jsonl": 3,
-        ".arch/reflect-breach-log.jsonl": 3,
         "cli/src/main/ts/application/commands/reflect-command.ts": 1,
         "cli/src/main/ts/application/use-cases/drift-checker.ts": 1,
         "cli/src/main/ts/domain/services/hansei-auditor.ts": 1,
@@ -4930,6 +4935,7 @@
         "docs/tasks/TASK-246.md": 1
       },
       "recentCommitRefs": [
+        "a172118",
         "4976950",
         "d5df2a9",
         "9a16dcf",
@@ -4948,8 +4954,7 @@
         "2af74d6",
         "1290ee3",
         "8d55b72",
-        "b47f887",
-        "90f9d83"
+        "b47f887"
       ],
       "commitRefOverflow": true
     },
@@ -6801,13 +6806,13 @@
       "commitRefOverflow": false
     },
     "TASK-199": {
-      "commitCount": 18,
+      "commitCount": 17,
       "lastCommitDate": "2026-05-06T12:46:50+02:00",
       "touchedFrequency": {
         "arch.config.json": 2,
         "docs/archive/TASK-199.md": 1,
         "docs/INBOX.md": 1,
-        "docs/tasks/TASK-199.md": 4,
+        "docs/tasks/TASK-199.md": 3,
         "docs/refinement/IDEA-l3-self-archive.md": 1,
         "docs/refinement/IDEA-semantic-ac-verification.md": 1,
         "cli/src/main/ts/application/use-cases/loop-engine.ts": 1,
@@ -6820,8 +6825,7 @@
         "cli/src/main/ts/domain/services/llm-provider.ts": 1,
         "docs/refinement/IDEA-openclaw-integration.md": 1,
         "docs/superpowers/plans/2026-05-06-llm-bridge.md": 1,
-        "docs/tasks/TASK-196.md": 1,
-        "docs/refinement/archive/IDEA-native-llm-providers.md": 1
+        "docs/tasks/TASK-196.md": 1
       },
       "recentCommitRefs": [
         "9b4073d",
@@ -6840,8 +6844,7 @@
         "fbd75d0",
         "4f1938c",
         "6500a09",
-        "a8c0a91",
-        "a6a9b7c"
+        "a8c0a91"
       ],
       "commitRefOverflow": false
     },
