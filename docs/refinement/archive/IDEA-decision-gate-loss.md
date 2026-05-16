@@ -1,7 +1,7 @@
 # IDEA: Decision-gated idea loss
 **Created:** 2026-05-16
 **Source:** Human observation — operational friction
-**Status:** DRAFT
+**Status:** PROMOTED
 **Sessions:** 0
 **Meta:** P1 | S | 1-code-reasoning | cli/src/main/ts/, docs/agents/THINK.md
 
@@ -55,4 +55,4 @@ Every IDEA archived must have a Decision field with at least one of: `PROMOTE`, 
 - **IDEA-daas-hansei-wizard** — pattern: same DaaS philosophy — reduce ceremony friction by making the correct action the easiest one.
 
 ## Decision
-<!-- PROMOTE → TASK-XXX | REJECT: reason | DEFERRED: reason + condition -->
+PROMOTE → TASK-893
