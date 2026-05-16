@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-16T17:15:34.381Z",
+  "builtAt": "2026-05-16T17:20:42.512Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -4890,13 +4890,40 @@
     }
   },
   "tasks": {
-    "TASK-204": {
-      "commitCount": 3,
-      "lastCommitDate": "2026-05-16T17:15:34+00:00",
+    "TASK-208": {
+      "commitCount": 2,
+      "lastCommitDate": "2026-05-16T17:20:42+00:00",
       "touchedFrequency": {
+        ".arch/focus-ledger.jsonl": 1,
+        "docs/refinement/archive/IDEA-l3-self-archive.md": 1,
+        "docs/refinement/archive/IDEA-semantic-ac-verification.md": 1,
+        "docs/tasks/TASK-207.md": 1,
+        "docs/tasks/TASK-208.md": 1
+      },
+      "recentCommitRefs": [
+        "58d18b3",
+        "c437348"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-204": {
+      "commitCount": 6,
+      "lastCommitDate": "2026-05-16T17:20:42+00:00",
+      "touchedFrequency": {
+        "docs/archive/TASK-204.md": 1,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/reflect-breach-log.jsonl": 1,
+        "cli/src/main/ts/application/use-cases/drift-checker.ts": 1,
+        "cli/src/test/ts/escalation-maturity-e5.test.ts": 1,
+        "docs/EVENTS.md": 1,
+        "docs/HALT-LOG.md": 1,
+        "docs/tasks/TASK-204.md": 2,
         ".arch/focus-ledger.jsonl": 3
       },
       "recentCommitRefs": [
+        "ce88231",
+        "c5e61f6",
+        "b72f74e",
         "585cfa6",
         "94cd45c",
         "27bb2c9"
@@ -7067,20 +7094,6 @@
       ],
       "commitRefOverflow": false
     },
-    "TASK-208": {
-      "commitCount": 1,
-      "lastCommitDate": "2026-05-06T11:14:46+02:00",
-      "touchedFrequency": {
-        "docs/refinement/archive/IDEA-l3-self-archive.md": 1,
-        "docs/refinement/archive/IDEA-semantic-ac-verification.md": 1,
-        "docs/tasks/TASK-207.md": 1,
-        "docs/tasks/TASK-208.md": 1
-      },
-      "recentCommitRefs": [
-        "c437348"
-      ],
-      "commitRefOverflow": false
-    },
     "TASK-194": {
       "commitCount": 4,
       "lastCommitDate": "2026-05-05T17:58:26+02:00",
@@ -7119,18 +7132,6 @@
       },
       "recentCommitRefs": [
         "67b0bbd"
-      ],
-      "commitRefOverflow": false
-    },
-    "TASK-191": {
-      "commitCount": 1,
-      "lastCommitDate": "2026-05-05T16:47:33+02:00",
-      "touchedFrequency": {
-        "docs/INBOX.md": 1,
-        "docs/archive/TASK-191.md": 1
-      },
-      "recentCommitRefs": [
-        "7809ecc"
       ],
       "commitRefOverflow": false
     }
