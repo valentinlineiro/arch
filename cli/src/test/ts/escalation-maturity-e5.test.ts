@@ -15,8 +15,16 @@ class MockFileSystem {
     throw new Error(`Not found: ${path}`);
   }
   async writeFile(path: string, content: string): Promise<void> { this.files[path] = content; }
-  async exists(path: string): Promise<boolean> { return path in this.files; }
-  async readDirectory(): Promise<string[]> { return []; }
+  async exists(path: string): Promise<boolean> {
+    return path in this.files || Object.keys(this.files).some(k => k.startsWith(path + '/'));
+  }
+  async readDirectory(path: string): Promise<string[]> {
+    return [...new Set(
+      Object.keys(this.files)
+        .filter(k => k.startsWith(path + '/'))
+        .map(k => k.slice(path.length + 1).split('/')[0])
+    )];
+  }
   async rename(): Promise<void> {}
   async mkdir(): Promise<void> {}
   async deleteFile(): Promise<void> {}
@@ -196,4 +204,65 @@ test('EscalationMaturity E5 — unresolved halt entry causes HaltPolicy WARN', a
     haltPolicy.details.some(d => d.includes('Unresolved halt')),
     `expected unresolved halt detail, got: ${JSON.stringify(haltPolicy.details)}`
   );
+});
+
+// ── FocusStatusAlignment tests ─────────────────────────────────────────────
+
+test('FocusStatusAlignment — IN_PROGRESS + Focus:no → WARN', async () => {
+  const fs = new MockFileSystem();
+  fs.files['./arch.config.json'] = JSON.stringify({ governance: { protectedPaths: [], negativeConstraints: [] } });
+  fs.files['./docs/HALT-LOG.md'] = '# Halt Log\n| Timestamp | Type | Task ID | Reason | Resolution |\n|---|---|---|---|---|\n';
+  fs.files['./docs/HALT.md'] = '| Condition | Trigger command | CLI exit code | HALT-LOG entry format |\n|---|---|---|---|\n| test | test | 1 | test |\n';
+  fs.files['./docs/tasks'] = '';
+  fs.files['./docs/tasks/TASK-010.md'] = '## TASK-010: Test\n**Meta:** P2 | S | IN_PROGRESS | Focus:no | 7-operations | local | none\n\n- [x] done\n';
+  fs.files['./docs/TASK-FORMAT.md'] = '';
+  fs.files['./.arch/focus-ledger.jsonl'] = '';
+
+  const git = new MockGitRepository();
+  const checker = new DriftChecker(fs as any, git as any, '.', '0.6.0');
+  const results = await checker.check();
+
+  const check = results.find(r => r.check === 'FocusStatusAlignment');
+  assert.ok(check, 'FocusStatusAlignment check must exist');
+  assert.equal(check.status, 'WARN');
+  assert.ok(check.details.some(d => d.includes('IN_PROGRESS') && d.includes('Focus:no')));
+});
+
+test('FocusStatusAlignment — READY + Focus:yes → WARN', async () => {
+  const fs = new MockFileSystem();
+  fs.files['./arch.config.json'] = JSON.stringify({ governance: { protectedPaths: [], negativeConstraints: [] } });
+  fs.files['./docs/HALT-LOG.md'] = '# Halt Log\n| Timestamp | Type | Task ID | Reason | Resolution |\n|---|---|---|---|---|\n';
+  fs.files['./docs/HALT.md'] = '| Condition | Trigger command | CLI exit code | HALT-LOG entry format |\n|---|---|---|---|\n| test | test | 1 | test |\n';
+  fs.files['./docs/tasks'] = '';
+  fs.files['./docs/tasks/TASK-011.md'] = '## TASK-011: Test\n**Meta:** P2 | S | READY | Focus:yes | 7-operations | local | none\n\n- [x] done\n';
+  fs.files['./docs/TASK-FORMAT.md'] = '';
+  fs.files['./.arch/focus-ledger.jsonl'] = '';
+
+  const git = new MockGitRepository();
+  const checker = new DriftChecker(fs as any, git as any, '.', '0.6.0');
+  const results = await checker.check();
+
+  const check = results.find(r => r.check === 'FocusStatusAlignment');
+  assert.ok(check, 'FocusStatusAlignment check must exist');
+  assert.equal(check.status, 'WARN');
+  assert.ok(check.details.some(d => d.includes('READY') && d.includes('Focus:yes')));
+});
+
+test('FocusStatusAlignment — REVIEW + Focus:yes → OK (permitted)', async () => {
+  const fs = new MockFileSystem();
+  fs.files['./arch.config.json'] = JSON.stringify({ governance: { protectedPaths: [], negativeConstraints: [] } });
+  fs.files['./docs/HALT-LOG.md'] = '# Halt Log\n| Timestamp | Type | Task ID | Reason | Resolution |\n|---|---|---|---|---|\n';
+  fs.files['./docs/HALT.md'] = '| Condition | Trigger command | CLI exit code | HALT-LOG entry format |\n|---|---|---|---|\n| test | test | 1 | test |\n';
+  fs.files['./docs/tasks'] = '';
+  fs.files['./docs/tasks/TASK-012.md'] = '## TASK-012: Test\n**Meta:** P2 | S | REVIEW | Focus:yes | 7-operations | local | none\n\n- [x] done\n';
+  fs.files['./docs/TASK-FORMAT.md'] = '';
+  fs.files['./.arch/focus-ledger.jsonl'] = '';
+
+  const git = new MockGitRepository();
+  const checker = new DriftChecker(fs as any, git as any, '.', '0.6.0');
+  const results = await checker.check();
+
+  const check = results.find(r => r.check === 'FocusStatusAlignment');
+  assert.ok(check, 'FocusStatusAlignment check must exist');
+  assert.equal(check.status, 'OK', 'REVIEW + Focus:yes should be permitted');
 });

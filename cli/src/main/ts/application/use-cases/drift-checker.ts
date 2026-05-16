@@ -46,6 +46,7 @@ export class DriftChecker {
       this.checkApprovalPresent(),
       this.checkHanseiReconciliation(),
       this.checkArchiveMetaIntegrity(),
+      this.checkFocusStatusAlignment(),
     ]);
   }
 
@@ -816,6 +817,51 @@ export class DriftChecker {
     };
   }
 
+
+
+  private async checkFocusStatusAlignment(): Promise<DriftResult> {
+    const tasksDir = `${this.rootPath}/docs/tasks`;
+    if (!(await this.fileSystem.exists(tasksDir))) {
+      return { check: 'FocusStatusAlignment', status: 'OK', details: [] };
+    }
+
+    const files = (await this.fileSystem.readDirectory(tasksDir))
+      .filter(f => f.startsWith('TASK-') && f.endsWith('.md'));
+
+    const details: string[] = [];
+
+    for (const file of files) {
+      const content = await this.fileSystem.readFile(`${tasksDir}/${file}`);
+      const metaMatch = content.match(/\*\*Meta:\*\*[^\n]*/);
+      if (!metaMatch) continue;
+
+      const meta = metaMatch[0];
+      const statusMatch = meta.match(/\|\s*(READY|IN_PROGRESS|REVIEW|BLOCKED|DONE)\s*\|/);
+      const focusMatch = meta.match(/Focus:(yes|no)/i);
+
+      if (!statusMatch || !focusMatch) continue;
+
+      const status = statusMatch[1];
+      const focus = focusMatch[1].toLowerCase();
+      const taskId = file.replace('.md', '');
+
+      // IN_PROGRESS must have Focus:yes
+      if (status === 'IN_PROGRESS' && focus === 'no') {
+        details.push(`${taskId}: IN_PROGRESS but Focus:no — agent is executing without focus sovereignty.`);
+      }
+      // READY or BLOCKED must not have Focus:yes
+      if ((status === 'READY' || status === 'BLOCKED') && focus === 'yes') {
+        details.push(`${taskId}: ${status} but Focus:yes — focus assigned to non-executing task.`);
+      }
+      // REVIEW with Focus:yes is permitted (task may retain focus while awaiting Auditor)
+    }
+
+    return {
+      check: 'FocusStatusAlignment',
+      status: details.length === 0 ? 'OK' : 'WARN',
+      details,
+    };
+  }
 
   private async checkArchiveMetaIntegrity(): Promise<DriftResult> {
     const archiveDir = `${this.rootPath}/docs/archive`;
