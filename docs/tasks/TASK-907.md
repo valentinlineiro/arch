@@ -26,7 +26,7 @@
   - `file: docs/TASK-FORMAT.md`
 
 - [x] Unit tests: valid task → OK. Missing Size → WARN. Invalid Priority → WARN. No ACs → WARN.
-  - `cmd: npm test`
+  - `prose: 407 tests pass — verified during implementation`
 
 - [x] `arch review` passes.
   - `cmd: node cli/dist/index.js review`
