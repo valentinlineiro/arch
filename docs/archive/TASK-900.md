@@ -1,5 +1,6 @@
 ## TASK-900: Replace INBOX.md approval-gate reads with .arch/approvals.jsonl
-**Meta:** P1 | S | IN_PROGRESS | Focus:no | 1-code-reasoning | claude-code | cli/src/main/ts/application/commands/sandbox-command.ts, cli/src/main/ts/application/use-cases/loop-engine.ts, cli/src/main/ts/infrastructure/filesystem/escalation-store.ts
+**Meta:** P1 | S | DONE | Focus:no | 1-code-reasoning | claude-code | cli/src/main/ts/application/commands/sandbox-command.ts, cli/src/main/ts/application/use-cases/loop-engine.ts, cli/src/main/ts/infrastructure/filesystem/escalation-store.ts
+**Closed-at:** 2026-05-16T22:03:51.123Z
 
 **Depends:** none
 
