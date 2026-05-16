@@ -1,5 +1,5 @@
 ## TASK-904: ExcisionStructuralCheck: structural consistency gates for protected path deletions
-**Meta:** P1 | S | READY | Focus:no | 1-code-reasoning | claude-code | cli/src/main/ts/application/use-cases/drift-checker.ts
+**Meta:** P1 | S | IN_PROGRESS | Focus:yes | 1-code-reasoning | claude-code | cli/src/main/ts/application/use-cases/drift-checker.ts
 
 **Depends:** none
 
