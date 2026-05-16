@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-16T17:05:13.722Z",
+  "builtAt": "2026-05-16T17:12:29.076Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -4891,21 +4891,37 @@
   },
   "tasks": {
     "TASK-204": {
-      "commitCount": 1,
-      "lastCommitDate": "2026-05-16T17:05:13+00:00",
+      "commitCount": 2,
+      "lastCommitDate": "2026-05-16T17:12:28+00:00",
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 1
+        ".arch/focus-ledger.jsonl": 2
       },
       "recentCommitRefs": [
+        "94cd45c",
         "27bb2c9"
       ],
       "commitRefOverflow": false
     },
     "TASK-207": {
-      "commitCount": 5,
-      "lastCommitDate": "2026-05-16T17:02:09+00:00",
+      "commitCount": 7,
+      "lastCommitDate": "2026-05-16T17:12:28+00:00",
       "touchedFrequency": {
-        "docs/tasks/TASK-207.md": 3,
+        "docs/archive/TASK-207.md": 1,
+        ".arch/causal-signal.jsonl": 1,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/reflect-breach-log.jsonl": 1,
+        "cli/src/main/ts/application/commands/task-command.ts": 1,
+        "cli/src/main/ts/application/commands/verify-acs-command.ts": 1,
+        "cli/src/main/ts/application/use-cases/mark-task-done.ts": 1,
+        "cli/src/main/ts/application/use-cases/mark-task-in-progress.ts": 1,
+        "cli/src/main/ts/domain/models/task.ts": 1,
+        "cli/src/main/ts/domain/services/deterministic-ac-verifier.ts": 1,
+        "cli/src/main/ts/index.ts": 1,
+        "cli/src/main/ts/infrastructure/filesystem/markdown-task-repository.ts": 1,
+        "cli/src/test/ts/deterministic-ac-verifier.test.ts": 1,
+        "docs/EVENTS.md": 1,
+        "docs/tasks/TASK-204.md": 1,
+        "docs/tasks/TASK-207.md": 4,
         ".arch/focus-ledger.jsonl": 2,
         "docs/tasks/TASK-233.md": 1,
         "docs/tasks/TASK-242.md": 1,
@@ -4914,6 +4930,8 @@
         "docs/tasks/TASK-208.md": 1
       },
       "recentCommitRefs": [
+        "f930c58",
+        "999c21c",
         "b212193",
         "cd18b22",
         "9f4946b",
@@ -7103,21 +7121,16 @@
       "commitRefOverflow": false
     },
     "TASK-191": {
-      "commitCount": 4,
+      "commitCount": 2,
       "lastCommitDate": "2026-05-05T16:47:33+02:00",
       "touchedFrequency": {
         "docs/INBOX.md": 2,
         "docs/archive/TASK-191.md": 1,
-        "docs/tasks/TASK-191.md": 1,
-        "cli/src/main/ts/application/use-cases/merge-resolve.ts": 2,
-        "cli/src/test/ts/merge-resolve.test.ts": 2,
-        "docs/refinement/IDEA-queryable-archive.md": 1
+        "docs/tasks/TASK-191.md": 1
       },
       "recentCommitRefs": [
         "7809ecc",
-        "791412a",
-        "d17f277",
-        "6b5af28"
+        "791412a"
       ],
       "commitRefOverflow": false
     }
