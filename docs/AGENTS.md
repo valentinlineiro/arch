@@ -2,6 +2,20 @@
 <!-- ARCH Framework v0.6.0 | Universal Entry Point -->
 
 ## Onboarding
+
+### Choose your entry point
+
+| Session type | What to load | When to use |
+|---|---|---|
+| **Core** (execution only) | `docs/ARCH-CORE.md` | Weak models, local LLMs, boilerplate tasks, any session where governance prose is unnecessary overhead |
+| **Governance** (full protocol) | This file + `docs/agents/DO.md` + `docs/agents/THINK.md` | Strong models, kaizen, protocol evolution, complex reasoning tasks |
+
+**If in doubt, load Core.** It is safe, read-only on review, and cannot corrupt system state.
+
+---
+
+### Full governance onboarding (continue below if applicable)
+
 1. Read this file completely before taking any action.
 2. Read `arch.config.json` for routing and active sprint state.
 3. Read `docs/TASK-FORMAT.md` — the meta line format is authoritative. Violations fail lint on every commit.

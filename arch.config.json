@@ -4,39 +4,90 @@
   "strategies": {
     "1-code-reasoning": {
       "M": [
-        { "provider": "claude-code", "model": "sonnet" },
-        { "provider": "gemini", "model": "sonnet" },
-        { "provider": "ollama", "model": "qwen2.5-coder:7b" }
+        {
+          "provider": "claude-code",
+          "model": "sonnet"
+        },
+        {
+          "provider": "gemini",
+          "model": "sonnet"
+        },
+        {
+          "provider": "ollama",
+          "model": "qwen2.5-coder:7b"
+        }
       ],
       "L": [
-        { "provider": "claude-code", "model": "opus" },
-        { "provider": "gemini", "model": "pro" }
+        {
+          "provider": "claude-code",
+          "model": "opus"
+        },
+        {
+          "provider": "gemini",
+          "model": "pro"
+        }
       ]
     },
     "2-code-generation": {
       "M": [
-        { "provider": "claude-code", "model": "sonnet" },
-        { "provider": "gemini", "model": "sonnet" },
-        { "provider": "ollama", "model": "qwen2.5-coder:7b" }
+        {
+          "provider": "claude-code",
+          "model": "sonnet"
+        },
+        {
+          "provider": "gemini",
+          "model": "sonnet"
+        },
+        {
+          "provider": "ollama",
+          "model": "qwen2.5-coder:7b"
+        }
       ]
     },
     "default": {
       "XS": [
-        { "provider": "ollama", "model": "qwen2.5-coder:1.5b" },
-        { "provider": "gemini", "model": "flash" }
+        {
+          "provider": "ollama",
+          "model": "qwen2.5-coder:1.5b"
+        },
+        {
+          "provider": "gemini",
+          "model": "flash"
+        }
       ],
       "S": [
-        { "provider": "ollama", "model": "phi3:latest" },
-        { "provider": "claude-code", "model": "haiku" }
+        {
+          "provider": "ollama",
+          "model": "phi3:latest"
+        },
+        {
+          "provider": "claude-code",
+          "model": "haiku"
+        }
       ],
       "M": [
-        { "provider": "claude-code", "model": "sonnet" },
-        { "provider": "gemini", "model": "sonnet" },
-        { "provider": "ollama", "model": "qwen2.5-coder:7b" }
+        {
+          "provider": "claude-code",
+          "model": "sonnet"
+        },
+        {
+          "provider": "gemini",
+          "model": "sonnet"
+        },
+        {
+          "provider": "ollama",
+          "model": "qwen2.5-coder:7b"
+        }
       ],
       "L": [
-        { "provider": "claude-code", "model": "opus" },
-        { "provider": "gemini", "model": "pro" }
+        {
+          "provider": "claude-code",
+          "model": "opus"
+        },
+        {
+          "provider": "gemini",
+          "model": "pro"
+        }
       ]
     }
   },
@@ -65,10 +116,22 @@
     }
   },
   "muri": {
-    "XS": { "turns": 5, "cost": 0.05 },
-    "S": { "turns": 15, "cost": 0.15 },
-    "M": { "turns": 40, "cost": 0.50 },
-    "L": { "turns": 100, "cost": 2.00 }
+    "XS": {
+      "turns": 5,
+      "cost": 0.05
+    },
+    "S": {
+      "turns": 15,
+      "cost": 0.15
+    },
+    "M": {
+      "turns": 40,
+      "cost": 0.5
+    },
+    "L": {
+      "turns": 100,
+      "cost": 2.0
+    }
   },
   "contextBudget": {
     "docs/tasks": 1000,
@@ -84,14 +147,51 @@
     "adr": "docs/adr"
   },
   "contextRules": {
-    "testing-a-change.md": { "taskClasses": ["2-code-generation", "7-operations"] },
-    "versioning.md": { "taskClasses": ["2-code-generation"] },
-    "core.md": { "taskClasses": ["2-code-generation", "6-writing", "7-operations"] },
-    "models.md": { "taskClasses": ["2-code-generation"] },
-    "autonomy.md": { "taskClasses": ["7-operations"] },
-    "bugs.md": { "taskClasses": ["2-code-generation", "7-operations"] },
-    "resources.md": { "taskClasses": ["2-code-generation", "7-operations"] },
-    "documentation.md": { "taskClasses": ["6-writing"] }
+    "testing-a-change.md": {
+      "taskClasses": [
+        "2-code-generation",
+        "7-operations"
+      ]
+    },
+    "versioning.md": {
+      "taskClasses": [
+        "2-code-generation"
+      ]
+    },
+    "core.md": {
+      "taskClasses": [
+        "2-code-generation",
+        "6-writing",
+        "7-operations"
+      ]
+    },
+    "models.md": {
+      "taskClasses": [
+        "2-code-generation"
+      ]
+    },
+    "autonomy.md": {
+      "taskClasses": [
+        "7-operations"
+      ]
+    },
+    "bugs.md": {
+      "taskClasses": [
+        "2-code-generation",
+        "7-operations"
+      ]
+    },
+    "resources.md": {
+      "taskClasses": [
+        "2-code-generation",
+        "7-operations"
+      ]
+    },
+    "documentation.md": {
+      "taskClasses": [
+        "6-writing"
+      ]
+    }
   },
   "clis": [
     {
@@ -145,7 +245,9 @@
       "name": "ollama",
       "type": "native",
       "endpoint": "http://127.0.0.1:11434/v1",
-      "apiKey": "ollama"
+      "apiKey": "ollama",
+      "coreMode": true,
+      "_coreModeNote": "Load docs/ARCH-CORE.md for sessions using this provider"
     },
     {
       "name": "openrouter",
