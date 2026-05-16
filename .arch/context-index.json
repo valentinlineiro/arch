@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-16T17:27:28.656Z",
+  "builtAt": "2026-05-16T17:31:52.399Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -309,6 +309,9 @@
       ],
       "imports": [
         "cli/src/main/ts/domain/repositories/file-system.ts",
+        "cli/src/main/ts/application/use-cases/causal-signal-log.ts",
+        "cli/src/main/ts/domain/services/signal-router.ts",
+        "cli/src/main/ts/infrastructure/filesystem/node-file-system.ts",
         "cli/src/main/ts/application/use-cases/reflect-influence-report.ts",
         "cli/src/main/ts/domain/services/config-loader.ts"
       ],
@@ -935,7 +938,8 @@
         "cli/src/main/ts/application/use-cases/extract-context-feedback.ts",
         "cli/src/main/ts/application/use-cases/causal-signal-log.ts",
         "cli/src/main/ts/domain/services/event-logger.ts",
-        "cli/src/main/ts/domain/services/deterministic-ac-verifier.ts"
+        "cli/src/main/ts/domain/services/deterministic-ac-verifier.ts",
+        "cli/src/main/ts/domain/services/signal-router.ts"
       ],
       "tags": [
         "application",
@@ -1691,6 +1695,7 @@
     },
     "cli/src/main/ts/domain/services/metrics-engine.ts": {
       "symbols": [
+        "HanseiCategoryCount",
         "CalculatedMetrics",
         "GovernanceEvent",
         "MetricsEngine"
@@ -1706,6 +1711,9 @@
         "services",
         "metrics",
         "engine",
+        "hansei",
+        "category",
+        "count",
         "calculated",
         "governance",
         "event"
@@ -1785,6 +1793,29 @@
         "options",
         "result",
         "service"
+      ],
+      "criticality": "core",
+      "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/domain/services/signal-router.ts": {
+      "symbols": [
+        "WEAK_SIGNAL_THRESHOLD",
+        "HanseiSignalContext",
+        "SignalRouter",
+        "HanseiAggregate"
+      ],
+      "imports": [
+        "cli/src/main/ts/application/use-cases/causal-signal-log.ts",
+        "cli/src/main/ts/domain/models/task.ts"
+      ],
+      "tags": [
+        "domain",
+        "services",
+        "signal",
+        "router",
+        "hansei",
+        "context",
+        "aggregate"
       ],
       "criticality": "core",
       "runtimeUsage": "hot"
@@ -4986,17 +5017,29 @@
     }
   },
   "tasks": {
-    "TASK-246": {
-      "commitCount": 4,
-      "lastCommitDate": "2026-05-16T17:27:28+00:00",
+    "TASK-206": {
+      "commitCount": 1,
+      "lastCommitDate": "2026-05-16T17:31:52+00:00",
       "touchedFrequency": {
+        ".arch/focus-ledger.jsonl": 1
+      },
+      "recentCommitRefs": [
+        "60a9dee"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-246": {
+      "commitCount": 5,
+      "lastCommitDate": "2026-05-16T17:29:19+00:00",
+      "touchedFrequency": {
+        "docs/tasks/TASK-246.md": 2,
         ".arch/focus-ledger.jsonl": 3,
         "docs/refinement/IDEA-Hansei-Governance.md": 1,
         "docs/tasks/TASK-244.md": 1,
-        "docs/tasks/TASK-245.md": 1,
-        "docs/tasks/TASK-246.md": 1
+        "docs/tasks/TASK-245.md": 1
       },
       "recentCommitRefs": [
+        "f1e914d",
         "f4084a0",
         "0f4e4cd",
         "96985a6",
@@ -7173,13 +7216,13 @@
       "commitRefOverflow": false
     },
     "TASK-199": {
-      "commitCount": 16,
+      "commitCount": 15,
       "lastCommitDate": "2026-05-06T12:46:50+02:00",
       "touchedFrequency": {
         "arch.config.json": 2,
         "docs/archive/TASK-199.md": 1,
         "docs/INBOX.md": 1,
-        "docs/tasks/TASK-199.md": 2,
+        "docs/tasks/TASK-199.md": 1,
         "docs/refinement/IDEA-l3-self-archive.md": 1,
         "docs/refinement/IDEA-semantic-ac-verification.md": 1,
         "cli/src/main/ts/application/use-cases/loop-engine.ts": 1,
@@ -7208,8 +7251,7 @@
         "e4fd6f1",
         "4dd6543",
         "fbd75d0",
-        "4f1938c",
-        "6500a09"
+        "4f1938c"
       ],
       "commitRefOverflow": false
     },
@@ -7221,19 +7263,6 @@
       },
       "recentCommitRefs": [
         "08f0a3a"
-      ],
-      "commitRefOverflow": false
-    },
-    "TASK-194": {
-      "commitCount": 2,
-      "lastCommitDate": "2026-05-05T17:58:26+02:00",
-      "touchedFrequency": {
-        "docs/archive/TASK-194.md": 1,
-        "docs/tasks/TASK-194.md": 1
-      },
-      "recentCommitRefs": [
-        "a57acef",
-        "f70d002"
       ],
       "commitRefOverflow": false
     }
