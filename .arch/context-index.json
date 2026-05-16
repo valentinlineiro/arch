@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-16T22:39:21.908Z",
+  "builtAt": "2026-05-16T22:48:28.483Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -5039,10 +5039,10 @@
   },
   "tasks": {
     "TASK-206": {
-      "commitCount": 6,
-      "lastCommitDate": "2026-05-16T22:39:21+00:00",
+      "commitCount": 7,
+      "lastCommitDate": "2026-05-16T22:48:28+00:00",
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 4,
+        ".arch/focus-ledger.jsonl": 5,
         ".arch/reflect-breach-log.jsonl": 1,
         "docs/refinement/archive/IDEA-architectural-tension-capture.md": 1,
         "docs/refinement/archive/IDEA-automate-turn-count-recording.md": 1,
@@ -5068,6 +5068,7 @@
         "docs/tasks/TASK-901.md": 1
       },
       "recentCommitRefs": [
+        "66c70c7",
         "f451e84",
         "fb9c483",
         "c07bb38",
@@ -7328,16 +7329,15 @@
       "commitRefOverflow": false
     },
     "TASK-215": {
-      "commitCount": 9,
+      "commitCount": 7,
       "lastCommitDate": "2026-05-07T16:11:15+02:00",
       "touchedFrequency": {
         "docs/archive/TASK-215.md": 1,
         "docs/tasks/TASK-215.md": 3,
         "docs/adr/ADR-013-two-tier-drift-detection.md": 1,
         "docs/agents/THINK.md": 1,
-        "cli/src/main/ts/domain/services/drift-checker.ts": 4,
-        "cli/src/test/ts/drift-checker.test.ts": 4,
-        "docs/superpowers/plans/2026-05-07-drift-detection.md": 1
+        "cli/src/main/ts/domain/services/drift-checker.ts": 3,
+        "cli/src/test/ts/drift-checker.test.ts": 3
       },
       "recentCommitRefs": [
         "f35179c",
@@ -7346,9 +7346,7 @@
         "b749f0e",
         "f84bd38",
         "ecb32be",
-        "2851204",
-        "a2cb2a1",
-        "07cee16"
+        "2851204"
       ],
       "commitRefOverflow": false
     }
