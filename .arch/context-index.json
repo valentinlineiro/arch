@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-16T22:21:28.650Z",
+  "builtAt": "2026-05-16T22:22:42.064Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -5037,13 +5037,26 @@
     }
   },
   "tasks": {
-    "TASK-904": {
-      "commitCount": 2,
-      "lastCommitDate": "2026-05-16T22:21:28+00:00",
+    "TASK-905": {
+      "commitCount": 1,
+      "lastCommitDate": "2026-05-16T22:22:41+00:00",
       "touchedFrequency": {
+        ".arch/focus-ledger.jsonl": 1
+      },
+      "recentCommitRefs": [
+        "1696697"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-904": {
+      "commitCount": 3,
+      "lastCommitDate": "2026-05-16T22:21:35+00:00",
+      "touchedFrequency": {
+        "docs/tasks/TASK-904.md": 1,
         ".arch/focus-ledger.jsonl": 2
       },
       "recentCommitRefs": [
+        "228ed1a",
         "207110c",
         "d1323e1"
       ],
@@ -6852,7 +6865,7 @@
       "commitRefOverflow": false
     },
     "TASK-205": {
-      "commitCount": 3,
+      "commitCount": 2,
       "lastCommitDate": "2026-05-12T10:16:38+02:00",
       "touchedFrequency": {
         ".arch/causal-graph.jsonl": 1,
@@ -6868,12 +6881,11 @@
         "cli/src/test/ts/validate-task-acs.test.ts": 1,
         "docs/TASK-FORMAT.md": 1,
         "docs/agents/DO.md": 1,
-        "docs/tasks/TASK-205.md": 2
+        "docs/tasks/TASK-205.md": 1
       },
       "recentCommitRefs": [
         "08a0de0",
-        "448f80c",
-        "00c2e87"
+        "448f80c"
       ],
       "commitRefOverflow": false
     },
