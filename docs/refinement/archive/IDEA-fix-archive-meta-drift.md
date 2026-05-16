@@ -16,3 +16,6 @@ Example: `TASK-888.md` has an empty size field (`P1 | | DONE`).
 - Abstraction layer: Satisfied.
 - Observability validity: Satisfied.
 - Priority displacement: Satisfied (P0 Integrity).
+
+## Decision
+PROMOTE → TASK-898

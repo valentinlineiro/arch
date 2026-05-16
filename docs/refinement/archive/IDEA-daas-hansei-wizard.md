@@ -1,8 +1,8 @@
 # IDEA: `arch task done` — Socratic Hansei Wizard
 **Created:** 2026-05-15
 **Source:** DaaS Sprint Reflection
-**Status:** DRAFT
-**Sessions:** 1
+**Status:** PROMOTED
+**Sessions:** 2
 **Meta:** P1 | M | local | cli/src/main/ts/
 
 ## Problem
@@ -41,4 +41,17 @@ M
 **Structural admissibility: SATISFIED.** Ready for human promotion decision.
 
 ## Decision
-<!-- PROMOTE → TASK-XXX | REJECT: reason -->
+PROMOTE → TASK-901
+
+## Session 2 Refinement (2026-05-16)
+**Gap resolved:** Trigger condition. The wizard runs when `arch task done TASK-XXX` is called and the `## Hansei` section is absent or has any field empty/placeholder. If Hansei is already fully populated, the wizard is skipped and `arch task done` proceeds normally. This makes the wizard additive — it does not disrupt tasks where Hansei was written inline.
+
+**Revised workflow:**
+1. `arch task done TASK-XXX` called
+2. CLI reads task file — if `## Hansei` is complete, skip wizard entirely
+3. If Hansei is missing or incomplete: run Socratic questions interactively
+4. Assemble answers into valid `## Hansei` block, write to task file
+5. Proceed with existing Hansei validation (`TaskValidator.validateHansei`)
+
+**Scope confirmed:** M, `MarkTaskDone.ts` + new `HanseiWizard` service in `cli/src/main/ts/application/use-cases/`. Non-blocking for non-TTY sessions (CI/pipe → skip wizard, require pre-filled Hansei).
+**Sessions:** 2

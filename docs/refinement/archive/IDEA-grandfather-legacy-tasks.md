@@ -1,7 +1,7 @@
 # IDEA: Grandfather legacy tasks in arch review
 **Created:** 2026-05-06
 **Source:** THINK session 2026-05-06
-**Status:** DRAFT
+**Status:** PROMOTED
 **Meta:** P2 | XS | cli | cli/src/main/ts/domain/services/drift-checker.ts
 
 ## Problem
@@ -20,5 +20,4 @@ XS
 - Decide on the threshold: ID-based or date-based? ID-based is more robust for historical data in this repo.
 
 ## Decision
-<!-- Human writes here after THINK evaluation -->
-<!-- PROMOTE → TASK-XXX | REJECT: reason -->
+PROMOTE → TASK-899

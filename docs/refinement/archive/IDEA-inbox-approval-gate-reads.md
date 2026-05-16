@@ -26,3 +26,6 @@ Replace the INBOX.md approval-gate reads with a structured approval channel:
 ### Open questions
 - Should approvals live in `escalations.jsonl` (new status like `APPROVED`) or a separate file?
 - Does `arch loop --resume` need a richer handshake (e.g., `arch approve <escalation-id>`) or is a simple file write sufficient?
+
+## Decision
+PROMOTE → TASK-900

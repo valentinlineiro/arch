@@ -1,7 +1,7 @@
 # IDEA: fix-phase-naming-drift
 **Created:** 2026-05-13
 **Source:** Phase-2.5
-**Status:** DRAFT
+**Status:** REJECTED
 **Sessions:** 0
 **Meta:** P3 | XS | docs/adr/ADR-013-two-tier-drift-detection.md, docs/agents/THINK.md
 
@@ -17,3 +17,6 @@ Evaluates: Textual consistency between ADR and documentation.
 Does NOT evaluate: Semantic correctness of the phase ordering.
 
 ## Decision
+
+## Decision
+REJECT: Already fixed in session 2026-05-16. ADR-013 now correctly references Phase 2.5 (Semantic Drift Analysis) throughout.
