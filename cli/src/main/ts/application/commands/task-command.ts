@@ -51,7 +51,7 @@ export class TaskCommand {
     this.gitRepository = gitRepository!;
     this.muriConfig = muriConfig;
     this.rootPath = rootPath;
-    this.markInProgress = new MarkTaskInProgress(taskRepository, eventRepository);
+    this.markInProgress = new MarkTaskInProgress(taskRepository, eventRepository, gitRepository);
     this.markDone = new MarkTaskDone(taskRepository, reviewer, fileSystem, eventRepository, new NodeFeedbackRepository(fileSystem), causalSignalLog, eventLogger);
     this.markReview = new MarkTaskReview(taskRepository, rootPath);
     this.rejectTask = new RejectTask(taskRepository, eventLogger);

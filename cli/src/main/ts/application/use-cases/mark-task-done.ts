@@ -8,6 +8,7 @@ import { FeedbackRepository } from '../../domain/repositories/feedback-repositor
 import { ExtractContextFeedback } from './extract-context-feedback.js';
 import { CausalSignalLog } from './causal-signal-log.js';
 import { EventLogger } from '../../domain/services/event-logger.js';
+import { DeterministicACVerifier } from '../../domain/services/deterministic-ac-verifier.js';
 import crypto from 'node:crypto';
 
 export class MarkTaskDone {
@@ -43,6 +44,15 @@ export class MarkTaskDone {
       const hanseiErrors = TaskValidator.validateHansei({ ...task, status: TaskStatus.DONE });
       if (hanseiErrors.length > 0) {
         throw new Error(`Cannot mark ${taskId} as DONE — Hansei validation failed:\n- ${hanseiErrors.join('\n- ')}`);
+      }
+
+      // AC structural verification — block if any cmd: or file: predicate fails
+      const verifier = new DeterministicACVerifier();
+      const acResult = await verifier.verify(task);
+      if (!acResult.pass) {
+        const failed = acResult.evidence.filter(e => !e.pass);
+        const lines = failed.map(e => `  [${e.type}] ${e.ac}: ${e.detail.split('\n')[0]}`);
+        throw new Error(`Cannot mark ${taskId} as DONE — AC verification failed:\n${lines.join('\n')}`);
       }
     }
 

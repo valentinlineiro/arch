@@ -38,6 +38,7 @@ import { CausalSignalLog } from './application/use-cases/causal-signal-log.js';
 import { ReflectCommand } from './application/commands/reflect-command.js';
 import { ReportCommand } from './application/commands/report-command.js';
 import { InitCommand } from './application/commands/init-command.js';
+import { VerifyAcsCommand } from './application/commands/verify-acs-command.js';
 
 async function main() {
   const fileSystem = new NodeFileSystem();
@@ -149,6 +150,9 @@ async function main() {
       break;
     case 'report':
       await new ReportCommand(fileSystem, gitRepository).execute();
+      break;
+    case 'verify-acs':
+      await new VerifyAcsCommand(taskRepository, rootPath).execute(args);
       break;
     case 'init':
       await new InitCommand(rootPath).execute(args);
