@@ -1,5 +1,5 @@
 ## TASK-246: Hansei Signal Routing & Reflect Integration
-**Meta:** P2 | M | READY | Focus:yes | 7-operations | local | cli/src/main/ts/domain/services/
+**Meta:** P2 | M | IN_PROGRESS | Focus:yes | 7-operations | local | cli/src/main/ts/domain/services/
 
 **Depends:** TASK-245
 
