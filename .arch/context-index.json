@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-16T22:03:51.738Z",
+  "builtAt": "2026-05-16T22:13:47.842Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -869,6 +869,24 @@
       ],
       "criticality": "domain",
       "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/application/use-cases/hansei-wizard.ts": {
+      "symbols": [
+        "HanseiBlock",
+        "HanseiWizard"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/models/task.ts"
+      ],
+      "tags": [
+        "application",
+        "cases",
+        "hansei",
+        "wizard",
+        "block"
+      ],
+      "criticality": "domain",
+      "runtimeUsage": "cold"
     },
     "cli/src/main/ts/application/use-cases/load-bearing-memory.ts": {
       "symbols": [
@@ -5019,14 +5037,26 @@
     }
   },
   "tasks": {
-    "TASK-901": {
-      "commitCount": 3,
-      "lastCommitDate": "2026-05-16T22:03:51+00:00",
+    "TASK-903": {
+      "commitCount": 1,
+      "lastCommitDate": "2026-05-16T22:13:47+00:00",
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 2,
-        "docs/tasks/TASK-901.md": 1
+        ".arch/focus-ledger.jsonl": 1
       },
       "recentCommitRefs": [
+        "3b45255"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-901": {
+      "commitCount": 4,
+      "lastCommitDate": "2026-05-16T22:03:57+00:00",
+      "touchedFrequency": {
+        "docs/tasks/TASK-901.md": 2,
+        ".arch/focus-ledger.jsonl": 2
+      },
+      "recentCommitRefs": [
+        "27cf263",
         "749a0eb",
         "29edbd3",
         "c07bb38"
@@ -6439,7 +6469,7 @@
       "commitRefOverflow": false
     },
     "TASK-210": {
-      "commitCount": 30,
+      "commitCount": 29,
       "lastCommitDate": "2026-05-12T16:37:24+02:00",
       "touchedFrequency": {
         "cli/src/main/ts/application/use-cases/generate-inbox.ts": 1,
@@ -6448,7 +6478,7 @@
         "cli/src/test/ts/context-inference.test.ts": 5,
         ".arch/context-index.json": 1,
         "cli/src/main/ts/application/commands/task-command.ts": 1,
-        "arch.config.json": 2,
+        "arch.config.json": 1,
         "cli/src/main/ts/application/commands/govern-command.ts": 1,
         "cli/src/main/ts/application/commands/index-command.ts": 1,
         "cli/src/main/ts/index.ts": 2,
@@ -6471,11 +6501,7 @@
         "cli/src/test/ts/validate-system.test.ts": 1,
         "cli/src/main/ts/domain/repositories/file-system.ts": 1,
         "cli/src/main/ts/infrastructure/filesystem/node-file-system.ts": 1,
-        "cli/src/main/ts/domain/models/intent.ts": 1,
-        "cli/src/main/ts/application/use-cases/loop-engine.ts": 1,
-        "cli/src/main/ts/domain/services/bridge-provider.ts": 1,
-        "docs/archive/TASK-210.md": 1,
-        "docs/guidelines/models.md": 1
+        "cli/src/main/ts/domain/models/intent.ts": 1
       },
       "recentCommitRefs": [
         "dc2b86c",
@@ -7246,7 +7272,7 @@
       "commitRefOverflow": false
     },
     "TASK-212": {
-      "commitCount": 2,
+      "commitCount": 1,
       "lastCommitDate": "2026-05-07T15:15:22+02:00",
       "touchedFrequency": {
         ".arch/chronicle.jsonl": 1,
@@ -7257,17 +7283,10 @@
         "cli/src/main/ts/domain/repositories/file-system.ts": 1,
         "cli/src/main/ts/index.ts": 1,
         "cli/src/main/ts/infrastructure/filesystem/chronicle-event-repository.ts": 1,
-        "cli/src/main/ts/infrastructure/filesystem/node-file-system.ts": 1,
-        "arch.config.json": 1,
-        "cli/src/main/ts/domain/services/provider-registry.ts": 1,
-        "cli/src/test/ts/llm-provider.test.ts": 1,
-        "docs/INBOX.md": 1,
-        "docs/archive/TASK-212.md": 1,
-        "docs/refinement/IDEA-verbose-fallback-logging.md": 1
+        "cli/src/main/ts/infrastructure/filesystem/node-file-system.ts": 1
       },
       "recentCommitRefs": [
-        "50e1083",
-        "51ebda8"
+        "50e1083"
       ],
       "commitRefOverflow": false
     },
@@ -7286,26 +7305,6 @@
       "recentCommitRefs": [
         "f61dad4",
         "6cc398f"
-      ],
-      "commitRefOverflow": false
-    },
-    "TASK-211": {
-      "commitCount": 1,
-      "lastCommitDate": "2026-05-06T13:09:51+02:00",
-      "touchedFrequency": {
-        "arch.config.json": 1,
-        "cli/src/main/ts/application/commands/exec-command.ts": 1,
-        "cli/src/main/ts/application/use-cases/loop-engine.ts": 1,
-        "cli/src/main/ts/application/use-cases/select-next-task.ts": 1,
-        "cli/src/main/ts/domain/services/drift-checker.ts": 1,
-        "cli/src/main/ts/domain/services/provider-registry.ts": 1,
-        "cli/src/test/ts/llm-provider.test.ts": 1,
-        "docs/AGENTS.md": 1,
-        "docs/adr/ADR-010-escalation-maturity.md": 1,
-        "docs/archive/TASK-211.md": 1
-      },
-      "recentCommitRefs": [
-        "19e9ad6"
       ],
       "commitRefOverflow": false
     }
