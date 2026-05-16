@@ -63,3 +63,9 @@
 <!-- Format: [WARN String] | [Session Count] -->
 
 Last-Revision: 2026-05-12
+
+## [2026-05-16] ADR-009 — L3 Self-Archive introduced
+**Friction:** XS/S tasks with deterministic ACs required human Auditor availability even when DeterministicACVerifier already provides binary pass/fail evidence.
+**Root Cause:** Autonomy model capped at L2 (IDEA promotion). No L3 path existed for task archival.
+**Proposed Fix:** L3 gate: XS/S + verifier pass + ≥1 cmd/file AC → self-archive with INBOX audit trail. ADR-009 documents the invariants and rollback.
+**Status:** IMPLEMENTED (TASK-208)

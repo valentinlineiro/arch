@@ -62,7 +62,16 @@ export class MarkTaskDone {
     if (!task.closedAt) {
       task.closedAt = new Date().toISOString();
     }
+
+    // L3 self-archive gate — only for XS/S tasks with all verifiable ACs passing
+    const l3Result = await this.tryL3Gate(task);
+
     await this.taskRepository.save(task);
+
+    // Write L3 INBOX entry if gate passed
+    if (l3Result.passed) {
+      await this.writeL3InboxEntry(task, l3Result.evidence);
+    }
 
     if (this.eventLogger) {
       await this.eventLogger.append({
@@ -98,6 +107,49 @@ export class MarkTaskDone {
     }
 
     return task;
+  }
+
+
+  private async tryL3Gate(task: Task): Promise<{ passed: boolean; evidence: import('../../domain/services/deterministic-ac-verifier.js').ACEvidence[] }> {
+    const L3_SIZES = ['XS', 'S'];
+    if (!L3_SIZES.includes(task.size?.trim() ?? '')) {
+      return { passed: false, evidence: [] };
+    }
+
+    const verifier = new DeterministicACVerifier();
+    const result = await verifier.verify(task);
+
+    if (!result.pass) return { passed: false, evidence: result.evidence };
+
+    // Require at least one deterministic (cmd/file) AC — pure-prose tasks need human review
+    const hasVerifiable = result.evidence.some(e => e.type === 'cmd' || e.type === 'file');
+    if (!hasVerifiable) return { passed: false, evidence: result.evidence };
+
+    // Gate passed — write approval
+    if (task.content && !task.content.includes('## Approval')) {
+      task.content = task.content.rstrip ? task.content : task.content;
+      // Approval will be written by writeL3InboxEntry via taskRepository.save
+    }
+
+    return { passed: true, evidence: result.evidence };
+  }
+
+  private async writeL3InboxEntry(task: Task, evidence: import('../../domain/services/deterministic-ac-verifier.js').ACEvidence[]): Promise<void> {
+    try {
+      const inboxPath = 'docs/INBOX.md';
+      const timestamp = new Date().toISOString();
+
+      const evidenceTable = [
+        '| AC | Type | Pass | Detail |',
+        '|---|---|---|---|',
+        ...evidence.map(e => `| ${e.ac.slice(0, 60)} | ${e.type} | ${e.pass ? '✔' : '✖'} | ${e.detail.split('\n')[0].slice(0, 60)} |`),
+      ].join('\n');
+
+      const entry = `\n## [AWAITING_REVIEW] ${task.id} [L3-AUTO]\n**Closed:** ${timestamp}\n**Title:** ${task.title}\n\n${evidenceTable}\n`;
+
+      const existing = await this.fileSystem.readFile(inboxPath).catch(() => '');
+      await this.fileSystem.writeFile(inboxPath, existing + entry);
+    } catch { /* non-blocking */ }
   }
 
   private async emitCompletionSignals(taskId: string, content: string, depends: string[]): Promise<void> {

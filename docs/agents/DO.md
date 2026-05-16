@@ -19,7 +19,9 @@
    - **Hansei Check:** Before setting status, check if any trigger applies: (a) actual size differed from estimate, (b) a blocker was encountered, (c) task is `M` or larger. If any trigger applies, the Hansei should reflect that signal directly. For any task that will be archived as `DONE` from `TASK-195` onward, always append a `## Hansei` section (1–3 sentences), even on XS/S happy-path work, because the close transition enforces its presence.
    - **Predicate Check:** Run `arch task review TASK-XXX` to execute all `cmd:` predicates and atomically set status to REVIEW. If any predicate fails, fix the implementation before retrying — do not manually override the status. If the task has no `cmd:` predicates, set status to REVIEW manually and proceed.
    - **Handover:** The agent that implements a task CANNOT archive it by default. It must yield to an Auditor.
-     - **Exception (Auditor Bypass):** If a task has **zero** `prose:` markers (meaning all ACs are machine-verified via `cmd:`, `file:`, or `grep:`), the implementing agent may autonomously mark it as `DONE` and move it to `docs/archive/` after the `Predicate Check` passes.
+     - **Exception (Auditor Bypass — L3):** XS/S tasks where `DeterministicACVerifier` returns `pass: true` with at least one `cmd:` or `file:` AC qualify for L3 self-archive. When the L3 gate passes: `arch task done TASK-XXX` archives the task automatically, writes `[AWAITING_REVIEW] TASK-XXX [L3-AUTO]` to `docs/INBOX.md` with full evidence table, and commits with `done: [TASK-XXX] <title> [L3-AUTO]`. Pure-prose tasks (all ACs are `prose:`/`code:`) do NOT qualify — they require a human Auditor.
+     - **Gate conditions:** (1) size XS or S, (2) verifier `pass: true`, (3) evidence contains ≥1 `cmd:` or `file:` AC.
+     - See ADR-009 for full rationale and rollback procedure.
    - **Review Request:** If the Auditor bypass does not apply, append a `REVIEW_REQUEST` entry to `docs/INBOX.md` with Task ID, AC list, and changed files.
    - Release lock and stop.
    - **Telemetry:** Finally, print `Turns: [count]` and `Cost: $[amount]` to stdout for loop tracking.

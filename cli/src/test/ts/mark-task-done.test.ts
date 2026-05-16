@@ -200,3 +200,100 @@ test('MarkTaskDone - allows post-rollout task with Hansei section', async () => 
 
   assert.strictEqual(repo.saved?.status, TaskStatus.DONE);
 });
+
+// ── L3 Self-Archive Tests ──────────────────────────────────────────────────
+
+import { DeterministicACVerifier } from '../../main/ts/domain/services/deterministic-ac-verifier.js';
+
+const XS_TASK_WITH_CMD_AC = makeTask({
+  id: 'TASK-200',
+  size: 'XS',
+  status: TaskStatus.IN_PROGRESS,
+  content: `## TASK-200: XS with cmd AC\n**Meta:** P2 | XS | IN_PROGRESS | Focus:yes | 7-operations | local | none\n\n### Acceptance Criteria\n- [ ] echo passes\n  - \`cmd: echo ok; exit: 0\`\n\n## Hansei\n**Severity:** H0\n**Category:** [AuditGap]\n**Decision:** Test.\n**Constraint:** None — test only.\n**Cost:** No cost introduced.\n**Forward Action:** None required.\n`,
+  hansei: { severity: 'H0', category: '[AuditGap]', decision: 'Test task for L3 gate verification purposes only.', constraint: 'No constraint — this is a unit test fixture task.', cost: 'No cost introduced by this test fixture task.', forwardAction: 'No forward action required for test fixture.' },
+});
+
+const M_TASK_WITH_CMD_AC = makeTask({
+  id: 'TASK-201',
+  size: 'M',
+  status: TaskStatus.IN_PROGRESS,
+  content: `## TASK-201: M with cmd AC\n**Meta:** P2 | M | IN_PROGRESS | Focus:yes | 7-operations | local | none\n\n### Acceptance Criteria\n- [ ] echo passes\n  - \`cmd: echo ok; exit: 0\`\n\n## Hansei\n**Severity:** H0\n**Category:** [AuditGap]\n**Decision:** Test.\n**Constraint:** None — test only.\n**Cost:** No cost introduced.\n**Forward Action:** None required.\n`,
+  hansei: { severity: 'H0', category: '[AuditGap]', decision: 'Test task for L3 gate verification purposes only.', constraint: 'No constraint — this is a unit test fixture task.', cost: 'No cost introduced by this test fixture task.', forwardAction: 'No forward action required for test fixture.' },
+});
+
+const S_TASK_FAILING_CMD = makeTask({
+  id: 'TASK-202',
+  size: 'S',
+  status: TaskStatus.IN_PROGRESS,
+  content: `## TASK-202: S with failing cmd\n**Meta:** P2 | S | IN_PROGRESS | Focus:yes | 7-operations | local | none\n\n### Acceptance Criteria\n- [ ] always fails\n  - \`cmd: exit 1; exit: 0\`\n\n## Hansei\n**Severity:** H0\n**Category:** [AuditGap]\n**Decision:** Test.\n**Constraint:** None — test only.\n**Cost:** No cost introduced.\n**Forward Action:** None required.\n`,
+  hansei: { severity: 'H0', category: '[AuditGap]', decision: 'Test task for L3 gate verification purposes only.', constraint: 'No constraint — this is a unit test fixture task.', cost: 'No cost introduced by this test fixture task.', forwardAction: 'No forward action required for test fixture.' },
+});
+
+const S_TASK_PROSE_ONLY = makeTask({
+  id: 'TASK-203',
+  size: 'S',
+  status: TaskStatus.IN_PROGRESS,
+  content: `## TASK-203: S prose only\n**Meta:** P2 | S | IN_PROGRESS | Focus:yes | 7-operations | local | none\n\n### Acceptance Criteria\n- [ ] human verifies\n  - \`prose: verified manually\`\n\n## Hansei\n**Severity:** H0\n**Category:** [AuditGap]\n**Decision:** Test.\n**Constraint:** None — test only.\n**Cost:** No cost introduced.\n**Forward Action:** None required.\n`,
+  hansei: { severity: 'H0', category: '[AuditGap]', decision: 'Test task for L3 gate verification purposes only.', constraint: 'No constraint — this is a unit test fixture task.', cost: 'No cost introduced by this test fixture task.', forwardAction: 'No forward action required for test fixture.' },
+});
+
+function makeMockReviewer(valid = true): Reviewer {
+  return { reviewTask: () => ({ valid, violations: [] }), validateCommitMessage: () => ({ valid: true, violations: [] }) } as any;
+}
+
+function makeMockFs(config?: object): MockFileSystem {
+  const fs = new MockFileSystem();
+  fs.files['arch.config.json'] = JSON.stringify(config ?? { hanseiSinceTaskId: 1 });
+  fs.files['docs/INBOX.md'] = '# INBOX\n';
+  return fs;
+}
+
+test('L3 gate — XS task with passing cmd AC qualifies for self-archive', async () => {
+  const repo = new MockTaskRepository(XS_TASK_WITH_CMD_AC);
+  const fs = makeMockFs();
+  const useCase = new MarkTaskDone(repo, makeMockReviewer(), fs, undefined, undefined, undefined, undefined);
+
+  await useCase.execute('TASK-200');
+  assert.equal(repo.saved?.status, TaskStatus.DONE, 'task should be DONE');
+  
+  // Check INBOX was written with L3-AUTO marker
+  const inbox = fs.files['docs/INBOX.md'] ?? '';
+  assert.ok(inbox.includes('[L3-AUTO]'), `INBOX should contain L3-AUTO marker, got: ${inbox.slice(0, 200)}`);
+  assert.ok(inbox.includes('AWAITING_REVIEW'), `INBOX should contain AWAITING_REVIEW, got: ${inbox.slice(0, 200)}`);
+});
+
+test('L3 gate — M task fails gate, no L3-AUTO in INBOX', async () => {
+  const repo = new MockTaskRepository(M_TASK_WITH_CMD_AC);
+  const fs = makeMockFs();
+  const useCase = new MarkTaskDone(repo, makeMockReviewer(), fs, undefined, undefined, undefined, undefined);
+
+  await useCase.execute('TASK-201');
+  assert.equal(repo.saved?.status, TaskStatus.DONE);
+  const inbox = fs.files['docs/INBOX.md'] ?? '';
+  assert.ok(!inbox.includes('[L3-AUTO]'), 'M task should NOT get L3-AUTO');
+});
+
+test('L3 gate — S task with failing cmd AC is blocked before DONE', async () => {
+  const repo = new MockTaskRepository(S_TASK_FAILING_CMD);
+  const fs = makeMockFs();
+  const useCase = new MarkTaskDone(repo, makeMockReviewer(), fs, undefined, undefined, undefined, undefined);
+
+  await assert.rejects(
+    () => useCase.execute('TASK-202'),
+    (err: Error) => {
+      assert.ok(err.message.includes('AC verification failed'), `got: ${err.message}`);
+      return true;
+    }
+  );
+});
+
+test('L3 gate — S prose-only task falls back to human review (no L3-AUTO)', async () => {
+  const repo = new MockTaskRepository(S_TASK_PROSE_ONLY);
+  const fs = makeMockFs();
+  const useCase = new MarkTaskDone(repo, makeMockReviewer(), fs, undefined, undefined, undefined, undefined);
+
+  await useCase.execute('TASK-203');
+  assert.equal(repo.saved?.status, TaskStatus.DONE);
+  const inbox = fs.files['docs/INBOX.md'] ?? '';
+  assert.ok(!inbox.includes('[L3-AUTO]'), 'prose-only task should NOT get L3-AUTO');
+});
