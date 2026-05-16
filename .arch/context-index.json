@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-16T22:36:38.627Z",
+  "builtAt": "2026-05-16T22:37:18.418Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -5039,24 +5039,36 @@
   },
   "tasks": {
     "TASK-906": {
-      "commitCount": 1,
-      "lastCommitDate": "2026-05-16T22:36:38+00:00",
+      "commitCount": 2,
+      "lastCommitDate": "2026-05-16T22:37:18+00:00",
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 1
+        ".arch/focus-ledger.jsonl": 2
       },
       "recentCommitRefs": [
+        "f25cda8",
         "5064657"
       ],
       "commitRefOverflow": false
     },
     "TASK-902": {
-      "commitCount": 2,
-      "lastCommitDate": "2026-05-16T22:32:30+00:00",
+      "commitCount": 5,
+      "lastCommitDate": "2026-05-16T22:37:18+00:00",
       "touchedFrequency": {
-        "docs/tasks/TASK-902.md": 1,
+        "docs/archive/TASK-902.md": 1,
+        "docs/tasks/TASK-902.md": 3,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/reflect-breach-log.jsonl": 1,
+        "cli/src/main/ts/application/commands/next-command.ts": 1,
+        "cli/src/test/ts/escalation-maturity-e5.test.ts": 1,
+        "docs/EVENTS.md": 1,
+        "docs/INBOX.md": 1,
+        "docs/tasks/TASK-906.md": 1,
         ".arch/focus-ledger.jsonl": 1
       },
       "recentCommitRefs": [
+        "850d227",
+        "e955bfc",
+        "f9f7a8d",
         "960bba3",
         "eecf9f5"
       ],
@@ -6620,28 +6632,18 @@
       "commitRefOverflow": false
     },
     "TASK-210": {
-      "commitCount": 7,
+      "commitCount": 3,
       "lastCommitDate": "2026-05-12T16:37:24+02:00",
       "touchedFrequency": {
         "cli/src/main/ts/application/use-cases/generate-inbox.ts": 1,
         "docs/tasks/TASK-210.md": 1,
         "cli/src/main/ts/application/use-cases/context-inference.ts": 2,
-        "cli/src/test/ts/context-inference.test.ts": 3,
-        ".arch/context-index.json": 1,
-        "cli/src/main/ts/application/commands/task-command.ts": 1,
-        "arch.config.json": 1,
-        "cli/src/main/ts/application/commands/govern-command.ts": 1,
-        "cli/src/main/ts/application/commands/index-command.ts": 1,
-        "cli/src/main/ts/index.ts": 1
+        "cli/src/test/ts/context-inference.test.ts": 1
       },
       "recentCommitRefs": [
         "dc2b86c",
         "e9b1cbf",
-        "256f2be",
-        "07883e2",
-        "b15ebc6",
-        "439813a",
-        "541206e"
+        "256f2be"
       ],
       "commitRefOverflow": false
     },
@@ -6939,27 +6941,17 @@
       "commitRefOverflow": false
     },
     "TASK-205": {
-      "commitCount": 2,
+      "commitCount": 1,
       "lastCommitDate": "2026-05-12T10:16:38+02:00",
       "touchedFrequency": {
         ".arch/causal-graph.jsonl": 1,
         ".arch/causal-signal.jsonl": 1,
-        ".arch/chronicle.jsonl": 2,
+        ".arch/chronicle.jsonl": 1,
         "docs/archive/TASK-202.md": 1,
-        "docs/archive/TASK-205.md": 1,
-        "cli/src/main/ts/application/commands/validate-command.ts": 1,
-        "cli/src/main/ts/application/use-cases/mark-task-review.ts": 1,
-        "cli/src/main/ts/application/use-cases/validate-task-acs.ts": 1,
-        "cli/src/test/ts/mark-task-review.test.ts": 1,
-        "cli/src/test/ts/validate-task-acs-v2.test.ts": 1,
-        "cli/src/test/ts/validate-task-acs.test.ts": 1,
-        "docs/TASK-FORMAT.md": 1,
-        "docs/agents/DO.md": 1,
-        "docs/tasks/TASK-205.md": 1
+        "docs/archive/TASK-205.md": 1
       },
       "recentCommitRefs": [
-        "08a0de0",
-        "448f80c"
+        "08a0de0"
       ],
       "commitRefOverflow": false
     },
