@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-16T17:36:38.673Z",
+  "builtAt": "2026-05-16T20:52:02.133Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -3851,6 +3851,22 @@
     }
   },
   "adrTaskLinks": {
+    "ADR-019": {
+      "tasks": {
+        "TASK-901": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-901.md"
+        },
+        "TASK-244": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-244.md"
+        }
+      }
+    },
     "ADR-001": {
       "tasks": {
         "TASK-002": {
@@ -4157,16 +4173,6 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-238.md"
-        }
-      }
-    },
-    "ADR-019": {
-      "tasks": {
-        "TASK-244": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-244.md"
         }
       }
     },
@@ -5013,13 +5019,37 @@
     }
   },
   "tasks": {
-    "TASK-206": {
-      "commitCount": 3,
-      "lastCommitDate": "2026-05-16T17:36:38+00:00",
+    "TASK-898": {
+      "commitCount": 1,
+      "lastCommitDate": "2026-05-16T20:52:01+00:00",
       "touchedFrequency": {
+        ".arch/focus-ledger.jsonl": 1
+      },
+      "recentCommitRefs": [
+        "9be3d00"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-901": {
+      "commitCount": 1,
+      "lastCommitDate": "2026-05-16T20:48:26+00:00",
+      "touchedFrequency": {
+        "docs/tasks/TASK-901.md": 1
+      },
+      "recentCommitRefs": [
+        "c07bb38"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-206": {
+      "commitCount": 4,
+      "lastCommitDate": "2026-05-16T20:48:26+00:00",
+      "touchedFrequency": {
+        "docs/tasks/TASK-901.md": 1,
         ".arch/focus-ledger.jsonl": 3
       },
       "recentCommitRefs": [
+        "c07bb38",
         "500347b",
         "c977c01",
         "60a9dee"
@@ -5027,9 +5057,16 @@
       "commitRefOverflow": false
     },
     "TASK-246": {
-      "commitCount": 7,
-      "lastCommitDate": "2026-05-16T17:36:38+00:00",
+      "commitCount": 8,
+      "lastCommitDate": "2026-05-16T17:36:46+00:00",
       "touchedFrequency": {
+        ".arch/causal-signal.jsonl": 1,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/reflect-breach-log.jsonl": 1,
+        "cli/src/main/ts/application/commands/reflect-command.ts": 1,
+        "cli/src/main/ts/application/commands/report-command.ts": 1,
+        "cli/src/main/ts/application/use-cases/mark-task-done.ts": 1,
+        "docs/EVENTS.md": 1,
         "docs/archive/TASK-246.md": 1,
         "cli/src/main/ts/domain/services/signal-router.ts": 1,
         "docs/METRICS.md": 1,
@@ -5040,6 +5077,7 @@
         "docs/tasks/TASK-245.md": 1
       },
       "recentCommitRefs": [
+        "38e2529",
         "d00e6f7",
         "a1783b8",
         "f1e914d",
@@ -7219,21 +7257,16 @@
       "commitRefOverflow": false
     },
     "TASK-199": {
-      "commitCount": 11,
+      "commitCount": 6,
       "lastCommitDate": "2026-05-06T12:46:50+02:00",
       "touchedFrequency": {
-        "arch.config.json": 2,
+        "arch.config.json": 1,
         "docs/archive/TASK-199.md": 1,
         "docs/INBOX.md": 1,
         "docs/tasks/TASK-199.md": 1,
         "docs/refinement/IDEA-l3-self-archive.md": 1,
         "docs/refinement/IDEA-semantic-ac-verification.md": 1,
-        "cli/src/main/ts/application/use-cases/loop-engine.ts": 1,
-        "cli/src/main/ts/application/commands/exec-command.ts": 1,
-        "cli/src/test/ts/exec-command.test.ts": 1,
-        "cli/src/main/ts/domain/services/provider-registry.ts": 1,
-        "cli/src/test/ts/llm-provider.test.ts": 3,
-        "cli/src/main/ts/domain/services/native-provider.ts": 2
+        "cli/src/main/ts/application/use-cases/loop-engine.ts": 1
       },
       "recentCommitRefs": [
         "9b4073d",
@@ -7241,12 +7274,7 @@
         "a13b412",
         "6ca6d6c",
         "c2f06ac",
-        "3e760c2",
-        "4d567c6",
-        "0e3dfd8",
-        "4dba08c",
-        "903dd1f",
-        "e5c1ec6"
+        "3e760c2"
       ],
       "commitRefOverflow": false
     },
