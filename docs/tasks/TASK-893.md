@@ -1,5 +1,5 @@
 ## TASK-893: Decision-gated idea loss — prevent silent TTL expiry of undecided IDEAs
-**Meta:** P1 | M | READY | Focus:no | 1-code-reasoning | claude-code | cli/src/main/ts/, docs/agents/THINK.md
+**Meta:** P1 | M | IN_PROGRESS | Focus:yes | 1-code-reasoning | claude-code | cli/src/main/ts/, docs/agents/THINK.md
 
 **Depends:** none
 
