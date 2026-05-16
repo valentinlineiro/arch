@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-16T22:28:13.847Z",
+  "builtAt": "2026-05-16T22:28:46.409Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -5039,24 +5039,41 @@
   },
   "tasks": {
     "TASK-907": {
-      "commitCount": 1,
-      "lastCommitDate": "2026-05-16T22:28:13+00:00",
+      "commitCount": 2,
+      "lastCommitDate": "2026-05-16T22:28:46+00:00",
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 1
+        ".arch/focus-ledger.jsonl": 2
       },
       "recentCommitRefs": [
+        "e6636f5",
         "732f0d2"
       ],
       "commitRefOverflow": false
     },
     "TASK-905": {
-      "commitCount": 3,
-      "lastCommitDate": "2026-05-16T22:23:27+00:00",
+      "commitCount": 6,
+      "lastCommitDate": "2026-05-16T22:28:46+00:00",
       "touchedFrequency": {
-        "docs/tasks/TASK-905.md": 1,
+        "docs/archive/TASK-905.md": 1,
+        "docs/tasks/TASK-905.md": 3,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/reflect-breach-log.jsonl": 1,
+        "cli/src/main/ts/application/commands/task-command.ts": 1,
+        "cli/src/main/ts/application/use-cases/mark-task-done.ts": 1,
+        "cli/src/main/ts/domain/models/task.ts": 1,
+        "cli/src/main/ts/domain/repositories/git-repository.ts": 1,
+        "cli/src/main/ts/infrastructure/cli/git-cli.ts": 1,
+        "cli/src/main/ts/infrastructure/filesystem/markdown-task-repository.ts": 1,
+        "cli/src/test/ts/mark-task-done.test.ts": 1,
+        "docs/EVENTS.md": 1,
+        "docs/INBOX.md": 1,
+        "docs/tasks/TASK-907.md": 1,
         ".arch/focus-ledger.jsonl": 2
       },
       "recentCommitRefs": [
+        "a20cb0a",
+        "2194ce7",
+        "1d7fbb6",
         "baf30fa",
         "15e1462",
         "1696697"
@@ -6538,7 +6555,7 @@
       "commitRefOverflow": false
     },
     "TASK-210": {
-      "commitCount": 25,
+      "commitCount": 20,
       "lastCommitDate": "2026-05-12T16:37:24+02:00",
       "touchedFrequency": {
         "cli/src/main/ts/application/use-cases/generate-inbox.ts": 1,
@@ -6557,15 +6574,7 @@
         "docs/superpowers/plans/2026-05-07-auto-context-engine.md": 1,
         "docs/superpowers/specs/2026-05-07-auto-context-engine-design.md": 2,
         "cli/src/main/ts/application/commands/capture-command.ts": 1,
-        "cli/src/main/ts/application/use-cases/capture-intent.ts": 2,
-        "cli/src/test/ts/capture-intent.test.ts": 1,
-        "cli/src/main/ts/infrastructure/filesystem/markdown-intent-repository.ts": 2,
-        "cli/src/main/ts/domain/repositories/intent-repository.ts": 1,
-        "cli/src/test/ts/markdown-intent-repository.test.ts": 1,
-        "cli/src/main/ts/infrastructure/cli/git-cli.ts": 2,
-        "cli/src/main/ts/domain/repositories/git-repository.ts": 1,
-        "cli/src/test/ts/drift-checker.test.ts": 1,
-        "cli/src/test/ts/merge-resolve.test.ts": 1
+        "cli/src/main/ts/application/use-cases/capture-intent.ts": 1
       },
       "recentCommitRefs": [
         "dc2b86c",
@@ -6589,7 +6598,7 @@
         "565e9e3",
         "1c08c75"
       ],
-      "commitRefOverflow": true
+      "commitRefOverflow": false
     },
     "TASK-186": {
       "commitCount": 4,
