@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-16T15:41:51.333Z",
+  "builtAt": "2026-05-16T15:43:11.238Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -4842,21 +4842,23 @@
   },
   "tasks": {
     "TASK-203": {
-      "commitCount": 1,
-      "lastCommitDate": "2026-05-16T15:41:51+00:00",
+      "commitCount": 2,
+      "lastCommitDate": "2026-05-16T15:43:11+00:00",
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 1
+        ".arch/focus-ledger.jsonl": 2
       },
       "recentCommitRefs": [
+        "d0b2bd6",
         "56d0664"
       ],
       "commitRefOverflow": false
     },
     "TASK-245": {
-      "commitCount": 21,
-      "lastCommitDate": "2026-05-16T15:39:47+00:00",
+      "commitCount": 22,
+      "lastCommitDate": "2026-05-16T15:43:11+00:00",
       "touchedFrequency": {
-        "docs/tasks/TASK-245.md": 3,
+        "docs/archive/TASK-245.md": 1,
+        "docs/tasks/TASK-245.md": 4,
         ".arch/focus-ledger.jsonl": 13,
         "docs/refinement/archive/IDEA-approval-entry-check.md": 1,
         "docs/refinement/archive/IDEA-arch-core-contract.md": 1,
@@ -4921,6 +4923,7 @@
         "docs/tasks/TASK-246.md": 1
       },
       "recentCommitRefs": [
+        "d5df2a9",
         "9a16dcf",
         "0e146f4",
         "4213a8e",
@@ -4939,8 +4942,7 @@
         "8d55b72",
         "b47f887",
         "90f9d83",
-        "439e0a0",
-        "8efdb8e"
+        "439e0a0"
       ],
       "commitRefOverflow": true
     },
@@ -5852,29 +5854,24 @@
       "commitRefOverflow": false
     },
     "TASK-190": {
-      "commitCount": 7,
+      "commitCount": 5,
       "lastCommitDate": "2026-05-13T09:21:36+02:00",
       "touchedFrequency": {
-        "docs/INBOX.md": 3,
+        "docs/INBOX.md": 2,
         "docs/archive/TASK-190.md": 1,
         "cli/src/main/ts/application/use-cases/loop-engine.ts": 1,
         "cli/src/main/ts/application/use-cases/select-next-task.ts": 1,
         "cli/src/test/ts/loop-sprint.test.ts": 1,
         "docs/agents/DO.md": 1,
         "docs/guidelines/autonomy.md": 1,
-        "docs/tasks/TASK-190.md": 3,
-        "docs/KAIZEN-LOG.md": 1,
-        "docs/RETRO.md": 1,
-        "docs/METRICS.md": 1
+        "docs/tasks/TASK-190.md": 3
       },
       "recentCommitRefs": [
         "9fd4c5b",
         "ea278cc",
         "279d9f1",
         "81efcc2",
-        "8e6fee4",
-        "6a553b0",
-        "1befa12"
+        "8e6fee4"
       ],
       "commitRefOverflow": false
     },
@@ -6966,11 +6963,11 @@
       "commitRefOverflow": false
     },
     "TASK-196": {
-      "commitCount": 5,
+      "commitCount": 4,
       "lastCommitDate": "2026-05-05T13:50:27+02:00",
       "touchedFrequency": {
         "docs/archive/TASK-196.md": 1,
-        "docs/tasks/TASK-196.md": 3,
+        "docs/tasks/TASK-196.md": 2,
         "docs/tasks/TASK-199.md": 1,
         "cli/src/main/ts/application/commands/task-command.ts": 1,
         "cli/src/test/ts/task-command.test.ts": 1
@@ -6979,8 +6976,7 @@
         "5323fd5",
         "a8c0a91",
         "e8cf678",
-        "d8de197",
-        "e3acf08"
+        "d8de197"
       ],
       "commitRefOverflow": false
     }
