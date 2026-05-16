@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-16T17:26:48.329Z",
+  "builtAt": "2026-05-16T17:27:28.656Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -3824,23 +3824,6 @@
     }
   },
   "adrTaskLinks": {
-    "ADR-013": {
-      "tasks": {
-        "TASK-231": {
-          "evidenceKinds": [
-            "context-path",
-            "literal-mention"
-          ],
-          "taskPath": "docs/tasks/TASK-231.md"
-        },
-        "TASK-233": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-233.md"
-        }
-      }
-    },
     "ADR-001": {
       "tasks": {
         "TASK-002": {
@@ -4110,6 +4093,23 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-225.md"
+        }
+      }
+    },
+    "ADR-013": {
+      "tasks": {
+        "TASK-231": {
+          "evidenceKinds": [
+            "context-path",
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-231.md"
+        },
+        "TASK-233": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-233.md"
         }
       }
     },
@@ -4987,19 +4987,101 @@
   },
   "tasks": {
     "TASK-246": {
-      "commitCount": 3,
-      "lastCommitDate": "2026-05-16T17:26:48+00:00",
+      "commitCount": 4,
+      "lastCommitDate": "2026-05-16T17:27:28+00:00",
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 2,
+        ".arch/focus-ledger.jsonl": 3,
         "docs/refinement/IDEA-Hansei-Governance.md": 1,
         "docs/tasks/TASK-244.md": 1,
         "docs/tasks/TASK-245.md": 1,
         "docs/tasks/TASK-246.md": 1
       },
       "recentCommitRefs": [
+        "f4084a0",
         "0f4e4cd",
         "96985a6",
         "da71de9"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-237": {
+      "commitCount": 1,
+      "lastCommitDate": "2026-05-16T17:27:25+00:00",
+      "touchedFrequency": {
+        "docs/archive/TASK-237.md": 1
+      },
+      "recentCommitRefs": [
+        "d64015b"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-236": {
+      "commitCount": 1,
+      "lastCommitDate": "2026-05-16T17:27:25+00:00",
+      "touchedFrequency": {
+        "docs/archive/TASK-236.md": 1
+      },
+      "recentCommitRefs": [
+        "50c8092"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-235": {
+      "commitCount": 1,
+      "lastCommitDate": "2026-05-16T17:27:25+00:00",
+      "touchedFrequency": {
+        "docs/archive/TASK-235.md": 1
+      },
+      "recentCommitRefs": [
+        "04b3a50"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-234": {
+      "commitCount": 1,
+      "lastCommitDate": "2026-05-16T17:27:25+00:00",
+      "touchedFrequency": {
+        "docs/archive/TASK-234.md": 1
+      },
+      "recentCommitRefs": [
+        "7dbe4d4"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-231": {
+      "commitCount": 2,
+      "lastCommitDate": "2026-05-16T17:27:25+00:00",
+      "touchedFrequency": {
+        "docs/archive/TASK-231.md": 1,
+        ".arch/reflect-decisions.jsonl": 1,
+        "docs/refinement/archive/IDEA-adr-013-phase-label-drift.md": 1,
+        "docs/refinement/archive/IDEA-backfill-legacy-hansei.md": 1,
+        "docs/refinement/archive/IDEA-cli-npm.md": 1,
+        "docs/refinement/archive/IDEA-consolidate-autonomy-rules.md": 1,
+        "docs/refinement/archive/IDEA-docs-clarification-json-rule.md": 1,
+        "docs/refinement/archive/IDEA-docs-drift-guidelines-file-reference.md": 1,
+        "docs/refinement/archive/IDEA-escalation-event-structured-store.md": 1,
+        "docs/refinement/archive/IDEA-level-terminology-disambiguation.md": 1,
+        "docs/refinement/archive/IDEA-link-unapplied-adrs.md": 1,
+        "docs/refinement/archive/IDEA-loop-mode-output-visibility.md": 1,
+        "docs/refinement/archive/IDEA-think-replenishment-link.md": 1,
+        "docs/refinement/archive/IDEA-verbose-fallback-logging.md": 1,
+        "docs/tasks/TASK-231.md": 1,
+        "docs/tasks/TASK-232.md": 1,
+        "docs/tasks/TASK-233.md": 1,
+        "docs/tasks/TASK-234.md": 1,
+        "docs/tasks/TASK-235.md": 1,
+        "docs/tasks/TASK-236.md": 1,
+        "docs/tasks/TASK-237.md": 1,
+        "docs/tasks/TASK-238.md": 1,
+        "docs/tasks/TASK-239.md": 1,
+        "docs/tasks/TASK-240.md": 1,
+        "docs/tasks/TASK-241.md": 1,
+        "docs/tasks/TASK-242.md": 1
+      },
+      "recentCommitRefs": [
+        "469b1c8",
+        "e358f4e"
       ],
       "commitRefOverflow": false
     },
@@ -5910,11 +5992,11 @@
       "commitRefOverflow": false
     },
     "TASK-201": {
-      "commitCount": 18,
+      "commitCount": 16,
       "lastCommitDate": "2026-05-14T17:55:14+02:00",
       "touchedFrequency": {
         "docs/archive/TASK-201.md": 1,
-        "docs/tasks/TASK-201.md": 8,
+        "docs/tasks/TASK-201.md": 7,
         "cli/src/main/ts/domain/services/archive-parser.ts": 5,
         "docs/METRICS.md": 5,
         "docs/EVENTS.md": 4,
@@ -5956,12 +6038,7 @@
         "docs/adr/ADR-017-deterministic-observability.md": 1,
         "docs/agents/THINK.md": 1,
         "scripts/arch.sh": 1,
-        "docs/AGENTS.md": 2,
-        "docs/tasks/TASK-202.md": 1,
-        "docs/tasks/TASK-203.md": 1,
-        "docs/tasks/TASK-204.md": 1,
-        "docs/tasks/TASK-205.md": 1,
-        "docs/tasks/TASK-200.md": 1
+        "docs/AGENTS.md": 2
       },
       "recentCommitRefs": [
         "29b77b1",
@@ -5979,9 +6056,7 @@
         "69c3d4c",
         "e9bf131",
         "3c15642",
-        "fac8827",
-        "a4c5495",
-        "d79fc50"
+        "fac8827"
       ],
       "commitRefOverflow": false
     },
@@ -6222,41 +6297,6 @@
         "279d9f1",
         "81efcc2",
         "8e6fee4"
-      ],
-      "commitRefOverflow": false
-    },
-    "TASK-231": {
-      "commitCount": 1,
-      "lastCommitDate": "2026-05-12T18:17:46+02:00",
-      "touchedFrequency": {
-        ".arch/reflect-decisions.jsonl": 1,
-        "docs/refinement/archive/IDEA-adr-013-phase-label-drift.md": 1,
-        "docs/refinement/archive/IDEA-backfill-legacy-hansei.md": 1,
-        "docs/refinement/archive/IDEA-cli-npm.md": 1,
-        "docs/refinement/archive/IDEA-consolidate-autonomy-rules.md": 1,
-        "docs/refinement/archive/IDEA-docs-clarification-json-rule.md": 1,
-        "docs/refinement/archive/IDEA-docs-drift-guidelines-file-reference.md": 1,
-        "docs/refinement/archive/IDEA-escalation-event-structured-store.md": 1,
-        "docs/refinement/archive/IDEA-level-terminology-disambiguation.md": 1,
-        "docs/refinement/archive/IDEA-link-unapplied-adrs.md": 1,
-        "docs/refinement/archive/IDEA-loop-mode-output-visibility.md": 1,
-        "docs/refinement/archive/IDEA-think-replenishment-link.md": 1,
-        "docs/refinement/archive/IDEA-verbose-fallback-logging.md": 1,
-        "docs/tasks/TASK-231.md": 1,
-        "docs/tasks/TASK-232.md": 1,
-        "docs/tasks/TASK-233.md": 1,
-        "docs/tasks/TASK-234.md": 1,
-        "docs/tasks/TASK-235.md": 1,
-        "docs/tasks/TASK-236.md": 1,
-        "docs/tasks/TASK-237.md": 1,
-        "docs/tasks/TASK-238.md": 1,
-        "docs/tasks/TASK-239.md": 1,
-        "docs/tasks/TASK-240.md": 1,
-        "docs/tasks/TASK-241.md": 1,
-        "docs/tasks/TASK-242.md": 1
-      },
-      "recentCommitRefs": [
-        "e358f4e"
       ],
       "commitRefOverflow": false
     },
@@ -7174,39 +7214,26 @@
       "commitRefOverflow": false
     },
     "TASK-193": {
-      "commitCount": 4,
+      "commitCount": 1,
       "lastCommitDate": "2026-05-06T12:46:37+02:00",
       "touchedFrequency": {
-        "docs/archive/TASK-193.md": 1,
-        "docs/tasks/TASK-193.md": 2,
-        "cli/src/main/ts/application/use-cases/govern-system.ts": 1,
-        "docs/INBOX.md": 1
+        "docs/archive/TASK-193.md": 1
       },
       "recentCommitRefs": [
-        "08f0a3a",
-        "2dbf044",
-        "a65e6b2",
-        "a11d567"
+        "08f0a3a"
       ],
       "commitRefOverflow": false
     },
     "TASK-194": {
-      "commitCount": 4,
+      "commitCount": 2,
       "lastCommitDate": "2026-05-05T17:58:26+02:00",
       "touchedFrequency": {
         "docs/archive/TASK-194.md": 1,
-        "docs/tasks/TASK-194.md": 2,
-        "docs/adr/ADR-008-halt-policy-centralization.md": 1,
-        "cli/src/main/ts/domain/services/drift-checker.ts": 1,
-        "cli/src/test/ts/drift-checker.test.ts": 1,
-        "docs/HALT-LOG.md": 1,
-        "docs/HALT.md": 1
+        "docs/tasks/TASK-194.md": 1
       },
       "recentCommitRefs": [
         "a57acef",
-        "f70d002",
-        "354310b",
-        "7bda862"
+        "f70d002"
       ],
       "commitRefOverflow": false
     }
