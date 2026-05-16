@@ -128,6 +128,21 @@ export class DriftChecker {
 
     if (!(await this.fileSystem.exists(`${this.rootPath}/${haltLogPath}`))) {
       details.push(`${haltLogPath} not found.`);
+    } else {
+      // Check for unresolved halt entries (missing or empty Resolution column)
+      const logContent = await this.fileSystem.readFile(`${this.rootPath}/${haltLogPath}`);
+      const dataRows = logContent
+        .split('\n')
+        .filter(line => line.startsWith('|') && !line.includes('---') && !line.includes('Timestamp') && !line.includes('Halt Log'));
+
+      for (const row of dataRows) {
+        const cols = row.split('|').map(c => c.trim()).filter(Boolean);
+        if (cols.length < 5 || !cols[4] || cols[4] === '' || cols[4] === '-') {
+          const taskId = cols[2] ?? 'unknown';
+          const reason = cols[3] ?? 'unknown';
+          details.push(`Unresolved halt in HALT-LOG.md: task=${taskId}, reason=${reason.slice(0, 60)}. Add a Resolution entry or mark as DEFERRED.`);
+        }
+      }
     }
 
     return {
