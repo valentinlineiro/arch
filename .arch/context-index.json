@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-16T22:02:15.517Z",
+  "builtAt": "2026-05-16T22:03:51.738Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -5020,26 +5020,43 @@
   },
   "tasks": {
     "TASK-901": {
-      "commitCount": 2,
-      "lastCommitDate": "2026-05-16T22:02:14+00:00",
+      "commitCount": 3,
+      "lastCommitDate": "2026-05-16T22:03:51+00:00",
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 1,
+        ".arch/focus-ledger.jsonl": 2,
         "docs/tasks/TASK-901.md": 1
       },
       "recentCommitRefs": [
+        "749a0eb",
         "29edbd3",
         "c07bb38"
       ],
       "commitRefOverflow": false
     },
     "TASK-900": {
-      "commitCount": 2,
-      "lastCommitDate": "2026-05-16T20:58:26+00:00",
+      "commitCount": 7,
+      "lastCommitDate": "2026-05-16T22:03:51+00:00",
       "touchedFrequency": {
-        "docs/tasks/TASK-900.md": 1,
+        "docs/archive/TASK-900.md": 1,
+        "docs/tasks/TASK-900.md": 5,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/reflect-breach-log.jsonl": 1,
+        "cli/src/main/ts/application/commands/sandbox-command.ts": 1,
+        "cli/src/main/ts/application/use-cases/escalation-store.ts": 1,
+        "cli/src/main/ts/application/use-cases/loop-engine.ts": 1,
+        "cli/src/main/ts/index.ts": 1,
+        "docs/EVENTS.md": 1,
+        "docs/INBOX.md": 1,
+        "docs/METRICS.md": 1,
+        "docs/tasks/TASK-901.md": 1,
         ".arch/focus-ledger.jsonl": 1
       },
       "recentCommitRefs": [
+        "b9caaeb",
+        "f98b6bd",
+        "805933f",
+        "6b599c1",
+        "574e3d9",
         "2af3378",
         "5548bfd"
       ],
@@ -6763,7 +6780,7 @@
       "commitRefOverflow": false
     },
     "TASK-202": {
-      "commitCount": 8,
+      "commitCount": 7,
       "lastCommitDate": "2026-05-12T10:16:38+02:00",
       "touchedFrequency": {
         ".arch/causal-graph.jsonl": 1,
@@ -6771,7 +6788,7 @@
         ".arch/chronicle.jsonl": 1,
         "docs/archive/TASK-202.md": 1,
         "docs/archive/TASK-205.md": 1,
-        "docs/tasks/TASK-202.md": 4,
+        "docs/tasks/TASK-202.md": 3,
         "docs/INBOX.md": 2,
         "cli/src/main/ts/application/use-cases/validate-task-acs.ts": 1,
         "scripts/arch": 1,
@@ -6789,8 +6806,7 @@
         "42c218f",
         "521119b",
         "f2a849e",
-        "0499443",
-        "8671eb1"
+        "0499443"
       ],
       "commitRefOverflow": false
     },
@@ -7290,34 +7306,6 @@
       },
       "recentCommitRefs": [
         "19e9ad6"
-      ],
-      "commitRefOverflow": false
-    },
-    "TASK-199": {
-      "commitCount": 4,
-      "lastCommitDate": "2026-05-06T12:46:50+02:00",
-      "touchedFrequency": {
-        "arch.config.json": 1,
-        "docs/archive/TASK-199.md": 1,
-        "docs/INBOX.md": 1,
-        "docs/tasks/TASK-199.md": 1
-      },
-      "recentCommitRefs": [
-        "9b4073d",
-        "97026cb",
-        "a13b412",
-        "6ca6d6c"
-      ],
-      "commitRefOverflow": false
-    },
-    "TASK-193": {
-      "commitCount": 1,
-      "lastCommitDate": "2026-05-06T12:46:37+02:00",
-      "touchedFrequency": {
-        "docs/archive/TASK-193.md": 1
-      },
-      "recentCommitRefs": [
-        "08f0a3a"
       ],
       "commitRefOverflow": false
     }
