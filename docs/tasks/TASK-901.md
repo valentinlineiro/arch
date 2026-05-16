@@ -1,37 +1,57 @@
-## TASK-901: Socratic Hansei Wizard: interactive Hansei fill in arch task done
+## TASK-901: Socratic Hansei Wizard: pre-validation completion mechanism for arch task done
 **Meta:** P1 | M | READY | Focus:no | 1-code-reasoning | claude-code | cli/src/main/ts/application/use-cases/, cli/src/main/ts/application/commands/task-command.ts
 
 **Depends:** none
 
 ### Context
 
-Hansei is treated as ceremony — users fill it in hastily or leave fields shallow. The wizard replaces the blank form with targeted Socratic questions assembled from the task's metadata (size, actual turn count, Hansei categories). It forces diagnostic thinking without automating the thinking itself.
+Hansei is treated as ceremony — users fill it in hastily or leave fields shallow. The wizard replaces the blank form with targeted Socratic questions. It forces diagnostic thinking without automating the thinking itself.
 
-**Trigger:** wizard runs when `arch task done TASK-XXX` is called and `## Hansei` is absent or has any field empty/placeholder. Fully-populated Hansei skips the wizard entirely. Non-TTY sessions (CI/pipe) also skip — pre-filled Hansei required.
+**Architectural invariant:** the wizard is a pre-validation completion mechanism, not a second gate. `TaskValidator.validateHansei()` remains the sole constitutional enforcement layer. The wizard is additive UX — it exists to help the human produce a valid Hansei before the validator runs, not to govern the invariant in parallel.
+
+**Correct execution model:**
+```
+arch task done TASK-XXX
+  → check ## Hansei state
+  → if missing OR any required field empty → launch wizard
+  → wizard fills Hansei interactively
+  → TaskValidator.validateHansei() runs on final state
+  → DONE succeeds or fails on validator result
+```
+
+**Trigger:** Hansei state validity — section absent OR any required field (Severity, Category, Decision, Constraint, Cost, Forward Action) is empty or a placeholder. Not task size. Not turn count. Those are hints for wizard question framing, never the canonical trigger.
+
+**Non-TTY:** wizard is skipped. If Hansei is still incomplete after skip, `MarkTaskDone` emits: `Hansei required. Run in a TTY or pre-fill ## Hansei in the task file.` and exits 1.
 
 ### Acceptance Criteria
 
 - [ ] `HanseiWizard` service at `cli/src/main/ts/application/use-cases/hansei-wizard.ts`:
-  - Detects whether Hansei is missing or has empty fields
-  - Runs interactive prompts (readline) when TTY is available
-  - Questions are derived from task metadata: size vs actual turns delta, task class, context paths
-  - Assembles answers into a valid `## Hansei` block matching ADR-019 schema (Severity, Category, Decision, Constraint, Cost, Forward Action)
-  - Returns the completed Hansei string; caller writes it to the task file
+  - `isHanseiComplete(content: string): boolean` — returns true only when all 6 required fields (Severity, Category, Decision, Constraint, Cost, Forward Action) are present and non-empty (not placeholder text, not "None.", not "Not yet started."). This is the canonical trigger condition.
+  - `run(task: Task): Promise<string>` — runs interactive prompts via readline when TTY is available. Returns completed `## Hansei` block string.
   - `file: cli/src/main/ts/application/use-cases/hansei-wizard.ts`
 
-- [ ] `MarkTaskDone.execute()` calls `HanseiWizard` before `TaskValidator.validateHansei()` when in TTY context and Hansei is incomplete.
-  - `file: cli/src/main/ts/application/use-cases/mark-task-done.ts`
+- [ ] `MarkTaskDone.execute()` execution order is strictly:
+  1. Call `HanseiWizard.isHanseiComplete()` — if incomplete and TTY available, call `HanseiWizard.run()` and write result to task file
+  2. If incomplete and non-TTY, emit error and exit 1
+  3. Call `TaskValidator.validateHansei()` — this is the only enforcement layer
+  4. Continue to archive
+  `file: cli/src/main/ts/application/use-cases/mark-task-done.ts`
 
-- [ ] Wizard presents at minimum three questions:
-  1. Severity selection (H0/H1/H2/H3a/H3b) with one-line description of each
-  2. Category selection from valid ADR-019 list with brief labels
-  3. "What is the single constraint discovered?" (free text, min 15 chars enforced)
+- [ ] Wizard presents exactly these questions in order:
+  1. Severity: numbered list (H0 no issue / H1 minor deviation / H2 pattern to track / H3a reject and rework / H3b systemic risk)
+  2. Category: numbered list of valid ADR-019 categories with 5-word descriptions
+  3. Decision: "What happened? One sentence." (free text, min 15 chars)
+  4. Constraint: "What limitation did you discover?" (free text, min 10 chars)
+  5. Cost: "What debt was introduced, if any?" (free text, min 10 chars; "None introduced" is acceptable)
+  6. Forward Action: "What should happen next, if anything?" (free text; "None required" is acceptable)
+  - Complexity metadata (size, turn count) is shown as context before questions, not used as trigger
   - `file: cli/src/main/ts/application/use-cases/hansei-wizard.ts`
 
-- [ ] Non-TTY path (`process.stdout.isTTY === false`): wizard is skipped; if Hansei is missing, `MarkTaskDone` emits a clear error message: `Hansei required. Run in a TTY or pre-fill ## Hansei in the task file.` and exits 1.
-  - `cmd: echo "" | node cli/dist/index.js task done TASK-XXX`
-
-- [ ] Unit tests cover: wizard skipped when Hansei already complete, wizard skipped in non-TTY, assembled Hansei block passes `TaskValidator.validateHansei`.
+- [ ] Unit tests:
+  - `isHanseiComplete` returns true for fully-populated Hansei, false for missing section, false for any empty/placeholder field
+  - `run()` skipped when `isHanseiComplete` returns true (no wizard launched)
+  - Assembled Hansei block passes `TaskValidator.validateHansei()` for all severity/category combinations
+  - Non-TTY path: wizard skipped, `MarkTaskDone` exits 1 with correct message when Hansei incomplete
   - `cmd: npm test`
 
 - [ ] `arch review` passes.
