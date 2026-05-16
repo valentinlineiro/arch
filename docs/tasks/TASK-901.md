@@ -1,5 +1,5 @@
 ## TASK-901: Socratic Hansei Wizard: pre-validation completion mechanism for arch task done
-**Meta:** P1 | M | READY | Focus:yes | 1-code-reasoning | claude-code | cli/src/main/ts/application/use-cases/, cli/src/main/ts/application/commands/task-command.ts
+**Meta:** P1 | M | IN_PROGRESS | Focus:yes | 1-code-reasoning | claude-code | cli/src/main/ts/application/use-cases/, cli/src/main/ts/application/commands/task-command.ts
 
 **Depends:** none
 
