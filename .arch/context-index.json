@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-16T16:27:09.832Z",
+  "builtAt": "2026-05-16T17:05:13.722Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -455,6 +455,24 @@
         "application",
         "commands",
         "validate",
+        "command"
+      ],
+      "criticality": "domain",
+      "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/application/commands/verify-acs-command.ts": {
+      "symbols": [
+        "VerifyAcsCommand"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/services/deterministic-ac-verifier.ts",
+        "cli/src/main/ts/domain/repositories/task-repository.ts",
+        "cli/src/main/ts/infrastructure/cli/output-formatter.ts"
+      ],
+      "tags": [
+        "application",
+        "commands",
+        "verify",
         "command"
       ],
       "criticality": "domain",
@@ -916,7 +934,8 @@
         "cli/src/main/ts/domain/repositories/feedback-repository.ts",
         "cli/src/main/ts/application/use-cases/extract-context-feedback.ts",
         "cli/src/main/ts/application/use-cases/causal-signal-log.ts",
-        "cli/src/main/ts/domain/services/event-logger.ts"
+        "cli/src/main/ts/domain/services/event-logger.ts",
+        "cli/src/main/ts/domain/services/deterministic-ac-verifier.ts"
       ],
       "tags": [
         "application",
@@ -936,7 +955,8 @@
       "imports": [
         "cli/src/main/ts/domain/repositories/task-repository.ts",
         "cli/src/main/ts/domain/models/task.ts",
-        "cli/src/main/ts/domain/models/event.ts"
+        "cli/src/main/ts/domain/models/event.ts",
+        "cli/src/main/ts/domain/repositories/git-repository.ts"
       ],
       "tags": [
         "application",
@@ -1565,6 +1585,29 @@
       "criticality": "core",
       "runtimeUsage": "hot"
     },
+    "cli/src/main/ts/domain/services/deterministic-ac-verifier.ts": {
+      "symbols": [
+        "VerificationType",
+        "ACEvidence",
+        "VerificationResult",
+        "DeterministicACVerifier"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/models/task.ts"
+      ],
+      "tags": [
+        "domain",
+        "services",
+        "deterministic",
+        "verifier",
+        "verification",
+        "type",
+        "evidence",
+        "result"
+      ],
+      "criticality": "core",
+      "runtimeUsage": "hot"
+    },
     "cli/src/main/ts/domain/services/event-logger.ts": {
       "symbols": [
         "LifecycleEvent",
@@ -1817,7 +1860,8 @@
         "cli/src/main/ts/application/use-cases/causal-signal-log.ts",
         "cli/src/main/ts/application/commands/reflect-command.ts",
         "cli/src/main/ts/application/commands/report-command.ts",
-        "cli/src/main/ts/application/commands/init-command.ts"
+        "cli/src/main/ts/application/commands/init-command.ts",
+        "cli/src/main/ts/application/commands/verify-acs-command.ts"
       ],
       "tags": [
         "index"
@@ -4846,12 +4890,23 @@
     }
   },
   "tasks": {
-    "TASK-207": {
-      "commitCount": 4,
-      "lastCommitDate": "2026-05-16T16:27:09+00:00",
+    "TASK-204": {
+      "commitCount": 1,
+      "lastCommitDate": "2026-05-16T17:05:13+00:00",
       "touchedFrequency": {
+        ".arch/focus-ledger.jsonl": 1
+      },
+      "recentCommitRefs": [
+        "27bb2c9"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-207": {
+      "commitCount": 5,
+      "lastCommitDate": "2026-05-16T17:02:09+00:00",
+      "touchedFrequency": {
+        "docs/tasks/TASK-207.md": 3,
         ".arch/focus-ledger.jsonl": 2,
-        "docs/tasks/TASK-207.md": 2,
         "docs/tasks/TASK-233.md": 1,
         "docs/tasks/TASK-242.md": 1,
         "docs/refinement/archive/IDEA-l3-self-archive.md": 1,
@@ -4859,6 +4914,7 @@
         "docs/tasks/TASK-208.md": 1
       },
       "recentCommitRefs": [
+        "b212193",
         "cd18b22",
         "9f4946b",
         "f4da63a",
@@ -7047,30 +7103,21 @@
       "commitRefOverflow": false
     },
     "TASK-191": {
-      "commitCount": 7,
+      "commitCount": 4,
       "lastCommitDate": "2026-05-05T16:47:33+02:00",
       "touchedFrequency": {
         "docs/INBOX.md": 2,
         "docs/archive/TASK-191.md": 1,
-        "docs/tasks/TASK-191.md": 4,
-        "cli/src/main/ts/application/use-cases/merge-resolve.ts": 3,
-        "cli/src/test/ts/merge-resolve.test.ts": 3,
-        "docs/refinement/IDEA-queryable-archive.md": 1,
-        "README.md": 1,
-        "cli/src/main/ts/application/commands/merge-resolve-command.ts": 1,
-        "cli/src/main/ts/domain/services/drift-checker.ts": 1,
-        "cli/src/main/ts/domain/services/task-validator.ts": 1,
-        "cli/src/main/ts/index.ts": 1,
-        "docs/agents/DO.md": 1
+        "docs/tasks/TASK-191.md": 1,
+        "cli/src/main/ts/application/use-cases/merge-resolve.ts": 2,
+        "cli/src/test/ts/merge-resolve.test.ts": 2,
+        "docs/refinement/IDEA-queryable-archive.md": 1
       },
       "recentCommitRefs": [
         "7809ecc",
         "791412a",
         "d17f277",
-        "6b5af28",
-        "b6b3f42",
-        "b648b21",
-        "ffba8f3"
+        "6b5af28"
       ],
       "commitRefOverflow": false
     }
