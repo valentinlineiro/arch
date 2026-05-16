@@ -1,8 +1,8 @@
 # IDEA: ARCH-Core — minimal execution contract for weak models
 **Created:** 2026-05-05
 **Source:** Codex external review — "shrink the live protocol; give a minimal execution contract and keep the rest enforced by tooling"
-**Status:** REJECTED: TTL expired
-**Sessions:** 4
+**Status:** PROMOTED
+**Sessions:** 0  <!-- resurrected 2026-05-16; prior sessions: 4 -->
 **Meta:** P2 | M | local | docs/
 
 ## Problem
@@ -34,4 +34,4 @@ M — authoring ARCH-CORE.md, updating AGENTS.md onboarding to distinguish Core 
 - Dependency chain: IDEA-halt-policy → TASK-193 → this IDEA.
 
 ## Decision
-REJECT: TTL expired — no human engagement across 4+ THINK sessions.
+PROMOTE → TASK-897

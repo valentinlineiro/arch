@@ -1,5 +1,5 @@
 # IDEA: ARCH Review — Priority-Focus Drift Check
-**Status:** DRAFT
+**Status:** PROMOTED
 **Class:** 7-operations
 **Size:** XS
 **Value:** 8
@@ -20,4 +20,4 @@ Add a rule to `arch review` (or the `DriftChecker` service) that:
 XS — It's a logic check in the existing drift checker.
 
 ## Decision
-REJECT: TTL expired — archived without human engagement across multiple THINK sessions.
+PROMOTE → TASK-895

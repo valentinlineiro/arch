@@ -1,8 +1,8 @@
 # IDEA: Approval entry check in arch review
 **Created:** 2026-05-05
 **Source:** Split from IDEA-mechanize-protocol-controls
-**Status:** REJECTED: TTL expired
-**Sessions:** 5
+**Status:** PROMOTED
+**Sessions:** 0  <!-- resurrected 2026-05-16; prior sessions: 5 -->
 **Meta:** P2 | S | claude-code | cli/src/main/ts/domain/services/drift-checker.ts, docs/TASK-FORMAT.md, docs/agents/DO.md
 
 ## Problem
@@ -23,4 +23,4 @@ S
 - Format decision needed: who writes `## Approval` for tasks closed autonomously vs. human-reviewed tasks? This is a governance question, not an implementation question.
 
 ## Decision
-REJECT: TTL expired — no human engagement across 4+ THINK sessions.
+PROMOTE → TASK-894

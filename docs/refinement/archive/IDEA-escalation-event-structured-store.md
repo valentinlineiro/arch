@@ -1,8 +1,8 @@
 # IDEA: escalation-event-structured-store
 **Created:** 2026-05-12
 **Source:** Diagnostic — arch inbox command blind to ANDON_HALT and AWAITING_PROMOTION
-**Status:** DRAFT
-**Sessions:** 1
+**Status:** PROMOTED
+**Sessions:** 0  <!-- resurrected 2026-05-16; prior sessions: 1 -->
 **Meta:** P1 | S | local | cli/src/main/ts/application/use-cases/loop-engine.ts, cli/src/main/ts/application/commands/sandbox-command.ts, cli/src/main/ts/application/use-cases/generate-inbox.ts, docs/agents/THINK.md
 
 ## Problem
@@ -111,4 +111,4 @@ Does NOT evaluate: whether the escalation reason is valid, whether the human's r
 Boundary risk: If a DriftChecker check were added that gates execution on "no OPEN escalations in JSONL," it would appear to be enforcing governance but would actually be verifying that the write path ran — not that the escalation was legitimately resolved. An operator who reads a `PASS` on such a check as "the system has no active halts" has crossed the boundary: `RESOLVED` in the JSONL means the resolution token was written, not that the underlying condition is safe.
 
 ## Decision
-REJECT: TTL expired — archived without human engagement across multiple THINK sessions.
+PROMOTE → TASK-896
