@@ -43,6 +43,19 @@ export class NextCommand {
 
     const task = result.task;
 
+    // --verify: run pre-flight AC check before returning task
+    if (this.args.includes('--verify') && task.content) {
+      const { DeterministicACVerifier } = await import('../../domain/services/deterministic-ac-verifier.js');
+      const verifier = new DeterministicACVerifier(this.rootPath ?? '.');
+      const verResult = await verifier.verify(task);
+      const hasVerifiable = verResult.evidence.some(e => e.type === 'cmd' || e.type === 'file');
+      if (verResult.pass && hasVerifiable) {
+        process.stderr.write(
+          `[PRE-IMPL] ${task.id} — all predicates already pass. Verify this task is not pre-implemented before starting.\n`
+        );
+      }
+    }
+
     if (this.args.includes('--json')) {
       console.log(JSON.stringify({ taskId: task.id, filePath: task.filePath, content: task.content }));
     } else {

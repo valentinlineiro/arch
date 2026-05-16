@@ -142,3 +142,14 @@ ADR-020 ruling names differ from AGFM ruling names. AGFM is authoritative for im
 | `docs/TASK-FORMAT.md` updated with a machine-readable schema | file | ✔ | exists: docs/TASK-FORMAT.md |
 | Unit tests: valid task → OK. Missing Size → WARN. Invalid Pr | prose | ✔ | prose: human-verified (non-automated) |
 | `arch review` passes. | cmd | ✔ | exit 0 (expected 0) |
+
+## [AWAITING_REVIEW] TASK-899 [L3-AUTO]
+**Closed:** 2026-05-16T22:32:23.919Z
+**Title:** Grandfather legacy tasks in HanseiPresent drift check
+
+| AC | Type | Pass | Detail |
+|---|---|---|---|
+| `DriftChecker.checkHanseiPresent()` reads `governance.hansei | file | ✔ | exists: cli/src/main/ts/application/use-cases/drift-checker. |
+| `arch review` produces zero HanseiPresent WARNs for pre-thre | cmd | ✔ | exit 0 (expected 0) |
+| `arch review` still WARNs on post-threshold tasks missing a  | cmd | ✔ | exit 0 (expected 0) |
+| `npm test` passes. | prose | ✔ | prose: human-verified (non-automated) |

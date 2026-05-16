@@ -1,5 +1,5 @@
 ## TASK-906: arch inbox --resurrect: surface TTL-rejected IDEAs for re-evaluation
-**Meta:** P2 | S | READY | Focus:no | 2-code-generation | claude-code | cli/src/main/ts/application/commands/inbox-command.ts, cli/src/main/ts/application/use-cases/generate-inbox.ts
+**Meta:** P2 | S | READY | Focus:yes | 2-code-generation | claude-code | cli/src/main/ts/application/commands/inbox-command.ts, cli/src/main/ts/application/use-cases/generate-inbox.ts
 
 **Depends:** none
 

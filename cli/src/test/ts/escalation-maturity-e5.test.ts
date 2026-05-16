@@ -266,3 +266,80 @@ test('FocusStatusAlignment — REVIEW + Focus:yes → OK (permitted)', async () 
   assert.ok(check, 'FocusStatusAlignment check must exist');
   assert.equal(check.status, 'OK', 'REVIEW + Focus:yes should be permitted');
 });
+
+// ── arch task next --verify tests ──────────────────────────────────────────
+
+test('arch task next --verify — all passing cmd predicates emits PRE-IMPL warning', async () => {
+  const taskWithCmdAC = {
+    id: 'TASK-020',
+    title: 'Test task',
+    status: 'READY',
+    priority: 'P2',
+    size: 'S',
+    class: '7-operations',
+    cli: 'local',
+    context: ['none'],
+    focus: true,
+    depends: [],
+    content: `## TASK-020: Test\n**Meta:** P2 | S | READY | Focus:yes | 7-operations | local | none\n\n### Acceptance Criteria\n- [ ] echo works\n  - \`cmd: echo ok; exit: 0\`\n`,
+    rawMetaLine: '',
+    sprint: '',
+    filePath: 'docs/tasks/TASK-020.md',
+  };
+
+  const taskRepo = new MockTaskRepository([taskWithCmdAC as any]);
+  const fs = new MockFileSystem();
+  // No INBOX timestamp — freshness check passes
+  const command = new NextCommand(taskRepo as any, ['--verify'], undefined, fs as any, '.');
+
+  // Capture stderr
+  const stderrChunks: string[] = [];
+  const origWrite = process.stderr.write.bind(process.stderr);
+  (process.stderr as any).write = (chunk: string) => { stderrChunks.push(chunk); return true; };
+
+  try {
+    await command.execute();
+  } finally {
+    (process.stderr as any).write = origWrite;
+  }
+
+  const stderr = stderrChunks.join('');
+  assert.ok(stderr.includes('[PRE-IMPL]'), `expected PRE-IMPL in stderr, got: ${stderr}`);
+  assert.ok(stderr.includes('TASK-020'), `expected task id in stderr, got: ${stderr}`);
+});
+
+test('arch task next --verify — task with failing cmd predicate emits no PRE-IMPL warning', async () => {
+  const taskWithFailingAC = {
+    id: 'TASK-021',
+    title: 'Failing task',
+    status: 'READY',
+    priority: 'P2',
+    size: 'S',
+    class: '7-operations',
+    cli: 'local',
+    context: ['none'],
+    focus: true,
+    depends: [],
+    content: `## TASK-021: Failing\n**Meta:** P2 | S | READY | Focus:yes | 7-operations | local | none\n\n### Acceptance Criteria\n- [ ] always fails\n  - \`cmd: exit 1; exit: 0\`\n`,
+    rawMetaLine: '',
+    sprint: '',
+    filePath: 'docs/tasks/TASK-021.md',
+  };
+
+  const taskRepo = new MockTaskRepository([taskWithFailingAC as any]);
+  const fs = new MockFileSystem();
+  const command = new NextCommand(taskRepo as any, ['--verify'], undefined, fs as any, '.');
+
+  const stderrChunks: string[] = [];
+  const origWrite = process.stderr.write.bind(process.stderr);
+  (process.stderr as any).write = (chunk: string) => { stderrChunks.push(chunk); return true; };
+
+  try {
+    await command.execute();
+  } finally {
+    (process.stderr as any).write = origWrite;
+  }
+
+  const stderr = stderrChunks.join('');
+  assert.ok(!stderr.includes('[PRE-IMPL]'), `should NOT have PRE-IMPL in stderr, got: ${stderr}`);
+});
