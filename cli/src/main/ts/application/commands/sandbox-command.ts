@@ -55,20 +55,26 @@ export class SandboxCommand {
       process.exit(1);
     }
 
-    const inboxPath = 'docs/INBOX.md';
-    const inbox = await this.fileSystem.readFile(inboxPath);
-    const approvedRegex = new RegExp(`## \\[.*?\\] APPROVED \\| PRIVILEGED_EXECUTION \\| ${focusedTask.id}`, 'g');
+    const store = new EscalationStore(this.fileSystem);
 
-    if (!approvedRegex.test(inbox)) {
-      const ts = new Date().toISOString().slice(0, 16).replace('T', ' ');
-      const entry = `\n## [${ts}] AWAITING_APPROVAL | PRIVILEGED_EXECUTION | ${focusedTask.id}\nEvidence: Agent requested privileged execution for task ${focusedTask.id}.\n`;
-      await this.fileSystem.writeFile(inboxPath, inbox + entry);
-      
-      const store = new EscalationStore(this.fileSystem);
+    // Check for human approval in structured store (not INBOX.md)
+    const isApproved = await store.hasApproval(focusedTask.id);
+
+    if (!isApproved) {
+      // Write approval request to escalation store
       await store.append('ANDON_HALT', focusedTask.id, `Agent requested privileged execution for task ${focusedTask.id}.`);
 
+      // Also write human-readable note to INBOX (write-only — never read by automation)
+      try {
+        const ts = new Date().toISOString().slice(0, 16).replace('T', ' ');
+        const entry = `\n## [${ts}] AWAITING_APPROVAL | PRIVILEGED_EXECUTION | ${focusedTask.id}\nEvidence: Agent requested privileged execution. Approve by running: arch approve ${focusedTask.id}\n`;
+        const inboxPath = 'docs/INBOX.md';
+        const existing = await this.fileSystem.readFile(inboxPath).catch(() => '');
+        await this.fileSystem.writeFile(inboxPath, existing + entry);
+      } catch { /* non-blocking */ }
+
       fmt.warn(`Privileged execution requested for ${focusedTask.id}.`);
-      fmt.info('Halted: Awaiting human approval in INBOX.md. Write APPROVED to proceed.');
+      fmt.info(`Halted: run 'arch approve ${focusedTask.id}' to grant approval.`);
       process.exit(1);
     }
   }

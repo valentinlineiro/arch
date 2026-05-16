@@ -356,39 +356,49 @@ export class LoopEngine {
   }
 
   private async handleResume(options: LoopOptions): Promise<void> {
-    const inboxPath = 'docs/INBOX.md';
-    let inbox = '';
+    const store = new EscalationStore(this.fileSystem);
+
+    // Read halt state from structured store (source of truth — not INBOX.md)
+    let openHalts: import('./escalation-store.js').EscalationEntry[] = [];
     try {
-      inbox = await this.fileSystem.readFile(inboxPath);
+      openHalts = await store.getOpenHalts();
     } catch {
-      console.log('[LOOP] No INBOX.md found. Starting fresh.');
+      console.log('[LOOP] No escalation store found. Starting fresh.');
       await this.execute({ ...options, resume: false });
       return;
     }
 
-    const halts = [...inbox.matchAll(/^## \[.*?\] (ANDON_HALT|AWAITING_\w+) \| (TASK-\d{3})/gm)];
-    const checkpoints = [...inbox.matchAll(/^## \[.*?\] SPRINT_CHECKPOINT \| sprint\//gm)];
-
-    if (halts.length === 0 && checkpoints.length === 0) {
-      console.log('[LOOP] No pending halt conditions in INBOX. Resuming loop...');
+    if (openHalts.length === 0) {
+      console.log('[LOOP] No pending halt conditions. Resuming loop...');
       await this.execute({ ...options, resume: false });
       return;
     }
 
-    if (halts.length > 0) {
-      console.log('[LOOP] Pending INBOX items (resolve before resuming):');
-      for (const m of halts) {
-        console.log(`  ${m[1]}: ${m[2]}`);
+    // Check for APPROVED or REDIRECT resolution signals in structured store
+    const approvals = await store.getOpenByType('APPROVED');
+    const redirects = await store.getOpenByType('REDIRECT');
+
+    const haltedTaskIds = openHalts.map(h => h.subject);
+    const approvedTaskIds = new Set(approvals.map(a => a.subject));
+    const redirectedTaskIds = new Set(redirects.map(r => r.subject));
+
+    const unresolved = haltedTaskIds.filter(id => !approvedTaskIds.has(id) && !redirectedTaskIds.has(id));
+
+    if (unresolved.length > 0) {
+      console.log('[LOOP] Pending halts (unresolved — resolve before resuming):');
+      for (const id of unresolved) {
+        const halt = openHalts.find(h => h.subject === id)!;
+        console.log(`  ANDON_HALT: ${id} — ${halt.reason}`);
       }
-      console.log('\n  Write APPROVE or REDIRECT: <instruction> inline in INBOX, then run arch loop --resume.');
+      console.log('\n  Resolve by running: arch approve <TASK-ID>');
       return;
     }
 
-    if (checkpoints.length > 0) {
-      console.log('[LOOP] Sprint checkpoint detected — async human review complete. Resuming sprint...');
-      this.checkpointWritten = true;
-      await this.execute({ ...options, resume: false });
+    // All halts resolved — resume
+    if (redirectedTaskIds.size > 0) {
+      console.log('[LOOP] REDIRECT signal received — re-routing...');
     }
+    await this.execute({ ...options, resume: false });
   }
 
   private async appendInbox(taskId: string, type: string, evidence: string): Promise<void> {

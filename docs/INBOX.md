@@ -70,3 +70,15 @@ TASK-247 Focus Sovereignty Model is ready for audit.
 
 **Known divergence (see Hansei):**
 ADR-020 ruling names differ from AGFM ruling names. AGFM is authoritative for implementation.
+
+## [AWAITING_REVIEW] TASK-898 [L3-AUTO]
+**Closed:** 2026-05-16T20:58:16.027Z
+**Title:** Fix malformed archive meta lines and add pre-archive guard
+
+| AC | Type | Pass | Detail |
+|---|---|---|---|
+| Scan all files in `docs/archive/TASK-*.md` for malformed met | cmd | ✔ | exit 0 (expected 0) |
+| Backfill missing Size and Class fields in any malformed arch | file | ✔ | exists: docs/archive/ |
+| Add `checkArchiveMetaIntegrity` check to `DriftChecker`: sca | cmd | ✔ | exit 0 (expected 0) |
+| `arch review` passes clean after implementation. | cmd | ✔ | exit 0 (expected 0) |
+| `arch report` exits 0 after backfill (no CRITICAL INTEGRITY  | prose | ✔ | prose: human-verified (non-automated) |

@@ -1,7 +1,7 @@
 import { randomUUID } from 'node:crypto';
 import type { FileSystem } from '../../domain/repositories/file-system.js';
 
-export type EscalationType = 'ANDON_HALT' | 'AWAITING_PROMOTION';
+export type EscalationType = 'ANDON_HALT' | 'AWAITING_PROMOTION' | 'APPROVED' | 'REDIRECT';
 export type EscalationStatus = 'OPEN' | 'RESOLVED';
 
 export interface EscalationEntry {
@@ -65,4 +65,18 @@ export class EscalationStore {
     const resolved = new Set(records.filter(r => r.status === 'RESOLVED').map(r => r.escalation_id));
     return records.filter(r => r.status === 'OPEN' && !resolved.has(r.escalation_id));
   }
+  async getOpenByType(type: EscalationType): Promise<EscalationEntry[]> {
+    const open = await this.getOpen();
+    return open.filter(e => e.type === type);
+  }
+
+  async hasApproval(subject: string): Promise<boolean> {
+    const approved = await this.getOpenByType('APPROVED');
+    return approved.some(e => e.subject === subject);
+  }
+
+  async getOpenHalts(): Promise<EscalationEntry[]> {
+    return this.getOpenByType('ANDON_HALT');
+  }
+
 }

@@ -154,6 +154,19 @@ async function main() {
     case 'verify-acs':
       await new VerifyAcsCommand(taskRepository, rootPath).execute(args);
       break;
+    case 'approve': {
+      // Human-facing: write an APPROVED escalation to .arch/escalations.jsonl
+      const approveTaskId = args[0];
+      if (!approveTaskId || !/^TASK-\d+$/.test(approveTaskId)) {
+        console.error('Usage: arch approve TASK-XXX');
+        process.exit(1);
+      }
+      const { EscalationStore } = await import('./application/use-cases/escalation-store.js');
+      const approveStore = new EscalationStore(fileSystem, rootPath);
+      await approveStore.append('APPROVED', approveTaskId, `Human approval granted via arch approve.`);
+      console.log(`  ✔ Approved ${approveTaskId}. Run arch loop --resume to continue.`);
+      break;
+    }
     case 'init':
       await new InitCommand(rootPath).execute(args);
       break;
