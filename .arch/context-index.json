@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-16T10:41:12.241Z",
+  "builtAt": "2026-05-16T10:49:32.714Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -779,6 +779,7 @@
     "cli/src/main/ts/application/use-cases/generate-inbox.ts": {
       "symbols": [
         "InboxData",
+        "DecisionItem",
         "GenerateInbox"
       ],
       "imports": [
@@ -794,7 +795,9 @@
         "cases",
         "generate",
         "inbox",
-        "data"
+        "data",
+        "decision",
+        "item"
       ],
       "criticality": "domain",
       "runtimeUsage": "hot"
@@ -4818,10 +4821,16 @@
   },
   "tasks": {
     "TASK-245": {
-      "commitCount": 7,
-      "lastCommitDate": "2026-05-16T10:41:12+00:00",
+      "commitCount": 10,
+      "lastCommitDate": "2026-05-16T10:49:32+00:00",
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 5,
+        ".arch/focus-ledger.jsonl": 6,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/reflect-breach-log.jsonl": 1,
+        "docs/EVENTS.md": 1,
+        "docs/refinement/archive/IDEA-decision-gate-loss.md": 1,
+        "docs/tasks/TASK-893.md": 1,
+        "docs/refinement/IDEA-decision-gate-loss.md": 1,
         "docs/tasks/TASK-207.md": 1,
         "docs/tasks/TASK-245.md": 2,
         "docs/refinement/IDEA-Hansei-Governance.md": 1,
@@ -4829,6 +4838,9 @@
         "docs/tasks/TASK-246.md": 1
       },
       "recentCommitRefs": [
+        "231a048",
+        "b371103",
+        "2af74d6",
         "1290ee3",
         "8d55b72",
         "b47f887",
@@ -4836,6 +4848,22 @@
         "439e0a0",
         "8efdb8e",
         "da71de9"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-893": {
+      "commitCount": 2,
+      "lastCommitDate": "2026-05-16T10:46:28+00:00",
+      "touchedFrequency": {
+        "docs/tasks/TASK-893.md": 2,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/reflect-breach-log.jsonl": 1,
+        "docs/EVENTS.md": 1,
+        "docs/refinement/archive/IDEA-decision-gate-loss.md": 1
+      },
+      "recentCommitRefs": [
+        "b5364ab",
+        "b371103"
       ],
       "commitRefOverflow": false
     },
@@ -6772,7 +6800,7 @@
       "commitRefOverflow": false
     },
     "TASK-180": {
-      "commitCount": 2,
+      "commitCount": 1,
       "lastCommitDate": "2026-05-05T11:14:55+02:00",
       "touchedFrequency": {
         "docs/INBOX.md": 1,
@@ -6781,19 +6809,15 @@
         "docs/archive/TASK-179.md": 1,
         "docs/archive/TASK-180.md": 1,
         "docs/archive/TASK-181.md": 1,
-        "docs/archive/TASK-182.md": 1,
-        "docs/PRINCIPLES.md": 1,
-        "docs/agents/THINK.md": 1,
-        "docs/tasks/TASK-180.md": 1
+        "docs/archive/TASK-182.md": 1
       },
       "recentCommitRefs": [
-        "917e54b",
-        "5fc9b65"
+        "917e54b"
       ],
       "commitRefOverflow": false
     },
     "TASK-181": {
-      "commitCount": 4,
+      "commitCount": 2,
       "lastCommitDate": "2026-05-05T11:14:55+02:00",
       "touchedFrequency": {
         "docs/INBOX.md": 1,
@@ -6806,20 +6830,16 @@
         "docs/adr/ADR-006-depends-graph-validation-in-drift-checker.md": 1,
         "docs/tasks/TASK-159.md": 1,
         "docs/tasks/TASK-161.md": 1,
-        "docs/tasks/TASK-181.md": 3,
-        "cli/src/main/ts/domain/services/drift-checker.ts": 1,
-        "cli/src/test/ts/drift-checker.test.ts": 1
+        "docs/tasks/TASK-181.md": 1
       },
       "recentCommitRefs": [
         "917e54b",
-        "0eee198",
-        "2a31948",
-        "ea1a68b"
+        "0eee198"
       ],
       "commitRefOverflow": false
     },
     "TASK-182": {
-      "commitCount": 3,
+      "commitCount": 1,
       "lastCommitDate": "2026-05-05T11:14:55+02:00",
       "touchedFrequency": {
         "docs/INBOX.md": 1,
@@ -6828,16 +6848,10 @@
         "docs/archive/TASK-179.md": 1,
         "docs/archive/TASK-180.md": 1,
         "docs/archive/TASK-181.md": 1,
-        "docs/archive/TASK-182.md": 1,
-        "docs/METRICS.md": 1,
-        "docs/TASK-FORMAT.md": 1,
-        "docs/agents/THINK.md": 1,
-        "docs/tasks/TASK-182.md": 2
+        "docs/archive/TASK-182.md": 1
       },
       "recentCommitRefs": [
-        "917e54b",
-        "753c7bd",
-        "37547d5"
+        "917e54b"
       ],
       "commitRefOverflow": false
     },
