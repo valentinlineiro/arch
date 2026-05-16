@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-16T17:34:39.159Z",
+  "builtAt": "2026-05-16T17:36:38.673Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -309,6 +309,9 @@
       ],
       "imports": [
         "cli/src/main/ts/domain/repositories/file-system.ts",
+        "cli/src/main/ts/application/use-cases/causal-signal-log.ts",
+        "cli/src/main/ts/domain/services/signal-router.ts",
+        "cli/src/main/ts/infrastructure/filesystem/node-file-system.ts",
         "cli/src/main/ts/application/use-cases/reflect-influence-report.ts",
         "cli/src/main/ts/domain/services/config-loader.ts"
       ],
@@ -935,7 +938,8 @@
         "cli/src/main/ts/application/use-cases/extract-context-feedback.ts",
         "cli/src/main/ts/application/use-cases/causal-signal-log.ts",
         "cli/src/main/ts/domain/services/event-logger.ts",
-        "cli/src/main/ts/domain/services/deterministic-ac-verifier.ts"
+        "cli/src/main/ts/domain/services/deterministic-ac-verifier.ts",
+        "cli/src/main/ts/domain/services/signal-router.ts"
       ],
       "tags": [
         "application",
@@ -1810,7 +1814,7 @@
         "aggregate"
       ],
       "criticality": "core",
-      "runtimeUsage": "cold"
+      "runtimeUsage": "hot"
     },
     "cli/src/main/ts/domain/services/task-validator.ts": {
       "symbols": [
@@ -5010,21 +5014,23 @@
   },
   "tasks": {
     "TASK-206": {
-      "commitCount": 2,
-      "lastCommitDate": "2026-05-16T17:34:39+00:00",
+      "commitCount": 3,
+      "lastCommitDate": "2026-05-16T17:36:38+00:00",
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 2
+        ".arch/focus-ledger.jsonl": 3
       },
       "recentCommitRefs": [
+        "500347b",
         "c977c01",
         "60a9dee"
       ],
       "commitRefOverflow": false
     },
     "TASK-246": {
-      "commitCount": 6,
-      "lastCommitDate": "2026-05-16T17:32:59+00:00",
+      "commitCount": 7,
+      "lastCommitDate": "2026-05-16T17:36:38+00:00",
       "touchedFrequency": {
+        "docs/archive/TASK-246.md": 1,
         "cli/src/main/ts/domain/services/signal-router.ts": 1,
         "docs/METRICS.md": 1,
         "docs/tasks/TASK-246.md": 3,
@@ -5034,6 +5040,7 @@
         "docs/tasks/TASK-245.md": 1
       },
       "recentCommitRefs": [
+        "d00e6f7",
         "a1783b8",
         "f1e914d",
         "f4084a0",
@@ -7212,7 +7219,7 @@
       "commitRefOverflow": false
     },
     "TASK-199": {
-      "commitCount": 13,
+      "commitCount": 11,
       "lastCommitDate": "2026-05-06T12:46:50+02:00",
       "touchedFrequency": {
         "arch.config.json": 2,
@@ -7225,9 +7232,8 @@
         "cli/src/main/ts/application/commands/exec-command.ts": 1,
         "cli/src/test/ts/exec-command.test.ts": 1,
         "cli/src/main/ts/domain/services/provider-registry.ts": 1,
-        "cli/src/test/ts/llm-provider.test.ts": 5,
-        "cli/src/main/ts/domain/services/native-provider.ts": 2,
-        "cli/src/main/ts/domain/services/bridge-provider.ts": 2
+        "cli/src/test/ts/llm-provider.test.ts": 3,
+        "cli/src/main/ts/domain/services/native-provider.ts": 2
       },
       "recentCommitRefs": [
         "9b4073d",
@@ -7240,9 +7246,7 @@
         "0e3dfd8",
         "4dba08c",
         "903dd1f",
-        "e5c1ec6",
-        "e4fd6f1",
-        "4dd6543"
+        "e5c1ec6"
       ],
       "commitRefOverflow": false
     },
