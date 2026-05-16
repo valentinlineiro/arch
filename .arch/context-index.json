@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-16T22:13:47.842Z",
+  "builtAt": "2026-05-16T22:20:47.785Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -5037,25 +5037,48 @@
     }
   },
   "tasks": {
-    "TASK-903": {
+    "TASK-904": {
       "commitCount": 1,
-      "lastCommitDate": "2026-05-16T22:13:47+00:00",
+      "lastCommitDate": "2026-05-16T22:20:47+00:00",
       "touchedFrequency": {
         ".arch/focus-ledger.jsonl": 1
       },
       "recentCommitRefs": [
+        "d1323e1"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-903": {
+      "commitCount": 2,
+      "lastCommitDate": "2026-05-16T22:17:03+00:00",
+      "touchedFrequency": {
+        "docs/tasks/TASK-903.md": 1,
+        ".arch/focus-ledger.jsonl": 1
+      },
+      "recentCommitRefs": [
+        "4620fd5",
         "3b45255"
       ],
       "commitRefOverflow": false
     },
     "TASK-901": {
-      "commitCount": 4,
-      "lastCommitDate": "2026-05-16T22:03:57+00:00",
+      "commitCount": 5,
+      "lastCommitDate": "2026-05-16T22:14:13+00:00",
       "touchedFrequency": {
-        "docs/tasks/TASK-901.md": 2,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/reflect-breach-log.jsonl": 1,
+        "cli/src/main/ts/application/use-cases/hansei-wizard.ts": 1,
+        "cli/src/main/ts/application/use-cases/mark-task-done.ts": 1,
+        "cli/src/test/ts/hansei-wizard.test.ts": 1,
+        "cli/src/test/ts/mark-task-done.test.ts": 1,
+        "docs/EVENTS.md": 1,
+        "docs/INBOX.md": 1,
+        "docs/tasks/TASK-901.md": 3,
+        "docs/tasks/TASK-903.md": 1,
         ".arch/focus-ledger.jsonl": 2
       },
       "recentCommitRefs": [
+        "1ce8c9c",
         "27cf263",
         "749a0eb",
         "29edbd3",
@@ -6806,7 +6829,7 @@
       "commitRefOverflow": false
     },
     "TASK-202": {
-      "commitCount": 7,
+      "commitCount": 5,
       "lastCommitDate": "2026-05-12T10:16:38+02:00",
       "touchedFrequency": {
         ".arch/causal-graph.jsonl": 1,
@@ -6814,25 +6837,17 @@
         ".arch/chronicle.jsonl": 1,
         "docs/archive/TASK-202.md": 1,
         "docs/archive/TASK-205.md": 1,
-        "docs/tasks/TASK-202.md": 3,
+        "docs/tasks/TASK-202.md": 2,
         "docs/INBOX.md": 2,
         "cli/src/main/ts/application/use-cases/validate-task-acs.ts": 1,
-        "scripts/arch": 1,
-        "cli/src/main/ts/application/commands/next-command.ts": 1,
-        "cli/src/main/ts/application/use-cases/select-next-task.ts": 1,
-        "cli/src/main/ts/domain/services/drift-checker.ts": 1,
-        "cli/src/main/ts/index.ts": 1,
-        "cli/src/test/ts/drift-checker.test.ts": 1,
-        "cli/src/test/ts/select-next-task.test.ts": 1
+        "scripts/arch": 1
       },
       "recentCommitRefs": [
         "08a0de0",
         "f9cda66",
         "b83e645",
         "42c218f",
-        "521119b",
-        "f2a849e",
-        "0499443"
+        "521119b"
       ],
       "commitRefOverflow": false
     },
@@ -7287,24 +7302,6 @@
       },
       "recentCommitRefs": [
         "50e1083"
-      ],
-      "commitRefOverflow": false
-    },
-    "TASK-213": {
-      "commitCount": 2,
-      "lastCommitDate": "2026-05-06T15:15:05+02:00",
-      "touchedFrequency": {
-        "arch.config.json": 2,
-        "cli/src/main/ts/domain/services/provider-registry.ts": 2,
-        "cli/src/test/ts/exec-command.test.ts": 1,
-        "cli/src/test/ts/llm-provider.test.ts": 2,
-        "docs/adr/ADR-011-unified-provider-strategies.md": 1,
-        "docs/archive/TASK-213.md": 1,
-        "docs/refinement/IDEA-unify-routing-and-tiers.md": 1
-      },
-      "recentCommitRefs": [
-        "f61dad4",
-        "6cc398f"
       ],
       "commitRefOverflow": false
     }
