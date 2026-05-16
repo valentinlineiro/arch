@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-16T17:31:52.399Z",
+  "builtAt": "2026-05-16T17:34:39.159Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -309,9 +309,6 @@
       ],
       "imports": [
         "cli/src/main/ts/domain/repositories/file-system.ts",
-        "cli/src/main/ts/application/use-cases/causal-signal-log.ts",
-        "cli/src/main/ts/domain/services/signal-router.ts",
-        "cli/src/main/ts/infrastructure/filesystem/node-file-system.ts",
         "cli/src/main/ts/application/use-cases/reflect-influence-report.ts",
         "cli/src/main/ts/domain/services/config-loader.ts"
       ],
@@ -938,8 +935,7 @@
         "cli/src/main/ts/application/use-cases/extract-context-feedback.ts",
         "cli/src/main/ts/application/use-cases/causal-signal-log.ts",
         "cli/src/main/ts/domain/services/event-logger.ts",
-        "cli/src/main/ts/domain/services/deterministic-ac-verifier.ts",
-        "cli/src/main/ts/domain/services/signal-router.ts"
+        "cli/src/main/ts/domain/services/deterministic-ac-verifier.ts"
       ],
       "tags": [
         "application",
@@ -1695,7 +1691,6 @@
     },
     "cli/src/main/ts/domain/services/metrics-engine.ts": {
       "symbols": [
-        "HanseiCategoryCount",
         "CalculatedMetrics",
         "GovernanceEvent",
         "MetricsEngine"
@@ -1711,9 +1706,6 @@
         "services",
         "metrics",
         "engine",
-        "hansei",
-        "category",
-        "count",
         "calculated",
         "governance",
         "event"
@@ -1818,7 +1810,7 @@
         "aggregate"
       ],
       "criticality": "core",
-      "runtimeUsage": "hot"
+      "runtimeUsage": "cold"
     },
     "cli/src/main/ts/domain/services/task-validator.ts": {
       "symbols": [
@@ -5018,27 +5010,31 @@
   },
   "tasks": {
     "TASK-206": {
-      "commitCount": 1,
-      "lastCommitDate": "2026-05-16T17:31:52+00:00",
+      "commitCount": 2,
+      "lastCommitDate": "2026-05-16T17:34:39+00:00",
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 1
+        ".arch/focus-ledger.jsonl": 2
       },
       "recentCommitRefs": [
+        "c977c01",
         "60a9dee"
       ],
       "commitRefOverflow": false
     },
     "TASK-246": {
-      "commitCount": 5,
-      "lastCommitDate": "2026-05-16T17:29:19+00:00",
+      "commitCount": 6,
+      "lastCommitDate": "2026-05-16T17:32:59+00:00",
       "touchedFrequency": {
-        "docs/tasks/TASK-246.md": 2,
+        "cli/src/main/ts/domain/services/signal-router.ts": 1,
+        "docs/METRICS.md": 1,
+        "docs/tasks/TASK-246.md": 3,
         ".arch/focus-ledger.jsonl": 3,
         "docs/refinement/IDEA-Hansei-Governance.md": 1,
         "docs/tasks/TASK-244.md": 1,
         "docs/tasks/TASK-245.md": 1
       },
       "recentCommitRefs": [
+        "a1783b8",
         "f1e914d",
         "f4084a0",
         "0f4e4cd",
@@ -7216,7 +7212,7 @@
       "commitRefOverflow": false
     },
     "TASK-199": {
-      "commitCount": 15,
+      "commitCount": 13,
       "lastCommitDate": "2026-05-06T12:46:50+02:00",
       "touchedFrequency": {
         "arch.config.json": 2,
@@ -7229,12 +7225,9 @@
         "cli/src/main/ts/application/commands/exec-command.ts": 1,
         "cli/src/test/ts/exec-command.test.ts": 1,
         "cli/src/main/ts/domain/services/provider-registry.ts": 1,
-        "cli/src/test/ts/llm-provider.test.ts": 6,
+        "cli/src/test/ts/llm-provider.test.ts": 5,
         "cli/src/main/ts/domain/services/native-provider.ts": 2,
-        "cli/src/main/ts/domain/services/bridge-provider.ts": 2,
-        "cli/src/main/ts/domain/services/llm-provider.ts": 1,
-        "docs/refinement/IDEA-openclaw-integration.md": 1,
-        "docs/superpowers/plans/2026-05-06-llm-bridge.md": 1
+        "cli/src/main/ts/domain/services/bridge-provider.ts": 2
       },
       "recentCommitRefs": [
         "9b4073d",
@@ -7249,9 +7242,7 @@
         "903dd1f",
         "e5c1ec6",
         "e4fd6f1",
-        "4dd6543",
-        "fbd75d0",
-        "4f1938c"
+        "4dd6543"
       ],
       "commitRefOverflow": false
     },
