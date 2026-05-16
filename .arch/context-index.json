@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-16T10:52:21.907Z",
+  "builtAt": "2026-05-16T13:08:11.459Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -4821,13 +4821,64 @@
   },
   "tasks": {
     "TASK-245": {
-      "commitCount": 11,
-      "lastCommitDate": "2026-05-16T10:52:21+00:00",
+      "commitCount": 15,
+      "lastCommitDate": "2026-05-16T13:08:11+00:00",
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 7,
-        ".arch/chronicle.jsonl": 1,
-        ".arch/reflect-breach-log.jsonl": 1,
-        "docs/EVENTS.md": 1,
+        ".arch/focus-ledger.jsonl": 8,
+        "docs/refinement/archive/IDEA-approval-entry-check.md": 1,
+        "docs/refinement/archive/IDEA-arch-core-contract.md": 1,
+        "docs/refinement/archive/IDEA-arch-review-priority-drift.md": 2,
+        "docs/refinement/archive/IDEA-escalation-event-structured-store.md": 2,
+        "docs/tasks/TASK-894.md": 1,
+        "docs/tasks/TASK-895.md": 1,
+        "docs/tasks/TASK-896.md": 1,
+        "docs/tasks/TASK-897.md": 1,
+        "docs/refinement/IDEA-resurrection-review.md": 1,
+        ".arch/chronicle.jsonl": 2,
+        ".arch/reflect-breach-log.jsonl": 2,
+        "docs/EVENTS.md": 2,
+        "docs/refinement/archive/IDEA-Hansei-Governance.md": 1,
+        "docs/refinement/archive/IDEA-ac-executable-sandbox.md": 1,
+        "docs/refinement/archive/IDEA-adr-013-phase-label-drift.md": 1,
+        "docs/refinement/archive/IDEA-arch-context-pruning-stale-tasks.md": 1,
+        "docs/refinement/archive/IDEA-arch-metrics-dashboard.md": 1,
+        "docs/refinement/archive/IDEA-arch-upgrade-diff-tool.md": 1,
+        "docs/refinement/archive/IDEA-autonomous-cli.md": 1,
+        "docs/refinement/archive/IDEA-cli-npm.md": 1,
+        "docs/refinement/archive/IDEA-consolidate-cli-commands.md": 1,
+        "docs/refinement/archive/IDEA-consolidate-root-agent-docs.md": 1,
+        "docs/refinement/archive/IDEA-continuous-simplification.md": 1,
+        "docs/refinement/archive/IDEA-cost-aware-protocol.md": 1,
+        "docs/refinement/archive/IDEA-cross-repo-learning-network.md": 1,
+        "docs/refinement/archive/IDEA-do-step-registry-for-kaizen.md": 1,
+        "docs/refinement/archive/IDEA-fix-build-environment.md": 1,
+        "docs/refinement/archive/IDEA-formal-protocol-invariants.md": 1,
+        "docs/refinement/archive/IDEA-handle-parallelism.md": 1,
+        "docs/refinement/archive/IDEA-hansei-drift-check.md": 1,
+        "docs/refinement/archive/IDEA-interactive-test.md": 1,
+        "docs/refinement/archive/IDEA-l3-self-archive.md": 1,
+        "docs/refinement/archive/IDEA-language-policy.md": 1,
+        "docs/refinement/archive/IDEA-mechanize-protocol-controls.md": 1,
+        "docs/refinement/archive/IDEA-migrate-arch-sh-routing-to-typescript.md": 1,
+        "docs/refinement/archive/IDEA-multi-human-governance.md": 1,
+        "docs/refinement/archive/IDEA-multi-repo-arch.md": 1,
+        "docs/refinement/archive/IDEA-ollama-local-integration.md": 1,
+        "docs/refinement/archive/IDEA-open-standard-portability.md": 1,
+        "docs/refinement/archive/IDEA-oracle-archive-distillation.md": 1,
+        "docs/refinement/archive/IDEA-prevent-npm-install-side-effects.md": 1,
+        "docs/refinement/archive/IDEA-probabilistic-trust-model.md": 1,
+        "docs/refinement/archive/IDEA-protocol-replay-regression.md": 1,
+        "docs/refinement/archive/IDEA-prune-stale-documentation.md": 1,
+        "docs/refinement/archive/IDEA-queryable-archive.md": 1,
+        "docs/refinement/archive/IDEA-review-warn-checked-review-tasks.md": 1,
+        "docs/refinement/archive/IDEA-scope-based-sprints.md": 1,
+        "docs/refinement/archive/IDEA-semantic-ac-verification.md": 1,
+        "docs/refinement/archive/IDEA-separate-arch-core-from-content.md": 1,
+        "docs/refinement/archive/IDEA-simplify-by-experience.md": 1,
+        "docs/refinement/archive/IDEA-task-execution-plans.md": 1,
+        "docs/refinement/archive/IDEA-task-idea-metrics-context-price.md": 1,
+        "docs/refinement/archive/IDEA-typed-protocol-schema.md": 1,
+        "docs/refinement/archive/IDEA-value-cost-task-ordering.md": 1,
         "docs/refinement/archive/IDEA-decision-gate-loss.md": 1,
         "docs/tasks/TASK-893.md": 1,
         "docs/refinement/IDEA-decision-gate-loss.md": 1,
@@ -4838,6 +4889,10 @@
         "docs/tasks/TASK-246.md": 1
       },
       "recentCommitRefs": [
+        "42407e3",
+        "c79aad8",
+        "927dc53",
+        "b9412e3",
         "7a329a0",
         "231a048",
         "b371103",
@@ -4849,6 +4904,19 @@
         "439e0a0",
         "8efdb8e",
         "da71de9"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-895": {
+      "commitCount": 2,
+      "lastCommitDate": "2026-05-16T13:08:11+00:00",
+      "touchedFrequency": {
+        "docs/archive/TASK-895.md": 1,
+        "docs/tasks/TASK-895.md": 1
+      },
+      "recentCommitRefs": [
+        "dcf2a98",
+        "d42d606"
       ],
       "commitRefOverflow": false
     },
@@ -5512,7 +5580,7 @@
       "commitRefOverflow": false
     },
     "TASK-190": {
-      "commitCount": 8,
+      "commitCount": 7,
       "lastCommitDate": "2026-05-13T09:21:36+02:00",
       "touchedFrequency": {
         "docs/INBOX.md": 3,
@@ -5522,17 +5590,10 @@
         "cli/src/test/ts/loop-sprint.test.ts": 1,
         "docs/agents/DO.md": 1,
         "docs/guidelines/autonomy.md": 1,
-        "docs/tasks/TASK-190.md": 4,
+        "docs/tasks/TASK-190.md": 3,
         "docs/KAIZEN-LOG.md": 1,
         "docs/RETRO.md": 1,
-        "docs/METRICS.md": 1,
-        "docs/refinement/IDEA-anti-hallucination-acs.md": 1,
-        "docs/refinement/IDEA-conflict-resolver-agent.md": 1,
-        "docs/refinement/IDEA-l3-sprint-autonomy.md": 1,
-        "docs/refinement/IDEA-periodic-architecture-revision.md": 1,
-        "docs/tasks/TASK-188.md": 1,
-        "docs/tasks/TASK-189.md": 1,
-        "docs/tasks/TASK-191.md": 1
+        "docs/METRICS.md": 1
       },
       "recentCommitRefs": [
         "9fd4c5b",
@@ -5541,8 +5602,7 @@
         "81efcc2",
         "8e6fee4",
         "6a553b0",
-        "1befa12",
-        "7574c90"
+        "1befa12"
       ],
       "commitRefOverflow": false
     },
@@ -6596,12 +6656,12 @@
       "commitRefOverflow": false
     },
     "TASK-191": {
-      "commitCount": 8,
+      "commitCount": 7,
       "lastCommitDate": "2026-05-05T16:47:33+02:00",
       "touchedFrequency": {
         "docs/INBOX.md": 2,
         "docs/archive/TASK-191.md": 1,
-        "docs/tasks/TASK-191.md": 5,
+        "docs/tasks/TASK-191.md": 4,
         "cli/src/main/ts/application/use-cases/merge-resolve.ts": 3,
         "cli/src/test/ts/merge-resolve.test.ts": 3,
         "docs/refinement/IDEA-queryable-archive.md": 1,
@@ -6610,14 +6670,7 @@
         "cli/src/main/ts/domain/services/drift-checker.ts": 1,
         "cli/src/main/ts/domain/services/task-validator.ts": 1,
         "cli/src/main/ts/index.ts": 1,
-        "docs/agents/DO.md": 1,
-        "docs/refinement/IDEA-anti-hallucination-acs.md": 1,
-        "docs/refinement/IDEA-conflict-resolver-agent.md": 1,
-        "docs/refinement/IDEA-l3-sprint-autonomy.md": 1,
-        "docs/refinement/IDEA-periodic-architecture-revision.md": 1,
-        "docs/tasks/TASK-188.md": 1,
-        "docs/tasks/TASK-189.md": 1,
-        "docs/tasks/TASK-190.md": 1
+        "docs/agents/DO.md": 1
       },
       "recentCommitRefs": [
         "7809ecc",
@@ -6626,8 +6679,7 @@
         "6b5af28",
         "b6b3f42",
         "b648b21",
-        "ffba8f3",
-        "7574c90"
+        "ffba8f3"
       ],
       "commitRefOverflow": false
     },
@@ -6738,182 +6790,42 @@
       "commitRefOverflow": false
     },
     "TASK-188": {
-      "commitCount": 5,
+      "commitCount": 4,
       "lastCommitDate": "2026-05-05T12:04:19+02:00",
       "touchedFrequency": {
         "docs/archive/TASK-189.md": 1,
-        "docs/tasks/TASK-188.md": 3,
+        "docs/tasks/TASK-188.md": 2,
         "docs/INBOX.md": 1,
         "docs/archive/TASK-188.md": 1,
-        "docs/agents/THINK.md": 2,
-        "docs/refinement/IDEA-anti-hallucination-acs.md": 1,
-        "docs/refinement/IDEA-conflict-resolver-agent.md": 1,
-        "docs/refinement/IDEA-l3-sprint-autonomy.md": 1,
-        "docs/refinement/IDEA-periodic-architecture-revision.md": 1,
-        "docs/tasks/TASK-189.md": 1,
-        "docs/tasks/TASK-190.md": 1,
-        "docs/tasks/TASK-191.md": 1
+        "docs/agents/THINK.md": 2
       },
       "recentCommitRefs": [
         "8383785",
         "a46d13b",
         "07ad83b",
-        "f662022",
-        "7574c90"
+        "f662022"
       ],
       "commitRefOverflow": false
     },
     "TASK-189": {
-      "commitCount": 7,
+      "commitCount": 4,
       "lastCommitDate": "2026-05-05T12:04:19+02:00",
       "touchedFrequency": {
         "docs/archive/TASK-189.md": 1,
-        "docs/tasks/TASK-188.md": 2,
+        "docs/tasks/TASK-188.md": 1,
         "docs/INBOX.md": 2,
-        "docs/tasks/TASK-189.md": 5,
-        "cli/src/main/ts/application/commands/validate-command.ts": 2,
-        "cli/src/main/ts/application/use-cases/mark-task-review.ts": 2,
-        "cli/src/main/ts/application/use-cases/validate-task-acs.ts": 2,
+        "docs/tasks/TASK-189.md": 2,
+        "cli/src/main/ts/application/commands/validate-command.ts": 1,
+        "cli/src/main/ts/application/use-cases/mark-task-review.ts": 1,
+        "cli/src/main/ts/application/use-cases/validate-task-acs.ts": 1,
         "cli/src/test/ts/mark-task-review.test.ts": 1,
-        "cli/src/test/ts/validate-task-acs.test.ts": 2,
-        "cli/src/main/ts/application/commands/task-command.ts": 1,
-        "cli/src/main/ts/index.ts": 1,
-        "docs/TASK-FORMAT.md": 1,
-        "docs/agents/DO.md": 1,
-        "docs/refinement/IDEA-anti-hallucination-acs.md": 1,
-        "docs/refinement/IDEA-conflict-resolver-agent.md": 1,
-        "docs/refinement/IDEA-l3-sprint-autonomy.md": 1,
-        "docs/refinement/IDEA-periodic-architecture-revision.md": 1,
-        "docs/tasks/TASK-190.md": 1,
-        "docs/tasks/TASK-191.md": 1
+        "cli/src/test/ts/validate-task-acs.test.ts": 1
       },
       "recentCommitRefs": [
         "8383785",
         "c35780f",
         "4373d58",
-        "aa7d301",
-        "f056083",
-        "0e1bf6a",
-        "7574c90"
-      ],
-      "commitRefOverflow": false
-    },
-    "TASK-184": {
-      "commitCount": 2,
-      "lastCommitDate": "2026-05-05T11:17:19+02:00",
-      "touchedFrequency": {
-        "docs/INBOX.md": 2,
-        "docs/archive/TASK-184.md": 1,
-        "arch.config.json": 1,
-        "cli/src/main/ts/domain/services/drift-checker.ts": 1,
-        "cli/src/test/ts/drift-checker.test.ts": 1,
-        "docs/tasks/TASK-184.md": 1
-      },
-      "recentCommitRefs": [
-        "5e5322f",
-        "a2ebaa7"
-      ],
-      "commitRefOverflow": false
-    },
-    "TASK-159": {
-      "commitCount": 1,
-      "lastCommitDate": "2026-05-05T11:14:55+02:00",
-      "touchedFrequency": {
-        "docs/INBOX.md": 1,
-        "docs/archive/TASK-159.md": 1,
-        "docs/archive/TASK-178.md": 1,
-        "docs/archive/TASK-179.md": 1,
-        "docs/archive/TASK-180.md": 1,
-        "docs/archive/TASK-181.md": 1,
-        "docs/archive/TASK-182.md": 1
-      },
-      "recentCommitRefs": [
-        "917e54b"
-      ],
-      "commitRefOverflow": false
-    },
-    "TASK-178": {
-      "commitCount": 1,
-      "lastCommitDate": "2026-05-05T11:14:55+02:00",
-      "touchedFrequency": {
-        "docs/INBOX.md": 1,
-        "docs/archive/TASK-159.md": 1,
-        "docs/archive/TASK-178.md": 1,
-        "docs/archive/TASK-179.md": 1,
-        "docs/archive/TASK-180.md": 1,
-        "docs/archive/TASK-181.md": 1,
-        "docs/archive/TASK-182.md": 1
-      },
-      "recentCommitRefs": [
-        "917e54b"
-      ],
-      "commitRefOverflow": false
-    },
-    "TASK-179": {
-      "commitCount": 1,
-      "lastCommitDate": "2026-05-05T11:14:55+02:00",
-      "touchedFrequency": {
-        "docs/INBOX.md": 1,
-        "docs/archive/TASK-159.md": 1,
-        "docs/archive/TASK-178.md": 1,
-        "docs/archive/TASK-179.md": 1,
-        "docs/archive/TASK-180.md": 1,
-        "docs/archive/TASK-181.md": 1,
-        "docs/archive/TASK-182.md": 1
-      },
-      "recentCommitRefs": [
-        "917e54b"
-      ],
-      "commitRefOverflow": false
-    },
-    "TASK-180": {
-      "commitCount": 1,
-      "lastCommitDate": "2026-05-05T11:14:55+02:00",
-      "touchedFrequency": {
-        "docs/INBOX.md": 1,
-        "docs/archive/TASK-159.md": 1,
-        "docs/archive/TASK-178.md": 1,
-        "docs/archive/TASK-179.md": 1,
-        "docs/archive/TASK-180.md": 1,
-        "docs/archive/TASK-181.md": 1,
-        "docs/archive/TASK-182.md": 1
-      },
-      "recentCommitRefs": [
-        "917e54b"
-      ],
-      "commitRefOverflow": false
-    },
-    "TASK-181": {
-      "commitCount": 1,
-      "lastCommitDate": "2026-05-05T11:14:55+02:00",
-      "touchedFrequency": {
-        "docs/INBOX.md": 1,
-        "docs/archive/TASK-159.md": 1,
-        "docs/archive/TASK-178.md": 1,
-        "docs/archive/TASK-179.md": 1,
-        "docs/archive/TASK-180.md": 1,
-        "docs/archive/TASK-181.md": 1,
-        "docs/archive/TASK-182.md": 1
-      },
-      "recentCommitRefs": [
-        "917e54b"
-      ],
-      "commitRefOverflow": false
-    },
-    "TASK-182": {
-      "commitCount": 1,
-      "lastCommitDate": "2026-05-05T11:14:55+02:00",
-      "touchedFrequency": {
-        "docs/INBOX.md": 1,
-        "docs/archive/TASK-159.md": 1,
-        "docs/archive/TASK-178.md": 1,
-        "docs/archive/TASK-179.md": 1,
-        "docs/archive/TASK-180.md": 1,
-        "docs/archive/TASK-181.md": 1,
-        "docs/archive/TASK-182.md": 1
-      },
-      "recentCommitRefs": [
-        "917e54b"
+        "aa7d301"
       ],
       "commitRefOverflow": false
     }
