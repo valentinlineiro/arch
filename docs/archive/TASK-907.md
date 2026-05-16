@@ -1,5 +1,6 @@
 ## TASK-907: Task template linter: validate TASK-FORMAT schema in arch review
-**Meta:** P1 | S | REVIEW | Focus:no | 7-operations | claude-code | cli/src/main/ts/application/use-cases/drift-checker.ts, docs/TASK-FORMAT.md
+**Meta:** P1 | S | DONE | Focus:no | 7-operations | claude-code | cli/src/main/ts/application/use-cases/drift-checker.ts, docs/TASK-FORMAT.md
+**Closed-at:** 2026-05-16T22:30:49.160Z
 
 **Depends:** none
 
