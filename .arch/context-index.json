@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-16T15:43:11.238Z",
+  "builtAt": "2026-05-16T15:45:38.777Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -4842,21 +4842,31 @@
   },
   "tasks": {
     "TASK-203": {
-      "commitCount": 2,
-      "lastCommitDate": "2026-05-16T15:43:11+00:00",
+      "commitCount": 3,
+      "lastCommitDate": "2026-05-16T15:45:38+00:00",
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 2
+        ".arch/focus-ledger.jsonl": 3
       },
       "recentCommitRefs": [
+        "456ec7b",
         "d0b2bd6",
         "56d0664"
       ],
       "commitRefOverflow": false
     },
     "TASK-245": {
-      "commitCount": 22,
-      "lastCommitDate": "2026-05-16T15:43:11+00:00",
+      "commitCount": 23,
+      "lastCommitDate": "2026-05-16T15:43:23+00:00",
       "touchedFrequency": {
+        ".arch/causal-signal.jsonl": 1,
+        ".arch/chronicle.jsonl": 3,
+        ".arch/reflect-breach-log.jsonl": 3,
+        "cli/src/main/ts/application/commands/reflect-command.ts": 1,
+        "cli/src/main/ts/application/use-cases/drift-checker.ts": 1,
+        "cli/src/main/ts/domain/services/hansei-auditor.ts": 1,
+        "cli/src/test/ts/hansei-auditor.test.ts": 1,
+        "docs/EVENTS.md": 3,
+        "docs/tasks/TASK-203.md": 1,
         "docs/archive/TASK-245.md": 1,
         "docs/tasks/TASK-245.md": 4,
         ".arch/focus-ledger.jsonl": 13,
@@ -4869,9 +4879,6 @@
         "docs/tasks/TASK-896.md": 1,
         "docs/tasks/TASK-897.md": 1,
         "docs/refinement/IDEA-resurrection-review.md": 1,
-        ".arch/chronicle.jsonl": 2,
-        ".arch/reflect-breach-log.jsonl": 2,
-        "docs/EVENTS.md": 2,
         "docs/refinement/archive/IDEA-Hansei-Governance.md": 1,
         "docs/refinement/archive/IDEA-ac-executable-sandbox.md": 1,
         "docs/refinement/archive/IDEA-adr-013-phase-label-drift.md": 1,
@@ -4923,6 +4930,7 @@
         "docs/tasks/TASK-246.md": 1
       },
       "recentCommitRefs": [
+        "4976950",
         "d5df2a9",
         "9a16dcf",
         "0e146f4",
@@ -4941,8 +4949,7 @@
         "1290ee3",
         "8d55b72",
         "b47f887",
-        "90f9d83",
-        "439e0a0"
+        "90f9d83"
       ],
       "commitRefOverflow": true
     },
@@ -6963,11 +6970,11 @@
       "commitRefOverflow": false
     },
     "TASK-196": {
-      "commitCount": 4,
+      "commitCount": 3,
       "lastCommitDate": "2026-05-05T13:50:27+02:00",
       "touchedFrequency": {
         "docs/archive/TASK-196.md": 1,
-        "docs/tasks/TASK-196.md": 2,
+        "docs/tasks/TASK-196.md": 1,
         "docs/tasks/TASK-199.md": 1,
         "cli/src/main/ts/application/commands/task-command.ts": 1,
         "cli/src/test/ts/task-command.test.ts": 1
@@ -6975,8 +6982,7 @@
       "recentCommitRefs": [
         "5323fd5",
         "a8c0a91",
-        "e8cf678",
-        "d8de197"
+        "e8cf678"
       ],
       "commitRefOverflow": false
     }
