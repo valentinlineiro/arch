@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-16T22:37:18.418Z",
+  "builtAt": "2026-05-16T22:39:21.908Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -5038,13 +5038,65 @@
     }
   },
   "tasks": {
-    "TASK-906": {
-      "commitCount": 2,
-      "lastCommitDate": "2026-05-16T22:37:18+00:00",
+    "TASK-206": {
+      "commitCount": 6,
+      "lastCommitDate": "2026-05-16T22:39:21+00:00",
       "touchedFrequency": {
+        ".arch/focus-ledger.jsonl": 4,
+        ".arch/reflect-breach-log.jsonl": 1,
+        "docs/refinement/archive/IDEA-architectural-tension-capture.md": 1,
+        "docs/refinement/archive/IDEA-automate-turn-count-recording.md": 1,
+        "docs/refinement/archive/IDEA-cross-layer-coverage-identity.md": 1,
+        "docs/refinement/archive/IDEA-dynamic-model-provisioning.md": 1,
+        "docs/refinement/archive/IDEA-excision-legitimacy-check.md": 1,
+        "docs/refinement/archive/IDEA-feature-branch-workflow.md": 1,
+        "docs/refinement/archive/IDEA-focus-status-alignment.md": 1,
+        "docs/refinement/archive/IDEA-loop-load-balancing.md": 1,
+        "docs/refinement/archive/IDEA-openclaw-integration.md": 1,
+        "docs/refinement/archive/IDEA-optimize-decomposition-for-local-llms.md": 1,
+        "docs/refinement/archive/IDEA-parallel-tasks.md": 1,
+        "docs/refinement/archive/IDEA-rag-context-retrieval.md": 1,
+        "docs/refinement/archive/IDEA-resurrection-review.md": 1,
+        "docs/refinement/archive/IDEA-sentinel-log-infrastructure.md": 1,
+        "docs/refinement/archive/IDEA-task-template-linter.md": 1,
+        "docs/tasks/TASK-898.md": 1,
+        "docs/tasks/TASK-903.md": 1,
+        "docs/tasks/TASK-904.md": 1,
+        "docs/tasks/TASK-905.md": 1,
+        "docs/tasks/TASK-906.md": 1,
+        "docs/tasks/TASK-907.md": 1,
+        "docs/tasks/TASK-901.md": 1
+      },
+      "recentCommitRefs": [
+        "f451e84",
+        "fb9c483",
+        "c07bb38",
+        "500347b",
+        "c977c01",
+        "60a9dee"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-906": {
+      "commitCount": 6,
+      "lastCommitDate": "2026-05-16T22:39:21+00:00",
+      "touchedFrequency": {
+        "docs/archive/TASK-906.md": 1,
+        "docs/tasks/TASK-906.md": 3,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/reflect-breach-log.jsonl": 1,
+        "cli/src/main/ts/application/commands/inbox-command.ts": 1,
+        "cli/src/main/ts/application/use-cases/generate-inbox.ts": 1,
+        "docs/EVENTS.md": 1,
+        "docs/INBOX.md": 1,
+        "docs/agents/THINK.md": 1,
         ".arch/focus-ledger.jsonl": 2
       },
       "recentCommitRefs": [
+        "32e413d",
+        "993dc32",
+        "754400c",
+        "340bd1a",
         "f25cda8",
         "5064657"
       ],
@@ -5272,44 +5324,6 @@
         "c17a8ee",
         "2f9f680",
         "9be3d00"
-      ],
-      "commitRefOverflow": false
-    },
-    "TASK-206": {
-      "commitCount": 5,
-      "lastCommitDate": "2026-05-16T20:52:14+00:00",
-      "touchedFrequency": {
-        ".arch/reflect-breach-log.jsonl": 1,
-        "docs/refinement/archive/IDEA-architectural-tension-capture.md": 1,
-        "docs/refinement/archive/IDEA-automate-turn-count-recording.md": 1,
-        "docs/refinement/archive/IDEA-cross-layer-coverage-identity.md": 1,
-        "docs/refinement/archive/IDEA-dynamic-model-provisioning.md": 1,
-        "docs/refinement/archive/IDEA-excision-legitimacy-check.md": 1,
-        "docs/refinement/archive/IDEA-feature-branch-workflow.md": 1,
-        "docs/refinement/archive/IDEA-focus-status-alignment.md": 1,
-        "docs/refinement/archive/IDEA-loop-load-balancing.md": 1,
-        "docs/refinement/archive/IDEA-openclaw-integration.md": 1,
-        "docs/refinement/archive/IDEA-optimize-decomposition-for-local-llms.md": 1,
-        "docs/refinement/archive/IDEA-parallel-tasks.md": 1,
-        "docs/refinement/archive/IDEA-rag-context-retrieval.md": 1,
-        "docs/refinement/archive/IDEA-resurrection-review.md": 1,
-        "docs/refinement/archive/IDEA-sentinel-log-infrastructure.md": 1,
-        "docs/refinement/archive/IDEA-task-template-linter.md": 1,
-        "docs/tasks/TASK-898.md": 1,
-        "docs/tasks/TASK-903.md": 1,
-        "docs/tasks/TASK-904.md": 1,
-        "docs/tasks/TASK-905.md": 1,
-        "docs/tasks/TASK-906.md": 1,
-        "docs/tasks/TASK-907.md": 1,
-        "docs/tasks/TASK-901.md": 1,
-        ".arch/focus-ledger.jsonl": 3
-      },
-      "recentCommitRefs": [
-        "fb9c483",
-        "c07bb38",
-        "500347b",
-        "c977c01",
-        "60a9dee"
       ],
       "commitRefOverflow": false
     },
@@ -6632,18 +6646,14 @@
       "commitRefOverflow": false
     },
     "TASK-210": {
-      "commitCount": 3,
+      "commitCount": 1,
       "lastCommitDate": "2026-05-12T16:37:24+02:00",
       "touchedFrequency": {
         "cli/src/main/ts/application/use-cases/generate-inbox.ts": 1,
-        "docs/tasks/TASK-210.md": 1,
-        "cli/src/main/ts/application/use-cases/context-inference.ts": 2,
-        "cli/src/test/ts/context-inference.test.ts": 1
+        "docs/tasks/TASK-210.md": 1
       },
       "recentCommitRefs": [
-        "dc2b86c",
-        "e9b1cbf",
-        "256f2be"
+        "dc2b86c"
       ],
       "commitRefOverflow": false
     },
@@ -7318,17 +7328,16 @@
       "commitRefOverflow": false
     },
     "TASK-215": {
-      "commitCount": 11,
+      "commitCount": 9,
       "lastCommitDate": "2026-05-07T16:11:15+02:00",
       "touchedFrequency": {
         "docs/archive/TASK-215.md": 1,
-        "docs/tasks/TASK-215.md": 4,
+        "docs/tasks/TASK-215.md": 3,
         "docs/adr/ADR-013-two-tier-drift-detection.md": 1,
         "docs/agents/THINK.md": 1,
         "cli/src/main/ts/domain/services/drift-checker.ts": 4,
         "cli/src/test/ts/drift-checker.test.ts": 4,
-        "docs/superpowers/plans/2026-05-07-drift-detection.md": 1,
-        "docs/superpowers/specs/2026-05-07-drift-detection-design.md": 2
+        "docs/superpowers/plans/2026-05-07-drift-detection.md": 1
       },
       "recentCommitRefs": [
         "f35179c",
@@ -7339,28 +7348,7 @@
         "ecb32be",
         "2851204",
         "a2cb2a1",
-        "07cee16",
-        "4b86cdf",
-        "36c0d8c"
-      ],
-      "commitRefOverflow": false
-    },
-    "TASK-214": {
-      "commitCount": 2,
-      "lastCommitDate": "2026-05-07T15:15:22+02:00",
-      "touchedFrequency": {
-        "docs/archive/TASK-214.md": 1,
-        "cli/src/main/ts/application/commands/exec-command.ts": 1,
-        "cli/src/main/ts/application/use-cases/loop-engine.ts": 1,
-        "cli/src/main/ts/domain/services/bridge-provider.ts": 1,
-        "cli/src/main/ts/domain/services/sandbox.ts": 1,
-        "cli/src/test/ts/llm-provider.test.ts": 1,
-        "docs/adr/ADR-012-exec-bridge-layer-bugfixes.md": 1,
-        "docs/tasks/TASK-214.md": 1
-      },
-      "recentCommitRefs": [
-        "14b15ec",
-        "7a0e5e7"
+        "07cee16"
       ],
       "commitRefOverflow": false
     }
