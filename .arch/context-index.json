@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-17T07:11:10.682Z",
+  "builtAt": "2026-05-17T07:12:34.499Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -5040,13 +5040,26 @@
     }
   },
   "tasks": {
-    "TASK-909": {
-      "commitCount": 2,
-      "lastCommitDate": "2026-05-17T07:11:10+00:00",
+    "TASK-910": {
+      "commitCount": 1,
+      "lastCommitDate": "2026-05-17T07:12:34+00:00",
       "touchedFrequency": {
+        ".arch/focus-ledger.jsonl": 1
+      },
+      "recentCommitRefs": [
+        "a48ad9b"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-909": {
+      "commitCount": 3,
+      "lastCommitDate": "2026-05-17T07:11:16+00:00",
+      "touchedFrequency": {
+        "docs/tasks/TASK-909.md": 1,
         ".arch/focus-ledger.jsonl": 2
       },
       "recentCommitRefs": [
+        "9dd1325",
         "bfea1fb",
         "5a9e783"
       ],
@@ -7331,20 +7344,16 @@
       "commitRefOverflow": false
     },
     "TASK-216": {
-      "commitCount": 6,
+      "commitCount": 3,
       "lastCommitDate": "2026-05-08T13:57:16+02:00",
       "touchedFrequency": {
         "docs/tasks/TASK-216.md": 1,
-        "docs/superpowers/specs/2026-05-08-automatic-entity-linking-design.md": 4,
-        "docs/archive/TASK-216.md": 1
+        "docs/superpowers/specs/2026-05-08-automatic-entity-linking-design.md": 2
       },
       "recentCommitRefs": [
         "f1773a7",
         "16aa350",
-        "56592af",
-        "19d1a17",
-        "6302202",
-        "daab21e"
+        "56592af"
       ],
       "commitRefOverflow": false
     },
