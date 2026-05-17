@@ -40,5 +40,5 @@ Backlog navigation requires manually reading each task file to understand the de
 **Category:** [AuditGap]
 **Decision:** DepsCommand implemented with single-task and --all modes. Cycle detection via DFS. Unblocking leverage computed by counting transitive dependents. arch deps --all shows TASK-206 unlocks 7 tasks.
 **Constraint:** arch deps scans only active tasks (docs/tasks/) — archived tasks not traversed. Leverage count excludes archived dependents.
-**Cost:** None.
+**Cost:** No architectural debt introduced — read-only command, no state mutation.
 **Forward Action:** None required.
