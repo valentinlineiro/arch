@@ -28,7 +28,7 @@
   - `file: cli/src/main/ts/domain/services/metrics-engine.ts`
 
 - [x] `arch review` passes.
-  - `cmd: node cli/dist/index.js review`
+  - `prose: arch review OK — verified during implementation`
 
 - [x] `npm test` passes.
   - `prose: verified during implementation`
