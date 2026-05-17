@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-17T21:39:03.458Z",
+  "builtAt": "2026-05-17T22:06:25.440Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -5126,45 +5126,81 @@
   },
   "tasks": {
     "TASK-919": {
-      "commitCount": 1,
-      "lastCommitDate": "2026-05-17T21:39:03+00:00",
+      "commitCount": 2,
+      "lastCommitDate": "2026-05-17T22:06:25+00:00",
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 1
+        ".arch/focus-ledger.jsonl": 2
       },
       "recentCommitRefs": [
+        "2c3cf58",
         "ef24048"
       ],
       "commitRefOverflow": false
     },
-    "TASK-923": {
-      "commitCount": 1,
-      "lastCommitDate": "2026-05-17T21:38:45+00:00",
-      "touchedFrequency": {
-        "docs/tasks/TASK-923.md": 1
-      },
-      "recentCommitRefs": [
-        "3618959"
-      ],
-      "commitRefOverflow": false
-    },
     "TASK-922": {
-      "commitCount": 4,
-      "lastCommitDate": "2026-05-17T21:37:43+00:00",
+      "commitCount": 7,
+      "lastCommitDate": "2026-05-17T22:06:25+00:00",
       "touchedFrequency": {
-        "docs/tasks/TASK-922.md": 2,
+        "docs/archive/TASK-922.md": 1,
+        "docs/tasks/TASK-922.md": 4,
+        ".arch/causal-signal.jsonl": 1,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/reflect-breach-log.jsonl": 2,
+        "cli/src/main/ts/application/commands/capture-command.ts": 1,
+        "cli/src/main/ts/index.ts": 1,
+        "docs/AGENTS.md": 1,
+        "docs/EVENTS.md": 1,
+        "docs/INBOX.md": 1,
+        "docs/tasks/TASK-919.md": 2,
+        "docs/tasks/TASK-923.md": 1,
         ".arch/focus-ledger.jsonl": 2,
-        ".arch/reflect-breach-log.jsonl": 1,
         "docs/tasks/TASK-917.md": 1,
         "docs/tasks/TASK-918.md": 1,
-        "docs/tasks/TASK-919.md": 1,
         "docs/tasks/TASK-920.md": 1,
         "docs/tasks/TASK-921.md": 1
       },
       "recentCommitRefs": [
+        "1e12c92",
+        "8825933",
+        "0b82b1d",
         "57fd872",
         "d96345f",
         "8cc2646",
         "a7f70d0"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-925": {
+      "commitCount": 1,
+      "lastCommitDate": "2026-05-17T22:06:24+00:00",
+      "touchedFrequency": {
+        "docs/tasks/TASK-925.md": 1
+      },
+      "recentCommitRefs": [
+        "007b16e"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-924": {
+      "commitCount": 1,
+      "lastCommitDate": "2026-05-17T22:06:23+00:00",
+      "touchedFrequency": {
+        "docs/tasks/TASK-924.md": 1
+      },
+      "recentCommitRefs": [
+        "f80a5e5"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-923": {
+      "commitCount": 2,
+      "lastCommitDate": "2026-05-17T21:39:15+00:00",
+      "touchedFrequency": {
+        "docs/tasks/TASK-923.md": 2
+      },
+      "recentCommitRefs": [
+        "ce74295",
+        "3618959"
       ],
       "commitRefOverflow": false
     },
