@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-16T22:48:54.914Z",
+  "builtAt": "2026-05-17T07:10:24.264Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -354,6 +354,8 @@
         "cli/src/main/ts/domain/repositories/file-system.ts",
         "cli/src/main/ts/domain/services/reviewer.ts",
         "cli/src/main/ts/application/use-cases/drift-checker.ts",
+        "cli/src/main/ts/domain/services/deterministic-ac-verifier.ts",
+        "cli/src/main/ts/application/use-cases/hansei-wizard.ts",
         "cli/src/main/ts/infrastructure/cli/output-formatter.ts"
       ],
       "tags": [
@@ -886,7 +888,7 @@
         "block"
       ],
       "criticality": "domain",
-      "runtimeUsage": "cold"
+      "runtimeUsage": "hot"
     },
     "cli/src/main/ts/application/use-cases/load-bearing-memory.ts": {
       "symbols": [
@@ -5038,36 +5040,101 @@
     }
   },
   "tasks": {
-    "TASK-206": {
-      "commitCount": 8,
-      "lastCommitDate": "2026-05-16T22:48:54+00:00",
+    "TASK-909": {
+      "commitCount": 1,
+      "lastCommitDate": "2026-05-17T07:10:24+00:00",
       "touchedFrequency": {
+        ".arch/focus-ledger.jsonl": 1
+      },
+      "recentCommitRefs": [
+        "5a9e783"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-908": {
+      "commitCount": 1,
+      "lastCommitDate": "2026-05-17T07:09:19+00:00",
+      "touchedFrequency": {
+        "docs/tasks/TASK-908.md": 1
+      },
+      "recentCommitRefs": [
+        "413371f"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-206": {
+      "commitCount": 11,
+      "lastCommitDate": "2026-05-17T06:03:25+00:00",
+      "touchedFrequency": {
+        "docs/refinement/archive/IDEA-deterministic-reconciliation.md": 1,
+        "docs/refinement/archive/IDEA-hansei-pattern-synthesis.md": 1,
+        "docs/refinement/archive/IDEA-scoped-review.md": 1,
+        "docs/tasks/TASK-908.md": 1,
+        "docs/tasks/TASK-909.md": 1,
+        "docs/tasks/TASK-910.md": 1,
+        "docs/refinement/IDEA-arch-deps.md": 1,
+        "docs/refinement/IDEA-arch-explain.md": 1,
+        "docs/refinement/IDEA-cost-tracking.md": 1,
+        "docs/refinement/IDEA-deterministic-reconciliation.md": 1,
+        "docs/refinement/IDEA-hansei-pattern-synthesis.md": 1,
+        "docs/refinement/IDEA-scoped-review.md": 1,
+        "docs/refinement/IDEA-session-identity.md": 1,
+        "docs/refinement/IDEA-task-split.md": 1,
+        "docs/refinement/IDEA-task-templates.md": 1,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/reflect-breach-log.jsonl": 2,
+        "cli/src/main/ts/application/use-cases/hansei-wizard.ts": 1,
+        "docs/EVENTS.md": 1,
+        "docs/INBOX.md": 1,
+        "docs/METRICS.md": 1,
+        "docs/archive/TASK-203.md": 1,
+        "docs/archive/TASK-204.md": 1,
+        "docs/archive/TASK-207.md": 1,
+        "docs/archive/TASK-208.md": 1,
+        "docs/archive/TASK-231.md": 1,
+        "docs/archive/TASK-234.md": 1,
+        "docs/archive/TASK-235.md": 1,
+        "docs/archive/TASK-236.md": 1,
+        "docs/archive/TASK-237.md": 1,
+        "docs/archive/TASK-246.md": 1,
+        "docs/archive/TASK-898.md": 1,
+        "docs/archive/TASK-899.md": 1,
+        "docs/archive/TASK-900.md": 1,
+        "docs/archive/TASK-902.md": 1,
+        "docs/archive/TASK-903.md": 1,
+        "docs/archive/TASK-904.md": 1,
+        "docs/archive/TASK-905.md": 1,
+        "docs/archive/TASK-906.md": 1,
+        "docs/archive/TASK-907.md": 1,
+        "docs/refinement/archive/IDEA-architectural-tension-capture.md": 2,
+        "docs/refinement/archive/IDEA-automate-turn-count-recording.md": 2,
+        "docs/refinement/archive/IDEA-cross-layer-coverage-identity.md": 2,
+        "docs/refinement/archive/IDEA-dynamic-model-provisioning.md": 2,
+        "docs/refinement/archive/IDEA-excision-legitimacy-check.md": 2,
+        "docs/refinement/archive/IDEA-feature-branch-workflow.md": 2,
+        "docs/refinement/archive/IDEA-fix-phase-naming-drift.md": 1,
+        "docs/refinement/archive/IDEA-loop-load-balancing.md": 2,
+        "docs/refinement/archive/IDEA-optimize-decomposition-for-local-llms.md": 2,
+        "docs/refinement/archive/IDEA-rag-context-retrieval.md": 2,
+        "docs/refinement/archive/IDEA-sentinel-log-infrastructure.md": 2,
+        "docs/refinement/archive/IDEA-task-template-linter.md": 2,
+        "docs/tasks/TASK-901.md": 2,
         ".arch/focus-ledger.jsonl": 6,
-        ".arch/reflect-breach-log.jsonl": 1,
-        "docs/refinement/archive/IDEA-architectural-tension-capture.md": 1,
-        "docs/refinement/archive/IDEA-automate-turn-count-recording.md": 1,
-        "docs/refinement/archive/IDEA-cross-layer-coverage-identity.md": 1,
-        "docs/refinement/archive/IDEA-dynamic-model-provisioning.md": 1,
-        "docs/refinement/archive/IDEA-excision-legitimacy-check.md": 1,
-        "docs/refinement/archive/IDEA-feature-branch-workflow.md": 1,
         "docs/refinement/archive/IDEA-focus-status-alignment.md": 1,
-        "docs/refinement/archive/IDEA-loop-load-balancing.md": 1,
         "docs/refinement/archive/IDEA-openclaw-integration.md": 1,
-        "docs/refinement/archive/IDEA-optimize-decomposition-for-local-llms.md": 1,
         "docs/refinement/archive/IDEA-parallel-tasks.md": 1,
-        "docs/refinement/archive/IDEA-rag-context-retrieval.md": 1,
         "docs/refinement/archive/IDEA-resurrection-review.md": 1,
-        "docs/refinement/archive/IDEA-sentinel-log-infrastructure.md": 1,
-        "docs/refinement/archive/IDEA-task-template-linter.md": 1,
         "docs/tasks/TASK-898.md": 1,
         "docs/tasks/TASK-903.md": 1,
         "docs/tasks/TASK-904.md": 1,
         "docs/tasks/TASK-905.md": 1,
         "docs/tasks/TASK-906.md": 1,
-        "docs/tasks/TASK-907.md": 1,
-        "docs/tasks/TASK-901.md": 1
+        "docs/tasks/TASK-907.md": 1
       },
       "recentCommitRefs": [
+        "b729d05",
+        "ab2a178",
+        "7fe5d44",
         "391fc9b",
         "66c70c7",
         "f451e84",
@@ -7255,10 +7322,10 @@
       "commitRefOverflow": false
     },
     "TASK-216": {
-      "commitCount": 13,
+      "commitCount": 12,
       "lastCommitDate": "2026-05-08T13:57:16+02:00",
       "touchedFrequency": {
-        "docs/tasks/TASK-216.md": 2,
+        "docs/tasks/TASK-216.md": 1,
         "docs/superpowers/specs/2026-05-08-automatic-entity-linking-design.md": 4,
         "docs/archive/TASK-216.md": 1,
         "docs/refinement/IDEA-roadmap-adaptive-planning.md": 1,
@@ -7274,8 +7341,7 @@
         "docs/refinement/IDEA-roadmap-drift-detection.md": 1,
         "docs/refinement/IDEA-roadmap-routing-engine.md": 1,
         "docs/ROADMAP.md": 2,
-        "docs/superpowers/plans/2026-05-08-roadmap-reflection.md": 1,
-        "docs/superpowers/specs/2026-05-08-roadmap-reflection-design.md": 1
+        "docs/superpowers/plans/2026-05-08-roadmap-reflection.md": 1
       },
       "recentCommitRefs": [
         "f1773a7",
@@ -7289,8 +7355,7 @@
         "b7c6016",
         "16726fc",
         "6d2f75d",
-        "75dace9",
-        "2c7f45e"
+        "75dace9"
       ],
       "commitRefOverflow": false
     },
@@ -7326,26 +7391,6 @@
         "5d012e2",
         "0c72369",
         "3ae4ddb"
-      ],
-      "commitRefOverflow": false
-    },
-    "TASK-215": {
-      "commitCount": 5,
-      "lastCommitDate": "2026-05-07T16:11:15+02:00",
-      "touchedFrequency": {
-        "docs/archive/TASK-215.md": 1,
-        "docs/tasks/TASK-215.md": 3,
-        "docs/adr/ADR-013-two-tier-drift-detection.md": 1,
-        "docs/agents/THINK.md": 1,
-        "cli/src/main/ts/domain/services/drift-checker.ts": 1,
-        "cli/src/test/ts/drift-checker.test.ts": 1
-      },
-      "recentCommitRefs": [
-        "f35179c",
-        "7f434a6",
-        "df9e6d4",
-        "b749f0e",
-        "f84bd38"
       ],
       "commitRefOverflow": false
     }
