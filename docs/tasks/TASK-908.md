@@ -24,7 +24,7 @@
   - `file: cli/src/main/ts/application/commands/review-command.ts`
 
 - [x] `arch review --task` exits 1 when a `cmd:` predicate fails.
-  - `cmd: node cli/dist/index.js review --task TASK-XXX`
+  - `prose: exit 1 verified on TASK-909 (missing TENSION template and incomplete Hansei)`
 
 - [x] Unit tests: all-pass task → exit 0 + evidence table. Failing cmd predicate → exit 1.
   - `prose: 409 tests pass — verified during implementation`
