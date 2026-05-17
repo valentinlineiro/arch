@@ -65,7 +65,8 @@ export class HanseiWizard {
   }
 
   private static extractHanseiSection(content: string): string | null {
-    const idx = content.indexOf('## Hansei');
+    // Use the LAST occurrence — earlier ones may be embedded in task prose/code blocks
+    const idx = content.lastIndexOf('## Hansei');
     if (idx === -1) return null;
     const start = content.indexOf('\n', idx) + 1;
     const end = content.indexOf('\n## ', start);

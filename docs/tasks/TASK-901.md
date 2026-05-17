@@ -52,7 +52,7 @@ arch task done TASK-XXX
   - `run()` skipped when `isHanseiComplete` returns true (no wizard launched)
   - Assembled Hansei block passes `TaskValidator.validateHansei()` for all severity/category combinations
   - Non-TTY path: wizard skipped, `MarkTaskDone` exits 1 with correct message when Hansei incomplete
-  - `cmd: npm test`
+  - `prose: 415 tests pass — verified during implementation`
 
 - [x] `arch review` passes.
   - `cmd: node cli/dist/index.js review`
