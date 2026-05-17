@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-17T21:36:33.043Z",
+  "builtAt": "2026-05-17T21:37:19.326Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -5105,13 +5105,34 @@
     }
   },
   "tasks": {
-    "TASK-918": {
+    "TASK-922": {
       "commitCount": 2,
-      "lastCommitDate": "2026-05-17T21:36:32+00:00",
+      "lastCommitDate": "2026-05-17T21:37:19+00:00",
       "touchedFrequency": {
+        ".arch/focus-ledger.jsonl": 1,
+        ".arch/reflect-breach-log.jsonl": 1,
+        "docs/tasks/TASK-917.md": 1,
+        "docs/tasks/TASK-918.md": 1,
+        "docs/tasks/TASK-919.md": 1,
+        "docs/tasks/TASK-920.md": 1,
+        "docs/tasks/TASK-921.md": 1,
+        "docs/tasks/TASK-922.md": 1
+      },
+      "recentCommitRefs": [
+        "8cc2646",
+        "a7f70d0"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-918": {
+      "commitCount": 3,
+      "lastCommitDate": "2026-05-17T21:36:38+00:00",
+      "touchedFrequency": {
+        "docs/tasks/TASK-918.md": 1,
         ".arch/focus-ledger.jsonl": 2
       },
       "recentCommitRefs": [
+        "16a2803",
         "f42ac2c",
         "637dbf2"
       ],
@@ -5290,23 +5311,6 @@
         "500347b",
         "c977c01",
         "60a9dee"
-      ],
-      "commitRefOverflow": false
-    },
-    "TASK-922": {
-      "commitCount": 1,
-      "lastCommitDate": "2026-05-17T15:50:59+00:00",
-      "touchedFrequency": {
-        ".arch/reflect-breach-log.jsonl": 1,
-        "docs/tasks/TASK-917.md": 1,
-        "docs/tasks/TASK-918.md": 1,
-        "docs/tasks/TASK-919.md": 1,
-        "docs/tasks/TASK-920.md": 1,
-        "docs/tasks/TASK-921.md": 1,
-        "docs/tasks/TASK-922.md": 1
-      },
-      "recentCommitRefs": [
-        "a7f70d0"
       ],
       "commitRefOverflow": false
     },
