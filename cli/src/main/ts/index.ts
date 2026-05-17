@@ -146,7 +146,7 @@ async function main() {
       }).execute();
       break;
     case 'reflect':
-      await new ReflectCommand(fileSystem, rootPath).execute(args);
+      await new ReflectCommand(fileSystem, rootPath, taskRepository).execute(args);
       break;
     case 'report':
       await new ReportCommand(fileSystem, gitRepository).execute();

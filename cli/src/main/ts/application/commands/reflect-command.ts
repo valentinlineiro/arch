@@ -8,7 +8,7 @@ import { spawnSync } from 'node:child_process';
 import fs from 'node:fs';
 
 export class ReflectCommand {
-  constructor(private fileSystem: FileSystem, private rootPath: string) {}
+  constructor(private fileSystem: FileSystem, private rootPath: string, private taskRepository?: any) {}
 
   async execute(args: string[]): Promise<void> {
     const sub = args[0];
@@ -47,29 +47,73 @@ export class ReflectCommand {
   }
 
   private async runHanseiAnalysis(args: string[]): Promise<void> {
-    const taskId = args[0];
-    console.log('\n  ARCH — arch reflect --hansei: LLM-assisted Hansei reconciliation');
+    const tier1Only = args.includes('--tier1-only');
+    const taskId = args.find(a => /^TASK-\d+$/.test(a));
+
+    console.log('\n  ARCH — arch reflect --hansei: Hansei reconciliation');
     console.log('  Authority: analysis only — proposals, never enforcement');
     console.log('  This is THINK mode. Output is ephemeral. No task state will be mutated.\n');
 
     try {
-      // Build the prompt dynamically from REVIEW tasks
       const reviewTasks = await this.getReviewTasks(taskId);
       if (reviewTasks.length === 0) {
         console.log('  No tasks in REVIEW status found.' + (taskId ? ` (filtered to ${taskId})` : ''));
         return;
       }
 
-      const prompt = this.buildHanseiPrompt(reviewTasks);
+      // Tier 1 — Deterministic diff-based check (always runs first)
+      console.log('  ── Tier 1: Deterministic diff analysis ─────────────────');
+      const { DeterministicHanseiChecker } = await import('../../domain/services/deterministic-hansei-checker.js');
+      const checker = new DeterministicHanseiChecker(this.rootPath ?? '.');
+      let tier1HasFindings = false;
 
+      for (const { id, content } of reviewTasks) {
+        const task = await this.taskRepository.getById(id);
+        if (!task) continue;
+        const result = await checker.check(task);
+        if (result.skipped) {
+          console.log(`  [TIER1] ${id}: skipped (no lockedCommit baseline)`);
+          continue;
+        }
+        if (result.findings.length === 0) {
+          console.log(`  [TIER1] ${id}: ✔ clean`);
+        } else {
+          tier1HasFindings = true;
+          const undeclared = result.findings.filter(f => !f.declaredInHansei);
+          const declared = result.findings.filter(f => f.declaredInHansei);
+          for (const f of undeclared) {
+            console.log(`  [TIER1-DRIFT] ${id}: ${f.pattern} in ${f.file}:${f.line}`);
+            console.log(`    ${f.detail}`);
+            console.log(`    → Not declared in Hansei Constraint/Cost. Suggested severity: ${undeclared.length > 1 ? 'H3a' : 'H2'}`);
+          }
+          for (const f of declared) {
+            console.log(`  [TIER1-OK] ${id}: ${f.pattern} in ${f.file}:${f.line} — declared in Hansei ✔`);
+          }
+        }
+      }
+      console.log('');
+
+      // If Tier 1 found undeclared drift OR --tier1-only, skip Tier 2
+      if (tier1Only) {
+        console.log('  --tier1-only: skipping LLM Tier 2.');
+        process.exit(tier1HasFindings ? 1 : 0);
+        return;
+      }
+      if (tier1HasFindings) {
+        console.log('  Tier 1 found undeclared drift. Skipping LLM Tier 2 (redundant).');
+        console.log('  Update Hansei Constraint/Cost to declare the detected patterns.');
+        return;
+      }
+
+      // Tier 2 — LLM-assisted (original behavior)
+      console.log('  ── Tier 2: LLM-assisted analysis ───────────────────────');
+      const prompt = this.buildHanseiPrompt(reviewTasks);
       const config = JSON.parse(fs.readFileSync('arch.config.json', 'utf8'));
       const clis = config.clis || [];
 
       for (const cli of clis) {
         const which = spawnSync('which', [cli.bin]);
         if (which.status !== 0) continue;
-
-        // Write prompt to temp file to avoid shell escaping issues
         const tmpFile = `/tmp/arch-hansei-prompt-${Date.now()}.md`;
         fs.writeFileSync(tmpFile, prompt);
         const cmd = cli.template.replace(/\{prompt\}/g, `$(cat ${tmpFile})`);
@@ -78,7 +122,6 @@ export class ReflectCommand {
         process.exit(result.status ?? 0);
       }
 
-      // No CLI available — print the prompt so the human can run it manually
       console.log('  No AI CLI detected. Paste the following into your LLM:\n');
       console.log('─'.repeat(60));
       console.log(prompt);

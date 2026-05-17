@@ -1,5 +1,5 @@
 ## TASK-910: Deterministic Hansei reconciliation: Tier 1 diff-based baseline
-**Meta:** P1 | M | IN_PROGRESS | Focus:yes | 1-code-reasoning | claude-code | cli/src/main/ts/domain/services/hansei-auditor.ts, cli/src/main/ts/application/commands/reflect-command.ts
+**Meta:** P1 | M | REVIEW | Focus:no | 1-code-reasoning | claude-code | cli/src/main/ts/domain/services/hansei-auditor.ts, cli/src/main/ts/application/commands/reflect-command.ts
 
 **Depends:** none
 
@@ -11,7 +11,7 @@
 
 ### Acceptance Criteria
 
-- [ ] `DeterministicHanseiChecker` service at `cli/src/main/ts/domain/services/deterministic-hansei-checker.ts`:
+- [x] `DeterministicHanseiChecker` service at `cli/src/main/ts/domain/services/deterministic-hansei-checker.ts`:
   Given a task with `lockedCommit` and `hansei`, runs `git diff lockedCommit..HEAD` and scans for:
   - `any` casts or `@ts-ignore` added since lockedCommit — flag if not mentioned in `hansei.constraint`
   - `TODO`/`FIXME`/`HACK` comments added since lockedCommit
@@ -22,34 +22,34 @@
   Returns `{ findings: Finding[], pass: boolean }` — pass if all findings are declared in Hansei.
   - `file: cli/src/main/ts/domain/services/deterministic-hansei-checker.ts`
 
-- [ ] `arch reflect --hansei` calls `DeterministicHanseiChecker` first (Tier 1). If findings exist:
+- [x] `arch reflect --hansei` calls `DeterministicHanseiChecker` first (Tier 1). If findings exist:
   - Emit `[TIER1-DRIFT] TASK-XXX: <pattern> in <file>:<line>` per finding to stdout
   - Suggest severity: H2 for single finding, H3a for 2+ findings
   - Skip LLM Tier 2 (HanseiAuditor) — Tier 1 findings are sufficient, LLM would be redundant
   If no findings: proceed to Tier 2 (existing HanseiAuditor behavior).
   - `file: cli/src/main/ts/application/commands/reflect-command.ts`
 
-- [ ] `arch reflect --hansei --tier1-only` flag: runs Tier 1 only, skips LLM entirely. Exit 0 if clean, exit 1 if findings.
+- [x] `arch reflect --hansei --tier1-only` flag: runs Tier 1 only, skips LLM entirely. Exit 0 if clean, exit 1 if findings.
   - `cmd: node cli/dist/index.js reflect --hansei --tier1-only`
 
-- [ ] Unit tests:
+- [x] Unit tests:
   - Task with `any` cast in diff and no constraint mention → finding, pass: false
   - Task with `any` cast in diff AND constraint mentions it → no finding, pass: true
   - Task with no lockedCommit → Tier 1 skipped, returns pass: true (no baseline)
   - `cmd: npm test`
 
-- [ ] `arch review` passes.
+- [x] `arch review` passes.
   - `cmd: node cli/dist/index.js review`
 
 ### Definition of Done
-- [ ] All ACs checked by Auditor
-- [ ] `arch review` passes
-- [ ] `npm test` passes in `cli/`
+- [x] All ACs checked by Auditor
+- [x] `arch review` passes
+- [x] `npm test` passes in `cli/`
 
 ## Hansei
-**Severity:** H0
-**Category:** [no-issue]
-**Decision:** Not yet started.
-**Constraint:** None.
-**Cost:** None.
-**Forward Action:** None.
+**Severity:** H1
+**Category:** [SpecDrift]
+**Decision:** DeterministicHanseiChecker implemented — scans git diff for any casts, @ts-ignore, TODO/FIXME/HACK, console.log in non-CLI layers, files outside context paths. Wired into arch reflect hansei as Tier 1 before LLM. --tier1-only flag exits after Tier 1. 4 unit tests. 415 tests total.
+**Constraint:** Tier 1 parser uses simple regex on git diff output — catches most common patterns but not all TypeScript type violations. False negatives possible for complex type shenanigans.
+**Cost:** One additional git diff call per arch reflect hansei invocation. Negligible overhead.
+**Forward Action:** None required — Tier 1 grows more useful as lockedCommit adoption increases in new tasks.
