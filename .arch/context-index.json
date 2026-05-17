@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-17T19:13:48.592Z",
+  "builtAt": "2026-05-17T21:33:15.378Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -5106,10 +5106,10 @@
   },
   "tasks": {
     "TASK-206": {
-      "commitCount": 19,
-      "lastCommitDate": "2026-05-17T19:13:48+00:00",
+      "commitCount": 20,
+      "lastCommitDate": "2026-05-17T21:33:15+00:00",
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 12,
+        ".arch/focus-ledger.jsonl": 13,
         ".arch/causal-signal.jsonl": 1,
         ".arch/chronicle.jsonl": 3,
         ".arch/reflect-breach-log.jsonl": 4,
@@ -5200,6 +5200,7 @@
         "docs/tasks/TASK-907.md": 1
       },
       "recentCommitRefs": [
+        "0d78368",
         "0083fe7",
         "fae9c7f",
         "b9c5aee",
@@ -5223,9 +5224,10 @@
       "commitRefOverflow": false
     },
     "TASK-917": {
-      "commitCount": 2,
-      "lastCommitDate": "2026-05-17T15:50:59+00:00",
+      "commitCount": 3,
+      "lastCommitDate": "2026-05-17T19:13:58+00:00",
       "touchedFrequency": {
+        "docs/EVENTS.md": 1,
         ".arch/reflect-breach-log.jsonl": 1,
         "docs/tasks/TASK-917.md": 1,
         "docs/tasks/TASK-918.md": 1,
@@ -5236,6 +5238,7 @@
         ".arch/focus-ledger.jsonl": 1
       },
       "recentCommitRefs": [
+        "2002dc1",
         "a7f70d0",
         "c3be2c2"
       ],
@@ -7386,28 +7389,6 @@
       },
       "recentCommitRefs": [
         "08a0de0"
-      ],
-      "commitRefOverflow": false
-    },
-    "TASK-228": {
-      "commitCount": 3,
-      "lastCommitDate": "2026-05-12T10:13:01+02:00",
-      "touchedFrequency": {
-        ".arch/causal-graph.jsonl": 2,
-        ".arch/causal-signal.jsonl": 2,
-        ".arch/chronicle.jsonl": 1,
-        "cli/src/main/ts/application/commands/govern-command.ts": 1,
-        "cli/src/main/ts/application/commands/task-command.ts": 1,
-        "cli/src/main/ts/application/use-cases/govern-system.ts": 1,
-        "cli/src/main/ts/application/use-cases/mark-task-done.ts": 1,
-        "cli/src/main/ts/index.ts": 1,
-        "docs/archive/TASK-228.md": 1,
-        "docs/tasks/TASK-228.md": 2
-      },
-      "recentCommitRefs": [
-        "318d65d",
-        "81c4f4b",
-        "48f9608"
       ],
       "commitRefOverflow": false
     }
