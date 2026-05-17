@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-17T07:10:24.264Z",
+  "builtAt": "2026-05-17T07:11:10.682Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -5041,23 +5041,32 @@
   },
   "tasks": {
     "TASK-909": {
-      "commitCount": 1,
-      "lastCommitDate": "2026-05-17T07:10:24+00:00",
+      "commitCount": 2,
+      "lastCommitDate": "2026-05-17T07:11:10+00:00",
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 1
+        ".arch/focus-ledger.jsonl": 2
       },
       "recentCommitRefs": [
+        "bfea1fb",
         "5a9e783"
       ],
       "commitRefOverflow": false
     },
     "TASK-908": {
-      "commitCount": 1,
-      "lastCommitDate": "2026-05-17T07:09:19+00:00",
+      "commitCount": 5,
+      "lastCommitDate": "2026-05-17T07:11:10+00:00",
       "touchedFrequency": {
-        "docs/tasks/TASK-908.md": 1
+        "docs/archive/TASK-908.md": 1,
+        "docs/tasks/TASK-908.md": 4,
+        ".arch/reflect-breach-log.jsonl": 1,
+        "cli/src/main/ts/application/commands/review-command.ts": 1,
+        "docs/tasks/TASK-909.md": 1
       },
       "recentCommitRefs": [
+        "c1aeccc",
+        "0344de1",
+        "b5d4c85",
+        "41d24d0",
         "413371f"
       ],
       "commitRefOverflow": false
@@ -7322,26 +7331,12 @@
       "commitRefOverflow": false
     },
     "TASK-216": {
-      "commitCount": 12,
+      "commitCount": 6,
       "lastCommitDate": "2026-05-08T13:57:16+02:00",
       "touchedFrequency": {
         "docs/tasks/TASK-216.md": 1,
         "docs/superpowers/specs/2026-05-08-automatic-entity-linking-design.md": 4,
-        "docs/archive/TASK-216.md": 1,
-        "docs/refinement/IDEA-roadmap-adaptive-planning.md": 1,
-        "docs/refinement/IDEA-roadmap-domain-packs.md": 1,
-        "docs/refinement/IDEA-roadmap-multiagent-runtime.md": 1,
-        "docs/refinement/IDEA-roadmap-operational-load.md": 1,
-        "docs/refinement/IDEA-roadmap-ai-proposed-policies.md": 1,
-        "docs/refinement/IDEA-roadmap-automatic-linking.md": 1,
-        "docs/refinement/IDEA-roadmap-memory-queries.md": 1,
-        "docs/refinement/IDEA-roadmap-structural-policies.md": 1,
-        "docs/refinement/IDEA-roadmap-arch-capture.md": 1,
-        "docs/refinement/IDEA-roadmap-auto-context-engine.md": 1,
-        "docs/refinement/IDEA-roadmap-drift-detection.md": 1,
-        "docs/refinement/IDEA-roadmap-routing-engine.md": 1,
-        "docs/ROADMAP.md": 2,
-        "docs/superpowers/plans/2026-05-08-roadmap-reflection.md": 1
+        "docs/archive/TASK-216.md": 1
       },
       "recentCommitRefs": [
         "f1773a7",
@@ -7349,13 +7344,7 @@
         "56592af",
         "19d1a17",
         "6302202",
-        "daab21e",
-        "bdc3f45",
-        "8ec8855",
-        "b7c6016",
-        "16726fc",
-        "6d2f75d",
-        "75dace9"
+        "daab21e"
       ],
       "commitRefOverflow": false
     },
