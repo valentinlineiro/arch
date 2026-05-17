@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-17T07:12:34.499Z",
+  "builtAt": "2026-05-17T07:13:07.957Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -5041,24 +5041,37 @@
   },
   "tasks": {
     "TASK-910": {
-      "commitCount": 1,
-      "lastCommitDate": "2026-05-17T07:12:34+00:00",
+      "commitCount": 2,
+      "lastCommitDate": "2026-05-17T07:13:07+00:00",
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 1
+        ".arch/focus-ledger.jsonl": 2
       },
       "recentCommitRefs": [
+        "4b53f80",
         "a48ad9b"
       ],
       "commitRefOverflow": false
     },
     "TASK-909": {
-      "commitCount": 3,
-      "lastCommitDate": "2026-05-17T07:11:16+00:00",
+      "commitCount": 6,
+      "lastCommitDate": "2026-05-17T07:13:07+00:00",
       "touchedFrequency": {
-        "docs/tasks/TASK-909.md": 1,
+        "docs/archive/TASK-909.md": 1,
+        "docs/tasks/TASK-909.md": 3,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/reflect-breach-log.jsonl": 1,
+        "cli/src/test/ts/deterministic-ac-verifier.test.ts": 1,
+        "docs/EVENTS.md": 1,
+        "docs/INBOX.md": 1,
+        "docs/agents/THINK.md": 1,
+        "docs/tasks/TASK-910.md": 1,
+        "docs/tensions/TENSION-template.md": 1,
         ".arch/focus-ledger.jsonl": 2
       },
       "recentCommitRefs": [
+        "1d5a33c",
+        "2ec8be3",
+        "37f8769",
         "9dd1325",
         "bfea1fb",
         "5a9e783"
@@ -7344,39 +7357,35 @@
       "commitRefOverflow": false
     },
     "TASK-216": {
-      "commitCount": 3,
+      "commitCount": 1,
       "lastCommitDate": "2026-05-08T13:57:16+02:00",
       "touchedFrequency": {
-        "docs/tasks/TASK-216.md": 1,
-        "docs/superpowers/specs/2026-05-08-automatic-entity-linking-design.md": 2
+        "docs/tasks/TASK-216.md": 1
       },
       "recentCommitRefs": [
-        "f1773a7",
-        "16aa350",
-        "56592af"
+        "f1773a7"
       ],
       "commitRefOverflow": false
     },
     "TASK-217": {
-      "commitCount": 10,
+      "commitCount": 7,
       "lastCommitDate": "2026-05-08T13:56:57+02:00",
       "touchedFrequency": {
         "docs/ROADMAP.md": 2,
         "docs/archive/TASK-217.md": 1,
         "docs/tasks/TASK-216.md": 1,
-        "docs/tasks/TASK-217.md": 3,
+        "docs/tasks/TASK-217.md": 2,
         "cli/src/main/ts/application/commands/govern-command.ts": 1,
         "cli/src/main/ts/application/commands/index-command.ts": 1,
         "cli/src/main/ts/application/use-cases/context-inference.ts": 1,
         "cli/src/main/ts/index.ts": 1,
         "cli/src/main/ts/infrastructure/cli/git-cli.ts": 3,
-        "cli/src/test/ts/build-index.test.ts": 3,
-        "cli/src/test/ts/context-inference.test.ts": 2,
+        "cli/src/test/ts/build-index.test.ts": 2,
+        "cli/src/test/ts/context-inference.test.ts": 1,
         "cli/src/test/ts/govern-command.test.ts": 1,
         "docs/superpowers/specs/2026-05-08-automatic-entity-linking-design.md": 1,
-        "cli/src/main/ts/application/use-cases/build-index.ts": 3,
-        "cli/src/main/ts/domain/repositories/git-repository.ts": 1,
-        "cli/src/main/ts/domain/models/context-index.ts": 1
+        "cli/src/main/ts/application/use-cases/build-index.ts": 2,
+        "cli/src/main/ts/domain/repositories/git-repository.ts": 1
       },
       "recentCommitRefs": [
         "216515c",
@@ -7385,10 +7394,7 @@
         "4ee0017",
         "2061f19",
         "881676e",
-        "446530f",
-        "5d012e2",
-        "0c72369",
-        "3ae4ddb"
+        "446530f"
       ],
       "commitRefOverflow": false
     }
