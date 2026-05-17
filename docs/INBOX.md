@@ -206,3 +206,16 @@ ADR-020 ruling names differ from AGFM ruling names. AGFM is authoritative for im
 | Backwards compatible: tasks without Actor field continue to  | prose | ✔ | prose: human-verified (non-automated) |
 | `arch review` passes. | prose | ✔ | prose: human-verified (non-automated) |
 | `npm test` passes. | prose | ✔ | prose: human-verified (non-automated) |
+
+## [AWAITING_REVIEW] TASK-912 [L3-AUTO]
+**Closed:** 2026-05-17T12:06:38.155Z
+**Title:** arch deps TASK-XXX : dependency tree visualization
+
+| AC | Type | Pass | Detail |
+|---|---|---|---|
+| `arch deps TASK-XXX` prints the dependency tree for the name | cmd | ✔ | exit 0 (expected 0) |
+| `arch deps --all` prints the full dependency graph sorted by | cmd | ✔ | exit 0 (expected 0) |
+| Cycle detection: if a dependency cycle exists, emit `[CYCLE] | cmd | ✔ | exit 0 (expected 0) |
+| `DepsCommand` registered in `index.ts` under `arch deps`. | file | ✔ | exists: cli/src/main/ts/index.ts |
+| Unit test: linear chain A→B→C renders correctly. Cycle A→B→A | prose | ✔ | prose: human-verified (non-automated) |
+| `arch review` passes. | cmd | ✔ | exit 0 (expected 0) |

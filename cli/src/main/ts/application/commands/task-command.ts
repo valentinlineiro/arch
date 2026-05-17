@@ -245,4 +245,105 @@ export class TaskCommand {
       process.exit(1);
     }
   }
+  private async executeSplit(args: string[]): Promise<void> {
+    const taskId = args[0];
+    if (!taskId || !/^TASK-\d+$/.test(taskId)) {
+      fmt.fail('Usage: arch task split TASK-XXX [--titles "Title A,Title B"]');
+      process.exit(1);
+    }
+
+    const task = await this.taskRepository.getById(taskId);
+    if (!task) { fmt.fail(`Task ${taskId} not found`); process.exit(1); }
+
+    const validSizes = ['L', 'XL'];
+    if (!validSizes.includes(task.size?.trim())) {
+      fmt.fail(`arch task split only applies to L or XL tasks. ${taskId} is ${task.size}.`);
+      process.exit(1);
+    }
+
+    // Parse titles
+    const titlesArg = args.indexOf('--titles');
+    let titles: string[] = [];
+
+    if (titlesArg >= 0 && args[titlesArg + 1]) {
+      titles = args[titlesArg + 1].split(',').map(t => t.trim()).filter(Boolean);
+    } else if (process.stdout.isTTY) {
+      const { createInterface } = await import('node:readline/promises');
+      const { stdin, stdout } = await import('node:process');
+      const rl = createInterface({ input: stdin, output: stdout });
+      try {
+        const countStr = await rl.question('  How many sub-tasks? (2-4): ');
+        const count = Math.min(4, Math.max(2, parseInt(countStr.trim(), 10) || 2));
+        for (let i = 0; i < count; i++) {
+          const title = await rl.question(`  Sub-task ${i + 1} title: `);
+          titles.push(title.trim() || `${task.title} (part ${i + 1})`);
+        }
+      } finally { rl.close(); }
+    } else {
+      fmt.fail('Non-TTY: provide --titles "Title A,Title B"');
+      process.exit(1);
+    }
+
+    // Get next task ID
+    const allTasks = await this.taskRepository.getAll();
+    const maxId = allTasks.reduce((max, t) => {
+      const n = parseInt(t.id.replace('TASK-', ''), 10);
+      return isNaN(n) ? max : Math.max(max, n);
+    }, 0);
+
+    const newIds: string[] = [];
+    for (let i = 0; i < titles.length; i++) {
+      const newId = `TASK-${String(maxId + 1 + i).padStart(3, '0')}`;
+      newIds.push(newId);
+      const newContent = [
+        '## ' + newId + ': ' + titles[i],
+        '**Meta:** ' + task.priority + ' | S | READY | Focus:no | ' + task.class + ' | ' + task.cli + ' | ' + contextStr,
+        '**Spawned-from:** ' + taskId,
+        '**Depends:** none',
+        '',
+        '### Context',
+        'Decomposed from ' + taskId + ': ' + task.title,
+        '',
+        '### Acceptance Criteria',
+        '- [ ] (fill in)',
+        '',
+        '## Hansei',
+        '**Severity:** H0',
+        '**Category:** [no-issue]',
+        '**Decision:** Not yet started.',
+        '**Constraint:** None.',
+        '**Cost:** None.',
+        '**Forward Action:** None.',
+      ].join('\n');
+      await this.fileSystem.writeFile(`docs/tasks/${newId}.md`, newContent);
+      fmt.success(`Created ${newId}: ${titles[i]}`);
+    }
+
+    // Archive original as DONE with split Hansei
+    const closedAt = new Date().toISOString();
+    const splitHansei = [
+      '',
+      `**Closed-at:** ${closedAt}`,
+      '',
+      '## Approval',
+      `Approved-by: arch-task-split | ${closedAt.slice(0, 10)}`,
+      '',
+      '## Hansei',
+      '**Severity:** H0',
+      '**Category:** [no-issue]',
+      `**Decision:** Task decomposed into ${newIds.join(', ')} via arch task split.`,
+      '**Constraint:** None — split was intentional.',
+      '**Cost:** No debt introduced — sub-tasks inherit full context.',
+      '**Forward Action:** None required.',
+    ].join('\n');
+
+    const updatedContent = task.content
+      .replace(/\| (READY|IN_PROGRESS|REVIEW) \|/, '| DONE |')
+      .replace(/Focus:yes/, 'Focus:no') + splitHansei;
+
+    await this.fileSystem.writeFile(`docs/tasks/${taskId}.md`, updatedContent);
+    fmt.info(`Archived ${taskId} as DONE (superseded by ${newIds.join(', ')})`);
+  }
+
+
 }
