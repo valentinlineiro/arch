@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-17T21:33:15.378Z",
+  "builtAt": "2026-05-17T21:33:34.537Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -5105,6 +5105,45 @@
     }
   },
   "tasks": {
+    "TASK-921": {
+      "commitCount": 1,
+      "lastCommitDate": "2026-05-17T21:33:34+00:00",
+      "touchedFrequency": {
+        ".arch/focus-ledger.jsonl": 1
+      },
+      "recentCommitRefs": [
+        "9f5251c"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-917": {
+      "commitCount": 6,
+      "lastCommitDate": "2026-05-17T21:33:34+00:00",
+      "touchedFrequency": {
+        "docs/archive/TASK-917.md": 1,
+        "docs/tasks/TASK-917.md": 3,
+        ".arch/reflect-breach-log.jsonl": 2,
+        "cli/src/main/ts/domain/services/metrics-engine.ts": 1,
+        "docs/METRICS.md": 1,
+        "docs/tasks/TASK-206.md": 1,
+        "docs/EVENTS.md": 1,
+        "docs/tasks/TASK-918.md": 1,
+        "docs/tasks/TASK-919.md": 1,
+        "docs/tasks/TASK-920.md": 1,
+        "docs/tasks/TASK-921.md": 1,
+        "docs/tasks/TASK-922.md": 1,
+        ".arch/focus-ledger.jsonl": 1
+      },
+      "recentCommitRefs": [
+        "089d290",
+        "39d97e7",
+        "e210a7e",
+        "2002dc1",
+        "a7f70d0",
+        "c3be2c2"
+      ],
+      "commitRefOverflow": false
+    },
     "TASK-206": {
       "commitCount": 20,
       "lastCommitDate": "2026-05-17T21:33:15+00:00",
@@ -5220,27 +5259,6 @@
         "500347b",
         "c977c01",
         "60a9dee"
-      ],
-      "commitRefOverflow": false
-    },
-    "TASK-917": {
-      "commitCount": 3,
-      "lastCommitDate": "2026-05-17T19:13:58+00:00",
-      "touchedFrequency": {
-        "docs/EVENTS.md": 1,
-        ".arch/reflect-breach-log.jsonl": 1,
-        "docs/tasks/TASK-917.md": 1,
-        "docs/tasks/TASK-918.md": 1,
-        "docs/tasks/TASK-919.md": 1,
-        "docs/tasks/TASK-920.md": 1,
-        "docs/tasks/TASK-921.md": 1,
-        "docs/tasks/TASK-922.md": 1,
-        ".arch/focus-ledger.jsonl": 1
-      },
-      "recentCommitRefs": [
-        "2002dc1",
-        "a7f70d0",
-        "c3be2c2"
       ],
       "commitRefOverflow": false
     },
@@ -7132,7 +7150,7 @@
       "commitRefOverflow": false
     },
     "TASK-200": {
-      "commitCount": 5,
+      "commitCount": 1,
       "lastCommitDate": "2026-05-12T10:42:57+02:00",
       "touchedFrequency": {
         "docs/archive/TASK-001.md": 1,
@@ -7340,55 +7358,10 @@
         "docs/archive/TASK-226.md": 1,
         "docs/archive/TASK-227.md": 1,
         "docs/archive/TASK-228.md": 1,
-        "docs/tasks/TASK-200.md": 3,
-        "docs/archive/TASK-200.md": 1,
-        "docs/INBOX.md": 1,
-        "cli/src/main/ts/application/commands/task-command.ts": 1,
-        "cli/src/main/ts/application/use-cases/compress-task.ts": 1,
-        "cli/src/main/ts/application/use-cases/drift-checker.ts": 1,
-        "cli/src/test/ts/compress-task.test.ts": 1,
-        "docs/archive/TASK-222.md": 1,
-        "cli/src/main/ts/application/use-cases/rank-tasks.ts": 1,
-        "docs/tasks/TASK-206.md": 1,
-        "docs/tasks/TASK-207.md": 1,
-        "docs/tasks/TASK-208.md": 1
+        "docs/tasks/TASK-200.md": 1
       },
       "recentCommitRefs": [
-        "32d8be5",
-        "928b15a",
-        "36dbaad",
-        "ca86893",
-        "e552216"
-      ],
-      "commitRefOverflow": false
-    },
-    "TASK-202": {
-      "commitCount": 1,
-      "lastCommitDate": "2026-05-12T10:16:38+02:00",
-      "touchedFrequency": {
-        ".arch/causal-graph.jsonl": 1,
-        ".arch/causal-signal.jsonl": 1,
-        ".arch/chronicle.jsonl": 1,
-        "docs/archive/TASK-202.md": 1,
-        "docs/archive/TASK-205.md": 1
-      },
-      "recentCommitRefs": [
-        "08a0de0"
-      ],
-      "commitRefOverflow": false
-    },
-    "TASK-205": {
-      "commitCount": 1,
-      "lastCommitDate": "2026-05-12T10:16:38+02:00",
-      "touchedFrequency": {
-        ".arch/causal-graph.jsonl": 1,
-        ".arch/causal-signal.jsonl": 1,
-        ".arch/chronicle.jsonl": 1,
-        "docs/archive/TASK-202.md": 1,
-        "docs/archive/TASK-205.md": 1
-      },
-      "recentCommitRefs": [
-        "08a0de0"
+        "32d8be5"
       ],
       "commitRefOverflow": false
     }
