@@ -1,7 +1,7 @@
 # IDEA: Persistent session identity — actor tracking per task
 **Created:** 2026-05-17
 **Source:** Session observation — ARCH knows what happened but not who did it
-**Status:** DRAFT
+**Status:** PROMOTED
 **Sessions:** 0
 **Meta:** P2 | S | 7-operations | cli/src/main/ts/application/use-cases/mark-task-in-progress.ts, cli/src/main/ts/domain/models/task.ts, arch.config.json
 
@@ -27,4 +27,4 @@ This means routing decisions (which model for which class) are made on assumptio
 - Priority displacement: P2
 
 ## Decision
-<!-- PROMOTE → TASK-XXX | REJECT: reason | DEFERRED: reason + condition -->
+PROMOTE → TASK-911

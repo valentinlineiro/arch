@@ -1,7 +1,7 @@
 # IDEA: arch explain — reconstruct causal chain for a closed task
 **Created:** 2026-05-17
 **Source:** Session observation — no command exists to surface task provenance
-**Status:** DRAFT
+**Status:** PROMOTED
 **Sessions:** 0
 **Meta:** P2 | M | 1-code-reasoning | cli/src/main/ts/application/commands/, cli/src/main/ts/application/use-cases/causal-signal-log.ts
 
@@ -30,4 +30,4 @@ Output is terminal-only. No file writes. Non-blocking.
 - Priority displacement: P2 — useful but not blocking
 
 ## Decision
-<!-- PROMOTE → TASK-XXX | REJECT: reason | DEFERRED: reason + condition -->
+PROMOTE → TASK-915

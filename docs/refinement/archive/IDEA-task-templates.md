@@ -1,7 +1,7 @@
 # IDEA: Task templates by class — arch task new --class
 **Created:** 2026-05-17
 **Source:** Session observation — every task is freeform, AC structure varies by author not by class
-**Status:** DRAFT
+**Status:** PROMOTED
 **Sessions:** 0
 **Meta:** P2 | S | 6-writing | cli/src/main/ts/application/commands/task-command.ts, docs/templates/
 
@@ -37,4 +37,4 @@ File written to `docs/tasks/TASK-XXX.md`, opened in `$EDITOR` if set.
 - Priority displacement: P2
 
 ## Decision
-<!-- PROMOTE → TASK-XXX | REJECT: reason | DEFERRED: reason + condition -->
+PROMOTE → TASK-914

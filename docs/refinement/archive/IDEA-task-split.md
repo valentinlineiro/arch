@@ -1,7 +1,7 @@
 # IDEA: arch task split TASK-XXX — decompose large task
 **Created:** 2026-05-17
 **Source:** Session observation — L tasks grow during refinement with no decomposition mechanic
-**Status:** DRAFT
+**Status:** PROMOTED
 **Sessions:** 0
 **Meta:** P2 | S | 2-code-generation | cli/src/main/ts/application/commands/task-command.ts
 
@@ -32,4 +32,4 @@ Non-TTY fallback: `arch task split TASK-XXX --titles "Auth middleware,Token refr
 - Priority displacement: P2
 
 ## Decision
-<!-- PROMOTE → TASK-XXX | REJECT: reason | DEFERRED: reason + condition -->
+PROMOTE → TASK-913

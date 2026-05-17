@@ -1,7 +1,7 @@
 # IDEA: arch deps TASK-XXX — dependency tree visualization
 **Created:** 2026-05-17
 **Source:** Session observation — arch causal output is opaque, backlog navigation is manual
-**Status:** DRAFT
+**Status:** PROMOTED
 **Sessions:** 0
 **Meta:** P2 | S | 2-code-generation | cli/src/main/ts/application/commands/, cli/src/main/ts/application/use-cases/
 
@@ -40,4 +40,4 @@ Terminal-only. Read-only. No LLM. Pure graph traversal over `Depends:` fields in
 - Priority displacement: P2
 
 ## Decision
-<!-- PROMOTE → TASK-XXX | REJECT: reason | DEFERRED: reason + condition -->
+PROMOTE → TASK-912

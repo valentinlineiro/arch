@@ -1,7 +1,7 @@
 # IDEA: Cost tracking per provider — actual token counts in arch report
 **Created:** 2026-05-17
 **Source:** Session observation — arch report cost column is heuristic, not real
-**Status:** DRAFT
+**Status:** PROMOTED
 **Sessions:** 0
 **Meta:** P2 | M | 7-operations | arch.config.json, cli/src/main/ts/domain/services/archive-parser.ts, cli/src/main/ts/application/use-cases/
 
@@ -37,4 +37,4 @@ Cost by Provider (last 20 tasks):
 - Priority displacement: P2
 
 ## Decision
-<!-- PROMOTE → TASK-XXX | REJECT: reason | DEFERRED: reason + condition -->
+PROMOTE → TASK-916
