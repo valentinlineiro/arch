@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-17T11:55:46.934Z",
+  "builtAt": "2026-05-17T12:04:44.877Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -5063,10 +5063,47 @@
     }
   },
   "tasks": {
-    "TASK-206": {
-      "commitCount": 13,
-      "lastCommitDate": "2026-05-17T11:55:46+00:00",
+    "TASK-912": {
+      "commitCount": 1,
+      "lastCommitDate": "2026-05-17T12:04:44+00:00",
       "touchedFrequency": {
+        ".arch/focus-ledger.jsonl": 1
+      },
+      "recentCommitRefs": [
+        "788a557"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-911": {
+      "commitCount": 1,
+      "lastCommitDate": "2026-05-17T12:03:39+00:00",
+      "touchedFrequency": {
+        "docs/tasks/TASK-911.md": 1
+      },
+      "recentCommitRefs": [
+        "704eb7b"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-206": {
+      "commitCount": 14,
+      "lastCommitDate": "2026-05-17T11:59:52+00:00",
+      "touchedFrequency": {
+        ".arch/chronicle.jsonl": 2,
+        ".arch/reflect-breach-log.jsonl": 3,
+        "docs/EVENTS.md": 2,
+        "docs/refinement/archive/IDEA-arch-deps.md": 1,
+        "docs/refinement/archive/IDEA-arch-explain.md": 1,
+        "docs/refinement/archive/IDEA-cost-tracking.md": 1,
+        "docs/refinement/archive/IDEA-session-identity.md": 1,
+        "docs/refinement/archive/IDEA-task-split.md": 1,
+        "docs/refinement/archive/IDEA-task-templates.md": 1,
+        "docs/tasks/TASK-911.md": 1,
+        "docs/tasks/TASK-912.md": 1,
+        "docs/tasks/TASK-913.md": 1,
+        "docs/tasks/TASK-914.md": 1,
+        "docs/tasks/TASK-915.md": 1,
+        "docs/tasks/TASK-916.md": 1,
         ".arch/focus-ledger.jsonl": 8,
         "docs/refinement/archive/IDEA-deterministic-reconciliation.md": 1,
         "docs/refinement/archive/IDEA-hansei-pattern-synthesis.md": 1,
@@ -5083,10 +5120,7 @@
         "docs/refinement/IDEA-session-identity.md": 1,
         "docs/refinement/IDEA-task-split.md": 1,
         "docs/refinement/IDEA-task-templates.md": 1,
-        ".arch/chronicle.jsonl": 1,
-        ".arch/reflect-breach-log.jsonl": 2,
         "cli/src/main/ts/application/use-cases/hansei-wizard.ts": 1,
-        "docs/EVENTS.md": 1,
         "docs/INBOX.md": 1,
         "docs/METRICS.md": 1,
         "docs/archive/TASK-203.md": 1,
@@ -5133,6 +5167,7 @@
         "docs/tasks/TASK-907.md": 1
       },
       "recentCommitRefs": [
+        "6967695",
         "5ce4cf7",
         "ba9929a",
         "b729d05",
@@ -7305,11 +7340,11 @@
       "commitRefOverflow": false
     },
     "TASK-220": {
-      "commitCount": 14,
+      "commitCount": 12,
       "lastCommitDate": "2026-05-11T13:23:04+02:00",
       "touchedFrequency": {
-        "cli/src/main/ts/application/use-cases/build-index.ts": 2,
-        "cli/src/main/ts/application/use-cases/context-inference.ts": 2,
+        "cli/src/main/ts/application/use-cases/build-index.ts": 1,
+        "cli/src/main/ts/application/use-cases/context-inference.ts": 1,
         "cli/src/test/ts/finalize-promotion.test.ts": 2,
         "cli/src/test/ts/scaffold-task.test.ts": 4,
         "cli/src/test/ts/think-command.test.ts": 2,
@@ -7339,18 +7374,7 @@
         "cli/src/test/ts/validate-system.test.ts": 1,
         "cli/src/main/ts/domain/models/task.ts": 1,
         "cli/src/main/ts/domain/repositories/intent-repository.ts": 1,
-        "docs/superpowers/plans/2026-05-11-arch-think-plan.md": 1,
-        "cli/src/main/ts/domain/models/context-index.ts": 1,
-        "docs/ROADMAP.md": 1,
-        "docs/archive/TASK-216.md": 1,
-        "docs/archive/TASK-219.md": 1,
-        "docs/archive/TASK-220.md": 2,
-        "docs/refinement/IDEA-roadmap-arch-capture.md": 1,
-        "docs/refinement/IDEA-roadmap-auto-context-engine.md": 1,
-        "docs/refinement/IDEA-roadmap-automatic-linking.md": 1,
-        "docs/refinement/IDEA-roadmap-memory-queries.md": 1,
-        "docs/tasks/TASK-210.md": 1,
-        "docs/tasks/TASK-216.md": 1
+        "docs/superpowers/plans/2026-05-11-arch-think-plan.md": 1
       },
       "recentCommitRefs": [
         "2f9fadd",
@@ -7364,20 +7388,7 @@
         "cfa3556",
         "71a5f6a",
         "290e5b1",
-        "5766ddf",
-        "759227c",
-        "5fde057"
-      ],
-      "commitRefOverflow": false
-    },
-    "TASK-219": {
-      "commitCount": 1,
-      "lastCommitDate": "2026-05-08T14:47:11+02:00",
-      "touchedFrequency": {
-        "docs/archive/TASK-219.md": 1
-      },
-      "recentCommitRefs": [
-        "4f89e5e"
+        "5766ddf"
       ],
       "commitRefOverflow": false
     }
