@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-17T21:37:37.777Z",
+  "builtAt": "2026-05-17T21:39:03.458Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -34,6 +34,26 @@
       ],
       "criticality": "domain",
       "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/application/commands/capture-command.ts": {
+      "symbols": [
+        "CaptureCommand"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/repositories/task-repository.ts",
+        "cli/src/main/ts/domain/repositories/file-system.ts",
+        "cli/src/main/ts/domain/repositories/git-repository.ts",
+        "cli/src/main/ts/application/use-cases/create-task.ts",
+        "cli/src/main/ts/application/use-cases/mark-task-in-progress.ts"
+      ],
+      "tags": [
+        "application",
+        "commands",
+        "capture",
+        "command"
+      ],
+      "criticality": "domain",
+      "runtimeUsage": "cold"
     },
     "cli/src/main/ts/application/commands/causal-command.ts": {
       "symbols": [
@@ -5105,20 +5125,43 @@
     }
   },
   "tasks": {
-    "TASK-922": {
-      "commitCount": 3,
-      "lastCommitDate": "2026-05-17T21:37:37+00:00",
+    "TASK-919": {
+      "commitCount": 1,
+      "lastCommitDate": "2026-05-17T21:39:03+00:00",
       "touchedFrequency": {
+        ".arch/focus-ledger.jsonl": 1
+      },
+      "recentCommitRefs": [
+        "ef24048"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-923": {
+      "commitCount": 1,
+      "lastCommitDate": "2026-05-17T21:38:45+00:00",
+      "touchedFrequency": {
+        "docs/tasks/TASK-923.md": 1
+      },
+      "recentCommitRefs": [
+        "3618959"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-922": {
+      "commitCount": 4,
+      "lastCommitDate": "2026-05-17T21:37:43+00:00",
+      "touchedFrequency": {
+        "docs/tasks/TASK-922.md": 2,
         ".arch/focus-ledger.jsonl": 2,
         ".arch/reflect-breach-log.jsonl": 1,
         "docs/tasks/TASK-917.md": 1,
         "docs/tasks/TASK-918.md": 1,
         "docs/tasks/TASK-919.md": 1,
         "docs/tasks/TASK-920.md": 1,
-        "docs/tasks/TASK-921.md": 1,
-        "docs/tasks/TASK-922.md": 1
+        "docs/tasks/TASK-921.md": 1
       },
       "recentCommitRefs": [
+        "57fd872",
         "d96345f",
         "8cc2646",
         "a7f70d0"
