@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-17T15:45:42.329Z",
+  "builtAt": "2026-05-17T15:50:35.038Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -5105,14 +5105,38 @@
     }
   },
   "tasks": {
-    "TASK-206": {
-      "commitCount": 17,
-      "lastCommitDate": "2026-05-17T15:45:42+00:00",
+    "TASK-917": {
+      "commitCount": 1,
+      "lastCommitDate": "2026-05-17T15:50:34+00:00",
       "touchedFrequency": {
+        ".arch/focus-ledger.jsonl": 1
+      },
+      "recentCommitRefs": [
+        "c3be2c2"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-206": {
+      "commitCount": 18,
+      "lastCommitDate": "2026-05-17T15:45:52+00:00",
+      "touchedFrequency": {
+        ".arch/causal-signal.jsonl": 1,
+        ".arch/chronicle.jsonl": 3,
+        ".arch/reflect-breach-log.jsonl": 4,
+        "cli/src/main/ts/application/use-cases/drift-checker.ts": 1,
+        "docs/EVENTS.md": 3,
+        "docs/archive/TASK-901.md": 1,
+        "docs/archive/TASK-908.md": 1,
+        "docs/archive/TASK-909.md": 1,
+        "docs/archive/TASK-910.md": 1,
+        "docs/archive/TASK-911.md": 1,
+        "docs/archive/TASK-912.md": 1,
+        "docs/archive/TASK-913.md": 1,
+        "docs/archive/TASK-914.md": 1,
+        "docs/archive/TASK-915.md": 1,
+        "docs/archive/TASK-916.md": 1,
+        "docs/tasks/TASK-206.md": 1,
         ".arch/focus-ledger.jsonl": 11,
-        ".arch/chronicle.jsonl": 2,
-        ".arch/reflect-breach-log.jsonl": 3,
-        "docs/EVENTS.md": 2,
         "docs/refinement/archive/IDEA-arch-deps.md": 1,
         "docs/refinement/archive/IDEA-arch-explain.md": 1,
         "docs/refinement/archive/IDEA-cost-tracking.md": 1,
@@ -5187,6 +5211,7 @@
         "docs/tasks/TASK-907.md": 1
       },
       "recentCommitRefs": [
+        "fae9c7f",
         "b9c5aee",
         "e1e66fc",
         "63c2225",
@@ -7380,7 +7405,7 @@
       "commitRefOverflow": false
     },
     "TASK-227": {
-      "commitCount": 3,
+      "commitCount": 2,
       "lastCommitDate": "2026-05-12T09:36:11+02:00",
       "touchedFrequency": {
         ".arch/causal-graph.jsonl": 2,
@@ -7390,34 +7415,11 @@
         "docs/guidelines/what-ai-must-never-do-in-this-repo.md": 1,
         "docs/tasks/TASK-202.md": 1,
         ".arch/chronicle.jsonl": 1,
-        "docs/archive/TASK-227.md": 1,
-        "arch.config.json": 1,
-        "cli/src/main/ts/application/commands/inbox-command.ts": 1,
-        "cli/src/main/ts/application/commands/loop-command.ts": 1,
-        "cli/src/main/ts/application/commands/review-command.ts": 1,
-        "cli/src/main/ts/application/use-cases/drift-checker.ts": 1,
-        "cli/src/main/ts/application/use-cases/generate-inbox.ts": 1,
-        "cli/src/main/ts/application/use-cases/loop-engine.ts": 1,
-        "cli/src/main/ts/application/use-cases/review-system.ts": 1,
-        "cli/src/main/ts/index.ts": 1,
-        "docs/adr/ADR-016-domain-layer-semantic-boundary.md": 1,
-        "docs/tasks/TASK-227.md": 1
+        "docs/archive/TASK-227.md": 1
       },
       "recentCommitRefs": [
         "ea400ff",
-        "bc3331a",
-        "c58ca99"
-      ],
-      "commitRefOverflow": false
-    },
-    "TASK-226": {
-      "commitCount": 1,
-      "lastCommitDate": "2026-05-11T18:40:33+02:00",
-      "touchedFrequency": {
-        "docs/ROADMAP.md": 1
-      },
-      "recentCommitRefs": [
-        "967098e"
+        "bc3331a"
       ],
       "commitRefOverflow": false
     }
