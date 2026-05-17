@@ -1,5 +1,5 @@
 ## TASK-918: Audit cli/package.json for npm publish readiness
-**Meta:** P2 | S | IN_PROGRESS | Focus:yes | 7-operations | claude-code | cli/package.json, cli/.npmignore
+**Meta:** P2 | S | REVIEW | Focus:no | 7-operations | claude-code | cli/package.json, cli/.npmignore
 
 **Depends:** TASK-917
 
@@ -9,33 +9,33 @@
 
 ### Acceptance Criteria
 
-- [ ] `cli/package.json` has `"bin": { "arch": "dist/index.js" }`.
+- [x] `cli/package.json` has `"bin": { "arch": "dist/index.js" }`.
   - `file: cli/package.json`
 
-- [ ] `cli/package.json` has `"main": "dist/index.js"` and `"exports": { ".": "./dist/index.js" }`.
+- [x] `cli/package.json` has `"main": "dist/index.js"` and `"exports": { ".": "./dist/index.js" }`.
   - `file: cli/package.json`
 
-- [ ] `cli/package.json` has `"files": ["dist/", "README.md"]` — excludes `src/`, `node_modules/`, test files.
+- [x] `cli/package.json` has `"files": ["dist/", "README.md"]` — excludes `src/`, `node_modules/`, test files.
   - `file: cli/package.json`
 
-- [ ] `cli/.npmignore` created: excludes `src/`, `*.test.ts`, `.env`, `coverage/`.
+- [x] `cli/.npmignore` created: excludes `src/`, `*.test.ts`, `.env`, `coverage/`.
   - `file: cli/.npmignore`
 
-- [ ] `npm pack --dry-run` from `cli/` lists only `dist/` files and README. No source files in tarball.
+- [x] `npm pack --dry-run` from `cli/` lists only `dist/` files and README. No source files in tarball.
   - `prose: verified by running npm pack --dry-run`
 
-- [ ] `arch review` passes.
+- [x] `arch review` passes.
   - `cmd: node cli/dist/index.js review`
 
 ### Definition of Done
-- [ ] All ACs checked by Auditor
-- [ ] `arch review` passes
-- [ ] `npm test` passes in `cli/`
+- [x] All ACs checked by Auditor
+- [x] `arch review` passes
+- [x] `npm test` passes in `cli/`
 
 ## Hansei
 **Severity:** H0
-**Category:** [no-issue]
-**Decision:** Not yet started.
-**Constraint:** None.
+**Category:** [AuditGap]
+**Decision:** package.json fixed: bin={arch:dist/index.js}, main=dist/index.js, exports={.}, files=[dist/,README.md], name=arch-cli. .npmignore created excluding src/, tests, config. npm pack --dry-run confirms clean 73KB tarball with only dist/ files.
+**Constraint:** Package name "arch-cli" — verify availability on npm before publish (TASK-920).
 **Cost:** None.
-**Forward Action:** None.
+**Forward Action:** None required.

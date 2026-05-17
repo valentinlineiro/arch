@@ -256,3 +256,15 @@ ADR-020 ruling names differ from AGFM ruling names. AGFM is authoritative for im
 | `arch report` exits 0 after the fix. No CRITICAL INTEGRITY B | prose | ✔ | prose: human-verified (non-automated) |
 | Unit test: task with `IN_PROGRESS -> DONE` event gets HIGH o | prose | ✔ | prose: human-verified (non-automated) |
 | `arch review` passes. | cmd | ✔ | exit 0 (expected 0) |
+
+## [AWAITING_REVIEW] TASK-921 [L3-AUTO]
+**Closed:** 2026-05-17T21:36:32.772Z
+**Title:** AC predicate suggestions in arch task create: class-appropriate scaffolding
+
+| AC | Type | Pass | Detail |
+|---|---|---|---|
+| `docs/templates/` updated: each class template (`task-1-code | file | ✔ | exists: docs/templates/ |
+| `arch task create <intent>` output includes a `### Acceptanc | prose | ✔ | prose: human-verified (non-automated) |
+| DoR improvement: when `arch task start` fails DoR validation | file | ✔ | exists: cli/src/main/ts/application/use-cases/mark-task-in-p |
+| `arch review` passes. | cmd | ✔ | exit 0 (expected 0) |
+| `npm test` passes. | prose | ✔ | prose: human-verified (non-automated) |

@@ -1,0 +1,13 @@
+src/
+*.test.ts
+*.spec.ts
+.env
+.env.*
+coverage/
+.nyc_output/
+node_modules/
+tsconfig*.json
+tsup.config.*
+*.tsbuildinfo
+scripts/
+docs/
