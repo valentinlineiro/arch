@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-17T21:37:19.326Z",
+  "builtAt": "2026-05-17T21:37:37.777Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -5106,10 +5106,10 @@
   },
   "tasks": {
     "TASK-922": {
-      "commitCount": 2,
-      "lastCommitDate": "2026-05-17T21:37:19+00:00",
+      "commitCount": 3,
+      "lastCommitDate": "2026-05-17T21:37:37+00:00",
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 1,
+        ".arch/focus-ledger.jsonl": 2,
         ".arch/reflect-breach-log.jsonl": 1,
         "docs/tasks/TASK-917.md": 1,
         "docs/tasks/TASK-918.md": 1,
@@ -5119,19 +5119,32 @@
         "docs/tasks/TASK-922.md": 1
       },
       "recentCommitRefs": [
+        "d96345f",
         "8cc2646",
         "a7f70d0"
       ],
       "commitRefOverflow": false
     },
     "TASK-918": {
-      "commitCount": 3,
-      "lastCommitDate": "2026-05-17T21:36:38+00:00",
+      "commitCount": 6,
+      "lastCommitDate": "2026-05-17T21:37:37+00:00",
       "touchedFrequency": {
-        "docs/tasks/TASK-918.md": 1,
+        "docs/archive/TASK-918.md": 1,
+        "docs/tasks/TASK-918.md": 3,
+        ".arch/causal-signal.jsonl": 1,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/reflect-breach-log.jsonl": 1,
+        "cli/.npmignore": 1,
+        "cli/package.json": 1,
+        "docs/EVENTS.md": 1,
+        "docs/INBOX.md": 1,
+        "docs/tasks/TASK-922.md": 1,
         ".arch/focus-ledger.jsonl": 2
       },
       "recentCommitRefs": [
+        "6b7d323",
+        "8720dae",
+        "ce57817",
         "16a2803",
         "f42ac2c",
         "637dbf2"
