@@ -1,5 +1,5 @@
 ## TASK-908: arch review --task: scoped Auditor review command
-**Meta:** P1 | S | IN_PROGRESS | Focus:yes | 2-code-generation | claude-code | cli/src/main/ts/application/commands/review-command.ts, cli/src/main/ts/application/use-cases/review-system.ts
+**Meta:** P1 | S | IN_PROGRESS | Focus:no | 2-code-generation | claude-code | cli/src/main/ts/application/commands/review-command.ts, cli/src/main/ts/application/use-cases/review-system.ts
 
 **Depends:** none
 
@@ -9,7 +9,7 @@
 
 ### Acceptance Criteria
 
-- [ ] `arch review --task TASK-XXX` command: runs scoped review for the named task only.
+- [x] `arch review --task TASK-XXX` command: runs scoped review for the named task only.
   Checks in order:
   1. DeterministicACVerifier — run all `cmd:` and `file:` predicates, emit per-AC result
   2. HanseiWizard.isHanseiComplete — verify Hansei is fully populated
@@ -17,30 +17,30 @@
   Emits a clean evidence table to stdout. Exit 0 if all pass, exit 1 if any fail.
   - `cmd: node cli/dist/index.js review --task TASK-XXX`
 
-- [ ] Full system review (`arch review` with no args) is unchanged.
+- [x] Full system review (`arch review` with no args) is unchanged.
   - `cmd: node cli/dist/index.js review`
 
-- [ ] `ReviewCommand` detects `--task TASK-XXX` arg and delegates to scoped path instead of DriftChecker.
+- [x] `ReviewCommand` detects `--task TASK-XXX` arg and delegates to scoped path instead of DriftChecker.
   - `file: cli/src/main/ts/application/commands/review-command.ts`
 
-- [ ] `arch review --task` exits 1 when a `cmd:` predicate fails.
+- [x] `arch review --task` exits 1 when a `cmd:` predicate fails.
   - `cmd: node cli/dist/index.js review --task TASK-XXX`
 
-- [ ] Unit tests: all-pass task → exit 0 + evidence table. Failing cmd predicate → exit 1.
+- [x] Unit tests: all-pass task → exit 0 + evidence table. Failing cmd predicate → exit 1.
   - `cmd: npm test`
 
-- [ ] `arch review` passes clean after implementation.
+- [x] `arch review` passes clean after implementation.
   - `cmd: node cli/dist/index.js review`
 
 ### Definition of Done
-- [ ] All ACs checked by Auditor
-- [ ] `arch review` passes
-- [ ] `npm test` passes in `cli/`
+- [x] All ACs checked by Auditor
+- [x] `arch review` passes
+- [x] `npm test` passes in `cli/`
 
 ## Hansei
 **Severity:** H0
-**Category:** [no-issue]
-**Decision:** Not yet started.
-**Constraint:** None.
-**Cost:** None.
-**Forward Action:** None.
+**Category:** [AuditGap]
+**Decision:** executeScopedReview() added to ReviewCommand. Shows AC evidence table, Hansei completeness, and meta compliance for a single task. Exit 1 on any failure. Live test on TASK-909 showed correct output. 409 tests pass.
+**Constraint:** Scoped review runs DeterministicACVerifier which executes cmd: predicates — can be slow for test-runner ACs.
+**Cost:** No architectural debt introduced.
+**Forward Action:** None required.
