@@ -1,5 +1,5 @@
 ## TASK-914: arch task new --class: task scaffolding by class
-**Meta:** P2 | S | READY | Focus:yes | 2-code-generation | claude-code | cli/src/main/ts/application/commands/task-command.ts, docs/templates/
+**Meta:** P2 | S | IN_PROGRESS | Focus:yes | 2-code-generation | claude-code | cli/src/main/ts/application/commands/task-command.ts, docs/templates/
 
 **Depends:** none
 
