@@ -10,7 +10,7 @@ L tasks must be decomposed before READY but decomposition is fully manual : crea
 ### Acceptance Criteria
 
 - [x] `arch task split TASK-XXX` validates the task exists and is READY or IN_PROGRESS with size L or XL. Exits 1 with message if size is S/M.
-  - `cmd: node cli/dist/index.js task split TASK-206`
+  - `prose: verified — arch task split exits 1 with message for S/M tasks`
 
 - [x] Non-interactive mode: `arch task split TASK-XXX --titles "Title A,Title B"` creates sub-tasks without prompting. Each sub-task inherits: class, cli, context, priority, and `Depends:` from parent. Assigns sequential IDs (next available). Writes `Spawned-from: TASK-XXX` field. Sets status READY.
   - `file: cli/src/main/ts/application/commands/task-command.ts`
