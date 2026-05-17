@@ -1,5 +1,5 @@
 ## TASK-911: Persistent session identity : Actor field in task lock
-**Meta:** P2 | S | READY | Focus:no | 7-operations | claude-code | cli/src/main/ts/application/use-cases/mark-task-in-progress.ts, cli/src/main/ts/domain/models/task.ts, arch.config.json
+**Meta:** P2 | S | IN_PROGRESS | Focus:yes | 7-operations | claude-code | cli/src/main/ts/application/use-cases/mark-task-in-progress.ts, cli/src/main/ts/domain/models/task.ts, arch.config.json
 
 **Depends:** none
 
