@@ -1,5 +1,5 @@
 ## TASK-916: Cost tracking per provider : actual token counts in arch report
-**Meta:** P2 | M | READY | Focus:no | 7-operations | claude-code | cli/src/main/ts/application/commands/report-command.ts, cli/src/main/ts/domain/services/archive-parser.ts
+**Meta:** P2 | M | IN_PROGRESS | Focus:yes | 7-operations | claude-code | cli/src/main/ts/application/commands/report-command.ts, cli/src/main/ts/domain/services/archive-parser.ts
 
 **Depends:** TASK-911
 
