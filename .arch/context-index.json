@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-17T07:13:07.957Z",
+  "builtAt": "2026-05-17T07:18:43.914Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -1632,6 +1632,29 @@
       ],
       "criticality": "core",
       "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/domain/services/deterministic-hansei-checker.ts": {
+      "symbols": [
+        "HanseiDriftFinding",
+        "Tier1Result",
+        "DeterministicHanseiChecker"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/models/task.ts"
+      ],
+      "tags": [
+        "domain",
+        "services",
+        "deterministic",
+        "hansei",
+        "checker",
+        "drift",
+        "finding",
+        "tier1",
+        "result"
+      ],
+      "criticality": "core",
+      "runtimeUsage": "cold"
     },
     "cli/src/main/ts/domain/services/event-logger.ts": {
       "symbols": [
@@ -5040,67 +5063,11 @@
     }
   },
   "tasks": {
-    "TASK-910": {
-      "commitCount": 2,
-      "lastCommitDate": "2026-05-17T07:13:07+00:00",
-      "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 2
-      },
-      "recentCommitRefs": [
-        "4b53f80",
-        "a48ad9b"
-      ],
-      "commitRefOverflow": false
-    },
-    "TASK-909": {
-      "commitCount": 6,
-      "lastCommitDate": "2026-05-17T07:13:07+00:00",
-      "touchedFrequency": {
-        "docs/archive/TASK-909.md": 1,
-        "docs/tasks/TASK-909.md": 3,
-        ".arch/chronicle.jsonl": 1,
-        ".arch/reflect-breach-log.jsonl": 1,
-        "cli/src/test/ts/deterministic-ac-verifier.test.ts": 1,
-        "docs/EVENTS.md": 1,
-        "docs/INBOX.md": 1,
-        "docs/agents/THINK.md": 1,
-        "docs/tasks/TASK-910.md": 1,
-        "docs/tensions/TENSION-template.md": 1,
-        ".arch/focus-ledger.jsonl": 2
-      },
-      "recentCommitRefs": [
-        "1d5a33c",
-        "2ec8be3",
-        "37f8769",
-        "9dd1325",
-        "bfea1fb",
-        "5a9e783"
-      ],
-      "commitRefOverflow": false
-    },
-    "TASK-908": {
-      "commitCount": 5,
-      "lastCommitDate": "2026-05-17T07:11:10+00:00",
-      "touchedFrequency": {
-        "docs/archive/TASK-908.md": 1,
-        "docs/tasks/TASK-908.md": 4,
-        ".arch/reflect-breach-log.jsonl": 1,
-        "cli/src/main/ts/application/commands/review-command.ts": 1,
-        "docs/tasks/TASK-909.md": 1
-      },
-      "recentCommitRefs": [
-        "c1aeccc",
-        "0344de1",
-        "b5d4c85",
-        "41d24d0",
-        "413371f"
-      ],
-      "commitRefOverflow": false
-    },
     "TASK-206": {
-      "commitCount": 11,
-      "lastCommitDate": "2026-05-17T06:03:25+00:00",
+      "commitCount": 12,
+      "lastCommitDate": "2026-05-17T07:18:43+00:00",
       "touchedFrequency": {
+        ".arch/focus-ledger.jsonl": 7,
         "docs/refinement/archive/IDEA-deterministic-reconciliation.md": 1,
         "docs/refinement/archive/IDEA-hansei-pattern-synthesis.md": 1,
         "docs/refinement/archive/IDEA-scoped-review.md": 1,
@@ -5154,7 +5121,6 @@
         "docs/refinement/archive/IDEA-sentinel-log-infrastructure.md": 2,
         "docs/refinement/archive/IDEA-task-template-linter.md": 2,
         "docs/tasks/TASK-901.md": 2,
-        ".arch/focus-ledger.jsonl": 6,
         "docs/refinement/archive/IDEA-focus-status-alignment.md": 1,
         "docs/refinement/archive/IDEA-openclaw-integration.md": 1,
         "docs/refinement/archive/IDEA-parallel-tasks.md": 1,
@@ -5167,6 +5133,7 @@
         "docs/tasks/TASK-907.md": 1
       },
       "recentCommitRefs": [
+        "ba9929a",
         "b729d05",
         "ab2a178",
         "7fe5d44",
@@ -5178,6 +5145,76 @@
         "500347b",
         "c977c01",
         "60a9dee"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-910": {
+      "commitCount": 6,
+      "lastCommitDate": "2026-05-17T07:18:43+00:00",
+      "touchedFrequency": {
+        "docs/archive/TASK-910.md": 1,
+        "docs/tasks/TASK-910.md": 3,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/reflect-breach-log.jsonl": 1,
+        "cli/src/main/ts/application/commands/reflect-command.ts": 1,
+        "cli/src/main/ts/domain/services/deterministic-hansei-checker.ts": 1,
+        "cli/src/main/ts/index.ts": 1,
+        "cli/src/test/ts/deterministic-hansei-checker.test.ts": 1,
+        "docs/EVENTS.md": 1,
+        ".arch/focus-ledger.jsonl": 2
+      },
+      "recentCommitRefs": [
+        "49c07d0",
+        "390b27d",
+        "6c4e2be",
+        "0e0ef8c",
+        "4b53f80",
+        "a48ad9b"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-909": {
+      "commitCount": 6,
+      "lastCommitDate": "2026-05-17T07:13:07+00:00",
+      "touchedFrequency": {
+        "docs/archive/TASK-909.md": 1,
+        "docs/tasks/TASK-909.md": 3,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/reflect-breach-log.jsonl": 1,
+        "cli/src/test/ts/deterministic-ac-verifier.test.ts": 1,
+        "docs/EVENTS.md": 1,
+        "docs/INBOX.md": 1,
+        "docs/agents/THINK.md": 1,
+        "docs/tasks/TASK-910.md": 1,
+        "docs/tensions/TENSION-template.md": 1,
+        ".arch/focus-ledger.jsonl": 2
+      },
+      "recentCommitRefs": [
+        "1d5a33c",
+        "2ec8be3",
+        "37f8769",
+        "9dd1325",
+        "bfea1fb",
+        "5a9e783"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-908": {
+      "commitCount": 5,
+      "lastCommitDate": "2026-05-17T07:11:10+00:00",
+      "touchedFrequency": {
+        "docs/archive/TASK-908.md": 1,
+        "docs/tasks/TASK-908.md": 4,
+        ".arch/reflect-breach-log.jsonl": 1,
+        "cli/src/main/ts/application/commands/review-command.ts": 1,
+        "docs/tasks/TASK-909.md": 1
+      },
+      "recentCommitRefs": [
+        "c1aeccc",
+        "0344de1",
+        "b5d4c85",
+        "41d24d0",
+        "413371f"
       ],
       "commitRefOverflow": false
     },
@@ -7368,33 +7405,15 @@
       "commitRefOverflow": false
     },
     "TASK-217": {
-      "commitCount": 7,
+      "commitCount": 1,
       "lastCommitDate": "2026-05-08T13:56:57+02:00",
       "touchedFrequency": {
-        "docs/ROADMAP.md": 2,
+        "docs/ROADMAP.md": 1,
         "docs/archive/TASK-217.md": 1,
-        "docs/tasks/TASK-216.md": 1,
-        "docs/tasks/TASK-217.md": 2,
-        "cli/src/main/ts/application/commands/govern-command.ts": 1,
-        "cli/src/main/ts/application/commands/index-command.ts": 1,
-        "cli/src/main/ts/application/use-cases/context-inference.ts": 1,
-        "cli/src/main/ts/index.ts": 1,
-        "cli/src/main/ts/infrastructure/cli/git-cli.ts": 3,
-        "cli/src/test/ts/build-index.test.ts": 2,
-        "cli/src/test/ts/context-inference.test.ts": 1,
-        "cli/src/test/ts/govern-command.test.ts": 1,
-        "docs/superpowers/specs/2026-05-08-automatic-entity-linking-design.md": 1,
-        "cli/src/main/ts/application/use-cases/build-index.ts": 2,
-        "cli/src/main/ts/domain/repositories/git-repository.ts": 1
+        "docs/tasks/TASK-216.md": 1
       },
       "recentCommitRefs": [
-        "216515c",
-        "5f421c0",
-        "12585d8",
-        "4ee0017",
-        "2061f19",
-        "881676e",
-        "446530f"
+        "216515c"
       ],
       "commitRefOverflow": false
     }
