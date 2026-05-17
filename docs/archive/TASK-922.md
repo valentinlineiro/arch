@@ -1,5 +1,6 @@
 ## TASK-922: arch capture v2: single intake command producing a READY task
-**Meta:** P1 | S | REVIEW | Focus:no | 2-code-generation | claude-code | cli/src/main/ts/index.ts, cli/src/main/ts/application/commands/
+**Meta:** P1 | S | DONE | Focus:no | 2-code-generation | claude-code | cli/src/main/ts/index.ts, cli/src/main/ts/application/commands/
+**Closed-at:** 2026-05-17T22:06:24.493Z
 
 **Depends:** TASK-921
 
