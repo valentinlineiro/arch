@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-17T12:20:25.631Z",
+  "builtAt": "2026-05-17T13:10:30.125Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -5080,13 +5080,26 @@
     }
   },
   "tasks": {
-    "TASK-914": {
-      "commitCount": 2,
-      "lastCommitDate": "2026-05-17T12:20:25+00:00",
+    "TASK-915": {
+      "commitCount": 1,
+      "lastCommitDate": "2026-05-17T13:10:28+00:00",
       "touchedFrequency": {
+        ".arch/focus-ledger.jsonl": 1
+      },
+      "recentCommitRefs": [
+        "2f2d356"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-914": {
+      "commitCount": 3,
+      "lastCommitDate": "2026-05-17T12:20:31+00:00",
+      "touchedFrequency": {
+        "docs/tasks/TASK-914.md": 1,
         ".arch/focus-ledger.jsonl": 2
       },
       "recentCommitRefs": [
+        "dca8e4f",
         "dbdc76c",
         "9e17cb5"
       ],
@@ -7412,23 +7425,6 @@
         "4ee85fa",
         "203f3ff",
         "73d7890"
-      ],
-      "commitRefOverflow": false
-    },
-    "TASK-220": {
-      "commitCount": 3,
-      "lastCommitDate": "2026-05-11T13:23:04+02:00",
-      "touchedFrequency": {
-        "cli/src/main/ts/application/use-cases/build-index.ts": 1,
-        "cli/src/main/ts/application/use-cases/context-inference.ts": 1,
-        "cli/src/test/ts/finalize-promotion.test.ts": 1,
-        "cli/src/test/ts/scaffold-task.test.ts": 1,
-        "cli/src/test/ts/think-command.test.ts": 1
-      },
-      "recentCommitRefs": [
-        "2f9fadd",
-        "8e2354a",
-        "05f7188"
       ],
       "commitRefOverflow": false
     }
