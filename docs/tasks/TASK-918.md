@@ -37,5 +37,5 @@
 **Category:** [AuditGap]
 **Decision:** package.json fixed: bin={arch:dist/index.js}, main=dist/index.js, exports={.}, files=[dist/,README.md], name=arch-cli. .npmignore created excluding src/, tests, config. npm pack --dry-run confirms clean 73KB tarball with only dist/ files.
 **Constraint:** Package name "arch-cli" — verify availability on npm before publish (TASK-920).
-**Cost:** None.
+**Cost:** No architectural debt introduced — packaging only.
 **Forward Action:** None required.
