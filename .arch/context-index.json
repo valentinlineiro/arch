@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-17T12:19:39.215Z",
+  "builtAt": "2026-05-17T12:20:25.631Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -5081,24 +5081,35 @@
   },
   "tasks": {
     "TASK-914": {
-      "commitCount": 1,
-      "lastCommitDate": "2026-05-17T12:19:38+00:00",
+      "commitCount": 2,
+      "lastCommitDate": "2026-05-17T12:20:25+00:00",
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 1
+        ".arch/focus-ledger.jsonl": 2
       },
       "recentCommitRefs": [
+        "dbdc76c",
         "9e17cb5"
       ],
       "commitRefOverflow": false
     },
     "TASK-913": {
-      "commitCount": 2,
-      "lastCommitDate": "2026-05-17T12:06:44+00:00",
+      "commitCount": 5,
+      "lastCommitDate": "2026-05-17T12:20:25+00:00",
       "touchedFrequency": {
-        "docs/tasks/TASK-913.md": 1,
+        "docs/archive/TASK-913.md": 1,
+        "docs/tasks/TASK-913.md": 3,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/reflect-breach-log.jsonl": 1,
+        "cli/src/main/ts/application/commands/task-command.ts": 1,
+        "docs/EVENTS.md": 1,
+        "docs/INBOX.md": 1,
+        "docs/tasks/TASK-914.md": 1,
         ".arch/focus-ledger.jsonl": 1
       },
       "recentCommitRefs": [
+        "2526545",
+        "3a10015",
+        "3ba95ef",
         "9d9f9dd",
         "353802d"
       ],
@@ -7405,31 +7416,19 @@
       "commitRefOverflow": false
     },
     "TASK-220": {
-      "commitCount": 8,
+      "commitCount": 3,
       "lastCommitDate": "2026-05-11T13:23:04+02:00",
       "touchedFrequency": {
         "cli/src/main/ts/application/use-cases/build-index.ts": 1,
         "cli/src/main/ts/application/use-cases/context-inference.ts": 1,
-        "cli/src/test/ts/finalize-promotion.test.ts": 2,
-        "cli/src/test/ts/scaffold-task.test.ts": 2,
-        "cli/src/test/ts/think-command.test.ts": 2,
-        "scripts/arch.sh": 1,
-        "cli/src/main/ts/application/commands/think-command.ts": 1,
-        "cli/src/main/ts/index.ts": 2,
-        "cli/src/main/ts/application/use-cases/finalize-promotion.ts": 1,
-        "cli/src/main/ts/application/use-cases/scaffold-task.ts": 1,
-        "cli/src/main/ts/application/commands/capture-command.ts": 1,
-        "cli/src/test/ts/capture-command.test.ts": 1
+        "cli/src/test/ts/finalize-promotion.test.ts": 1,
+        "cli/src/test/ts/scaffold-task.test.ts": 1,
+        "cli/src/test/ts/think-command.test.ts": 1
       },
       "recentCommitRefs": [
         "2f9fadd",
         "8e2354a",
-        "05f7188",
-        "b0dc910",
-        "f46c8f4",
-        "5725325",
-        "5c540b7",
-        "c2df75b"
+        "05f7188"
       ],
       "commitRefOverflow": false
     }
