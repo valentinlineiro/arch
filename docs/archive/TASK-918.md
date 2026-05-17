@@ -1,5 +1,6 @@
 ## TASK-918: Audit cli/package.json for npm publish readiness
-**Meta:** P2 | S | REVIEW | Focus:no | 7-operations | claude-code | cli/package.json, cli/.npmignore
+**Meta:** P2 | S | DONE | Focus:no | 7-operations | claude-code | cli/package.json, cli/.npmignore
+**Closed-at:** 2026-05-17T21:37:37.132Z
 
 **Depends:** TASK-917
 
