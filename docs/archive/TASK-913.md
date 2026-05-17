@@ -1,5 +1,6 @@
 ## TASK-913: arch task split TASK-XXX : interactive task decomposition
-**Meta:** P2 | S | IN_PROGRESS | Focus:no | 2-code-generation | claude-code | cli/src/main/ts/application/commands/task-command.ts
+**Meta:** P2 | S | DONE | Focus:no | 2-code-generation | claude-code | cli/src/main/ts/application/commands/task-command.ts
+**Closed-at:** 2026-05-17T12:20:24.953Z
 
 **Depends:** none
 
