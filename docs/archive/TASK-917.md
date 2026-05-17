@@ -1,5 +1,6 @@
 ## TASK-917: Fix MetricsEngine calibration: accept IN_PROGRESS->DONE as valid completion
-**Meta:** P1 | S | IN_PROGRESS | Focus:no | 1-code-reasoning | claude-code | cli/src/main/ts/domain/services/metrics-engine.ts
+**Meta:** P1 | S | DONE | Focus:no | 1-code-reasoning | claude-code | cli/src/main/ts/domain/services/metrics-engine.ts
+**Closed-at:** 2026-05-17T21:33:33.889Z
 
 **Depends:** none
 
