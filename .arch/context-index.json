@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-17T12:06:38.456Z",
+  "builtAt": "2026-05-17T12:19:39.215Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -5080,13 +5080,26 @@
     }
   },
   "tasks": {
-    "TASK-913": {
+    "TASK-914": {
       "commitCount": 1,
-      "lastCommitDate": "2026-05-17T12:06:38+00:00",
+      "lastCommitDate": "2026-05-17T12:19:38+00:00",
       "touchedFrequency": {
         ".arch/focus-ledger.jsonl": 1
       },
       "recentCommitRefs": [
+        "9e17cb5"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-913": {
+      "commitCount": 2,
+      "lastCommitDate": "2026-05-17T12:06:44+00:00",
+      "touchedFrequency": {
+        "docs/tasks/TASK-913.md": 1,
+        ".arch/focus-ledger.jsonl": 1
+      },
+      "recentCommitRefs": [
+        "9d9f9dd",
         "353802d"
       ],
       "commitRefOverflow": false
@@ -7392,13 +7405,13 @@
       "commitRefOverflow": false
     },
     "TASK-220": {
-      "commitCount": 11,
+      "commitCount": 8,
       "lastCommitDate": "2026-05-11T13:23:04+02:00",
       "touchedFrequency": {
         "cli/src/main/ts/application/use-cases/build-index.ts": 1,
         "cli/src/main/ts/application/use-cases/context-inference.ts": 1,
         "cli/src/test/ts/finalize-promotion.test.ts": 2,
-        "cli/src/test/ts/scaffold-task.test.ts": 4,
+        "cli/src/test/ts/scaffold-task.test.ts": 2,
         "cli/src/test/ts/think-command.test.ts": 2,
         "scripts/arch.sh": 1,
         "cli/src/main/ts/application/commands/think-command.ts": 1,
@@ -7406,26 +7419,7 @@
         "cli/src/main/ts/application/use-cases/finalize-promotion.ts": 1,
         "cli/src/main/ts/application/use-cases/scaffold-task.ts": 1,
         "cli/src/main/ts/application/commands/capture-command.ts": 1,
-        "cli/src/test/ts/capture-command.test.ts": 1,
-        "cli/src/test/ts/build-index.test.ts": 1,
-        "cli/src/test/ts/context-inference.test.ts": 1,
-        "cli/src/test/ts/get-sprint-status.test.ts": 1,
-        "cli/src/test/ts/govern-command.test.ts": 1,
-        "cli/src/test/ts/govern-system.test.ts": 1,
-        "cli/src/test/ts/markdown-task-repository.test.ts": 1,
-        "cli/src/test/ts/review-command.test.ts": 1,
-        "cli/src/test/ts/review-system.test.ts": 1,
-        "cli/src/test/ts/task-command.test.ts": 1,
-        "cli/src/main/ts/domain/repositories/file-system.ts": 1,
-        "cli/src/main/ts/infrastructure/filesystem/markdown-intent-repository.ts": 1,
-        "cli/src/main/ts/infrastructure/filesystem/node-file-system.ts": 1,
-        "cli/src/test/ts/drift-checker.test.ts": 1,
-        "cli/src/test/ts/mark-task-done.test.ts": 1,
-        "cli/src/test/ts/markdown-intent-repository.test.ts": 1,
-        "cli/src/test/ts/merge-resolve.test.ts": 1,
-        "cli/src/test/ts/validate-system.test.ts": 1,
-        "cli/src/main/ts/domain/models/task.ts": 1,
-        "cli/src/main/ts/domain/repositories/intent-repository.ts": 1
+        "cli/src/test/ts/capture-command.test.ts": 1
       },
       "recentCommitRefs": [
         "2f9fadd",
@@ -7435,10 +7429,7 @@
         "f46c8f4",
         "5725325",
         "5c540b7",
-        "c2df75b",
-        "cfa3556",
-        "71a5f6a",
-        "290e5b1"
+        "c2df75b"
       ],
       "commitRefOverflow": false
     }
