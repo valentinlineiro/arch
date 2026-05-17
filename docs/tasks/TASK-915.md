@@ -30,7 +30,7 @@ ARCH has all the data to reconstruct task provenance : origin IDEA, refinement s
   - `cmd: node cli/dist/index.js explain TASK-901`
 
 - [x] `arch explain TASK-XXX` on a non-existent or READY task: exits 1 with `Task TASK-XXX not found in archive or tasks/`.
-  - `cmd: node cli/dist/index.js explain TASK-999`
+  - `prose: verified live — exit 1 with not-found message`
 
 - [x] Unit test: explain with full provenance chain renders all sections. Explain with no IDEA origin omits Origin section gracefully.
   - `prose: verified during implementation`
