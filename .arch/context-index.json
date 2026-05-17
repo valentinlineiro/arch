@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-17T13:23:22.629Z",
+  "builtAt": "2026-05-17T15:45:42.329Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -5106,10 +5106,10 @@
   },
   "tasks": {
     "TASK-206": {
-      "commitCount": 16,
-      "lastCommitDate": "2026-05-17T13:23:22+00:00",
+      "commitCount": 17,
+      "lastCommitDate": "2026-05-17T15:45:42+00:00",
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 10,
+        ".arch/focus-ledger.jsonl": 11,
         ".arch/chronicle.jsonl": 2,
         ".arch/reflect-breach-log.jsonl": 3,
         "docs/EVENTS.md": 2,
@@ -5187,6 +5187,7 @@
         "docs/tasks/TASK-907.md": 1
       },
       "recentCommitRefs": [
+        "b9c5aee",
         "e1e66fc",
         "63c2225",
         "6967695",
@@ -7410,28 +7411,13 @@
       "commitRefOverflow": false
     },
     "TASK-226": {
-      "commitCount": 2,
+      "commitCount": 1,
       "lastCommitDate": "2026-05-11T18:40:33+02:00",
       "touchedFrequency": {
-        "docs/ROADMAP.md": 1,
-        "cli/src/main/ts/application/use-cases/loop-engine.ts": 1,
-        "docs/tasks/TASK-226.md": 1
-      },
-      "recentCommitRefs": [
-        "967098e",
-        "81f2457"
-      ],
-      "commitRefOverflow": false
-    },
-    "TASK-225": {
-      "commitCount": 1,
-      "lastCommitDate": "2026-05-11T18:28:12+02:00",
-      "touchedFrequency": {
-        "README.md": 1,
         "docs/ROADMAP.md": 1
       },
       "recentCommitRefs": [
-        "385e124"
+        "967098e"
       ],
       "commitRefOverflow": false
     }
