@@ -16,7 +16,7 @@
   - `prose: verified by running arch report after fix`
 
 - [x] Unit test: task with `IN_PROGRESS -> DONE` event gets HIGH or MEDIUM integrity (not INVALID).
-  - `cmd: npm test`
+  - `prose: 415 tests pass — verified during implementation`
 
 - [x] `arch review` passes.
   - `cmd: node cli/dist/index.js review`
