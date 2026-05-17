@@ -1,5 +1,6 @@
 ## TASK-910: Deterministic Hansei reconciliation: Tier 1 diff-based baseline
-**Meta:** P1 | M | REVIEW | Focus:no | 1-code-reasoning | claude-code | cli/src/main/ts/domain/services/hansei-auditor.ts, cli/src/main/ts/application/commands/reflect-command.ts
+**Meta:** P1 | M | DONE | Focus:no | 1-code-reasoning | claude-code | cli/src/main/ts/domain/services/hansei-auditor.ts, cli/src/main/ts/application/commands/reflect-command.ts
+**Closed-at:** 2026-05-17T07:18:43.542Z
 
 **Depends:** none
 
