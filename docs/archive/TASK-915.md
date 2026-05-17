@@ -51,3 +51,6 @@ ARCH has all the data to reconstruct task provenance : origin IDEA, refinement s
 **Constraint:** Same-category search scans first 50 archived tasks only — sufficient for current corpus, may miss older matches as archive grows.
 **Cost:** No architectural debt introduced.
 **Forward Action:** None required.
+
+## Approval
+Approved-by: Auditor | 2026-05-17

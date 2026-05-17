@@ -45,3 +45,6 @@
 **Constraint:** Scoped review runs DeterministicACVerifier which executes cmd: predicates — can be slow for test-runner ACs.
 **Cost:** No architectural debt introduced.
 **Forward Action:** None required.
+
+## Approval
+Approved-by: Auditor | 2026-05-17

@@ -43,3 +43,6 @@ Every session is anonymous. `arch report` shows cycle time by size but not by mo
 **Constraint:** resolveActor reads config via taskRepository.fileSystem — this is fragile. A cleaner injection path would pass FileSystem directly to MarkTaskInProgress. Acceptable for now.
 **Cost:** None — no architectural debt beyond the constraint above.
 **Forward Action:** None required.
+
+## Approval
+Approved-by: Auditor | 2026-05-17

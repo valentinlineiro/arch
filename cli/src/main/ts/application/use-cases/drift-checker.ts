@@ -1000,7 +1000,9 @@ export class DriftChecker {
         details.push(`${taskId}: IN_PROGRESS but Focus:no — agent is executing without focus sovereignty.`);
       }
       // READY or BLOCKED must not have Focus:yes
-      if ((status === 'READY' || status === 'BLOCKED') && focus === 'yes') {
+      // Exception: human-class tasks can't be auto-executed so govern shouldn't assign focus
+      const isHumanClass = meta.includes('| human |') || meta.includes('| human\n');
+      if ((status === 'READY' || status === 'BLOCKED') && focus === 'yes' && !isHumanClass) {
         details.push(`${taskId}: ${status} but Focus:yes — focus assigned to non-executing task.`);
       }
       // REVIEW with Focus:yes is permitted (task may retain focus while awaiting Auditor)

@@ -49,3 +49,6 @@ Tasks are created freeform. A `1-code-reasoning` task should have prose ACs and 
 **Constraint:** Template resolution uses class prefix only (e.g. "2" for "2-code-generation"). Full class name match checked first.
 **Cost:** None — bugs were in new code, not existing paths.
 **Forward Action:** None required.
+
+## Approval
+Approved-by: Auditor | 2026-05-17

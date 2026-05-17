@@ -46,3 +46,6 @@ SignalRouter routes H2/H3 Hansei signals to `.arch/causal-signal.jsonl`. `arch r
 **Constraint:** Pattern synthesis is documented in THINK.md but not yet automated in the CLI — THINK is executed by an LLM reading the protocol, not by arch reflect directly. The synthesis will run on the next arch reflect session.
 **Cost:** None — no architectural debt introduced.
 **Forward Action:** None required.
+
+## Approval
+Approved-by: Auditor | 2026-05-17

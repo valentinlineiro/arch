@@ -40,3 +40,6 @@ L tasks must be decomposed before READY but decomposition is fully manual : crea
 **Constraint:** arch task split does not automatically set Depends: chains between sub-tasks — ordering is the human's responsibility post-split.
 **Cost:** Template literal with backticks inside caused a build failure — required string concatenation workaround. Minor friction.
 **Forward Action:** None required.
+
+## Approval
+Approved-by: Auditor | 2026-05-17
