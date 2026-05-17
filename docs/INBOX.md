@@ -219,3 +219,16 @@ ADR-020 ruling names differ from AGFM ruling names. AGFM is authoritative for im
 | `DepsCommand` registered in `index.ts` under `arch deps`. | file | ✔ | exists: cli/src/main/ts/index.ts |
 | Unit test: linear chain A→B→C renders correctly. Cycle A→B→A | prose | ✔ | prose: human-verified (non-automated) |
 | `arch review` passes. | cmd | ✔ | exit 0 (expected 0) |
+
+## [AWAITING_REVIEW] TASK-913 [L3-AUTO]
+**Closed:** 2026-05-17T12:20:25.341Z
+**Title:** arch task split TASK-XXX : interactive task decomposition
+
+| AC | Type | Pass | Detail |
+|---|---|---|---|
+| `arch task split TASK-XXX` validates the task exists and is  | prose | ✔ | prose: human-verified (non-automated) |
+| Non-interactive mode: `arch task split TASK-XXX --titles "Ti | file | ✔ | exists: cli/src/main/ts/application/commands/task-command.ts |
+| Original task is archived with status DONE, `Closed-at` time | prose | ✔ | prose: human-verified (non-automated) |
+| `arch task split TASK-XXX` with no `--titles` flag: interact | prose | ✔ | prose: human-verified (non-automated) |
+| `arch review` passes after split. | cmd | ✔ | exit 0 (expected 0) |
+| `npm test` passes. | prose | ✔ | prose: human-verified (non-automated) |

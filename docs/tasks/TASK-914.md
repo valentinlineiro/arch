@@ -1,5 +1,5 @@
 ## TASK-914: arch task new --class: task scaffolding by class
-**Meta:** P2 | S | IN_PROGRESS | Focus:yes | 2-code-generation | claude-code | cli/src/main/ts/application/commands/task-command.ts, docs/templates/
+**Meta:** P2 | S | IN_PROGRESS | Focus:no | 2-code-generation | claude-code | cli/src/main/ts/application/commands/task-command.ts, docs/templates/
 
 **Depends:** none
 
@@ -9,7 +9,7 @@ Tasks are created freeform. A `1-code-reasoning` task should have prose ACs and 
 
 ### Acceptance Criteria
 
-- [ ] `arch task new --class <class> --size <size> "Task title"` creates `docs/tasks/TASK-XXX.md` with:
+- [x] `arch task new --class <class> --size <size> "Task title"` creates `docs/tasks/TASK-XXX.md` with:
   - Auto-incremented ID (next available after scanning docs/tasks/ and docs/archive/)
   - Correct meta line skeleton
   - Class-appropriate AC template:
@@ -21,30 +21,30 @@ Tasks are created freeform. A `1-code-reasoning` task should have prose ACs and 
   - Empty `## Hansei` block with all 6 required fields
   - `file: cli/src/main/ts/application/commands/task-command.ts`
 
-- [ ] Template source: `docs/templates/task-<class>.md` files (human-editable). If template file absent for a class, falls back to generic template. Templates created at `docs/templates/` for the 4 main classes.
+- [x] Template source: `docs/templates/task-<class>.md` files (human-editable). If template file absent for a class, falls back to generic template. Templates created at `docs/templates/` for the 4 main classes.
   - `file: docs/templates/`
 
-- [ ] `arch task new` with no args prints usage showing valid classes and sizes.
+- [x] `arch task new` with no args prints usage showing valid classes and sizes.
   - `cmd: node cli/dist/index.js task new`
 
-- [ ] `M` and `L` sizes automatically include `### Gaps` section regardless of class.
+- [x] `M` and `L` sizes automatically include `### Gaps` section regardless of class.
   - `prose: verified by inspecting generated task file`
 
-- [ ] `arch review` passes after task creation.
+- [x] `arch review` passes after task creation.
   - `cmd: node cli/dist/index.js review`
 
-- [ ] `npm test` passes.
+- [x] `npm test` passes.
   - `prose: verified during implementation`
 
 ### Definition of Done
-- [ ] All ACs checked by Auditor
-- [ ] `arch review` passes
-- [ ] `npm test` passes in `cli/`
+- [x] All ACs checked by Auditor
+- [x] `arch review` passes
+- [x] `npm test` passes in `cli/`
 
 ## Hansei
-**Severity:** H0
-**Category:** [no-issue]
-**Decision:** Not yet started.
-**Constraint:** None.
-**Cost:** None.
-**Forward Action:** None.
+**Severity:** H1
+**Category:** [SpecDrift]
+**Decision:** arch task new --class works. Templates in docs/templates/ loaded by class prefix. Two bugs fixed: readDirectory needs rootPath prefix; fmt.success does not exist (replaced with fmt.check).
+**Constraint:** Template resolution uses class prefix only (e.g. "2" for "2-code-generation"). Full class name match checked first.
+**Cost:** None — bugs were in new code, not existing paths.
+**Forward Action:** None required.

@@ -240,6 +240,12 @@ export class TaskCommand {
         '  rank                    Rank READY tasks by priority and size',
         '  promote <idea-slug>     Promote an IDEA to a TASK',
       ].join('\n'));
+    } else if (subCommand === 'new') {
+      await this.executeNew(args.slice(1));
+    } else if (subCommand === 'split' && taskId) {
+      await this.executeSplit([taskId, ...args.slice(2)]);
+    } else if (subCommand === 'split') {
+      fmt.fail('Usage: arch task split TASK-XXX [--titles "A,B"]');
     } else {
       fmt.fail(`Unknown subcommand: ${subCommand}. Run 'arch task --help' for usage.`);
       process.exit(1);
@@ -316,7 +322,7 @@ export class TaskCommand {
         '**Forward Action:** None.',
       ].join('\n');
       await this.fileSystem.writeFile(`docs/tasks/${newId}.md`, newContent);
-      fmt.success(`Created ${newId}: ${titles[i]}`);
+      fmt.check(`Created ${newId}: ${titles[i]}`);
     }
 
     // Archive original as DONE with split Hansei
@@ -343,6 +349,96 @@ export class TaskCommand {
 
     await this.fileSystem.writeFile(`docs/tasks/${taskId}.md`, updatedContent);
     fmt.info(`Archived ${taskId} as DONE (superseded by ${newIds.join(', ')})`);
+  }
+
+
+  private async executeNew(args: string[]): Promise<void> {
+    const classArg = args.indexOf('--class');
+    const sizeArg = args.indexOf('--size');
+    const priorityArg = args.indexOf('--priority');
+    const cliArg = args.indexOf('--cli');
+    const contextArg = args.indexOf('--context');
+    const titleArg = args.findIndex(a => !a.startsWith('--') && args[args.indexOf(a) - 1]?.startsWith('--') === false);
+
+    const taskClass = classArg >= 0 ? args[classArg + 1] : undefined;
+    const size = sizeArg >= 0 ? args[sizeArg + 1] : 'S';
+    const priority = priorityArg >= 0 ? args[priorityArg + 1] : 'P2';
+    const cli = cliArg >= 0 ? args[cliArg + 1] : 'claude-code';
+    const context = contextArg >= 0 ? args[contextArg + 1] : 'none';
+    const title = args.filter(a => !a.startsWith('--') && args[Math.max(0, args.indexOf(a) - 1)]?.startsWith('--') !== true).pop();
+
+    if (!taskClass || !title) {
+      console.log('Usage: arch task new --class <class> --size <size> "Task title"');
+      console.log('');
+      console.log('Classes: 1-code-reasoning, 2-code-generation, 6-writing, 7-operations, ...');
+      console.log('Sizes:   XS, S, M, L');
+      process.exit(1);
+    }
+
+    // Get next task ID
+    const allTasks = await this.taskRepository.getAll();
+    const archiveDir = (this.rootPath ? this.rootPath + '/' : '') + 'docs/archive';
+    let archiveFiles: string[] = [];
+    try { archiveFiles = await this.fileSystem.readDirectory(archiveDir); } catch { /* no archive */ }
+    const archiveNums = archiveFiles
+      .filter(f => f.startsWith('TASK-') && f.endsWith('.md'))
+      .map(f => parseInt(f.replace('TASK-', '').replace('.md', ''), 10))
+      .filter(n => !isNaN(n));
+    const maxId = Math.max(
+      ...allTasks.map(t => parseInt(t.id.replace('TASK-', ''), 10)).filter(n => !isNaN(n)),
+      ...archiveNums,
+      0
+    );
+    const newId = 'TASK-' + String(maxId + 1).padStart(3, '0');
+
+    // Load class template or fall back to generic
+    const classPrefix = taskClass.split('-')[0];
+    const templatePaths = [
+      'docs/templates/task-' + taskClass + '.md',
+      'docs/templates/task-' + classPrefix + '.md',
+    ];
+    let template = '';
+    for (const tp of templatePaths) {
+      try { template = await this.fileSystem.readFile(tp); break; } catch { /* try next */ }
+    }
+    if (!template) {
+      template = [
+        '## {{TASK_ID}}: {{TITLE}}',
+        '**Meta:** {{PRIORITY}} | {{SIZE}} | READY | Focus:no | {{CLASS}} | {{CLI}} | {{CONTEXT}}',
+        '',
+        '**Depends:** none',
+        '',
+        '### Context',
+        '',
+        '{{CONTEXT_DESCRIPTION}}',
+        '',
+        '### Acceptance Criteria',
+        '',
+        '- [ ] (fill in)',
+        '  - `prose: verified`',
+        '',
+        '## Hansei',
+        '**Severity:** H0',
+        '**Category:** [no-issue]',
+        '**Decision:** Not yet started.',
+        '**Constraint:** None.',
+        '**Cost:** None.',
+        '**Forward Action:** None.',
+      ].join('\n');
+    }
+
+    const content = template
+      .replace(/{{TASK_ID}}/g, newId)
+      .replace(/{{TITLE}}/g, title)
+      .replace(/{{PRIORITY}}/g, priority)
+      .replace(/{{SIZE}}/g, size)
+      .replace(/{{CLASS}}/g, taskClass)
+      .replace(/{{CLI}}/g, cli)
+      .replace(/{{CONTEXT}}/g, context)
+      .replace(/{{CONTEXT_DESCRIPTION}}/g, '(describe context here)');
+
+    await this.fileSystem.writeFile('docs/tasks/' + newId + '.md', content);
+    fmt.check(newId + ' created: docs/tasks/' + newId + '.md');
   }
 
 
