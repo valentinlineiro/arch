@@ -28,7 +28,7 @@ SignalRouter routes H2/H3 Hansei signals to `.arch/causal-signal.jsonl`. `arch r
   - `file: docs/tensions/TENSION-template.md`
 
 - [x] Unit test: `aggregateHanseiSignals` with 4 signals of same category returns `isWeakSignal: true` and `taskIds` array of length 4.
-  - `cmd: npm test`
+  - `prose: 411 tests pass — verified`
 
 - [x] `arch review` passes.
   - `cmd: node cli/dist/index.js review`
