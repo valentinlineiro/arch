@@ -232,3 +232,16 @@ ADR-020 ruling names differ from AGFM ruling names. AGFM is authoritative for im
 | `arch task split TASK-XXX` with no `--titles` flag: interact | prose | ✔ | prose: human-verified (non-automated) |
 | `arch review` passes after split. | cmd | ✔ | exit 0 (expected 0) |
 | `npm test` passes. | prose | ✔ | prose: human-verified (non-automated) |
+
+## [AWAITING_REVIEW] TASK-914 [L3-AUTO]
+**Closed:** 2026-05-17T13:13:54.966Z
+**Title:** arch task new --class: task scaffolding by class
+
+| AC | Type | Pass | Detail |
+|---|---|---|---|
+| `arch task new --class <class> --size <size> "Task title"` c | file | ✔ | exists: cli/src/main/ts/application/commands/task-command.ts |
+| Template source: `docs/templates/task-<class>.md` files (hum | file | ✔ | exists: docs/templates/ |
+| `arch task new` with no args prints usage showing valid clas | prose | ✔ | prose: human-verified (non-automated) |
+| `M` and `L` sizes automatically include `### Gaps` section r | prose | ✔ | prose: human-verified (non-automated) |
+| `arch review` passes after task creation. | cmd | ✔ | exit 0 (expected 0) |
+| `npm test` passes. | prose | ✔ | prose: human-verified (non-automated) |

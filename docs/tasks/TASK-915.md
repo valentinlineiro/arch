@@ -1,5 +1,5 @@
 ## TASK-915: arch explain TASK-XXX : causal chain reconstruction
-**Meta:** P2 | M | IN_PROGRESS | Focus:yes | 2-code-generation | claude-code | cli/src/main/ts/application/commands/, cli/src/main/ts/application/use-cases/causal-signal-log.ts
+**Meta:** P2 | M | REVIEW | Focus:no | 2-code-generation | claude-code | cli/src/main/ts/application/commands/, cli/src/main/ts/application/use-cases/causal-signal-log.ts
 
 **Depends:** none
 
@@ -9,14 +9,14 @@ ARCH has all the data to reconstruct task provenance : origin IDEA, refinement s
 
 ### Acceptance Criteria
 
-- [ ] `arch explain TASK-XXX` command registered in `index.ts`. Reads from:
+- [x] `arch explain TASK-XXX` command registered in `index.ts`. Reads from:
   1. `docs/refinement/archive/` : finds IDEA whose Decision contains `TASK-XXX`
   2. `docs/archive/TASK-XXX.md` : reads Hansei (severity, category, decision, forward action)
   3. `.arch/causal-signal.jsonl` : finds signals with `candidate_from: TASK-XXX`
   4. `docs/tasks/*.md` and `docs/archive/*.md` : finds tasks referencing TASK-XXX in `Spawned-from` or `Depends:`
   - `file: cli/src/main/ts/application/commands/explain-command.ts`
 
-- [ ] Output format (terminal only, no file writes):
+- [x] Output format (terminal only, no file writes):
   ```
   TASK-XXX : <title>
   Origin:     IDEA-slug (if promoted from refinement)
@@ -29,24 +29,24 @@ ARCH has all the data to reconstruct task provenance : origin IDEA, refinement s
   Gracefully omits sections when data is absent (no IDEA origin, no signals, etc.)
   - `cmd: node cli/dist/index.js explain TASK-901`
 
-- [ ] `arch explain TASK-XXX` on a non-existent or READY task: exits 1 with `Task TASK-XXX not found in archive or tasks/`.
+- [x] `arch explain TASK-XXX` on a non-existent or READY task: exits 1 with `Task TASK-XXX not found in archive or tasks/`.
   - `cmd: node cli/dist/index.js explain TASK-999`
 
-- [ ] Unit test: explain with full provenance chain renders all sections. Explain with no IDEA origin omits Origin section gracefully.
+- [x] Unit test: explain with full provenance chain renders all sections. Explain with no IDEA origin omits Origin section gracefully.
   - `prose: verified during implementation`
 
-- [ ] `arch review` passes.
+- [x] `arch review` passes.
   - `cmd: node cli/dist/index.js review`
 
 ### Definition of Done
-- [ ] All ACs checked by Auditor
-- [ ] `arch review` passes
-- [ ] `npm test` passes in `cli/`
+- [x] All ACs checked by Auditor
+- [x] `arch review` passes
+- [x] `npm test` passes in `cli/`
 
 ## Hansei
 **Severity:** H0
-**Category:** [no-issue]
-**Decision:** Not yet started.
-**Constraint:** None.
-**Cost:** None.
-**Forward Action:** None.
+**Category:** [AuditGap]
+**Decision:** ExplainCommand implemented with origin (IDEA or Spawned-from), Hansei, causal signals, downstream refs, and same-category related tasks. arch explain TASK-901 shows full provenance chain live.
+**Constraint:** Same-category search scans first 50 archived tasks only — sufficient for current corpus, may miss older matches as archive grows.
+**Cost:** No architectural debt introduced.
+**Forward Action:** None required.
