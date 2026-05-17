@@ -142,7 +142,7 @@ test('EscalationMaturity E5 — (b) ambiguous task (missing class) blocked at ar
     () => markInProgress.execute('TASK-002', 'cli'),
     (err: Error) => {
       assert.ok(err instanceof DefinitionOfReadyError, `expected DefinitionOfReadyError, got ${err.constructor.name}`);
-      assert.ok(err.reasons.some(r => r.includes('class')), `expected class violation, got: ${err.reasons}`);
+      assert.ok(err.reasons.some(r => r.toLowerCase().includes('class')), `expected class violation, got: ${err.reasons}`);
       return true;
     }
   );

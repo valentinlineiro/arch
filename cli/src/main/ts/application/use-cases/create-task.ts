@@ -90,13 +90,9 @@ export class CreateTask {
       ? metaLine
       : `**Meta:** ${DEFAULT_PRIORITY} | ${DEFAULT_SIZE} | READY | Focus:no | ${DEFAULT_CLASS} | local | docs/tasks/`;
 
-    const templateAcs = TEMPLATE_REGISTRY[cls] ?? TEMPLATE_REGISTRY['default'];
+    // Build ACs with class-appropriate predicate types
     const llmAcs = draft?.acs ?? [];
-    const combinedAcs = [...new Set([...templateAcs, ...llmAcs])];
-
-    const acs = combinedAcs
-      .map(ac => `- [ ] ${ac} → prose: verified`)
-      .join('\n');
+    const acs = this.buildACs(cls, llmAcs, intent);
 
     return [
       `## ${nextId}: ${title}`,
@@ -111,10 +107,76 @@ export class CreateTask {
       intent,
       ``,
       `### Definition of Done`,
-      `- [ ] All ACs checked → prose: all ACs above verified`,
-      `- [ ] arch review passes → cmd: node cli/dist/index.js review; exit: 0`,
+      `- [ ] All ACs checked by Auditor`,
+      `- [ ] \`arch review\` passes`,
       ``,
+      `## Hansei`,
+      `**Severity:** H0`,
+      `**Category:** [no-issue]`,
+      `**Decision:** Not yet started.`,
+      `**Constraint:** None.`,
+      `**Cost:** None.`,
+      `**Forward Action:** None.`,
     ].join('\n');
+  }
+
+  private buildACs(cls: string, llmAcs: string[], intent: string): string {
+    const lines: string[] = [];
+
+    if (llmAcs.length > 0) {
+      // Use LLM-generated ACs with class-appropriate predicate types
+      for (const ac of llmAcs) {
+        const predicate = this.predicateForClass(cls, ac);
+        lines.push(`- [ ] ${ac}`);
+        lines.push(`  - \`${predicate}\``);
+      }
+    } else {
+      // Fallback: class-specific skeleton ACs
+      const skeleton = this.skeletonACs(cls, intent);
+      for (const { desc, predicate } of skeleton) {
+        lines.push(`- [ ] ${desc}`);
+        lines.push(`  - \`${predicate}\``);
+      }
+    }
+
+    // Always add arch review AC
+    lines.push(`- [ ] \`arch review\` passes`);
+    lines.push(`  - \`cmd: node cli/dist/index.js review\``);
+
+    return lines.join('\n');
+  }
+
+  private predicateForClass(cls: string, ac: string): string {
+    const lc = ac.toLowerCase();
+    if (cls === '2-code-generation') {
+      if (lc.includes('test') || lc.includes('spec')) return 'cmd: npm test; exit: 0';
+      if (lc.includes('exist') || lc.includes('file') || lc.includes('creat')) return 'file: (path)';
+      return 'cmd: (command); exit: 0';
+    }
+    if (cls === '7-operations') return 'cmd: (command); exit: 0';
+    if (cls === '6-writing') {
+      if (lc.includes('exist') || lc.includes('creat') || lc.includes('document')) return 'file: (path)';
+      return 'prose: verified by reading the document';
+    }
+    return 'prose: verified';
+  }
+
+  private skeletonACs(cls: string, intent: string): Array<{ desc: string; predicate: string }> {
+    if (cls === '2-code-generation') return [
+      { desc: 'Implementation file exists at declared context path', predicate: 'file: (path)' },
+      { desc: 'Tests pass', predicate: 'cmd: npm test; exit: 0' },
+    ];
+    if (cls === '7-operations') return [
+      { desc: 'Operation completes without error', predicate: 'cmd: (command); exit: 0' },
+      { desc: 'Output exists at expected path', predicate: 'file: (path)' },
+    ];
+    if (cls === '6-writing') return [
+      { desc: 'Document exists at declared path', predicate: 'file: (path)' },
+      { desc: 'Content is accurate and complete', predicate: 'prose: reviewed and verified' },
+    ];
+    return [
+      { desc: 'Intent addressed', predicate: 'prose: verified' },
+    ];
   }
 
   private async tryLlmDraft(intent: string): Promise<LlmDraft | null> {

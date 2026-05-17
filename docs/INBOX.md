@@ -245,3 +245,14 @@ ADR-020 ruling names differ from AGFM ruling names. AGFM is authoritative for im
 | `M` and `L` sizes automatically include `### Gaps` section r | prose | ✔ | prose: human-verified (non-automated) |
 | `arch review` passes after task creation. | cmd | ✔ | exit 0 (expected 0) |
 | `npm test` passes. | prose | ✔ | prose: human-verified (non-automated) |
+
+## [AWAITING_REVIEW] TASK-917 [L3-AUTO]
+**Closed:** 2026-05-17T21:33:34.268Z
+**Title:** Fix MetricsEngine calibration: accept IN_PROGRESS->DONE as valid completion
+
+| AC | Type | Pass | Detail |
+|---|---|---|---|
+| `MetricsEngine.calibrateTask()` accepts both `REVIEW -> DONE | file | ✔ | exists: cli/src/main/ts/domain/services/metrics-engine.ts |
+| `arch report` exits 0 after the fix. No CRITICAL INTEGRITY B | prose | ✔ | prose: human-verified (non-automated) |
+| Unit test: task with `IN_PROGRESS -> DONE` event gets HIGH o | prose | ✔ | prose: human-verified (non-automated) |
+| `arch review` passes. | cmd | ✔ | exit 0 (expected 0) |

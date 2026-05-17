@@ -9,11 +9,17 @@
 
 ### Acceptance Criteria
 
-- [ ] Operation completes successfully
-  - `cmd: <your command here>; exit: 0`
+- [ ] Operation completes successfully (replace with actual command)
+  - `cmd: <your command>; exit: 0`
 
-- [ ] Output verified
-  - `cmd: <verification command>; exit: 0`
+- [ ] Output file/artifact exists at expected path (if applicable)
+  - `file: {{CONTEXT}}`
+
+- [ ] Idempotent: running again produces no errors
+  - `cmd: <your command>; exit: 0`
+
+- [ ] `arch review` passes
+  - `cmd: node cli/dist/index.js review`
 
 ### Definition of Done
 - [ ] All ACs checked by Auditor

@@ -7,19 +7,19 @@
 
 {{CONTEXT_DESCRIPTION}}
 
-### Gaps
-
-- What architectural constraints apply?
-- What invariants must be preserved?
-- What failure modes need handling?
-
 ### Acceptance Criteria
 
-- [ ] ADR or design doc updated
-  - `prose: verified — decision recorded at docs/adr/ADR-XXX.md`
+- [ ] Design decision recorded — ADR or doc at declared path
+  - `prose: decision documented at {{CONTEXT}}`
 
-- [ ] Implementation follows stated design
-  - `code: verify by reading the implementation file`
+- [ ] All affected guidelines/docs updated to reflect the decision
+  - `file: {{CONTEXT}}`
+
+- [ ] Existing tests still pass after any doc changes
+  - `prose: no breaking changes — verified`
+
+- [ ] `arch review` passes
+  - `cmd: node cli/dist/index.js review`
 
 ### Definition of Done
 - [ ] All ACs checked by Auditor

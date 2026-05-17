@@ -9,14 +9,17 @@
 
 ### Acceptance Criteria
 
-- [ ] Implementation exists at declared path
+- [ ] Implementation file exists at declared path
   - `file: {{CONTEXT}}`
 
-- [ ] Tests pass
+- [ ] CLI command/entrypoint exits 0 (replace with actual invocation)
+  - `cmd: node dist/index.js --help; exit: 0`
+
+- [ ] Test suite passes
   - `cmd: npm test; exit: 0`
 
 - [ ] `arch review` passes
-  - `cmd: node cli/dist/index.js review; exit: 0`
+  - `cmd: node cli/dist/index.js review`
 
 ### Definition of Done
 - [ ] All ACs checked by Auditor

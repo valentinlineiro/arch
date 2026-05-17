@@ -12,8 +12,14 @@
 - [ ] Document exists at declared path
   - `file: {{CONTEXT}}`
 
-- [ ] Document covers all required sections
-  - `prose: verified by reading the document`
+- [ ] Document contains all required sections (replace with actual section names)
+  - `prose: sections verified — Introduction, Usage, Examples present`
+
+- [ ] No broken internal links
+  - `prose: links verified`
+
+- [ ] `arch review` passes
+  - `cmd: node cli/dist/index.js review`
 
 ### Definition of Done
 - [ ] All ACs checked by Auditor

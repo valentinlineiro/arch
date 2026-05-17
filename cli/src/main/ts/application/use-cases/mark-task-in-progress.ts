@@ -59,23 +59,23 @@ export class MarkTaskInProgress {
   private checkDefinitionOfReady(task: { id: string; priority: string; size: string; class: string; cli: string; context: string[]; acceptanceCriteria?: { description: string }[]; content: string }): string[] {
     const reasons: string[] = [];
 
-    if (!task.priority?.trim()) reasons.push('Missing Priority (P0/P1/P2/P3)');
-    if (!task.size?.trim()) reasons.push('Missing Size (XS/S/M/L)');
-    if (!task.class?.trim()) reasons.push('Missing task class (e.g. 1-code-reasoning)');
-    if (!task.cli?.trim()) reasons.push('Missing CLI provider');
+    if (!task.priority?.trim()) reasons.push('Missing Priority (P0/P1/P2/P3) — add to meta line field 1');
+    if (!task.size?.trim()) reasons.push('Missing Size (XS/S/M/L) — add to meta line field 2');
+    if (!task.class?.trim()) reasons.push('Missing Class (e.g. 1-code-reasoning) — add to meta line field 5');
+    if (!task.cli?.trim()) reasons.push('Missing CLI provider (e.g. claude-code) — add to meta line field 6');
 
     const hasExplicitNone = task.content.includes('| none') || task.content.includes('| none\n');
     if (!task.context || task.context.length === 0) {
-      if (!hasExplicitNone) reasons.push('Missing context paths');
+      if (!hasExplicitNone) reasons.push('Missing context paths — add file/dir paths to meta line field 7, or use "none"');
     }
 
     const hasACs = (task.acceptanceCriteria && task.acceptanceCriteria.length > 0) ||
       task.content.includes('- [ ]') || task.content.includes('- [x]');
-    if (!hasACs) reasons.push('No Acceptance Criteria defined');
+    if (!hasACs) reasons.push('No Acceptance Criteria — add at least one "- [ ] ..." item under ### Acceptance Criteria');
 
     const isMOrLarger = ['M', 'L', 'XL'].includes(task.size?.trim());
     if (isMOrLarger && !task.content.includes('### Gaps')) {
-      reasons.push(`Size ${task.size} task is missing a ### Gaps section (required for M+)`);
+      reasons.push(`Size ${task.size} requires a ### Gaps section — add it below ### Context`);
     }
 
     return reasons;

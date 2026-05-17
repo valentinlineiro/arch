@@ -1,5 +1,5 @@
 ## TASK-206: Split monorepo into arch-protocol, arch-cli, arch-web repositories
-**Meta:** P3 | M | READY | Focus:yes | 7-operations | human | docs/, cli/, arch.config.json
+**Meta:** P3 | M | READY | Focus:no | 7-operations | human | docs/, cli/, arch.config.json
 **Depends:** none
 
 ### Context
