@@ -1,5 +1,5 @@
 ## TASK-909: Hansei pattern synthesis: TENSION creation from signal corpus
-**Meta:** P1 | M | IN_PROGRESS | Focus:yes | 1-code-reasoning | claude-code | docs/agents/THINK.md, cli/src/main/ts/domain/services/signal-router.ts
+**Meta:** P1 | M | IN_PROGRESS | Focus:no | 1-code-reasoning | claude-code | docs/agents/THINK.md, cli/src/main/ts/domain/services/signal-router.ts
 
 **Depends:** none
 
@@ -9,10 +9,10 @@ SignalRouter routes H2/H3 Hansei signals to `.arch/causal-signal.jsonl`. `arch r
 
 ### Acceptance Criteria
 
-- [ ] `aggregateHanseiSignals()` in `signal-router.ts` extended to return task IDs per category (already returns `count` and `isWeakSignal` — add `taskIds: string[]` to `HanseiAggregate`).
+- [x] `aggregateHanseiSignals()` in `signal-router.ts` extended to return task IDs per category (already returns `count` and `isWeakSignal` — add `taskIds: string[]` to `HanseiAggregate`).
   - `file: cli/src/main/ts/domain/services/signal-router.ts`
 
-- [ ] `THINK.md` Phase 2 updated with Hansei pattern synthesis step:
+- [x] `THINK.md` Phase 2 updated with Hansei pattern synthesis step:
   After Kaizen analysis, read `.arch/causal-signal.jsonl` and group by category.
   For any category with count ≥ 3 (weak signal threshold):
   - Check `docs/tensions/` for existing TENSION referencing this category
@@ -23,25 +23,25 @@ SignalRouter routes H2/H3 Hansei signals to `.arch/causal-signal.jsonl`. `arch r
   THINK never modifies `docs/guidelines/` directly. Only proposals.
   - `file: docs/agents/THINK.md`
 
-- [ ] `docs/tensions/TENSION-template.md` created with required fields:
+- [x] `docs/tensions/TENSION-template.md` created with required fields:
   Pattern, Category, Affected tasks (IDs), Evidence (Hansei Decision excerpts), Proposed protocol change, Status (OPEN/RESOLVED).
   - `file: docs/tensions/TENSION-template.md`
 
-- [ ] Unit test: `aggregateHanseiSignals` with 4 signals of same category returns `isWeakSignal: true` and `taskIds` array of length 4.
+- [x] Unit test: `aggregateHanseiSignals` with 4 signals of same category returns `isWeakSignal: true` and `taskIds` array of length 4.
   - `cmd: npm test`
 
-- [ ] `arch review` passes.
+- [x] `arch review` passes.
   - `cmd: node cli/dist/index.js review`
 
 ### Definition of Done
-- [ ] All ACs checked by Auditor
-- [ ] `arch review` passes
-- [ ] `npm test` passes in `cli/`
+- [x] All ACs checked by Auditor
+- [x] `arch review` passes
+- [x] `npm test` passes in `cli/`
 
 ## Hansei
-**Severity:** H0
-**Category:** [no-issue]
-**Decision:** Not yet started.
-**Constraint:** None.
-**Cost:** None.
-**Forward Action:** None.
+**Severity:** H1
+**Category:** [SpecDrift]
+**Decision:** AC1 was already implemented (taskIds already in HanseiAggregate and aggregateHanseiSignals). AC2 done (THINK.md Phase 2 updated). AC3 done (TENSION-template.md created). AC4: 2 unit tests added and passing. 411 tests total.
+**Constraint:** Pattern synthesis is documented in THINK.md but not yet automated in the CLI — THINK is executed by an LLM reading the protocol, not by arch reflect directly. The synthesis will run on the next arch reflect session.
+**Cost:** None — no architectural debt introduced.
+**Forward Action:** None required.

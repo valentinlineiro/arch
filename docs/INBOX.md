@@ -179,3 +179,16 @@ ADR-020 ruling names differ from AGFM ruling names. AGFM is authoritative for im
 | THINK Phase 3 doc updated: every 20 govern ticks (or when RE | file | ✔ | exists: docs/agents/THINK.md |
 | `arch review` passes. | cmd | ✔ | exit 0 (expected 0) |
 | `npm test` passes. | prose | ✔ | prose: human-verified (non-automated) |
+
+## [AWAITING_REVIEW] TASK-908 [L3-AUTO]
+**Closed:** 2026-05-17T07:11:10.293Z
+**Title:** arch review --task: scoped Auditor review command
+
+| AC | Type | Pass | Detail |
+|---|---|---|---|
+| `arch review --task TASK-XXX` command: runs scoped review fo | prose | ✔ | prose: human-verified (non-automated) |
+| Full system review (`arch review` with no args) is unchanged | cmd | ✔ | exit 0 (expected 0) |
+| `ReviewCommand` detects `--task TASK-XXX` arg and delegates  | file | ✔ | exists: cli/src/main/ts/application/commands/review-command. |
+| `arch review --task` exits 1 when a `cmd:` predicate fails. | prose | ✔ | prose: human-verified (non-automated) |
+| Unit tests: all-pass task → exit 0 + evidence table. Failing | prose | ✔ | prose: human-verified (non-automated) |
+| `arch review` passes clean after implementation. | prose | ✔ | prose: human-verified (non-automated) |

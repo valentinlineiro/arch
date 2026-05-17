@@ -125,3 +125,42 @@ test('DeterministicACVerifier — no predicate declared: treated as prose, passe
   assert.equal(result.evidence[0].type, 'unknown');
   assert.equal(result.evidence[0].pass, true);
 });
+
+// ── aggregateHanseiSignals tests ────────────────────────────────────────────
+
+import { aggregateHanseiSignals, WEAK_SIGNAL_THRESHOLD } from '../../main/ts/domain/services/signal-router.js';
+
+test('aggregateHanseiSignals — 4 signals same category returns isWeakSignal:true with 4 taskIds', async () => {
+  const mockLog = {
+    all: async () => [
+      { event: 'hansei_signal:TASK-001:H2', candidate_from: 'TASK-001', candidate_to: 'friction:[SpecDrift]', domain: 'epistemological', signal_type: 'create', candidate_relation: 'causes', confidence: 0.6 },
+      { event: 'hansei_signal:TASK-002:H2', candidate_from: 'TASK-002', candidate_to: 'friction:[SpecDrift]', domain: 'epistemological', signal_type: 'create', candidate_relation: 'causes', confidence: 0.6 },
+      { event: 'hansei_signal:TASK-003:H2', candidate_from: 'TASK-003', candidate_to: 'friction:[SpecDrift]', domain: 'epistemological', signal_type: 'create', candidate_relation: 'causes', confidence: 0.6 },
+      { event: 'hansei_signal:TASK-004:H2', candidate_from: 'TASK-004', candidate_to: 'friction:[SpecDrift]', domain: 'epistemological', signal_type: 'create', candidate_relation: 'causes', confidence: 0.6 },
+    ],
+  };
+
+  const result = await aggregateHanseiSignals(mockLog as any);
+  assert.equal(result.length, 1);
+  assert.equal(result[0].isWeakSignal, true);
+  assert.equal(result[0].count, 4);
+  assert.equal(result[0].taskIds.length, 4);
+  assert.ok(result[0].taskIds.includes('TASK-001'));
+  assert.ok(result[0].taskIds.includes('TASK-004'));
+  assert.ok(result[0].count >= WEAK_SIGNAL_THRESHOLD);
+});
+
+test('aggregateHanseiSignals — 2 signals same category returns isWeakSignal:false', async () => {
+  const mockLog = {
+    all: async () => [
+      { event: 'hansei_signal:TASK-001:H2', candidate_from: 'TASK-001', candidate_to: 'friction:[AuditGap]', domain: 'epistemological', signal_type: 'create', candidate_relation: 'causes', confidence: 0.6 },
+      { event: 'hansei_signal:TASK-002:H2', candidate_from: 'TASK-002', candidate_to: 'friction:[AuditGap]', domain: 'epistemological', signal_type: 'create', candidate_relation: 'causes', confidence: 0.6 },
+    ],
+  };
+
+  const result = await aggregateHanseiSignals(mockLog as any);
+  assert.equal(result.length, 1);
+  assert.equal(result[0].isWeakSignal, false);
+  assert.equal(result[0].count, 2);
+  assert.equal(result[0].taskIds.length, 2);
+});
