@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-17T21:36:10.986Z",
+  "builtAt": "2026-05-17T21:36:33.043Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -5106,24 +5106,42 @@
   },
   "tasks": {
     "TASK-918": {
-      "commitCount": 1,
-      "lastCommitDate": "2026-05-17T21:36:10+00:00",
+      "commitCount": 2,
+      "lastCommitDate": "2026-05-17T21:36:32+00:00",
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 1
+        ".arch/focus-ledger.jsonl": 2
       },
       "recentCommitRefs": [
+        "f42ac2c",
         "637dbf2"
       ],
       "commitRefOverflow": false
     },
     "TASK-921": {
-      "commitCount": 2,
-      "lastCommitDate": "2026-05-17T21:33:39+00:00",
+      "commitCount": 5,
+      "lastCommitDate": "2026-05-17T21:36:32+00:00",
       "touchedFrequency": {
-        "docs/tasks/TASK-921.md": 1,
+        "docs/archive/TASK-921.md": 1,
+        "docs/tasks/TASK-921.md": 3,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/reflect-breach-log.jsonl": 1,
+        "cli/src/main/ts/application/use-cases/create-task.ts": 1,
+        "cli/src/main/ts/application/use-cases/mark-task-in-progress.ts": 1,
+        "cli/src/test/ts/escalation-maturity-e5.test.ts": 1,
+        "docs/EVENTS.md": 1,
+        "docs/INBOX.md": 1,
+        "docs/tasks/TASK-206.md": 1,
+        "docs/tasks/TASK-918.md": 1,
+        "docs/templates/task-1-code-reasoning.md": 1,
+        "docs/templates/task-2-code-generation.md": 1,
+        "docs/templates/task-6-writing.md": 1,
+        "docs/templates/task-7-operations.md": 1,
         ".arch/focus-ledger.jsonl": 1
       },
       "recentCommitRefs": [
+        "b9d6020",
+        "86df5b9",
+        "3fec841",
         "0f4e653",
         "9f5251c"
       ],
@@ -7112,43 +7130,6 @@
       },
       "recentCommitRefs": [
         "dc2b86c"
-      ],
-      "commitRefOverflow": false
-    },
-    "TASK-186": {
-      "commitCount": 4,
-      "lastCommitDate": "2026-05-12T10:55:33+02:00",
-      "touchedFrequency": {
-        "cli/src/main/ts/domain/services/reviewer.ts": 1,
-        ".arch/causal-signal.jsonl": 1,
-        ".arch/chronicle.jsonl": 1,
-        "docs/archive/TASK-186.md": 1,
-        "docs/superpowers/plans/2026-05-11-close-learning-loop.md": 1,
-        "docs/INBOX.md": 1,
-        "docs/tasks/TASK-186.md": 2,
-        "CHANGELOG.md": 1,
-        "README.md": 1,
-        "cli/src/main/ts/application/commands/review-command.ts": 1,
-        "cli/src/main/ts/application/use-cases/drift-checker.ts": 1,
-        "cli/src/main/ts/index.ts": 1,
-        "scripts/arch.sh": 1
-      },
-      "recentCommitRefs": [
-        "079fc4d",
-        "a979f5e",
-        "a77cb00",
-        "222785a"
-      ],
-      "commitRefOverflow": false
-    },
-    "TASK-185": {
-      "commitCount": 1,
-      "lastCommitDate": "2026-05-12T10:45:19+02:00",
-      "touchedFrequency": {
-        "docs/archive/TASK-185.md": 1
-      },
-      "recentCommitRefs": [
-        "42c31ec"
       ],
       "commitRefOverflow": false
     }
