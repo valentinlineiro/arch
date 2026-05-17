@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-17T13:22:54.269Z",
+  "builtAt": "2026-05-17T13:23:22.629Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -5106,10 +5106,10 @@
   },
   "tasks": {
     "TASK-206": {
-      "commitCount": 15,
-      "lastCommitDate": "2026-05-17T13:22:54+00:00",
+      "commitCount": 16,
+      "lastCommitDate": "2026-05-17T13:23:22+00:00",
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 9,
+        ".arch/focus-ledger.jsonl": 10,
         ".arch/chronicle.jsonl": 2,
         ".arch/reflect-breach-log.jsonl": 3,
         "docs/EVENTS.md": 2,
@@ -5187,6 +5187,7 @@
         "docs/tasks/TASK-907.md": 1
       },
       "recentCommitRefs": [
+        "e1e66fc",
         "63c2225",
         "6967695",
         "5ce4cf7",
@@ -5206,13 +5207,25 @@
       "commitRefOverflow": false
     },
     "TASK-916": {
-      "commitCount": 2,
-      "lastCommitDate": "2026-05-17T13:20:40+00:00",
+      "commitCount": 5,
+      "lastCommitDate": "2026-05-17T13:23:22+00:00",
       "touchedFrequency": {
-        "docs/tasks/TASK-916.md": 1,
+        "docs/archive/TASK-916.md": 1,
+        "docs/tasks/TASK-916.md": 3,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/reflect-breach-log.jsonl": 1,
+        "arch.config.json": 1,
+        "cli/src/main/ts/application/commands/report-command.ts": 1,
+        "cli/src/main/ts/domain/services/archive-parser.ts": 1,
+        "cli/src/main/ts/domain/services/metrics-engine.ts": 1,
+        "docs/EVENTS.md": 1,
+        "docs/tasks/TASK-206.md": 1,
         ".arch/focus-ledger.jsonl": 1
       },
       "recentCommitRefs": [
+        "2a2064c",
+        "ce808f6",
+        "8d25072",
         "dfb3c1c",
         "bfaf8dd"
       ],
@@ -7411,45 +7424,14 @@
       "commitRefOverflow": false
     },
     "TASK-225": {
-      "commitCount": 2,
+      "commitCount": 1,
       "lastCommitDate": "2026-05-11T18:28:12+02:00",
       "touchedFrequency": {
         "README.md": 1,
-        "docs/ROADMAP.md": 1,
-        "cli/src/main/ts/application/commands/causal-command.ts": 1,
-        "cli/src/main/ts/application/use-cases/causal-arbitrator.ts": 1,
-        "cli/src/main/ts/application/use-cases/causal-signal-log.ts": 1,
-        "cli/src/main/ts/domain/models/causal-signal.ts": 1,
-        "cli/src/main/ts/index.ts": 1,
-        "cli/src/test/ts/causal-arbitrator.test.ts": 1,
-        "docs/adr/ADR-015-causal-signal-arbitration.md": 1,
-        "docs/tasks/TASK-225.md": 1
+        "docs/ROADMAP.md": 1
       },
       "recentCommitRefs": [
-        "385e124",
-        "9c151d5"
-      ],
-      "commitRefOverflow": false
-    },
-    "TASK-224": {
-      "commitCount": 4,
-      "lastCommitDate": "2026-05-11T16:15:20+02:00",
-      "touchedFrequency": {
-        "cli/src/main/ts/application/use-cases/ask-corpus.ts": 1,
-        "cli/src/main/ts/application/use-cases/causal-graph.ts": 4,
-        "cli/src/main/ts/index.ts": 1,
-        "cli/src/test/ts/ask-corpus.test.ts": 1,
-        "cli/src/test/ts/causal-graph.test.ts": 4,
-        "docs/ROADMAP.md": 1,
-        "cli/src/main/ts/application/commands/causal-command.ts": 3,
-        ".arch/causal-graph.jsonl": 2,
-        "cli/src/main/ts/domain/models/causal-relation.ts": 2
-      },
-      "recentCommitRefs": [
-        "d41c91e",
-        "5b325f8",
-        "401cadd",
-        "bc24228"
+        "385e124"
       ],
       "commitRefOverflow": false
     }
