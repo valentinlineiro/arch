@@ -1,5 +1,6 @@
 ## TASK-912: arch deps TASK-XXX : dependency tree visualization
-**Meta:** P2 | S | REVIEW | Focus:no | 2-code-generation | claude-code | cli/src/main/ts/application/commands/, cli/src/main/ts/index.ts
+**Meta:** P2 | S | DONE | Focus:no | 2-code-generation | claude-code | cli/src/main/ts/application/commands/, cli/src/main/ts/index.ts
+**Closed-at:** 2026-05-17T12:06:37.474Z
 
 **Depends:** none
 
