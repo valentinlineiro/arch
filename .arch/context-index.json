@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-17T12:04:44.877Z",
+  "builtAt": "2026-05-17T12:05:15.574Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -5064,23 +5064,35 @@
   },
   "tasks": {
     "TASK-912": {
-      "commitCount": 1,
-      "lastCommitDate": "2026-05-17T12:04:44+00:00",
+      "commitCount": 2,
+      "lastCommitDate": "2026-05-17T12:05:15+00:00",
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 1
+        ".arch/focus-ledger.jsonl": 2
       },
       "recentCommitRefs": [
+        "33991eb",
         "788a557"
       ],
       "commitRefOverflow": false
     },
     "TASK-911": {
-      "commitCount": 1,
-      "lastCommitDate": "2026-05-17T12:03:39+00:00",
+      "commitCount": 4,
+      "lastCommitDate": "2026-05-17T12:05:15+00:00",
       "touchedFrequency": {
-        "docs/tasks/TASK-911.md": 1
+        "docs/archive/TASK-911.md": 1,
+        "docs/tasks/TASK-911.md": 3,
+        ".arch/reflect-breach-log.jsonl": 1,
+        "cli/src/main/ts/application/commands/report-command.ts": 1,
+        "cli/src/main/ts/application/use-cases/mark-task-in-progress.ts": 1,
+        "cli/src/main/ts/domain/models/task.ts": 1,
+        "cli/src/main/ts/infrastructure/filesystem/markdown-task-repository.ts": 1,
+        "docs/tasks/TASK-206.md": 1,
+        "docs/tasks/TASK-912.md": 1
       },
       "recentCommitRefs": [
+        "1881d9d",
+        "e4cec8b",
+        "42dfb74",
         "704eb7b"
       ],
       "commitRefOverflow": false
