@@ -151,6 +151,11 @@ async function main() {
     case 'report':
       await new ReportCommand(fileSystem, gitRepository).execute();
       break;
+    case 'capture': {
+      const { CaptureCommand } = await import('./application/commands/capture-command.js');
+      await new CaptureCommand(taskRepository, fileSystem, rootPath, gitRepository).execute(args);
+      break;
+    }
     case 'explain': {
       const { ExplainCommand } = await import('./application/commands/explain-command.js');
       await new ExplainCommand(taskRepository, fileSystem, causalSignalLog, rootPath).execute(args);

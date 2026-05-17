@@ -29,6 +29,14 @@
 
 ## System Lifecycle
 
+**Primary intake command:** `arch capture "<intent>" [--class <class>] [--size <size>]`
+Creates a task from a natural language intent, applies class-appropriate AC templates, auto-fixes mechanical Definition of Ready violations, and moves the task to IN_PROGRESS in one step. Use this instead of `arch task create` + manual editing for new sessions.
+
+Example:
+```
+arch capture "add JWT authentication middleware" --class 2-code-generation --size S
+```
+
 ```
 IDEA → DRAFT (docs/refinement/) → THINK evaluates → human decides → TASK (docs/tasks/)
 

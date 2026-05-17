@@ -268,3 +268,16 @@ ADR-020 ruling names differ from AGFM ruling names. AGFM is authoritative for im
 | DoR improvement: when `arch task start` fails DoR validation | file | ✔ | exists: cli/src/main/ts/application/use-cases/mark-task-in-p |
 | `arch review` passes. | cmd | ✔ | exit 0 (expected 0) |
 | `npm test` passes. | prose | ✔ | prose: human-verified (non-automated) |
+
+## [AWAITING_REVIEW] TASK-918 [L3-AUTO]
+**Closed:** 2026-05-17T21:37:37.510Z
+**Title:** Audit cli/package.json for npm publish readiness
+
+| AC | Type | Pass | Detail |
+|---|---|---|---|
+| `cli/package.json` has `"bin": { "arch": "dist/index.js" }`. | file | ✔ | exists: cli/package.json |
+| `cli/package.json` has `"main": "dist/index.js"` and `"expor | file | ✔ | exists: cli/package.json |
+| `cli/package.json` has `"files": ["dist/", "README.md"]` — e | file | ✔ | exists: cli/package.json |
+| `cli/.npmignore` created: excludes `src/`, `*.test.ts`, `.en | file | ✔ | exists: cli/.npmignore |
+| `npm pack --dry-run` from `cli/` lists only `dist/` files an | prose | ✔ | prose: human-verified (non-automated) |
+| `arch review` passes. | cmd | ✔ | exit 0 (expected 0) |
