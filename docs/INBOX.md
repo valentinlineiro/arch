@@ -192,3 +192,17 @@ ADR-020 ruling names differ from AGFM ruling names. AGFM is authoritative for im
 | `arch review --task` exits 1 when a `cmd:` predicate fails. | prose | ✔ | prose: human-verified (non-automated) |
 | Unit tests: all-pass task → exit 0 + evidence table. Failing | prose | ✔ | prose: human-verified (non-automated) |
 | `arch review` passes clean after implementation. | prose | ✔ | prose: human-verified (non-automated) |
+
+## [AWAITING_REVIEW] TASK-911 [L3-AUTO]
+**Closed:** 2026-05-17T12:05:15.285Z
+**Title:** Persistent session identity : Actor field in task lock
+
+| AC | Type | Pass | Detail |
+|---|---|---|---|
+| `Task` model gains `actor?: string` field. | file | ✔ | exists: cli/src/main/ts/domain/models/task.ts |
+| `MarkTaskInProgress.execute()` reads `actor` from `arch.conf | file | ✔ | exists: cli/src/main/ts/application/use-cases/mark-task-in-p |
+| `MarkdownTaskRepository.save()` persists `Actor: <value>` al | file | ✔ | exists: cli/src/main/ts/infrastructure/filesystem/markdown-t |
+| `arch report` cycle-time breakdown extended: if Actor field  | file | ✔ | exists: cli/src/main/ts/application/commands/report-command. |
+| Backwards compatible: tasks without Actor field continue to  | prose | ✔ | prose: human-verified (non-automated) |
+| `arch review` passes. | prose | ✔ | prose: human-verified (non-automated) |
+| `npm test` passes. | prose | ✔ | prose: human-verified (non-automated) |

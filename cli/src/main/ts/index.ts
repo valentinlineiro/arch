@@ -151,6 +151,11 @@ async function main() {
     case 'report':
       await new ReportCommand(fileSystem, gitRepository).execute();
       break;
+    case 'deps': {
+      const { DepsCommand } = await import('./application/commands/deps-command.js');
+      await new DepsCommand(taskRepository).execute(args);
+      break;
+    }
     case 'verify-acs':
       await new VerifyAcsCommand(taskRepository, rootPath).execute(args);
       break;
