@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-17T13:13:55.290Z",
+  "builtAt": "2026-05-17T13:20:35.367Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -107,6 +107,24 @@
       ],
       "criticality": "domain",
       "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/application/commands/explain-command.ts": {
+      "symbols": [
+        "ExplainCommand"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/repositories/task-repository.ts",
+        "cli/src/main/ts/domain/repositories/file-system.ts",
+        "cli/src/main/ts/application/use-cases/causal-signal-log.ts"
+      ],
+      "tags": [
+        "application",
+        "commands",
+        "explain",
+        "command"
+      ],
+      "criticality": "domain",
+      "runtimeUsage": "cold"
     },
     "cli/src/main/ts/application/commands/govern-command.ts": {
       "symbols": [
@@ -5080,13 +5098,45 @@
     }
   },
   "tasks": {
-    "TASK-915": {
-      "commitCount": 2,
-      "lastCommitDate": "2026-05-17T13:13:55+00:00",
+    "TASK-916": {
+      "commitCount": 1,
+      "lastCommitDate": "2026-05-17T13:20:35+00:00",
       "touchedFrequency": {
+        ".arch/focus-ledger.jsonl": 1
+      },
+      "recentCommitRefs": [
+        "bfaf8dd"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-915": {
+      "commitCount": 6,
+      "lastCommitDate": "2026-05-17T13:20:35+00:00",
+      "touchedFrequency": {
+        "docs/archive/TASK-915.md": 1,
+        "docs/tasks/TASK-915.md": 3,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/reflect-breach-log.jsonl": 1,
+        "cli/src/main/ts/application/commands/explain-command.ts": 1,
+        "cli/src/main/ts/index.ts": 1,
+        "docs/EVENTS.md": 1,
+        "docs/INBOX.md": 1,
+        "docs/tasks/TASK-918.md": 1,
+        "docs/tasks/TASK-919.md": 1,
+        "docs/tasks/TASK-920.md": 1,
+        "docs/tasks/TASK-921.md": 1,
+        "docs/tasks/TASK-922.md": 1,
+        "docs/tasks/TASK-923.md": 1,
+        "docs/tasks/TASK-924.md": 1,
+        "docs/tasks/TASK-925.md": 1,
+        "docs/tasks/TASK-926.md": 1,
         ".arch/focus-ledger.jsonl": 2
       },
       "recentCommitRefs": [
+        "676e9de",
+        "20859b1",
+        "b736de1",
+        "c3c94d7",
         "b499049",
         "2f2d356"
       ],
@@ -7287,7 +7337,7 @@
       "commitRefOverflow": false
     },
     "TASK-222": {
-      "commitCount": 5,
+      "commitCount": 2,
       "lastCommitDate": "2026-05-12T09:54:23+02:00",
       "touchedFrequency": {
         ".arch/chronicle.jsonl": 1,
@@ -7299,21 +7349,13 @@
         "docs/archive/TASK-226.md": 1,
         "docs/tasks/TASK-223.md": 1,
         "docs/tasks/TASK-225.md": 1,
-        "cli/src/main/ts/application/commands/ask-command.ts": 3,
-        "cli/src/main/ts/application/use-cases/ask-corpus.ts": 3,
-        "cli/src/test/ts/ask-corpus.test.ts": 3,
-        "scripts/arch.sh": 1,
-        "docs/ROADMAP.md": 2,
-        "docs/tasks/TASK-222.md": 2,
-        "cli/src/main/ts/index.ts": 1,
-        "docs/IDENTITY.md": 1
+        "cli/src/main/ts/application/commands/ask-command.ts": 1,
+        "cli/src/main/ts/application/use-cases/ask-corpus.ts": 1,
+        "cli/src/test/ts/ask-corpus.test.ts": 1
       },
       "recentCommitRefs": [
         "ad0ec43",
-        "bb942f5",
-        "62b19ff",
-        "732479c",
-        "c313e8c"
+        "bb942f5"
       ],
       "commitRefOverflow": false
     },
@@ -7407,34 +7449,6 @@
         "bc24228",
         "4071d49",
         "8e30403"
-      ],
-      "commitRefOverflow": false
-    },
-    "TASK-223": {
-      "commitCount": 1,
-      "lastCommitDate": "2026-05-11T15:05:50+02:00",
-      "touchedFrequency": {
-        "cli/src/main/ts/application/commands/ask-command.ts": 1,
-        "cli/src/main/ts/application/use-cases/ask-corpus.ts": 1,
-        "cli/src/test/ts/ask-corpus.test.ts": 1,
-        "docs/tasks/TASK-223.md": 1
-      },
-      "recentCommitRefs": [
-        "73b5d7d"
-      ],
-      "commitRefOverflow": false
-    },
-    "TASK-221": {
-      "commitCount": 2,
-      "lastCommitDate": "2026-05-11T13:44:13+02:00",
-      "touchedFrequency": {
-        "cli/src/main/ts/application/commands/think-command.ts": 1,
-        "cli/src/main/ts/application/use-cases/context-inference.ts": 1,
-        "cli/src/test/ts/context-inference-feedback.test.ts": 1
-      },
-      "recentCommitRefs": [
-        "8e88f4b",
-        "74c7065"
       ],
       "commitRefOverflow": false
     }
