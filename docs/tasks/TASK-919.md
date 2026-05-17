@@ -1,5 +1,5 @@
 ## TASK-919: arch init: full repo scaffolding with stack detection
-**Meta:** P2 | M | READY | Focus:yes | 2-code-generation | claude-code | cli/src/main/ts/application/commands/init-command.ts
+**Meta:** P2 | M | IN_PROGRESS | Focus:yes | 2-code-generation | claude-code | cli/src/main/ts/application/commands/init-command.ts
 
 **Depends:** TASK-918
 
