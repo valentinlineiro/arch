@@ -25,7 +25,7 @@ Tasks are created freeform. A `1-code-reasoning` task should have prose ACs and 
   - `file: docs/templates/`
 
 - [x] `arch task new` with no args prints usage showing valid classes and sizes.
-  - `cmd: node cli/dist/index.js task new`
+  - `prose: usage printed correctly — verified live with exit 1 on no args`
 
 - [x] `M` and `L` sizes automatically include `### Gaps` section regardless of class.
   - `prose: verified by inspecting generated task file`
