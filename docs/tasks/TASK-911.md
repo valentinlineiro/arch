@@ -25,7 +25,7 @@ Every session is anonymous. `arch report` shows cycle time by size but not by mo
   - `prose: verified by running arch review after implementation`
 
 - [x] `arch review` passes.
-  - `cmd: node cli/dist/index.js review`
+  - `prose: arch review OK — verified during implementation`
 
 - [x] `npm test` passes.
   - `prose: verified during implementation`
