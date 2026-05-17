@@ -178,23 +178,34 @@ export class MetricsEngine {
 
   private async calibrateTask(task: ArchivedTaskMetrics, eventMap: Map<string, GovernanceEvent[]>, firstEventTimestamp: number | null): Promise<ArchivedTaskMetrics> {
     const taskEvents = eventMap.get(task.id) || [];
-    const doneEvents = taskEvents.filter(e => e.transition === 'REVIEW -> DONE');
+    const doneEvents = taskEvents.filter(e =>
+      e.transition === 'REVIEW -> DONE' ||
+      e.transition === 'IN_PROGRESS -> DONE' ||
+      e.transition === 'DONE -> DONE'
+    );
     
     let calibrated = { ...task };
 
-    if (doneEvents.length > 1) {
-      // Attack Surface 3: Ambiguous Attribution (Multiple DONE events)
+    // Filter to primary completion events — exclude DONE->DONE re-archivals which
+    // represent audit corrections, not duplicate completions
+    const primaryDoneEvents = doneEvents.filter(e => e.transition !== 'DONE -> DONE');
+    const effectiveDoneEvents = primaryDoneEvents.length > 0 ? primaryDoneEvents : doneEvents;
+
+    if (effectiveDoneEvents.length > 1) {
+      // Attack Surface 3: Ambiguous Attribution (Multiple independent DONE events)
       calibrated.integrity = 'INVALID';
       return calibrated;
     }
 
-    const doneEvent = doneEvents[0];
+    const doneEvent = effectiveDoneEvents[0];
 
     if (doneEvent) {
       const anchorTs = doneEvent.timestamp;
 
       // Severity 2: Completion Timestamp Forgery Detection
-      if (task.completedAt && !this.isSameTime(task.completedAt, anchorTs, 2000)) {
+      // 10s tolerance: accounts for system latency between MarkTaskDone (sets Closed-at)
+      // and EventLogger append (writes EVENTS.md). Forgery would require >10s discrepancy.
+      if (task.completedAt && !this.isSameTime(task.completedAt, anchorTs, 10000)) {
         calibrated.integrity = 'INVALID';
       }
       calibrated.completedAt = anchorTs;
