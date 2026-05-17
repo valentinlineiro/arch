@@ -1,5 +1,5 @@
 ## TASK-908: arch review --task: scoped Auditor review command
-**Meta:** P1 | S | READY | Focus:no | 2-code-generation | claude-code | cli/src/main/ts/application/commands/review-command.ts, cli/src/main/ts/application/use-cases/review-system.ts
+**Meta:** P1 | S | IN_PROGRESS | Focus:yes | 2-code-generation | claude-code | cli/src/main/ts/application/commands/review-command.ts, cli/src/main/ts/application/use-cases/review-system.ts
 
 **Depends:** none
 
