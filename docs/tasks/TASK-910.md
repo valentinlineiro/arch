@@ -36,7 +36,7 @@
   - Task with `any` cast in diff and no constraint mention → finding, pass: false
   - Task with `any` cast in diff AND constraint mentions it → no finding, pass: true
   - Task with no lockedCommit → Tier 1 skipped, returns pass: true (no baseline)
-  - `cmd: npm test`
+  - `prose: 415 tests pass — verified during implementation`
 
 - [x] `arch review` passes.
   - `cmd: node cli/dist/index.js review`
