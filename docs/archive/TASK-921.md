@@ -1,5 +1,6 @@
 ## TASK-921: AC predicate suggestions in arch task create: class-appropriate scaffolding
-**Meta:** P1 | S | REVIEW | Focus:no | 1-code-reasoning | claude-code | cli/src/main/ts/application/use-cases/create-task.ts, docs/templates/
+**Meta:** P1 | S | DONE | Focus:no | 1-code-reasoning | claude-code | cli/src/main/ts/application/use-cases/create-task.ts, docs/templates/
+**Closed-at:** 2026-05-17T21:36:32.379Z
 
 **Depends:** TASK-917
 
