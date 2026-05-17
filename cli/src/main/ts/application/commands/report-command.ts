@@ -34,7 +34,10 @@ export class ReportCommand {
     console.log(`  Completed: ${metrics.totalCompleted} tasks`);
     console.log(`  Integrity: ${metrics.integrityLevel} (Entropy: ${(metrics.integrityEntropy * 100).toFixed(1)}%)`);
     console.log(`  REVIEW_FAIL: ${metrics.reviewFailRate === 'pending' ? 'pending' : (metrics.reviewFailRate * 100).toFixed(1) + '%'}`);
-    console.log(`  Avg Cost: $${metrics.costPerTask.average.toFixed(2)} (heuristic v1)`);
+    const costLabel = metrics.costPerTask.realCount > 0
+      ? `$${metrics.costPerTask.average.toFixed(2)} (${metrics.costPerTask.realCount} real, ${metrics.costPerTask.heuristicCount} heuristic)`
+      : `$${metrics.costPerTask.average.toFixed(2)} (heuristic)`;
+    console.log(`  Avg Cost: ${costLabel}`);
     console.log('\n  Cycle Time (P50/P90):');
     for (const size of ['XS', 'S', 'M', 'L']) {
       const { p50, p90, count } = metrics.cycleTime[size];

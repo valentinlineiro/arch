@@ -11,8 +11,12 @@ export interface ArchivedTaskMetrics {
   createdAt: string | null;
   turns: number | null;
   cost: number | null;
+  costSource?: 'real' | 'heuristic';
   integrity: 'HIGH' | 'MEDIUM' | 'LOW' | 'INVALID';
   provenance?: EpistemicDigest;
+  hanseiSeverity?: string;
+  hanseiCategory?: string;
+  actor?: string;
 }
 
 export class ArchiveParser {
@@ -160,6 +164,23 @@ export class ArchiveParser {
       provenance = { methodId: 'git-archive-move-inference', gitRevRange: 'HEAD' };
     }
 
+    // Parse Hansei fields and Actor for signal routing and reporting
+    const hanseiSeverityMatch = content.match(/\*\*Severity:\*\*\s*(H[0-3][ab]?)/);
+    const hanseiCategoryMatch = content.match(/\*\*Category:\*\*\s*(\[\w+\])/);
+    const actorMatch = content.match(/\*\*Actor:\*\*\s*([^\n]+)/);
+
+    // Override heuristic cost with real data from .arch/costs/ if available
+    let finalCost: number | null = cost;
+    let costSource: 'real' | 'heuristic' = 'heuristic';
+    try {
+      const costJson = await this.fileSystem.readFile(`.arch/costs/${id}.json`);
+      const costData = JSON.parse(costJson);
+      if (typeof costData.estimatedCostUSD === 'number') {
+        finalCost = costData.estimatedCostUSD;
+        costSource = 'real';
+      }
+    } catch { /* cost file absent — use heuristic */ }
+
     return {
       id,
       size,
@@ -167,9 +188,13 @@ export class ArchiveParser {
       completedAt,
       createdAt,
       turns,
-      cost,
+      cost: finalCost,
+      costSource,
       integrity,
-      provenance
+      provenance,
+      hanseiSeverity: hanseiSeverityMatch?.[1],
+      hanseiCategory: hanseiCategoryMatch?.[1],
+      actor: actorMatch?.[1]?.trim(),
     };
   }
 

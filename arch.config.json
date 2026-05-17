@@ -255,5 +255,24 @@
       "endpoint": "https://openrouter.ai/api/v1",
       "apiKeyEnv": "OPENROUTER_API_KEY"
     }
-  ]
+  ],
+  "costs": {
+    "_schema": "Written by arch exec bridge after each session to .arch/costs/TASK-XXX.json",
+    "_fields": {
+      "taskId": "string \u2014 the task ID (e.g. TASK-XXX)",
+      "actor": "string \u2014 provider/model (e.g. claude-code/sonnet)",
+      "inputTokens": "number \u2014 tokens consumed from context",
+      "outputTokens": "number \u2014 tokens generated",
+      "estimatedCostUSD": "number \u2014 estimated cost in USD (0.0 for local models)",
+      "sessionId": "string | null \u2014 optional session identifier"
+    },
+    "_example": {
+      "taskId": "TASK-246",
+      "actor": "claude-code/sonnet",
+      "inputTokens": 12400,
+      "outputTokens": 3200,
+      "estimatedCostUSD": 0.048,
+      "sessionId": null
+    }
+  }
 }

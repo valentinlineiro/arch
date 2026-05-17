@@ -3,6 +3,21 @@ import { FileSystem } from '../repositories/file-system.js';
 import { GitRepository } from '../repositories/git-repository.js';
 import { EpistemicDigest } from '../models/provenance.js';
 
+export interface ActorStat {
+  actor: string;
+  size: string;
+  avgTurns: number | null;
+  avgCostUSD: number | null;
+  taskCount: number;
+}
+
+export interface HanseiCategoryCount {
+  category: string;
+  count: number;
+  severities: string[];
+  isWeakSignal: boolean;
+}
+
 export interface CalculatedMetrics {
   cycleTime: {
     [size: string]: {
@@ -13,12 +28,16 @@ export interface CalculatedMetrics {
   };
   costPerTask: {
     average: number;
+    heuristicCount: number;
+    realCount: number;
   };
   reviewFailRate: number | 'pending';
   totalCompleted: number;
-  integrityEntropy: number; // Ratio of LOW/MEDIUM data
+  integrityEntropy: number;
   integrityLevel: 'HIGH' | 'MEDIUM' | 'LOW' | 'INVALID';
   provenance: EpistemicDigest;
+  hanseiBreakdown: HanseiCategoryCount[];
+  actorBreakdown: ActorStat[];
 }
 
 export interface GovernanceEvent {
@@ -54,6 +73,8 @@ export class MetricsEngine {
 
     const entropy = this.computeIntegrityEntropy(calibratedTasks);
     const globalIntegrity = this.computeGlobalIntegrity(calibratedTasks, reviewFailRate);
+    const hanseiBreakdown = this.computeHanseiBreakdown(calibratedTasks);
+    const actorBreakdown = this.computeActorBreakdown(calibratedTasks);
 
     return {
       cycleTime,
@@ -65,8 +86,50 @@ export class MetricsEngine {
       provenance: {
         methodId: 'metrics-engine-v4-witness-hardened',
         gitRevRange: `HEAD~${archivedTasks.length}..HEAD`
-      }
+      },
+      hanseiBreakdown,
+      actorBreakdown,
     };
+  }
+
+
+  private computeHanseiBreakdown(tasks: ArchivedTaskMetrics[]): HanseiCategoryCount[] {
+    const map = new Map<string, { count: number; severities: string[] }>();
+    for (const task of tasks) {
+      if (!task.hanseiCategory || !task.hanseiSeverity) continue;
+      if (task.hanseiSeverity === 'H0' || task.hanseiSeverity === 'H1') continue;
+      const cat = task.hanseiCategory;
+      if (!map.has(cat)) map.set(cat, { count: 0, severities: [] });
+      const entry = map.get(cat)!;
+      entry.count++;
+      if (!entry.severities.includes(task.hanseiSeverity)) entry.severities.push(task.hanseiSeverity);
+    }
+    return Array.from(map.entries())
+      .map(([category, { count, severities }]) => ({ category, count, severities, isWeakSignal: count >= 3 }))
+      .sort((a, b) => b.count - a.count);
+  }
+
+  private computeActorBreakdown(tasks: ArchivedTaskMetrics[]): ActorStat[] {
+    const THRESHOLD = 5;
+    const actorTasks = tasks.filter(t => t.actor && t.actor !== 'unknown');
+    if (actorTasks.length < THRESHOLD) return [];
+
+    const groups = new Map<string, { turns: number[]; costs: number[]; count: number }>();
+    for (const t of actorTasks) {
+      const key = `${t.actor}::${t.size}`;
+      if (!groups.has(key)) groups.set(key, { turns: [], costs: [], count: 0 });
+      const g = groups.get(key)!;
+      g.count++;
+      if (t.turns !== null && t.turns !== undefined) g.turns.push(t.turns);
+      if (t.cost !== null && t.cost !== undefined && t.costSource === 'real') g.costs.push(t.cost);
+    }
+
+    return Array.from(groups.entries()).map(([key, g]) => {
+      const [actor, size] = key.split('::');
+      const avgTurns = g.turns.length > 0 ? Math.round(g.turns.reduce((a, b) => a + b, 0) / g.turns.length) : null;
+      const avgCostUSD = g.costs.length > 0 ? g.costs.reduce((a, b) => a + b, 0) / g.costs.length : null;
+      return { actor, size, avgTurns, avgCostUSD, taskCount: g.count };
+    }).sort((a, b) => b.taskCount - a.taskCount);
   }
 
   private isSameTime(t1: string, t2: string, toleranceMs: number): boolean {
@@ -305,13 +368,23 @@ export class MetricsEngine {
       'L': 0.50
     };
 
+    let realCount = 0;
+    let heuristicCount = 0;
+
     const totalCost = tasks.reduce((sum, t) => {
+      if (t.costSource === 'real' && t.cost !== null) {
+        realCount++;
+        return sum + t.cost;
+      }
+      heuristicCount++;
       const cost = t.cost !== null ? t.cost : (heuristics[t.size] || 0);
       return sum + cost;
     }, 0);
 
     return {
-      average: tasks.length > 0 ? totalCost / tasks.length : 0
+      average: tasks.length > 0 ? totalCost / tasks.length : 0,
+      heuristicCount,
+      realCount,
     };
   }
 
