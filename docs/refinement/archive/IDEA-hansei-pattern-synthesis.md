@@ -1,7 +1,7 @@
 # IDEA: Hansei pattern synthesis in arch reflect
 **Created:** 2026-05-17
 **Source:** Session observation — SignalRouter appends signals but THINK never synthesizes them into recommendations
-**Status:** DRAFT
+**Status:** PROMOTED
 **Sessions:** 0
 **Meta:** P1 | M | 1-code-reasoning | cli/src/main/ts/application/use-cases/causal-signal-log.ts, docs/agents/THINK.md
 
@@ -34,4 +34,4 @@ This is the missing link between signal collection and protocol improvement.
 - Priority displacement: P1 — this is the moat condition mechanism
 
 ## Decision
-<!-- PROMOTE → TASK-XXX | REJECT: reason | DEFERRED: reason + condition -->
+PROMOTE → TASK-909

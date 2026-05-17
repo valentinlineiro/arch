@@ -1,7 +1,7 @@
 # IDEA: Deterministic Hansei reconciliation baseline
 **Created:** 2026-05-17
 **Source:** Session observation — arch reflect --hansei is LLM-assisted with no auditable baseline
-**Status:** DRAFT
+**Status:** PROMOTED
 **Sessions:** 0
 **Meta:** P1 | M | 1-code-reasoning | cli/src/main/ts/domain/services/, cli/src/main/ts/application/use-cases/hansei-auditor.ts
 
@@ -40,4 +40,4 @@ Current `HanseiAuditor` behavior — but only for tasks that pass Tier 1 clean. 
 - Priority displacement: P1 — fixes the auditability gap in the reconciliation system
 
 ## Decision
-<!-- PROMOTE → TASK-XXX | REJECT: reason | DEFERRED: reason + condition -->
+PROMOTE → TASK-910

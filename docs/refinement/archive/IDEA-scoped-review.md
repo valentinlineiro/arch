@@ -1,7 +1,7 @@
 # IDEA: arch review --task TASK-XXX — scoped Auditor review
 **Created:** 2026-05-17
 **Source:** Session observation — Auditor sessions load everything to verify one task
-**Status:** DRAFT
+**Status:** PROMOTED
 **Sessions:** 0
 **Meta:** P1 | S | 2-code-generation | cli/src/main/ts/application/commands/review-command.ts, cli/src/main/ts/application/use-cases/review-system.ts
 
@@ -33,4 +33,4 @@ Full system review (`arch review` with no args) is unchanged.
 - Priority displacement: P1 — directly improves Auditor ergonomics and L3 trustworthiness
 
 ## Decision
-<!-- PROMOTE → TASK-XXX | REJECT: reason | DEFERRED: reason + condition -->
+PROMOTE → TASK-908
