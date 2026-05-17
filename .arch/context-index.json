@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-17T07:18:43.914Z",
+  "builtAt": "2026-05-17T11:55:46.934Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -3895,22 +3895,6 @@
     }
   },
   "adrTaskLinks": {
-    "ADR-019": {
-      "tasks": {
-        "TASK-901": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/tasks/TASK-901.md"
-        },
-        "TASK-244": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-244.md"
-        }
-      }
-    },
     "ADR-001": {
       "tasks": {
         "TASK-002": {
@@ -4217,6 +4201,22 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-238.md"
+        }
+      }
+    },
+    "ADR-019": {
+      "tasks": {
+        "TASK-244": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-244.md"
+        },
+        "TASK-901": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-901.md"
         }
       }
     },
@@ -5064,10 +5064,10 @@
   },
   "tasks": {
     "TASK-206": {
-      "commitCount": 12,
-      "lastCommitDate": "2026-05-17T07:18:43+00:00",
+      "commitCount": 13,
+      "lastCommitDate": "2026-05-17T11:55:46+00:00",
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 7,
+        ".arch/focus-ledger.jsonl": 8,
         "docs/refinement/archive/IDEA-deterministic-reconciliation.md": 1,
         "docs/refinement/archive/IDEA-hansei-pattern-synthesis.md": 1,
         "docs/refinement/archive/IDEA-scoped-review.md": 1,
@@ -5133,6 +5133,7 @@
         "docs/tasks/TASK-907.md": 1
       },
       "recentCommitRefs": [
+        "5ce4cf7",
         "ba9929a",
         "b729d05",
         "ab2a178",
@@ -5148,35 +5149,60 @@
       ],
       "commitRefOverflow": false
     },
-    "TASK-910": {
-      "commitCount": 6,
-      "lastCommitDate": "2026-05-17T07:18:43+00:00",
+    "TASK-901": {
+      "commitCount": 7,
+      "lastCommitDate": "2026-05-17T11:55:46+00:00",
       "touchedFrequency": {
-        "docs/archive/TASK-910.md": 1,
-        "docs/tasks/TASK-910.md": 3,
-        ".arch/chronicle.jsonl": 1,
-        ".arch/reflect-breach-log.jsonl": 1,
-        "cli/src/main/ts/application/commands/reflect-command.ts": 1,
-        "cli/src/main/ts/domain/services/deterministic-hansei-checker.ts": 1,
-        "cli/src/main/ts/index.ts": 1,
-        "cli/src/test/ts/deterministic-hansei-checker.test.ts": 1,
-        "docs/EVENTS.md": 1,
+        "docs/archive/TASK-901.md": 1,
+        ".arch/chronicle.jsonl": 2,
+        ".arch/reflect-breach-log.jsonl": 2,
+        "cli/src/main/ts/application/use-cases/hansei-wizard.ts": 2,
+        "docs/EVENTS.md": 2,
+        "docs/tasks/TASK-901.md": 4,
+        "cli/src/main/ts/application/use-cases/mark-task-done.ts": 1,
+        "cli/src/test/ts/hansei-wizard.test.ts": 1,
+        "cli/src/test/ts/mark-task-done.test.ts": 1,
+        "docs/INBOX.md": 1,
+        "docs/tasks/TASK-903.md": 1,
         ".arch/focus-ledger.jsonl": 2
       },
       "recentCommitRefs": [
-        "49c07d0",
-        "390b27d",
-        "6c4e2be",
-        "0e0ef8c",
-        "4b53f80",
-        "a48ad9b"
+        "ef80331",
+        "09895dc",
+        "1ce8c9c",
+        "27cf263",
+        "749a0eb",
+        "29edbd3",
+        "c07bb38"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-908": {
+      "commitCount": 6,
+      "lastCommitDate": "2026-05-17T11:50:29+00:00",
+      "touchedFrequency": {
+        "docs/tasks/TASK-206.md": 1,
+        "docs/archive/TASK-908.md": 1,
+        "docs/tasks/TASK-908.md": 4,
+        ".arch/reflect-breach-log.jsonl": 1,
+        "cli/src/main/ts/application/commands/review-command.ts": 1,
+        "docs/tasks/TASK-909.md": 1
+      },
+      "recentCommitRefs": [
+        "bbee21d",
+        "c1aeccc",
+        "0344de1",
+        "b5d4c85",
+        "41d24d0",
+        "413371f"
       ],
       "commitRefOverflow": false
     },
     "TASK-909": {
-      "commitCount": 6,
-      "lastCommitDate": "2026-05-17T07:13:07+00:00",
+      "commitCount": 7,
+      "lastCommitDate": "2026-05-17T11:50:29+00:00",
       "touchedFrequency": {
+        "docs/tasks/TASK-206.md": 1,
         "docs/archive/TASK-909.md": 1,
         "docs/tasks/TASK-909.md": 3,
         ".arch/chronicle.jsonl": 1,
@@ -5190,6 +5216,7 @@
         ".arch/focus-ledger.jsonl": 2
       },
       "recentCommitRefs": [
+        "bbee21d",
         "1d5a33c",
         "2ec8be3",
         "37f8769",
@@ -5199,22 +5226,30 @@
       ],
       "commitRefOverflow": false
     },
-    "TASK-908": {
-      "commitCount": 5,
-      "lastCommitDate": "2026-05-17T07:11:10+00:00",
+    "TASK-910": {
+      "commitCount": 7,
+      "lastCommitDate": "2026-05-17T11:50:29+00:00",
       "touchedFrequency": {
-        "docs/archive/TASK-908.md": 1,
-        "docs/tasks/TASK-908.md": 4,
+        "docs/tasks/TASK-206.md": 1,
+        "docs/archive/TASK-910.md": 1,
+        "docs/tasks/TASK-910.md": 3,
+        ".arch/chronicle.jsonl": 1,
         ".arch/reflect-breach-log.jsonl": 1,
-        "cli/src/main/ts/application/commands/review-command.ts": 1,
-        "docs/tasks/TASK-909.md": 1
+        "cli/src/main/ts/application/commands/reflect-command.ts": 1,
+        "cli/src/main/ts/domain/services/deterministic-hansei-checker.ts": 1,
+        "cli/src/main/ts/index.ts": 1,
+        "cli/src/test/ts/deterministic-hansei-checker.test.ts": 1,
+        "docs/EVENTS.md": 1,
+        ".arch/focus-ledger.jsonl": 2
       },
       "recentCommitRefs": [
-        "c1aeccc",
-        "0344de1",
-        "b5d4c85",
-        "41d24d0",
-        "413371f"
+        "bbee21d",
+        "49c07d0",
+        "390b27d",
+        "6c4e2be",
+        "0e0ef8c",
+        "4b53f80",
+        "a48ad9b"
       ],
       "commitRefOverflow": false
     },
@@ -5391,31 +5426,6 @@
         "5caf4b1",
         "4620fd5",
         "3b45255"
-      ],
-      "commitRefOverflow": false
-    },
-    "TASK-901": {
-      "commitCount": 5,
-      "lastCommitDate": "2026-05-16T22:14:13+00:00",
-      "touchedFrequency": {
-        ".arch/chronicle.jsonl": 1,
-        ".arch/reflect-breach-log.jsonl": 1,
-        "cli/src/main/ts/application/use-cases/hansei-wizard.ts": 1,
-        "cli/src/main/ts/application/use-cases/mark-task-done.ts": 1,
-        "cli/src/test/ts/hansei-wizard.test.ts": 1,
-        "cli/src/test/ts/mark-task-done.test.ts": 1,
-        "docs/EVENTS.md": 1,
-        "docs/INBOX.md": 1,
-        "docs/tasks/TASK-901.md": 3,
-        "docs/tasks/TASK-903.md": 1,
-        ".arch/focus-ledger.jsonl": 2
-      },
-      "recentCommitRefs": [
-        "1ce8c9c",
-        "27cf263",
-        "749a0eb",
-        "29edbd3",
-        "c07bb38"
       ],
       "commitRefOverflow": false
     },
@@ -7368,52 +7378,6 @@
       },
       "recentCommitRefs": [
         "4f89e5e"
-      ],
-      "commitRefOverflow": false
-    },
-    "TASK-218": {
-      "commitCount": 3,
-      "lastCommitDate": "2026-05-08T14:33:36+02:00",
-      "touchedFrequency": {
-        "docs/ROADMAP.md": 1,
-        "docs/archive/TASK-218.md": 1,
-        "cli/.arch/context-index.json": 1,
-        "cli/src/main/ts/application/use-cases/build-index.ts": 1,
-        "cli/src/main/ts/application/use-cases/context-inference.ts": 1,
-        "cli/src/main/ts/domain/models/context-index.ts": 1,
-        "cli/src/test/ts/build-index.test.ts": 1,
-        "cli/src/test/ts/context-inference.test.ts": 1,
-        "docs/superpowers/plans/2026-05-08-automatic-entity-linking.md": 1,
-        "docs/tasks/TASK-218.md": 1
-      },
-      "recentCommitRefs": [
-        "da00dc1",
-        "af77ba8",
-        "ffc9376"
-      ],
-      "commitRefOverflow": false
-    },
-    "TASK-216": {
-      "commitCount": 1,
-      "lastCommitDate": "2026-05-08T13:57:16+02:00",
-      "touchedFrequency": {
-        "docs/tasks/TASK-216.md": 1
-      },
-      "recentCommitRefs": [
-        "f1773a7"
-      ],
-      "commitRefOverflow": false
-    },
-    "TASK-217": {
-      "commitCount": 1,
-      "lastCommitDate": "2026-05-08T13:56:57+02:00",
-      "touchedFrequency": {
-        "docs/ROADMAP.md": 1,
-        "docs/archive/TASK-217.md": 1,
-        "docs/tasks/TASK-216.md": 1
-      },
-      "recentCommitRefs": [
-        "216515c"
       ],
       "commitRefOverflow": false
     }
