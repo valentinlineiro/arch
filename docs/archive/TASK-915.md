@@ -1,5 +1,6 @@
 ## TASK-915: arch explain TASK-XXX : causal chain reconstruction
-**Meta:** P2 | M | REVIEW | Focus:no | 2-code-generation | claude-code | cli/src/main/ts/application/commands/, cli/src/main/ts/application/use-cases/causal-signal-log.ts
+**Meta:** P2 | M | DONE | Focus:no | 2-code-generation | claude-code | cli/src/main/ts/application/commands/, cli/src/main/ts/application/use-cases/causal-signal-log.ts
+**Closed-at:** 2026-05-17T13:20:35.049Z
 
 **Depends:** none
 
