@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-17T12:05:15.574Z",
+  "builtAt": "2026-05-17T12:06:38.456Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -68,6 +68,23 @@
       ],
       "criticality": "domain",
       "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/application/commands/deps-command.ts": {
+      "symbols": [
+        "DepsCommand"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/repositories/task-repository.ts",
+        "cli/src/main/ts/domain/models/task.ts"
+      ],
+      "tags": [
+        "application",
+        "commands",
+        "deps",
+        "command"
+      ],
+      "criticality": "domain",
+      "runtimeUsage": "cold"
     },
     "cli/src/main/ts/application/commands/exec-command.ts": {
       "symbols": [
@@ -5063,13 +5080,36 @@
     }
   },
   "tasks": {
-    "TASK-912": {
-      "commitCount": 2,
-      "lastCommitDate": "2026-05-17T12:05:15+00:00",
+    "TASK-913": {
+      "commitCount": 1,
+      "lastCommitDate": "2026-05-17T12:06:38+00:00",
       "touchedFrequency": {
+        ".arch/focus-ledger.jsonl": 1
+      },
+      "recentCommitRefs": [
+        "353802d"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-912": {
+      "commitCount": 6,
+      "lastCommitDate": "2026-05-17T12:06:38+00:00",
+      "touchedFrequency": {
+        "docs/archive/TASK-912.md": 1,
+        "docs/tasks/TASK-912.md": 3,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/reflect-breach-log.jsonl": 1,
+        "cli/src/main/ts/application/commands/deps-command.ts": 1,
+        "cli/src/main/ts/index.ts": 1,
+        "docs/EVENTS.md": 1,
+        "docs/INBOX.md": 1,
         ".arch/focus-ledger.jsonl": 2
       },
       "recentCommitRefs": [
+        "f8303e7",
+        "0f0fead",
+        "37bc062",
+        "de9f8f9",
         "33991eb",
         "788a557"
       ],
@@ -7352,7 +7392,7 @@
       "commitRefOverflow": false
     },
     "TASK-220": {
-      "commitCount": 12,
+      "commitCount": 11,
       "lastCommitDate": "2026-05-11T13:23:04+02:00",
       "touchedFrequency": {
         "cli/src/main/ts/application/use-cases/build-index.ts": 1,
@@ -7385,8 +7425,7 @@
         "cli/src/test/ts/merge-resolve.test.ts": 1,
         "cli/src/test/ts/validate-system.test.ts": 1,
         "cli/src/main/ts/domain/models/task.ts": 1,
-        "cli/src/main/ts/domain/repositories/intent-repository.ts": 1,
-        "docs/superpowers/plans/2026-05-11-arch-think-plan.md": 1
+        "cli/src/main/ts/domain/repositories/intent-repository.ts": 1
       },
       "recentCommitRefs": [
         "2f9fadd",
@@ -7399,8 +7438,7 @@
         "c2df75b",
         "cfa3556",
         "71a5f6a",
-        "290e5b1",
-        "5766ddf"
+        "290e5b1"
       ],
       "commitRefOverflow": false
     }
