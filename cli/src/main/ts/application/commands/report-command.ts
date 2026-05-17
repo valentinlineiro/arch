@@ -42,6 +42,15 @@ export class ReportCommand {
       const p90Str = p90 !== null ? p90.toFixed(1) + 'h' : 'N/A';
       console.log(`    ${size}: ${p50Str} / ${p90Str} (${count} tasks)`);
     }
+    // Actor breakdown (requires TASK-911 Actor field + >=5 actor-tagged tasks)
+    if (metrics.actorBreakdown && metrics.actorBreakdown.length > 0) {
+      console.log('\n  Actor Breakdown:');
+      for (const entry of metrics.actorBreakdown) {
+        const turns = entry.avgTurns !== null ? `avg ${entry.avgTurns} turns` : 'no turn data';
+        console.log(`    ${entry.actor.padEnd(32)} ${entry.size}  ${String(entry.taskCount).padStart(3)} tasks  ${turns}`);
+      }
+    }
+
     // Hansei category breakdown
     if (metrics.hanseiBreakdown && metrics.hanseiBreakdown.length > 0) {
       console.log('\n  Hansei Signals (H2+):');

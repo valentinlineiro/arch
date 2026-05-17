@@ -93,6 +93,7 @@ export class MarkdownTaskRepository implements TaskRepository {
     if (task.turns !== undefined && task.turns !== null) {
       ensureField('Turns', String(task.turns));
     }
+    ensureField('Actor', task.actor);
 
     if (task.status !== TaskStatus.DONE && (task.cost !== undefined || task.steps !== undefined)) {
       const metricsComment = `<!-- arch-metrics: cost=${task.cost?.toFixed(2) || '0.00'}, steps=${task.steps || '0'} -->`;

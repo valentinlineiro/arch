@@ -38,6 +38,9 @@ export class MarkTaskInProgress {
       } catch { /* non-blocking */ }
     }
 
+    // Resolve actor from routing config
+    task.actor = await this.resolveActor(task.class ?? '');
+
     await this.taskRepository.save(task);
 
     if (this.eventRepository) {
@@ -77,6 +80,21 @@ export class MarkTaskInProgress {
 
     return reasons;
   }
+  private async resolveActor(taskClass: string): Promise<string> {
+    try {
+      const configRaw = await (this as any).taskRepository?.fileSystem?.readFile?.('arch.config.json') ?? '{}';
+      const config = JSON.parse(configRaw);
+      const strategies: Record<string, string> = config.routing?.strategies ?? {};
+      // Match by class prefix (e.g. "1-code-reasoning" matches key "1" or full key)
+      for (const [key, actor] of Object.entries(strategies)) {
+        if (taskClass.startsWith(key) || taskClass === key) return actor as string;
+      }
+      return (config.routing?.defaultActor ?? config.defaultActor ?? 'unknown') as string;
+    } catch {
+      return 'unknown';
+    }
+  }
+
 }
 
 

@@ -40,6 +40,7 @@ export interface Task {
   lockedAt?: string;
   lockedCommit?: string;
   turns?: number | null;
+  actor?: string;
   createdAt?: string;
   closedAt?: string;
   rejectedAt?: string;
