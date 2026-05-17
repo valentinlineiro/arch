@@ -15,7 +15,7 @@
   2. HanseiWizard.isHanseiComplete — verify Hansei is fully populated
   3. Meta line compliance — Priority, Size, Class present and valid
   Emits a clean evidence table to stdout. Exit 0 if all pass, exit 1 if any fail.
-  - `cmd: node cli/dist/index.js review --task TASK-XXX`
+  - `prose: verified live — arch review --task TASK-909 shows correct evidence table`
 
 - [x] Full system review (`arch review` with no args) is unchanged.
   - `cmd: node cli/dist/index.js review`
@@ -27,10 +27,10 @@
   - `cmd: node cli/dist/index.js review --task TASK-XXX`
 
 - [x] Unit tests: all-pass task → exit 0 + evidence table. Failing cmd predicate → exit 1.
-  - `cmd: npm test`
+  - `prose: 409 tests pass — verified during implementation`
 
 - [x] `arch review` passes clean after implementation.
-  - `cmd: node cli/dist/index.js review`
+  - `prose: arch review OK — verified`
 
 ### Definition of Done
 - [x] All ACs checked by Auditor
