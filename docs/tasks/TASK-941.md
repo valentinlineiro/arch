@@ -1,5 +1,6 @@
 ## TASK-941: Capture deterministic by default - gate LLM draft behind --draft flag
-**Meta:** P1 | S | REVIEW | Focus:no | 2-code-generation | claude | cli/src/main/ts/application/use-cases/create-task.ts, cli/src/main/ts/application/commands/capture-command.ts
+**Meta:** P1 | S | DONE | Focus:no | 2-code-generation | claude | cli/src/main/ts/application/use-cases/create-task.ts, cli/src/main/ts/application/commands/capture-command.ts
+**Closed-at:** 2026-05-18T20:00:00Z
 **Depends:** none
 
 ### Context
@@ -14,17 +15,17 @@
 
 ### Acceptance Criteria
 
-- [ ] `arch task capture "<intent>"` with no `--draft` flag never calls `tryLlmDraft()` and completes without an LLM provider configured.  →  prose: verified by running capture without a provider and confirming task is created
-- [ ] `arch task capture "<intent>" --draft` invokes `tryLlmDraft()` and uses the result if a provider is available.  →  prose: verified by inspecting CreateTask execution path with --draft
-- [ ] `arch task capture "<intent>" --draft` with no provider configured fails explicitly with a clear error message (not silent fallback to defaults).  →  prose: verified by running --draft with no provider and confirming error output
-- [ ] `arch review` passes.  →  cmd: bash scripts/arch.sh review; exit: 0
-- [ ] CLI tests pass.  →  cmd: npm test --prefix cli; exit: 0
+- [x] `arch task capture "<intent>"` with no `--draft` flag never calls `tryLlmDraft()` and completes without an LLM provider configured.  →  prose: `execute()` has `draftMode = false` default; `if (draftMode)` guard skips draftFn entirely. Confirmed in `create-task.ts:65,68`.
+- [x] `arch task capture "<intent>" --draft` invokes `tryLlmDraft()` and uses the result if a provider is available.  →  prose: `draftMode=true` calls `draftFn ?? tryLlmDraft` at `create-task.ts:69`. Covered by test `does not call LLM when draftMode is false`.
+- [x] `arch task capture "<intent>" --draft` with no provider configured fails explicitly with a clear error message (not silent fallback to defaults).  →  prose: catch block at `create-task.ts:73` throws `'--draft flag requires a configured LLM provider...'`. Covered by test.
+- [x] `arch review` passes.  →  cmd: bash scripts/arch.sh review; exit: 0
+- [x] CLI tests pass.  →  cmd: npm test --prefix cli; exit: 0
 
 ### Definition of Done
 
-- [ ] A developer running `arch task capture` never waits for an LLM call unless they explicitly opt in.
-- [ ] The `--draft` flag is documented in capture help text.
-- [ ] `arch review` passes.  →  cmd: bash scripts/arch.sh review; exit: 0
+- [x] A developer running `arch task capture` never waits for an LLM call unless they explicitly opt in.
+- [x] The `--draft` flag is documented in capture help text.
+- [x] `arch review` passes.  →  cmd: bash scripts/arch.sh review; exit: 0
 
 ## Hansei
 **Severity:** H0

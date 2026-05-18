@@ -1,5 +1,6 @@
 ## TASK-942: Narrow arch memory ask scope - remove THINK-layer fields, tighten corpus dirs
-**Meta:** P2 | S | REVIEW | Focus:no | 2-code-generation | claude | cli/src/main/ts/application/use-cases/ask-corpus.ts, cli/src/main/ts/application/commands/ask-command.ts
+**Meta:** P2 | S | DONE | Focus:no | 2-code-generation | claude | cli/src/main/ts/application/use-cases/ask-corpus.ts, cli/src/main/ts/application/commands/ask-command.ts
+**Closed-at:** 2026-05-18T20:00:00Z
 **Depends:** TASK-938
 
 ### Context
@@ -14,18 +15,18 @@
 
 ### Acceptance Criteria
 
-- [ ] `arch memory ask` output no longer includes `causeGroups` or `recurringSignals` fields in stdout. Those fields are removed from `AskResult` or demoted to internal-only.  →  grep: no causeGroups or recurringSignals in ask-command stdout output
-- [ ] `CORPUS_DIRS` in `ask-corpus.ts` is scoped to `docs/archive` and `docs/adr` only. `docs/tasks` and `docs/guidelines` removed.  →  grep: CORPUS_DIRS ask-corpus.ts
-- [ ] The `answer` field is removed from `AskResult` (DEFINITIONAL query extraction from IDENTITY.md dropped).  →  grep: no answer field in AskResult interface
-- [ ] A comment in `ask-corpus.ts` documents the deterministic-by-design invariant (must not call LLM providers).  →  grep: "deterministic" ask-corpus.ts
-- [ ] `arch review` passes.  →  cmd: bash scripts/arch.sh review; exit: 0
-- [ ] CLI tests pass.  →  cmd: npm test --prefix cli; exit: 0
+- [x] `arch memory ask` output no longer includes `causeGroups` or `recurringSignals` fields in stdout. Those fields are removed from `AskResult` or demoted to internal-only.  →  grep: `grep causeGroups ask-command.ts` → no output. `grep recurringSignals ask-command.ts` → no output. Confirmed.
+- [x] `CORPUS_DIRS` in `ask-corpus.ts` is scoped to `docs/archive` and `docs/adr` only. `docs/tasks` and `docs/guidelines` removed.  →  grep: `CORPUS_DIRS = ['docs/archive', 'docs/adr']` at `ask-corpus.ts:38-41`. Confirmed.
+- [x] The `answer` field is removed from `AskResult` (DEFINITIONAL query extraction from IDENTITY.md dropped).  →  grep: `grep answer ask-corpus.ts` (excluding comment line) → no output. `AskResult` interface has no `answer` field. Confirmed.
+- [x] A comment in `ask-corpus.ts` documents the deterministic-by-design invariant (must not call LLM providers).  →  grep: `grep -i deterministic ask-corpus.ts` → `// Deterministic by design — this module must never call LLM providers.` at line 13. Confirmed.
+- [x] `arch review` passes.  →  cmd: bash scripts/arch.sh review; exit: 0
+- [x] CLI tests pass.  →  cmd: npm test --prefix cli; exit: 0
 
 ### Definition of Done
 
-- [ ] `arch memory ask` is a pure corpus lookup tool with no THINK-layer bleed.
-- [ ] The deterministic invariant is documented in code.
-- [ ] `arch review` passes.  →  cmd: bash scripts/arch.sh review; exit: 0
+- [x] `arch memory ask` is a pure corpus lookup tool with no THINK-layer bleed.
+- [x] The deterministic invariant is documented in code.
+- [x] `arch review` passes.  →  cmd: bash scripts/arch.sh review; exit: 0
 
 ## Hansei
 **Severity:** H0
