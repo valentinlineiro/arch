@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-18T12:02:06.620Z",
+  "builtAt": "2026-05-18T12:18:03.912Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -4167,6 +4167,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-891.md"
+        },
+        "TASK-941": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-941.md"
         }
       }
     },
@@ -4344,6 +4350,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-891.md"
+        },
+        "TASK-941": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-941.md"
         }
       }
     },
@@ -4406,6 +4418,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-224.md"
+        },
+        "TASK-941": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-941.md"
         }
       }
     },
@@ -5283,10 +5301,10 @@
   },
   "tasks": {
     "TASK-249": {
-      "commitCount": 8,
-      "lastCommitDate": "2026-05-18T14:02:06+02:00",
+      "commitCount": 9,
+      "lastCommitDate": "2026-05-18T14:18:03+02:00",
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 5,
+        ".arch/focus-ledger.jsonl": 6,
         "docs/INBOX.md": 1,
         "docs/archive/TASK-933.md": 1,
         "docs/tasks/TASK-249.md": 2,
@@ -5300,6 +5318,7 @@
         "docs/tasks/TASK-254.md": 1
       },
       "recentCommitRefs": [
+        "41077ee",
         "53969f7",
         "dac3a1e",
         "fc39bf8",
@@ -5311,19 +5330,44 @@
       ],
       "commitRefOverflow": false
     },
-    "TASK-937": {
+    "TASK-941": {
       "commitCount": 2,
-      "lastCommitDate": "2026-05-18T13:51:54+02:00",
+      "lastCommitDate": "2026-05-18T14:18:03+02:00",
       "touchedFrequency": {
-        "docs/tasks/TASK-937.md": 2,
+        "docs/archive/TASK-941.md": 1,
+        "docs/tasks/TASK-941.md": 1
+      },
+      "recentCommitRefs": [
+        "921e881",
+        "ec30b46"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-937": {
+      "commitCount": 5,
+      "lastCommitDate": "2026-05-18T14:18:00+02:00",
+      "touchedFrequency": {
+        "docs/INBOX.md": 2,
+        "docs/tasks/TASK-937.md": 5,
+        "docs/tasks/TASK-941.md": 1,
+        "cli/src/main/ts/application/commands/capture-command.ts": 1,
+        "cli/src/main/ts/application/use-cases/create-task.ts": 1,
+        "cli/src/main/ts/application/use-cases/mark-task-done.ts": 1,
+        "cli/src/test/ts/create-task.test.ts": 1,
+        "cli/src/test/ts/mark-task-done.test.ts": 1,
+        "docs/TASK-FORMAT.md": 1,
+        "docs/tasks/TASK-938.md": 2,
+        "docs/tasks/TASK-940.md": 1,
         "docs/refinement/IDEA-active-constraint-injection.md": 1,
         "docs/refinement/IDEA-correction-signal.md": 1,
         "docs/refinement/IDEA-proportional-protocol.md": 1,
         "docs/refinement/IDEA-semantic-collision-detection.md": 1,
-        "docs/tasks/TASK-938.md": 1,
         "docs/tasks/TASK-939.md": 1
       },
       "recentCommitRefs": [
+        "cdcbcdf",
+        "0e2a4a1",
+        "7629dce",
         "2874d10",
         "99381dd"
       ],
@@ -6260,7 +6304,7 @@
       "commitRefOverflow": false
     },
     "TASK-247": {
-      "commitCount": 26,
+      "commitCount": 22,
       "lastCommitDate": "2026-05-18T08:58:10+02:00",
       "touchedFrequency": {
         "docs/tasks/TASK-251.md": 1,
@@ -6271,7 +6315,7 @@
         "docs/adr/ADR-020-focus-sovereignty-model.md": 2,
         ".arch/focus-ledger.jsonl": 1,
         "docs/INBOX.md": 1,
-        "docs/tasks/TASK-247.md": 11,
+        "docs/tasks/TASK-247.md": 7,
         "cli/src/main/ts/application/use-cases/focus-ledger.ts": 1,
         "cli/src/main/ts/application/use-cases/review-system.ts": 1,
         "cli/src/test/ts/govern-system.test.ts": 1
@@ -7934,17 +7978,6 @@
       },
       "recentCommitRefs": [
         "5117f55"
-      ],
-      "commitRefOverflow": false
-    },
-    "TASK-244": {
-      "commitCount": 1,
-      "lastCommitDate": "2026-05-14T17:55:14+02:00",
-      "touchedFrequency": {
-        "docs/archive/TASK-244.md": 1
-      },
-      "recentCommitRefs": [
-        "81118a2"
       ],
       "commitRefOverflow": false
     }
