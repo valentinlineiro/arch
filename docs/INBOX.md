@@ -182,3 +182,15 @@ Changed files: cli/src/main/ts/index.ts, docs/agents/DO.md, docs/agents/THINK.md
 
 ## [2026-05-18 21:00] REVIEW_PASS | TASK-250 | [AUDITOR]
 ACs verified: 4 domain cases in index.ts; 25 deprecated() calls; 0 old flat references in DO.md/THINK.md; arch review ✔ (Census+HanseiPresent pre-existing). Archived DONE.
+
+## [REVIEW_REQUEST] TASK-937
+**Submitted:** 2026-05-18T22:00:00Z
+**Title:** Implement proportional protocol - lightweight XS capture, close, and template
+
+| AC | Predicate | Result |
+|---|---|---|
+| XS stripped template for 6-writing/7-operations | prose | scaffold() emits no DoD or Hansei for XS+lightweight class |
+| S/XS close path skips Hansei gate | prose | validateHanseiRequirement returns null for size not in M/L/XL |
+| TASK-FORMAT.md DoD exemption documented | grep: "XS" docs/TASK-FORMAT.md | present at line 126-127 |
+| arch review passes | cmd: bash scripts/arch.sh review | ✔ System Review: OK |
+| CLI tests pass | cmd: npm test --prefix cli | ✔ 4 pre-existing failures only (DeterministicACVerifier, SandboxService) |
