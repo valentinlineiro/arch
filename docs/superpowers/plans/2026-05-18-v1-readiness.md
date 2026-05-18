@@ -39,28 +39,30 @@ These are items whose absence would make a 1.0.0 claim misleading. Grouped by co
 
 ### 1. Governance drift cleared from committed state
 
-`arch review` currently shows four persistent warning classes. These are not noise — they are live violations that a 1.0.0 system should not carry.
+This concern has improved materially. `arch review` now passes clean, but the underlying warning-class backlog still matters as a `1.0.0` readiness concern because several classes were only reduced, not structurally retired.
 
 | Warning | Current violations | Tracking |
 |---------|--------------------|----------|
-| `ApprovalPresent` | TASK-251, 254, 255, 256, 257, 917, 918, 921, 922 — missing `## Approval` sections | No task |
-| `FocusStatusAlignment` | TASK-249 (READY+Focus:yes), TASK-919 (IN_PROGRESS+Focus:no) | IDEA-corpus-drift-repair (TASK-927) |
-| `TaskTemplateCompliance` | 18 tasks missing Hansei or AC sections | No task |
-| `Census` | `docs/tasks/` at 1,242 lines (budget: 1,000) | Implies archive backlog |
+| `ApprovalPresent` | Historically noisy; field-index false positives fixed in TASK-928. Residual archived-task policy/backfill debt must still be clarified before `1.0.0`. | TASK-928 closed; no dedicated follow-up yet |
+| `FocusStatusAlignment` | TASK-249 / TASK-919 corpus drift repaired in TASK-933. | Closed in TASK-933 |
+| `TaskTemplateCompliance` | Reduced by TASK-933 (18 → 15 items). Remaining Hansei/AC backlog still exists and needs structural resolution, not endless stubbing. | IDEA-tiered-obligations + residual task backlog |
+| `Census` | `docs/tasks/` still exceeds budget. `arch review` is clean, but the underlying compression problem remains a scale/readability concern. | No task |
 
-**Verdict:** All four warning classes need to be cleared before `1.0.0`. A system claiming `1.0.0` should not ship with persistent known governance drift in committed state.
+**Verdict:** `FocusStatusAlignment` is no longer a blocker. The remaining `1.0.0` concern is structural cleanup of `ApprovalPresent`, `TaskTemplateCompliance`, and `Census` so the clean review state is durable rather than incidental.
 
-### 2. Protocol contradictions resolved (TASK-927 open findings)
+### 2. Protocol contradictions resolved (TASK-927 follow-up)
 
-Three High-severity contradictions identified in TASK-927 remain unresolved:
+The three High-severity contradictions identified in TASK-927 are now resolved:
 
 | Finding | IDEA | Blocker for 1.0.0? |
 |---------|------|---------------------|
-| INBOX invariant: code reads what the spec says is write-only | IDEA-inbox-invariant-contradiction | **Yes** — the invariant is in AGENTS.md, the violation is in loop-engine.ts. A 1.0.0 system should not contradict its own core invariants in shipped code. |
-| Lock model: DO.md says write to meta; AGENTS.md says in-memory only; persisted field is never read back | IDEA-lock-model-contradiction | **Yes** — the persisted boundary is dead weight. The decision (persist or don't) needs to be made and reflected in both docs and code before 1.0.0. |
-| Archive status: drift-checker does not validate that archived tasks have DONE status | IDEA-archive-status-drift-check | **Yes** — archive integrity is a core claim of the system. The gap is small (one check to add). |
+| INBOX invariant: code reads what the spec says is write-only | IDEA-inbox-invariant-contradiction | Resolved in **TASK-930** — machine reads removed; structured state used instead. |
+| Lock model: DO.md says write to meta; AGENTS.md says in-memory only; persisted field is never read back | IDEA-lock-model-contradiction | Resolved in **TASK-931** — `Locked-commit` persists as auxiliary provenance and now round-trips. |
+| Archive status: drift-checker does not validate that archived tasks have DONE status | IDEA-archive-status-drift-check | Resolved in **TASK-932** — archive status now validated explicitly. |
 
-**Verdict:** All three need resolution before 1.0.0. The two decision-required ones (INBOX, lock model) need human calls first.
+**Verdict:** This bucket is no longer a `1.0.0` blocker.
+
+**Residual note:** The bundled git sync contradiction from TASK-927 finding 6 remains undecided and should be tracked separately, but it is no longer tied to the resolved High-finding loop.
 
 ### 3. Phase 1 simplification — minimum viable subset
 
@@ -69,7 +71,7 @@ Phase 1 is marked NOT STARTED across four items. Not all are 1.0.0 requirements,
 | Item | 1.0.0? | Rationale |
 |------|--------|-----------|
 | **Metrics Narrowing** | **Yes** | The current report emits CONFIDENCE: 0% warnings when integrity is low. A 1.0.0 system should not publish metrics it doesn't trust. Suppress LOW-confidence signals or gate the report. |
-| **Tiered Obligations** | **Yes** | XS tasks carry the same Hansei/Approval overhead as L tasks. This is the primary source of TaskTemplateCompliance drift. Proportional protocol weight is required before 1.0.0 or the compliance gap will grow indefinitely. |
+| **Tiered Obligations** | **Yes** | XS tasks currently rely on cleanup/backfill discipline to stay compliant. TASK-933 reduced the symptoms; Tiered Obligations is the structural fix that prevents the same compliance debt from re-accumulating. |
 | CLI Unification | No | Desirable for usability, but not a correctness gate. Defer past `1.0.0` unless command-surface confusion becomes an integrity issue. |
 | Refinement Funnel Tightening | No | Important planning hygiene, but not a `1.0.0` correctness gate in the current assessment. |
 
@@ -116,10 +118,10 @@ These are real roadmap items but none of them are correctness or integrity gates
   │
 0.8.0 (publish gate)
   │
-  ├── Clear ApprovalPresent + TaskTemplateCompliance + FocusStatusAlignment + Census drift
-  ├── Resolve TASK-927 High findings (INBOX, lock model, archive status)
+  ├── Confirm public install path works (`TASK-919` → `TASK-920`)
   ├── Metrics Narrowing (suppress LOW-confidence output)
   ├── Tiered Obligations (proportional protocol weight)
+  ├── Clear durable governance backlog (`ApprovalPresent`, `TaskTemplateCompliance`, `Census`)
   └── Validate arch capture as Operational OR document it as PARTIAL
   │
 1.0.0 (integrity gate)
@@ -133,9 +135,9 @@ These are real roadmap items but none of them are correctness or integrity gates
 
 All five open questions answered. ROADMAP.md update is now unblocked.
 
-1. **INBOX invariant — DECIDED:** Keep `docs/INBOX.md` write-only for automation. Machine control signals move to `.arch/` structured state. The code reads in `loop-engine.ts` and `next-command.ts` are bugs to remove. `DO.md` instruction to read INBOX is wrong. → **TASK-930** (git sync contradiction in this IDEA is a separate, still-undecided item).
+1. **INBOX invariant — DECIDED:** Keep `docs/INBOX.md` write-only for automation. Machine control signals move to `.arch/` structured state. The code reads in `loop-engine.ts` and `next-command.ts` are bugs to remove. `DO.md` instruction to read INBOX is wrong. → **TASK-930 (DONE)**. Git sync contradiction in this IDEA is a separate, still-undecided item.
 
-2. **Lock model — DECIDED:** Persist `Locked-commit` as auxiliary provenance field; must round-trip through the parser. `lockedBy`/`lockedAt` remain in-memory only. Meta line stays canonical and compact. → **TASK-931**
+2. **Lock model — DECIDED:** Persist `Locked-commit` as auxiliary provenance field; must round-trip through the parser. `lockedBy`/`lockedAt` remain in-memory only. Meta line stays canonical and compact. → **TASK-931 (DONE)**
 
 3. **Tiered Obligations — DECIDED:**
    - XS: no Hansei unless triggered (blocker, size miss, constitutional anomaly)
@@ -147,6 +149,8 @@ All five open questions answered. ROADMAP.md update is now unblocked.
 4. **ROADMAP threshold — DECIDED:** Update `ROADMAP.md` only after the five `Must Before 1.0.0` buckets have explicit decisions. May name unresolved gates as blockers. Do not convert undecided questions into roadmap truth.
 
 5. **`arch capture` verdict — DECIDED:** Treat as `PARTIAL` until validated operationally in a real clean-flow session. Do not promote by assumption. `ROADMAP.md` entry updated accordingly.
+
+6. **Archive status validation — DECIDED BY IMPLEMENTATION:** `ArchiveMetaIntegrity` must validate terminal archive status by scanning meta fields, matching `ArchiveParser` semantics. → **TASK-932 (DONE)**
 
 ---
 
