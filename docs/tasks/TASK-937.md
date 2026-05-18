@@ -1,5 +1,5 @@
 ## TASK-937: Implement proportional protocol — lightweight XS capture, close, and template
-**Meta:** P1 | M | READY | Focus:no | 2-code-generation | claude | cli/src/main/ts/application/commands/capture-command.ts, docs/TASK-FORMAT.md, docs/AGENTS.md
+**Meta:** P1 | M | IN_PROGRESS | Focus:yes | 2-code-generation | claude | cli/src/main/ts/application/commands/capture-command.ts, docs/TASK-FORMAT.md, docs/AGENTS.md
 
 ### Context
 
