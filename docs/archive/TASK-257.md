@@ -45,3 +45,6 @@ The lightweight refresh should be fast enough to not add meaningful latency to t
 **Cost:** Two update paths for METRICS.md (lightweight + full arch report) must maintain consistent row formatting. Divergence would cause the lightweight refresh to silently no-op. Current format is shared by inspection — not enforced by a shared constant.
 
 **Forward Action:** If METRICS.md row format ever changes, update the regex in lightweight-metrics-refresh.ts in the same commit. No separate tracking required while the format remains stable.
+
+## Approval
+Approved-by: Auditor | 2026-05-15
