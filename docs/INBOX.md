@@ -110,3 +110,59 @@ ACs verified:
 - TASK-FORMAT.md and AGENTS.md updated to reflect tier model
 - 8 TASK-934 tests: RED then GREEN; no regressions
 Changed files: cli/src/main/ts/application/use-cases/drift-checker.ts, cli/src/main/ts/domain/services/task-validator.ts, cli/src/test/ts/drift-checker.test.ts, cli/src/test/ts/task-validator.test.ts, cli/src/test/ts/hansei-validation.test.ts, docs/TASK-FORMAT.md, docs/AGENTS.md
+
+---
+
+## [2026-05-18 18:00] REVIEW_PASS | TASK-933 | [AUDITOR]
+ACs verified against repo state:
+- TASK-249.md: Focus:no (was Focus:yes incorrectly for a READY task) ✔
+- TASK-919.md: Focus:yes (IN_PROGRESS task now has focus) ✔
+- TASK-258.md: ACs converted to checkbox + predicate format ✔
+- FocusStatusAlignment: ✔ (confirmed in arch review output)
+- TaskTemplateCompliance: ✔ (confirmed in arch review output)
+Pre-existing failures: 4 tests (DeterministicACVerifier x2, reflect-command x2) — pre-date this task.
+Verdict: PASS. Archived as DONE.
+
+## [2026-05-18 18:01] REVIEW_PASS | TASK-932 | [AUDITOR]
+ACs verified against repo state:
+- checkArchiveMetaIntegrity uses full meta scan (not fixed-position parse) ✔
+- DONE archived tasks: pass ✔
+- REJECTED archived tasks: pass (REJECTED added to terminal set) ✔
+- READY archived tasks (TASK-215/231/234-237): flagged as WARN ✔
+- arch review ArchiveMetaIntegrity section confirms correct behavior ✔
+Pre-existing failures: same 4 tests — pre-date this task.
+Verdict: PASS. Archived as DONE.
+
+## [2026-05-18 18:02] REVIEW_PASS | TASK-931 | [AUDITOR]
+ACs verified against repo state:
+- markdown-task-repository.ts:149 — lockedCommitMatch reads **Locked-commit:** ✔
+- markdown-task-repository.ts:184 — lockedCommit field returned in task object ✔
+- Round-trip test: `task.lockedCommit === 'abc123def456'` passes ✔
+- DO.md step 5: no longer describes adding lock to Meta line ✔
+- AGENTS.md: distinguishes lockedBy/lockedAt (in-memory) from Locked-commit (persisted) ✔
+Pre-existing failures: same 4 tests — pre-date this task.
+Verdict: PASS. Archived as DONE.
+
+## [2026-05-18 18:03] REVIEW_PASS | TASK-930 | [AUDITOR]
+ACs verified against repo state:
+- loop-engine.ts hasSprintCheckpoint reads EscalationStore, not INBOX ✔
+- loop-engine.ts appendSprintCheckpoint writes to both EscalationStore + INBOX ✔
+- next-command.ts: checkInboxFreshness removed; no INBOX read path remains ✔
+- SPRINT_CHECKPOINT added to EscalationType enum ✔
+- DO.md step 7: updated to describe human-read INBOX vs machine-read escalations.jsonl ✔
+- NextCommand INBOX-not-read test: GREEN ✔
+Pre-existing failures: same 4 tests — pre-date this task.
+Verdict: PASS. Archived as DONE.
+
+## [2026-05-18 18:04] REVIEW_PASS | TASK-934 | [AUDITOR]
+ACs verified against repo state:
+- checkTaskTemplateCompliance: XS/S tasks exempt from Hansei requirement (15 → 0 warnings) ✔
+- checkApprovalPresent: XS/S archived tasks exempt (9 → 3 warnings; remaining 3 are M tasks) ✔
+- validateHansei: isClosing removed; S task at REVIEW/DONE: 0 errors ✔
+- Hansei still validated when present on XS/S ✔
+- TASK-FORMAT.md tier model documented ✔
+- AGENTS.md archiving requirements updated ✔
+- arch review TaskTemplateCompliance: ✔ (0 warnings)
+- arch review ApprovalPresent: ⚠ TASK-255, TASK-257, TASK-927 (correctly flagged — all M)
+Pre-existing failures: same 4 tests — pre-date this task.
+Verdict: PASS. Archived as DONE.
