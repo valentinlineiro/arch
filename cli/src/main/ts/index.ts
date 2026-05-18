@@ -258,6 +258,16 @@ async function main() {
       await new VerifyAcsCommand(taskRepository, rootPath).execute(args);
       break;
 
+    case 'corpus': {
+      if (args[0] === 'audit') {
+        const { CorpusAuditCommand } = await import('./application/commands/corpus-audit-command.js');
+        await new CorpusAuditCommand(fileSystem, gitRepository, rootPath).execute(args.slice(1));
+      } else {
+        console.error('Usage: arch corpus audit [--verbose]');
+        process.exit(1);
+      }
+      break;
+    }
     case 'capture': {
       deprecated('capture', 'task capture');
       const { CaptureCommand } = await import('./application/commands/capture-command.js');
