@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-18T21:43:09.334Z",
+  "builtAt": "2026-05-18T21:43:23.816Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -5640,24 +5640,37 @@
   },
   "tasks": {
     "TASK-253": {
-      "commitCount": 1,
-      "lastCommitDate": "2026-05-18T21:43:09+00:00",
+      "commitCount": 2,
+      "lastCommitDate": "2026-05-18T21:43:23+00:00",
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 1
+        ".arch/focus-ledger.jsonl": 2
       },
       "recentCommitRefs": [
+        "a130772",
         "5e44534"
       ],
       "commitRefOverflow": false
     },
     "TASK-252": {
-      "commitCount": 4,
-      "lastCommitDate": "2026-05-18T21:40:23+00:00",
+      "commitCount": 6,
+      "lastCommitDate": "2026-05-18T21:43:23+00:00",
       "touchedFrequency": {
-        "docs/tasks/TASK-252.md": 1,
+        "docs/archive/TASK-252.md": 1,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/reflect-breach-log.jsonl": 1,
+        "cli/src/test/ts/size-tiered-closure.test.ts": 1,
+        "docs/AGENTS.md": 1,
+        "docs/EVENTS.md": 1,
+        "docs/METRICS.md": 1,
+        "docs/TASK-FORMAT.md": 1,
+        "docs/agents/DO.md": 1,
+        "docs/tasks/TASK-252.md": 2,
+        "docs/tasks/TASK-253.md": 1,
         ".arch/focus-ledger.jsonl": 3
       },
       "recentCommitRefs": [
+        "f64cac9",
+        "98c93e9",
         "6df9c8a",
         "7e4ab5e",
         "fc61e6a",
@@ -7070,17 +7083,14 @@
       "commitRefOverflow": false
     },
     "TASK-247": {
-      "commitCount": 3,
+      "commitCount": 1,
       "lastCommitDate": "2026-05-18T08:58:10+02:00",
       "touchedFrequency": {
         "docs/tasks/TASK-251.md": 1,
-        "docs/tasks/TASK-254.md": 1,
-        "docs/archive/TASK-247.md": 1
+        "docs/tasks/TASK-254.md": 1
       },
       "recentCommitRefs": [
-        "b75e443",
-        "d0499af",
-        "3bb3927"
+        "b75e443"
       ],
       "commitRefOverflow": false
     },
@@ -8239,7 +8249,7 @@
       "commitRefOverflow": false
     },
     "TASK-245": {
-      "commitCount": 18,
+      "commitCount": 17,
       "lastCommitDate": "2026-05-16T15:45:47+00:00",
       "touchedFrequency": {
         ".arch/reflect-breach-log.jsonl": 4,
@@ -8254,7 +8264,7 @@
         "docs/tasks/TASK-203.md": 1,
         "docs/archive/TASK-245.md": 1,
         "docs/tasks/TASK-245.md": 2,
-        ".arch/focus-ledger.jsonl": 9,
+        ".arch/focus-ledger.jsonl": 8,
         "docs/refinement/archive/IDEA-approval-entry-check.md": 1,
         "docs/refinement/archive/IDEA-arch-core-contract.md": 1,
         "docs/refinement/archive/IDEA-arch-review-priority-drift.md": 2,
@@ -8327,8 +8337,7 @@
         "7a329a0",
         "231a048",
         "b371103",
-        "2af74d6",
-        "1290ee3"
+        "2af74d6"
       ],
       "commitRefOverflow": false
     },
