@@ -1,5 +1,6 @@
 ## TASK-937: Implement proportional protocol - lightweight XS capture, close, and template
-**Meta:** P1 | M | REVIEW | Focus:no | 2-code-generation | claude | cli/src/main/ts/application/commands/capture-command.ts, docs/TASK-FORMAT.md, docs/AGENTS.md
+**Meta:** P1 | M | DONE | Focus:no | 2-code-generation | claude | cli/src/main/ts/application/commands/capture-command.ts, docs/TASK-FORMAT.md, docs/AGENTS.md
+**Closed-at:** 2026-05-18T22:30:00Z
 
 ### Context
 
@@ -48,3 +49,6 @@ Stripped XS template reduces documentation surface; operators may omit context t
 
 **Forward Action:**
 Monitor whether XS self-archive rate increases after this ships. If it does not, the close-path friction is not the binding constraint — look at capture friction instead.
+
+## Approval
+Approved-by: Auditor | 2026-05-18
