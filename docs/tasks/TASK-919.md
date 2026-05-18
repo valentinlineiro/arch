@@ -1,5 +1,5 @@
 ## TASK-919: arch init: full repo scaffolding with stack detection
-**Meta:** P2 | M | IN_PROGRESS | Focus:yes | 2-code-generation | claude-code | cli/src/main/ts/application/commands/init-command.ts
+**Meta:** P2 | M | IN_PROGRESS | Focus:no | 2-code-generation | claude-code | cli/src/main/ts/application/commands/init-command.ts
 
 **Depends:** TASK-918
 
@@ -31,8 +31,8 @@
 
 ## Hansei
 **Severity:** H0
-**Category:** [no-issue]
-**Decision:** Not yet started.
-**Constraint:** None.
-**Cost:** None.
+**Category:** [SpecDrift]
+**Decision:** Not yet started. Implementation will follow stack detection findings.
+**Constraint:** No specific constraints identified at this early stage of research.
+**Cost:** No debt introduced as no implementation code has been written yet.
 **Forward Action:** None.

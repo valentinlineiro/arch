@@ -133,3 +133,6 @@
 {"escalation_id": "E-002-fix-decomposition-duplication", "timestamp": "2026-05-18T07:08:12Z", "type": "AWAITING_PROMOTION", "subject": "fix-decomposition-duplication", "reason": "Sessions >= 2 without decision", "status": "OPEN"}
 {"escalation_id": "E-003-fix-governance-terminology-collision", "timestamp": "2026-05-18T07:08:12Z", "type": "AWAITING_PROMOTION", "subject": "fix-governance-terminology-collision", "reason": "Sessions >= 2 without decision", "status": "OPEN"}
 {"escalation_id": "E-004-temporal-pattern-layer", "timestamp": "2026-05-18T07:08:12Z", "type": "AWAITING_PROMOTION", "subject": "temporal-pattern-layer", "reason": "Sessions >= 2 without decision", "status": "OPEN"}
+{"escalation_id": "E-005-fix-class-boundary-violation-excision", "timestamp": "2026-05-18T07:15:00Z", "type": "AWAITING_PROMOTION", "subject": "fix-class-boundary-violation-excision", "reason": "New finding in Phase 2.5", "status": "OPEN"}
+{"escalation_id": "E-006-backlog-compression", "timestamp": "2026-05-18T07:15:00Z", "type": "AWAITING_PROMOTION", "subject": "backlog-compression", "reason": "New finding in Phase 3.6", "status": "OPEN"}
+{"escalation_id": "E-007-automate-turn-count", "timestamp": "2026-05-18T07:15:00Z", "type": "AWAITING_PROMOTION", "subject": "automate-turn-count", "reason": "New finding in Phase 3.6", "status": "OPEN"}
