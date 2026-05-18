@@ -79,6 +79,10 @@ async function main() {
       await new VersionCommand(cliVersion).execute();
       break;
 
+    case 'status':
+      await new (await import('./application/commands/status-command.js')).StatusCommand(taskRepository, fileSystem).execute();
+      break;
+
     // ── arch task <subcommand> ────────────────────────────────────────────────
     case 'task': {
       const sub = args[0];
@@ -133,6 +137,9 @@ async function main() {
         const approveStore = new EscalationStore(fileSystem, rootPath);
         await approveStore.append('APPROVED', approveTaskId, `Human approval granted via arch govern approve.`);
         console.log(`  ✔ Approved ${approveTaskId}. Run arch task loop --resume to continue.`);
+      } else if (sub === 'serve') {
+        const { ServeCommand } = await import('./application/commands/serve-command.js');
+        await new ServeCommand(rootPath).execute(args.slice(1));
       } else {
         await new GovernCommand(taskRepository, gitRepository, fileSystem, causalSignalLog, rootPath).execute(args);
       }
@@ -328,11 +335,32 @@ async function main() {
     }
 
     default:
-      console.log('Usage: arch [review|task|govern|memory|init|version]');
-      console.log('  arch review                    — structural validation');
-      console.log('  arch task <subcommand>         — task lifecycle (start|done|loop|batch|capture|...)');
-      console.log('  arch govern [subcommand]       — governance tick; subcommands: reflect|report|inbox|conduct|approve');
-      console.log('  arch memory <subcommand>       — knowledge retrieval (ask|causal|index|explain|deps)');
+      console.log('Usage: arch [review|status|task|govern|memory|init|version]');
+      console.log('');
+      console.log('Core:');
+      console.log('  arch review                    — structural validation and integrity audit');
+      console.log('  arch status                    — high-level sprint and task progress');
+      console.log('');
+      console.log('Task Lifecycle:');
+      console.log('  arch task start [TASK-XXX]     — start a task (interactive if ID omitted)');
+      console.log('  arch task review TASK-XXX      — run predicates and move to REVIEW');
+      console.log('  arch task done TASK-XXX        — archive completed task (launches Hansei wizard)');
+      console.log('  arch task create "<intent>"    — scaffold new task from intent');
+      console.log('  arch task capture "<intent>"   — capture, scaffold, and start in one step');
+      console.log('');
+      console.log('Governance & Analysis:');
+      console.log('  arch govern                    — run governance tick (archive DONE, assign focus)');
+      console.log('  arch govern inbox              — show urgent actions and refinement queue');
+      console.log('  arch govern reflect            — trigger THINK mode for pattern analysis');
+      console.log('  arch govern serve              — launch local visual dashboard (localhost:3000)');
+      console.log('');
+      console.log('Memory & Knowledge:');
+      console.log('  arch memory ask "<query>"      — query the causal graph and task archive');
+      console.log('  arch memory causal show <id>   — show causal edges for a task/ADR');
+      console.log('');
+      console.log('System:');
+      console.log('  arch init                      — initialize ARCH in current repository');
+      console.log('  arch version                   — show CLI version');
       process.exit(1);
   }
 }

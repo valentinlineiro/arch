@@ -63,12 +63,40 @@ export class TaskCommand {
 
   async execute(args: string[]): Promise<void> {
     const subCommand = args[0];
-    const taskId = args.find(arg => arg.startsWith('TASK-'));
+    let taskId = args.find(arg => arg.startsWith('TASK-'));
     const force = args.includes('--force');
     const reasonIdx = args.indexOf('--reason');
     const reason = reasonIdx !== -1 ? args[reasonIdx + 1] : '';
 
-    if (subCommand === 'start' && taskId) {
+    if (subCommand === 'start') {
+      if (!taskId && process.stdout.isTTY) {
+        const readyTasks = (await this.taskRepository.getAll()).filter(t => t.status === 'READY');
+        if (readyTasks.length === 0) {
+          fmt.fail('No READY tasks found.');
+          process.exit(1);
+        }
+        fmt.header('Select a task to start:');
+        readyTasks.forEach((t, i) => {
+          console.log(`  ${i + 1}. [${t.id}] ${t.title}`);
+        });
+        const { createInterface } = await import('node:readline/promises');
+        const rl = createInterface({ input: process.stdin, output: process.stdout });
+        const answer = await rl.question('\n  Pick a number (1-' + readyTasks.length + ') or press Enter to cancel: ');
+        rl.close();
+        const idx = parseInt(answer.trim(), 10) - 1;
+        if (readyTasks[idx]) {
+          taskId = readyTasks[idx].id;
+        } else {
+          fmt.info('Cancelled.');
+          process.exit(0);
+        }
+      }
+
+      if (!taskId) {
+        fmt.fail('Usage: arch task start TASK-XXX');
+        process.exit(1);
+      }
+
       try {
         const task = await this.markInProgress.execute(taskId, 'cli');
         fmt.arrow(`marking ${taskId} as IN_PROGRESS`);
@@ -244,21 +272,20 @@ export class TaskCommand {
         'Usage: arch task <subcommand> [args]',
         '',
         'Subcommands:',
-        '  capture "<intent>"      Create a task from intent (deterministic; add --draft for LLM assist)',
-        '  start TASK-XXX          Mark a task as IN_PROGRESS',
-        '  create "<intent>"       Scaffold a task scaffold (deterministic; add --draft for LLM assist)',
-        '  edit TASK-XXX           Interactively update task metadata (priority, size, class, context)',
+        '  start [TASK-XXX]        Mark a task as IN_PROGRESS (interactive if ID omitted)',
+        '  done TASK-XXX           Archive a task as DONE (launches Hansei wizard)',
         '  review TASK-XXX         Run cmd: predicates and set status to REVIEW',
-        '  done TASK-XXX           Archive a task as DONE',
-        '  reject TASK-XXX         Move a task back to READY',
-        '  reject-stale TASK-XXX   Archive a stale task',
-        '  approve TASK-XXX        Human approval gate',
-        '  redirect TASK-XXX --to  Redirect with new instruction',
-        '  metrics TASK-XXX        Update cost/step metrics',
-        '  compress [TASK-XXX|--all]  Lossy-compress archive files',
+        '  create "<intent>"       Scaffold a task from intent (deterministic)',
+        '  capture "<intent>"      Capture, scaffold, and start a task in one step',
+        '  edit TASK-XXX           Interactively update task metadata',
         '  next                    Suggest next highest-priority task',
         '  rank                    Rank READY tasks by priority and size',
         '  promote <idea-slug>     Promote an IDEA to a TASK',
+        '  reject TASK-XXX         Move a task back to READY',
+        '  approve TASK-XXX        Human approval gate',
+        '  redirect TASK-XXX --to  Redirect with new instruction',
+        '  split TASK-XXX          Decompose an L/XL task into sub-tasks',
+        '  compress --all          Lossy-compress archive files',
       ].join('\n'));
     } else if (subCommand === 'new') {
       await this.executeNew(args.slice(1));
