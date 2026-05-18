@@ -27,14 +27,6 @@
 - [x] `npm test` passes in `cli/`
 
 ## Hansei
-**Severity:** H0
-**Category:** [no-issue]
-**Decision:** Not yet started.
-**Constraint:** None.
-**Cost:** None.
-**Forward Action:** None.
-
-## Hansei
 **Severity:** H1
 **Category:** [AuditGap]
 **Decision:** Three checks implemented: severity calibration (Tier 1 diff vs declared), decision entropy (5-gram repetition across Decision fields), forward action completion (H2+ IDEA references vs actual IDEAs filed). Score: 99/100 on current corpus. One WARN: TASK-231/234-237 share a paste phrase from bulk backfill session.
