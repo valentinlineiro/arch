@@ -1,5 +1,5 @@
 ## TASK-252: Introduce size-tiered closure and review obligations
-**Meta:** P1 | M | READY | Focus:no | 6-writing | claude | docs/TASK-FORMAT.md, docs/agents/DO.md, cli/src/main/ts/application/use-cases/mark-task-done.ts, cli/src/main/ts/domain/services/task-validator.ts
+**Meta:** P1 | M | IN_PROGRESS | Focus:yes | 6-writing | claude | docs/TASK-FORMAT.md, docs/agents/DO.md, cli/src/main/ts/application/use-cases/mark-task-done.ts, cli/src/main/ts/domain/services/task-validator.ts
 
 ### Context
 
