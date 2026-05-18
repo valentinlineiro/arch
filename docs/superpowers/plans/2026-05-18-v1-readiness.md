@@ -20,16 +20,14 @@ Items in this checklist are evaluated against *Operational*, not *Implemented*.
 
 ## Must Before 0.8.0
 
-These are the explicit gates already in the repo. Nothing else should block the 0.8.0 tag.
+These are the only two gates. `0.8.0` is a publish milestone, not a quality milestone.
 
 | Item | Status | Tracking |
 |------|--------|----------|
 | `arch init` full repo scaffolding with stack detection | IN_PROGRESS | TASK-919 |
 | `npm publish --access public` from `cli/` without errors | READY (blocked on TASK-919) | TASK-920 |
-| Version bump to `0.8.0` in `cli/package.json` and `arch.config.json` | Pending TASK-920 | TASK-920 |
-| `npx arch init` verified in a clean directory | Pending TASK-920 | TASK-920 |
 
-**0.8.0 is a publish gate, not a quality gate.** TASK-920 depends on TASK-919. Neither requires roadmap completeness.
+**0.8.0 is a publish gate, not a quality gate.** TASK-920 depends on TASK-919. Nothing else should block the `0.8.0` tag.
 
 **What 0.8.0 is NOT:** It is not a signal that the system is production-grade. It is the first public artifact so external users can install and evaluate.
 
@@ -50,7 +48,7 @@ These are items whose absence would make a 1.0.0 claim misleading. Grouped by co
 | `TaskTemplateCompliance` | 18 tasks missing Hansei or AC sections | No task |
 | `Census` | `docs/tasks/` at 1,242 lines (budget: 1,000) | Implies archive backlog |
 
-**Verdict:** ApprovalPresent and TaskTemplateCompliance warnings are backlog debt that compounds as new tasks accumulate. Fix before 1.0.0, not after.
+**Verdict:** All four warning classes need to be cleared before `1.0.0`. A system claiming `1.0.0` should not ship with persistent known governance drift in committed state.
 
 ### 2. Protocol contradictions resolved (TASK-927 open findings)
 
@@ -72,8 +70,8 @@ Phase 1 is marked NOT STARTED across four items. Not all are 1.0.0 requirements,
 |------|--------|-----------|
 | **Metrics Narrowing** | **Yes** | The current report emits CONFIDENCE: 0% warnings when integrity is low. A 1.0.0 system should not publish metrics it doesn't trust. Suppress LOW-confidence signals or gate the report. |
 | **Tiered Obligations** | **Yes** | XS tasks carry the same Hansei/Approval overhead as L tasks. This is the primary source of TaskTemplateCompliance drift. Proportional protocol weight is required before 1.0.0 or the compliance gap will grow indefinitely. |
-| CLI Unification | No (0.8.0 ships current surface) | Desirable for usability, but not a correctness gate. Defer to post-1.0.0 polish unless the command surface is actively misleading. |
-| Refinement Funnel Tightening | Partial | TTL enforcement and admission bar. The IDEA backlog currently has 40+ drafts. Without TTL, the funnel is a tar pit. This is a 1.0.0 concern if IDEA accumulation is visibly corrupting planning signal. |
+| CLI Unification | No | Desirable for usability, but not a correctness gate. Defer past `1.0.0` unless command-surface confusion becomes an integrity issue. |
+| Refinement Funnel Tightening | No | Important planning hygiene, but not a `1.0.0` correctness gate in the current assessment. |
 
 ### 4. `arch capture` operational, not just implemented
 
@@ -84,9 +82,9 @@ Currently PARTIAL: the pipeline exists but is not validated as reducing friction
 
 A 1.0.0 system should not advertise a feature it can't recommend.
 
-### 5. npm publish and install path actually work
+### 5. `npx arch init` actually works in a clean directory
 
-TASK-920 is the gate, but the test is: does `npx arch init` in a clean directory produce a working ARCH repo without requiring documentation lookup? If the answer is no, 0.8.0 ships a broken first impression and 1.0.0 inherits it.
+This is related to TASK-920 but should still be treated as a `1.0.0` concern independently of the `0.8.0` publish tag. The question is: does `npx arch init` in a clean directory produce a working ARCH repo without requiring documentation lookup? If the answer is no, `0.8.0` may still publish, but `1.0.0` should not ship.
 
 ---
 
@@ -118,7 +116,7 @@ These are real roadmap items but none of them are correctness or integrity gates
   │
 0.8.0 (publish gate)
   │
-  ├── Clear ApprovalPresent + TaskTemplateCompliance drift (governance backlog)
+  ├── Clear ApprovalPresent + TaskTemplateCompliance + FocusStatusAlignment + Census drift
   ├── Resolve TASK-927 High findings (INBOX, lock model, archive status)
   ├── Metrics Narrowing (suppress LOW-confidence output)
   ├── Tiered Obligations (proportional protocol weight)
@@ -131,17 +129,24 @@ These are real roadmap items but none of them are correctness or integrity gates
 
 ---
 
-## Open Questions (for human decision before ROADMAP update)
+## Decisions (2026-05-18)
 
-1. **INBOX invariant:** Keep write-only (move sprint checkpoint signal to `.arch/escalations.jsonl`) or downgrade invariant to "agents must not *act* on INBOX state as a control signal"? This determines whether loop-engine.ts is a bug or a valid exception.
+All five open questions answered. ROADMAP.md update is now unblocked.
 
-2. **Lock model:** Persist `Locked-commit` and round-trip it through the parser, or remove the write and keep locks in-memory only? Either is valid; the contradiction is the problem.
+1. **INBOX invariant — DECIDED:** Keep `docs/INBOX.md` write-only for automation. Machine control signals move to `.arch/` structured state. The code reads in `loop-engine.ts` and `next-command.ts` are bugs to remove. `DO.md` instruction to read INBOX is wrong. → **TASK-930** (git sync contradiction in this IDEA is a separate, still-undecided item).
 
-3. **Tiered Obligations:** What is the actual threshold? XS gets no Hansei? XS+S get no Approval? The L3 gate (XS+S self-archive) implies the answer, but it is not stated as a universal obligation rule.
+2. **Lock model — DECIDED:** Persist `Locked-commit` as auxiliary provenance field; must round-trip through the parser. `lockedBy`/`lockedAt` remain in-memory only. Meta line stays canonical and compact. → **TASK-931**
 
-4. **Refinement Funnel TTL:** Is the 40+ IDEA backlog a signal that the funnel needs enforcement now, or is that acceptable during pre-1.0.0 exploration? If TTL goes in before 1.0.0, several pending IDEAs will expire — is that the intent?
+3. **Tiered Obligations — DECIDED:**
+   - XS: no Hansei unless triggered (blocker, size miss, constitutional anomaly)
+   - S: same triggered basis, lightweight only
+   - M/L: mandatory structured Hansei
+   - Approval: follows L3 gate logic (XS+S self-archive eligible ≡ Approval exempt), not a blanket rule
+   → **IDEA-tiered-obligations** (spec written; promote when ready to implement)
 
-5. **`arch capture` verdict:** Operational or documented-as-partial? This requires a session where `arch capture` is tested against a real task and the friction delta is measured.
+4. **ROADMAP threshold — DECIDED:** Update `ROADMAP.md` only after the five `Must Before 1.0.0` buckets have explicit decisions. May name unresolved gates as blockers. Do not convert undecided questions into roadmap truth.
+
+5. **`arch capture` verdict — DECIDED:** Treat as `PARTIAL` until validated operationally in a real clean-flow session. Do not promote by assumption. `ROADMAP.md` entry updated accordingly.
 
 ---
 

@@ -1,8 +1,8 @@
 ## IDEA: archive-status-drift-check
 
-**Status:** DRAFT
+**Status:** PROMOTED
 **Sessions:** 1
-**Decision:** UNDECIDED
+**Decision:** PROMOTE → TASK-932. No architectural question; add the status validation to checkArchiveMetaIntegrity using the same field-scan already in ArchiveParser.
 
 ### Problem
 

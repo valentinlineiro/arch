@@ -1,8 +1,8 @@
 ## IDEA: inbox-invariant-contradiction
 
-**Status:** DRAFT
+**Status:** PROMOTED
 **Sessions:** 1
-**Decision:** UNDECIDED
+**Decision:** PROMOTE → TASK-930 (INBOX machine reads are bugs, not exceptions). Keep INBOX write-only for automation; machine control signals move to `.arch/` structured state. The git sync contradiction (finding 6, bundled here) is a separate decision not yet resolved — scope of TASK-930 is the code reads only.
 
 ### Problem
 

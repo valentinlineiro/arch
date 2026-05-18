@@ -1,8 +1,8 @@
 ## IDEA: lock-model-contradiction
 
-**Status:** DRAFT
+**Status:** PROMOTED
 **Sessions:** 1
-**Decision:** UNDECIDED
+**Decision:** PROMOTE → TASK-931 (Option B, scoped). Persist Locked-commit as auxiliary provenance field; must round-trip through the parser. Meta line stays canonical and compact. lockedBy / lockedAt remain session/in-memory operational data only. AGENTS.md and DO.md must be reconciled: meta line is not the home for lock state; Locked-commit is an auxiliary persisted field, not a meta line field.
 
 ### Problem
 
