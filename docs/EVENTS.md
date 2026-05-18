@@ -147,3 +147,5 @@ TASK-927 | READY -> DONE | commit:HEAD | agent:claude
 TASK-934 | IN_PROGRESS -> DONE | commit:HEAD | agent:claude
 
 | TASK-935 | DONE | 2026-05-18T18:30:00Z | Add missing Approval sections to TASK-255/257/927 | ApprovalPresent clean |
+
+| TASK-936 | DONE | 2026-05-18T19:00:00Z | Fix READY status on archived TASK-215/231/234-237 | ArchiveMetaIntegrity clean |

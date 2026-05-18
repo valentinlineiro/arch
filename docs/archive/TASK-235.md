@@ -1,5 +1,5 @@
 ## TASK-235: Fix stale GUIDELINES.md reference in what-ai-must-never-do
-**Meta:** P3 | XS | READY | Focus:no | 6-writing | claude-code | docs/guidelines/what-ai-must-never-do-in-this-repo.md
+**Meta:** P3 | XS | DONE | Focus:no | 6-writing | claude-code | docs/guidelines/what-ai-must-never-do-in-this-repo.md | Closed-at: 2026-05-16T00:00:00Z
 **Depends:** none
 
 ### Context

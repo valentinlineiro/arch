@@ -1,5 +1,5 @@
 ## TASK-231: Fix stale Phase 3.5 reference in ADR-013
-**Meta:** P3 | XS | READY | Focus:no | 6-writing | claude-code | docs/adr/ADR-013-two-tier-drift-detection.md
+**Meta:** P3 | XS | DONE | Focus:no | 6-writing | claude-code | docs/adr/ADR-013-two-tier-drift-detection.md | Closed-at: 2026-05-16T00:00:00Z
 **Depends:** none
 
 ### Context

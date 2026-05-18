@@ -1,5 +1,5 @@
 ## TASK-215: FEATURE 4 - Organizational drift detection
-**Meta:** P1 | M | READY | Focus:no | 2-code-generation | claude | cli/src/main/ts/domain/services/drift-checker.ts, docs/agents/THINK.md, docs/adr/
+**Meta:** P1 | M | DONE | Focus:no | 2-code-generation | claude | cli/src/main/ts/domain/services/drift-checker.ts, docs/agents/THINK.md, docs/adr/ | Closed-at: 2026-05-16T00:00:00Z
 **Depends:** none
 
 ## Approval

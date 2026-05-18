@@ -1,5 +1,5 @@
 ## TASK-234: Clarify JSON/YAML rule scope in documentation guidelines
-**Meta:** P3 | XS | READY | Focus:no | 6-writing | claude-code | docs/guidelines/documentation.md
+**Meta:** P3 | XS | DONE | Focus:no | 6-writing | claude-code | docs/guidelines/documentation.md | Closed-at: 2026-05-16T00:00:00Z
 **Depends:** none
 
 ### Context
