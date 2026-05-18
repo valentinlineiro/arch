@@ -138,6 +138,8 @@ Merge commits are strictly forbidden — `arch review` will fail.
 
 ---
 
+**XS Auditor exception:** XS tasks bypass the Auditor review stage and close directly to DONE when `arch review` passes. This is an explicit exception to the default Auditor invariant — not a bug or shortcut. The Auditor gate exists to catch spec drift on substantive work; XS tasks are bounded enough that `arch review` structural checks are sufficient.
+
 ## Hard limits
 - Never merge a PR without human approval.
 - One commit per operation. No `git pull`, `git merge`, or `git rebase` without explicit human approval — use `git fetch`.

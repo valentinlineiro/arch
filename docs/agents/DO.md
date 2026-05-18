@@ -99,3 +99,14 @@ Any action hitting a human-approval gate (e.g., `action:deploy`, `action:pr-crea
   - `## [2026-04-30 14:05] AWAITING_APPROVAL | MAJOR_CHANGE | Update core auth logic`
 
 These boundaries define which tools can be invoked autonomously in CI environments.
+
+### Size-tiered closure path
+
+| Size | Close command | Hansei | REVIEW stage |
+|------|--------------|--------|--------------|
+| XS   | `arch task done TASK-XXX` | Not required | Skipped — direct to DONE when `arch review` passes |
+| S    | `arch task done TASK-XXX` | Optional | Required only if present in task |
+| M    | `arch task done TASK-XXX` | Required — wizard runs | Required |
+| L    | `arch task done TASK-XXX` | Required — wizard runs | Required + Auditor |
+
+XS is the explicit exception to the default Auditor invariant. Direct-to-DONE is intentional.

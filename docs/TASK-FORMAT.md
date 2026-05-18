@@ -42,12 +42,21 @@ ARCH v1.0 simplifies the Meta line by removing the `Value` field, prioritizing P
 ### Definition of Done
 - [ ] DoD 1
 
-## Hansei
-One sentence: one thing done poorly or one way this could have been cleaner.
-(optional — required when size delta, blocker encountered, or task is M+)
-```
+## Hansei — tiered obligations
 
----
+Hansei requirements are proportional to task size:
+
+| Size | Hansei required? | Notes |
+|------|-----------------|-------|
+| XS   | No              | Closes directly to DONE when `arch review` passes. No Hansei block needed. |
+| S    | No              | Optional — write one if you discovered something worth tracking. |
+| M    | Yes             | Full Hansei block required at close. Wizard runs automatically. |
+| L    | Yes             | Full Hansei block + Auditor review required. |
+
+For XS/S, Hansei is triggered-basis: write one if you hit something genuinely worth recording.
+For M/L, the wizard pre-fills Severity/Category/Constraint/Cost/ForwardAction from the diff scan.
+The only mandatory human input is the **Decision** field (one sentence minimum).
+
 
 ## Approval
 

@@ -1,5 +1,5 @@
 ## TASK-252: Introduce size-tiered closure and review obligations
-**Meta:** P1 | M | IN_PROGRESS | Focus:yes | 6-writing | claude | docs/TASK-FORMAT.md, docs/agents/DO.md, cli/src/main/ts/application/use-cases/mark-task-done.ts, cli/src/main/ts/domain/services/task-validator.ts
+**Meta:** P1 | M | REVIEW | Focus:no | 6-writing | claude | docs/TASK-FORMAT.md, docs/agents/DO.md, cli/src/main/ts/application/use-cases/mark-task-done.ts, cli/src/main/ts/domain/services/task-validator.ts
 
 ### Context
 
@@ -23,19 +23,19 @@ Implementation cut for this task:
 
 ### Acceptance Criteria
 
-- [ ] `docs/TASK-FORMAT.md` documents the tiered obligation table with explicit rules per size.  →  prose: verified by reading TASK-FORMAT.md Hansei section
-- [ ] `docs/agents/DO.md` documents the tiered REVIEW path: XS transitions directly to DONE on `arch review` pass; S/M/L follow the existing path.  →  prose: verified by reading DO.md closure section
-- [ ] `AGENTS.md` explicitly documents the XS Auditor-bypass exception so direct-to-DONE closure does not appear to violate the default Auditor invariant.  →  prose: verified by reading AGENTS.md hard limits or DO-mode summary
-- [ ] `cli/src/main/ts/domain/services/task-validator.ts` enforces Hansei as optional for XS/S and required for M/L.  →  grep: "XS\|tiered\|hansei.*optional" cli/src/main/ts/domain/services/task-validator.ts
-- [ ] `mark-task-done.ts` skips the REVIEW stage for XS tasks and transitions directly to DONE when `arch review` passes.  →  prose: verified by reading mark-task-done.ts XS path
-- [ ] CLI tests cover XS direct-to-DONE path and M Hansei-required path.  →  cmd: npm test --prefix cli; exit: 0
-- [ ] `arch review` passes.  →  cmd: arch review; exit: 0
+- [x] `docs/TASK-FORMAT.md` documents the tiered obligation table with explicit rules per size.  →  prose: verified by reading TASK-FORMAT.md Hansei section
+- [x] `docs/agents/DO.md` documents the tiered REVIEW path: XS transitions directly to DONE on `arch review` pass; S/M/L follow the existing path.  →  prose: verified by reading DO.md closure section
+- [x] `AGENTS.md` explicitly documents the XS Auditor-bypass exception so direct-to-DONE closure does not appear to violate the default Auditor invariant.  →  prose: verified by reading AGENTS.md hard limits or DO-mode summary
+- [x] `cli/src/main/ts/domain/services/task-validator.ts` enforces Hansei as optional for XS/S and required for M/L.  →  grep: "XS\|tiered\|hansei.*optional" cli/src/main/ts/domain/services/task-validator.ts
+- [x] `mark-task-done.ts` skips the REVIEW stage for XS tasks and transitions directly to DONE when `arch review` passes.  →  prose: verified by reading mark-task-done.ts XS path
+- [x] CLI tests cover XS direct-to-DONE path and M Hansei-required path.  →  cmd: npm test --prefix cli; exit: 0
+- [x] `arch review` passes.  →  cmd: arch review; exit: 0
 
 ### Definition of Done
 
-- [ ] An XS task can be closed with `arch task done` (or equivalent) without writing a Hansei block, with `arch review` as the sole gate.
-- [ ] An M task without a Hansei block is rejected at closure by the validator.
-- [ ] `arch review` passes.  →  cmd: arch review; exit: 0
+- [x] An XS task can be closed with `arch task done` (or equivalent) without writing a Hansei block, with `arch review` as the sole gate.
+- [x] An M task without a Hansei block is rejected at closure by the validator.
+- [x] `arch review` passes.  →  cmd: arch review; exit: 0
 
 ### Decisions
 
