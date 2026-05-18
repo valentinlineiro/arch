@@ -1,12 +1,33 @@
 # ARCH INBOX
 
-**Status:** 2026-05-18T07:15:00Z
-**Loop Status:** DEGRADED (Metrics Breach)
-**Active Tasks:** 1
+**Status:** 2026-05-18T08:10:00Z
+**Loop Status:** OK
+**Active Tasks:** 0
 **READY Tasks:** 45
 **Pending Items:**
 - AWAITING_PROMOTION: 7
-- AWAITING_REVIEW: 0
+- AWAITING_REVIEW: 1
+
+---
+
+## REVIEW_REQUEST
+
+**Task:** TASK-926
+**Timestamp:** 2026-05-18T08:10:00Z
+**Agent:** claude
+
+Reviewer feedback addressed:
+
+1. **High (ArchiveParser fix):** `ArchiveParser.parseArchivedTasks()` now skips files whose `Meta:` status is not `DONE`. The status filter scans all pipe-separated fields for a known status token (handles both old and new meta formats). Tasks TASK-231/234/235/236/237 (READY status) are now excluded from metrics, resolving the semantic integrity problem.
+
+2. **Medium (AC1 accuracy):** The five `DONE → DONE` entries are now legitimately removed from `docs/EVENTS.md` — they were only needed as coverage witnesses because ArchiveParser was counting those tasks. With the status filter in place, they're orphaned and removed. AC1 is reworded to reflect the actual fix sequence.
+
+AC verification:
+- [x] `docs/EVENTS.md` DONE→DONE entries removed (`git log --oneline` shows commit `00d5190`)
+- [x] `arch report` passes without INTEGRITY BREACH
+- [x] Metrics engine deduplicates DONE→DONE events (test passes)
+- [x] `ArchiveParser` skips non-DONE archived tasks (new test passes)
+- [x] `arch review` passes
 
 ## Refinement Queue (7 ideas)
 - IDEA: fix-commit-exception-contradiction (Decision required)
