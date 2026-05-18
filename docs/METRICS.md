@@ -3,7 +3,7 @@
 <!-- GENERATED:START -->
 ## Operational Metrics
 
-*Last updated: 2026-05-18T07:09:37.159Z*
+*Last updated: 2026-05-18T07:45:41.130Z*
 
 ### Trusted Metrics
 
@@ -16,10 +16,10 @@
 
 | Size | P50 | P90 | Count |
 |------|-----|-----|-------|
-| XS | 0.7h | 22.7h | 59 |
-| S | 1.0h | 25.1h | 72 |
-| M | 2.4h | 186.5h | 45 |
-| L | 4.7h | 4.7h | 2 |
+| XS | 0.9h | 73.8h | 64 |
+| S | 1.2h | 23.3h | 83 |
+| M | 2.4h | 190.2h | 52 |
+| L | 0.7h | 4.7h | 3 |
 
 ### Experimental Metrics
 
@@ -27,7 +27,7 @@
 
 | Metric | Value | Notes |
 |--------|-------|-------|
-| **Integrity Level** | INVALID | CONFIDENCE: 0% — calibration insufficient |
+| **Integrity Level** | LOW | CONFIDENCE: 0% — calibration insufficient |
 | **Avg Cost / Task** | $0.13 | token-estimate heuristic v1 — not measured from billing |
 
 > **Epistemic Digest:** `metrics-engine-v4-witness-hardened` (Range: `HEAD~274..HEAD`)
