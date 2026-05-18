@@ -186,10 +186,12 @@ export class MetricsEngine {
     
     let calibrated = { ...task };
 
-    // Filter to primary completion events — exclude DONE->DONE re-archivals which
-    // represent audit corrections, not duplicate completions
+    // Primary events: exclude DONE->DONE re-archivals (audit corrections, not duplicate completions)
     const primaryDoneEvents = doneEvents.filter(e => e.transition !== 'DONE -> DONE');
-    const effectiveDoneEvents = primaryDoneEvents.length > 0 ? primaryDoneEvents : doneEvents;
+    // If no primary events, use only the first DONE->DONE to deduplicate re-archival noise
+    const effectiveDoneEvents = primaryDoneEvents.length > 0
+      ? primaryDoneEvents
+      : doneEvents.slice(0, 1);
 
     if (effectiveDoneEvents.length > 1) {
       // Attack Surface 3: Ambiguous Attribution (Multiple independent DONE events)

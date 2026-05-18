@@ -175,6 +175,32 @@ GARBAGE LINE
   );
 });
 
+test('MetricsEngine - multiple DONE->DONE events use first, not INVALID', async () => {
+  const fs = new MockFileSystem();
+  const git = new MockGitRepository();
+  fs.existsResults['docs/EVENTS.md'] = true;
+  git.validHashes.add('abc');
+  git.validHashes.add('def');
+  fs.files['docs/EVENTS.md'] = [
+    '# Event Log',
+    '',
+    '## 2026-05-13T09:00:00Z',
+    'TASK-001 | DONE -> DONE | commit:abc | agent:human',
+    '',
+    '## 2026-05-13T10:00:00Z',
+    'TASK-001 | DONE -> DONE | commit:def | agent:human',
+  ].join('\n');
+  const engine = new MetricsEngine(fs, git);
+
+  const tasks = [
+    { id: 'TASK-001', size: 'XS', createdAt: '2026-05-13T08:00:00Z', completedAt: null, integrity: 'LOW', class: '' },
+  ];
+
+  const metrics = await engine.calculate(tasks as any);
+
+  assert.notStrictEqual(metrics.integrityLevel, 'INVALID', 'Duplicate DONE->DONE should use first, not mark INVALID');
+});
+
 test('EventLogger.append produces output parseable by MetricsEngine.loadEvents', async () => {
   const fs = new MockFileSystem();
   const git = new MockGitRepository();
