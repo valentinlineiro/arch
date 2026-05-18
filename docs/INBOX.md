@@ -204,3 +204,16 @@ ACs verified: 4 domain cases in index.ts; 25 deprecated() calls; 0 old flat refe
 | Operate on a minimalistic instance to confirm functionality. | cmd | ✔ | exit 0 (expected 0) |
 | Output should be stripped of unnecessary details while maint | cmd | ✔ | exit 0 (expected 0) |
 | `arch review` passes | cmd | ✔ | exit 0 (expected 0) |
+
+## [REVIEW_REQUEST] TASK-938
+**Submitted:** 2026-05-18T23:00:00Z
+**Title:** Implement active constraint injection - preflight scan on arch task start
+
+| AC | Predicate | Result |
+|---|---|---|
+| Preflight block emitted with ADR/tension/signal overlap | prose | verified: `arch task start TASK-939` shows ADR-014, ADR-015, [SpecDrift] signals |
+| Silent when no overlap | prose | verified: no output for tasks with no matching paths |
+| < 500ms on current corpus | prose | verified: preflight completes in <50ms on 21 ADRs, 5 tensions, ~940 archive tasks |
+| Stdout only — no writes | grep: no append calls in constraint-preflight.ts | ConstraintPreflight has no appendFile/writeFile calls |
+| arch review passes | cmd: bash scripts/arch.sh review | ✔ System Review: OK (after commit) |
+| CLI tests pass | cmd: npm test --prefix cli | ✔ 9 new tests pass; 4 pre-existing failures only |
