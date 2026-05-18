@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-18T14:51:26.381Z",
+  "builtAt": "2026-05-18T15:00:43.296Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -4133,6 +4133,81 @@
       ],
       "affectedModules": [],
       "strength": "enforced"
+    },
+    "ADR-022": {
+      "title": "Census Budget Recalibration for Capture Template",
+      "keywords": [
+        "census",
+        "budget",
+        "recalibration",
+        "capture",
+        "template",
+        "adr",
+        "022",
+        "status",
+        "accepted",
+        "date",
+        "2026",
+        "context",
+        "task",
+        "946",
+        "release",
+        "docs",
+        "tasks",
+        "1000",
+        "lines",
+        "established",
+        "when",
+        "created",
+        "manually",
+        "averaged",
+        "arch",
+        "command",
+        "introduced",
+        "generates",
+        "structured",
+        "sections",
+        "relevant",
+        "gaps",
+        "decisions",
+        "feedback",
+        "hansei",
+        "legitimately",
+        "add",
+        "per",
+        "active",
+        "milestone",
+        "consistently",
+        "warns",
+        "1250",
+        "against",
+        "line",
+        "warning",
+        "mechanically",
+        "accurate",
+        "semantically",
+        "wrong",
+        "signaling",
+        "need",
+        "refactoring",
+        "stale",
+        "relative",
+        "decision",
+        "raise",
+        "contextbudget",
+        "1500",
+        "ceiling",
+        "preserves",
+        "intent",
+        "check",
+        "signal",
+        "backlog",
+        "becoming",
+        "unmanageable",
+        "system"
+      ],
+      "affectedModules": [],
+      "strength": "advisory"
     }
   },
   "adrTaskLinks": {
@@ -4239,6 +4314,66 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-233.md"
+        }
+      }
+    },
+    "ADR-015": {
+      "tasks": {
+        "TASK-946": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-946.md"
+        },
+        "TASK-225": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-225.md"
+        },
+        "TASK-944": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-944.md"
+        }
+      }
+    },
+    "ADR-007": {
+      "tasks": {
+        "TASK-946": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-946.md"
+        },
+        "TASK-186": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-186.md"
+        },
+        "TASK-200": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-200.md"
+        }
+      }
+    },
+    "ADR-018": {
+      "tasks": {
+        "TASK-946": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-946.md"
+        },
+        "TASK-201": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-201.md"
         }
       }
     },
@@ -4464,22 +4599,6 @@
         }
       }
     },
-    "ADR-007": {
-      "tasks": {
-        "TASK-186": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-186.md"
-        },
-        "TASK-200": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-200.md"
-        }
-      }
-    },
     "ADR-017": {
       "tasks": {
         "TASK-201": {
@@ -4511,16 +4630,6 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-943.md"
-        }
-      }
-    },
-    "ADR-018": {
-      "tasks": {
-        "TASK-201": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-201.md"
         }
       }
     },
@@ -4579,22 +4688,6 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-941.md"
-        }
-      }
-    },
-    "ADR-015": {
-      "tasks": {
-        "TASK-225": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-225.md"
-        },
-        "TASK-944": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-944.md"
         }
       }
     },
@@ -5473,13 +5566,45 @@
   },
   "tasks": {
     "TASK-252": {
-      "commitCount": 1,
-      "lastCommitDate": "2026-05-18T16:51:26+02:00",
+      "commitCount": 2,
+      "lastCommitDate": "2026-05-18T17:00:43+02:00",
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 1
+        ".arch/focus-ledger.jsonl": 2
       },
       "recentCommitRefs": [
+        "fc61e6a",
         "33a4df9"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-946": {
+      "commitCount": 2,
+      "lastCommitDate": "2026-05-18T17:00:37+02:00",
+      "touchedFrequency": {
+        "README.md": 1,
+        "arch.config.json": 1,
+        "cli/package.json": 1,
+        "cli/src/main/ts/application/commands/reflect-command.ts": 1,
+        "cli/src/main/ts/application/use-cases/context-inference.ts": 1,
+        "docs/AGENTS.md": 1,
+        "docs/ONBOARDING.html": 1,
+        "docs/ROADMAP.md": 1,
+        "docs/TASK-FORMAT.md": 1,
+        "docs/adr/ADR-022-census-budget-recalibration.md": 1,
+        "docs/agents/DO.md": 1,
+        "docs/agents/THINK.md": 1,
+        "docs/guidelines/models.md": 1,
+        "docs/index.html": 1,
+        "docs/tasks/TASK-252.md": 1,
+        "docs/tasks/TASK-923.md": 1,
+        "docs/tasks/TASK-924.md": 1,
+        "docs/tasks/TASK-925.md": 1,
+        "docs/tasks/TASK-941.md": 1,
+        "docs/tasks/TASK-946.md": 2
+      },
+      "recentCommitRefs": [
+        "0e78cfa",
+        "1aa5cfb"
       ],
       "commitRefOverflow": false
     },
@@ -8209,7 +8334,7 @@
       "commitRefOverflow": false
     },
     "TASK-892": {
-      "commitCount": 7,
+      "commitCount": 6,
       "lastCommitDate": "2026-05-15T10:35:32+02:00",
       "touchedFrequency": {
         ".arch/chronicle.jsonl": 1,
@@ -8221,7 +8346,7 @@
         "docs/archive/TASK-892.md": 1,
         "docs/refinement/IDEA-daas-vision.md": 1,
         "docs/INBOX.md": 1,
-        "docs/tasks/TASK-892.md": 5,
+        "docs/tasks/TASK-892.md": 4,
         "cli/src/main/ts/application/commands/task-command.ts": 1,
         "cli/src/main/ts/application/use-cases/create-task.ts": 1,
         ".arch/context-index.json": 1,
@@ -8234,29 +8359,21 @@
         "3ff530a",
         "4eff43d",
         "704d3d3",
-        "87e86fe",
-        "8b24540"
+        "87e86fe"
       ],
       "commitRefOverflow": false
     },
     "TASK-891": {
-      "commitCount": 5,
+      "commitCount": 2,
       "lastCommitDate": "2026-05-15T10:20:19+02:00",
       "touchedFrequency": {
         "docs/archive/TASK-891.md": 1,
         "docs/INBOX.md": 1,
-        "docs/tasks/TASK-891.md": 3,
-        "cli/src/main/ts/application/commands/task-command.ts": 1,
-        "cli/src/main/ts/application/use-cases/create-task.ts": 1,
-        "docs/tasks/TASK-892.md": 1,
-        ".arch/chronicle.jsonl": 1
+        "docs/tasks/TASK-891.md": 1
       },
       "recentCommitRefs": [
         "f9f7381",
-        "3299234",
-        "ca018a3",
-        "c7c39a5",
-        "7aa1225"
+        "3299234"
       ],
       "commitRefOverflow": false
     }
