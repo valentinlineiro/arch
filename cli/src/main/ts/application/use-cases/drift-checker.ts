@@ -1027,19 +1027,28 @@ export class DriftChecker {
 
     const details: string[] = [];
     const VALID_SIZES = new Set(['XS', 'S', 'M', 'L', 'XL']);
+    const KNOWN_STATUSES = new Set(['DONE', 'REJECTED', 'READY', 'IN_PROGRESS', 'REVIEW', 'BLOCKED']);
+    const TERMINAL_STATUSES = new Set(['DONE', 'REJECTED']);
 
     for (const file of files) {
       const content = await this.fileSystem.readFile(`${archiveDir}/${file}`);
-      const metaMatch = content.match(/\*\*Meta:\*\*\s*(\S+)\s*\|\s*(\S*)\s*\|\s*(\S+)/);
+      const metaMatch = content.match(/\*\*Meta:\*\*\s*(.+)/);
 
       if (!metaMatch) {
         details.push(`${file}: missing or unparseable Meta line — run backfill`);
         continue;
       }
 
-      const size = metaMatch[2].replace(/<!--.*-->/, '').trim();
+      const fields = metaMatch[1].split('|').map(f => f.replace(/<!--.*-->/, '').trim());
+
+      const size = fields[1] ?? '';
       if (!size || !VALID_SIZES.has(size)) {
         details.push(`${file}: invalid Size field '${size}' — expected XS/S/M/L`);
+      }
+
+      const statusField = fields.find(f => KNOWN_STATUSES.has(f));
+      if (!statusField || !TERMINAL_STATUSES.has(statusField)) {
+        details.push(`${file}: status is '${statusField ?? 'unknown'}' — archived tasks must be DONE or REJECTED`);
       }
     }
 

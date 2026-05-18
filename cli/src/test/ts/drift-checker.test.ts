@@ -631,3 +631,33 @@ test('ApprovalPresent - TASK-928: XS 6-writing task with new meta format is exem
   assert.ok(check);
   assert.strictEqual(check?.status, 'OK', 'XS 6-writing task should be exempt — no ApprovalPresent warning');
 });
+
+test('ArchiveMetaIntegrity - TASK-932: non-DONE archived task produces WARN', async () => {
+  const fs = makeBaseFs();
+  fs.dirs['/repo/docs/archive'] = ['TASK-231.md'];
+  fs.files['/repo/docs/archive/TASK-231.md'] =
+    '## TASK-231: Some task\n**Meta:** P1 | S | READY | Focus:no | 6-writing | local | docs/\n';
+
+  const checker = new DriftChecker(fs, new MockGitRepository(), '/repo', '0.2.0');
+  const result = await checker.check();
+  const check = result.find(r => r.check === 'ArchiveMetaIntegrity');
+
+  assert.ok(check);
+  assert.strictEqual(check?.status, 'WARN', 'READY-status archived task must produce WARN');
+  assert.ok(check?.details.some(d => d.includes('TASK-231.md') && d.includes('READY')),
+    'detail must name the file and the bad status');
+});
+
+test('ArchiveMetaIntegrity - TASK-932: DONE archived task is not flagged', async () => {
+  const fs = makeBaseFs();
+  fs.dirs['/repo/docs/archive'] = ['TASK-200.md'];
+  fs.files['/repo/docs/archive/TASK-200.md'] =
+    '## TASK-200: Done task\n**Meta:** P1 | S | DONE | Focus:no | 6-writing | local | docs/\n';
+
+  const checker = new DriftChecker(fs, new MockGitRepository(), '/repo', '0.2.0');
+  const result = await checker.check();
+  const check = result.find(r => r.check === 'ArchiveMetaIntegrity');
+
+  assert.ok(check);
+  assert.strictEqual(check?.status, 'OK', 'DONE archived task must not produce a warning');
+});

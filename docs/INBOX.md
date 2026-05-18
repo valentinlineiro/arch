@@ -69,3 +69,12 @@ ACs verified:
 - Warning count: dropped from 18 to 15 TaskTemplateCompliance items
 Note: arch task done exited 1 because arch review itself fails (PriorityDrift — new warning from TASK-919 Focus:yes with P1 tasks READY). ACs for TASK-933 are satisfied; PriorityDrift is a separate pre-existing priority ordering issue.
 Changed files: docs/tasks/TASK-249.md, docs/tasks/TASK-919.md, docs/tasks/TASK-258.md
+
+## [2026-05-18 13:00] AWAITING_REVIEW | TASK-932 | [L3-AUTO]
+Task: Add archive status validation to drift-checker ArchiveMetaIntegrity
+ACs verified:
+- checkArchiveMetaIntegrity now flags non-terminal status archived tasks
+- TASK-215, 231, 234, 235, 236, 237 all produce WARN (READY in archive)
+- DONE tasks pass clean; REJECTED tasks (7 old-format tasks) also pass (valid terminal state)
+- Tests: both TASK-932 tests pass (RED confirmed before implementation)
+Changed files: cli/src/main/ts/application/use-cases/drift-checker.ts, cli/src/test/ts/drift-checker.test.ts
