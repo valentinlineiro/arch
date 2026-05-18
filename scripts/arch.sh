@@ -12,7 +12,7 @@ BIN="node $(dirname "$0")/../cli/dist/index.js"
 
 # ── Router ────────────────────────────────────────────────────────
 case "$1" in
-  "validate"|"lint"|"inbox"|"next"|"govern"|"rank"|"batch"|"drain"|"conduct"|"promote"|"version"|"loop"|"sandbox"|"mv"|"exec"|"index"|"ask"|"causal"|"reflect"|"report"|"--version"|"-v")
+  "validate"|"lint"|"inbox"|"next"|"govern"|"rank"|"batch"|"drain"|"conduct"|"promote"|"version"|"loop"|"sandbox"|"mv"|"exec"|"index"|"ask"|"causal"|"reflect"|"report"|"memory"|"init"|"--version"|"-v")
     $BIN "$@"
     ;;
 
@@ -63,32 +63,40 @@ case "$1" in
     ;;
 
   *)
-    echo "Usage: $0 [review|task|inbox|govern|version|batch|drain|conduct|loop|sandbox|mv|exec|index|ask|causal|reflect]"
+    echo "Usage: arch [review|task|govern|memory|version]"
     echo ""
     echo "Commands:"
-    echo "  review            Run deep audit and drift check (--fast to skip drift)"
-    echo "  inbox             Show weekly dashboard"
-    echo "  task              Manage tasks (start|done|next|rank|promote|compress|...)"
-    echo "  govern            Enforcement tick: archive DONE tasks, assign focus, check thresholds (no LLM)"
-    echo "  version           Show current version"
-    echo "  batch             Manage batch queue"
-    echo "  drain             Submit and process batch queue"
-    echo "  conduct           Invoke THINK mode with an AI agent"
-    echo "  exec              Invoke DO mode with an AI agent"
-    echo "  loop              Autonomous execution loop"
-    echo "  sandbox           Secure execution wrapper (non-AI)"
-    echo "  mv                Move a file and update task contexts"
-    echo "  index             Rebuild the context index"
-    echo "  ask               Query operational memory"
-    echo "  causal            Record and query causal relations between entities"
-    echo "  reflect           Analysis: regenerate INBOX, surface Kaizen, detect drift (THINK/LLM)"
+    echo "  review                   Structural validation and drift check (--fast to skip drift)"
+    echo "  task <subcommand>        Task lifecycle — run 'arch task' for subcommands"
+    echo "    capture \"<intent>\"     Primary intake: create task from intent (deterministic)"
+    echo "    start|done|next|...    Lifecycle transitions"
+    echo "  govern [subcommand]      Enforcement tick (no LLM); subcommands:"
+    echo "    (no subcommand)        Archive DONE tasks, assign focus, check thresholds"
+    echo "    reflect                THINK mode: surface Kaizen, detect drift (LLM)"
+    echo "    inbox                  Show weekly dashboard"
+    echo "    conduct                Invoke DO mode with an AI agent"
+    echo "    approve TASK-XXX       Human approval gate"
+    echo "  memory <subcommand>      Knowledge retrieval (deterministic):"
+    echo "    ask \"<question>\"       Corpus search across archive + ADRs"
+    echo "    causal                 Record and query causal relations"
+    echo "    index                  Rebuild the context index"
+    echo "    explain TASK-XXX       Explain a task's context"
+    echo "    deps TASK-XXX          Show task dependencies"
+    echo "  version                  Show current version"
     echo ""
     echo "Deprecated (use canonical replacements instead):"
-    echo "  validate          → arch review --fast"
-    echo "  lint              → arch review --fast"
-    echo "  next              → arch task next"
-    echo "  rank              → arch task rank"
-    echo "  promote           → arch task promote"
+    echo "  ask        → arch memory ask"
+    echo "  causal     → arch memory causal"
+    echo "  index      → arch memory index"
+    echo "  reflect    → arch govern reflect"
+    echo "  inbox      → arch govern inbox"
+    echo "  conduct    → arch govern conduct"
+    echo "  capture    → arch task capture"
+    echo "  validate   → arch review --fast"
+    echo "  lint       → arch review --fast"
+    echo "  next       → arch task next"
+    echo "  rank       → arch task rank"
+    echo "  promote    → arch task promote"
     exit 1
     ;;
 esac
