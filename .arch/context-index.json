@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-18T12:51:22.079Z",
+  "builtAt": "2026-05-18T12:55:19.912Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -5318,10 +5318,10 @@
   },
   "tasks": {
     "TASK-249": {
-      "commitCount": 11,
-      "lastCommitDate": "2026-05-18T14:51:21+02:00",
+      "commitCount": 12,
+      "lastCommitDate": "2026-05-18T14:55:19+02:00",
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 8,
+        ".arch/focus-ledger.jsonl": 9,
         "docs/INBOX.md": 1,
         "docs/archive/TASK-933.md": 1,
         "docs/tasks/TASK-249.md": 2,
@@ -5335,6 +5335,7 @@
         "docs/tasks/TASK-254.md": 1
       },
       "recentCommitRefs": [
+        "f0faaf5",
         "2e23322",
         "3276b04",
         "41077ee",
@@ -5346,6 +5347,37 @@
         "f16691b",
         "30d44d0",
         "3f92b1d"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-938": {
+      "commitCount": 6,
+      "lastCommitDate": "2026-05-18T14:55:19+02:00",
+      "touchedFrequency": {
+        "docs/archive/TASK-938.md": 1,
+        "docs/tasks/TASK-938.md": 4,
+        "docs/INBOX.md": 1,
+        "cli/src/main/ts/application/commands/task-command.ts": 1,
+        "cli/src/main/ts/application/use-cases/constraint-preflight.ts": 1,
+        "cli/src/test/ts/constraint-preflight.test.ts": 1,
+        "docs/refinement/IDEA-capture-deterministic-default.md": 1,
+        "docs/refinement/IDEA-memory-ask-narrow-scope.md": 1,
+        "docs/tasks/TASK-941.md": 1,
+        "docs/tasks/TASK-942.md": 1,
+        "docs/refinement/IDEA-active-constraint-injection.md": 1,
+        "docs/refinement/IDEA-correction-signal.md": 1,
+        "docs/refinement/IDEA-proportional-protocol.md": 1,
+        "docs/refinement/IDEA-semantic-collision-detection.md": 1,
+        "docs/tasks/TASK-937.md": 1,
+        "docs/tasks/TASK-939.md": 1
+      },
+      "recentCommitRefs": [
+        "0420409",
+        "0410cda",
+        "2e7c1dd",
+        "84a64f6",
+        "cee9dd3",
+        "99381dd"
       ],
       "commitRefOverflow": false
     },
@@ -5379,28 +5411,6 @@
       },
       "recentCommitRefs": [
         "cee9dd3"
-      ],
-      "commitRefOverflow": false
-    },
-    "TASK-938": {
-      "commitCount": 2,
-      "lastCommitDate": "2026-05-18T14:48:12+02:00",
-      "touchedFrequency": {
-        "docs/refinement/IDEA-capture-deterministic-default.md": 1,
-        "docs/refinement/IDEA-memory-ask-narrow-scope.md": 1,
-        "docs/tasks/TASK-938.md": 2,
-        "docs/tasks/TASK-941.md": 1,
-        "docs/tasks/TASK-942.md": 1,
-        "docs/refinement/IDEA-active-constraint-injection.md": 1,
-        "docs/refinement/IDEA-correction-signal.md": 1,
-        "docs/refinement/IDEA-proportional-protocol.md": 1,
-        "docs/refinement/IDEA-semantic-collision-detection.md": 1,
-        "docs/tasks/TASK-937.md": 1,
-        "docs/tasks/TASK-939.md": 1
-      },
-      "recentCommitRefs": [
-        "cee9dd3",
-        "99381dd"
       ],
       "commitRefOverflow": false
     },
@@ -6351,21 +6361,18 @@
       "commitRefOverflow": false
     },
     "TASK-247": {
-      "commitCount": 14,
+      "commitCount": 8,
       "lastCommitDate": "2026-05-18T08:58:10+02:00",
       "touchedFrequency": {
         "docs/tasks/TASK-251.md": 1,
         "docs/tasks/TASK-254.md": 1,
         "docs/archive/TASK-247.md": 1,
-        "docs/agents/governance-execution-model.md": 6,
-        "cli/src/main/ts/application/use-cases/govern-system.ts": 3,
+        "docs/agents/governance-execution-model.md": 2,
+        "cli/src/main/ts/application/use-cases/govern-system.ts": 2,
         "docs/adr/ADR-020-focus-sovereignty-model.md": 1,
         ".arch/focus-ledger.jsonl": 1,
         "docs/INBOX.md": 1,
-        "docs/tasks/TASK-247.md": 3,
-        "cli/src/main/ts/application/use-cases/focus-ledger.ts": 1,
-        "cli/src/main/ts/application/use-cases/review-system.ts": 1,
-        "cli/src/test/ts/govern-system.test.ts": 1
+        "docs/tasks/TASK-247.md": 1
       },
       "recentCommitRefs": [
         "b75e443",
@@ -6375,13 +6382,7 @@
         "554d926",
         "bdd1a13",
         "d4dadeb",
-        "8b6285d",
-        "9c2af43",
-        "eccd462",
-        "cf86f7f",
-        "e5a6a88",
-        "4aeaccc",
-        "b866820"
+        "8b6285d"
       ],
       "commitRefOverflow": false
     },
