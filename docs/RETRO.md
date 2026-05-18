@@ -4,6 +4,45 @@
 
 ---
 
+## Sprint v1.0.0 Retrospective
+**Closed:** 2026-05-18
+**Committed:** 12 tasks | **Delivered:** 12 | **Velocity:** 100%
+
+### Sizing Accuracy
+| Task | Declared | Actual | Delta |
+|------|----------|--------|-------|
+| TASK-934 | S | S | 0 |
+| TASK-937 | M | M | 0 |
+| TASK-938 | M | M | 0 |
+| TASK-942 | S | S | 0 |
+| TASK-944 | S | S | 0 |
+| TASK-946 | M | M | 0 |
+| TASK-249 | S | S | 0 |
+
+**Observation:** Sizing was accurate across the board. XS tasks (TASK-935, 936, 943, 945) closed without ceremony. The tiered obligations model is working as designed — protocol overhead is proportional to task scope.
+
+### Key Deliverables
+1. **Tiered obligations** (TASK-934, TASK-937) — XS/S Hansei triggered-only; M/L mandatory; L3 self-archive gate enforced.
+2. **Refinement funnel** (TASK-249) — TTL enforcement via `ttlCycles`; admission gate distinguishing executable vs. speculative ideas.
+3. **Deterministic capture** (TASK-941, TASK-942) — LLM gated behind `--draft`; `arch memory ask` narrowed to committed corpus only.
+4. **CLI consolidation** (TASK-943, TASK-944, TASK-945) — `arch.sh` eliminated; `@valentinlineiro/arch` published to npm; all live docs migrated to canonical `arch` binary.
+5. **1.0.0 release** (TASK-946) — `modePreamble` bug fixed in reflect; context injection suppressed below 0.1 confidence; Census budget recalibrated (ADR-022); version bumped across all docs.
+
+### Detected Patterns & Risks
+1. **Organically captured work:** The arch.sh → npm transition was initiated as a debugging question ("why is there still a duality?") and produced 3 tasks (TASK-943, TASK-944, TASK-945) with no prior refinement. The work was sound but the capture happened mid-session rather than from the backlog. This pattern is acceptable for XS/S work; it would be a risk for M+.
+2. **Task title drift:** TASK-941 was titled "Verify Stripped Template Generation for Small Task" but implemented "capture deterministic by default." The title was a refinement artifact that was never updated at implementation time. `arch task capture` now generates the task — the title must reflect implementation intent, not the refinement question.
+3. **Regression undetected until triggered:** The `modePreamble is not defined` bug in `reflect-command.ts` existed in the committed codebase but was only surfaced when `arch govern` auto-triggered `arch reflect` at runtime. No test covered the `runAnalysis` code path. The fix was trivial; the detection was accidental.
+4. **External analysis accuracy gradient:** A performance review correctly identified `getById` full-scan as a real bottleneck but incorrectly proposed lazy loading (misunderstanding the tsup bundle) and overstated sequential I/O latency as "seconds." Measured startup: 44ms. This illustrates that static code reading without running the system produces mixed-quality diagnoses.
+
+### Proposed Guideline Additions
+- **Title at implementation, not refinement:** When a task's implementation scope diverges from its refinement title, update the title before the first IN_PROGRESS commit. A misleading title in the archive corrupts future `arch ask` retrieval.
+- **Smoke test for reflect path:** `arch govern reflect` must be verified to run without error as part of the release checklist. A runtime-only failure path with no test coverage will stay broken indefinitely.
+
+### Next Sprint Focus
+Performance improvements sprint. Anchored on the `getById` full-scan bottleneck: direct path lookup by ID instead of scanning all 340 files. See backlog for scoped tasks.
+
+---
+
 ## Sprint v0.6.0-final Retrospective
 **Closed:** 2026-05-05
 **Committed:** 12 tasks | **Delivered:** 12 | **Velocity:** 100%

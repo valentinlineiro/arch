@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "currentSprint": "",
+  "currentSprint": "sprint/v1.0.0-improvements",
   "strategies": {
     "1-code-reasoning": {
       "M": [
