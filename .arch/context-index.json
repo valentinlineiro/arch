@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-18T07:00:57.527Z",
+  "builtAt": "2026-05-18T07:02:01.029Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -5279,10 +5279,10 @@
   },
   "tasks": {
     "TASK-249": {
-      "commitCount": 2,
-      "lastCommitDate": "2026-05-18T09:00:57+02:00",
+      "commitCount": 3,
+      "lastCommitDate": "2026-05-18T09:02:00+02:00",
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 1,
+        ".arch/focus-ledger.jsonl": 2,
         "docs/tasks/TASK-249.md": 1,
         "docs/tasks/TASK-250.md": 1,
         "docs/tasks/TASK-251.md": 1,
@@ -5291,6 +5291,7 @@
         "docs/tasks/TASK-254.md": 1
       },
       "recentCommitRefs": [
+        "f16691b",
         "30d44d0",
         "3f92b1d"
       ],
@@ -7698,22 +7699,21 @@
       "commitRefOverflow": false
     },
     "TASK-239": {
-      "commitCount": 6,
+      "commitCount": 5,
       "lastCommitDate": "2026-05-14T17:55:14+02:00",
       "touchedFrequency": {
         "cli/src/main/ts/application/commands/exec-command.ts": 1,
         "docs/archive/TASK-239.md": 2,
         "docs/INBOX.md": 1,
         "cli/src/main/ts/application/use-cases/loop-engine.ts": 1,
-        "docs/tasks/TASK-239.md": 2
+        "docs/tasks/TASK-239.md": 1
       },
       "recentCommitRefs": [
         "22a3e6b",
         "c6e4825",
         "60e1714",
         "33cb188",
-        "f36edf8",
-        "034f499"
+        "f36edf8"
       ],
       "commitRefOverflow": false
     },
@@ -7759,16 +7759,14 @@
       "commitRefOverflow": false
     },
     "TASK-238": {
-      "commitCount": 3,
+      "commitCount": 2,
       "lastCommitDate": "2026-05-13T13:28:43+02:00",
       "touchedFrequency": {
-        "docs/archive/TASK-238.md": 2,
-        "docs/INBOX.md": 1
+        "docs/archive/TASK-238.md": 2
       },
       "recentCommitRefs": [
         "1fc5eb0",
-        "5c09d25",
-        "ba96b93"
+        "5c09d25"
       ],
       "commitRefOverflow": false
     }
