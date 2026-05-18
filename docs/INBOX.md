@@ -217,3 +217,28 @@ ACs verified: 4 domain cases in index.ts; 25 deprecated() calls; 0 old flat refe
 | Stdout only — no writes | grep: no append calls in constraint-preflight.ts | ConstraintPreflight has no appendFile/writeFile calls |
 | arch review passes | cmd: bash scripts/arch.sh review | ✔ System Review: OK (after commit) |
 | CLI tests pass | cmd: npm test --prefix cli | ✔ 9 new tests pass; 4 pre-existing failures only |
+
+## [REVIEW_REQUEST] TASK-941
+**Submitted:** 2026-05-18T23:45:00Z
+**Title:** Capture deterministic by default - gate LLM draft behind --draft flag
+
+| AC | Predicate | Result |
+|---|---|---|
+| capture without --draft never calls LLM | prose | draftMode=false skips tryLlmDraft; test confirms llmCalled=false |
+| --draft invokes LLM | prose | draftMode=true calls draftFn; test confirms llmCalled=true |
+| --draft with no provider throws explicit error | prose | draftFn throws → re-thrown with clear message |
+| arch review passes | cmd: bash scripts/arch.sh review | ✔ System Review: OK |
+| CLI tests pass | cmd: npm test --prefix cli | ✔ all new tests pass |
+
+## [REVIEW_REQUEST] TASK-942
+**Submitted:** 2026-05-18T23:45:00Z
+**Title:** Narrow arch memory ask scope - remove THINK-layer fields, tighten corpus dirs
+
+| AC | Predicate | Result |
+|---|---|---|
+| causeGroups and recurringSignals not in stdout | grep: no causeGroups/recurringSignals in ask-command output | removed from AskResult and ask-command.ts |
+| CORPUS_DIRS scoped to archive + adr | grep: CORPUS_DIRS ask-corpus.ts | docs/tasks and docs/guidelines removed |
+| answer field removed from AskResult | grep: no answer field in AskResult interface | removed; buildCauseGroups + extractDefinitionalAnswer also deleted |
+| deterministic comment in ask-corpus.ts | grep: "deterministic" ask-corpus.ts | present at line 14 |
+| arch review passes | cmd: bash scripts/arch.sh review | ✔ System Review: OK |
+| CLI tests pass | cmd: npm test --prefix cli | ✔ all tests pass |
