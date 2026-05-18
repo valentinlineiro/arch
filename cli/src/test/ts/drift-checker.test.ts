@@ -614,3 +614,20 @@ test('UnappliedADRs - OK when docs/adr directory does not exist', async () => {
   assert.ok(check);
   assert.strictEqual(check?.status, 'OK');
 });
+
+test('ApprovalPresent - TASK-928: XS 6-writing task with new meta format is exempt (no false positive)', async () => {
+  const fs = makeBaseFs();
+  fs.files['/repo/arch.config.json'] = JSON.stringify({ version: '0.2.0', governance: { hanseiSinceTaskId: 195 } });
+  // New meta format: P | size | STATUS | Focus:... | class | cli | context
+  // class is parts[4], NOT parts[5] (which is the CLI field)
+  fs.dirs['/repo/docs/archive'] = ['TASK-200.md'];
+  fs.files['/repo/docs/archive/TASK-200.md'] =
+    '## TASK-200: Writing task\n**Meta:** P1 | XS | DONE | Focus:no | 6-writing | local | docs/\n**Closed-at:** 2026-01-01T00:00:00Z\n';
+
+  const checker = new DriftChecker(fs, new MockGitRepository(), '/repo', '0.2.0');
+  const result = await checker.check();
+  const check = result.find(r => r.check === 'ApprovalPresent');
+
+  assert.ok(check);
+  assert.strictEqual(check?.status, 'OK', 'XS 6-writing task should be exempt — no ApprovalPresent warning');
+});

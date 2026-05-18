@@ -1,5 +1,5 @@
 ## TASK-928: Fix ApprovalPresent checker reads wrong meta field for class exemption
-**Meta:** P2 | XS | IN_PROGRESS | Focus:yes | 2-code-generation | claude | cli/src/main/ts/application/use-cases/drift-checker.ts
+**Meta:** P2 | XS | IN_PROGRESS | Focus:no | 2-code-generation | claude | cli/src/main/ts/application/use-cases/drift-checker.ts
 
 ### Context
 

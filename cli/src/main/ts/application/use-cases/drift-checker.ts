@@ -877,12 +877,13 @@ export class DriftChecker {
       const content = await this.fileSystem.readFile(`${this.rootPath}/docs/archive/${file}`);
 
       // L2 exempt: XS size + 6-writing or 7-operations class
+      // Scan all fields — class position differs between old and new meta formats
       const metaMatch = content.match(/^\*\*Meta:\*\* .*/m);
       if (metaMatch) {
         const parts = metaMatch[0].split('|').map((s: string) => s.trim());
         const size = parts[1];
-        const taskClass = parts[5] ?? '';
-        if (size === 'XS' && (taskClass.includes('6-writing') || taskClass.includes('7-operations'))) {
+        const isExemptClass = parts.some(p => p.includes('6-writing') || p.includes('7-operations'));
+        if (size === 'XS' && isExemptClass) {
           continue;
         }
       }
