@@ -1,8 +1,8 @@
 ## IDEA: tiered-obligations
 
-**Status:** DRAFT
+**Status:** PROMOTED
 **Sessions:** 1
-**Decision:** UNDECIDED
+**Decision:** PROMOTE → TASK-934
 
 ### Problem
 
