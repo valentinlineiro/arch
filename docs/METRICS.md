@@ -3,23 +3,23 @@
 <!-- GENERATED:START -->
 ## Operational Metrics
 
-*Last updated: 2026-05-18T07:45:41.130Z*
+*Last updated: 2026-05-18T08:18:44.492Z*
 
 ### Trusted Metrics
 
 | Metric | Value | Notes |
 |--------|-------|-------|
-| **Completed Tasks** | 274 | total archived |
+| **Completed Tasks** | 260 | total archived |
 | **REVIEW_FAIL Rate** | 0.0% | rejected / total review exits |
 
 ### Cycle Time (P50/P90)
 
 | Size | P50 | P90 | Count |
 |------|-----|-----|-------|
-| XS | 0.9h | 73.8h | 64 |
-| S | 1.2h | 23.3h | 83 |
-| M | 2.4h | 190.2h | 52 |
-| L | 0.7h | 4.7h | 3 |
+| XS | 0.7h | 21.7h | 57 |
+| S | 1.1h | 22.4h | 81 |
+| M | 2.4h | 190.2h | 51 |
+| L | 4.7h | 4.7h | 2 |
 
 ### Experimental Metrics
 
@@ -30,6 +30,6 @@
 | **Integrity Level** | LOW | CONFIDENCE: 0% — calibration insufficient |
 | **Avg Cost / Task** | $0.13 | token-estimate heuristic v1 — not measured from billing |
 
-> **Epistemic Digest:** `metrics-engine-v4-witness-hardened` (Range: `HEAD~274..HEAD`)
+> **Epistemic Digest:** `metrics-engine-v4-witness-hardened` (Range: `HEAD~260..HEAD`)
 
 <!-- GENERATED:END -->

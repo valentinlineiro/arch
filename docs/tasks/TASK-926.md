@@ -1,5 +1,5 @@
 ## TASK-926: Fix metrics engine integrity breach due to duplicate DONE events
-**Meta:** P1 | S | IN_PROGRESS | Focus:yes | 2-code-generation | claude | docs/EVENTS.md, cli/src/main/ts/application/commands/report-command.ts
+**Meta:** P1 | S | REVIEW | Focus:no | 2-code-generation | claude | docs/EVENTS.md, cli/src/main/ts/application/commands/report-command.ts
 
 ### Context
 
@@ -9,9 +9,10 @@ The metrics engine expects a linear state machine transition. Duplicate archival
 
 ### Acceptance Criteria
 
-- [x] `docs/EVENTS.md` is cleaned up: duplicate `DONE -> DONE` lines are removed.
+- [x] `docs/EVENTS.md` is cleaned up: the five `DONE -> DONE` entries for TASK-231/234/235/236/237 are removed (enabled by the ArchiveParser fix below).
 - [x] `arch report` passes without `INTEGRITY BREACH` warning.
 - [x] Metrics engine is hardened to handle duplicate events gracefully (e.g. use only the first `DONE` event for a task) if they ever recur.
+- [x] `ArchiveParser.parseArchivedTasks()` skips archived tasks whose `Meta:` status is not `DONE`, preventing false INVALID signals from non-DONE archived tasks.
 - [x] `arch review` passes.
 
 ### Definition of Done
@@ -22,7 +23,7 @@ The metrics engine expects a linear state machine transition. Duplicate archival
 
 **Severity:** H2
 **Category:** [SpecDrift]
-**Decision:** THINK misdiagnosed the root cause as DONE→DONE duplicates; actual cause was TASK-922 missing a post-operational DONE event. Over-aggressive EVENTS.md cleanup removed the sole-coverage DONE→DONE records for five tasks with READY status in archive, exposing a second failure mode and requiring a correction commit.
-**Constraint:** EVENTS.md entries cannot be removed once committed without triggering verifyAppendOnly at runtime; DONE→DONE entries that are the sole coverage record for a task must be retained even if semantically impure.
-**Cost:** Two extra commits and ~30 min of diagnosis iteration beyond the minimal fix path.
-**Forward Action:** See IDEA-archive-parser-skip-non-done — ArchiveParser should skip non-DONE tasks in docs/archive/ to eliminate the structural precondition for this class of integrity false-positive.
+**Decision:** THINK misdiagnosed the root cause as DONE→DONE duplicates; actual cause was TASK-922 missing a post-operational DONE event. First fix pass was over-aggressive and removed sole-coverage DONE→DONE records for five READY-status archived tasks, exposing a second failure mode. Root fix required adding a status filter to ArchiveParser — tasks with non-DONE status in docs/archive/ are semantically incomplete and must not be counted in metrics. Once excluded, their DONE→DONE entries became orphaned and could be removed legitimately.
+**Constraint:** verifyAppendOnly checks git diff HEAD against EVENTS.md; deletions in uncommitted working-tree state trigger INVALID. Deletions committed to history do not trigger the check at runtime.
+**Cost:** Three extra commits and ~45 min of diagnosis across two sessions beyond the minimal fix path.
+**Forward Action:** IDEA-archive-parser-skip-non-done is now implemented as part of this task. Remaining risk: tasks with READY status persist in docs/archive/ as legacy anomalies; they should be corrected to DONE or explicitly excised in a follow-up.

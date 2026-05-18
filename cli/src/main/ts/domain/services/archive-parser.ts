@@ -45,8 +45,12 @@ export class ArchiveParser {
     for (const file of taskFiles) {
       const filePath = path.normalize(path.join(archiveDir, file));
       const content = await this.fileSystem.readFile(filePath);
-      const metaMatch = content.match(/\*\*Meta:\*\*\s*[^|]+\|[^|]+\|\s*(\w+)/);
-      if (!metaMatch || metaMatch[1] !== 'DONE') continue;
+      const metaMatch = content.match(/\*\*Meta:\*\*\s*(.+)/);
+      if (!metaMatch) continue;
+      const metaFields = metaMatch[1].split('|').map(f => f.trim());
+      const knownStatuses = new Set(['DONE', 'READY', 'IN_PROGRESS', 'REVIEW', 'BLOCKED']);
+      const statusField = metaFields.find(f => knownStatuses.has(f));
+      if (statusField !== 'DONE') continue;
 
       const metric = await this.parseTaskContent(file.replace('.md', ''), content, filePath);
       metrics.push(metric);
