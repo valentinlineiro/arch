@@ -74,6 +74,5 @@ M
 <!-- THINK fills this section — do not edit manually -->
 
 ## Decision
-<!-- REJECT: <one-line rationale> -->
-<!-- PROMOTE → TASK-XXX -->
-<!-- EXTEND: <gap> until <event> -->
+PROMOTE → TASK-938
+[influenced-by: none]
