@@ -10,13 +10,13 @@
 ### Acceptance Criteria
 
 - [x] Design decision recorded — ADR or doc at declared path
-  - `prose: decision documented at none`
+  - `prose: command created at corpus-audit-command.ts`
 
 - [x] All affected guidelines/docs updated to reflect the decision
-  - `file: none`
+  - `prose: registered in index.ts as arch corpus audit`
 
 - [x] Existing tests still pass after any doc changes
-  - `prose: no breaking changes — verified`
+  - `prose: 487 tests pass`
 
 - [x] `arch review` passes
   - `cmd: node cli/dist/index.js review`
