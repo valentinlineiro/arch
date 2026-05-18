@@ -150,32 +150,9 @@ test('EscalationMaturity E5 — (b) ambiguous task (missing class) blocked at ar
 
 // ── Scenario (c): Stale INBOX blocks arch task next ──────────────────────
 
-test('EscalationMaturity E5 — (c) stale INBOX (>24h) blocks arch task next via NextCommand', async () => {
-  const fs = new MockFileSystem();
-  // INBOX with a 72h-old timestamp
-  fs.files['./docs/INBOX.md'] = '<!-- generated: 2026-05-13T00:00:00Z -->\n# INBOX\n\nNo items.\n';
-
-  const readyTask = makeTask({ id: 'TASK-003' });
-  const taskRepo = new MockTaskRepository([readyTask]);
-
-  // NextCommand checks INBOX freshness before selecting
-  const command = new NextCommand(taskRepo as any, [], undefined, fs as any, '.');
-
-  // Capture process.exit without actually exiting
-  let exitCode: number | undefined;
-  const originalExit = process.exit.bind(process);
-  (process as any).exit = (code?: number) => { exitCode = code; throw new Error(`process.exit(${code})`); };
-
-  try {
-    await command.execute();
-  } catch (err: any) {
-    assert.ok(err.message.includes('process.exit(1)'), `expected exit(1), got: ${err.message}`);
-  } finally {
-    (process as any).exit = originalExit;
-  }
-
-  assert.equal(exitCode, 1, 'stale INBOX must cause NextCommand to exit 1');
-});
+// E5 (c) — stale INBOX check: removed in TASK-930. NextCommand no longer reads INBOX
+// for freshness. The stale-INBOX halt was an INBOX invariant violation (machine reading
+// a human-only surface). No structured-store equivalent; the check was removed.
 
 // ── Scenario: Unresolved halt in HALT-LOG causes HaltPolicy WARN ──────────
 

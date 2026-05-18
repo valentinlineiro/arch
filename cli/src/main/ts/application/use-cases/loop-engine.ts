@@ -347,9 +347,10 @@ export class LoopEngine {
 
   private async hasSprintCheckpoint(sprint: string): Promise<boolean> {
     try {
-      const inbox = await this.fileSystem.readFile('docs/INBOX.md');
+      const store = new EscalationStore(this.fileSystem);
+      const checkpoints = await store.getOpenByType('SPRINT_CHECKPOINT');
       const normalised = this.normalizeSprintSlug(sprint);
-      return inbox.includes('SPRINT_CHECKPOINT') && (inbox.includes(normalised) || inbox.includes(sprint));
+      return checkpoints.some(e => e.subject === normalised || e.subject === sprint);
     } catch {
       return false;
     }
@@ -418,7 +419,14 @@ export class LoopEngine {
   private async appendSprintCheckpoint(sprint: string, done: number, total: number): Promise<void> {
     const ts = new Date().toISOString().slice(0, 16).replace('T', ' ');
     const normalised = this.normalizeSprintSlug(sprint);
-    const entry = `\n## [${ts}] SPRINT_CHECKPOINT | ${normalised}\nProgress: ${done}/${total} tasks done (${Math.round(done / total * 100)}%). Review sprint state before continuing.\n`;
+    const reason = `Progress: ${done}/${total} tasks done (${Math.round(done / total * 100)}%). Review sprint state before continuing.`;
+
+    // Write to structured store — source of truth for checkpoint detection
+    const store = new EscalationStore(this.fileSystem);
+    await store.append('SPRINT_CHECKPOINT', normalised, reason);
+
+    // Write human-visible notification to INBOX (write-only for agents; humans read it)
+    const entry = `\n## [${ts}] SPRINT_CHECKPOINT | ${normalised}\n${reason}\n`;
     const inboxPath = 'docs/INBOX.md';
     let existing = '';
     try { existing = await this.fileSystem.readFile(inboxPath); } catch {}

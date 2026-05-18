@@ -4,6 +4,7 @@ import { SelectNextTask } from '../../main/ts/application/use-cases/select-next-
 import { NextCommand } from '../../main/ts/application/commands/next-command.js';
 import { Task, TaskStatus } from '../../main/ts/domain/models/task.js';
 import { TaskRepository } from '../../main/ts/domain/repositories/task-repository.js';
+import { MockFileSystem } from './mocks/index.js';
 
 function makeTask(overrides: Partial<Task> = {}): Task {
   return {
@@ -261,4 +262,31 @@ test('NextCommand outputs valid JSON when --json flag is passed', async () => {
   } finally {
     console.log = originalLog;
   }
+});
+
+test('NextCommand - TASK-930: does not read docs/INBOX.md for freshness check', async () => {
+  const task = makeTask({ id: 'TASK-200', status: TaskStatus.READY, content: '# TASK-200', filePath: 'docs/tasks/TASK-200.md' });
+  const repo = new MockTaskRepository([task]);
+
+  const reads: string[] = [];
+  const spyFs = new MockFileSystem();
+  spyFs.readFile = async (path: string) => {
+    reads.push(path);
+    throw new Error(`File not found: ${path}`);
+  };
+
+  const command = new NextCommand(repo, [], undefined, spyFs as any, '/repo');
+
+  const originalLog = console.log;
+  console.log = () => {};
+  try {
+    await command.execute();
+  } finally {
+    console.log = originalLog;
+  }
+
+  assert.ok(
+    !reads.some(p => p.includes('INBOX')),
+    `NextCommand must not read INBOX.md — reads were: ${reads.join(', ')}`
+  );
 });

@@ -1,8 +1,5 @@
 import { SelectNextTask, MuriConfig } from '../use-cases/select-next-task.js';
 import type { TaskRepository } from '../../domain/repositories/task-repository.js';
-import type { FileSystem } from '../../domain/repositories/file-system.js';
-
-const STALE_INBOX_HOURS = 24;
 
 export class NextCommand {
   private useCase: SelectNextTask;
@@ -11,18 +8,13 @@ export class NextCommand {
     private taskRepository: TaskRepository,
     private args: string[] = [],
     muriConfig?: MuriConfig,
-    private fileSystem?: FileSystem,
+    _fileSystem?: unknown,
     private rootPath?: string,
   ) {
     this.useCase = new SelectNextTask(taskRepository, muriConfig);
   }
 
   async execute(): Promise<void> {
-    // Stale INBOX check — fail-closed if INBOX is outdated
-    if (this.fileSystem && this.rootPath) {
-      await this.checkInboxFreshness();
-    }
-
     const result = await this.useCase.execute();
 
     if (!result.ok) {
@@ -63,29 +55,4 @@ export class NextCommand {
     }
   }
 
-  private async checkInboxFreshness(): Promise<void> {
-    try {
-      const inboxPath = `${this.rootPath}/docs/INBOX.md`;
-      const content = await this.fileSystem!.readFile(inboxPath);
-
-      // Look for a timestamp comment: <!-- generated: ISO8601 --> or **Generated:** date
-      const tsMatch = content.match(/<!--\s*generated:\s*([\d-T:.Z]+)\s*-->/) ||
-                      content.match(/\*\*Generated:\*\*\s*([\d-T:.Z]+)/) ||
-                      content.match(/<!-- arch-inbox:\s*([\d-T:.Z]+)\s*-->/);
-
-      if (!tsMatch) return; // No timestamp — can't check; pass through
-
-      const generatedAt = new Date(tsMatch[1]);
-      const ageMs = Date.now() - generatedAt.getTime();
-      const ageHours = ageMs / (1000 * 60 * 60);
-
-      if (ageHours > STALE_INBOX_HOURS) {
-        const reason = `HALT: INBOX is stale (last regenerated ${Math.floor(ageHours)}h ago, limit ${STALE_INBOX_HOURS}h). Run arch reflect to regenerate before selecting a task.`;
-        process.stderr.write(reason + '\n');
-        process.exit(1);
-      }
-    } catch {
-      // INBOX missing or unreadable — pass through, let other checks handle it
-    }
-  }
 }

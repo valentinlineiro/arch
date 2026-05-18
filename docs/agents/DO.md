@@ -25,12 +25,13 @@
    - **Review Request:** If the Auditor bypass does not apply, append a `REVIEW_REQUEST` entry to `docs/INBOX.md` with Task ID, AC list, and changed files.
    - Release lock and stop.
    - **Telemetry:** Finally, print `Turns: [count]` and `Cost: $[amount]` to stdout for loop tracking.
-7. **Auditor Step:**
-   - A fresh session reads `docs/INBOX.md`.
+7. **Auditor Step (human-supervised — not an automated loop):**
+   - The human reads `docs/INBOX.md` for `REVIEW_REQUEST` entries, then starts a fresh Auditor session.
    - Run `arch review` and verify each AC against actual repository state.
    - If pass: Append `REVIEW_PASS` to `docs/INBOX.md`, set status to `DONE`.
    - If fail: Append `REVIEW_FAIL` to `docs/INBOX.md` with evidence, set status back to `READY` (Focus:no).
    - Only an Auditor can move a task to `docs/archive/`.
+   - **Note:** INBOX is human-read, agent-write. The automated loop never reads INBOX for control signals — it uses `.arch/escalations.jsonl` as the structured state source.
 
 ## Intent: Operations (Ops)
 1. **Manual Task/Idea Management:**

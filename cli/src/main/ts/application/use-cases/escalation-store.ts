@@ -1,7 +1,7 @@
 import { randomUUID } from 'node:crypto';
 import type { FileSystem } from '../../domain/repositories/file-system.js';
 
-export type EscalationType = 'ANDON_HALT' | 'AWAITING_PROMOTION' | 'APPROVED' | 'REDIRECT';
+export type EscalationType = 'ANDON_HALT' | 'AWAITING_PROMOTION' | 'APPROVED' | 'REDIRECT' | 'SPRINT_CHECKPOINT';
 export type EscalationStatus = 'OPEN' | 'RESOLVED';
 
 export interface EscalationEntry {

@@ -88,3 +88,14 @@ ACs verified:
 - AGENTS.md updated: distinguishes lockedBy/lockedAt (in-memory) from Locked-commit (persisted auxiliary)
 - No new arch review violations
 Changed files: cli/src/main/ts/infrastructure/filesystem/markdown-task-repository.ts, cli/src/test/ts/markdown-task-repository.test.ts, docs/agents/DO.md, docs/AGENTS.md
+
+## [2026-05-18 15:00] AWAITING_REVIEW | TASK-930 | [L3-AUTO]
+Task: Remove machine reads of INBOX.md from loop-engine and next-command
+ACs verified:
+- loop-engine.ts:hasSprintCheckpoint now reads EscalationStore (SPRINT_CHECKPOINT type added to EscalationType)
+- loop-engine.ts:appendSprintCheckpoint now also writes to EscalationStore
+- next-command.ts:checkInboxFreshness removed entirely (INBOX read was the violation; no structured equivalent)
+- DO.md step 7 updated: human reads INBOX, automated loop uses escalations.jsonl
+- NextCommand TASK-930 test: GREEN (INBOX not read)
+- E5 (c) stale-INBOX test removed — it tested the violation behavior itself
+Changed files: cli/src/main/ts/application/use-cases/loop-engine.ts, cli/src/main/ts/application/use-cases/escalation-store.ts, cli/src/main/ts/application/commands/next-command.ts, cli/src/test/ts/select-next-task.test.ts, cli/src/test/ts/escalation-maturity-e5.test.ts, docs/agents/DO.md
