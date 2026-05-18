@@ -1,5 +1,5 @@
 # IDEA: fix-commit-exception-contradiction
-**Meta:** Source: Phase-2.5 | Status: DRAFT | Sessions: 1
+**Meta:**Source: Phase-2.5 | Status: DRAFT | Sessions: 2
 **Created:** 2026-05-15
 
 ## Problem
