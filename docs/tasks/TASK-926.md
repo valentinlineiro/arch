@@ -1,5 +1,5 @@
 ## TASK-926: Fix metrics engine integrity breach due to duplicate DONE events
-**Meta:** P1 | S | READY | Focus:no | 2-code-generation | claude | docs/EVENTS.md, cli/src/main/ts/application/commands/report-command.ts
+**Meta:** P1 | S | IN_PROGRESS | Focus:yes | 2-code-generation | claude | docs/EVENTS.md, cli/src/main/ts/application/commands/report-command.ts
 
 ### Context
 
