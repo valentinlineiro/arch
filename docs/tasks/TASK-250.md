@@ -1,5 +1,5 @@
 ## TASK-250: Unify CLI surface by intent-based verb domains
-**Meta:** P1 | M | IN_PROGRESS | Focus:yes | 2-code-generation | claude | cli/src/main/ts/index.ts, cli/src/main/ts/application/, docs/agents/DO.md, docs/agents/THINK.md
+**Meta:** P1 | M | REVIEW | Focus:yes | 2-code-generation | claude | cli/src/main/ts/index.ts, cli/src/main/ts/application/, docs/agents/DO.md, docs/agents/THINK.md
 
 ### Context
 
@@ -64,18 +64,18 @@ All gaps resolved. Implementation may proceed.
 
 ### Acceptance Criteria
 
-- [ ] `cli/src/main/ts/index.ts` maps all existing commands under the four-verb surface: `review`, `task`, `memory`, `govern`.  →  prose: verified by reading index.ts dispatch table
-- [ ] Each existing command is reachable via its new subcommand path (e.g., `arch task close` supersedes task completion commands, `arch memory ask` supersedes `arch ask`, `arch govern reflect` supersedes `arch reflect`).  →  prose: verified by smoke-testing representative commands
-- [ ] Legacy top-level command names emit a deprecation warning with the new canonical path when invoked.  →  prose: verified by running a deprecated command and observing warning output
-- [ ] `docs/agents/DO.md` and `docs/agents/THINK.md` reference the new command names. No outdated command invocations remain.  →  prose: verified by grep for old top-level names in agent docs
-- [ ] `arch review` passes after changes.  →  cmd: bash scripts/arch.sh review; exit: 0
-- [ ] CLI tests pass.  →  cmd: npm test --prefix cli; exit: 0
+- [x] `cli/src/main/ts/index.ts` maps all existing commands under the four-verb surface: `review`, `task`, `memory`, `govern`.  →  prose: verified by reading index.ts dispatch table
+- [x] Each existing command is reachable via its new subcommand path (e.g., `arch task close` supersedes task completion commands, `arch memory ask` supersedes `arch ask`, `arch govern reflect` supersedes `arch reflect`).  →  prose: verified by smoke-testing representative commands
+- [x] Legacy top-level command names emit a deprecation warning with the new canonical path when invoked.  →  prose: verified by running a deprecated command and observing warning output
+- [x] `docs/agents/DO.md` and `docs/agents/THINK.md` reference the new command names. No outdated command invocations remain.  →  prose: verified by grep for old top-level names in agent docs
+- [x] `arch review` passes after changes.  →  cmd: bash scripts/arch.sh review; exit: 0
+- [x] CLI tests pass.  →  cmd: npm test --prefix cli; exit: 0
 
 ### Definition of Done
 
-- [ ] A developer unfamiliar with ARCH internals can discover all operations via `arch <verb> --help` without reading source code.
-- [ ] No top-level command names that reference internal mechanism names remain in the public surface.
-- [ ] `arch review` passes.  →  cmd: bash scripts/arch.sh review; exit: 0
+- [x] A developer unfamiliar with ARCH internals can discover all operations via `arch <verb> --help` without reading source code.
+- [x] No top-level command names that reference internal mechanism names remain in the public surface.
+- [x] `arch review` passes.  →  cmd: bash scripts/arch.sh review; exit: 0
 
 ### Decisions
 

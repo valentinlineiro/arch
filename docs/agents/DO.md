@@ -9,8 +9,9 @@
    - **Auto-merge:** Permitted ONLY for pure-append conflicts on `docs/INBOX.md` and `**Meta:**` status-line-only changes in `docs/tasks/*.md`. All other conflicts MUST escalate.
    - **Protected Paths:** Auto-merge NEVER touches `docs/adr/`, `arch.config.json`, or `cli/src/main/ts/domain/` (always escalate).
    - **Escalation:** If auto-merge fails or is not permitted, append a timestamped `MERGE_ESCALATE` entry to `docs/INBOX.md` and halt.
+   - **Merge resolve:** Run `arch task merge-resolve` (legacy: `arch merge-resolve`).
 3. Find highest priority `READY` task in `docs/tasks/`.
-   - **Automated Selection:** Run `arch next` to identify the deterministic candidate.
+   - **Automated Selection:** Run `arch task next` to identify the deterministic candidate.
 4. **Sentinel Pre-flight:** Verify task ACs and description against `negativeConstraints` in `arch.config.json` using an XS reasoning call.
    - **Escalation:** If a potential violation is identified, append a timestamped `AWAITING_APPROVAL | SENTINEL_VIOLATION` entry to `docs/INBOX.md` with evidence and halt.
 5. Set status to `IN_PROGRESS` and commit immediately. Session lock state (`lockedBy`, `lockedAt`) is in-memory only — never written to the file. `Locked-commit` is written as an auxiliary provenance field below the Meta line (not in the meta line itself) by `arch task in-progress`.
@@ -65,13 +66,13 @@
 | `action:deploy` | Manual | Human Approval |
 | `action:pr-create` | Manual | Human Approval |
 
-## L3 Sprint Autonomy (`arch loop --sprint`)
+## L3 Sprint Autonomy (`arch task loop --sprint`)
 
-`arch loop --sprint <slug>` runs the autonomous loop scoped to a single sprint. Only tasks tagged `**Sprint:** sprint/<slug>` are eligible; all other tasks are ignored regardless of priority.
+`arch task loop --sprint <slug>` runs the autonomous loop scoped to a single sprint. Only tasks tagged `**Sprint:** sprint/<slug>` are eligible; all other tasks are ignored regardless of priority.
 
 **Sprint-level governance gates:**
 - **Sprint Andon:** If more than 2 consecutive tasks hit Andon Cord conditions, the loop writes an `ANDON_HALT` entry to `docs/INBOX.md` and halts. The counter resets on each successful task completion.
-- **Sprint Checkpoint:** When 50% of sprint tasks are archived, the loop writes a `SPRINT_CHECKPOINT` entry to `docs/INBOX.md` and pauses. Resume with `arch loop --sprint <slug> --resume` after async human review.
+- **Sprint Checkpoint:** When 50% of sprint tasks are archived, the loop writes a `SPRINT_CHECKPOINT` entry to `docs/INBOX.md` and pauses. Resume with `arch task loop --sprint <slug> --resume` after async human review.
 
 **L3 eligibility** (see `docs/guidelines/autonomy.md`): `6-writing` and `7-operations` tasks are L3-eligible by default. `2-code-generation` tasks require an explicit `L3:yes` annotation in the sprint definition.
 

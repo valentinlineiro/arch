@@ -166,3 +166,16 @@ ACs verified against repo state:
 - arch review ApprovalPresent: ⚠ TASK-255, TASK-257, TASK-927 (correctly flagged — all M)
 Pre-existing failures: same 4 tests — pre-date this task.
 Verdict: PASS. Archived as DONE.
+
+## [2026-05-18 20:00] REVIEW_REQUEST | TASK-250 | [AGENT]
+Task: Unify CLI surface by intent-based verb domains
+ACs verified:
+- index.ts: new `memory` case with 5 subcommands; `govern` extended with 5 subcommands; `task` extended with 9 new subcommands
+- All 28 legacy flat commands remain as deprecated aliases emitting `deprecated()` warnings
+- Default help updated to list four canonical verbs
+- DO.md: arch next → arch task next; arch loop → arch task loop (section header + prose); arch merge-resolve noted
+- THINK.md: arch reflect → arch govern reflect (×2); arch report → arch govern report
+- AGENTS.md: arch capture → arch task capture; arch reflect → arch govern reflect (×2)
+- arch review: ✔ all checkers clean (pre-existing Census + HanseiPresent warnings only)
+- npm test: 4 failures — all pre-existing (DeterministicACVerifier ×2, reflect-command ×2)
+Changed files: cli/src/main/ts/index.ts, docs/agents/DO.md, docs/agents/THINK.md, docs/AGENTS.md

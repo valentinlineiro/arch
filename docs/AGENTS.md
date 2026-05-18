@@ -29,12 +29,12 @@
 
 ## System Lifecycle
 
-**Primary intake command:** `arch capture "<intent>" [--class <class>] [--size <size>]`
+**Primary intake command:** `arch task capture "<intent>" [--class <class>] [--size <size>]`
 Creates a task from a natural language intent, applies class-appropriate AC templates, auto-fixes mechanical Definition of Ready violations, and moves the task to IN_PROGRESS in one step. Use this instead of `arch task create` + manual editing for new sessions.
 
 Example:
 ```
-arch capture "add JWT authentication middleware" --class 2-code-generation --size S
+arch task capture "add JWT authentication middleware" --class 2-code-generation --size S
 ```
 
 ```
@@ -70,7 +70,7 @@ Every task archived as DONE must include:
 
 ### What `arch govern` does vs. what agents do
 - `arch govern` — deterministic enforcement: archives DONE tasks, assigns Focus, checks thresholds. No LLM. Run it; don't replicate its logic.
-- `arch reflect` — triggers THINK mode (LLM analysis). Proposals only. Never satisfies a governance gate.
+- `arch govern reflect` — triggers THINK mode (LLM analysis). Proposals only. Never satisfies a governance gate.
 - Agents do not archive their own tasks, select their own next task, or run replenishment. `arch govern` does those.
 
 ---
@@ -78,7 +78,7 @@ Every task archived as DONE must include:
 ## Modes
 
 ### THINK mode
-**Invoked by:** `arch reflect` (or as analysis side-effect of `arch govern`).
+**Invoked by:** `arch govern reflect` (or as analysis side-effect of `arch govern`).
 **Full protocol:** `docs/agents/THINK.md` — read it before running.
 
 Rules most often broken:
