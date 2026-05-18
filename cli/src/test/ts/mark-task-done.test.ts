@@ -156,10 +156,11 @@ test('MarkTaskDone - force path also injects closedAt', async () => {
   assert.ok(repo.saved?.closedAt, 'closedAt should be set even on force');
 });
 
-test('MarkTaskDone - blocks post-rollout task without Hansei section', async () => {
+test('MarkTaskDone - blocks post-rollout M task without Hansei section', async () => {
   const task = makeTask({
     id: 'TASK-195',
-    content: '## TASK-195: Test Task\n**Meta:** P1 | S | REVIEW | Focus:no | 2-code-generation | claude-code | src/\n',
+    size: 'M',
+    content: '## TASK-195: Test Task\n**Meta:** P1 | M | REVIEW | Focus:no | 2-code-generation | claude-code | src/\n',
     status: TaskStatus.REVIEW,
     hansei: undefined,
   });
@@ -171,6 +172,38 @@ test('MarkTaskDone - blocks post-rollout task without Hansei section', async () 
     /Hansei required/
   );
   assert.strictEqual(repo.saved, null);
+});
+
+test('MarkTaskDone - XS post-rollout task without Hansei section proceeds without error', async () => {
+  const task = makeTask({
+    id: 'TASK-195',
+    size: 'XS',
+    content: '## TASK-195: Test Task\n**Meta:** P1 | XS | REVIEW | Focus:no | 7-operations | claude | none\n',
+    status: TaskStatus.REVIEW,
+    hansei: undefined,
+  });
+  const repo = new MockTaskRepository(task);
+  const useCase = new MarkTaskDone(repo, makeReviewer({ valid: true, violations: [] }), makeFs());
+
+  await useCase.execute('TASK-195');
+
+  assert.strictEqual(repo.saved?.status, TaskStatus.DONE);
+});
+
+test('MarkTaskDone - S post-rollout task without Hansei section proceeds without error', async () => {
+  const task = makeTask({
+    id: 'TASK-195',
+    size: 'S',
+    content: '## TASK-195: Test Task\n**Meta:** P1 | S | REVIEW | Focus:no | 2-code-generation | claude | src/\n',
+    status: TaskStatus.REVIEW,
+    hansei: undefined,
+  });
+  const repo = new MockTaskRepository(task);
+  const useCase = new MarkTaskDone(repo, makeReviewer({ valid: true, violations: [] }), makeFs());
+
+  await useCase.execute('TASK-195');
+
+  assert.strictEqual(repo.saved?.status, TaskStatus.DONE);
 });
 
 test('MarkTaskDone - allows pre-rollout task without Hansei section', async () => {

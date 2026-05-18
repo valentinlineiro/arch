@@ -40,7 +40,7 @@ export class MarkTaskDone {
         throw new Error(`Cannot mark ${taskId} as DONE due to violations:\n- ${reviewResult.violations.join('\n- ')}`);
       }
 
-      const hanseiRequirement = await this.validateHanseiRequirement(task.id, task.content, task.hansei);
+      const hanseiRequirement = await this.validateHanseiRequirement(task.id, task.content, task.hansei, task.size);
       if (hanseiRequirement) {
         // Try to fill Hansei interactively before blocking
         if (stdout.isTTY) {
@@ -232,7 +232,10 @@ export class MarkTaskDone {
     }
   }
 
-  private async validateHanseiRequirement(taskId: string, content: string, hansei?: unknown): Promise<string | null> {
+  private async validateHanseiRequirement(taskId: string, content: string, hansei?: unknown, size?: string): Promise<string | null> {
+    // XS/S: triggered-only obligations (TASK-934 tiered obligations). Only M+ require Hansei unconditionally.
+    if (size && !['M', 'L', 'XL'].includes(size)) return null;
+
     const configRaw = await this.fileSystem.readFile('arch.config.json');
     const config = JSON.parse(configRaw);
     const hanseiSinceTaskId = config.hanseiSinceTaskId as number | undefined;

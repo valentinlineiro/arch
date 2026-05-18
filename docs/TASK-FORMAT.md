@@ -123,7 +123,7 @@ An AC item may include an executable predicate or an exemption marker appended a
 
 ### 7. Definition of Done (DoD)
 - Project-level quality standards (e.g., "PR approved", "`arch review` passes").
-- Optional for `XS` tasks if global guidelines cover them.
+- **XS tasks: Definition of Done is optional and omitted by default.** The stripped capture template for XS tasks does not include a DoD section. Operators may add one manually if the task warrants it, but absence is not a lint violation for XS.
 
 ### 8. Turns (optional)
 - Appended to the Meta line at close, after the Context field, by the implementing agent.

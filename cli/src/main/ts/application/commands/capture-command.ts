@@ -40,24 +40,23 @@ export class CaptureCommand {
 
     console.log(`\n  → arch capture: "${intent.slice(0, 60)}"\n`);
 
-    // Step 1: Create task
+    // Step 1: Create task (size passed to scaffold for template selection)
     const creator = new CreateTask(this.taskRepository, this.fileSystem, this.gitRepository!);
     let taskId: string;
     try {
-      taskId = await creator.execute(intent, taskClass);
+      taskId = await creator.execute(intent, taskClass, size);
       console.log(`  ✔ Created ${taskId}`);
     } catch (err: any) {
       process.stderr.write(`  ✖ Failed to create task: ${err.message}\n`);
       process.exit(1);
     }
 
-    // Step 2: Apply size/context overrides if provided
-    if (size || context) {
+    // Step 2: Apply context override if provided
+    if (context) {
       try {
         const taskPath = `docs/tasks/${taskId}.md`;
         let content = await this.fileSystem.readFile(taskPath);
-        if (size) content = content.replace(/\| \w+ \| READY \|/, `| ${size} | READY |`);
-        if (context) content = content.replace(/\| docs\/tasks\/$/, `| ${context}`);
+        content = content.replace(/\| docs\/tasks\/$/, `| ${context}`);
         await this.fileSystem.writeFile(taskPath, content);
       } catch { /* non-blocking */ }
     }

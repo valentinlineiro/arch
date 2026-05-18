@@ -60,10 +60,10 @@ export class CreateTask {
     private gitRepository: GitRepository
   ) {}
 
-  async execute(intent: string, taskClassOverride?: string): Promise<string> {
+  async execute(intent: string, taskClassOverride?: string, sizeOverride?: string): Promise<string> {
     const nextId = await this.taskRepository.getNextId();
     const draft = await this.tryLlmDraft(intent);
-    const content = this.scaffold(nextId, intent, draft, taskClassOverride);
+    const content = this.scaffold(nextId, intent, draft, taskClassOverride, sizeOverride);
 
     const taskPath = `docs/tasks/${nextId}.md`;
     await this.fileSystem.writeFile(taskPath, content);
@@ -79,9 +79,9 @@ export class CreateTask {
     return nextId;
   }
 
-  private scaffold(nextId: string, intent: string, draft: LlmDraft | null, taskClassOverride?: string): string {
+  private scaffold(nextId: string, intent: string, draft: LlmDraft | null, taskClassOverride?: string, sizeOverride?: string): string {
     const title = draft?.title ?? intent.slice(0, 60).replace(/[^\x20-\x7E]/g, '');
-    const size = draft?.size ?? DEFAULT_SIZE;
+    const size = sizeOverride ?? draft?.size ?? DEFAULT_SIZE;
     const cls = taskClassOverride ?? draft?.taskClass ?? DEFAULT_CLASS;
     const metaLine = `**Meta:** ${DEFAULT_PRIORITY} | ${size} | READY | Focus:no | ${cls} | local | docs/tasks/`;
 
@@ -94,7 +94,10 @@ export class CreateTask {
     const llmAcs = draft?.acs ?? [];
     const acs = this.buildACs(cls, llmAcs, intent);
 
-    return [
+    const isXsLightweight = size === 'XS' && (cls === '6-writing' || cls === '7-operations');
+    const isMPlus = ['M', 'L', 'XL'].includes(size);
+
+    const sections: string[] = [
       `## ${nextId}: ${title}`,
       safeMetaLine,
       `**Depends:** none`,
@@ -105,19 +108,31 @@ export class CreateTask {
       `### Context`,
       `#### Intent`,
       intent,
-      ``,
-      `### Definition of Done`,
-      `- [ ] All ACs checked by Auditor`,
-      `- [ ] \`arch review\` passes`,
-      ``,
-      `## Hansei`,
-      `**Severity:** H0`,
-      `**Category:** [no-issue]`,
-      `**Decision:** Not yet started.`,
-      `**Constraint:** None.`,
-      `**Cost:** None.`,
-      `**Forward Action:** None.`,
-    ].join('\n');
+    ];
+
+    if (!isXsLightweight) {
+      sections.push(
+        ``,
+        `### Definition of Done`,
+        `- [ ] All ACs checked by Auditor`,
+        `- [ ] \`arch review\` passes`,
+      );
+    }
+
+    if (isMPlus) {
+      sections.push(
+        ``,
+        `## Hansei`,
+        `**Severity:** H0`,
+        `**Category:** [SpecDrift]`,
+        `**Decision:** Not yet started.`,
+        `**Constraint:** None.`,
+        `**Cost:** None.`,
+        `**Forward Action:** None.`,
+      );
+    }
+
+    return sections.join('\n');
   }
 
   private buildACs(cls: string, llmAcs: string[], intent: string): string {
