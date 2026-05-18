@@ -85,7 +85,7 @@ async function main() {
       break;
 
     case 'status':
-      await new StatusCommand(taskRepository, fileSystem).execute();
+      await new StatusCommand(taskRepository, fileSystem, rootPath).execute();
       break;
 
     // ── arch task <subcommand> ────────────────────────────────────────────────
