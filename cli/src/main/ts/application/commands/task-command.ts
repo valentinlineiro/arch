@@ -160,6 +160,17 @@ export class TaskCommand {
         process.exit(1);
       }
     } else if (subCommand === 'done' && taskId) {
+      if (!force) {
+        const taskFile = `${this.rootPath}/docs/tasks/${taskId}.md`;
+        try {
+          const content = await this.fileSystem.readFile(taskFile);
+          if (/^[[:space:]]*- \[ \]/m.test(content) || content.includes('- [ ]')) {
+            fmt.fail(`Task ${taskId} has unchecked Acceptance Criteria.`);
+            console.error(`    Please check all ACs or use --force to override.`);
+            process.exit(1);
+          }
+        } catch { /* file not found — let markDone handle it */ }
+      }
       try {
         await this.markDone.execute(taskId, force);
         fmt.check(`marking ${taskId} as DONE`);

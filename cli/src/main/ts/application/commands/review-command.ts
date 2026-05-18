@@ -86,6 +86,7 @@ export class ReviewCommand {
   async execute(args: string[] = []): Promise<void> {
     const isJson = args.includes('--json');
     const isFast = args.includes('--fast');
+    const isPush = args.includes('--push');
 
     // --task TASK-XXX: scoped Auditor review
     const taskArgIdx = args.indexOf('--task');
@@ -118,6 +119,13 @@ export class ReviewCommand {
       }
     }
     console.log('');
+
+    if (isPush && result.success) {
+      const { execSync } = await import('child_process');
+      console.log('  Pushing to remote...');
+      execSync('git push', { stdio: 'inherit' });
+    }
+
     process.exit(result.success ? 0 : 1);
   }
 }
