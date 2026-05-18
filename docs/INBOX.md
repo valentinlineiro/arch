@@ -23,3 +23,19 @@
 - **TASK-257**: Implemented lightweight trusted-metrics refresh on task closure and govern ticks.
 - **TASK-256**: Cut Phase 3 "Immediate Improvements" and added Kaizen evidence gate to THINK.md.
 - **TASK-255**: Split THINK into structural default loop and --deep mode with cadence triggering.
+
+## [2026-05-18T09:50:00Z] REVIEW_REQUEST | TASK-926 | Fix metrics engine integrity breach
+
+**Task:** TASK-926 — Fix metrics engine integrity breach due to duplicate DONE events
+**Status:** → REVIEW
+
+**ACs completed:**
+- [x] docs/EVENTS.md cleaned up: TASK-207 redundant DONE→DONE removed; TASK-231/234-237 sole-coverage DONE→DONE retained
+- [x] `arch report` passes without INTEGRITY BREACH (274 tasks, 0% REVIEW_FAIL)
+- [x] MetricsEngine hardened: multiple DONE→DONE events for a task use only the first (TDD, failing test → green)
+- [x] `arch review` passes (System Review: OK)
+
+**Changed files:**
+- `cli/src/main/ts/domain/services/metrics-engine.ts` — deduplication fix in `calibrateTask`
+- `cli/src/test/ts/report.test.ts` — new test: "multiple DONE→DONE events use first, not INVALID"
+- `docs/EVENTS.md` — removed TASK-207 duplicate DONE→DONE; added TASK-922 missing DONE event; retained sole-coverage DONE→DONE for TASK-231/234-237
