@@ -876,14 +876,12 @@ export class DriftChecker {
 
       const content = await this.fileSystem.readFile(`${this.rootPath}/docs/archive/${file}`);
 
-      // L2 exempt: XS size + 6-writing or 7-operations class
-      // Scan all fields — class position differs between old and new meta formats
+      // L3 gate (ADR-009): XS and S tasks self-archive eligible — exempt from Approval requirement
       const metaMatch = content.match(/^\*\*Meta:\*\* .*/m);
       if (metaMatch) {
         const parts = metaMatch[0].split('|').map((s: string) => s.trim());
         const size = parts[1];
-        const isExemptClass = parts.some(p => p.includes('6-writing') || p.includes('7-operations'));
-        if (size === 'XS' && isExemptClass) {
+        if (size === 'XS' || size === 'S') {
           continue;
         }
       }
@@ -958,8 +956,9 @@ export class DriftChecker {
         details.push(`${taskId}: no Acceptance Criteria found`);
       }
 
-      if (!isNaN(taskNum) && taskNum >= hanseiSinceTaskId && !content.includes('## Hansei')) {
-        details.push(`${taskId}: missing ## Hansei section (required for TASK-${hanseiSinceTaskId}+)`);
+      const HANSEI_REQUIRED_SIZES = new Set(['M', 'L', 'XL']);
+      if (!isNaN(taskNum) && taskNum >= hanseiSinceTaskId && HANSEI_REQUIRED_SIZES.has(size) && !content.includes('## Hansei')) {
+        details.push(`${taskId}: missing ## Hansei section (required for M+ tasks, TASK-${hanseiSinceTaskId}+)`);
       }
     }
 

@@ -99,3 +99,14 @@ ACs verified:
 - NextCommand TASK-930 test: GREEN (INBOX not read)
 - E5 (c) stale-INBOX test removed — it tested the violation behavior itself
 Changed files: cli/src/main/ts/application/use-cases/loop-engine.ts, cli/src/main/ts/application/use-cases/escalation-store.ts, cli/src/main/ts/application/commands/next-command.ts, cli/src/test/ts/select-next-task.test.ts, cli/src/test/ts/escalation-maturity-e5.test.ts, docs/agents/DO.md
+
+## [2026-05-18 17:00] AWAITING_REVIEW | TASK-934 | [L3-AUTO]
+Task: Implement tiered Hansei and Approval obligations
+ACs verified:
+- checkTaskTemplateCompliance: XS/S tasks no longer flagged for missing Hansei (15 → 0 warnings)
+- checkApprovalPresent: XS/S archived tasks exempt regardless of class (9 → 3 warnings, all remaining are M)
+- validateHansei: isClosing removed; XS/S tasks at REVIEW/DONE no longer require Hansei
+- Hansei still validated when present on XS/S tasks
+- TASK-FORMAT.md and AGENTS.md updated to reflect tier model
+- 8 TASK-934 tests: RED then GREEN; no regressions
+Changed files: cli/src/main/ts/application/use-cases/drift-checker.ts, cli/src/main/ts/domain/services/task-validator.ts, cli/src/test/ts/drift-checker.test.ts, cli/src/test/ts/task-validator.test.ts, cli/src/test/ts/hansei-validation.test.ts, docs/TASK-FORMAT.md, docs/AGENTS.md

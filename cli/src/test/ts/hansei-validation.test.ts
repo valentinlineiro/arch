@@ -28,9 +28,9 @@ test('TaskValidator - validateHansei - missing Hansei for S task (optional)', ()
   assert.strictEqual(errors.length, 0, 'Should NOT require Hansei for S task in READY');
 });
 
-test('TaskValidator - validateHansei - missing Hansei for S task in REVIEW', () => {
+test('TaskValidator - validateHansei - S task in REVIEW does not require Hansei (tiered obligations, TASK-934)', () => {
   const errors = TaskValidator.validateHansei({ ...baseTask, size: 'S', status: TaskStatus.REVIEW });
-  assert.ok(errors.some(e => e.includes('Missing Hansei section')), 'Should require Hansei for any task in REVIEW');
+  assert.strictEqual(errors.length, 0, 'S task in REVIEW must not require Hansei — triggered basis only');
 });
 
 test('TaskValidator - validateHansei - valid H1 Hansei', () => {

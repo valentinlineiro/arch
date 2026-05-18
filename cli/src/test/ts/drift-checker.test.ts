@@ -661,3 +661,77 @@ test('ArchiveMetaIntegrity - TASK-932: DONE archived task is not flagged', async
   assert.ok(check);
   assert.strictEqual(check?.status, 'OK', 'DONE archived task must not produce a warning');
 });
+
+// ── TASK-934: Tiered obligations ────────────────────────────────────────────
+
+test('TaskTemplateCompliance - TASK-934: XS task missing Hansei is not flagged', async () => {
+  const fs = makeBaseFs();
+  fs.files['/repo/arch.config.json'] = JSON.stringify({ version: '0.2.0', governance: { hanseiSinceTaskId: 195 } });
+  fs.dirs['/repo/docs/tasks'] = ['TASK-250.md'];
+  fs.files['/repo/docs/tasks/TASK-250.md'] =
+    '## TASK-250: Small task\n**Meta:** P1 | XS | READY | Focus:no | 2-code-generation | claude | cli/\n\n### Acceptance Criteria\n- [ ] Does something\n';
+
+  const checker = new DriftChecker(fs, new MockGitRepository(), '/repo', '0.2.0');
+  const result = await checker.check();
+  const check = result.find(r => r.check === 'TaskTemplateCompliance');
+
+  assert.ok(check);
+  assert.ok(
+    !check?.details.some(d => d.includes('TASK-250') && d.includes('Hansei')),
+    'XS task must not be flagged for missing Hansei'
+  );
+});
+
+test('TaskTemplateCompliance - TASK-934: S task missing Hansei is not flagged', async () => {
+  const fs = makeBaseFs();
+  fs.files['/repo/arch.config.json'] = JSON.stringify({ version: '0.2.0', governance: { hanseiSinceTaskId: 195 } });
+  fs.dirs['/repo/docs/tasks'] = ['TASK-251.md'];
+  fs.files['/repo/docs/tasks/TASK-251.md'] =
+    '## TASK-251: Small task\n**Meta:** P1 | S | READY | Focus:no | 2-code-generation | claude | cli/\n\n### Acceptance Criteria\n- [ ] Does something\n';
+
+  const checker = new DriftChecker(fs, new MockGitRepository(), '/repo', '0.2.0');
+  const result = await checker.check();
+  const check = result.find(r => r.check === 'TaskTemplateCompliance');
+
+  assert.ok(check);
+  assert.ok(
+    !check?.details.some(d => d.includes('TASK-251') && d.includes('Hansei')),
+    'S task must not be flagged for missing Hansei'
+  );
+});
+
+test('TaskTemplateCompliance - TASK-934: M task missing Hansei is still flagged', async () => {
+  const fs = makeBaseFs();
+  fs.files['/repo/arch.config.json'] = JSON.stringify({ version: '0.2.0', governance: { hanseiSinceTaskId: 195 } });
+  fs.dirs['/repo/docs/tasks'] = ['TASK-252.md'];
+  fs.files['/repo/docs/tasks/TASK-252.md'] =
+    '## TASK-252: Medium task\n**Meta:** P1 | M | READY | Focus:no | 2-code-generation | claude | cli/\n\n### Acceptance Criteria\n- [ ] Does something\n';
+
+  const checker = new DriftChecker(fs, new MockGitRepository(), '/repo', '0.2.0');
+  const result = await checker.check();
+  const check = result.find(r => r.check === 'TaskTemplateCompliance');
+
+  assert.ok(check);
+  assert.ok(
+    check?.details.some(d => d.includes('TASK-252') && d.includes('Hansei')),
+    'M task must still be flagged for missing Hansei'
+  );
+});
+
+test('ApprovalPresent - TASK-934: S archived task is exempt from Approval', async () => {
+  const fs = makeBaseFs();
+  fs.files['/repo/arch.config.json'] = JSON.stringify({ version: '0.2.0', governance: { hanseiSinceTaskId: 195 } });
+  fs.dirs['/repo/docs/archive'] = ['TASK-260.md'];
+  fs.files['/repo/docs/archive/TASK-260.md'] =
+    '## TASK-260: S task\n**Meta:** P1 | S | DONE | Focus:no | 2-code-generation | claude | cli/\n**Closed-at:** 2026-01-01T00:00:00Z\n\n## Hansei\n**Severity:** H1\n**Category:** [SpecDrift]\n**Decision:** done.\n**Constraint:** none.\n**Cost:** zero.\n**Forward Action:** none.\n';
+
+  const checker = new DriftChecker(fs, new MockGitRepository(), '/repo', '0.2.0');
+  const result = await checker.check();
+  const check = result.find(r => r.check === 'ApprovalPresent');
+
+  assert.ok(check);
+  assert.ok(
+    !check?.details.some(d => d.includes('TASK-260')),
+    'S archived task must be exempt from ApprovalPresent warning'
+  );
+});

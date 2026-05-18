@@ -57,12 +57,15 @@ TASK: READY → IN_PROGRESS → REVIEW → DONE → archived (docs/archive/)
 
 ### Archiving requirements (TASK-195 onward)
 Every task archived as DONE must include:
-- `## Hansei` section — **Structured diagnostic block per ADR-019. Narrative prose is prohibited and fails review.**
+- `## Hansei` section — **required for M/L/XL tasks; optional for XS/S unless a trigger applies.**
+  Triggers for XS/S: blocker encountered, actual size exceeded estimate, constitutional or process anomaly.
+  **Format:** Structured diagnostic block per ADR-019. Narrative prose is prohibited and fails review.
   Required fields: `**Severity:** [H0|H1|H2|H3a|H3b]`, `**Category:** [controlled vocabulary]`, `**Decision:**`, `**Constraint:**`, `**Cost:**`, `**Forward Action:**`.
   All fields must be ≥10 characters and free of vague phrases ("temporary workaround", "fix later", etc.).
   H2 requires an `IDEA-XXX` link in Forward Action or repetition evidence in Decision.
   H3a tasks cannot be closed — they require rejection and resolution first.
   H3b requires a `TASK/IDEA-XXX` Expiry Resource and `Owner:` in Decision.
+- `## Approval` section — **required for M/L/XL tasks** closed via human Auditor review. XS/S tasks are exempt (L3 gate, ADR-009).
 - `Closed-at: <ISO 8601>` in the meta line (added by the Auditor at DONE time).
 
 ### What `arch govern` does vs. what agents do

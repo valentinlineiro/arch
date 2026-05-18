@@ -1,6 +1,24 @@
 import { test } from 'node:test';
 import assert from 'node:assert';
 import { TaskValidator } from '../../main/ts/domain/services/task-validator.js';
+import { Task, TaskStatus } from '../../main/ts/domain/models/task.js';
+
+function makeTask(overrides: Partial<Task> = {}): Task {
+  return {
+    id: 'TASK-999',
+    title: 'Test',
+    priority: 'P1',
+    size: 'M',
+    status: TaskStatus.REVIEW,
+    focus: false,
+    sprint: '',
+    class: '2-code-generation',
+    cli: 'claude',
+    context: [],
+    acceptanceCriteria: [],
+    ...overrides,
+  };
+}
 
 test('TaskValidator - isValidHeader', () => {
   assert.strictEqual(TaskValidator.isValidHeader('## TASK-001: Title'), true);
@@ -37,6 +55,36 @@ test('TaskValidator - validateMeta', () => {
 test('TaskValidator - validateMeta failures', () => {
   const meta = '**Meta:** P1 | INVALID | IN_PROGRESS | Focus:yes | 6-writing | claude | agents/EXEC.md';
   const errors = TaskValidator.validateMeta(meta);
-  
+
   assert.ok(errors.some(e => e.includes('Invalid Size')), 'Should detect invalid size');
+});
+
+// ── TASK-934: Tiered obligations ────────────────────────────────────────────
+
+test('TaskValidator - TASK-934: XS task at REVIEW with no Hansei produces no error', () => {
+  const task = makeTask({ size: 'XS', status: TaskStatus.REVIEW, hansei: undefined });
+  const errors = TaskValidator.validateHansei(task);
+  assert.strictEqual(errors.length, 0, 'XS task at REVIEW must not require Hansei');
+});
+
+test('TaskValidator - TASK-934: S task at DONE with no Hansei produces no error', () => {
+  const task = makeTask({ size: 'S', status: TaskStatus.DONE, hansei: undefined });
+  const errors = TaskValidator.validateHansei(task);
+  assert.strictEqual(errors.length, 0, 'S task at DONE must not require Hansei');
+});
+
+test('TaskValidator - TASK-934: M task at REVIEW with no Hansei produces error', () => {
+  const task = makeTask({ size: 'M', status: TaskStatus.REVIEW, hansei: undefined });
+  const errors = TaskValidator.validateHansei(task);
+  assert.ok(errors.length > 0, 'M task at REVIEW must still require Hansei');
+});
+
+test('TaskValidator - TASK-934: XS task with Hansei present is still validated for correctness', () => {
+  const task = makeTask({
+    size: 'XS',
+    status: TaskStatus.DONE,
+    hansei: { severity: 'INVALID' as any, category: '[SpecDrift]', decision: 'done properly here.', constraint: 'none found at all.', cost: 'zero cost incurred.', forwardAction: 'nothing more needed.' },
+  });
+  const errors = TaskValidator.validateHansei(task);
+  assert.ok(errors.some(e => e.includes('Severity')), 'Hansei present on XS task must still be validated');
 });

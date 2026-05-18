@@ -18,7 +18,7 @@ The following values are enforced by `DriftChecker.checkTaskTemplateCompliance()
 | CLI | Meta[5] | non-empty string | Yes |
 | Context | Meta[6] | path(s) or `none` | Yes |
 | Acceptance Criteria | Body | At least one `- [ ]` or `- [x]` | Yes |
-| Hansei | Section | Required for TASK-ID ≥ `governance.hanseiSinceTaskId` | Conditional |
+| Hansei | Section | M/L/XL: mandatory. XS/S: triggered only (blocker, size miss, anomaly). | Conditional |
 
 ---
 
@@ -56,9 +56,9 @@ One sentence: one thing done poorly or one way this could have been cleaner.
 Approved-by: Auditor | <ISO-date>
 ```
 
-Written by the Auditor when verifying ACs and setting status to DONE. Required on all tasks closed via human Auditor review.
+Written by the Auditor when verifying ACs and setting status to DONE. Required on M/L/XL tasks closed via human Auditor review.
 
-**Exempt:** Tasks promoted autonomously via L2 rule (XS + class `6-writing` or `7-operations`) — approval is implicit in the autonomous promotion log.
+**Exempt:** XS and S tasks — self-archive eligible per L3 gate (ADR-009). Approval is implicit in the autonomous promotion log.
 
 ---
 
@@ -133,7 +133,9 @@ An AC item may include an executable predicate or an exemption marker appended a
 - **Purpose:** Input for Mura detection in THINK Phase 3 and Turns-per-Size trend in METRICS.md.
 
 ## Hansei
-- **Required:** (a) actual size differed from estimate, (b) a blocker was encountered, (c) task is `M` or larger, (d) task is moving to `REVIEW` or `DONE`.
+- **M/L/XL:** Mandatory structured Hansei on every close.
+- **XS/S:** Hansei only when a triggering condition applies: (a) actual size differed from estimate, (b) a blocker was encountered, (c) constitutional or process anomaly. No Hansei required on a clean XS/S close.
+- If a Hansei section is present on any task, it is validated for correctness regardless of size.
 - **Format:** Structured diagnostic block (ADR-019).
 - **Audit:** Hansei is audited for epistemological reconciliation. Under-declaration or inflation are governance violations.
 

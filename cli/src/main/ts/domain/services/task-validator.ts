@@ -47,13 +47,12 @@ export class TaskValidator {
     const errors: string[] = [];
     const hansei = task.hansei;
 
-    // Hansei is required for M+ tasks, or if status is REVIEW/DONE
+    // Hansei is required for M+ tasks only. XS/S tasks have optional Hansei (triggered basis).
     const isMPlus = ['M', 'L', 'XL'].includes(task.size);
-    const isClosing = [TaskStatus.REVIEW, TaskStatus.DONE].includes(task.status);
 
     if (!hansei) {
-      if (isMPlus || isClosing) {
-        errors.push('Missing Hansei section: Required for M+ tasks and when moving to REVIEW/DONE');
+      if (isMPlus) {
+        errors.push('Missing Hansei section: Required for M+ tasks');
       }
       return errors;
     }
