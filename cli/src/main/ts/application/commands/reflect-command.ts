@@ -233,6 +233,15 @@ ${taskSections}`;
       }
     } catch { /* non-blocking */ }
 
+    // Deterministic synthesis: always runs, no AI required
+    try {
+      const { HanseiSynthesizer } = await import('../use-cases/hansei-synthesizer.js');
+      const synthesizer = new HanseiSynthesizer(new NodeFileSystem(), undefined as any, '.');
+      await synthesizer.run();
+    } catch (e: any) {
+      console.log(`  Note: Hansei synthesis skipped (${e.message})`);
+    }
+
     console.log('  ARCH — arch reflect [analysis]: invoking THINK mode');
     console.log('  Purpose: regenerate INBOX, surface Kaizen, refine ideas, detect semantic drift');
     console.log('  Authority: proposals only — never mutates task state, never satisfies policy gates');
