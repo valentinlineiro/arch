@@ -1,8 +1,8 @@
 ## IDEA: actor-routing-config-key
 
-**Status:** DRAFT
+**Status:** PROMOTED
 **Sessions:** 1
-**Decision:** UNDECIDED
+**Decision:** PROMOTE → TASK-929 (closed 2026-05-18). Fix implemented: read config.strategies (top-level); typeof guard skips model-routing arrays; falls through to config.defaultActor.
 
 ### Problem
 

@@ -1,8 +1,8 @@
 ## IDEA: approval-checker-field-index
 
-**Status:** DRAFT
+**Status:** PROMOTED
 **Sessions:** 1
-**Decision:** UNDECIDED
+**Decision:** PROMOTE → TASK-928 (closed 2026-05-18). Fix implemented: scan all meta fields for class pattern rather than fixed index. Size exemption kept at XS only (S exemption is a separate TASK-FORMAT.md alignment question, not addressed here).
 
 ### Problem
 
