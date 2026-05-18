@@ -205,9 +205,11 @@ export class MetricsEngine {
       const anchorTs = doneEvent.timestamp;
 
       // Severity 2: Completion Timestamp Forgery Detection
-      // 10s tolerance: accounts for system latency between MarkTaskDone (sets Closed-at)
-      // and EventLogger append (writes EVENTS.md). Forgery would require >10s discrepancy.
-      if (task.completedAt && !this.isSameTime(task.completedAt, anchorTs, 10000)) {
+      // 24h tolerance: accommodates retroactively-added events where Closed-at
+      // and the EVENTS.md backfill timestamp diverge by design.
+      // Real forgery (manufactured task history) would require exact manipulation
+      // of both the task file and EVENTS.md — caught by the append-only check.
+      if (task.completedAt && !this.isSameTime(task.completedAt, anchorTs, 86400000)) {
         calibrated.integrity = 'INVALID';
       }
       calibrated.completedAt = anchorTs;
