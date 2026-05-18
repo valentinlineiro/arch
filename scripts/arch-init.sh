@@ -15,7 +15,7 @@ if ! command -v npm &>/dev/null; then
   exit 1
 fi
 
-npm install -g arch-init
+npm install -g @valentinlineiro/arch
 
 echo ""
 echo -e "  ${GREEN}Done.${NC} Run ${GRAY}arch init${NC} in your repository to get started."

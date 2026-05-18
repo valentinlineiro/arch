@@ -1,5 +1,5 @@
 {
-    "name": "arch-cli",
+    "name": "@valentinlineiro/arch",
     "version": "0.6.0",
     "description": "ARCH: autonomous agent task and reflection framework for software projects",
     "repository": {
@@ -30,6 +30,9 @@
     ],
     "author": "Valentin Lineiro",
     "license": "MIT",
+    "engines": {
+        "node": ">=20.0.0"
+    },
     "bugs": {
         "url": "https://github.com/valentinlineiro/arch/issues"
     },
