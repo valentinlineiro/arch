@@ -8,6 +8,7 @@ import { RejectTask } from '../use-cases/task-reject.js';
 import { RejectStaleTask } from '../use-cases/task-reject-stale.js';
 import { UpdateTaskMetrics } from '../use-cases/update-task-metrics.js';
 import { ContextInference } from '../use-cases/context-inference.js';
+import { ConstraintPreflight } from '../use-cases/constraint-preflight.js';
 import { CompressTask } from '../use-cases/compress-task.js';
 import { NextCommand } from './next-command.js';
 import { RankCommand } from './rank-command.js';
@@ -77,6 +78,12 @@ export class TaskCommand {
           const inference = new ContextInference(this.fileSystem);
           await inference.execute(taskId, taskText, task.class ?? '');
         } catch { /* inference errors must never block task start */ }
+
+        try {
+          const preflight = new ConstraintPreflight(this.fileSystem);
+          const block = await preflight.execute(task.context ?? []);
+          if (block) console.log(block);
+        } catch { /* preflight errors must never block task start */ }
 
         try {
           const memory = new LoadBearingMemory(this.taskRepository, this.fileSystem);
