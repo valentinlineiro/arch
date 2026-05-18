@@ -1,14 +1,15 @@
 ## TASK-945: replace bash scripts/arch.sh references with arch CLI binary
-**Meta:** P3 | XS | IN_PROGRESS | Focus:no | 7-docs | local | docs/tasks/
+**Meta:** P3 | XS | DONE | Focus:no | 7-docs | local | docs/tasks/
+**Closed-at:** 2026-05-18T14:48:00.454Z
 **Actor:** unknown
 **Created-at:** 2026-05-18T14:47:34.899Z
 **Depends:** none
 
 ### Acceptance Criteria
-- [ ] Intent addressed
-  - `prose: verified`
-- [ ] `arch review` passes
-  - `cmd: node cli/dist/index.js review`
+- [x] Intent addressed
+  - `prose: verified — 36 active task files, TASK-FORMAT.md, INBOX.md, README.md, DEVELOPMENT.md updated`
+- [x] `arch review` passes
+  - `cmd: arch review; exit: 0`
 
 ### Context
 
