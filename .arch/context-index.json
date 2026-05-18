@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-18T12:18:03.912Z",
+  "builtAt": "2026-05-18T12:19:18.806Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -5301,10 +5301,10 @@
   },
   "tasks": {
     "TASK-249": {
-      "commitCount": 9,
-      "lastCommitDate": "2026-05-18T14:18:03+02:00",
+      "commitCount": 10,
+      "lastCommitDate": "2026-05-18T14:19:18+02:00",
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 6,
+        ".arch/focus-ledger.jsonl": 7,
         "docs/INBOX.md": 1,
         "docs/archive/TASK-933.md": 1,
         "docs/tasks/TASK-249.md": 2,
@@ -5318,6 +5318,7 @@
         "docs/tasks/TASK-254.md": 1
       },
       "recentCommitRefs": [
+        "3276b04",
         "41077ee",
         "53969f7",
         "dac3a1e",
@@ -5330,25 +5331,13 @@
       ],
       "commitRefOverflow": false
     },
-    "TASK-941": {
-      "commitCount": 2,
-      "lastCommitDate": "2026-05-18T14:18:03+02:00",
-      "touchedFrequency": {
-        "docs/archive/TASK-941.md": 1,
-        "docs/tasks/TASK-941.md": 1
-      },
-      "recentCommitRefs": [
-        "921e881",
-        "ec30b46"
-      ],
-      "commitRefOverflow": false
-    },
     "TASK-937": {
-      "commitCount": 5,
-      "lastCommitDate": "2026-05-18T14:18:00+02:00",
+      "commitCount": 7,
+      "lastCommitDate": "2026-05-18T14:19:18+02:00",
       "touchedFrequency": {
+        "docs/archive/TASK-937.md": 1,
+        "docs/tasks/TASK-937.md": 6,
         "docs/INBOX.md": 2,
-        "docs/tasks/TASK-937.md": 5,
         "docs/tasks/TASK-941.md": 1,
         "cli/src/main/ts/application/commands/capture-command.ts": 1,
         "cli/src/main/ts/application/use-cases/create-task.ts": 1,
@@ -5365,11 +5354,26 @@
         "docs/tasks/TASK-939.md": 1
       },
       "recentCommitRefs": [
+        "e3ad55d",
+        "4634fdb",
         "cdcbcdf",
         "0e2a4a1",
         "7629dce",
         "2874d10",
         "99381dd"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-941": {
+      "commitCount": 2,
+      "lastCommitDate": "2026-05-18T14:18:03+02:00",
+      "touchedFrequency": {
+        "docs/archive/TASK-941.md": 1,
+        "docs/tasks/TASK-941.md": 1
+      },
+      "recentCommitRefs": [
+        "921e881",
+        "ec30b46"
       ],
       "commitRefOverflow": false
     },
@@ -6304,7 +6308,7 @@
       "commitRefOverflow": false
     },
     "TASK-247": {
-      "commitCount": 22,
+      "commitCount": 18,
       "lastCommitDate": "2026-05-18T08:58:10+02:00",
       "touchedFrequency": {
         "docs/tasks/TASK-251.md": 1,
@@ -6315,7 +6319,7 @@
         "docs/adr/ADR-020-focus-sovereignty-model.md": 2,
         ".arch/focus-ledger.jsonl": 1,
         "docs/INBOX.md": 1,
-        "docs/tasks/TASK-247.md": 7,
+        "docs/tasks/TASK-247.md": 3,
         "cli/src/main/ts/application/use-cases/focus-ledger.ts": 1,
         "cli/src/main/ts/application/use-cases/review-system.ts": 1,
         "cli/src/test/ts/govern-system.test.ts": 1
@@ -6338,11 +6342,9 @@
         "082eecb",
         "c20558a",
         "aed2af7",
-        "a9564d1",
-        "ab94895",
-        "c68d609"
+        "a9564d1"
       ],
-      "commitRefOverflow": true
+      "commitRefOverflow": false
     },
     "TASK-256": {
       "commitCount": 7,
