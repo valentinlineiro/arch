@@ -13,7 +13,7 @@
    - **Automated Selection:** Run `arch next` to identify the deterministic candidate.
 4. **Sentinel Pre-flight:** Verify task ACs and description against `negativeConstraints` in `arch.config.json` using an XS reasoning call.
    - **Escalation:** If a potential violation is identified, append a timestamped `AWAITING_APPROVAL | SENTINEL_VIOLATION` entry to `docs/INBOX.md` with evidence and halt.
-5. Set status to `IN_PROGRESS`, add lock in Meta line, and commit immediately.
+5. Set status to `IN_PROGRESS` and commit immediately. Session lock state (`lockedBy`, `lockedAt`) is in-memory only — never written to the file. `Locked-commit` is written as an auxiliary provenance field below the Meta line (not in the meta line itself) by `arch task in-progress`.
 6. Implement against Acceptance Criteria ONLY.
 7. On completion:
    - **Hansei Check:** Before setting status, check if any trigger applies: (a) actual size differed from estimate, (b) a blocker was encountered, (c) task is `M` or larger. If any trigger applies, the Hansei should reflect that signal directly. For any task that will be archived as `DONE` from `TASK-195` onward, always append a `## Hansei` section (1–3 sentences), even on XS/S happy-path work, because the close transition enforces its presence.

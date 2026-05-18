@@ -125,7 +125,8 @@ Source of truth for ANDON_HALT and AWAITING_PROMOTION events. Append-only: resol
 
 **Meta line is the source of truth for task state.**
 Format: `**Meta:** P[0-3] | [XS|S|M|L|XL] | [STATUS] | Focus:yes/no | [class] | [cli] | [context]`
-Lock fields (`lockedBy`, `lockedAt`) are in-memory only. Never write them to the meta line.
+Session lock fields (`lockedBy`, `lockedAt`) are in-memory only — never written to any file.
+`Locked-commit` is a persisted auxiliary provenance field written below the Meta line (not in it); it round-trips through the parser and is used by `deterministic-hansei-checker` as the diff baseline.
 
 **Every commit must reference a TASK-ID and use an authoritative prefix.**
 Prefixes: `feat:`, `fix:`, `chore:`, `docs:`, `refactor:`, `idea:`

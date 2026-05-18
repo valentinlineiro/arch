@@ -26,3 +26,21 @@ test('MarkdownTaskRepository parses Sprint line separately from Meta', async () 
   assert.strictEqual(task.cli, 'claude');
   assert.deepStrictEqual(task.context, ['cli/src/main/ts/']);
 });
+
+test('MarkdownTaskRepository - TASK-931: parseTask reads Locked-commit back (round-trip)', async () => {
+  const fs = new MockFileSystem();
+  fs.dirs['docs/tasks'] = ['TASK-201.md'];
+  fs.files['docs/tasks/TASK-201.md'] = `## TASK-201: Lockable task
+**Meta:** P1 | S | IN_PROGRESS | Focus:yes | 2-code-generation | claude | cli/src/
+**Locked-commit:** abc123def456
+
+### Acceptance Criteria
+- [ ] Does something
+`;
+
+  const repo = new MarkdownTaskRepository(fs as any);
+  const [task] = await repo.getActive();
+
+  assert.strictEqual(task.lockedCommit, 'abc123def456',
+    'parseTask must read **Locked-commit:** back into task.lockedCommit');
+});

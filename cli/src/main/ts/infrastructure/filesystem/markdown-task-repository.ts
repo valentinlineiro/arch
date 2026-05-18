@@ -146,6 +146,7 @@ export class MarkdownTaskRepository implements TaskRepository {
       const createdAtMatch = content.match(/^\*\*Created-at:\*\* (.*)/m);
       const rejectedAtMatch = content.match(/^\*\*Rejected-at:\*\* (.*)/m);
       const rejectionReasonMatch = content.match(/^\*\*Reason:\*\* (.*)/m);
+      const lockedCommitMatch = content.match(/^\*\*Locked-commit:\*\* (.*)/m);
       const sprintMatch = content.match(/^\*\*Sprint:\*\* (.*)/m);
       const dependsMatch = content.match(/^\*\*Depends:\*\* (.*)/m);
 
@@ -180,6 +181,7 @@ export class MarkdownTaskRepository implements TaskRepository {
         closedAt: closedAtMatch?.[1]?.trim(),
         rejectedAt: rejectedAtMatch?.[1]?.trim(),
         rejectionReason: rejectionReasonMatch?.[1]?.trim(),
+        lockedCommit: lockedCommitMatch?.[1]?.trim(),
         depends: dependsMatch ? dependsMatch[1].split(',').map(s => s.trim()) : undefined,
         acceptanceCriteria,
         hansei,

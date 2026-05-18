@@ -78,3 +78,13 @@ ACs verified:
 - DONE tasks pass clean; REJECTED tasks (7 old-format tasks) also pass (valid terminal state)
 - Tests: both TASK-932 tests pass (RED confirmed before implementation)
 Changed files: cli/src/main/ts/application/use-cases/drift-checker.ts, cli/src/test/ts/drift-checker.test.ts
+
+## [2026-05-18 14:00] AWAITING_REVIEW | TASK-931 | [L3-AUTO]
+Task: Round-trip Locked-commit through parser; reconcile lock model in docs
+ACs verified:
+- parseTask now reads **Locked-commit:** into task.lockedCommit
+- Round-trip test GREEN (was RED before implementation)
+- DO.md step 5 updated: no longer says "add lock in Meta line"
+- AGENTS.md updated: distinguishes lockedBy/lockedAt (in-memory) from Locked-commit (persisted auxiliary)
+- No new arch review violations
+Changed files: cli/src/main/ts/infrastructure/filesystem/markdown-task-repository.ts, cli/src/test/ts/markdown-task-repository.test.ts, docs/agents/DO.md, docs/AGENTS.md
