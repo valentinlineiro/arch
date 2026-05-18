@@ -1,6 +1,6 @@
 # IDEA: Temporal Pattern Layer for Causal Discovery
 **Meta:**P2 | S | DRAFT | Focus:no | 7-operations | local | cli/src/main/ts/application/use-cases/
-**Sessions:** 2 | **Decision-required:** yes
+**Sessions:** 3 | **Decision-required:** yes
 **Source:** Architectural Review (Cold Start Paradox)
 
 ### Context
