@@ -47,7 +47,7 @@ export class MarkTaskDone {
           const { HanseiWizard } = await import('./hansei-wizard.js');
           const wizard = new HanseiWizard();
           if (!HanseiWizard.isHanseiComplete(task.content ?? '')) {
-            const hanseiBlock = await wizard.run(task);
+            const hanseiBlock = await wizard.run(task, this.gitRepository);
             // Write Hansei block to task file
             const currentContent = await this.fileSystem.readFile(`docs/tasks/${taskId}.md`);
             const hasSection = currentContent.includes('## Hansei');

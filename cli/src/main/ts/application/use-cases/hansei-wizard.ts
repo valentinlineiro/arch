@@ -1,10 +1,11 @@
 import * as readline from 'node:readline/promises';
-import { stdin, stdout, stderr } from 'node:process';
+import { stdin, stdout } from 'node:process';
 import type { Task } from '../../domain/models/task.js';
+import type { GitRepository } from '../../domain/repositories/git-repository.js';
+import { DeterministicHanseiChecker } from '../../domain/services/deterministic-hansei-checker.js';
 
 const out = (msg: string) => stdout.write(msg + '\n');
 
-// Valid categories from ADR-019
 const CATEGORIES = [
   { value: '[TypeHack]',               label: 'Type hack to bypass TS' },
   { value: '[LeakyAbstraction]',       label: 'Abstraction boundary violated' },
@@ -40,11 +41,27 @@ export interface HanseiBlock {
   forwardAction: string;
 }
 
+// Map Tier 1 finding patterns → category
+function inferCategory(patterns: string[]): string {
+  for (const p of patterns) {
+    if (p.includes('any') || p.includes('ts-ignore')) return '[TypeHack]';
+    if (p.includes('TODO') || p.includes('FIXME') || p.includes('HACK')) return '[AuditGap]';
+    if (p.includes('console.log')) return '[AuditGap]';
+    if (p.includes('outside declared context') || p.includes('context path')) return '[SpecDrift]';
+    if (p.includes('dependency') || p.includes('import')) return '[HiddenDependency]';
+  }
+  return '[SpecDrift]';
+}
+
+// Map finding count → severity
+function inferSeverity(findingCount: number): string {
+  if (findingCount === 0) return 'H0';
+  if (findingCount === 1) return 'H1';
+  if (findingCount <= 3) return 'H2';
+  return 'H3a';
+}
+
 export class HanseiWizard {
-  /**
-   * Returns true when all 6 required Hansei fields are present and substantive.
-   * This is the canonical trigger condition — not task size or turn count.
-   */
   static isHanseiComplete(content: string): boolean {
     const section = HanseiWizard.extractHanseiSection(content);
     if (!section) return false;
@@ -65,7 +82,6 @@ export class HanseiWizard {
   }
 
   private static extractHanseiSection(content: string): string | null {
-    // Use the LAST occurrence — earlier ones may be embedded in task prose/code blocks
     const idx = content.lastIndexOf('## Hansei');
     if (idx === -1) return null;
     const start = content.indexOf('\n', idx) + 1;
@@ -73,58 +89,82 @@ export class HanseiWizard {
     return end === -1 ? content.slice(start) : content.slice(start, end);
   }
 
-  /**
-   * Runs the interactive Socratic wizard. Requires a TTY context.
-   * Returns the completed ## Hansei block as a string.
-   */
-  async run(task: Task): Promise<string> {
+  async run(task: Task, gitRepository?: GitRepository): Promise<string> {
     const rl = readline.createInterface({ input: stdin, output: stdout });
 
     try {
       out('\n  ── Hansei Wizard ──────────────────────────────────────');
       out(`  Task: ${task.id} — ${task.title}`);
-      if (task.size) out(`  Size: ${task.size}`);
+
+      // Run Tier 1 deterministic scan to pre-fill fields
+      let inferredSeverity = 'H0';
+      let inferredCategory = '[no-issue]';
+      let inferredConstraint = 'None encountered.';
+      let inferredCost = 'No architectural debt introduced.';
+      let inferredForwardAction = 'None required.';
+      let findingSummary = '';
+
+      if (gitRepository && task.lockedCommit) {
+        try {
+          const checker = new DeterministicHanseiChecker(gitRepository);
+          const result = await checker.run(task);
+
+          if (result.findings.length > 0) {
+            const patterns = result.findings.map(f => f.pattern);
+            inferredSeverity = inferSeverity(result.findings.length);
+            inferredCategory = inferCategory(patterns);
+            findingSummary = result.findings.map(f =>
+              `    [TIER1] ${f.pattern} in ${f.file}:${f.line}`
+            ).join('\n');
+            inferredConstraint = result.findings.map(f => f.pattern).join('; ') + ' — detected by Tier 1 scan.';
+            if (!result.findings.every(f => f.declaredInHansei)) {
+              inferredCost = `${result.findings.length} undeclared drift finding(s). See constraint.`;
+              inferredForwardAction = 'Review Tier 1 findings. Consider filing an IDEA if pattern recurs.';
+            }
+          }
+        } catch { /* non-blocking — proceed with defaults */ }
+      }
+
+      // Show inferred values
+      out(`\n  Pre-filled from diff scan:`);
+      out(`    Severity:       ${inferredSeverity}`);
+      out(`    Category:       ${inferredCategory}`);
+      out(`    Constraint:     ${inferredConstraint.slice(0, 60)}`);
+      out(`    Cost:           ${inferredCost.slice(0, 60)}`);
+      out(`    Forward Action: ${inferredForwardAction.slice(0, 60)}`);
+      if (findingSummary) {
+        out(`\n  Findings:\n${findingSummary}`);
+      }
       out('  ────────────────────────────────────────────────────────\n');
 
-      // Q1: Severity
-      out('  1. Severity — what level of issue occurred?\n');
-      SEVERITIES.forEach((s, i) => out(`     ${i + 1}. ${s.value}  ${s.label}`));
-      const sevIdx = await this.askNumber(rl, '\n  Select (1-5): ', 1, 5);
-      const severity = SEVERITIES[sevIdx - 1].value;
+      // Only ask: confirm/override severity+category, then write the Decision
+      const sevAnswer = await rl.question(
+        `  Severity [${inferredSeverity}] — press Enter to accept or type H0/H1/H2/H3a/H3b: `
+      );
+      const severity = sevAnswer.trim() || inferredSeverity;
 
-      // Q2: Category
-      out('\n  2. Category — what type of issue is this?\n');
-      CATEGORIES.forEach((c, i) => out(`     ${String(i + 1).padStart(2)}. ${c.value.padEnd(26)} ${c.label}`));
-      const catIdx = await this.askNumber(rl, `\n  Select (1-${CATEGORIES.length}): `, 1, CATEGORIES.length);
-      const category = CATEGORIES[catIdx - 1].value;
+      const catAnswer = await rl.question(
+        `  Category [${inferredCategory}] — press Enter to accept or type category: `
+      );
+      const category = catAnswer.trim() || inferredCategory;
 
-      // Q3: Decision
+      // The one mandatory human field
       const decision = await this.askText(rl,
-        '\n  3. Decision — what happened? (one sentence, min 15 chars)\n  > ',
+        '\n  Decision — what constraint did you discover that wasn\'t in the spec?\n  (This is the only field that can\'t be inferred)\n  > ',
         15, 'Decision'
-      );
-
-      // Q4: Constraint
-      const constraint = await this.askText(rl,
-        '\n  4. Constraint — what limitation did you discover? ("None encountered" is acceptable)\n  > ',
-        10, 'Constraint'
-      );
-
-      // Q5: Cost
-      const cost = await this.askText(rl,
-        '\n  5. Cost — what debt was introduced, if any? ("None introduced" is acceptable)\n  > ',
-        10, 'Cost'
-      );
-
-      // Q6: Forward Action
-      const forwardAction = await this.askText(rl,
-        '\n  6. Forward Action — what should happen next? ("None required" is acceptable)\n  > ',
-        5, 'Forward Action'
       );
 
       out('\n  ✔ Hansei complete.\n');
 
-      return this.format({ severity, category, decision, constraint, cost, forwardAction });
+      return this.format({
+        severity,
+        category,
+        decision,
+        constraint: inferredConstraint,
+        cost: inferredCost,
+        forwardAction: inferredForwardAction,
+      });
+
     } finally {
       rl.close();
     }
@@ -140,15 +180,6 @@ export class HanseiWizard {
       `**Cost:** ${block.cost}`,
       `**Forward Action:** ${block.forwardAction}`,
     ].join('\n') + '\n';
-  }
-
-  private async askNumber(rl: readline.Interface, prompt: string, min: number, max: number): Promise<number> {
-    while (true) {
-      const answer = await rl.question(prompt);
-      const n = parseInt(answer.trim(), 10);
-      if (!isNaN(n) && n >= min && n <= max) return n;
-      out(`  Please enter a number between ${min} and ${max}.`);
-    }
   }
 
   private async askText(rl: readline.Interface, prompt: string, minLen: number, fieldName: string): Promise<string> {
