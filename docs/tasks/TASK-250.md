@@ -22,10 +22,45 @@ Existing command names become aliases or are deprecated with a migration message
 
 ### Gaps
 
-- **Current command inventory**: `arch review`, `arch task`, `arch govern`, `arch reflect`, `arch report`, `arch ask`, `arch causal`, `arch index`, `arch loop`, `arch batch`, `arch drain`, `arch conduct`, `arch sandbox`, `arch exec`, `arch mv`, `arch inbox`, `arch capture`, `arch validate`. Routing analysis needed to confirm which map cleanly to each of the four verb domains before index.ts is touched.
-- **Deprecation message format**: No existing pattern for emitting deprecation warnings in this CLI. Format (stderr vs stdout, prefix style) needs to be decided before implementation to avoid inconsistency across commands.
-- **`arch capture` placement**: `arch capture` creates a task from natural language intent — not obviously a `task` subcommand (intake) or `govern` operation (scheduling). Placement decision required before dispatch table is written.
-- **Two-version alias lifecycle**: "two minor releases" assumes semver discipline. Pre-1.0, minor versions are not formally cut. Alias policy should reference an explicit removal condition rather than a version count.
+All gaps resolved. Implementation may proceed.
+
+**Command-to-domain mapping** (from index.ts inventory, 2026-05-18):
+
+| Domain | Canonical path | Legacy alias (deprecated) |
+|---|---|---|
+| `arch review` | `arch review` | `arch validate`, `arch lint` (already deprecated) |
+| `arch task` | already canonical | — |
+| `arch task capture` | new subcommand | `arch capture` |
+| `arch task loop` | new subcommand | `arch loop` |
+| `arch task batch` | new subcommand | `arch batch` |
+| `arch task drain` | new subcommand | `arch drain` |
+| `arch task sandbox` | new subcommand | `arch sandbox` |
+| `arch task mv` | new subcommand | `arch mv` |
+| `arch task exec` | new subcommand | `arch exec` |
+| `arch task merge-resolve` | new subcommand | `arch merge-resolve` |
+| `arch task verify-acs` | new subcommand | `arch verify-acs` |
+| `arch task next` | already exists as subcommand | `arch next` (already deprecated) |
+| `arch task rank` | already exists as subcommand | `arch rank` (already deprecated) |
+| `arch task promote` | already exists as subcommand | `arch promote` (already deprecated) |
+| `arch govern` | already canonical | — |
+| `arch govern reflect` | new subcommand | `arch reflect` |
+| `arch govern report` | new subcommand | `arch report` |
+| `arch govern inbox` | new subcommand | `arch inbox` |
+| `arch govern conduct` | new subcommand | `arch conduct` |
+| `arch govern approve` | new subcommand | `arch approve` |
+| `arch memory ask` | new subcommand | `arch ask` |
+| `arch memory causal` | new subcommand | `arch causal` |
+| `arch memory index` | new subcommand | `arch index` |
+| `arch memory explain` | new subcommand | `arch explain` |
+| `arch memory deps` | new subcommand | `arch deps` |
+| Flat | `arch init` | — (bootstrap, no domain) |
+| Flat | `arch version` | — |
+
+**Deprecation message format**: use existing pattern already in index.ts — `process.stderr.write("Warning: 'arch <old>' is deprecated. Use 'arch <new>' instead.\n")`. No new format needed.
+
+**`arch capture` placement**: `arch task capture` — it creates a task (task lifecycle intake), not a governance operation.
+
+**Alias lifecycle pre-1.0**: "two minor releases" replaced with: aliases remain until removed in a dedicated deprecation-removal task that requires explicit operator approval. No version-count commitment pre-1.0.
 
 ### Acceptance Criteria
 
@@ -46,7 +81,7 @@ Existing command names become aliases or are deprecated with a migration message
 
 - **Canonical closure verb:** use `arch task close`. `DONE` remains status vocabulary only. `arch task done` and any equivalent legacy completion entrypoints become deprecated aliases.
 - **`arch review` stays flat:** `arch review` remains a first-class top-level verb because it is a daily safety action, not a governance subroutine. `govern` absorbs `reflect` and `report`, not `review`.
-- **Alias policy:** deprecated top-level aliases remain for two minor releases beginning with the first release that ships the four-verb surface, then are removed.
+- **Alias policy:** deprecated top-level aliases remain until a dedicated deprecation-removal task is explicitly approved by the operator. Pre-1.0, no version-count commitment — removal requires an explicit decision, not a calendar.
 - **Help ownership:** each canonical verb and subcommand owns its own `--help` output. Top-level help lists the four domains and points users to subcommand help; no generated monolithic help page is required in this task.
 
 ## Hansei
