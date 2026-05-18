@@ -1,5 +1,6 @@
 ## TASK-249: Tighten refinement funnel admission and TTL rules
 **Meta:** P1 | S | IN_PROGRESS | Focus:yes | 6-writing | claude | docs/refinement/, docs/agents/THINK.md, docs/INBOX.md, arch.config.json
+**ADR:** ADR-021
 
 ### Context
 

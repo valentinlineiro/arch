@@ -134,6 +134,9 @@
       "cost": 2.0
     }
   },
+  "refinement": {
+    "ttlCycles": 10
+  },
   "contextBudget": {
     "docs/tasks": 1000,
     "docs/archive": 8000,
