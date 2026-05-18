@@ -1,5 +1,5 @@
 ## TASK-938: Implement active constraint injection - preflight scan on arch task start
-**Meta:** P1 | M | READY | Focus:no | 2-code-generation | claude | cli/src/main/ts/application/commands/task-command.ts, .arch/context-index.json, docs/adr/, docs/tensions/
+**Meta:** P1 | M | IN_PROGRESS | Focus:yes | 2-code-generation | claude | cli/src/main/ts/application/commands/task-command.ts, .arch/context-index.json, docs/adr/, docs/tensions/
 
 ### Context
 

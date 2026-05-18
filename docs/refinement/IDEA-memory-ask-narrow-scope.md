@@ -44,4 +44,5 @@ S
 <!-- THINK fills this section — do not edit manually -->
 
 ## Decision
-<!-- Human writes PROMOTE → TASK-XXX or REJECT here -->
+PROMOTE → TASK-942
+[influenced-by: none]
