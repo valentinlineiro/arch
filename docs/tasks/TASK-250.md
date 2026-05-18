@@ -1,5 +1,5 @@
 ## TASK-250: Unify CLI surface by intent-based verb domains
-**Meta:** P1 | L | READY | Focus:no | 2-code-generation | claude | cli/src/main/ts/index.ts, cli/src/main/ts/application/, docs/agents/DO.md, docs/agents/THINK.md
+**Meta:** P1 | M | READY | Focus:no | 2-code-generation | claude | cli/src/main/ts/index.ts, cli/src/main/ts/application/, docs/agents/DO.md, docs/agents/THINK.md
 
 ### Context
 
@@ -12,6 +12,20 @@ The goal is a four-verb intent surface:
 - `arch govern` — all governance and scheduling operations (govern, reflect, report)
 
 Existing command names become aliases or are deprecated with a migration message. Nothing in the engine changes — only the dispatch layer and documentation.
+
+### Non-Goals
+
+- No governance semantics changes (task lifecycle, escalation, audit rules unchanged)
+- No routing semantics changes (actor routing, strategy config unchanged)
+- No new runtime behavior (no new capabilities added to existing commands)
+- No removal of aliases until a separate deprecation-removal task is scoped
+
+### Gaps
+
+- **Current command inventory**: `arch review`, `arch task`, `arch govern`, `arch reflect`, `arch report`, `arch ask`, `arch causal`, `arch index`, `arch loop`, `arch batch`, `arch drain`, `arch conduct`, `arch sandbox`, `arch exec`, `arch mv`, `arch inbox`, `arch capture`, `arch validate`. Routing analysis needed to confirm which map cleanly to each of the four verb domains before index.ts is touched.
+- **Deprecation message format**: No existing pattern for emitting deprecation warnings in this CLI. Format (stderr vs stdout, prefix style) needs to be decided before implementation to avoid inconsistency across commands.
+- **`arch capture` placement**: `arch capture` creates a task from natural language intent — not obviously a `task` subcommand (intake) or `govern` operation (scheduling). Placement decision required before dispatch table is written.
+- **Two-version alias lifecycle**: "two minor releases" assumes semver discipline. Pre-1.0, minor versions are not formally cut. Alias policy should reference an explicit removal condition rather than a version count.
 
 ### Acceptance Criteria
 
