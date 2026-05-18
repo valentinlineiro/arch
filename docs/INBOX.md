@@ -1,33 +1,22 @@
 # ARCH INBOX
-<!-- ARCH Framework v0.6.0 | Human-only | Automated processes must never read this file. -->
 
-## Loop Status
-- **Date:** 2026-05-18
-- **Active Tasks:** 1
-- **READY Tasks:** 44
+**Status:** 2026-05-18T07:08:12Z
+**Loop Status:** HEALTHY
+**Active Tasks:** 1
+**READY Tasks:** 44
+**Pending Items:**
+- AWAITING_PROMOTION: 4
+- AWAITING_REVIEW: 0
 
-## Pending Items
-### AWAITING_REVIEW
-- None
+## Refinement Queue (4 ideas)
+- IDEA: fix-commit-exception-contradiction (Decision required)
+- IDEA: fix-decomposition-duplication (Decision required)
+- IDEA: fix-governance-terminology-collision (Decision required)
+- IDEA: Temporal Pattern Layer for Causal Discovery (Decision required)
 
-### AWAITING_PROMOTION
-- [ ] IDEA: fix-commit-exception-contradiction
-- [ ] IDEA: fix-decomposition-duplication
-- [ ] IDEA: fix-governance-terminology-collision
-- [ ] IDEA: temporal-pattern-layer
-
-## Recently Completed
-- TASK-922: arch capture v2: single intake command producing a READY task
-- TASK-921: AC predicate suggestions in arch task create: class-appropriate scaffolding
-- TASK-918: Audit cli/package.json for npm publish readiness
-- TASK-917: Fix MetricsEngine calibration: accept IN_PROGRESS->DONE as valid completion
-- TASK-916: Cost tracking per provider : actual token counts in arch report
-
----
-
-## [2026-05-18] THINK_NOTE | Phase 1 Context
-Backlog: 44 READY tasks (threshold met).
-IDEAs: 4 pending in refinement queue.
-Active: TASK-919 is IN_PROGRESS (Focus:no).
-Health: No stale locks detected.
-
+## Last 5 Completed Tasks
+- **TASK-254**: Audit THINK phases for structural necessity vs. optional analysis. Classified phases into structural, deferrable, and overhead.
+- **TASK-251**: Narrowed official metrics output to trusted subset (Completed tasks, Review fail rate, Cycle time).
+- **TASK-257**: Implemented lightweight trusted-metrics refresh on task closure and govern ticks.
+- **TASK-256**: Cut Phase 3 "Immediate Improvements" and added Kaizen evidence gate to THINK.md.
+- **TASK-255**: Split THINK into structural default loop and --deep mode with cadence triggering.
