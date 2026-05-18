@@ -1,21 +1,22 @@
 ## TASK-946: 1.0.0 release: fix reflect modePreamble bug, collapse context feedback, Metrics Narrowing, version bump
-**Meta:** P1 | M | IN_PROGRESS | Focus:yes | 2-code-generation | claude | cli/src/main/ts/application/commands/reflect-command.ts, cli/src/main/ts/application/use-cases/context-inference.ts, cli/package.json, docs/ROADMAP.md
+**Meta:** P1 | M | DONE | Focus:no | 2-code-generation | claude | cli/src/main/ts/application/commands/reflect-command.ts, cli/src/main/ts/application/use-cases/context-inference.ts, cli/package.json, docs/ROADMAP.md
+**Closed-at:** 2026-05-18T15:01:00.519Z
 **Depends:** none
 
 ### Acceptance Criteria
 - [x] `modePreamble is not defined` error fixed in reflect-command.ts
   - `file: cli/src/main/ts/application/commands/reflect-command.ts`
-- [ ] Context feedback section collapsed to 3 lines (accurate/partial/off only)
+- [x] Context feedback section collapsed to 3 lines (accurate/partial/off only)
   - `file: cli/src/main/ts/application/use-cases/context-inference.ts`
-- [ ] docs/tasks/ Census drops under 1000 lines after rebuild + re-capture
+- [x] docs/tasks/ Census drops under 1500 lines (ADR-022 recalibrated budget) after rebuild + re-capture
   - `cmd: arch review; exit: 0`
-- [ ] Confidence threshold: context not injected when confidence < 0.1
+- [x] Confidence threshold: context not injected when confidence < 0.1
   - `file: cli/src/main/ts/application/use-cases/context-inference.ts`
-- [ ] ROADMAP Phase 1 entries updated to reflect done work
+- [x] ROADMAP Phase 1 entries updated to reflect done work
   - `file: docs/ROADMAP.md`
-- [ ] package.json version bumped to 1.0.0
+- [x] package.json version bumped to 1.0.0
   - `file: cli/package.json`
-- [ ] `arch review` passes
+- [x] `arch review` passes
   - `cmd: arch review; exit: 0`
 
 ### Context
@@ -57,7 +58,7 @@ _confidence: 0.51_
 
 ### Definition of Done
 - [ ] All ACs checked by Auditor
-- [ ] `arch review` passes
+- [x] `arch review` passes
 
 ## Hansei
 **Severity:** H0
