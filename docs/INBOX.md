@@ -194,3 +194,13 @@ ACs verified: 4 domain cases in index.ts; 25 deprecated() calls; 0 old flat refe
 | TASK-FORMAT.md DoD exemption documented | grep: "XS" docs/TASK-FORMAT.md | present at line 126-127 |
 | arch review passes | cmd: bash scripts/arch.sh review | ✔ System Review: OK |
 | CLI tests pass | cmd: npm test --prefix cli | ✔ 4 pre-existing failures only (DeterministicACVerifier, SandboxService) |
+
+## [AWAITING_REVIEW] TASK-941 [L3-AUTO]
+**Closed:** 2026-05-18T12:17:31.500Z
+**Title:** Verify Stripped Template Generation for Small Task
+
+| AC | Type | Pass | Detail |
+|---|---|---|---|
+| Operate on a minimalistic instance to confirm functionality. | cmd | ✔ | exit 0 (expected 0) |
+| Output should be stripped of unnecessary details while maint | cmd | ✔ | exit 0 (expected 0) |
+| `arch review` passes | cmd | ✔ | exit 0 (expected 0) |

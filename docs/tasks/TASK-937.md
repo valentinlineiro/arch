@@ -21,17 +21,17 @@ This task targets those three friction points without touching the L3 gate, Audi
 
 ### Acceptance Criteria
 
-- [ ] `arch task capture` with `--size XS` and class `6-writing` or `7-operations` generates a stripped template: one AC line, no Definition of Done section, no Hansei placeholder.  →  prose: verified by running arch task capture with XS size and inspecting generated task file
-- [ ] `arch task done TASK-XXX` on an XS task with no trigger condition (no blocker, no size miss, no M+) skips the Hansei wizard entirely and proceeds to close without TTY interaction.  →  prose: verified by running arch task done on a clean XS task in non-interactive mode
-- [ ] `docs/TASK-FORMAT.md` explicitly documents that Definition of Done is optional for XS tasks (not just "may be omitted" — canonical statement).  →  grep: "XS" docs/TASK-FORMAT.md
-- [ ] `arch review` passes.  →  cmd: bash scripts/arch.sh review; exit: 0
-- [ ] CLI tests pass.  →  cmd: npm test --prefix cli; exit: 0
+- [x] `arch task capture` with `--size XS` and class `6-writing` or `7-operations` generates a stripped template: one AC line, no Definition of Done section, no Hansei placeholder.  →  prose: verified by running arch task capture with XS size and inspecting generated task file
+- [x] `arch task done TASK-XXX` on an XS task with no trigger condition (no blocker, no size miss, no M+) skips the Hansei wizard entirely and proceeds to close without TTY interaction.  →  prose: verified by running arch task done on a clean XS task in non-interactive mode
+- [x] `docs/TASK-FORMAT.md` explicitly documents that Definition of Done is optional for XS tasks (not just "may be omitted" — canonical statement).  →  grep: "XS" docs/TASK-FORMAT.md
+- [x] `arch review` passes.  →  cmd: bash scripts/arch.sh review; exit: 0
+- [x] CLI tests pass.  →  cmd: npm test --prefix cli; exit: 0
 
 ### Definition of Done
 
-- [ ] A developer creating an XS operational task via `arch task capture` gets a minimal template without manual editing.
-- [ ] The automated loop can close an XS task with no trigger conditions without human TTY interaction.
-- [ ] `arch review` passes.  →  cmd: bash scripts/arch.sh review; exit: 0
+- [x] A developer creating an XS operational task via `arch task capture` gets a minimal template without manual editing.
+- [x] The automated loop can close an XS task with no trigger conditions without human TTY interaction.
+- [x] `arch review` passes.  →  cmd: bash scripts/arch.sh review; exit: 0
 
 ## Hansei
 **Severity:** H0
