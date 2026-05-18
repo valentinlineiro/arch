@@ -201,6 +201,22 @@ test('MetricsEngine - multiple DONE->DONE events use first, not INVALID', async 
   assert.notStrictEqual(metrics.integrityLevel, 'INVALID', 'Duplicate DONE->DONE should use first, not mark INVALID');
 });
 
+test('ArchiveParser - skips archived tasks with non-DONE status', async () => {
+  const fs = new MockFileSystem();
+  const git = new MockGitRepository();
+  const parser = new ArchiveParser(fs, git);
+
+  fs.dirs['docs/archive'] = ['TASK-001.md', 'TASK-002.md'];
+  fs.files['docs/archive/TASK-001.md'] = '## TASK-001: Done Task\n**Meta:** P1 | XS | DONE | Focus:no | 2-code-generation | local | cli/\n**Closed-at:** 2026-05-13T10:00:00Z\n';
+  fs.files['docs/archive/TASK-002.md'] = '## TASK-002: Ready Task\n**Meta:** P2 | S | READY | Focus:no | 2-code-generation | local | cli/\n';
+  git.commits = [];
+
+  const metrics = await parser.parseArchivedTasks();
+
+  assert.strictEqual(metrics.length, 1, 'Should only include DONE tasks');
+  assert.strictEqual(metrics[0].id, 'TASK-001');
+});
+
 test('EventLogger.append produces output parseable by MetricsEngine.loadEvents', async () => {
   const fs = new MockFileSystem();
   const git = new MockGitRepository();
