@@ -21,3 +21,6 @@ Add a status validation in `checkArchiveMetaIntegrity`: flag any file in `docs/a
 - [ ] Existing green tasks are not affected.
 
 ### Decision-required: no
+
+## Decision
+PROMOTE → TASK-932. Add status validation to checkArchiveMetaIntegrity using the same field-scan already in ArchiveParser.

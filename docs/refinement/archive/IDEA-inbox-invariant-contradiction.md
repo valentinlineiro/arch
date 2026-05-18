@@ -34,3 +34,6 @@ The protocol claims INBOX is a write-only human surface; the implementation trea
 - [ ] git sync policy is stated without contradiction across AGENTS.md and DO.md.
 
 ### Decision-required: yes
+
+## Decision
+PROMOTE → TASK-930. INBOX machine reads are bugs, not exceptions. Keep INBOX write-only for automation; machine control signals move to .arch/ structured state.

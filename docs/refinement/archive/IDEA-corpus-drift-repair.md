@@ -28,3 +28,6 @@ For each task:
 - [ ] `arch review` warning count does not increase as a result of these fixes.
 
 ### Decision-required: no
+
+## Decision
+PROMOTE → TASK-933.

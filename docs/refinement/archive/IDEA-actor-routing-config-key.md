@@ -31,3 +31,6 @@ Change the read to `config.strategies ?? {}` to match the actual config shape. I
 - [ ] `arch report` actor-level breakdown reflects real actor distribution.
 
 ### Decision-required: no
+
+## Decision
+PROMOTE → TASK-929 (closed 2026-05-18). Fix implemented: read config.strategies (top-level); typeof guard skips model-routing arrays; falls through to config.defaultActor.

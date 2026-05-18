@@ -32,3 +32,6 @@ Decide which model is canonical:
 - [ ] `arch review` does not surface false stale-lock warnings after the fix.
 
 ### Decision-required: yes
+
+## Decision
+PROMOTE → TASK-931 (Option B, scoped). Persist Locked-commit as auxiliary provenance field. Meta line stays canonical; lockedBy/lockedAt remain session-only.

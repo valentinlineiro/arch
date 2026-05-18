@@ -33,3 +33,6 @@ Additionally, `docs/TASK-FORMAT.md:59` exempts only XS tasks, while `docs/AGENTS
 - [ ] `arch review` produces no false-positive `ApprovalPresent` warnings on known-clean tasks.
 
 ### Decision-required: no
+
+## Decision
+PROMOTE → TASK-928 (closed 2026-05-18). Fix implemented: scan all meta fields for class pattern rather than fixed index. Size exemption kept at XS only.

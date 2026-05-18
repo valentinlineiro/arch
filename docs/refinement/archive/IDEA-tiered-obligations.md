@@ -41,3 +41,6 @@ The existing L3 gate (ADR-009) already allows XS/S self-archive for tasks with v
 - [ ] `docs/TASK-FORMAT.md` and `docs/AGENTS.md` reflect the tier model.
 
 ### Decision-required: no
+
+## Decision
+PROMOTE → TASK-934. Tiered Hansei/Approval obligations by size: XS/S triggered-only, M+ mandatory.
