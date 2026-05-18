@@ -15,7 +15,7 @@ External review of `arch review` enforcement surface found 7 inconsistencies spa
 | 4 | Medium | IDEA-approval-checker-field-index | checkApprovalPresent reads parts[5] (CLI field) instead of parts[4] (class); produces false-positive warnings | **PROMOTED → TASK-928 (DONE)** |
 | 5 | Medium | IDEA-actor-routing-config-key | mark-task-in-progress reads config.routing?.strategies (undefined); actual key is config.strategies | **PROMOTED → TASK-929 (DONE)** |
 | 6 | Medium | IDEA-inbox-invariant-contradiction *(bundled with finding 1)* | git sync policy contradicts itself across AGENTS.md and DO.md | Deferred — git sync decision not yet made; TASK-930 covers INBOX reads only |
-| 7 | Medium | IDEA-corpus-drift-repair | TASK-249, TASK-919, TASK-258 violate operational conventions in committed state | UNDECIDED |
+| 7 | Medium | IDEA-corpus-drift-repair | TASK-249, TASK-919, TASK-258 violate operational conventions in committed state | **PROMOTED → TASK-933 (READY)** |
 
 ### Acceptance Criteria
 
@@ -24,7 +24,7 @@ External review of `arch review` enforcement surface found 7 inconsistencies spa
 - [x] IDEA-inbox-invariant-contradiction evaluated (PROMOTE → TASK-930).
 - [x] IDEA-archive-status-drift-check evaluated (PROMOTE → TASK-932).
 - [x] IDEA-lock-model-contradiction evaluated (PROMOTE → TASK-931).
-- [ ] IDEA-corpus-drift-repair evaluated (PROMOTE or REJECT).
+- [x] IDEA-corpus-drift-repair evaluated (PROMOTE → TASK-933).
 - [ ] High-severity findings (1, 2, 3) resolved: TASK-930, 931, 932 all closed.
 - [ ] `arch review` warning count does not increase after remediation commits.
 - [ ] `arch report` passes after remediation.
@@ -35,7 +35,7 @@ External review of `arch review` enforcement surface found 7 inconsistencies spa
 - [x] IDEA-inbox-invariant-contradiction has a Decision field (PROMOTE → TASK-930).
 - [x] IDEA-archive-status-drift-check has a Decision field (PROMOTE → TASK-932).
 - [x] IDEA-lock-model-contradiction has a Decision field (PROMOTE → TASK-931).
-- [ ] IDEA-corpus-drift-repair has a Decision field.
+- [x] IDEA-corpus-drift-repair has a Decision field.
 - [ ] TASK-930, 931, 932 closed (High findings resolved).
 - [ ] `arch review` passes.
 

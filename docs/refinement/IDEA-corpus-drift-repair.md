@@ -1,8 +1,8 @@
 ## IDEA: corpus-drift-repair
 
-**Status:** DRAFT
+**Status:** PROMOTED
 **Sessions:** 1
-**Decision:** UNDECIDED
+**Decision:** PROMOTE → TASK-933
 
 ### Problem
 
