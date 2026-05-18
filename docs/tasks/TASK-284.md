@@ -9,7 +9,7 @@ CORE.md requires tasks to comply with TASK-FORMAT.md before READY status, but th
 
 - [ ] `arch review` parses `docs/tasks/*.md` with status READY or REVIEW and validates: Meta line present with valid Size, Acceptance Criteria section present, Definition of Done section present.
 - [ ] A violation produces a non-zero exit from `arch review` with a clear error message identifying the malformed task.
-- [ ] `arch review` passes.  →  cmd: bash scripts/arch.sh review; exit: 0
+- [ ] `arch review` passes.  →  cmd: arch review; exit: 0
 
 ### Definition of Done
 

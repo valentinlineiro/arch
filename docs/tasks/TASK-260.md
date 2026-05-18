@@ -9,7 +9,7 @@ The root `AGENTS.md` is a stale v0.1 file with non-English content, while `GEMIN
 
 - [ ] Root `AGENTS.md` is deleted and `GEMINI.md` (symlink to `docs/AGENTS.md`) is the sole authoritative entry point.
 - [ ] No remaining references to the stale root `AGENTS.md` exist in operational docs or CLI code.
-- [ ] `arch review` passes.  →  cmd: bash scripts/arch.sh review; exit: 0
+- [ ] `arch review` passes.  →  cmd: arch review; exit: 0
 
 ### Definition of Done
 

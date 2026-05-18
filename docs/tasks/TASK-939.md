@@ -25,14 +25,14 @@ This task implements the correction signal schema and the three initial capture 
 - [ ] Capture point 1: `arch task done --redirect TASK-XXX` prompts for a one-line summary and category, then appends a correction signal with `source_type: redirect`, `authority: low`.  →  prose: verified by redirecting a task and inspecting the signal file
 - [ ] Capture point 2: `arch govern approve TASK-XXX --correction "<category>: <summary>"` appends a correction signal with `source_type: operator_override`, `authority: low`.  →  prose: verified by running arch govern approve with --correction flag and inspecting the signal file
 - [ ] Capture point 3: correction signal entries include `file_refs` derived from the task's Context field and `adr_refs` populated when the task's content references an ADR-NNN pattern.  →  prose: verified by inspecting a captured signal for a task with ADR references
-- [ ] `arch review` passes.  →  cmd: bash scripts/arch.sh review; exit: 0
+- [ ] `arch review` passes.  →  cmd: arch review; exit: 0
 - [ ] CLI tests pass.  →  cmd: npm test --prefix cli; exit: 0
 
 ### Definition of Done
 
 - [ ] A REVIEW_FAIL or REDIRECT event can be accompanied by a structured correction signal without leaving the CLI.
 - [ ] Correction signals are queryable as a flat jsonl file with enough structure to support future THINK-driven clustering.
-- [ ] `arch review` passes.  →  cmd: bash scripts/arch.sh review; exit: 0
+- [ ] `arch review` passes.  →  cmd: arch review; exit: 0
 
 ## Hansei
 **Severity:** H0

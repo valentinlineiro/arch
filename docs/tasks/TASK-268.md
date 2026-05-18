@@ -8,7 +8,7 @@ ADR-013 references "THINK Phase 3.5" for semantic drift analysis, but `docs/agen
 ### Acceptance Criteria
 
 - [ ] ADR-013 and THINK.md reference the same phase name for the semantic drift analysis phase (either "Phase 2.5" or "Phase 3.5" — one document is updated to match the other).
-- [ ] `arch review` passes.  →  cmd: bash scripts/arch.sh review; exit: 0
+- [ ] `arch review` passes.  →  cmd: arch review; exit: 0
 
 ### Definition of Done
 

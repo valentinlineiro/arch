@@ -24,12 +24,12 @@ These are not facts — they are signals at bootstrap confidence. The existing c
 - [ ] No auto-emission occurs for tasks with empty Context and no Depends field (no-op, not an error).  →  prose: verified by reading guard clause in mark-task-done.ts
 - [ ] Signal emission happens only after the task has been successfully persisted as `DONE`; signal-write failure does not roll back task closure.  →  prose: verified by reading mark-task-done.ts save/emission order
 - [ ] CLI tests cover: auto-emission with ADR context, auto-emission with Depends, no-op with empty fields.  →  cmd: npm test --prefix cli; exit: 0
-- [ ] `arch review` passes.  →  cmd: bash scripts/arch.sh review; exit: 0
+- [ ] `arch review` passes.  →  cmd: arch review; exit: 0
 
 ### Definition of Done
 
 - [ ] Closing a task with a populated Context field (referencing an ADR) and a Depends field produces new entries in `.arch/causal-signal.jsonl` without any operator action.
-- [ ] `arch review` passes.  →  cmd: bash scripts/arch.sh review; exit: 0
+- [ ] `arch review` passes.  →  cmd: arch review; exit: 0
 
 ### Decisions
 

@@ -9,7 +9,7 @@
 
 - [ ] All malformed meta lines in `docs/archive/` are identified and corrected with appropriate field values derived from context.
 - [ ] `arch review` includes a pre-archive guard that fails if a task being archived has a malformed meta line.
-- [ ] `arch review` passes.  →  cmd: bash scripts/arch.sh review; exit: 0
+- [ ] `arch review` passes.  →  cmd: arch review; exit: 0
 
 ### Definition of Done
 

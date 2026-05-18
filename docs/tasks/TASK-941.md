@@ -18,14 +18,14 @@
 - [x] `arch task capture "<intent>"` with no `--draft` flag never calls `tryLlmDraft()` and completes without an LLM provider configured.  →  prose: `execute()` has `draftMode = false` default; `if (draftMode)` guard skips draftFn entirely. Confirmed in `create-task.ts:65,68`.
 - [x] `arch task capture "<intent>" --draft` invokes `tryLlmDraft()` and uses the result if a provider is available.  →  prose: `draftMode=true` calls `draftFn ?? tryLlmDraft` at `create-task.ts:69`. Covered by test `does not call LLM when draftMode is false`.
 - [x] `arch task capture "<intent>" --draft` with no provider configured fails explicitly with a clear error message (not silent fallback to defaults).  →  prose: catch block at `create-task.ts:73` throws `'--draft flag requires a configured LLM provider...'`. Covered by test.
-- [x] `arch review` passes.  →  cmd: bash scripts/arch.sh review; exit: 0
+- [x] `arch review` passes.  →  cmd: arch review; exit: 0
 - [x] CLI tests pass.  →  cmd: npm test --prefix cli; exit: 0
 
 ### Definition of Done
 
 - [x] A developer running `arch task capture` never waits for an LLM call unless they explicitly opt in.
 - [x] The `--draft` flag is documented in capture help text.
-- [x] `arch review` passes.  →  cmd: bash scripts/arch.sh review; exit: 0
+- [x] `arch review` passes.  →  cmd: arch review; exit: 0
 
 ## Hansei
 **Severity:** H0

@@ -9,7 +9,7 @@ ARCH currently executes all tasks directly on `main`, preventing isolated execut
 
 - [ ] `arch task start TASK-XXX` creates and checks out a `task/TASK-XXX` branch automatically.
 - [ ] `arch task review TASK-XXX` pushes the branch and opens a PR or prepares for merge per the configured strategy (`squash | ff-only | merge`) in `arch.config.json`.
-- [ ] `arch review` passes.  →  cmd: bash scripts/arch.sh review; exit: 0
+- [ ] `arch review` passes.  →  cmd: arch review; exit: 0
 
 ### Definition of Done
 

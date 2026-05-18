@@ -9,7 +9,7 @@ Agents currently accumulate context by loading large document sets, causing toke
 
 - [ ] `arch index` builds/updates a vector index at `docs/.rag/index.db` from the ARCH corpus (tasks, archive, ADRs, guidelines).
 - [ ] `arch rag <query>` returns the top-K relevant chunks from the index without requiring any external API key.
-- [ ] `arch review` passes.  →  cmd: bash scripts/arch.sh review; exit: 0
+- [ ] `arch review` passes.  →  cmd: arch review; exit: 0
 
 ### Definition of Done
 

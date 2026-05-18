@@ -9,7 +9,7 @@ EscalationMaturity currently treats protected-path deletions the same as additio
 
 - [ ] `DriftChecker` implements `ExcisionStructuralCheck` with Gate 1 (reference-clean), Gate 2 (decision-record exists), and Gate 3 (build-clean) logic.
 - [ ] Protected-path deletions passing all 3 gates emit `ExcisionCheck: PASS` and do not require an ADR; failures emit `ExcisionCheck: FAIL` with an ADR requirement.
-- [ ] `arch review` passes.  →  cmd: bash scripts/arch.sh review; exit: 0
+- [ ] `arch review` passes.  →  cmd: arch review; exit: 0
 
 ### Definition of Done
 

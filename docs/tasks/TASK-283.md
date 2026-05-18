@@ -9,7 +9,7 @@ DO.md mandates Sentinel preflight reasoning calls for high-cost or high-risk ope
 
 - [ ] `docs/SENTINEL-LOG.md` format is defined and `arch sentinel log TASK-XXX --trigger "<reason>" --outcome GO|HALT` appends validated entries.
 - [ ] A `SentinelCoverage` drift check in `arch review` verifies at least one SENTINEL-LOG entry exists for IN_PROGRESS tasks above the configured cost threshold.
-- [ ] `arch review` passes.  →  cmd: bash scripts/arch.sh review; exit: 0
+- [ ] `arch review` passes.  →  cmd: arch review; exit: 0
 
 ### Definition of Done
 

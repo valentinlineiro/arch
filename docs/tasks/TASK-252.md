@@ -1,5 +1,5 @@
 ## TASK-252: Introduce size-tiered closure and review obligations
-**Meta:** P1 | M | READY | Focus:no | 6-writing | claude | docs/TASK-FORMAT.md, docs/agents/DO.md, cli/src/main/ts/application/use-cases/mark-task-done.ts, cli/src/main/ts/domain/services/task-validator.ts
+**Meta:** P1 | M | READY | Focus:yes | 6-writing | claude | docs/TASK-FORMAT.md, docs/agents/DO.md, cli/src/main/ts/application/use-cases/mark-task-done.ts, cli/src/main/ts/domain/services/task-validator.ts
 
 ### Context
 
@@ -29,13 +29,13 @@ Implementation cut for this task:
 - [ ] `cli/src/main/ts/domain/services/task-validator.ts` enforces Hansei as optional for XS/S and required for M/L.  →  grep: "XS\|tiered\|hansei.*optional" cli/src/main/ts/domain/services/task-validator.ts
 - [ ] `mark-task-done.ts` skips the REVIEW stage for XS tasks and transitions directly to DONE when `arch review` passes.  →  prose: verified by reading mark-task-done.ts XS path
 - [ ] CLI tests cover XS direct-to-DONE path and M Hansei-required path.  →  cmd: npm test --prefix cli; exit: 0
-- [ ] `arch review` passes.  →  cmd: bash scripts/arch.sh review; exit: 0
+- [ ] `arch review` passes.  →  cmd: arch review; exit: 0
 
 ### Definition of Done
 
 - [ ] An XS task can be closed with `arch task done` (or equivalent) without writing a Hansei block, with `arch review` as the sole gate.
 - [ ] An M task without a Hansei block is rejected at closure by the validator.
-- [ ] `arch review` passes.  →  cmd: bash scripts/arch.sh review; exit: 0
+- [ ] `arch review` passes.  →  cmd: arch review; exit: 0
 
 ### Decisions
 

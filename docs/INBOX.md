@@ -192,7 +192,7 @@ ACs verified: 4 domain cases in index.ts; 25 deprecated() calls; 0 old flat refe
 | XS stripped template for 6-writing/7-operations | prose | scaffold() emits no DoD or Hansei for XS+lightweight class |
 | S/XS close path skips Hansei gate | prose | validateHanseiRequirement returns null for size not in M/L/XL |
 | TASK-FORMAT.md DoD exemption documented | grep: "XS" docs/TASK-FORMAT.md | present at line 126-127 |
-| arch review passes | cmd: bash scripts/arch.sh review | ✔ System Review: OK |
+| arch review passes | cmd: arch review | ✔ System Review: OK |
 | CLI tests pass | cmd: npm test --prefix cli | ✔ 4 pre-existing failures only (DeterministicACVerifier, SandboxService) |
 
 ## [AWAITING_REVIEW] TASK-941 [L3-AUTO]
@@ -215,7 +215,7 @@ ACs verified: 4 domain cases in index.ts; 25 deprecated() calls; 0 old flat refe
 | Silent when no overlap | prose | verified: no output for tasks with no matching paths |
 | < 500ms on current corpus | prose | verified: preflight completes in <50ms on 21 ADRs, 5 tensions, ~940 archive tasks |
 | Stdout only — no writes | grep: no append calls in constraint-preflight.ts | ConstraintPreflight has no appendFile/writeFile calls |
-| arch review passes | cmd: bash scripts/arch.sh review | ✔ System Review: OK (after commit) |
+| arch review passes | cmd: arch review | ✔ System Review: OK (after commit) |
 | CLI tests pass | cmd: npm test --prefix cli | ✔ 9 new tests pass; 4 pre-existing failures only |
 
 ## [REVIEW_REQUEST] TASK-941
@@ -227,7 +227,7 @@ ACs verified: 4 domain cases in index.ts; 25 deprecated() calls; 0 old flat refe
 | capture without --draft never calls LLM | prose | draftMode=false skips tryLlmDraft; test confirms llmCalled=false |
 | --draft invokes LLM | prose | draftMode=true calls draftFn; test confirms llmCalled=true |
 | --draft with no provider throws explicit error | prose | draftFn throws → re-thrown with clear message |
-| arch review passes | cmd: bash scripts/arch.sh review | ✔ System Review: OK |
+| arch review passes | cmd: arch review | ✔ System Review: OK |
 | CLI tests pass | cmd: npm test --prefix cli | ✔ all new tests pass |
 
 ## [REVIEW_REQUEST] TASK-942
@@ -240,5 +240,5 @@ ACs verified: 4 domain cases in index.ts; 25 deprecated() calls; 0 old flat refe
 | CORPUS_DIRS scoped to archive + adr | grep: CORPUS_DIRS ask-corpus.ts | docs/tasks and docs/guidelines removed |
 | answer field removed from AskResult | grep: no answer field in AskResult interface | removed; buildCauseGroups + extractDefinitionalAnswer also deleted |
 | deterministic comment in ask-corpus.ts | grep: "deterministic" ask-corpus.ts | present at line 14 |
-| arch review passes | cmd: bash scripts/arch.sh review | ✔ System Review: OK |
+| arch review passes | cmd: arch review | ✔ System Review: OK |
 | CLI tests pass | cmd: npm test --prefix cli | ✔ all tests pass |

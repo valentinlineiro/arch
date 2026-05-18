@@ -9,7 +9,7 @@
 
 - [ ] `LoopEngine` reads the count of pending IDEAs and adjusts loop mode: when IDEAs exceed the configured threshold, a REFINE phase is triggered instead of the default EXEC phase.
 - [ ] Threshold is configurable in `arch.config.json` with a default of 20.
-- [ ] `arch review` passes.  →  cmd: bash scripts/arch.sh review; exit: 0
+- [ ] `arch review` passes.  →  cmd: arch review; exit: 0
 
 ### Definition of Done
 

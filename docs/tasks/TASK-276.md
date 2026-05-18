@@ -9,7 +9,7 @@ Guidelines are currently written reactively after failures. ARCH has sufficient 
 
 - [ ] THINK mode analysis includes a step that scans retros, KAIZEN-LOG, and task failure patterns for recurring failure signatures.
 - [ ] When a recurring failure class is detected (configurable threshold), THINK generates a proposed guideline IDEA in `docs/refinement/` with `Source: AI-pattern-detection`.
-- [ ] `arch review` passes.  →  cmd: bash scripts/arch.sh review; exit: 0
+- [ ] `arch review` passes.  →  cmd: arch review; exit: 0
 
 ### Definition of Done
 

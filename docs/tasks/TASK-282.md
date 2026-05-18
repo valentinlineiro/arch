@@ -9,7 +9,7 @@ Architectural constraints (forbidden dependencies, naming conventions, required 
 
 - [ ] `arch.config.json` supports a `policies` block with at least `forbiddenDependencies`, `requiredTestCoverage`, and `namingInvariants` fields.
 - [ ] `arch review` checks each declared policy and emits WARN or ERR violations consistent with existing drift check semantics.
-- [ ] `arch review` passes.  →  cmd: bash scripts/arch.sh review; exit: 0
+- [ ] `arch review` passes.  →  cmd: arch review; exit: 0
 
 ### Definition of Done
 

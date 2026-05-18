@@ -9,7 +9,7 @@
 
 - [ ] `arch.config.json` supports environment-specific `modelTiers` with `local` and `cloud` keys.
 - [ ] `arch setup` or `arch govern` detects the environment (local vs cloud/CI) and applies the appropriate model tier overrides.
-- [ ] `arch review` passes.  →  cmd: bash scripts/arch.sh review; exit: 0
+- [ ] `arch review` passes.  →  cmd: arch review; exit: 0
 
 ### Definition of Done
 

@@ -9,7 +9,7 @@ ARCH's protocol is implicitly tuned for software engineering. Applying it to oth
 
 - [ ] A design document or ADR specifies the domain pack format: structure, activation mechanism in `arch.config.json`, and at least the software pack (current default) formally documented.
 - [ ] The specification is concrete enough to guide implementation of a second domain pack (startup or household).
-- [ ] `arch review` passes.  →  cmd: bash scripts/arch.sh review; exit: 0
+- [ ] `arch review` passes.  →  cmd: arch review; exit: 0
 
 ### Definition of Done
 

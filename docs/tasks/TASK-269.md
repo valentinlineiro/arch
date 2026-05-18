@@ -9,7 +9,7 @@ The `HanseiPresent` check in `arch review` flags every legacy task (TASK-001 thr
 
 - [ ] `DriftChecker.ts` only enforces `HanseiPresent` for tasks with ID > 188 (or a configurable `hanseiMandatoryFrom` threshold).
 - [ ] `arch review` no longer emits HanseiPresent warnings for TASK-001 through TASK-188.
-- [ ] `arch review` passes.  →  cmd: bash scripts/arch.sh review; exit: 0
+- [ ] `arch review` passes.  →  cmd: arch review; exit: 0
 
 ### Definition of Done
 

@@ -102,7 +102,7 @@ The meta line is the source of truth for task state and routing. It MUST be a si
 An AC item may include an executable predicate or an exemption marker appended after a `→` separator:
 
 ```markdown
-- [ ] `arch review` passes  →  cmd: bash scripts/arch.sh review; exit: 0
+- [ ] `arch review` passes  →  cmd: arch review; exit: 0
 - [ ] Tests pass            →  cmd: npm test --prefix cli; exit: 0
 - [ ] File exists           →  file: docs/PRINCIPLES.md
 - [ ] Logic implemented     →  grep: "export class Reviewer" cli/src/main/ts/domain/services/reviewer.ts

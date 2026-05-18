@@ -9,7 +9,7 @@ Running tasks in parallel with different CLI agents creates merge conflicts when
 
 - [ ] Before starting parallel task execution, the system detects file overlap between concurrent tasks and either queues or rejects conflicting pairs.
 - [ ] A file locking mechanism prevents two agents from writing to the same file simultaneously during task execution.
-- [ ] `arch review` passes.  →  cmd: bash scripts/arch.sh review; exit: 0
+- [ ] `arch review` passes.  →  cmd: arch review; exit: 0
 
 ### Definition of Done
 

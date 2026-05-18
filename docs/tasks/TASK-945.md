@@ -1,5 +1,7 @@
 ## TASK-945: replace bash scripts/arch.sh references with arch CLI binary
-**Meta:** P3 | XS | READY | Focus:no | 7-docs | local | docs/tasks/
+**Meta:** P3 | XS | IN_PROGRESS | Focus:no | 7-docs | local | docs/tasks/
+**Actor:** unknown
+**Created-at:** 2026-05-18T14:47:34.899Z
 **Depends:** none
 
 ### Acceptance Criteria

@@ -9,7 +9,7 @@ ARCH accumulates operational memory across hundreds of tasks, retros, ADRs, and 
 
 - [ ] `arch ask "<question>"` queries the ARCH corpus and returns relevant patterns, related tasks/ADRs, and a suggested action.
 - [ ] The command requires no external API key and works locally.
-- [ ] `arch review` passes.  →  cmd: bash scripts/arch.sh review; exit: 0
+- [ ] `arch review` passes.  →  cmd: arch review; exit: 0
 
 ### Definition of Done
 

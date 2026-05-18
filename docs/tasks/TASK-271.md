@@ -9,7 +9,7 @@ ARCH requires a terminal session for all commands with no mobile access. OpenCla
 
 - [ ] OpenClaw integration documented with at least a notification channel skill (`arch review` output forwarded) and a status query skill.
 - [ ] Setup instructions exist in `docs/` or `README` for configuring the ARCH-OpenClaw bridge.
-- [ ] `arch review` passes.  →  cmd: bash scripts/arch.sh review; exit: 0
+- [ ] `arch review` passes.  →  cmd: arch review; exit: 0
 
 ### Definition of Done
 

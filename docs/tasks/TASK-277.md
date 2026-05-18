@@ -10,7 +10,7 @@ Relationships between ARCH entities (tasks, commits, ADRs, guidelines) exist imp
 - [ ] Tasks are linked to commits via TASK-ID refs in commit messages, stored in the context index.
 - [ ] ADRs are linked to tasks via task `Depends` fields and ADR references in task context.
 - [ ] Links are surfaced in `arch ask` queries and task context feedback.
-- [ ] `arch review` passes.  →  cmd: bash scripts/arch.sh review; exit: 0
+- [ ] `arch review` passes.  →  cmd: arch review; exit: 0
 
 ### Definition of Done
 

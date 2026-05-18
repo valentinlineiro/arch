@@ -9,7 +9,7 @@ Hansei is currently treated as documentation ceremony, leading to shallow or mis
 
 - [ ] `arch task done TASK-XXX` detects Hansei triggers (M+ size or significant turn count delta) and enters an interactive Socratic question loop.
 - [ ] The CLI assembles user answers into a valid structured `## Hansei` block meeting ADR-019 schema requirements.
-- [ ] `arch review` passes.  →  cmd: bash scripts/arch.sh review; exit: 0
+- [ ] `arch review` passes.  →  cmd: arch review; exit: 0
 
 ### Definition of Done
 

@@ -9,7 +9,7 @@ ARCH's current two-mode agent model (THINK/DO) conflates responsibilities that b
 
 - [ ] A design document specifies the role, input, output, and lifecycle of each of the five agents.
 - [ ] The document explicitly states prerequisite ordering (memory Phase 2, routing Phase 3, policies Phase 4 must precede implementation).
-- [ ] `arch review` passes.  →  cmd: bash scripts/arch.sh review; exit: 0
+- [ ] `arch review` passes.  →  cmd: arch review; exit: 0
 
 ### Definition of Done
 

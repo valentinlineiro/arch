@@ -9,7 +9,7 @@ ARCH models tasks as units of work but ignores human cognitive load. WIP accumul
 
 - [ ] `docs/METRICS.md` documents operational load signals: WIP count, cognitive cost, rework rate, and recovery cycles.
 - [ ] `arch review` warns when simultaneously IN_PROGRESS task count exceeds a configurable WIP threshold.
-- [ ] `arch review` passes.  →  cmd: bash scripts/arch.sh review; exit: 0
+- [ ] `arch review` passes.  →  cmd: arch review; exit: 0
 
 ### Definition of Done
 

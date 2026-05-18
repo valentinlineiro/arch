@@ -9,7 +9,7 @@ The current THINK refinement process often produces M/L tasks that require Claud
 
 - [ ] `docs/agents/THINK.md` Phase 2 includes a "Local-First Decomposition" heuristic with explicit criteria for when decomposition is mandatory vs. justified as complex.
 - [ ] `arch review` warns when READY tasks have M/L size without a documented decomposition rationale.
-- [ ] `arch review` passes.  →  cmd: bash scripts/arch.sh review; exit: 0
+- [ ] `arch review` passes.  →  cmd: arch review; exit: 0
 
 ### Definition of Done
 

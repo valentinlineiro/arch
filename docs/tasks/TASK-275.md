@@ -9,7 +9,7 @@ ARCH task statuses model pipeline state but not human state. A task can be techn
 
 - [ ] `docs/TASK-FORMAT.md` documents the optional human-state qualifiers (`READY/high-cost`, `READY/context-heavy`, `BLOCKED/energy`, `READY/maintenance`) with usage guidance.
 - [ ] `arch next` accepts an optional `--energy low|medium|high` flag and filters/sorts suggestions accordingly.
-- [ ] `arch review` passes.  →  cmd: bash scripts/arch.sh review; exit: 0
+- [ ] `arch review` passes.  →  cmd: arch review; exit: 0
 
 ### Definition of Done
 

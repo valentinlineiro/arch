@@ -185,20 +185,20 @@ arch merge-resolve                    # Auto-resolve trivial merge conflicts
 #    (invoke via your AI CLI — not a CLI command)
 
 # 2. Start a task
-./scripts/arch.sh task start TASK-032
+arch task start TASK-032
 
 # 3. Implement, then verify
-./scripts/arch.sh review
+arch review
 #   ✔ System Review: OK
 #
 #   Drift
 #     ✔ Commands
 #     ✔ Version
-#         v0.4.0
+#         v0.6.0
 #     ✔ Paths
 
 # 4. Done
-./scripts/arch.sh task done TASK-077
+arch task done TASK-077
 ```
 
 ---

@@ -9,7 +9,7 @@ Mura detection in THINK Phase 3 depends on `Turns: N` metadata in archived tasks
 
 - [ ] `arch task done` (or the internal `ArchiveTask` use-case) automatically records a `Turns: N` field derived from git history or session context when archiving a task.
 - [ ] The `Turns` field is present and non-zero in tasks archived after this change.
-- [ ] `arch review` passes.  →  cmd: bash scripts/arch.sh review; exit: 0
+- [ ] `arch review` passes.  →  cmd: arch review; exit: 0
 
 ### Definition of Done
 

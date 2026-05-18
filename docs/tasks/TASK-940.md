@@ -26,14 +26,14 @@ The critical design constraint: if this becomes a string-matching ADR cop with h
 - [ ] Advisory is only emitted when ≥3 shared domain terms AND a negation pattern are detected in the ADR constraint text. Tasks with incidental term overlap produce no output.  →  prose: verified by capturing a task with 1-2 shared terms and confirming silence
 - [ ] Advisory output goes to stdout only. No writes to INBOX, escalations.jsonl, or the task file.  →  grep: no append calls in the collision detection code path
 - [ ] A task file containing `<!-- adr-conflict-dismissed: ADR-NNN -->` suppresses the advisory for that ADR on subsequent starts.  →  prose: verified by adding the dismissal annotation and re-running arch task start
-- [ ] `arch review` passes.  →  cmd: bash scripts/arch.sh review; exit: 0
+- [ ] `arch review` passes.  →  cmd: arch review; exit: 0
 - [ ] CLI tests pass.  →  cmd: npm test --prefix cli; exit: 0
 
 ### Definition of Done
 
 - [ ] An agent starting a task whose AC contradicts an ACCEPTED ADR sees the conflict advisory before writing a line of code.
 - [ ] Tasks with no ADR conflicts produce no output from this check (zero noise overhead on clean tasks).
-- [ ] `arch review` passes.  →  cmd: bash scripts/arch.sh review; exit: 0
+- [ ] `arch review` passes.  →  cmd: arch review; exit: 0
 
 ## Hansei
 **Severity:** H0

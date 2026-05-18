@@ -9,7 +9,7 @@ The Discipline as a Service (DaaS) vision defined five features to reduce ARCH c
 
 - [ ] `arch explain <term>` returns a concise definition and usage context for ARCH ontology terms (e.g., Hansei, Focus, DriftChecker, READY).
 - [ ] The command covers at least the 20 most-used ARCH terms drawn from docs/guidelines/ and docs/adr/.
-- [ ] `arch review` passes.  →  cmd: bash scripts/arch.sh review; exit: 0
+- [ ] `arch review` passes.  →  cmd: arch review; exit: 0
 
 ### Definition of Done
 

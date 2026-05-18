@@ -9,7 +9,7 @@ ARCH's observation layer (DriftChecker signals) and intervention layer (IDEAs) a
 
 - [ ] An ADR or design document in `docs/adr/` or `docs/refinement/` specifies the chosen coverage identity model (IDEA-centric, drift-centric, or relational primitive) with rationale.
 - [ ] The chosen model is unambiguous enough to guide downstream implementation of coverage queries.
-- [ ] `arch review` passes.  →  cmd: bash scripts/arch.sh review; exit: 0
+- [ ] `arch review` passes.  →  cmd: arch review; exit: 0
 
 ### Definition of Done
 
