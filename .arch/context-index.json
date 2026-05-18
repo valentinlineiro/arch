@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-18T21:43:23.816Z",
+  "builtAt": "2026-05-18T21:44:44.157Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -462,7 +462,6 @@
         "StatusCommand"
       ],
       "imports": [
-        "cli/src/main/ts/application/use-cases/get-sprint-status.ts",
         "cli/src/main/ts/domain/repositories/task-repository.ts",
         "cli/src/main/ts/domain/repositories/file-system.ts",
         "cli/src/main/ts/infrastructure/cli/output-formatter.ts"
@@ -963,7 +962,7 @@
         "status"
       ],
       "criticality": "domain",
-      "runtimeUsage": "hot"
+      "runtimeUsage": "cold"
     },
     "cli/src/main/ts/application/use-cases/govern-system.ts": {
       "symbols": [
@@ -5640,48 +5639,28 @@
   },
   "tasks": {
     "TASK-253": {
-      "commitCount": 2,
-      "lastCommitDate": "2026-05-18T21:43:23+00:00",
+      "commitCount": 3,
+      "lastCommitDate": "2026-05-18T21:44:44+00:00",
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 2
+        ".arch/focus-ledger.jsonl": 3
       },
       "recentCommitRefs": [
+        "9fa9ed0",
         "a130772",
         "5e44534"
       ],
       "commitRefOverflow": false
     },
-    "TASK-252": {
-      "commitCount": 6,
-      "lastCommitDate": "2026-05-18T21:43:23+00:00",
-      "touchedFrequency": {
-        "docs/archive/TASK-252.md": 1,
-        ".arch/chronicle.jsonl": 1,
-        ".arch/reflect-breach-log.jsonl": 1,
-        "cli/src/test/ts/size-tiered-closure.test.ts": 1,
-        "docs/AGENTS.md": 1,
-        "docs/EVENTS.md": 1,
-        "docs/METRICS.md": 1,
-        "docs/TASK-FORMAT.md": 1,
-        "docs/agents/DO.md": 1,
-        "docs/tasks/TASK-252.md": 2,
-        "docs/tasks/TASK-253.md": 1,
-        ".arch/focus-ledger.jsonl": 3
-      },
-      "recentCommitRefs": [
-        "f64cac9",
-        "98c93e9",
-        "6df9c8a",
-        "7e4ab5e",
-        "fc61e6a",
-        "33a4df9"
-      ],
-      "commitRefOverflow": false
-    },
     "TASK-206": {
-      "commitCount": 22,
-      "lastCommitDate": "2026-05-18T21:36:25+00:00",
+      "commitCount": 23,
+      "lastCommitDate": "2026-05-18T21:44:42+00:00",
       "touchedFrequency": {
+        ".arch/chronicle.jsonl": 4,
+        ".arch/reflect-breach-log.jsonl": 5,
+        "cli/src/main/ts/application/commands/status-command.ts": 1,
+        "cli/src/main/ts/index.ts": 1,
+        "docs/EVENTS.md": 4,
+        "docs/METRICS.md": 2,
         "cli/src/main/ts/application/use-cases/hansei-wizard.ts": 2,
         "cli/src/main/ts/application/use-cases/mark-task-done.ts": 1,
         "cli/src/main/ts/application/commands/reflect-command.ts": 1,
@@ -5689,10 +5668,7 @@
         "docs/tensions/TENSION-005-specdrift.md": 1,
         ".arch/focus-ledger.jsonl": 13,
         ".arch/causal-signal.jsonl": 1,
-        ".arch/chronicle.jsonl": 3,
-        ".arch/reflect-breach-log.jsonl": 4,
         "cli/src/main/ts/application/use-cases/drift-checker.ts": 1,
-        "docs/EVENTS.md": 3,
         "docs/archive/TASK-901.md": 1,
         "docs/archive/TASK-908.md": 1,
         "docs/archive/TASK-909.md": 1,
@@ -5732,7 +5708,6 @@
         "docs/refinement/IDEA-task-split.md": 1,
         "docs/refinement/IDEA-task-templates.md": 1,
         "docs/INBOX.md": 1,
-        "docs/METRICS.md": 1,
         "docs/archive/TASK-203.md": 1,
         "docs/archive/TASK-204.md": 1,
         "docs/archive/TASK-207.md": 1,
@@ -5777,6 +5752,7 @@
         "docs/tasks/TASK-907.md": 1
       },
       "recentCommitRefs": [
+        "638f284",
         "519e55c",
         "5a2d682",
         "0d78368",
@@ -5795,10 +5771,36 @@
         "66c70c7",
         "f451e84",
         "fb9c483",
-        "c07bb38",
-        "500347b"
+        "c07bb38"
       ],
       "commitRefOverflow": true
+    },
+    "TASK-252": {
+      "commitCount": 6,
+      "lastCommitDate": "2026-05-18T21:43:23+00:00",
+      "touchedFrequency": {
+        "docs/archive/TASK-252.md": 1,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/reflect-breach-log.jsonl": 1,
+        "cli/src/test/ts/size-tiered-closure.test.ts": 1,
+        "docs/AGENTS.md": 1,
+        "docs/EVENTS.md": 1,
+        "docs/METRICS.md": 1,
+        "docs/TASK-FORMAT.md": 1,
+        "docs/agents/DO.md": 1,
+        "docs/tasks/TASK-252.md": 2,
+        "docs/tasks/TASK-253.md": 1,
+        ".arch/focus-ledger.jsonl": 3
+      },
+      "recentCommitRefs": [
+        "f64cac9",
+        "98c93e9",
+        "6df9c8a",
+        "7e4ab5e",
+        "fc61e6a",
+        "33a4df9"
+      ],
+      "commitRefOverflow": false
     },
     "TASK-919": {
       "commitCount": 6,
@@ -8249,18 +8251,18 @@
       "commitRefOverflow": false
     },
     "TASK-245": {
-      "commitCount": 17,
+      "commitCount": 15,
       "lastCommitDate": "2026-05-16T15:45:47+00:00",
       "touchedFrequency": {
-        ".arch/reflect-breach-log.jsonl": 4,
+        ".arch/reflect-breach-log.jsonl": 3,
         "docs/refinement/IDEA-preimpl-detection.md": 1,
         ".arch/causal-signal.jsonl": 1,
-        ".arch/chronicle.jsonl": 3,
+        ".arch/chronicle.jsonl": 2,
         "cli/src/main/ts/application/commands/reflect-command.ts": 1,
         "cli/src/main/ts/application/use-cases/drift-checker.ts": 1,
         "cli/src/main/ts/domain/services/hansei-auditor.ts": 1,
         "cli/src/test/ts/hansei-auditor.test.ts": 1,
-        "docs/EVENTS.md": 3,
+        "docs/EVENTS.md": 2,
         "docs/tasks/TASK-203.md": 1,
         "docs/archive/TASK-245.md": 1,
         "docs/tasks/TASK-245.md": 2,
@@ -8315,10 +8317,7 @@
         "docs/refinement/archive/IDEA-task-execution-plans.md": 1,
         "docs/refinement/archive/IDEA-task-idea-metrics-context-price.md": 1,
         "docs/refinement/archive/IDEA-typed-protocol-schema.md": 1,
-        "docs/refinement/archive/IDEA-value-cost-task-ordering.md": 1,
-        "docs/refinement/archive/IDEA-decision-gate-loss.md": 1,
-        "docs/tasks/TASK-893.md": 1,
-        "docs/refinement/IDEA-decision-gate-loss.md": 1
+        "docs/refinement/archive/IDEA-value-cost-task-ordering.md": 1
       },
       "recentCommitRefs": [
         "a172118",
@@ -8335,9 +8334,7 @@
         "927dc53",
         "b9412e3",
         "7a329a0",
-        "231a048",
-        "b371103",
-        "2af74d6"
+        "231a048"
       ],
       "commitRefOverflow": false
     },
@@ -8386,11 +8383,11 @@
       "commitRefOverflow": false
     },
     "TASK-893": {
-      "commitCount": 4,
+      "commitCount": 2,
       "lastCommitDate": "2026-05-16T10:52:21+00:00",
       "touchedFrequency": {
         "docs/archive/TASK-893.md": 1,
-        ".arch/reflect-breach-log.jsonl": 2,
+        ".arch/reflect-breach-log.jsonl": 1,
         "cli/src/main/ts/application/commands/inbox-command.ts": 1,
         "cli/src/main/ts/application/use-cases/drift-checker.ts": 1,
         "cli/src/main/ts/application/use-cases/generate-inbox.ts": 1,
@@ -8416,7 +8413,7 @@
         "docs/refinement/archive/IDEA-commit-hook-task-id-enforcement.md": 1,
         "docs/refinement/archive/IDEA-consolidate-core-guidelines.md": 1,
         "docs/refinement/archive/IDEA-cost-reducing-multi-api.md": 1,
-        "docs/refinement/archive/IDEA-decision-gate-loss.md": 2,
+        "docs/refinement/archive/IDEA-decision-gate-loss.md": 1,
         "docs/refinement/archive/IDEA-definition-of-ready.md": 1,
         "docs/refinement/archive/IDEA-dispatch-stale.md": 1,
         "docs/refinement/archive/IDEA-dynamic-reprioritization.md": 1,
@@ -8465,15 +8462,11 @@
         "docs/refinement/archive/IDEA-think-scope-restriction.md": 1,
         "docs/refinement/archive/IDEA-unify-ui-angular.md": 1,
         "docs/refinement/archive/IDEA-update-kaizen-log.md": 1,
-        "docs/tasks/TASK-893.md": 3,
-        ".arch/chronicle.jsonl": 1,
-        "docs/EVENTS.md": 1
+        "docs/tasks/TASK-893.md": 1
       },
       "recentCommitRefs": [
         "bfaaab9",
-        "011e05b",
-        "b5364ab",
-        "b371103"
+        "011e05b"
       ],
       "commitRefOverflow": false
     }
