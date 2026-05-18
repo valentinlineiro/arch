@@ -205,8 +205,19 @@ arch merge-resolve                    # Auto-resolve trivial merge conflicts
 
 ## Status
 
-**v0.6.0 — Causal Memory + Conditioned Retrieval.**
-The system now has a closed epistemic loop: `arch ask` retrieval is conditioned on active causal beliefs, the causal graph is revisable via append-only corrections, and a signal arbitration layer closes the backward loop from lifecycle events to graph mutation.
+**v0.6.0 — Operational Alpha.**
+ARCH is now a usable, self-governing operational framework for disciplined, git-native teams. The deterministic core is stable: `arch review` enforces structural integrity, task lifecycle operations are used daily, and `arch ask` retrieval is conditioned on committed causal beliefs rather than loose keyword matching.
+
+The current gap is no longer "can ARCH run daily work?" It clearly can. The gap is governance surface cleanliness: making the rules proportionate enough that compliance debt does not regenerate faster than the system can learn from it. That is why the path to `1.0.0` is focused on Tiered Obligations, Metrics Narrowing, and residual drift-surface cleanup rather than on new intelligence layers.
+
+What ARCH is ready for now:
+- internal engineering teams and early adopters who accept a git-as-OS operating model
+- high-discipline repositories where auditability and human/AI authority separation matter more than convenience
+
+What it is not ready for yet:
+- low-discipline or convenience-first teams
+- a centralized multiagent runtime
+- autonomous governance mutation or broad "plug-and-play" rollout
 
 ---
 

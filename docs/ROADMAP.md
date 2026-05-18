@@ -1,6 +1,6 @@
 # ROADMAP.md
 <!-- ARCH Strategic Roadmap | v0.6.0 → 1.0.0 → 2.0 -->
-<!-- Updated: 2026-05-12 -->
+<!-- Updated: 2026-05-18 -->
 
 ## Identity
 
@@ -52,7 +52,7 @@ A feature is `DONE` only when it is **Operational**. Implemented-but-not-operati
 
 **Prohibited:** retrieval ranking, governance *enforcement*, causal graph mutation, task/entity extraction as primary method, AC verification as a gate.
 
-**Governance is two layers, not one.** Enforcement is deterministic and must remain so. Analysis is the LLM-permitted proposal layer. They must not share a name or a command boundary. Current state: `arch govern` triggers THINK — enforcement is deterministic, analysis runs after. Target state: `arch govern` (enforcement) and `arch reflect` (analysis) are explicitly separate. See [docs/IDENTITY.md § 7](IDENTITY.md) — the slippery slope to refuse is named there.
+**Governance is two layers, not one.** Enforcement is deterministic and must remain so. Analysis is the LLM-permitted proposal layer. They must not share a name or a command boundary. Current state: `arch govern` (enforcement) and `arch reflect` (analysis) are now explicitly separate at the command surface. The remaining work is not the split itself, but keeping future features from quietly re-blurring that boundary. See [docs/IDENTITY.md § 7](IDENTITY.md) — the slippery slope to refuse is named there.
 
 Full treatment: [docs/IDENTITY.md § 7](IDENTITY.md).
 
@@ -68,7 +68,7 @@ The old linear priority list is replaced by four structural phases. These are no
 
 **What it is:** Freeze the invariants that prevent authority from leaking. REFLECT/GOVERN separation. LLM exclusion zones. Decision ownership. Signal vs state distinction.
 
-**Status:** Mostly closed. IDENTITY.md §7 frozen. Deterministic Core Invariant frozen. REFLECT authority invariant frozen. Influence measurement introduced. The remaining gap: `arch govern` / `arch reflect` command split is not yet implemented — the boundary exists constitutionally but not structurally at the command surface.
+**Status:** Mostly closed. IDENTITY.md §7 frozen. Deterministic Core Invariant frozen. REFLECT authority invariant frozen. Influence measurement introduced. `arch govern` / `arch reflect` command split is now structurally enforced. The remaining gaps are surface cleanliness and long-term boundary hardening: proportional obligations, trusted-metrics narrowing, and preventing future features from reintroducing silent authority leakage.
 
 **This phase is never truly closed.** Every new feature that touches the REFLECT/GOVERN boundary is a Phase A test.
 
