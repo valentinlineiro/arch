@@ -1,5 +1,5 @@
 ## TASK-250: Unify CLI surface by intent-based verb domains
-**Meta:** P1 | M | READY | Focus:no | 2-code-generation | claude | cli/src/main/ts/index.ts, cli/src/main/ts/application/, docs/agents/DO.md, docs/agents/THINK.md
+**Meta:** P1 | M | IN_PROGRESS | Focus:yes | 2-code-generation | claude | cli/src/main/ts/index.ts, cli/src/main/ts/application/, docs/agents/DO.md, docs/agents/THINK.md
 
 ### Context
 
