@@ -1,5 +1,6 @@
 ## TASK-926: Fix metrics engine integrity breach due to duplicate DONE events
-**Meta:** P1 | S | REVIEW | Focus:no | 2-code-generation | claude | docs/EVENTS.md, cli/src/main/ts/application/commands/report-command.ts
+**Meta:** P1 | S | DONE | Focus:no | 2-code-generation | claude | docs/EVENTS.md, cli/src/main/ts/application/commands/report-command.ts
+**Closed-at:** 2026-05-18T08:30:00Z
 
 ### Context
 
@@ -18,6 +19,11 @@ The metrics engine expects a linear state machine transition. Duplicate archival
 ### Definition of Done
 - [x] `arch report` works.
 - [x] `arch review` passes.
+
+## Approval
+
+**Approved-by:** human
+**Approved-at:** 2026-05-18T08:30:00Z
 
 ## Hansei
 
