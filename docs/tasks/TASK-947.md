@@ -1,16 +1,32 @@
-## TASK-947: getById full-scan: reading all 340 archive+tasks files to fi
-**Meta:** P3 | S | READY | Focus:no | 2-code-generation | local | docs/tasks/
+## TASK-947: Bug: getById reads all 340 tasks+archive files to find a task with a known ID
+**Meta:** P2 | S | READY | Focus:no | 2-code-generation | claude | cli/src/main/ts/infrastructure/filesystem/markdown-task-repository.ts
+**Actor:** unknown
+**Created-at:** 2026-05-18T15:07:15.707Z
 **Depends:** none
 
 ### Acceptance Criteria
-- [ ] Implementation file exists at declared context path
-  - `file: (path)`
-- [ ] Tests pass
-  - `cmd: npm test; exit: 0`
+- [ ] `getById(id)` reads only `docs/tasks/${id}.md` then `docs/archive/${id}.md` — no full scan
+  - `file: cli/src/main/ts/infrastructure/filesystem/markdown-task-repository.ts`
+- [ ] `getNextId()` uses filename-only scan (no file content read) to find max ID
+  - `file: cli/src/main/ts/infrastructure/filesystem/markdown-task-repository.ts`
+- [ ] `npm test` passes
+  - `cmd: npm test --prefix cli; exit: 0`
 - [ ] `arch review` passes
-  - `cmd: node cli/dist/index.js review`
+  - `cmd: arch review; exit: 0`
 
 ### Context
+
+**Bug:** `getById` calls `getAll()` which reads and parses every file in `docs/tasks/` and `docs/archive/`. With 340+ files, any command that looks up a specific task (`arch task done`, `arch task start`, `arch task capture`) reads 340 files when it needs at most 2. Same problem in `getNextId()` — reads full content of all tasks to extract the max ID from filenames.
+
+**Root cause** (`markdown-task-repository.ts:11-13`):
+```ts
+async getById(id: string): Promise<Task | null> {
+  const tasks = await this.getAll(); // reads 340 files
+  return tasks.find(t => t.id === id) || null;
+}
+```
+
+**Fix:** Try `docs/tasks/${id}.md` directly, fall back to `docs/archive/${id}.md`. For `getNextId()`: `readdir` both dirs, filter `TASK-\d+.md` by filename only, no content read.
 
 ### Relevant Context
 _confidence: 0.43_
