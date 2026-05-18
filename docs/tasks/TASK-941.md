@@ -1,5 +1,5 @@
 ## TASK-941: Capture deterministic by default - gate LLM draft behind --draft flag
-**Meta:** P1 | S | IN_PROGRESS | Focus:yes | 2-code-generation | claude | cli/src/main/ts/application/use-cases/create-task.ts, cli/src/main/ts/application/commands/capture-command.ts
+**Meta:** P1 | S | IN_PROGRESS | Focus:no | 2-code-generation | claude | cli/src/main/ts/application/use-cases/create-task.ts, cli/src/main/ts/application/commands/capture-command.ts
 **Depends:** none
 
 ### Context

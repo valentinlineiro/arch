@@ -1,5 +1,5 @@
 ## TASK-942: Narrow arch memory ask scope - remove THINK-layer fields, tighten corpus dirs
-**Meta:** P2 | S | IN_PROGRESS | Focus:yes | 2-code-generation | claude | cli/src/main/ts/application/use-cases/ask-corpus.ts, cli/src/main/ts/application/commands/ask-command.ts
+**Meta:** P2 | S | IN_PROGRESS | Focus:no | 2-code-generation | claude | cli/src/main/ts/application/use-cases/ask-corpus.ts, cli/src/main/ts/application/commands/ask-command.ts
 **Depends:** TASK-938
 
 ### Context

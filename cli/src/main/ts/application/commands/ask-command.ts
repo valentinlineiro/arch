@@ -1,4 +1,4 @@
-import { AskCorpus, type CauseGroup } from '../use-cases/ask-corpus.js';
+import { AskCorpus } from '../use-cases/ask-corpus.js';
 
 export interface AskIO {
   getArgs(): string[];
@@ -29,7 +29,7 @@ export class AskCommand {
       this.io.exit(1);
     }
 
-    const { queryClass, keywords, answer, matches, taskRefs, adrRefs, principleRefs, recurringSignals, causeGroups } = result;
+    const { queryClass, keywords, matches, taskRefs, adrRefs, principleRefs } = result;
 
     this.io.log(`Query: ${question}`);
     this.io.log(`Class:    ${queryClass} | Keywords: ${keywords.join(', ')}`);
@@ -38,26 +38,6 @@ export class AskCommand {
     if (matches.length === 0) {
       this.io.log('No matches found in corpus.');
       return;
-    }
-
-    if (answer) {
-      this.io.log(`Answer:`);
-      this.io.log(`  ${answer}`);
-      this.io.log('');
-    }
-
-    if (causeGroups.length > 0) {
-      this.io.log(`Failure patterns (2+ tasks):`);
-      causeGroups.forEach((g: CauseGroup, i: number) => {
-        this.io.log(`  ${i + 1}. ${g.token} (${g.count} tasks): ${g.taskIds.join(', ')}`);
-      });
-      this.io.log('');
-    }
-
-    if (recurringSignals.length > 0) {
-      this.io.log(`Recurring signals (appear in 3+ matches):`);
-      for (const s of recurringSignals) this.io.log(`  ${s}`);
-      this.io.log('');
     }
 
     this.io.log(`Corpus matches (${matches.length}):`);

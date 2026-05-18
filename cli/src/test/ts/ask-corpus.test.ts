@@ -106,25 +106,15 @@ test('HISTORICAL query boosts archive over IDENTITY', async () => {
   assert.strictEqual(result.matches[0].path, 'docs/archive/TASK-010.md');
 });
 
-test('DEFINITIONAL query extracts answer from IDENTITY.md', async () => {
+// TASK-942: answer removed from AskResult
+test('DEFINITIONAL query does not produce answer field (removed)', async () => {
   const fs = new MockFileSystem({
     '/root/docs/IDENTITY.md': '# IDENTITY\n## 1. Definition\n> ARCH is a git-native operational protocol.\nThis sentence is frozen.\n## 2. Scope',
   });
   const corpus = new AskCorpus(fs, '/root');
   const result = await corpus.execute('What is ARCH?');
 
-  assert.ok(result.answer !== null);
-  assert.ok(result.answer!.includes('git-native'));
-});
-
-test('non-DEFINITIONAL query returns null answer', async () => {
-  const fs = new MockFileSystem({
-    '/root/docs/archive/TASK-001.md': '## TASK-001: auth failure\nauth failed. something broke.',
-  });
-  const corpus = new AskCorpus(fs, '/root');
-  const result = await corpus.execute('Why did auth fail?');
-
-  assert.strictEqual(result.answer, null);
+  assert.ok(!('answer' in result), 'answer field must not exist in AskResult');
 });
 
 // ── Core execution ─────────────────────────────────────────────────────────
@@ -187,61 +177,41 @@ test('execute scopes entity refs to top-5 matches', async () => {
   assert.ok(result.adrRefs.includes('ADR-006'));
 });
 
-test('execute detects recurring signals from 3+ top matches', async () => {
+// TASK-942: recurringSignals removed from AskResult
+test('AskResult does not include recurringSignals field', async () => {
   const files: Record<string, string> = {};
   for (let i = 1; i <= 5; i++) {
-    const ref = i <= 4 ? 'see TASK-099 for history' : 'unrelated content here';
-    files[`/root/docs/archive/TASK-${String(i).padStart(3, '0')}.md`] = `auth failure ${ref}`;
+    files[`/root/docs/archive/TASK-${String(i).padStart(3, '0')}.md`] = `auth failure see TASK-099`;
   }
   const corpus = new AskCorpus(new MockFileSystem(files), '/root');
   const result = await corpus.execute('auth failure');
-  assert.ok(result.recurringSignals.some(s => s.startsWith('TASK-099')));
+  assert.ok(!('recurringSignals' in result), 'recurringSignals must not be in AskResult');
 });
 
-// ── Cause groups ───────────────────────────────────────────────────────────
-
-test('causeGroups surfaces token appearing in failure lines of 2+ archive tasks', async () => {
+// TASK-942: causeGroups removed from AskResult
+test('AskResult does not include causeGroups field', async () => {
   const fs = new MockFileSystem({
     '/root/docs/archive/TASK-010.md': '## TASK-010: auth failure\nauth failed due to missing coverage.',
     '/root/docs/archive/TASK-011.md': '## TASK-011: auth failure\nauth error: missing coverage in module.',
-    '/root/docs/archive/TASK-012.md': '## TASK-012: auth failure\nauth broke: coverage incomplete.',
   });
   const corpus = new AskCorpus(fs, '/root');
   const result = await corpus.execute('auth failure');
-  assert.ok(result.causeGroups.some(g => g.token === 'coverage'));
-  const g = result.causeGroups.find(g => g.token === 'coverage')!;
-  assert.ok(g.count >= 2);
+  assert.ok(!('causeGroups' in result), 'causeGroups must not be in AskResult');
 });
 
-test('causeGroups excludes query keywords from cause tokens', async () => {
+// TASK-942: CORPUS_DIRS narrowed to archive + adr only
+test('CORPUS_DIRS does not scan docs/tasks or docs/guidelines', async () => {
   const fs = new MockFileSystem({
-    '/root/docs/archive/TASK-010.md': '## TASK-010: auth\nauth failed.',
-    '/root/docs/archive/TASK-011.md': '## TASK-011: auth\nauth failed.',
+    '/root/docs/tasks/TASK-888.md': 'auth task open',
+    '/root/docs/guidelines/core.md': 'auth guidelines content',
+    '/root/docs/archive/TASK-010.md': 'auth archive content',
   });
   const corpus = new AskCorpus(fs, '/root');
-  const result = await corpus.execute('auth failure');
-  assert.ok(!result.causeGroups.some(g => g.token === 'auth'));
-  assert.ok(!result.causeGroups.some(g => g.token === 'failure'));
-});
-
-test('causeGroups returns empty when no failure lines in archive', async () => {
-  const fs = new MockFileSystem({
-    '/root/docs/archive/TASK-010.md': '## TASK-010: auth\nauth completed successfully.',
-    '/root/docs/archive/TASK-011.md': '## TASK-011: auth\nauth done without issues.',
-  });
-  const corpus = new AskCorpus(fs, '/root');
-  const result = await corpus.execute('auth task');
-  assert.strictEqual(result.causeGroups.length, 0);
-});
-
-test('causeGroups ignores canonical docs (only archives/tasks)', async () => {
-  const fs = new MockFileSystem({
-    '/root/docs/IDENTITY.md': 'auth failed coverage coverage coverage coverage',
-    '/root/docs/ROADMAP.md': 'auth failed coverage coverage coverage',
-  });
-  const corpus = new AskCorpus(fs, '/root');
-  const result = await corpus.execute('auth failure');
-  assert.strictEqual(result.causeGroups.length, 0);
+  const result = await corpus.execute('auth');
+  const paths = result.matches.map(m => m.path);
+  assert.ok(!paths.some(p => p.includes('docs/tasks/')), 'docs/tasks must not be in corpus');
+  assert.ok(!paths.some(p => p.includes('docs/guidelines/')), 'docs/guidelines must not be in corpus');
+  assert.ok(paths.some(p => p.includes('docs/archive/')), 'docs/archive must be in corpus');
 });
 
 // ── Match reasons ──────────────────────────────────────────────────────────

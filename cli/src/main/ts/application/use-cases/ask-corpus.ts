@@ -10,22 +10,16 @@ export interface CorpusMatch {
   reasons: string[];
 }
 
-export interface CauseGroup {
-  token: string;
-  count: number;
-  taskIds: string[];
-}
-
+// Deterministic by design — this module must never call LLM providers.
+// causeGroups, recurringSignals, and answer are THINK-layer signals; they
+// were removed from AskResult in TASK-942 to keep the layer boundary clean.
 export interface AskResult {
   queryClass: QueryClass;
   keywords: string[];
-  answer: string | null;
   matches: CorpusMatch[];
   taskRefs: string[];
   adrRefs: string[];
   principleRefs: string[];
-  recurringSignals: string[];
-  causeGroups: CauseGroup[];
 }
 
 const STOP_WORDS = new Set([
@@ -39,11 +33,11 @@ const STOP_WORDS = new Set([
   'its', 'it', 'my', 'our', 'their', 'we', 'i',
 ]);
 
+// Scoped to moat artifacts only. Active tasks and guidelines are covered by
+// the constraint preflight (TASK-938); scanning them here duplicates work.
 const CORPUS_DIRS = [
   'docs/archive',
-  'docs/tasks',
   'docs/adr',
-  'docs/guidelines',
 ];
 
 const CORPUS_FILES = [
@@ -150,34 +144,13 @@ export class AskCorpus {
       for (const m of content.matchAll(/P-\d{3}/g)) principleRefs.add(m[0]);
     }
 
-    const taskIdCount = new Map<string, number>();
-    for (const { content } of top) {
-      const seen = new Set<string>();
-      for (const m of content.matchAll(/TASK-\d+/g)) {
-        if (!seen.has(m[0])) { seen.add(m[0]); taskIdCount.set(m[0], (taskIdCount.get(m[0]) ?? 0) + 1); }
-      }
-    }
-    const recurringSignals = [...taskIdCount.entries()]
-      .filter(([, count]) => count >= 3)
-      .sort((a, b) => b[1] - a[1])
-      .map(([id, count]) => `${id} (${count} matches)`);
-
-    const causeGroups = this.buildCauseGroups(top, keywords);
-
-    const answer = queryClass === 'DEFINITIONAL'
-      ? await this.extractDefinitionalAnswer()
-      : null;
-
     return {
       queryClass,
       keywords,
-      answer,
       matches: top.map(({ path, score, excerpt, reasons }) => ({ path, score, excerpt, reasons })),
       taskRefs: [...taskRefs].sort(),
       adrRefs: [...adrRefs].sort(),
       principleRefs: [...principleRefs].sort(),
-      recurringSignals,
-      causeGroups,
     };
   }
 
@@ -238,60 +211,6 @@ export class AskCorpus {
     return reasons;
   }
 
-  private buildCauseGroups(
-    top: Array<{ path: string; content: string }>,
-    queryKeywords: string[],
-  ): CauseGroup[] {
-    const FAILURE_SIGNALS = /\b(fail|reject|block|miss|incomplete|error|broke|issue|gap|stuck|stale|delay)/i;
-    // Structural tokens that appear in every archive file — no causal signal
-    const NOISE = new Set(['task', 'tasks', 'arch', 'docs', 'file', 'files', 'code', 'work', 'item', 'done', 'meta', 'focus', 'context', 'section', 'content', 'archive', 'review', 'result', 'results', 'output', 'status', 'update', 'change', 'changes']);
-    const queryKwSet = new Set(queryKeywords);
-    const tokenToTasks = new Map<string, Set<string>>();
-
-    for (const { path, content } of top) {
-      if (!path.includes('/archive/') && !path.includes('/tasks/')) continue;
-      const taskId = path.match(/TASK-\d+/)?.[0];
-      if (!taskId) continue;
-
-      const failureLines = content.split('\n').filter(l => FAILURE_SIGNALS.test(l));
-      if (failureLines.length === 0) continue;
-
-      // Also exclude tokens that are derived forms of query keywords (e.g. 'failures' from 'fail')
-      const tokens = this.tokenize(failureLines.join(' '))
-        .filter(t => !queryKwSet.has(t) && !NOISE.has(t) && t.length >= 5
-          && ![...queryKwSet].some(kw => t.startsWith(kw)));
-      for (const token of tokens) {
-        if (!tokenToTasks.has(token)) tokenToTasks.set(token, new Set());
-        tokenToTasks.get(token)!.add(taskId);
-      }
-    }
-
-    return [...tokenToTasks.entries()]
-      .filter(([, tasks]) => tasks.size >= 2)
-      .sort((a, b) => b[1].size - a[1].size)
-      .slice(0, 5)
-      .map(([token, tasks]) => ({ token, count: tasks.size, taskIds: [...tasks].sort() }));
-  }
-
-  private async extractDefinitionalAnswer(): Promise<string | null> {
-    try {
-      const content = await this.fileSystem.readFile(`${this.rootPath}/docs/IDENTITY.md`);
-      // Extract the definition block: lines after "## 1. Definition" up to the next heading
-      const lines = content.split('\n');
-      const start = lines.findIndex(l => /^##\s+1\.\s+Definition/i.test(l));
-      if (start === -1) return null;
-      const end = lines.findIndex((l, i) => i > start && /^##/.test(l));
-      const block = (end === -1 ? lines.slice(start + 1) : lines.slice(start + 1, end))
-        .filter(l => l.trim() && !l.startsWith('<!--') && l.trim() !== '---')
-        .join(' ')
-        .replace(/>\s*/g, '')
-        .replace(/\*\*/g, '')
-        .trim();
-      return block.slice(0, 300) || null;
-    } catch {
-      return null;
-    }
-  }
 
   private async collectFiles(): Promise<string[]> {
     const files: string[] = [...CORPUS_FILES];
