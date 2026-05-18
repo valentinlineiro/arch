@@ -57,12 +57,22 @@ export class CreateTask {
   constructor(
     private taskRepository: TaskRepository,
     private fileSystem: FileSystem,
-    private gitRepository: GitRepository
+    private gitRepository: GitRepository,
+    // Injectable for testing; production code uses tryLlmDraft
+    private draftFn?: (intent: string) => Promise<LlmDraft | null>,
   ) {}
 
-  async execute(intent: string, taskClassOverride?: string, sizeOverride?: string): Promise<string> {
+  async execute(intent: string, taskClassOverride?: string, sizeOverride?: string, draftMode = false): Promise<string> {
     const nextId = await this.taskRepository.getNextId();
-    const draft = await this.tryLlmDraft(intent);
+    let draft: LlmDraft | null = null;
+    if (draftMode) {
+      const fn = this.draftFn ?? ((i: string) => this.tryLlmDraft(i));
+      try {
+        draft = await fn(intent);
+      } catch {
+        throw new Error('--draft flag requires a configured LLM provider. Set one up or remove --draft.');
+      }
+    }
     const content = this.scaffold(nextId, intent, draft, taskClassOverride, sizeOverride);
 
     const taskPath = `docs/tasks/${nextId}.md`;

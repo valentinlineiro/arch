@@ -21,6 +21,7 @@ export class CaptureCommand {
     const taskClass = classIdx >= 0 ? args[classIdx + 1] : undefined;
     const size = sizeIdx >= 0 ? args[sizeIdx + 1] : undefined;
     const context = contextIdx >= 0 ? args[contextIdx + 1] : undefined;
+    const draftMode = args.includes('--draft');
 
     // Remove flag pairs, remaining args are the intent
     const intentArgs = args.filter((a, i) => {
@@ -29,12 +30,15 @@ export class CaptureCommand {
       if (prev && ['--class','--size','--context'].includes(prev)) return false;
       return true;
     });
+
+
     const intent = intentArgs.join(' ').replace(/^[\"']|[\"']$/g, '').trim();
 
     if (!intent) {
-      process.stderr.write('Usage: arch capture "<intent>" [--class <class>] [--size <size>]\n');
+      process.stderr.write('Usage: arch capture "<intent>" [--class <class>] [--size <size>] [--draft]\n');
       process.stderr.write('\nClasses: 1-code-reasoning, 2-code-generation, 6-writing, 7-operations\n');
       process.stderr.write('Sizes:   XS, S, M, L\n');
+      process.stderr.write('Flags:   --draft  invoke LLM to generate title/size/ACs (requires configured provider)\n');
       process.exit(1);
     }
 
@@ -44,7 +48,7 @@ export class CaptureCommand {
     const creator = new CreateTask(this.taskRepository, this.fileSystem, this.gitRepository!);
     let taskId: string;
     try {
-      taskId = await creator.execute(intent, taskClass, size);
+      taskId = await creator.execute(intent, taskClass, size, draftMode);
       console.log(`  ✔ Created ${taskId}`);
     } catch (err: any) {
       process.stderr.write(`  ✖ Failed to create task: ${err.message}\n`);

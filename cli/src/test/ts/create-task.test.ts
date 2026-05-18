@@ -67,3 +67,37 @@ test('CreateTask - XS 2-code-generation scaffold still includes Definition of Do
   const content = fs.files['docs/tasks/TASK-900.md'] ?? '';
   assert.ok(content.includes('### Definition of Done'), 'XS 2-code-generation should keep full template');
 });
+
+// TASK-941: deterministic by default
+test('CreateTask - does not call LLM when draftMode is false (default)', async () => {
+  const fs = makeFs();
+  const git = new MockGitRepository();
+  let llmCalled = false;
+  const useCase = new CreateTask(makeRepo(), fs, git, () => { llmCalled = true; return Promise.resolve(null); });
+
+  await useCase.execute('add retry logic', '2-code-generation');
+
+  assert.strictEqual(llmCalled, false, 'LLM must not be called without --draft');
+});
+
+test('CreateTask - calls LLM when draftMode is true', async () => {
+  const fs = makeFs();
+  const git = new MockGitRepository();
+  let llmCalled = false;
+  const useCase = new CreateTask(makeRepo(), fs, git, () => { llmCalled = true; return Promise.resolve(null); });
+
+  await useCase.execute('add retry logic', '2-code-generation', undefined, true);
+
+  assert.strictEqual(llmCalled, true, 'LLM must be called when draftMode=true');
+});
+
+test('CreateTask - draftMode=true with no provider throws explicit error', async () => {
+  const fs = makeFs();
+  const git = new MockGitRepository();
+  const useCase = new CreateTask(makeRepo(), fs, git, () => Promise.reject(new Error('No provider configured')));
+
+  await assert.rejects(
+    () => useCase.execute('add retry logic', '2-code-generation', undefined, true),
+    /No provider|draft.*provider|--draft/i
+  );
+});
