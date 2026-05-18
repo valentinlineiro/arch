@@ -1,5 +1,7 @@
 ## TASK-943: fix arch.sh help and task-command help misalignment with can
-**Meta:** P3 | XS | READY | Focus:no | 2-code-generation | local | docs/tasks/
+**Meta:** P3 | XS | IN_PROGRESS | Focus:no | 2-code-generation | local | docs/tasks/
+**Actor:** unknown
+**Created-at:** 2026-05-18T14:05:31.541Z
 **Depends:** none
 
 ### Acceptance Criteria
