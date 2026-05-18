@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-18T12:19:18.806Z",
+  "builtAt": "2026-05-18T12:51:22.079Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -477,6 +477,7 @@
         "cli/src/main/ts/application/use-cases/task-reject-stale.ts",
         "cli/src/main/ts/application/use-cases/update-task-metrics.ts",
         "cli/src/main/ts/application/use-cases/context-inference.ts",
+        "cli/src/main/ts/application/use-cases/constraint-preflight.ts",
         "cli/src/main/ts/application/use-cases/compress-task.ts",
         "cli/src/main/ts/application/commands/next-command.ts",
         "cli/src/main/ts/application/commands/rank-command.ts",
@@ -720,6 +721,22 @@
       ],
       "criticality": "domain",
       "runtimeUsage": "warm"
+    },
+    "cli/src/main/ts/application/use-cases/constraint-preflight.ts": {
+      "symbols": [
+        "ConstraintPreflight"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/repositories/file-system.ts"
+      ],
+      "tags": [
+        "application",
+        "cases",
+        "constraint",
+        "preflight"
+      ],
+      "criticality": "domain",
+      "runtimeUsage": "hot"
     },
     "cli/src/main/ts/application/use-cases/context-inference.ts": {
       "symbols": [
@@ -5301,10 +5318,10 @@
   },
   "tasks": {
     "TASK-249": {
-      "commitCount": 10,
-      "lastCommitDate": "2026-05-18T14:19:18+02:00",
+      "commitCount": 11,
+      "lastCommitDate": "2026-05-18T14:51:21+02:00",
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 7,
+        ".arch/focus-ledger.jsonl": 8,
         "docs/INBOX.md": 1,
         "docs/archive/TASK-933.md": 1,
         "docs/tasks/TASK-249.md": 2,
@@ -5318,6 +5335,7 @@
         "docs/tasks/TASK-254.md": 1
       },
       "recentCommitRefs": [
+        "2e23322",
         "3276b04",
         "41077ee",
         "53969f7",
@@ -5328,6 +5346,61 @@
         "f16691b",
         "30d44d0",
         "3f92b1d"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-941": {
+      "commitCount": 3,
+      "lastCommitDate": "2026-05-18T14:48:12+02:00",
+      "touchedFrequency": {
+        "docs/refinement/IDEA-capture-deterministic-default.md": 1,
+        "docs/refinement/IDEA-memory-ask-narrow-scope.md": 1,
+        "docs/tasks/TASK-938.md": 1,
+        "docs/tasks/TASK-941.md": 2,
+        "docs/tasks/TASK-942.md": 1,
+        "docs/archive/TASK-941.md": 1
+      },
+      "recentCommitRefs": [
+        "cee9dd3",
+        "921e881",
+        "ec30b46"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-942": {
+      "commitCount": 1,
+      "lastCommitDate": "2026-05-18T14:48:12+02:00",
+      "touchedFrequency": {
+        "docs/refinement/IDEA-capture-deterministic-default.md": 1,
+        "docs/refinement/IDEA-memory-ask-narrow-scope.md": 1,
+        "docs/tasks/TASK-938.md": 1,
+        "docs/tasks/TASK-941.md": 1,
+        "docs/tasks/TASK-942.md": 1
+      },
+      "recentCommitRefs": [
+        "cee9dd3"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-938": {
+      "commitCount": 2,
+      "lastCommitDate": "2026-05-18T14:48:12+02:00",
+      "touchedFrequency": {
+        "docs/refinement/IDEA-capture-deterministic-default.md": 1,
+        "docs/refinement/IDEA-memory-ask-narrow-scope.md": 1,
+        "docs/tasks/TASK-938.md": 2,
+        "docs/tasks/TASK-941.md": 1,
+        "docs/tasks/TASK-942.md": 1,
+        "docs/refinement/IDEA-active-constraint-injection.md": 1,
+        "docs/refinement/IDEA-correction-signal.md": 1,
+        "docs/refinement/IDEA-proportional-protocol.md": 1,
+        "docs/refinement/IDEA-semantic-collision-detection.md": 1,
+        "docs/tasks/TASK-937.md": 1,
+        "docs/tasks/TASK-939.md": 1
+      },
+      "recentCommitRefs": [
+        "cee9dd3",
+        "99381dd"
       ],
       "commitRefOverflow": false
     },
@@ -5361,19 +5434,6 @@
         "7629dce",
         "2874d10",
         "99381dd"
-      ],
-      "commitRefOverflow": false
-    },
-    "TASK-941": {
-      "commitCount": 2,
-      "lastCommitDate": "2026-05-18T14:18:03+02:00",
-      "touchedFrequency": {
-        "docs/archive/TASK-941.md": 1,
-        "docs/tasks/TASK-941.md": 1
-      },
-      "recentCommitRefs": [
-        "921e881",
-        "ec30b46"
       ],
       "commitRefOverflow": false
     },
@@ -5413,23 +5473,6 @@
         "44d4a81",
         "0659222",
         "3fd5ebb"
-      ],
-      "commitRefOverflow": false
-    },
-    "TASK-938": {
-      "commitCount": 1,
-      "lastCommitDate": "2026-05-18T13:48:10+02:00",
-      "touchedFrequency": {
-        "docs/refinement/IDEA-active-constraint-injection.md": 1,
-        "docs/refinement/IDEA-correction-signal.md": 1,
-        "docs/refinement/IDEA-proportional-protocol.md": 1,
-        "docs/refinement/IDEA-semantic-collision-detection.md": 1,
-        "docs/tasks/TASK-937.md": 1,
-        "docs/tasks/TASK-938.md": 1,
-        "docs/tasks/TASK-939.md": 1
-      },
-      "recentCommitRefs": [
-        "99381dd"
       ],
       "commitRefOverflow": false
     },
@@ -6308,15 +6351,15 @@
       "commitRefOverflow": false
     },
     "TASK-247": {
-      "commitCount": 18,
+      "commitCount": 14,
       "lastCommitDate": "2026-05-18T08:58:10+02:00",
       "touchedFrequency": {
         "docs/tasks/TASK-251.md": 1,
         "docs/tasks/TASK-254.md": 1,
         "docs/archive/TASK-247.md": 1,
-        "docs/agents/governance-execution-model.md": 9,
+        "docs/agents/governance-execution-model.md": 6,
         "cli/src/main/ts/application/use-cases/govern-system.ts": 3,
-        "docs/adr/ADR-020-focus-sovereignty-model.md": 2,
+        "docs/adr/ADR-020-focus-sovereignty-model.md": 1,
         ".arch/focus-ledger.jsonl": 1,
         "docs/INBOX.md": 1,
         "docs/tasks/TASK-247.md": 3,
@@ -6338,11 +6381,7 @@
         "cf86f7f",
         "e5a6a88",
         "4aeaccc",
-        "b866820",
-        "082eecb",
-        "c20558a",
-        "aed2af7",
-        "a9564d1"
+        "b866820"
       ],
       "commitRefOverflow": false
     },
