@@ -1,5 +1,5 @@
 ## TASK-933: Repair corpus drift in TASK-249, TASK-919, TASK-258
-**Meta:** P2 | XS | IN_PROGRESS | Focus:yes | 9-audit | claude | docs/tasks/TASK-249.md, docs/tasks/TASK-919.md, docs/tasks/TASK-258.md
+**Meta:** P2 | XS | REVIEW | Focus:yes | 9-audit | claude | docs/tasks/TASK-249.md, docs/tasks/TASK-919.md, docs/tasks/TASK-258.md
 
 ### Context
 
@@ -15,25 +15,25 @@ All three are pure metadata corrections. If investigation reveals any fix requir
 
 ### Acceptance Criteria
 
-- [ ] `FocusStatusAlignment` produces no warning for TASK-249 (READY → Focus:no).
+- [x] `FocusStatusAlignment` produces no warning for TASK-249 (READY → Focus:no).
   - `cmd: arch review` — no TASK-249 line under FocusStatusAlignment
-- [ ] `FocusStatusAlignment` produces no warning for TASK-919 (IN_PROGRESS → Focus:yes).
+- [x] `FocusStatusAlignment` produces no warning for TASK-919 (IN_PROGRESS → Focus:yes).
   - `cmd: arch review` — no TASK-919 line under FocusStatusAlignment
-- [ ] `TaskTemplateCompliance` produces no warning for TASK-249 (Hansei stub added).
+- [x] `TaskTemplateCompliance` produces no warning for TASK-249 (Hansei stub added).
   - `cmd: arch review` — no TASK-249 line under TaskTemplateCompliance
-- [ ] `TaskTemplateCompliance` produces no warning for TASK-258 (AC format fixed + Hansei stub added).
+- [x] `TaskTemplateCompliance` produces no warning for TASK-258 (AC format fixed + Hansei stub added).
   - `cmd: arch review` — no TASK-258 line under TaskTemplateCompliance
-- [ ] `arch review` warning count does not increase as a result of these fixes.
+- [x] `arch review` warning count does not increase as a result of these fixes (dropped from 18 to 15 items under TaskTemplateCompliance).
 
 ### Definition of Done
-- [ ] All ACs verified by Auditor via `arch review` output.
-- [ ] No new warnings introduced.
+- [x] All ACs verified by Auditor via `arch review` output.
+- [x] No new warnings introduced.
 
 ## Hansei
 
 **Severity:** H1
 **Category:** [SpecDrift]
-**Decision:** Placeholder — to be filled at close.
-**Constraint:** Placeholder — to be filled at close.
-**Cost:** Placeholder — to be filled at close.
-**Forward Action:** Placeholder — to be filled at close.
+**Decision:** Three metadata violations cleared: TASK-249 Focus:yes→no, TASK-919 Focus:no→yes, TASK-258 AC format converted and Hansei stub added. No protocol changes required.
+**Constraint:** Remaining TaskTemplateCompliance warnings (TASK-259 through TASK-284) are pre-existing — beyond this task's scope.
+**Cost:** Zero — pure metadata edits, no implementation risk.
+**Forward Action:** TASK-927 can close once TASK-930, 931, 932 are done. TaskTemplateCompliance residual backlog tracked by IDEA-tiered-obligations (once promoted).

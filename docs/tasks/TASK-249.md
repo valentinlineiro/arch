@@ -1,5 +1,5 @@
 ## TASK-249: Tighten refinement funnel admission and TTL rules
-**Meta:** P1 | S | READY | Focus:yes | 6-writing | claude | docs/refinement/, docs/agents/THINK.md, docs/INBOX.md, arch.config.json
+**Meta:** P1 | S | READY | Focus:no | 6-writing | claude | docs/refinement/, docs/agents/THINK.md, docs/INBOX.md, arch.config.json
 
 ### Context
 
@@ -22,3 +22,12 @@ Three rules need to change:
 
 - [ ] `arch review` passes with 0 violations after changes.  →  cmd: bash scripts/arch.sh review; exit: 0
 - [ ] Refinement queue contains only executable-candidate IDEAs as individual files.
+
+## Hansei
+
+**Severity:** H1
+**Category:** [SpecDrift]
+**Decision:** Placeholder — to be filled at close.
+**Constraint:** Placeholder — to be filled at close.
+**Cost:** Placeholder — to be filled at close.
+**Forward Action:** Placeholder — to be filled at close.
