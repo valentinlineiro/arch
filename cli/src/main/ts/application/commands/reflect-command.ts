@@ -216,7 +216,7 @@ Do not approve, reject, or close tasks. Do not write to any files. Output is eph
 ${taskSections}`;
   }
 
-  private async runAnalysis(): Promise<void> {
+  private async runAnalysis(deepMode = false): Promise<void> {
     const promptFile = 'docs/agents/THINK.md';
     // AC4: Surface weak signal warnings before THINK invocation
     try {
@@ -240,7 +240,7 @@ ${taskSections}`;
     try {
       const config = JSON.parse(fs.readFileSync('arch.config.json', 'utf8'));
       const thinkContent = fs.readFileSync(promptFile, 'utf8');
-      const prompt = modePreamble + thinkContent;
+      const prompt = thinkContent;
 
       // Write to a temp file so CLI templates using $(cat file) work correctly
       const tmpPath = `.arch/.think-prompt-${Date.now()}.md`;

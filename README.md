@@ -66,7 +66,7 @@ Every sprint ends with a retrospective where AI proposes rule changes. The syste
 
 ---
 
-## Epistemic architecture (v0.6.0)
+## Epistemic architecture (v1.0.0)
 
 Three layers, each with a distinct role:
 
@@ -194,7 +194,7 @@ arch review
 #   Drift
 #     ✔ Commands
 #     ✔ Version
-#         v0.6.0
+#         v1.0.0
 #     ✔ Paths
 
 # 4. Done
@@ -205,19 +205,20 @@ arch task done TASK-077
 
 ## Status
 
-**v0.6.0 — Operational Alpha.**
-ARCH is now a usable, self-governing operational framework for disciplined, git-native teams. The deterministic core is stable: `arch review` enforces structural integrity, task lifecycle operations are used daily, and `arch ask` retrieval is conditioned on committed causal beliefs rather than loose keyword matching.
+**v1.0.0 — Operational.**
+ARCH is a usable, self-governing operational framework for disciplined, git-native teams. The deterministic core is stable: `arch review` enforces structural integrity across 22+ checks, task lifecycle is fully operational, `arch ask` retrieval is conditioned on committed causal beliefs, and the CLI is published as `@valentinlineiro/arch` on npm.
 
-The current gap is no longer "can ARCH run daily work?" It clearly can. The gap is governance surface cleanliness: making the rules proportionate enough that compliance debt does not regenerate faster than the system can learn from it. That is why the path to `1.0.0` is focused on Tiered Obligations, Metrics Narrowing, and residual drift-surface cleanup rather than on new intelligence layers.
+The gap is no longer "can ARCH run daily work?" It can. The question now is whether repeated use produces observable compounding advantage — whether `arch ask` returns better results as the causal graph fills, and whether REFLECT proposals improve as the archive grows. That validation requires real operational time, not more features.
 
 What ARCH is ready for now:
 - internal engineering teams and early adopters who accept a git-as-OS operating model
 - high-discipline repositories where auditability and human/AI authority separation matter more than convenience
+- teams that want a structured protocol for human+AI collaboration without autonomous governance mutation
 
 What it is not ready for yet:
 - low-discipline or convenience-first teams
 - a centralized multiagent runtime
-- autonomous governance mutation or broad "plug-and-play" rollout
+- broad "plug-and-play" rollout without onboarding to the protocol
 
 ---
 

@@ -1,6 +1,6 @@
-# TASK-FORMAT v0.6.0
+# TASK-FORMAT v1.0.0
 <!-- Canonical specification for ARCH tasks -->
-<!-- Compatible with ARCH v0.6 and later — supersedes v0.5 -->
+<!-- Compatible with ARCH v1.0 and later — supersedes v0.5 -->
 <!-- Decision basis: ADR-004 (flat docs/tasks/ + Focus field) + TASK-129 (Remove Value field) -->
 
 
@@ -23,7 +23,7 @@ The following values are enforced by `DriftChecker.checkTaskTemplateCompliance()
 ---
 
 ## Overview
-ARCH v0.6 simplifies the Meta line by removing the `Value` field, prioritizing Priority and Size as the primary metrics for backlog ordering.
+ARCH v1.0 simplifies the Meta line by removing the `Value` field, prioritizing Priority and Size as the primary metrics for backlog ordering.
 
 ---
 

@@ -76,6 +76,7 @@ export class ContextInference {
 
     const feedbackMap = await this.loadFeedbackMap();
     const result = this.score(index, keywords, taskClass, taskText, feedbackMap);
+    if (result.confidence < 0.1) return; // suppress low-confidence injections (Metrics Narrowing)
     const section = this.formatSection(result);
 
     const taskPath = `docs/tasks/${taskId}.md`;
@@ -402,17 +403,9 @@ export class ContextInference {
     return [
       '',
       '### Context Feedback',
-      '_Was the Relevant Context above useful?_',
       '- [ ] accurate — files and ADRs were on-target',
       '- [ ] partial — correct direction, missing key files',
       '- [ ] off — wrong files dominated',
-      '',
-      '_If partial or off:_',
-      '- [ ] wrong files',
-      '- [ ] missing files',
-      '- [ ] wrong ADRs',
-      '- [ ] too much noise',
-      '- [ ] confidence misleading',
       '',
     ].join('\n');
   }

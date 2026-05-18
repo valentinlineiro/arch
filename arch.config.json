@@ -1,5 +1,5 @@
 {
-  "version": "0.6.0",
+  "version": "1.0.0",
   "currentSprint": "",
   "strategies": {
     "1-code-reasoning": {
@@ -138,7 +138,7 @@
     "ttlCycles": 10
   },
   "contextBudget": {
-    "docs/tasks": 1000,
+    "docs/tasks": 1500,
     "docs/archive": 8000,
     "docs/refinement": 3000
   },

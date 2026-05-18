@@ -48,17 +48,9 @@ _confidence: 0.51_
 - Bugs without formal registration*(Sprint 3)*: `arch review` WARNs had no defined path to the backlog. TASK-041/042/043 were created manually after detection. The bug protocol (TASK-040) resolved this, but friction persisted throughout Sprint 2 and part of Sprint 3. _(docs/KAIZEN-LOG.md)_
 
 ### Context Feedback
-_Was the Relevant Context above useful?_
 - [ ] accurate — files and ADRs were on-target
 - [ ] partial — correct direction, missing key files
 - [ ] off — wrong files dominated
-
-_If partial or off:_
-- [ ] wrong files
-- [ ] missing files
-- [ ] wrong ADRs
-- [ ] too much noise
-- [ ] confidence misleading
 
 #### Intent
 1.0.0 release: fix reflect modePreamble bug, collapse context feedback to 3 lines (Census fix), suppress 0% confidence context signals (Metrics Narrowing), update ROADMAP, bump version

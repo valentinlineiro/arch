@@ -1,5 +1,5 @@
 # ROADMAP.md
-<!-- ARCH Strategic Roadmap | v0.6.0 → 1.0.0 → 2.0 -->
+<!-- ARCH Strategic Roadmap | v1.0.0 → 2.0 -->
 <!-- Updated: 2026-05-18 -->
 
 ## Identity
@@ -148,14 +148,14 @@ These were previously treated as core milestones. They are now supporting infras
 
 **Objective:** Eliminate ceremonial work. The system should feel like an operational copilot, not a documentation burden.
 
-> **Phase status:** Infrastructure exists. Current focus: **Simplification without feature loss.** Diagnosed 2026-05-15: CLI unification (intent-based verbs), Refinement funnel tightening (TTL and higher entry bar), and Metrics narrowing (focus on trusted signals).
+> **Phase status:** **1.0.0 — closed 2026-05-18.** CLI surface unified (arch.sh eliminated; npm package `@valentinlineiro/arch` published). Refinement funnel enforced (TTL + admission gate). Tiered obligations enforced (XS/S Hansei triggered-only; L3 self-archive gate). Metrics Narrowing: 0% confidence context injection suppressed; Census budget recalibrated per ADR-022. Remaining items (Drift intelligence, Auto Context compounding) are not 1.0.0 blockers — they require real usage data before advancing beyond PARTIAL.
 
 | Feature | Status | Key Artifact |
 |---------|--------|--------------|
-| CLI Unification (Intent-based verbs) | `NOT STARTED` | Collapse commands into `review`, `task`, `memory`, `govern`. |
-| Refinement Funnel Tightening | `NOT STARTED` | Strict TTL for IDEAs; only executable ideas get files; higher entry bar. |
-| Metrics Narrowing | `NOT STARTED` | Focus on Completed Tasks, Review Fail Rate, Cycle Time. Suppress untrusted 0% confidence signals. |
-| Tiered Obligations | `NOT STARTED` | Proportional protocol weight (Hansei/Audit/Review) based on task size (XS vs L). |
+| CLI Unification (Intent-based verbs) | `DONE` | arch.sh collapsed to installer shim. `@valentinlineiro/arch@1.0.0` published to npm. `arch capture`, `arch review`, `arch task`, `arch govern`, `arch memory` surface is canonical. |
+| Refinement Funnel Tightening | `DONE` | TTL enforcement (`ttlCycles` in arch.config.json), admission gate (executable candidates only get IDEA-*.md files; speculative → ROADMAP-IDEAS.md). [ADR-021](adr/ADR-021-refinement-ttl-and-admission.md), TASK-249 |
+| Metrics Narrowing | `DONE` | 0% confidence context injection suppressed (threshold <0.1 in ContextInference). Census budget recalibrated to 1500 to reflect capture template reality. [ADR-022](adr/ADR-022-census-budget-recalibration.md), TASK-946 |
+| Tiered Obligations | `DONE` | XS/S Hansei triggered-only; M/L mandatory. XS L3 self-archive gate (DeterministicACVerifier). [ADR-009](adr/ADR-009-deterministic-ac-verifier.md), TASK-934 |
 | `arch capture` — intent capture with auto-generated task, ACs, complexity, context | `PARTIAL` | Pipeline implemented. **Not yet validated as Operational.** Friction reduction vs `arch task create` has not been measured in a clean-flow session. Treat as PARTIAL until that validation happens — do not promote by assumption. |
 | Auto Context Engine — infer relevant files, commits, ADRs, guidelines per task | `PARTIAL` | Infrastructure complete (ContextIndex v5). Feedback loop fully closed 2026-05-11: `ExtractContextFeedback` parses `### Context Feedback` checkboxes on task completion; `FeedbackRepository` persists signals to `.arch/context-feedback.json`; `ContextInference` applies 0.1× boost to task-refs rated `off`. Both `arch task done` and `arch loop` paths capture feedback (TASK-226). Ranking superiority over human intuition not yet validated — feedback accumulation has just begun. **Implemented, not yet Compounding.** [TASK-217](archive/TASK-217.md), [TASK-218](archive/TASK-218.md), [TASK-220](archive/TASK-220.md), [TASK-226](tasks/TASK-226.md), [IDEA-roadmap-auto-context-engine](refinement/IDEA-roadmap-auto-context-engine.md) |
 | Automatic entity linking — tasks↔commits, ADRs↔tasks, guidelines↔failures | `PARTIAL` | Links exist when naming conventions and commit hygiene are followed. Connectivity does not emerge automatically — it depends on human discipline. Inconsistent naming silently breaks the graph. Broken linking corrupts `arch ask`. [TASK-217](archive/TASK-217.md), [TASK-218](archive/TASK-218.md), [TASK-220](archive/TASK-220.md), [IDEA-roadmap-automatic-linking](refinement/IDEA-roadmap-automatic-linking.md) |

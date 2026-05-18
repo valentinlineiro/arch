@@ -27,7 +27,7 @@ These providers communicate directly with APIs (OpenRouter, Anthropic, Ollama).
   ```
 
 ## Current Configuration
-As of ARCH v0.6.0, the recommended tiers are:
+As of ARCH v1.0.0, the recommended tiers are:
 - **XS (Repetitive):** `qwen2.5-coder:1.5b` (Ollama)
 - **S (Operations):** `phi3:latest` (Ollama)
 - **M (Code/Reasoning):** `sonnet` (Gemini/Claude Bridge)

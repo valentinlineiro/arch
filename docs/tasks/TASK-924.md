@@ -20,17 +20,9 @@ _confidence: 0.00_
 - versioning.md
 
 ### Context Feedback
-_Was the Relevant Context above useful?_
 - [ ] accurate — files and ADRs were on-target
 - [ ] partial — correct direction, missing key files
 - [ ] off — wrong files dominated
-
-_If partial or off:_
-- [ ] wrong files
-- [ ] missing files
-- [ ] wrong ADRs
-- [ ] too much noise
-- [ ] confidence misleading
 
 #### Intent
 add JWT authentication middleware
@@ -38,11 +30,3 @@ add JWT authentication middleware
 ### Definition of Done
 - [ ] All ACs checked by Auditor
 - [ ] `arch review` passes
-
-## Hansei
-**Severity:** H0
-**Category:** [no-issue]
-**Decision:** Not yet started.
-**Constraint:** None.
-**Cost:** None.
-**Forward Action:** None.

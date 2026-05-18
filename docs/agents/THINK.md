@@ -1,5 +1,5 @@
 # THINK.md
-<!-- ARCH v0.6.0 — Modular Thinking & Continuous Kaizen -->
+<!-- ARCH v1.0.0 — Modular Thinking & Continuous Kaizen -->
 <!-- MODE INSTRUCTION: check the first line of this prompt for <!-- MODE: DEFAULT --> or <!-- MODE: DEEP -->. -->
 <!-- DEFAULT MODE: execute Phase 1 and Phase 2 execution steps only (steps marked [DEFAULT]). -->
 <!-- DEEP MODE: execute all phases. -->
