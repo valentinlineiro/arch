@@ -1,5 +1,8 @@
 ## TASK-944: collapse arch.sh routing layer into CLI - move AC pre-check 
-**Meta:** P3 | S | READY | Focus:no | 2-code-generation | local | docs/tasks/
+**Meta:** P3 | S | DONE | Focus:no | 2-code-generation | local | docs/tasks/
+**Closed-at:** 2026-05-18T14:15:49.936Z
+**Actor:** unknown
+**Created-at:** 2026-05-18T14:14:34.140Z
 **Depends:** none
 
 ### Acceptance Criteria
