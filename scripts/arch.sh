@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-# arch.sh — local dev shim while the CLI binary is not on PATH
-# Run once: cd cli && npm install && npm run build && npm link
-# After linking, 'arch' runs directly — this script is no longer needed.
+# arch.sh — fallback shim if 'arch' binary is not on PATH
+# Install:  cd cli && npm run upgrade   (builds + links globally)
+# Upgrade:  cd cli && npm run upgrade   (same command after CLI changes)
 
 set -e
 

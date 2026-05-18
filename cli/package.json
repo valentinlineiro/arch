@@ -13,6 +13,7 @@
     "scripts": {
         "test": "node --import tsx --test src/test/ts/*.test.ts",
         "build": "tsup",
+        "upgrade": "npm run build && npm link",
         "dev": "tsup src/main/ts/index.ts --format esm --watch",
         "prepublishOnly": "npm run build"
     },
