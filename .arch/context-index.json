@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-18T07:02:01.029Z",
+  "builtAt": "2026-05-18T07:46:07.785Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -5279,10 +5279,10 @@
   },
   "tasks": {
     "TASK-249": {
-      "commitCount": 3,
-      "lastCommitDate": "2026-05-18T09:02:00+02:00",
+      "commitCount": 4,
+      "lastCommitDate": "2026-05-18T09:46:07+02:00",
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 2,
+        ".arch/focus-ledger.jsonl": 3,
         "docs/tasks/TASK-249.md": 1,
         "docs/tasks/TASK-250.md": 1,
         "docs/tasks/TASK-251.md": 1,
@@ -5291,9 +5291,39 @@
         "docs/tasks/TASK-254.md": 1
       },
       "recentCommitRefs": [
+        "665755f",
         "f16691b",
         "30d44d0",
         "3f92b1d"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-926": {
+      "commitCount": 3,
+      "lastCommitDate": "2026-05-18T09:45:31+02:00",
+      "touchedFrequency": {
+        "docs/EVENTS.md": 2,
+        "cli/src/main/ts/domain/services/metrics-engine.ts": 1,
+        "cli/src/test/ts/report.test.ts": 1,
+        "docs/tasks/TASK-926.md": 1
+      },
+      "recentCommitRefs": [
+        "f1a8965",
+        "2ad7bac",
+        "f9912d6"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-231": {
+      "commitCount": 2,
+      "lastCommitDate": "2026-05-18T09:45:31+02:00",
+      "touchedFrequency": {
+        "docs/EVENTS.md": 1,
+        "docs/archive/TASK-231.md": 1
+      },
+      "recentCommitRefs": [
+        "f1a8965",
+        "469b1c8"
       ],
       "commitRefOverflow": false
     },
@@ -6751,17 +6781,6 @@
       ],
       "commitRefOverflow": false
     },
-    "TASK-231": {
-      "commitCount": 1,
-      "lastCommitDate": "2026-05-16T17:27:25+00:00",
-      "touchedFrequency": {
-        "docs/archive/TASK-231.md": 1
-      },
-      "recentCommitRefs": [
-        "469b1c8"
-      ],
-      "commitRefOverflow": false
-    },
     "TASK-208": {
       "commitCount": 4,
       "lastCommitDate": "2026-05-16T17:26:48+00:00",
@@ -7699,21 +7718,15 @@
       "commitRefOverflow": false
     },
     "TASK-239": {
-      "commitCount": 5,
+      "commitCount": 2,
       "lastCommitDate": "2026-05-14T17:55:14+02:00",
       "touchedFrequency": {
         "cli/src/main/ts/application/commands/exec-command.ts": 1,
-        "docs/archive/TASK-239.md": 2,
-        "docs/INBOX.md": 1,
-        "cli/src/main/ts/application/use-cases/loop-engine.ts": 1,
-        "docs/tasks/TASK-239.md": 1
+        "docs/archive/TASK-239.md": 1
       },
       "recentCommitRefs": [
         "22a3e6b",
-        "c6e4825",
-        "60e1714",
-        "33cb188",
-        "f36edf8"
+        "c6e4825"
       ],
       "commitRefOverflow": false
     },
@@ -7739,34 +7752,14 @@
       "commitRefOverflow": false
     },
     "TASK-240": {
-      "commitCount": 5,
+      "commitCount": 2,
       "lastCommitDate": "2026-05-13T13:38:43+02:00",
       "touchedFrequency": {
-        "docs/archive/TASK-240.md": 2,
-        "docs/INBOX.md": 1,
-        "cli/src/main/ts/application/commands/exec-command.ts": 1,
-        "cli/src/main/ts/application/commands/loop-command.ts": 1,
-        "cli/src/main/ts/application/use-cases/loop-engine.ts": 1,
-        "docs/tasks/TASK-240.md": 2
+        "docs/archive/TASK-240.md": 2
       },
       "recentCommitRefs": [
         "362ac2c",
-        "58fea2a",
-        "b6937de",
-        "6075462",
-        "2477ba1"
-      ],
-      "commitRefOverflow": false
-    },
-    "TASK-238": {
-      "commitCount": 2,
-      "lastCommitDate": "2026-05-13T13:28:43+02:00",
-      "touchedFrequency": {
-        "docs/archive/TASK-238.md": 2
-      },
-      "recentCommitRefs": [
-        "1fc5eb0",
-        "5c09d25"
+        "58fea2a"
       ],
       "commitRefOverflow": false
     }
