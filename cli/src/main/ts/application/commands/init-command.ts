@@ -26,8 +26,8 @@ export class InitCommand {
     // Guard: already initialized
     const alreadyExists = await this.exists('AGENTS.md');
     if (alreadyExists && !force) {
-      console.log('  AGENTS.md already exists. Use --force to reinitialize.');
-      process.exit(1);
+      console.log('  Already initialised. Run arch review to check system state.');
+      process.exit(0);
     }
 
     const stack = await this.detectStack();
@@ -115,8 +115,11 @@ export class InitCommand {
       'docs/tasks',
       'docs/archive',
       'docs/refinement',
+      'docs/refinement/archive',
       'docs/adr',
+      'docs/tensions',
       '.arch',
+      '.arch/costs',
     ];
 
     for (const dir of dirs) {
@@ -137,6 +140,9 @@ export class InitCommand {
       { dest: 'docs/tasks/.gitkeep',                     content: '' },
       { dest: 'docs/archive/.gitkeep',                   content: '' },
       { dest: 'docs/refinement/.gitkeep',                content: '' },
+      { dest: 'docs/refinement/archive/.gitkeep',        content: '' },
+      { dest: 'docs/tensions/.gitkeep',                  content: '' },
+      { dest: 'docs/tasks/TASK-001.md',                  content: this.seedTaskMd() },
     ];
 
     for (const { dest, content } of files) {
@@ -607,4 +613,41 @@ _No entries yet. THINK mode populates this during arch reflect._
 <What other options were evaluated and why were they rejected?>
 `;
   }
+  private seedTaskMd(): string {
+    const now = new Date().toISOString().slice(0, 10);
+    return `## TASK-001: Define first epic
+**Meta:** P1 | M | READY | Focus:no | 1-code-reasoning | claude-code | docs/
+
+**Depends:** none
+
+### Context
+
+This is your first ARCH task. Define the first work stream for this project.
+Describe the primary goal, expected deliverables, and how you will decompose it into smaller tasks.
+
+### Acceptance Criteria
+
+- [ ] First epic defined — scope and goal written in this task's Context section
+  - \`prose: epic description written in ### Context\`
+
+- [ ] Epic decomposed into at least 2 concrete sub-tasks in docs/tasks/
+  - \`prose: TASK-002 and TASK-003 (or higher) exist in docs/tasks/\`
+
+- [ ] \`arch review\` passes after sub-tasks are created
+  - \`cmd: arch review\`
+
+### Definition of Done
+- [ ] All ACs checked by Auditor
+- [ ] \`arch review\` passes
+
+## Hansei
+**Severity:** H0
+**Category:** [no-issue]
+**Decision:** Not yet started.
+**Constraint:** None.
+**Cost:** None.
+**Forward Action:** None.
+`;
+  }
+
 }
