@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-18T21:44:44.157Z",
+  "builtAt": "2026-05-18T21:56:20.559Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -88,6 +88,24 @@
       ],
       "criticality": "domain",
       "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/application/commands/corpus-audit-command.ts": {
+      "symbols": [
+        "CorpusAuditCommand"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/repositories/file-system.ts",
+        "cli/src/main/ts/domain/repositories/git-repository.ts"
+      ],
+      "tags": [
+        "application",
+        "commands",
+        "corpus",
+        "audit",
+        "command"
+      ],
+      "criticality": "domain",
+      "runtimeUsage": "cold"
     },
     "cli/src/main/ts/application/commands/deps-command.ts": {
       "symbols": [
@@ -5639,15 +5657,27 @@
   },
   "tasks": {
     "TASK-253": {
-      "commitCount": 3,
-      "lastCommitDate": "2026-05-18T21:44:44+00:00",
+      "commitCount": 4,
+      "lastCommitDate": "2026-05-18T21:56:20+00:00",
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 3
+        ".arch/focus-ledger.jsonl": 4
       },
       "recentCommitRefs": [
+        "24f6e85",
         "9fa9ed0",
         "a130772",
         "5e44534"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-949": {
+      "commitCount": 1,
+      "lastCommitDate": "2026-05-18T21:53:33+00:00",
+      "touchedFrequency": {
+        "docs/tasks/TASK-949.md": 1
+      },
+      "recentCommitRefs": [
+        "48a90d6"
       ],
       "commitRefOverflow": false
     },
@@ -8251,7 +8281,7 @@
       "commitRefOverflow": false
     },
     "TASK-245": {
-      "commitCount": 15,
+      "commitCount": 14,
       "lastCommitDate": "2026-05-16T15:45:47+00:00",
       "touchedFrequency": {
         ".arch/reflect-breach-log.jsonl": 3,
@@ -8266,7 +8296,7 @@
         "docs/tasks/TASK-203.md": 1,
         "docs/archive/TASK-245.md": 1,
         "docs/tasks/TASK-245.md": 2,
-        ".arch/focus-ledger.jsonl": 8,
+        ".arch/focus-ledger.jsonl": 7,
         "docs/refinement/archive/IDEA-approval-entry-check.md": 1,
         "docs/refinement/archive/IDEA-arch-core-contract.md": 1,
         "docs/refinement/archive/IDEA-arch-review-priority-drift.md": 2,
@@ -8333,8 +8363,7 @@
         "c79aad8",
         "927dc53",
         "b9412e3",
-        "7a329a0",
-        "231a048"
+        "7a329a0"
       ],
       "commitRefOverflow": false
     },
@@ -8383,90 +8412,13 @@
       "commitRefOverflow": false
     },
     "TASK-893": {
-      "commitCount": 2,
+      "commitCount": 1,
       "lastCommitDate": "2026-05-16T10:52:21+00:00",
       "touchedFrequency": {
-        "docs/archive/TASK-893.md": 1,
-        ".arch/reflect-breach-log.jsonl": 1,
-        "cli/src/main/ts/application/commands/inbox-command.ts": 1,
-        "cli/src/main/ts/application/use-cases/drift-checker.ts": 1,
-        "cli/src/main/ts/application/use-cases/generate-inbox.ts": 1,
-        "cli/src/main/ts/index.ts": 1,
-        "docs/agents/THINK.md": 1,
-        "docs/refinement/archive/IDEA-5s-seiso-deletion-action.md": 1,
-        "docs/refinement/archive/IDEA-align-idea-template-cli-field.md": 1,
-        "docs/refinement/archive/IDEA-andon-cord.md": 1,
-        "docs/refinement/archive/IDEA-api-fallback-chain.md": 1,
-        "docs/refinement/archive/IDEA-approval-entry-check.md": 1,
-        "docs/refinement/archive/IDEA-arch-core-contract.md": 1,
-        "docs/refinement/archive/IDEA-arch-help-and-training.md": 1,
-        "docs/refinement/archive/IDEA-arch-loop-engine.md": 1,
-        "docs/refinement/archive/IDEA-arch-review-dependency-graph.md": 1,
-        "docs/refinement/archive/IDEA-arch-task-done-guard.md": 1,
-        "docs/refinement/archive/IDEA-arch-version-command.md": 1,
-        "docs/refinement/archive/IDEA-artifact-deletion-backlog-scan.md": 1,
-        "docs/refinement/archive/IDEA-auto-inject-closed-at.md": 1,
-        "docs/refinement/archive/IDEA-auto-next-task-selection.md": 1,
-        "docs/refinement/archive/IDEA-autonomous-governance.md": 1,
-        "docs/refinement/archive/IDEA-autonomous-loop.md": 1,
-        "docs/refinement/archive/IDEA-census-context-budget-review-check.md": 1,
-        "docs/refinement/archive/IDEA-commit-hook-task-id-enforcement.md": 1,
-        "docs/refinement/archive/IDEA-consolidate-core-guidelines.md": 1,
-        "docs/refinement/archive/IDEA-cost-reducing-multi-api.md": 1,
-        "docs/refinement/archive/IDEA-decision-gate-loss.md": 1,
-        "docs/refinement/archive/IDEA-definition-of-ready.md": 1,
-        "docs/refinement/archive/IDEA-dispatch-stale.md": 1,
-        "docs/refinement/archive/IDEA-dynamic-reprioritization.md": 1,
-        "docs/refinement/archive/IDEA-easier-promotion-workflow.md": 1,
-        "docs/refinement/archive/IDEA-fix-readme-version-drift.md": 1,
-        "docs/refinement/archive/IDEA-halt-policy.md": 1,
-        "docs/refinement/archive/IDEA-hansei-reflection-on-done-tasks.md": 1,
-        "docs/refinement/archive/IDEA-human-review-rejection-workflow.md": 1,
-        "docs/refinement/archive/IDEA-idea-ttl-auto-rejection.md": 1,
-        "docs/refinement/archive/IDEA-inbox-regeneration-protocol.md": 1,
-        "docs/refinement/archive/IDEA-institutional-memory-document.md": 1,
-        "docs/refinement/archive/IDEA-mura-turns-per-size-metric.md": 1,
-        "docs/refinement/archive/IDEA-openrouter-groq-free-tier-fallback.md": 1,
-        "docs/refinement/archive/IDEA-opt-in-project-registry.md": 1,
-        "docs/refinement/archive/IDEA-periodic-architecture-revision.md": 1,
-        "docs/refinement/archive/IDEA-pluggable-cli-registry.md": 1,
-        "docs/refinement/archive/IDEA-poka-yoke-kaizen-to-review-pipeline.md": 1,
-        "docs/refinement/archive/IDEA-promotion-authority-contradiction.md": 1,
-        "docs/refinement/archive/IDEA-protocol-archival-guard.md": 1,
-        "docs/refinement/archive/IDEA-protocol-as-code.md": 1,
-        "docs/refinement/archive/IDEA-protocol-flow-guard.md": 1,
-        "docs/refinement/archive/IDEA-push-after-review-success.md": 1,
-        "docs/refinement/archive/IDEA-reduce-meta-fields.md": 1,
-        "docs/refinement/archive/IDEA-refactor-cli-entrypoint.md": 1,
-        "docs/refinement/archive/IDEA-remove-redundant-done-file.md": 1,
-        "docs/refinement/archive/IDEA-review-failure-bug-task.md": 1,
-        "docs/refinement/archive/IDEA-roadmap-adaptive-planning.md": 1,
-        "docs/refinement/archive/IDEA-roadmap-ai-proposed-policies.md": 1,
-        "docs/refinement/archive/IDEA-roadmap-auto-context-engine.md": 1,
-        "docs/refinement/archive/IDEA-roadmap-automatic-linking.md": 1,
-        "docs/refinement/archive/IDEA-roadmap-deterministic-drift.md": 1,
-        "docs/refinement/archive/IDEA-roadmap-domain-packs.md": 1,
-        "docs/refinement/archive/IDEA-roadmap-drift-detection.md": 1,
-        "docs/refinement/archive/IDEA-roadmap-memory-queries.md": 1,
-        "docs/refinement/archive/IDEA-roadmap-multiagent-runtime.md": 1,
-        "docs/refinement/archive/IDEA-roadmap-operational-load.md": 1,
-        "docs/refinement/archive/IDEA-roadmap-routing-engine.md": 1,
-        "docs/refinement/archive/IDEA-roadmap-structural-policies.md": 1,
-        "docs/refinement/archive/IDEA-separate-review-context.md": 1,
-        "docs/refinement/archive/IDEA-simplify-agent-protocols.md": 1,
-        "docs/refinement/archive/IDEA-sprint-open-protocol.md": 1,
-        "docs/refinement/archive/IDEA-stale-lock-resolution.md": 1,
-        "docs/refinement/archive/IDEA-support-batch-task-commits.md": 1,
-        "docs/refinement/archive/IDEA-testing-guideline-expansion.md": 1,
-        "docs/refinement/archive/IDEA-think-phase-progress-output.md": 1,
-        "docs/refinement/archive/IDEA-think-scope-restriction.md": 1,
-        "docs/refinement/archive/IDEA-unify-ui-angular.md": 1,
-        "docs/refinement/archive/IDEA-update-kaizen-log.md": 1,
-        "docs/tasks/TASK-893.md": 1
+        "docs/archive/TASK-893.md": 1
       },
       "recentCommitRefs": [
-        "bfaaab9",
-        "011e05b"
+        "bfaaab9"
       ],
       "commitRefOverflow": false
     }
