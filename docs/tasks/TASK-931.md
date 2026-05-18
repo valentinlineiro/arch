@@ -1,5 +1,5 @@
 ## TASK-931: Round-trip Locked-commit through parser; reconcile lock model in docs
-**Meta:** P1 | S | READY | Focus:no | 2-code-generation | claude | cli/src/main/ts/infrastructure/filesystem/markdown-task-repository.ts, docs/AGENTS.md, docs/agents/DO.md
+**Meta:** P1 | S | IN_PROGRESS | Focus:yes | 2-code-generation | claude | cli/src/main/ts/infrastructure/filesystem/markdown-task-repository.ts, docs/AGENTS.md, docs/agents/DO.md
 
 ### Context
 
