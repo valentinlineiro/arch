@@ -1,5 +1,5 @@
 ## TASK-933: Repair corpus drift in TASK-249, TASK-919, TASK-258
-**Meta:** P2 | XS | READY | Focus:no | 9-audit | claude | docs/tasks/TASK-249.md, docs/tasks/TASK-919.md, docs/tasks/TASK-258.md
+**Meta:** P2 | XS | IN_PROGRESS | Focus:yes | 9-audit | claude | docs/tasks/TASK-249.md, docs/tasks/TASK-919.md, docs/tasks/TASK-258.md
 
 ### Context
 
