@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-17T22:06:25.440Z",
+  "builtAt": "2026-05-18T07:00:57.527Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -983,6 +983,24 @@
         "hansei",
         "wizard",
         "block"
+      ],
+      "criticality": "domain",
+      "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/application/use-cases/lightweight-metrics-refresh.ts": {
+      "symbols": [
+        "LightweightMetricsRefresh"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/repositories/file-system.ts",
+        "cli/src/main/ts/application/use-cases/compute-trusted-metrics.ts"
+      ],
+      "tags": [
+        "application",
+        "cases",
+        "lightweight",
+        "metrics",
+        "refresh"
       ],
       "criticality": "domain",
       "runtimeUsage": "hot"
@@ -4019,6 +4037,112 @@
     }
   },
   "adrTaskLinks": {
+    "ADR-019": {
+      "tasks": {
+        "TASK-262": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-262.md"
+        },
+        "TASK-264": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-264.md"
+        },
+        "TASK-266": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-266.md"
+        },
+        "TASK-273": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-273.md"
+        },
+        "TASK-274": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-274.md"
+        },
+        "TASK-276": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-276.md"
+        },
+        "TASK-277": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-277.md"
+        },
+        "TASK-279": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-279.md"
+        },
+        "TASK-281": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-281.md"
+        },
+        "TASK-282": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-282.md"
+        },
+        "TASK-283": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-283.md"
+        },
+        "TASK-244": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-244.md"
+        },
+        "TASK-901": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-901.md"
+        }
+      }
+    },
+    "ADR-013": {
+      "tasks": {
+        "TASK-268": {
+          "evidenceKinds": [
+            "context-path",
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-268.md"
+        },
+        "TASK-231": {
+          "evidenceKinds": [
+            "context-path",
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-231.md"
+        },
+        "TASK-233": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-233.md"
+        }
+      }
+    },
     "ADR-001": {
       "tasks": {
         "TASK-002": {
@@ -4291,23 +4415,6 @@
         }
       }
     },
-    "ADR-013": {
-      "tasks": {
-        "TASK-231": {
-          "evidenceKinds": [
-            "context-path",
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-231.md"
-        },
-        "TASK-233": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-233.md"
-        }
-      }
-    },
     "ADR-008": {
       "tasks": {
         "TASK-233": {
@@ -4325,32 +4432,6 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-238.md"
-        }
-      }
-    },
-    "ADR-019": {
-      "tasks": {
-        "TASK-244": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-244.md"
-        },
-        "TASK-901": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-901.md"
-        }
-      }
-    },
-    "ADR-020": {
-      "tasks": {
-        "TASK-247": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-247.md"
         }
       }
     },
@@ -5197,13 +5278,635 @@
     }
   },
   "tasks": {
-    "TASK-919": {
+    "TASK-249": {
       "commitCount": 2,
-      "lastCommitDate": "2026-05-17T22:06:25+00:00",
+      "lastCommitDate": "2026-05-18T09:00:57+02:00",
       "touchedFrequency": {
+        ".arch/focus-ledger.jsonl": 1,
+        "docs/tasks/TASK-249.md": 1,
+        "docs/tasks/TASK-250.md": 1,
+        "docs/tasks/TASK-251.md": 1,
+        "docs/tasks/TASK-252.md": 1,
+        "docs/tasks/TASK-253.md": 1,
+        "docs/tasks/TASK-254.md": 1
+      },
+      "recentCommitRefs": [
+        "30d44d0",
+        "3f92b1d"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-260": {
+      "commitCount": 2,
+      "lastCommitDate": "2026-05-18T08:58:10+02:00",
+      "touchedFrequency": {
+        "docs/tasks/TASK-260.md": 2,
+        "docs/tasks/TASK-263.md": 2,
+        "docs/tasks/TASK-266.md": 1,
+        "docs/tasks/TASK-269.md": 1,
+        "docs/tasks/TASK-275.md": 1,
+        "docs/tasks/TASK-278.md": 1,
+        "docs/tasks/TASK-279.md": 1,
+        "docs/tasks/TASK-280.md": 1,
+        "docs/tasks/TASK-281.md": 1,
+        "docs/tasks/TASK-282.md": 1,
+        ".arch/escalations.jsonl": 1,
+        "docs/tasks/TASK-259.md": 1,
+        "docs/tasks/TASK-261.md": 1,
+        "docs/tasks/TASK-262.md": 1
+      },
+      "recentCommitRefs": [
+        "ab3a837",
+        "bb4e4b0"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-282": {
+      "commitCount": 2,
+      "lastCommitDate": "2026-05-18T08:58:10+02:00",
+      "touchedFrequency": {
+        "docs/tasks/TASK-260.md": 1,
+        "docs/tasks/TASK-263.md": 1,
+        "docs/tasks/TASK-266.md": 1,
+        "docs/tasks/TASK-269.md": 1,
+        "docs/tasks/TASK-275.md": 1,
+        "docs/tasks/TASK-278.md": 1,
+        "docs/tasks/TASK-279.md": 2,
+        "docs/tasks/TASK-280.md": 2,
+        "docs/tasks/TASK-281.md": 2,
+        "docs/tasks/TASK-282.md": 2,
+        "docs/tasks/TASK-283.md": 1,
+        "docs/tasks/TASK-284.md": 1
+      },
+      "recentCommitRefs": [
+        "ab3a837",
+        "a681e28"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-279": {
+      "commitCount": 1,
+      "lastCommitDate": "2026-05-18T08:58:10+02:00",
+      "touchedFrequency": {
+        "docs/tasks/TASK-279.md": 1,
+        "docs/tasks/TASK-280.md": 1,
+        "docs/tasks/TASK-281.md": 1,
+        "docs/tasks/TASK-282.md": 1,
+        "docs/tasks/TASK-283.md": 1,
+        "docs/tasks/TASK-284.md": 1
+      },
+      "recentCommitRefs": [
+        "a681e28"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-280": {
+      "commitCount": 1,
+      "lastCommitDate": "2026-05-18T08:58:10+02:00",
+      "touchedFrequency": {
+        "docs/tasks/TASK-279.md": 1,
+        "docs/tasks/TASK-280.md": 1,
+        "docs/tasks/TASK-281.md": 1,
+        "docs/tasks/TASK-282.md": 1,
+        "docs/tasks/TASK-283.md": 1,
+        "docs/tasks/TASK-284.md": 1
+      },
+      "recentCommitRefs": [
+        "a681e28"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-281": {
+      "commitCount": 1,
+      "lastCommitDate": "2026-05-18T08:58:10+02:00",
+      "touchedFrequency": {
+        "docs/tasks/TASK-279.md": 1,
+        "docs/tasks/TASK-280.md": 1,
+        "docs/tasks/TASK-281.md": 1,
+        "docs/tasks/TASK-282.md": 1,
+        "docs/tasks/TASK-283.md": 1,
+        "docs/tasks/TASK-284.md": 1
+      },
+      "recentCommitRefs": [
+        "a681e28"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-283": {
+      "commitCount": 1,
+      "lastCommitDate": "2026-05-18T08:58:10+02:00",
+      "touchedFrequency": {
+        "docs/tasks/TASK-279.md": 1,
+        "docs/tasks/TASK-280.md": 1,
+        "docs/tasks/TASK-281.md": 1,
+        "docs/tasks/TASK-282.md": 1,
+        "docs/tasks/TASK-283.md": 1,
+        "docs/tasks/TASK-284.md": 1
+      },
+      "recentCommitRefs": [
+        "a681e28"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-284": {
+      "commitCount": 1,
+      "lastCommitDate": "2026-05-18T08:58:10+02:00",
+      "touchedFrequency": {
+        "docs/tasks/TASK-279.md": 1,
+        "docs/tasks/TASK-280.md": 1,
+        "docs/tasks/TASK-281.md": 1,
+        "docs/tasks/TASK-282.md": 1,
+        "docs/tasks/TASK-283.md": 1,
+        "docs/tasks/TASK-284.md": 1
+      },
+      "recentCommitRefs": [
+        "a681e28"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-274": {
+      "commitCount": 1,
+      "lastCommitDate": "2026-05-18T08:58:10+02:00",
+      "touchedFrequency": {
+        "docs/tasks/TASK-274.md": 1,
+        "docs/tasks/TASK-275.md": 1,
+        "docs/tasks/TASK-276.md": 1,
+        "docs/tasks/TASK-277.md": 1,
+        "docs/tasks/TASK-278.md": 1
+      },
+      "recentCommitRefs": [
+        "dd478e7"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-275": {
+      "commitCount": 1,
+      "lastCommitDate": "2026-05-18T08:58:10+02:00",
+      "touchedFrequency": {
+        "docs/tasks/TASK-274.md": 1,
+        "docs/tasks/TASK-275.md": 1,
+        "docs/tasks/TASK-276.md": 1,
+        "docs/tasks/TASK-277.md": 1,
+        "docs/tasks/TASK-278.md": 1
+      },
+      "recentCommitRefs": [
+        "dd478e7"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-276": {
+      "commitCount": 1,
+      "lastCommitDate": "2026-05-18T08:58:10+02:00",
+      "touchedFrequency": {
+        "docs/tasks/TASK-274.md": 1,
+        "docs/tasks/TASK-275.md": 1,
+        "docs/tasks/TASK-276.md": 1,
+        "docs/tasks/TASK-277.md": 1,
+        "docs/tasks/TASK-278.md": 1
+      },
+      "recentCommitRefs": [
+        "dd478e7"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-277": {
+      "commitCount": 1,
+      "lastCommitDate": "2026-05-18T08:58:10+02:00",
+      "touchedFrequency": {
+        "docs/tasks/TASK-274.md": 1,
+        "docs/tasks/TASK-275.md": 1,
+        "docs/tasks/TASK-276.md": 1,
+        "docs/tasks/TASK-277.md": 1,
+        "docs/tasks/TASK-278.md": 1
+      },
+      "recentCommitRefs": [
+        "dd478e7"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-278": {
+      "commitCount": 1,
+      "lastCommitDate": "2026-05-18T08:58:10+02:00",
+      "touchedFrequency": {
+        "docs/tasks/TASK-274.md": 1,
+        "docs/tasks/TASK-275.md": 1,
+        "docs/tasks/TASK-276.md": 1,
+        "docs/tasks/TASK-277.md": 1,
+        "docs/tasks/TASK-278.md": 1
+      },
+      "recentCommitRefs": [
+        "dd478e7"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-269": {
+      "commitCount": 1,
+      "lastCommitDate": "2026-05-18T08:58:10+02:00",
+      "touchedFrequency": {
+        "docs/tasks/TASK-269.md": 1,
+        "docs/tasks/TASK-270.md": 1,
+        "docs/tasks/TASK-271.md": 1,
+        "docs/tasks/TASK-272.md": 1,
+        "docs/tasks/TASK-273.md": 1
+      },
+      "recentCommitRefs": [
+        "734ce8d"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-270": {
+      "commitCount": 1,
+      "lastCommitDate": "2026-05-18T08:58:10+02:00",
+      "touchedFrequency": {
+        "docs/tasks/TASK-269.md": 1,
+        "docs/tasks/TASK-270.md": 1,
+        "docs/tasks/TASK-271.md": 1,
+        "docs/tasks/TASK-272.md": 1,
+        "docs/tasks/TASK-273.md": 1
+      },
+      "recentCommitRefs": [
+        "734ce8d"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-271": {
+      "commitCount": 1,
+      "lastCommitDate": "2026-05-18T08:58:10+02:00",
+      "touchedFrequency": {
+        "docs/tasks/TASK-269.md": 1,
+        "docs/tasks/TASK-270.md": 1,
+        "docs/tasks/TASK-271.md": 1,
+        "docs/tasks/TASK-272.md": 1,
+        "docs/tasks/TASK-273.md": 1
+      },
+      "recentCommitRefs": [
+        "734ce8d"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-272": {
+      "commitCount": 1,
+      "lastCommitDate": "2026-05-18T08:58:10+02:00",
+      "touchedFrequency": {
+        "docs/tasks/TASK-269.md": 1,
+        "docs/tasks/TASK-270.md": 1,
+        "docs/tasks/TASK-271.md": 1,
+        "docs/tasks/TASK-272.md": 1,
+        "docs/tasks/TASK-273.md": 1
+      },
+      "recentCommitRefs": [
+        "734ce8d"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-273": {
+      "commitCount": 1,
+      "lastCommitDate": "2026-05-18T08:58:10+02:00",
+      "touchedFrequency": {
+        "docs/tasks/TASK-269.md": 1,
+        "docs/tasks/TASK-270.md": 1,
+        "docs/tasks/TASK-271.md": 1,
+        "docs/tasks/TASK-272.md": 1,
+        "docs/tasks/TASK-273.md": 1
+      },
+      "recentCommitRefs": [
+        "734ce8d"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-264": {
+      "commitCount": 1,
+      "lastCommitDate": "2026-05-18T08:58:10+02:00",
+      "touchedFrequency": {
+        "docs/tasks/TASK-264.md": 1,
+        "docs/tasks/TASK-265.md": 1,
+        "docs/tasks/TASK-266.md": 1,
+        "docs/tasks/TASK-267.md": 1,
+        "docs/tasks/TASK-268.md": 1
+      },
+      "recentCommitRefs": [
+        "9e8bce3"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-265": {
+      "commitCount": 1,
+      "lastCommitDate": "2026-05-18T08:58:10+02:00",
+      "touchedFrequency": {
+        "docs/tasks/TASK-264.md": 1,
+        "docs/tasks/TASK-265.md": 1,
+        "docs/tasks/TASK-266.md": 1,
+        "docs/tasks/TASK-267.md": 1,
+        "docs/tasks/TASK-268.md": 1
+      },
+      "recentCommitRefs": [
+        "9e8bce3"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-266": {
+      "commitCount": 1,
+      "lastCommitDate": "2026-05-18T08:58:10+02:00",
+      "touchedFrequency": {
+        "docs/tasks/TASK-264.md": 1,
+        "docs/tasks/TASK-265.md": 1,
+        "docs/tasks/TASK-266.md": 1,
+        "docs/tasks/TASK-267.md": 1,
+        "docs/tasks/TASK-268.md": 1
+      },
+      "recentCommitRefs": [
+        "9e8bce3"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-267": {
+      "commitCount": 1,
+      "lastCommitDate": "2026-05-18T08:58:10+02:00",
+      "touchedFrequency": {
+        "docs/tasks/TASK-264.md": 1,
+        "docs/tasks/TASK-265.md": 1,
+        "docs/tasks/TASK-266.md": 1,
+        "docs/tasks/TASK-267.md": 1,
+        "docs/tasks/TASK-268.md": 1
+      },
+      "recentCommitRefs": [
+        "9e8bce3"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-268": {
+      "commitCount": 1,
+      "lastCommitDate": "2026-05-18T08:58:10+02:00",
+      "touchedFrequency": {
+        "docs/tasks/TASK-264.md": 1,
+        "docs/tasks/TASK-265.md": 1,
+        "docs/tasks/TASK-266.md": 1,
+        "docs/tasks/TASK-267.md": 1,
+        "docs/tasks/TASK-268.md": 1
+      },
+      "recentCommitRefs": [
+        "9e8bce3"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-259": {
+      "commitCount": 1,
+      "lastCommitDate": "2026-05-18T08:58:10+02:00",
+      "touchedFrequency": {
+        ".arch/escalations.jsonl": 1,
+        "docs/tasks/TASK-259.md": 1,
+        "docs/tasks/TASK-260.md": 1,
+        "docs/tasks/TASK-261.md": 1,
+        "docs/tasks/TASK-262.md": 1,
+        "docs/tasks/TASK-263.md": 1
+      },
+      "recentCommitRefs": [
+        "bb4e4b0"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-261": {
+      "commitCount": 1,
+      "lastCommitDate": "2026-05-18T08:58:10+02:00",
+      "touchedFrequency": {
+        ".arch/escalations.jsonl": 1,
+        "docs/tasks/TASK-259.md": 1,
+        "docs/tasks/TASK-260.md": 1,
+        "docs/tasks/TASK-261.md": 1,
+        "docs/tasks/TASK-262.md": 1,
+        "docs/tasks/TASK-263.md": 1
+      },
+      "recentCommitRefs": [
+        "bb4e4b0"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-262": {
+      "commitCount": 1,
+      "lastCommitDate": "2026-05-18T08:58:10+02:00",
+      "touchedFrequency": {
+        ".arch/escalations.jsonl": 1,
+        "docs/tasks/TASK-259.md": 1,
+        "docs/tasks/TASK-260.md": 1,
+        "docs/tasks/TASK-261.md": 1,
+        "docs/tasks/TASK-262.md": 1,
+        "docs/tasks/TASK-263.md": 1
+      },
+      "recentCommitRefs": [
+        "bb4e4b0"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-263": {
+      "commitCount": 1,
+      "lastCommitDate": "2026-05-18T08:58:10+02:00",
+      "touchedFrequency": {
+        ".arch/escalations.jsonl": 1,
+        "docs/tasks/TASK-259.md": 1,
+        "docs/tasks/TASK-260.md": 1,
+        "docs/tasks/TASK-261.md": 1,
+        "docs/tasks/TASK-262.md": 1,
+        "docs/tasks/TASK-263.md": 1
+      },
+      "recentCommitRefs": [
+        "bb4e4b0"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-254": {
+      "commitCount": 6,
+      "lastCommitDate": "2026-05-18T08:58:10+02:00",
+      "touchedFrequency": {
+        "docs/archive/TASK-254.md": 1,
+        "docs/tasks/TASK-251.md": 2,
+        "docs/tasks/TASK-254.md": 5,
+        "docs/INBOX.md": 1,
+        "docs/agents/THINK-audit.md": 2,
+        "docs/tasks/TASK-249.md": 1,
+        "docs/tasks/TASK-250.md": 1,
+        "docs/tasks/TASK-252.md": 1,
+        "docs/tasks/TASK-253.md": 1
+      },
+      "recentCommitRefs": [
+        "36802a8",
+        "b75e443",
+        "72d4353",
+        "6acee74",
+        "55f2bf2",
+        "3f92b1d"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-251": {
+      "commitCount": 4,
+      "lastCommitDate": "2026-05-18T08:58:10+02:00",
+      "touchedFrequency": {
+        "docs/archive/TASK-251.md": 1,
+        "docs/tasks/TASK-251.md": 3,
+        "docs/tasks/TASK-254.md": 1,
+        "cli/src/main/ts/application/commands/report-command.ts": 1,
+        "docs/METRICS.md": 1
+      },
+      "recentCommitRefs": [
+        "efb2728",
+        "b75e443",
+        "f62d35e",
+        "27bbcac"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-247": {
+      "commitCount": 26,
+      "lastCommitDate": "2026-05-18T08:58:10+02:00",
+      "touchedFrequency": {
+        "docs/tasks/TASK-251.md": 1,
+        "docs/tasks/TASK-254.md": 1,
+        "docs/archive/TASK-247.md": 1,
+        "docs/agents/governance-execution-model.md": 9,
+        "cli/src/main/ts/application/use-cases/govern-system.ts": 3,
+        "docs/adr/ADR-020-focus-sovereignty-model.md": 2,
+        ".arch/focus-ledger.jsonl": 1,
+        "docs/INBOX.md": 1,
+        "docs/tasks/TASK-247.md": 11,
+        "cli/src/main/ts/application/use-cases/focus-ledger.ts": 1,
+        "cli/src/main/ts/application/use-cases/review-system.ts": 1,
+        "cli/src/test/ts/govern-system.test.ts": 1
+      },
+      "recentCommitRefs": [
+        "b75e443",
+        "d0499af",
+        "3bb3927",
+        "89ef5ba",
+        "554d926",
+        "bdd1a13",
+        "d4dadeb",
+        "8b6285d",
+        "9c2af43",
+        "eccd462",
+        "cf86f7f",
+        "e5a6a88",
+        "4aeaccc",
+        "b866820",
+        "082eecb",
+        "c20558a",
+        "aed2af7",
+        "a9564d1",
+        "ab94895",
+        "c68d609"
+      ],
+      "commitRefOverflow": true
+    },
+    "TASK-257": {
+      "commitCount": 14,
+      "lastCommitDate": "2026-05-18T08:58:10+02:00",
+      "touchedFrequency": {
+        "docs/archive/TASK-257.md": 1,
+        "docs/tasks/TASK-255.md": 3,
+        "docs/tasks/TASK-256.md": 2,
+        "docs/tasks/TASK-257.md": 7,
+        "cli/src/main/ts/application/use-cases/compute-trusted-metrics.ts": 2,
+        "cli/src/test/ts/compute-trusted-metrics.test.ts": 2,
+        "cli/src/main/ts/application/use-cases/govern-system.ts": 2,
+        "cli/src/main/ts/application/use-cases/mark-task-done.ts": 2,
+        "cli/src/test/ts/lightweight-metrics-refresh.test.ts": 2,
+        "cli/src/main/ts/application/use-cases/causal-arbitrator.ts": 1,
+        "docs/IDENTITY.md": 1,
+        "docs/ROADMAP.md": 1,
+        "docs/tasks/TASK-251.md": 1,
+        "cli/src/main/ts/application/commands/task-command.ts": 1,
+        "cli/src/test/ts/govern-system.test.ts": 1,
+        "cli/src/test/ts/mark-task-done.test.ts": 1,
+        "cli/src/main/ts/application/use-cases/lightweight-metrics-refresh.ts": 1
+      },
+      "recentCommitRefs": [
+        "f7568bf",
+        "0272a83",
+        "42bcfa4",
+        "30e4460",
+        "ebb3d26",
+        "b6ca02f",
+        "776d2b9",
+        "9765b49",
+        "e14578a",
+        "b24f537",
+        "ba9ef96",
+        "a2166ac",
+        "5632066",
+        "5795609"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-256": {
+      "commitCount": 7,
+      "lastCommitDate": "2026-05-18T08:58:10+02:00",
+      "touchedFrequency": {
+        "docs/archive/TASK-256.md": 1,
+        "docs/tasks/TASK-255.md": 2,
+        "docs/tasks/TASK-256.md": 5,
+        "docs/tasks/TASK-257.md": 2,
+        "docs/agents/THINK.md": 1
+      },
+      "recentCommitRefs": [
+        "38eddf8",
+        "0272a83",
+        "9ff7d67",
+        "f6abef9",
+        "1cbc307",
+        "bbb3549",
+        "5795609"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-255": {
+      "commitCount": 17,
+      "lastCommitDate": "2026-05-18T08:58:10+02:00",
+      "touchedFrequency": {
+        "docs/archive/TASK-255.md": 1,
+        "docs/tasks/TASK-255.md": 6,
+        "docs/tasks/TASK-256.md": 2,
+        "docs/tasks/TASK-257.md": 3,
+        "cli/src/main/ts/application/use-cases/weak-signal-checker.ts": 2,
+        "cli/src/test/ts/weak-signal-checker.test.ts": 2,
+        "cli/src/main/ts/application/commands/reflect-command.ts": 2,
+        "cli/src/test/ts/reflect-command.test.ts": 1,
+        "cli/src/main/ts/application/use-cases/govern-system.ts": 1,
+        "cli/src/test/ts/govern-system.test.ts": 1,
+        "arch.config.json": 1,
+        "cli/src/main/ts/application/use-cases/deep-analysis-state.ts": 1,
+        "cli/src/test/ts/deep-analysis-state.test.ts": 1,
+        "docs/tensions/weak-signals.md": 1,
+        "docs/agents/THINK.md": 1
+      },
+      "recentCommitRefs": [
+        "526532e",
+        "0272a83",
+        "291e637",
+        "e3c2670",
+        "c0195c0",
+        "7d64a5f",
+        "ce4d49e",
+        "b6fc79c",
+        "c796bd5",
+        "dec6167",
+        "7af5c0b",
+        "067e845",
+        "e7fe355",
+        "e565f24",
+        "ce1e6fa",
+        "5632066",
+        "5795609"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-919": {
+      "commitCount": 3,
+      "lastCommitDate": "2026-05-17T22:06:30+00:00",
+      "touchedFrequency": {
+        "docs/tasks/TASK-919.md": 1,
         ".arch/focus-ledger.jsonl": 2
       },
       "recentCommitRefs": [
+        "98e5f1b",
         "2c3cf58",
         "ef24048"
       ],
@@ -6048,39 +6751,13 @@
       "commitRefOverflow": false
     },
     "TASK-231": {
-      "commitCount": 2,
+      "commitCount": 1,
       "lastCommitDate": "2026-05-16T17:27:25+00:00",
       "touchedFrequency": {
-        "docs/archive/TASK-231.md": 1,
-        ".arch/reflect-decisions.jsonl": 1,
-        "docs/refinement/archive/IDEA-adr-013-phase-label-drift.md": 1,
-        "docs/refinement/archive/IDEA-backfill-legacy-hansei.md": 1,
-        "docs/refinement/archive/IDEA-cli-npm.md": 1,
-        "docs/refinement/archive/IDEA-consolidate-autonomy-rules.md": 1,
-        "docs/refinement/archive/IDEA-docs-clarification-json-rule.md": 1,
-        "docs/refinement/archive/IDEA-docs-drift-guidelines-file-reference.md": 1,
-        "docs/refinement/archive/IDEA-escalation-event-structured-store.md": 1,
-        "docs/refinement/archive/IDEA-level-terminology-disambiguation.md": 1,
-        "docs/refinement/archive/IDEA-link-unapplied-adrs.md": 1,
-        "docs/refinement/archive/IDEA-loop-mode-output-visibility.md": 1,
-        "docs/refinement/archive/IDEA-think-replenishment-link.md": 1,
-        "docs/refinement/archive/IDEA-verbose-fallback-logging.md": 1,
-        "docs/tasks/TASK-231.md": 1,
-        "docs/tasks/TASK-232.md": 1,
-        "docs/tasks/TASK-233.md": 1,
-        "docs/tasks/TASK-234.md": 1,
-        "docs/tasks/TASK-235.md": 1,
-        "docs/tasks/TASK-236.md": 1,
-        "docs/tasks/TASK-237.md": 1,
-        "docs/tasks/TASK-238.md": 1,
-        "docs/tasks/TASK-239.md": 1,
-        "docs/tasks/TASK-240.md": 1,
-        "docs/tasks/TASK-241.md": 1,
-        "docs/tasks/TASK-242.md": 1
+        "docs/archive/TASK-231.md": 1
       },
       "recentCommitRefs": [
-        "469b1c8",
-        "e358f4e"
+        "469b1c8"
       ],
       "commitRefOverflow": false
     },
@@ -6740,45 +7417,6 @@
       ],
       "commitRefOverflow": false
     },
-    "TASK-247": {
-      "commitCount": 25,
-      "lastCommitDate": "2026-05-16T10:41:12+00:00",
-      "touchedFrequency": {
-        "docs/archive/TASK-247.md": 1,
-        "docs/agents/governance-execution-model.md": 9,
-        "cli/src/main/ts/application/use-cases/govern-system.ts": 3,
-        "docs/adr/ADR-020-focus-sovereignty-model.md": 2,
-        ".arch/focus-ledger.jsonl": 1,
-        "docs/INBOX.md": 1,
-        "docs/tasks/TASK-247.md": 11,
-        "cli/src/main/ts/application/use-cases/focus-ledger.ts": 1,
-        "cli/src/main/ts/application/use-cases/review-system.ts": 1,
-        "cli/src/test/ts/govern-system.test.ts": 1
-      },
-      "recentCommitRefs": [
-        "d0499af",
-        "3bb3927",
-        "89ef5ba",
-        "554d926",
-        "bdd1a13",
-        "d4dadeb",
-        "8b6285d",
-        "9c2af43",
-        "eccd462",
-        "cf86f7f",
-        "e5a6a88",
-        "4aeaccc",
-        "b866820",
-        "082eecb",
-        "c20558a",
-        "aed2af7",
-        "a9564d1",
-        "ab94895",
-        "c68d609",
-        "a7fa391"
-      ],
-      "commitRefOverflow": true
-    },
     "TASK-892": {
       "commitCount": 7,
       "lastCommitDate": "2026-05-15T10:35:32+02:00",
@@ -6896,7 +7534,7 @@
       "commitRefOverflow": false
     },
     "TASK-242": {
-      "commitCount": 3,
+      "commitCount": 2,
       "lastCommitDate": "2026-05-15T06:32:09+00:00",
       "touchedFrequency": {
         "cli/package-lock.json": 1,
@@ -6906,36 +7544,12 @@
         "cli/tsup.config.ts": 1,
         "scripts/arch-init.sh": 1,
         "docs/tasks/TASK-207.md": 1,
-        "docs/tasks/TASK-233.md": 2,
-        "docs/tasks/TASK-242.md": 2,
-        ".arch/reflect-decisions.jsonl": 1,
-        "docs/refinement/archive/IDEA-adr-013-phase-label-drift.md": 1,
-        "docs/refinement/archive/IDEA-backfill-legacy-hansei.md": 1,
-        "docs/refinement/archive/IDEA-cli-npm.md": 1,
-        "docs/refinement/archive/IDEA-consolidate-autonomy-rules.md": 1,
-        "docs/refinement/archive/IDEA-docs-clarification-json-rule.md": 1,
-        "docs/refinement/archive/IDEA-docs-drift-guidelines-file-reference.md": 1,
-        "docs/refinement/archive/IDEA-escalation-event-structured-store.md": 1,
-        "docs/refinement/archive/IDEA-level-terminology-disambiguation.md": 1,
-        "docs/refinement/archive/IDEA-link-unapplied-adrs.md": 1,
-        "docs/refinement/archive/IDEA-loop-mode-output-visibility.md": 1,
-        "docs/refinement/archive/IDEA-think-replenishment-link.md": 1,
-        "docs/refinement/archive/IDEA-verbose-fallback-logging.md": 1,
-        "docs/tasks/TASK-231.md": 1,
-        "docs/tasks/TASK-232.md": 1,
-        "docs/tasks/TASK-234.md": 1,
-        "docs/tasks/TASK-235.md": 1,
-        "docs/tasks/TASK-236.md": 1,
-        "docs/tasks/TASK-237.md": 1,
-        "docs/tasks/TASK-238.md": 1,
-        "docs/tasks/TASK-239.md": 1,
-        "docs/tasks/TASK-240.md": 1,
-        "docs/tasks/TASK-241.md": 1
+        "docs/tasks/TASK-233.md": 1,
+        "docs/tasks/TASK-242.md": 1
       },
       "recentCommitRefs": [
         "5117f55",
-        "f4da63a",
-        "e358f4e"
+        "f4da63a"
       ],
       "commitRefOverflow": false
     },
@@ -6983,11 +7597,11 @@
       "commitRefOverflow": false
     },
     "TASK-201": {
-      "commitCount": 16,
+      "commitCount": 13,
       "lastCommitDate": "2026-05-14T17:55:14+02:00",
       "touchedFrequency": {
         "docs/archive/TASK-201.md": 1,
-        "docs/tasks/TASK-201.md": 7,
+        "docs/tasks/TASK-201.md": 6,
         "cli/src/main/ts/domain/services/archive-parser.ts": 5,
         "docs/METRICS.md": 5,
         "docs/EVENTS.md": 4,
@@ -7028,8 +7642,7 @@
         "cli/src/main/ts/application/use-cases/task-reject.ts": 1,
         "docs/adr/ADR-017-deterministic-observability.md": 1,
         "docs/agents/THINK.md": 1,
-        "scripts/arch.sh": 1,
-        "docs/AGENTS.md": 2
+        "scripts/arch.sh": 1
       },
       "recentCommitRefs": [
         "29b77b1",
@@ -7044,10 +7657,7 @@
         "e00e2c0",
         "145e265",
         "bc1c18e",
-        "69c3d4c",
-        "e9bf131",
-        "3c15642",
-        "fac8827"
+        "69c3d4c"
       ],
       "commitRefOverflow": false
     },
@@ -7149,155 +7759,16 @@
       "commitRefOverflow": false
     },
     "TASK-238": {
-      "commitCount": 6,
+      "commitCount": 3,
       "lastCommitDate": "2026-05-13T13:28:43+02:00",
       "touchedFrequency": {
         "docs/archive/TASK-238.md": 2,
-        "docs/INBOX.md": 1,
-        "docs/adr/ADR-010-escalation-maturity.md": 1,
-        "docs/guidelines/autonomy.md": 1,
-        "docs/tasks/TASK-203.md": 1,
-        "docs/tasks/TASK-204.md": 1,
-        "docs/tasks/TASK-238.md": 3,
-        "docs/tasks/TASK-232.md": 1
+        "docs/INBOX.md": 1
       },
       "recentCommitRefs": [
         "1fc5eb0",
         "5c09d25",
-        "ba96b93",
-        "afd3e97",
-        "5a34304",
-        "827f012"
-      ],
-      "commitRefOverflow": false
-    },
-    "TASK-232": {
-      "commitCount": 7,
-      "lastCommitDate": "2026-05-13T13:25:26+02:00",
-      "touchedFrequency": {
-        "docs/archive/TASK-232.md": 2,
-        "docs/INBOX.md": 1,
-        "cli/src/main/ts/application/use-cases/drift-checker.ts": 1,
-        "cli/src/test/ts/drift-checker.test.ts": 1,
-        "docs/tasks/TASK-232.md": 4,
-        "docs/tasks/TASK-238.md": 1
-      },
-      "recentCommitRefs": [
-        "b5dfbe2",
-        "334bb2d",
-        "2b56402",
-        "cacb47f",
-        "5dbce85",
-        "7316667",
-        "827f012"
-      ],
-      "commitRefOverflow": false
-    },
-    "TASK-209": {
-      "commitCount": 6,
-      "lastCommitDate": "2026-05-13T13:21:28+02:00",
-      "touchedFrequency": {
-        "docs/archive/TASK-209.md": 2,
-        "docs/INBOX.md": 1,
-        "cli/src/test/ts/reviewer.test.ts": 1,
-        "docs/tasks/TASK-209.md": 2,
-        "cli/src/main/ts/domain/services/reviewer.ts": 1
-      },
-      "recentCommitRefs": [
-        "f5f92d7",
-        "4ff69b1",
-        "14c75dd",
-        "6999a0f",
-        "a2ca064",
-        "04428ff"
-      ],
-      "commitRefOverflow": false
-    },
-    "TASK-241": {
-      "commitCount": 7,
-      "lastCommitDate": "2026-05-13T10:17:50+02:00",
-      "touchedFrequency": {
-        "docs/archive/TASK-241.md": 1,
-        "docs/tasks/TASK-241.md": 5,
-        "docs/refinement/IDEA-inbox-approval-gate-reads.md": 1,
-        "docs/INBOX.md": 1,
-        "cli/src/main/ts/application/commands/inbox-command.ts": 1,
-        "cli/src/main/ts/application/commands/sandbox-command.ts": 1,
-        "cli/src/main/ts/application/use-cases/escalation-store.ts": 1,
-        "cli/src/main/ts/application/use-cases/generate-inbox.ts": 1,
-        "cli/src/main/ts/application/use-cases/loop-engine.ts": 1,
-        "docs/agents/THINK.md": 1
-      },
-      "recentCommitRefs": [
-        "93b1ded",
-        "02935e9",
-        "50d04a5",
-        "7825003",
-        "4b334f0",
-        "6adeffb",
-        "afebf06"
-      ],
-      "commitRefOverflow": false
-    },
-    "TASK-230": {
-      "commitCount": 6,
-      "lastCommitDate": "2026-05-13T09:35:49+02:00",
-      "touchedFrequency": {
-        "docs/INBOX.md": 2,
-        "docs/archive/TASK-230.md": 1,
-        "docs/tasks/TASK-230.md": 3,
-        "README.md": 1,
-        "cli/src/main/ts/application/commands/govern-command.ts": 1,
-        "cli/src/main/ts/application/commands/reflect-command.ts": 1,
-        "cli/src/main/ts/application/use-cases/drift-checker.ts": 1,
-        "cli/src/main/ts/application/use-cases/govern-system.ts": 1,
-        "docs/IDENTITY.md": 1,
-        "docs/agents/THINK.md": 1,
-        "scripts/arch.sh": 1,
-        ".arch/reflect-decisions.jsonl": 1,
-        "docs/refinement/archive/IDEA-govern-reflect-split.md": 1
-      },
-      "recentCommitRefs": [
-        "73fe1fc",
-        "4ac3204",
-        "7ef6149",
-        "a3e6e05",
-        "b4dbd22",
-        "8971d06"
-      ],
-      "commitRefOverflow": false
-    },
-    "TASK-190": {
-      "commitCount": 5,
-      "lastCommitDate": "2026-05-13T09:21:36+02:00",
-      "touchedFrequency": {
-        "docs/INBOX.md": 2,
-        "docs/archive/TASK-190.md": 1,
-        "cli/src/main/ts/application/use-cases/loop-engine.ts": 1,
-        "cli/src/main/ts/application/use-cases/select-next-task.ts": 1,
-        "cli/src/test/ts/loop-sprint.test.ts": 1,
-        "docs/agents/DO.md": 1,
-        "docs/guidelines/autonomy.md": 1,
-        "docs/tasks/TASK-190.md": 3
-      },
-      "recentCommitRefs": [
-        "9fd4c5b",
-        "ea278cc",
-        "279d9f1",
-        "81efcc2",
-        "8e6fee4"
-      ],
-      "commitRefOverflow": false
-    },
-    "TASK-210": {
-      "commitCount": 1,
-      "lastCommitDate": "2026-05-12T16:37:24+02:00",
-      "touchedFrequency": {
-        "cli/src/main/ts/application/use-cases/generate-inbox.ts": 1,
-        "docs/tasks/TASK-210.md": 1
-      },
-      "recentCommitRefs": [
-        "dc2b86c"
+        "ba96b93"
       ],
       "commitRefOverflow": false
     }
