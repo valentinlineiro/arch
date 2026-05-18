@@ -151,3 +151,9 @@ TASK-934 | IN_PROGRESS -> DONE | commit:HEAD | agent:claude
 | TASK-936 | DONE | 2026-05-18T19:00:00Z | Fix READY status on archived TASK-215/231/234-237 | ArchiveMetaIntegrity clean |
 
 | TASK-250 | DONE | 2026-05-18T21:00:00Z | Unify CLI surface — four-verb intent domain | dispatch layer only, all aliases preserved |
+## 2026-05-18T12:17:31.501Z
+TASK-941 | IN_PROGRESS -> DONE | commit:ec30b46 | agent:human
+
+## 2026-05-18T14:05:55.118Z
+TASK-943 | IN_PROGRESS -> DONE | commit:2cd38d2 | agent:human
+
