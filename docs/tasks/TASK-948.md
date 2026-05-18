@@ -10,7 +10,7 @@
 - [x] Implement `arch govern serve` to launch a local dashboard server.
 - [x] Update `arch-viewer.html` to fetch from local API when on localhost.
 - [x] Improve main help output with categorized commands.
-- [ ] `arch review` passes
+- [x] `arch review` passes
   - `cmd: node cli/dist/index.js review`
 
 ### Context

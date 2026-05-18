@@ -76,7 +76,7 @@ export class ContextInference {
 
     const feedbackMap = await this.loadFeedbackMap();
     const result = this.score(index, keywords, taskClass, taskText, feedbackMap);
-    if (result.confidence < 0.1) return; // suppress low-confidence injections (Metrics Narrowing)
+    if (result.files.length === 0 && result.adrs.length === 0) return; // suppress truly empty injections (Metrics Narrowing)
     const section = this.formatSection(result);
 
     const taskPath = `docs/tasks/${taskId}.md`;

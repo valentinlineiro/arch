@@ -240,7 +240,8 @@ ${taskSections}`;
     try {
       const config = JSON.parse(fs.readFileSync('arch.config.json', 'utf8'));
       const thinkContent = fs.readFileSync(promptFile, 'utf8');
-      const prompt = thinkContent;
+      const modePreamble = deepMode ? '<!-- MODE: DEEP -->\n' : '<!-- MODE: DEFAULT -->\n';
+      const prompt = modePreamble + thinkContent;
 
       // Write to a temp file so CLI templates using $(cat file) work correctly
       const tmpPath = `.arch/.think-prompt-${Date.now()}.md`;

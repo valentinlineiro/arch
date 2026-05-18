@@ -432,7 +432,8 @@ test('ContextInference.execute() appends Context Feedback section on first infer
   const written = fs.written['docs/tasks/TASK-001.md'];
   assert.ok(written.includes('### Context Feedback'), 'feedback section should be appended');
   assert.ok(written.includes('- [ ] accurate'), 'feedback checkboxes should be present');
-  assert.ok(written.includes('- [ ] wrong files'), 'reason checkboxes should be present');
+  assert.ok(written.includes('- [ ] partial'), 'partial checkbox should be present');
+  assert.ok(written.includes('- [ ] off'), 'off checkbox should be present');
 });
 
 test('ContextInference.execute() does not overwrite existing Context Feedback section', async () => {
