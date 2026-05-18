@@ -1,5 +1,5 @@
 ## TASK-250: Unify CLI surface by intent-based verb domains
-**Meta:** P1 | M | REVIEW | Focus:yes | 2-code-generation | claude | cli/src/main/ts/index.ts, cli/src/main/ts/application/, docs/agents/DO.md, docs/agents/THINK.md
+**Meta:** P1 | M | DONE | Focus:no | 2-code-generation | claude | cli/src/main/ts/index.ts, cli/src/main/ts/application/, docs/agents/DO.md, docs/agents/THINK.md | Closed-at: 2026-05-18T21:00:00Z
 
 ### Context
 
@@ -96,3 +96,6 @@ Gaps were not visible until the initial draft existed; they emerged from examini
 
 **Cost:**
 The two-version alias lifecycle creates a compatibility surface that must be tracked across releases. No implementation debt introduced at draft stage.
+
+## Approval
+Approved-by: Auditor | 2026-05-18

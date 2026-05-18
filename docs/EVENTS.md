@@ -149,3 +149,5 @@ TASK-934 | IN_PROGRESS -> DONE | commit:HEAD | agent:claude
 | TASK-935 | DONE | 2026-05-18T18:30:00Z | Add missing Approval sections to TASK-255/257/927 | ApprovalPresent clean |
 
 | TASK-936 | DONE | 2026-05-18T19:00:00Z | Fix READY status on archived TASK-215/231/234-237 | ArchiveMetaIntegrity clean |
+
+| TASK-250 | DONE | 2026-05-18T21:00:00Z | Unify CLI surface — four-verb intent domain | dispatch layer only, all aliases preserved |

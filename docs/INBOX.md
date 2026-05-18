@@ -179,3 +179,6 @@ ACs verified:
 - arch review: ✔ all checkers clean (pre-existing Census + HanseiPresent warnings only)
 - npm test: 4 failures — all pre-existing (DeterministicACVerifier ×2, reflect-command ×2)
 Changed files: cli/src/main/ts/index.ts, docs/agents/DO.md, docs/agents/THINK.md, docs/AGENTS.md
+
+## [2026-05-18 21:00] REVIEW_PASS | TASK-250 | [AUDITOR]
+ACs verified: 4 domain cases in index.ts; 25 deprecated() calls; 0 old flat references in DO.md/THINK.md; arch review ✔ (Census+HanseiPresent pre-existing). Archived DONE.
