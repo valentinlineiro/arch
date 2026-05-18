@@ -38,6 +38,11 @@ import { ReflectCommand } from './application/commands/reflect-command.js';
 import { ReportCommand } from './application/commands/report-command.js';
 import { InitCommand } from './application/commands/init-command.js';
 import { VerifyAcsCommand } from './application/commands/verify-acs-command.js';
+import { StatusCommand } from './application/commands/status-command.js';
+import { ServeCommand } from './application/commands/serve-command.js';
+import { CaptureCommand } from './application/commands/capture-command.js';
+import { ExplainCommand } from './application/commands/explain-command.js';
+import { DepsCommand } from './application/commands/deps-command.js';
 
 function deprecated(old: string, canonical: string): void {
   process.stderr.write(`Warning: 'arch ${old}' is deprecated. Use 'arch ${canonical}' instead.\n`);
@@ -80,7 +85,7 @@ async function main() {
       break;
 
     case 'status':
-      await new (await import('./application/commands/status-command.js')).StatusCommand(taskRepository, fileSystem).execute();
+      await new StatusCommand(taskRepository, fileSystem).execute();
       break;
 
     // ── arch task <subcommand> ────────────────────────────────────────────────
@@ -103,7 +108,6 @@ async function main() {
       } else if (sub === 'verify-acs') {
         await new VerifyAcsCommand(taskRepository, rootPath).execute(args.slice(1));
       } else if (sub === 'capture') {
-        const { CaptureCommand } = await import('./application/commands/capture-command.js');
         await new CaptureCommand(taskRepository, fileSystem, rootPath, gitRepository).execute(args.slice(1));
       } else {
         let muriConfig;
@@ -138,7 +142,6 @@ async function main() {
         await approveStore.append('APPROVED', approveTaskId, `Human approval granted via arch govern approve.`);
         console.log(`  ✔ Approved ${approveTaskId}. Run arch task loop --resume to continue.`);
       } else if (sub === 'serve') {
-        const { ServeCommand } = await import('./application/commands/serve-command.js');
         await new ServeCommand(rootPath).execute(args.slice(1));
       } else {
         await new GovernCommand(taskRepository, gitRepository, fileSystem, causalSignalLog, rootPath).execute(args);
@@ -168,10 +171,8 @@ async function main() {
       } else if (sub === 'index') {
         await new IndexCommand(fileSystem, gitRepository).execute();
       } else if (sub === 'explain') {
-        const { ExplainCommand } = await import('./application/commands/explain-command.js');
         await new ExplainCommand(taskRepository, fileSystem, causalSignalLog, rootPath).execute(subArgs);
       } else if (sub === 'deps') {
-        const { DepsCommand } = await import('./application/commands/deps-command.js');
         await new DepsCommand(taskRepository).execute(subArgs);
       } else {
         console.log('Usage: arch memory [ask|causal|index|explain|deps]');

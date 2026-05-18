@@ -1,0 +1,14 @@
+[
+  {
+    "taskId": "TASK-941",
+    "timestamp": "2026-05-18T12:17:31.506Z",
+    "verdict": "accurate",
+    "details": {
+      "wrongFiles": true,
+      "missingFiles": true,
+      "wrongAdrs": true,
+      "tooMuchNoise": true,
+      "confidenceMisleading": false
+    }
+  }
+]

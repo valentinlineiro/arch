@@ -345,6 +345,7 @@ export class TaskCommand {
     }, 0);
 
     const newIds: string[] = [];
+    const contextStr = task.context?.join(',') || 'none';
     for (let i = 0; i < titles.length; i++) {
       const newId = `TASK-${String(maxId + 1 + i).padStart(3, '0')}`;
       newIds.push(newId);

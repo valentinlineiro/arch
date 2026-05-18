@@ -1,3 +1,5 @@
+import path from 'node:path';
+import { existsSync } from 'node:fs';
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { DeterministicACVerifier } from '../../main/ts/domain/services/deterministic-ac-verifier.js';
@@ -22,7 +24,11 @@ function makeTask(content: string): Task {
   } as unknown as Task;
 }
 
-const verifier = new DeterministicACVerifier('/home/claude/arch');
+const repoRoot = existsSync('package.json') && !existsSync('../package.json') 
+  ? path.resolve('..') 
+  : path.resolve('.');
+
+const verifier = new DeterministicACVerifier(repoRoot);
 
 test('DeterministicACVerifier — all-pass: cmd exit 0 and file exists', async () => {
   const task = makeTask(`## TASK-TEST: Test
