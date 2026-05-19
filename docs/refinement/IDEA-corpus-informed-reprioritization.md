@@ -82,30 +82,65 @@ Ship v0 with archive keyword scan against `class` and Hansei `category` fields. 
 
 Default: **demote priority** (reversible, no friction, recoverable). `BLOCKED` only when: recurrence ≥ `WEAK_SIGNAL_THRESHOLD` AND a confirmed failure pattern exists in Hansei (H0 or H1 with matching category). BLOCKED without that evidence creates an invisible graveyard of tasks that look dead but aren't — exactly the accumulation bias this command is trying to counter.
 
+## Explicit trade-off accepted by design
+
+This system chooses operational stability over epistemological evolution. That is not a neutral choice — it is a deliberate architectural policy with consequences:
+
+- The system is **robust under noise** but **blind to emergent causal entities**.
+- It is **predictable** but **not self-correcting** beyond narrow bounds.
+- It **assists human judgment** rather than accumulating an autonomous model of the world.
+
+This is the correct choice for v1. Naming it explicitly prevents future maintainers from treating stability constraints as accidental limitations to be removed.
+
+## Invariant taxonomy
+
+Not all invariants are the same kind of thing. Conflating them produces a spec that looks rigorous but isn't.
+
+**Technical invariants** — mathematical guarantees, testable, binary:
+- I3, I4, I6
+
+**Epistemological policies** — design choices about whose knowledge takes precedence, not technical guarantees:
+- I7 (human recency dominant)
+- I1 (closed vocabulary) — a stability policy, not a structural proof
+
+**Proxy heuristics** — useful approximations that acknowledge their own imprecision:
+- I2 (scalar threshold for a vector phenomenon)
+- I5 (corpus activity gate — measures writing activity, not information arrival; these are not the same)
+
 ## Causal Ranking Invariants
 
-These invariants exist to bound the system under corpus evolution. A reprioritization pass that violates any of them is a bug, not a design choice.
+**I1 — Vocabulary is closed at runtime, open at deliberate review** *(stability policy)*
+Causal entities are `category` strings from a controlled vocabulary in `arch.config.json`. Free-form creation at signal write time is prohibited. Signals with no matching category are recorded as `category: UNCLASSIFIED` — they still count toward corpus activity but do not influence ranking. This bounds drift without permanently freezing the vocabulary. Evolution is governed by IMeta below.
 
-**I1 — Entity vocabulary is closed, not free-form**
-Causal entities are identified by `category` strings from a controlled vocabulary defined in `arch.config.json`. Free-form category creation at signal write time is prohibited. If a new category is needed, it requires an explicit config change. This prevents the entity registry from fragmenting silently as the corpus grows — "task prioritization bug", "ranking instability", and "feedback loop drift" are three names for the same entity unless the vocabulary says otherwise.
+**I2 — Threshold isolation** *(proxy heuristic — acknowledged scalar)*
+`CAUSAL_RECURRENCE_THRESHOLD` is a named config field independent of `WEAK_SIGNAL_THRESHOLD`. They may be equal at initialization but are tuned separately. Acknowledged limitation: a single scalar models what is structurally a vector space — recurrence of root cause, recurrence of failure class, and recurrence of causal category are distinct phenomena that a single number conflates. This is a v0 simplification. v1 scope: stratify by signal type.
 
-**I2 — Threshold isolation**
-`CAUSAL_RECURRENCE_THRESHOLD` is a named, independently tunable config field. It may be initialized to `WEAK_SIGNAL_THRESHOLD` (3), but it is semantically distinct — it governs a specific signal type (causal category recurrence) while the other governs a different layer (weak signal decay). A change to one does not imply a change to the other. Without this separation, future tuning produces silent cross-effects and debugging becomes unreliable.
+**I3 — Fan-out depth cap** *(technical invariant)*
+Bias score from fan-out aggregates signals at most 1 hop in v0. If transitive traversal is added: decay factor ≤ 0.5 per hop, depth cap ≤ 2, subgraph caching required. Hard cap. Accepted consequence: the system has **short structural memory** — it cannot see failure cascades beyond 2 hops. This is correct by design. The trade-off is stability over systemic sensitivity. Named explicitly so it cannot be rationalized away later.
 
-**I3 — Depth cap on fan-out**
-Bias score from fan-out never aggregates signals beyond 1 hop in v0. If transitive traversal is added later, each additional hop must apply a decay factor ≤ 0.5 and depth must be capped at 2. This is a hard cap, not a soft recommendation. The invariant exists because fan-out without decay in a dependency graph converges to "everything affects everything" — which is true but useless for ranking.
+**I4 — Demotion bound** *(technical invariant)*
+A single pass cannot decrease priority by more than one level, except when: recurrence ≥ 2× `CAUSAL_RECURRENCE_THRESHOLD` AND all I6 conditions are met. Under strong evidence, −2 levels in one pass is permitted. This exception exists because the original −1-only rule slows correction under unambiguous evidence — the invariant's purpose is to prevent runaway demotion, not to protect stale estimates.
 
-**I4 — Demotion bound**
-A single reprioritization pass cannot decrease a task's priority by more than one level (P2→P3 is permitted; P1→P3 in one pass is not). The human's original estimate is preserved as a lower bound on velocity. This maintains trazabilidad: if a task is progressively demoted over multiple passes, there is a visible trail. If it drops two levels in one pass, the original signal is effectively erased.
+**I5 — Corpus gate** *(proxy heuristic — acknowledged)*
+Priority cannot decrease if the corpus has gained fewer than 3 new entries since the last reprioritization run. Acknowledged limitation: this gates on **writing activity**, not **information arrival**. A burst of unrelated archive entries would unlock demotion even if none of them are causally related to the task in question. Accepted as a v0 proxy; v1 should gate on causally-related entries specifically.
 
-**I5 — Snapshot non-reversal**
-A task's priority cannot be decreased by corpus signal alone if either: (a) it was manually set or increased within the last 30 days, or (b) the corpus has gained fewer than 3 new entries since the last reprioritization run. This prevents thrashing on a static corpus — running the command twice on the same day should produce the same output unless new archive entries arrived.
+**I6 — BLOCKED is structural** *(technical invariant)*
+BLOCKED requires simultaneously: recurrence ≥ `CAUSAL_RECURRENCE_THRESHOLD` AND at least one archived Hansei where `category` exactly matches the READY task's `class` field AND severity ∈ {H0, H1}. All three must be structurally verifiable — no prose matching, no inference. Acknowledged dependency: I6 correctness is bounded by I1 correctness. If the vocabulary mislabels an entity, I6 will produce false blocks. This is a known cascade risk that IMeta is designed to mitigate.
 
-**I6 — BLOCKED is structural, not evaluative**
-BLOCKED requires all three conditions to be true simultaneously and structurally verifiable: recurrence ≥ `CAUSAL_RECURRENCE_THRESHOLD` AND at least one archived Hansei entry where `category` field exactly matches the READY task's `class` field AND severity ∈ {H0, H1}. No prose matching, no LLM judgment, no "similar enough." If the category strings do not match exactly, it is not the same entity and BLOCKED is not warranted. This prevents the criterion from becoming political — either the structural match exists or it doesn't.
+**I7 — Human recency is dominant** *(epistemological policy)*
+Corpus bias alone cannot invert the relative order of two tasks whose priorities were set or confirmed by a human within 60 days. Named explicitly as a **policy choice**, not a technical guarantee. Consequence: the system is not autonomous in the strong sense — it accumulates evidence but defers to recent human judgment. This is intentional. ARCH is a biasing layer; it does not yet have the conditions needed to claim epistemic authority over human estimates.
 
-**I7 — Corpus bias cannot reverse recent human ordering**
-If two tasks have different priorities set or confirmed by a human within the last 60 days, corpus bias alone cannot invert their relative order without a new causal signal (≥1 new archive entry referencing both task IDs or their shared category). Human recency is the stronger signal. The system biases, it does not override.
+## IMeta — Causal vocabulary evolution
+
+I1 creates stability at the cost of potential causal blindness. IMeta is the mechanism that allows the vocabulary to evolve without degrading into free-form drift.
+
+**Phase 1 — Accumulation**: Signals with no matching category are written as `category: UNCLASSIFIED` to `causal-signal.jsonl`. They are tracked but do not influence ranking.
+
+**Phase 2 — Emergence detection**: When an UNCLASSIFIED cluster reaches ≥ `CAUSAL_RECURRENCE_THRESHOLD` signals sharing the same `class` field (structurally verifiable, no LLM), `arch task reprioritize` emits a secondary cluster report: "N unclassified signals in class X — consider naming a new category." This is advisory output only — the command does not create categories.
+
+**Phase 3 — Human-gated expansion**: A human names the new category, adds it to `arch.config.json`, and commits. A migration pass re-tags the relevant UNCLASSIFIED signals. Migration is a separate `chore:` commit, auditable. Forward signals use the new category immediately; backward migration is explicit and traceable.
+
+IMeta closes the entropy-freezing risk in I1 without opening free-form drift: new categories require accumulated evidence (Phase 2) and a human decision (Phase 3). The system can see emergent entities once they cross threshold — it just cannot name them autonomously.
 
 ## Decision
 
