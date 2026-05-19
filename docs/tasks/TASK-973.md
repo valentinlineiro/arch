@@ -1,5 +1,7 @@
 ## TASK-973: formalize the external experiment protocol for ARCH validati
-**Meta:** P3 | S | READY | Focus:no | 1-documentation-only | local | docs/tasks/
+**Meta:** P3 | S | IN_PROGRESS | Focus:no | 1-documentation-only | local | docs/tasks/
+**Actor:** unknown
+**Created-at:** 2026-05-19T16:28:08.817Z
 **Depends:** none
 
 ### Acceptance Criteria

@@ -74,6 +74,38 @@ No artifact, command, or process may be designed to make Layer 1 (event log) and
 
 ---
 
+## False Correction Hazard
+
+Any attempt to reconcile heterogeneous layers — making INBOX.md match `arch govern inbox`, or vice versa — is a **false correction**. It is not optimization, cleanup, or maintenance. It is model corruption.
+
+False correction is the specific failure mode this ADR exists to prevent. It arises from a predictable pressure: an agent observes apparent inconsistency and interprets it as a defect requiring repair. The "repair" destroys the property that made the inconsistency meaningful in the first place.
+
+**Why it feels correct:** The impulse to fix visible inconsistency is structurally indistinguishable from legitimate bug-fixing. It reads as diligence. The damage is invisible at the moment of action and only becomes apparent when the historical trace or the projection accuracy degrades.
+
+**Why it is a category error:** Layers 1 and 2 are not replicas with drift — they are different kinds of thing. A mismatch between a write history and a live computation is not a synchronization failure. It is the normal output of two systems with different observation rules operating independently, which is the intended design.
+
+The label "false correction hazard" is intentional. It classifies the error at the level of intent, not outcome. An agent that patches the event log to match the live view has made a false correction even if the resulting state appears consistent. Apparent consistency achieved by collapsing layers is not correctness — it is loss.
+
+---
+
+## Divergence Protocol
+
+When an agent observes a discrepancy between layers, the following protocol applies:
+
+**Step 1 — Classify the observation.**  
+Is the discrepancy within a single layer (e.g., two entries in `.arch/escalations.jsonl` that contradict each other)? That is an intra-layer integrity violation and may require action within that layer's rules. Is the discrepancy between layers (e.g., INBOX.md count differs from `arch govern inbox` count)? That is Expected Divergence Class A — proceed to Step 2.
+
+**Step 2 — Verify own-layer invariants.**  
+For each layer involved: are its internal invariants satisfied? INBOX.md: is it append-only and unmodified? Layer 2 sources (`docs/tasks/`, `.arch/escalations.jsonl`): are task statuses and escalation records consistent with their own schemas? If an intra-layer invariant is violated, address it within that layer. If all intra-layer invariants hold, the cross-layer divergence is not actionable.
+
+**Step 3 — Record and stop.**  
+If the divergence is cross-layer and all intra-layer invariants hold: record the observation in the session log or as a THINK note if it reveals a pattern. Do not create a TENSION. Do not create a task. Do not escalate. A cross-layer divergence that violates no intra-layer invariant is diagnostic signal, not governance incident. The observation has value. The action does not.
+
+**What "record and stop" prevents:**  
+It kills the fix reflex. It prevents silent degradation (ignoring the finding entirely). It prevents governance noise (creating a TENSION for an expected structural property). The observation is preserved without manufacturing a false problem.
+
+---
+
 ## Consequences
 
 **Divergence between layers is expected and not actionable.** A count mismatch between INBOX.md and `arch govern inbox` is a structural property of the design, not a defect. Agents must not attempt to reconcile them by overwriting or patching the event log.
