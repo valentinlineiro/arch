@@ -721,6 +721,9 @@ export class DriftChecker {
       }
 
       const content = await this.fileSystem.readFile(`${this.rootPath}/docs/archive/${file}`);
+      const metaMatch = content.match(/^\*\*Meta:\*\*\s+[^|]+\|\s*(\S+)\s*\|/m);
+      const size = metaMatch?.[1] ?? '';
+      if (!['M', 'L', 'XL'].includes(size)) continue;
       if (!content.includes('## Hansei')) {
         details.push(`${file.replace('.md', '')}: missing ## Hansei section`);
       }

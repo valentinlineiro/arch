@@ -27,3 +27,7 @@ Severities observed: H2, H3b.
 
 ## Resolution
 <!-- When resolved, set Status: RESOLVED and describe the fix -->
+## Evidence block — 2026-05-19
+**Count:** 3 occurrences
+**Task IDs:** TASK-926, TASK-927, TASK-930
+**Severities:** H2, H3b

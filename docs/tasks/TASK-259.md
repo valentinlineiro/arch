@@ -1,5 +1,5 @@
 ## TASK-259: Automate turn-count recording in arch task done
-**Meta:** P1 | S | READY | Focus:no | 2-code-generation | claude | cli/src/main/ts/application/use-cases/loop-engine.ts, docs/KAIZEN-LOG.md
+**Meta:** P1 | S | READY | Focus:yes | 2-code-generation | claude | cli/src/main/ts/application/use-cases/loop-engine.ts, docs/KAIZEN-LOG.md
 
 ### Context
 

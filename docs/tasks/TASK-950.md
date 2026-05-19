@@ -1,5 +1,5 @@
 ## TASK-950: ADR-023 deterministic gate invariant: Tier 2 hansei exit always 0
-**Meta:** P1 | S | IN_PROGRESS | Focus:yes | 2-code-generation | claude | docs/adr/ADR-023-deterministic-gate-invariant.md, cli/src/main/ts/application/commands/reflect-command.ts
+**Meta:** P1 | S | IN_PROGRESS | Focus:no | 2-code-generation | claude | docs/adr/ADR-023-deterministic-gate-invariant.md, cli/src/main/ts/application/commands/reflect-command.ts
 **Actor:** unknown
 **Created-at:** 2026-05-19T07:17:53.091Z
 **Depends:** none
