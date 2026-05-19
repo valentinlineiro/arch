@@ -1,73 +1,49 @@
 # ARCH INBOX
 
 ## Loop Status
-- **Active Tasks:** 2 (TASK-919, TASK-950)
-- **READY Tasks:** 45
+- **Active Tasks:** 2 (TASK-259, TASK-919)
+- **READY Tasks:** 47
 
 ## Pending Items
 - **AWAITING_REVIEW:** 
   - TASK-919
-- **AWAITING_PROMOTION:** (none)
+- **AWAITING_PROMOTION:** 
+  - IDEA-archive-parser-skip-non-done
+  - IDEA-automate-turn-count
+  - IDEA-automatic-sprint-lifecycle
+  - IDEA-cli-architecture-drift-review
+  - IDEA-deterministic-ac-expansion
+  - IDEA-deterministic-governance-gates
+  - IDEA-done-command-ac-section-scoping
+  - IDEA-fix-class-boundary-violation-excision
+  - IDEA-governance-epistemic-doctrine
+  - IDEA-guided-close-path
+  - IDEA-hansei-wizard
+  - IDEA-semantic-compression-layer
+  - IDEA-status-doc-refresh
+  - IDEA-think-generated-proposals
+  - IDEA-verifiability-first-templates
 
 ## Refinement Queue
 - archive-parser-skip-non-done
 - automate-turn-count
+- automatic-sprint-lifecycle
 - cli-architecture-drift-review
+- deterministic-ac-expansion
 - deterministic-governance-gates
+- done-command-ac-section-scoping
 - fix-class-boundary-violation-excision
-- fix-commit-exception-contradiction
-- fix-decomposition-duplication
-- fix-governance-terminology-collision
+- governance-epistemic-doctrine
 - guided-close-path
+- hansei-wizard
+- semantic-compression-layer
 - status-doc-refresh
-- temporal-pattern-layer
+- think-generated-proposals
+- verifiability-first-templates
 
 ## Recently Completed
-- TASK-252: Introduce size-tiered closure and review obligations
+- TASK-950: Introduce size-tiered closure and review obligations
+- TASK-949: Implement L3 self-archive for XS/S tasks
+- TASK-948: Enhance CLI UX with interactivity and local dashboard
 - TASK-946: 1.0.0 release: fix reflect modePreamble bug, collapse context feedback, Metrics Narrowing, version bump
 - TASK-945: replace bash scripts/arch.sh references with arch CLI binary
-- TASK-944: collapse arch.sh routing layer into CLI - move AC pre-check
-- TASK-943: fix arch.sh help and task-command help misalignment with can
-## [AWAITING_REVIEW] TASK-948 [L3-AUTO]
-**Closed:** 2026-05-19T08:13:09.097Z
-**Title:** Enhance CLI UX with interactivity and local dashboard
-
-| AC | Type | Pass | Detail |
-|---|---|---|---|
-| Expose `arch status` command for quick sprint progress overv | unknown | ✔ | no predicate declared — treated as prose |
-| Make `arch task start` interactive in TTY mode when no ID is | unknown | ✔ | no predicate declared — treated as prose |
-| Implement `arch govern serve` to launch a local dashboard se | unknown | ✔ | no predicate declared — treated as prose |
-| Update `arch-viewer.html` to fetch from local API when on lo | unknown | ✔ | no predicate declared — treated as prose |
-| Improve main help output with categorized commands. | unknown | ✔ | no predicate declared — treated as prose |
-| `arch review` passes | cmd | ✔ | exit 0 (expected 0) |
-
-## [2026-05-19] REVIEW_REQUEST | TASK-253 | Wire causal graph ingestion into task completion flow
-**Status:** REVIEW
-**Changed files:** cli/src/main/ts/application/use-cases/mark-task-done.ts, cli/src/main/ts/application/use-cases/validate-task-acs.ts, cli/src/test/ts/mark-task-done.test.ts
-**ACs:**
-- implements signal for ADR references (grep: verified)
-- caused_by signal for Depends field entries (prose: verified by code)
-- category signal from Hansei block (prose: verified by code)
-- source:system + confidence:0.5 schema compatibility (grep: verified in causal-signal.jsonl)
-- causal-arbitrator unchanged — no source-specific branching (prose)
-- no-op guard for empty context + no depends (prose)
-- signal emission ordering: after task save (prose)
-- CLI tests: 3 new tests covering ADR emission, Depends emission, no-op (cmd: npm test passed)
-- arch review: passed
-
-## [2026-05-19] REVIEW_PASS | TASK-253
-All 9 ACs verified. arch review passes. Archived to docs/archive/TASK-253.md.
-
-## [2026-05-19] REVIEW_REQUEST | TASK-919 | arch init: full repo scaffolding with stack detection
-**Status:** REVIEW
-**Changed files:** cli/src/main/ts/application/commands/init-command.ts
-**ACs:**
-- arch init creates dirs and AGENTS.md symlink to docs/AGENTS.md (prose: verified in temp dir)
-- stack detection pre-populates arch.config.json routing (file: init-command.ts)
-- TASK-001.md created with "Define first epic", class 1-code-reasoning, READY (prose: verified)
-- idempotent second run exits 0 with expected message (prose: verified)
-- arch review passes (cmd: verified)
-- npm test passes (cmd: verified)
-
-## [2026-05-19] REVIEW_PASS | TASK-919
-All 6 ACs verified. arch review passes. npm test passes. Approved for archive.

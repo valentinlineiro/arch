@@ -2,7 +2,7 @@
 **Created:** 2026-05-18
 **Source:** Human suggestion: "Review the architecture of the CLI. I see it's drifting from clean architecture, too much comments"
 **Status:** DRAFT
-**Sessions:** 1
+**Sessions:** 2 | **Decision-required:** yes
 **Meta:** P2 | S | claude | cli/src/main/ts/, cli/src/test/ts/
 <!-- cli: local | claude | gemini | human -->
 

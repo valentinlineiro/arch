@@ -1,5 +1,5 @@
 # IDEA: automate-turn-count
-**Meta:**Source: Phase-3.6 | Status: DRAFT | Sessions: 2 | **Decision-required:** yes
+**Meta:**Source: Phase-3.6 | Status: DRAFT | Sessions: 3 | **Decision-required:** yes
 **Created:** 2026-05-18
 
 ## Problem
