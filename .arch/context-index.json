@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-19T13:15:37.746Z",
+  "builtAt": "2026-05-19T13:23:26.784Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -417,6 +417,24 @@
       ],
       "criticality": "domain",
       "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/application/commands/reprioritize-command.ts": {
+      "symbols": [
+        "ReprioritizeCommand"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/repositories/task-repository.ts",
+        "cli/src/main/ts/domain/repositories/file-system.ts",
+        "cli/src/main/ts/application/use-cases/reprioritize-corpus.ts"
+      ],
+      "tags": [
+        "application",
+        "commands",
+        "reprioritize",
+        "command"
+      ],
+      "criticality": "domain",
+      "runtimeUsage": "cold"
     },
     "cli/src/main/ts/application/commands/review-command.ts": {
       "symbols": [
@@ -1376,6 +1394,36 @@
       ],
       "criticality": "domain",
       "runtimeUsage": "warm"
+    },
+    "cli/src/main/ts/application/use-cases/reprioritize-corpus.ts": {
+      "symbols": [
+        "DEMOTION_BOUND",
+        "CAUSAL_RECURRENCE_THRESHOLD",
+        "RECENCY_GUARD_DAYS",
+        "PriorityDiffEntry",
+        "EcpRecord",
+        "UnclassifiedCluster",
+        "ReprioritizeCorpus"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/repositories/file-system.ts",
+        "cli/src/main/ts/domain/repositories/task-repository.ts",
+        "cli/src/main/ts/domain/models/task.ts"
+      ],
+      "tags": [
+        "application",
+        "cases",
+        "reprioritize",
+        "corpus",
+        "priority",
+        "diff",
+        "entry",
+        "record",
+        "unclassified",
+        "cluster"
+      ],
+      "criticality": "domain",
+      "runtimeUsage": "cold"
     },
     "cli/src/main/ts/application/use-cases/review-system.ts": {
       "symbols": [
@@ -4558,12 +4606,6 @@
           ],
           "taskPath": "docs/tasks/TASK-282.md"
         },
-        "TASK-955": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/tasks/TASK-955.md"
-        },
         "TASK-244": {
           "evidenceKinds": [
             "literal-mention"
@@ -4609,6 +4651,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/tasks/TASK-940.md"
+        },
+        "TASK-955": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-955.md"
         },
         "TASK-201": {
           "evidenceKinds": [
@@ -4754,6 +4802,12 @@
           ],
           "taskPath": "docs/tasks/TASK-940.md"
         },
+        "TASK-955": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-955.md"
+        },
         "TASK-225": {
           "evidenceKinds": [
             "literal-mention"
@@ -4818,6 +4872,41 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-953.md"
+        }
+      }
+    },
+    "ADR-021": {
+      "tasks": {
+        "TASK-955": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-955.md"
+        },
+        "TASK-249": {
+          "evidenceKinds": [
+            "adr-field",
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-249.md"
+        },
+        "TASK-260": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-260.md"
+        },
+        "TASK-950": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-950.md"
+        },
+        "TASK-951": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-951.md"
         }
       }
     },
@@ -5421,35 +5510,6 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-247.md"
-        }
-      }
-    },
-    "ADR-021": {
-      "tasks": {
-        "TASK-249": {
-          "evidenceKinds": [
-            "adr-field",
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-249.md"
-        },
-        "TASK-260": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-260.md"
-        },
-        "TASK-950": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-950.md"
-        },
-        "TASK-951": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-951.md"
         }
       }
     },
@@ -6297,18 +6357,42 @@
   },
   "tasks": {
     "TASK-920": {
-      "commitCount": 3,
-      "lastCommitDate": "2026-05-19T15:15:37+02:00",
+      "commitCount": 4,
+      "lastCommitDate": "2026-05-19T15:23:26+02:00",
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 2,
+        ".arch/focus-ledger.jsonl": 3,
         ".arch/chronicle.jsonl": 1,
         ".arch/reflect-breach-log.jsonl": 1,
         "docs/METRICS.md": 1
       },
       "recentCommitRefs": [
+        "456c73df",
         "80e3f0cf",
         "9a8aa9b9",
         "748e1bff"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-955": {
+      "commitCount": 4,
+      "lastCommitDate": "2026-05-19T15:23:26+02:00",
+      "touchedFrequency": {
+        "docs/INBOX.md": 1,
+        ".arch/ecp-registry.jsonl": 1,
+        "cli/src/main/ts/application/commands/reprioritize-command.ts": 1,
+        "cli/src/main/ts/application/commands/task-command.ts": 1,
+        "cli/src/main/ts/application/use-cases/reprioritize-corpus.ts": 1,
+        "docs/tasks/TASK-955.md": 2,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/reflect-breach-log.jsonl": 1,
+        "docs/SENTINEL-LOG.md": 1,
+        "docs/refinement/IDEA-corpus-informed-reprioritization.md": 1
+      },
+      "recentCommitRefs": [
+        "4bed015a",
+        "8f0efce2",
+        "0e42a9a2",
+        "bf996120"
       ],
       "commitRefOverflow": false
     },
@@ -6585,18 +6669,6 @@
       ],
       "commitRefOverflow": false
     },
-    "TASK-955": {
-      "commitCount": 1,
-      "lastCommitDate": "2026-05-19T14:30:24+02:00",
-      "touchedFrequency": {
-        "docs/refinement/IDEA-corpus-informed-reprioritization.md": 1,
-        "docs/tasks/TASK-955.md": 1
-      },
-      "recentCommitRefs": [
-        "bf996120"
-      ],
-      "commitRefOverflow": false
-    },
     "TASK-279": {
       "commitCount": 6,
       "lastCommitDate": "2026-05-19T14:14:27+02:00",
@@ -6792,7 +6864,7 @@
       "commitRefOverflow": false
     },
     "TASK-206": {
-      "commitCount": 19,
+      "commitCount": 17,
       "lastCommitDate": "2026-05-19T12:49:23+02:00",
       "touchedFrequency": {
         "docs/tasks/TASK-098.md": 1,
@@ -6814,7 +6886,7 @@
         "cli/src/main/ts/application/commands/reflect-command.ts": 1,
         "cli/src/main/ts/application/use-cases/hansei-synthesizer.ts": 1,
         "docs/tensions/TENSION-005-specdrift.md": 1,
-        ".arch/focus-ledger.jsonl": 10,
+        ".arch/focus-ledger.jsonl": 8,
         ".arch/causal-signal.jsonl": 1,
         "cli/src/main/ts/application/use-cases/drift-checker.ts": 1,
         "docs/archive/TASK-901.md": 1,
@@ -6906,9 +6978,7 @@
         "b729d054",
         "ab2a1784",
         "7fe5d44d",
-        "391fc9b3",
-        "66c70c7e",
-        "f451e84e"
+        "391fc9b3"
       ],
       "commitRefOverflow": false
     },
@@ -8611,19 +8681,6 @@
         "0e0ef8cf",
         "4b53f803",
         "a48ad9b9"
-      ],
-      "commitRefOverflow": false
-    },
-    "TASK-906": {
-      "commitCount": 2,
-      "lastCommitDate": "2026-05-16T22:39:21+00:00",
-      "touchedFrequency": {
-        "docs/archive/TASK-906.md": 1,
-        "docs/tasks/TASK-906.md": 1
-      },
-      "recentCommitRefs": [
-        "32e413d9",
-        "993dc329"
       ],
       "commitRefOverflow": false
     }
