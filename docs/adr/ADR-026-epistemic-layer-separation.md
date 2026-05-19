@@ -2,6 +2,7 @@
 
 **Date:** 2026-05-19
 **Status:** ACCEPTED
+**Enforcement:** Prohibitions P1–P5 are architectural invariants. Non-compliance is not style drift — it is a semantic layer violation.
 **Deciders:** Valentín Liñeiro
 
 ---
@@ -49,6 +50,27 @@ ARCH's governance information is organized into three explicit layers. These lay
 **What it represents:** The system's understanding of itself: what is broken, what was decided, what needs human judgment.
 **Correct use:** Architectural decisions, tension documentation, IDEA promotion.
 **Incorrect use:** Operational state. A TENSION document does not mean the problem is still active. An IDEA does not mean a task exists.
+
+---
+
+## Prohibitions
+
+These are rules of impossibility, not guidelines. Violating them is not a judgment call — it is a category error.
+
+**P1 — INBOX.md is never a source of operational state.**  
+Any computation, triage decision, or agent action that depends on current system state must derive that state exclusively from Layer 2 sources (`docs/tasks/`, `.arch/escalations.jsonl`, `arch.config.json`). INBOX.md must be ignored completely for operational purposes. An agent that reads INBOX.md to decide what to do next is operating on write history, not system state — the result is undefined.
+
+**P2 — Discrepancy between layers is not an incident.**  
+Any observation that "INBOX.md says X but `arch govern inbox` says Y" is Expected Divergence Class A. It does not warrant a ticket, a patch, a reconciliation commit, or a TENSION. Treating it as actionable is the misuse. The only valid response is to use the correct layer for the task at hand.
+
+**P3 — TENSIONs cannot use INBOX.md as evidence of operational state.**  
+INBOX.md may only be cited in a TENSION as evidence of write history: "at time T, an agent wrote X." It cannot be cited as evidence that X is currently true. Using INBOX.md to establish current state in a governance argument is a category error that invalidates the argument.
+
+**P4 — Semantic collapse between layers is architecturally forbidden.**  
+No artifact, command, or process may be designed to make Layer 1 (event log) and Layer 2 (state projection) appear equivalent or interchangeable. INBOX.md must not be regenerated to match live state. `arch govern inbox` must not accumulate historical trace to match the file. The overloaded surface that tries to be both is the root cause of the pressure this ADR resolves.
+
+**P5 — Operational truth is permitted to be incomplete.**  
+`arch govern inbox` does not need to surface everything that was ever written to INBOX.md. A projection that is current and accurate for its defined scope is correct, even if it omits events that exist only in the historical log. The absence of an event in the live view is not evidence that the event did not occur — it is evidence that the projection does not retain historical trace, which is by design.
 
 ---
 
