@@ -67,3 +67,5 @@
 
  0) |
 
+## 2026-05-19 15:01:08 — Pattern Alerts
+[PATTERN-ALERT] [SpecDrift] detected 8 times — systemic issue. See docs/tensions/

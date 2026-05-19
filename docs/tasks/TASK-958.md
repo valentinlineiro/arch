@@ -1,5 +1,5 @@
 ## TASK-958: Write governance epistemic doctrine document: establish cons
-**Meta:** P1 | S | READY | Focus:no | 6-writing | local | docs/tasks/
+**Meta:** P1 | S | READY | Focus:yes | 6-writing | local | docs/tasks/
 **Actor:** unknown
 **Created-at:** 2026-05-19T14:46:45.465Z
 **Depends:** none
