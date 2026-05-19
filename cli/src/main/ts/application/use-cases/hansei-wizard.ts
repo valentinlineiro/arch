@@ -89,12 +89,15 @@ export class HanseiWizard {
     return end === -1 ? content.slice(start) : content.slice(start, end);
   }
 
-  async run(task: Task, gitRepository?: GitRepository): Promise<string> {
+  async run(task: Task, gitRepository?: GitRepository, triggerReason?: string): Promise<string> {
     const rl = readline.createInterface({ input: stdin, output: stdout });
 
     try {
-      out('\n  ── Hansei Wizard ──────────────────────────────────────');
+      out('\n  ── Hansei Wizard (Socratic Mode) ────────────────────────');
       out(`  Task: ${task.id} — ${task.title}`);
+      if (triggerReason) {
+        out(`  Trigger: ${triggerReason}`);
+      }
 
       // Run Tier 1 deterministic scan to pre-fill fields
       let inferredSeverity = 'H0';
@@ -125,34 +128,48 @@ export class HanseiWizard {
         } catch { /* non-blocking — proceed with defaults */ }
       }
 
-      // Show inferred values
-      out(`\n  Pre-filled from diff scan:`);
-      out(`    Severity:       ${inferredSeverity}`);
-      out(`    Category:       ${inferredCategory}`);
-      out(`    Constraint:     ${inferredConstraint.slice(0, 60)}`);
-      out(`    Cost:           ${inferredCost.slice(0, 60)}`);
-      out(`    Forward Action: ${inferredForwardAction.slice(0, 60)}`);
       if (findingSummary) {
-        out(`\n  Findings:\n${findingSummary}`);
+        out(`\n  Tier 1 Findings:\n${findingSummary}`);
       }
-      out('  ────────────────────────────────────────────────────────\n');
 
-      // Only ask: confirm/override severity+category, then write the Decision
+      // Socratic Question Loop
+      out('\n  Please answer the following diagnostic questions:');
+
+      // 1. Decision
+      const decision = await this.askText(rl,
+        '\n  Q1 [Decision]: Did the implementation diverge from the initial AC?\n     What specific technical or process compromise did you make?\n  > ',
+        15, 'Decision'
+      );
+
+      // 2. Constraint
+      const constraintPrompt = inferredConstraint !== 'None encountered.'
+        ? `\n  Q2 [Constraint]: What was the most significant constraint encountered?\n     (Press Enter to use inferred: "${inferredConstraint.slice(0, 50)}...")\n  > `
+        : '\n  Q2 [Constraint]: What pressure or missing info forced this compromise?\n  > ';
+      
+      const constraintAns = await this.askText(rl, constraintPrompt, 0, 'Constraint');
+      const constraint = constraintAns || inferredConstraint;
+
+      // 3. Cost
+      const costPrompt = inferredCost !== 'No architectural debt introduced.'
+        ? `\n  Q3 [Cost]: What specific debt or risk was introduced by this approach?\n     (Press Enter to use inferred: "${inferredCost.slice(0, 50)}...")\n  > `
+        : '\n  Q3 [Cost]: What is the technical cost of this compromise?\n  > ';
+      
+      const costAns = await this.askText(rl, costPrompt, 0, 'Cost');
+      const cost = costAns || inferredCost;
+
+      // Final classification
+      out('\n  Classification:');
       const sevAnswer = await rl.question(
-        `  Severity [${inferredSeverity}] — press Enter to accept or type H0/H1/H2/H3a/H3b: `
+        `  Severity [${inferredSeverity}] — Enter to accept or type H0/H1/H2/H3a/H3b: `
       );
       const severity = sevAnswer.trim() || inferredSeverity;
 
       const catAnswer = await rl.question(
-        `  Category [${inferredCategory}] — press Enter to accept or type category: `
+        `  Category [${inferredCategory}] — Enter to accept or type category (e.g. [TypeHack]): `
       );
       const category = catAnswer.trim() || inferredCategory;
 
-      // The one mandatory human field
-      const decision = await this.askText(rl,
-        '\n  Decision — what constraint did you discover that wasn\'t in the spec?\n  (This is the only field that can\'t be inferred)\n  > ',
-        15, 'Decision'
-      );
+      const forwardAction = inferredForwardAction;
 
       out('\n  ✔ Hansei complete.\n');
 
@@ -160,9 +177,9 @@ export class HanseiWizard {
         severity,
         category,
         decision,
-        constraint: inferredConstraint,
-        cost: inferredCost,
-        forwardAction: inferredForwardAction,
+        constraint,
+        cost,
+        forwardAction,
       });
 
     } finally {

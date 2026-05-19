@@ -38,20 +38,30 @@ export class MarkTaskDone {
       throw new Error(`Task ${taskId} not found`);
     }
 
+    // Compute turn count from git log if lockedCommit is available — needed for Hansei trigger
+    if (this.gitRepository && task.lockedCommit && !task.turns) {
+      try {
+        const count = await this.gitRepository.getCommitCountBetween(task.lockedCommit);
+        if (count !== null) {
+          task.turns = count;
+        }
+      } catch { /* non-blocking */ }
+    }
+
     if (!force) {
       const reviewResult = this.reviewer.reviewTask({ ...task, status: TaskStatus.DONE }, task.rawMetaLine);
       if (!reviewResult.valid) {
         throw new Error(`Cannot mark ${taskId} as DONE due to violations:\n- ${reviewResult.violations.join('\n- ')}`);
       }
 
-      const hanseiRequirement = await this.validateHanseiRequirement(task.id, task.content, task.hansei, task.size);
-      if (hanseiRequirement) {
+      const hanseiTrigger = await this.validateHanseiRequirement(task);
+      if (hanseiTrigger) {
         // Try to fill Hansei interactively before blocking
         if (stdout.isTTY) {
           const { HanseiWizard } = await import('./hansei-wizard.js');
           const wizard = new HanseiWizard();
           if (!HanseiWizard.isHanseiComplete(task.content ?? '')) {
-            const hanseiBlock = await wizard.run(task, this.gitRepository);
+            const hanseiBlock = await wizard.run(task, this.gitRepository, hanseiTrigger);
             // Write Hansei block to task file
             const currentContent = await this.fileSystem.readFile(`docs/tasks/${taskId}.md`);
             const hasSection = currentContent.includes('## Hansei');
@@ -63,7 +73,7 @@ export class MarkTaskDone {
             task.content = newContent;
           }
         } else {
-          throw new Error(`Hansei required. Run in a TTY or pre-fill ## Hansei in the task file.`);
+          throw new Error(`Hansei required (${hanseiTrigger}). Run in a TTY or pre-fill ## Hansei in the task file.`);
         }
       }
 
@@ -90,7 +100,7 @@ export class MarkTaskDone {
     }
 
     // Compute turn count from git log if lockedCommit is available
-    if (this.gitRepository && task.lockedCommit) {
+    if (this.gitRepository && task.lockedCommit && !task.turns) {
       try {
         const count = await this.gitRepository.getCommitCountBetween(task.lockedCommit);
         if (count !== null) {
@@ -260,21 +270,37 @@ export class MarkTaskDone {
     }
   }
 
-  private async validateHanseiRequirement(taskId: string, content: string, hansei?: unknown, size?: string): Promise<string | null> {
-    // XS/S: triggered-only obligations (TASK-934 tiered obligations). Only M+ require Hansei unconditionally.
-    if (size && !['M', 'L', 'XL'].includes(size)) return null;
-
+  private async validateHanseiRequirement(task: Task): Promise<string | null> {
     const configRaw = await this.fileSystem.readFile('arch.config.json');
     const config = JSON.parse(configRaw);
-    const hanseiSinceTaskId = config.hanseiSinceTaskId as number | undefined;
-    const taskNumber = parseInt(taskId.replace('TASK-', ''), 10);
+    const size = task.size?.trim();
+    const turns = task.turns;
 
-    if (hanseiSinceTaskId === undefined || Number.isNaN(taskNumber) || taskNumber < hanseiSinceTaskId) {
-      return null;
+    // Trigger 1: Turn count delta (Process health trigger)
+    const turnBudget = size ? config.muri?.[size]?.turns : undefined;
+    if (turns && turnBudget && turns > turnBudget) {
+      if (!task.hansei && !(task.content && task.content.includes('## Hansei'))) {
+        return `turn count ${turns} exceeds budget for size ${size} (${turnBudget})`;
+      }
     }
 
-    if (!hansei && !content.includes('## Hansei')) {
-      return `missing ## Hansei section for post-rollout task (TASK-${hanseiSinceTaskId}+).`;
+    // XS/S: otherwise exempt from mandatory Hansei (TASK-934)
+    if (size && !['M', 'L', 'XL'].includes(size)) return null;
+
+    // Trigger 2: Size M+ (Constitutional mandate)
+    if (size && ['M', 'L', 'XL'].includes(size)) {
+      if (!task.hansei && !(task.content && task.content.includes('## Hansei'))) {
+        return `size ${size} requires mandatory Hansei block`;
+      }
+    }
+
+    // Legacy trigger for rollout phase (for M+ tasks)
+    const hanseiSinceTaskId = config.governance?.hanseiSinceTaskId ?? config.hanseiSinceTaskId;
+    const taskNumber = parseInt(task.id.replace('TASK-', ''), 10);
+    if (hanseiSinceTaskId !== undefined && !Number.isNaN(taskNumber) && taskNumber >= hanseiSinceTaskId) {
+      if (!task.hansei && !(task.content && task.content.includes('## Hansei'))) {
+        return `missing ## Hansei section for post-rollout task (TASK-${hanseiSinceTaskId}+).`;
+      }
     }
 
     return null;
