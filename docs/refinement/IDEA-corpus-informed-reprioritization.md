@@ -82,6 +82,31 @@ Ship v0 with archive keyword scan against `class` and Hansei `category` fields. 
 
 Default: **demote priority** (reversible, no friction, recoverable). `BLOCKED` only when: recurrence ≥ `WEAK_SIGNAL_THRESHOLD` AND a confirmed failure pattern exists in Hansei (H0 or H1 with matching category). BLOCKED without that evidence creates an invisible graveyard of tasks that look dead but aren't — exactly the accumulation bias this command is trying to counter.
 
+## Causal Ranking Invariants
+
+These invariants exist to bound the system under corpus evolution. A reprioritization pass that violates any of them is a bug, not a design choice.
+
+**I1 — Entity vocabulary is closed, not free-form**
+Causal entities are identified by `category` strings from a controlled vocabulary defined in `arch.config.json`. Free-form category creation at signal write time is prohibited. If a new category is needed, it requires an explicit config change. This prevents the entity registry from fragmenting silently as the corpus grows — "task prioritization bug", "ranking instability", and "feedback loop drift" are three names for the same entity unless the vocabulary says otherwise.
+
+**I2 — Threshold isolation**
+`CAUSAL_RECURRENCE_THRESHOLD` is a named, independently tunable config field. It may be initialized to `WEAK_SIGNAL_THRESHOLD` (3), but it is semantically distinct — it governs a specific signal type (causal category recurrence) while the other governs a different layer (weak signal decay). A change to one does not imply a change to the other. Without this separation, future tuning produces silent cross-effects and debugging becomes unreliable.
+
+**I3 — Depth cap on fan-out**
+Bias score from fan-out never aggregates signals beyond 1 hop in v0. If transitive traversal is added later, each additional hop must apply a decay factor ≤ 0.5 and depth must be capped at 2. This is a hard cap, not a soft recommendation. The invariant exists because fan-out without decay in a dependency graph converges to "everything affects everything" — which is true but useless for ranking.
+
+**I4 — Demotion bound**
+A single reprioritization pass cannot decrease a task's priority by more than one level (P2→P3 is permitted; P1→P3 in one pass is not). The human's original estimate is preserved as a lower bound on velocity. This maintains trazabilidad: if a task is progressively demoted over multiple passes, there is a visible trail. If it drops two levels in one pass, the original signal is effectively erased.
+
+**I5 — Snapshot non-reversal**
+A task's priority cannot be decreased by corpus signal alone if either: (a) it was manually set or increased within the last 30 days, or (b) the corpus has gained fewer than 3 new entries since the last reprioritization run. This prevents thrashing on a static corpus — running the command twice on the same day should produce the same output unless new archive entries arrived.
+
+**I6 — BLOCKED is structural, not evaluative**
+BLOCKED requires all three conditions to be true simultaneously and structurally verifiable: recurrence ≥ `CAUSAL_RECURRENCE_THRESHOLD` AND at least one archived Hansei entry where `category` field exactly matches the READY task's `class` field AND severity ∈ {H0, H1}. No prose matching, no LLM judgment, no "similar enough." If the category strings do not match exactly, it is not the same entity and BLOCKED is not warranted. This prevents the criterion from becoming political — either the structural match exists or it doesn't.
+
+**I7 — Corpus bias cannot reverse recent human ordering**
+If two tasks have different priorities set or confirmed by a human within the last 60 days, corpus bias alone cannot invert their relative order without a new causal signal (≥1 new archive entry referencing both task IDs or their shared category). Human recency is the stronger signal. The system biases, it does not override.
+
 ## Decision
 
 <!-- **Adjudicate by:** [date or "after N THINK reviews"] -->
