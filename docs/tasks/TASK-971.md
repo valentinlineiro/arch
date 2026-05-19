@@ -44,3 +44,15 @@ _confidence: 0.45_
 
 #### Intent
 Refresh status language in README.md and docs/ROADMAP.md: describe ARCH as operational alpha, distinguish current strengths from remaining 1.0.0 gap, update roadmap so govern/reflect split is treated as implemented with residual work framed as boundary hardening.
+
+### Definition of Done
+- [ ] All ACs checked by Auditor  →  prose: Auditor verifies each AC against repo state
+- [ ] `arch review` passes  →  cmd: arch review; exit: 0
+
+## Hansei
+**Severity:** H0
+**Category:** [SpecDrift]
+**Decision:** Not yet started.
+**Constraint:** No constraints apply — task has not started.
+**Cost:** No cost incurred — task has not started.
+**Forward Action:** No forward action required.
