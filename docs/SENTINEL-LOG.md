@@ -5,3 +5,4 @@ Append-only log of Sentinel preflight reasoning calls. Each entry records the ta
 | Timestamp | Task | Trigger | Outcome | Note |
 |-----------|------|---------|---------|------|
 | 2026-05-19 13:05:25 | TASK-283 | Implementing M-size sentinel infrastructure — forward action from DO.md mandate | GO |  |
+| 2026-05-19 13:11:47 | TASK-939 | M-size correction signal schema — additive only, no behavioral changes to existing REVIEW_FAIL or REDIRECT paths | GO |  |
