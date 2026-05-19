@@ -59,7 +59,3 @@
 | `npm test` passes | cmd | ✔ | exit 0 (expected 0) |
 | `arch review` passes | cmd | ✔ | exit 0 (expected 0) |
 
-## [REVIEW_REQUEST] TASK-262
-**Title:** Implement Socratic Hansei Wizard in arch task done
-**Date:** 2026-05-19
-
