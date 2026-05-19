@@ -1,14 +1,20 @@
-## TASK-950: ADR-023 deterministic gate invariant: Tier 2 hansei exit alw
-**Meta:** P3 | S | READY | Focus:no | 2-code-generation | local | docs/tasks/
+## TASK-950: ADR-023 deterministic gate invariant: Tier 2 hansei exit always 0
+**Meta:** P1 | S | IN_PROGRESS | Focus:no | 2-code-generation | claude | docs/adr/ADR-023-deterministic-gate-invariant.md, cli/src/main/ts/application/commands/reflect-command.ts
+**Actor:** unknown
+**Created-at:** 2026-05-19T07:17:53.091Z
 **Depends:** none
 
 ### Acceptance Criteria
-- [ ] Implementation file exists at declared context path
-  - `file: (path)`
-- [ ] Tests pass
-  - `cmd: npm test; exit: 0`
+- [ ] `docs/adr/ADR-023-deterministic-gate-invariant.md` exists and documents the principle with explicit per-command classification (deterministic vs advisory)
+  - `file: docs/adr/ADR-023-deterministic-gate-invariant.md`
+- [ ] `arch reflect hansei` Tier 2 exit code is always 0 regardless of LLM findings
+  - `file: cli/src/main/ts/application/commands/reflect-command.ts`
+- [ ] Tier 2 output header explicitly reads "ADVISORY" and states it is not a governance gate
+  - `file: cli/src/main/ts/application/commands/reflect-command.ts`
+- [ ] `npm test` passes
+  - `cmd: npm test --prefix cli; exit: 0`
 - [ ] `arch review` passes
-  - `cmd: node cli/dist/index.js review`
+  - `cmd: arch review; exit: 0`
 
 ### Context
 
