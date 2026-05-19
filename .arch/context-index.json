@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-19T11:38:51.059Z",
+  "builtAt": "2026-05-19T11:40:09.602Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -4500,6 +4500,12 @@
           ],
           "taskPath": "docs/archive/TASK-157.md"
         },
+        "TASK-258": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-258.md"
+        },
         "TASK-259": {
           "evidenceKinds": [
             "literal-mention"
@@ -4596,6 +4602,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-160.md"
+        },
+        "TASK-258": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-258.md"
         },
         "TASK-269": {
           "evidenceKinds": [
@@ -4781,6 +4793,12 @@
           ],
           "taskPath": "docs/archive/TASK-200.md"
         },
+        "TASK-258": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-258.md"
+        },
         "TASK-946": {
           "evidenceKinds": [
             "literal-mention"
@@ -4962,6 +4980,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-233.md"
+        },
+        "TASK-258": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-258.md"
         }
       }
     },
@@ -5863,10 +5887,10 @@
   },
   "tasks": {
     "TASK-265": {
-      "commitCount": 3,
-      "lastCommitDate": "2026-05-19T13:38:50+02:00",
+      "commitCount": 4,
+      "lastCommitDate": "2026-05-19T13:40:09+02:00",
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 2,
+        ".arch/focus-ledger.jsonl": 3,
         "docs/tasks/TASK-264.md": 1,
         "docs/tasks/TASK-265.md": 1,
         "docs/tasks/TASK-266.md": 1,
@@ -5874,9 +5898,30 @@
         "docs/tasks/TASK-268.md": 1
       },
       "recentCommitRefs": [
+        "c5411089",
         "3e540eae",
         "06580eed",
         "9e8bce39"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-258": {
+      "commitCount": 3,
+      "lastCommitDate": "2026-05-19T13:40:09+02:00",
+      "touchedFrequency": {
+        "docs/archive/TASK-258.md": 1,
+        "docs/tasks/TASK-258.md": 2,
+        ".arch/reflect-breach-log.jsonl": 1,
+        "docs/INBOX.md": 1,
+        "docs/METRICS.md": 1,
+        "docs/tasks/TASK-249.md": 1,
+        "docs/tasks/TASK-919.md": 1,
+        "docs/tasks/TASK-933.md": 1
+      },
+      "recentCommitRefs": [
+        "e8db70ea",
+        "20282e9a",
+        "fc39bf89"
       ],
       "commitRefOverflow": false
     },
@@ -5939,7 +5984,7 @@
       "commitRefOverflow": false
     },
     "TASK-206": {
-      "commitCount": 23,
+      "commitCount": 22,
       "lastCommitDate": "2026-05-19T12:49:23+02:00",
       "touchedFrequency": {
         "docs/tasks/TASK-098.md": 1,
@@ -5961,7 +6006,7 @@
         "cli/src/main/ts/application/commands/reflect-command.ts": 1,
         "cli/src/main/ts/application/use-cases/hansei-synthesizer.ts": 1,
         "docs/tensions/TENSION-005-specdrift.md": 1,
-        ".arch/focus-ledger.jsonl": 12,
+        ".arch/focus-ledger.jsonl": 11,
         ".arch/causal-signal.jsonl": 1,
         "cli/src/main/ts/application/use-cases/drift-checker.ts": 1,
         "docs/archive/TASK-901.md": 1,
@@ -7089,20 +7134,6 @@
         "fc39bf89",
         "adc46242",
         "f854d3fd"
-      ],
-      "commitRefOverflow": false
-    },
-    "TASK-258": {
-      "commitCount": 1,
-      "lastCommitDate": "2026-05-18T11:24:41+02:00",
-      "touchedFrequency": {
-        "docs/tasks/TASK-249.md": 1,
-        "docs/tasks/TASK-258.md": 1,
-        "docs/tasks/TASK-919.md": 1,
-        "docs/tasks/TASK-933.md": 1
-      },
-      "recentCommitRefs": [
-        "fc39bf89"
       ],
       "commitRefOverflow": false
     },
@@ -8242,7 +8273,7 @@
       "commitRefOverflow": false
     },
     "TASK-246": {
-      "commitCount": 3,
+      "commitCount": 1,
       "lastCommitDate": "2026-05-16T17:36:46+00:00",
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
@@ -8251,16 +8282,10 @@
         "cli/src/main/ts/application/commands/reflect-command.ts": 1,
         "cli/src/main/ts/application/commands/report-command.ts": 1,
         "cli/src/main/ts/application/use-cases/mark-task-done.ts": 1,
-        "docs/EVENTS.md": 1,
-        "docs/archive/TASK-246.md": 1,
-        "cli/src/main/ts/domain/services/signal-router.ts": 1,
-        "docs/METRICS.md": 1,
-        "docs/tasks/TASK-246.md": 1
+        "docs/EVENTS.md": 1
       },
       "recentCommitRefs": [
-        "38e25291",
-        "d00e6f7b",
-        "a1783b84"
+        "38e25291"
       ],
       "commitRefOverflow": false
     }
