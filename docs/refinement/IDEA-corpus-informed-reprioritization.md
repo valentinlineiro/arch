@@ -46,12 +46,41 @@ Human confirms; command writes updated Meta lines and commits with `chore: [TASK
 - Not automatic. `arch govern` does not call this. It is advisory, human-triggered, like `arch task review`.
 - Not a replacement for human judgment. The output is a ranked diff with evidence, not a decision.
 
-## Open questions
+## Architectural framing (closed)
 
-1. **Recurrence threshold** — what count of archive matches justifies a bump? 3 seems reasonable (matches WEAK_SIGNAL_THRESHOLD), but needs a name so it's not a magic number.
-2. **Unblock fan-out scoring** — direct dependents only, or transitive? Transitive is more accurate but requires graph traversal. Direct is O(n) over the READY queue.
-3. **Integration with TASK-954** — the temporal-index.jsonl label store is the right recurrence source. Should this wait for TASK-954, or use a simpler archive keyword scan as a first pass?
-4. **Demotion vs parking** — tasks that score low on all signals: lower their priority, or mark BLOCKED with a note? Demotion is reversible; BLOCKED requires a human unblock. Different semantics.
+**This is a biasing layer, not a truth layer.**
+
+Three tiers, in order of execution speed:
+
+1. **Heurística** (fast ranking) — direct graph signals: fan-out, causal ancestry, age. O(n) over READY queue.
+2. **Corpus signal** (bias adjustment) — recurrence in archive. Adjusts heurística output. Does not override it.
+3. **Causal graph** (slow correction) — applied only when a signal reaches threshold. Refines, does not replace tier 1.
+
+This separation is a hard invariant. If tiers collapse (e.g., causal graph drives ranking directly), the system becomes globally incoherent — one noisy edge destabilizes everything. Local heurística first; global correction second.
+
+## Design decisions (closed)
+
+**1. Recurrence signal definition (not threshold)**
+
+The problem was under-specified. "Recurrence count" is ambiguous until you define what recurs.
+
+Closed definition: **a recurrence is a match on the same causal entity** — specifically, a `taskId` or label that appears in `.arch/causal-signal.jsonl` edges with the same `category` field as the READY task's class. Keyword similarity is not sufficient; it matches noise. Causal entity match is auditable and deterministic.
+
+Threshold: reuse `WEAK_SIGNAL_THRESHOLD = 3`. No new constant. Introducing a second threshold before the first one has proven insufficient is premature optimization.
+
+**2. Fan-out scope**
+
+Direct dependents only (O(n) over READY queue). No transitive traversal.
+
+Transitive fan-out without exponential decay and a depth cap (≤3) produces unstable ranking — one task near the root of the graph dominates everything. That instability is worse than the lost precision. Transitive can be added later if: (a) decay is defined, (b) depth is capped, (c) subgraphs are cached. Not before.
+
+**3. TASK-954 dependency**
+
+Ship v0 with archive keyword scan against `class` and Hansei `category` fields. TASK-954 (temporal-index label store) improves recall but does not change the architecture — it is a better data source for the same signal, swappable in later. Waiting for infrastructure that isn't built yet is how features never ship.
+
+**4. Low-signal task handling**
+
+Default: **demote priority** (reversible, no friction, recoverable). `BLOCKED` only when: recurrence ≥ `WEAK_SIGNAL_THRESHOLD` AND a confirmed failure pattern exists in Hansei (H0 or H1 with matching category). BLOCKED without that evidence creates an invisible graveyard of tasks that look dead but aren't — exactly the accumulation bias this command is trying to counter.
 
 ## Decision
 
