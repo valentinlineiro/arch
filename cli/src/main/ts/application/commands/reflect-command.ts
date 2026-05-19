@@ -112,8 +112,9 @@ export class ReflectCommand {
         return;
       }
 
-      // Tier 2 — LLM-assisted (original behavior)
+      // Tier 2 — LLM-assisted (advisory only — never a governance gate)
       console.log('  ── Tier 2: LLM-assisted analysis ───────────────────────');
+      console.log('  ADVISORY — output is informational only. This analysis is not a governance gate.');
       const prompt = this.buildHanseiPrompt(reviewTasks);
       const config = JSON.parse(fs.readFileSync('arch.config.json', 'utf8'));
       const clis = config.clis || [];
@@ -126,7 +127,7 @@ export class ReflectCommand {
         const cmd = cli.template.replace(/\{prompt\}/g, `$(cat ${tmpFile})`);
         const result = spawnSync('sh', ['-c', cmd], { stdio: 'inherit' });
         try { fs.unlinkSync(tmpFile); } catch {}
-        process.exit(result.status ?? 0);
+        process.exit(0);
       }
 
       console.log('  No AI CLI detected. Paste the following into your LLM:\n');
