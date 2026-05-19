@@ -3,6 +3,7 @@ import type { FileSystem } from '../../domain/repositories/file-system.js';
 import type { GitRepository } from '../../domain/repositories/git-repository.js';
 import { CreateTask } from '../use-cases/create-task.js';
 import { MarkTaskInProgress, DefinitionOfReadyError } from '../use-cases/mark-task-in-progress.js';
+import { SemanticCollisionDetector } from '../use-cases/semantic-collision-detector.js';
 
 export class CaptureCommand {
   constructor(
@@ -64,6 +65,15 @@ export class CaptureCommand {
         await this.fileSystem.writeFile(taskPath, content);
       } catch { /* non-blocking */ }
     }
+
+    // Step 2b: Semantic collision check (advisory only — never blocks)
+    try {
+      const taskPath = `docs/tasks/${taskId}.md`;
+      const taskContent = await this.fileSystem.readFile(taskPath);
+      const detector = new SemanticCollisionDetector(this.fileSystem);
+      const advisory = await detector.execute(taskContent, taskId);
+      if (advisory) console.log(advisory);
+    } catch { /* collision detection errors must never block capture */ }
 
     // Step 3: Attempt DoR validation — auto-fix mechanical violations
     const markInProgress = new MarkTaskInProgress(this.taskRepository);

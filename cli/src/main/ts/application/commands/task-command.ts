@@ -9,6 +9,7 @@ import { RejectStaleTask } from '../use-cases/task-reject-stale.js';
 import { UpdateTaskMetrics } from '../use-cases/update-task-metrics.js';
 import { ContextInference } from '../use-cases/context-inference.js';
 import { ConstraintPreflight } from '../use-cases/constraint-preflight.js';
+import { SemanticCollisionDetector } from '../use-cases/semantic-collision-detector.js';
 import { CompressTask } from '../use-cases/compress-task.js';
 import { NextCommand } from './next-command.js';
 import { RankCommand } from './rank-command.js';
@@ -118,6 +119,14 @@ export class TaskCommand {
           const block = await memory.execute(task);
           if (block) console.log(block);
         } catch { /* memory injection errors must never block task start */ }
+
+        try {
+          const taskPath = `docs/tasks/${taskId}.md`;
+          const taskContent = await this.fileSystem.readFile(taskPath);
+          const detector = new SemanticCollisionDetector(this.fileSystem);
+          const advisory = await detector.execute(taskContent, taskId);
+          if (advisory) console.log(advisory);
+        } catch { /* collision detection errors must never block task start */ }
       } catch (error: any) {
         fmt.fail(error.message);
         process.exit(1);
