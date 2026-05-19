@@ -1,5 +1,5 @@
 ## TASK-957: Implement automatic sprint lifecycle in arch govern
-**Meta:** P1 | L | READY | Focus:no | 2-code-generation | claude | arch.config.json, cli/src/main/ts/application/use-cases/govern.ts, docs/RETRO.md, .arch/focus-ledger.jsonl
+**Meta:** P1 | L | BLOCKED | Focus:no | 2-code-generation | claude | arch.config.json, cli/src/main/ts/application/use-cases/govern.ts, docs/RETRO.md, .arch/focus-ledger.jsonl
 **Depends:** none
 
 ### Acceptance Criteria
@@ -26,11 +26,23 @@ Key design decisions from the IDEA:
 
 ### Gaps
 
-- `arch.config.json` is a protected path — ADR-026 must be written before modifying the schema.
-- `.arch/focus-ledger.jsonl` schema needs SPRINT_OPEN/SPRINT_CLOSE event types added — check existing schema definition in focus-ledger.ts.
-- `docs/RETRO.md` format needs to be defined (structured record: sprint name, open date, close date, tasks delivered, velocity table by size).
-- `arch govern` implementation location needs to be confirmed — check which use-case file contains the govern tick loop.
-- "backlog" references in docs/ need auditing before replacement.
+**BLOCKING — design contracts missing before any code can be written:**
+
+1. **SprintState model not defined.** "Current sprint = last SPRINT_OPEN event in ledger" is implicit. Needs an explicit model with documented invariants. Without this, govern's behavior is only legible by reading implementation.
+
+2. **Archive count trigger is not idempotent as specified.** A counter-based approach drifts under retries and re-archives. Correct model: `count(tasks archived after sprint_open_timestamp) >= sprintCloseAfterN` — pure ledger query, no counter. This needs to be the stated design before implementation.
+
+3. **RETRO.md format is undefined.** "Structured velocity record" is not a contract. Required: exact format (markdown table), dedup key (sprint-id), field list (sprint name, open/close timestamps, task count by size, delivered list, velocity = archived / ticks elapsed since open), append-only semantics.
+
+4. **Focus-ledger schema has no versioning.** Adding SPRINT_OPEN/SPRINT_CLOSE event types without a registered event type list or schema version creates orphan events in future analysis. Schema extension strategy must be decided first.
+
+5. **ADR-026 needs to be split into two.** Schema change (arch.config.json + ledger) and behavioral change (govern loop) have different enforcement mechanisms. One ADR conflates them.
+
+6. **Backlog dissolution is a separate ontological change.** "backlog → READY queue" is not a text replace — it affects CLI help text, docs, tests, and external user expectations. It needs its own ADR and its own task. Mixing it here inflates scope and makes rollback harder.
+
+7. **govern idempotency not decided.** Is `arch govern` idempotent on the sprint close path? If run twice on same state, does it open two sprints? This must be a stated invariant, not an emergent property.
+
+**Until these are resolved, this task stays BLOCKED.**
 
 ### Relevant Context
 _confidence: 0.50_
