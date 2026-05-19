@@ -19,12 +19,9 @@ This creates friction and inconsistency. More fundamentally, the **backlog** con
 `docs/tasks/` with status READY *is* the backlog. No separate artifact needed. References to "backlog" in docs and guidelines should be replaced with "READY queue" or "backlog (READY tasks)".
 
 **2. Automatic sprint closure trigger**
-`arch govern` closes the current sprint when a configurable threshold is reached. Candidates:
-- `N` tasks archived since sprint open (e.g., `sprintCloseAfterN: 15`)
-- Calendar cadence (ISO date in config, govern checks it)
-- Both: whichever comes first
+`arch govern` closes the current sprint when `N` tasks have been archived since sprint open (`sprintCloseAfterN` in arch.config.json, e.g., `15`). Time is not a trigger — in a loop system, the tick is the unit of time. Calendar cadence is excluded by design.
 
-At closure, `arch govern` writes a structured sprint record to `docs/RETRO.md` (committed/delivered/velocity table derived deterministically from the archive), then opens a new sprint with an auto-generated name (e.g., `sprint/YYYY-MM-DD` or `sprint/vX.Y.Z+1`).
+At closure, `arch govern` writes a structured sprint record to `docs/RETRO.md` (committed/delivered/velocity table derived deterministically from the archive), then opens a new sprint with an auto-generated name (e.g., `sprint/vX.Y.Z+1` derived from current version).
 
 **3. Sprint open event written to ledger**
 `SPRINT_OPEN` and `SPRINT_CLOSE` events appended to `.arch/focus-ledger.jsonl` so sprint boundaries are queryable by THINK and corpus audit.
