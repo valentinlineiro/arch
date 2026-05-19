@@ -26,23 +26,39 @@ Key design decisions from the IDEA:
 
 ### Gaps
 
-**BLOCKING — design contracts missing before any code can be written:**
+**BLOCKED on 2 structural failures. Everything else is derived.**
 
-1. **SprintState model not defined.** "Current sprint = last SPRINT_OPEN event in ledger" is implicit. Needs an explicit model with documented invariants. Without this, govern's behavior is only legible by reading implementation.
+---
 
-2. **Archive count trigger is not idempotent as specified.** A counter-based approach drifts under retries and re-archives. Correct model: `count(tasks archived after sprint_open_timestamp) >= sprintCloseAfterN` — pure ledger query, no counter. This needs to be the stated design before implementation.
+**Structural failure 1: No Sprint State Machine**
 
-3. **RETRO.md format is undefined.** "Structured velocity record" is not a contract. Required: exact format (markdown table), dedup key (sprint-id), field list (sprint name, open/close timestamps, task count by size, delivered list, velocity = archived / ticks elapsed since open), append-only semantics.
+The system has events (SPRINT_OPEN/CLOSE), a counter config (sprintCloseAfterN), and ledger entries — but no formal model of what a sprint *is* as a system entity. Without a state machine (ACTIVE → CLOSED → NEXT_PENDING + valid transitions + invariants per state), the ledger is untrustworthy, the retro is not derivable, and govern cannot be idempotent.
 
-4. **Focus-ledger schema has no versioning.** Adding SPRINT_OPEN/SPRINT_CLOSE event types without a registered event type list or schema version creates orphan events in future analysis. Schema extension strategy must be decided first.
+Every other gap in this task is a symptom of this absence: govern responsibilities, ADR split, idempotency semantics, close trigger behavior — all of these resolve once there is a formal state model.
 
-5. **ADR-026 needs to be split into two.** Schema change (arch.config.json + ledger) and behavioral change (govern loop) have different enforcement mechanisms. One ADR conflates them.
+**Structural failure 2: No source of truth**
 
-6. **Backlog dissolution is a separate ontological change.** "backlog → READY queue" is not a text replace — it affects CLI help text, docs, tests, and external user expectations. It needs its own ADR and its own task. Mixing it here inflates scope and makes rollback harder.
+The system currently mixes four implicit oracles:
+- `arch.config.json` — intent
+- `.arch/focus-ledger.jsonl` — events
+- `docs/tasks/` filesystem — real task state
+- `docs/RETRO.md` — aggregate projection
 
-7. **govern idempotency not decided.** Is `arch govern` idempotent on the sprint close path? If run twice on same state, does it open two sprints? This must be a stated invariant, not an emergent property.
+There is no arbiter. This is multi-oracle architecture. Any bug is irreproducible under this model. Any replay can diverge. Any refactor silently breaks semantics.
 
-**Until these are resolved, this task stays BLOCKED.**
+---
+
+**Minimal unblock set (in order):**
+
+1. **SprintState model** — define ACTIVE / CLOSED / NEXT_PENDING, valid transitions, and which oracle is authoritative for each state field. Until this exists, no implementation decision is stable.
+
+2. **Authority boundary** — define explicitly what `arch govern` reads, what it writes, and what it is prohibited from touching directly. This resolves the govern-as-god-loop risk and makes idempotency a provable property.
+
+3. **RETRO contract** — not a format design problem, a projection problem: RETRO entry = deterministic function of (sprint_id, open_ts, close_ts, tasks, velocity_by_size). Append-only keyed by sprint_id. This is simple once the state model exists.
+
+The "backlog → READY queue" terminology change and ledger schema versioning are real but non-blocking — they should be tracked separately and applied after the state model is stable.
+
+**Next step: design artifact, not code.** See IDEA-sprint-state-machine (to be created).
 
 ### Relevant Context
 _confidence: 0.50_
