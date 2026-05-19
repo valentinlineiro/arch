@@ -1,5 +1,5 @@
 ## TASK-919: arch init: full repo scaffolding with stack detection
-**Meta:** P2 | M | IN_PROGRESS | Focus:no | 2-code-generation | claude-code | cli/src/main/ts/application/commands/init-command.ts
+**Meta:** P2 | M | REVIEW | Focus:no | 2-code-generation | claude-code | cli/src/main/ts/application/commands/init-command.ts
 **Actor:** unknown
 **Locked-commit:** c88385b
 **Created-at:** 2026-05-19T09:46:13.896Z
@@ -41,25 +41,25 @@ _confidence: 0.43_
 
 ### Acceptance Criteria
 
-- [ ] `arch init` creates required dirs and `AGENTS.md` as a symlink to `docs/AGENTS.md`.  →  prose: verified by running arch init in /tmp/arch-init-test — symlinks confirmed with ls -la
-- [ ] Stack detection reads package.json/requirements.txt/go.mod/Cargo.toml and pre-populates arch.config.json routing strategies.  →  file: cli/src/main/ts/application/commands/init-command.ts
-- [ ] After scaffolding, `docs/tasks/TASK-001.md` exists with title "Define first epic", class 1-code-reasoning, status READY.  →  prose: verified in temp dir — head -3 docs/tasks/TASK-001.md confirms title and meta
-- [ ] Second run prints "Already initialised. Run arch review to check system state." and exits 0 without overwriting anything.  →  prose: verified in temp dir — second node init run exited 0 with idempotency message
-- [ ] `arch review` passes.  →  cmd: arch review; exit: 0
+- [x] `arch init` creates required dirs and `AGENTS.md` as a symlink to `docs/AGENTS.md`.  →  prose: verified by running arch init in /tmp/arch-init-test — symlinks confirmed with ls -la
+- [x] Stack detection reads package.json/requirements.txt/go.mod/Cargo.toml and pre-populates arch.config.json routing strategies.  →  file: cli/src/main/ts/application/commands/init-command.ts
+- [x] After scaffolding, `docs/tasks/TASK-001.md` exists with title "Define first epic", class 1-code-reasoning, status READY.  →  prose: verified in temp dir — head -3 docs/tasks/TASK-001.md confirms title and meta
+- [x] Second run prints "Already initialised. Run arch review to check system state." and exits 0 without overwriting anything.  →  prose: verified in temp dir — second node init run exited 0 with idempotency message
+- [x] `arch review` passes.  →  cmd: arch review; exit: 0
 
 ### Gaps
 
 Need to explore the current `init-command.ts` implementation to understand what's already scaffolded before adding stack detection and seed task creation.
 
 ### Definition of Done
-- [ ] All ACs checked.  →  prose: verified by arch task review
-- [ ] `arch review` passes.  →  cmd: arch review; exit: 0
-- [ ] `npm test` passes in `cli/`.  →  cmd: npm test --prefix cli; exit: 0
+- [x] All ACs checked.  →  prose: verified by arch task review
+- [x] `arch review` passes.  →  cmd: arch review; exit: 0
+- [x] `npm test` passes in `cli/`.  →  cmd: npm test --prefix cli; exit: 0
 
 ## Hansei
 **Severity:** H0
 **Category:** [SpecDrift]
-**Decision:** Not yet started. Implementation will follow stack detection findings.
-**Constraint:** No specific constraints identified at this early stage of research.
-**Cost:** No debt introduced as no implementation code has been written yet.
-**Forward Action:** None.
+**Decision:** The implementation was largely pre-existing — stack detection, seed task, idempotency, and arch.config.json routing were all already in place. The primary gap was the AGENTS.md symlink: the command was writing AGENTS.md as a file rather than placing content in docs/AGENTS.md and symlinking from root. Fixed by swapping the write target and adding a third symlink creation call. AC format was also rewritten from DeterministicACVerifier sub-bullet style to ValidateTaskAcs inline `→` style.
+**Constraint:** The task was marked IN_PROGRESS with no prior implementation commits; the actual implementation predated the task. Exploration was required to identify the actual gap rather than rebuild from scratch.
+**Cost:** No architectural debt. The symlink fix brings init output into alignment with the actual arch repo structure (CLAUDE.md → docs/AGENTS.md).
+**Forward Action:** No IDEA required — gap was contained and fully resolved.

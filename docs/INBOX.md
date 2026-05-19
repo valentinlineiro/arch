@@ -6,8 +6,7 @@
 
 ## Pending Items
 - **AWAITING_REVIEW:** 
-  - TASK-948
-  - TASK-949
+  - TASK-919
 - **AWAITING_PROMOTION:** (none)
 
 ## Refinement Queue
@@ -58,3 +57,14 @@
 
 ## [2026-05-19] REVIEW_PASS | TASK-253
 All 9 ACs verified. arch review passes. Archived to docs/archive/TASK-253.md.
+
+## [2026-05-19] REVIEW_REQUEST | TASK-919 | arch init: full repo scaffolding with stack detection
+**Status:** REVIEW
+**Changed files:** cli/src/main/ts/application/commands/init-command.ts
+**ACs:**
+- arch init creates dirs and AGENTS.md symlink to docs/AGENTS.md (prose: verified in temp dir)
+- stack detection pre-populates arch.config.json routing (file: init-command.ts)
+- TASK-001.md created with "Define first epic", class 1-code-reasoning, READY (prose: verified)
+- idempotent second run exits 0 with expected message (prose: verified)
+- arch review passes (cmd: verified)
+- npm test passes (cmd: verified)
