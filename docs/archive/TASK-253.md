@@ -1,5 +1,7 @@
 ## TASK-253: Wire causal graph ingestion into task completion flow
-**Meta:** P1 | M | REVIEW | Focus:no | 2-code-generation | claude | cli/src/main/ts/application/use-cases/mark-task-done.ts, cli/src/main/ts/application/use-cases/causal-arbitrator.ts, cli/src/main/ts/domain/repositories/, .arch/causal-graph.jsonl, .arch/causal-signal.jsonl
+**Meta:** P1 | M | DONE | Focus:no | 2-code-generation | claude | cli/src/main/ts/application/use-cases/mark-task-done.ts, cli/src/main/ts/application/use-cases/causal-arbitrator.ts, cli/src/main/ts/domain/repositories/, .arch/causal-graph.jsonl, .arch/causal-signal.jsonl
+**Turns:** 4
+**Closed-at:** 2026-05-19T09:02:39.823Z
 **Actor:** unknown
 **Locked-commit:** c7bcc04
 **Created-at:** 2026-05-19T08:44:49.860Z
@@ -42,9 +44,9 @@ _confidence: 0.45_
 - Decision Blindness (High Velocity)*(Sprint 3)*: The agent executes architectural changes (ADR) and detects bugs (TASK-061) that stay in logs or PRs without immediate human visibility. High velocity (35 tasks/48h) makes individual monitoring impossible. **Proposal:** GOVERNANCE.md contract + INBOX.md weekly dashboard + `arch inbox` agent. _(docs/KAIZEN-LOG.md)_
 
 ### Context Feedback
-- [ ] accurate — files and ADRs were on-target
-- [ ] partial — correct direction, missing key files
-- [ ] off — wrong files dominated
+- [x] accurate — files and ADRs were on-target
+- [ ] partial — correct direction, missing key files (n/a — accurate selected)
+- [ ] off — wrong files dominated (n/a — accurate selected)
 
 ### Gaps
 
@@ -52,20 +54,20 @@ None identified. All required data (ADR refs, Depends field, Hansei category) is
 
 ### Acceptance Criteria
 
-- [ ] `mark-task-done.ts` auto-emits an `implements` signal to `causal-signal.jsonl` only for explicit ADR references (`**ADR:** ADR-XXX` or exact `ADR-XXX` tokens), not for directory-level context paths such as `docs/adr/`.  →  grep: "implements\|ADR-\d\+\|causal.*signal" cli/src/main/ts/application/use-cases/mark-task-done.ts
-- [ ] `mark-task-done.ts` auto-emits a `caused_by` signal for each TASK-ID in the task's Depends field at closure.  →  prose: verified by reading mark-task-done.ts Depends extraction logic
-- [ ] `mark-task-done.ts` auto-emits a `category` signal when a Hansei block with a valid Category is present at closure.  →  prose: verified by reading mark-task-done.ts Hansei signal emission
-- [ ] Auto-emitted signals preserve schema compatibility by keeping `source: "system"` and using `confidence: 0.5`; automatic provenance is conveyed by the `task_completed:TASK-XXX` event.  →  grep: "source\|confidence\|task_completed" .arch/causal-signal.jsonl
-- [ ] `causal-arbitrator.ts` requires no source-specific branching for these signals; arbitration continues to distinguish them only by confidence and corroboration.  →  prose: verified by reading arbitrator source handling
-- [ ] No auto-emission occurs for tasks with empty Context and no Depends field (no-op, not an error).  →  prose: verified by reading guard clause in mark-task-done.ts
-- [ ] Signal emission happens only after the task has been successfully persisted as `DONE`; signal-write failure does not roll back task closure.  →  prose: verified by reading mark-task-done.ts save/emission order
-- [ ] CLI tests cover: auto-emission with ADR context, auto-emission with Depends, no-op with empty fields.  →  cmd: npm test --prefix cli; exit: 0
-- [ ] `arch review` passes.  →  cmd: arch review; exit: 0
+- [x] `mark-task-done.ts` auto-emits an `implements` signal to `causal-signal.jsonl` only for explicit ADR references (`**ADR:** ADR-XXX` or exact `ADR-XXX` tokens), not for directory-level context paths such as `docs/adr/`.  →  grep: "implements\|ADR-\d\+\|causal.*signal" cli/src/main/ts/application/use-cases/mark-task-done.ts
+- [x] `mark-task-done.ts` auto-emits a `caused_by` signal for each TASK-ID in the task's Depends field at closure.  →  prose: verified by reading mark-task-done.ts Depends extraction logic
+- [x] `mark-task-done.ts` auto-emits a `category` signal when a Hansei block with a valid Category is present at closure.  →  prose: verified by reading mark-task-done.ts Hansei signal emission
+- [x] Auto-emitted signals preserve schema compatibility by keeping `source: "system"` and using `confidence: 0.5`; automatic provenance is conveyed by the `task_completed:TASK-XXX` event.  →  grep: "source\|confidence\|task_completed" .arch/causal-signal.jsonl
+- [x] `causal-arbitrator.ts` requires no source-specific branching for these signals; arbitration continues to distinguish them only by confidence and corroboration.  →  prose: verified by reading arbitrator source handling
+- [x] No auto-emission occurs for tasks with empty Context and no Depends field (no-op, not an error).  →  prose: verified by reading guard clause in mark-task-done.ts
+- [x] Signal emission happens only after the task has been successfully persisted as `DONE`; signal-write failure does not roll back task closure.  →  prose: verified by reading mark-task-done.ts save/emission order
+- [x] CLI tests cover: auto-emission with ADR context, auto-emission with Depends, no-op with empty fields.  →  cmd: npm test --prefix cli; exit: 0
+- [x] `arch review` passes.  →  cmd: arch review; exit: 0
 
 ### Definition of Done
 
-- [ ] Closing a task with a populated Context field (referencing an ADR) and a Depends field produces new entries in `.arch/causal-signal.jsonl` without any operator action.  →  prose: verified by MarkTaskDone causal signal tests covering ADR and Depends emission
-- [ ] `arch review` passes.  →  cmd: arch review; exit: 0
+- [x] Closing a task with a populated Context field (referencing an ADR) and a Depends field produces new entries in `.arch/causal-signal.jsonl` without any operator action.  →  prose: verified by MarkTaskDone causal signal tests covering ADR and Depends emission
+- [x] `arch review` passes.  →  cmd: arch review; exit: 0
 
 ### Decisions
 
