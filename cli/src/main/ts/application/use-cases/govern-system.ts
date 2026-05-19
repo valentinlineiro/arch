@@ -404,6 +404,10 @@ export class GovernSystem {
     try {
       const archiveContent = await this.getArchiveCandidateContent(sourcePath, targetPath);
       if (archiveContent) {
+        const metaViolation = this.validateMetaLineFormat(taskId, archiveContent);
+        if (metaViolation) {
+          throw new Error(metaViolation);
+        }
         const hanseiViolation = await this.validateHanseiRequirement(taskId, archiveContent);
         if (hanseiViolation) {
           throw new Error(hanseiViolation);
@@ -465,6 +469,30 @@ export class GovernSystem {
     }
     if (await this.fileSystem.exists(targetPath)) {
       return this.fileSystem.readFile(targetPath);
+    }
+    return null;
+  }
+
+  private validateMetaLineFormat(taskId: string, content: string): string | null {
+    const metaLine = content.match(/^\*\*Meta:\*\*\s+(.+)$/m)?.[1];
+    if (!metaLine) return `${taskId}: missing **Meta:** line`;
+
+    const fields = metaLine.split('|').map(f => f.trim());
+    const priority = fields[0];
+    const size = fields[1];
+    const statusField = fields.find(f => ['DONE', 'REJECTED', 'READY', 'IN_PROGRESS', 'REVIEW', 'BLOCKED'].includes(f));
+
+    const validPriorities = new Set(['P0', 'P1', 'P2', 'P3']);
+    const validSizes = new Set(['XS', 'S', 'M', 'L', 'XL']);
+
+    if (!validPriorities.has(priority)) {
+      return `${taskId}: malformed meta line — invalid priority '${priority}' (expected P0-P3)`;
+    }
+    if (!validSizes.has(size)) {
+      return `${taskId}: malformed meta line — invalid size '${size}' (expected XS/S/M/L/XL)`;
+    }
+    if (!statusField) {
+      return `${taskId}: malformed meta line — no valid status found (expected DONE/REJECTED/etc.)`;
     }
     return null;
   }
