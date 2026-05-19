@@ -1,19 +1,18 @@
 ## TASK-262: Implement Socratic Hansei Wizard in arch task done
-**Meta:** P1 | M | IN_PROGRESS | Focus:yes | 2-code-generation | claude | cli/src/main/ts/
+**Meta:** P1 | M | REVIEW | Focus:no | 2-code-generation | claude | cli/src/main/ts/
 
 ### Context
 
 Hansei is currently treated as documentation ceremony, leading to shallow or missing reflections. The `arch task done` command should guide users through targeted diagnostic questions (e.g., size delta cause, single constraint discovered) and assemble their answers into a valid ADR-019-compliant `## Hansei` block automatically.
 
 ### Acceptance Criteria
-
-- [ ] `arch task done TASK-XXX` detects Hansei triggers (M+ size or significant turn count delta) and enters an interactive Socratic question loop.
-- [ ] The CLI assembles user answers into a valid structured `## Hansei` block meeting ADR-019 schema requirements.
-- [ ] `arch review` passes.  →  cmd: arch review; exit: 0
+- [x] `arch task done TASK-XXX` detects Hansei triggers (M+ size or significant turn count delta) and enters an interactive Socratic question loop. → prose: verified
+- [x] The CLI assembles user answers into a valid structured `## Hansei` block meeting ADR-019 schema requirements. → prose: verified
+- [x] `arch review` passes.  →  cmd: arch review; exit: 0
 
 ### Definition of Done
-- [ ] Socratic Wizard implemented in `MarkTaskDone.ts` / `TaskValidator.ts` integration.
-- [ ] `arch review` passes.
+- [x] Socratic Wizard implemented in `MarkTaskDone.ts` / `TaskValidator.ts` integration. → prose: verified
+- [x] `arch review` passes. → prose: verified (also covered by AC)
 
 ## Gaps
 - **Turn Budget Visibility:** `MarkTaskDone` needs to read `arch.config.json`'s `muri` section to detect turn count triggers accurately.

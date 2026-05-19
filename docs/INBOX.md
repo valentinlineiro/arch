@@ -47,3 +47,19 @@
 - TASK-948: Enhance CLI UX with interactivity and local dashboard
 - TASK-946: 1.0.0 release: fix reflect modePreamble bug, collapse context feedback, Metrics Narrowing, version bump
 - TASK-945: replace bash scripts/arch.sh references with arch CLI binary
+
+## [AWAITING_REVIEW] TASK-947 [L3-AUTO]
+**Closed:** 2026-05-19T10:50:34.760Z
+**Title:** Bug: getById reads all 340 tasks+archive files to find a task with a known ID
+
+| AC | Type | Pass | Detail |
+|---|---|---|---|
+| `getById(id)` reads only `docs/tasks/${id}.md` then `docs/ar | file | ✔ | exists: cli/src/main/ts/infrastructure/filesystem/markdown-t |
+| `getNextId()` uses filename-only scan (no file content read) | file | ✔ | exists: cli/src/main/ts/infrastructure/filesystem/markdown-t |
+| `npm test` passes | cmd | ✔ | exit 0 (expected 0) |
+| `arch review` passes | cmd | ✔ | exit 0 (expected 0) |
+
+## [REVIEW_REQUEST] TASK-262
+**Title:** Implement Socratic Hansei Wizard in arch task done
+**Date:** 2026-05-19
+
