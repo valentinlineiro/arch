@@ -1,5 +1,7 @@
 ## TASK-284: Add task template linter to arch review for Definition of Ready validation
-**Meta:** P1 | S | IN_PROGRESS | Focus:no | 2-code-generation | claude | cli/src/main/ts/
+**Meta:** P1 | S | DONE | Focus:no | 2-code-generation | claude | cli/src/main/ts/
+**Turns:** 2
+**Closed-at:** 2026-05-19T11:47:41.782Z
 **Actor:** unknown
 **Locked-commit:** 37186c5f
 **Created-at:** 2026-05-19T11:45:49.757Z
