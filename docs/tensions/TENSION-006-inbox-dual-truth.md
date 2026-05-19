@@ -1,7 +1,7 @@
 # TENSION-006: Dual inbox truth surfaces
 **Detected:** 2026-05-19
 **Detected by:** human
-**Status:** open
+**Status:** frozen
 **Impact class:** epistemic → structural
 
 ---
@@ -47,4 +47,6 @@ The pattern alert content currently visible only in INBOX.md (`[PATTERN-ALERT] [
 4. The [SpecDrift] × 8 pattern alert must be reconciled against TENSION-005 (which records 3 occurrences) — counts diverge, one or both are wrong.
 
 ## Resolution
-<!-- Fill when status moves to frozen or watching -->
+**Resolved by ADR-026** (`docs/adr/ADR-026-epistemic-layer-separation.md`).
+
+The framing in "Required correction" above was wrong: this is not a synchronization problem. The two surfaces are not replicas and must not be made to converge. ADR-026 declares three explicit epistemic layers (event log, state projection, governance semantics) and establishes that divergence between them is expected and not actionable. The pattern alert count mismatch between INBOX.md and TENSION-005 is a structural property of operating under different observation rules, not a defect.
