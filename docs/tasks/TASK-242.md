@@ -11,6 +11,10 @@ Current CLI requires manual `npm install && npm run build` and Node.js runtime. 
 - [ ] All existing commands work post-package
 - [ ] Build pipeline produces distributable artifact
 
+### Definition of Done
+- [ ] All ACs verified.
+- [ ] `arch review` passes.
+
 ## Hansei
 **Severity:** H0
 **Category:** [AuditGap]

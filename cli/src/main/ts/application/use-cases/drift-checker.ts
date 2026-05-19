@@ -997,6 +997,10 @@ export class DriftChecker {
         details.push(`${taskId}: no Acceptance Criteria found`);
       }
 
+      if (!content.includes('### Definition of Done')) {
+        details.push(`${taskId}: missing ### Definition of Done section`);
+      }
+
       const HANSEI_REQUIRED_SIZES = new Set(['M', 'L', 'XL']);
       if (!isNaN(taskNum) && taskNum >= hanseiSinceTaskId && HANSEI_REQUIRED_SIZES.has(size) && !content.includes('## Hansei')) {
         details.push(`${taskId}: missing ## Hansei section (required for M+ tasks, TASK-${hanseiSinceTaskId}+)`);
