@@ -312,6 +312,9 @@ export class TaskCommand {
         fmt.fail(error.message);
         process.exit(1);
       }
+    } else if (subCommand === 'reprioritize') {
+      const { ReprioritizeCommand } = await import('./reprioritize-command.js');
+      await new ReprioritizeCommand(this.taskRepository, this.fileSystem, this.rootPath).execute(args.slice(1));
     } else if (subCommand === 'next') {
       await new NextCommand(this.taskRepository, args.slice(1), this.muriConfig, this.fileSystem, this.rootPath).execute();
     } else if (subCommand === 'rank') {
@@ -347,6 +350,7 @@ export class TaskCommand {
         '  create "<intent>"       Scaffold a task from intent (deterministic)',
         '  capture "<intent>"      Capture, scaffold, and start a task in one step',
         '  edit TASK-XXX           Interactively update task metadata',
+        '  reprioritize            Corpus-informed priority diff (dry-run by default; use --apply to confirm)',
         '  next                    Suggest next highest-priority task',
         '  rank                    Rank READY tasks by priority and size',
         '  promote <idea-slug>     Promote an IDEA to a TASK',
