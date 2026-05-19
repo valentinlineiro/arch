@@ -28,7 +28,9 @@ export function check(message: string): void {
 }
 
 export function driftIcon(status: string): string {
-  return status === 'OK' ? `${GREEN}✔${NC}` : `${YELLOW}⚠${NC}`;
+  if (status === 'OK') return `${GREEN}✔${NC}`;
+  if (status === 'FAIL') return `\x1b[31m✖\x1b[0m`;
+  return `${YELLOW}⚠${NC}`;
 }
 
 export function header(label: string): void {

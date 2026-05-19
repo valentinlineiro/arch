@@ -4,7 +4,7 @@ import { HanseiAuditor } from '../../domain/services/hansei-auditor.js';
 
 export interface DriftResult {
   check: string;
-  status: 'OK' | 'WARN';
+  status: 'OK' | 'WARN' | 'FAIL';
   details: string[];
 }
 

@@ -71,7 +71,9 @@ export class ReviewSystem {
 
     // 4. Critical drift checks as violations
     for (const d of drift) {
-      if (d.status === 'WARN' && ['ConfigPaths', 'DocVersion', 'DeadPaths', 'TaskTemplateCompliance'].includes(d.check)) {
+      if (d.status === 'FAIL') {
+        violations.push(...d.details.map(detail => `[${d.check}] ${detail}`));
+      } else if (d.status === 'WARN' && ['ConfigPaths', 'DocVersion', 'DeadPaths', 'TaskTemplateCompliance'].includes(d.check)) {
         violations.push(...d.details.map(detail => `[${d.check}] ${detail}`));
       }
     }
