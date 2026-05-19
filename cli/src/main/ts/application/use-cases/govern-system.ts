@@ -482,6 +482,10 @@ export class GovernSystem {
       return null;
     }
 
+    const metaMatch = content.match(/^\*\*Meta:\*\*\s+[^|]+\|\s*(\S+)\s*\|/m);
+    const size = metaMatch?.[1] ?? '';
+    if (!['M', 'L', 'XL'].includes(size)) return null;
+
     if (!content.includes('## Hansei')) {
       return `missing ## Hansei section for post-rollout task (TASK-${hanseiSinceTaskId}+).`;
     }

@@ -220,7 +220,7 @@ test('DriftChecker - HanseiPresent flags archived task missing Hansei section af
     hanseiSinceTaskId: 195,
   });
   fs.dirs['/repo/docs/archive'] = ['TASK-195.md'];
-  fs.files['/repo/docs/archive/TASK-195.md'] = '## TASK-195: Something\n**Meta:** P1 | S | DONE | Focus:no\n\nNo Hansei here.\n';
+  fs.files['/repo/docs/archive/TASK-195.md'] = '## TASK-195: Something\n**Meta:** P1 | M | DONE | Focus:no\n\nNo Hansei here.\n';
 
   const checker = new DriftChecker(fs, new MockGitRepository(), '/repo', '0.2.0');
   const result = await checker.check();
@@ -238,8 +238,8 @@ test('DriftChecker - HanseiPresent respects hanseiSinceTaskId nested under gover
     governance: { hanseiSinceTaskId: 195 },
   });
   fs.dirs['/repo/docs/archive'] = ['TASK-010.md', 'TASK-200.md'];
-  fs.files['/repo/docs/archive/TASK-010.md'] = '## TASK-010: Legacy\n**Meta:** P1 | S | DONE | Focus:no\n\nNo Hansei.\n';
-  fs.files['/repo/docs/archive/TASK-200.md'] = '## TASK-200: New\n**Meta:** P1 | S | DONE | Focus:no\n\nNo Hansei.\n';
+  fs.files['/repo/docs/archive/TASK-010.md'] = '## TASK-010: Legacy\n**Meta:** P1 | M | DONE | Focus:no\n\nNo Hansei.\n';
+  fs.files['/repo/docs/archive/TASK-200.md'] = '## TASK-200: New\n**Meta:** P1 | M | DONE | Focus:no\n\nNo Hansei.\n';
 
   const checker = new DriftChecker(fs, new MockGitRepository(), '/repo', '0.2.0');
   const result = await checker.check();

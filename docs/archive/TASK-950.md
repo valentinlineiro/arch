@@ -1,15 +1,16 @@
 ## TASK-950: ADR-023 deterministic gate invariant: Tier 2 hansei exit always 0
-**Meta:** P1 | S | IN_PROGRESS | Focus:no | 2-code-generation | claude | docs/adr/ADR-023-deterministic-gate-invariant.md, cli/src/main/ts/application/commands/reflect-command.ts
+**Meta:** P1 | S | DONE | Focus:no | 2-code-generation | claude | docs/adr/ADR-023-deterministic-gate-invariant.md, cli/src/main/ts/application/commands/reflect-command.ts
+**Closed-at:** 2026-05-19T09:45:48.733Z
 **Actor:** unknown
 **Created-at:** 2026-05-19T07:17:53.091Z
 **Depends:** none
 
 ### Acceptance Criteria
-- [ ] `docs/adr/ADR-023-deterministic-gate-invariant.md` exists and documents the principle with per-command classification table.  →  file: docs/adr/ADR-023-deterministic-gate-invariant.md
-- [ ] `arch reflect hansei` Tier 2 always calls `process.exit(0)` regardless of LLM CLI exit code.  →  grep: "process.exit(0)" cli/src/main/ts/application/commands/reflect-command.ts
-- [ ] Tier 2 output explicitly includes the string "ADVISORY" marking it as non-governance.  →  grep: "ADVISORY" cli/src/main/ts/application/commands/reflect-command.ts
-- [ ] `npm test` passes.  →  cmd: npm test --prefix cli; exit: 0
-- [ ] `arch review` passes.  →  cmd: arch review; exit: 0
+- [x] `docs/adr/ADR-023-deterministic-gate-invariant.md` exists and documents the principle with per-command classification table.  →  file: docs/adr/ADR-023-deterministic-gate-invariant.md
+- [x] `arch reflect hansei` Tier 2 always calls `process.exit(0)` regardless of LLM CLI exit code.  →  grep: "process.exit(0)" cli/src/main/ts/application/commands/reflect-command.ts
+- [x] Tier 2 output explicitly includes the string "ADVISORY" marking it as non-governance.  →  grep: "ADVISORY" cli/src/main/ts/application/commands/reflect-command.ts
+- [x] `npm test` passes.  →  cmd: npm test --prefix cli; exit: 0
+- [x] `arch review` passes.  →  cmd: arch review; exit: 0
 
 ### Context
 
@@ -45,5 +46,5 @@ _confidence: 0.47_
 ADR-023 deterministic gate invariant: Tier 2 hansei exit always 0, document LLM-advisory-only principle
 
 ### Definition of Done
-- [ ] All ACs checked.  →  prose: verified by arch task review
-- [ ] `arch review` passes.  →  cmd: arch review; exit: 0
+- [x] All ACs checked.  →  prose: verified by arch task review
+- [x] `arch review` passes.  →  cmd: arch review; exit: 0

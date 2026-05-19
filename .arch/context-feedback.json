@@ -34,5 +34,17 @@
       "tooMuchNoise": false,
       "confidenceMisleading": false
     }
+  },
+  {
+    "taskId": "TASK-950",
+    "timestamp": "2026-05-19T09:45:48.741Z",
+    "verdict": "accurate",
+    "details": {
+      "wrongFiles": false,
+      "missingFiles": false,
+      "wrongAdrs": false,
+      "tooMuchNoise": false,
+      "confidenceMisleading": false
+    }
   }
 ]

@@ -268,10 +268,10 @@ test('task with unresolved dependency is not eligible for focus', async () => {
 test('archiveDoneTasks blocks auto-archiving post-rollout DONE task without Hansei', async () => {
   const task = {
     ...makeTask('TASK-195', 'P1', TaskStatus.DONE),
-    rawMetaLine: '**Meta:** P1 | S | DONE | Focus:no | 2-code-generation | claude-code | docs/',
+    rawMetaLine: '**Meta:** P1 | M | DONE | Focus:no | 2-code-generation | claude-code | docs/',
   };
   const fs = new SpyFileSystem();
-  fs.addFile('docs/tasks/TASK-195.md', '## TASK-195: Missing Hansei\n**Meta:** P1 | S | DONE | Focus:no | 2-code-generation | claude-code | docs/\n');
+  fs.addFile('docs/tasks/TASK-195.md', '## TASK-195: Missing Hansei\n**Meta:** P1 | M | DONE | Focus:no | 2-code-generation | claude-code | docs/\n');
   const repo = new SpyTaskRepository([task]);
   const git = new SpyGitRepository();
 
@@ -287,10 +287,10 @@ test('archiveDoneTasks blocks auto-archiving post-rollout DONE task without Hans
 test('archiveDoneTasks appends ANDON_HALT to INBOX.md on Hansei violation', async () => {
   const task = {
     ...makeTask('TASK-195', 'P1', TaskStatus.DONE),
-    rawMetaLine: '**Meta:** P1 | S | DONE | Focus:no | 2-code-generation | claude-code | docs/',
+    rawMetaLine: '**Meta:** P1 | M | DONE | Focus:no | 2-code-generation | claude-code | docs/',
   };
   const fs = new SpyFileSystem();
-  fs.addFile('docs/tasks/TASK-195.md', '## TASK-195: Missing Hansei\n**Meta:** P1 | S | DONE | Focus:no | 2-code-generation | claude-code | docs/\n');
+  fs.addFile('docs/tasks/TASK-195.md', '## TASK-195: Missing Hansei\n**Meta:** P1 | M | DONE | Focus:no | 2-code-generation | claude-code | docs/\n');
   fs.addFile('docs/INBOX.md', '# INBOX\n');
   const repo = new SpyTaskRepository([task]);
   const git = new SpyGitRepository();
