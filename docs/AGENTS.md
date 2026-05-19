@@ -144,7 +144,6 @@ Merge commits are strictly forbidden — `arch review` will fail.
 - Never merge a PR without human approval.
 - One commit per operation. No `git pull`, `git merge`, or `git rebase` without explicit human approval — use `git fetch`.
 - One task per file in `docs/tasks/`. No inline task lists.
-- No `XL` tasks in READY — decompose first.
 - **Agent may self-archive XS/S tasks when the L3 gate passes:** size XS or S + `DeterministicACVerifier` returns `pass: true` + evidence contains ≥1 `cmd:` or `file:` AC. See ADR-009 and `docs/agents/DO.md` close step for full conditions.
 
 ## Bug protocol
