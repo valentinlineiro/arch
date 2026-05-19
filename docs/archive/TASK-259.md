@@ -1,5 +1,7 @@
 ## TASK-259: Automate turn-count recording in arch task done
-**Meta:** P1 | S | IN_PROGRESS | Focus:yes | 2-code-generation | claude | cli/src/main/ts/application/use-cases/loop-engine.ts, docs/KAIZEN-LOG.md
+**Meta:** P1 | S | DONE | Focus:no | 2-code-generation | claude | cli/src/main/ts/application/use-cases/loop-engine.ts, docs/KAIZEN-LOG.md
+**Turns:** 1
+**Closed-at:** 2026-05-19T10:16:32.276Z
 **Actor:** unknown
 **Locked-commit:** b847c9f7
 **Created-at:** 2026-05-19T10:12:51.121Z
@@ -39,12 +41,12 @@ _confidence: 0.48_
 
 ### Acceptance Criteria
 
-- [ ] `mark-task-done.ts` calls `getCommitCountBetween(lockedCommit)` and assigns the result to `task.turns`.  →  grep: "getCommitCountBetween" cli/src/main/ts/application/use-cases/mark-task-done.ts
-- [ ] Unit test verifies `turns` is set to the git-derived count (non-zero fixture).  →  grep: "turns should be 7" cli/src/test/ts/mark-task-done.test.ts
-- [ ] `npm test` passes.  →  cmd: npm test --prefix cli; exit: 0
-- [ ] `arch review` passes.  →  cmd: arch review; exit: 0
+- [x] `mark-task-done.ts` calls `getCommitCountBetween(lockedCommit)` and assigns the result to `task.turns`.  →  grep: "getCommitCountBetween" cli/src/main/ts/application/use-cases/mark-task-done.ts
+- [x] Unit test verifies `turns` is set to the git-derived count (non-zero fixture).  →  grep: "turns should be 7" cli/src/test/ts/mark-task-done.test.ts
+- [x] `npm test` passes.  →  cmd: npm test --prefix cli; exit: 0
+- [x] `arch review` passes.  →  cmd: arch review; exit: 0
 
 ### Definition of Done
 
-- [ ] All ACs checked.  →  prose: verified by arch task review
-- [ ] `arch review` passes.  →  cmd: arch review; exit: 0
+- [x] All ACs checked.  →  prose: verified by arch task review
+- [x] `arch review` passes.  →  cmd: arch review; exit: 0
