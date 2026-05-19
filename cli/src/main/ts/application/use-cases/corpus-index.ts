@@ -19,7 +19,7 @@ export interface CorpusEntry {
 export interface CorpusIndex {
   version: number;
   builtAt: string;
-  archiveCommit: string | null;
+  archiveCommit: string;
   taskCount: number;
   entries: Record<string, CorpusEntry>;
 }
@@ -50,7 +50,7 @@ export class CorpusIndexService {
   }
 
   /** Force rebuild the index from archive files. */
-  async rebuild(archiveCommit?: string | null): Promise<CorpusIndex> {
+  async rebuild(archiveCommit?: string): Promise<CorpusIndex> {
     const commit = archiveCommit ?? await this.getArchiveCommit();
     const entries: Record<string, CorpusEntry> = {};
 
@@ -86,7 +86,7 @@ export class CorpusIndexService {
     try {
       const raw = await this.fileSystem.readFile(INDEX_PATH);
       const index = JSON.parse(raw) as CorpusIndex;
-      index.archiveCommit = null;
+      index.archiveCommit = '';  // empty string != any real commit signal → triggers rebuild
       await this.fileSystem.writeFile(INDEX_PATH, JSON.stringify(index, null, 2));
     } catch { /* ignore */ }
   }
@@ -119,14 +119,11 @@ export class CorpusIndexService {
     };
   }
 
-  private async getArchiveCommit(): Promise<string | null> {
-    if (!this.gitRepository) return null;
+  private async getArchiveCommit(): Promise<string> {
     try {
-      // Use a stable signal: hash of the archive directory listing
       const files = await this.fileSystem.readDirectory(ARCHIVE_DIR);
-      const listing = files.sort().join(',');
-      // Simple hash — file count + last filename is a cheap freshness signal
-      return `${files.length}:${files[files.length - 1] ?? ''}`;
-    } catch { return null; }
+      // Freshness signal: file count + last filename. Cheap, non-null, no git required.
+      return `${files.length}:${files.sort().at(-1) ?? ''}`;
+    } catch { return '0:'; }
   }
 }

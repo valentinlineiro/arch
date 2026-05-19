@@ -161,8 +161,17 @@ export class CorpusAuditCommand {
       });
     }
 
-    const warnCount = findings.filter(f => f.severity === 'WARN').length;
-    const score = Math.max(0, Math.round(100 - (warnCount / Math.max(entries.length, 1)) * 100));
+    // Weighted score: WARN from missed H3b/H2 IDEA = 3pts, severity calibration WARN = 2pts,
+    // entropy WARN = 2pts, entropy INFO = 0.5pts, forward-action INFO = 1pt
+    const WEIGHTS: Record<string, Record<string, number>> = {
+      'severity-calibration': { WARN: 2, INFO: 0.5 },
+      'decision-entropy':     { WARN: 2, INFO: 0.5 },
+      'forward-action':       { WARN: 3, INFO: 1.0 },
+    };
+    const weightedPenalty = findings.reduce((sum, f) => {
+      return sum + (WEIGHTS[f.check]?.[f.severity] ?? 1);
+    }, 0);
+    const score = Math.max(0, Math.round(100 - (weightedPenalty / Math.max(entries.length, 1)) * 100));
 
     return {
       total: index.taskCount,
