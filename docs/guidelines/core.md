@@ -6,7 +6,7 @@
 - **Evidence Required:** Every proposal in REFINEMENT.md must include a `Source:` field citing the signal or feedback.
 
 ### 2. Git & Commits
-- **Conventional Commits:** Use authoritative prefixes (feat, fix, chore, docs, refactor, idea). Every commit must reference a TASK-ID.
+- **Conventional Commits:** Use authoritative prefixes (feat, fix, chore, docs, refactor, idea). Every commit must reference a TASK-ID. Exception: `idea:` commits for IDEA drafts do not require a TASK-ID.
 - **No-Merge Policy:** ARCH enforces a clean, linear git history. Merge commits (2+ parents) are strictly FORBIDDEN and will fail `arch review`.
 - **Sync Strategy:** Use `git fetch`. History-changing ops (`pull`, `merge`, `rebase`) are FORBIDDEN without explicit human approval.
 - **Atomicity:** One task per commit where possible. Use `git commit --amend` for follow-up fixes on unpushed commits.
