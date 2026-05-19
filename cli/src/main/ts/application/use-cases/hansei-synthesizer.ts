@@ -1,5 +1,6 @@
 import type { FileSystem } from '../../domain/repositories/file-system.js';
 import type { GitRepository } from '../../domain/repositories/git-repository.js';
+import { CorpusIndexService } from './corpus-index.js';
 import { ArchiveParser } from '../../domain/services/archive-parser.js';
 import { MetricsEngine } from '../../domain/services/metrics-engine.js';
 import * as path from 'node:path';
@@ -65,31 +66,20 @@ export class HanseiSynthesizer {
   }
 
   private async computeTensions(): Promise<TensionEntry[]> {
-    const archiveDir = `${this.rootPath}/docs/archive`;
-    let files: string[] = [];
-    try { files = await this.fileSystem.readDirectory(archiveDir); } catch { return []; }
+    const indexService = new CorpusIndexService(this.fileSystem, this.gitRepository);
+    const index = await indexService.load();
+    const entries = Object.values(index.entries);
 
     const map = new Map<string, { severities: string[]; taskIds: string[] }>();
 
-    for (const file of files.filter(f => f.endsWith('.md'))) {
-      try {
-        const content = await this.fileSystem.readFile(`${archiveDir}/${file}`);
-        const sevMatch = content.match(/\*\*Severity:\*\*\s*(H[123][ab]?)/);
-        const catMatch = content.match(/\*\*Category:\*\*\s*(\[\w+\])/);
-        if (!sevMatch || !catMatch) continue;
-
-        const sev = sevMatch[1];
-        const cat = catMatch[1];
-
-        // Only H2+ trigger signals
-        if (!['H2', 'H3a', 'H3b'].includes(sev)) continue;
-
-        const tid = file.replace('.md', '');
-        if (!map.has(cat)) map.set(cat, { severities: [], taskIds: [] });
-        const entry = map.get(cat)!;
-        entry.taskIds.push(tid);
-        if (!entry.severities.includes(sev)) entry.severities.push(sev);
-      } catch { /* skip */ }
+    for (const entry of entries) {
+      if (!['H2', 'H3a', 'H3b'].includes(entry.severity)) continue;
+      const cat = entry.category;
+      if (!cat || cat === '[no-issue]') continue;
+      if (!map.has(cat)) map.set(cat, { severities: [], taskIds: [] });
+      const e = map.get(cat)!;
+      e.taskIds.push(entry.id);
+      if (!e.severities.includes(entry.severity)) e.severities.push(entry.severity);
     }
 
     return Array.from(map.entries())

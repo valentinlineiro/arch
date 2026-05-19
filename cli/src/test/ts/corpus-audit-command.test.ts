@@ -60,8 +60,8 @@ test('extractHansei returns Forward Action when followed by Approval section', (
 
 test('forward-action-completion check fires for H2+ task with IDEA mention', async () => {
   const fs = new MockFileSystem();
-  fs.dirs['./docs/archive'] = ['TASK-001.md'];
-  fs.files['./docs/archive/TASK-001.md'] = HANSEI_WITH_LAST_FIELD;
+  fs.dirs['docs/archive'] = ['TASK-001.md'];
+  fs.files['docs/archive/TASK-001.md'] = HANSEI_WITH_LAST_FIELD;
 
   const cmd = new CorpusAuditCommand(fs, undefined, '.');
   const result: any = await (cmd as any).audit(false);

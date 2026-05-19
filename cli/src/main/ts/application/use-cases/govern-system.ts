@@ -421,6 +421,12 @@ export class GovernSystem {
       console.log(`  Syncing phantom archive ${id}...`);
       await this.archiveFile(id);
     }
+
+    // Invalidate corpus index when archive changes so next audit rebuilds
+    if (toArchive.length > 0 || phantomIds.size > 0) {
+      const { CorpusIndexService } = await import('./corpus-index.js');
+      await new CorpusIndexService(this.fileSystem, this.gitRepository).invalidate();
+    }
   }
 
   private async archiveFile(taskId: string): Promise<void> {
