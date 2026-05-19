@@ -1,5 +1,5 @@
 ## TASK-274: Implement arch rag command with semantic search over ARCH corpus
-**Meta:** P2 | M | READY | Focus:no | 2-code-generation | claude | cli/src/main/ts/, docs/tasks/, docs/archive/, docs/adr/
+**Meta:** P3 | M | READY | Focus:no | 2-code-generation | claude | cli/src/main/ts/, docs/tasks/, docs/archive/, docs/adr/
 
 ### Context
 

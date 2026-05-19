@@ -1,5 +1,5 @@
 ## TASK-261: Define cross-layer coverage identity model for drift signals and IDEAs
-**Meta:** P2 | S | READY | Focus:yes | 6-writing | claude | docs/refinement/, cli/src/main/ts/application/use-cases/drift-checker.ts
+**Meta:** P1 | S | READY | Focus:yes | 6-writing | claude | docs/refinement/, cli/src/main/ts/application/use-cases/drift-checker.ts
 
 ### Context
 

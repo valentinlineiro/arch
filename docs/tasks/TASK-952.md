@@ -1,5 +1,5 @@
 ## TASK-952: Remove XL decomposition rule duplication
-**Meta:** P3 | XS | READY | Focus:no | 6-writing | local | docs/guidelines/core.md, AGENTS.md
+**Meta:** P1 | XS | READY | Focus:no | 6-writing | local | docs/guidelines/core.md, AGENTS.md
 
 **Depends:** none
 

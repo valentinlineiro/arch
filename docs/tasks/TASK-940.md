@@ -1,5 +1,5 @@
 ## TASK-940: Implement semantic collision detection - AC-vs-ADR conflict advisory at capture/start
-**Meta:** P2 | M | READY | Focus:no | 2-code-generation | claude | cli/src/main/ts/application/commands/capture-command.ts, cli/src/main/ts/application/commands/task-command.ts, docs/adr/
+**Meta:** P1 | M | READY | Focus:no | 2-code-generation | claude | cli/src/main/ts/application/commands/capture-command.ts, cli/src/main/ts/application/commands/task-command.ts, docs/adr/
 
 ### Context
 

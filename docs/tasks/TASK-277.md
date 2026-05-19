@@ -1,5 +1,5 @@
 ## TASK-277: Implement automatic entity linking between tasks, commits, ADRs, and guidelines
-**Meta:** P2 | M | READY | Focus:no | 2-code-generation | claude | cli/src/main/ts/domain/
+**Meta:** P3 | M | READY | Focus:no | 2-code-generation | claude | cli/src/main/ts/domain/
 
 ### Context
 

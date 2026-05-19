@@ -1,5 +1,5 @@
 ## TASK-278: Define domain packs specification - composable protocol extensions
-**Meta:** P2 | S | READY | Focus:no | 6-writing | claude | docs/guidelines/, arch.config.json
+**Meta:** P3 | S | READY | Focus:no | 6-writing | claude | docs/guidelines/, arch.config.json
 
 ### Context
 

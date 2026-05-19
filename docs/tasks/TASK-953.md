@@ -1,5 +1,5 @@
 ## TASK-953: Unify governance terminology: Tier 1/2 to Class I/II
-**Meta:** P3 | XS | READY | Focus:no | 6-writing | local | docs/adr/ADR-013-two-tier-drift-detection.md, docs/GOVERNANCE.md
+**Meta:** P1 | XS | READY | Focus:no | 6-writing | local | docs/adr/ADR-013-two-tier-drift-detection.md, docs/GOVERNANCE.md
 
 **Depends:** none
 

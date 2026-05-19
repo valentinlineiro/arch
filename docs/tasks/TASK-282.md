@@ -1,5 +1,5 @@
 ## TASK-282: Implement structural policies - declarative architectural boundaries in arch review
-**Meta:** P2 | M | READY | Focus:no | 2-code-generation | claude | cli/src/main/ts/application/use-cases/drift-checker.ts, arch.config.json
+**Meta:** P3 | M | READY | Focus:no | 2-code-generation | claude | cli/src/main/ts/application/use-cases/drift-checker.ts, arch.config.json
 
 ### Context
 

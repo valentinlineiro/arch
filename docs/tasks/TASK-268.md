@@ -1,5 +1,5 @@
 ## TASK-268: Align phase naming between ADR-013 and THINK.md
-**Meta:** P2 | XS | READY | Focus:no | 6-writing | claude | docs/adr/ADR-013-two-tier-drift-detection.md, docs/agents/THINK.md
+**Meta:** P1 | XS | READY | Focus:no | 6-writing | claude | docs/adr/ADR-013-two-tier-drift-detection.md, docs/agents/THINK.md
 
 ### Context
 

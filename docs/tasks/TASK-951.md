@@ -1,5 +1,5 @@
 ## TASK-951: Add idea: commit exception to core.md
-**Meta:** P3 | XS | READY | Focus:no | 6-writing | local | docs/guidelines/core.md
+**Meta:** P1 | XS | READY | Focus:no | 6-writing | local | docs/guidelines/core.md
 **Depends:** none
 
 ### Context

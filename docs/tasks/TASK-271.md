@@ -1,5 +1,5 @@
 ## TASK-271: Integrate OpenClaw as mobile bridge for ARCH status and commands
-**Meta:** P2 | S | READY | Focus:no | 2-code-generation | claude | docs/agents/DO.md, arch.config.json
+**Meta:** P3 | S | READY | Focus:no | 2-code-generation | claude | docs/agents/DO.md, arch.config.json
 
 ### Context
 

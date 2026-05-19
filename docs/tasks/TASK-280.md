@@ -1,5 +1,5 @@
 ## TASK-280: Design multiagent runtime specification - Planner, Historian, Reviewer, Conductor, Optimizer
-**Meta:** P2 | S | READY | Focus:no | 6-writing | claude | docs/agents/, cli/src/main/ts/
+**Meta:** P3 | S | READY | Focus:no | 6-writing | claude | docs/agents/, cli/src/main/ts/
 
 ### Context
 

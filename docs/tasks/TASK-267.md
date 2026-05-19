@@ -1,5 +1,5 @@
 ## TASK-267: Fix malformed meta lines in docs/archive/ and add pre-archive guard
-**Meta:** P2 | S | READY | Focus:no | 7-operations | claude | docs/archive/
+**Meta:** P1 | S | READY | Focus:no | 7-operations | claude | docs/archive/
 
 ### Context
 

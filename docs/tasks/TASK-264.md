@@ -1,5 +1,5 @@
 ## TASK-264: Implement dynamic model provisioning with environment-aware config
-**Meta:** P2 | M | READY | Focus:no | 2-code-generation | claude | arch.config.json, cli/src/main/ts/domain/services/
+**Meta:** P3 | M | READY | Focus:no | 2-code-generation | claude | arch.config.json, cli/src/main/ts/domain/services/
 
 ### Context
 

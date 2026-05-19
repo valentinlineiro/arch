@@ -1,5 +1,5 @@
 ## TASK-266: Implement feature branch workflow - automatic branch-per-task execution
-**Meta:** P2 | M | READY | Focus:no | 2-code-generation | claude | docs/agents/DO.md, arch.config.json, cli/src/main/ts/
+**Meta:** P3 | M | READY | Focus:no | 2-code-generation | claude | docs/agents/DO.md, arch.config.json, cli/src/main/ts/
 
 ### Context
 

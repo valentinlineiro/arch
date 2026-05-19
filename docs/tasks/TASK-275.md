@@ -1,5 +1,5 @@
 ## TASK-275: Implement adaptive planning - human-state qualifiers for task status
-**Meta:** P2 | S | READY | Focus:no | 6-writing | claude | docs/TASK-FORMAT.md, docs/guidelines/
+**Meta:** P3 | S | READY | Focus:no | 6-writing | claude | docs/TASK-FORMAT.md, docs/guidelines/
 
 ### Context
 
