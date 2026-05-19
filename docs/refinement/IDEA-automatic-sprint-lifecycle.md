@@ -34,3 +34,6 @@ Class: II (arch govern change) + III (config schema change)
 Evaluates: Sprint lifecycle automation and backlog concept dissolution.
 Does NOT evaluate: Task selection or prioritization — those remain `arch govern`'s existing logic.
 Boundary risk: Medium — touches `arch.config.json` schema (protected path, needs ADR), `focus-ledger.jsonl` schema, and `arch govern` behavior.
+
+## Decision
+PROMOTE → TASK-957
