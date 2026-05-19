@@ -1,5 +1,5 @@
 ## TASK-265: Add ExcisionStructuralCheck to DriftChecker for deletion traceability
-**Meta:** P1 | S | READY | Focus:no | 2-code-generation | claude | cli/src/main/ts/application/use-cases/drift-checker.ts
+**Meta:** P1 | S | READY | Focus:yes | 2-code-generation | claude | cli/src/main/ts/application/use-cases/drift-checker.ts
 
 ### Context
 

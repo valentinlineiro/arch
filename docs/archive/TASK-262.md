@@ -1,5 +1,6 @@
 ## TASK-262: Implement Socratic Hansei Wizard in arch task done
-**Meta:** P1 | M | REVIEW | Focus:no | 2-code-generation | claude | cli/src/main/ts/
+**Meta:** P1 | M | DONE | Focus:no | 2-code-generation | claude | cli/src/main/ts/
+**Closed-at:** 2026-05-19T11:25:00.000Z
 
 ### Context
 
@@ -17,6 +18,9 @@ Hansei is currently treated as documentation ceremony, leading to shallow or mis
 ## Gaps
 - **Turn Budget Visibility:** `MarkTaskDone` needs to read `arch.config.json`'s `muri` section to detect turn count triggers accurately.
 - **Socratic Integration:** `HanseiWizard` currently asks for high-level blocks; it needs to be decomposed into atomic questions that map to `Decision`, `Constraint`, and `Cost` fields per ADR-019.
+
+## Approval
+Approved-by: Auditor | 2026-05-19
 
 ## Hansei
 **Severity:** H0
