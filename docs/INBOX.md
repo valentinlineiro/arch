@@ -68,3 +68,6 @@ All 9 ACs verified. arch review passes. Archived to docs/archive/TASK-253.md.
 - idempotent second run exits 0 with expected message (prose: verified)
 - arch review passes (cmd: verified)
 - npm test passes (cmd: verified)
+
+## [2026-05-19] REVIEW_PASS | TASK-919
+All 6 ACs verified. arch review passes. npm test passes. Approved for archive.
