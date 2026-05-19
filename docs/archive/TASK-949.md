@@ -1,5 +1,6 @@
 ## TASK-949: arch corpus audit: deterministic corpus quality report
-**Meta:** P2 | M | REVIEW | Focus:no | 1-code-reasoning | claude-code | none
+**Meta:** P2 | M | DONE | Focus:no | 1-code-reasoning | claude-code | none
+**Closed-at:** 2026-05-19T08:13:49.818Z
 
 **Depends:** none
 
