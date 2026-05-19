@@ -1,5 +1,5 @@
 ## TASK-950: ADR-023 deterministic gate invariant: Tier 2 hansei exit always 0
-**Meta:** P1 | S | IN_PROGRESS | Focus:no | 2-code-generation | claude | docs/adr/ADR-023-deterministic-gate-invariant.md, cli/src/main/ts/application/commands/reflect-command.ts
+**Meta:** P1 | S | IN_PROGRESS | Focus:yes | 2-code-generation | claude | docs/adr/ADR-023-deterministic-gate-invariant.md, cli/src/main/ts/application/commands/reflect-command.ts
 **Actor:** unknown
 **Created-at:** 2026-05-19T07:17:53.091Z
 **Depends:** none
@@ -42,9 +42,9 @@ _confidence: 0.47_
 - Protocol Enforcement Lag*(Sprint v0.6.0-final)*: Rollout of machine-enforced `## Hansei` (TASK-195) occurred before `DO.md` was updated (TASK-197), leading to agents following a stale protocol and being blocked by the CLI. **Proposal:** Mandate "Atomic Protocol Updates" where CLI enforcement and documentation changes are delivered in the same commit or task. _(docs/KAIZEN-LOG.md)_
 
 ### Context Feedback
-- [ ] accurate — files and ADRs were on-target
-- [ ] partial — correct direction, missing key files
-- [ ] off — wrong files dominated
+- [x] accurate — files and ADRs were on-target
+- [ ] partial — correct direction, missing key files (n/a)
+- [ ] off — wrong files dominated (n/a)
 
 #### Intent
 ADR-023 deterministic gate invariant: Tier 2 hansei exit always 0, document LLM-advisory-only principle
