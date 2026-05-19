@@ -1,5 +1,5 @@
 ## TASK-253: Wire causal graph ingestion into task completion flow
-**Meta:** P1 | M | IN_PROGRESS | Focus:yes | 2-code-generation | claude | cli/src/main/ts/application/use-cases/mark-task-done.ts, cli/src/main/ts/application/use-cases/causal-arbitrator.ts, cli/src/main/ts/domain/repositories/, .arch/causal-graph.jsonl, .arch/causal-signal.jsonl
+**Meta:** P1 | M | REVIEW | Focus:no | 2-code-generation | claude | cli/src/main/ts/application/use-cases/mark-task-done.ts, cli/src/main/ts/application/use-cases/causal-arbitrator.ts, cli/src/main/ts/domain/repositories/, .arch/causal-graph.jsonl, .arch/causal-signal.jsonl
 **Actor:** unknown
 **Locked-commit:** c7bcc04
 **Created-at:** 2026-05-19T08:44:49.860Z
