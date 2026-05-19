@@ -7,6 +7,7 @@
 ## Pending Items
 - **AWAITING_REVIEW:** 
   - TASK-919
+  - TASK-940
 - **AWAITING_PROMOTION:** 
   - IDEA-archive-parser-skip-non-done
   - IDEA-automate-turn-count
