@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-19T11:40:46.840Z",
+  "builtAt": "2026-05-19T11:45:04.822Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -4901,6 +4901,12 @@
           ],
           "taskPath": "docs/archive/TASK-227.md"
         },
+        "TASK-265": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-265.md"
+        },
         "TASK-269": {
           "evidenceKinds": [
             "literal-mention"
@@ -4998,6 +5004,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-258.md"
+        },
+        "TASK-265": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-265.md"
         }
       }
     },
@@ -5051,6 +5063,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-253.md"
+        },
+        "TASK-265": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-265.md"
         },
         "TASK-950": {
           "evidenceKinds": [
@@ -5904,18 +5922,45 @@
     }
   },
   "tasks": {
-    "TASK-265": {
-      "commitCount": 5,
-      "lastCommitDate": "2026-05-19T13:40:46+02:00",
+    "TASK-279": {
+      "commitCount": 2,
+      "lastCommitDate": "2026-05-19T13:45:04+02:00",
       "touchedFrequency": {
+        ".arch/focus-ledger.jsonl": 1,
+        "docs/tasks/TASK-279.md": 1,
+        "docs/tasks/TASK-280.md": 1,
+        "docs/tasks/TASK-281.md": 1,
+        "docs/tasks/TASK-282.md": 1,
+        "docs/tasks/TASK-283.md": 1,
+        "docs/tasks/TASK-284.md": 1
+      },
+      "recentCommitRefs": [
+        "be60c821",
+        "a681e282"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-265": {
+      "commitCount": 7,
+      "lastCommitDate": "2026-05-19T13:45:04+02:00",
+      "touchedFrequency": {
+        "docs/archive/TASK-265.md": 1,
+        ".arch/causal-signal.jsonl": 1,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/reflect-breach-log.jsonl": 1,
+        "cli/src/main/ts/application/use-cases/drift-checker.ts": 1,
+        "docs/EVENTS.md": 1,
+        "docs/METRICS.md": 1,
+        "docs/tasks/TASK-265.md": 2,
         ".arch/focus-ledger.jsonl": 4,
         "docs/tasks/TASK-264.md": 1,
-        "docs/tasks/TASK-265.md": 1,
         "docs/tasks/TASK-266.md": 1,
         "docs/tasks/TASK-267.md": 1,
         "docs/tasks/TASK-268.md": 1
       },
       "recentCommitRefs": [
+        "c369f2a9",
+        "28bcf9b1",
         "05026b1f",
         "c5411089",
         "3e540eae",
@@ -6032,7 +6077,7 @@
       "commitRefOverflow": false
     },
     "TASK-206": {
-      "commitCount": 21,
+      "commitCount": 19,
       "lastCommitDate": "2026-05-19T12:49:23+02:00",
       "touchedFrequency": {
         "docs/tasks/TASK-098.md": 1,
@@ -6044,7 +6089,7 @@
         "docs/tasks/TASK-163.md": 1,
         "docs/tasks/TASK-947.md": 1,
         ".arch/chronicle.jsonl": 4,
-        ".arch/reflect-breach-log.jsonl": 5,
+        ".arch/reflect-breach-log.jsonl": 4,
         "cli/src/main/ts/application/commands/status-command.ts": 1,
         "cli/src/main/ts/index.ts": 1,
         "docs/EVENTS.md": 4,
@@ -6115,29 +6160,19 @@
         "docs/archive/TASK-905.md": 1,
         "docs/archive/TASK-906.md": 1,
         "docs/archive/TASK-907.md": 1,
-        "docs/refinement/archive/IDEA-architectural-tension-capture.md": 2,
-        "docs/refinement/archive/IDEA-automate-turn-count-recording.md": 2,
-        "docs/refinement/archive/IDEA-cross-layer-coverage-identity.md": 2,
-        "docs/refinement/archive/IDEA-dynamic-model-provisioning.md": 2,
-        "docs/refinement/archive/IDEA-excision-legitimacy-check.md": 2,
-        "docs/refinement/archive/IDEA-feature-branch-workflow.md": 2,
+        "docs/refinement/archive/IDEA-architectural-tension-capture.md": 1,
+        "docs/refinement/archive/IDEA-automate-turn-count-recording.md": 1,
+        "docs/refinement/archive/IDEA-cross-layer-coverage-identity.md": 1,
+        "docs/refinement/archive/IDEA-dynamic-model-provisioning.md": 1,
+        "docs/refinement/archive/IDEA-excision-legitimacy-check.md": 1,
+        "docs/refinement/archive/IDEA-feature-branch-workflow.md": 1,
         "docs/refinement/archive/IDEA-fix-phase-naming-drift.md": 1,
-        "docs/refinement/archive/IDEA-loop-load-balancing.md": 2,
-        "docs/refinement/archive/IDEA-optimize-decomposition-for-local-llms.md": 2,
-        "docs/refinement/archive/IDEA-rag-context-retrieval.md": 2,
-        "docs/refinement/archive/IDEA-sentinel-log-infrastructure.md": 2,
-        "docs/refinement/archive/IDEA-task-template-linter.md": 2,
-        "docs/tasks/TASK-901.md": 2,
-        "docs/refinement/archive/IDEA-focus-status-alignment.md": 1,
-        "docs/refinement/archive/IDEA-openclaw-integration.md": 1,
-        "docs/refinement/archive/IDEA-parallel-tasks.md": 1,
-        "docs/refinement/archive/IDEA-resurrection-review.md": 1,
-        "docs/tasks/TASK-898.md": 1,
-        "docs/tasks/TASK-903.md": 1,
-        "docs/tasks/TASK-904.md": 1,
-        "docs/tasks/TASK-905.md": 1,
-        "docs/tasks/TASK-906.md": 1,
-        "docs/tasks/TASK-907.md": 1
+        "docs/refinement/archive/IDEA-loop-load-balancing.md": 1,
+        "docs/refinement/archive/IDEA-optimize-decomposition-for-local-llms.md": 1,
+        "docs/refinement/archive/IDEA-rag-context-retrieval.md": 1,
+        "docs/refinement/archive/IDEA-sentinel-log-infrastructure.md": 1,
+        "docs/refinement/archive/IDEA-task-template-linter.md": 1,
+        "docs/tasks/TASK-901.md": 1
       },
       "recentCommitRefs": [
         "76db2c9b",
@@ -6158,10 +6193,9 @@
         "7fe5d44d",
         "391fc9b3",
         "66c70c7e",
-        "f451e84e",
-        "fb9c483a"
+        "f451e84e"
       ],
-      "commitRefOverflow": true
+      "commitRefOverflow": false
     },
     "TASK-923": {
       "commitCount": 3,
@@ -7303,22 +7337,6 @@
       ],
       "commitRefOverflow": false
     },
-    "TASK-279": {
-      "commitCount": 1,
-      "lastCommitDate": "2026-05-18T08:58:10+02:00",
-      "touchedFrequency": {
-        "docs/tasks/TASK-279.md": 1,
-        "docs/tasks/TASK-280.md": 1,
-        "docs/tasks/TASK-281.md": 1,
-        "docs/tasks/TASK-282.md": 1,
-        "docs/tasks/TASK-283.md": 1,
-        "docs/tasks/TASK-284.md": 1
-      },
-      "recentCommitRefs": [
-        "a681e282"
-      ],
-      "commitRefOverflow": false
-    },
     "TASK-280": {
       "commitCount": 1,
       "lastCommitDate": "2026-05-18T08:58:10+02:00",
@@ -7967,7 +7985,7 @@
       "commitRefOverflow": false
     },
     "TASK-901": {
-      "commitCount": 7,
+      "commitCount": 6,
       "lastCommitDate": "2026-05-17T11:55:46+00:00",
       "touchedFrequency": {
         "docs/archive/TASK-901.md": 1,
@@ -7975,7 +7993,7 @@
         ".arch/reflect-breach-log.jsonl": 2,
         "cli/src/main/ts/application/use-cases/hansei-wizard.ts": 2,
         "docs/EVENTS.md": 2,
-        "docs/tasks/TASK-901.md": 4,
+        "docs/tasks/TASK-901.md": 3,
         "cli/src/main/ts/application/use-cases/mark-task-done.ts": 1,
         "cli/src/test/ts/hansei-wizard.test.ts": 1,
         "cli/src/test/ts/mark-task-done.test.ts": 1,
@@ -7989,8 +8007,7 @@
         "1ce8c9c1",
         "27cf2634",
         "749a0eb7",
-        "29edbd33",
-        "c07bb380"
+        "29edbd33"
       ],
       "commitRefOverflow": false
     },
@@ -8276,7 +8293,7 @@
       "commitRefOverflow": false
     },
     "TASK-898": {
-      "commitCount": 4,
+      "commitCount": 3,
       "lastCommitDate": "2026-05-16T20:58:16+00:00",
       "touchedFrequency": {
         "docs/archive/TASK-898.md": 1,
@@ -8284,14 +8301,12 @@
         "docs/METRICS.md": 1,
         "docs/archive/TASK-038.md": 1,
         "docs/archive/TASK-888.md": 1,
-        "docs/tasks/TASK-898.md": 2,
-        ".arch/focus-ledger.jsonl": 1
+        "docs/tasks/TASK-898.md": 2
       },
       "recentCommitRefs": [
         "10cf6625",
         "c17a8eeb",
-        "2f9f680b",
-        "9be3d00b"
+        "2f9f680b"
       ],
       "commitRefOverflow": false
     }
