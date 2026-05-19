@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-19T07:28:21.160Z",
+  "builtAt": "2026-05-19T08:11:38.088Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -5770,18 +5770,64 @@
   },
   "tasks": {
     "TASK-253": {
-      "commitCount": 6,
-      "lastCommitDate": "2026-05-19T09:28:20+02:00",
+      "commitCount": 7,
+      "lastCommitDate": "2026-05-19T10:11:37+02:00",
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 6
+        ".arch/focus-ledger.jsonl": 7
       },
       "recentCommitRefs": [
+        "c7d3eb9",
         "8aaa21a",
         "f11e5a2",
         "24f6e85",
         "9fa9ed0",
         "a130772",
         "5e44534"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-949": {
+      "commitCount": 5,
+      "lastCommitDate": "2026-05-19T09:56:50+02:00",
+      "touchedFrequency": {
+        "cli/src/main/ts/application/commands/corpus-audit-command.ts": 2,
+        "cli/src/main/ts/application/commands/serve-command.ts": 1,
+        "cli/src/test/ts/corpus-audit-command.test.ts": 1,
+        "cli/src/test/ts/serve-command.test.ts": 1,
+        "docs/tasks/TASK-948.md": 1,
+        "docs/tasks/TASK-949.md": 4,
+        ".arch/reflect-breach-log.jsonl": 1,
+        "cli/src/main/ts/index.ts": 1
+      },
+      "recentCommitRefs": [
+        "2f1a365",
+        "d5fcb7c",
+        "c765232",
+        "6e124e8",
+        "48a90d6"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-948": {
+      "commitCount": 4,
+      "lastCommitDate": "2026-05-19T09:56:50+02:00",
+      "touchedFrequency": {
+        "cli/src/main/ts/application/commands/corpus-audit-command.ts": 1,
+        "cli/src/main/ts/application/commands/serve-command.ts": 2,
+        "cli/src/test/ts/corpus-audit-command.test.ts": 1,
+        "cli/src/test/ts/serve-command.test.ts": 2,
+        "docs/tasks/TASK-948.md": 3,
+        ".arch/context-feedback.json": 1,
+        "cli/src/main/ts/application/commands/task-command.ts": 2,
+        "cli/src/main/ts/index.ts": 2,
+        "cli/src/test/ts/deterministic-ac-verifier.test.ts": 1,
+        "docs/arch-viewer.html": 1
+      },
+      "recentCommitRefs": [
+        "2f1a365",
+        "c634b4a",
+        "2a4c113",
+        "e0336e8"
       ],
       "commitRefOverflow": false
     },
@@ -5873,23 +5919,6 @@
         "7e4ab5e",
         "fc61e6a",
         "33a4df9"
-      ],
-      "commitRefOverflow": false
-    },
-    "TASK-949": {
-      "commitCount": 4,
-      "lastCommitDate": "2026-05-18T21:56:48+00:00",
-      "touchedFrequency": {
-        "docs/tasks/TASK-949.md": 4,
-        ".arch/reflect-breach-log.jsonl": 1,
-        "cli/src/main/ts/application/commands/corpus-audit-command.ts": 1,
-        "cli/src/main/ts/index.ts": 1
-      },
-      "recentCommitRefs": [
-        "d5fcb7c",
-        "c765232",
-        "6e124e8",
-        "48a90d6"
       ],
       "commitRefOverflow": false
     },
@@ -6036,26 +6065,6 @@
         "98e5f1b",
         "2c3cf58",
         "ef24048"
-      ],
-      "commitRefOverflow": false
-    },
-    "TASK-948": {
-      "commitCount": 3,
-      "lastCommitDate": "2026-05-18T17:39:40+02:00",
-      "touchedFrequency": {
-        ".arch/context-feedback.json": 1,
-        "cli/src/main/ts/application/commands/task-command.ts": 2,
-        "cli/src/main/ts/index.ts": 2,
-        "cli/src/test/ts/deterministic-ac-verifier.test.ts": 1,
-        "cli/src/test/ts/serve-command.test.ts": 1,
-        "docs/tasks/TASK-948.md": 2,
-        "cli/src/main/ts/application/commands/serve-command.ts": 1,
-        "docs/arch-viewer.html": 1
-      },
-      "recentCommitRefs": [
-        "c634b4a",
-        "2a4c113",
-        "e0336e8"
       ],
       "commitRefOverflow": false
     },
@@ -8169,7 +8178,7 @@
       "commitRefOverflow": false
     },
     "TASK-894": {
-      "commitCount": 4,
+      "commitCount": 2,
       "lastCommitDate": "2026-05-16T15:48:27+00:00",
       "touchedFrequency": {
         ".arch/reflect-breach-log.jsonl": 2,
@@ -8411,20 +8420,16 @@
         "docs/archive/TASK-892.md": 1,
         "docs/archive/TASK-893.md": 1,
         "docs/archive/TASK-895.md": 1,
-        "docs/archive/TASK-896.md": 1,
-        "docs/archive/TASK-894.md": 1,
-        "docs/tasks/TASK-894.md": 1
+        "docs/archive/TASK-896.md": 1
       },
       "recentCommitRefs": [
         "05627ee",
-        "2d6ecda",
-        "e551ad7",
-        "707b91e"
+        "2d6ecda"
       ],
       "commitRefOverflow": false
     },
     "TASK-245": {
-      "commitCount": 8,
+      "commitCount": 6,
       "lastCommitDate": "2026-05-16T15:45:47+00:00",
       "touchedFrequency": {
         ".arch/reflect-breach-log.jsonl": 2,
@@ -8439,7 +8444,7 @@
         "docs/tasks/TASK-203.md": 1,
         "docs/archive/TASK-245.md": 1,
         "docs/tasks/TASK-245.md": 2,
-        ".arch/focus-ledger.jsonl": 4
+        ".arch/focus-ledger.jsonl": 2
       },
       "recentCommitRefs": [
         "a172118",
@@ -8447,9 +8452,7 @@
         "d5df2a9",
         "9a16dcf",
         "0e146f4",
-        "4213a8e",
-        "f043e9a",
-        "1e99fc2"
+        "4213a8e"
       ],
       "commitRefOverflow": false
     },
