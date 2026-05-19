@@ -32,3 +32,6 @@ Class: I
 Evaluates: Whether the Hansei block is structurally valid.
 Does NOT evaluate: Whether the reflection is accurate or the forward action is sound — those remain human.
 Boundary risk: Negligible. The wizard cannot produce a valid Hansei block with wrong content faster than a human can — it only removes the format overhead.
+
+## Decision
+PROMOTE → TASK-964

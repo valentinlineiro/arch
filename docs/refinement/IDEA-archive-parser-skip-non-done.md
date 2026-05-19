@@ -21,3 +21,6 @@ Add a status filter in `parseArchivedTasks()`: skip any file whose `Meta:` line 
 - [ ] `arch report` still counts TASK-231/234-237 correctly if their status is corrected to DONE.
 
 ### Decision-required: no
+
+## Decision
+PROMOTE → TASK-961

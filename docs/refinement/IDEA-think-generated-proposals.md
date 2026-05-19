@@ -33,3 +33,6 @@ Class: I (THINK output format change) + II (proposal scope definition)
 Evaluates: Whether proposal completeness reduces mechanical reconstruction burden.
 Does NOT evaluate: Decision quality. A complete proposal does not guarantee a good decision.
 Boundary risk: If proposal quality becomes a proxy for decision validity ("THINK recommended this, so it's probably right"), the system slides toward recommendation ratification. The mitigation is explicit labeling and the novelty flag — proposals that surface uncertainty resist ratification more than confident-sounding ones.
+
+## Decision
+PROMOTE → TASK-966

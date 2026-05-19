@@ -52,3 +52,6 @@ Class: II
 Evaluates: Whether governance decisions are informed by structured historical context.
 Does NOT evaluate: Whether historical precedent is correct or should be followed. Precedent is input; humans determine its weight.
 Boundary risk: If precedent similarity scores are treated as decision confidence ("similar to past approvals → probably fine to approve"), the system has laundered authority through data. The mitigation is making calibration visible: the semantic layer must surface its own uncertainty, not just its findings. A precedent index that cannot express "I have never seen anything like this" is more dangerous than no precedent index at all.
+
+## Decision
+PROMOTE → TASK-972

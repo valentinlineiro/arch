@@ -13,3 +13,6 @@ Class: I
 Evaluates: Structural completeness of task metadata.
 Does NOT evaluate: Semantic quality of the turns.
 Boundary risk: Low.
+
+## Decision
+PROMOTE → TASK-969

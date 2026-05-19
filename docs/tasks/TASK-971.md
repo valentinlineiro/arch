@@ -1,7 +1,7 @@
-## TASK-958: Write governance epistemic doctrine document: establish cons
-**Meta:** P1 | S | READY | Focus:no | 6-writing | local | docs/tasks/
+## TASK-971: Refresh status language in README.md and docs/ROADMAP.md: de
+**Meta:** P3 | XS | READY | Focus:no | 6-writing | local | docs/tasks/
 **Actor:** unknown
-**Created-at:** 2026-05-19T14:46:45.465Z
+**Created-at:** 2026-05-19T14:47:36.232Z
 **Depends:** none
 
 ### Acceptance Criteria
@@ -18,15 +18,15 @@
 _confidence: 0.45_
 
 **Files:**
-- cli/src/main/ts/domain/services/archive-parser.ts _(core)_
-- cli/src/main/ts/domain/repositories/file-system.ts _(core)_
-- cli/src/main/ts/domain/repositories/git-repository.ts _(core)_
-- cli/src/main/ts/domain/repositories/task-repository.ts _(core)_
+- cli/src/main/ts/domain/models/reflect-decision.ts _(core)_
+- cli/src/main/ts/domain/models/causal-relation.ts _(core)_
 - cli/src/main/ts/domain/models/task.ts _(core)_
+- cli/src/main/ts/application/use-cases/lightweight-metrics-refresh.ts _(domain)_
+- cli/src/main/ts/application/use-cases/reflect-decision-log.ts _(domain)_
 
 **ADRs:**
-- ADR-016: Define the semantic boundary of the domain layer _(enforced)_
-- ADR-018: Adversarially Robust Epistemology & Graded Integrity _(enforced)_
+- ADR-004: Flat docs/tasks/ directory with Focus field replaces sprint/backlog split _(enforced)_
+- ADR-001: Use git as the primary state engine _(enforced)_
 - ADR-013: Two-Tier Drift Detection Architecture _(enforced)_
 
 **Guidelines:**
@@ -35,7 +35,7 @@ _confidence: 0.45_
 
 **Failure Patterns:**
 - Invariant Discovery Gap*(2026-05-12)*: The boundary ambiguity between `arch govern` (deterministic enforcement) and THINK (LLM analysis) was not surfaced by any ARCH mechanism. No DriftChecker rule, no structural check, no semantic scan detected it. A human noticed it during a reflection session. The specific risk: `arch govern` triggers THINK via `runConduct()`, creating naming confusion between enforcement and advisory synthesis — with no written invariant to refuse the rationalization "THINK already participates in govern, so it can also…". **Resolution:** Constitutional split written in IDENTITY.md §7. IDEA-architectural-tension-capture proposed as a new artifact class for structural ambiguities that are not yet broken but will be misused. **The deeper pattern:** ARCH models tasks, decisions, and causal edges, but not category errors or ontological drift. Invariants that live only in the author's head do not scale. _(docs/KAIZEN-LOG.md)_
-- Decision Blindness (High Velocity)*(Sprint 3)*: The agent executes architectural changes (ADR) and detects bugs (TASK-061) that stay in logs or PRs without immediate human visibility. High velocity (35 tasks/48h) makes individual monitoring impossible. **Proposal:** GOVERNANCE.md contract + INBOX.md weekly dashboard + `arch inbox` agent. _(docs/KAIZEN-LOG.md)_
+- Phantom Archive Sync Latency*(Sprint v0.6.0-final)*: Tasks marked `DONE` by an Auditor (human or agent) remain in `docs/tasks/` until the next `arch govern` tick. This creates a "stale backlog" window where `arch status` and INBOX show tasks that are technically complete. **Proposal:** Integrate phantom-archive sync directly into `arch task done`. _(docs/KAIZEN-LOG.md)_
 
 ### Context Feedback
 - [ ] accurate — files and ADRs were on-target
@@ -43,8 +43,4 @@ _confidence: 0.45_
 - [ ] off — wrong files dominated
 
 #### Intent
-Write governance epistemic doctrine document: establish constitutional frame for ARCH automation — define constructive vs bureaucratic friction taxonomy, three-layer governance stack (Constitutional/Semantic/Operational), four-phase maturity sequencing, and four constitutional invariants (humans own novelty adjudication, topology mutation, precedent creation; machines may prepare but not legitimize). Must be committed before Phase 1 automation tasks begin.
-
-### Definition of Done
-- [ ] All ACs checked by Auditor
-- [ ] `arch review` passes
+Refresh status language in README.md and docs/ROADMAP.md: describe ARCH as operational alpha, distinguish current strengths from remaining 1.0.0 gap, update roadmap so govern/reflect split is treated as implemented with residual work framed as boundary hardening.

@@ -60,3 +60,6 @@ Evaluates: Whether ACs are structurally verifiable at creation time.
 Does NOT evaluate: Whether verifiable ACs adequately capture task intent — that remains human judgment at AC authoring time.
 Boundary risk (primary): If the verifiability score is treated as a quality score ("high verifiability = well-scoped task"), the system conflates structural property with semantic adequacy. A task with three trivial `cmd:` ACs and no real coverage is structurally verifiable and substantively shallow.
 Boundary risk (secondary): THINK's compilation choices shape what the governance system can see. If those choices encode assumptions about scope, risk, or precedent, the system has hidden its interpretation inside tooling — the core failure mode identified in GOVERNANCE.md. Mitigation: Phase 2 must make THINK's compilation choices inspectable, not just their outputs.
+
+## Decision
+PROMOTE → TASK-959

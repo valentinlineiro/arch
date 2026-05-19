@@ -15,3 +15,6 @@ Class: I
 Evaluates: Structural consistency of governance checks with the epistemological boundary.
 Does NOT evaluate: Whether the excision itself was correct.
 Boundary risk: Low.
+
+## Decision
+PROMOTE → TASK-963

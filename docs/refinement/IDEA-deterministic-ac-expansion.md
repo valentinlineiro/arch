@@ -41,3 +41,6 @@ Class: I
 Evaluates: Whether all ACs for a given task are deterministically verifiable.
 Does NOT evaluate: Whether the ACs are the right ones, or whether the implementation is architecturally sound.
 Boundary risk: If reviewers treat "L3 passed" as equivalent to "this was a good implementation," the system has made a Class II claim through a Class I gate. Mitigation: L3 archive messages explicitly state "structural AC verification only" and recommend periodic human spot-checks of the archive.
+
+## Decision
+PROMOTE → TASK-965

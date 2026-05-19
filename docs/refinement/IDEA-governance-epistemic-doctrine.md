@@ -95,3 +95,6 @@ Class: II
 Evaluates: Constitutional intent and authority boundary stability over time.
 Does NOT evaluate: Any specific implementation. This document has no executable ACs.
 Boundary risk: This document is itself a Class II artifact. Its purpose is to hold the Class I/II boundary explicit and durable as Phase 1 work begins. If it is not written before Phase 1 tasks are created, optimization momentum will establish the precedent topology that this doctrine was meant to constrain.
+
+## Decision
+PROMOTE → TASK-958

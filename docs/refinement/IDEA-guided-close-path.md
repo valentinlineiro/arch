@@ -18,3 +18,6 @@ Class: II
 Evaluates: Structural completeness and compliance of the closure step.
 Does NOT evaluate: Semantic quality of Hansei content.
 Boundary risk: Medium — touches `mark-task-done.ts` and `hansei-wizard.ts`; must not change the task lifecycle invariants, only enforce them earlier.
+
+## Decision
+PROMOTE → TASK-967

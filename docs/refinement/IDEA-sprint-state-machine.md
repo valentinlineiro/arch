@@ -51,3 +51,6 @@ This is a design artifact only. Output: a spec in `docs/superpowers/specs/` or a
 Class: 0 (design / pre-implementation)
 Does NOT produce: code, ADRs, config changes
 Produces: closed state machine contract that TASK-957 depends on
+
+## Decision
+PROMOTE → TASK-960

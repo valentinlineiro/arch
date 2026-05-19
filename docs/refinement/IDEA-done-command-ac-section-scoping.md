@@ -26,3 +26,6 @@ Class: I
 Evaluates: Whether unchecked checkboxes represent pending ACs.
 Does NOT evaluate: Whether the ACs are correct or complete — only whether they are checked.
 Boundary risk: Negligible. This narrows false positives without weakening the actual guard.
+
+## Decision
+PROMOTE → TASK-962

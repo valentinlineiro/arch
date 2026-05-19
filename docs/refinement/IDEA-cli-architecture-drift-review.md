@@ -4,7 +4,6 @@
 **Status:** DRAFT
 **Sessions:** 2 | **Decision-required:** yes
 **Meta:** P2 | S | claude | cli/src/main/ts/, cli/src/test/ts/
-<!-- cli: local | claude | gemini | human -->
 
 ## Problem
 The CLI appears to be drifting away from the intended clean architecture boundaries. Symptoms called out explicitly are architectural leakage and excessive comments, which usually indicate logic accumulating in the wrong layer, weak naming, or flow complexity that the code no longer explains on its own.
@@ -28,14 +27,8 @@ none
 S
 
 ## Gaps
-<!-- THINK fills this section when invoked — do not edit manually -->
 
 ## Decision
-<!-- REJECT: <one-line rationale>                    — no THINK evaluation required. Write it now. -->
-<!-- PROMOTE → TASK-XXX                              — commits to execution. THINK evaluation expected. -->
-<!-- EXTEND: <specific gap or dependency> until <event that triggers re-evaluation> — costs more than REJECT. -->
-<!--                                                                                                         -->
-<!-- Attribution (optional, tracked for influence measurement):                                              -->
-<!--   [influenced-by: THINK-abc123]  REFLECT influenced this decision                                       -->
-<!--   [influenced-by: none]          REFLECT did not influence (explicitly declared)                        -->
-<!--   (no annotation)                undeclared — not the same as "independent"                             -->
+
+
+PROMOTE → TASK-968
