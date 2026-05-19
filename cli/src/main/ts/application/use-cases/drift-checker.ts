@@ -1,6 +1,7 @@
 import { FileSystem } from '../repositories/file-system.js';
 import { GitRepository } from '../repositories/git-repository.js';
 import { HanseiAuditor } from '../../domain/services/hansei-auditor.js';
+import semver from 'semver';
 
 export interface DriftResult {
   check: string;
@@ -50,6 +51,7 @@ export class DriftChecker {
       this.checkFocusStatusAlignment(),
       this.checkTaskTemplateCompliance(),
       this.checkSentinelCoverage(),
+      this.checkVersionCompat(),
     ]);
   }
 
@@ -1255,5 +1257,70 @@ export class DriftChecker {
 
     const files = await this.fileSystem.readDirectory(`${this.rootPath}/${dirPath}`);
     return files.filter(file => file.endsWith('.md'));
+  }
+
+  private async checkVersionCompat(): Promise<DriftResult> {
+    try {
+      const configPath = `${this.rootPath}/arch.config.json`;
+      const pkgPath = `${this.rootPath}/cli/package.json`;
+
+      if (!await this.fileSystem.exists(configPath) || !await this.fileSystem.exists(pkgPath)) {
+        return { check: 'VersionCompat', status: 'OK', details: [] };
+      }
+
+      const config = JSON.parse(await this.fileSystem.readFile(configPath));
+      const pkg = JSON.parse(await this.fileSystem.readFile(pkgPath));
+
+      const protocolVersion: string | undefined = config.protocolVersion;
+      const minimumCliVersion: string | undefined = config.minimumCliVersion;
+      const cliVersion: string | undefined = pkg.version;
+      const archProtocol: string | undefined = pkg.archProtocol;
+
+      if (!protocolVersion && !minimumCliVersion) {
+        return { check: 'VersionCompat', status: 'OK', details: [] };
+      }
+
+      if (minimumCliVersion && cliVersion) {
+        const coercedCli = semver.coerce(cliVersion)?.version ?? cliVersion;
+        const coercedMin = semver.coerce(minimumCliVersion)?.version ?? minimumCliVersion;
+        if (!semver.gte(coercedCli, coercedMin)) {
+          return {
+            check: 'VersionCompat',
+            status: 'FAIL',
+            details: [`CLI version ${cliVersion} is below minimumCliVersion ${minimumCliVersion} required by the protocol`],
+          };
+        }
+      }
+
+      if (archProtocol && protocolVersion) {
+        if (!semver.validRange(archProtocol)) {
+          return {
+            check: 'VersionCompat',
+            status: 'WARN',
+            details: [`archProtocol "${archProtocol}" in cli/package.json is not a valid semver range`],
+          };
+        }
+        const coercedProto = semver.coerce(protocolVersion)?.version ?? protocolVersion;
+        if (!semver.satisfies(coercedProto, archProtocol)) {
+          return {
+            check: 'VersionCompat',
+            status: 'FAIL',
+            details: [`archProtocol "${archProtocol}" in cli/package.json excludes current protocolVersion ${protocolVersion} — stale compatibility declaration`],
+          };
+        }
+      }
+
+      if (protocolVersion && !archProtocol) {
+        return {
+          check: 'VersionCompat',
+          status: 'WARN',
+          details: ['archProtocol missing from cli/package.json — add it for ecosystem discoverability'],
+        };
+      }
+
+      return { check: 'VersionCompat', status: 'OK', details: [] };
+    } catch (e) {
+      return { check: 'VersionCompat', status: 'WARN', details: [`VersionCompat check error: ${e}`] };
+    }
   }
 }

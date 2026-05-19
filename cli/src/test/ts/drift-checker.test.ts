@@ -735,3 +735,92 @@ test('ApprovalPresent - TASK-934: S archived task is exempt from Approval', asyn
     'S archived task must be exempt from ApprovalPresent warning'
   );
 });
+
+// VersionCompat tests
+
+function makeVersionCompatFs(
+  configOverrides: Record<string, unknown> = {},
+  pkgOverrides: Record<string, unknown> = {}
+): MockFileSystem {
+  const fs = makeBaseFs();
+  fs.files['/repo/arch.config.json'] = JSON.stringify({
+    version: '1.0.0',
+    protocolVersion: '1.0.0',
+    minimumCliVersion: '1.0.0',
+    ...configOverrides,
+  });
+  const pkg: Record<string, unknown> = {
+    version: '1.0.0',
+    archProtocol: '>=1.0 <2',
+    ...pkgOverrides,
+  };
+  if (pkg.archProtocol === undefined) delete pkg.archProtocol;
+  fs.files['/repo/cli/package.json'] = JSON.stringify(pkg);
+  return fs;
+}
+
+test('VersionCompat - OK when CLI satisfies minimumCliVersion and archProtocol includes protocolVersion', async () => {
+  const checker = new DriftChecker(makeVersionCompatFs(), new MockGitRepository(), '/repo', '1.0.0');
+  const result = await checker.check();
+  const check = result.find(r => r.check === 'VersionCompat');
+  assert.ok(check);
+  assert.strictEqual(check?.status, 'OK');
+});
+
+test('VersionCompat - FAIL when CLI version is below minimumCliVersion', async () => {
+  const checker = new DriftChecker(
+    makeVersionCompatFs({ minimumCliVersion: '2.0.0' }),
+    new MockGitRepository(), '/repo', '1.0.0'
+  );
+  const result = await checker.check();
+  const check = result.find(r => r.check === 'VersionCompat');
+  assert.ok(check);
+  assert.strictEqual(check?.status, 'FAIL');
+  assert.ok(check?.details.some(d => d.includes('below minimumCliVersion')));
+});
+
+test('VersionCompat - FAIL when archProtocol present but excludes protocolVersion', async () => {
+  const checker = new DriftChecker(
+    makeVersionCompatFs({ protocolVersion: '2.0.0' }, { archProtocol: '>=1.0 <2' }),
+    new MockGitRepository(), '/repo', '1.0.0'
+  );
+  const result = await checker.check();
+  const check = result.find(r => r.check === 'VersionCompat');
+  assert.ok(check);
+  assert.strictEqual(check?.status, 'FAIL');
+  assert.ok(check?.details.some(d => d.includes('excludes current protocolVersion')));
+});
+
+test('VersionCompat - WARN when archProtocol absent', async () => {
+  const checker = new DriftChecker(
+    makeVersionCompatFs({}, { archProtocol: undefined }),
+    new MockGitRepository(), '/repo', '1.0.0'
+  );
+  const result = await checker.check();
+  const check = result.find(r => r.check === 'VersionCompat');
+  assert.ok(check);
+  assert.strictEqual(check?.status, 'WARN');
+  assert.ok(check?.details.some(d => d.includes('archProtocol missing')));
+});
+
+test('VersionCompat - WARN when archProtocol is malformed', async () => {
+  const checker = new DriftChecker(
+    makeVersionCompatFs({}, { archProtocol: 'not-a-valid-range' }),
+    new MockGitRepository(), '/repo', '1.0.0'
+  );
+  const result = await checker.check();
+  const check = result.find(r => r.check === 'VersionCompat');
+  assert.ok(check);
+  assert.strictEqual(check?.status, 'WARN');
+});
+
+test('VersionCompat - OK when protocolVersion and minimumCliVersion absent (pre-versioning repo)', async () => {
+  const checker = new DriftChecker(
+    makeVersionCompatFs({ protocolVersion: undefined, minimumCliVersion: undefined }),
+    new MockGitRepository(), '/repo', '1.0.0'
+  );
+  const result = await checker.check();
+  const check = result.find(r => r.check === 'VersionCompat');
+  assert.ok(check);
+  assert.strictEqual(check?.status, 'OK');
+});
