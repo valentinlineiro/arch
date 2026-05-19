@@ -1,5 +1,5 @@
 ## TASK-262: Implement Socratic Hansei Wizard in arch task done
-**Meta:** P1 | M | READY | Focus:no | 2-code-generation | claude | cli/src/main/ts/
+**Meta:** P1 | M | READY | Focus:yes | 2-code-generation | claude | cli/src/main/ts/
 
 ### Context
 
