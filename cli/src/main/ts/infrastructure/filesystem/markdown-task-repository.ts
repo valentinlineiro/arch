@@ -9,8 +9,15 @@ export class MarkdownTaskRepository implements TaskRepository {
   constructor(private fileSystem: FileSystem) {}
 
   async getById(id: string): Promise<Task | null> {
-    const tasks = await this.getAll();
-    return tasks.find(t => t.id === id) || null;
+    for (const dir of [this.tasksDir, this.archiveDir]) {
+      const filePath = path.join(dir, `${id}.md`);
+      if (await this.fileSystem.exists(filePath)) {
+        const content = await this.fileSystem.readFile(filePath);
+        const task = this.parseTask(content);
+        if (task) { task.filePath = filePath; return task; }
+      }
+    }
+    return null;
   }
 
   async findReady(): Promise<Task[]> {
@@ -19,12 +26,15 @@ export class MarkdownTaskRepository implements TaskRepository {
   }
 
   async getNextId(): Promise<string> {
-    const tasks = await this.getAll();
-    const ids = tasks
-      .map(t => t.id)
-      .filter(id => /^TASK-\d{3}$/.test(id))
-      .map(id => parseInt(id.split('-')[1], 10));
-    
+    const ids: number[] = [];
+    for (const dir of [this.tasksDir, this.archiveDir]) {
+      if (!(await this.fileSystem.exists(dir))) continue;
+      const files = await this.fileSystem.readDirectory(dir);
+      for (const file of files) {
+        const m = file.match(/^TASK-(\d+)\.md$/);
+        if (m) ids.push(parseInt(m[1], 10));
+      }
+    }
     const maxId = ids.length > 0 ? Math.max(...ids) : 0;
     return `TASK-${(maxId + 1).toString().padStart(3, '0')}`;
   }
