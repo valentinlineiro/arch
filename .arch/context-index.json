@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-19T13:23:26.784Z",
+  "builtAt": "2026-05-19T13:27:53.422Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -6357,15 +6357,16 @@
   },
   "tasks": {
     "TASK-920": {
-      "commitCount": 4,
-      "lastCommitDate": "2026-05-19T15:23:26+02:00",
+      "commitCount": 5,
+      "lastCommitDate": "2026-05-19T15:27:53+02:00",
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 3,
+        ".arch/focus-ledger.jsonl": 4,
         ".arch/chronicle.jsonl": 1,
         ".arch/reflect-breach-log.jsonl": 1,
         "docs/METRICS.md": 1
       },
       "recentCommitRefs": [
+        "c1484282",
         "456c73df",
         "80e3f0cf",
         "9a8aa9b9",
@@ -6864,7 +6865,7 @@
       "commitRefOverflow": false
     },
     "TASK-206": {
-      "commitCount": 17,
+      "commitCount": 16,
       "lastCommitDate": "2026-05-19T12:49:23+02:00",
       "touchedFrequency": {
         "docs/tasks/TASK-098.md": 1,
@@ -6886,7 +6887,7 @@
         "cli/src/main/ts/application/commands/reflect-command.ts": 1,
         "cli/src/main/ts/application/use-cases/hansei-synthesizer.ts": 1,
         "docs/tensions/TENSION-005-specdrift.md": 1,
-        ".arch/focus-ledger.jsonl": 8,
+        ".arch/focus-ledger.jsonl": 7,
         ".arch/causal-signal.jsonl": 1,
         "cli/src/main/ts/application/use-cases/drift-checker.ts": 1,
         "docs/archive/TASK-901.md": 1,
@@ -6977,8 +6978,7 @@
         "ba9929ae",
         "b729d054",
         "ab2a1784",
-        "7fe5d44d",
-        "391fc9b3"
+        "7fe5d44d"
       ],
       "commitRefOverflow": false
     },
