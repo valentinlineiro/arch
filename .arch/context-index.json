@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-18T21:56:20.559Z",
+  "builtAt": "2026-05-19T06:37:34.270Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -5657,12 +5657,13 @@
   },
   "tasks": {
     "TASK-253": {
-      "commitCount": 4,
-      "lastCommitDate": "2026-05-18T21:56:20+00:00",
+      "commitCount": 5,
+      "lastCommitDate": "2026-05-19T08:37:34+02:00",
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 4
+        ".arch/focus-ledger.jsonl": 5
       },
       "recentCommitRefs": [
+        "f11e5a2",
         "24f6e85",
         "9fa9ed0",
         "a130772",
@@ -5671,12 +5672,18 @@
       "commitRefOverflow": false
     },
     "TASK-949": {
-      "commitCount": 1,
-      "lastCommitDate": "2026-05-18T21:53:33+00:00",
+      "commitCount": 4,
+      "lastCommitDate": "2026-05-18T21:56:48+00:00",
       "touchedFrequency": {
-        "docs/tasks/TASK-949.md": 1
+        "docs/tasks/TASK-949.md": 4,
+        ".arch/reflect-breach-log.jsonl": 1,
+        "cli/src/main/ts/application/commands/corpus-audit-command.ts": 1,
+        "cli/src/main/ts/index.ts": 1
       },
       "recentCommitRefs": [
+        "d5fcb7c",
+        "c765232",
+        "6e124e8",
         "48a90d6"
       ],
       "commitRefOverflow": false
@@ -8281,73 +8288,22 @@
       "commitRefOverflow": false
     },
     "TASK-245": {
-      "commitCount": 14,
+      "commitCount": 10,
       "lastCommitDate": "2026-05-16T15:45:47+00:00",
       "touchedFrequency": {
-        ".arch/reflect-breach-log.jsonl": 3,
+        ".arch/reflect-breach-log.jsonl": 2,
         "docs/refinement/IDEA-preimpl-detection.md": 1,
         ".arch/causal-signal.jsonl": 1,
-        ".arch/chronicle.jsonl": 2,
+        ".arch/chronicle.jsonl": 1,
         "cli/src/main/ts/application/commands/reflect-command.ts": 1,
         "cli/src/main/ts/application/use-cases/drift-checker.ts": 1,
         "cli/src/main/ts/domain/services/hansei-auditor.ts": 1,
         "cli/src/test/ts/hansei-auditor.test.ts": 1,
-        "docs/EVENTS.md": 2,
+        "docs/EVENTS.md": 1,
         "docs/tasks/TASK-203.md": 1,
         "docs/archive/TASK-245.md": 1,
         "docs/tasks/TASK-245.md": 2,
-        ".arch/focus-ledger.jsonl": 7,
-        "docs/refinement/archive/IDEA-approval-entry-check.md": 1,
-        "docs/refinement/archive/IDEA-arch-core-contract.md": 1,
-        "docs/refinement/archive/IDEA-arch-review-priority-drift.md": 2,
-        "docs/refinement/archive/IDEA-escalation-event-structured-store.md": 2,
-        "docs/tasks/TASK-894.md": 1,
-        "docs/tasks/TASK-895.md": 1,
-        "docs/tasks/TASK-896.md": 1,
-        "docs/tasks/TASK-897.md": 1,
-        "docs/refinement/IDEA-resurrection-review.md": 1,
-        "docs/refinement/archive/IDEA-Hansei-Governance.md": 1,
-        "docs/refinement/archive/IDEA-ac-executable-sandbox.md": 1,
-        "docs/refinement/archive/IDEA-adr-013-phase-label-drift.md": 1,
-        "docs/refinement/archive/IDEA-arch-context-pruning-stale-tasks.md": 1,
-        "docs/refinement/archive/IDEA-arch-metrics-dashboard.md": 1,
-        "docs/refinement/archive/IDEA-arch-upgrade-diff-tool.md": 1,
-        "docs/refinement/archive/IDEA-autonomous-cli.md": 1,
-        "docs/refinement/archive/IDEA-cli-npm.md": 1,
-        "docs/refinement/archive/IDEA-consolidate-cli-commands.md": 1,
-        "docs/refinement/archive/IDEA-consolidate-root-agent-docs.md": 1,
-        "docs/refinement/archive/IDEA-continuous-simplification.md": 1,
-        "docs/refinement/archive/IDEA-cost-aware-protocol.md": 1,
-        "docs/refinement/archive/IDEA-cross-repo-learning-network.md": 1,
-        "docs/refinement/archive/IDEA-do-step-registry-for-kaizen.md": 1,
-        "docs/refinement/archive/IDEA-fix-build-environment.md": 1,
-        "docs/refinement/archive/IDEA-formal-protocol-invariants.md": 1,
-        "docs/refinement/archive/IDEA-handle-parallelism.md": 1,
-        "docs/refinement/archive/IDEA-hansei-drift-check.md": 1,
-        "docs/refinement/archive/IDEA-interactive-test.md": 1,
-        "docs/refinement/archive/IDEA-l3-self-archive.md": 1,
-        "docs/refinement/archive/IDEA-language-policy.md": 1,
-        "docs/refinement/archive/IDEA-mechanize-protocol-controls.md": 1,
-        "docs/refinement/archive/IDEA-migrate-arch-sh-routing-to-typescript.md": 1,
-        "docs/refinement/archive/IDEA-multi-human-governance.md": 1,
-        "docs/refinement/archive/IDEA-multi-repo-arch.md": 1,
-        "docs/refinement/archive/IDEA-ollama-local-integration.md": 1,
-        "docs/refinement/archive/IDEA-open-standard-portability.md": 1,
-        "docs/refinement/archive/IDEA-oracle-archive-distillation.md": 1,
-        "docs/refinement/archive/IDEA-prevent-npm-install-side-effects.md": 1,
-        "docs/refinement/archive/IDEA-probabilistic-trust-model.md": 1,
-        "docs/refinement/archive/IDEA-protocol-replay-regression.md": 1,
-        "docs/refinement/archive/IDEA-prune-stale-documentation.md": 1,
-        "docs/refinement/archive/IDEA-queryable-archive.md": 1,
-        "docs/refinement/archive/IDEA-review-warn-checked-review-tasks.md": 1,
-        "docs/refinement/archive/IDEA-scope-based-sprints.md": 1,
-        "docs/refinement/archive/IDEA-semantic-ac-verification.md": 1,
-        "docs/refinement/archive/IDEA-separate-arch-core-from-content.md": 1,
-        "docs/refinement/archive/IDEA-simplify-by-experience.md": 1,
-        "docs/refinement/archive/IDEA-task-execution-plans.md": 1,
-        "docs/refinement/archive/IDEA-task-idea-metrics-context-price.md": 1,
-        "docs/refinement/archive/IDEA-typed-protocol-schema.md": 1,
-        "docs/refinement/archive/IDEA-value-cost-task-ordering.md": 1
+        ".arch/focus-ledger.jsonl": 6
       },
       "recentCommitRefs": [
         "a172118",
@@ -8359,11 +8315,7 @@
         "f043e9a",
         "1e99fc2",
         "d2308fe",
-        "42407e3",
-        "c79aad8",
-        "927dc53",
-        "b9412e3",
-        "7a329a0"
+        "42407e3"
       ],
       "commitRefOverflow": false
     },
@@ -8408,17 +8360,6 @@
       "recentCommitRefs": [
         "dcf2a98",
         "d42d606"
-      ],
-      "commitRefOverflow": false
-    },
-    "TASK-893": {
-      "commitCount": 1,
-      "lastCommitDate": "2026-05-16T10:52:21+00:00",
-      "touchedFrequency": {
-        "docs/archive/TASK-893.md": 1
-      },
-      "recentCommitRefs": [
-        "bfaaab9"
       ],
       "commitRefOverflow": false
     }
