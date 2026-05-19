@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-19T12:37:08.781Z",
+  "builtAt": "2026-05-19T12:41:38.121Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -4351,6 +4351,91 @@
       ],
       "affectedModules": [],
       "strength": "enforced"
+    },
+    "ADR-024": {
+      "title": "Drift Coverage Identity Model",
+      "keywords": [
+        "drift",
+        "coverage",
+        "identity",
+        "model",
+        "adr",
+        "024",
+        "date",
+        "2026",
+        "status",
+        "accepted",
+        "deciders",
+        "valent",
+        "eiro",
+        "context",
+        "arch",
+        "driftchecker",
+        "emits",
+        "named",
+        "signals",
+        "hanseipresent",
+        "escalationmaturity",
+        "ideas",
+        "describe",
+        "proposed",
+        "interventions",
+        "these",
+        "layers",
+        "semantically",
+        "coupled",
+        "idea",
+        "add",
+        "hansei",
+        "enforcement",
+        "covers",
+        "check",
+        "shared",
+        "primitive",
+        "exists",
+        "system",
+        "cannot",
+        "mechanically",
+        "determine",
+        "whether",
+        "warn",
+        "signal",
+        "already",
+        "pending",
+        "backlog",
+        "complete",
+        "every",
+        "persistent",
+        "corresponding",
+        "task",
+        "scope",
+        "been",
+        "invalidated",
+        "being",
+        "removed",
+        "renamed",
+        "three",
+        "options",
+        "evaluated",
+        "option",
+        "centric",
+        "declare",
+        "via",
+        "structured",
+        "field",
+        "listing",
+        "names",
+        "query",
+        "scans",
+        "matching",
+        "checker",
+        "config",
+        "json",
+        "carries",
+        "cover"
+      ],
+      "affectedModules": [],
+      "strength": "enforced"
     }
   },
   "adrTaskLinks": {
@@ -4662,6 +4747,12 @@
           ],
           "taskPath": "docs/archive/TASK-200.md"
         },
+        "TASK-261": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-261.md"
+        },
         "TASK-945": {
           "evidenceKinds": [
             "literal-mention"
@@ -4718,6 +4809,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-259.md"
+        },
+        "TASK-261": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-261.md"
         },
         "TASK-269": {
           "evidenceKinds": [
@@ -4919,6 +5016,12 @@
           ],
           "taskPath": "docs/archive/TASK-227.md"
         },
+        "TASK-261": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-261.md"
+        },
         "TASK-265": {
           "evidenceKinds": [
             "literal-mention"
@@ -5112,6 +5215,16 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-950.md"
+        }
+      }
+    },
+    "ADR-024": {
+      "tasks": {
+        "TASK-261": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-261.md"
         }
       }
     },
@@ -5958,12 +6071,31 @@
     }
   },
   "tasks": {
-    "TASK-261": {
-      "commitCount": 6,
-      "lastCommitDate": "2026-05-19T14:37:08+02:00",
+    "TASK-267": {
+      "commitCount": 2,
+      "lastCommitDate": "2026-05-19T14:41:37+02:00",
       "touchedFrequency": {
+        ".arch/focus-ledger.jsonl": 1,
+        "docs/tasks/TASK-264.md": 1,
+        "docs/tasks/TASK-265.md": 1,
+        "docs/tasks/TASK-266.md": 1,
+        "docs/tasks/TASK-267.md": 1,
+        "docs/tasks/TASK-268.md": 1
+      },
+      "recentCommitRefs": [
+        "8fe68de9",
+        "9e8bce39"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-261": {
+      "commitCount": 8,
+      "lastCommitDate": "2026-05-19T14:41:37+02:00",
+      "touchedFrequency": {
+        "docs/archive/TASK-261.md": 1,
+        "docs/adr/ADR-024-drift-coverage-identity-model.md": 1,
+        "docs/tasks/TASK-261.md": 4,
         ".arch/focus-ledger.jsonl": 3,
-        "docs/tasks/TASK-261.md": 3,
         "docs/tasks/TASK-264.md": 1,
         "docs/tasks/TASK-266.md": 1,
         "docs/tasks/TASK-267.md": 1,
@@ -5997,6 +6129,8 @@
         "docs/tasks/TASK-263.md": 1
       },
       "recentCommitRefs": [
+        "ff68d97c",
+        "5443c52f",
         "0920cc2a",
         "005be5ba",
         "633455cf",
@@ -7686,21 +7820,6 @@
       ],
       "commitRefOverflow": false
     },
-    "TASK-267": {
-      "commitCount": 1,
-      "lastCommitDate": "2026-05-18T08:58:10+02:00",
-      "touchedFrequency": {
-        "docs/tasks/TASK-264.md": 1,
-        "docs/tasks/TASK-265.md": 1,
-        "docs/tasks/TASK-266.md": 1,
-        "docs/tasks/TASK-267.md": 1,
-        "docs/tasks/TASK-268.md": 1
-      },
-      "recentCommitRefs": [
-        "9e8bce39"
-      ],
-      "commitRefOverflow": false
-    },
     "TASK-268": {
       "commitCount": 1,
       "lastCommitDate": "2026-05-18T08:58:10+02:00",
@@ -8314,7 +8433,7 @@
       "commitRefOverflow": false
     },
     "TASK-904": {
-      "commitCount": 5,
+      "commitCount": 4,
       "lastCommitDate": "2026-05-16T22:23:17+00:00",
       "touchedFrequency": {
         "docs/archive/TASK-904.md": 1,
@@ -8324,32 +8443,13 @@
         "cli/src/main/ts/application/use-cases/drift-checker.ts": 1,
         "docs/EVENTS.md": 1,
         "docs/INBOX.md": 1,
-        "docs/tasks/TASK-905.md": 1,
-        ".arch/focus-ledger.jsonl": 1
+        "docs/tasks/TASK-905.md": 1
       },
       "recentCommitRefs": [
         "f8bb7ed8",
         "d19a1e82",
         "78bf1826",
-        "228ed1a5",
-        "207110c2"
-      ],
-      "commitRefOverflow": false
-    },
-    "TASK-903": {
-      "commitCount": 2,
-      "lastCommitDate": "2026-05-16T22:21:28+00:00",
-      "touchedFrequency": {
-        "docs/archive/TASK-903.md": 1,
-        ".arch/reflect-breach-log.jsonl": 1,
-        "cli/src/main/ts/application/use-cases/drift-checker.ts": 1,
-        "cli/src/test/ts/escalation-maturity-e5.test.ts": 1,
-        "docs/tasks/TASK-901.md": 1,
-        "docs/tasks/TASK-903.md": 1
-      },
-      "recentCommitRefs": [
-        "6b5b6ef8",
-        "5caf4b1a"
+        "228ed1a5"
       ],
       "commitRefOverflow": false
     }
