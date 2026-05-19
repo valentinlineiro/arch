@@ -84,13 +84,15 @@ export class CorpusAuditCommand {
           try {
             const { DeterministicHanseiChecker } = await import('../../domain/services/deterministic-hansei-checker.js');
             const task = this.parseTaskMeta(taskId, content);
-            const checker = new DeterministicHanseiChecker(this.gitRepository);
-            const result = await checker.run(task as any);
+            const checker = new DeterministicHanseiChecker(this.rootPath);
+            const result = await checker.check(task as any);
             const realFindings = result.findings.filter(f => !f.declaredInHansei);
 
             if (realFindings.length > 0) {
-              const inferredSev = realFindings.length === 1 ? 'H1' : 'H2';
-              if (hansei.severity === 'H0' && inferredSev !== 'H0') {
+              const understated =
+                (hansei.severity === 'H0') ||
+                (hansei.severity === 'H1' && realFindings.length >= 2);
+              if (understated) {
                 severityCalibration.understated++;
                 findings.push({
                   taskId,
@@ -270,10 +272,10 @@ export class CorpusAuditCommand {
     return {
       severity: section.match(/\*\*Severity:\*\*\s*(\S+)/)?.[1] ?? '',
       category: section.match(/\*\*Category:\*\*\s*(\S+)/)?.[1] ?? '',
-      decision: section.match(/\*\*Decision:\*\*\s*([\s\S]*?)(?=\n\*\*|\Z)/)?.[1]?.trim() ?? '',
-      constraint: section.match(/\*\*Constraint:\*\*\s*([\s\S]*?)(?=\n\*\*|\Z)/)?.[1]?.trim() ?? '',
-      cost: section.match(/\*\*Cost:\*\*\s*([\s\S]*?)(?=\n\*\*|\Z)/)?.[1]?.trim() ?? '',
-      forwardAction: section.match(/\*\*Forward Action:\*\*\s*([\s\S]*?)(?=\n\*\*|\Z)/)?.[1]?.trim() ?? '',
+      decision: section.match(/\*\*Decision:\*\*\s*([\s\S]*?)(?=\n\*\*|\n##|$)/)?.[1]?.trim() ?? '',
+      constraint: section.match(/\*\*Constraint:\*\*\s*([\s\S]*?)(?=\n\*\*|\n##|$)/)?.[1]?.trim() ?? '',
+      cost: section.match(/\*\*Cost:\*\*\s*([\s\S]*?)(?=\n\*\*|\n##|$)/)?.[1]?.trim() ?? '',
+      forwardAction: section.match(/\*\*Forward Action:\*\*\s*([\s\S]*?)(?=\n\*\*|\n##|$)/)?.[1]?.trim() ?? '',
     };
   }
 

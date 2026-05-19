@@ -42,9 +42,9 @@ Enhance CLI UX with interactivity and local dashboard
 - [ ] `arch review` passes
 
 ## Hansei
-**Severity:** H0
-**Category:** [AuditGap]
-**Decision:** Implementation was straightforward. Local API added to 'serve' command allows dashboard to work offline.
-**Constraint:** No significant constraints were encountered during the implementation of these UX features.
-**Cost:** No architectural debt or significant cost was introduced in this task.
+**Severity:** H1
+**Category:** [DeferredTest]
+**Decision:** Four bugs introduced in the serve command were not caught before review: query strings caused ENOENT, async Promise.all rejection was unhandled (crash risk on Node ≥ 15), port conflict produced a raw stack trace, and port parsing accepted partially-numeric args. None were caught because serve-command had only a smoke test (instantiation check). Review caught all four.
+**Constraint:** HTTP handler logic is inline in execute(), making it untestable without a running server. Extracting createHandler() and parsePort() as methods was the prerequisite for meaningful tests.
+**Cost:** Additional review cycle required. Six tests added covering the critical and important paths.
 **Forward Action:** None required.
