@@ -142,6 +142,78 @@ I1 creates stability at the cost of potential causal blindness. IMeta is the mec
 
 IMeta closes the entropy-freezing risk in I1 without opening free-form drift: new categories require accumulated evidence (Phase 2) and a human decision (Phase 3). The system can see emergent entities once they cross threshold — it just cannot name them autonomously.
 
+## ECP — Entity Causal Provisional protocol
+
+IMeta creates a detection gap: a cluster is identified but not yet official. During this interval the system needs consistent scoring, propagation, and trazabilidad without violating I1 or I6. ECP is the state machine that fills this gap.
+
+### Storage
+
+`.arch/ecp-registry.jsonl` — append-only, one record per lifecycle event. Consistent with ARCH's operational state pattern.
+
+### Identifier and canonical signature
+
+```
+canonical_signature = sorted(class_field) + "|" + sorted(task_ids_in_cluster)
+ecp_id = sha256(canonical_signature)[:12]
+```
+
+`class_field` is the task class from the controlled vocabulary (not text, not keywords). `task_ids_in_cluster` is the sorted set of task IDs whose signals formed the cluster. Same cluster → same `ecp_id` across any number of runs.
+
+### Confidence
+
+```
+confidence = min(1.0, recurrence_count / (2 × CAUSAL_RECURRENCE_THRESHOLD))
+```
+
+Reaches 0.5 when the cluster crosses the creation threshold. Reaches 1.0 when it doubles it. Deterministic, no LLM. Maps directly to lifecycle transitions.
+
+### Scoring
+
+```
+ecp_score = base_signal × confidence × recurrence_factor
+```
+
+ECP score does NOT modify task ranking directly. It contributes as a bias overlay only:
+
+```
+final_priority_bias += Σ influence(ecp_i)
+influence(ecp) = ecp_score × decay(distance_to_task)
+```
+
+Decay is exponential ≤ 0.5 per hop, max depth 2 (consistent with I3). The sum of all ECP influences is a bias layer on top of the primary signal — it cannot override a ranking by itself.
+
+### Lifecycle
+
+```
+ECP_CREATED    recurrence ≥ CAUSAL_RECURRENCE_THRESHOLD, confidence ≥ 0.5
+     ↓
+ECP_STABLE     recurrence ≥ 2× CAUSAL_RECURRENCE_THRESHOLD, confidence ≥ 0.75
+     ↓
+ECP_CANDIDATE  human review triggered — arch task reprioritize emits cluster report
+     ↓
+ACTIVE         human names category, adds to arch.config.json, migration pass runs
+REJECTED       human discards — recorded, no history loss
+DISCARDED      no recurrence for N cycles AND no task association — inactive, not deleted
+```
+
+No direct jump from ECP_CREATED to ACTIVE. Human gate at ECP_CANDIDATE is not optional.
+
+### Interaction with I1 (closed vocabulary)
+
+An ECP cannot map itself to an existing category unless confidence ≥ high threshold (0.85). Below that, it remains `UNCLASSIFIED ECP`. This prevents noisy clusters from silently absorbing into existing entities and corrupting their signal history.
+
+### Interaction with I6 (BLOCKED logic)
+
+An ECP alone cannot trigger BLOCKED. BLOCKED is only evaluated when ECP + ACTIVE entities combined satisfy the I6 triple condition. An ECP contributes evidence; it does not have decision authority.
+
+### Interaction with IMeta
+
+IMeta produces the UNCLASSIFIED cluster report. That report triggers ECP_CREATED. The pipeline does not jump to vocabulary expansion — it creates an ECP and waits for ECP_STABLE before surfacing to the human as ECP_CANDIDATE.
+
+### Garbage collection
+
+An ECP transitions to DISCARDED when: no new recurrence signals for N govern cycles AND no active task association remains. DISCARDED is a terminal state with full history preserved in `.arch/ecp-registry.jsonl`. Nothing is deleted.
+
 ## Decision
 
 <!-- **Adjudicate by:** [date or "after N THINK reviews"] -->
