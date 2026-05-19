@@ -10,6 +10,7 @@
   - TASK-940
   - TASK-283
   - TASK-939
+  - TASK-955
 - **AWAITING_PROMOTION:** 
   - IDEA-archive-parser-skip-non-done
   - IDEA-automate-turn-count
