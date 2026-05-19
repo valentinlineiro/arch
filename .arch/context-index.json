@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-19T13:06:39.462Z",
+  "builtAt": "2026-05-19T13:15:37.746Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -527,6 +527,7 @@
         "cli/src/main/ts/application/use-cases/context-inference.ts",
         "cli/src/main/ts/application/use-cases/constraint-preflight.ts",
         "cli/src/main/ts/application/use-cases/semantic-collision-detector.ts",
+        "cli/src/main/ts/application/use-cases/correction-signal-store.ts",
         "cli/src/main/ts/application/use-cases/compress-task.ts",
         "cli/src/main/ts/application/commands/next-command.ts",
         "cli/src/main/ts/application/commands/rank-command.ts",
@@ -806,6 +807,35 @@
         "file",
         "guideline",
         "result"
+      ],
+      "criticality": "domain",
+      "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/application/use-cases/correction-signal-store.ts": {
+      "symbols": [
+        "CorrectionKind",
+        "CorrectionAuthority",
+        "CorrectionSourceType",
+        "CorrectionStatus",
+        "HANSEI_CATEGORY_ALIASES",
+        "HANSEI_CATEGORIES",
+        "CorrectionSignal",
+        "CorrectionSignalStore"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/repositories/file-system.ts"
+      ],
+      "tags": [
+        "application",
+        "cases",
+        "correction",
+        "signal",
+        "store",
+        "kind",
+        "authority",
+        "source",
+        "type",
+        "status"
       ],
       "criticality": "domain",
       "runtimeUsage": "hot"
@@ -4568,6 +4598,12 @@
           ],
           "taskPath": "docs/tasks/TASK-283.md"
         },
+        "TASK-939": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-939.md"
+        },
         "TASK-940": {
           "evidenceKinds": [
             "literal-mention"
@@ -4678,6 +4714,12 @@
           ],
           "taskPath": "docs/tasks/TASK-283.md"
         },
+        "TASK-939": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-939.md"
+        },
         "TASK-224": {
           "evidenceKinds": [
             "literal-mention"
@@ -4695,6 +4737,46 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-941.md"
+        }
+      }
+    },
+    "ADR-015": {
+      "tasks": {
+        "TASK-939": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-939.md"
+        },
+        "TASK-940": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-940.md"
+        },
+        "TASK-225": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-225.md"
+        },
+        "TASK-253": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-253.md"
+        },
+        "TASK-944": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-944.md"
+        },
+        "TASK-946": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-946.md"
         }
       }
     },
@@ -4736,40 +4818,6 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-953.md"
-        }
-      }
-    },
-    "ADR-015": {
-      "tasks": {
-        "TASK-940": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/tasks/TASK-940.md"
-        },
-        "TASK-225": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-225.md"
-        },
-        "TASK-253": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-253.md"
-        },
-        "TASK-944": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-944.md"
-        },
-        "TASK-946": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-946.md"
         }
       }
     },
@@ -6249,13 +6297,45 @@
   },
   "tasks": {
     "TASK-920": {
-      "commitCount": 1,
-      "lastCommitDate": "2026-05-19T15:06:39+02:00",
+      "commitCount": 3,
+      "lastCommitDate": "2026-05-19T15:15:37+02:00",
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 1
+        ".arch/focus-ledger.jsonl": 2,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/reflect-breach-log.jsonl": 1,
+        "docs/METRICS.md": 1
       },
       "recentCommitRefs": [
+        "80e3f0cf",
+        "9a8aa9b9",
         "748e1bff"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-939": {
+      "commitCount": 4,
+      "lastCommitDate": "2026-05-19T15:15:37+02:00",
+      "touchedFrequency": {
+        "docs/INBOX.md": 1,
+        ".arch/correction-signals.jsonl": 1,
+        "cli/src/main/ts/application/commands/task-command.ts": 1,
+        "cli/src/main/ts/application/use-cases/correction-signal-store.ts": 1,
+        "cli/src/main/ts/index.ts": 1,
+        "docs/tasks/TASK-939.md": 2,
+        ".arch/chronicle.jsonl": 1,
+        "docs/SENTINEL-LOG.md": 1,
+        "docs/refinement/IDEA-active-constraint-injection.md": 1,
+        "docs/refinement/IDEA-correction-signal.md": 1,
+        "docs/refinement/IDEA-proportional-protocol.md": 1,
+        "docs/refinement/IDEA-semantic-collision-detection.md": 1,
+        "docs/tasks/TASK-937.md": 1,
+        "docs/tasks/TASK-938.md": 1
+      },
+      "recentCommitRefs": [
+        "636d7d7a",
+        "ded2b6fb",
+        "dda8500f",
+        "99381dd3"
       ],
       "commitRefOverflow": false
     },
@@ -7501,23 +7581,6 @@
       ],
       "commitRefOverflow": false
     },
-    "TASK-939": {
-      "commitCount": 1,
-      "lastCommitDate": "2026-05-18T13:48:10+02:00",
-      "touchedFrequency": {
-        "docs/refinement/IDEA-active-constraint-injection.md": 1,
-        "docs/refinement/IDEA-correction-signal.md": 1,
-        "docs/refinement/IDEA-proportional-protocol.md": 1,
-        "docs/refinement/IDEA-semantic-collision-detection.md": 1,
-        "docs/tasks/TASK-937.md": 1,
-        "docs/tasks/TASK-938.md": 1,
-        "docs/tasks/TASK-939.md": 1
-      },
-      "recentCommitRefs": [
-        "99381dd3"
-      ],
-      "commitRefOverflow": false
-    },
     "TASK-936": {
       "commitCount": 2,
       "lastCommitDate": "2026-05-18T12:23:10+02:00",
@@ -8552,39 +8615,15 @@
       "commitRefOverflow": false
     },
     "TASK-906": {
-      "commitCount": 5,
+      "commitCount": 2,
       "lastCommitDate": "2026-05-16T22:39:21+00:00",
       "touchedFrequency": {
         "docs/archive/TASK-906.md": 1,
-        "docs/tasks/TASK-906.md": 3,
-        ".arch/chronicle.jsonl": 1,
-        ".arch/reflect-breach-log.jsonl": 1,
-        "cli/src/main/ts/application/commands/inbox-command.ts": 1,
-        "cli/src/main/ts/application/use-cases/generate-inbox.ts": 1,
-        "docs/EVENTS.md": 1,
-        "docs/INBOX.md": 1,
-        "docs/agents/THINK.md": 1,
-        ".arch/focus-ledger.jsonl": 1
+        "docs/tasks/TASK-906.md": 1
       },
       "recentCommitRefs": [
         "32e413d9",
-        "993dc329",
-        "754400c1",
-        "340bd1a4",
-        "f25cda8b"
-      ],
-      "commitRefOverflow": false
-    },
-    "TASK-902": {
-      "commitCount": 2,
-      "lastCommitDate": "2026-05-16T22:37:18+00:00",
-      "touchedFrequency": {
-        "docs/archive/TASK-902.md": 1,
-        "docs/tasks/TASK-902.md": 1
-      },
-      "recentCommitRefs": [
-        "850d227f",
-        "e955bfc7"
+        "993dc329"
       ],
       "commitRefOverflow": false
     }
