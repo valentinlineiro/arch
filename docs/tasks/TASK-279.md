@@ -1,5 +1,5 @@
 ## TASK-279: Implement arch ask - memory queries over the full ARCH operational corpus
-**Meta:** P1 | M | READY | Focus:no | 2-code-generation | claude | cli/src/main/ts/
+**Meta:** P1 | M | READY | Focus:yes | 2-code-generation | claude | cli/src/main/ts/
 
 ### Context
 

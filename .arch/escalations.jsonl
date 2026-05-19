@@ -143,3 +143,4 @@
 {"escalation_id":"e1a2b3c4-5d6e-7f8g-9h0i-j1k2l3m4n5o6","timestamp":"2026-05-19T11:45:00Z","type":"AWAITING_PROMOTION","subject":"IDEA-archive-parser-skip-non-done","reason":"Decision required","status":"OPEN"}
 {"escalation_id":"f2b3c4d5-6e7f-8g9h-0i1j-k2l3m4n5o6p7","timestamp":"2026-05-19T11:45:00Z","type":"AWAITING_PROMOTION","subject":"IDEA-automate-turn-count","reason":"Decision required","status":"OPEN"}
 {"escalation_id":"g3c4d5e6-7f8g-9h0i-j1k2-l3m4n5o6p7q8","timestamp":"2026-05-19T11:45:00Z","type":"AWAITING_PROMOTION","subject":"IDEA-cli-architecture-drift-review","reason":"Decision required","status":"OPEN"}
+{"escalation_id":"E-code-quality-audit-process","timestamp":"2026-05-19T12:00:00Z","type":"AWAITING_PROMOTION","subject":"IDEA-code-quality-audit-process","reason":"New IDEA proposed by human","status":"OPEN"}

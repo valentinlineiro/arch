@@ -29,6 +29,7 @@
 - automate-turn-count
 - automatic-sprint-lifecycle
 - cli-architecture-drift-review
+- code-quality-audit-process
 - deterministic-ac-expansion
 - deterministic-governance-gates
 - done-command-ac-section-scoping
@@ -58,4 +59,6 @@
 | `getNextId()` uses filename-only scan (no file content read) | file | ✔ | exists: cli/src/main/ts/infrastructure/filesystem/markdown-t |
 | `npm test` passes | cmd | ✔ | exit 0 (expected 0) |
 | `arch review` passes | cmd | ✔ | exit 0 (expected 0) |
+
+ 0) |
 
