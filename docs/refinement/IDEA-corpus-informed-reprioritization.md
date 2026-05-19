@@ -216,5 +216,5 @@ An ECP transitions to DISCARDED when: no new recurrence signals for N govern cyc
 
 ## Decision
 
-<!-- **Adjudicate by:** [date or "after N THINK reviews"] -->
-<!-- PROMOTE → TASK-XXX | REJECT | EXTEND -->
+**Adjudicate by:** 2026-05-19
+PROMOTE → TASK-955
