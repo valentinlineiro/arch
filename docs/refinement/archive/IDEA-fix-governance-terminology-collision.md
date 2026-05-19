@@ -16,3 +16,6 @@ Class: II
 Evaluates: Conceptual alignment of governance terminology.
 Does NOT evaluate: Structural consistency.
 Boundary risk: Low.
+
+## Decision
+PROMOTE → TASK-953

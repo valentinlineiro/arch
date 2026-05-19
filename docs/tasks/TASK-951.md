@@ -1,35 +1,17 @@
-## TASK-951: --dry-run
-**Meta:** P3 | S | READY | Focus:no | 2-code-generation | local | docs/tasks/
+## TASK-951: Add idea: commit exception to core.md
+**Meta:** P3 | XS | READY | Focus:no | 6-writing | local | docs/guidelines/core.md
 **Depends:** none
-
-### Acceptance Criteria
-- [ ] Implementation file exists at declared context path
-  - `file: (path)`
-- [ ] Tests pass
-  - `cmd: npm test; exit: 0`
-- [ ] `arch review` passes
-  - `cmd: node cli/dist/index.js review`
 
 ### Context
 
-### Relevant Context
-_confidence: 0.35_
+`docs/guidelines/core.md` states every commit must reference a TASK-ID, but does not document the `idea:` exception. The exception exists in `AGENTS.md` ("Exception: `idea:` commits for IDEA drafts do not require a TASK-ID") but is absent from `core.md`, creating ambiguity for agents that load only the guidelines.
 
-**ADRs:**
-- ADR-012: Exec/Bridge Layer Bugfixes - maxBuffer, buildCommand signature, local routing _(enforced)_
+### Acceptance Criteria
 
-**Guidelines:**
-- testing-a-change.md
-- versioning.md
-
-### Context Feedback
-- [ ] accurate — files and ADRs were on-target
-- [ ] partial — correct direction, missing key files
-- [ ] off — wrong files dominated
-
-#### Intent
---dry-run
+- [ ] `docs/guidelines/core.md` commit section documents the `idea:` exception explicitly.  →  grep: "idea:" docs/guidelines/core.md
+- [ ] `arch review` passes.  →  cmd: arch review; exit: 0
 
 ### Definition of Done
-- [ ] All ACs checked by Auditor
-- [ ] `arch review` passes
+
+- [ ] All ACs checked.
+- [ ] `arch review` passes.  →  cmd: arch review; exit: 0

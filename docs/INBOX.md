@@ -9,9 +9,6 @@
   - TASK-948
   - TASK-949
 - **AWAITING_PROMOTION:**
-  - IDEA-fix-commit-exception-contradiction
-  - IDEA-fix-decomposition-duplication
-  - IDEA-fix-governance-terminology-collision
   - IDEA-temporal-pattern-layer
 
 ## Refinement Queue

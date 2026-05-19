@@ -15,3 +15,6 @@ Class: I
 Evaluates: Structural duplication in documentation.
 Does NOT evaluate: Whether the rule itself is correct.
 Boundary risk: Low.
+
+## Decision
+PROMOTE → TASK-952

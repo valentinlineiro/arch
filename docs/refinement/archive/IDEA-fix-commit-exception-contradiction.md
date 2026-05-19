@@ -16,3 +16,6 @@ Class: I
 Evaluates: Structural consistency of commit guidelines.
 Does NOT evaluate: Whether the exception is architectural sound (already decided in GEMINI.md).
 Boundary risk: Low.
+
+## Decision
+PROMOTE → TASK-951
