@@ -1,5 +1,6 @@
 ## TASK-940: Implement semantic collision detection - AC-vs-ADR conflict advisory at capture/start
-**Meta:** P1 | M | REVIEW | Focus:yes | 2-code-generation | claude | cli/src/main/ts/application/commands/capture-command.ts, cli/src/main/ts/application/commands/task-command.ts, docs/adr/
+**Meta:** P1 | M | DONE | Focus:no | 2-code-generation | claude | cli/src/main/ts/application/commands/capture-command.ts, cli/src/main/ts/application/commands/task-command.ts, docs/adr/
+**Closed-at:** 2026-05-19T13:29:06Z
 **Actor:** unknown
 **Locked-commit:** 17e3a68d
 **Created-at:** 2026-05-19T12:49:53.756Z
@@ -66,6 +67,9 @@ _confidence: 0.44_
 - [x] An agent starting a task whose AC contradicts an ACCEPTED ADR sees the conflict advisory before writing a line of code.
 - [x] Tasks with no ADR conflicts produce no output from this check (zero noise overhead on clean tasks).
 - [x] `arch review` passes.  →  cmd: arch review; exit: 0
+
+## Approval
+Approved-by: Auditor | 2026-05-19
 
 ## Hansei
 **Severity:** H2

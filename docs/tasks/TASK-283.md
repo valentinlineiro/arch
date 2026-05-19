@@ -1,5 +1,6 @@
 ## TASK-283: Define Sentinel call log infrastructure and CLI command
-**Meta:** P2 | M | REVIEW | Focus:yes | 2-code-generation | claude | cli/src/main/ts/, docs/agents/DO.md
+**Meta:** P2 | M | DONE | Focus:no | 2-code-generation | claude | cli/src/main/ts/, docs/agents/DO.md
+**Closed-at:** 2026-05-19T13:29:06Z
 **Actor:** unknown
 **Locked-commit:** 644e1330
 **Created-at:** 2026-05-19T13:02:55.789Z
@@ -53,6 +54,9 @@ _confidence: 0.43_
 
 - [x] Sentinel log infrastructure, CLI command, and drift check implemented.
 - [x] `arch review` passes.
+
+## Approval
+Approved-by: Auditor | 2026-05-19
 
 ## Hansei
 **Severity:** H2

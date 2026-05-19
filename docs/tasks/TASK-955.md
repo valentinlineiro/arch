@@ -1,5 +1,6 @@
 ## TASK-955: Implement arch task reprioritize - corpus-informed priority diff
-**Meta:** P2 | M | REVIEW | Focus:no | 2-code-generation | claude | cli/src/main/ts/
+**Meta:** P2 | M | DONE | Focus:no | 2-code-generation | claude | cli/src/main/ts/
+**Closed-at:** 2026-05-19T13:29:06Z
 **Actor:** unknown
 **Locked-commit:** 81439332
 **Created-at:** 2026-05-19T13:16:18.962Z
@@ -65,6 +66,9 @@ Three implementation gaps before work can start:
 - [x] ECP registry populated after first run.
 - [x] All invariants from IDEA spec (I1–I7 + IMeta + ECP) verifiable against implementation.
 - [x] `arch review` passes.
+
+## Approval
+Approved-by: Auditor | 2026-05-19
 
 ## Hansei
 **Severity:** H2

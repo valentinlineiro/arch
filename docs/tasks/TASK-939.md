@@ -1,5 +1,6 @@
 ## TASK-939: Implement correction signal schema and capture points
-**Meta:** P2 | M | REVIEW | Focus:no | 2-code-generation | claude | .arch/, cli/src/main/ts/application/use-cases/escalation-store.ts, cli/src/main/ts/application/commands/task-command.ts
+**Meta:** P2 | M | DONE | Focus:no | 2-code-generation | claude | .arch/, cli/src/main/ts/application/use-cases/escalation-store.ts, cli/src/main/ts/application/commands/task-command.ts
+**Closed-at:** 2026-05-19T13:29:06Z
 **Actor:** unknown
 **Locked-commit:** 9a8aa9b9
 **Created-at:** 2026-05-19T13:11:39.747Z
@@ -65,6 +66,9 @@ _confidence: 0.42_
 - [x] A REVIEW_FAIL or REDIRECT event can be accompanied by a structured correction signal without leaving the CLI.
 - [x] Correction signals are queryable as a flat jsonl file with enough structure to support future THINK-driven clustering.
 - [x] `arch review` passes.  →  cmd: arch review; exit: 0
+
+## Approval
+Approved-by: Auditor | 2026-05-19
 
 ## Hansei
 **Severity:** H2
