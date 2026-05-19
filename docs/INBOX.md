@@ -78,3 +78,6 @@
 |---|---|---|---|
 | Intent addressed | prose | ✔ | prose: human-verified (non-automated) |
 | `arch review` passes | cmd | ✔ | exit 0 (expected 0) |
+
+## 2026-05-19 17:06:22 — Pattern Alerts
+[PATTERN-ALERT] [SpecDrift] detected 8 times — systemic issue. See docs/tensions/

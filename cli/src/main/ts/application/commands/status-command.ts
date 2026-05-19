@@ -55,7 +55,7 @@ export class StatusCommand {
     try {
       const inbox = await this.fileSystem.readFile(`${this.rootPath}/docs/INBOX.md`);
       const alerts = inbox.split('\n').filter(l =>
-        l.includes('PATTERN-ALERT') || l.includes('ANDON_HALT')
+        l.includes('PATTERN-ALERT') || l.includes('ANDON_HALT') || l.includes('CORPUS_ALERT')
       );
       if (alerts.length > 0) {
         console.log(`\n  \x1b[33m⚠\x1b[0m  Alerts (${alerts.length}):`);

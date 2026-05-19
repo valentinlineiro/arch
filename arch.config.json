@@ -108,7 +108,10 @@
       "cli/src/main/ts/domain/models/",
       "cli/src/main/ts/domain/repositories/"
     ],
-    "hanseiSinceTaskId": 195
+    "hanseiSinceTaskId": 195,
+    "corpusAuditEveryN": 10,
+    "corpusAuditThresholdWarn": 80,
+    "corpusAuditThresholdHalt": 60
   },
   "reflect": {
     "deepCadenceN": 5,

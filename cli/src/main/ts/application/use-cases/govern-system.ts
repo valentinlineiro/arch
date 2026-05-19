@@ -7,6 +7,7 @@ import { ConfigLoader } from '../../domain/services/config-loader.js';
 import { CausalSignalLog } from './causal-signal-log.js';
 import { ReflectInfluenceReport, DEFAULT_THRESHOLDS } from './reflect-influence-report.js';
 import { TaskValidator } from '../../domain/services/task-validator.js';
+import { CorpusAuditCommand } from '../commands/corpus-audit-command.js';
 import {
   FocusRuling, LedgerState, FOCUS_LEDGER_PATH,
   parseLedger, committedRulings, serializeLedger,
@@ -98,6 +99,31 @@ export class GovernSystem {
     } catch (err) {
       // non-fatal — metrics refresh failure does not affect task operations
       if (process.env.ARCH_DEBUG) console.error('[TASK-257] metrics refresh failed:', err);
+    }
+
+    // Corpus quality audit — runs every N ticks, tiered response
+    const auditEveryN: number = (config.governance as any)?.corpusAuditEveryN ?? 10;
+    const warnThreshold: number = (config.governance as any)?.corpusAuditThresholdWarn ?? 80;
+    const haltThreshold: number = (config.governance as any)?.corpusAuditThresholdHalt ?? 60;
+    if (currentTick % auditEveryN === 0) {
+      try {
+        const auditor = new CorpusAuditCommand(this.fileSystem, this.gitRepository);
+        const score = await auditor.runQuiet();
+        if (score < haltThreshold) {
+          const msg = `Corpus quality score ${score}/100 is below halt threshold (${haltThreshold}). Governance suggestions are unreliable. Run arch corpus audit --verbose.`;
+          await this.appendInbox('CORPUS', 'ANDON_HALT', msg);
+          console.log(`  \x1b[31m✖ CORPUS HALT: score ${score}/100 < ${haltThreshold}. See docs/INBOX.md.\x1b[0m`);
+        } else if (score < warnThreshold) {
+          const msg = `Corpus quality score ${score}/100 is below warn threshold (${warnThreshold}). Governance suggestions shown with reduced confidence. Run arch corpus audit --verbose.`;
+          await this.appendInbox('CORPUS', 'CORPUS_ALERT', msg);
+          console.log(`  \x1b[33m⚠ CORPUS ALERT: score ${score}/100 < ${warnThreshold}. See docs/INBOX.md.\x1b[0m`);
+        } else {
+          console.log(`  \x1b[32m✔\x1b[0m Corpus quality: ${score}/100`);
+        }
+      } catch (err) {
+        if (process.env.ARCH_DEBUG) console.error('[corpus-audit] audit failed:', err);
+        // non-fatal — audit failure does not block governance
+      }
     }
 
     return { analysisNeeded: analysisReasons.length > 0, reasons: analysisReasons };

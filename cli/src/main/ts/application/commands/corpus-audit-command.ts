@@ -36,6 +36,12 @@ export class CorpusAuditCommand {
     this.render(result, verbose);
   }
 
+  /** Silent version: returns score only. Used by govern tick. */
+  async runQuiet(): Promise<number> {
+    const result = await this.audit(false);
+    return result.score;
+  }
+
   private async audit(verbose: boolean): Promise<AuditResult> {
     const archiveDir = `${this.rootPath}/docs/archive`;
     const refinementDir = `${this.rootPath}/docs/refinement/archive`;
