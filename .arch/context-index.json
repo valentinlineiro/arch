@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-19T12:54:26.537Z",
+  "builtAt": "2026-05-19T12:54:53.437Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -4802,6 +4802,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-951.md"
+        },
+        "TASK-952": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-952.md"
         }
       }
     },
@@ -4893,6 +4899,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-951.md"
+        },
+        "TASK-952": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-952.md"
         }
       }
     },
@@ -4952,6 +4964,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-947.md"
+        },
+        "TASK-952": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-952.md"
         }
       }
     },
@@ -5257,6 +5275,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-284.md"
+        },
+        "TASK-952": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-952.md"
         }
       }
     },
@@ -6162,9 +6186,9 @@
     }
   },
   "tasks": {
-    "TASK-952": {
+    "TASK-953": {
       "commitCount": 2,
-      "lastCommitDate": "2026-05-19T14:54:26+02:00",
+      "lastCommitDate": "2026-05-19T14:54:53+02:00",
       "touchedFrequency": {
         ".arch/focus-ledger.jsonl": 1,
         "docs/INBOX.md": 1,
@@ -6176,6 +6200,29 @@
         "docs/tasks/TASK-953.md": 1
       },
       "recentCommitRefs": [
+        "e09f37bc",
+        "86f31ff9"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-952": {
+      "commitCount": 4,
+      "lastCommitDate": "2026-05-19T14:54:53+02:00",
+      "touchedFrequency": {
+        "docs/archive/TASK-952.md": 1,
+        "docs/AGENTS.md": 1,
+        "docs/tasks/TASK-952.md": 2,
+        ".arch/focus-ledger.jsonl": 1,
+        "docs/INBOX.md": 1,
+        "docs/refinement/archive/IDEA-fix-commit-exception-contradiction.md": 1,
+        "docs/refinement/archive/IDEA-fix-decomposition-duplication.md": 1,
+        "docs/refinement/archive/IDEA-fix-governance-terminology-collision.md": 1,
+        "docs/tasks/TASK-951.md": 1,
+        "docs/tasks/TASK-953.md": 1
+      },
+      "recentCommitRefs": [
+        "cc7336f3",
+        "7077d1dc",
         "c45ab38d",
         "86f31ff9"
       ],
@@ -6904,23 +6951,6 @@
       },
       "recentCommitRefs": [
         "038f7deb"
-      ],
-      "commitRefOverflow": false
-    },
-    "TASK-953": {
-      "commitCount": 1,
-      "lastCommitDate": "2026-05-19T11:17:27+02:00",
-      "touchedFrequency": {
-        "docs/INBOX.md": 1,
-        "docs/refinement/archive/IDEA-fix-commit-exception-contradiction.md": 1,
-        "docs/refinement/archive/IDEA-fix-decomposition-duplication.md": 1,
-        "docs/refinement/archive/IDEA-fix-governance-terminology-collision.md": 1,
-        "docs/tasks/TASK-951.md": 1,
-        "docs/tasks/TASK-952.md": 1,
-        "docs/tasks/TASK-953.md": 1
-      },
-      "recentCommitRefs": [
-        "86f31ff9"
       ],
       "commitRefOverflow": false
     },
@@ -8499,26 +8529,13 @@
       "commitRefOverflow": false
     },
     "TASK-907": {
-      "commitCount": 4,
+      "commitCount": 1,
       "lastCommitDate": "2026-05-16T22:30:49+00:00",
       "touchedFrequency": {
-        "docs/archive/TASK-907.md": 1,
-        "docs/tasks/TASK-907.md": 3,
-        ".arch/chronicle.jsonl": 1,
-        ".arch/reflect-breach-log.jsonl": 1,
-        "cli/src/main/ts/application/use-cases/drift-checker.ts": 1,
-        "docs/EVENTS.md": 1,
-        "docs/INBOX.md": 1,
-        "docs/METRICS.md": 1,
-        "docs/TASK-FORMAT.md": 1,
-        "docs/tasks/TASK-206.md": 1,
-        "docs/tasks/TASK-242.md": 1
+        "docs/archive/TASK-907.md": 1
       },
       "recentCommitRefs": [
-        "d2cfd491",
-        "9f25fb8f",
-        "4259a1c7",
-        "dd7d3496"
+        "d2cfd491"
       ],
       "commitRefOverflow": false
     }
