@@ -419,3 +419,79 @@ test('MarkTaskDone — turns is null when lockedCommit absent', async () => {
 
   assert.equal(savedTask?.turns ?? null, null, 'turns should be null when no lockedCommit');
 });
+
+// ── Causal Signal Auto-Emission Tests ────────────────────────────────────────
+
+class MockCausalSignalLog {
+  appended: object[] = [];
+  async append(params: object) { this.appended.push(params); return params; }
+  async pending() { return []; }
+  async all() { return []; }
+  async updateStatuses() {}
+}
+
+test('MarkTaskDone — auto-emits implements signal for explicit ADR reference in content', async () => {
+  const task = makeTask({
+    id: 'TASK-600',
+    size: 'S',
+    status: TaskStatus.IN_PROGRESS,
+    content: `## TASK-600\n**Meta:** P1 | S | IN_PROGRESS | Focus:yes | 2-code-generation | claude | none\n\n### Context\nImplements ADR-015 and **ADR:** ADR-014.\n\n## Hansei\n**Severity:** H0\n**Category:** [SpecDrift]\n**Decision:** Causal signal auto-emission test.\n**Constraint:** None — test only.\n**Cost:** No cost.\n**Forward Action:** None.\n`,
+    hansei: { severity: 'H0', category: '[SpecDrift]', decision: 'Causal signal auto-emission test — verified ADR detection.', constraint: 'No constraint applies — this is a unit test fixture task.', cost: 'No cost introduced by this test fixture.', forwardAction: 'No forward action required for test fixture.' },
+    depends: [],
+  });
+  const repo = new MockTaskRepository(task);
+  const fs = makeMockFs();
+  const causalLog = new MockCausalSignalLog();
+
+  const useCase = new MarkTaskDone(repo, makeMockReviewer(), fs, undefined, undefined, causalLog as any);
+  await useCase.execute('TASK-600');
+
+  const implementsSignals = causalLog.appended.filter((s: any) => s.candidate_relation === 'implements');
+  const adrTargets = implementsSignals.map((s: any) => s.candidate_to);
+  assert.ok(adrTargets.includes('ADR-015'), `should emit for bare ADR-015, got: ${JSON.stringify(adrTargets)}`);
+  assert.ok(adrTargets.includes('ADR-014'), `should emit for **ADR:** ADR-014, got: ${JSON.stringify(adrTargets)}`);
+  assert.ok(implementsSignals.every((s: any) => s.confidence === 0.5), 'implements confidence should be 0.5');
+  assert.ok(implementsSignals.every((s: any) => s.event === 'task_completed:TASK-600'), 'event should be task_completed:TASK-600');
+});
+
+test('MarkTaskDone — auto-emits caused_by signal for each TASK-ID in depends', async () => {
+  const task = makeTask({
+    id: 'TASK-601',
+    size: 'S',
+    status: TaskStatus.IN_PROGRESS,
+    content: `## TASK-601\n**Meta:** P1 | S | IN_PROGRESS | Focus:yes | 2-code-generation | claude | none\n\n## Hansei\n**Severity:** H0\n**Category:** [AuditGap]\n**Decision:** Depends signal test.\n**Constraint:** None.\n**Cost:** None.\n**Forward Action:** None.\n`,
+    hansei: { severity: 'H0', category: '[AuditGap]', decision: 'Depends signal auto-emission test — verified caused_by extraction.', constraint: 'No constraint applies — this is a unit test fixture task.', cost: 'No cost introduced by this test fixture.', forwardAction: 'No forward action required for test fixture.' },
+    depends: ['TASK-100', 'TASK-200'],
+  });
+  const repo = new MockTaskRepository(task);
+  const fs = makeMockFs();
+  const causalLog = new MockCausalSignalLog();
+
+  const useCase = new MarkTaskDone(repo, makeMockReviewer(), fs, undefined, undefined, causalLog as any);
+  await useCase.execute('TASK-601');
+
+  const causedBySignals = causalLog.appended.filter((s: any) => s.candidate_relation === 'caused_by');
+  const targets = causedBySignals.map((s: any) => s.candidate_to);
+  assert.ok(targets.includes('TASK-100'), `should emit caused_by for TASK-100, got: ${JSON.stringify(targets)}`);
+  assert.ok(targets.includes('TASK-200'), `should emit caused_by for TASK-200, got: ${JSON.stringify(targets)}`);
+  assert.ok(causedBySignals.every((s: any) => s.confidence === 0.5), 'caused_by confidence should be 0.5');
+});
+
+test('MarkTaskDone — no signals emitted for empty content and no depends', async () => {
+  const task = makeTask({
+    id: 'TASK-602',
+    size: 'S',
+    status: TaskStatus.IN_PROGRESS,
+    content: `## TASK-602\n**Meta:** P1 | S | IN_PROGRESS | Focus:yes | 7-operations | claude | none\n`,
+    hansei: undefined,
+    depends: [],
+  });
+  const repo = new MockTaskRepository(task);
+  const fs = makeMockFs();
+  const causalLog = new MockCausalSignalLog();
+
+  const useCase = new MarkTaskDone(repo, makeMockReviewer(), fs, undefined, undefined, causalLog as any);
+  await useCase.execute('TASK-602');
+
+  assert.equal(causalLog.appended.length, 0, `should emit no signals, got: ${JSON.stringify(causalLog.appended)}`);
+});

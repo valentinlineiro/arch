@@ -28,10 +28,23 @@ const PROSE_REGEX = /→\s+prose:\s+(.+)/;
 export class ValidateTaskAcs {
   constructor(private rootPath: string, private timeoutMs: number = 30000) {}
 
+  private extractACSections(content: string): string {
+    const sections: string[] = [];
+    for (const heading of ['### Acceptance Criteria', '### Definition of Done']) {
+      const start = content.indexOf(heading);
+      if (start === -1) continue;
+      const bodyStart = content.indexOf('\n', start) + 1;
+      const end = content.indexOf('\n### ', bodyStart);
+      sections.push(end === -1 ? content.slice(bodyStart) : content.slice(bodyStart, end));
+    }
+    return sections.length > 0 ? sections.join('\n') : content;
+  }
+
   execute(taskContent: string, taskId: string): ValidateAcsResult {
     const results: AcPredicateResult[] = [];
+    const acContent = this.extractACSections(taskContent);
 
-    for (const line of taskContent.split('\n')) {
+    for (const line of acContent.split('\n')) {
       if (!line.match(/^- \[.\] /)) continue;
 
       const ac = line.replace(/^- \[.\] /, '').split('→')[0].trim();
@@ -86,8 +99,8 @@ export class ValidateTaskAcs {
           passed = false;
           reason = `File not found: ${filePath.trim()}`;
         } else {
-          const content = fs.readFileSync(fullPath, 'utf8');
-          passed = content.includes(pattern);
+          const grepResult = spawnSync('grep', [pattern, fullPath], { encoding: 'utf8' });
+          passed = grepResult.status === 0;
           reason = passed ? undefined : `Pattern "${pattern}" not found in ${filePath.trim()}`;
         }
         

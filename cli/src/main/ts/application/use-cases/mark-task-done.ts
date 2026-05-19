@@ -11,6 +11,9 @@ import { EventLogger } from '../../domain/services/event-logger.js';
 import { DeterministicACVerifier } from '../../domain/services/deterministic-ac-verifier.js';
 import { SignalRouter } from '../../domain/services/signal-router.js';
 import type { GitRepository } from '../../domain/repositories/git-repository.js';
+import { computeTrustedMetrics } from './compute-trusted-metrics.js';
+import { LightweightMetricsRefresh } from './lightweight-metrics-refresh.js';
+import type { Task } from '../../domain/models/task.js';
 import { stdout } from 'node:process';
 import crypto from 'node:crypto';
 
@@ -26,6 +29,7 @@ export class MarkTaskDone {
     private causalSignalLog?: CausalSignalLog,
     private eventLogger?: EventLogger,
     private gitRepository?: GitRepository,
+    private metricsRefresh?: LightweightMetricsRefresh,
   ) {}
 
   async execute(taskId: string, force = false) {
@@ -135,7 +139,7 @@ export class MarkTaskDone {
     }
 
     if (this.causalSignalLog) {
-      await this.emitCompletionSignals(taskId, task.content ?? '', task.depends ?? []);
+      await this.emitCompletionSignals(taskId, task.content ?? '', task.depends ?? [], task.hansei);
 
       // Route H2/H3 Hansei signals to causal graph
       if (task.hansei && (task.hansei.severity === 'H2' || task.hansei.severity === 'H3a' || task.hansei.severity === 'H3b')) {
@@ -200,24 +204,35 @@ export class MarkTaskDone {
     } catch { /* non-blocking */ }
   }
 
-  private async emitCompletionSignals(taskId: string, content: string, depends: string[]): Promise<void> {
+  private async emitCompletionSignals(taskId: string, content: string, depends: string[], hansei?: Task['hansei']): Promise<void> {
+    if (!content && depends.length === 0 && !hansei) return;
+
     const event = `task_completed:${taskId}`;
 
-    // Emit implements signal for each referenced ADR
-    const adrMatches = content.matchAll(/\*\*ADR:\*\*\s*(ADR-\d+)/g);
-    for (const match of adrMatches) {
+    // Emit implements signal for explicit ADR references:
+    // - **ADR:** ADR-XXX metadata fields
+    // - bare ADR-XXX tokens NOT embedded in file paths (i.e., not preceded by '/')
+    const adrRefs = new Set<string>();
+    for (const m of content.matchAll(/\*\*ADR:\*\*\s*(ADR-\d+)/g)) {
+      adrRefs.add(m[1]);
+    }
+    for (const m of content.matchAll(/ADR-\d+/g)) {
+      const before = m.index! > 0 ? content[m.index! - 1] : '';
+      if (before !== '/') adrRefs.add(m[0]);
+    }
+    for (const adr of adrRefs) {
       await this.causalSignalLog!.append({
         domain: 'ontological',
         signal_type: 'create',
         candidate_from: taskId,
         candidate_relation: 'implements',
-        candidate_to: match[1],
-        confidence: 0.6,
+        candidate_to: adr,
+        confidence: 0.5,
         event,
       });
     }
 
-    // Emit fixes signal for each dependency (task completion is evidence deps were causal)
+    // Emit caused_by signal for each TASK-ID in the Depends field
     for (const dep of depends) {
       if (dep === 'none' || !dep.startsWith('TASK-')) continue;
       await this.causalSignalLog!.append({
@@ -227,6 +242,19 @@ export class MarkTaskDone {
         candidate_relation: 'caused_by',
         confidence: 0.5,
         candidate_to: dep,
+        event,
+      });
+    }
+
+    // Emit category classification signal when a valid Hansei category is present
+    if (hansei?.category && hansei.category.trim().length > 0) {
+      await this.causalSignalLog!.append({
+        domain: 'epistemological',
+        signal_type: 'create',
+        candidate_from: taskId,
+        candidate_relation: 'references',
+        candidate_to: `category:${hansei.category}`,
+        confidence: 0.5,
         event,
       });
     }
