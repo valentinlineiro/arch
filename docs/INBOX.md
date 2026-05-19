@@ -69,3 +69,12 @@
 
 ## 2026-05-19 15:01:08 — Pattern Alerts
 [PATTERN-ALERT] [SpecDrift] detected 8 times — systemic issue. See docs/tensions/
+
+## [AWAITING_REVIEW] TASK-973 [L3-AUTO]
+**Closed:** 2026-05-19T16:28:26.641Z
+**Title:** formalize the external experiment protocol for ARCH validati
+
+| AC | Type | Pass | Detail |
+|---|---|---|---|
+| Intent addressed | prose | ✔ | prose: human-verified (non-automated) |
+| `arch review` passes | cmd | ✔ | exit 0 (expected 0) |

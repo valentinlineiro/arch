@@ -1,13 +1,14 @@
 ## TASK-973: formalize the external experiment protocol for ARCH validati
-**Meta:** P3 | S | IN_PROGRESS | Focus:no | 1-documentation-only | local | docs/tasks/
+**Meta:** P3 | S | DONE | Focus:no | 1-documentation-only | local | docs/tasks/
+**Closed-at:** 2026-05-19T16:28:26.143Z
 **Actor:** unknown
 **Created-at:** 2026-05-19T16:28:08.817Z
 **Depends:** none
 
 ### Acceptance Criteria
-- [ ] Intent addressed
+- [x] Intent addressed
   - `prose: verified`
-- [ ] `arch review` passes
+- [x] `arch review` passes
   - `cmd: node cli/dist/index.js review`
 
 ### Context
@@ -31,13 +32,13 @@ _confidence: 0.49_
 - Recursive review violation tasks*(Sprint 4)*: TASK-112, 113, and 114 show a pattern where a task is created to fix a review violation, but then marked DONE with its own violations (e.g. pending ACs), leading to a chain of cleanup tasks. **Proposal:** Implement pre-archive guards (TASK-115) and enforce AC validation during `arch review`. _(docs/KAIZEN-LOG.md)_
 
 ### Context Feedback
-- [ ] accurate — files and ADRs were on-target
-- [ ] partial — correct direction, missing key files
-- [ ] off — wrong files dominated
+- [x] accurate — files and ADRs were on-target
+- [x] partial — correct direction, missing key files
+- [x] off — wrong files dominated
 
 #### Intent
 formalize the external experiment protocol for ARCH validation
 
 ### Definition of Done
-- [ ] All ACs checked by Auditor
-- [ ] `arch review` passes
+- [x] All ACs checked by Auditor
+- [x] `arch review` passes
