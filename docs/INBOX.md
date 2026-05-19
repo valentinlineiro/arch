@@ -8,7 +8,6 @@
 - **AWAITING_REVIEW:** 
   - TASK-948
   - TASK-949
-  - TASK-253
 - **AWAITING_PROMOTION:**
   - IDEA-fix-commit-exception-contradiction
   - IDEA-fix-decomposition-duplication
@@ -60,3 +59,6 @@
 - signal emission ordering: after task save (prose)
 - CLI tests: 3 new tests covering ADR emission, Depends emission, no-op (cmd: npm test passed)
 - arch review: passed
+
+## [2026-05-19] REVIEW_PASS | TASK-253
+All 9 ACs verified. arch review passes. Archived to docs/archive/TASK-253.md.
