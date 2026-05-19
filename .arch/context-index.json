@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-19T12:02:24.347Z",
+  "builtAt": "2026-05-19T12:09:20.993Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -5953,10 +5953,10 @@
   },
   "tasks": {
     "TASK-261": {
-      "commitCount": 2,
-      "lastCommitDate": "2026-05-19T14:02:24+02:00",
+      "commitCount": 3,
+      "lastCommitDate": "2026-05-19T14:09:20+02:00",
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 1,
+        ".arch/focus-ledger.jsonl": 2,
         ".arch/escalations.jsonl": 1,
         "docs/tasks/TASK-259.md": 1,
         "docs/tasks/TASK-260.md": 1,
@@ -5965,6 +5965,7 @@
         "docs/tasks/TASK-263.md": 1
       },
       "recentCommitRefs": [
+        "a3737eab",
         "d63eeb47",
         "bb4e4b09"
       ],
@@ -8318,17 +8319,15 @@
       "commitRefOverflow": false
     },
     "TASK-900": {
-      "commitCount": 4,
+      "commitCount": 2,
       "lastCommitDate": "2026-05-16T22:03:51+00:00",
       "touchedFrequency": {
         "docs/archive/TASK-900.md": 1,
-        "docs/tasks/TASK-900.md": 3
+        "docs/tasks/TASK-900.md": 1
       },
       "recentCommitRefs": [
         "b9caaeb9",
-        "f98b6bda",
-        "805933f1",
-        "6b599c1a"
+        "f98b6bda"
       ],
       "commitRefOverflow": false
     }
