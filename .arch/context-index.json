@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-19T15:01:08.053Z",
+  "builtAt": "2026-05-19T17:06:22.324Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -106,7 +106,7 @@
         "command"
       ],
       "criticality": "domain",
-      "runtimeUsage": "cold"
+      "runtimeUsage": "warm"
     },
     "cli/src/main/ts/application/commands/deps-command.ts": {
       "symbols": [
@@ -1063,6 +1063,7 @@
         "cli/src/main/ts/application/use-cases/causal-signal-log.ts",
         "cli/src/main/ts/application/use-cases/reflect-influence-report.ts",
         "cli/src/main/ts/domain/services/task-validator.ts",
+        "cli/src/main/ts/application/commands/corpus-audit-command.ts",
         "cli/src/main/ts/application/use-cases/focus-ledger.ts",
         "cli/src/main/ts/application/use-cases/compute-trusted-metrics.ts",
         "cli/src/main/ts/application/use-cases/lightweight-metrics-refresh.ts",
@@ -1609,6 +1610,33 @@
       "criticality": "domain",
       "runtimeUsage": "warm"
     },
+    "cli/src/main/ts/domain/models/action.ts": {
+      "symbols": [
+        "ActionType",
+        "ActionPriority",
+        "ActionStatus",
+        "ActionFeedback",
+        "ImpactAction",
+        "RemediationPlan"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/models/evidence.ts"
+      ],
+      "tags": [
+        "domain",
+        "models",
+        "action",
+        "type",
+        "priority",
+        "status",
+        "feedback",
+        "impact",
+        "remediation",
+        "plan"
+      ],
+      "criticality": "core",
+      "runtimeUsage": "cold"
+    },
     "cli/src/main/ts/domain/models/batch-entry.ts": {
       "symbols": [
         "BatchStatus",
@@ -1703,6 +1731,49 @@
       "criticality": "core",
       "runtimeUsage": "warm"
     },
+    "cli/src/main/ts/domain/models/decision.ts": {
+      "symbols": [
+        "DecisionType",
+        "DecisionStatus",
+        "ImpactLevel",
+        "Decision",
+        "DecisionImpact"
+      ],
+      "imports": [],
+      "tags": [
+        "domain",
+        "models",
+        "decision",
+        "type",
+        "status",
+        "impact",
+        "level"
+      ],
+      "criticality": "core",
+      "runtimeUsage": "cold"
+    },
+    "cli/src/main/ts/domain/models/epistemic-report.ts": {
+      "symbols": [
+        "ConflictRecord",
+        "CoverageStats",
+        "EpistemicReport"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/models/evidence.ts"
+      ],
+      "tags": [
+        "domain",
+        "models",
+        "epistemic",
+        "report",
+        "conflict",
+        "record",
+        "coverage",
+        "stats"
+      ],
+      "criticality": "core",
+      "runtimeUsage": "cold"
+    },
     "cli/src/main/ts/domain/models/event.ts": {
       "symbols": [
         "ArchEvent",
@@ -1718,6 +1789,28 @@
       ],
       "criticality": "core",
       "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/domain/models/evidence.ts": {
+      "symbols": [
+        "EvidenceSource",
+        "ConfidenceModel",
+        "ClaimType",
+        "EvidenceEvent"
+      ],
+      "imports": [],
+      "tags": [
+        "domain",
+        "models",
+        "evidence",
+        "source",
+        "confidence",
+        "model",
+        "claim",
+        "type",
+        "event"
+      ],
+      "criticality": "core",
+      "runtimeUsage": "cold"
     },
     "cli/src/main/ts/domain/models/feedback-signal.ts": {
       "symbols": [
@@ -1737,6 +1830,29 @@
       "criticality": "core",
       "runtimeUsage": "warm"
     },
+    "cli/src/main/ts/domain/models/outcome.ts": {
+      "symbols": [
+        "OutcomeSource",
+        "EngineeringOutcome",
+        "GovernanceCorrelation",
+        "TruthCalibrationReport"
+      ],
+      "imports": [],
+      "tags": [
+        "domain",
+        "models",
+        "outcome",
+        "source",
+        "engineering",
+        "governance",
+        "correlation",
+        "truth",
+        "calibration",
+        "report"
+      ],
+      "criticality": "core",
+      "runtimeUsage": "cold"
+    },
     "cli/src/main/ts/domain/models/provenance.ts": {
       "symbols": [
         "EpistemicDigest"
@@ -1751,6 +1867,31 @@
       ],
       "criticality": "core",
       "runtimeUsage": "warm"
+    },
+    "cli/src/main/ts/domain/models/reconciliation.ts": {
+      "symbols": [
+        "DecisionSourceType",
+        "DecisionSource",
+        "ReconciledDecision",
+        "OrganizationalTruthReport"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/models/decision.ts"
+      ],
+      "tags": [
+        "domain",
+        "models",
+        "reconciliation",
+        "decision",
+        "source",
+        "type",
+        "reconciled",
+        "organizational",
+        "truth",
+        "report"
+      ],
+      "criticality": "core",
+      "runtimeUsage": "cold"
     },
     "cli/src/main/ts/domain/models/reflect-decision.ts": {
       "symbols": [
@@ -1788,6 +1929,53 @@
       "criticality": "core",
       "runtimeUsage": "warm"
     },
+    "cli/src/main/ts/domain/models/semantic-stability.ts": {
+      "symbols": [
+        "MetricType",
+        "MetricDefinitionChange",
+        "MetricIntegrityProfile",
+        "SemanticStabilityReport"
+      ],
+      "imports": [],
+      "tags": [
+        "domain",
+        "models",
+        "semantic",
+        "stability",
+        "metric",
+        "type",
+        "definition",
+        "change",
+        "integrity",
+        "profile",
+        "report"
+      ],
+      "criticality": "core",
+      "runtimeUsage": "cold"
+    },
+    "cli/src/main/ts/domain/models/stability.ts": {
+      "symbols": [
+        "StabilityMetrics",
+        "TemporalSnapshot",
+        "GovernanceStabilityReport"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/models/reconciliation.ts",
+        "cli/src/main/ts/domain/models/action.ts"
+      ],
+      "tags": [
+        "domain",
+        "models",
+        "stability",
+        "metrics",
+        "temporal",
+        "snapshot",
+        "governance",
+        "report"
+      ],
+      "criticality": "core",
+      "runtimeUsage": "cold"
+    },
     "cli/src/main/ts/domain/models/task.ts": {
       "symbols": [
         "TaskStatus",
@@ -1809,6 +1997,31 @@
       ],
       "criticality": "core",
       "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/domain/models/traceability-graph.ts": {
+      "symbols": [
+        "NodeType",
+        "EdgeType",
+        "EvidenceType",
+        "GraphNode",
+        "GraphEdge",
+        "Evidence",
+        "TraceabilityEvent"
+      ],
+      "imports": [],
+      "tags": [
+        "domain",
+        "models",
+        "traceability",
+        "graph",
+        "node",
+        "type",
+        "edge",
+        "evidence",
+        "event"
+      ],
+      "criticality": "core",
+      "runtimeUsage": "cold"
     },
     "cli/src/main/ts/domain/repositories/feedback-repository.ts": {
       "symbols": [
@@ -1869,6 +2082,27 @@
       "criticality": "core",
       "runtimeUsage": "hot"
     },
+    "cli/src/main/ts/domain/services/action-governance-service.ts": {
+      "symbols": [
+        "GovernanceEfficiencyMetrics",
+        "ActionGovernanceService"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/models/action.ts",
+        "cli/src/main/ts/domain/models/reconciliation.ts"
+      ],
+      "tags": [
+        "domain",
+        "services",
+        "action",
+        "governance",
+        "service",
+        "efficiency",
+        "metrics"
+      ],
+      "criticality": "core",
+      "runtimeUsage": "cold"
+    },
     "cli/src/main/ts/domain/services/archive-parser.ts": {
       "symbols": [
         "ArchivedTaskMetrics",
@@ -1925,6 +2159,61 @@
       "criticality": "core",
       "runtimeUsage": "hot"
     },
+    "cli/src/main/ts/domain/services/decision-impact-engine.ts": {
+      "symbols": [
+        "DecisionImpactEngine"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/models/reconciliation.ts",
+        "cli/src/main/ts/domain/models/action.ts"
+      ],
+      "tags": [
+        "domain",
+        "services",
+        "decision",
+        "impact",
+        "engine"
+      ],
+      "criticality": "core",
+      "runtimeUsage": "cold"
+    },
+    "cli/src/main/ts/domain/services/decision-observability-service.ts": {
+      "symbols": [
+        "DecisionObservabilityService"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/models/decision.ts",
+        "cli/src/main/ts/domain/models/evidence.ts"
+      ],
+      "tags": [
+        "domain",
+        "services",
+        "decision",
+        "observability",
+        "service"
+      ],
+      "criticality": "core",
+      "runtimeUsage": "cold"
+    },
+    "cli/src/main/ts/domain/services/decision-reconciliation-engine.ts": {
+      "symbols": [
+        "DecisionReconciliationEngine"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/models/decision.ts",
+        "cli/src/main/ts/domain/models/reconciliation.ts",
+        "cli/src/main/ts/domain/models/evidence.ts"
+      ],
+      "tags": [
+        "domain",
+        "services",
+        "decision",
+        "reconciliation",
+        "engine"
+      ],
+      "criticality": "core",
+      "runtimeUsage": "cold"
+    },
     "cli/src/main/ts/domain/services/deterministic-ac-verifier.ts": {
       "symbols": [
         "VerificationType",
@@ -1971,6 +2260,24 @@
       "criticality": "core",
       "runtimeUsage": "warm"
     },
+    "cli/src/main/ts/domain/services/epistemic-integrity-service.ts": {
+      "symbols": [
+        "EpistemicIntegrityService"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/models/evidence.ts",
+        "cli/src/main/ts/domain/models/epistemic-report.ts.ts"
+      ],
+      "tags": [
+        "domain",
+        "services",
+        "epistemic",
+        "integrity",
+        "service"
+      ],
+      "criticality": "core",
+      "runtimeUsage": "cold"
+    },
     "cli/src/main/ts/domain/services/event-logger.ts": {
       "symbols": [
         "LifecycleEvent",
@@ -1989,6 +2296,25 @@
       ],
       "criticality": "core",
       "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/domain/services/governance-stability-service.ts": {
+      "symbols": [
+        "GovernanceStabilityService"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/models/reconciliation.ts",
+        "cli/src/main/ts/domain/models/action.ts",
+        "cli/src/main/ts/domain/models/stability.ts"
+      ],
+      "tags": [
+        "domain",
+        "services",
+        "governance",
+        "stability",
+        "service"
+      ],
+      "criticality": "core",
+      "runtimeUsage": "cold"
     },
     "cli/src/main/ts/domain/services/hansei-auditor.ts": {
       "symbols": [
@@ -2029,6 +2355,23 @@
       "criticality": "core",
       "runtimeUsage": "hot"
     },
+    "cli/src/main/ts/domain/services/identity-resolver.ts": {
+      "symbols": [
+        "NodeType",
+        "IdentityResolver"
+      ],
+      "imports": [],
+      "tags": [
+        "domain",
+        "services",
+        "identity",
+        "resolver",
+        "node",
+        "type"
+      ],
+      "criticality": "core",
+      "runtimeUsage": "cold"
+    },
     "cli/src/main/ts/domain/services/llm-provider.ts": {
       "symbols": [
         "ChatMessage",
@@ -2051,6 +2394,24 @@
       ],
       "criticality": "core",
       "runtimeUsage": "warm"
+    },
+    "cli/src/main/ts/domain/services/measurement-governance-layer.ts": {
+      "symbols": [
+        "MeasurementGovernanceLayer"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/models/outcome.ts",
+        "cli/src/main/ts/domain/models/semantic-stability.ts"
+      ],
+      "tags": [
+        "domain",
+        "services",
+        "measurement",
+        "governance",
+        "layer"
+      ],
+      "criticality": "core",
+      "runtimeUsage": "cold"
     },
     "cli/src/main/ts/domain/services/metrics-engine.ts": {
       "symbols": [
@@ -2100,6 +2461,24 @@
       ],
       "criticality": "core",
       "runtimeUsage": "warm"
+    },
+    "cli/src/main/ts/domain/services/outcome-validation-service.ts": {
+      "symbols": [
+        "OutcomeValidationService"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/models/outcome.ts",
+        "cli/src/main/ts/domain/models/stability.ts"
+      ],
+      "tags": [
+        "domain",
+        "services",
+        "outcome",
+        "validation",
+        "service"
+      ],
+      "criticality": "core",
+      "runtimeUsage": "cold"
     },
     "cli/src/main/ts/domain/services/provider-registry.ts": {
       "symbols": [
@@ -2197,6 +2576,22 @@
       ],
       "criticality": "core",
       "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/domain/services/traceability-projection.ts": {
+      "symbols": [
+        "TraceabilityProjection"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/models/traceability-graph.ts"
+      ],
+      "tags": [
+        "domain",
+        "services",
+        "traceability",
+        "projection"
+      ],
+      "criticality": "core",
+      "runtimeUsage": "cold"
     },
     "cli/src/main/ts/domain/task.ts": {
       "symbols": [
@@ -4635,6 +5030,100 @@
       ],
       "affectedModules": [],
       "strength": "enforced"
+    },
+    "ADR-026": {
+      "title": "Epistemic Layer Separation — Event Log, State Projection, Governance Semantics",
+      "keywords": [
+        "epistemic",
+        "layer",
+        "separation",
+        "event",
+        "log",
+        "state",
+        "projection",
+        "governance",
+        "semantics",
+        "adr",
+        "026",
+        "date",
+        "2026",
+        "status",
+        "accepted",
+        "enforcement",
+        "prohibitions",
+        "architectural",
+        "invariants",
+        "non",
+        "compliance",
+        "style",
+        "drift",
+        "semantic",
+        "violation",
+        "deciders",
+        "valent",
+        "eiro",
+        "context",
+        "arch",
+        "produces",
+        "information",
+        "through",
+        "distinct",
+        "processes",
+        "docs",
+        "inbox",
+        "written",
+        "agents",
+        "during",
+        "ticks",
+        "append",
+        "only",
+        "never",
+        "overwritten",
+        "govern",
+        "computed",
+        "live",
+        "tasks",
+        "escalations",
+        "jsonl",
+        "sprint",
+        "these",
+        "treated",
+        "implicitly",
+        "views",
+        "same",
+        "reality",
+        "producing",
+        "recurring",
+        "pressure",
+        "synchronize",
+        "them",
+        "when",
+        "their",
+        "counts",
+        "diverge",
+        "architecturally",
+        "incoherent",
+        "surfaces",
+        "replicas",
+        "they",
+        "operate",
+        "under",
+        "different",
+        "observation",
+        "rules",
+        "serve",
+        "epistemological",
+        "functions",
+        "confusion",
+        "applies",
+        "pattern",
+        "alerts",
+        "think",
+        "surfaced",
+        "comm"
+      ],
+      "affectedModules": [],
+      "strength": "enforced"
     }
   },
   "adrTaskLinks": {
@@ -4727,6 +5216,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/tasks/TASK-957.md"
+        },
+        "TASK-973": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-973.md"
         }
       }
     },
@@ -4913,6 +5408,16 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-283.md"
+        }
+      }
+    },
+    "ADR-026": {
+      "tasks": {
+        "TASK-957": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-957.md"
         }
       }
     },
@@ -5513,6 +6018,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-947.md"
+        },
+        "TASK-973": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-973.md"
         }
       }
     },
@@ -5713,6 +6224,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-952.md"
+        },
+        "TASK-973": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-973.md"
         }
       }
     },
@@ -6761,11 +7278,19 @@
   },
   "tasks": {
     "TASK-958": {
-      "commitCount": 4,
-      "lastCommitDate": "2026-05-19T17:01:07+02:00",
+      "commitCount": 10,
+      "lastCommitDate": "2026-05-19T17:19:10+02:00",
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 1,
-        ".arch/escalations.jsonl": 1,
+        ".arch/focus-ledger.jsonl": 2,
+        "docs/adr/ADR-026-epistemic-layer-separation.md": 2,
+        "docs/tensions/TENSION-006-inbox-dual-truth.md": 2,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/reflect-breach-log.jsonl": 1,
+        "docs/INBOX.md": 1,
+        "docs/METRICS.md": 1,
+        "docs/SENTINEL-LOG.md": 1,
+        "docs/tasks/TASK-958.md": 3,
+        ".arch/escalations.jsonl": 2,
         "docs/tasks/TASK-957.md": 1,
         "docs/tasks/TASK-971.md": 2,
         "docs/refinement/IDEA-archive-parser-skip-non-done.md": 1,
@@ -6783,7 +7308,6 @@
         "docs/refinement/IDEA-status-doc-refresh.md": 1,
         "docs/refinement/IDEA-think-generated-proposals.md": 1,
         "docs/refinement/IDEA-verifiability-first-templates.md": 1,
-        "docs/tasks/TASK-958.md": 2,
         "docs/tasks/TASK-959.md": 1,
         "docs/tasks/TASK-960.md": 1,
         "docs/tasks/TASK-961.md": 1,
@@ -6799,10 +7323,57 @@
         "docs/tasks/TASK-972.md": 1
       },
       "recentCommitRefs": [
-        "1bb6bc12",
-        "c33d90a1",
-        "1816ccde",
-        "63655f7b"
+        "6eb1be6",
+        "541d856",
+        "7c3904d",
+        "902b18a",
+        "a817a57",
+        "3070c32",
+        "1bb6bc1",
+        "c33d90a",
+        "1816ccd",
+        "63655f7"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-973": {
+      "commitCount": 3,
+      "lastCommitDate": "2026-05-19T18:28:28+02:00",
+      "touchedFrequency": {
+        ".arch/causal-signal.jsonl": 1,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/context-feedback.json": 1,
+        "docs/EVENTS.md": 1,
+        "docs/EXPERIMENT-PROTOCOL.md": 1,
+        "docs/INBOX.md": 1,
+        "docs/archive/TASK-973.md": 1,
+        "cli/src/main/ts/domain/models/action.ts": 1,
+        "cli/src/main/ts/domain/models/decision.ts": 1,
+        "cli/src/main/ts/domain/models/epistemic-report.ts": 1,
+        "cli/src/main/ts/domain/models/evidence.ts": 1,
+        "cli/src/main/ts/domain/models/outcome.ts": 1,
+        "cli/src/main/ts/domain/models/reconciliation.ts": 1,
+        "cli/src/main/ts/domain/models/semantic-stability.ts": 1,
+        "cli/src/main/ts/domain/models/stability.ts": 1,
+        "cli/src/main/ts/domain/models/traceability-graph.ts": 1,
+        "cli/src/main/ts/domain/services/action-governance-service.ts": 1,
+        "cli/src/main/ts/domain/services/decision-impact-engine.ts": 1,
+        "cli/src/main/ts/domain/services/decision-observability-service.ts": 1,
+        "cli/src/main/ts/domain/services/decision-reconciliation-engine.ts": 1,
+        "cli/src/main/ts/domain/services/epistemic-integrity-service.ts": 1,
+        "cli/src/main/ts/domain/services/governance-stability-service.ts": 1,
+        "cli/src/main/ts/domain/services/identity-resolver.ts": 1,
+        "cli/src/main/ts/domain/services/measurement-governance-layer.ts": 1,
+        "cli/src/main/ts/domain/services/outcome-validation-service.ts": 1,
+        "cli/src/main/ts/domain/services/traceability-projection.ts": 1,
+        "docs/META-PROTOCOL.md": 1,
+        "docs/adr/ADR-026-epistemic-layer-separation.md": 1,
+        "docs/tasks/TASK-973.md": 2
+      },
+      "recentCommitRefs": [
+        "1fe429b",
+        "9f13565",
+        "2091d0c"
       ],
       "commitRefOverflow": false
     },
@@ -6817,10 +7388,10 @@
         "docs/refinement/IDEA-automatic-sprint-lifecycle.md": 1
       },
       "recentCommitRefs": [
-        "c33d90a1",
-        "1a01ec66",
-        "ac25df8c",
-        "19e59cac"
+        "c33d90a",
+        "1a01ec6",
+        "ac25df8",
+        "19e59ca"
       ],
       "commitRefOverflow": false
     },
@@ -6843,14 +7414,14 @@
         "docs/superpowers/plans/2026-05-19-arch-versioning.md": 1
       },
       "recentCommitRefs": [
-        "d8c598b1",
-        "4ea562bf",
-        "5002467a",
-        "f2c8ae5d",
-        "5d7e68fe",
-        "c78d8fba",
-        "86adec0f",
-        "60596e57"
+        "d8c598b",
+        "4ea562b",
+        "5002467",
+        "f2c8ae5",
+        "5d7e68f",
+        "c78d8fb",
+        "86adec0",
+        "60596e5"
       ],
       "commitRefOverflow": false
     },
@@ -6864,12 +7435,12 @@
         "docs/METRICS.md": 1
       },
       "recentCommitRefs": [
-        "df299037",
-        "c1484282",
-        "456c73df",
-        "80e3f0cf",
-        "9a8aa9b9",
-        "748e1bff"
+        "df29903",
+        "c148428",
+        "456c73d",
+        "80e3f0c",
+        "9a8aa9b",
+        "748e1bf"
       ],
       "commitRefOverflow": false
     },
@@ -6893,12 +7464,12 @@
         "docs/refinement/IDEA-corpus-informed-reprioritization.md": 1
       },
       "recentCommitRefs": [
-        "e1f2216e",
-        "51003e69",
-        "4bed015a",
-        "8f0efce2",
-        "0e42a9a2",
-        "bf996120"
+        "e1f2216",
+        "51003e6",
+        "4bed015",
+        "8f0efce",
+        "0e42a9a",
+        "bf99612"
       ],
       "commitRefOverflow": false
     },
@@ -6925,13 +7496,13 @@
         "docs/refinement/IDEA-semantic-collision-detection.md": 1
       },
       "recentCommitRefs": [
-        "cac3c46c",
-        "51003e69",
-        "a11645f2",
-        "37dc6888",
-        "019681ea",
-        "3c50e3f1",
-        "ec6658a8"
+        "cac3c46",
+        "51003e6",
+        "a11645f",
+        "37dc688",
+        "019681e",
+        "3c50e3f",
+        "ec6658a"
       ],
       "commitRefOverflow": false
     },
@@ -6959,12 +7530,12 @@
         "docs/tasks/TASK-938.md": 1
       },
       "recentCommitRefs": [
-        "f928a703",
-        "51003e69",
-        "636d7d7a",
-        "ded2b6fb",
-        "dda8500f",
-        "99381dd3"
+        "f928a70",
+        "51003e6",
+        "636d7d7",
+        "ded2b6f",
+        "dda8500",
+        "99381dd"
       ],
       "commitRefOverflow": false
     },
@@ -6990,12 +7561,12 @@
         "docs/tasks/TASK-284.md": 1
       },
       "recentCommitRefs": [
-        "b088eda7",
-        "51003e69",
-        "8c99115c",
-        "55a4ab55",
-        "ad6a8f2c",
-        "a681e282"
+        "b088eda",
+        "51003e6",
+        "8c99115",
+        "55a4ab5",
+        "ad6a8f2",
+        "a681e28"
       ],
       "commitRefOverflow": false
     },
@@ -7019,11 +7590,11 @@
         "docs/tasks/TASK-262.md": 1
       },
       "recentCommitRefs": [
-        "158799e5",
-        "0c3adeff",
-        "c20b1979",
-        "06d2560c",
-        "bb4e4b09"
+        "158799e",
+        "0c3adef",
+        "c20b197",
+        "06d2560",
+        "bb4e4b0"
       ],
       "commitRefOverflow": false
     },
@@ -7043,10 +7614,10 @@
         "docs/tasks/TASK-952.md": 1
       },
       "recentCommitRefs": [
-        "dfda61a0",
-        "e9f2a29c",
-        "e09f37bc",
-        "86f31ff9"
+        "dfda61a",
+        "e9f2a29",
+        "e09f37b",
+        "86f31ff"
       ],
       "commitRefOverflow": false
     },
@@ -7066,10 +7637,10 @@
         "docs/tasks/TASK-953.md": 1
       },
       "recentCommitRefs": [
-        "cc7336f3",
-        "7077d1dc",
-        "c45ab38d",
-        "86f31ff9"
+        "cc7336f",
+        "7077d1d",
+        "c45ab38",
+        "86f31ff"
       ],
       "commitRefOverflow": false
     },
@@ -7088,10 +7659,10 @@
         "docs/tasks/TASK-953.md": 1
       },
       "recentCommitRefs": [
-        "a5f0b07a",
-        "72bd614a",
-        "86f31ff9",
-        "1878c2f4"
+        "a5f0b07",
+        "72bd614",
+        "86f31ff",
+        "1878c2f"
       ],
       "commitRefOverflow": false
     },
@@ -7108,9 +7679,9 @@
         "docs/tasks/TASK-267.md": 1
       },
       "recentCommitRefs": [
-        "47e13e38",
-        "09ae7c19",
-        "9e8bce39"
+        "47e13e3",
+        "09ae7c1",
+        "9e8bce3"
       ],
       "commitRefOverflow": false
     },
@@ -7133,11 +7704,11 @@
         "docs/tasks/TASK-268.md": 1
       },
       "recentCommitRefs": [
-        "0b9bb9f6",
-        "4a33bfdb",
-        "fdccf202",
-        "8fe68de9",
-        "9e8bce39"
+        "0b9bb9f",
+        "4a33bfd",
+        "fdccf20",
+        "8fe68de",
+        "9e8bce3"
       ],
       "commitRefOverflow": false
     },
@@ -7182,14 +7753,14 @@
         "docs/tasks/TASK-263.md": 1
       },
       "recentCommitRefs": [
-        "ff68d97c",
-        "5443c52f",
-        "0920cc2a",
-        "005be5ba",
-        "633455cf",
-        "a3737eab",
-        "d63eeb47",
-        "bb4e4b09"
+        "ff68d97",
+        "5443c52",
+        "0920cc2",
+        "005be5b",
+        "633455c",
+        "a3737ea",
+        "d63eeb4",
+        "bb4e4b0"
       ],
       "commitRefOverflow": false
     },
@@ -7212,12 +7783,12 @@
         "docs/tasks/TASK-284.md": 1
       },
       "recentCommitRefs": [
-        "cb21782d",
-        "26f37a0e",
-        "89109a59",
-        "edf9fcdd",
-        "be60c821",
-        "a681e282"
+        "cb21782",
+        "26f37a0",
+        "89109a5",
+        "edf9fcd",
+        "be60c82",
+        "a681e28"
       ],
       "commitRefOverflow": false
     },
@@ -7244,10 +7815,10 @@
         "docs/tasks/TASK-283.md": 1
       },
       "recentCommitRefs": [
-        "83b5ba08",
-        "d48fa35c",
-        "c6f82a62",
-        "a681e282"
+        "83b5ba0",
+        "d48fa35",
+        "c6f82a6",
+        "a681e28"
       ],
       "commitRefOverflow": false
     },
@@ -7270,13 +7841,13 @@
         "docs/tasks/TASK-268.md": 1
       },
       "recentCommitRefs": [
-        "c369f2a9",
-        "28bcf9b1",
-        "05026b1f",
-        "c5411089",
-        "3e540eae",
-        "06580eed",
-        "9e8bce39"
+        "c369f2a",
+        "28bcf9b",
+        "05026b1",
+        "c541108",
+        "3e540ea",
+        "06580ee",
+        "9e8bce3"
       ],
       "commitRefOverflow": false
     },
@@ -7301,9 +7872,9 @@
         "docs/tasks/TASK-262.md": 1
       },
       "recentCommitRefs": [
-        "f5896009",
-        "ab3a8375",
-        "bb4e4b09"
+        "f589600",
+        "ab3a837",
+        "bb4e4b0"
       ],
       "commitRefOverflow": false
     },
@@ -7330,16 +7901,16 @@
         "docs/tasks/TASK-263.md": 1
       },
       "recentCommitRefs": [
-        "31c50e47",
-        "f361254a",
-        "f03f7e40",
-        "36c949b7",
-        "57aa8899",
-        "8ad5b108",
-        "0e39400c",
-        "20ab89d3",
-        "5db89d68",
-        "bb4e4b09"
+        "31c50e4",
+        "f361254",
+        "f03f7e4",
+        "36c949b",
+        "57aa889",
+        "8ad5b10",
+        "0e39400",
+        "20ab89d",
+        "5db89d6",
+        "bb4e4b0"
       ],
       "commitRefOverflow": false
     },
@@ -7357,9 +7928,9 @@
         "docs/tasks/TASK-933.md": 1
       },
       "recentCommitRefs": [
-        "e8db70ea",
-        "20282e9a",
-        "fc39bf89"
+        "e8db70e",
+        "20282e9",
+        "fc39bf8"
       ],
       "commitRefOverflow": false
     },
@@ -7379,16 +7950,16 @@
         "docs/tasks/TASK-947.md": 3
       },
       "recentCommitRefs": [
-        "4aebb4eb",
-        "4e09d475",
-        "76db2c9b",
-        "a54c4c77",
-        "f1a6b3f4"
+        "4aebb4e",
+        "4e09d47",
+        "76db2c9",
+        "a54c4c7",
+        "f1a6b3f"
       ],
       "commitRefOverflow": false
     },
     "TASK-206": {
-      "commitCount": 13,
+      "commitCount": 10,
       "lastCommitDate": "2026-05-19T12:49:23+02:00",
       "touchedFrequency": {
         "docs/tasks/TASK-098.md": 1,
@@ -7399,18 +7970,18 @@
         "docs/tasks/TASK-162.md": 1,
         "docs/tasks/TASK-163.md": 1,
         "docs/tasks/TASK-947.md": 1,
-        ".arch/chronicle.jsonl": 3,
-        ".arch/reflect-breach-log.jsonl": 3,
+        ".arch/chronicle.jsonl": 2,
+        ".arch/reflect-breach-log.jsonl": 2,
         "cli/src/main/ts/application/commands/status-command.ts": 1,
         "cli/src/main/ts/index.ts": 1,
-        "docs/EVENTS.md": 3,
+        "docs/EVENTS.md": 2,
         "docs/METRICS.md": 1,
         "cli/src/main/ts/application/use-cases/hansei-wizard.ts": 1,
         "cli/src/main/ts/application/use-cases/mark-task-done.ts": 1,
         "cli/src/main/ts/application/commands/reflect-command.ts": 1,
         "cli/src/main/ts/application/use-cases/hansei-synthesizer.ts": 1,
         "docs/tensions/TENSION-005-specdrift.md": 1,
-        ".arch/focus-ledger.jsonl": 7,
+        ".arch/focus-ledger.jsonl": 5,
         ".arch/causal-signal.jsonl": 1,
         "cli/src/main/ts/application/use-cases/drift-checker.ts": 1,
         "docs/archive/TASK-901.md": 1,
@@ -7423,34 +7994,19 @@
         "docs/archive/TASK-914.md": 1,
         "docs/archive/TASK-915.md": 1,
         "docs/archive/TASK-916.md": 1,
-        "docs/tasks/TASK-206.md": 1,
-        "docs/refinement/archive/IDEA-arch-deps.md": 1,
-        "docs/refinement/archive/IDEA-arch-explain.md": 1,
-        "docs/refinement/archive/IDEA-cost-tracking.md": 1,
-        "docs/refinement/archive/IDEA-session-identity.md": 1,
-        "docs/refinement/archive/IDEA-task-split.md": 1,
-        "docs/refinement/archive/IDEA-task-templates.md": 1,
-        "docs/tasks/TASK-911.md": 1,
-        "docs/tasks/TASK-912.md": 1,
-        "docs/tasks/TASK-913.md": 1,
-        "docs/tasks/TASK-914.md": 1,
-        "docs/tasks/TASK-915.md": 1,
-        "docs/tasks/TASK-916.md": 1
+        "docs/tasks/TASK-206.md": 1
       },
       "recentCommitRefs": [
-        "76db2c9b",
-        "638f2846",
-        "519e55c1",
-        "5a2d682f",
-        "0d78368f",
-        "0083fe75",
-        "fae9c7f4",
-        "b9c5aee7",
-        "e1e66fc9",
-        "63c2225d",
-        "69676955",
-        "5ce4cf7c",
-        "ba9929ae"
+        "76db2c9",
+        "638f284",
+        "519e55c",
+        "5a2d682",
+        "0d78368",
+        "0083fe7",
+        "fae9c7f",
+        "b9c5aee",
+        "e1e66fc",
+        "63c2225"
       ],
       "commitRefOverflow": false
     },
@@ -7470,9 +8026,9 @@
         "docs/tasks/TASK-925.md": 1
       },
       "recentCommitRefs": [
-        "45229662",
-        "ce74295d",
-        "36189592"
+        "4522966",
+        "ce74295",
+        "3618959"
       ],
       "commitRefOverflow": false
     },
@@ -7492,8 +8048,8 @@
         "docs/tasks/TASK-925.md": 1
       },
       "recentCommitRefs": [
-        "45229662",
-        "f80a5e5f"
+        "4522966",
+        "f80a5e5"
       ],
       "commitRefOverflow": false
     },
@@ -7513,8 +8069,8 @@
         "docs/tasks/TASK-925.md": 2
       },
       "recentCommitRefs": [
-        "45229662",
-        "007b16eb"
+        "4522966",
+        "007b16e"
       ],
       "commitRefOverflow": false
     },
@@ -7530,8 +8086,8 @@
         "docs/tasks/TASK-273.md": 1
       },
       "recentCommitRefs": [
-        "01fc6537",
-        "734ce8d7"
+        "01fc653",
+        "734ce8d"
       ],
       "commitRefOverflow": false
     },
@@ -7549,13 +8105,13 @@
         "docs/tasks/TASK-263.md": 1
       },
       "recentCommitRefs": [
-        "d448515a",
-        "c8449fc0",
-        "0f1de9f3",
-        "f97a6407",
-        "b81087f8",
-        "55dd9837",
-        "bb4e4b09"
+        "d448515",
+        "c8449fc",
+        "0f1de9f",
+        "f97a640",
+        "b81087f",
+        "55dd983",
+        "bb4e4b0"
       ],
       "commitRefOverflow": false
     },
@@ -7574,17 +8130,17 @@
         ".arch/focus-ledger.jsonl": 2
       },
       "recentCommitRefs": [
-        "306cca45",
-        "e842817b",
-        "aa652715",
-        "c8e126a2",
-        "dcbee88f",
-        "c58f389e",
-        "b1b144d6",
-        "fc39bf89",
-        "98e5f1bf",
-        "2c3cf58e",
-        "ef240488"
+        "306cca4",
+        "e842817",
+        "aa65271",
+        "c8e126a",
+        "dcbee88",
+        "c58f389",
+        "b1b144d",
+        "fc39bf8",
+        "98e5f1b",
+        "2c3cf58",
+        "ef24048"
       ],
       "commitRefOverflow": false
     },
@@ -7616,15 +8172,15 @@
         "docs/refinement/IDEA-deterministic-governance-gates.md": 1
       },
       "recentCommitRefs": [
-        "c88385bd",
-        "89479bb2",
-        "55b390e5",
-        "05cad83d",
-        "7d5de7df",
-        "daef31ac",
-        "8b93f240",
-        "bee5f78e",
-        "b37a4948"
+        "c88385b",
+        "89479bb",
+        "55b390e",
+        "05cad83",
+        "7d5de7d",
+        "daef31a",
+        "8b93f24",
+        "bee5f78",
+        "b37a494"
       ],
       "commitRefOverflow": false
     },
@@ -7648,21 +8204,21 @@
         ".arch/focus-ledger.jsonl": 8
       },
       "recentCommitRefs": [
-        "1e50bcfa",
-        "7f76abf0",
-        "095c8e23",
-        "a2720f67",
-        "1fe4c543",
-        "d56c0888",
-        "755eaa37",
-        "1c35aca9",
-        "c7d3eb9c",
-        "8aaa21ac",
-        "f11e5a2d",
-        "24f6e850",
-        "9fa9ed05",
-        "a1307724",
-        "5e445343"
+        "1e50bcf",
+        "7f76abf",
+        "095c8e2",
+        "a2720f6",
+        "1fe4c54",
+        "d56c088",
+        "755eaa3",
+        "1c35aca",
+        "c7d3eb9",
+        "8aaa21a",
+        "f11e5a2",
+        "24f6e85",
+        "9fa9ed0",
+        "a130772",
+        "5e44534"
       ],
       "commitRefOverflow": false
     },
@@ -7684,13 +8240,13 @@
         "cli/src/main/ts/index.ts": 1
       },
       "recentCommitRefs": [
-        "1e50bcfa",
-        "c272e54a",
-        "2f1a3656",
-        "d5fcb7c4",
-        "c765232e",
-        "6e124e88",
-        "48a90d65"
+        "1e50bcf",
+        "c272e54",
+        "2f1a365",
+        "d5fcb7c",
+        "c765232",
+        "6e124e8",
+        "48a90d6"
       ],
       "commitRefOverflow": false
     },
@@ -7702,7 +8258,7 @@
         "docs/tasks/TASK-954.md": 1
       },
       "recentCommitRefs": [
-        "038f7deb"
+        "038f7de"
       ],
       "commitRefOverflow": false
     },
@@ -7727,11 +8283,11 @@
         "docs/arch-viewer.html": 1
       },
       "recentCommitRefs": [
-        "88e3c162",
-        "2f1a3656",
-        "c634b4a8",
-        "2a4c113d",
-        "e0336e88"
+        "88e3c16",
+        "2f1a365",
+        "c634b4a",
+        "2a4c113",
+        "e0336e8"
       ],
       "commitRefOverflow": false
     },
@@ -7770,12 +8326,12 @@
         "docs/tasks/TASK-946.md": 2
       },
       "recentCommitRefs": [
-        "f459fa45",
-        "620e6e45",
-        "01510872",
-        "c95019ba",
-        "0e78cfac",
-        "1aa5cfbf"
+        "f459fa4",
+        "620e6e4",
+        "0151087",
+        "c95019b",
+        "0e78cfa",
+        "1aa5cfb"
       ],
       "commitRefOverflow": false
     },
@@ -7798,13 +8354,13 @@
         ".arch/focus-ledger.jsonl": 3
       },
       "recentCommitRefs": [
-        "f459fa45",
-        "f64cac9f",
-        "98c93e9b",
-        "6df9c8a7",
-        "7e4ab5e2",
-        "fc61e6ad",
-        "33a4df9f"
+        "f459fa4",
+        "f64cac9",
+        "98c93e9",
+        "6df9c8a",
+        "7e4ab5e",
+        "fc61e6a",
+        "33a4df9"
       ],
       "commitRefOverflow": false
     },
@@ -7853,9 +8409,9 @@
         "docs/tasks/TASK-945.md": 2
       },
       "recentCommitRefs": [
-        "30f15b3a",
-        "164e647b",
-        "83ba7936"
+        "30f15b3",
+        "164e647",
+        "83ba793"
       ],
       "commitRefOverflow": false
     },
@@ -7875,11 +8431,11 @@
         "docs/tasks/TASK-944.md": 1
       },
       "recentCommitRefs": [
-        "be54376a",
-        "4c595bd6",
-        "58fa008c",
-        "b7ccd274",
-        "b287a04b"
+        "be54376",
+        "4c595bd",
+        "58fa008",
+        "b7ccd27",
+        "b287a04"
       ],
       "commitRefOverflow": false
     },
@@ -7897,10 +8453,10 @@
         "scripts/arch.sh": 1
       },
       "recentCommitRefs": [
-        "2313e068",
-        "31c78ffe",
-        "2cd38d2a",
-        "135a49f9"
+        "2313e06",
+        "31c78ff",
+        "2cd38d2",
+        "135a49f"
       ],
       "commitRefOverflow": false
     },
@@ -7956,26 +8512,26 @@
         "docs/tasks/TASK-254.md": 1
       },
       "recentCommitRefs": [
-        "b1b144d6",
-        "5812f053",
-        "1fcb5837",
-        "0f646f23",
-        "d2dedb09",
-        "8a1f0d0b",
-        "0cda162a",
-        "1b15c8ac",
-        "0bfec523",
-        "785e985f",
-        "f0faaf5c",
-        "2e233226",
-        "3276b04f",
-        "41077ee0",
-        "53969f70",
-        "dac3a1e1",
-        "fc39bf89",
-        "1217c080",
-        "665755fd",
-        "f16691bc"
+        "b1b144d",
+        "5812f05",
+        "1fcb583",
+        "0f646f2",
+        "d2dedb0",
+        "8a1f0d0",
+        "0cda162",
+        "1b15c8a",
+        "0bfec52",
+        "785e985",
+        "f0faaf5",
+        "2e23322",
+        "3276b04",
+        "41077ee",
+        "53969f7",
+        "dac3a1e",
+        "fc39bf8",
+        "1217c08",
+        "665755f",
+        "f16691b"
       ],
       "commitRefOverflow": true
     },
@@ -7995,12 +8551,12 @@
         "docs/tasks/TASK-938.md": 1
       },
       "recentCommitRefs": [
-        "353aeab7",
-        "0292eb43",
-        "4054b60d",
-        "562d3227",
-        "7ffd6ee4",
-        "cee9dd30"
+        "353aeab",
+        "0292eb4",
+        "4054b60",
+        "562d322",
+        "7ffd6ee",
+        "cee9dd3"
       ],
       "commitRefOverflow": false
     },
@@ -8023,15 +8579,15 @@
         "docs/archive/TASK-941.md": 1
       },
       "recentCommitRefs": [
-        "0292eb43",
-        "4054b60d",
-        "562d3227",
-        "7ffd6ee4",
-        "b0d497ef",
-        "e3838d0f",
-        "cee9dd30",
-        "921e8815",
-        "ec30b467"
+        "0292eb4",
+        "4054b60",
+        "562d322",
+        "7ffd6ee",
+        "b0d497e",
+        "e3838d0",
+        "cee9dd3",
+        "921e881",
+        "ec30b46"
       ],
       "commitRefOverflow": false
     },
@@ -8057,12 +8613,12 @@
         "docs/tasks/TASK-939.md": 1
       },
       "recentCommitRefs": [
-        "0420409c",
-        "0410cda8",
-        "2e7c1dd1",
-        "84a64f65",
-        "cee9dd30",
-        "99381dd3"
+        "0420409",
+        "0410cda",
+        "2e7c1dd",
+        "84a64f6",
+        "cee9dd3",
+        "99381dd"
       ],
       "commitRefOverflow": false
     },
@@ -8089,13 +8645,13 @@
         "docs/tasks/TASK-939.md": 1
       },
       "recentCommitRefs": [
-        "e3ad55d2",
-        "4634fdba",
-        "cdcbcdf9",
-        "0e2a4a11",
-        "7629dce8",
-        "2874d104",
-        "99381dd3"
+        "e3ad55d",
+        "4634fdb",
+        "cdcbcdf",
+        "0e2a4a1",
+        "7629dce",
+        "2874d10",
+        "99381dd"
       ],
       "commitRefOverflow": false
     },
@@ -8115,11 +8671,11 @@
         "docs/tasks/TASK-250.md": 4
       },
       "recentCommitRefs": [
-        "ec6658a8",
-        "66a130f1",
-        "44d4a818",
-        "0659222d",
-        "3fd5ebbd"
+        "ec6658a",
+        "66a130f",
+        "44d4a81",
+        "0659222",
+        "3fd5ebb"
       ],
       "commitRefOverflow": false
     },
@@ -8138,8 +8694,8 @@
         "docs/tasks/TASK-936.md": 2
       },
       "recentCommitRefs": [
-        "7c8db2df",
-        "b9a5e40b"
+        "7c8db2d",
+        "b9a5e40"
       ],
       "commitRefOverflow": false
     },
@@ -8155,8 +8711,8 @@
         "docs/tasks/TASK-935.md": 2
       },
       "recentCommitRefs": [
-        "718b2b81",
-        "9c64198e"
+        "718b2b8",
+        "9c64198"
       ],
       "commitRefOverflow": false
     },
@@ -8186,24 +8742,24 @@
         "docs/agents/THINK.md": 1
       },
       "recentCommitRefs": [
-        "718b2b81",
-        "526532e8",
-        "0272a83b",
-        "291e6372",
-        "e3c2670a",
-        "c0195c00",
-        "7d64a5fa",
-        "ce4d49ee",
-        "b6fc79c0",
-        "c796bd50",
-        "dec6167f",
-        "7af5c0b9",
-        "067e845f",
-        "e7fe3558",
-        "e565f249",
-        "ce1e6fae",
-        "56320661",
-        "57956098"
+        "718b2b8",
+        "526532e",
+        "0272a83",
+        "291e637",
+        "e3c2670",
+        "c0195c0",
+        "7d64a5f",
+        "ce4d49e",
+        "b6fc79c",
+        "c796bd5",
+        "dec6167",
+        "7af5c0b",
+        "067e845",
+        "e7fe355",
+        "e565f24",
+        "ce1e6fa",
+        "5632066",
+        "5795609"
       ],
       "commitRefOverflow": false
     },
@@ -8235,21 +8791,21 @@
         "cli/src/main/ts/application/use-cases/lightweight-metrics-refresh.ts": 1
       },
       "recentCommitRefs": [
-        "718b2b81",
-        "f7568bfa",
-        "0272a83b",
-        "42bcfa43",
-        "30e44605",
-        "ebb3d262",
-        "b6ca02f5",
-        "776d2b9b",
-        "9765b498",
-        "e14578a1",
-        "b24f5379",
-        "ba9ef96c",
-        "a2166aca",
-        "56320661",
-        "57956098"
+        "718b2b8",
+        "f7568bf",
+        "0272a83",
+        "42bcfa4",
+        "30e4460",
+        "ebb3d26",
+        "b6ca02f",
+        "776d2b9",
+        "9765b49",
+        "e14578a",
+        "b24f537",
+        "ba9ef96",
+        "a2166ac",
+        "5632066",
+        "5795609"
       ],
       "commitRefOverflow": false
     },
@@ -8281,13 +8837,13 @@
         "docs/refinement/IDEA-corpus-drift-repair.md": 1
       },
       "recentCommitRefs": [
-        "718b2b81",
-        "a7016a92",
-        "a938de94",
-        "11f5cdcb",
-        "1a317a06",
-        "ebce982f",
-        "867fecf4"
+        "718b2b8",
+        "a7016a9",
+        "a938de9",
+        "11f5cdc",
+        "1a317a0",
+        "ebce982",
+        "867fecf"
       ],
       "commitRefOverflow": false
     },
@@ -8309,10 +8865,10 @@
         "docs/refinement/IDEA-tiered-obligations.md": 1
       },
       "recentCommitRefs": [
-        "cc3d76d3",
-        "a2dcd66a",
-        "b519fa74",
-        "c10d3960"
+        "cc3d76d",
+        "a2dcd66",
+        "b519fa7",
+        "c10d396"
       ],
       "commitRefOverflow": false
     },
@@ -8331,9 +8887,9 @@
         "docs/tasks/TASK-930.md": 2
       },
       "recentCommitRefs": [
-        "cc3d76d3",
-        "cc5b1353",
-        "739762bf"
+        "cc3d76d",
+        "cc5b135",
+        "739762b"
       ],
       "commitRefOverflow": false
     },
@@ -8350,8 +8906,8 @@
         "docs/tasks/TASK-931.md": 1
       },
       "recentCommitRefs": [
-        "752879ec",
-        "56e757d8"
+        "752879e",
+        "56e757d"
       ],
       "commitRefOverflow": false
     },
@@ -8366,8 +8922,8 @@
         "docs/tasks/TASK-932.md": 2
       },
       "recentCommitRefs": [
-        "c25ccdd3",
-        "addec2c8"
+        "c25ccdd",
+        "addec2c"
       ],
       "commitRefOverflow": false
     },
@@ -8385,10 +8941,10 @@
         "docs/tasks/TASK-927.md": 1
       },
       "recentCommitRefs": [
-        "dac3a1e1",
-        "fc39bf89",
-        "adc46242",
-        "f854d3fd"
+        "dac3a1e",
+        "fc39bf8",
+        "adc4624",
+        "f854d3f"
       ],
       "commitRefOverflow": false
     },
@@ -8411,10 +8967,10 @@
         "cli/src/test/ts/mark-task-in-progress.test.ts": 1
       },
       "recentCommitRefs": [
-        "1a317a06",
-        "148f74a9",
-        "df2cc5d8",
-        "ebce982f"
+        "1a317a0",
+        "148f74a",
+        "df2cc5d",
+        "ebce982"
       ],
       "commitRefOverflow": false
     },
@@ -8434,9 +8990,9 @@
         "cli/src/test/ts/mark-task-in-progress.test.ts": 1
       },
       "recentCommitRefs": [
-        "148f74a9",
-        "df2cc5d8",
-        "ebce982f"
+        "148f74a",
+        "df2cc5d",
+        "ebce982"
       ],
       "commitRefOverflow": false
     },
@@ -8464,15 +9020,15 @@
         "cli/src/main/ts/domain/services/metrics-engine.ts": 1
       },
       "recentCommitRefs": [
-        "867fecf4",
-        "414a527d",
-        "ca8c4ada",
-        "00d5190a",
-        "3fa9c506",
-        "b3858c7a",
-        "f1a89659",
-        "2ad7bac2",
-        "f9912d69"
+        "867fecf",
+        "414a527",
+        "ca8c4ad",
+        "00d5190",
+        "3fa9c50",
+        "b3858c7",
+        "f1a8965",
+        "2ad7bac",
+        "f9912d6"
       ],
       "commitRefOverflow": false
     },
@@ -8483,7 +9039,7 @@
         "docs/EVENTS.md": 1
       },
       "recentCommitRefs": [
-        "f1a89659"
+        "f1a8965"
       ],
       "commitRefOverflow": false
     },
@@ -8505,8 +9061,8 @@
         "docs/tasks/TASK-284.md": 1
       },
       "recentCommitRefs": [
-        "ab3a8375",
-        "a681e282"
+        "ab3a837",
+        "a681e28"
       ],
       "commitRefOverflow": false
     },
@@ -8522,7 +9078,7 @@
         "docs/tasks/TASK-284.md": 1
       },
       "recentCommitRefs": [
-        "a681e282"
+        "a681e28"
       ],
       "commitRefOverflow": false
     },
@@ -8538,7 +9094,7 @@
         "docs/tasks/TASK-284.md": 1
       },
       "recentCommitRefs": [
-        "a681e282"
+        "a681e28"
       ],
       "commitRefOverflow": false
     },
@@ -8553,7 +9109,7 @@
         "docs/tasks/TASK-278.md": 1
       },
       "recentCommitRefs": [
-        "dd478e78"
+        "dd478e7"
       ],
       "commitRefOverflow": false
     },
@@ -8568,7 +9124,7 @@
         "docs/tasks/TASK-278.md": 1
       },
       "recentCommitRefs": [
-        "dd478e78"
+        "dd478e7"
       ],
       "commitRefOverflow": false
     },
@@ -8583,7 +9139,7 @@
         "docs/tasks/TASK-278.md": 1
       },
       "recentCommitRefs": [
-        "dd478e78"
+        "dd478e7"
       ],
       "commitRefOverflow": false
     },
@@ -8598,7 +9154,7 @@
         "docs/tasks/TASK-278.md": 1
       },
       "recentCommitRefs": [
-        "dd478e78"
+        "dd478e7"
       ],
       "commitRefOverflow": false
     },
@@ -8613,7 +9169,7 @@
         "docs/tasks/TASK-278.md": 1
       },
       "recentCommitRefs": [
-        "dd478e78"
+        "dd478e7"
       ],
       "commitRefOverflow": false
     },
@@ -8628,7 +9184,7 @@
         "docs/tasks/TASK-273.md": 1
       },
       "recentCommitRefs": [
-        "734ce8d7"
+        "734ce8d"
       ],
       "commitRefOverflow": false
     },
@@ -8643,7 +9199,7 @@
         "docs/tasks/TASK-273.md": 1
       },
       "recentCommitRefs": [
-        "734ce8d7"
+        "734ce8d"
       ],
       "commitRefOverflow": false
     },
@@ -8658,7 +9214,7 @@
         "docs/tasks/TASK-273.md": 1
       },
       "recentCommitRefs": [
-        "734ce8d7"
+        "734ce8d"
       ],
       "commitRefOverflow": false
     },
@@ -8673,7 +9229,7 @@
         "docs/tasks/TASK-273.md": 1
       },
       "recentCommitRefs": [
-        "734ce8d7"
+        "734ce8d"
       ],
       "commitRefOverflow": false
     },
@@ -8688,7 +9244,7 @@
         "docs/tasks/TASK-268.md": 1
       },
       "recentCommitRefs": [
-        "9e8bce39"
+        "9e8bce3"
       ],
       "commitRefOverflow": false
     },
@@ -8703,7 +9259,7 @@
         "docs/tasks/TASK-268.md": 1
       },
       "recentCommitRefs": [
-        "9e8bce39"
+        "9e8bce3"
       ],
       "commitRefOverflow": false
     },
@@ -8722,12 +9278,12 @@
         "docs/tasks/TASK-253.md": 1
       },
       "recentCommitRefs": [
-        "36802a8e",
-        "b75e4438",
-        "72d43538",
-        "6acee748",
-        "55f2bf20",
-        "3f92b1df"
+        "36802a8",
+        "b75e443",
+        "72d4353",
+        "6acee74",
+        "55f2bf2",
+        "3f92b1d"
       ],
       "commitRefOverflow": false
     },
@@ -8742,10 +9298,10 @@
         "docs/METRICS.md": 1
       },
       "recentCommitRefs": [
-        "efb2728a",
-        "b75e4438",
-        "f62d35e6",
-        "27bbcac2"
+        "efb2728",
+        "b75e443",
+        "f62d35e",
+        "27bbcac"
       ],
       "commitRefOverflow": false
     },
@@ -8757,7 +9313,7 @@
         "docs/tasks/TASK-254.md": 1
       },
       "recentCommitRefs": [
-        "b75e4438"
+        "b75e443"
       ],
       "commitRefOverflow": false
     },
@@ -8772,13 +9328,13 @@
         "docs/agents/THINK.md": 1
       },
       "recentCommitRefs": [
-        "38eddf89",
-        "0272a83b",
-        "9ff7d677",
-        "f6abef92",
-        "1cbc3076",
-        "bbb35491",
-        "57956098"
+        "38eddf8",
+        "0272a83",
+        "9ff7d67",
+        "f6abef9",
+        "1cbc307",
+        "bbb3549",
+        "5795609"
       ],
       "commitRefOverflow": false
     },
@@ -8805,13 +9361,13 @@
         "docs/tasks/TASK-921.md": 1
       },
       "recentCommitRefs": [
-        "1e12c922",
-        "88259330",
-        "0b82b1dc",
-        "57fd8721",
-        "d96345f6",
-        "8cc26464",
-        "a7f70d06"
+        "1e12c92",
+        "8825933",
+        "0b82b1d",
+        "57fd872",
+        "d96345f",
+        "8cc2646",
+        "a7f70d0"
       ],
       "commitRefOverflow": false
     },
@@ -8832,12 +9388,12 @@
         ".arch/focus-ledger.jsonl": 2
       },
       "recentCommitRefs": [
-        "6b7d3231",
-        "8720dae8",
-        "ce578175",
-        "16a28035",
-        "f42ac2cc",
-        "637dbf22"
+        "6b7d323",
+        "8720dae",
+        "ce57817",
+        "16a2803",
+        "f42ac2c",
+        "637dbf2"
       ],
       "commitRefOverflow": false
     },
@@ -8863,11 +9419,11 @@
         ".arch/focus-ledger.jsonl": 1
       },
       "recentCommitRefs": [
-        "b9d6020b",
-        "86df5b90",
-        "3fec8416",
-        "0f4e6539",
-        "9f5251c7"
+        "b9d6020",
+        "86df5b9",
+        "3fec841",
+        "0f4e653",
+        "9f5251c"
       ],
       "commitRefOverflow": false
     },
@@ -8890,12 +9446,12 @@
         ".arch/focus-ledger.jsonl": 1
       },
       "recentCommitRefs": [
-        "089d290c",
-        "39d97e7b",
-        "e210a7e2",
-        "2002dc19",
-        "a7f70d06",
-        "c3be2c24"
+        "089d290",
+        "39d97e7",
+        "e210a7e",
+        "2002dc1",
+        "a7f70d0",
+        "c3be2c2"
       ],
       "commitRefOverflow": false
     },
@@ -8916,11 +9472,11 @@
         ".arch/focus-ledger.jsonl": 1
       },
       "recentCommitRefs": [
-        "2a2064cc",
-        "ce808f6d",
-        "8d250728",
-        "dfb3c1c4",
-        "bfaf8dd3"
+        "2a2064c",
+        "ce808f6",
+        "8d25072",
+        "dfb3c1c",
+        "bfaf8dd"
       ],
       "commitRefOverflow": false
     },
@@ -8948,12 +9504,12 @@
         ".arch/focus-ledger.jsonl": 2
       },
       "recentCommitRefs": [
-        "676e9deb",
-        "20859b1a",
-        "b736de14",
-        "c3c94d7e",
-        "b4990493",
-        "2f2d3561"
+        "676e9de",
+        "20859b1",
+        "b736de1",
+        "c3c94d7",
+        "b499049",
+        "2f2d356"
       ],
       "commitRefOverflow": false
     },
@@ -8985,12 +9541,12 @@
         ".arch/focus-ledger.jsonl": 2
       },
       "recentCommitRefs": [
-        "2087166b",
-        "25f3799d",
-        "475cf0ff",
-        "dca8e4f4",
-        "dbdc76cb",
-        "9e17cb56"
+        "2087166",
+        "25f3799",
+        "475cf0f",
+        "dca8e4f",
+        "dbdc76c",
+        "9e17cb5"
       ],
       "commitRefOverflow": false
     },
@@ -9009,11 +9565,11 @@
         ".arch/focus-ledger.jsonl": 1
       },
       "recentCommitRefs": [
-        "2526545e",
-        "3a100155",
-        "3ba95ef4",
-        "9d9f9dda",
-        "353802dc"
+        "2526545",
+        "3a10015",
+        "3ba95ef",
+        "9d9f9dd",
+        "353802d"
       ],
       "commitRefOverflow": false
     },
@@ -9032,12 +9588,12 @@
         ".arch/focus-ledger.jsonl": 2
       },
       "recentCommitRefs": [
-        "f8303e7a",
-        "0f0fead5",
-        "37bc0623",
-        "de9f8f97",
-        "33991eb3",
-        "788a557b"
+        "f8303e7",
+        "0f0fead",
+        "37bc062",
+        "de9f8f9",
+        "33991eb",
+        "788a557"
       ],
       "commitRefOverflow": false
     },
@@ -9056,64 +9612,10 @@
         "docs/tasks/TASK-912.md": 1
       },
       "recentCommitRefs": [
-        "1881d9dd",
-        "e4cec8b6",
-        "42dfb749",
-        "704eb7bd"
-      ],
-      "commitRefOverflow": false
-    },
-    "TASK-901": {
-      "commitCount": 2,
-      "lastCommitDate": "2026-05-17T11:55:46+00:00",
-      "touchedFrequency": {
-        "docs/archive/TASK-901.md": 1,
-        ".arch/chronicle.jsonl": 1,
-        ".arch/reflect-breach-log.jsonl": 1,
-        "cli/src/main/ts/application/use-cases/hansei-wizard.ts": 1,
-        "docs/EVENTS.md": 1,
-        "docs/tasks/TASK-901.md": 1
-      },
-      "recentCommitRefs": [
-        "ef803314",
-        "09895dc5"
-      ],
-      "commitRefOverflow": false
-    },
-    "TASK-908": {
-      "commitCount": 1,
-      "lastCommitDate": "2026-05-17T11:50:29+00:00",
-      "touchedFrequency": {
-        "docs/tasks/TASK-206.md": 1
-      },
-      "recentCommitRefs": [
-        "bbee21d5"
-      ],
-      "commitRefOverflow": false
-    },
-    "TASK-909": {
-      "commitCount": 1,
-      "lastCommitDate": "2026-05-17T11:50:29+00:00",
-      "touchedFrequency": {
-        "docs/tasks/TASK-206.md": 1
-      },
-      "recentCommitRefs": [
-        "bbee21d5"
-      ],
-      "commitRefOverflow": false
-    },
-    "TASK-910": {
-      "commitCount": 3,
-      "lastCommitDate": "2026-05-17T11:50:29+00:00",
-      "touchedFrequency": {
-        "docs/tasks/TASK-206.md": 1,
-        "docs/archive/TASK-910.md": 1,
-        "docs/tasks/TASK-910.md": 1
-      },
-      "recentCommitRefs": [
-        "bbee21d5",
-        "49c07d0b",
-        "390b27d3"
+        "1881d9d",
+        "e4cec8b",
+        "42dfb74",
+        "704eb7b"
       ],
       "commitRefOverflow": false
     }
