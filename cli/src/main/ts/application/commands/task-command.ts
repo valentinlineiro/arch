@@ -10,6 +10,7 @@ import { UpdateTaskMetrics } from '../use-cases/update-task-metrics.js';
 import { ContextInference } from '../use-cases/context-inference.js';
 import { ConstraintPreflight } from '../use-cases/constraint-preflight.js';
 import { SemanticCollisionDetector } from '../use-cases/semantic-collision-detector.js';
+import { CorrectionSignalStore, HANSEI_CATEGORIES, HANSEI_CATEGORY_ALIASES } from '../use-cases/correction-signal-store.js';
 import { CompressTask } from '../use-cases/compress-task.js';
 import { NextCommand } from './next-command.js';
 import { RankCommand } from './rank-command.js';
@@ -195,6 +196,65 @@ export class TaskCommand {
       } catch (error: any) {
         fmt.fail(error.message);
         process.exit(1);
+      }
+    } else if (subCommand === 'done' && args.includes('--redirect') && taskId) {
+      try {
+        const correctionIdx = args.indexOf('--correction');
+        const correctionArg = correctionIdx >= 0 ? args[correctionIdx + 1] : undefined;
+
+        let category = '';
+        let summary = '';
+
+        if (correctionArg) {
+          const colonIdx = correctionArg.indexOf(':');
+          if (colonIdx > 0) {
+            category = correctionArg.slice(0, colonIdx).trim();
+            summary = correctionArg.slice(colonIdx + 1).trim();
+          } else {
+            summary = correctionArg;
+          }
+        }
+
+        if (!category || !summary) {
+          console.log(`\n  Capture correction signal for ${taskId}`);
+          console.log(`  Categories: ${HANSEI_CATEGORIES.join(', ')}`);
+          console.log(`  Aliases: ${Object.entries(HANSEI_CATEGORY_ALIASES).map(([k,v]) => `${k}=${v}`).join(', ')}`);
+          if (!category) {
+            const { createInterface } = await import('node:readline/promises');
+            const rl = createInterface({ input: process.stdin, output: process.stdout });
+            const rawCat = await rl.question('  Category (or alias): ');
+            const resolved = CorrectionSignalStore.resolveCategory(rawCat.trim());
+            if (!resolved) { rl.close(); throw new Error(`Unknown category: ${rawCat.trim()}`); }
+            category = resolved;
+            if (!summary) {
+              summary = await rl.question('  Summary (one line): ');
+            }
+            rl.close();
+          }
+        } else {
+          const resolved = CorrectionSignalStore.resolveCategory(category);
+          if (!resolved) throw new Error(`Unknown category: ${category}`);
+          category = resolved;
+        }
+
+        const taskPath = `${this.rootPath}/docs/tasks/${taskId}.md`;
+        let taskContent = '';
+        try { taskContent = await this.fileSystem.readFile(taskPath); } catch { /* archive path */ }
+
+        const store = new CorrectionSignalStore(this.fileSystem, this.rootPath);
+        const signal = await store.append({
+          source_type: 'redirect',
+          task_ref: taskId,
+          file_refs: CorrectionSignalStore.extractFileRefs(taskContent),
+          adr_refs: CorrectionSignalStore.extractAdrRefs(taskContent),
+          category,
+          correction_kind: 'scope',
+          summary,
+          authority: 'low',
+        });
+        fmt.check(`correction signal logged: ${signal.signal_id} [${category}]`);
+      } catch (error: any) {
+        fmt.fail(`Correction signal: ${error.message}`);
       }
     } else if (subCommand === 'done' && taskId) {
       if (!force) {

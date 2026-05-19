@@ -140,13 +140,45 @@ async function main() {
       } else if (sub === 'approve') {
         const approveTaskId = args[1];
         if (!approveTaskId || !/^TASK-\d+$/.test(approveTaskId)) {
-          console.error('Usage: arch govern approve TASK-XXX');
+          console.error('Usage: arch govern approve TASK-XXX [--correction "<category>: <summary>"]');
           process.exit(1);
         }
         const { EscalationStore } = await import('./application/use-cases/escalation-store.js');
         const approveStore = new EscalationStore(fileSystem, rootPath);
         await approveStore.append('APPROVED', approveTaskId, `Human approval granted via arch govern approve.`);
         console.log(`  ✔ Approved ${approveTaskId}. Run arch task loop --resume to continue.`);
+
+        const correctionIdx = args.indexOf('--correction');
+        if (correctionIdx >= 0 && args[correctionIdx + 1]) {
+          try {
+            const { CorrectionSignalStore } = await import('./application/use-cases/correction-signal-store.js');
+            const correctionArg = args[correctionIdx + 1];
+            const colonIdx = correctionArg.indexOf(':');
+            if (colonIdx > 0) {
+              const rawCat = correctionArg.slice(0, colonIdx).trim();
+              const summary = correctionArg.slice(colonIdx + 1).trim();
+              const category = CorrectionSignalStore.resolveCategory(rawCat);
+              if (category && summary) {
+                let taskContent = '';
+                try { taskContent = await fileSystem.readFile(`${rootPath}/docs/tasks/${approveTaskId}.md`); } catch { /* archive */ }
+                const store = new CorrectionSignalStore(fileSystem, rootPath);
+                const signal = await store.append({
+                  source_type: 'operator_override',
+                  task_ref: approveTaskId,
+                  file_refs: CorrectionSignalStore.extractFileRefs(taskContent),
+                  adr_refs: CorrectionSignalStore.extractAdrRefs(taskContent),
+                  category,
+                  correction_kind: 'authority',
+                  summary,
+                  authority: 'low',
+                });
+                console.log(`  ✔ Correction signal logged: ${signal.signal_id} [${category}]`);
+              }
+            }
+          } catch (err: any) {
+            console.warn(`  ⚠ Correction signal failed: ${err.message}`);
+          }
+        }
       } else if (sub === 'serve') {
         await new ServeCommand(rootPath).execute(args.slice(1));
       } else {
