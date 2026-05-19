@@ -87,3 +87,9 @@ Introducing a new source variant would require updating all causal signal reader
 
 **Cost:**
 Readers must check confidence rather than source to distinguish auto-emitted from human-asserted signals. The distinction is less explicit in the schema but acceptable at current corpus density.
+
+**Forward Action:**
+No IDEA required — H0 observation with no systemic debt. Schema reuse is the intended long-term design.
+
+## Approval
+Approved-by: Auditor | 2026-05-19
