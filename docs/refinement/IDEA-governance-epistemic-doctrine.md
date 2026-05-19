@@ -41,14 +41,27 @@ Not all friction is the same. Future optimization work must distinguish:
 
 The test: does this friction improve the quality of the decision, or only the cost of making it? If the latter, eliminate it. If the former, protect it.
 
+## System layer model
+
+ARCH's governance architecture is a three-layer stack. All three layers must exist for the system to function correctly. Currently two exist; one is missing.
+
+**Layer 1 — Constitutional** (exists): Defines what must never be violated. Invariants, anti-goals, authority boundaries. This document.
+
+**Layer 2 — Semantic** (missing): Defines what things mean relative to history. Precedent indexing, novelty scoring, similarity metrics over tasks, governance distance functions, risk calibration surfaces. Without this layer, the system can process efficiently but cannot recognize when it is repeating, drifting, or encountering genuine novelty. High determinism without semantic compression produces a brittle illusion of clarity — everything looks clean; nothing is actually simplified.
+
+**Layer 3 — Operational** (being built): Defines how work is expressed and executed efficiently. AC templates, task capture tooling, Hansei serialization, L3 eligibility rules.
+
+**The asymmetry warning:** Layer 3 without Layer 2 makes the system procedurally efficient and epistemically blind to drift. Throughput scales; understanding does not. This is the failure mode of many "efficient" governance systems. Phase 1 work builds Layer 3. Phase 2 work builds Layer 2. Phase 1 must not complete so far ahead of Phase 2 that the system normalizes operating without it.
+
 ## Governance maturity model
 
 The four phases below are **epistemic sequencing constraints**, not a roadmap. Each phase is a prerequisite for the next. Phase N+1 authority delegation is invalid without Phase N infrastructure in place.
 
-**Phase 1 — Remove clerical burden**
+**Phase 1 — Reduce representational waste in governance inputs**
 Items: THINK-generated proposals, Hansei wizard, deterministic AC expansion, verifiability-first templates.
-Goal: remove human mechanical labor. Decision quality is unchanged; effort per decision drops.
-Constitutional risk: Low. These reduce work on Class I decisions without moving Class II boundary.
+Goal: reduce representational waste — the cost of expressing and recording governance objects. Decision quality is unchanged; input entropy drops.
+Note: "verifiability-first templates" is mis-classified if read as clerical optimization. It changes what counts as a governance object (structural ontology), not just how governance objects are handled. It is the seed of Phase 2, not just a Phase 1 item — see `IDEA-verifiability-first-templates` for the second-order effect on THINK's role.
+Constitutional risk: Low for most items. Medium for verifiability-first templates, which shifts THINK from interpreter to compiler of governance constraints — an authority adjacency change that requires monitoring.
 
 **Phase 2 — Compress governance cognition**
 Items: precedent indexing, novelty scoring, confidence calibration, governance drift detection, institutional anomaly tracking.

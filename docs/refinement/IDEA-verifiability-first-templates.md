@@ -14,7 +14,7 @@ When an AC cannot be verified mechanically, every downstream step costs more:
 
 The current `arch task capture` command generates ACs but does not enforce verifiability. Prose ACs (`prose:`, `code:`) are structurally identical to verifiable ones at creation time — the difference only surfaces at review.
 
-This is the highest-leverage Phase 1 item. Fixing task ecology upstream eliminates friction across every downstream step simultaneously.
+This is not a clerical optimization. It is a structural ontology change: it redefines what counts as a valid governance object at origin. Fixing task ecology upstream eliminates representational waste across every downstream step simultaneously — but the deeper effect is architectural.
 
 ## Proposed direction
 
@@ -40,12 +40,23 @@ No blocking — just visibility. The human decides whether prose ACs are appropr
 
 When a `prose:` AC is genuinely required (semantic correctness, architectural intent), it should be explicitly annotated as `prose:` to signal that human review is load-bearing. Currently prose ACs are indistinguishable from verifiable ACs that someone forgot to write predicates for.
 
+**Hidden coupling — THINK's role shift:**
+This change silently redefines THINK's authority adjacency. Currently THINK is an interpreter of IDEAs into structured proposals. After this change, THINK becomes a compiler of governance constraints into executable artifacts — it pre-shapes what the governance system can see and verify. The second-order effects:
+- Fewer ambiguous tasks reach humans (intended)
+- More decisions become pre-resolved structurally (intended)
+- Governance becomes increasingly "pre-shaped" by THINK's compilation choices (requires monitoring)
+
+This is safe only if Phase 2 (semantic compression) exists soon after. Without it: high determinism without semantic compression — everything looks clean, nothing is actually simplified, just pre-formatted. THINK's formatting choices invisibly constrain what the governance system can represent.
+
+This IDEA is therefore also the seed of Phase 2. The novelty scoring, precedent distance functions, and similarity metrics that Phase 2 requires are only meaningful if governance inputs have consistent structure. This IDEA creates that precondition.
+
 **Constitutional alignment:**
-This changes what governance objects the system produces, not who decides on them. The goal is to stop generating ambiguous governance artifacts upstream rather than compensating for them downstream.
+This changes what governance objects the system produces, not who decides on them. The goal is to stop generating ambiguous governance artifacts upstream rather than compensating for them downstream. But unlike the other Phase 1 items, this is not amortization — it is input grammar hardening with architectural consequences.
 
 ## Governance class
 
-Class: I (template and tooling change) + II (task ecology shift)
+Class: I (template and tooling change) + II (task ecology shift + THINK role redefinition)
 Evaluates: Whether ACs are structurally verifiable at creation time.
 Does NOT evaluate: Whether verifiable ACs adequately capture task intent — that remains human judgment at AC authoring time.
-Boundary risk: If the verifiability score is treated as a quality score ("high verifiability = well-scoped task"), the system conflates structural property with semantic adequacy. A task with three trivial `cmd:` ACs and no real coverage is structurally verifiable and substantively shallow. The warning message must be framed as a governance cost signal, not a quality endorsement.
+Boundary risk (primary): If the verifiability score is treated as a quality score ("high verifiability = well-scoped task"), the system conflates structural property with semantic adequacy. A task with three trivial `cmd:` ACs and no real coverage is structurally verifiable and substantively shallow.
+Boundary risk (secondary): THINK's compilation choices shape what the governance system can see. If those choices encode assumptions about scope, risk, or precedent, the system has hidden its interpretation inside tooling — the core failure mode identified in GOVERNANCE.md. Mitigation: Phase 2 must make THINK's compilation choices inspectable, not just their outputs.
