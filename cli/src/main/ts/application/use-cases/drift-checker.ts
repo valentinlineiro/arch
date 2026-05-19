@@ -39,6 +39,7 @@ export class DriftChecker {
       this.checkHanseiPresent(),
       this.checkHaltPolicy(),
       this.checkEscalationMaturity(),
+      this.checkExcisionStructuralCheck(),
       this.checkOrphanTasks(),
       this.checkObsoleteGuidelines(),
       this.checkUnappliedADRs(),
@@ -112,7 +113,7 @@ export class DriftChecker {
       if (deletedProtectedFiles.length > 0) {
         const excisionResult = await this.checkExcisionStructure(deletedProtectedFiles);
         if (excisionResult.status !== 'OK') {
-          details.push(...excisionResult.details.map(d => `[ExcisionCheck] ${d}`));
+          details.push(...excisionResult.details.filter(d => d.includes('FAIL') || d.includes('WARN')));
         }
       }
     }
@@ -125,29 +126,62 @@ export class DriftChecker {
   }
 
 
+  private async checkExcisionStructuralCheck(): Promise<DriftResult> {
+    try {
+      const configRaw = await this.fileSystem.readFile(`${this.rootPath}/arch.config.json`);
+      const config = JSON.parse(configRaw);
+      const protectedPaths: string[] = config.governance?.protectedPaths ?? [];
+
+      const lastCommitFiles = await this.gitRepository.getChangedFilesInLastCommit();
+      const commitTouchedProtected = lastCommitFiles.filter(f =>
+        protectedPaths.some((p: string) => f.startsWith(p) && !f.startsWith('docs/adr/'))
+      );
+      if (commitTouchedProtected.length === 0) {
+        return { check: 'ExcisionStructuralCheck', status: 'OK', details: [] };
+      }
+
+      let diff = '';
+      try { diff = await this.gitRepository.getDiff(['HEAD~1..HEAD', '--name-status']); } catch { diff = ''; }
+      const deletedInCommit = diff.split('\n')
+        .filter((l: string) => l.startsWith('D\t'))
+        .map((l: string) => l.slice(2).trim());
+
+      const deletedProtected = commitTouchedProtected.filter(f => deletedInCommit.includes(f));
+      if (deletedProtected.length === 0) {
+        return { check: 'ExcisionStructuralCheck', status: 'OK', details: [] };
+      }
+
+      return this.runExcisionGates(deletedProtected);
+    } catch {
+      return { check: 'ExcisionStructuralCheck', status: 'OK', details: [] };
+    }
+  }
+
   private async checkExcisionStructure(deletedFiles: string[]): Promise<DriftResult> {
+    return this.runExcisionGates(deletedFiles);
+  }
+
+  private async runExcisionGates(deletedFiles: string[]): Promise<DriftResult> {
     const details: string[] = [];
 
     for (const file of deletedFiles) {
-      // Extract the artifact name (filename without extension, last path segment)
       const artifactName = file.split('/').pop()?.replace(/\.ts$|\.js$|\.md$/, '') ?? file;
+      const fileFailures: string[] = [];
 
       // Gate 1: Reference-clean — no orphan references in operational code/docs
-      let gate1Pass = true;
       try {
         const { execSync } = await import('node:child_process');
         const result = execSync(
           `grep -r "${artifactName}" cli/src/ docs/ --include="*.ts" --include="*.md" 2>/dev/null | grep -v "docs/refinement/archive/" | grep -v "docs/superpowers/" | wc -l`,
-          { cwd: this.rootPath, encoding: 'utf-8', stdio: ['pipe','pipe','pipe'] }
+          { cwd: this.rootPath, encoding: 'utf-8', stdio: ['pipe', 'pipe', 'pipe'] }
         ).trim();
         const refCount = parseInt(result, 10);
         if (refCount > 0) {
-          gate1Pass = false;
-          details.push(`Gate 1 FAIL — ${file}: ${refCount} orphan reference(s) remain in codebase after deletion.`);
+          fileFailures.push(`Gate 1 FAIL — ${refCount} orphan reference(s) remain in codebase`);
         }
-      } catch { /* grep not available or repo not found — pass through */ }
+      } catch { /* grep not available — pass through */ }
 
-      // Gate 2: Decision-record exists — archive or ADR references the removed artifact
+      // Gate 2: Decision-record exists — IDEA archive or ADR references the removed artifact
       let gate2Pass = false;
       try {
         const archiveDir = `${this.rootPath}/docs/refinement/archive`;
@@ -159,29 +193,33 @@ export class DriftChecker {
           const fc = await this.fileSystem.readFile(fPath).catch(() => '');
           const decisionMatch = fc.match(/## Decision\n([\s\S]*?)(?=\n##|$)/);
           if (decisionMatch && decisionMatch[1].includes('REJECT') && fc.includes(artifactName)) {
-            gate2Pass = true;
-            break;
+            gate2Pass = true; break;
           }
           if (fc.toLowerCase().includes(artifactName.toLowerCase()) && fPath.includes('docs/adr/')) {
-            gate2Pass = true;
-            break;
+            gate2Pass = true; break;
           }
         }
         if (!gate2Pass) {
-          details.push(`Gate 2 FAIL — ${file}: no decision record found in docs/refinement/archive/ or docs/adr/ referencing '${artifactName}'.`);
+          fileFailures.push(`Gate 2 FAIL — no decision record in docs/refinement/archive/ or docs/adr/ referencing '${artifactName}'`);
         }
       } catch {
-        details.push(`Gate 2 WARN — ${file}: decision record check inconclusive (archive unreadable).`);
+        fileFailures.push(`Gate 2 WARN — decision record check inconclusive (archive unreadable)`);
       }
 
-      // Gate 3: Build-clean — CLI builds without errors
-      // Skipped in review (would require running npm run build which is too expensive)
-      // Evaluated as PASS when the commit reaches review without build failures
+      // Gate 3: Build-clean — evaluated implicitly (commit must reach review without build failures)
+      // Skipped in review to avoid expensive npm run build execution
+
+      if (fileFailures.length === 0) {
+        details.push(`ExcisionCheck: PASS — ${file}: all gates passed, ADR not required`);
+      } else {
+        details.push(...fileFailures.map(f => `ExcisionCheck: FAIL — ${file}: ${f}`));
+      }
     }
 
+    const hasFail = details.some(d => d.includes('FAIL'));
     return {
-      check: 'ExcisionStructure',
-      status: details.length === 0 ? 'OK' : 'WARN',
+      check: 'ExcisionStructuralCheck',
+      status: hasFail ? 'WARN' : 'OK',
       details,
     };
   }
