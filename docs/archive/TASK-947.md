@@ -1,5 +1,8 @@
 ## TASK-947: Bug: getById reads all 340 tasks+archive files to find a task with a known ID
-**Meta:** P1 | S | READY | Focus:no | 2-code-generation | claude | cli/src/main/ts/infrastructure/filesystem/markdown-task-repository.ts
+**Meta:** P1 | S | DONE | Focus:no | 2-code-generation | claude | cli/src/main/ts/infrastructure/filesystem/markdown-task-repository.ts
+**Turns:** 1
+**Closed-at:** 2026-05-19T10:50:32.827Z
+**Locked-commit:** 76db2c9b
 **Actor:** unknown
 **Created-at:** 2026-05-18T15:07:15.707Z
 **Depends:** none
@@ -28,20 +31,21 @@ async getById(id: string): Promise<Task | null> {
 
 **Fix:** Try `docs/tasks/${id}.md` directly, fall back to `docs/archive/${id}.md`. For `getNextId()`: `readdir` both dirs, filter `TASK-\d+.md` by filename only, no content read.
 
+
 ### Relevant Context
-_confidence: 0.43_
+_confidence: 0.44_
 
 **Files:**
+- cli/src/main/ts/domain/models/context-index.ts _(core)_
 - cli/src/main/ts/domain/models/task.ts _(core)_
 - cli/src/main/ts/domain/task.ts _(core)_
-- cli/src/main/ts/domain/models/context-index.ts _(core)_
-- cli/src/main/ts/domain/services/archive-parser.ts _(core)_
+- docs/tasks/TASK-947.md _(utility)_
 - cli/src/main/ts/domain/repositories/file-system.ts _(core)_
 
 **ADRs:**
-- ADR-002: Context as a budget, not a default _(enforced)_
-- ADR-006: Depends Graph Validation in DriftChecker Domain Service _(enforced)_
 - ADR-004: Flat docs/tasks/ directory with Focus field replaces sprint/backlog split _(enforced)_
+- ADR-006: Depends Graph Validation in DriftChecker Domain Service _(enforced)_
+- ADR-002: Context as a budget, not a default _(enforced)_
 
 **Guidelines:**
 - testing-a-change.md
