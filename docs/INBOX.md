@@ -8,6 +8,7 @@
 - **AWAITING_REVIEW:** 
   - TASK-919
   - TASK-940
+  - TASK-283
 - **AWAITING_PROMOTION:** 
   - IDEA-archive-parser-skip-non-done
   - IDEA-automate-turn-count
