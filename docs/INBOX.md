@@ -8,8 +8,7 @@
 - **AWAITING_REVIEW:** 
   - TASK-948
   - TASK-949
-- **AWAITING_PROMOTION:**
-  - IDEA-temporal-pattern-layer
+- **AWAITING_PROMOTION:** (none)
 
 ## Refinement Queue
 - archive-parser-skip-non-done
