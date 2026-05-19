@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-19T09:38:57.132Z",
+  "builtAt": "2026-05-19T09:59:20.597Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -4445,12 +4445,6 @@
           ],
           "taskPath": "docs/tasks/TASK-268.md"
         },
-        "TASK-950": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/tasks/TASK-950.md"
-        },
         "TASK-953": {
           "evidenceKinds": [
             "context-path",
@@ -4470,6 +4464,120 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-233.md"
+        },
+        "TASK-950": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-950.md"
+        }
+      }
+    },
+    "ADR-012": {
+      "tasks": {
+        "TASK-919": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-919.md"
+        },
+        "TASK-185": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-185.md"
+        },
+        "TASK-890": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-890.md"
+        },
+        "TASK-891": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-891.md"
+        },
+        "TASK-944": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-944.md"
+        },
+        "TASK-948": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-948.md"
+        }
+      }
+    },
+    "ADR-016": {
+      "tasks": {
+        "TASK-919": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-919.md"
+        },
+        "TASK-202": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-202.md"
+        },
+        "TASK-227": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-227.md"
+        }
+      }
+    },
+    "ADR-017": {
+      "tasks": {
+        "TASK-919": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-919.md"
+        },
+        "TASK-201": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-201.md"
+        },
+        "TASK-890": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-890.md"
+        },
+        "TASK-891": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-891.md"
+        },
+        "TASK-941": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-941.md"
+        },
+        "TASK-943": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-943.md"
+        },
+        "TASK-950": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-950.md"
         }
       }
     },
@@ -4588,80 +4696,6 @@
         }
       }
     },
-    "ADR-023": {
-      "tasks": {
-        "TASK-950": {
-          "evidenceKinds": [
-            "context-path",
-            "literal-mention"
-          ],
-          "taskPath": "docs/tasks/TASK-950.md"
-        },
-        "TASK-253": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-253.md"
-        }
-      }
-    },
-    "ADR-017": {
-      "tasks": {
-        "TASK-950": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/tasks/TASK-950.md"
-        },
-        "TASK-201": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-201.md"
-        },
-        "TASK-890": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-890.md"
-        },
-        "TASK-891": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-891.md"
-        },
-        "TASK-941": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-941.md"
-        },
-        "TASK-943": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-943.md"
-        }
-      }
-    },
-    "ADR-021": {
-      "tasks": {
-        "TASK-950": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/tasks/TASK-950.md"
-        },
-        "TASK-249": {
-          "evidenceKinds": [
-            "adr-field",
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-249.md"
-        }
-      }
-    },
     "ADR-001": {
       "tasks": {
         "TASK-002": {
@@ -4765,40 +4799,6 @@
         }
       }
     },
-    "ADR-012": {
-      "tasks": {
-        "TASK-185": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-185.md"
-        },
-        "TASK-890": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-890.md"
-        },
-        "TASK-891": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-891.md"
-        },
-        "TASK-944": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-944.md"
-        },
-        "TASK-948": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-948.md"
-        }
-      }
-    },
     "ADR-007": {
       "tasks": {
         "TASK-186": {
@@ -4834,22 +4834,6 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-946.md"
-        }
-      }
-    },
-    "ADR-016": {
-      "tasks": {
-        "TASK-202": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-202.md"
-        },
-        "TASK-227": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-227.md"
         }
       }
     },
@@ -4950,6 +4934,40 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-247.md"
+        }
+      }
+    },
+    "ADR-021": {
+      "tasks": {
+        "TASK-249": {
+          "evidenceKinds": [
+            "adr-field",
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-249.md"
+        },
+        "TASK-950": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-950.md"
+        }
+      }
+    },
+    "ADR-023": {
+      "tasks": {
+        "TASK-253": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-253.md"
+        },
+        "TASK-950": {
+          "evidenceKinds": [
+            "context-path",
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-950.md"
         }
       }
     },
@@ -5797,10 +5815,10 @@
   },
   "tasks": {
     "TASK-259": {
-      "commitCount": 2,
-      "lastCommitDate": "2026-05-19T11:38:56+02:00",
+      "commitCount": 3,
+      "lastCommitDate": "2026-05-19T11:59:20+02:00",
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 1,
+        ".arch/focus-ledger.jsonl": 2,
         ".arch/escalations.jsonl": 1,
         "docs/tasks/TASK-259.md": 1,
         "docs/tasks/TASK-260.md": 1,
@@ -5809,16 +5827,58 @@
         "docs/tasks/TASK-263.md": 1
       },
       "recentCommitRefs": [
-        "55dd983",
-        "bb4e4b0"
+        "b81087f8",
+        "55dd9837",
+        "bb4e4b09"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-919": {
+      "commitCount": 9,
+      "lastCommitDate": "2026-05-19T11:59:14+02:00",
+      "touchedFrequency": {
+        "docs/INBOX.md": 2,
+        "docs/tasks/TASK-919.md": 6,
+        "cli/src/main/ts/application/commands/init-command.ts": 2,
+        "docs/METRICS.md": 1,
+        "docs/tasks/TASK-249.md": 1,
+        "docs/tasks/TASK-258.md": 1,
+        "docs/tasks/TASK-933.md": 1,
+        ".arch/focus-ledger.jsonl": 2
+      },
+      "recentCommitRefs": [
+        "aa652715",
+        "c8e126a2",
+        "dcbee88f",
+        "c58f389e",
+        "b1b144d6",
+        "fc39bf89",
+        "98e5f1bf",
+        "2c3cf58e",
+        "ef240488"
       ],
       "commitRefOverflow": false
     },
     "TASK-950": {
-      "commitCount": 7,
-      "lastCommitDate": "2026-05-19T11:36:28+02:00",
+      "commitCount": 9,
+      "lastCommitDate": "2026-05-19T11:46:02+02:00",
       "touchedFrequency": {
-        "docs/tasks/TASK-950.md": 4,
+        ".arch/causal-signal.jsonl": 1,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/context-feedback.json": 1,
+        "cli/src/main/ts/application/use-cases/govern-system.ts": 1,
+        "cli/src/test/ts/drift-checker.test.ts": 1,
+        "cli/src/test/ts/govern-system.test.ts": 1,
+        "docs/EVENTS.md": 1,
+        "docs/archive/TASK-950.md": 1,
+        ".arch/reflect-breach-log.jsonl": 1,
+        "cli/src/main/ts/application/use-cases/drift-checker.ts": 1,
+        "docs/METRICS.md": 1,
+        "docs/tasks/TASK-259.md": 1,
+        "docs/tasks/TASK-919.md": 1,
+        "docs/tasks/TASK-950.md": 5,
+        "docs/tasks/TASK-953.md": 1,
+        "docs/tensions/TENSION-005-specdrift.md": 1,
         "docs/INBOX.md": 1,
         "docs/refinement/IDEA-temporal-pattern-layer.md": 1,
         "cli/src/test/ts/reflect-command.test.ts": 2,
@@ -5827,13 +5887,15 @@
         "docs/refinement/IDEA-deterministic-governance-gates.md": 1
       },
       "recentCommitRefs": [
-        "55b390e",
-        "05cad83",
-        "7d5de7d",
-        "daef31a",
-        "8b93f24",
-        "bee5f78",
-        "b37a494"
+        "c88385bd",
+        "89479bb2",
+        "55b390e5",
+        "05cad83d",
+        "7d5de7df",
+        "daef31ac",
+        "8b93f240",
+        "bee5f78e",
+        "b37a4948"
       ],
       "commitRefOverflow": false
     },
@@ -5857,21 +5919,21 @@
         ".arch/focus-ledger.jsonl": 8
       },
       "recentCommitRefs": [
-        "1e50bcf",
-        "7f76abf",
-        "095c8e2",
-        "a2720f6",
-        "1fe4c54",
-        "d56c088",
-        "755eaa3",
-        "1c35aca",
-        "c7d3eb9",
-        "8aaa21a",
-        "f11e5a2",
-        "24f6e85",
-        "9fa9ed0",
-        "a130772",
-        "5e44534"
+        "1e50bcfa",
+        "7f76abf0",
+        "095c8e23",
+        "a2720f67",
+        "1fe4c543",
+        "d56c0888",
+        "755eaa37",
+        "1c35aca9",
+        "c7d3eb9c",
+        "8aaa21ac",
+        "f11e5a2d",
+        "24f6e850",
+        "9fa9ed05",
+        "a1307724",
+        "5e445343"
       ],
       "commitRefOverflow": false
     },
@@ -5893,13 +5955,13 @@
         "cli/src/main/ts/index.ts": 1
       },
       "recentCommitRefs": [
-        "1e50bcf",
-        "c272e54",
-        "2f1a365",
-        "d5fcb7c",
-        "c765232",
-        "6e124e8",
-        "48a90d6"
+        "1e50bcfa",
+        "c272e54a",
+        "2f1a3656",
+        "d5fcb7c4",
+        "c765232e",
+        "6e124e88",
+        "48a90d65"
       ],
       "commitRefOverflow": false
     },
@@ -5911,7 +5973,7 @@
         "docs/tasks/TASK-954.md": 1
       },
       "recentCommitRefs": [
-        "038f7de"
+        "038f7deb"
       ],
       "commitRefOverflow": false
     },
@@ -5928,8 +5990,8 @@
         "docs/tasks/TASK-953.md": 1
       },
       "recentCommitRefs": [
-        "86f31ff",
-        "1878c2f"
+        "86f31ff9",
+        "1878c2f4"
       ],
       "commitRefOverflow": false
     },
@@ -5946,7 +6008,7 @@
         "docs/tasks/TASK-953.md": 1
       },
       "recentCommitRefs": [
-        "86f31ff"
+        "86f31ff9"
       ],
       "commitRefOverflow": false
     },
@@ -5963,7 +6025,7 @@
         "docs/tasks/TASK-953.md": 1
       },
       "recentCommitRefs": [
-        "86f31ff"
+        "86f31ff9"
       ],
       "commitRefOverflow": false
     },
@@ -5988,11 +6050,11 @@
         "docs/arch-viewer.html": 1
       },
       "recentCommitRefs": [
-        "88e3c16",
-        "2f1a365",
-        "c634b4a",
-        "2a4c113",
-        "e0336e8"
+        "88e3c162",
+        "2f1a3656",
+        "c634b4a8",
+        "2a4c113d",
+        "e0336e88"
       ],
       "commitRefOverflow": false
     },
@@ -6031,12 +6093,12 @@
         "docs/tasks/TASK-946.md": 2
       },
       "recentCommitRefs": [
-        "f459fa4",
-        "620e6e4",
-        "0151087",
-        "c95019b",
-        "0e78cfa",
-        "1aa5cfb"
+        "f459fa45",
+        "620e6e45",
+        "01510872",
+        "c95019ba",
+        "0e78cfac",
+        "1aa5cfbf"
       ],
       "commitRefOverflow": false
     },
@@ -6059,13 +6121,13 @@
         ".arch/focus-ledger.jsonl": 3
       },
       "recentCommitRefs": [
-        "f459fa4",
-        "f64cac9",
-        "98c93e9",
-        "6df9c8a",
-        "7e4ab5e",
-        "fc61e6a",
-        "33a4df9"
+        "f459fa45",
+        "f64cac9f",
+        "98c93e9b",
+        "6df9c8a7",
+        "7e4ab5e2",
+        "fc61e6ad",
+        "33a4df9f"
       ],
       "commitRefOverflow": false
     },
@@ -6170,50 +6232,28 @@
         "docs/tasks/TASK-907.md": 1
       },
       "recentCommitRefs": [
-        "638f284",
-        "519e55c",
-        "5a2d682",
-        "0d78368",
-        "0083fe7",
-        "fae9c7f",
-        "b9c5aee",
-        "e1e66fc",
-        "63c2225",
-        "6967695",
-        "5ce4cf7",
-        "ba9929a",
-        "b729d05",
-        "ab2a178",
-        "7fe5d44",
-        "391fc9b",
-        "66c70c7",
-        "f451e84",
-        "fb9c483",
-        "c07bb38"
+        "638f2846",
+        "519e55c1",
+        "5a2d682f",
+        "0d78368f",
+        "0083fe75",
+        "fae9c7f4",
+        "b9c5aee7",
+        "e1e66fc9",
+        "63c2225d",
+        "69676955",
+        "5ce4cf7c",
+        "ba9929ae",
+        "b729d054",
+        "ab2a1784",
+        "7fe5d44d",
+        "391fc9b3",
+        "66c70c7e",
+        "f451e84e",
+        "fb9c483a",
+        "c07bb380"
       ],
       "commitRefOverflow": true
-    },
-    "TASK-919": {
-      "commitCount": 6,
-      "lastCommitDate": "2026-05-18T18:14:18+00:00",
-      "touchedFrequency": {
-        "cli/src/main/ts/application/commands/init-command.ts": 1,
-        "docs/METRICS.md": 1,
-        "docs/tasks/TASK-919.md": 3,
-        "docs/tasks/TASK-249.md": 1,
-        "docs/tasks/TASK-258.md": 1,
-        "docs/tasks/TASK-933.md": 1,
-        ".arch/focus-ledger.jsonl": 2
-      },
-      "recentCommitRefs": [
-        "c58f389",
-        "b1b144d",
-        "fc39bf8",
-        "98e5f1b",
-        "2c3cf58",
-        "ef24048"
-      ],
-      "commitRefOverflow": false
     },
     "TASK-947": {
       "commitCount": 2,
@@ -6222,8 +6262,8 @@
         "docs/tasks/TASK-947.md": 2
       },
       "recentCommitRefs": [
-        "a54c4c7",
-        "f1a6b3f"
+        "a54c4c77",
+        "f1a6b3f4"
       ],
       "commitRefOverflow": false
     },
@@ -6272,9 +6312,9 @@
         "docs/tasks/TASK-945.md": 2
       },
       "recentCommitRefs": [
-        "30f15b3",
-        "164e647",
-        "83ba793"
+        "30f15b3a",
+        "164e647b",
+        "83ba7936"
       ],
       "commitRefOverflow": false
     },
@@ -6294,11 +6334,11 @@
         "docs/tasks/TASK-944.md": 1
       },
       "recentCommitRefs": [
-        "be54376",
-        "4c595bd",
-        "58fa008",
-        "b7ccd27",
-        "b287a04"
+        "be54376a",
+        "4c595bd6",
+        "58fa008c",
+        "b7ccd274",
+        "b287a04b"
       ],
       "commitRefOverflow": false
     },
@@ -6316,10 +6356,10 @@
         "scripts/arch.sh": 1
       },
       "recentCommitRefs": [
-        "2313e06",
-        "31c78ff",
-        "2cd38d2",
-        "135a49f"
+        "2313e068",
+        "31c78ffe",
+        "2cd38d2a",
+        "135a49f9"
       ],
       "commitRefOverflow": false
     },
@@ -6375,26 +6415,26 @@
         "docs/tasks/TASK-254.md": 1
       },
       "recentCommitRefs": [
-        "b1b144d",
-        "5812f05",
-        "1fcb583",
-        "0f646f2",
-        "d2dedb0",
-        "8a1f0d0",
-        "0cda162",
-        "1b15c8a",
-        "0bfec52",
-        "785e985",
-        "f0faaf5",
-        "2e23322",
-        "3276b04",
-        "41077ee",
-        "53969f7",
-        "dac3a1e",
-        "fc39bf8",
-        "1217c08",
-        "665755f",
-        "f16691b"
+        "b1b144d6",
+        "5812f053",
+        "1fcb5837",
+        "0f646f23",
+        "d2dedb09",
+        "8a1f0d0b",
+        "0cda162a",
+        "1b15c8ac",
+        "0bfec523",
+        "785e985f",
+        "f0faaf5c",
+        "2e233226",
+        "3276b04f",
+        "41077ee0",
+        "53969f70",
+        "dac3a1e1",
+        "fc39bf89",
+        "1217c080",
+        "665755fd",
+        "f16691bc"
       ],
       "commitRefOverflow": true
     },
@@ -6414,12 +6454,12 @@
         "docs/tasks/TASK-938.md": 1
       },
       "recentCommitRefs": [
-        "353aeab",
-        "0292eb4",
-        "4054b60",
-        "562d322",
-        "7ffd6ee",
-        "cee9dd3"
+        "353aeab7",
+        "0292eb43",
+        "4054b60d",
+        "562d3227",
+        "7ffd6ee4",
+        "cee9dd30"
       ],
       "commitRefOverflow": false
     },
@@ -6442,15 +6482,15 @@
         "docs/archive/TASK-941.md": 1
       },
       "recentCommitRefs": [
-        "0292eb4",
-        "4054b60",
-        "562d322",
-        "7ffd6ee",
-        "b0d497e",
-        "e3838d0",
-        "cee9dd3",
-        "921e881",
-        "ec30b46"
+        "0292eb43",
+        "4054b60d",
+        "562d3227",
+        "7ffd6ee4",
+        "b0d497ef",
+        "e3838d0f",
+        "cee9dd30",
+        "921e8815",
+        "ec30b467"
       ],
       "commitRefOverflow": false
     },
@@ -6476,12 +6516,12 @@
         "docs/tasks/TASK-939.md": 1
       },
       "recentCommitRefs": [
-        "0420409",
-        "0410cda",
-        "2e7c1dd",
-        "84a64f6",
-        "cee9dd3",
-        "99381dd"
+        "0420409c",
+        "0410cda8",
+        "2e7c1dd1",
+        "84a64f65",
+        "cee9dd30",
+        "99381dd3"
       ],
       "commitRefOverflow": false
     },
@@ -6508,13 +6548,13 @@
         "docs/tasks/TASK-939.md": 1
       },
       "recentCommitRefs": [
-        "e3ad55d",
-        "4634fdb",
-        "cdcbcdf",
-        "0e2a4a1",
-        "7629dce",
-        "2874d10",
-        "99381dd"
+        "e3ad55d2",
+        "4634fdba",
+        "cdcbcdf9",
+        "0e2a4a11",
+        "7629dce8",
+        "2874d104",
+        "99381dd3"
       ],
       "commitRefOverflow": false
     },
@@ -6529,7 +6569,7 @@
         "docs/tasks/TASK-940.md": 1
       },
       "recentCommitRefs": [
-        "ec6658a"
+        "ec6658a8"
       ],
       "commitRefOverflow": false
     },
@@ -6549,11 +6589,11 @@
         "docs/tasks/TASK-250.md": 4
       },
       "recentCommitRefs": [
-        "ec6658a",
-        "66a130f",
-        "44d4a81",
-        "0659222",
-        "3fd5ebb"
+        "ec6658a8",
+        "66a130f1",
+        "44d4a818",
+        "0659222d",
+        "3fd5ebbd"
       ],
       "commitRefOverflow": false
     },
@@ -6570,7 +6610,7 @@
         "docs/tasks/TASK-939.md": 1
       },
       "recentCommitRefs": [
-        "99381dd"
+        "99381dd3"
       ],
       "commitRefOverflow": false
     },
@@ -6589,8 +6629,8 @@
         "docs/tasks/TASK-936.md": 2
       },
       "recentCommitRefs": [
-        "7c8db2d",
-        "b9a5e40"
+        "7c8db2df",
+        "b9a5e40b"
       ],
       "commitRefOverflow": false
     },
@@ -6606,8 +6646,8 @@
         "docs/tasks/TASK-935.md": 2
       },
       "recentCommitRefs": [
-        "718b2b8",
-        "9c64198"
+        "718b2b81",
+        "9c64198e"
       ],
       "commitRefOverflow": false
     },
@@ -6637,24 +6677,24 @@
         "docs/agents/THINK.md": 1
       },
       "recentCommitRefs": [
-        "718b2b8",
-        "526532e",
-        "0272a83",
-        "291e637",
-        "e3c2670",
-        "c0195c0",
-        "7d64a5f",
-        "ce4d49e",
-        "b6fc79c",
-        "c796bd5",
-        "dec6167",
-        "7af5c0b",
-        "067e845",
-        "e7fe355",
-        "e565f24",
-        "ce1e6fa",
-        "5632066",
-        "5795609"
+        "718b2b81",
+        "526532e8",
+        "0272a83b",
+        "291e6372",
+        "e3c2670a",
+        "c0195c00",
+        "7d64a5fa",
+        "ce4d49ee",
+        "b6fc79c0",
+        "c796bd50",
+        "dec6167f",
+        "7af5c0b9",
+        "067e845f",
+        "e7fe3558",
+        "e565f249",
+        "ce1e6fae",
+        "56320661",
+        "57956098"
       ],
       "commitRefOverflow": false
     },
@@ -6686,21 +6726,21 @@
         "cli/src/main/ts/application/use-cases/lightweight-metrics-refresh.ts": 1
       },
       "recentCommitRefs": [
-        "718b2b8",
-        "f7568bf",
-        "0272a83",
-        "42bcfa4",
-        "30e4460",
-        "ebb3d26",
-        "b6ca02f",
-        "776d2b9",
-        "9765b49",
-        "e14578a",
-        "b24f537",
-        "ba9ef96",
-        "a2166ac",
-        "5632066",
-        "5795609"
+        "718b2b81",
+        "f7568bfa",
+        "0272a83b",
+        "42bcfa43",
+        "30e44605",
+        "ebb3d262",
+        "b6ca02f5",
+        "776d2b9b",
+        "9765b498",
+        "e14578a1",
+        "b24f5379",
+        "ba9ef96c",
+        "a2166aca",
+        "56320661",
+        "57956098"
       ],
       "commitRefOverflow": false
     },
@@ -6732,13 +6772,13 @@
         "docs/refinement/IDEA-corpus-drift-repair.md": 1
       },
       "recentCommitRefs": [
-        "718b2b8",
-        "a7016a9",
-        "a938de9",
-        "11f5cdc",
-        "1a317a0",
-        "ebce982",
-        "867fecf"
+        "718b2b81",
+        "a7016a92",
+        "a938de94",
+        "11f5cdcb",
+        "1a317a06",
+        "ebce982f",
+        "867fecf4"
       ],
       "commitRefOverflow": false
     },
@@ -6760,10 +6800,10 @@
         "docs/refinement/IDEA-tiered-obligations.md": 1
       },
       "recentCommitRefs": [
-        "cc3d76d",
-        "a2dcd66",
-        "b519fa7",
-        "c10d396"
+        "cc3d76d3",
+        "a2dcd66a",
+        "b519fa74",
+        "c10d3960"
       ],
       "commitRefOverflow": false
     },
@@ -6782,9 +6822,9 @@
         "docs/tasks/TASK-930.md": 2
       },
       "recentCommitRefs": [
-        "cc3d76d",
-        "cc5b135",
-        "739762b"
+        "cc3d76d3",
+        "cc5b1353",
+        "739762bf"
       ],
       "commitRefOverflow": false
     },
@@ -6801,8 +6841,8 @@
         "docs/tasks/TASK-931.md": 1
       },
       "recentCommitRefs": [
-        "752879e",
-        "56e757d"
+        "752879ec",
+        "56e757d8"
       ],
       "commitRefOverflow": false
     },
@@ -6817,8 +6857,8 @@
         "docs/tasks/TASK-932.md": 2
       },
       "recentCommitRefs": [
-        "c25ccdd",
-        "addec2c"
+        "c25ccdd3",
+        "addec2c8"
       ],
       "commitRefOverflow": false
     },
@@ -6836,10 +6876,10 @@
         "docs/tasks/TASK-927.md": 1
       },
       "recentCommitRefs": [
-        "dac3a1e",
-        "fc39bf8",
-        "adc4624",
-        "f854d3f"
+        "dac3a1e1",
+        "fc39bf89",
+        "adc46242",
+        "f854d3fd"
       ],
       "commitRefOverflow": false
     },
@@ -6853,7 +6893,7 @@
         "docs/tasks/TASK-933.md": 1
       },
       "recentCommitRefs": [
-        "fc39bf8"
+        "fc39bf89"
       ],
       "commitRefOverflow": false
     },
@@ -6876,10 +6916,10 @@
         "cli/src/test/ts/mark-task-in-progress.test.ts": 1
       },
       "recentCommitRefs": [
-        "1a317a0",
-        "148f74a",
-        "df2cc5d",
-        "ebce982"
+        "1a317a06",
+        "148f74a9",
+        "df2cc5d8",
+        "ebce982f"
       ],
       "commitRefOverflow": false
     },
@@ -6899,9 +6939,9 @@
         "cli/src/test/ts/mark-task-in-progress.test.ts": 1
       },
       "recentCommitRefs": [
-        "148f74a",
-        "df2cc5d",
-        "ebce982"
+        "148f74a9",
+        "df2cc5d8",
+        "ebce982f"
       ],
       "commitRefOverflow": false
     },
@@ -6929,15 +6969,15 @@
         "cli/src/main/ts/domain/services/metrics-engine.ts": 1
       },
       "recentCommitRefs": [
-        "867fecf",
-        "414a527",
-        "ca8c4ad",
-        "00d5190",
-        "3fa9c50",
-        "b3858c7",
-        "f1a8965",
-        "2ad7bac",
-        "f9912d6"
+        "867fecf4",
+        "414a527d",
+        "ca8c4ada",
+        "00d5190a",
+        "3fa9c506",
+        "b3858c7a",
+        "f1a89659",
+        "2ad7bac2",
+        "f9912d69"
       ],
       "commitRefOverflow": false
     },
@@ -6949,8 +6989,8 @@
         "docs/archive/TASK-231.md": 1
       },
       "recentCommitRefs": [
-        "f1a8965",
-        "469b1c8"
+        "f1a89659",
+        "469b1c82"
       ],
       "commitRefOverflow": false
     },
@@ -6974,8 +7014,8 @@
         "docs/tasks/TASK-262.md": 1
       },
       "recentCommitRefs": [
-        "ab3a837",
-        "bb4e4b0"
+        "ab3a8375",
+        "bb4e4b09"
       ],
       "commitRefOverflow": false
     },
@@ -6997,8 +7037,8 @@
         "docs/tasks/TASK-284.md": 1
       },
       "recentCommitRefs": [
-        "ab3a837",
-        "a681e28"
+        "ab3a8375",
+        "a681e282"
       ],
       "commitRefOverflow": false
     },
@@ -7014,7 +7054,7 @@
         "docs/tasks/TASK-284.md": 1
       },
       "recentCommitRefs": [
-        "a681e28"
+        "a681e282"
       ],
       "commitRefOverflow": false
     },
@@ -7030,7 +7070,7 @@
         "docs/tasks/TASK-284.md": 1
       },
       "recentCommitRefs": [
-        "a681e28"
+        "a681e282"
       ],
       "commitRefOverflow": false
     },
@@ -7046,7 +7086,7 @@
         "docs/tasks/TASK-284.md": 1
       },
       "recentCommitRefs": [
-        "a681e28"
+        "a681e282"
       ],
       "commitRefOverflow": false
     },
@@ -7062,7 +7102,7 @@
         "docs/tasks/TASK-284.md": 1
       },
       "recentCommitRefs": [
-        "a681e28"
+        "a681e282"
       ],
       "commitRefOverflow": false
     },
@@ -7078,7 +7118,7 @@
         "docs/tasks/TASK-284.md": 1
       },
       "recentCommitRefs": [
-        "a681e28"
+        "a681e282"
       ],
       "commitRefOverflow": false
     },
@@ -7093,7 +7133,7 @@
         "docs/tasks/TASK-278.md": 1
       },
       "recentCommitRefs": [
-        "dd478e7"
+        "dd478e78"
       ],
       "commitRefOverflow": false
     },
@@ -7108,7 +7148,7 @@
         "docs/tasks/TASK-278.md": 1
       },
       "recentCommitRefs": [
-        "dd478e7"
+        "dd478e78"
       ],
       "commitRefOverflow": false
     },
@@ -7123,7 +7163,7 @@
         "docs/tasks/TASK-278.md": 1
       },
       "recentCommitRefs": [
-        "dd478e7"
+        "dd478e78"
       ],
       "commitRefOverflow": false
     },
@@ -7138,7 +7178,7 @@
         "docs/tasks/TASK-278.md": 1
       },
       "recentCommitRefs": [
-        "dd478e7"
+        "dd478e78"
       ],
       "commitRefOverflow": false
     },
@@ -7153,7 +7193,7 @@
         "docs/tasks/TASK-278.md": 1
       },
       "recentCommitRefs": [
-        "dd478e7"
+        "dd478e78"
       ],
       "commitRefOverflow": false
     },
@@ -7168,7 +7208,7 @@
         "docs/tasks/TASK-273.md": 1
       },
       "recentCommitRefs": [
-        "734ce8d"
+        "734ce8d7"
       ],
       "commitRefOverflow": false
     },
@@ -7183,7 +7223,7 @@
         "docs/tasks/TASK-273.md": 1
       },
       "recentCommitRefs": [
-        "734ce8d"
+        "734ce8d7"
       ],
       "commitRefOverflow": false
     },
@@ -7198,7 +7238,7 @@
         "docs/tasks/TASK-273.md": 1
       },
       "recentCommitRefs": [
-        "734ce8d"
+        "734ce8d7"
       ],
       "commitRefOverflow": false
     },
@@ -7213,7 +7253,7 @@
         "docs/tasks/TASK-273.md": 1
       },
       "recentCommitRefs": [
-        "734ce8d"
+        "734ce8d7"
       ],
       "commitRefOverflow": false
     },
@@ -7228,7 +7268,7 @@
         "docs/tasks/TASK-273.md": 1
       },
       "recentCommitRefs": [
-        "734ce8d"
+        "734ce8d7"
       ],
       "commitRefOverflow": false
     },
@@ -7243,7 +7283,7 @@
         "docs/tasks/TASK-268.md": 1
       },
       "recentCommitRefs": [
-        "9e8bce3"
+        "9e8bce39"
       ],
       "commitRefOverflow": false
     },
@@ -7258,7 +7298,7 @@
         "docs/tasks/TASK-268.md": 1
       },
       "recentCommitRefs": [
-        "9e8bce3"
+        "9e8bce39"
       ],
       "commitRefOverflow": false
     },
@@ -7273,7 +7313,7 @@
         "docs/tasks/TASK-268.md": 1
       },
       "recentCommitRefs": [
-        "9e8bce3"
+        "9e8bce39"
       ],
       "commitRefOverflow": false
     },
@@ -7288,7 +7328,7 @@
         "docs/tasks/TASK-268.md": 1
       },
       "recentCommitRefs": [
-        "9e8bce3"
+        "9e8bce39"
       ],
       "commitRefOverflow": false
     },
@@ -7303,7 +7343,7 @@
         "docs/tasks/TASK-268.md": 1
       },
       "recentCommitRefs": [
-        "9e8bce3"
+        "9e8bce39"
       ],
       "commitRefOverflow": false
     },
@@ -7319,7 +7359,7 @@
         "docs/tasks/TASK-263.md": 1
       },
       "recentCommitRefs": [
-        "bb4e4b0"
+        "bb4e4b09"
       ],
       "commitRefOverflow": false
     },
@@ -7335,7 +7375,7 @@
         "docs/tasks/TASK-263.md": 1
       },
       "recentCommitRefs": [
-        "bb4e4b0"
+        "bb4e4b09"
       ],
       "commitRefOverflow": false
     },
@@ -7351,7 +7391,7 @@
         "docs/tasks/TASK-263.md": 1
       },
       "recentCommitRefs": [
-        "bb4e4b0"
+        "bb4e4b09"
       ],
       "commitRefOverflow": false
     },
@@ -7370,12 +7410,12 @@
         "docs/tasks/TASK-253.md": 1
       },
       "recentCommitRefs": [
-        "36802a8",
-        "b75e443",
-        "72d4353",
-        "6acee74",
-        "55f2bf2",
-        "3f92b1d"
+        "36802a8e",
+        "b75e4438",
+        "72d43538",
+        "6acee748",
+        "55f2bf20",
+        "3f92b1df"
       ],
       "commitRefOverflow": false
     },
@@ -7390,10 +7430,10 @@
         "docs/METRICS.md": 1
       },
       "recentCommitRefs": [
-        "efb2728",
-        "b75e443",
-        "f62d35e",
-        "27bbcac"
+        "efb2728a",
+        "b75e4438",
+        "f62d35e6",
+        "27bbcac2"
       ],
       "commitRefOverflow": false
     },
@@ -7405,7 +7445,7 @@
         "docs/tasks/TASK-254.md": 1
       },
       "recentCommitRefs": [
-        "b75e443"
+        "b75e4438"
       ],
       "commitRefOverflow": false
     },
@@ -7420,13 +7460,13 @@
         "docs/agents/THINK.md": 1
       },
       "recentCommitRefs": [
-        "38eddf8",
-        "0272a83",
-        "9ff7d67",
-        "f6abef9",
-        "1cbc307",
-        "bbb3549",
-        "5795609"
+        "38eddf89",
+        "0272a83b",
+        "9ff7d677",
+        "f6abef92",
+        "1cbc3076",
+        "bbb35491",
+        "57956098"
       ],
       "commitRefOverflow": false
     },
@@ -7453,13 +7493,13 @@
         "docs/tasks/TASK-921.md": 1
       },
       "recentCommitRefs": [
-        "1e12c92",
-        "8825933",
-        "0b82b1d",
-        "57fd872",
-        "d96345f",
-        "8cc2646",
-        "a7f70d0"
+        "1e12c922",
+        "88259330",
+        "0b82b1dc",
+        "57fd8721",
+        "d96345f6",
+        "8cc26464",
+        "a7f70d06"
       ],
       "commitRefOverflow": false
     },
@@ -7470,7 +7510,7 @@
         "docs/tasks/TASK-925.md": 1
       },
       "recentCommitRefs": [
-        "007b16e"
+        "007b16eb"
       ],
       "commitRefOverflow": false
     },
@@ -7481,7 +7521,7 @@
         "docs/tasks/TASK-924.md": 1
       },
       "recentCommitRefs": [
-        "f80a5e5"
+        "f80a5e5f"
       ],
       "commitRefOverflow": false
     },
@@ -7492,8 +7532,8 @@
         "docs/tasks/TASK-923.md": 2
       },
       "recentCommitRefs": [
-        "ce74295",
-        "3618959"
+        "ce74295d",
+        "36189592"
       ],
       "commitRefOverflow": false
     },
@@ -7514,12 +7554,12 @@
         ".arch/focus-ledger.jsonl": 2
       },
       "recentCommitRefs": [
-        "6b7d323",
-        "8720dae",
-        "ce57817",
-        "16a2803",
-        "f42ac2c",
-        "637dbf2"
+        "6b7d3231",
+        "8720dae8",
+        "ce578175",
+        "16a28035",
+        "f42ac2cc",
+        "637dbf22"
       ],
       "commitRefOverflow": false
     },
@@ -7545,11 +7585,11 @@
         ".arch/focus-ledger.jsonl": 1
       },
       "recentCommitRefs": [
-        "b9d6020",
-        "86df5b9",
-        "3fec841",
-        "0f4e653",
-        "9f5251c"
+        "b9d6020b",
+        "86df5b90",
+        "3fec8416",
+        "0f4e6539",
+        "9f5251c7"
       ],
       "commitRefOverflow": false
     },
@@ -7572,12 +7612,12 @@
         ".arch/focus-ledger.jsonl": 1
       },
       "recentCommitRefs": [
-        "089d290",
-        "39d97e7",
-        "e210a7e",
-        "2002dc1",
-        "a7f70d0",
-        "c3be2c2"
+        "089d290c",
+        "39d97e7b",
+        "e210a7e2",
+        "2002dc19",
+        "a7f70d06",
+        "c3be2c24"
       ],
       "commitRefOverflow": false
     },
@@ -7598,11 +7638,11 @@
         ".arch/focus-ledger.jsonl": 1
       },
       "recentCommitRefs": [
-        "2a2064c",
-        "ce808f6",
-        "8d25072",
-        "dfb3c1c",
-        "bfaf8dd"
+        "2a2064cc",
+        "ce808f6d",
+        "8d250728",
+        "dfb3c1c4",
+        "bfaf8dd3"
       ],
       "commitRefOverflow": false
     },
@@ -7630,12 +7670,12 @@
         ".arch/focus-ledger.jsonl": 2
       },
       "recentCommitRefs": [
-        "676e9de",
-        "20859b1",
-        "b736de1",
-        "c3c94d7",
-        "b499049",
-        "2f2d356"
+        "676e9deb",
+        "20859b1a",
+        "b736de14",
+        "c3c94d7e",
+        "b4990493",
+        "2f2d3561"
       ],
       "commitRefOverflow": false
     },
@@ -7667,12 +7707,12 @@
         ".arch/focus-ledger.jsonl": 2
       },
       "recentCommitRefs": [
-        "2087166",
-        "25f3799",
-        "475cf0f",
-        "dca8e4f",
-        "dbdc76c",
-        "9e17cb5"
+        "2087166b",
+        "25f3799d",
+        "475cf0ff",
+        "dca8e4f4",
+        "dbdc76cb",
+        "9e17cb56"
       ],
       "commitRefOverflow": false
     },
@@ -7691,11 +7731,11 @@
         ".arch/focus-ledger.jsonl": 1
       },
       "recentCommitRefs": [
-        "2526545",
-        "3a10015",
-        "3ba95ef",
-        "9d9f9dd",
-        "353802d"
+        "2526545e",
+        "3a100155",
+        "3ba95ef4",
+        "9d9f9dda",
+        "353802dc"
       ],
       "commitRefOverflow": false
     },
@@ -7714,12 +7754,12 @@
         ".arch/focus-ledger.jsonl": 2
       },
       "recentCommitRefs": [
-        "f8303e7",
-        "0f0fead",
-        "37bc062",
-        "de9f8f9",
-        "33991eb",
-        "788a557"
+        "f8303e7a",
+        "0f0fead5",
+        "37bc0623",
+        "de9f8f97",
+        "33991eb3",
+        "788a557b"
       ],
       "commitRefOverflow": false
     },
@@ -7738,10 +7778,10 @@
         "docs/tasks/TASK-912.md": 1
       },
       "recentCommitRefs": [
-        "1881d9d",
-        "e4cec8b",
-        "42dfb74",
-        "704eb7b"
+        "1881d9dd",
+        "e4cec8b6",
+        "42dfb749",
+        "704eb7bd"
       ],
       "commitRefOverflow": false
     },
@@ -7763,13 +7803,13 @@
         ".arch/focus-ledger.jsonl": 2
       },
       "recentCommitRefs": [
-        "ef80331",
-        "09895dc",
-        "1ce8c9c",
-        "27cf263",
-        "749a0eb",
-        "29edbd3",
-        "c07bb38"
+        "ef803314",
+        "09895dc5",
+        "1ce8c9c1",
+        "27cf2634",
+        "749a0eb7",
+        "29edbd33",
+        "c07bb380"
       ],
       "commitRefOverflow": false
     },
@@ -7785,12 +7825,12 @@
         "docs/tasks/TASK-909.md": 1
       },
       "recentCommitRefs": [
-        "bbee21d",
-        "c1aeccc",
-        "0344de1",
-        "b5d4c85",
-        "41d24d0",
-        "413371f"
+        "bbee21d5",
+        "c1aeccc0",
+        "0344de1b",
+        "b5d4c851",
+        "41d24d01",
+        "413371f1"
       ],
       "commitRefOverflow": false
     },
@@ -7812,13 +7852,13 @@
         ".arch/focus-ledger.jsonl": 2
       },
       "recentCommitRefs": [
-        "bbee21d",
-        "1d5a33c",
-        "2ec8be3",
-        "37f8769",
-        "9dd1325",
-        "bfea1fb",
-        "5a9e783"
+        "bbee21d5",
+        "1d5a33c3",
+        "2ec8be35",
+        "37f87690",
+        "9dd1325f",
+        "bfea1fb3",
+        "5a9e7832"
       ],
       "commitRefOverflow": false
     },
@@ -7839,13 +7879,13 @@
         ".arch/focus-ledger.jsonl": 2
       },
       "recentCommitRefs": [
-        "bbee21d",
-        "49c07d0",
-        "390b27d",
-        "6c4e2be",
-        "0e0ef8c",
-        "4b53f80",
-        "a48ad9b"
+        "bbee21d5",
+        "49c07d0b",
+        "390b27d3",
+        "6c4e2be9",
+        "0e0ef8cf",
+        "4b53f803",
+        "a48ad9b9"
       ],
       "commitRefOverflow": false
     },
@@ -7865,12 +7905,12 @@
         ".arch/focus-ledger.jsonl": 2
       },
       "recentCommitRefs": [
-        "32e413d",
-        "993dc32",
-        "754400c",
-        "340bd1a",
-        "f25cda8",
-        "5064657"
+        "32e413d9",
+        "993dc329",
+        "754400c1",
+        "340bd1a4",
+        "f25cda8b",
+        "50646570"
       ],
       "commitRefOverflow": false
     },
@@ -7890,11 +7930,11 @@
         ".arch/focus-ledger.jsonl": 1
       },
       "recentCommitRefs": [
-        "850d227",
-        "e955bfc",
-        "f9f7a8d",
-        "960bba3",
-        "eecf9f5"
+        "850d227f",
+        "e955bfc7",
+        "f9f7a8dc",
+        "960bba3b",
+        "eecf9f5a"
       ],
       "commitRefOverflow": false
     },
@@ -7916,11 +7956,11 @@
         ".arch/focus-ledger.jsonl": 1
       },
       "recentCommitRefs": [
-        "bc174f5",
-        "aa52ce8",
-        "12ef0a5",
-        "d8e5d77",
-        "54ac94e"
+        "bc174f5b",
+        "aa52ce83",
+        "12ef0a51",
+        "d8e5d779",
+        "54ac94ea"
       ],
       "commitRefOverflow": false
     },
@@ -7942,12 +7982,12 @@
         ".arch/focus-ledger.jsonl": 2
       },
       "recentCommitRefs": [
-        "d2cfd49",
-        "9f25fb8",
-        "4259a1c",
-        "dd7d349",
-        "e6636f5",
-        "732f0d2"
+        "d2cfd491",
+        "9f25fb8f",
+        "4259a1c7",
+        "dd7d3496",
+        "e6636f5a",
+        "732f0d28"
       ],
       "commitRefOverflow": false
     },
@@ -7972,12 +8012,12 @@
         ".arch/focus-ledger.jsonl": 2
       },
       "recentCommitRefs": [
-        "a20cb0a",
-        "2194ce7",
-        "1d7fbb6",
-        "baf30fa",
-        "15e1462",
-        "1696697"
+        "a20cb0a6",
+        "2194ce70",
+        "1d7fbb60",
+        "baf30fa4",
+        "15e1462d",
+        "16966976"
       ],
       "commitRefOverflow": false
     },
@@ -7996,12 +8036,12 @@
         ".arch/focus-ledger.jsonl": 2
       },
       "recentCommitRefs": [
-        "f8bb7ed",
-        "d19a1e8",
-        "78bf182",
-        "228ed1a",
-        "207110c",
-        "d1323e1"
+        "f8bb7ed8",
+        "d19a1e82",
+        "78bf1826",
+        "228ed1a5",
+        "207110c2",
+        "d1323e1c"
       ],
       "commitRefOverflow": false
     },
@@ -8018,10 +8058,10 @@
         ".arch/focus-ledger.jsonl": 1
       },
       "recentCommitRefs": [
-        "6b5b6ef",
-        "5caf4b1",
-        "4620fd5",
-        "3b45255"
+        "6b5b6ef8",
+        "5caf4b1a",
+        "4620fd5d",
+        "3b452555"
       ],
       "commitRefOverflow": false
     },
@@ -8044,13 +8084,13 @@
         ".arch/focus-ledger.jsonl": 1
       },
       "recentCommitRefs": [
-        "b9caaeb",
-        "f98b6bd",
-        "805933f",
-        "6b599c1",
-        "574e3d9",
-        "2af3378",
-        "5548bfd"
+        "b9caaeb9",
+        "f98b6bda",
+        "805933f1",
+        "6b599c1a",
+        "574e3d9f",
+        "2af3378d",
+        "5548bfd2"
       ],
       "commitRefOverflow": false
     },
@@ -8067,10 +8107,10 @@
         ".arch/focus-ledger.jsonl": 1
       },
       "recentCommitRefs": [
-        "10cf662",
-        "c17a8ee",
-        "2f9f680",
-        "9be3d00"
+        "10cf6625",
+        "c17a8eeb",
+        "2f9f680b",
+        "9be3d00b"
       ],
       "commitRefOverflow": false
     },
@@ -8092,13 +8132,13 @@
         ".arch/focus-ledger.jsonl": 3
       },
       "recentCommitRefs": [
-        "38e2529",
-        "d00e6f7",
-        "a1783b8",
-        "f1e914d",
-        "f4084a0",
-        "0f4e4cd",
-        "96985a6"
+        "38e25291",
+        "d00e6f7b",
+        "a1783b84",
+        "f1e914da",
+        "f4084a0f",
+        "0f4e4cde",
+        "96985a6e"
       ],
       "commitRefOverflow": false
     },
@@ -8109,7 +8149,7 @@
         "docs/archive/TASK-237.md": 1
       },
       "recentCommitRefs": [
-        "d64015b"
+        "d64015b8"
       ],
       "commitRefOverflow": false
     },
@@ -8120,7 +8160,7 @@
         "docs/archive/TASK-236.md": 1
       },
       "recentCommitRefs": [
-        "50c8092"
+        "50c80923"
       ],
       "commitRefOverflow": false
     },
@@ -8131,7 +8171,7 @@
         "docs/archive/TASK-235.md": 1
       },
       "recentCommitRefs": [
-        "04b3a50"
+        "04b3a507"
       ],
       "commitRefOverflow": false
     },
@@ -8142,7 +8182,7 @@
         "docs/archive/TASK-234.md": 1
       },
       "recentCommitRefs": [
-        "7dbe4d4"
+        "7dbe4d40"
       ],
       "commitRefOverflow": false
     },
@@ -8166,15 +8206,15 @@
         ".arch/focus-ledger.jsonl": 1
       },
       "recentCommitRefs": [
-        "947aad6",
-        "0926332",
-        "137f817",
-        "58d18b3"
+        "947aad63",
+        "0926332d",
+        "137f8171",
+        "58d18b35"
       ],
       "commitRefOverflow": false
     },
     "TASK-204": {
-      "commitCount": 6,
+      "commitCount": 5,
       "lastCommitDate": "2026-05-16T17:20:42+00:00",
       "touchedFrequency": {
         "docs/archive/TASK-204.md": 1,
@@ -8185,20 +8225,19 @@
         "docs/EVENTS.md": 1,
         "docs/HALT-LOG.md": 1,
         "docs/tasks/TASK-204.md": 2,
-        ".arch/focus-ledger.jsonl": 3
+        ".arch/focus-ledger.jsonl": 2
       },
       "recentCommitRefs": [
-        "ce88231",
-        "c5e61f6",
-        "b72f74e",
-        "585cfa6",
-        "94cd45c",
-        "27bb2c9"
+        "ce88231c",
+        "c5e61f65",
+        "b72f74e6",
+        "585cfa61",
+        "94cd45c7"
       ],
       "commitRefOverflow": false
     },
     "TASK-207": {
-      "commitCount": 5,
+      "commitCount": 3,
       "lastCommitDate": "2026-05-16T17:12:36+00:00",
       "touchedFrequency": {
         ".arch/chronicle.jsonl": 2,
@@ -8216,35 +8255,12 @@
         "cli/src/main/ts/infrastructure/filesystem/markdown-task-repository.ts": 1,
         "cli/src/test/ts/deterministic-ac-verifier.test.ts": 1,
         "docs/tasks/TASK-204.md": 1,
-        "docs/tasks/TASK-207.md": 2,
-        ".arch/focus-ledger.jsonl": 1
-      },
-      "recentCommitRefs": [
-        "38ef1df",
-        "f930c58",
-        "999c21c",
-        "b212193",
-        "cd18b22"
-      ],
-      "commitRefOverflow": false
-    },
-    "TASK-203": {
-      "commitCount": 2,
-      "lastCommitDate": "2026-05-16T16:27:09+00:00",
-      "touchedFrequency": {
-        "docs/archive/TASK-203.md": 1,
-        ".arch/chronicle.jsonl": 1,
-        ".arch/reflect-breach-log.jsonl": 1,
-        "cli/src/main/ts/application/commands/next-command.ts": 1,
-        "cli/src/main/ts/application/commands/task-command.ts": 1,
-        "cli/src/main/ts/application/use-cases/mark-task-in-progress.ts": 1,
-        "cli/src/main/ts/index.ts": 1,
-        "docs/tasks/TASK-203.md": 1,
         "docs/tasks/TASK-207.md": 1
       },
       "recentCommitRefs": [
-        "853d02a",
-        "089e8b3"
+        "38ef1df4",
+        "f930c580",
+        "999c21c6"
       ],
       "commitRefOverflow": false
     }
