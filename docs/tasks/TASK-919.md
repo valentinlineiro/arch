@@ -1,8 +1,9 @@
 ## TASK-919: arch init: full repo scaffolding with stack detection
-**Meta:** P2 | M | REVIEW | Focus:no | 2-code-generation | claude-code | cli/src/main/ts/application/commands/init-command.ts
+**Meta:** P2 | M | DONE | Focus:no | 2-code-generation | claude-code | cli/src/main/ts/application/commands/init-command.ts
 **Actor:** unknown
 **Locked-commit:** c88385b
 **Created-at:** 2026-05-19T09:46:13.896Z
+**Closed-at:** 2026-05-19T10:15:00.000Z
 
 **Depends:** TASK-918
 
