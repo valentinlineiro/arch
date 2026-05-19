@@ -1,5 +1,5 @@
 ## TASK-956: Implement two-track versioning architecture
-**Meta:** P1 | M | IN_PROGRESS | Focus:no | 2-code-generation | claude | arch.config.json, cli/package.json, cli/src/main/ts/application/use-cases/drift-checker.ts, docs/PROTOCOL.md, docs/guidelines/versioning.md
+**Meta:** P1 | M | REVIEW | Focus:no | 2-code-generation | claude | arch.config.json, cli/package.json, cli/src/main/ts/application/use-cases/drift-checker.ts, docs/PROTOCOL.md, docs/guidelines/versioning.md
 **Actor:** unknown
 **Locked-commit:** 9414abd1
 **Created-at:** 2026-05-19T14:17:38.079Z
