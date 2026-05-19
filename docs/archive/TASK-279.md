@@ -1,5 +1,7 @@
 ## TASK-279: Implement arch ask - memory queries over the full ARCH operational corpus
-**Meta:** P1 | M | IN_PROGRESS | Focus:yes | 2-code-generation | claude | cli/src/main/ts/
+**Meta:** P1 | M | DONE | Focus:no | 2-code-generation | claude | cli/src/main/ts/
+**Turns:** 1
+**Closed-at:** 2026-05-19T12:02:23.796Z
 **Actor:** unknown
 **Locked-commit:** ee9dee2b
 **Created-at:** 2026-05-19T12:01:26.213Z
