@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-19T10:12:10.474Z",
+  "builtAt": "2026-05-19T10:22:02.703Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -4527,6 +4527,12 @@
           ],
           "taskPath": "docs/archive/TASK-253.md"
         },
+        "TASK-259": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-259.md"
+        },
         "TASK-890": {
           "evidenceKinds": [
             "literal-mention"
@@ -4608,6 +4614,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-157.md"
+        },
+        "TASK-259": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-259.md"
         },
         "TASK-891": {
           "evidenceKinds": [
@@ -4760,6 +4772,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-201.md"
+        },
+        "TASK-259": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-259.md"
         },
         "TASK-890": {
           "evidenceKinds": [
@@ -5814,11 +5832,11 @@
     }
   },
   "tasks": {
-    "TASK-259": {
-      "commitCount": 5,
-      "lastCommitDate": "2026-05-19T12:12:10+02:00",
+    "TASK-262": {
+      "commitCount": 2,
+      "lastCommitDate": "2026-05-19T12:22:02+02:00",
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 4,
+        ".arch/focus-ledger.jsonl": 1,
         ".arch/escalations.jsonl": 1,
         "docs/tasks/TASK-259.md": 1,
         "docs/tasks/TASK-260.md": 1,
@@ -5827,6 +5845,27 @@
         "docs/tasks/TASK-263.md": 1
       },
       "recentCommitRefs": [
+        "5db89d68",
+        "bb4e4b09"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-259": {
+      "commitCount": 7,
+      "lastCommitDate": "2026-05-19T12:22:02+02:00",
+      "touchedFrequency": {
+        "docs/archive/TASK-259.md": 1,
+        "docs/tasks/TASK-259.md": 2,
+        ".arch/focus-ledger.jsonl": 4,
+        ".arch/escalations.jsonl": 1,
+        "docs/tasks/TASK-260.md": 1,
+        "docs/tasks/TASK-261.md": 1,
+        "docs/tasks/TASK-262.md": 1,
+        "docs/tasks/TASK-263.md": 1
+      },
+      "recentCommitRefs": [
+        "d448515a",
+        "c8449fc0",
         "0f1de9f3",
         "f97a6407",
         "b81087f8",
@@ -7368,22 +7407,6 @@
       ],
       "commitRefOverflow": false
     },
-    "TASK-262": {
-      "commitCount": 1,
-      "lastCommitDate": "2026-05-18T08:58:10+02:00",
-      "touchedFrequency": {
-        ".arch/escalations.jsonl": 1,
-        "docs/tasks/TASK-259.md": 1,
-        "docs/tasks/TASK-260.md": 1,
-        "docs/tasks/TASK-261.md": 1,
-        "docs/tasks/TASK-262.md": 1,
-        "docs/tasks/TASK-263.md": 1
-      },
-      "recentCommitRefs": [
-        "bb4e4b09"
-      ],
-      "commitRefOverflow": false
-    },
     "TASK-263": {
       "commitCount": 1,
       "lastCommitDate": "2026-05-18T08:58:10+02:00",
@@ -8192,7 +8215,7 @@
       "commitRefOverflow": false
     },
     "TASK-208": {
-      "commitCount": 4,
+      "commitCount": 3,
       "lastCommitDate": "2026-05-16T17:26:48+00:00",
       "touchedFrequency": {
         "docs/archive/TASK-208.md": 1,
@@ -8207,34 +8230,12 @@
         "docs/adr/ADR-009-l3-self-archive.md": 1,
         "docs/agents/DO.md": 1,
         "docs/tasks/TASK-208.md": 2,
-        "docs/tasks/TASK-246.md": 1,
-        ".arch/focus-ledger.jsonl": 1
+        "docs/tasks/TASK-246.md": 1
       },
       "recentCommitRefs": [
         "947aad63",
         "0926332d",
-        "137f8171",
-        "58d18b35"
-      ],
-      "commitRefOverflow": false
-    },
-    "TASK-204": {
-      "commitCount": 3,
-      "lastCommitDate": "2026-05-16T17:20:42+00:00",
-      "touchedFrequency": {
-        "docs/archive/TASK-204.md": 1,
-        ".arch/chronicle.jsonl": 1,
-        ".arch/reflect-breach-log.jsonl": 1,
-        "cli/src/main/ts/application/use-cases/drift-checker.ts": 1,
-        "cli/src/test/ts/escalation-maturity-e5.test.ts": 1,
-        "docs/EVENTS.md": 1,
-        "docs/HALT-LOG.md": 1,
-        "docs/tasks/TASK-204.md": 2
-      },
-      "recentCommitRefs": [
-        "ce88231c",
-        "c5e61f65",
-        "b72f74e6"
+        "137f8171"
       ],
       "commitRefOverflow": false
     }
