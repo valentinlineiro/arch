@@ -141,6 +141,43 @@ test('reflect hansei Tier 2 output is labelled ADVISORY and states it is not a g
   );
 });
 
+test('reflect hansei Tier 2 exits 0 even when LLM CLI returns non-zero', async () => {
+  const fakeTaskContent = `## TASK-999\n**Meta:** P1 | S | REVIEW | Focus:no | 2-code-generation | claude |\n\n| REVIEW |\n`;
+  // CLI bin: 'sh' (always present); template exits 1 to simulate LLM failure
+  const fakeConfig = JSON.stringify({
+    clis: [{ name: 'sh', bin: 'sh', template: 'exit 1' }]
+  });
+
+  const originalReadFileSync = fs.readFileSync;
+  const originalReaddirSync = fs.readdirSync;
+
+  (fs as any).readFileSync = (path: string, enc: string) => {
+    if (String(path).endsWith('arch.config.json')) return fakeConfig;
+    if (String(path).includes('TASK-999')) return fakeTaskContent;
+    return originalReadFileSync(path, enc as any);
+  };
+  (fs as any).readdirSync = (path: string) => {
+    if (String(path).includes('docs/tasks')) return ['TASK-999.md'];
+    return (originalReaddirSync as any)(path);
+  };
+
+  let exitCode: number | undefined;
+  try {
+    const mockFs = new MockFileSystem();
+    const mockRepo = { getById: async () => null };
+    const cmd = new ReflectCommand(mockFs, '.', mockRepo);
+    exitCode = await captureExit(() => cmd.execute(['hansei']));
+  } finally {
+    (fs as any).readFileSync = originalReadFileSync;
+    (fs as any).readdirSync = originalReaddirSync;
+  }
+
+  assert.strictEqual(
+    exitCode, 0,
+    `Expected exit 0 but got ${exitCode} — Tier 2 must not propagate LLM CLI exit code (ADR-023)`
+  );
+});
+
 test('reflect command injects DEEP mode preamble when --deep flag present', async () => {
   const writtenFiles: Record<string, string> = {};
 

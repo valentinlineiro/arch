@@ -1,6 +1,6 @@
 # ADR-023: Deterministic Gate Invariant
 
-**Status:** Accepted
+**Status:** ACCEPTED
 **Date:** 2026-05-19
 **Deciders:** valentinlineiro
 
@@ -23,6 +23,7 @@ Prior to this ADR, `arch reflect hansei` Tier 2 called `process.exit(result.stat
 | `arch reflect hansei` Tier 1 | Deterministic (diff-based) | None |
 | `arch reflect hansei` Tier 2 | Advisory | Produces human-readable analysis only |
 | `arch reflect` (THINK mode) | Advisory | Produces proposals only |
+| `arch reflect` (THINK mode) | Advisory | Produces proposals only; exit code passes through from the LLM CLI as a terminal passthrough (not a governance gate — THINK is never called from CI) |
 | `arch exec` | Execution | Implements tasks; does not own gates |
 
 ### Enforcement
