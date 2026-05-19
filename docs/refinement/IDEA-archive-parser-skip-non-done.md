@@ -1,7 +1,7 @@
 ## IDEA: archive-parser-skip-non-done
 
 **Status:** DRAFT
-**Sessions:** 1
+**Sessions:** 2 | **Decision-required:** yes
 **Decision:** UNDECIDED
 
 ### Problem
