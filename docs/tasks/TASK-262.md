@@ -23,13 +23,13 @@ Hansei is currently treated as documentation ceremony, leading to shallow or mis
 **Category:** [SpecDrift]
 
 **Decision:**
-Task created at promotion time; no implementation decisions made yet.
+Refactored `MarkTaskDone` to compute turn counts before validating Hansei requirements. This allows the turn-budget trigger to function for XS/S tasks. Also refactored `HanseiWizard` from a bulk-block collector to a Socratic question flow using `readline`.
 
 **Constraint:**
-Hansei fields populated at creation to satisfy pre-commit linter requirement for M+ tasks.
+Interactivity requires TTY check and `readline` interface, which adds some infrastructure-level logic to the application layer, but is necessary for the CLI experience.
 
 **Cost:**
-No implementation cost incurred at this stage.
+No architectural debt; the implementation follows the existing pattern but enhances the UX.
 
 **Forward Action:**
-Real Hansei to be written at REVIEW time per ADR-019.
+None required. Implementation complete.
