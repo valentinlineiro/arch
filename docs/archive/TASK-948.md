@@ -1,5 +1,6 @@
 ## TASK-948: Enhance CLI UX with interactivity and local dashboard
-**Meta:** P3 | S | REVIEW | Focus:no | 7-operations | local | docs/tasks/
+**Meta:** P3 | S | DONE | Focus:no | 7-operations | local | docs/tasks/
+**Closed-at:** 2026-05-19T08:13:08.165Z
 **Actor:** unknown
 **Created-at:** 2026-05-18T15:24:27.986Z
 **Depends:** none
@@ -38,8 +39,8 @@ _confidence: 0.35_
 Enhance CLI UX with interactivity and local dashboard
 
 ### Definition of Done
-- [ ] All ACs checked by Auditor
-- [ ] `arch review` passes
+- [x] All ACs checked by Auditor
+- [x] `arch review` passes
 
 ## Hansei
 **Severity:** H1

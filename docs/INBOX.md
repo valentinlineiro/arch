@@ -33,3 +33,15 @@
 - TASK-945: replace bash scripts/arch.sh references with arch CLI binary
 - TASK-944: collapse arch.sh routing layer into CLI - move AC pre-check
 - TASK-943: fix arch.sh help and task-command help misalignment with can
+## [AWAITING_REVIEW] TASK-948 [L3-AUTO]
+**Closed:** 2026-05-19T08:13:09.097Z
+**Title:** Enhance CLI UX with interactivity and local dashboard
+
+| AC | Type | Pass | Detail |
+|---|---|---|---|
+| Expose `arch status` command for quick sprint progress overv | unknown | ✔ | no predicate declared — treated as prose |
+| Make `arch task start` interactive in TTY mode when no ID is | unknown | ✔ | no predicate declared — treated as prose |
+| Implement `arch govern serve` to launch a local dashboard se | unknown | ✔ | no predicate declared — treated as prose |
+| Update `arch-viewer.html` to fetch from local API when on lo | unknown | ✔ | no predicate declared — treated as prose |
+| Improve main help output with categorized commands. | unknown | ✔ | no predicate declared — treated as prose |
+| `arch review` passes | cmd | ✔ | exit 0 (expected 0) |
