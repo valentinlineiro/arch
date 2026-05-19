@@ -23,8 +23,8 @@ export class InitCommand {
 
     console.log('\n  ARCH — initializing framework\n');
 
-    // Guard: already initialized
-    const alreadyExists = await this.exists('AGENTS.md');
+    // Guard: already initialized (check canonical file)
+    const alreadyExists = await this.exists('docs/AGENTS.md') || await this.exists('AGENTS.md');
     if (alreadyExists && !force) {
       console.log('  Already initialised. Run arch review to check system state.');
       process.exit(0);
@@ -127,7 +127,7 @@ export class InitCommand {
     }
 
     const files: Array<{ dest: string; content: string }> = [
-      { dest: 'AGENTS.md',                               content: this.agentsMd() },
+      { dest: 'docs/AGENTS.md',                          content: this.agentsMd() },
       { dest: 'arch.config.json',                        content: this.archConfig(stack) },
       { dest: 'docs/agents/DO.md',                       content: this.doMd() },
       { dest: 'docs/agents/THINK.md',                    content: this.thinkMd() },
@@ -155,9 +155,10 @@ export class InitCommand {
       }
     }
 
-    // Symlinks
-    await this.createSymlink('AGENTS.md', 'CLAUDE.md');
-    await this.createSymlink('AGENTS.md', 'GEMINI.md');
+    // Symlinks — canonical file is docs/AGENTS.md; root-level names are aliases
+    await this.createSymlink('docs/AGENTS.md', 'AGENTS.md');
+    await this.createSymlink('docs/AGENTS.md', 'CLAUDE.md');
+    await this.createSymlink('docs/AGENTS.md', 'GEMINI.md');
 
     // .gitignore entry
     await this.appendGitignore();
