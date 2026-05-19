@@ -136,3 +136,7 @@
 {"escalation_id": "E-005-fix-class-boundary-violation-excision", "timestamp": "2026-05-18T07:15:00Z", "type": "AWAITING_PROMOTION", "subject": "fix-class-boundary-violation-excision", "reason": "New finding in Phase 2.5", "status": "OPEN"}
 {"escalation_id": "E-006-backlog-compression", "timestamp": "2026-05-18T07:15:00Z", "type": "AWAITING_PROMOTION", "subject": "backlog-compression", "reason": "New finding in Phase 3.6", "status": "OPEN"}
 {"escalation_id": "E-007-automate-turn-count", "timestamp": "2026-05-18T07:15:00Z", "type": "AWAITING_PROMOTION", "subject": "automate-turn-count", "reason": "New finding in Phase 3.6", "status": "OPEN"}
+{"escalation_id":"E-308ad11f","timestamp":"2026-05-19T07:22:00.000Z","type":"AWAITING_PROMOTION","subject":"IDEA-fix-commit-exception-contradiction","reason":"Decision required","status":"OPEN","resolved_at":null,"resolved_by":null}
+{"escalation_id":"E-6c7db9e4","timestamp":"2026-05-19T07:22:00.000Z","type":"AWAITING_PROMOTION","subject":"IDEA-fix-decomposition-duplication","reason":"Decision required","status":"OPEN","resolved_at":null,"resolved_by":null}
+{"escalation_id":"E-1ab2c8d4","timestamp":"2026-05-19T07:22:00.000Z","type":"AWAITING_PROMOTION","subject":"IDEA-fix-governance-terminology-collision","reason":"Decision required","status":"OPEN","resolved_at":null,"resolved_by":null}
+{"escalation_id":"E-f5e1a3b8","timestamp":"2026-05-19T07:22:00.000Z","type":"AWAITING_PROMOTION","subject":"IDEA-temporal-pattern-layer","reason":"Decision required","status":"OPEN","resolved_at":null,"resolved_by":null}
