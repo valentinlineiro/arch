@@ -56,3 +56,9 @@ Making S Hansei conditional on blocker presence requires blocker events to be pe
 
 **Cost:**
 S tasks that encountered significant blockers may close without Hansei in v1. The gap is accepted on the grounds that S tasks are small enough that the debt surface is bounded.
+
+**Forward Action:**
+None required. S blocker-sensitive Hansei is explicitly deferred until structured blocker history is persisted.
+
+## Approval
+Approved-by: valentinlineiro | 2026-05-19

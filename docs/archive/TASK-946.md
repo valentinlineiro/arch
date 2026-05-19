@@ -61,9 +61,12 @@ _confidence: 0.51_
 - [x] `arch review` passes
 
 ## Hansei
-**Severity:** H0
+**Severity:** H1
 **Category:** [SpecDrift]
-**Decision:** Not yet started.
-**Constraint:** Work in progress — no constraint yet identified.
-**Cost:** No cost incurred yet — task just started.
-**Forward Action:** None.
+**Decision:** Two latent bugs surfaced during release work: (1) `modePreamble` was referenced in `reflect-command.ts` but never defined — caused `arch reflect` to throw a ReferenceError on any real invocation. (2) Census budget of 1000 was stale; arch-capture template expansions had pushed docs/tasks/ to 1250+ lines, causing a permanent Census warning. Both fixed in-band. Metrics Narrowing changed from a confidence-threshold guard (`< 0.1`) to an empty-result guard (`files.length === 0 && adrs.length === 0`) after tests revealed the threshold was too aggressive for sparse fixtures.
+**Constraint:** Neither bug was caught by the existing test suite — both were reachable via normal CLI paths. The confidence threshold change required updating the guard condition and three test assertions.
+**Cost:** One extra cycle to identify the Census staleness root cause (required ADR-022). Test assertion updates for the feedback section collapse added minor rework.
+**Forward Action:** None required.
+
+## Approval
+Approved-by: valentinlineiro | 2026-05-19
