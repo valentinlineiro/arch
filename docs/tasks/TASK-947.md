@@ -1,5 +1,5 @@
 ## TASK-947: Bug: getById reads all 340 tasks+archive files to find a task with a known ID
-**Meta:** P2 | S | READY | Focus:no | 2-code-generation | claude | cli/src/main/ts/infrastructure/filesystem/markdown-task-repository.ts
+**Meta:** P1 | S | READY | Focus:no | 2-code-generation | claude | cli/src/main/ts/infrastructure/filesystem/markdown-task-repository.ts
 **Actor:** unknown
 **Created-at:** 2026-05-18T15:07:15.707Z
 **Depends:** none

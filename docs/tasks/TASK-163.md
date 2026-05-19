@@ -1,5 +1,5 @@
 ## TASK-163: Configure GitHub Pages deployment for ARCH control panel
-**Meta:** P3 | XS | READY | Focus:no | 7-operations | local | .github/workflows/
+**Meta:** P3 | XS | BLOCKED | Focus:no | 7-operations | local | .github/workflows/
 **Depends:** TASK-161, TASK-206
 
 ### Acceptance Criteria
