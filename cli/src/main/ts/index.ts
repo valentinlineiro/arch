@@ -88,6 +88,12 @@ async function main() {
       await new StatusCommand(taskRepository, fileSystem, rootPath).execute();
       break;
 
+    case 'sentinel': {
+      const { SentinelCommand } = await import('./application/commands/sentinel-command.js');
+      await new SentinelCommand(fileSystem).execute(args);
+      break;
+    }
+
     // ── arch task <subcommand> ────────────────────────────────────────────────
     case 'task': {
       const sub = args[0];

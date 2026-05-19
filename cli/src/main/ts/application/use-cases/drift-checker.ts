@@ -49,6 +49,7 @@ export class DriftChecker {
       this.checkArchiveMetaIntegrity(),
       this.checkFocusStatusAlignment(),
       this.checkTaskTemplateCompliance(),
+      this.checkSentinelCoverage(),
     ]);
   }
 
@@ -1198,6 +1199,50 @@ export class DriftChecker {
 
     return {
       check: 'HanseiReconciliation',
+      status: details.length === 0 ? 'OK' : 'WARN',
+      details,
+    };
+  }
+
+  private async checkSentinelCoverage(): Promise<DriftResult> {
+    const tasksDir = `${this.rootPath}/docs/tasks`;
+    const sentinelLogPath = `${this.rootPath}/docs/SENTINEL-LOG.md`;
+
+    const SENTINEL_SIZES = new Set(['M', 'L', 'XL']);
+
+    let inProgressFiles: string[] = [];
+    try {
+      inProgressFiles = (await this.fileSystem.readDirectory(tasksDir))
+        .filter(f => f.startsWith('TASK-') && f.endsWith('.md'));
+    } catch {
+      return { check: 'SentinelCoverage', status: 'OK', details: [] };
+    }
+
+    let sentinelLog = '';
+    try {
+      sentinelLog = await this.fileSystem.readFile(sentinelLogPath);
+    } catch {
+      // No log yet — only WARN if IN_PROGRESS M+ tasks exist
+    }
+
+    const details: string[] = [];
+
+    for (const file of inProgressFiles) {
+      const content = await this.fileSystem.readFile(`${tasksDir}/${file}`);
+      if (!content.includes('| IN_PROGRESS |')) continue;
+
+      const metaMatch = content.match(/\*\*Meta:\*\*\s+[^|]+\|\s*(\S+)\s*\|/);
+      const size = metaMatch?.[1] ?? '';
+      if (!SENTINEL_SIZES.has(size)) continue;
+
+      const taskId = file.replace('.md', '');
+      if (!sentinelLog.includes(taskId)) {
+        details.push(`${taskId}: IN_PROGRESS M+ task with no Sentinel log entry — run: arch sentinel log ${taskId} --trigger "<reason>" --outcome GO`);
+      }
+    }
+
+    return {
+      check: 'SentinelCoverage',
       status: details.length === 0 ? 'OK' : 'WARN',
       details,
     };
