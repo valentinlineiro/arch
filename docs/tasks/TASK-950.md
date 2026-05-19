@@ -5,16 +5,11 @@
 **Depends:** none
 
 ### Acceptance Criteria
-- [ ] `docs/adr/ADR-023-deterministic-gate-invariant.md` exists and documents the principle with explicit per-command classification (deterministic vs advisory)
-  - `file: docs/adr/ADR-023-deterministic-gate-invariant.md`
-- [ ] `arch reflect hansei` Tier 2 exit code is always 0 regardless of LLM findings
-  - `file: cli/src/main/ts/application/commands/reflect-command.ts`
-- [ ] Tier 2 output header explicitly reads "ADVISORY" and states it is not a governance gate
-  - `file: cli/src/main/ts/application/commands/reflect-command.ts`
-- [ ] `npm test` passes
-  - `cmd: npm test --prefix cli; exit: 0`
-- [ ] `arch review` passes
-  - `cmd: arch review; exit: 0`
+- [ ] `docs/adr/ADR-023-deterministic-gate-invariant.md` exists and documents the principle with per-command classification table.  →  file: docs/adr/ADR-023-deterministic-gate-invariant.md
+- [ ] `arch reflect hansei` Tier 2 always calls `process.exit(0)` regardless of LLM CLI exit code.  →  grep: "process.exit(0)" cli/src/main/ts/application/commands/reflect-command.ts
+- [ ] Tier 2 output explicitly includes the string "ADVISORY" marking it as non-governance.  →  grep: "ADVISORY" cli/src/main/ts/application/commands/reflect-command.ts
+- [ ] `npm test` passes.  →  cmd: npm test --prefix cli; exit: 0
+- [ ] `arch review` passes.  →  cmd: arch review; exit: 0
 
 ### Context
 
@@ -50,5 +45,5 @@ _confidence: 0.47_
 ADR-023 deterministic gate invariant: Tier 2 hansei exit always 0, document LLM-advisory-only principle
 
 ### Definition of Done
-- [ ] All ACs checked by Auditor
-- [ ] `arch review` passes
+- [ ] All ACs checked.  →  prose: verified by arch task review
+- [ ] `arch review` passes.  →  cmd: arch review; exit: 0
