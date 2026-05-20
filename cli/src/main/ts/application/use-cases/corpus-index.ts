@@ -14,6 +14,9 @@ export interface CorpusEntry {
   cost: string;
   forwardAction: string;
   actor: string | null;
+  acCount: number;
+  acMachineVerifiable: number;
+  closurePath: 'L3' | 'auditor' | 'unknown';
 }
 
 export interface CorpusIndex {
@@ -103,6 +106,17 @@ export class CorpusIndexService {
     if (idx < 0) return null;
     const section = content.slice(idx);
 
+    // AC predicate counts
+    const acSection = content.match(/### Acceptance Criteria([\s\S]*?)(?=\n###|\n##|$)/)?.[1] ?? '';
+    const totalPredicates = [...acSection.matchAll(/^\s+-\s+`(cmd|file|prose):/gim)].length;
+    const machinePredicates = [...acSection.matchAll(/^\s+-\s+`(cmd|file):/gim)].length;
+
+    // Closure path
+    const hasApproval = /^## Approval/m.test(content);
+    const closurePath: 'L3' | 'auditor' | 'unknown' =
+      hasApproval ? 'auditor' :
+      (meta[2] === 'XS' || meta[2] === 'S') ? 'L3' : 'unknown';
+
     return {
       id,
       size: meta[2],
@@ -116,6 +130,9 @@ export class CorpusIndexService {
       constraint: section.match(/\*\*Constraint:\*\*\s*([\s\S]*?)(?=\n\*\*|\Z)/)?.[1]?.trim() ?? '',
       cost: section.match(/\*\*Cost:\*\*\s*([\s\S]*?)(?=\n\*\*|\Z)/)?.[1]?.trim() ?? '',
       forwardAction: section.match(/\*\*Forward Action:\*\*\s*([\s\S]*?)(?=\n\*\*|\n##|$)/)?.[1]?.trim() ?? '',
+      acCount: totalPredicates,
+      acMachineVerifiable: machinePredicates,
+      closurePath,
     };
   }
 
