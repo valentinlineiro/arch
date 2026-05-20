@@ -3879,7 +3879,7 @@
       "title": "Unified Epistemic Invariant Specification — Bounded Stream Enforcement"
     }
   },
-  "builtAt": "2026-05-20T15:13:37.808Z",
+  "builtAt": "2026-05-20T15:18:31.966Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -8051,19 +8051,16 @@
       }
     },
     "TASK-251": {
-      "commitCount": 3,
+      "commitCount": 2,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-18T08:58:10+02:00",
       "recentCommitRefs": [
         "b75e4438",
-        "efb2728a",
-        "f62d35e6"
+        "efb2728a"
       ],
       "touchedFrequency": {
-        "cli/src/main/ts/application/commands/report-command.ts": 1,
-        "docs/METRICS.md": 1,
         "docs/archive/TASK-251.md": 1,
-        "docs/tasks/TASK-251.md": 2,
+        "docs/tasks/TASK-251.md": 1,
         "docs/tasks/TASK-254.md": 1
       }
     },
@@ -8135,12 +8132,11 @@
       }
     },
     "TASK-254": {
-      "commitCount": 5,
+      "commitCount": 4,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-18T08:58:10+02:00",
       "recentCommitRefs": [
         "36802a8e",
-        "55f2bf20",
         "6acee748",
         "72d43538",
         "b75e4438"
@@ -8150,7 +8146,7 @@
         "docs/agents/THINK-audit.md": 2,
         "docs/archive/TASK-254.md": 1,
         "docs/tasks/TASK-251.md": 1,
-        "docs/tasks/TASK-254.md": 4
+        "docs/tasks/TASK-254.md": 3
       }
     },
     "TASK-255": {
@@ -9741,17 +9737,18 @@
       }
     },
     "TASK-954": {
-      "commitCount": 4,
+      "commitCount": 5,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-20T17:13:36+02:00",
+      "lastCommitDate": "2026-05-20T17:18:30+02:00",
       "recentCommitRefs": [
         "038f7deb",
         "31ad8752",
+        "866b0fe6",
         "afdeb28e",
         "da14ec3d"
       ],
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 3,
+        ".arch/focus-ledger.jsonl": 4,
         "docs/refinement/archive/IDEA-temporal-pattern-layer.md": 1,
         "docs/tasks/TASK-954.md": 1
       }
