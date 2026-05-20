@@ -183,8 +183,13 @@ export class MarkTaskDone {
 
 
   private async tryL3Gate(task: Task): Promise<{ passed: boolean; evidence: import('../../domain/services/deterministic-ac-verifier.js').ACEvidence[] }> {
-    const L3_SIZES = ['XS', 'S'];
-    if (!L3_SIZES.includes(task.size?.trim() ?? '')) {
+    const size = task.size?.trim() ?? '';
+    const cls = (task as any).class?.trim() ?? '';
+    const M_ELIGIBLE_CLASSES = ['6-writing', '7-operations'];
+    const isStandardL3 = ['XS', 'S'].includes(size);
+    const isMExtended = size === 'M' && M_ELIGIBLE_CLASSES.includes(cls);
+
+    if (!isStandardL3 && !isMExtended) {
       return { passed: false, evidence: [] };
     }
 
@@ -194,16 +199,36 @@ export class MarkTaskDone {
     if (!result.pass) return { passed: false, evidence: result.evidence };
 
     // Require at least one deterministic (cmd/file) AC — pure-prose tasks need human review
-    const hasVerifiable = result.evidence.some(e => e.type === 'cmd' || e.type === 'file');
+    const DETERMINISTIC_TYPES = new Set(['cmd', 'file', 'file-contains', 'not-file']);
+    const hasVerifiable = result.evidence.some(e => DETERMINISTIC_TYPES.has(e.type));
     if (!hasVerifiable) return { passed: false, evidence: result.evidence };
 
-    // Gate passed — write approval
-    if (task.content && !task.content.includes('## Approval')) {
-      task.content = task.content.rstrip ? task.content : task.content;
-      // Approval will be written by writeL3InboxEntry via taskRepository.save
+    // M extended gate: all ACs must be deterministic, and no protected path modified
+    if (isMExtended) {
+      const NON_DETERMINISTIC = new Set(['prose', 'code', 'unknown']);
+      if (result.evidence.some(e => NON_DETERMINISTIC.has(e.type))) {
+        return { passed: false, evidence: result.evidence };
+      }
+      if (await this.hasProtectedPathModified()) {
+        return { passed: false, evidence: result.evidence };
+      }
     }
 
     return { passed: true, evidence: result.evidence };
+  }
+
+  private async hasProtectedPathModified(): Promise<boolean> {
+    if (!this.gitRepository) return false;
+    try {
+      const { ConfigLoader } = await import('../../domain/services/config-loader.js');
+      const config = await ConfigLoader.load(this.fileSystem);
+      const protectedPaths: string[] = config.governance?.protectedPaths ?? [];
+      if (protectedPaths.length === 0) return false;
+      const changed = await this.gitRepository.getChangedFilesInLastCommit();
+      return changed.some(f => protectedPaths.some(p => f.startsWith(p)));
+    } catch {
+      return false;
+    }
   }
 
   private async writeL3InboxEntry(task: Task, evidence: import('../../domain/services/deterministic-ac-verifier.js').ACEvidence[]): Promise<void> {

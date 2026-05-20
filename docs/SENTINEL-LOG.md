@@ -12,3 +12,4 @@ Append-only log of Sentinel preflight reasoning calls. Each entry records the ta
 | 2026-05-20 12:38:51 | TASK-974 | implementation committed: command registry, FocusLevel enum, scope-aware review — all ACs verified, 562 tests passing | GO |  |
 | 2026-05-20 16:16:20 | TASK-954 | M-size temporal pattern layer — scope assessed before implementation | GO |  |
 | 2026-05-20 16:32:51 | TASK-964 | M-size hansei wizard wiring — scope bounded by existing HanseiWizard class | GO |  |
+| 2026-05-20 16:45:24 | TASK-965 | M-size L3 gate extension — bounded scope: DeterministicACVerifier + tryL3Gate | GO |  |

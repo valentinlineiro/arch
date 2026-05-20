@@ -132,6 +132,72 @@ test('DeterministicACVerifier — no predicate declared: treated as prose, passe
   assert.equal(result.evidence[0].pass, true);
 });
 
+// ── file-contains: predicate ──────────────────────────────────────────────
+
+test('DeterministicACVerifier — file-contains: passes when file has pattern', async () => {
+  const task = makeTask(`## TASK-TEST: Test
+### Acceptance Criteria
+- [ ] package.json contains "name"
+  - \`file-contains: cli/package.json "name"\`
+`);
+  const result = await verifier.verify(task);
+  assert.equal(result.pass, true);
+  assert.equal(result.evidence[0].type, 'file-contains');
+  assert.equal(result.evidence[0].pass, true);
+});
+
+test('DeterministicACVerifier — file-contains: fails when file lacks pattern', async () => {
+  const task = makeTask(`## TASK-TEST: Test
+### Acceptance Criteria
+- [ ] package.json contains impossible string
+  - \`file-contains: cli/package.json "IMPOSSIBLE_STRING_XYZ_NEVER_EXISTS"\`
+`);
+  const result = await verifier.verify(task);
+  assert.equal(result.pass, false);
+  assert.equal(result.evidence[0].type, 'file-contains');
+  assert.equal(result.evidence[0].pass, false);
+  assert.ok(result.evidence[0].detail.includes('not found'));
+});
+
+test('DeterministicACVerifier — file-contains: fails when file does not exist', async () => {
+  const task = makeTask(`## TASK-TEST: Test
+### Acceptance Criteria
+- [ ] missing file
+  - \`file-contains: docs/does-not-exist.md "anything"\`
+`);
+  const result = await verifier.verify(task);
+  assert.equal(result.pass, false);
+  assert.equal(result.evidence[0].type, 'file-contains');
+  assert.equal(result.evidence[0].pass, false);
+});
+
+// ── not-file: predicate ───────────────────────────────────────────────────
+
+test('DeterministicACVerifier — not-file: passes when file does not exist', async () => {
+  const task = makeTask(`## TASK-TEST: Test
+### Acceptance Criteria
+- [ ] ghost file must not exist
+  - \`not-file: docs/this-file-definitely-does-not-exist-at-all.md\`
+`);
+  const result = await verifier.verify(task);
+  assert.equal(result.pass, true);
+  assert.equal(result.evidence[0].type, 'not-file');
+  assert.equal(result.evidence[0].pass, true);
+});
+
+test('DeterministicACVerifier — not-file: fails when file exists', async () => {
+  const task = makeTask(`## TASK-TEST: Test
+### Acceptance Criteria
+- [ ] package.json must not exist (should fail)
+  - \`not-file: cli/package.json\`
+`);
+  const result = await verifier.verify(task);
+  assert.equal(result.pass, false);
+  assert.equal(result.evidence[0].type, 'not-file');
+  assert.equal(result.evidence[0].pass, false);
+  assert.ok(result.evidence[0].detail.includes('exists'));
+});
+
 // ── aggregateHanseiSignals tests ────────────────────────────────────────────
 
 import { aggregateHanseiSignals, WEAK_SIGNAL_THRESHOLD } from '../../main/ts/domain/services/signal-router.js';

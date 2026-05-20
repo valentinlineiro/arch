@@ -65,3 +65,10 @@ Changed files:
 **Size:** M
 **Submitted:** 2026-05-20T16:25:00Z
 **Summary:** Wires `arch task hansei TASK-XXX` subcommand into task-command.ts routing to `HanseiWizard`. Adds `replaceHanseiBlock()` export (replaces or appends Hansei section in task file), `validateForwardAction()` method (H2 requires IDEA/TASK link), non-TTY guard (exits 1 if Hansei incomplete). 14 tests pass. `arch review` exits 0.
+
+## REVIEW_REQUEST
+**Task:** TASK-965
+**Title:** Extend L3 self-archive eligibility to M tasks in 6-writing and 7-operations
+**Size:** M
+**Submitted:** 2026-05-20T16:50:00Z
+**Summary:** Adds `file-contains:` and `not-file:` predicate types to DeterministicACVerifier (5 new tests). Extends tryL3Gate to allow M tasks in `6-writing`/`7-operations` when all ACs are deterministic and no protected path was modified (4 new tests). Also fixes silent predicate drop in parseACLines for new types. 15+26 tests pass. `arch review` exits 0.

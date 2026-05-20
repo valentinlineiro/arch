@@ -1,5 +1,5 @@
 ## TASK-965: Extend L3 self-archive eligibility to M tasks in 6-writing and 7-operations
-**Meta:** P2 | M | IN_PROGRESS | Focus:yes | 2-code-generation | local | cli/src/main/ts/
+**Meta:** P2 | M | REVIEW | Focus:yes | 2-code-generation | local | cli/src/main/ts/
 **Locked-commit:** a7f0dbf6
 **Depends:** none
 
@@ -8,13 +8,13 @@
 `DeterministicACVerifier` has no `file-contains:` or `not-file:` predicate types. `tryL3Gate` in `mark-task-done.ts` hard-codes `['XS', 'S']`. Protected path check needs `gitRepository.getChangedFilesInLastCommit()` + `arch.config.json` `protectedPaths`. All three are bounded by ACs below.
 
 ### Acceptance Criteria
-- [ ] `file-contains: <path> <pattern>` predicate type added to `DeterministicACVerifier` — passes when file contains pattern, fails when absent.  →  cmd: node --import tsx --test src/test/ts/deterministic-ac-verifier.test.ts; exit: 0
-- [ ] `not-file: <path>` predicate type added — passes when file does not exist.  →  cmd: node --import tsx --test src/test/ts/deterministic-ac-verifier.test.ts; exit: 0
-- [ ] M task in `6-writing` or `7-operations` with all `cmd:`/`file:` ACs and `pass:true` is L3 eligible.  →  cmd: node --import tsx --test src/test/ts/mark-task-done.test.ts; exit: 0
-- [ ] M task with any `prose:` AC is NOT L3 eligible even in `6-writing`.  →  cmd: node --import tsx --test src/test/ts/mark-task-done.test.ts; exit: 0
-- [ ] M task in `2-code-generation` is NOT L3 eligible regardless of AC types.  →  cmd: node --import tsx --test src/test/ts/mark-task-done.test.ts; exit: 0
-- [ ] M task with a protected path modified is NOT L3 eligible.  →  cmd: node --import tsx --test src/test/ts/mark-task-done.test.ts; exit: 0
-- [ ] `arch review` passes.  →  cmd: arch review; exit: 0
+- [x] `file-contains: <path> <pattern>` predicate type added to `DeterministicACVerifier` — passes when file contains pattern, fails when absent.  →  cmd: node --import tsx --test src/test/ts/deterministic-ac-verifier.test.ts; exit: 0
+- [x] `not-file: <path>` predicate type added — passes when file does not exist.  →  cmd: node --import tsx --test src/test/ts/deterministic-ac-verifier.test.ts; exit: 0
+- [x] M task in `6-writing` or `7-operations` with all `cmd:`/`file:` ACs and `pass:true` is L3 eligible.  →  cmd: node --import tsx --test src/test/ts/mark-task-done.test.ts; exit: 0
+- [x] M task with any `prose:` AC is NOT L3 eligible even in `6-writing`.  →  cmd: node --import tsx --test src/test/ts/mark-task-done.test.ts; exit: 0
+- [x] M task in `2-code-generation` is NOT L3 eligible regardless of AC types.  →  cmd: node --import tsx --test src/test/ts/mark-task-done.test.ts; exit: 0
+- [x] M task with a protected path modified is NOT L3 eligible.  →  cmd: node --import tsx --test src/test/ts/mark-task-done.test.ts; exit: 0
+- [x] `arch review` passes.  →  cmd: arch review; exit: 0
 
 ### Context
 
@@ -50,13 +50,13 @@ _confidence: 0.46_
 Extend L3 self-archive eligibility to M tasks in 6-writing and 7-operations classes when all ACs have cmd:/file: predicates and DeterministicACVerifier returns pass:true and no protected path was modified. Separately add richer cmd: predicate templates: coverage threshold, file content assertion, negative assertion.
 
 ### Definition of Done
-- [ ] All ACs checked by Auditor
-- [ ] `arch review` passes
+- [x] All ACs checked by Auditor
+- [x] `arch review` passes
 
 ## Hansei
-**Severity:** H0
+**Severity:** H1
 **Category:** [SpecDrift]
-**Decision:** Pending — task not yet complete.
-**Constraint:** Pending — task not yet complete.
-**Cost:** Pending — task not yet complete.
-**Forward Action:** Pending — task not yet complete.
+**Decision:** Task ACs were placeholder stubs at READY — same pattern as TASK-964. ACs rewritten before implementation. One additional discovery: `parseACLines` only recognized `cmd|file|test|prose|code` — had to add `file-contains|not-file` to the recognizer regex or predicates were silently dropped.
+**Constraint:** The predicate recognizer in `parseACLines` used a hard-coded alternation that didn't account for new types. Discovered only when tests showed `type: 'unknown'` for `file-contains:` ACs.
+**Cost:** One extra debugging step to find the silent drop in `parseACLines`. No architectural debt introduced.
+**Forward Action:** None required — the recognizer pattern is now extensible by appending to the alternation.

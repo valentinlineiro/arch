@@ -1,8 +1,8 @@
-import { execSync } from 'node:child_process';
-import { existsSync } from 'node:fs';
+import { execSync, execFileSync } from 'node:child_process';
+import { existsSync, readFileSync } from 'node:fs';
 import type { Task } from '../models/task.js';
 
-export type VerificationType = 'cmd' | 'file' | 'test' | 'prose' | 'code' | 'unknown';
+export type VerificationType = 'cmd' | 'file' | 'file-contains' | 'not-file' | 'test' | 'prose' | 'code' | 'unknown';
 
 export interface ACEvidence {
   ac: string;
@@ -20,6 +20,8 @@ export interface VerificationResult {
 // We match only lines that are standalone predicate declarations, not inline references
 const CMD_PATTERN = /^\s*-\s+`cmd:\s*([^`]+?)(?:;\s*exit:\s*(\d+))?`/im;
 const FILE_PATTERN = /^\s*-\s+`file:\s*([^`]+?)`/im;
+const FILE_CONTAINS_PATTERN = /^\s*-\s+`file-contains:\s*([^`\s]+)\s+"([^"]+)"`/im;
+const NOT_FILE_PATTERN = /^\s*-\s+`not-file:\s*([^`]+?)`/im;
 const TEST_PATTERN = /^\s*-\s+`test:\s*([^`]*?)`/im;
 const PROSE_PATTERN = /^\s*-\s+`prose:\s*([^`]*?)`/im;
 const CODE_PATTERN = /^\s*-\s+`code:\s*([^`]*?)`/im;
@@ -61,7 +63,7 @@ export class DeterministicACVerifier {
 
     for (const line of lines) {
       const isAC = /^- \[(x| )\]/.test(line);
-      const isPredicate = /^\s+- `(cmd|file|test|prose|code):/.test(line);
+      const isPredicate = /^\s+- `(cmd|file|file-contains|not-file|test|prose|code):/.test(line);
 
       if (isAC) {
         if (current) acs.push(current);
@@ -87,6 +89,18 @@ export class DeterministicACVerifier {
     const fileMatch = ac.match(FILE_PATTERN);
     if (fileMatch) {
       return this.verifyFile(label, fileMatch[1].trim());
+    }
+
+    // file-contains: strategy
+    const fileContainsMatch = ac.match(FILE_CONTAINS_PATTERN);
+    if (fileContainsMatch) {
+      return this.verifyFileContains(label, fileContainsMatch[1].trim(), fileContainsMatch[2].trim());
+    }
+
+    // not-file: strategy
+    const notFileMatch = ac.match(NOT_FILE_PATTERN);
+    if (notFileMatch) {
+      return this.verifyNotFile(label, notFileMatch[1].trim());
     }
 
     // test: strategy
@@ -133,6 +147,22 @@ export class DeterministicACVerifier {
     const fullPath = filePath.startsWith('/') ? filePath : `${this.rootPath}/${filePath}`;
     const pass = existsSync(fullPath);
     return { ac, type: 'file', pass, detail: pass ? `exists: ${filePath}` : `missing: ${filePath}` };
+  }
+
+  private verifyFileContains(ac: string, filePath: string, pattern: string): ACEvidence {
+    const fullPath = filePath.startsWith('/') ? filePath : `${this.rootPath}/${filePath}`;
+    if (!existsSync(fullPath)) {
+      return { ac, type: 'file-contains', pass: false, detail: `missing: ${filePath}` };
+    }
+    const content = readFileSync(fullPath, 'utf8');
+    const pass = content.includes(pattern);
+    return { ac, type: 'file-contains', pass, detail: pass ? `found: "${pattern}" in ${filePath}` : `not found: "${pattern}" in ${filePath}` };
+  }
+
+  private verifyNotFile(ac: string, filePath: string): ACEvidence {
+    const fullPath = filePath.startsWith('/') ? filePath : `${this.rootPath}/${filePath}`;
+    const pass = !existsSync(fullPath);
+    return { ac, type: 'not-file', pass, detail: pass ? `absent: ${filePath}` : `exists (expected absent): ${filePath}` };
   }
 
   private verifyTest(ac: string, dir: string): ACEvidence {

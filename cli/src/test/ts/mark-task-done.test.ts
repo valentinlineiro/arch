@@ -250,8 +250,9 @@ const XS_TASK_WITH_CMD_AC = makeTask({
 const M_TASK_WITH_CMD_AC = makeTask({
   id: 'TASK-201',
   size: 'M',
+  class: '2-code-generation',
   status: TaskStatus.IN_PROGRESS,
-  content: `## TASK-201: M with cmd AC\n**Meta:** P2 | M | IN_PROGRESS | Focus:yes | 7-operations | local | none\n\n### Acceptance Criteria\n- [ ] echo passes\n  - \`cmd: echo ok; exit: 0\`\n\n## Hansei\n**Severity:** H0\n**Category:** [AuditGap]\n**Decision:** Test.\n**Constraint:** None — test only.\n**Cost:** No cost introduced.\n**Forward Action:** None required.\n`,
+  content: `## TASK-201: M with cmd AC (2-code-generation — not L3 eligible)\n**Meta:** P2 | M | IN_PROGRESS | Focus:yes | 2-code-generation | local | none\n\n### Acceptance Criteria\n- [ ] echo passes\n  - \`cmd: echo ok; exit: 0\`\n\n## Hansei\n**Severity:** H0\n**Category:** [AuditGap]\n**Decision:** Test.\n**Constraint:** None — test only.\n**Cost:** No cost introduced.\n**Forward Action:** None required.\n`,
   hansei: { severity: 'H0', category: '[AuditGap]', decision: 'Test task for L3 gate verification purposes only.', constraint: 'No constraint — this is a unit test fixture task.', cost: 'No cost introduced by this test fixture task.', forwardAction: 'No forward action required for test fixture.' },
 });
 
@@ -494,4 +495,97 @@ test('MarkTaskDone — no signals emitted for empty content and no depends', asy
   await useCase.execute('TASK-602');
 
   assert.equal(causalLog.appended.length, 0, `should emit no signals, got: ${JSON.stringify(causalLog.appended)}`);
+});
+
+// ── L3 gate extension: M tasks in 6-writing / 7-operations ───────────────
+
+class MockGitRepository {
+  constructor(public changedFiles: string[] = []) {}
+  async getChangedFilesInLastCommit() { return this.changedFiles; }
+  async getDiff() { return ''; }
+  async getLastCommitMessage() { return null; }
+  async getCurrentBranch() { return 'main'; }
+  async getStatusLines() { return []; }
+  async getLog() { return []; }
+  async add() {}
+  async rm() {}
+  async mv() {}
+  async commit() {}
+  async getFileLastModifiedDate() { return null; }
+  async getMergeCommits() { return []; }
+  async getStagedFiles() { return []; }
+  async getModifiedFiles() { return []; }
+  async getRepoRoot() { return '.'; }
+  async getFileFirstCommitDate() { return null; }
+  async getLastCommitHash() { return null; }
+  async getCommitCountBetween() { return null; }
+  async isValidCommitHash() { return false; }
+  async getCommitAuthor() { return null; }
+  async getCommitHistory() { return []; }
+}
+
+const M_6WRITING_ALL_CMD = makeTask({
+  id: 'TASK-210',
+  size: 'M',
+  class: '6-writing',
+  status: TaskStatus.IN_PROGRESS,
+  content: `## TASK-210: M in 6-writing, all cmd: ACs\n**Meta:** P2 | M | IN_PROGRESS | Focus:yes | 6-writing | local | none\n\n### Acceptance Criteria\n- [ ] echo passes\n  - \`cmd: echo ok; exit: 0\`\n\n## Hansei\n**Severity:** H0\n**Category:** [AuditGap]\n**Decision:** Test task for L3 extended gate verification.\n**Constraint:** No constraint — this is a unit test fixture task.\n**Cost:** No cost introduced by this test fixture.\n**Forward Action:** None required.\n`,
+  hansei: { severity: 'H0', category: '[AuditGap]', decision: 'Test task for L3 extended gate.', constraint: 'No constraint — unit test fixture.', cost: 'No cost introduced.', forwardAction: 'None required.' },
+});
+
+const M_7OPS_PROSE_AC = makeTask({
+  id: 'TASK-211',
+  size: 'M',
+  class: '7-operations',
+  status: TaskStatus.IN_PROGRESS,
+  content: `## TASK-211: M in 7-operations, has prose AC — not L3 eligible\n**Meta:** P2 | M | IN_PROGRESS | Focus:yes | 7-operations | local | none\n\n### Acceptance Criteria\n- [ ] human verifies\n  - \`prose: verified manually\`\n\n## Hansei\n**Severity:** H0\n**Category:** [AuditGap]\n**Decision:** Test task for L3 prose-blocks-M gate.\n**Constraint:** No constraint — unit test fixture.\n**Cost:** No cost introduced.\n**Forward Action:** None required.\n`,
+  hansei: { severity: 'H0', category: '[AuditGap]', decision: 'Test task for L3 prose gate.', constraint: 'No constraint — unit test fixture.', cost: 'No cost introduced.', forwardAction: 'None required.' },
+});
+
+test('L3 gate — M task in 6-writing with all cmd: ACs qualifies for self-archive', async () => {
+  const repo = new MockTaskRepository(M_6WRITING_ALL_CMD);
+  const fs = makeMockFs({ hanseiSinceTaskId: 1, governance: { protectedPaths: ['docs/adr/'] } });
+  const git = new MockGitRepository([]);
+  const useCase = new MarkTaskDone(repo, makeMockReviewer(), fs, undefined, undefined, undefined, undefined, git as any);
+
+  await useCase.execute('TASK-210');
+  assert.equal(repo.saved?.status, TaskStatus.DONE);
+  const inbox = fs.files['docs/INBOX.md'] ?? '';
+  assert.ok(inbox.includes('[L3-AUTO]'), `M 6-writing should get L3-AUTO, INBOX: ${inbox.slice(0, 300)}`);
+});
+
+test('L3 gate — M task in 6-writing with prose AC is NOT L3 eligible', async () => {
+  const repo = new MockTaskRepository(M_7OPS_PROSE_AC);
+  const fs = makeMockFs({ hanseiSinceTaskId: 1, governance: { protectedPaths: [] } });
+  const git = new MockGitRepository([]);
+  const useCase = new MarkTaskDone(repo, makeMockReviewer(), fs, undefined, undefined, undefined, undefined, git as any);
+
+  await useCase.execute('TASK-211');
+  assert.equal(repo.saved?.status, TaskStatus.DONE);
+  const inbox = fs.files['docs/INBOX.md'] ?? '';
+  assert.ok(!inbox.includes('[L3-AUTO]'), 'M task with prose AC should NOT get L3-AUTO');
+});
+
+test('L3 gate — M task in 2-code-generation is NOT L3 eligible', async () => {
+  const repo = new MockTaskRepository(M_TASK_WITH_CMD_AC);
+  const fs = makeMockFs({ hanseiSinceTaskId: 1, governance: { protectedPaths: [] } });
+  const git = new MockGitRepository([]);
+  const useCase = new MarkTaskDone(repo, makeMockReviewer(), fs, undefined, undefined, undefined, undefined, git as any);
+
+  await useCase.execute('TASK-201');
+  assert.equal(repo.saved?.status, TaskStatus.DONE);
+  const inbox = fs.files['docs/INBOX.md'] ?? '';
+  assert.ok(!inbox.includes('[L3-AUTO]'), '2-code-generation M task should NOT get L3-AUTO');
+});
+
+test('L3 gate — M task in 6-writing with protected path modified is NOT L3 eligible', async () => {
+  const repo = new MockTaskRepository(M_6WRITING_ALL_CMD);
+  const fs = makeMockFs({ hanseiSinceTaskId: 1, governance: { protectedPaths: ['cli/src/main/ts/domain/models/'] } });
+  const git = new MockGitRepository(['cli/src/main/ts/domain/models/task.ts']);
+  const useCase = new MarkTaskDone(repo, makeMockReviewer(), fs, undefined, undefined, undefined, undefined, git as any);
+
+  await useCase.execute('TASK-210');
+  assert.equal(repo.saved?.status, TaskStatus.DONE);
+  const inbox = fs.files['docs/INBOX.md'] ?? '';
+  assert.ok(!inbox.includes('[L3-AUTO]'), 'M task with protected path modified should NOT get L3-AUTO');
 });
