@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-20T12:47:09.646Z",
+  "builtAt": "2026-05-20T13:17:11.230Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -7815,6 +7815,22 @@
     }
   },
   "tasks": {
+    "TASK-961": {
+      "commitCount": 2,
+      "lastCommitDate": "2026-05-20T15:17:11+02:00",
+      "touchedFrequency": {
+        ".arch/focus-ledger.jsonl": 1,
+        "docs/tasks/TASK-961.md": 1,
+        "docs/tasks/TASK-962.md": 1,
+        "docs/tasks/TASK-963.md": 1,
+        "docs/tasks/TASK-968.md": 1
+      },
+      "recentCommitRefs": [
+        "0a59bbcb",
+        "59532601"
+      ],
+      "commitRefOverflow": false
+    },
     "TASK-920": {
       "commitCount": 9,
       "lastCommitDate": "2026-05-20T14:47:09+02:00",
@@ -10056,7 +10072,7 @@
       "commitRefOverflow": false
     },
     "TASK-918": {
-      "commitCount": 6,
+      "commitCount": 5,
       "lastCommitDate": "2026-05-17T21:37:37+00:00",
       "touchedFrequency": {
         "docs/archive/TASK-918.md": 1,
@@ -10069,24 +10085,23 @@
         "docs/EVENTS.md": 1,
         "docs/INBOX.md": 1,
         "docs/tasks/TASK-922.md": 1,
-        ".arch/focus-ledger.jsonl": 2
+        ".arch/focus-ledger.jsonl": 1
       },
       "recentCommitRefs": [
         "6b7d3231",
         "8720dae8",
         "ce578175",
         "16a28035",
-        "f42ac2cc",
-        "637dbf22"
+        "f42ac2cc"
       ],
       "commitRefOverflow": false
     },
     "TASK-921": {
-      "commitCount": 4,
+      "commitCount": 3,
       "lastCommitDate": "2026-05-17T21:36:32+00:00",
       "touchedFrequency": {
         "docs/archive/TASK-921.md": 1,
-        "docs/tasks/TASK-921.md": 3,
+        "docs/tasks/TASK-921.md": 2,
         ".arch/chronicle.jsonl": 1,
         ".arch/reflect-breach-log.jsonl": 1,
         "cli/src/main/ts/application/use-cases/create-task.ts": 1,
@@ -10104,8 +10119,7 @@
       "recentCommitRefs": [
         "b9d6020b",
         "86df5b90",
-        "3fec8416",
-        "0f4e6539"
+        "3fec8416"
       ],
       "commitRefOverflow": false
     }
