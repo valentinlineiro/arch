@@ -8,3 +8,31 @@ docs/.arch-batch-queue.json
 # ARCH local overrides
 .arch-local
 .arch-local.json
+
+# Tooling artifacts
+.antigravitycli/
+cli/.arch/last-audit.json
+
+# Temporal artifacts (THINK mode, reflection, superpowers)
+.arch/.think-prompt-*.md
+.arch/reflection-*.md
+docs/superpowers/
+
+# Metrics and state caches (machine-generated, not source)
+.arch/causal-graph.jsonl
+.arch/causal-signal.jsonl
+.arch/chronicle.jsonl
+.arch/context-feedback.json
+.arch/context-index.json
+.arch/corpus-index.json
+.arch/correction-signals.jsonl
+.arch/deep-analysis-state.json
+.arch/ecp-registry.jsonl
+.arch/escalations.jsonl
+.arch/focus-ledger.jsonl
+.arch/git-history-cache.txt
+.arch/govern-metrics.json
+.arch/last-audit.json
+.arch/reflect-breach-log.jsonl
+.arch/reflect-decisions.jsonl
+.arch/reflect-proposals.jsonl
