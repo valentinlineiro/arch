@@ -824,3 +824,33 @@ test('VersionCompat - OK when protocolVersion and minimumCliVersion absent (pre-
   assert.ok(check);
   assert.strictEqual(check?.status, 'OK');
 });
+
+test('ExcisionStructuralCheck Gate 2 - passes when decision record references artifact without REJECT keyword', async () => {
+  const fs = new MockFileSystem();
+  const git = new MockGitRepository();
+
+  fs.files['/repo/README.md'] = '';
+  fs.files['/repo/arch.config.json'] = JSON.stringify({
+    version: '0.2.0',
+    governance: { protectedPaths: ['docs/guidelines/'] }
+  });
+  fs.files['/repo/docs/AGENTS.md'] = '';
+  fs.dirs['/repo/docs/tasks'] = [];
+  fs.dirs['/repo/docs/archive'] = [];
+
+  git.changedFilesInLastCommit = ['docs/guidelines/some-guide.md'];
+  git.diff = 'D\tdocs/guidelines/some-guide.md\n';
+
+  // IDEA archive mentions the artifact — Decision does NOT contain 'REJECT'
+  fs.dirs['/repo/docs/refinement/archive'] = ['IDEA-some-guide.md'];
+  fs.files['/repo/docs/refinement/archive/IDEA-some-guide.md'] = `# IDEA: Remove some-guide\n## Decision\nThe guideline some-guide was superseded by core.md.\n`;
+  fs.dirs['/repo/docs/adr'] = [];
+
+  const checker = new DriftChecker(fs, git, '/repo', '0.2.0');
+  const result = await checker.check();
+  const check = result.find(r => r.check === 'ExcisionStructuralCheck');
+
+  assert.ok(check, 'ExcisionStructuralCheck result must exist');
+  assert.strictEqual(check?.status, 'OK',
+    'Gate 2 must pass when a decision record references the artifact, regardless of REJECT keyword');
+});

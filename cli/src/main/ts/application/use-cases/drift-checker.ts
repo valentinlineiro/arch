@@ -195,11 +195,7 @@ export class DriftChecker {
         for (const f of [...archiveFiles, ...adrFiles]) {
           const fPath = archiveFiles.includes(f) ? `${archiveDir}/${f}` : `${adrDir}/${f}`;
           const fc = await this.fileSystem.readFile(fPath).catch(() => '');
-          const decisionMatch = fc.match(/## Decision\n([\s\S]*?)(?=\n##|$)/);
-          if (decisionMatch && decisionMatch[1].includes('REJECT') && fc.includes(artifactName)) {
-            gate2Pass = true; break;
-          }
-          if (fc.toLowerCase().includes(artifactName.toLowerCase()) && fPath.includes('docs/adr/')) {
+          if (fc.toLowerCase().includes(artifactName.toLowerCase())) {
             gate2Pass = true; break;
           }
         }

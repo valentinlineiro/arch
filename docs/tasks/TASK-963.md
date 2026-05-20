@@ -1,33 +1,32 @@
 ## TASK-963: Refactor DriftChecker.checkExcisionStructure Gate 2 to verif
-**Meta:** P1 | S | READY | Focus:no | 2-code-generation | local | docs/tasks/
+**Meta:** P1 | S | IN_PROGRESS | Focus:yes | 2-code-generation | local | docs/tasks/
+**Locked-commit:** 240e42fd
 **Actor:** unknown
 **Created-at:** 2026-05-19T14:47:05.732Z
 **Depends:** none
 
 ### Acceptance Criteria
-- [ ] Implementation file exists at declared context path
-  - `file: (path)`
-- [ ] Tests pass
-  - `cmd: npm test; exit: 0`
-- [ ] `arch review` passes
-  - `cmd: node cli/dist/index.js review`
+- [x] Gate 2 logic in `runExcisionGates` checks artifact name presence only, REJECT keyword removed  →  file: cli/src/main/ts/application/use-cases/drift-checker.ts
+- [x] Gate 2 passes when decision record references artifact without REJECT (1 new unit test)  →  cmd: npm --prefix cli test; exit: 0
+- [x] `arch review` passes  →  cmd: node cli/dist/index.js review; exit: 0
 
 ### Context
 
+
 ### Relevant Context
-_confidence: 0.54_
+_confidence: 0.46_
 
 **Files:**
-- cli/src/main/ts/domain/models/reflect-decision.ts _(core)_
-- cli/src/main/ts/application/use-cases/drift-checker.ts _(domain)_
-- cli/src/main/ts/domain/services/deterministic-hansei-checker.ts _(core)_
-- cli/src/main/ts/infrastructure/cli/output-formatter.ts _(support)_
-- cli/src/main/ts/domain/services/hansei-auditor.ts _(core)_
+- .arch/focus-ledger.jsonl _(utility)_
+- docs/INBOX.md _(utility)_
+- docs/EVENTS.md _(utility)_
+- .arch/chronicle.jsonl _(utility)_
+- .arch/reflect-breach-log.jsonl _(utility)_
 
 **ADRs:**
-- ADR-013: Two-Tier Drift Detection Architecture _(enforced)_
-- ADR-008: Centralize halt conditions in HALT.md _(enforced)_
 - ADR-006: Depends Graph Validation in DriftChecker Domain Service _(enforced)_
+- ADR-008: Centralize halt conditions in HALT.md _(enforced)_
+- ADR-013: Two-Tier Drift Detection Architecture _(enforced)_
 
 **Guidelines:**
 - testing-a-change.md
@@ -46,5 +45,13 @@ _confidence: 0.54_
 Refactor DriftChecker.checkExcisionStructure Gate 2 to verify presence of decision record only, not content. Remove check for REJECT string — presence closes the Class I gate regardless of artifact content. Semantic validation of excision rationale is Class II and belongs in THINK.
 
 ### Definition of Done
-- [ ] All ACs checked by Auditor
-- [ ] `arch review` passes
+- [x] All ACs checked by Auditor  →  prose: verified
+- [x] `arch review` passes  →  cmd: node cli/dist/index.js review; exit: 0
+
+## Hansei
+**Severity:** H0
+**Category:** [ReviewBlindspot]
+**Decision:** Gate 2 had two divergent branches: one for IDEA archive files (requiring REJECT in Decision section) and one for ADR files (any mention). The asymmetry was inconsistent with the stated invariant — Class I gates verify structural presence, not content. Collapsed to a single check: does any decision record file mention the artifact? TDD isolated this as a one-condition removal.
+**Constraint:** None — the two-branch logic had no downstream dependents enforcing the REJECT requirement.
+**Cost:** None — 566 tests pass, one new regression guard added.
+**Forward Action:** None required.
