@@ -1,6 +1,7 @@
 import type { FileSystem } from '../../domain/repositories/file-system.js';
 import type { ContextIndex } from '../../domain/models/context-index.js';
 import type { FeedbackSignal } from '../../domain/models/feedback-signal.js';
+import { DecisionValidator, CausalTrace } from './decision-validator.js';
 
 const DIRECT_TASK_REFERENCE_BOOST = 4.0;
 const DIRECT_ADR_REFERENCE_BOOST = 4.0;
@@ -77,6 +78,45 @@ export class ContextInference {
     const feedbackMap = await this.loadFeedbackMap();
     const result = this.score(index, keywords, taskClass, taskText, feedbackMap);
     if (result.files.length === 0 && result.adrs.length === 0) return; // suppress truly empty injections (Metrics Narrowing)
+
+    // Log CausalTrace using DecisionValidator
+    try {
+      const validator = new DecisionValidator(this.fileSystem);
+      const heuristicInputs = [
+        ...result.guidelines.map(g => ({
+          inferenceId: g.name,
+          model: 'guideline-overlap',
+          confidence: Math.min(g.score / 10, 1),
+          weight: g.score,
+          signals: ['overlap:guideline'],
+        })),
+        ...result.failurePatterns.map(f => ({
+          inferenceId: f.id,
+          model: 'failure-retro',
+          confidence: Math.min(f.score / 10, 1),
+          weight: f.score,
+          signals: ['retro:failure'],
+        }))
+      ];
+      const feedback = feedbackMap.get(taskId);
+      const humanDecisionOverride = feedback ? (feedback.accurate === false || feedback.partial === false) : false;
+      const hotSeeds = [...taskRefs, ...adrRefs];
+      const trace: CausalTrace = {
+        traceId: `trace-${Date.now()}-${Math.random().toString(36).substring(2, 11)}`,
+        taskId,
+        activeCausalNeighborhood: {
+          hotSeeds,
+          expansionPath: result.files.map(f => f.path),
+        },
+        heuristicInputs,
+        humanDecisionOverride,
+        timestamp: new Date().toISOString(),
+      };
+      await validator.logTrace(trace);
+    } catch {
+      // Soft fail trace logging to protect inference execution
+    }
+
     const section = this.formatSection(result);
 
     const taskPath = `docs/tasks/${taskId}.md`;

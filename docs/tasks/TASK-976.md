@@ -1,15 +1,15 @@
 ## TASK-976: optimize context indexing to eliminate rebuild amplification
-**Meta:** P3 | S | IN_PROGRESS | Focus:yes | 2-code-generation | local | ARCH_CONTEXT_AXIOMS.md
+**Meta:** P3 | S | REVIEW | Focus:no | 2-code-generation | local | ARCH_CONTEXT_AXIOMS.md
 **Actor:** unknown
 **Created-at:** 2026-05-20T15:00:43.348Z
 **Depends:** none
 
 ### Acceptance Criteria
-- [ ] Implementation file exists at declared context path
+- [x] Implementation file exists at declared context path
   - `file: ARCH_CONTEXT_AXIOMS.md`
-- [ ] Tests pass
+- [x] Tests pass
   - `cmd: npm test; exit: 0`
-- [ ] `arch review` passes
+- [x] `arch review` passes
   - `cmd: node cli/dist/index.js review`
 
 ### Context

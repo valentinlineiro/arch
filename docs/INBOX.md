@@ -38,3 +38,16 @@
 - TASK-962: Fix arch task done to scope unchecked AC check to Acceptance Criteria
 - TASK-961: Fix archive parser to skip non-DONE tasks
 - TASK-974: Command registry as single source of truth for CLI surface
+
+## [REVIEW_REQUEST] TASK-976
+ACs:
+- Implementation file exists at declared context path: ARCH_CONTEXT_AXIOMS.md
+- Tests pass
+- `arch review` passes
+Changed files:
+- [ARCH_CONTEXT_AXIOMS.md](file:///home/valentin/code/arch/ARCH_CONTEXT_AXIOMS.md)
+- [cli/src/main/ts/application/use-cases/build-index.ts](file:///home/valentin/code/arch/cli/src/main/ts/application/use-cases/build-index.ts)
+- [cli/src/main/ts/application/use-cases/context-inference.ts](file:///home/valentin/code/arch/cli/src/main/ts/application/use-cases/context-inference.ts)
+- [cli/src/main/ts/application/use-cases/decision-validator.ts](file:///home/valentin/code/arch/cli/src/main/ts/application/use-cases/decision-validator.ts)
+- [cli/src/test/ts/build-index-v2.test.ts](file:///home/valentin/code/arch/cli/src/test/ts/build-index-v2.test.ts)
+- [docs/tasks/TASK-976.md](file:///home/valentin/code/arch/docs/tasks/TASK-976.md)
