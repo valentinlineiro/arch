@@ -1,5 +1,5 @@
 ## TASK-972: Implement semantic compression layer infrastructure: precede
-**Meta:** P1 | L | READY | Focus:no | 1-code-reasoning | local | docs/tasks/
+**Meta:** P1 | L | IN_PROGRESS | Focus:yes | 1-code-reasoning | local | docs/tasks/
 **Depends:** none
 
 ### Acceptance Criteria
