@@ -8,3 +8,4 @@ Append-only log of Sentinel preflight reasoning calls. Each entry records the ta
 | 2026-05-19 13:11:47 | TASK-939 | M-size correction signal schema — additive only, no behavioral changes to existing REVIEW_FAIL or REDIRECT paths | GO |  |
 | 2026-05-19 13:16:23 | TASK-955 | M-size: implementing arch task reprioritize — advisory-only, no writes without confirmation. IDEA spec already written and approved. | GO |  |
 | 2026-05-19 14:19:03 | TASK-956 | M-size versioning architecture: additive config fields, new drift check, no breaking changes to existing behavior | GO |  |
+| 2026-05-20 07:35:56 | TASK-972 | resuming compaction work | GO |  |

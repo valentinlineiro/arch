@@ -1,11 +1,11 @@
 ## TASK-972: Implement semantic compression layer infrastructure: precede
-**Meta:** P1 | L | IN_PROGRESS | Focus:yes | 1-code-reasoning | local | docs/tasks/
+**Meta:** P1 | L | REVIEW | Focus:yes | 1-code-reasoning | local | docs/tasks/
 **Depends:** none
 
 ### Acceptance Criteria
-- [ ] Intent addressed
+- [x] Intent addressed
   - `prose: verified`
-- [ ] `arch review` passes
+- [x] `arch review` passes
   - `cmd: node cli/dist/index.js review`
 
 ### Context
@@ -24,13 +24,15 @@ _confidence: 0.49_
 - ADR-018: Adversarially Robust Epistemology & Graded Integrity _(enforced)_
 - ADR-013: Two-Tier Drift Detection Architecture _(enforced)_
 - ADR-016: Define the semantic boundary of the domain layer _(enforced)_
+- ADR-027: Stateless Operational Projections _(enforced)_
+- ADR-028: Unified Epistemic Invariant Specification _(enforced)_
 
 **Failure Patterns:**
 - Invariant Discovery Gap*(2026-05-12)*: The boundary ambiguity between `arch govern` (deterministic enforcement) and THINK (LLM analysis) was not surfaced by any ARCH mechanism. No DriftChecker rule, no structural check, no semantic scan detected it. A human noticed it during a reflection session. The specific risk: `arch govern` triggers THINK via `runConduct()`, creating naming confusion between enforcement and advisory synthesis — with no written invariant to refuse the rationalization "THINK already participates in govern, so it can also…". **Resolution:** Constitutional split written in IDENTITY.md §7. IDEA-architectural-tension-capture proposed as a new artifact class for structural ambiguities that are not yet broken but will be misused. **The deeper pattern:** ARCH models tasks, decisions, and causal edges, but not category errors or ontological drift. Invariants that live only in the author's head do not scale. _(docs/KAIZEN-LOG.md)_
 - Decision Blindness (High Velocity)*(Sprint 3)*: The agent executes architectural changes (ADR) and detects bugs (TASK-061) that stay in logs or PRs without immediate human visibility. High velocity (35 tasks/48h) makes individual monitoring impossible. **Proposal:** GOVERNANCE.md contract + INBOX.md weekly dashboard + `arch inbox` agent. _(docs/KAIZEN-LOG.md)_
 
 ### Context Feedback
-- [ ] accurate — files and ADRs were on-target
+- [x] accurate — files and ADRs were on-target
 - [ ] partial — correct direction, missing key files
 - [ ] off — wrong files dominated
 
@@ -42,9 +44,9 @@ Implement semantic compression layer infrastructure: precedent index over closed
 - [ ] `arch review` passes
 
 ## Hansei
-**Severity:** H0
+**Severity:** H1
 **Category:** [SpecDrift]
-**Decision:** Not yet started.
-**Constraint:** No constraints apply — task has not started.
-**Cost:** No cost incurred — task has not started.
-**Forward Action:** None.
+**Decision:** Confidence calibration (component 5 of stated intent) deferred — requires structured THINK recommendation data that does not yet exist. Three pure domain services delivered (PrecedentNoveltyScorer, GovernanceDriftDetector, InstitutionalAnomalyTracker), CorpusEntry extended with precedent fields, and --layer2 flag wired into corpus-audit. Deferral identified and documented in the implementation plan before any code was written.
+**Constraint:** THINK currently produces narrative text with no queryable recommendation schema; building calibration infrastructure without an upstream recommendation feed would produce an empty data store.
+**Cost:** No additional cost beyond planned scope — deferral was scoped out explicitly in the implementation plan before implementation began, with rationale recorded.
+**Forward Action:** Create a dedicated task for confidence calibration after IDEA-think-generated-proposals produces structured recommendation records with outcome data.
