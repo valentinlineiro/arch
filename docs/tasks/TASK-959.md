@@ -1,5 +1,5 @@
 ## TASK-959: Implement verifiability-first AC templates per task class in
-**Meta:** P1 | M | READY | Focus:no | 2-code-generation | local | docs/tasks/
+**Meta:** P1 | M | IN_PROGRESS | Focus:yes | 2-code-generation | local | docs/tasks/
 **Depends:** none
 
 ### Acceptance Criteria
