@@ -1,5 +1,5 @@
 ## TASK-960: Produce sprint state machine design document: define SprintS
-**Meta:** P1 | S | READY | Focus:no | 6-writing | local | docs/tasks/
+**Meta:** P1 | S | IN_PROGRESS | Focus:yes | 6-writing | local | docs/tasks/
 **Actor:** unknown
 **Created-at:** 2026-05-19T14:46:56.222Z
 **Depends:** none
