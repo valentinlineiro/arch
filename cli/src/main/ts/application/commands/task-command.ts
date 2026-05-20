@@ -28,6 +28,20 @@ import { LightweightMetricsRefresh } from '../use-cases/lightweight-metrics-refr
 import * as fmt from '../../infrastructure/cli/output-formatter.js';
 import { getPublicSubCommands } from '../../domain/services/command-registry.js';
 
+/** Returns true if the AC or DoD sections contain any unchecked checkbox items. */
+export function hasUncheckedACs(content: string): boolean {
+  const sections: string[] = [];
+  for (const heading of ['### Acceptance Criteria', '### Definition of Done']) {
+    const start = content.indexOf(heading);
+    if (start === -1) continue;
+    const bodyStart = content.indexOf('\n', start) + 1;
+    const end = content.indexOf('\n### ', bodyStart);
+    sections.push(end === -1 ? content.slice(bodyStart) : content.slice(bodyStart, end));
+  }
+  const scoped = sections.length > 0 ? sections.join('\n') : content;
+  return scoped.includes('- [ ]');
+}
+
 export class TaskCommand {
   private markInProgress: MarkTaskInProgress;
   private markDone: MarkTaskDone;
@@ -262,7 +276,7 @@ export class TaskCommand {
         const taskFile = `${this.rootPath}/docs/tasks/${taskId}.md`;
         try {
           const content = await this.fileSystem.readFile(taskFile);
-          if (/^[[:space:]]*- \[ \]/m.test(content) || content.includes('- [ ]')) {
+          if (hasUncheckedACs(content)) {
             fmt.fail(`Task ${taskId} has unchecked Acceptance Criteria.`);
             console.error(`    Please check all ACs or use --force to override.`);
             process.exit(1);

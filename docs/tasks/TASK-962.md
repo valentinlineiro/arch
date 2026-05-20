@@ -1,5 +1,6 @@
 ## TASK-962: Fix arch task done to scope unchecked AC check to Acceptance
-**Meta:** P1 | XS | READY | Focus:no | 2-code-generation | local | docs/tasks/
+**Meta:** P1 | XS | IN_PROGRESS | Focus:yes | 2-code-generation | local | docs/tasks/
+**Locked-commit:** b48d0bac
 **Actor:** unknown
 **Created-at:** 2026-05-19T14:47:05.554Z
 **Depends:** none
@@ -14,19 +15,20 @@
 
 ### Context
 
+
 ### Relevant Context
-_confidence: 0.47_
+_confidence: 0.46_
 
 **Files:**
-- cli/src/main/ts/domain/models/task.ts _(core)_
+- .arch/focus-ledger.jsonl _(utility)_
 - cli/src/main/ts/domain/models/context-index.ts _(core)_
-- cli/src/main/ts/domain/task.ts _(core)_
-- cli/src/main/ts/application/use-cases/validate-task-acs.ts _(domain)_
-- cli/src/main/ts/domain/models/feedback-signal.ts _(core)_
+- cli/src/main/ts/domain/models/task.ts _(core)_
+- .arch/chronicle.jsonl _(utility)_
+- docs/EVENTS.md _(utility)_
 
 **ADRs:**
-- ADR-002: Context as a budget, not a default _(enforced)_
 - ADR-006: Depends Graph Validation in DriftChecker Domain Service _(enforced)_
+- ADR-002: Context as a budget, not a default _(enforced)_
 - ADR-007: Census Context Budget Check in DriftChecker _(enforced)_
 
 **Guidelines:**
@@ -34,8 +36,8 @@ _confidence: 0.47_
 - versioning.md
 
 **Failure Patterns:**
-- `arch review` does not validate ACs before archiving*(Sprint 3)*: TASK-031 was archived as DONE but with unchecked ACs. The reviewer detected the inconsistency but did not block archival at the time. Detection arrived late (next session). *(Resolved by TASK-078)* _(docs/KAIZEN-LOG.md)_
 - Recursive review violation tasks*(Sprint 4)*: TASK-112, 113, and 114 show a pattern where a task is created to fix a review violation, but then marked DONE with its own violations (e.g. pending ACs), leading to a chain of cleanup tasks. **Proposal:** Implement pre-archive guards (TASK-115) and enforce AC validation during `arch review`. _(docs/KAIZEN-LOG.md)_
+- `arch review` does not validate ACs before archiving*(Sprint 3)*: TASK-031 was archived as DONE but with unchecked ACs. The reviewer detected the inconsistency but did not block archival at the time. Detection arrived late (next session). *(Resolved by TASK-078)* _(docs/KAIZEN-LOG.md)_
 
 ### Context Feedback
 - [ ] accurate — files and ADRs were on-target

@@ -133,3 +133,48 @@ test('TaskCommand done - exits 0 when transition passes', async () => {
 
   assert.strictEqual(exitCode, undefined, 'task done must not call process.exit(1) on success (should exit naturally with 0)');
 });
+
+import { hasUncheckedACs } from '../../main/ts/application/commands/task-command.js';
+
+test('hasUncheckedACs - ignores unchecked items in Context Feedback section', () => {
+  const content = `## TASK-001: test
+### Acceptance Criteria
+- [x] Intent addressed
+  - \`prose: verified\`
+
+### Context Feedback
+- [ ] accurate — files and ADRs were on-target
+- [ ] partial — correct direction, missing key files
+- [ ] off — wrong files dominated
+
+### Definition of Done
+- [x] All ACs checked by Auditor
+`;
+  assert.strictEqual(hasUncheckedACs(content), false,
+    'Context Feedback unchecked items must not count as unchecked ACs');
+});
+
+test('hasUncheckedACs - detects unchecked items in Acceptance Criteria section', () => {
+  const content = `## TASK-001: test
+### Acceptance Criteria
+- [ ] Not done yet
+- [x] Done
+
+### Context Feedback
+- [x] accurate — files and ADRs were on-target
+`;
+  assert.strictEqual(hasUncheckedACs(content), true,
+    'Unchecked item in Acceptance Criteria must be detected');
+});
+
+test('hasUncheckedACs - detects unchecked items in Definition of Done section', () => {
+  const content = `## TASK-001: test
+### Acceptance Criteria
+- [x] All good
+
+### Definition of Done
+- [ ] All ACs checked by Auditor
+`;
+  assert.strictEqual(hasUncheckedACs(content), true,
+    'Unchecked item in Definition of Done must be detected');
+});
