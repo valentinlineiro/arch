@@ -3897,7 +3897,7 @@
       "title": "Unified Epistemic Invariant Specification — Bounded Stream Enforcement"
     }
   },
-  "builtAt": "2026-05-20T16:36:32.472Z",
+  "builtAt": "2026-05-20T16:38:18.328Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -8190,7 +8190,7 @@
       }
     },
     "TASK-255": {
-      "commitCount": 12,
+      "commitCount": 10,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-18T12:16:32+02:00",
       "recentCommitRefs": [
@@ -8198,23 +8198,20 @@
         "291e6372",
         "526532e8",
         "718b2b81",
-        "7af5c0b9",
         "7d64a5fa",
         "b6fc79c0",
         "c0195c00",
         "c796bd50",
         "ce4d49ee",
-        "dec6167f",
         "e3c2670a"
       ],
       "touchedFrequency": {
-        "arch.config.json": 1,
         "cli/src/main/ts/application/commands/reflect-command.ts": 2,
         "cli/src/main/ts/application/use-cases/govern-system.ts": 1,
-        "cli/src/main/ts/application/use-cases/weak-signal-checker.ts": 2,
+        "cli/src/main/ts/application/use-cases/weak-signal-checker.ts": 1,
         "cli/src/test/ts/govern-system.test.ts": 1,
         "cli/src/test/ts/reflect-command.test.ts": 1,
-        "cli/src/test/ts/weak-signal-checker.test.ts": 2,
+        "cli/src/test/ts/weak-signal-checker.test.ts": 1,
         "docs/EVENTS.md": 1,
         "docs/archive/TASK-255.md": 2,
         "docs/archive/TASK-257.md": 1,
@@ -10062,14 +10059,15 @@
       }
     },
     "TASK-965": {
-      "commitCount": 1,
+      "commitCount": 2,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-20T18:36:31+02:00",
+      "lastCommitDate": "2026-05-20T18:38:17+02:00",
       "recentCommitRefs": [
+        "6b612fe7",
         "6c8a6d03"
       ],
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 1
+        ".arch/focus-ledger.jsonl": 2
       }
     },
     "TASK-968": {
