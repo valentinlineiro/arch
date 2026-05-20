@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-20T07:07:31.136Z",
+  "builtAt": "2026-05-20T07:17:43.628Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -5325,12 +5325,6 @@
           ],
           "taskPath": "docs/tasks/TASK-956.md"
         },
-        "TASK-960": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/tasks/TASK-960.md"
-        },
         "TASK-968": {
           "evidenceKinds": [
             "literal-mention"
@@ -5390,6 +5384,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-958.md"
+        },
+        "TASK-960": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-960.md"
         }
       }
     },
@@ -5521,12 +5521,6 @@
           ],
           "taskPath": "docs/tasks/TASK-957.md"
         },
-        "TASK-960": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/tasks/TASK-960.md"
-        },
         "TASK-961": {
           "evidenceKinds": [
             "literal-mention"
@@ -5611,6 +5605,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-952.md"
+        },
+        "TASK-960": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-960.md"
         }
       }
     },
@@ -5621,12 +5621,6 @@
             "literal-mention"
           ],
           "taskPath": "docs/tasks/TASK-957.md"
-        },
-        "TASK-960": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/tasks/TASK-960.md"
         },
         "TASK-225": {
           "evidenceKinds": [
@@ -5669,6 +5663,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-955.md"
+        },
+        "TASK-960": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-960.md"
         }
       }
     },
@@ -7369,13 +7369,33 @@
     }
   },
   "tasks": {
-    "TASK-960": {
+    "TASK-972": {
       "commitCount": 1,
-      "lastCommitDate": "2026-05-20T09:07:30+02:00",
+      "lastCommitDate": "2026-05-20T09:17:43+02:00",
       "touchedFrequency": {
         ".arch/focus-ledger.jsonl": 1
       },
       "recentCommitRefs": [
+        "0692beb4"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-960": {
+      "commitCount": 6,
+      "lastCommitDate": "2026-05-20T09:17:43+02:00",
+      "touchedFrequency": {
+        "docs/archive/TASK-960.md": 1,
+        "docs/tasks/TASK-960.md": 3,
+        "docs/SPRINT-STATE-MACHINE.md": 2,
+        "docs/INBOX.md": 1,
+        ".arch/focus-ledger.jsonl": 1
+      },
+      "recentCommitRefs": [
+        "0a972648",
+        "c294b74a",
+        "25dbe4ab",
+        "d2b30086",
+        "a7aa33ec",
         "edc6a1ba"
       ],
       "commitRefOverflow": false
@@ -9616,7 +9636,7 @@
       "commitRefOverflow": false
     },
     "TASK-916": {
-      "commitCount": 5,
+      "commitCount": 4,
       "lastCommitDate": "2026-05-17T13:23:22+00:00",
       "touchedFrequency": {
         "docs/archive/TASK-916.md": 1,
@@ -9628,47 +9648,13 @@
         "cli/src/main/ts/domain/services/archive-parser.ts": 1,
         "cli/src/main/ts/domain/services/metrics-engine.ts": 1,
         "docs/EVENTS.md": 1,
-        "docs/tasks/TASK-206.md": 1,
-        ".arch/focus-ledger.jsonl": 1
+        "docs/tasks/TASK-206.md": 1
       },
       "recentCommitRefs": [
         "2a2064cc",
         "ce808f6d",
         "8d250728",
-        "dfb3c1c4",
-        "bfaf8dd3"
-      ],
-      "commitRefOverflow": false
-    },
-    "TASK-915": {
-      "commitCount": 5,
-      "lastCommitDate": "2026-05-17T13:20:35+00:00",
-      "touchedFrequency": {
-        "docs/archive/TASK-915.md": 1,
-        "docs/tasks/TASK-915.md": 3,
-        ".arch/chronicle.jsonl": 1,
-        ".arch/reflect-breach-log.jsonl": 1,
-        "cli/src/main/ts/application/commands/explain-command.ts": 1,
-        "cli/src/main/ts/index.ts": 1,
-        "docs/EVENTS.md": 1,
-        "docs/INBOX.md": 1,
-        "docs/tasks/TASK-918.md": 1,
-        "docs/tasks/TASK-919.md": 1,
-        "docs/tasks/TASK-920.md": 1,
-        "docs/tasks/TASK-921.md": 1,
-        "docs/tasks/TASK-922.md": 1,
-        "docs/tasks/TASK-923.md": 1,
-        "docs/tasks/TASK-924.md": 1,
-        "docs/tasks/TASK-925.md": 1,
-        "docs/tasks/TASK-926.md": 1,
-        ".arch/focus-ledger.jsonl": 1
-      },
-      "recentCommitRefs": [
-        "676e9deb",
-        "20859b1a",
-        "b736de14",
-        "c3c94d7e",
-        "b4990493"
+        "dfb3c1c4"
       ],
       "commitRefOverflow": false
     }
