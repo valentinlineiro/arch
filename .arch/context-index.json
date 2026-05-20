@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-19T19:09:14.329Z",
+  "builtAt": "2026-05-20T05:54:41.650Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -17,6 +17,28 @@
       ],
       "criticality": "domain",
       "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/application/commands/audit-command.ts": {
+      "symbols": [
+        "AuditCommand"
+      ],
+      "imports": [
+        "cli/src/main/ts/infrastructure/git/git-evidence-collector.ts",
+        "cli/src/main/ts/infrastructure/git/adr-decision-parser.ts",
+        "cli/src/main/ts/domain/services/decision-reconciliation-engine.ts",
+        "cli/src/main/ts/domain/services/decision-impact-engine.ts",
+        "cli/src/main/ts/domain/services/epistemic-integrity-service.ts",
+        "cli/src/main/ts/domain/models/evidence.ts",
+        "cli/src/main/ts/domain/models/action.ts"
+      ],
+      "tags": [
+        "application",
+        "commands",
+        "audit",
+        "command"
+      ],
+      "criticality": "domain",
+      "runtimeUsage": "cold"
     },
     "cli/src/main/ts/application/commands/batch-command.ts": {
       "symbols": [
@@ -2828,6 +2850,36 @@
       ],
       "criticality": "support",
       "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/infrastructure/git/adr-decision-parser.ts": {
+      "symbols": [
+        "AdrDecisionParser"
+      ],
+      "imports": [
+        "cli/src/main/ts/infrastructure/models/decision.ts"
+      ],
+      "tags": [
+        "infrastructure",
+        "decision",
+        "parser"
+      ],
+      "criticality": "support",
+      "runtimeUsage": "cold"
+    },
+    "cli/src/main/ts/infrastructure/git/git-evidence-collector.ts": {
+      "symbols": [
+        "GitEvidenceCollector"
+      ],
+      "imports": [
+        "cli/src/main/ts/infrastructure/models/evidence.ts"
+      ],
+      "tags": [
+        "infrastructure",
+        "evidence",
+        "collector"
+      ],
+      "criticality": "support",
+      "runtimeUsage": "cold"
     }
   },
   "adrs": {
@@ -7301,10 +7353,10 @@
   },
   "tasks": {
     "TASK-958": {
-      "commitCount": 12,
-      "lastCommitDate": "2026-05-19T19:09:14+00:00",
+      "commitCount": 13,
+      "lastCommitDate": "2026-05-20T05:54:41+00:00",
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 4,
+        ".arch/focus-ledger.jsonl": 5,
         "docs/adr/ADR-026-epistemic-layer-separation.md": 2,
         "docs/tensions/TENSION-006-inbox-dual-truth.md": 2,
         ".arch/chronicle.jsonl": 1,
@@ -7346,6 +7398,7 @@
         "docs/tasks/TASK-972.md": 1
       },
       "recentCommitRefs": [
+        "51c8e4a",
         "edf9c12",
         "7d133f1",
         "6eb1be6",
@@ -7362,17 +7415,25 @@
       "commitRefOverflow": false
     },
     "TASK-206": {
-      "commitCount": 12,
-      "lastCommitDate": "2026-05-19T19:09:12+00:00",
+      "commitCount": 14,
+      "lastCommitDate": "2026-05-20T05:54:40+00:00",
       "touchedFrequency": {
+        ".arch/ecp-registry.jsonl": 1,
+        "cli/src/main/ts/application/commands/audit-command.ts": 1,
+        "cli/src/main/ts/index.ts": 2,
+        "cli/src/main/ts/infrastructure/git/adr-decision-parser.ts": 1,
+        "cli/src/main/ts/infrastructure/git/git-evidence-collector.ts": 1,
+        ".arch/reflect-breach-log.jsonl": 4,
+        "cli/.arch/corpus-index.json": 2,
+        "cli/src/main/ts/application/commands/corpus-audit-command.ts": 3,
+        "cli/src/main/ts/application/use-cases/corpus-index.ts": 2,
+        "cli/src/main/ts/domain/services/deterministic-hansei-checker.ts": 1,
+        "cli/src/test/ts/corpus-audit-weighted.test.ts": 1,
+        "cli/src/test/ts/corpus-index.test.ts": 1,
         ".arch/corpus-index.json": 1,
-        "cli/.arch/corpus-index.json": 1,
-        "cli/src/main/ts/application/commands/corpus-audit-command.ts": 2,
-        "cli/src/main/ts/application/use-cases/corpus-index.ts": 1,
         "cli/src/main/ts/application/use-cases/govern-system.ts": 2,
         "cli/src/main/ts/application/use-cases/hansei-synthesizer.ts": 2,
         "cli/src/test/ts/corpus-audit-command.test.ts": 1,
-        ".arch/reflect-breach-log.jsonl": 3,
         "arch.config.json": 1,
         "cli/src/main/ts/application/commands/status-command.ts": 2,
         "docs/INBOX.md": 1,
@@ -7386,7 +7447,6 @@
         "docs/tasks/TASK-163.md": 1,
         "docs/tasks/TASK-947.md": 1,
         ".arch/chronicle.jsonl": 2,
-        "cli/src/main/ts/index.ts": 1,
         "docs/EVENTS.md": 2,
         "cli/src/main/ts/application/use-cases/hansei-wizard.ts": 1,
         "cli/src/main/ts/application/use-cases/mark-task-done.ts": 1,
@@ -7408,6 +7468,8 @@
         "docs/tasks/TASK-206.md": 1
       },
       "recentCommitRefs": [
+        "314cff4",
+        "c56fa7a",
         "8cc6d95",
         "b56f1b1",
         "76db2c9",
@@ -9609,25 +9671,15 @@
       "commitRefOverflow": false
     },
     "TASK-912": {
-      "commitCount": 5,
+      "commitCount": 2,
       "lastCommitDate": "2026-05-17T12:06:38+00:00",
       "touchedFrequency": {
         "docs/archive/TASK-912.md": 1,
-        "docs/tasks/TASK-912.md": 3,
-        ".arch/chronicle.jsonl": 1,
-        ".arch/reflect-breach-log.jsonl": 1,
-        "cli/src/main/ts/application/commands/deps-command.ts": 1,
-        "cli/src/main/ts/index.ts": 1,
-        "docs/EVENTS.md": 1,
-        "docs/INBOX.md": 1,
-        ".arch/focus-ledger.jsonl": 1
+        "docs/tasks/TASK-912.md": 1
       },
       "recentCommitRefs": [
         "f8303e7",
-        "0f0fead",
-        "37bc062",
-        "de9f8f9",
-        "33991eb"
+        "0f0fead"
       ],
       "commitRefOverflow": false
     }
