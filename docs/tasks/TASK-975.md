@@ -1,5 +1,7 @@
 ## TASK-975: Bug: arch govern INTEGRITY_FIX writes ledger entry but does 
-**Meta:** P3 | XS | READY | Focus:no | 2-code-generation | local | docs/tasks/
+**Meta:** P3 | XS | IN_PROGRESS | Focus:no | 2-code-generation | local | docs/tasks/
+**Actor:** unknown
+**Created-at:** 2026-05-20T13:25:51.423Z
 **Depends:** none
 
 ### Acceptance Criteria

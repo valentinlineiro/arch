@@ -1,33 +1,36 @@
 ## TASK-961: Fix archive parser to skip non-DONE tasks: add status filter
-**Meta:** P1 | XS | READY | Focus:no | 2-code-generation | local | docs/tasks/
+**Meta:** P1 | XS | DONE | Focus:no | 2-code-generation | local | docs/tasks/
+**Locked-commit:** 28f6941d
+**Closed-at:** 2026-05-20T13:10:00Z
 **Actor:** unknown
 **Created-at:** 2026-05-19T14:47:05.377Z
 **Depends:** none
 
 ### Acceptance Criteria
-- [ ] Implementation file exists at declared context path
-  - `file: (path)`
-- [ ] Tests pass
-  - `cmd: npm test; exit: 0`
-- [ ] `arch review` passes
-  - `cmd: node cli/dist/index.js review`
+- [x] Implementation file exists at declared context path
+  - `file: cli/src/main/ts/domain/services/archive-parser.ts`
+- [x] Tests pass
+  - `cmd: npm --prefix cli test; exit: 0`
+- [x] `arch review` passes
+  - `cmd: arch review; exit: 0`
 
 ### Context
 
+
 ### Relevant Context
-_confidence: 0.56_
+_confidence: 0.47_
 
 **Files:**
-- cli/src/main/ts/domain/services/archive-parser.ts _(core)_
-- cli/src/main/ts/domain/repositories/file-system.ts _(core)_
-- cli/src/main/ts/domain/services/metrics-engine.ts _(core)_
-- cli/src/main/ts/domain/repositories/git-repository.ts _(core)_
-- cli/src/main/ts/domain/models/provenance.ts _(core)_
+- .arch/focus-ledger.jsonl _(utility)_
+- .arch/chronicle.jsonl _(utility)_
+- docs/EVENTS.md _(utility)_
+- docs/INBOX.md _(utility)_
+- .arch/reflect-breach-log.jsonl _(utility)_
 
 **ADRs:**
 - ADR-004: Flat docs/tasks/ directory with Focus field replaces sprint/backlog split _(enforced)_
-- ADR-006: Depends Graph Validation in DriftChecker Domain Service _(enforced)_
 - ADR-017: Deterministic Observability & Operational Metrics _(enforced)_
+- ADR-006: Depends Graph Validation in DriftChecker Domain Service _(enforced)_
 
 **Guidelines:**
 - testing-a-change.md
@@ -46,5 +49,13 @@ _confidence: 0.56_
 Fix archive parser to skip non-DONE tasks: add status filter in ArchiveParser.parseArchivedTasks() to skip any file whose Meta: line does not contain DONE as the status token. Removes false INVALID signals from TASK-231/234-237 (READY status in archive) and restores correct metrics baseline.
 
 ### Definition of Done
-- [ ] All ACs checked by Auditor
-- [ ] `arch review` passes
+- [x] All ACs checked by Auditor
+- [x] `arch review` passes
+
+## Hansei
+**Severity:** H0
+**Category:** [ReviewBlindspot]
+**Decision:** Duplicate of TASK-926. The status filter (lines 51-53 of archive-parser.ts) was added by TASK-926 on 2026-05-18, one day before this task was filed. Discovery made during TDD pre-flight: archive-parser.ts already contained `if (statusField !== 'DONE') continue;`. No non-DONE files exist in docs/archive/. No code change required.
+**Constraint:** None — task was obsolete at creation time.
+**Cost:** One investigation cycle to confirm the prior fix was complete and correct.
+**Forward Action:** None required.
