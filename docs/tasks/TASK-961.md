@@ -1,5 +1,5 @@
 ## TASK-961: Fix archive parser to skip non-DONE tasks: add status filter
-**Meta:** P2 | XS | READY | Focus:no | 2-code-generation | local | docs/tasks/
+**Meta:** P1 | XS | READY | Focus:no | 2-code-generation | local | docs/tasks/
 **Actor:** unknown
 **Created-at:** 2026-05-19T14:47:05.377Z
 **Depends:** none

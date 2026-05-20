@@ -1,5 +1,5 @@
 ## TASK-962: Fix arch task done to scope unchecked AC check to Acceptance
-**Meta:** P2 | XS | READY | Focus:no | 2-code-generation | local | docs/tasks/
+**Meta:** P1 | XS | READY | Focus:no | 2-code-generation | local | docs/tasks/
 **Actor:** unknown
 **Created-at:** 2026-05-19T14:47:05.554Z
 **Depends:** none

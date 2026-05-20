@@ -1,5 +1,5 @@
 ## TASK-968: Run architectural review of CLI with three outputs: (1) boun
-**Meta:** P2 | S | READY | Focus:no | 6-writing | local | docs/tasks/
+**Meta:** P1 | S | READY | Focus:no | 6-writing | local | docs/tasks/
 **Actor:** unknown
 **Created-at:** 2026-05-19T14:47:35.886Z
 **Depends:** none

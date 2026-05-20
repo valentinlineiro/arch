@@ -1,5 +1,5 @@
 ## TASK-963: Refactor DriftChecker.checkExcisionStructure Gate 2 to verif
-**Meta:** P2 | S | READY | Focus:no | 2-code-generation | local | docs/tasks/
+**Meta:** P1 | S | READY | Focus:no | 2-code-generation | local | docs/tasks/
 **Actor:** unknown
 **Created-at:** 2026-05-19T14:47:05.732Z
 **Depends:** none
