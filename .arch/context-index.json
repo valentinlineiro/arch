@@ -297,6 +297,12 @@
           ],
           "taskPath": "docs/archive/TASK-952.md"
         },
+        "TASK-954": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-954.md"
+        },
         "TASK-957": {
           "evidenceKinds": [
             "literal-mention"
@@ -796,6 +802,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-941.md"
+        },
+        "TASK-954": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-954.md"
         }
       }
     },
@@ -1272,6 +1284,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-953.md"
+        },
+        "TASK-954": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-954.md"
         },
         "TASK-964": {
           "evidenceKinds": [
@@ -3879,7 +3897,7 @@
       "title": "Unified Epistemic Invariant Specification — Bounded Stream Enforcement"
     }
   },
-  "builtAt": "2026-05-20T15:18:31.966Z",
+  "builtAt": "2026-05-20T16:29:01.074Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -5315,6 +5333,7 @@
       "criticality": "domain",
       "imports": [
         "cli/src/main/ts/application/use-cases/causal-graph.ts",
+        "cli/src/main/ts/application/use-cases/temporal-index.ts",
         "cli/src/main/ts/domain/repositories/file-system.ts"
       ],
       "runtimeUsage": "hot",
@@ -5932,6 +5951,7 @@
         "cli/src/main/ts/application/use-cases/compute-trusted-metrics.ts",
         "cli/src/main/ts/application/use-cases/extract-context-feedback.ts",
         "cli/src/main/ts/application/use-cases/lightweight-metrics-refresh.ts",
+        "cli/src/main/ts/application/use-cases/temporal-index.ts",
         "cli/src/main/ts/domain/models/event.ts",
         "cli/src/main/ts/domain/models/task.ts",
         "cli/src/main/ts/domain/repositories/feedback-repository.ts",
@@ -6289,6 +6309,27 @@
         "cases",
         "reject",
         "task"
+      ]
+    },
+    "cli/src/main/ts/application/use-cases/temporal-index.ts": {
+      "criticality": "domain",
+      "imports": [
+        "cli/src/main/ts/application/use-cases/causal-signal-log.ts",
+        "cli/src/main/ts/domain/repositories/file-system.ts"
+      ],
+      "runtimeUsage": "hot",
+      "symbols": [
+        "TemporalIndex",
+        "TemporalRecord",
+        "TemporalSpike"
+      ],
+      "tags": [
+        "application",
+        "cases",
+        "index",
+        "record",
+        "spike",
+        "temporal"
       ]
     },
     "cli/src/main/ts/application/use-cases/update-task-metrics.ts": {
@@ -7611,6 +7652,7 @@
         "cli/src/main/ts/application/use-cases/causal-graph.ts",
         "cli/src/main/ts/application/use-cases/causal-signal-log.ts",
         "cli/src/main/ts/application/use-cases/drift-checker.ts",
+        "cli/src/main/ts/application/use-cases/temporal-index.ts",
         "cli/src/main/ts/domain/services/command-registry.ts",
         "cli/src/main/ts/domain/services/event-logger.ts",
         "cli/src/main/ts/domain/services/human-coordination-service.ts",
@@ -8132,25 +8174,21 @@
       }
     },
     "TASK-254": {
-      "commitCount": 4,
+      "commitCount": 2,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-18T08:58:10+02:00",
       "recentCommitRefs": [
         "36802a8e",
-        "6acee748",
-        "72d43538",
         "b75e4438"
       ],
       "touchedFrequency": {
-        "docs/INBOX.md": 1,
-        "docs/agents/THINK-audit.md": 2,
         "docs/archive/TASK-254.md": 1,
         "docs/tasks/TASK-251.md": 1,
-        "docs/tasks/TASK-254.md": 3
+        "docs/tasks/TASK-254.md": 1
       }
     },
     "TASK-255": {
-      "commitCount": 18,
+      "commitCount": 16,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-18T12:16:32+02:00",
       "recentCommitRefs": [
@@ -8158,8 +8196,6 @@
         "067e845f",
         "291e6372",
         "526532e8",
-        "56320661",
-        "57956098",
         "718b2b81",
         "7af5c0b9",
         "7d64a5fa",
@@ -8189,22 +8225,21 @@
         "docs/archive/TASK-257.md": 1,
         "docs/archive/TASK-927.md": 1,
         "docs/archive/TASK-935.md": 1,
-        "docs/tasks/TASK-255.md": 6,
-        "docs/tasks/TASK-256.md": 2,
-        "docs/tasks/TASK-257.md": 3,
+        "docs/tasks/TASK-255.md": 4,
+        "docs/tasks/TASK-256.md": 1,
+        "docs/tasks/TASK-257.md": 1,
         "docs/tasks/TASK-935.md": 1,
         "docs/tensions/weak-signals.md": 1
       }
     },
     "TASK-256": {
-      "commitCount": 7,
+      "commitCount": 6,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-18T08:58:10+02:00",
       "recentCommitRefs": [
         "0272a83b",
         "1cbc3076",
         "38eddf89",
-        "57956098",
         "9ff7d677",
         "bbb35491",
         "f6abef92"
@@ -8212,43 +8247,32 @@
       "touchedFrequency": {
         "docs/agents/THINK.md": 1,
         "docs/archive/TASK-256.md": 1,
-        "docs/tasks/TASK-255.md": 2,
-        "docs/tasks/TASK-256.md": 5,
-        "docs/tasks/TASK-257.md": 2
+        "docs/tasks/TASK-255.md": 1,
+        "docs/tasks/TASK-256.md": 4,
+        "docs/tasks/TASK-257.md": 1
       }
     },
     "TASK-257": {
-      "commitCount": 15,
+      "commitCount": 8,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-18T12:16:32+02:00",
       "recentCommitRefs": [
         "0272a83b",
         "30e44605",
         "42bcfa43",
-        "56320661",
-        "57956098",
         "718b2b81",
         "776d2b9b",
-        "9765b498",
-        "a2166aca",
-        "b24f5379",
         "b6ca02f5",
-        "ba9ef96c",
-        "e14578a1",
         "ebb3d262",
         "f7568bfa"
       ],
       "touchedFrequency": {
-        "cli/src/main/ts/application/commands/task-command.ts": 1,
         "cli/src/main/ts/application/use-cases/causal-arbitrator.ts": 1,
-        "cli/src/main/ts/application/use-cases/compute-trusted-metrics.ts": 2,
-        "cli/src/main/ts/application/use-cases/govern-system.ts": 2,
-        "cli/src/main/ts/application/use-cases/lightweight-metrics-refresh.ts": 1,
-        "cli/src/main/ts/application/use-cases/mark-task-done.ts": 2,
-        "cli/src/test/ts/compute-trusted-metrics.test.ts": 2,
-        "cli/src/test/ts/govern-system.test.ts": 1,
-        "cli/src/test/ts/lightweight-metrics-refresh.test.ts": 2,
-        "cli/src/test/ts/mark-task-done.test.ts": 1,
+        "cli/src/main/ts/application/use-cases/compute-trusted-metrics.ts": 1,
+        "cli/src/main/ts/application/use-cases/govern-system.ts": 1,
+        "cli/src/main/ts/application/use-cases/mark-task-done.ts": 1,
+        "cli/src/test/ts/compute-trusted-metrics.test.ts": 1,
+        "cli/src/test/ts/lightweight-metrics-refresh.test.ts": 1,
         "docs/EVENTS.md": 1,
         "docs/IDENTITY.md": 1,
         "docs/ROADMAP.md": 1,
@@ -8257,9 +8281,9 @@
         "docs/archive/TASK-927.md": 1,
         "docs/archive/TASK-935.md": 1,
         "docs/tasks/TASK-251.md": 1,
-        "docs/tasks/TASK-255.md": 3,
-        "docs/tasks/TASK-256.md": 2,
-        "docs/tasks/TASK-257.md": 7,
+        "docs/tasks/TASK-255.md": 1,
+        "docs/tasks/TASK-256.md": 1,
+        "docs/tasks/TASK-257.md": 4,
         "docs/tasks/TASK-935.md": 1
       }
     },
@@ -9737,20 +9761,44 @@
       }
     },
     "TASK-954": {
-      "commitCount": 5,
+      "commitCount": 10,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-20T17:18:30+02:00",
+      "lastCommitDate": "2026-05-20T18:28:59+02:00",
       "recentCommitRefs": [
         "038f7deb",
         "31ad8752",
+        "62d782fe",
         "866b0fe6",
+        "984c3584",
         "afdeb28e",
-        "da14ec3d"
+        "b4583e6e",
+        "c748b0e1",
+        "da14ec3d",
+        "e2349900"
       ],
       "touchedFrequency": {
+        ".arch/causal-signal.jsonl": 1,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/corpus-index.json": 1,
         ".arch/focus-ledger.jsonl": 4,
+        ".arch/reflect-breach-log.jsonl": 1,
+        "cli/src/main/ts/application/commands/ask-command.ts": 1,
+        "cli/src/main/ts/application/commands/reflect-command.ts": 1,
+        "cli/src/main/ts/application/commands/task-command.ts": 1,
+        "cli/src/main/ts/application/use-cases/ask-corpus.ts": 1,
+        "cli/src/main/ts/application/use-cases/mark-task-done.ts": 1,
+        "cli/src/main/ts/application/use-cases/temporal-index.ts": 1,
+        "cli/src/main/ts/domain/models/causal-relation.ts": 1,
+        "cli/src/main/ts/index.ts": 1,
+        "cli/src/test/ts/ask-corpus.test.ts": 1,
+        "cli/src/test/ts/temporal-index.test.ts": 1,
+        "docs/EVENTS.md": 1,
+        "docs/INBOX.md": 1,
+        "docs/METRICS.md": 1,
+        "docs/SENTINEL-LOG.md": 1,
+        "docs/archive/TASK-954.md": 1,
         "docs/refinement/archive/IDEA-temporal-pattern-layer.md": 1,
-        "docs/tasks/TASK-954.md": 1
+        "docs/tasks/TASK-954.md": 4
       }
     },
     "TASK-955": {
@@ -10004,6 +10052,17 @@
         "docs/tasks/TASK-963.md": 2
       }
     },
+    "TASK-964": {
+      "commitCount": 1,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-05-20T18:28:59+02:00",
+      "recentCommitRefs": [
+        "0ea2702b"
+      ],
+      "touchedFrequency": {
+        ".arch/focus-ledger.jsonl": 1
+      }
+    },
     "TASK-968": {
       "commitCount": 6,
       "commitRefOverflow": false,
@@ -10165,17 +10224,24 @@
       }
     },
     "TASK-976": {
-      "commitCount": 2,
+      "commitCount": 4,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-20T17:10:59+02:00",
+      "lastCommitDate": "2026-05-20T17:20:53+02:00",
       "recentCommitRefs": [
         "848904aa",
-        "a4c0abaf"
+        "a4c0abaf",
+        "b718d8b2",
+        "e29ca26f"
       ],
       "touchedFrequency": {
+        ".gitignore": 1,
         "ARCH_CONTEXT_AXIOMS.md": 1,
+        "cli/src/main/ts/application/use-cases/build-index.ts": 1,
+        "cli/src/main/ts/application/use-cases/context-inference.ts": 1,
+        "cli/src/main/ts/application/use-cases/decision-validator.ts": 1,
         "cli/src/test/ts/build-index-v2.test.ts": 1,
-        "docs/tasks/TASK-976.md": 2
+        "docs/INBOX.md": 1,
+        "docs/tasks/TASK-976.md": 3
       }
     }
   },
