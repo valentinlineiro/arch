@@ -1,5 +1,5 @@
 ## TASK-963: Refactor DriftChecker.checkExcisionStructure Gate 2 to verif
-**Meta:** P1 | S | IN_PROGRESS | Focus:yes | 2-code-generation | local | docs/tasks/
+**Meta:** P1 | S | REVIEW | Focus:no | 2-code-generation | local | docs/tasks/
 **Locked-commit:** 240e42fd
 **Actor:** unknown
 **Created-at:** 2026-05-19T14:47:05.732Z
@@ -7,7 +7,7 @@
 
 ### Acceptance Criteria
 - [x] Gate 2 logic in `runExcisionGates` checks artifact name presence only, REJECT keyword removed  →  file: cli/src/main/ts/application/use-cases/drift-checker.ts
-- [x] Gate 2 passes when decision record references artifact without REJECT (1 new unit test)  →  cmd: npm --prefix cli test; exit: 0
+- [x] Gate 2 passes when decision record references artifact without REJECT (1 new unit test)  →  cmd: bash -c "cd cli && node --import tsx --test src/test/ts/drift-checker.test.ts"; exit: 0
 - [x] `arch review` passes  →  cmd: node cli/dist/index.js review; exit: 0
 
 ### Context
