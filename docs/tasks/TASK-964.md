@@ -1,14 +1,18 @@
 ## TASK-964: Implement arch task hansei TASK-XXX interactive wizard: read
-**Meta:** P2 | M | READY | Focus:no | 2-code-generation | local | docs/tasks/
+**Meta:** P2 | M | IN_PROGRESS | Focus:yes | 2-code-generation | local | cli/src/main/ts/
+**Locked-commit:** 035724f3
 **Depends:** none
 
+### Gaps
+
+None — `HanseiWizard` class already exists at `cli/src/main/ts/application/use-cases/hansei-wizard.ts` with interactive prompting and `format()`. Missing: CLI routing (`arch task hansei TASK-XXX` subcommand), file write-back (`replaceHanseiBlock`), and H2/H3b Forward Action validation. All three are bounded by ACs below.
+
 ### Acceptance Criteria
-- [ ] Implementation file exists at declared context path
-  - `file: (path)`
-- [ ] Tests pass
-  - `cmd: npm test; exit: 0`
-- [ ] `arch review` passes
-  - `cmd: node cli/dist/index.js review`
+- [ ] `arch task hansei TASK-XXX` subcommand is registered and routes to `HanseiWizard`.  →  file: cli/src/main/ts/application/commands/task-command.ts (hansei branch)
+- [ ] `replaceHanseiBlock(content, block)` replaces an existing `## Hansei` section or appends one if absent.  →  cmd: node --import tsx --test src/test/ts/hansei-wizard.test.ts; exit: 0
+- [ ] H2 Forward Action validation rejects input that does not reference an IDEA or TASK link.  →  cmd: node --import tsx --test src/test/ts/hansei-wizard.test.ts; exit: 0
+- [ ] In non-TTY context, the subcommand exits 1 when `HanseiWizard.isHanseiComplete()` returns false.  →  cmd: node --import tsx --test src/test/ts/hansei-wizard.test.ts; exit: 0
+- [ ] `arch review` passes.  →  cmd: arch review; exit: 0
 
 ### Context
 
@@ -50,7 +54,7 @@ Implement arch task hansei TASK-XXX interactive wizard: reads task diff and AC o
 ## Hansei
 **Severity:** H0
 **Category:** [SpecDrift]
-**Decision:** Not yet started.
-**Constraint:** No constraints apply — task has not started.
-**Cost:** No cost incurred — task has not started.
-**Forward Action:** None.
+**Decision:** Pending — task not yet complete.
+**Constraint:** Pending — task not yet complete.
+**Cost:** Pending — task not yet complete.
+**Forward Action:** Pending — task not yet complete.
