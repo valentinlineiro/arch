@@ -202,7 +202,7 @@ test('FocusStatusAlignment — IN_PROGRESS + Focus:no → WARN', async () => {
   const check = results.find(r => r.check === 'FocusStatusAlignment');
   assert.ok(check, 'FocusStatusAlignment check must exist');
   assert.equal(check.status, 'WARN');
-  assert.ok(check.details.some(d => d.includes('IN_PROGRESS') && d.includes('Focus:no')));
+  assert.ok(check.details.some(d => d.includes('IN_PROGRESS') && d.includes('Focus:NONE')));
 });
 
 test('FocusStatusAlignment — READY + Focus:yes → WARN', async () => {
@@ -222,7 +222,7 @@ test('FocusStatusAlignment — READY + Focus:yes → WARN', async () => {
   const check = results.find(r => r.check === 'FocusStatusAlignment');
   assert.ok(check, 'FocusStatusAlignment check must exist');
   assert.equal(check.status, 'WARN');
-  assert.ok(check.details.some(d => d.includes('READY') && d.includes('Focus:yes')));
+  assert.ok(check.details.some(d => d.includes('READY') && d.includes('Focus:HIGH')));
 });
 
 test('FocusStatusAlignment — REVIEW + Focus:yes → OK (permitted)', async () => {

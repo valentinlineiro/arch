@@ -10,6 +10,29 @@ export enum TaskStatus {
   REJECTED = 'REJECTED'
 }
 
+export enum FocusLevel {
+  NONE = 'NONE',
+  LOW = 'LOW',
+  MEDIUM = 'MEDIUM',
+  HIGH = 'HIGH',
+}
+
+export enum ConflictSeverity {
+  H1 = 'H1',
+  H2 = 'H2',
+  INFO = 'INFO',
+}
+
+export type FocusMode = 'boolean' | 'level';
+
+export interface FocusConflict {
+  taskId: string;
+  status: TaskStatus;
+  focus: FocusLevel;
+  severity: ConflictSeverity;
+  description: string;
+}
+
 export interface AcceptanceCriterion {
   description: string;
   completed: boolean;
@@ -30,7 +53,7 @@ export interface Task {
   priority: string;
   size: string;
   status: TaskStatus;
-  focus: boolean;
+  focus: FocusLevel;
   sprint: string;
   class: string;
   cli: string;

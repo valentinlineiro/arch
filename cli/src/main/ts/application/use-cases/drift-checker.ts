@@ -2,6 +2,7 @@ import { FileSystem } from '../repositories/file-system.js';
 import { GitRepository } from '../repositories/git-repository.js';
 import { HanseiAuditor } from '../../domain/services/hansei-auditor.js';
 import semver from 'semver';
+import { FocusLevel, ConflictSeverity, FocusConflict } from '../../domain/models/task.js';
 
 export interface DriftResult {
   check: string;
@@ -1027,6 +1028,7 @@ export class DriftChecker {
       .filter(f => f.startsWith('TASK-') && f.endsWith('.md'));
 
     const details: string[] = [];
+    const conflicts: FocusConflict[] = [];
 
     for (const file of files) {
       const content = await this.fileSystem.readFile(`${tasksDir}/${file}`);
@@ -1035,25 +1037,54 @@ export class DriftChecker {
 
       const meta = metaMatch[0];
       const statusMatch = meta.match(/\|\s*(READY|IN_PROGRESS|REVIEW|BLOCKED|DONE)\s*\|/);
-      const focusMatch = meta.match(/Focus:(yes|no)/i);
+      const focusMatch = meta.match(/Focus:(NONE|LOW|MEDIUM|HIGH|yes|no)/i);
 
       if (!statusMatch || !focusMatch) continue;
 
-      const status = statusMatch[1];
-      const focus = focusMatch[1].toLowerCase();
+      const status = statusMatch[1] as keyof typeof FocusLevel;
+      const rawFocus = focusMatch[1].toUpperCase();
+      const focusMap: Record<string, FocusLevel> = {
+        'YES': FocusLevel.HIGH,
+        'NO': FocusLevel.NONE,
+        'NONE': FocusLevel.NONE,
+        'LOW': FocusLevel.LOW,
+        'MEDIUM': FocusLevel.MEDIUM,
+        'HIGH': FocusLevel.HIGH,
+      };
+      const focus = focusMap[rawFocus] ?? FocusLevel.NONE;
       const taskId = file.replace('.md', '');
-
-      // IN_PROGRESS must have Focus:yes
-      if (status === 'IN_PROGRESS' && focus === 'no') {
-        details.push(`${taskId}: IN_PROGRESS but Focus:no — agent is executing without focus sovereignty.`);
-      }
-      // READY or BLOCKED must not have Focus:yes
-      // Exception: human-class tasks can't be auto-executed so govern shouldn't assign focus
       const isHumanClass = meta.includes('| human |') || meta.includes('| human\n');
-      if ((status === 'READY' || status === 'BLOCKED') && focus === 'yes' && !isHumanClass) {
-        details.push(`${taskId}: ${status} but Focus:yes — focus assigned to non-executing task.`);
+
+      if (status === 'IN_PROGRESS' && focus === FocusLevel.NONE) {
+        conflicts.push({
+          taskId,
+          status: status as any,
+          focus,
+          severity: ConflictSeverity.H1,
+          description: 'IN_PROGRESS with Focus:NONE — work has no energy assigned.',
+        });
+        details.push(`${taskId}: IN_PROGRESS but Focus:NONE — H1: debt of attention.`);
+      } else if (status === 'DONE' && focus !== FocusLevel.NONE) {
+        conflicts.push({
+          taskId,
+          status: status as any,
+          focus,
+          severity: ConflictSeverity.H2,
+          description: 'DONE with non-NONE focus — post-hoc misalignment, no rollback needed.',
+        });
+        details.push(`${taskId}: DONE but Focus:${focus} — H2: interpretative desalignment.`);
+      } else if (status === 'BLOCKED' && focus === FocusLevel.HIGH) {
+        conflicts.push({
+          taskId,
+          status: status as any,
+          focus,
+          severity: ConflictSeverity.INFO,
+          description: 'BLOCKED with Focus:HIGH — high energy on stalled work.',
+        });
+        details.push(`${taskId}: BLOCKED but Focus:HIGH — INFO: coherent, not a real conflict.`);
+      } else if (status === 'READY' && focus === FocusLevel.HIGH && !isHumanClass) {
+        details.push(`${taskId}: READY but Focus:HIGH — focus assigned to non-executing task.`);
       }
-      // REVIEW with Focus:yes is permitted (task may retain focus while awaiting Auditor)
     }
 
     return {

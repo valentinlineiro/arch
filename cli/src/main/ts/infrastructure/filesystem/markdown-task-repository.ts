@@ -1,5 +1,5 @@
 import path from 'node:path';
-import { Task, TaskRepository, TaskStatus, AcceptanceCriterion } from '../../domain/models/task.js';
+import { Task, TaskRepository, TaskStatus, AcceptanceCriterion, FocusLevel, FocusConflict, ConflictSeverity } from '../../domain/models/task.js';
 import { FileSystem } from '../../domain/repositories/file-system.js';
 
 export class MarkdownTaskRepository implements TaskRepository {
@@ -78,7 +78,7 @@ export class MarkdownTaskRepository implements TaskRepository {
 
     const metaMatch = content.match(/^\*\*Meta:\*\* (.*)/m);
     if (metaMatch) {
-      let newMetaLine = `**Meta:** ${task.priority} | ${task.size} | ${task.status} | Focus:${task.focus ? 'yes' : 'no'} | ${task.class} | ${task.cli} | ${task.context.join(', ')}`;
+      let newMetaLine = `**Meta:** ${task.priority} | ${task.size} | ${task.status} | Focus:${task.focus} | ${task.class} | ${task.cli} | ${task.context.join(', ')}`;
       if (task.status === TaskStatus.DONE) {
         if (task.cost !== undefined) newMetaLine += ` | Cost: $${task.cost.toFixed(2)}`;
         if (task.steps !== undefined) newMetaLine += ` | Steps: ${task.steps}`;
@@ -176,14 +176,22 @@ export class MarkdownTaskRepository implements TaskRepository {
         }
       }
 
+      const rawFocus = metaParts[3]?.replace('Focus:', '')?.trim() ?? '';
+      const focusMap: Record<string, FocusLevel> = {
+        'yes': FocusLevel.HIGH, 'no': FocusLevel.NONE,
+        'none': FocusLevel.NONE, 'low': FocusLevel.LOW,
+        'medium': FocusLevel.MEDIUM, 'high': FocusLevel.HIGH,
+      };
+      const focus = focusMap[rawFocus.toLowerCase()] ?? FocusLevel.NONE;
+
       return {
         id,
         title,
         priority: metaParts[0] || '',
         size: metaParts[1] || '',
         status: (metaParts[2] || '') as TaskStatus,
-        focus: metaParts[3] === 'Focus:yes',
         sprint: sprintMatch?.[1]?.trim() || '',
+        focus,
         class: metaParts[4] || '',
         cli: metaParts[5] || '',
         context: (metaParts[6] || '').split(',').map(s => s.trim()),
