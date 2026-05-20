@@ -43,6 +43,8 @@ import { ServeCommand } from './application/commands/serve-command.js';
 import { CaptureCommand } from './application/commands/capture-command.js';
 import { ExplainCommand } from './application/commands/explain-command.js';
 import { DepsCommand } from './application/commands/deps-command.js';
+import { CompileCommand } from './application/commands/compile-command.js';
+
 
 function deprecated(old: string, canonical: string): void {
   process.stderr.write(`Warning: 'arch ${old}' is deprecated. Use 'arch ${canonical}' instead.\n`);
@@ -87,6 +89,11 @@ async function main() {
     case 'status':
       await new StatusCommand(taskRepository, fileSystem, rootPath).execute();
       break;
+
+    case 'compile':
+      await new CompileCommand(fileSystem).execute(args);
+      break;
+
 
     case 'sentinel': {
       const { SentinelCommand } = await import('./application/commands/sentinel-command.js');
@@ -403,7 +410,9 @@ async function main() {
       console.log('  arch task capture "<intent>"   — capture, scaffold, and start in one step');
       console.log('');
       console.log('Governance & Analysis:');
+      console.log('  arch compile <path>            — compile telemetry stream through epistemic pipeline');
       console.log('  arch govern                    — run governance tick (archive DONE, assign focus)');
+
       console.log('  arch govern inbox              — show urgent actions and refinement queue');
       console.log('  arch govern reflect            — trigger THINK mode for pattern analysis');
       console.log('  arch govern serve              — launch local visual dashboard (localhost:3000)');

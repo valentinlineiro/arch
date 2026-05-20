@@ -1,0 +1,36 @@
+[
+  {
+    "origin": "fs",
+    "type": "write",
+    "payload": {
+      "filePath": "src/main/ts/index.ts",
+      "commitHash": "abc12345",
+      "author": "Alice",
+      "actionKind": "refine_core",
+      "componentsCount": 2
+    }
+  },
+  {
+    "origin": "vcs",
+    "type": "commit",
+    "payload": {
+      "filePath": "arch.config.json",
+      "commitHash": "def67890",
+      "author": "Bob",
+      "actionKind": "config_tweak",
+      "componentsCount": 1
+    }
+  },
+  {
+    "origin": "log",
+    "type": "build",
+    "payload": {
+      "filePath": "scripts/test-runner.sh",
+      "commitHash": "def67890",
+      "author": "Bob",
+      "exitCode": 0,
+      "actionKind": "build_go",
+      "componentsCount": 0
+    }
+  }
+]
