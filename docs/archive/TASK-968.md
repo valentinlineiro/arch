@@ -1,5 +1,6 @@
 ## TASK-968: Run architectural review of CLI with three outputs: (1) boun
-**Meta:** P1 | S | REVIEW | Focus:no | 6-writing | local | docs/tasks/
+**Meta:** P1 | S | DONE | Focus:no | 6-writing | local | docs/tasks/
+**Closed-at:** 2026-05-20T15:45:00Z
 **Locked-commit:** c9df753c
 **Actor:** unknown
 **Created-at:** 2026-05-19T14:47:35.886Z
@@ -45,8 +46,8 @@ _confidence: 0.46_
 Run architectural review of CLI with three outputs: (1) boundary violation map across application/domain/infrastructure layers and command wiring, (2) readability audit distinguishing necessary comments from comment volume caused by unclear structure, (3) recommendation set split into direct refactors / issues to become tasks / acceptable debt. Produce written report.
 
 ### Definition of Done
-- [ ] All ACs checked by Auditor  →  prose: verified
-- [ ] `arch review` passes  →  cmd: node cli/dist/index.js review; exit: 0
+- [x] All ACs checked by Auditor  →  prose: verified
+- [x] `arch review` passes  →  cmd: node cli/dist/index.js review; exit: 0
 
 ## Hansei
 **Severity:** H0
