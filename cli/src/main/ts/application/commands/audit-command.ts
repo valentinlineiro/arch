@@ -47,6 +47,39 @@ export class AuditCommand {
     }
   }
 
+  /** Silent version for govern reflect — returns summary without output. */
+  async runQuiet(repoPath: string): Promise<{
+    score: number;
+    emergentCount: number;
+    divergentCount: number;
+    emergent: Array<{ subject: string; description: string }>;
+  }> {
+    try {
+      const collector = new GitEvidenceCollector(repoPath);
+      const events = await collector.collect({ maxCommits: 100 });
+      const parser = new AdrDecisionParser(repoPath);
+      const decisions = parser.parse();
+      if (decisions.length === 0) return { score: 100, emergentCount: 0, divergentCount: 0, emergent: [] };
+
+      const engine = new DecisionReconciliationEngine();
+      const truthReport = engine.reconcile(decisions, events);
+
+      const emergent = (truthReport.unrecordedBehavioralPatterns ?? []).map(e => ({
+        subject: e.subject,
+        description: e.description ?? '',
+      }));
+
+      return {
+        score: truthReport.alignmentScore,
+        emergentCount: emergent.length,
+        divergentCount: (truthReport.topDivergences ?? []).length,
+        emergent,
+      };
+    } catch {
+      return { score: 100, emergentCount: 0, divergentCount: 0, emergent: [] };
+    }
+  }
+
   private async runAudit(
     repoPath: string,
     opts: { verbose: boolean; maxCommits: number },
@@ -93,6 +126,21 @@ export class AuditCommand {
 
     // ── Render results ────────────────────────────────────────────────────
     this.render({ truthReport, plan, integrityReport, decisions, events, verbose: opts.verbose });
+
+    // Cache audit result for arch status
+    try {
+      const { writeFileSync, existsSync, mkdirSync } = await import('node:fs');
+      const archDir = `${repoPath}/.arch`;
+      if (!existsSync(archDir)) mkdirSync(archDir, { recursive: true });
+      writeFileSync(`${archDir}/last-audit.json`, JSON.stringify({
+        score: truthReport.alignmentScore,
+        timestamp: new Date().toISOString(),
+        decisions: decisions.length,
+        events: events.length,
+        emergentCount: (truthReport.unrecordedBehavioralPatterns ?? []).length,
+        divergentCount: (truthReport.topDivergences ?? []).length,
+      }, null, 2));
+    } catch { /* non-blocking */ }
   }
 
   private render(ctx: {

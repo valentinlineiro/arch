@@ -75,6 +75,29 @@ export class StatusCommand {
       }
     } catch { /* no metrics */ }
 
+    // Alignment score — only if ADRs exist and a cached score is available
+    try {
+      const adrDir = `${this.rootPath}/docs/adr`;
+      const adrFiles = await this.fileSystem.readDirectory(adrDir);
+      const adrCount = adrFiles.filter(f => f.endsWith('.md') && !f.includes('template')).length;
+
+      if (adrCount > 0) {
+        // Try to read last audit score from .arch/last-audit.json
+        try {
+          const auditCache = await this.fileSystem.readFile(`${this.rootPath}/.arch/last-audit.json`);
+          const { score, timestamp, emergentCount } = JSON.parse(auditCache);
+          const age = Math.round((Date.now() - new Date(timestamp).getTime()) / 3600000);
+          const icon = score >= 80 ? '\x1b[32m✔\x1b[0m' : score >= 60 ? '\x1b[33m⚠\x1b[0m' : '\x1b[31m✖\x1b[0m';
+          const ageStr = age < 1 ? 'just now' : age < 24 ? `${age}h ago` : `${Math.round(age / 24)}d ago`;
+          const emergentStr = emergentCount > 0 ? `  ${emergentCount} emergent` : '';
+          console.log(`  Audit:  ${icon} ${score}/100 alignment (${ageStr})${emergentStr}`);
+        } catch {
+          // No cached audit — suggest running it
+          console.log(`  Audit:  ~ ${adrCount} ADRs found — run \x1b[36march audit .\x1b[0m for alignment score`);
+        }
+      }
+    } catch { /* no adr dir — skip */ }
+
     console.log('');
   }
 

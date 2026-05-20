@@ -81,3 +81,12 @@
 
 ## 2026-05-19 17:06:22 — Pattern Alerts
 [PATTERN-ALERT] [SpecDrift] detected 8 times — systemic issue. See docs/tensions/
+
+## 2026-05-20 06:04:29 — Pattern Alerts
+[PATTERN-ALERT] [SpecDrift] detected 8 times — systemic issue. See docs/tensions/
+
+## 2026-05-20 06:04:29 — Alignment Audit
+Alignment: 100/100
+[EMERGENT] .arch: 64 commits touch this directory but no ADR addresses it.
+[EMERGENT] cli: 60 commits touch this directory but no ADR addresses it.
+[EMERGENT] docs: 135 commits touch this directory but no ADR addresses it.

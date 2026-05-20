@@ -243,6 +243,26 @@ ${taskSections}`;
       console.log(`  Note: Hansei synthesis skipped (${e.message})`);
     }
 
+    // Alignment audit: runs on deep cadence, surfaces emergent patterns to INBOX
+    try {
+      const { AuditCommand } = await import('./audit-command.js');
+      const auditor = new AuditCommand();
+      const result = await auditor.runQuiet('.');
+      if (result.emergentCount > 0) {
+        const fs = new NodeFileSystem();
+        const inboxPath = 'docs/INBOX.md';
+        const inbox = await fs.readFile(inboxPath).catch(() => '');
+        const now = new Date().toISOString().slice(0, 19).replace('T', ' ');
+        const alerts = result.emergent
+          .map(e => `[EMERGENT] ${e.subject}: ${e.description}`)
+          .join('\n');
+        await fs.writeFile(inboxPath, (inbox.trimEnd()) + `\n\n## ${now} — Alignment Audit\nAlignment: ${result.score}/100\n${alerts}\n`);
+        console.log(`  ⚡ Alignment audit: ${result.score}/100, ${result.emergentCount} emergent pattern(s) → INBOX`);
+      } else {
+        console.log(`  ✔ Alignment audit: ${result.score}/100`);
+      }
+    } catch { /* non-blocking — no ADRs, not a git repo, etc. */ }
+
     console.log('  ARCH — arch reflect [analysis]: invoking THINK mode');
     console.log('  Purpose: regenerate INBOX, surface Kaizen, refine ideas, detect semantic drift');
     console.log('  Authority: proposals only — never mutates task state, never satisfies policy gates');
