@@ -58,3 +58,10 @@ Changed files:
 **Size:** M
 **Submitted:** 2026-05-20T16:13:00Z
 **Summary:** Adds TemporalIndex use-case (`.arch/temporal-index.jsonl` JSONL store), `recurs_in` RelationType, spike detection (≥3 occurrences in last 20 entries), integration into `arch ask` (Recurrence section) and `arch reflect` ([REFLECT-SUGGESTS] output), and causal signal emission on spike. All 6 temporal-index tests + 29 ask-corpus tests pass. `arch review` exits 0.
+
+## REVIEW_REQUEST
+**Task:** TASK-964
+**Title:** Implement arch task hansei TASK-XXX interactive wizard
+**Size:** M
+**Submitted:** 2026-05-20T16:25:00Z
+**Summary:** Wires `arch task hansei TASK-XXX` subcommand into task-command.ts routing to `HanseiWizard`. Adds `replaceHanseiBlock()` export (replaces or appends Hansei section in task file), `validateForwardAction()` method (H2 requires IDEA/TASK link), non-TTY guard (exits 1 if Hansei incomplete). 14 tests pass. `arch review` exits 0.

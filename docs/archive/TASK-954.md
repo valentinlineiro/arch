@@ -72,3 +72,8 @@ None — prerequisite (`recurs_in` in RelationType) and binding definitions (thr
 
 - [x] All ACs checked.
 - [x] `arch review` passes.  →  cmd: arch review; exit: 0
+
+## Approval
+Auditor: Valentín Liñeiro
+Reviewed: 2026-05-20
+All 6 ACs verified against actual repo state. Tests 6/6 pass (temporal-index), 29/29 pass (ask-corpus). `arch review` exits 0.

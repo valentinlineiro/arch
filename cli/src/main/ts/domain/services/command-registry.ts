@@ -163,6 +163,14 @@ export const COMMAND_REGISTRY: CommandEntry[] = [
     description: 'lossy-compress archive files',
     category: 'Task Lifecycle',
   },
+  {
+    name: 'arch task hansei',
+    topLevel: 'task',
+    subCommand: 'hansei',
+    visibility: 'public',
+    description: 'interactive Hansei wizard — reads diff, prompts for fields, writes ## Hansei block',
+    category: 'Task Lifecycle',
+  },
 
   // ── Task internals (access via task subcommand only) ─────────────────────────
   {

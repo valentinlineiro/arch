@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { HanseiWizard } from '../../main/ts/application/use-cases/hansei-wizard.js';
+import { HanseiWizard, replaceHanseiBlock } from '../../main/ts/application/use-cases/hansei-wizard.js';
 import { TaskValidator } from '../../main/ts/domain/services/task-validator.js';
 import { TaskStatus } from '../../main/ts/domain/models/task.js';
 
@@ -108,4 +108,85 @@ test('HanseiWizard.isHanseiComplete — non-TTY incomplete Hansei returns false 
   // If false and non-TTY: exits 1. We verify the predicate returns false.
   const result = HanseiWizard.isHanseiComplete(EMPTY_HANSEI);
   assert.equal(result, false, 'Empty Hansei should trigger wizard or exit 1 in non-TTY');
+});
+
+// ── replaceHanseiBlock ─────────────────────────────────────────────────────
+
+const TASK_WITH_HANSEI = `## TASK-001: Example
+**Meta:** P2 | S | REVIEW | Focus:no | 2-code-generation | local | none
+
+### Acceptance Criteria
+- [x] something
+
+## Hansei
+**Severity:** H0
+**Category:** [SpecDrift]
+**Decision:** Old decision text here for comparison purposes.
+**Constraint:** Old constraint here.
+**Cost:** Old cost here.
+**Forward Action:** Old forward action here for testing.
+`;
+
+const TASK_WITHOUT_HANSEI = `## TASK-002: Another task
+**Meta:** P2 | S | REVIEW | Focus:no | 2-code-generation | local | none
+
+### Acceptance Criteria
+- [x] done
+`;
+
+const NEW_HANSEI = `## Hansei
+**Severity:** H1
+**Category:** [SpecDrift]
+**Decision:** New decision text replacing the old one for testing replaceHanseiBlock.
+**Constraint:** New constraint replaces old constraint value here.
+**Cost:** New cost replaces old cost field value here now.
+**Forward Action:** None required — deviation is bounded and documented here.
+`;
+
+test('replaceHanseiBlock replaces existing Hansei section', () => {
+  const result = replaceHanseiBlock(TASK_WITH_HANSEI, NEW_HANSEI);
+  assert.ok(result.includes('New decision text'), 'should contain new decision');
+  assert.ok(!result.includes('Old decision text'), 'should not contain old decision');
+  assert.ok(result.includes('## TASK-001'), 'task header should be preserved');
+  assert.ok(result.includes('### Acceptance Criteria'), 'ACs section should be preserved');
+});
+
+test('replaceHanseiBlock appends Hansei when section is absent', () => {
+  const result = replaceHanseiBlock(TASK_WITHOUT_HANSEI, NEW_HANSEI);
+  assert.ok(result.includes('## Hansei'), 'should contain Hansei section');
+  assert.ok(result.includes('New decision text'), 'should contain new decision');
+  assert.ok(result.includes('## TASK-002'), 'task header should be preserved');
+});
+
+test('replaceHanseiBlock preserves content after Hansei when replaced', () => {
+  const contentWithTrailer = TASK_WITH_HANSEI + '\n## Definition of Done\n- [x] done\n';
+  const result = replaceHanseiBlock(contentWithTrailer, NEW_HANSEI);
+  assert.ok(result.includes('## Definition of Done'), 'trailing section should be preserved');
+  assert.ok(result.includes('New decision text'), 'new Hansei should be present');
+  assert.ok(!result.includes('Old decision text'), 'old Hansei should be gone');
+});
+
+// ── H2 Forward Action validation ───────────────────────────────────────────
+
+test('HanseiWizard.validateForwardAction passes for H0/H1 with any text', () => {
+  const wizard = new HanseiWizard();
+  assert.equal(wizard.validateForwardAction('H0', 'None required — no action needed here.'), null);
+  assert.equal(wizard.validateForwardAction('H1', 'Monitor for recurrence in the next three tasks.'), null);
+});
+
+test('HanseiWizard.validateForwardAction rejects H2 without IDEA or TASK link', () => {
+  const wizard = new HanseiWizard();
+  const error = wizard.validateForwardAction('H2', 'Will fix this eventually.');
+  assert.ok(error !== null, 'H2 without IDEA/TASK link should return an error');
+  assert.ok(error!.includes('IDEA') || error!.includes('TASK'), 'error message should mention IDEA or TASK');
+});
+
+test('HanseiWizard.validateForwardAction passes H2 with IDEA link', () => {
+  const wizard = new HanseiWizard();
+  assert.equal(wizard.validateForwardAction('H2', 'Track this pattern. See IDEA-auth-boundary for follow-up.'), null);
+});
+
+test('HanseiWizard.validateForwardAction passes H2 with TASK link', () => {
+  const wizard = new HanseiWizard();
+  assert.equal(wizard.validateForwardAction('H2', 'Rework required — see TASK-999 for structural fix.'), null);
 });

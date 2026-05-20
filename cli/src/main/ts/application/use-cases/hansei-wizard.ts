@@ -4,6 +4,18 @@ import type { Task } from '../../domain/models/task.js';
 import type { GitRepository } from '../../domain/repositories/git-repository.js';
 import { DeterministicHanseiChecker } from '../../domain/services/deterministic-hansei-checker.js';
 
+export function replaceHanseiBlock(content: string, newBlock: string): string {
+  const idx = content.lastIndexOf('\n## Hansei');
+  if (idx === -1) {
+    return content.trimEnd() + '\n\n' + newBlock.trimEnd() + '\n';
+  }
+  const before = content.slice(0, idx + 1);
+  const after = content.slice(idx + 1);
+  const nextSection = after.indexOf('\n## ', 1);
+  const trailer = nextSection === -1 ? '' : '\n' + after.slice(nextSection + 1);
+  return before + newBlock.trimEnd() + '\n' + trailer;
+}
+
 const out = (msg: string) => stdout.write(msg + '\n');
 
 const CATEGORIES = [
@@ -185,6 +197,13 @@ export class HanseiWizard {
     } finally {
       rl.close();
     }
+  }
+
+  validateForwardAction(severity: string, value: string): string | null {
+    if (severity === 'H2' && !/IDEA[-\w]+|TASK-\d+/.test(value)) {
+      return 'H2 Forward Action must reference an IDEA or TASK link (e.g. IDEA-auth-boundary or TASK-123).';
+    }
+    return null;
   }
 
   format(block: HanseiBlock): string {

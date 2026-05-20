@@ -337,6 +337,39 @@ export class TaskCommand {
       await new RankCommand(this.taskRepository).execute();
     } else if (subCommand === 'promote') {
       await new PromoteCommand(this.taskRepository, this.gitRepository, this.fileSystem).execute(args.slice(1));
+    } else if (subCommand === 'hansei') {
+      if (!taskId) {
+        fmt.fail('Usage: arch task hansei TASK-XXX');
+        process.exit(1);
+      }
+      const { HanseiWizard, replaceHanseiBlock } = await import('../use-cases/hansei-wizard.js');
+      const task = await this.taskRepository.getById(taskId);
+      if (!task) { fmt.fail(`Task ${taskId} not found`); process.exit(1); }
+
+      const taskPath = `${this.rootPath}/docs/tasks/${taskId}.md`;
+      let content: string;
+      try {
+        content = await this.fileSystem.readFile(taskPath);
+      } catch {
+        fmt.fail(`Could not read ${taskPath}`);
+        process.exit(1);
+        return;
+      }
+
+      if (!process.stdin.isTTY) {
+        if (!HanseiWizard.isHanseiComplete(content)) {
+          fmt.fail(`${taskId} Hansei section is incomplete. Run interactively to fill it in.`);
+          process.exit(1);
+        }
+        fmt.check(`${taskId} Hansei already complete.`);
+        return;
+      }
+
+      const wizard = new HanseiWizard();
+      const block = await wizard.run(task, this.gitRepository);
+      const updated = replaceHanseiBlock(content, block);
+      await this.fileSystem.writeFile(taskPath, updated);
+      fmt.check(`Hansei block written to ${taskPath}`);
     } else if (subCommand === 'compress') {
       const compressor = new CompressTask(this.fileSystem, process.cwd());
       const all = args.includes('--all');
