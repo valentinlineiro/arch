@@ -1,10 +1,10 @@
 ## TASK-959: Implement verifiability-first AC templates per task class in
-**Meta:** P1 | M | IN_PROGRESS | Focus:yes | 2-code-generation | local | docs/tasks/
+**Meta:** P1 | M | REVIEW | Focus:yes | 2-code-generation | local | docs/tasks/
 **Depends:** none
 
 ### Acceptance Criteria
 - [ ] Implementation file exists at declared context path
-  - `file: (path)`
+  - `file: cli/src/main/ts/domain/services/verifiability-scorer.ts`
 - [ ] Tests pass
   - `cmd: npm test; exit: 0`
 - [ ] `arch review` passes

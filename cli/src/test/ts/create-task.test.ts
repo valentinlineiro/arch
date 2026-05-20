@@ -101,3 +101,15 @@ test('CreateTask - draftMode=true with no provider throws explicit error', async
     /No provider|draft.*provider|--draft/i
   );
 });
+
+test('CreateTask - default class skeleton has at least one cmd: or file: predicate', async () => {
+  const fs = makeFs();
+  const git = new MockGitRepository();
+  const useCase = new CreateTask(makeRepo(), fs, git);
+
+  await useCase.execute('do something unclassified');
+
+  const content = fs.files['docs/tasks/TASK-900.md'] ?? '';
+  const hasMachineAC = /`(cmd|file):/.test(content);
+  assert.ok(hasMachineAC, 'default skeleton must include at least one cmd: or file: predicate');
+});

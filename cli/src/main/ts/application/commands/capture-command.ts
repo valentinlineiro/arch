@@ -4,6 +4,7 @@ import type { GitRepository } from '../../domain/repositories/git-repository.js'
 import { CreateTask } from '../use-cases/create-task.js';
 import { MarkTaskInProgress, DefinitionOfReadyError } from '../use-cases/mark-task-in-progress.js';
 import { SemanticCollisionDetector } from '../use-cases/semantic-collision-detector.js';
+import { VerifiabilityScorer } from '../../domain/services/verifiability-scorer.js';
 
 export class CaptureCommand {
   constructor(
@@ -66,7 +67,14 @@ export class CaptureCommand {
       } catch { /* non-blocking */ }
     }
 
-    // Step 2b: Semantic collision check (advisory only — never blocks)
+    // Step 2b: Verifiability score — displayed after creation, warns below threshold
+    try {
+      const taskPath = `docs/tasks/${taskId}.md`;
+      const taskContent = await this.fileSystem.readFile(taskPath);
+      console.log(VerifiabilityScorer.format(VerifiabilityScorer.score(taskContent)));
+    } catch { /* scoring errors must never block capture */ }
+
+    // Step 2c: Semantic collision check (advisory only — never blocks)
     try {
       const taskPath = `docs/tasks/${taskId}.md`;
       const taskContent = await this.fileSystem.readFile(taskPath);
