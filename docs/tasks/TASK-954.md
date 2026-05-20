@@ -1,5 +1,6 @@
 ## TASK-954: Temporal Pattern Layer for Causal Discovery
-**Meta:** P2 | M | REVIEW | Focus:yes | 2-code-generation | local | cli/src/main/ts/
+**Meta:** P2 | M | DONE | Focus:yes | 2-code-generation | local | cli/src/main/ts/
+**Closed-at:** 2026-05-20T16:16:00Z
 **Actor:** unknown
 **Locked-commit:** e29ca26f
 **Created-at:** 2026-05-20T15:19:28.358Z
