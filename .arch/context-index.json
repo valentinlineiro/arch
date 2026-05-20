@@ -325,7 +325,7 @@
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-965.md"
+          "taskPath": "docs/archive/TASK-965.md"
         },
         "TASK-966": {
           "evidenceKinds": [
@@ -460,7 +460,7 @@
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-965.md"
+          "taskPath": "docs/archive/TASK-965.md"
         },
         "TASK-966": {
           "evidenceKinds": [
@@ -606,7 +606,7 @@
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-965.md"
+          "taskPath": "docs/archive/TASK-965.md"
         },
         "TASK-970": {
           "evidenceKinds": [
@@ -3897,7 +3897,7 @@
       "title": "Unified Epistemic Invariant Specification — Bounded Stream Enforcement"
     }
   },
-  "builtAt": "2026-05-20T16:38:18.328Z",
+  "builtAt": "2026-05-20T17:03:10.509Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -6439,6 +6439,45 @@
         "type"
       ]
     },
+    "cli/src/main/ts/domain/models/audit-inference.ts": {
+      "criticality": "core",
+      "imports": [],
+      "runtimeUsage": "cold",
+      "symbols": [
+        "AuditResultV2",
+        "CachedSignalEntry",
+        "GitDiffChunk",
+        "InferredArchitecturalPattern",
+        "MigrationTrend",
+        "Pattern",
+        "PatternStability",
+        "SignalCategory",
+        "SignalMatch",
+        "SpreadMetrics"
+      ],
+      "tags": [
+        "architectural",
+        "audit",
+        "cached",
+        "category",
+        "chunk",
+        "diff",
+        "domain",
+        "entry",
+        "inference",
+        "inferred",
+        "match",
+        "metrics",
+        "migration",
+        "models",
+        "pattern",
+        "result",
+        "signal",
+        "spread",
+        "stability",
+        "trend"
+      ]
+    },
     "cli/src/main/ts/domain/models/batch-entry.ts": {
       "criticality": "core",
       "imports": [],
@@ -6944,6 +6983,22 @@
         "services"
       ]
     },
+    "cli/src/main/ts/domain/services/adr-inference-engine.ts": {
+      "criticality": "core",
+      "imports": [
+        "cli/src/main/ts/domain/models/audit-inference.ts"
+      ],
+      "runtimeUsage": "cold",
+      "symbols": [
+        "ADRInferenceEngine"
+      ],
+      "tags": [
+        "domain",
+        "engine",
+        "inference",
+        "services"
+      ]
+    },
     "cli/src/main/ts/domain/services/archive-parser.ts": {
       "criticality": "core",
       "imports": [
@@ -7262,6 +7317,23 @@
         "type"
       ]
     },
+    "cli/src/main/ts/domain/services/init-recommendation-engine.ts": {
+      "criticality": "core",
+      "imports": [
+        "cli/src/main/ts/domain/models/audit-inference.ts"
+      ],
+      "runtimeUsage": "cold",
+      "symbols": [
+        "InitRecommendationEngine"
+      ],
+      "tags": [
+        "domain",
+        "engine",
+        "init",
+        "recommendation",
+        "services"
+      ]
+    },
     "cli/src/main/ts/domain/services/institutional-anomaly-tracker.ts": {
       "criticality": "core",
       "imports": [
@@ -7377,6 +7449,20 @@
         "services"
       ]
     },
+    "cli/src/main/ts/domain/services/noise-filter.ts": {
+      "criticality": "core",
+      "imports": [],
+      "runtimeUsage": "cold",
+      "symbols": [
+        "NoiseFilter"
+      ],
+      "tags": [
+        "domain",
+        "filter",
+        "noise",
+        "services"
+      ]
+    },
     "cli/src/main/ts/domain/services/outcome-validation-service.ts": {
       "criticality": "core",
       "imports": [
@@ -7393,6 +7479,22 @@
         "service",
         "services",
         "validation"
+      ]
+    },
+    "cli/src/main/ts/domain/services/pattern-engine.ts": {
+      "criticality": "core",
+      "imports": [
+        "cli/src/main/ts/domain/models/audit-inference.ts"
+      ],
+      "runtimeUsage": "cold",
+      "symbols": [
+        "PatternEngine"
+      ],
+      "tags": [
+        "domain",
+        "engine",
+        "pattern",
+        "services"
       ]
     },
     "cli/src/main/ts/domain/services/precedent-novelty-scorer.ts": {
@@ -7474,6 +7576,26 @@
         "sandbox",
         "service",
         "services"
+      ]
+    },
+    "cli/src/main/ts/domain/services/signal-extraction-engine.ts": {
+      "criticality": "core",
+      "imports": [
+        "cli/src/main/ts/domain/models/audit-inference.ts"
+      ],
+      "runtimeUsage": "cold",
+      "symbols": [
+        "SIGNAL_ENGINE_VERSION",
+        "SignalDefinition",
+        "SignalExtractionEngine"
+      ],
+      "tags": [
+        "definition",
+        "domain",
+        "engine",
+        "extraction",
+        "services",
+        "signal"
       ]
     },
     "cli/src/main/ts/domain/services/signal-router.ts": {
@@ -7817,6 +7939,23 @@
         "system"
       ]
     },
+    "cli/src/main/ts/infrastructure/filesystem/signal-cache.ts": {
+      "criticality": "support",
+      "imports": [
+        "cli/src/main/ts/domain/models/audit-inference.ts",
+        "cli/src/main/ts/domain/repositories/file-system.ts"
+      ],
+      "runtimeUsage": "cold",
+      "symbols": [
+        "SignalCache"
+      ],
+      "tags": [
+        "cache",
+        "filesystem",
+        "infrastructure",
+        "signal"
+      ]
+    },
     "cli/src/main/ts/infrastructure/git/adr-decision-parser.ts": {
       "criticality": "support",
       "imports": [
@@ -7845,6 +7984,21 @@
         "collector",
         "evidence",
         "infrastructure"
+      ]
+    },
+    "cli/src/main/ts/infrastructure/git/git-semantic-extractor.ts": {
+      "criticality": "support",
+      "imports": [
+        "cli/src/main/ts/domain/models/audit-inference.ts"
+      ],
+      "runtimeUsage": "cold",
+      "symbols": [
+        "GitSemanticExtractor"
+      ],
+      "tags": [
+        "extractor",
+        "infrastructure",
+        "semantic"
       ]
     }
   },
@@ -8190,7 +8344,7 @@
       }
     },
     "TASK-255": {
-      "commitCount": 10,
+      "commitCount": 6,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-18T12:16:32+02:00",
       "recentCommitRefs": [
@@ -8198,18 +8352,12 @@
         "291e6372",
         "526532e8",
         "718b2b81",
-        "7d64a5fa",
-        "b6fc79c0",
         "c0195c00",
-        "c796bd50",
-        "ce4d49ee",
         "e3c2670a"
       ],
       "touchedFrequency": {
-        "cli/src/main/ts/application/commands/reflect-command.ts": 2,
-        "cli/src/main/ts/application/use-cases/govern-system.ts": 1,
+        "cli/src/main/ts/application/commands/reflect-command.ts": 1,
         "cli/src/main/ts/application/use-cases/weak-signal-checker.ts": 1,
-        "cli/src/test/ts/govern-system.test.ts": 1,
         "cli/src/test/ts/reflect-command.test.ts": 1,
         "cli/src/test/ts/weak-signal-checker.test.ts": 1,
         "docs/EVENTS.md": 1,
@@ -8217,7 +8365,7 @@
         "docs/archive/TASK-257.md": 1,
         "docs/archive/TASK-927.md": 1,
         "docs/archive/TASK-935.md": 1,
-        "docs/tasks/TASK-255.md": 3,
+        "docs/tasks/TASK-255.md": 1,
         "docs/tasks/TASK-256.md": 1,
         "docs/tasks/TASK-257.md": 1,
         "docs/tasks/TASK-935.md": 1
@@ -10059,15 +10207,38 @@
       }
     },
     "TASK-965": {
-      "commitCount": 2,
+      "commitCount": 6,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-20T18:38:17+02:00",
+      "lastCommitDate": "2026-05-20T19:03:09+02:00",
       "recentCommitRefs": [
+        "6375b73f",
         "6b612fe7",
-        "6c8a6d03"
+        "6c8a6d03",
+        "9236f27f",
+        "a768d6f9",
+        "bbe7fee3"
       ],
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 2
+        ".arch/focus-ledger.jsonl": 2,
+        "cli/src/main/ts/application/use-cases/mark-task-done.ts": 1,
+        "cli/src/main/ts/domain/services/deterministic-ac-verifier.ts": 1,
+        "cli/src/test/ts/deterministic-ac-verifier.test.ts": 1,
+        "cli/src/test/ts/mark-task-done.test.ts": 1,
+        "docs/INBOX.md": 1,
+        "docs/SENTINEL-LOG.md": 1,
+        "docs/archive/TASK-965.md": 1,
+        "docs/tasks/TASK-965.md": 3
+      }
+    },
+    "TASK-966": {
+      "commitCount": 1,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-05-20T19:03:09+02:00",
+      "recentCommitRefs": [
+        "ac0e2be6"
+      ],
+      "touchedFrequency": {
+        ".arch/focus-ledger.jsonl": 1
       }
     },
     "TASK-968": {
@@ -10249,6 +10420,19 @@
         "cli/src/test/ts/build-index-v2.test.ts": 1,
         "docs/INBOX.md": 1,
         "docs/tasks/TASK-976.md": 3
+      }
+    },
+    "TASK-977": {
+      "commitCount": 2,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-05-20T19:03:09+02:00",
+      "recentCommitRefs": [
+        "2fc27dbb",
+        "ef6145df"
+      ],
+      "touchedFrequency": {
+        "docs/archive/TASK-977.md": 1,
+        "docs/tasks/TASK-977.md": 1
       }
     }
   },
