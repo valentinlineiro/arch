@@ -1,8 +1,8 @@
 {
   "version": 1,
-  "builtAt": "2026-05-20T15:00:49.134Z",
-  "archiveCommit": "332:TASK-974.md",
-  "taskCount": 137,
+  "builtAt": "2026-05-20T16:29:14.810Z",
+  "archiveCommit": "",
+  "taskCount": 138,
   "entries": {
     "TASK-180": {
       "id": "TASK-180",
@@ -2179,6 +2179,23 @@
       "acCount": 0,
       "acMachineVerifiable": 0,
       "closurePath": "L3"
+    },
+    "TASK-954": {
+      "id": "TASK-954",
+      "size": "M",
+      "class": "2-code-generation",
+      "closedAt": "2026-05-20T16:16:00Z",
+      "lockedCommit": "e29ca26f",
+      "actor": "unknown",
+      "severity": "H0",
+      "category": "[AuditGap]",
+      "decision": "Task promoted with EXTEND decision overridden by human. Three gaps (underspecified ACs, wrong size, missing recurs_in) were documented and resolved inline in this task file rather than in a prerequisite task. The binding definitions and prerequisite AC are embedded in Context and ACs.",
+      "constraint": "Human chose to consolidate prerequisite work into a single M task rather than split into XS prerequisite + M implementation task.",
+      "cost": "If the recurs_in prerequisite AC is missed during implementation the causal signal emission will fail schema validation at runtime — forward-caught by the AC predicate.",
+      "forwardAction": "No IDEA required — gaps are fully resolved in this task's ACs.",
+      "acCount": 0,
+      "acMachineVerifiable": 0,
+      "closurePath": "unknown"
     },
     "TASK-955": {
       "id": "TASK-955",
