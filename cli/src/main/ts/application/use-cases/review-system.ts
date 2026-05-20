@@ -1,7 +1,7 @@
 import { TaskRepository } from '../../domain/repositories/task-repository.js';
 import { GitRepository } from '../../domain/repositories/git-repository.js';
 import { FileSystem } from '../../domain/repositories/file-system.js';
-import { Task, TaskStatus } from '../../domain/models/task.js';
+import { Task, TaskStatus, FocusLevel } from '../../domain/models/task.js';
 import { Reviewer, ReviewResult } from '../../domain/services/reviewer.js';
 import { DriftChecker, DriftResult } from '../use-cases/drift-checker.js';
 import { ConfigLoader } from '../../domain/services/config-loader.js';
@@ -177,12 +177,12 @@ export class ReviewSystem {
 
       // FOCUS_INTEGRITY_VIOLATION: task has Focus:yes with no FOCUS_ACQUIRED in committed ledger
       for (const t of activeTasks) {
-        if (!t.focus) continue;
+        if (t.focus === FocusLevel.NONE) continue;
         const hasAcquisition = committed.some(r => r.action === 'FOCUS_ACQUIRED' && r.taskId === t.id);
         if (!hasAcquisition) return 'FOCUS_INTEGRITY_VIOLATION';
       }
 
-      const focused = activeTasks.find(t => t.focus) ?? null;
+      const focused = activeTasks.find(t => t.focus !== FocusLevel.NONE) ?? null;
       if (!focused) return 'NONE';
 
       // Build doneTaskIds from all tasks (including archived)
@@ -191,7 +191,7 @@ export class ReviewSystem {
 
       const eligible = activeTasks.filter(t => {
         if (t.status !== TaskStatus.READY) return false;
-        if (t.focus) return false;
+        if (t.focus !== FocusLevel.NONE) return false;
         const deps = (t.depends ?? []).filter(d => d.toLowerCase() !== 'none');
         return deps.every(dep => doneTaskIds.has(dep));
       });
