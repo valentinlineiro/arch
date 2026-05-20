@@ -36,3 +36,4 @@ docs/superpowers/
 .arch/reflect-breach-log.jsonl
 .arch/reflect-decisions.jsonl
 .arch/reflect-proposals.jsonl
+.arch/context/
