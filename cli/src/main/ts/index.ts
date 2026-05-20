@@ -296,6 +296,11 @@ async function main() {
       await new VerifyAcsCommand(taskRepository, rootPath).execute(args);
       break;
 
+    case 'audit': {
+      const { AuditCommand } = await import('./application/commands/audit-command.js');
+      await new AuditCommand().execute(args);
+      break;
+    }
     case 'corpus': {
       if (args[0] === 'audit') {
         const { CorpusAuditCommand } = await import('./application/commands/corpus-audit-command.js');
