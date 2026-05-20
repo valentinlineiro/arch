@@ -3897,7 +3897,7 @@
       "title": "Unified Epistemic Invariant Specification — Bounded Stream Enforcement"
     }
   },
-  "builtAt": "2026-05-20T20:20:48.328Z",
+  "builtAt": "2026-05-20T20:29:46.793Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -8086,10 +8086,11 @@
   },
   "tasks": {
     "TASK-206": {
-      "commitCount": 11,
+      "commitCount": 12,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-20T20:20:32+00:00",
+      "lastCommitDate": "2026-05-20T20:21:48+00:00",
       "recentCommitRefs": [
+        "0379ddd7",
         "4a348d92",
         "519e55c1",
         "5a2d682f",
@@ -8128,7 +8129,7 @@
         "cli/src/test/ts/corpus-audit-command.test.ts": 1,
         "cli/src/test/ts/corpus-audit-weighted.test.ts": 1,
         "cli/src/test/ts/corpus-index.test.ts": 1,
-        "docs/EVENTS.md": 2,
+        "docs/EVENTS.md": 3,
         "docs/INBOX.md": 2,
         "docs/METRICS.md": 2,
         "docs/refinement/IDEA-automate-govern-metadata-flush.md": 1,
@@ -8357,45 +8358,32 @@
       }
     },
     "TASK-255": {
-      "commitCount": 2,
+      "commitCount": 1,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-18T12:16:32+02:00",
       "recentCommitRefs": [
-        "526532e8",
         "718b2b81"
       ],
       "touchedFrequency": {
         "docs/EVENTS.md": 1,
-        "docs/archive/TASK-255.md": 2,
+        "docs/archive/TASK-255.md": 1,
         "docs/archive/TASK-257.md": 1,
         "docs/archive/TASK-927.md": 1,
         "docs/archive/TASK-935.md": 1,
         "docs/tasks/TASK-935.md": 1
       }
     },
-    "TASK-256": {
-      "commitCount": 1,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-18T08:58:10+02:00",
-      "recentCommitRefs": [
-        "38eddf89"
-      ],
-      "touchedFrequency": {
-        "docs/archive/TASK-256.md": 1
-      }
-    },
     "TASK-257": {
-      "commitCount": 2,
+      "commitCount": 1,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-18T12:16:32+02:00",
       "recentCommitRefs": [
-        "718b2b81",
-        "f7568bfa"
+        "718b2b81"
       ],
       "touchedFrequency": {
         "docs/EVENTS.md": 1,
         "docs/archive/TASK-255.md": 1,
-        "docs/archive/TASK-257.md": 2,
+        "docs/archive/TASK-257.md": 1,
         "docs/archive/TASK-927.md": 1,
         "docs/archive/TASK-935.md": 1,
         "docs/tasks/TASK-935.md": 1
@@ -10217,18 +10205,19 @@
       }
     },
     "TASK-966": {
-      "commitCount": 4,
+      "commitCount": 5,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-20T20:20:45+00:00",
+      "lastCommitDate": "2026-05-20T20:29:43+00:00",
       "recentCommitRefs": [
         "1642d844",
         "197f0cad",
+        "4ee462fb",
         "8ab92fb8",
         "ac0e2be6"
       ],
       "touchedFrequency": {
         ".arch/corpus-index.json": 1,
-        ".arch/focus-ledger.jsonl": 3,
+        ".arch/focus-ledger.jsonl": 4,
         ".arch/reflect-breach-log.jsonl": 1,
         "docs/METRICS.md": 1,
         "docs/tasks/TASK-966.md": 1
