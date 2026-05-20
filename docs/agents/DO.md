@@ -1,5 +1,5 @@
 # DO.md
-<!-- ARCH v1.0.0 — Modular Execution -->
+<!-- ARCH v1.1.0 — Modular Execution -->
 <!-- Purpose: Execute tasks from docs/tasks/ or perform human-directed operations -->
 
 ## Intent: Execute Task (Exec)
