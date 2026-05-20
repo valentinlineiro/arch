@@ -34,6 +34,7 @@ import { AskCorpus } from './application/use-cases/ask-corpus.js';
 import { CausalCommand } from './application/commands/causal-command.js';
 import { CausalGraph } from './application/use-cases/causal-graph.js';
 import { CausalSignalLog } from './application/use-cases/causal-signal-log.js';
+import { TemporalIndex } from './application/use-cases/temporal-index.js';
 import { ReflectCommand } from './application/commands/reflect-command.js';
 import { ReportCommand } from './application/commands/report-command.js';
 import { InitCommand } from './application/commands/init-command.js';
@@ -65,6 +66,7 @@ async function main() {
   const driftChecker = new DriftChecker(fileSystem, gitRepository, rootPath, cliVersion);
   const humanCoordinationService = new HumanCoordinationService(taskRepository, gitRepository);
   const causalSignalLog = new CausalSignalLog(fileSystem, rootPath);
+  const temporalIndex = new TemporalIndex(fileSystem, rootPath);
 
   const { name, args } = parseCommand(process.argv.slice(2));
 
@@ -129,7 +131,7 @@ async function main() {
           const configRaw = await fileSystem.readFile(`${rootPath}/arch.config.json`);
           muriConfig = JSON.parse(configRaw).muri;
         } catch { /* use default */ }
-        await new TaskCommand(taskRepository, reviewer, humanCoordinationService, fileSystem, rootPath, eventRepository, causalSignalLog, gitRepository, muriConfig, eventLogger).execute(args);
+        await new TaskCommand(taskRepository, reviewer, humanCoordinationService, fileSystem, rootPath, eventRepository, causalSignalLog, gitRepository, muriConfig, eventLogger, temporalIndex).execute(args);
       }
       break;
     }
@@ -200,7 +202,7 @@ async function main() {
       const sub = args[0];
       const subArgs = args.slice(1);
       if (sub === 'ask') {
-        await new AskCommand(new AskCorpus(fileSystem, rootPath, new CausalGraph(fileSystem, rootPath)), {
+        await new AskCommand(new AskCorpus(fileSystem, rootPath, new CausalGraph(fileSystem, rootPath), temporalIndex), {
           getArgs: () => subArgs,
           log: (s) => console.log(s),
           error: (s) => console.error(s),
@@ -343,7 +345,7 @@ async function main() {
 
     case 'ask':
       deprecated('ask', 'memory ask');
-      await new AskCommand(new AskCorpus(fileSystem, rootPath, new CausalGraph(fileSystem, rootPath)), {
+      await new AskCommand(new AskCorpus(fileSystem, rootPath, new CausalGraph(fileSystem, rootPath), temporalIndex), {
         getArgs: () => args,
         log: (s) => console.log(s),
         error: (s) => console.error(s),

@@ -51,3 +51,10 @@ Changed files:
 - [cli/src/main/ts/application/use-cases/decision-validator.ts](file:///home/valentin/code/arch/cli/src/main/ts/application/use-cases/decision-validator.ts)
 - [cli/src/test/ts/build-index-v2.test.ts](file:///home/valentin/code/arch/cli/src/test/ts/build-index-v2.test.ts)
 - [docs/tasks/TASK-976.md](file:///home/valentin/code/arch/docs/tasks/TASK-976.md)
+
+## REVIEW_REQUEST
+**Task:** TASK-954
+**Title:** Temporal Pattern Layer for Causal Discovery
+**Size:** M
+**Submitted:** 2026-05-20T16:13:00Z
+**Summary:** Adds TemporalIndex use-case (`.arch/temporal-index.jsonl` JSONL store), `recurs_in` RelationType, spike detection (≥3 occurrences in last 20 entries), integration into `arch ask` (Recurrence section) and `arch reflect` ([REFLECT-SUGGESTS] output), and causal signal emission on spike. All 6 temporal-index tests + 29 ask-corpus tests pass. `arch review` exits 0.

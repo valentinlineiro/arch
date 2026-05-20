@@ -178,14 +178,14 @@ test('execute scopes entity refs to top-5 matches', async () => {
 });
 
 // TASK-942: recurringSignals removed from AskResult
-test('AskResult does not include recurringSignals field', async () => {
+test('AskResult recurringSignals is absent when no temporal index provided', async () => {
   const files: Record<string, string> = {};
   for (let i = 1; i <= 5; i++) {
     files[`/root/docs/archive/TASK-${String(i).padStart(3, '0')}.md`] = `auth failure see TASK-099`;
   }
   const corpus = new AskCorpus(new MockFileSystem(files), '/root');
   const result = await corpus.execute('auth failure');
-  assert.ok(!('recurringSignals' in result), 'recurringSignals must not be in AskResult');
+  assert.ok(!result.recurringSignals, 'recurringSignals must be absent when no temporal index is configured');
 });
 
 // TASK-942: causeGroups removed from AskResult

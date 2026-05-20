@@ -64,14 +64,15 @@ export class TaskCommand {
     causalSignalLog?: CausalSignalLog,
     gitRepository?: GitRepository,
     muriConfig?: any,
-    eventLogger?: EventLogger
+    eventLogger?: EventLogger,
+    temporalIndex?: import('../use-cases/temporal-index.js').TemporalIndex,
   ) {
     this.taskRepository = taskRepository;
     this.gitRepository = gitRepository!;
     this.muriConfig = muriConfig;
     this.rootPath = rootPath;
     this.markInProgress = new MarkTaskInProgress(taskRepository, eventRepository, gitRepository);
-    this.markDone = new MarkTaskDone(taskRepository, reviewer, fileSystem, eventRepository, new NodeFeedbackRepository(fileSystem), causalSignalLog, eventLogger, gitRepository);
+    this.markDone = new MarkTaskDone(taskRepository, reviewer, fileSystem, eventRepository, new NodeFeedbackRepository(fileSystem), causalSignalLog, eventLogger, gitRepository, undefined, temporalIndex);
     this.markReview = new MarkTaskReview(taskRepository, rootPath);
     this.rejectTask = new RejectTask(taskRepository, eventLogger);
     this.rejectStaleTask = new RejectStaleTask(taskRepository);

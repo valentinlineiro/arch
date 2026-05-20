@@ -1,5 +1,6 @@
 import type { FileSystem } from '../../domain/repositories/file-system.js';
 import type { CausalGraph } from './causal-graph.js';
+import type { TemporalIndex, TemporalSpike } from './temporal-index.js';
 
 export type QueryClass = 'DEFINITIONAL' | 'HISTORICAL' | 'STRUCTURAL' | 'PATTERN' | 'GENERAL';
 
@@ -20,6 +21,7 @@ export interface AskResult {
   taskRefs: string[];
   adrRefs: string[];
   principleRefs: string[];
+  recurringSignals?: TemporalSpike[];
 }
 
 const STOP_WORDS = new Set([
@@ -89,6 +91,7 @@ export class AskCorpus {
     private fileSystem: FileSystem,
     private rootPath: string,
     private causalGraph?: CausalGraph,
+    private temporalIndex?: TemporalIndex,
   ) {}
 
   async execute(question: string): Promise<AskResult> {
@@ -144,6 +147,12 @@ export class AskCorpus {
       for (const m of content.matchAll(/P-\d{3}/g)) principleRefs.add(m[0]);
     }
 
+    let recurringSignals: TemporalSpike[] | undefined;
+    if (this.temporalIndex) {
+      const spikes = await this.temporalIndex.detectSpikes();
+      if (spikes.length > 0) recurringSignals = spikes;
+    }
+
     return {
       queryClass,
       keywords,
@@ -151,6 +160,7 @@ export class AskCorpus {
       taskRefs: [...taskRefs].sort(),
       adrRefs: [...adrRefs].sort(),
       principleRefs: [...principleRefs].sort(),
+      ...(recurringSignals !== undefined ? { recurringSignals } : {}),
     };
   }
 

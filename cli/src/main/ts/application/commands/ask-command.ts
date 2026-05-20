@@ -29,11 +29,19 @@ export class AskCommand {
       this.io.exit(1);
     }
 
-    const { queryClass, keywords, matches, taskRefs, adrRefs, principleRefs } = result;
+    const { queryClass, keywords, matches, taskRefs, adrRefs, principleRefs, recurringSignals } = result;
 
     this.io.log(`Query: ${question}`);
     this.io.log(`Class:    ${queryClass} | Keywords: ${keywords.join(', ')}`);
     this.io.log('');
+
+    if (recurringSignals && recurringSignals.length > 0) {
+      this.io.log('Recurrence detected:');
+      for (const s of recurringSignals) {
+        this.io.log(`  ${s.label} — ${s.count}x (${s.taskIds.join(', ')})`);
+      }
+      this.io.log('');
+    }
 
     if (matches.length === 0) {
       this.io.log('No matches found in corpus.');

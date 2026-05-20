@@ -4,10 +4,11 @@ export type RelationType =
   | 'violated'     // TASK violated a guideline or principle
   | 'fixes'        // TASK fixes a recurring pattern or prior task
   | 'spawned'      // TASK-X was spawned as follow-up from TASK-Y
-  | 'references';  // explicit cross-reference without stronger causal claim
+  | 'references'   // explicit cross-reference without stronger causal claim
+  | 'recurs_in';   // TASK-X is a temporal recurrence of a prior pattern
 
 export const VALID_RELATIONS: readonly RelationType[] = [
-  'implements', 'caused_by', 'violated', 'fixes', 'spawned', 'references',
+  'implements', 'caused_by', 'violated', 'fixes', 'spawned', 'references', 'recurs_in',
 ];
 
 // Internal taxonomy — not stored, used for query weighting and display.
@@ -20,6 +21,7 @@ export const RELATION_STRENGTH: Record<RelationType, 'STRONG' | 'MEDIUM' | 'WEAK
   implements: 'MEDIUM',
   fixes:      'MEDIUM',
   violated:   'MEDIUM',
+  recurs_in:  'MEDIUM',
   references: 'WEAK',
 };
 

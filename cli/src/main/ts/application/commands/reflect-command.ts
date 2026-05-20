@@ -234,6 +234,22 @@ ${taskSections}`;
       }
     } catch { /* non-blocking */ }
 
+    // Temporal pattern spikes — surface before LLM synthesis
+    try {
+      const { TemporalIndex } = await import('../use-cases/temporal-index.js');
+      const nodefs = new NodeFileSystem();
+      const temporalIdx = new TemporalIndex(nodefs, '.');
+      const spikes = await temporalIdx.detectSpikes();
+      if (spikes.length > 0) {
+        console.log('\n  ⚡ Temporal Pattern Analysis:');
+        for (const spike of spikes) {
+          console.log(`    [REFLECT-SUGGESTS] ${spike.label} recurred ${spike.count}x in last 20 completions — consider structural intervention`);
+          console.log(`      Tasks: ${spike.taskIds.join(', ')}`);
+        }
+        console.log('');
+      }
+    } catch { /* non-blocking */ }
+
     // Deterministic synthesis: always runs, no AI required
     try {
       const { HanseiSynthesizer } = await import('../use-cases/hansei-synthesizer.js');

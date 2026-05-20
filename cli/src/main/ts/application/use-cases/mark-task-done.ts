@@ -13,6 +13,7 @@ import { SignalRouter } from '../../domain/services/signal-router.js';
 import type { GitRepository } from '../../domain/repositories/git-repository.js';
 import { computeTrustedMetrics } from './compute-trusted-metrics.js';
 import { LightweightMetricsRefresh } from './lightweight-metrics-refresh.js';
+import { TemporalIndex } from './temporal-index.js';
 import type { Task } from '../../domain/models/task.js';
 import { stdout } from 'node:process';
 import crypto from 'node:crypto';
@@ -30,6 +31,7 @@ export class MarkTaskDone {
     private eventLogger?: EventLogger,
     private gitRepository?: GitRepository,
     private metricsRefresh?: LightweightMetricsRefresh,
+    private temporalIndex?: TemporalIndex,
   ) {}
 
   async execute(taskId: string, force = false) {
@@ -156,6 +158,14 @@ export class MarkTaskDone {
         const router = new SignalRouter(this.causalSignalLog);
         await router.route({ taskId, title: task.title, hansei: task.hansei });
       }
+    }
+
+    if (this.temporalIndex && task.hansei?.category) {
+      await this.temporalIndex.appendAndDetect(
+        taskId,
+        [task.hansei.category],
+        this.causalSignalLog,
+      );
     }
 
     if (this.metricsRefresh) {
