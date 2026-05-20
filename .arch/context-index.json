@@ -3897,7 +3897,7 @@
       "title": "Unified Epistemic Invariant Specification — Bounded Stream Enforcement"
     }
   },
-  "builtAt": "2026-05-20T16:29:16.303Z",
+  "builtAt": "2026-05-20T16:29:20.694Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -8253,7 +8253,7 @@
       }
     },
     "TASK-257": {
-      "commitCount": 8,
+      "commitCount": 6,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-18T12:16:32+02:00",
       "recentCommitRefs": [
@@ -8261,29 +8261,23 @@
         "30e44605",
         "42bcfa43",
         "718b2b81",
-        "776d2b9b",
-        "b6ca02f5",
         "ebb3d262",
         "f7568bfa"
       ],
       "touchedFrequency": {
-        "cli/src/main/ts/application/use-cases/causal-arbitrator.ts": 1,
         "cli/src/main/ts/application/use-cases/compute-trusted-metrics.ts": 1,
         "cli/src/main/ts/application/use-cases/govern-system.ts": 1,
         "cli/src/main/ts/application/use-cases/mark-task-done.ts": 1,
         "cli/src/test/ts/compute-trusted-metrics.test.ts": 1,
         "cli/src/test/ts/lightweight-metrics-refresh.test.ts": 1,
         "docs/EVENTS.md": 1,
-        "docs/IDENTITY.md": 1,
-        "docs/ROADMAP.md": 1,
         "docs/archive/TASK-255.md": 1,
         "docs/archive/TASK-257.md": 2,
         "docs/archive/TASK-927.md": 1,
         "docs/archive/TASK-935.md": 1,
-        "docs/tasks/TASK-251.md": 1,
         "docs/tasks/TASK-255.md": 1,
         "docs/tasks/TASK-256.md": 1,
-        "docs/tasks/TASK-257.md": 4,
+        "docs/tasks/TASK-257.md": 2,
         "docs/tasks/TASK-935.md": 1
       }
     },
@@ -10053,15 +10047,16 @@
       }
     },
     "TASK-964": {
-      "commitCount": 2,
+      "commitCount": 3,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-20T18:29:14+02:00",
+      "lastCommitDate": "2026-05-20T18:29:19+02:00",
       "recentCommitRefs": [
         "0ea2702b",
+        "78bc56ec",
         "c72a4c57"
       ],
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 2
+        ".arch/focus-ledger.jsonl": 3
       }
     },
     "TASK-968": {
