@@ -1,12 +1,12 @@
 ## TASK-960: Produce sprint state machine design document: define SprintS
-**Meta:** P1 | S | IN_PROGRESS | Focus:yes | 6-writing | local | docs/tasks/
+**Meta:** P1 | S | REVIEW | Focus:yes | 6-writing | local | docs/tasks/
 **Actor:** unknown
 **Created-at:** 2026-05-19T14:46:56.222Z
 **Depends:** none
 
 ### Acceptance Criteria
 - [ ] Document exists at declared path
-  - `file: (path)`
+  - `file: docs/SPRINT-STATE-MACHINE.md`
 - [ ] Content is accurate and complete
   - `prose: reviewed and verified`
 - [ ] `arch review` passes
