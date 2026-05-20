@@ -1,6 +1,7 @@
 ## TASK-974: Command registry as single source of truth for CLI surface
 
-**Meta:** P1 | M | REVIEW | Focus:no | 2-code-generation | human | cli/src/main/ts/
+**Meta:** P1 | M | DONE | Focus:no | 2-code-generation | human | cli/src/main/ts/
+**Closed-at:** 2026-05-20T12:46:07Z
 
 ## Context
 
@@ -24,8 +25,8 @@ CLI help was split across hardcoded strings in `index.ts` and `task-command.ts`.
   - `cmd: arch review; exit: 0`
 
 ### Definition of Done
-- [ ] All ACs checked by Auditor
-- [ ] `arch review` passes
+- [x] All ACs checked by Auditor
+- [x] `arch review` passes
 
 ## Verifiability
 
@@ -47,3 +48,6 @@ CLI help was split across hardcoded strings in `index.ts` and `task-command.ts`.
 **Constraint:** Registry must be kept manually aligned with index.ts switch-case. Scope defaults to hybrid; explicit --staged required for delta mode. Global checks fire on FAIL regardless of scope in hybrid/full.
 **Cost:** Reduced pre-push hook noise. Global health now requires explicit --full run. False positives from historical state eliminated.
 **Forward Action:** Address the Focus/IN_PROGRESS incoherence separately — it's a model-level decision not a review implementation issue.
+
+## Approval
+Approved-by: human-auditor | 2026-05-20
