@@ -1,11 +1,15 @@
 # ARCH Governance Epistemic Doctrine
 <!-- Established: 2026-05-20 | TASK-958 | Constitutional frame for ARCH automation -->
 <!-- Re-entry index:
-     "Is this friction constructive or bureaucratic?"         → §Friction Taxonomy
-     "Which governance layer does this work touch?"           → §Governance Layer Model
-     "Is it safe to begin Phase N+1 work?"                    → §Governance Maturity Model (sequencing invariants)
-     "Does this automation violate constitutional authority?"  → §Constitutional Invariants
-     "What failure mode is this pattern heading toward?"       → §Anti-Goals -->
+     "Is this friction constructive or bureaucratic?"              → §Friction Taxonomy
+     "Which governance layer does this work touch?"                → §Governance Layer Model
+     "Can Layer 2 detect genuine novelty?"                         → §Layer 2 Epistemic Ceiling
+     "Is it safe to begin Phase N+1 work?"                         → §Governance Maturity Model (sequencing invariants)
+     "Does this automation violate constitutional authority?"       → §Constitutional Invariants
+     "Is disagreement being penalized structurally?"               → §Constitutional Invariants (invariant 5)
+     "What failure mode is this pattern heading toward?"           → §Anti-Goals
+     "Is the system eroding authority capacity, not just rights?"  → §Authority Erosion Dynamics
+     "Is THINK shaping what governance can express?"               → §Governance Representation Boundary -->
 
 ## Core Principle
 
@@ -40,6 +44,21 @@ These failure modes must be named explicitly. Systems decay toward unnamed failu
 | **Confidence laundering** | Machine confidence scores or recommendation quality substitute for human judgment about novelty and legitimacy. |
 | **Veto-default constitutionalism** | Humans retain formal veto power but internalize approval as the expected outcome. The veto becomes costly to exercise rather than the default. |
 
+## Authority Erosion Dynamics
+
+The anti-goals above describe *what* goes wrong. This section describes *how* — the mechanism by which authority transfer occurs below the level of policy.
+
+Systems rarely remove human authority explicitly. They remove:
+
+- **Confidence** — the operator's sense that their judgment differs meaningfully from the recommendation
+- **Attentional bandwidth** — the cognitive capacity to reconstruct context independently
+- **Reconstruction ability** — the accumulated habit of forming assessments without machine scaffolding
+- **Disagreement normalcy** — the social and operational expectation that rejection is ordinary, not exceptional
+
+**Constitutional rights can survive after constitutional capacities decay.** Authority erosion through cognitive dependency is a different failure mode from authority transfer through formal delegation — and harder to detect because the formal record looks intact.
+
+The doctrine must account for both. Protecting rights without protecting capacities produces governance that is formally legitimate and practically hollow.
+
 ---
 
 ## Friction Taxonomy
@@ -65,6 +84,15 @@ ARCH's governance architecture is a three-layer stack. All three layers must exi
 **Layer 3 — Operational** (being built): Defines how work is expressed and executed efficiently. AC templates, task capture tooling, Hansei serialization, L3 eligibility rules.
 
 **The asymmetry warning:** Layer 3 without Layer 2 makes the system procedurally efficient and epistemically blind to drift. Throughput scales; understanding does not. This is the failure mode of many "efficient" governance systems. Phase 1 work builds Layer 3. Phase 2 work builds Layer 2. Phase 1 must not complete so far ahead of Phase 2 that the system normalizes operating without it.
+
+**Layer 2 epistemic ceiling:** Layer 2 cannot reliably detect genuine novelty. What it detects is low statistical similarity to prior patterns. These are not equivalent:
+
+- Similarity ≠ sameness
+- Anomaly ≠ novelty
+- Precedent distance ≠ legitimacy
+- Low governance distance can still conceal constitutional discontinuity
+
+Some of the most consequential authority transfers will score as minor optimizations. A small procedural change, an innocuous timeout, a marginal reduction in review overhead — each may look routine and still produce governance drift months later. Layer 2 infrastructure, if misread, upgrades heuristic pattern-matching into epistemic authority. This ceiling must be held explicit: Layer 2 produces inputs to human novelty adjudication; it does not substitute for it.
 
 ---
 
@@ -105,6 +133,21 @@ These hold regardless of which phase the system is in:
 2. **Humans own topology mutation.** Changes to what governance checks exist, what they evaluate, and how failures are handled require human authorization.
 3. **Humans own precedent creation.** The first instance of a decision pattern is always human-made. Machines may compress and index precedent; they do not establish it.
 4. **Machines may prepare but not legitimize governance.** A THINK-generated proposal is preparation. The human decision that follows is legitimization. Collapsing these is the core failure mode.
+5. **Human disagreement must remain operationally legitimate, low-friction, and non-exceptional.** Accepting a recommendation must not be structurally cheaper than rejecting it in cases requiring deliberation. When dissent becomes metabolically expensive — requiring justification, escalation, or social interruption that approval does not require — the machine governs statistically even while humans formally decide. The system must never make disagreement feel like blocking progress.
+
+---
+
+## Governance Representation Boundary
+
+The constitutional invariants above govern authority allocation — who decides what. This section governs something upstream of that: what becomes *expressible* as a governance concept.
+
+THINK is not merely a participant in governance execution. As it moves from interpreter to compiler of governance constraints, it participates in governance ontology formation — shaping what kinds of problems become legible, what structures become cognitively canonical, and what thoughts become easy or costly to articulate.
+
+This is categorically different from tooling risk. A compiler of constraints redefines the thought surface: what looks like a reasonable problem formulation, what counts as a valid objection, what appears already-handled. Once machine-generated structure becomes cognitively canonical, humans may stop exploring representations the compiler does not produce — not because those representations are forbidden, but because they become difficult to hold.
+
+**Invariant:** Machines may assist governance representation but must not become the exclusive substrate through which governance concepts are expressible or operationally legible.
+
+This invariant is not satisfied by preserving formal alternatives. It requires that alternative representations remain cognitively accessible — that operators retain the capacity to think outside compiler-shaped structures, not merely the right to do so.
 
 ---
 
