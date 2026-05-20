@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "builtAt": "2026-05-20T07:17:43.628Z",
+  "builtAt": "2026-05-20T08:35:28.744Z",
   "files": {
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "symbols": [
@@ -99,6 +99,26 @@
       "criticality": "domain",
       "runtimeUsage": "hot"
     },
+    "cli/src/main/ts/application/commands/compile-command.ts": {
+      "symbols": [
+        "CompileCommand"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/repositories/file-system.ts",
+        "cli/src/main/ts/application/use-cases/normalize-repo-events.ts",
+        "cli/src/main/ts/domain/services/transient-window-compiler.ts",
+        "cli/src/main/ts/domain/services/stateless-hypothesis-generator.ts",
+        "cli/src/main/ts/domain/services/transient-actuation-projector.ts"
+      ],
+      "tags": [
+        "application",
+        "commands",
+        "compile",
+        "command"
+      ],
+      "criticality": "domain",
+      "runtimeUsage": "hot"
+    },
     "cli/src/main/ts/application/commands/conduct-command.ts": {
       "symbols": [
         "ConductCommand"
@@ -120,7 +140,9 @@
       "imports": [
         "cli/src/main/ts/domain/repositories/file-system.ts",
         "cli/src/main/ts/domain/repositories/git-repository.ts",
-        "cli/src/main/ts/application/use-cases/corpus-index.ts"
+        "cli/src/main/ts/application/use-cases/corpus-index.ts",
+        "cli/src/main/ts/domain/services/governance-drift-detector.ts",
+        "cli/src/main/ts/domain/services/institutional-anomaly-tracker.ts"
       ],
       "tags": [
         "application",
@@ -1347,6 +1369,26 @@
       "criticality": "domain",
       "runtimeUsage": "hot"
     },
+    "cli/src/main/ts/application/use-cases/normalize-repo-events.ts": {
+      "symbols": [
+        "RawInputTrace",
+        "NormalizeRepoEvents"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/models/ontology.ts"
+      ],
+      "tags": [
+        "application",
+        "cases",
+        "normalize",
+        "repo",
+        "events",
+        "input",
+        "trace"
+      ],
+      "criticality": "domain",
+      "runtimeUsage": "hot"
+    },
     "cli/src/main/ts/application/use-cases/promote-idea.ts": {
       "symbols": [
         "PromoteIdea"
@@ -1876,6 +1918,36 @@
       "criticality": "core",
       "runtimeUsage": "warm"
     },
+    "cli/src/main/ts/domain/models/ontology.ts": {
+      "symbols": [
+        "Phase1Event",
+        "BoundedHypothesis",
+        "Phase2WindowOutput",
+        "TransientOperationalSignal",
+        "SyntacticValidationService"
+      ],
+      "imports": [],
+      "tags": [
+        "domain",
+        "models",
+        "ontology",
+        "phase1",
+        "event",
+        "bounded",
+        "hypothesis",
+        "phase2",
+        "window",
+        "output",
+        "transient",
+        "operational",
+        "signal",
+        "syntactic",
+        "validation",
+        "service"
+      ],
+      "criticality": "core",
+      "runtimeUsage": "warm"
+    },
     "cli/src/main/ts/domain/models/outcome.ts": {
       "symbols": [
         "OutcomeSource",
@@ -2343,6 +2415,25 @@
       "criticality": "core",
       "runtimeUsage": "hot"
     },
+    "cli/src/main/ts/domain/services/governance-drift-detector.ts": {
+      "symbols": [
+        "DriftReport",
+        "GovernanceDriftDetector"
+      ],
+      "imports": [
+        "cli/src/main/ts/application/use-cases/corpus-index.ts"
+      ],
+      "tags": [
+        "domain",
+        "services",
+        "governance",
+        "drift",
+        "detector",
+        "report"
+      ],
+      "criticality": "core",
+      "runtimeUsage": "warm"
+    },
     "cli/src/main/ts/domain/services/governance-stability-service.ts": {
       "symbols": [
         "GovernanceStabilityService"
@@ -2417,6 +2508,31 @@
       ],
       "criticality": "core",
       "runtimeUsage": "cold"
+    },
+    "cli/src/main/ts/domain/services/institutional-anomaly-tracker.ts": {
+      "symbols": [
+        "RecurringCategory",
+        "ClassConcentration",
+        "AnomalyReport",
+        "InstitutionalAnomalyTracker"
+      ],
+      "imports": [
+        "cli/src/main/ts/application/use-cases/corpus-index.ts"
+      ],
+      "tags": [
+        "domain",
+        "services",
+        "institutional",
+        "anomaly",
+        "tracker",
+        "recurring",
+        "category",
+        "class",
+        "concentration",
+        "report"
+      ],
+      "criticality": "core",
+      "runtimeUsage": "warm"
     },
     "cli/src/main/ts/domain/services/llm-provider.ts": {
       "symbols": [
@@ -2526,6 +2642,29 @@
       "criticality": "core",
       "runtimeUsage": "cold"
     },
+    "cli/src/main/ts/domain/services/precedent-novelty-scorer.ts": {
+      "symbols": [
+        "TaskDescriptor",
+        "PrecedentRef",
+        "NoveltyReport",
+        "PrecedentNoveltyScorer"
+      ],
+      "imports": [
+        "cli/src/main/ts/application/use-cases/corpus-index.ts"
+      ],
+      "tags": [
+        "domain",
+        "services",
+        "precedent",
+        "novelty",
+        "scorer",
+        "task",
+        "descriptor",
+        "report"
+      ],
+      "criticality": "core",
+      "runtimeUsage": "cold"
+    },
     "cli/src/main/ts/domain/services/provider-registry.ts": {
       "symbols": [
         "ResolveResult",
@@ -2607,6 +2746,23 @@
       "criticality": "core",
       "runtimeUsage": "hot"
     },
+    "cli/src/main/ts/domain/services/stateless-hypothesis-generator.ts": {
+      "symbols": [
+        "StatelessHypothesisGenerator"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/models/ontology.ts"
+      ],
+      "tags": [
+        "domain",
+        "services",
+        "stateless",
+        "hypothesis",
+        "generator"
+      ],
+      "criticality": "core",
+      "runtimeUsage": "hot"
+    },
     "cli/src/main/ts/domain/services/task-validator.ts": {
       "symbols": [
         "TaskValidator"
@@ -2638,6 +2794,43 @@
       ],
       "criticality": "core",
       "runtimeUsage": "cold"
+    },
+    "cli/src/main/ts/domain/services/transient-actuation-projector.ts": {
+      "symbols": [
+        "TransientActuationProjector"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/models/ontology.ts"
+      ],
+      "tags": [
+        "domain",
+        "services",
+        "transient",
+        "actuation",
+        "projector"
+      ],
+      "criticality": "core",
+      "runtimeUsage": "hot"
+    },
+    "cli/src/main/ts/domain/services/transient-window-compiler.ts": {
+      "symbols": [
+        "PartitioningConfig",
+        "TransientWindowCompiler"
+      ],
+      "imports": [
+        "cli/src/main/ts/domain/models/ontology.ts"
+      ],
+      "tags": [
+        "domain",
+        "services",
+        "transient",
+        "window",
+        "compiler",
+        "partitioning",
+        "config"
+      ],
+      "criticality": "core",
+      "runtimeUsage": "hot"
     },
     "cli/src/main/ts/domain/services/verifiability-scorer.ts": {
       "symbols": [
@@ -2715,7 +2908,8 @@
         "cli/src/main/ts/application/commands/serve-command.ts",
         "cli/src/main/ts/application/commands/capture-command.ts",
         "cli/src/main/ts/application/commands/explain-command.ts",
-        "cli/src/main/ts/application/commands/deps-command.ts"
+        "cli/src/main/ts/application/commands/deps-command.ts",
+        "cli/src/main/ts/application/commands/compile-command.ts"
       ],
       "tags": [
         "index"
@@ -5216,6 +5410,192 @@
       ],
       "affectedModules": [],
       "strength": "enforced"
+    },
+    "ADR-027": {
+      "title": "Epistemically Bounded Stream Projections — Non-Persistent Sequence Processing",
+      "keywords": [
+        "epistemically",
+        "bounded",
+        "stream",
+        "projections",
+        "non",
+        "persistent",
+        "sequence",
+        "processing",
+        "adr",
+        "027",
+        "date",
+        "2026",
+        "status",
+        "accepted",
+        "deciders",
+        "valent",
+        "eiro",
+        "antigravity",
+        "context",
+        "software",
+        "engineering",
+        "activities",
+        "version",
+        "control",
+        "histories",
+        "build",
+        "events",
+        "inherently",
+        "sequential",
+        "adjacency",
+        "ordering",
+        "temporal",
+        "neutral",
+        "metrics",
+        "they",
+        "fundamental",
+        "coordinates",
+        "causal",
+        "identifiability",
+        "repository",
+        "behavior",
+        "previous",
+        "design",
+        "iterations",
+        "attempted",
+        "enforce",
+        "absolute",
+        "mathematical",
+        "statelessness",
+        "permutation",
+        "invariance",
+        "across",
+        "entire",
+        "arch",
+        "pipeline",
+        "prevent",
+        "reconstruction",
+        "developer",
+        "identities",
+        "project",
+        "intent",
+        "however",
+        "forced",
+        "impossible",
+        "self",
+        "defeating",
+        "axiom",
+        "causality",
+        "could",
+        "inferred",
+        "decontextualized",
+        "trace",
+        "while",
+        "destroying",
+        "order",
+        "defines",
+        "conversely",
+        "letting",
+        "state",
+        "accumulate",
+        "silently",
+        "executions",
+        "degrades",
+        "into",
+        "covert",
+        "behavioral",
+        "profiling",
+        "resolve",
+        "conceptual",
+        "contradictio"
+      ],
+      "affectedModules": [],
+      "strength": "enforced"
+    },
+    "ADR-028": {
+      "title": "Unified Epistemic Invariant Specification — Bounded Stream Enforcement",
+      "keywords": [
+        "unified",
+        "epistemic",
+        "invariant",
+        "specification",
+        "bounded",
+        "stream",
+        "enforcement",
+        "adr",
+        "028",
+        "date",
+        "2026",
+        "status",
+        "accepted",
+        "deciders",
+        "valent",
+        "eiro",
+        "antigravity",
+        "context",
+        "building",
+        "cross",
+        "repo",
+        "operational",
+        "ontology",
+        "greatest",
+        "risk",
+        "silent",
+        "semantic",
+        "drift",
+        "developers",
+        "models",
+        "seeking",
+        "optimize",
+        "temporal",
+        "alerts",
+        "leaking",
+        "memory",
+        "across",
+        "cli",
+        "invocations",
+        "ensure",
+        "framework",
+        "remains",
+        "structurally",
+        "secure",
+        "require",
+        "formal",
+        "mathematically",
+        "precise",
+        "defines",
+        "absolute",
+        "boundaries",
+        "sequential",
+        "execution",
+        "pipeline",
+        "decision",
+        "establish",
+        "following",
+        "specifications",
+        "phase",
+        "violation",
+        "these",
+        "detected",
+        "during",
+        "compilation",
+        "test",
+        "blocking",
+        "system",
+        "failure",
+        "mathematical",
+        "paradigm",
+        "summary",
+        "arch",
+        "defined",
+        "sequence",
+        "deterministic",
+        "transformations",
+        "over",
+        "observations",
+        "strictly",
+        "within"
+      ],
+      "affectedModules": [
+        "cli/src/test/ts/corpus-stress-test.test.ts"
+      ],
+      "strength": "enforced"
     }
   },
   "adrTaskLinks": {
@@ -6325,6 +6705,26 @@
         }
       }
     },
+    "ADR-027": {
+      "tasks": {
+        "TASK-972": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-972.md"
+        }
+      }
+    },
+    "ADR-028": {
+      "tasks": {
+        "TASK-972": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-972.md"
+        }
+      }
+    },
     "ADR-000": {
       "tasks": {
         "TASK-002": {
@@ -7369,13 +7769,70 @@
     }
   },
   "tasks": {
-    "TASK-972": {
-      "commitCount": 1,
-      "lastCommitDate": "2026-05-20T09:17:43+02:00",
+    "TASK-920": {
+      "commitCount": 7,
+      "lastCommitDate": "2026-05-20T10:35:28+02:00",
       "touchedFrequency": {
+        ".arch/focus-ledger.jsonl": 6,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/reflect-breach-log.jsonl": 1,
+        "docs/METRICS.md": 1
+      },
+      "recentCommitRefs": [
+        "d911d4cf",
+        "df299037",
+        "c1484282",
+        "456c73df",
+        "80e3f0cf",
+        "9a8aa9b9",
+        "748e1bff"
+      ],
+      "commitRefOverflow": false
+    },
+    "TASK-972": {
+      "commitCount": 9,
+      "lastCommitDate": "2026-05-20T10:01:07+02:00",
+      "touchedFrequency": {
+        "docs/INBOX.md": 1,
+        ".arch/corpus-index.json": 1,
+        ".arch/last-audit.json": 1,
+        ".arch/reflect-breach-log.jsonl": 1,
+        "docs/METRICS.md": 1,
+        "docs/SENTINEL-LOG.md": 1,
+        "docs/tasks/TASK-972.md": 2,
+        "cli/src/main/ts/application/commands/corpus-audit-command.ts": 1,
+        "cli/src/test/ts/corpus-audit-weighted.test.ts": 1,
+        "cli/src/main/ts/domain/services/institutional-anomaly-tracker.ts": 1,
+        "cli/src/test/ts/institutional-anomaly-tracker.test.ts": 1,
+        "cli/src/main/ts/domain/services/governance-drift-detector.ts": 1,
+        "cli/src/test/ts/governance-drift-detector.test.ts": 1,
+        "cli/src/main/ts/application/commands/compile-command.ts": 1,
+        "cli/src/main/ts/application/use-cases/normalize-repo-events.ts": 1,
+        "cli/src/main/ts/domain/models/ontology.ts": 1,
+        "cli/src/main/ts/domain/services/precedent-novelty-scorer.ts": 1,
+        "cli/src/main/ts/domain/services/stateless-hypothesis-generator.ts": 1,
+        "cli/src/main/ts/domain/services/transient-actuation-projector.ts": 1,
+        "cli/src/main/ts/domain/services/transient-window-compiler.ts": 1,
+        "cli/src/main/ts/index.ts": 1,
+        "cli/src/test/ts/compile-command.test.ts": 1,
+        "cli/src/test/ts/corpus-stress-test.test.ts": 1,
+        "cli/src/test/ts/mocks/telemetry-sample.json": 1,
+        "cli/src/test/ts/precedent-novelty-scorer.test.ts": 1,
+        "docs/adr/ADR-027-phase-3-epistemic-stability.md": 1,
+        "docs/adr/ADR-028-epistemic-invariant-specification.md": 1,
+        "cli/src/main/ts/application/use-cases/corpus-index.ts": 1,
+        "cli/src/test/ts/corpus-index.test.ts": 1,
         ".arch/focus-ledger.jsonl": 1
       },
       "recentCommitRefs": [
+        "8276e924",
+        "c76fbc40",
+        "fcc49b47",
+        "b90a8aed",
+        "2ce07671",
+        "548cc1a6",
+        "a2b2a50d",
+        "d2ab798c",
         "0692beb4"
       ],
       "commitRefOverflow": false
@@ -7494,7 +7951,7 @@
       "commitRefOverflow": false
     },
     "TASK-206": {
-      "commitCount": 16,
+      "commitCount": 13,
       "lastCommitDate": "2026-05-20T06:04:49+00:00",
       "touchedFrequency": {
         ".arch/last-audit.json": 1,
@@ -7533,7 +7990,7 @@
         "docs/EVENTS.md": 2,
         "cli/src/main/ts/application/use-cases/hansei-wizard.ts": 1,
         "cli/src/main/ts/application/use-cases/mark-task-done.ts": 1,
-        ".arch/focus-ledger.jsonl": 5,
+        ".arch/focus-ledger.jsonl": 2,
         ".arch/causal-signal.jsonl": 1,
         "cli/src/main/ts/application/use-cases/drift-checker.ts": 1,
         "docs/archive/TASK-901.md": 1,
@@ -7561,10 +8018,7 @@
         "5a2d682f",
         "0d78368f",
         "0083fe75",
-        "fae9c7f4",
-        "b9c5aee7",
-        "e1e66fc9",
-        "63c2225d"
+        "fae9c7f4"
       ],
       "commitRefOverflow": false
     },
@@ -7654,25 +8108,6 @@
         "c78d8fba",
         "86adec0f",
         "60596e57"
-      ],
-      "commitRefOverflow": false
-    },
-    "TASK-920": {
-      "commitCount": 6,
-      "lastCommitDate": "2026-05-19T15:29:54+02:00",
-      "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 5,
-        ".arch/chronicle.jsonl": 1,
-        ".arch/reflect-breach-log.jsonl": 1,
-        "docs/METRICS.md": 1
-      },
-      "recentCommitRefs": [
-        "df299037",
-        "c1484282",
-        "456c73df",
-        "80e3f0cf",
-        "9a8aa9b9",
-        "748e1bff"
       ],
       "commitRefOverflow": false
     },
@@ -9632,29 +10067,6 @@
         "2002dc19",
         "a7f70d06",
         "c3be2c24"
-      ],
-      "commitRefOverflow": false
-    },
-    "TASK-916": {
-      "commitCount": 4,
-      "lastCommitDate": "2026-05-17T13:23:22+00:00",
-      "touchedFrequency": {
-        "docs/archive/TASK-916.md": 1,
-        "docs/tasks/TASK-916.md": 3,
-        ".arch/chronicle.jsonl": 1,
-        ".arch/reflect-breach-log.jsonl": 1,
-        "arch.config.json": 1,
-        "cli/src/main/ts/application/commands/report-command.ts": 1,
-        "cli/src/main/ts/domain/services/archive-parser.ts": 1,
-        "cli/src/main/ts/domain/services/metrics-engine.ts": 1,
-        "docs/EVENTS.md": 1,
-        "docs/tasks/TASK-206.md": 1
-      },
-      "recentCommitRefs": [
-        "2a2064cc",
-        "ce808f6d",
-        "8d250728",
-        "dfb3c1c4"
       ],
       "commitRefOverflow": false
     }
