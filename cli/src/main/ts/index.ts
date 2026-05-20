@@ -44,6 +44,7 @@ import { CaptureCommand } from './application/commands/capture-command.js';
 import { ExplainCommand } from './application/commands/explain-command.js';
 import { DepsCommand } from './application/commands/deps-command.js';
 import { CompileCommand } from './application/commands/compile-command.js';
+import { getPublicTopLevel, getPublicEntriesByNamespace, type CommandEntry } from './domain/services/command-registry.js';
 
 
 function deprecated(old: string, canonical: string): void {
@@ -396,34 +397,61 @@ async function main() {
     }
 
     default:
-      console.log('Usage: arch [review|status|task|govern|memory|init|version]');
-      console.log('');
-      console.log('Core:');
-      console.log('  arch review                    — structural validation and integrity audit');
-      console.log('  arch status                    — high-level sprint and task progress');
-      console.log('');
-      console.log('Task Lifecycle:');
-      console.log('  arch task start [TASK-XXX]     — start a task (interactive if ID omitted)');
-      console.log('  arch task review TASK-XXX      — run predicates and move to REVIEW');
-      console.log('  arch task done TASK-XXX        — archive completed task (launches Hansei wizard)');
-      console.log('  arch task create "<intent>"    — scaffold new task from intent');
-      console.log('  arch task capture "<intent>"   — capture, scaffold, and start in one step');
-      console.log('');
-      console.log('Governance & Analysis:');
-      console.log('  arch compile <path>            — compile telemetry stream through epistemic pipeline');
-      console.log('  arch govern                    — run governance tick (archive DONE, assign focus)');
+      const publicTopLevel = getPublicTopLevel();
+      const groups: Map<string, CommandEntry[]> = new Map();
+      for (const ns of publicTopLevel) {
+        const entries = getPublicEntriesByNamespace(ns);
+        if (entries.length > 0) {
+          groups.set(ns, entries);
+        }
+      }
 
-      console.log('  arch govern inbox              — show urgent actions and refinement queue');
-      console.log('  arch govern reflect            — trigger THINK mode for pattern analysis');
-      console.log('  arch govern serve              — launch local visual dashboard (localhost:3000)');
-      console.log('');
-      console.log('Memory & Knowledge:');
-      console.log('  arch memory ask "<query>"      — query the causal graph and task archive');
-      console.log('  arch memory causal show <id>   — show causal edges for a task/ADR');
-      console.log('');
-      console.log('System:');
-      console.log('  arch init                      — initialize ARCH in current repository');
-      console.log('  arch version                   — show CLI version');
+      function sectionLabel(ns: string): string {
+        const labels: Record<string, string> = {
+          review: 'Core',
+          status: 'Core',
+          init: 'System',
+          version: 'System',
+          compile: 'Governance & Analysis',
+          govern: 'Governance & Analysis',
+          task: 'Task Lifecycle',
+          memory: 'Memory & Knowledge',
+        };
+        return labels[ns] ?? ns;
+      }
+
+      function padRight(s: string, n: number): string {
+        while (s.length < n) s += ' ';
+        return s;
+      }
+
+      const lines: string[] = [];
+      lines.push(`Usage: arch [${publicTopLevel.join('|')}]`);
+
+      const nsGroups = new Map<string, { ns: string; entries: CommandEntry[] }[]>();
+      for (const [ns, entries] of groups) {
+        const label = sectionLabel(ns);
+        if (!nsGroups.has(label)) nsGroups.set(label, []);
+        nsGroups.get(label)!.push({ ns, entries });
+      }
+
+      for (const [label, namespaces] of nsGroups) {
+        lines.push('');
+        lines.push(`${label}:`);
+        for (const { ns, entries } of namespaces) {
+          const topEntry = entries.find(e => !e.subCommand);
+          const subEntries = entries.filter(e => e.subCommand !== undefined);
+          if (topEntry) {
+            lines.push(`  arch ${ns.padEnd(22)} — ${topEntry.description}`);
+          }
+          for (const e of subEntries) {
+            const full = e.name.replace('arch ', '');
+            lines.push(`  arch ${full.padEnd(22)} — ${e.description}`);
+          }
+        }
+      }
+
+      console.log(lines.join('\n'));
       process.exit(1);
   }
 }

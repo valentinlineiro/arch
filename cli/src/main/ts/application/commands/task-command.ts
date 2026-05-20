@@ -26,6 +26,7 @@ import { CausalSignalLog } from '../use-cases/causal-signal-log.js';
 import { EventLogger } from '../../domain/services/event-logger.js';
 import { LightweightMetricsRefresh } from '../use-cases/lightweight-metrics-refresh.js';
 import * as fmt from '../../infrastructure/cli/output-formatter.js';
+import { getPublicSubCommands } from '../../domain/services/command-registry.js';
 
 export class TaskCommand {
   private markInProgress: MarkTaskInProgress;
@@ -339,27 +340,19 @@ export class TaskCommand {
         fmt.fail(error.message);
         process.exit(1);
       }
-    } else if (subCommand === '--help' || subCommand === 'help' || !subCommand) {
-      console.log([
+} else if (subCommand === '--help' || subCommand === 'help' || !subCommand) {
+      const entries = getPublicSubCommands('task');
+      const lines: string[] = [
         'Usage: arch task <subcommand> [args]',
         '',
         'Subcommands:',
-        '  start [TASK-XXX]        Mark a task as IN_PROGRESS (interactive if ID omitted)',
-        '  done TASK-XXX           Archive a task as DONE (launches Hansei wizard)',
-        '  review TASK-XXX         Run cmd: predicates and set status to REVIEW',
-        '  create "<intent>"       Scaffold a task from intent (deterministic)',
-        '  capture "<intent>"      Capture, scaffold, and start a task in one step',
-        '  edit TASK-XXX           Interactively update task metadata',
-        '  reprioritize            Corpus-informed priority diff (dry-run by default; use --apply to confirm)',
-        '  next                    Suggest next highest-priority task',
-        '  rank                    Rank READY tasks by priority and size',
-        '  promote <idea-slug>     Promote an IDEA to a TASK',
-        '  reject TASK-XXX         Move a task back to READY',
-        '  approve TASK-XXX        Human approval gate',
-        '  redirect TASK-XXX --to  Redirect with new instruction',
-        '  split TASK-XXX          Decompose an L/XL task into sub-tasks',
-        '  compress --all          Lossy-compress archive files',
-      ].join('\n'));
+      ];
+      for (const e of entries) {
+        const sub = e.subCommand!;
+        const label = sub.length <= 18 ? sub.padEnd(18) : sub;
+        lines.push(`  ${label} — ${e.description}`);
+      }
+      console.log(lines.join('\n'));
     } else if (subCommand === 'new') {
       await this.executeNew(args.slice(1));
     } else if (subCommand === 'split' && taskId) {
