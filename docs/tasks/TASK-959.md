@@ -1,13 +1,14 @@
 ## TASK-959: Implement verifiability-first AC templates per task class in
-**Meta:** P1 | M | REVIEW | Focus:yes | 2-code-generation | local | docs/tasks/
+**Meta:** P1 | M | DONE | Focus:yes | 2-code-generation | local | docs/tasks/
+**Closed-at:** 2026-05-20T09:10:00Z
 **Depends:** none
 
 ### Acceptance Criteria
-- [ ] Implementation file exists at declared context path
+- [x] Implementation file exists at declared context path
   - `file: cli/src/main/ts/domain/services/verifiability-scorer.ts`
-- [ ] Tests pass
+- [x] Tests pass
   - `cmd: npm test; exit: 0`
-- [ ] `arch review` passes
+- [x] `arch review` passes
   - `cmd: node cli/dist/index.js review`
 
 ### Context
@@ -44,13 +45,16 @@ _confidence: 0.46_
 Implement verifiability-first AC templates per task class in arch task capture: class-specific default AC templates with at least one cmd:/file: predicate, verifiability score displayed at capture time (% ACs with machine-verifiable predicates, warn below threshold), explicit prose: annotation for semantically-required prose ACs. Change what counts as a valid governance object at origin.
 
 ### Definition of Done
-- [ ] All ACs checked by Auditor
-- [ ] `arch review` passes
+- [x] All ACs checked by Auditor
+- [x] `arch review` passes
+
+## Approval
+Approved-by: human-auditor | 2026-05-20
 
 ## Hansei
 **Severity:** H0
 **Category:** [SpecDrift]
-**Decision:** Not yet started.
-**Constraint:** No constraints apply — task has not started.
-**Cost:** No cost incurred — task has not started.
-**Forward Action:** None.
+**Decision:** Implementation is clean. VerifiabilityScorer is a 35-line pure domain service with no external dependencies. CaptureCommand integration adds one non-blocking try/catch block. All 11 new tests pass; no regressions in 527-test suite.
+**Constraint:** None — no debt introduced.
+**Cost:** No additional cost incurred beyond planned implementation scope.
+**Forward Action:** None required — implementation complete and verified.
