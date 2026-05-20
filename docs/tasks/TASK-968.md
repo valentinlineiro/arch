@@ -1,5 +1,6 @@
 ## TASK-968: Run architectural review of CLI with three outputs: (1) boun
-**Meta:** P1 | S | READY | Focus:no | 6-writing | local | docs/tasks/
+**Meta:** P1 | S | IN_PROGRESS | Focus:yes | 6-writing | local | docs/tasks/
+**Locked-commit:** c9df753c
 **Actor:** unknown
 **Created-at:** 2026-05-19T14:47:35.886Z
 **Depends:** none
@@ -14,15 +15,16 @@
 
 ### Context
 
+
 ### Relevant Context
-_confidence: 0.45_
+_confidence: 0.46_
 
 **Files:**
-- cli/src/main/ts/domain/services/reviewer.ts _(core)_
-- cli/src/main/ts/application/use-cases/reflect-influence-report.ts _(domain)_
-- cli/src/main/ts/application/commands/corpus-audit-command.ts _(domain)_
-- cli/src/main/ts/application/commands/report-command.ts _(domain)_
-- cli/src/main/ts/application/commands/review-command.ts _(domain)_
+- .arch/focus-ledger.jsonl _(utility)_
+- docs/INBOX.md _(utility)_
+- docs/METRICS.md _(utility)_
+- .arch/reflect-breach-log.jsonl _(utility)_
+- cli/src/main/ts/application/use-cases/drift-checker.ts _(domain)_
 
 **ADRs:**
 - ADR-012: Exec/Bridge Layer Bugfixes - maxBuffer, buildCommand signature, local routing _(enforced)_
