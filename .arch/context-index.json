@@ -524,7 +524,7 @@
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-964.md"
+          "taskPath": "docs/archive/TASK-964.md"
         },
         "TASK-967": {
           "evidenceKinds": [
@@ -1059,7 +1059,7 @@
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-964.md"
+          "taskPath": "docs/archive/TASK-964.md"
         },
         "TASK-966": {
           "evidenceKinds": [
@@ -1295,7 +1295,7 @@
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-964.md"
+          "taskPath": "docs/archive/TASK-964.md"
         },
         "TASK-970": {
           "evidenceKinds": [
@@ -3897,7 +3897,7 @@
       "title": "Unified Epistemic Invariant Specification — Bounded Stream Enforcement"
     }
   },
-  "builtAt": "2026-05-20T16:29:20.694Z",
+  "builtAt": "2026-05-20T16:36:32.472Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -5863,13 +5863,15 @@
       "runtimeUsage": "hot",
       "symbols": [
         "HanseiBlock",
-        "HanseiWizard"
+        "HanseiWizard",
+        "replaceHanseiBlock"
       ],
       "tags": [
         "application",
         "block",
         "cases",
         "hansei",
+        "replace",
         "wizard"
       ]
     },
@@ -8188,12 +8190,11 @@
       }
     },
     "TASK-255": {
-      "commitCount": 16,
+      "commitCount": 12,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-18T12:16:32+02:00",
       "recentCommitRefs": [
         "0272a83b",
-        "067e845f",
         "291e6372",
         "526532e8",
         "718b2b81",
@@ -8202,34 +8203,27 @@
         "b6fc79c0",
         "c0195c00",
         "c796bd50",
-        "ce1e6fae",
         "ce4d49ee",
         "dec6167f",
-        "e3c2670a",
-        "e565f249",
-        "e7fe3558"
+        "e3c2670a"
       ],
       "touchedFrequency": {
         "arch.config.json": 1,
         "cli/src/main/ts/application/commands/reflect-command.ts": 2,
-        "cli/src/main/ts/application/use-cases/deep-analysis-state.ts": 1,
         "cli/src/main/ts/application/use-cases/govern-system.ts": 1,
         "cli/src/main/ts/application/use-cases/weak-signal-checker.ts": 2,
-        "cli/src/test/ts/deep-analysis-state.test.ts": 1,
         "cli/src/test/ts/govern-system.test.ts": 1,
         "cli/src/test/ts/reflect-command.test.ts": 1,
         "cli/src/test/ts/weak-signal-checker.test.ts": 2,
         "docs/EVENTS.md": 1,
-        "docs/agents/THINK.md": 1,
         "docs/archive/TASK-255.md": 2,
         "docs/archive/TASK-257.md": 1,
         "docs/archive/TASK-927.md": 1,
         "docs/archive/TASK-935.md": 1,
-        "docs/tasks/TASK-255.md": 4,
+        "docs/tasks/TASK-255.md": 3,
         "docs/tasks/TASK-256.md": 1,
         "docs/tasks/TASK-257.md": 1,
-        "docs/tasks/TASK-935.md": 1,
-        "docs/tensions/weak-signals.md": 1
+        "docs/tasks/TASK-935.md": 1
       }
     },
     "TASK-256": {
@@ -8253,23 +8247,18 @@
       }
     },
     "TASK-257": {
-      "commitCount": 6,
+      "commitCount": 4,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-18T12:16:32+02:00",
       "recentCommitRefs": [
         "0272a83b",
-        "30e44605",
         "42bcfa43",
         "718b2b81",
-        "ebb3d262",
         "f7568bfa"
       ],
       "touchedFrequency": {
         "cli/src/main/ts/application/use-cases/compute-trusted-metrics.ts": 1,
-        "cli/src/main/ts/application/use-cases/govern-system.ts": 1,
-        "cli/src/main/ts/application/use-cases/mark-task-done.ts": 1,
         "cli/src/test/ts/compute-trusted-metrics.test.ts": 1,
-        "cli/src/test/ts/lightweight-metrics-refresh.test.ts": 1,
         "docs/EVENTS.md": 1,
         "docs/archive/TASK-255.md": 1,
         "docs/archive/TASK-257.md": 2,
@@ -8277,7 +8266,7 @@
         "docs/archive/TASK-935.md": 1,
         "docs/tasks/TASK-255.md": 1,
         "docs/tasks/TASK-256.md": 1,
-        "docs/tasks/TASK-257.md": 2,
+        "docs/tasks/TASK-257.md": 1,
         "docs/tasks/TASK-935.md": 1
       }
     },
@@ -10047,16 +10036,40 @@
       }
     },
     "TASK-964": {
-      "commitCount": 3,
+      "commitCount": 7,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-20T18:29:19+02:00",
+      "lastCommitDate": "2026-05-20T18:37:14+02:00",
       "recentCommitRefs": [
         "0ea2702b",
+        "2a148c53",
+        "5332f48d",
+        "6a2d8d8a",
         "78bc56ec",
+        "9b5193ff",
         "c72a4c57"
       ],
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 3
+        ".arch/focus-ledger.jsonl": 3,
+        "cli/src/main/ts/application/commands/task-command.ts": 1,
+        "cli/src/main/ts/application/use-cases/hansei-wizard.ts": 1,
+        "cli/src/main/ts/domain/services/command-registry.ts": 1,
+        "cli/src/test/ts/hansei-wizard.test.ts": 1,
+        "docs/INBOX.md": 1,
+        "docs/SENTINEL-LOG.md": 1,
+        "docs/archive/TASK-954.md": 1,
+        "docs/archive/TASK-964.md": 1,
+        "docs/tasks/TASK-964.md": 3
+      }
+    },
+    "TASK-965": {
+      "commitCount": 1,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-05-20T18:36:31+02:00",
+      "recentCommitRefs": [
+        "6c8a6d03"
+      ],
+      "touchedFrequency": {
+        ".arch/focus-ledger.jsonl": 1
       }
     },
     "TASK-968": {
