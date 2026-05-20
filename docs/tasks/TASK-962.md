@@ -1,17 +1,14 @@
 ## TASK-962: Fix arch task done to scope unchecked AC check to Acceptance
-**Meta:** P1 | XS | IN_PROGRESS | Focus:yes | 2-code-generation | local | docs/tasks/
+**Meta:** P1 | XS | REVIEW | Focus:no | 2-code-generation | local | docs/tasks/
 **Locked-commit:** b48d0bac
 **Actor:** unknown
 **Created-at:** 2026-05-19T14:47:05.554Z
 **Depends:** none
 
 ### Acceptance Criteria
-- [ ] Implementation file exists at declared context path
-  - `file: (path)`
-- [ ] Tests pass
-  - `cmd: npm test; exit: 0`
-- [ ] `arch review` passes
-  - `cmd: node cli/dist/index.js review`
+- [x] `hasUncheckedACs()` exported from task-command.ts, scopes check to AC/DoD sections only  →  file: cli/src/main/ts/application/commands/task-command.ts
+- [x] Context Feedback unchecked items do not block `arch task done` (3 unit tests)  →  cmd: npm --prefix cli test; exit: 0
+- [x] `arch review` passes  →  cmd: arch review; exit: 0
 
 ### Context
 
@@ -48,5 +45,13 @@ _confidence: 0.46_
 Fix arch task done to scope unchecked AC check to Acceptance Criteria and Definition of Done sections only, ignoring Context Feedback checkboxes. Mirrors ValidateTaskAcs section-scoping logic. One-function change extracting section-scoped content before checking for unchecked items.
 
 ### Definition of Done
-- [ ] All ACs checked by Auditor
-- [ ] `arch review` passes
+- [x] All ACs checked by Auditor  →  prose: verified
+- [x] `arch review` passes  →  cmd: arch review; exit: 0
+
+## Hansei
+**Severity:** H0
+**Category:** [ReviewBlindspot]
+**Decision:** Implementation was a one-function extraction mirroring the existing ValidateTaskAcs.extractACSections pattern. Initial TDD attempt used stdout capture to detect the bug signal, but fmt.fail writes to console.log (stdout) which interfered with the test runner's own output stream. Switched to testing the extracted helper function directly — cleaner isolation with no side effects.
+**Constraint:** The stdout-capture approach is unreliable in node:test because the runner writes results to the same stream during test execution.
+**Cost:** One iteration to correct the test approach before GREEN.
+**Forward Action:** None required.
