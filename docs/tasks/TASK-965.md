@@ -1,14 +1,20 @@
-## TASK-965: Extend L3 self-archive eligibility to M tasks in 6-writing a
-**Meta:** P2 | M | READY | Focus:no | 2-code-generation | local | docs/tasks/
+## TASK-965: Extend L3 self-archive eligibility to M tasks in 6-writing and 7-operations
+**Meta:** P2 | M | IN_PROGRESS | Focus:yes | 2-code-generation | local | cli/src/main/ts/
+**Locked-commit:** a7f0dbf6
 **Depends:** none
 
+### Gaps
+
+`DeterministicACVerifier` has no `file-contains:` or `not-file:` predicate types. `tryL3Gate` in `mark-task-done.ts` hard-codes `['XS', 'S']`. Protected path check needs `gitRepository.getChangedFilesInLastCommit()` + `arch.config.json` `protectedPaths`. All three are bounded by ACs below.
+
 ### Acceptance Criteria
-- [ ] Implementation file exists at declared context path
-  - `file: (path)`
-- [ ] Tests pass
-  - `cmd: npm test; exit: 0`
-- [ ] `arch review` passes
-  - `cmd: node cli/dist/index.js review`
+- [ ] `file-contains: <path> <pattern>` predicate type added to `DeterministicACVerifier` — passes when file contains pattern, fails when absent.  →  cmd: node --import tsx --test src/test/ts/deterministic-ac-verifier.test.ts; exit: 0
+- [ ] `not-file: <path>` predicate type added — passes when file does not exist.  →  cmd: node --import tsx --test src/test/ts/deterministic-ac-verifier.test.ts; exit: 0
+- [ ] M task in `6-writing` or `7-operations` with all `cmd:`/`file:` ACs and `pass:true` is L3 eligible.  →  cmd: node --import tsx --test src/test/ts/mark-task-done.test.ts; exit: 0
+- [ ] M task with any `prose:` AC is NOT L3 eligible even in `6-writing`.  →  cmd: node --import tsx --test src/test/ts/mark-task-done.test.ts; exit: 0
+- [ ] M task in `2-code-generation` is NOT L3 eligible regardless of AC types.  →  cmd: node --import tsx --test src/test/ts/mark-task-done.test.ts; exit: 0
+- [ ] M task with a protected path modified is NOT L3 eligible.  →  cmd: node --import tsx --test src/test/ts/mark-task-done.test.ts; exit: 0
+- [ ] `arch review` passes.  →  cmd: arch review; exit: 0
 
 ### Context
 
@@ -50,7 +56,7 @@ Extend L3 self-archive eligibility to M tasks in 6-writing and 7-operations clas
 ## Hansei
 **Severity:** H0
 **Category:** [SpecDrift]
-**Decision:** Not yet started.
-**Constraint:** No constraints apply — task has not started.
-**Cost:** No cost incurred — task has not started.
-**Forward Action:** None.
+**Decision:** Pending — task not yet complete.
+**Constraint:** Pending — task not yet complete.
+**Cost:** Pending — task not yet complete.
+**Forward Action:** Pending — task not yet complete.
