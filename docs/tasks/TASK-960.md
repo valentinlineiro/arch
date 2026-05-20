@@ -1,15 +1,16 @@
 ## TASK-960: Produce sprint state machine design document: define SprintS
-**Meta:** P1 | S | REVIEW | Focus:yes | 6-writing | local | docs/tasks/
+**Meta:** P1 | S | DONE | Focus:yes | 6-writing | local | docs/tasks/
+**Closed-at:** 2026-05-20T09:40:00Z
 **Actor:** unknown
 **Created-at:** 2026-05-19T14:46:56.222Z
 **Depends:** none
 
 ### Acceptance Criteria
-- [ ] Document exists at declared path
+- [x] Document exists at declared path
   - `file: docs/SPRINT-STATE-MACHINE.md`
-- [ ] Content is accurate and complete
+- [x] Content is accurate and complete
   - `prose: reviewed and verified`
-- [ ] `arch review` passes
+- [x] `arch review` passes
   - `cmd: node cli/dist/index.js review`
 
 ### Context
@@ -46,5 +47,5 @@ _confidence: 0.49_
 Produce sprint state machine design document: define SprintState model (ACTIVE/CLOSED/NEXT_PENDING) with valid transitions and per-state invariants, declare single source of truth (ledger vs config arbitration rule), define arch govern authority boundary (what it reads/writes/never touches on sprint path), prove idempotency as a property of the state machine. Output is design doc only — no code. Unblocks TASK-957.
 
 ### Definition of Done
-- [ ] All ACs checked by Auditor
-- [ ] `arch review` passes
+- [x] All ACs checked by Auditor
+- [x] `arch review` passes
