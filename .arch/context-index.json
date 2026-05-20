@@ -3897,7 +3897,7 @@
       "title": "Unified Epistemic Invariant Specification — Bounded Stream Enforcement"
     }
   },
-  "builtAt": "2026-05-20T17:03:10.509Z",
+  "builtAt": "2026-05-20T17:03:29.909Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -8344,21 +8344,17 @@
       }
     },
     "TASK-255": {
-      "commitCount": 6,
+      "commitCount": 4,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-18T12:16:32+02:00",
       "recentCommitRefs": [
         "0272a83b",
         "291e6372",
         "526532e8",
-        "718b2b81",
-        "c0195c00",
-        "e3c2670a"
+        "718b2b81"
       ],
       "touchedFrequency": {
-        "cli/src/main/ts/application/commands/reflect-command.ts": 1,
         "cli/src/main/ts/application/use-cases/weak-signal-checker.ts": 1,
-        "cli/src/test/ts/reflect-command.test.ts": 1,
         "cli/src/test/ts/weak-signal-checker.test.ts": 1,
         "docs/EVENTS.md": 1,
         "docs/archive/TASK-255.md": 2,
@@ -10231,14 +10227,15 @@
       }
     },
     "TASK-966": {
-      "commitCount": 1,
+      "commitCount": 2,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-20T19:03:09+02:00",
+      "lastCommitDate": "2026-05-20T19:03:28+02:00",
       "recentCommitRefs": [
+        "1642d844",
         "ac0e2be6"
       ],
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 1
+        ".arch/focus-ledger.jsonl": 2
       }
     },
     "TASK-968": {
