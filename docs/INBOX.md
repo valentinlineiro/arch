@@ -1,5 +1,23 @@
 # ARCH INBOX
 
+## [REVIEW_REQUEST] TASK-977
+**Task:** TASK-977
+**Title:** Implement Semantic Architectural Inference Engine (audit v1.2)
+**Size:** M
+**Submitted:** 2026-05-20T17:30:00Z
+**Summary:** Evolves `arch audit` into a Semantic Inference Engine. Introduces `GitSemanticExtractor` (patch-based), `SignalExtractionEngine` (regex signals), `PatternEngine` (trajectory/stability/spread analysis), and `ADRInferenceEngine` (explainable IAPs). Implements engine-versioned caching to handle large repos and brownfield baseline generation for init recommendations.
+**Changed files:**
+- [cli/src/main/ts/domain/models/audit-inference.ts](file:///home/valentin/code/arch/cli/src/main/ts/domain/models/audit-inference.ts)
+- [cli/src/main/ts/infrastructure/git/git-semantic-extractor.ts](file:///home/valentin/code/arch/cli/src/main/ts/infrastructure/git/git-semantic-extractor.ts)
+- [cli/src/main/ts/domain/services/signal-extraction-engine.ts](file:///home/valentin/code/arch/cli/src/main/ts/domain/services/signal-extraction-engine.ts)
+- [cli/src/main/ts/domain/services/noise-filter.ts](file:///home/valentin/code/arch/cli/src/main/ts/domain/services/noise-filter.ts)
+- [cli/src/main/ts/domain/services/pattern-engine.ts](file:///home/valentin/code/arch/cli/src/main/ts/domain/services/pattern-engine.ts)
+- [cli/src/main/ts/domain/services/adr-inference-engine.ts](file:///home/valentin/code/arch/cli/src/main/ts/domain/services/adr-inference-engine.ts)
+- [cli/src/main/ts/domain/services/init-recommendation-engine.ts](file:///home/valentin/code/arch/cli/src/main/ts/domain/services/init-recommendation-engine.ts)
+- [cli/src/main/ts/infrastructure/filesystem/signal-cache.ts](file:///home/valentin/code/arch/cli/src/main/ts/infrastructure/filesystem/signal-cache.ts)
+- [cli/src/main/ts/application/commands/audit-command.ts](file:///home/valentin/code/arch/cli/src/main/ts/application/commands/audit-command.ts)
+- [docs/tasks/TASK-977.md](file:///home/valentin/code/arch/docs/tasks/TASK-977.md)
+
 ## Loop Status
 - **Active Tasks:** 2 (TASK-975, TASK-976)
 - **READY Tasks:** 25
