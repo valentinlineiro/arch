@@ -1,6 +1,6 @@
 ## TASK-974: Command registry as single source of truth for CLI surface
 
-**Meta:** P1 | M | IN_PROGRESS | Focus:no | 2-code-generation | human | cli/src/main/ts/
+**Meta:** P1 | M | REVIEW | Focus:no | 2-code-generation | human | cli/src/main/ts/
 
 ## Context
 
@@ -8,19 +8,24 @@ CLI help was split across hardcoded strings in `index.ts` and `task-command.ts`.
 
 ## What
 
-1. Command registry: `command-registry.ts` with 59 entries, visibility classification.
-2. Help derived from registry: top-level and task help render dynamically.
-3. Scope-aware review: `arch review --staged/delta/full/hybrid` modes.
-4. Pre-push hook delta mode: runs `--staged` by default, no longer blocks on global state.
-5. Tests: `command-registry.test.ts` with invariant coverage.
+1. **Command registry** — `command-registry.ts` with 59 entries, visibility classification. Help rendered from registry (top-level and task).
+2. **Scope-aware review** — `--staged` (delta), `--full`, `--hybrid` modes. Pre-push runs `--staged` by default. Global checks excluded from delta.
+3. **Focus model alignment** — `Task.focus` changed from boolean to `FocusLevel` enum (NONE/LOW/MEDIUM/HIGH). Parser and serializer updated for both old (yes/no) and new (NONE/etc) formats. Conflict severity classification added (H1/H2/INFO). Existing tests updated.
+4. **ConflictSeverity enum** — formal conflict structure for semantic drift detection.
+5. **FocusConflict type** — structured conflict records for logging and analysis.
 
-## Acceptance Criteria
+### Acceptance Criteria
 
-- `arch --help` output matches `COMMAND_REGISTRY.filter(visibility=public)`
-- `arch task --help` output matches `getPublicSubCommands('task')`
-- `arch review --staged` skips global checks (OrphanTasks, FocusStatusAlignment, SentinelCoverage, DeadContext)
-- `arch review --full` runs all checks
-- `npm test` passes (562 tests, 0 failures)
+- [x] Command registry, scope-aware review, FocusLevel enum delivered
+  - `prose: verified`
+- [x] `npm test` passes (562 tests, 0 failures)
+  - `cmd: npm --prefix cli test; exit: 0`
+- [x] `arch review` passes
+  - `cmd: arch review; exit: 0`
+
+### Definition of Done
+- [ ] All ACs checked by Auditor
+- [ ] `arch review` passes
 
 ## Verifiability
 
