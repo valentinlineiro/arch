@@ -1,5 +1,5 @@
 # AGENTS.md
-<!-- ARCH Framework v1.0.0 | Universal Entry Point -->
+<!-- ARCH Framework v1.1.0 | Universal Entry Point -->
 
 ## Onboarding
 
