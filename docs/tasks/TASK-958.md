@@ -1,15 +1,16 @@
 ## TASK-958: Write governance epistemic doctrine document: establish cons
-**Meta:** P1 | S | REVIEW | Focus:yes | 6-writing | local | docs/tasks/
+**Meta:** P1 | S | DONE | Focus:yes | 6-writing | local | docs/tasks/
+**Closed-at:** 2026-05-20T08:35:00Z
 **Actor:** unknown
 **Created-at:** 2026-05-19T14:46:45.465Z
 **Depends:** none
 
 ### Acceptance Criteria
-- [ ] Document exists at declared path
+- [x] Document exists at declared path
   - `file: docs/EPISTEMIC-DOCTRINE.md`
-- [ ] Content is accurate and complete
+- [x] Content is accurate and complete
   - `prose: reviewed and verified`
-- [ ] `arch review` passes
+- [x] `arch review` passes
   - `cmd: node cli/dist/index.js review`
 
 ### Context
@@ -46,5 +47,5 @@ _confidence: 0.45_
 Write governance epistemic doctrine document: establish constitutional frame for ARCH automation — define constructive vs bureaucratic friction taxonomy, three-layer governance stack (Constitutional/Semantic/Operational), four-phase maturity sequencing, and four constitutional invariants (humans own novelty adjudication, topology mutation, precedent creation; machines may prepare but not legitimize). Must be committed before Phase 1 automation tasks begin.
 
 ### Definition of Done
-- [ ] All ACs checked by Auditor
-- [ ] `arch review` passes
+- [x] All ACs checked by Auditor
+- [x] `arch review` passes
