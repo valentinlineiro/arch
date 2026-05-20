@@ -8,6 +8,47 @@ import { ConfigLoader } from '../../domain/services/config-loader.js';
 import { FOCUS_LEDGER_PATH, parseLedger, committedRulings, LedgerState } from './focus-ledger.js';
 
 export type ReviewCondition = 'NONE' | 'FOCUS_SOVEREIGNTY' | 'FOCUS_INTEGRITY_VIOLATION';
+export type ReviewScope = 'delta' | 'full' | 'hybrid';
+
+export interface ReviewOptions {
+  scope?: ReviewScope;
+}
+
+const DELTA_GLOBAL_CHECKS = new Set([
+  'OrphanTasks',
+  'FocusStatusAlignment',
+  'SentinelCoverage',
+  'DeadContext',
+  'StaleDepends',
+  'PriorityDrift',
+  'EscalationMaturity',
+  'Census',
+  'HanseiReconciliation',
+  'ObsoleteGuidelines',
+  'UnappliedADRs',
+  'ArchivedIdeaDecisions',
+  'ApprovalPresent',
+  'ArchiveMetaIntegrity',
+]);
+
+const DELTA_LOCAL_CHECKS = new Set([
+  'Commands',
+  'Version',
+  'Paths',
+  'ConfigPaths',
+  'Worktree',
+  'TaskArchive',
+  'DocVersion',
+  'DeadPaths',
+  'DependsGraph',
+  'StaleTasks',
+  'MergeCommits',
+  'HanseiPresent',
+  'HaltPolicy',
+  'ExcisionStructuralCheck',
+  'TaskTemplateCompliance',
+  'VersionCompat',
+]);
 
 export class ReviewSystem {
   constructor(
@@ -18,12 +59,28 @@ export class ReviewSystem {
     private driftChecker?: DriftChecker
   ) {}
 
-  async execute() {
+  async execute(options: ReviewOptions = {}) {
+    const scope = options.scope ?? 'hybrid';
     const violations: string[] = [];
     
-    // 1. Review active tasks only — archive uses legacy formats and is excluded
+    // 1. Review active tasks — delta-aware: only review touched tasks
     const tasks = await this.taskRepository.getActive();
+    let touchedTaskIds = new Set<string>();
+
+    if (scope === 'delta') {
+      try {
+        const statusLines = await this.gitRepository.getStatusLines();
+        for (const line of statusLines) {
+          const match = line.match(/^.+?\s+(?:docs\/tasks\/)(TASK-\d+)\.md$/);
+          if (match) touchedTaskIds.add(match[1]);
+        }
+      } catch { /* no git or not a repo */ }
+    }
+
     for (const task of tasks) {
+      if (scope === 'delta' && touchedTaskIds.size > 0 && !touchedTaskIds.has(task.id)) {
+        continue;
+      }
       const result = this.reviewer.reviewTask(task, task.rawMetaLine);
       if (!result.valid) {
         violations.push(...result.violations);
@@ -61,30 +118,44 @@ export class ReviewSystem {
       // Ignore config read errors here, drift checker will catch them
     }
 
-    // 4. Review git diff (excluding archive/)
-    const diff = await this.gitRepository.getDiff(['--', ':!docs/archive/**']);
-    if (diff && diff.length > 5000) {
-      violations.push('Warning: Large git diff detected. Ensure commits remain atomic.');
+    // 4. Review git diff size — full mode only (not relevant to staged delta)
+    if (scope === 'full') {
+      const diff = await this.gitRepository.getDiff(['--', ':!docs/archive/**']);
+      if (diff && diff.length > 5000) {
+        violations.push('Warning: Large git diff detected. Ensure commits remain atomic.');
+      }
     }
 
     const drift: DriftResult[] = this.driftChecker ? await this.driftChecker.check() : [];
 
-    // 4. Critical drift checks as violations
+    // 4. Critical drift checks as violations — scope-aware
     for (const d of drift) {
-      if (d.status === 'FAIL') {
-        violations.push(...d.details.map(detail => `[${d.check}] ${detail}`));
-      } else if (d.status === 'WARN' && ['ConfigPaths', 'DocVersion', 'DeadPaths', 'TaskTemplateCompliance'].includes(d.check)) {
-        violations.push(...d.details.map(detail => `[${d.check}] ${detail}`));
+      const isGlobalCheck = DELTA_GLOBAL_CHECKS.has(d.check);
+      if (scope === 'delta') {
+        if (d.status === 'FAIL') {
+          violations.push(...d.details.map(detail => `[${d.check}] ${detail}`));
+        } else if (d.status === 'WARN' && DELTA_LOCAL_CHECKS.has(d.check)) {
+          violations.push(...d.details.map(detail => `[${d.check}] ${detail}`));
+        }
+      } else {
+        if (d.status === 'FAIL') {
+          violations.push(...d.details.map(detail => `[${d.check}] ${detail}`));
+        } else if (d.status === 'WARN' && ['ConfigPaths', 'DocVersion', 'DeadPaths', 'TaskTemplateCompliance'].includes(d.check)) {
+          violations.push(...d.details.map(detail => `[${d.check}] ${detail}`));
+        }
       }
     }
 
-    // 5. Focus sovereignty check
-    const config = await ConfigLoader.load(this.fileSystem).catch(() => ({}));
-    const sovereigntyCondition = await this.checkFocusSovereignty(tasks, config);
-    if (sovereigntyCondition === 'FOCUS_INTEGRITY_VIOLATION') {
-      violations.push('[FocusSovereignty] FOCUS_INTEGRITY_VIOLATION: task holds Focus:yes with no FOCUS_ACQUIRED ruling in committed ledger — run arch govern to recover');
-    } else if (sovereigntyCondition === 'FOCUS_SOVEREIGNTY') {
-      violations.push('[FocusSovereignty] FOCUS_SOVEREIGNTY: eligible higher-priority task exists and inercia window has expired — run arch govern to adjudicate');
+    // 5. Focus sovereignty check — global only (not relevant to delta)
+    let sovereigntyCondition: ReviewCondition = 'NONE';
+    if (scope !== 'delta') {
+      const config = await ConfigLoader.load(this.fileSystem).catch(() => ({}));
+      sovereigntyCondition = await this.checkFocusSovereignty(tasks, config);
+      if (sovereigntyCondition === 'FOCUS_INTEGRITY_VIOLATION') {
+        violations.push('[FocusSovereignty] FOCUS_INTEGRITY_VIOLATION: task holds Focus:yes with no FOCUS_ACQUIRED ruling in committed ledger — run arch govern to recover');
+      } else if (sovereigntyCondition === 'FOCUS_SOVEREIGNTY') {
+        violations.push('[FocusSovereignty] FOCUS_SOVEREIGNTY: eligible higher-priority task exists and inercia window has expired — run arch govern to adjudicate');
+      }
     }
 
     return {

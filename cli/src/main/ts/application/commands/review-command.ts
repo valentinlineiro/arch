@@ -87,6 +87,8 @@ export class ReviewCommand {
     const isJson = args.includes('--json');
     const isFast = args.includes('--fast');
     const isPush = args.includes('--push');
+    const isStaged = args.includes('--staged');
+    const isFull = args.includes('--full');
 
     // --task TASK-XXX: scoped Auditor review
     const taskArgIdx = args.indexOf('--task');
@@ -95,10 +97,11 @@ export class ReviewCommand {
       return;
     }
 
+    const scope = isStaged ? 'delta' : isFull ? 'full' : 'hybrid';
     const system = isFast
       ? new ReviewSystem(this.taskRepository, this.gitRepository, this.reviewer, this.fileSystem)
       : this.useCase;
-    const result = await system.execute();
+    const result = await system.execute({ scope });
 
     if (isJson) {
       console.log(JSON.stringify(result, null, 2));
