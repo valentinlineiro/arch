@@ -90,3 +90,12 @@ Changed files:
 **Size:** M
 **Submitted:** 2026-05-20T16:50:00Z
 **Summary:** Adds `file-contains:` and `not-file:` predicate types to DeterministicACVerifier (5 new tests). Extends tryL3Gate to allow M tasks in `6-writing`/`7-operations` when all ACs are deterministic and no protected path was modified (4 new tests). Also fixes silent predicate drop in parseACLines for new types. 15+26 tests pass. `arch review` exits 0.
+
+## 2026-05-20 20:20:48 — Pattern Alerts
+[PATTERN-ALERT] [SpecDrift] detected 8 times — systemic issue. See docs/tensions/
+
+## 2026-05-20 20:20:48 — Alignment Audit
+Alignment: 96/100
+[EMERGENT] cli: 68 commits touch this directory but no ADR addresses it.
+[EMERGENT] docs: 85 commits touch this directory but no ADR addresses it.
+[EMERGENT] .arch: 49 commits touch this directory but no ADR addresses it.

@@ -1,7 +1,7 @@
 # IDEA: verify-pre-existing-before-start — detect pre-implemented tasks before marking IN_PROGRESS
 **Created:** 2026-05-16
 **Source:** TASK-267 + TASK-268 + TASK-279 Hansei H2 — pattern recurred 3 times same session
-**Status:** DRAFT
+**Status:** PROMOTED
 **Meta:** P1 | S | 1-code-reasoning | cli/src/main/ts/application/use-cases/mark-task-in-progress.ts
 
 ## Problem
@@ -28,4 +28,4 @@ This is advisory, not blocking — the agent decides whether to proceed or close
 - Priority displacement: P1 — directly addresses integrity gap in the corpus
 
 ## Decision
-<!-- PROMOTE → TASK-XXX | REJECT: reason | DEFERRED: reason + condition -->
+PROMOTE → TASK-978

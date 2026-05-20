@@ -147,11 +147,14 @@ export class HanseiWizard {
       // Socratic Question Loop
       out('\n  Please answer the following diagnostic questions:');
 
+      // Pre-existence targeted question — replaces generic Decision prompt
+      const preExistenceDetected = !!(task as any)._preExistenceDetected;
+      const decisionPrompt = preExistenceDetected
+        ? '\n  ⚠ Pre-existence flag: ACs passed before implementation started.\n  Q1 [Decision]: Was this pre-existing code, or did you implement it?\n     Describe what actually happened.\n  > '
+        : '\n  Q1 [Decision]: Did the implementation diverge from the initial AC?\n     What specific technical or process compromise did you make?\n  > ';
+
       // 1. Decision
-      const decision = await this.askText(rl,
-        '\n  Q1 [Decision]: Did the implementation diverge from the initial AC?\n     What specific technical or process compromise did you make?\n  > ',
-        15, 'Decision'
-      );
+      const decision = await this.askText(rl, decisionPrompt, 15, 'Decision');
 
       // 2. Constraint
       const constraintPrompt = inferredConstraint !== 'None encountered.'

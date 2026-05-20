@@ -98,3 +98,6 @@ Boundary risk: This document is itself a Class II artifact. Its purpose is to ho
 
 ## Decision
 PROMOTE → TASK-958
+
+## Decision
+DEFERRED: Addressed by ADR-026. File anyway for traceability.

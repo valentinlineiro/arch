@@ -37,3 +37,6 @@ Boundary risk: Medium — touches `arch.config.json` schema (protected path, nee
 
 ## Decision
 PROMOTE → TASK-957
+
+## Decision
+DEFERRED: Useful but not blocking. Sprint lifecycle is low-friction today.

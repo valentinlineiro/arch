@@ -26,6 +26,19 @@ export class MarkTaskInProgress {
     const violations = this.checkDefinitionOfReady(task);
     if (violations.length > 0) throw new DefinitionOfReadyError(violations);
 
+    // Pre-existence check — advisory, non-blocking
+    const preExistenceDetected = await this.checkPreExistence(task);
+    if (preExistenceDetected) {
+      console.log('');
+      console.log('  \x1b[33m⚠ Pre-existence detected:\x1b[0m all verifiable ACs pass before implementation.');
+      console.log('  Consider closing directly with: \x1b[36march task done ' + taskId + '\x1b[0m');
+      console.log('  Or confirm this is genuinely new work and continue.');
+      console.log('');
+    }
+
+    // Store pre-existence hint for HanseiWizard
+    (task as any)._preExistenceDetected = preExistenceDetected;
+
     task.status = TaskStatus.IN_PROGRESS;
     task.lockedBy = user;
     task.lockedAt = new Date().toISOString();
@@ -54,6 +67,45 @@ export class MarkTaskInProgress {
     }
 
     return task;
+  }
+
+  private async checkPreExistence(task: any): Promise<boolean> {
+    if (!task.content) return false;
+
+    // Extract file: and cmd: predicates from ACs
+    const filePredicates: string[] = [];
+    const cmdPredicates: string[] = [];
+    const predicateRe = /`(file|cmd):\s*([^`]+)`/g;
+    let m;
+    while ((m = predicateRe.exec(task.content)) !== null) {
+      const type = m[1];
+      const value = m[2].trim().split(';')[0].trim(); // strip ; exit: N
+      if (type === 'file') filePredicates.push(value);
+      else if (type === 'cmd') cmdPredicates.push(value);
+    }
+
+    if (filePredicates.length === 0 && cmdPredicates.length === 0) return false;
+
+    // Check file predicates
+    const { existsSync } = await import('node:fs');
+    for (const filePath of filePredicates) {
+      if (!existsSync(filePath)) return false; // at least one doesn't exist
+    }
+
+    // Check cmd predicates (with timeout, non-blocking)
+    if (cmdPredicates.length > 0) {
+      const { execSync } = await import('node:child_process');
+      for (const cmd of cmdPredicates) {
+        try {
+          execSync(cmd, { stdio: 'ignore', timeout: 5000 });
+        } catch {
+          return false; // at least one cmd fails
+        }
+      }
+    }
+
+    // All verifiable ACs already pass — pre-existence detected
+    return filePredicates.length + cmdPredicates.length > 0;
   }
 
   private checkDefinitionOfReady(task: { id: string; priority: string; size: string; class: string; cli: string; context: string[]; acceptanceCriteria?: { description: string }[]; content: string }): string[] {

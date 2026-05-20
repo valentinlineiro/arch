@@ -35,3 +35,6 @@ Boundary risk: Negligible. The wizard cannot produce a valid Hansei block with w
 
 ## Decision
 PROMOTE → TASK-964
+
+## Decision
+REJECT: Already implemented (TASK-901 + wizard inference). Superseded.
