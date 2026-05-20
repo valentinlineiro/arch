@@ -1,6 +1,8 @@
 import type { FileSystem } from '../../domain/repositories/file-system.js';
 import type { GitRepository } from '../../domain/repositories/git-repository.js';
 import { CorpusIndexService, type CorpusEntry } from '../use-cases/corpus-index.js';
+import { GovernanceDriftDetector } from '../../domain/services/governance-drift-detector.js';
+import { InstitutionalAnomalyTracker } from '../../domain/services/institutional-anomaly-tracker.js';
 
 interface AuditFinding {
   taskId: string;
@@ -47,6 +49,9 @@ export class CorpusAuditCommand {
     console.log('  Loading corpus index...\n');
     const result = await this.audit(verbose);
     this.render(result, verbose);
+    if (args.includes('--layer2')) {
+      await this.renderLayer2();
+    }
   }
 
   /** Exposed for testing — parses Hansei section from raw content. */
@@ -258,6 +263,36 @@ export class CorpusAuditCommand {
     else if (result.score >= 60) console.log('  \x1b[33m⚠ Corpus has integrity gaps. Governance suggestions partially reliable.\x1b[0m');
     else console.log('  \x1b[31m✖ Corpus integrity low. Fix WARNINGs before enabling governance features.\x1b[0m');
     console.log('');
+  }
+
+  private async renderLayer2(): Promise<void> {
+    const index = await this.indexService.load();
+    const entries = Object.values(index.entries);
+
+    console.log('\n  \x1b[32mARCH\x1b[0m — Layer 2: Governance Drift\n');
+    const drift = GovernanceDriftDetector.detect(entries, 10);
+    if (drift.signals.length === 0) {
+      console.log('  ✔ No drift signals detected\n');
+    } else {
+      for (const s of drift.signals) {
+        console.log(`  ⚠ ${s}`);
+      }
+      console.log('');
+    }
+
+    console.log('  \x1b[32mARCH\x1b[0m — Layer 2: Institutional Anomalies\n');
+    const anomalies = InstitutionalAnomalyTracker.analyze(index.entries, 3);
+    if (anomalies.recurringCategories.length === 0 && !anomalies.classConcentration) {
+      console.log('  ✔ No anomalies detected\n');
+    } else {
+      for (const cat of anomalies.recurringCategories) {
+        console.log(`  ⚠ Recurring category ${cat.category}: ${cat.count} tasks (${cat.taskIds.slice(0, 3).join(', ')}${cat.taskIds.length > 3 ? '…' : ''})`);
+      }
+      if (anomalies.classConcentration) {
+        console.log(`  ⚠ Class concentration: ${anomalies.classConcentration.dominantClass} = ${(anomalies.classConcentration.fraction * 100).toFixed(0)}% of corpus`);
+      }
+      console.log('');
+    }
   }
 }
 

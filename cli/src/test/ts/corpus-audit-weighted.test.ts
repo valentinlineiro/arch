@@ -135,3 +135,46 @@ describe('CorpusAuditCommand — weighted score', () => {
     assert.equal(infoForward.length, 1, 'Vague IDEA mention should be INFO');
   });
 });
+
+test('CorpusAuditCommand --layer2 runs without error and prints Drift and Anomalies headers', async () => {
+  const archiveContent = (id: string, cat: string) => `## ${id}: Test task
+**Meta:** P1 | S | DONE | Focus:no | 2-code-generation | local | docs/tasks/
+**Closed-at:** 2026-01-0${id.slice(-1)}T00:00:00Z
+**Depends:** none
+
+### Acceptance Criteria
+- [x] File exists
+  - \`file: docs/out.md\`
+- [x] Tests pass
+  - \`cmd: npm test; exit: 0\`
+
+## Hansei
+**Severity:** H1
+**Category:** ${cat}
+**Decision:** Some recurring issue found in implementation.
+**Constraint:** None — minor issue.
+**Cost:** No additional cost incurred.
+**Forward Action:** None required.`;
+
+  const fs = new MockFileSystem();
+  fs.files['docs/archive/TASK-001.md'] = archiveContent('TASK-001', '[SpecDrift]');
+  fs.files['docs/archive/TASK-002.md'] = archiveContent('TASK-002', '[SpecDrift]');
+  fs.dirs['docs/archive'] = ['TASK-001.md', 'TASK-002.md'];
+  fs.dirs['docs/refinement'] = [];
+  fs.dirs['docs/refinement/archive'] = [];
+  fs.files['arch.config.json'] = JSON.stringify({ hanseiSinceTaskId: 0 });
+
+  const lines: string[] = [];
+  const orig = console.log;
+  console.log = (...args: any[]) => lines.push(args.join(' '));
+  try {
+    const cmd = new CorpusAuditCommand(fs as any);
+    await cmd.execute(['--layer2']);
+  } finally {
+    console.log = orig;
+  }
+
+  const output = lines.join('\n');
+  assert.ok(output.includes('Drift') || output.includes('drift'), 'must include drift section');
+  assert.ok(output.includes('Anomal') || output.includes('anomal'), 'must include anomaly section');
+});
