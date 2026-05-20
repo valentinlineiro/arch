@@ -1,12 +1,12 @@
 ## TASK-958: Write governance epistemic doctrine document: establish cons
-**Meta:** P1 | S | IN_PROGRESS | Focus:yes | 6-writing | local | docs/tasks/
+**Meta:** P1 | S | REVIEW | Focus:yes | 6-writing | local | docs/tasks/
 **Actor:** unknown
 **Created-at:** 2026-05-19T14:46:45.465Z
 **Depends:** none
 
 ### Acceptance Criteria
 - [ ] Document exists at declared path
-  - `file: (path)`
+  - `file: docs/EPISTEMIC-DOCTRINE.md`
 - [ ] Content is accurate and complete
   - `prose: reviewed and verified`
 - [ ] `arch review` passes
