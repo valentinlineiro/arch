@@ -6,6 +6,7 @@
 
 ## Pending Items
 - **AWAITING_REVIEW:** 
+  - TASK-963
   - TASK-974
   - TASK-972
   - TASK-919
