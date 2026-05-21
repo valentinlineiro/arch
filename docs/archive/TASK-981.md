@@ -1,5 +1,7 @@
 ## TASK-981: Pivot ARCH Audit to structural analysis engine
-**Meta:** P3 | M | IN_PROGRESS | Focus:no | 2-code-generation | local | docs/tasks/
+**Meta:** P3 | M | DONE | Focus:false | 2-code-generation | local | docs/tasks/
+**Turns:** 2
+**Closed-at:** 2026-05-21T14:35:40.541Z
 **Actor:** unknown
 **Locked-commit:** 36500311
 **Created-at:** 2026-05-21T14:35:08.320Z
