@@ -327,3 +327,7 @@
 {"timestamp":"2026-05-20T20:20:45.418Z","rule":"observability_gap","breached":false}
 {"timestamp":"2026-05-20T20:29:43.887Z","rule":"engagement","breached":false}
 {"timestamp":"2026-05-20T20:29:43.887Z","rule":"observability_gap","breached":false}
+{"timestamp":"2026-05-21T07:14:58.442Z","rule":"engagement","breached":false}
+{"timestamp":"2026-05-21T07:14:58.442Z","rule":"observability_gap","breached":false}
+{"timestamp":"2026-05-21T07:16:34.253Z","rule":"engagement","breached":false}
+{"timestamp":"2026-05-21T07:16:34.253Z","rule":"observability_gap","breached":false}

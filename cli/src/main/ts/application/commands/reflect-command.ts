@@ -61,6 +61,8 @@ export class ReflectCommand {
     console.log('  Authority: analysis only — proposals, never enforcement');
     console.log('  This is THINK mode. Output is ephemeral. No task state will be mutated.\n');
 
+    let tier1HasFindings = false;
+
     try {
       const reviewTasks = await this.getReviewTasks(taskId);
       if (reviewTasks.length === 0) {
@@ -69,10 +71,9 @@ export class ReflectCommand {
       }
 
       // Tier 1 — Deterministic diff-based check (always runs first)
-      console.log('  ── Tier 1: Deterministic diff analysis ─────────────────');
+      console.log('  ── Tier 1: Deterministic diff analysis (Gating) ────────');
       const { DeterministicHanseiChecker } = await import('../../domain/services/deterministic-hansei-checker.js');
       const checker = new DeterministicHanseiChecker(this.rootPath ?? '.');
-      let tier1HasFindings = false;
 
       for (const { id, content } of reviewTasks) {
         const task = await this.taskRepository.getById(id);
@@ -100,44 +101,58 @@ export class ReflectCommand {
       }
       console.log('');
 
-      // If Tier 1 found undeclared drift OR --tier1-only, skip Tier 2
       if (tier1Only) {
-        console.log('  --tier1-only: skipping LLM Tier 2.');
+        console.log('  --tier1-only: skipping Advisory Tier 2.');
         process.exit(tier1HasFindings ? 1 : 0);
         return;
       }
-      if (tier1HasFindings) {
-        console.log('  Tier 1 found undeclared drift. Skipping LLM Tier 2 (redundant).');
-        console.log('  Update Hansei Constraint/Cost to declare the detected patterns.');
-        return;
-      }
 
-      // Tier 2 — LLM-assisted (advisory only — never a governance gate)
-      console.log('  ── Tier 2: LLM-assisted analysis ───────────────────────');
-      console.log('  ADVISORY — output is informational only. This analysis is not a governance gate.');
+      // If Tier 1 found undeclared drift, we STILL exit with 1 but may show Tier 2 for context.
+      // Per ADR-023, Tier 1 is the machine authority.
+    } catch (e: any) {
+      console.error('Error in arch reflect hansei (Tier 1):', e.message);
+      process.exit(1);
+    }
+
+    // Tier 2 — Advisory (LLM-assisted — strictly non-authoritative)
+    // Per ADR-023: Advisory outputs possess zero machine authority. Exit code is always 0.
+    try {
+      console.log('  ── Tier 2: Advisory analysis (Non-Gating) ──────────────');
+      console.log('  ADVISORY — informational only. This analysis is not a governance gate.');
+      
+      const reviewTasks = await this.getReviewTasks(taskId);
       const prompt = this.buildHanseiPrompt(reviewTasks);
       const config = JSON.parse(fs.readFileSync('arch.config.json', 'utf8'));
       const clis = config.clis || [];
 
+      let advisoryExecuted = false;
       for (const cli of clis) {
         const which = spawnSync('which', [cli.bin]);
         if (which.status !== 0) continue;
+
         const tmpFile = `/tmp/arch-hansei-prompt-${Date.now()}.md`;
         fs.writeFileSync(tmpFile, prompt);
         const cmd = cli.template.replace(/\{prompt\}/g, `$(cat ${tmpFile})`);
-        const result = spawnSync('sh', ['-c', cmd], { stdio: 'inherit' });
+        
+        spawnSync('sh', ['-c', cmd], { stdio: 'inherit' });
+        
         try { fs.unlinkSync(tmpFile); } catch {}
-        process.exit(0);
+        advisoryExecuted = true;
+        break;
       }
 
-      console.log('  No AI CLI detected. Paste the following into your LLM:\n');
-      console.log('─'.repeat(60));
-      console.log(prompt);
-      console.log('─'.repeat(60));
+      if (!advisoryExecuted) {
+        console.log('  No AI CLI detected. Paste the following into your LLM for advisory analysis:\n');
+        console.log('─'.repeat(60));
+        console.log(prompt);
+        console.log('─'.repeat(60));
+      }
     } catch (e: any) {
-      console.error('Error in arch reflect hansei:', e.message);
-      process.exit(1);
+      console.log(`  (Note: Advisory analysis failed: ${e.message})`);
     }
+
+    // Final machine authority transition
+    process.exit(tier1HasFindings ? 1 : 0);
   }
 
   private async getReviewTasks(filterTaskId?: string): Promise<Array<{ id: string; content: string }>> {
@@ -187,10 +202,11 @@ Declared Hansei:
 ${hansei}`;
     }).join('\n\n---\n\n');
 
-    return `# ARCH Hansei Reconciliation — THINK Mode Analysis
+    return `# ARCH Hansei Reconciliation — ADVISORY ONLY
 
-You are operating in THINK mode. Your role is analysis only. You do not mutate task state.
-You do not approve or reject tasks. You produce proposals and observations.
+You are operating in ADVISORY mode. Your role is analysis only. 
+CRITICAL: You possess zero machine authority. Your findings are informational.
+You do not mutate task state. You do not block state transitions.
 
 ## Task
 
@@ -198,8 +214,8 @@ For each REVIEW task below, compare the **Declared Hansei** against what you wou
 given the scope and complexity of the Acceptance Criteria and changed files.
 
 Identify:
-1. **Concealment signals**: Implementation scope or complexity that is not reflected in the Hansei severity or category. Flag if the task appears to have hidden debt (e.g., ACs touching core systems but Hansei is H0/[no-issue]).
-2. **Inflation signals**: Hansei severity that appears disproportionate to the scope of changes. Flag if H2+ is declared for a minor scoped fix with no structural implications.
+1. **Concealment signals**: Implementation scope or complexity that is not reflected in the Hansei severity or category.
+2. **Inflation signals**: Hansei severity that appears disproportionate to the scope of changes.
 3. **Well-calibrated**: Hansei accurately reflects the observed complexity.
 
 Format your response as:
@@ -208,7 +224,7 @@ Format your response as:
 - Observation: <one sentence>
 - Proposed reclassification: <if applicable>
 
-Do not approve, reject, or close tasks. Do not write to any files. Output is ephemeral.
+Output is for human attention only. Do not attempt to command state transitions.
 
 ---
 
