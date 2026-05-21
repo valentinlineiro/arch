@@ -6,6 +6,7 @@ import { join, resolve, extname } from 'node:path';
 import { NodeFileSystem } from '../../infrastructure/filesystem/node-file-system.js';
 import { TypeScriptAdapter } from '../../domain/services/typescript-adapter.js';
 import { JavaAdapter } from '../../domain/services/java-adapter.js';
+import { PythonAdapter } from '../../domain/services/python-adapter.js';
 import { UEGIRBuilder } from '../../domain/services/ueg-ir-builder.js';
 import { UEGAnalysisLayer } from '../../domain/services/ueg-analysis-layer.js';
 import { ARCHDeploymentMap, UEGGraph, UEGGraphFragment } from '../../domain/models/ueg-ir.js';
@@ -46,11 +47,12 @@ export class AuditCommand {
   }
 
   private async runAudit(repoPath: string, opts: { verbose: boolean }): Promise<void> {
-    console.log(`\n  \x1b[32mARCH\x1b[0m — Language-Agnostic Audit (v1.1)\n`);
+    console.log(`\n  \x1b[32mARCH\x1b[0m — Language-Agnostic Audit (v1.2.0)\n`);
     
     const adapters: LanguageAdapter[] = [
       new TypeScriptAdapter(),
       new JavaAdapter(),
+      new PythonAdapter(),
     ];
 
     const fragments: UEGGraphFragment[] = [];
@@ -111,7 +113,7 @@ export class AuditCommand {
 
     let files: string[] = [];
     for (const entry of entries) {
-      if (['node_modules', '.git', 'dist', '.arch', 'docs'].includes(entry)) continue;
+      if (['node_modules', '.git', 'dist', '.arch', 'docs', '.venv', 'venv', 'env', '__pycache__', '.pytest_cache', '.mypy_cache'].includes(entry)) continue;
       const fullPath = join(dir, entry);
       const relPath = join(base, entry);
       
