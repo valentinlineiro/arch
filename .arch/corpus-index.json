@@ -1,8 +1,8 @@
 {
   "version": 1,
-  "builtAt": "2026-05-21T07:49:02.768Z",
-  "archiveCommit": "",
-  "taskCount": 141,
+  "builtAt": "2026-05-21T15:04:21.054Z",
+  "archiveCommit": "342:TASK-982.md",
+  "taskCount": 147,
   "entries": {
     "TASK-180": {
       "id": "TASK-180",
@@ -2350,6 +2350,23 @@
       "acMachineVerifiable": 0,
       "closurePath": "L3"
     },
+    "TASK-971": {
+      "id": "TASK-971",
+      "size": "S",
+      "class": "2-code-generation",
+      "closedAt": "2026-05-21T08:38:22.087Z",
+      "lockedCommit": "4427caeb",
+      "actor": "unknown",
+      "severity": "H0",
+      "category": "[SpecDrift]",
+      "decision": "Redefined as a \"Materialized Reporting Layer\" to prevent documentary feedback loops and protect epistemic integrity.",
+      "constraint": "No constraints apply as the task has just been initialized.",
+      "cost": "No cost has been incurred yet for this task execution.",
+      "forwardAction": "Implement StatusReportService as a read-only projection.",
+      "acCount": 0,
+      "acMachineVerifiable": 0,
+      "closurePath": "L3"
+    },
     "TASK-972": {
       "id": "TASK-972",
       "size": "L",
@@ -2384,6 +2401,23 @@
       "acMachineVerifiable": 2,
       "closurePath": "auditor"
     },
+    "TASK-976": {
+      "id": "TASK-976",
+      "size": "S",
+      "class": "2-code-generation",
+      "closedAt": "2026-05-21T07:30:00.000Z",
+      "lockedCommit": null,
+      "actor": "unknown",
+      "severity": "H1",
+      "category": "[ReviewBlindspot]",
+      "decision": "Task verified and closed. A test regression in `command-registry.test.ts` (missing `hansei` subcommand from TASK-964) was identified and fixed during review.",
+      "constraint": "Test suite must be updated whenever public CLI surface changes.",
+      "cost": "Review turn count increased due to test stabilization.",
+      "forwardAction": "Add a pre-commit check to verify CLI subcommand parity with registry.",
+      "acCount": 3,
+      "acMachineVerifiable": 3,
+      "closurePath": "L3"
+    },
     "TASK-977": {
       "id": "TASK-977",
       "size": "M",
@@ -2400,6 +2434,74 @@
       "acCount": 1,
       "acMachineVerifiable": 1,
       "closurePath": "auditor"
+    },
+    "TASK-978": {
+      "id": "TASK-978",
+      "size": "S",
+      "class": "1-code-reasoning",
+      "closedAt": "2026-05-21T08:40:38.883Z",
+      "lockedCommit": null,
+      "actor": null,
+      "severity": "H0",
+      "category": "[SpecDrift]",
+      "decision": "Pre-satisfaction detection implemented as an advisory signal. Nuance added to Hansei to distinguish between \"phantom work\" and legitimate \"architectural hardening\" where predicates might pass but intent is incomplete.",
+      "constraint": "Pre-satisfaction detection is non-normative; intent resolution remains a human decision.",
+      "cost": "No architectural debt; logic encapsulated.",
+      "forwardAction": "Monitor Hansei for \"intent vs predicate\" drift patterns.",
+      "acCount": 0,
+      "acMachineVerifiable": 0,
+      "closurePath": "L3"
+    },
+    "TASK-980": {
+      "id": "TASK-980",
+      "size": "S",
+      "class": "1-code-reasoning",
+      "closedAt": "2026-05-21T08:40:38.958Z",
+      "lockedCommit": null,
+      "actor": null,
+      "severity": "H0",
+      "category": "[SpecDrift]",
+      "decision": "Promoted as the foundational task for the current sprint to secure the system's epistemological contract.",
+      "constraint": "No constraints apply as the task has just been initialized.",
+      "cost": "No cost has been incurred yet for this task execution.",
+      "forwardAction": "Implement ADR-023 and harden the command exit codes.",
+      "acCount": 0,
+      "acMachineVerifiable": 0,
+      "closurePath": "L3"
+    },
+    "TASK-981": {
+      "id": "TASK-981",
+      "size": "M",
+      "class": "2-code-generation",
+      "closedAt": "2026-05-21T14:35:40.541Z",
+      "lockedCommit": "36500311",
+      "actor": "unknown",
+      "severity": "H0",
+      "category": "[SpecDrift]",
+      "decision": "Pivoted ARCH Audit from governance-alignment to structural analysis as per Product Spec v1.0.",
+      "constraint": "Structural and behavioral signals only; no authoritative truth claims allowed.",
+      "cost": "Minimal implementation overhead; leveraged existing NodeFileSystem and Git components.",
+      "forwardAction": "None required; feature is feature-complete for MVP scope.",
+      "acCount": 3,
+      "acMachineVerifiable": 3,
+      "closurePath": "unknown"
+    },
+    "TASK-982": {
+      "id": "TASK-982",
+      "size": "M",
+      "class": "2-code-generation",
+      "closedAt": "2026-05-21T15:04:20.656Z",
+      "lockedCommit": "e52dbbcc",
+      "actor": "unknown",
+      "severity": "H0",
+      "category": "[SpecDrift]",
+      "decision": "Implemented ARCH Audit v1.1 as a structural decomposition engine utilizing a Unified Epistemic Graph (UEG-IR).",
+      "constraint": "Strict non-authoritative constraints enforced: absolute removal of all ranking, scoring, and semantic inference logic.",
+      "cost": "Refactored previous structural extraction into a plugin-based adapter system; added Java support via regex-based adapter.",
+      "forwardAction": "None required; v1.1 core pipeline is fully functional and compliant with the implementation contract.",
+      "acCount": 3,
+      "acMachineVerifiable": 3,
+      "closurePath": "unknown"
     }
   }
 }
