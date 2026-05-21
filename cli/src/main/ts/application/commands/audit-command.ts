@@ -101,16 +101,29 @@ export class AuditCommand {
   }
 
   private listAllFiles(dir: string, base: string = ''): string[] {
-    const entries = readdirSync(dir);
+    let entries: string[] = [];
+    try {
+      entries = readdirSync(dir);
+    } catch (e: any) {
+      if (e.code === 'EACCES') return []; // Skip directories with permission denied
+      throw e;
+    }
+
     let files: string[] = [];
     for (const entry of entries) {
       if (['node_modules', '.git', 'dist', '.arch', 'docs'].includes(entry)) continue;
       const fullPath = join(dir, entry);
       const relPath = join(base, entry);
-      if (statSync(fullPath).isDirectory()) {
-        files = files.concat(this.listAllFiles(fullPath, relPath));
-      } else {
-        files.push(relPath);
+      
+      try {
+        if (statSync(fullPath).isDirectory()) {
+          files = files.concat(this.listAllFiles(fullPath, relPath));
+        } else {
+          files.push(relPath);
+        }
+      } catch (e: any) {
+        if (e.code === 'EACCES') continue; // Skip individual files/dirs with permission denied
+        throw e;
       }
     }
     return files;
