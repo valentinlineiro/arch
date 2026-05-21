@@ -12,6 +12,14 @@ Versioning rules:
 
 ---
 
+## 1.2.0 (2026-05-21) — Multi-Language UEG-IR
+
+- Added `arch audit v1.1` pipeline with Unified Epistemic Graph IR (UEG-IR).
+- Implemented Language Adapter system with TypeScript and Java support.
+- Added Java Reflection detection with explicit high-uncertainty labeling.
+- Enforced strict non-authoritative constraints (no ranking, no scoring, no semantic inference).
+- Added RepositorySummarizer for high-level structural health overview.
+
 ## [Unreleased]
 
 ### Added
