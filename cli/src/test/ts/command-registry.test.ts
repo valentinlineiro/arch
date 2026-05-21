@@ -77,7 +77,7 @@ test('subCommands for task namespace match actual runtime behavior', () => {
 
   const expectedPublic = [
     'start', 'done', 'review', 'create', 'capture', 'edit', 'reprioritize',
-    'next', 'rank', 'promote', 'reject', 'approve', 'redirect', 'split', 'compress',
+    'next', 'rank', 'promote', 'reject', 'approve', 'redirect', 'split', 'compress', 'hansei',
   ];
 
   assert.ok(taskSubs.length === expectedPublic.length,

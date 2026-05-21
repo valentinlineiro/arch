@@ -1,7 +1,8 @@
 ## TASK-976: optimize context indexing to eliminate rebuild amplification
-**Meta:** P3 | S | REVIEW | Focus:no | 2-code-generation | local | ARCH_CONTEXT_AXIOMS.md
+**Meta:** P3 | S | DONE | Focus:no | 2-code-generation | local | ARCH_CONTEXT_AXIOMS.md
 **Actor:** unknown
 **Created-at:** 2026-05-20T15:00:43.348Z
+**Closed-at:** 2026-05-21T07:30:00.000Z
 **Depends:** none
 
 ### Acceptance Criteria
@@ -38,7 +39,7 @@ _confidence: 0.45_
 - Unstructured IDEAs before TASK-033*(Sprint 3)*: The original TEMPLATE only had `## Proposal` with no structured fields. THINK had to infer gaps without dependency or size context. The first 8 IDEAs were refined with more friction than necessary. _(docs/KAIZEN-LOG.md)_
 
 ### Context Feedback
-- [ ] accurate — files and ADRs were on-target
+- [x] accurate — files and ADRs were on-target
 - [ ] partial — correct direction, missing key files
 - [ ] off — wrong files dominated
 
@@ -46,5 +47,13 @@ _confidence: 0.45_
 optimize context indexing to eliminate rebuild amplification
 
 ### Definition of Done
-- [ ] All ACs checked by Auditor
-- [ ] `arch review` passes
+- [x] All ACs checked by Auditor
+- [x] `arch review` passes
+
+## Hansei
+**Severity:** H1
+**Category:** [ReviewBlindspot]
+**Decision:** Task verified and closed. A test regression in `command-registry.test.ts` (missing `hansei` subcommand from TASK-964) was identified and fixed during review.
+**Constraint:** Test suite must be updated whenever public CLI surface changes.
+**Cost:** Review turn count increased due to test stabilization.
+**Forward Action:** Add a pre-commit check to verify CLI subcommand parity with registry.
