@@ -78,7 +78,8 @@ export class MarkdownTaskRepository implements TaskRepository {
 
     const metaMatch = content.match(/^\*\*Meta:\*\* (.*)/m);
     if (metaMatch) {
-      let newMetaLine = `**Meta:** ${task.priority} | ${task.size} | ${task.status} | Focus:${task.focus} | ${task.class} | ${task.cli} | ${task.context.join(', ')}`;
+      const focusStr = task.focus ? 'yes' : 'no';
+      let newMetaLine = `**Meta:** ${task.priority} | ${task.size} | ${task.status} | Focus:${focusStr} | ${task.class} | ${task.cli} | ${task.context.join(', ')}`;
       if (task.status === TaskStatus.DONE) {
         if (task.cost !== undefined) newMetaLine += ` | Cost: $${task.cost.toFixed(2)}`;
         if (task.steps !== undefined) newMetaLine += ` | Steps: ${task.steps}`;
