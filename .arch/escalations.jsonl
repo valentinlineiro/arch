@@ -337,3 +337,12 @@
 {"escalation_id":"RESOLVED-E-done-command","timestamp":"2026-05-20T16:01:04Z","type":"AWAITING_PROMOTION","subject":"IDEA-done-command-ac-section-scoping","status":"RESOLVED","reason":"Promoted to TASK-962"}
 {"escalation_id":"RESOLVED-E-fix-class","timestamp":"2026-05-20T16:01:05Z","type":"AWAITING_PROMOTION","subject":"IDEA-fix-class-boundary-violation-excision","status":"RESOLVED","reason":"Promoted to TASK-963"}
 {"escalation_id":"RESOLVED-E-sprint-machine","timestamp":"2026-05-20T16:01:06Z","type":"AWAITING_PROMOTION","subject":"IDEA-sprint-state-machine","status":"RESOLVED","reason":"Promoted to TASK-960"}
+{"escalation_id":"E-automate-1716300000","timestamp":"2026-05-21T15:20:00Z","type":"AWAITING_PROMOTION","subject":"IDEA-automate-govern-metadata-flush","reason":"Surfaced for human decision","status":"OPEN"}
+{"escalation_id":"E-corpus-1716300001","timestamp":"2026-05-21T15:20:01Z","type":"AWAITING_PROMOTION","subject":"IDEA-corpus-informed-reprioritization","reason":"Surfaced for human decision","status":"OPEN"}
+{"escalation_id":"E-det-ac-1716300002","timestamp":"2026-05-21T15:20:02Z","type":"AWAITING_PROMOTION","subject":"IDEA-deterministic-ac-expansion","reason":"Surfaced for human decision","status":"OPEN"}
+{"escalation_id":"E-det-gate-1716300003","timestamp":"2026-05-21T15:20:03Z","type":"AWAITING_PROMOTION","subject":"IDEA-deterministic-governance-gates","reason":"Surfaced for human decision","status":"OPEN"}
+{"escalation_id":"E-guided-1716300004","timestamp":"2026-05-21T15:20:04Z","type":"AWAITING_PROMOTION","subject":"IDEA-guided-close-path","reason":"Surfaced for human decision","status":"OPEN"}
+{"escalation_id":"E-semantic-1716300005","timestamp":"2026-05-21T15:20:05Z","type":"AWAITING_PROMOTION","subject":"IDEA-semantic-compression-layer","reason":"Surfaced for human decision","status":"OPEN"}
+{"escalation_id":"E-status-1716300006","timestamp":"2026-05-21T15:20:06Z","type":"AWAITING_PROMOTION","subject":"IDEA-status-doc-refresh","reason":"Surfaced for human decision","status":"OPEN"}
+{"escalation_id":"E-think-1716300007","timestamp":"2026-05-21T15:20:07Z","type":"AWAITING_PROMOTION","subject":"IDEA-think-generated-proposals","reason":"Surfaced for human decision","status":"OPEN"}
+{"escalation_id":"E-verif-1716300008","timestamp":"2026-05-21T15:20:08Z","type":"AWAITING_PROMOTION","subject":"IDEA-verifiability-first-templates","reason":"Surfaced for human decision","status":"OPEN"}
