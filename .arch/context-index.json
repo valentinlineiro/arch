@@ -114,6 +114,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-976.md"
+        },
+        "TASK-981": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-981.md"
         }
       }
     },
@@ -225,6 +231,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-952.md"
+        },
+        "TASK-981": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-981.md"
         }
       }
     },
@@ -750,6 +762,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-972.md"
+        },
+        "TASK-981": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-981.md"
         }
       }
     },
@@ -930,6 +948,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-972.md"
+        },
+        "TASK-981": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-981.md"
         }
       }
     },
@@ -3896,7 +3920,7 @@
       "title": "Unified Epistemic Invariant Specification — Bounded Stream Enforcement"
     }
   },
-  "builtAt": "2026-05-21T08:40:43.686Z",
+  "builtAt": "2026-05-21T14:35:44.456Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -4675,22 +4699,14 @@
     "cli/src/main/ts/application/commands/audit-command.ts": {
       "criticality": "domain",
       "imports": [
-        "cli/src/main/ts/domain/models/action.ts",
-        "cli/src/main/ts/domain/models/audit-inference.ts",
-        "cli/src/main/ts/domain/models/evidence.ts",
-        "cli/src/main/ts/domain/services/adr-inference-engine.ts",
-        "cli/src/main/ts/domain/services/decision-impact-engine.ts",
-        "cli/src/main/ts/domain/services/decision-reconciliation-engine.ts",
-        "cli/src/main/ts/domain/services/epistemic-integrity-service.ts",
-        "cli/src/main/ts/domain/services/init-recommendation-engine.ts",
-        "cli/src/main/ts/domain/services/noise-filter.ts",
-        "cli/src/main/ts/domain/services/pattern-engine.ts",
-        "cli/src/main/ts/domain/services/signal-extraction-engine.ts",
-        "cli/src/main/ts/infrastructure/filesystem/node-file-system.ts",
-        "cli/src/main/ts/infrastructure/filesystem/signal-cache.ts",
-        "cli/src/main/ts/infrastructure/git/adr-decision-parser.ts",
-        "cli/src/main/ts/infrastructure/git/git-evidence-collector.ts",
-        "cli/src/main/ts/infrastructure/git/git-semantic-extractor.ts"
+        "cli/src/main/ts/domain/models/deployment-map.ts",
+        "cli/src/main/ts/domain/services/behavioral-profiler.ts",
+        "cli/src/main/ts/domain/services/instrumentation-planner.ts",
+        "cli/src/main/ts/domain/services/risk-detector.ts",
+        "cli/src/main/ts/domain/services/role-inference-engine.ts",
+        "cli/src/main/ts/domain/services/structural-extractor.ts",
+        "cli/src/main/ts/domain/services/subsystem-clusterer.ts",
+        "cli/src/main/ts/infrastructure/filesystem/node-file-system.ts"
       ],
       "runtimeUsage": "cold",
       "symbols": [
@@ -6459,6 +6475,7 @@
         "CachedSignalEntry",
         "GitDiffChunk",
         "InferredArchitecturalPattern",
+        "InitSuggestion",
         "MigrationTrend",
         "Pattern",
         "PatternStability",
@@ -6477,6 +6494,7 @@
         "entry",
         "inference",
         "inferred",
+        "init",
         "match",
         "metrics",
         "migration",
@@ -6486,6 +6504,7 @@
         "signal",
         "spread",
         "stability",
+        "suggestion",
         "trend"
       ]
     },
@@ -6601,6 +6620,39 @@
         "level",
         "models",
         "status",
+        "type"
+      ]
+    },
+    "cli/src/main/ts/domain/models/deployment-map.ts": {
+      "criticality": "core",
+      "imports": [],
+      "runtimeUsage": "cold",
+      "symbols": [
+        "ARCHDeploymentMap",
+        "DependencyGraph",
+        "ExtractionResult",
+        "HookType",
+        "InstrumentationHook",
+        "InstrumentationPlan",
+        "Intensity",
+        "Risk",
+        "RiskType",
+        "Subsystem"
+      ],
+      "tags": [
+        "dependency",
+        "deployment",
+        "domain",
+        "extraction",
+        "graph",
+        "hook",
+        "instrumentation",
+        "intensity",
+        "models",
+        "plan",
+        "result",
+        "risk",
+        "subsystem",
         "type"
       ]
     },
@@ -7032,6 +7084,23 @@
         "task"
       ]
     },
+    "cli/src/main/ts/domain/services/behavioral-profiler.ts": {
+      "criticality": "core",
+      "imports": [
+        "cli/src/main/ts/domain/models/deployment-map.ts",
+        "cli/src/main/ts/domain/repositories/file-system.ts"
+      ],
+      "runtimeUsage": "cold",
+      "symbols": [
+        "BehavioralProfiler"
+      ],
+      "tags": [
+        "behavioral",
+        "domain",
+        "profiler",
+        "services"
+      ]
+    },
     "cli/src/main/ts/domain/services/bridge-provider.ts": {
       "criticality": "core",
       "imports": [
@@ -7370,6 +7439,22 @@
         "tracker"
       ]
     },
+    "cli/src/main/ts/domain/services/instrumentation-planner.ts": {
+      "criticality": "core",
+      "imports": [
+        "cli/src/main/ts/domain/models/deployment-map.ts"
+      ],
+      "runtimeUsage": "cold",
+      "symbols": [
+        "InstrumentationPlanner"
+      ],
+      "tags": [
+        "domain",
+        "instrumentation",
+        "planner",
+        "services"
+      ]
+    },
     "cli/src/main/ts/domain/services/llm-provider.ts": {
       "criticality": "core",
       "imports": [],
@@ -7552,6 +7637,26 @@
         "services"
       ]
     },
+    "cli/src/main/ts/domain/services/repository-summarizer.ts": {
+      "criticality": "core",
+      "imports": [
+        "cli/src/main/ts/domain/models/audit-inference.ts",
+        "cli/src/main/ts/domain/models/decision.ts",
+        "cli/src/main/ts/domain/models/reconciliation.ts"
+      ],
+      "runtimeUsage": "cold",
+      "symbols": [
+        "RepositorySummarizer",
+        "RepositorySummary"
+      ],
+      "tags": [
+        "domain",
+        "repository",
+        "services",
+        "summarizer",
+        "summary"
+      ]
+    },
     "cli/src/main/ts/domain/services/reviewer.ts": {
       "criticality": "core",
       "imports": [
@@ -7568,6 +7673,39 @@
         "result",
         "review",
         "reviewer",
+        "services"
+      ]
+    },
+    "cli/src/main/ts/domain/services/risk-detector.ts": {
+      "criticality": "core",
+      "imports": [
+        "cli/src/main/ts/domain/models/deployment-map.ts"
+      ],
+      "runtimeUsage": "cold",
+      "symbols": [
+        "RiskDetector"
+      ],
+      "tags": [
+        "detector",
+        "domain",
+        "risk",
+        "services"
+      ]
+    },
+    "cli/src/main/ts/domain/services/role-inference-engine.ts": {
+      "criticality": "core",
+      "imports": [
+        "cli/src/main/ts/domain/models/deployment-map.ts"
+      ],
+      "runtimeUsage": "cold",
+      "symbols": [
+        "RoleInferenceEngine"
+      ],
+      "tags": [
+        "domain",
+        "engine",
+        "inference",
+        "role",
         "services"
       ]
     },
@@ -7667,6 +7805,42 @@
         "service",
         "services",
         "status"
+      ]
+    },
+    "cli/src/main/ts/domain/services/structural-extractor.ts": {
+      "criticality": "core",
+      "imports": [
+        "cli/src/main/ts/domain/models/deployment-map.ts",
+        "cli/src/main/ts/domain/repositories/file-system.ts"
+      ],
+      "runtimeUsage": "cold",
+      "symbols": [
+        "ExtractionResult",
+        "StructuralExtractor"
+      ],
+      "tags": [
+        "domain",
+        "extraction",
+        "extractor",
+        "result",
+        "services",
+        "structural"
+      ]
+    },
+    "cli/src/main/ts/domain/services/subsystem-clusterer.ts": {
+      "criticality": "core",
+      "imports": [
+        "cli/src/main/ts/domain/models/deployment-map.ts"
+      ],
+      "runtimeUsage": "cold",
+      "symbols": [
+        "SubsystemClusterer"
+      ],
+      "tags": [
+        "clusterer",
+        "domain",
+        "services",
+        "subsystem"
       ]
     },
     "cli/src/main/ts/domain/services/task-validator.ts": {
@@ -8176,14 +8350,13 @@
       }
     },
     "TASK-249": {
-      "commitCount": 18,
+      "commitCount": 17,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-18T16:06:18+02:00",
       "recentCommitRefs": [
         "0bfec523",
         "0cda162a",
         "0f646f23",
-        "1217c080",
         "1b15c8ac",
         "1fcb5837",
         "2e233226",
@@ -8200,7 +8373,7 @@
         "fc39bf89"
       ],
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 8,
+        ".arch/focus-ledger.jsonl": 7,
         "arch.config.json": 1,
         "docs/INBOX.md": 1,
         "docs/METRICS.md": 1,
@@ -8778,7 +8951,7 @@
       }
     },
     "TASK-927": {
-      "commitCount": 6,
+      "commitCount": 5,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-18T12:16:32+02:00",
       "recentCommitRefs": [
@@ -8786,8 +8959,7 @@
         "1a317a06",
         "718b2b81",
         "a7016a92",
-        "a938de94",
-        "ebce982f"
+        "a938de94"
       ],
       "touchedFrequency": {
         "docs/EVENTS.md": 2,
@@ -8804,8 +8976,6 @@
         "docs/refinement/IDEA-tiered-obligations.md": 1,
         "docs/superpowers/plans/2026-05-18-v1-readiness.md": 2,
         "docs/tasks/TASK-927.md": 2,
-        "docs/tasks/TASK-928.md": 1,
-        "docs/tasks/TASK-929.md": 1,
         "docs/tasks/TASK-930.md": 1,
         "docs/tasks/TASK-931.md": 1,
         "docs/tasks/TASK-932.md": 1,
@@ -8813,51 +8983,16 @@
       }
     },
     "TASK-928": {
-      "commitCount": 4,
+      "commitCount": 1,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-18T10:44:35+02:00",
       "recentCommitRefs": [
-        "148f74a9",
-        "1a317a06",
-        "df2cc5d8",
-        "ebce982f"
+        "1a317a06"
       ],
       "touchedFrequency": {
-        "cli/src/main/ts/application/use-cases/drift-checker.ts": 1,
-        "cli/src/main/ts/application/use-cases/mark-task-in-progress.ts": 1,
-        "cli/src/test/ts/drift-checker.test.ts": 1,
-        "cli/src/test/ts/mark-task-in-progress.test.ts": 1,
-        "docs/EVENTS.md": 1,
-        "docs/METRICS.md": 1,
-        "docs/archive/TASK-928.md": 1,
-        "docs/archive/TASK-929.md": 1,
         "docs/refinement/IDEA-actor-routing-config-key.md": 1,
         "docs/refinement/IDEA-approval-checker-field-index.md": 1,
-        "docs/tasks/TASK-927.md": 1,
-        "docs/tasks/TASK-928.md": 3,
-        "docs/tasks/TASK-929.md": 2
-      }
-    },
-    "TASK-929": {
-      "commitCount": 3,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-18T10:41:14+02:00",
-      "recentCommitRefs": [
-        "148f74a9",
-        "df2cc5d8",
-        "ebce982f"
-      ],
-      "touchedFrequency": {
-        "cli/src/main/ts/application/use-cases/drift-checker.ts": 1,
-        "cli/src/main/ts/application/use-cases/mark-task-in-progress.ts": 1,
-        "cli/src/test/ts/drift-checker.test.ts": 1,
-        "cli/src/test/ts/mark-task-in-progress.test.ts": 1,
-        "docs/EVENTS.md": 1,
-        "docs/METRICS.md": 1,
-        "docs/archive/TASK-928.md": 1,
-        "docs/archive/TASK-929.md": 1,
-        "docs/tasks/TASK-928.md": 3,
-        "docs/tasks/TASK-929.md": 2
+        "docs/tasks/TASK-927.md": 1
       }
     },
     "TASK-930": {
@@ -9867,11 +10002,12 @@
       }
     },
     "TASK-966": {
-      "commitCount": 16,
+      "commitCount": 17,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-21T10:40:41+02:00",
+      "lastCommitDate": "2026-05-21T16:35:43+02:00",
       "recentCommitRefs": [
         "044acf6a",
+        "109a798f",
         "1642d844",
         "197f0cad",
         "352ab3a4",
@@ -9890,7 +10026,7 @@
       ],
       "touchedFrequency": {
         ".arch/corpus-index.json": 1,
-        ".arch/focus-ledger.jsonl": 15,
+        ".arch/focus-ledger.jsonl": 16,
         ".arch/reflect-breach-log.jsonl": 1,
         "docs/METRICS.md": 1,
         "docs/tasks/TASK-966.md": 1
@@ -10222,6 +10358,32 @@
         "docs/ROADMAP.md": 1,
         "docs/archive/TASK-978.md": 1,
         "docs/archive/TASK-980.md": 1
+      }
+    },
+    "TASK-981": {
+      "commitCount": 3,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-05-21T16:35:42+02:00",
+      "recentCommitRefs": [
+        "7a60254b",
+        "7b05c257",
+        "aeb26847"
+      ],
+      "touchedFrequency": {
+        "cli/src/main/ts/application/commands/audit-command.ts": 1,
+        "cli/src/main/ts/domain/models/audit-inference.ts": 1,
+        "cli/src/main/ts/domain/models/deployment-map.ts": 1,
+        "cli/src/main/ts/domain/services/adr-inference-engine.ts": 1,
+        "cli/src/main/ts/domain/services/behavioral-profiler.ts": 1,
+        "cli/src/main/ts/domain/services/instrumentation-planner.ts": 1,
+        "cli/src/main/ts/domain/services/repository-summarizer.ts": 1,
+        "cli/src/main/ts/domain/services/risk-detector.ts": 1,
+        "cli/src/main/ts/domain/services/role-inference-engine.ts": 1,
+        "cli/src/main/ts/domain/services/signal-extraction-engine.ts": 1,
+        "cli/src/main/ts/domain/services/structural-extractor.ts": 1,
+        "cli/src/main/ts/domain/services/subsystem-clusterer.ts": 1,
+        "docs/archive/TASK-981.md": 1,
+        "docs/tasks/TASK-981.md": 1
       }
     }
   },
