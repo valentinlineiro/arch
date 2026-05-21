@@ -103,12 +103,6 @@
           ],
           "taskPath": "docs/tasks/TASK-969.md"
         },
-        "TASK-971": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/tasks/TASK-971.md"
-        },
         "TASK-973": {
           "evidenceKinds": [
             "literal-mention"
@@ -332,12 +326,6 @@
             "literal-mention"
           ],
           "taskPath": "docs/tasks/TASK-966.md"
-        },
-        "TASK-971": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/tasks/TASK-971.md"
         },
         "TASK-975": {
           "evidenceKinds": [
@@ -756,12 +744,6 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-968.md"
-        },
-        "TASK-971": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/tasks/TASK-971.md"
         },
         "TASK-972": {
           "evidenceKinds": [
@@ -3369,84 +3351,77 @@
       "affectedModules": [],
       "keywords": [
         "023",
-        "2026",
-        "accepted",
-        "across",
+        "absolute",
         "adr",
         "advisory",
-        "after",
-        "allowing",
-        "api",
+        "allows",
+        "analysis",
         "arch",
-        "block",
-        "called",
-        "checks",
+        "authoritative",
+        "authority",
+        "bearing",
+        "belong",
+        "between",
+        "boundary",
+        "channel",
+        "channels",
         "classification",
-        "cli",
         "code",
         "codes",
-        "command",
         "context",
-        "date",
-        "deciders",
+        "controls",
         "decision",
-        "depends",
+        "defined",
         "deterministic",
-        "different",
-        "error",
+        "drift",
+        "enforcement",
+        "epistemic",
+        "establish",
+        "every",
+        "exactly",
+        "examples",
         "exit",
-        "fail",
-        "failure",
-        "fully",
+        "facts",
         "gate",
         "gates",
+        "generated",
         "governance",
         "governing",
-        "hansei",
-        "influence",
-        "influences",
-        "input",
+        "heuristic",
+        "informal",
+        "integrity",
+        "into",
+        "introduces",
         "invariant",
-        "invoking",
-        "law",
-        "limit",
-        "llm",
-        "making",
+        "invariants",
+        "llms",
+        "machine",
+        "maintain",
         "must",
-        "negotiation",
-        "never",
         "non",
-        "only",
-        "outcome",
+        "operational",
         "output",
-        "owned",
-        "pass",
-        "paths",
-        "prior",
+        "outputs",
+        "possess",
         "probabilistic",
-        "process",
-        "produce",
-        "propagate",
-        "rate",
-        "reflect",
-        "reproducible",
-        "result",
-        "runs",
-        "same",
+        "proposed",
+        "regex",
+        "relying",
+        "reproducibility",
+        "source",
+        "state",
         "status",
+        "strictly",
+        "structurally",
+        "suggestions",
         "system",
-        "tier",
-        "token",
-        "type",
-        "ungovernable",
-        "untestable",
-        "valentinlineiro",
-        "whose",
-        "workflow",
-        "would",
+        "three",
+        "transitio",
+        "treated",
+        "where",
         "zero"
       ],
-      "strength": "enforced",
+      "strength": "advisory",
       "title": "Deterministic Gate Invariant"
     },
     "ADR-024": {
@@ -3897,7 +3872,7 @@
       "title": "Unified Epistemic Invariant Specification — Bounded Stream Enforcement"
     }
   },
-  "builtAt": "2026-05-20T20:29:46.793Z",
+  "builtAt": "2026-05-21T07:14:59.968Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -8086,11 +8061,12 @@
   },
   "tasks": {
     "TASK-206": {
-      "commitCount": 12,
+      "commitCount": 13,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-20T20:21:48+00:00",
+      "lastCommitDate": "2026-05-20T20:30:03+00:00",
       "recentCommitRefs": [
         "0379ddd7",
+        "22308ce5",
         "4a348d92",
         "519e55c1",
         "5a2d682f",
@@ -8104,11 +8080,12 @@
         "fc215eaa"
       ],
       "touchedFrequency": {
+        ".arch/cache/git-signals.jsonl": 1,
         ".arch/chronicle.jsonl": 1,
         ".arch/corpus-index.json": 2,
         ".arch/ecp-registry.jsonl": 1,
-        ".arch/last-audit.json": 1,
-        ".arch/reflect-breach-log.jsonl": 4,
+        ".arch/last-audit.json": 2,
+        ".arch/reflect-breach-log.jsonl": 5,
         "arch.config.json": 1,
         "cli/.arch/corpus-index.json": 2,
         "cli/src/main/ts/application/commands/audit-command.ts": 2,
@@ -8118,8 +8095,9 @@
         "cli/src/main/ts/application/use-cases/corpus-index.ts": 2,
         "cli/src/main/ts/application/use-cases/govern-system.ts": 2,
         "cli/src/main/ts/application/use-cases/hansei-synthesizer.ts": 2,
-        "cli/src/main/ts/application/use-cases/hansei-wizard.ts": 1,
+        "cli/src/main/ts/application/use-cases/hansei-wizard.ts": 2,
         "cli/src/main/ts/application/use-cases/mark-task-done.ts": 1,
+        "cli/src/main/ts/application/use-cases/mark-task-in-progress.ts": 1,
         "cli/src/main/ts/domain/services/decision-reconciliation-engine.ts": 1,
         "cli/src/main/ts/domain/services/deterministic-hansei-checker.ts": 1,
         "cli/src/main/ts/domain/services/event-logger.ts": 1,
@@ -8130,10 +8108,14 @@
         "cli/src/test/ts/corpus-audit-weighted.test.ts": 1,
         "cli/src/test/ts/corpus-index.test.ts": 1,
         "docs/EVENTS.md": 3,
-        "docs/INBOX.md": 2,
-        "docs/METRICS.md": 2,
+        "docs/INBOX.md": 3,
+        "docs/METRICS.md": 3,
         "docs/refinement/IDEA-automate-govern-metadata-flush.md": 1,
         "docs/refinement/IDEA-verify-pre-existing-before-start.md": 1,
+        "docs/refinement/archive/IDEA-automatic-sprint-lifecycle.md": 1,
+        "docs/refinement/archive/IDEA-governance-epistemic-doctrine.md": 1,
+        "docs/refinement/archive/IDEA-hansei-wizard.md": 1,
+        "docs/refinement/archive/IDEA-verify-pre-existing-before-start.md": 1,
         "docs/tasks/TASK-098.md": 1,
         "docs/tasks/TASK-099.md": 1,
         "docs/tasks/TASK-100.md": 1,
@@ -8142,6 +8124,7 @@
         "docs/tasks/TASK-162.md": 1,
         "docs/tasks/TASK-163.md": 1,
         "docs/tasks/TASK-947.md": 1,
+        "docs/tasks/TASK-978.md": 1,
         "docs/tensions/TENSION-005-specdrift.md": 2
       }
     },
@@ -8154,18 +8137,6 @@
       ],
       "touchedFrequency": {
         "docs/EVENTS.md": 1
-      }
-    },
-    "TASK-247": {
-      "commitCount": 1,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-18T08:58:10+02:00",
-      "recentCommitRefs": [
-        "b75e4438"
-      ],
-      "touchedFrequency": {
-        "docs/tasks/TASK-251.md": 1,
-        "docs/tasks/TASK-254.md": 1
       }
     },
     "TASK-249": {
@@ -8262,20 +8233,6 @@
         "docs/tasks/TASK-940.md": 1
       }
     },
-    "TASK-251": {
-      "commitCount": 2,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-18T08:58:10+02:00",
-      "recentCommitRefs": [
-        "b75e4438",
-        "efb2728a"
-      ],
-      "touchedFrequency": {
-        "docs/archive/TASK-251.md": 1,
-        "docs/tasks/TASK-251.md": 1,
-        "docs/tasks/TASK-254.md": 1
-      }
-    },
     "TASK-252": {
       "commitCount": 7,
       "commitRefOverflow": false,
@@ -8344,17 +8301,14 @@
       }
     },
     "TASK-254": {
-      "commitCount": 2,
+      "commitCount": 1,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-18T08:58:10+02:00",
       "recentCommitRefs": [
-        "36802a8e",
-        "b75e4438"
+        "36802a8e"
       ],
       "touchedFrequency": {
-        "docs/archive/TASK-254.md": 1,
-        "docs/tasks/TASK-251.md": 1,
-        "docs/tasks/TASK-254.md": 1
+        "docs/archive/TASK-254.md": 1
       }
     },
     "TASK-255": {
@@ -9755,11 +9709,12 @@
       }
     },
     "TASK-950": {
-      "commitCount": 9,
+      "commitCount": 10,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-19T11:46:02+02:00",
+      "lastCommitDate": "2026-05-21T08:28:10+02:00",
       "recentCommitRefs": [
         "05cad83d",
+        "20596e46",
         "55b390e5",
         "7d5de7df",
         "89479bb2",
@@ -9789,8 +9744,9 @@
         "docs/refinement/IDEA-temporal-pattern-layer.md": 1,
         "docs/tasks/TASK-259.md": 1,
         "docs/tasks/TASK-919.md": 1,
-        "docs/tasks/TASK-950.md": 5,
+        "docs/tasks/TASK-950.md": 6,
         "docs/tasks/TASK-953.md": 1,
+        "docs/tasks/TASK-971.md": 1,
         "docs/tensions/TENSION-005-specdrift.md": 1
       }
     },
@@ -10205,19 +10161,20 @@
       }
     },
     "TASK-966": {
-      "commitCount": 5,
+      "commitCount": 6,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-20T20:29:43+00:00",
+      "lastCommitDate": "2026-05-21T09:14:58+02:00",
       "recentCommitRefs": [
         "1642d844",
         "197f0cad",
         "4ee462fb",
         "8ab92fb8",
-        "ac0e2be6"
+        "ac0e2be6",
+        "bed43715"
       ],
       "touchedFrequency": {
         ".arch/corpus-index.json": 1,
-        ".arch/focus-ledger.jsonl": 4,
+        ".arch/focus-ledger.jsonl": 5,
         ".arch/reflect-breach-log.jsonl": 1,
         "docs/METRICS.md": 1,
         "docs/tasks/TASK-966.md": 1
@@ -10241,6 +10198,18 @@
         "docs/archive/TASK-968.md": 1,
         "docs/reviews/cli-arch-review-2026-05-20.md": 1,
         "docs/tasks/TASK-968.md": 2
+      }
+    },
+    "TASK-971": {
+      "commitCount": 1,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-05-21T08:28:10+02:00",
+      "recentCommitRefs": [
+        "20596e46"
+      ],
+      "touchedFrequency": {
+        "docs/tasks/TASK-950.md": 1,
+        "docs/tasks/TASK-971.md": 1
       }
     },
     "TASK-972": {
@@ -10440,6 +10409,39 @@
         "docs/archive/TASK-977.md": 1,
         "docs/index.html": 1,
         "docs/tasks/TASK-977.md": 1
+      }
+    },
+    "TASK-978": {
+      "commitCount": 1,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-05-20T20:30:03+00:00",
+      "recentCommitRefs": [
+        "22308ce5"
+      ],
+      "touchedFrequency": {
+        ".arch/cache/git-signals.jsonl": 1,
+        ".arch/last-audit.json": 1,
+        ".arch/reflect-breach-log.jsonl": 1,
+        "cli/src/main/ts/application/use-cases/hansei-wizard.ts": 1,
+        "cli/src/main/ts/application/use-cases/mark-task-in-progress.ts": 1,
+        "docs/INBOX.md": 1,
+        "docs/METRICS.md": 1,
+        "docs/refinement/archive/IDEA-automatic-sprint-lifecycle.md": 1,
+        "docs/refinement/archive/IDEA-governance-epistemic-doctrine.md": 1,
+        "docs/refinement/archive/IDEA-hansei-wizard.md": 1,
+        "docs/refinement/archive/IDEA-verify-pre-existing-before-start.md": 1,
+        "docs/tasks/TASK-978.md": 1
+      }
+    },
+    "TASK-979": {
+      "commitCount": 1,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-05-21T08:27:01+02:00",
+      "recentCommitRefs": [
+        "6712c84a"
+      ],
+      "touchedFrequency": {
+        "docs/tasks/TASK-979.md": 1
       }
     }
   },
