@@ -120,6 +120,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-981.md"
+        },
+        "TASK-982": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-982.md"
         }
       }
     },
@@ -237,6 +243,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-981.md"
+        },
+        "TASK-982": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-982.md"
         }
       }
     },
@@ -473,6 +485,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-973.md"
+        },
+        "TASK-982": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-982.md"
         }
       }
     },
@@ -613,6 +631,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/tasks/TASK-970.md"
+        },
+        "TASK-982": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-982.md"
         }
       }
     },
@@ -3920,7 +3944,7 @@
       "title": "Unified Epistemic Invariant Specification — Bounded Stream Enforcement"
     }
   },
-  "builtAt": "2026-05-21T14:35:44.456Z",
+  "builtAt": "2026-05-21T15:04:22.986Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -4699,13 +4723,12 @@
     "cli/src/main/ts/application/commands/audit-command.ts": {
       "criticality": "domain",
       "imports": [
-        "cli/src/main/ts/domain/models/deployment-map.ts",
-        "cli/src/main/ts/domain/services/behavioral-profiler.ts",
-        "cli/src/main/ts/domain/services/instrumentation-planner.ts",
-        "cli/src/main/ts/domain/services/risk-detector.ts",
-        "cli/src/main/ts/domain/services/role-inference-engine.ts",
-        "cli/src/main/ts/domain/services/structural-extractor.ts",
-        "cli/src/main/ts/domain/services/subsystem-clusterer.ts",
+        "cli/src/main/ts/domain/models/ueg-ir.ts",
+        "cli/src/main/ts/domain/services/java-adapter.ts",
+        "cli/src/main/ts/domain/services/typescript-adapter.ts",
+        "cli/src/main/ts/domain/services/ueg-analysis-layer.ts",
+        "cli/src/main/ts/domain/services/ueg-interfaces.ts",
+        "cli/src/main/ts/domain/services/ueg-ir-builder.ts",
         "cli/src/main/ts/infrastructure/filesystem/node-file-system.ts"
       ],
       "runtimeUsage": "cold",
@@ -6966,6 +6989,54 @@
         "type"
       ]
     },
+    "cli/src/main/ts/domain/models/ueg-ir.ts": {
+      "criticality": "core",
+      "imports": [],
+      "runtimeUsage": "cold",
+      "symbols": [
+        "ARCHDeploymentMap",
+        "BehavioralSignals",
+        "Edge",
+        "EdgeType",
+        "Entity",
+        "EntityKind",
+        "EvidenceSource",
+        "InstrumentationSuggestion",
+        "Risk",
+        "RiskType",
+        "SignalValue",
+        "StructuralState",
+        "SubsystemView",
+        "UEGGraph",
+        "UEGGraphFragment",
+        "Uncertainty"
+      ],
+      "tags": [
+        "behavioral",
+        "deployment",
+        "domain",
+        "edge",
+        "entity",
+        "evidence",
+        "fragment",
+        "graph",
+        "instrumentation",
+        "kind",
+        "models",
+        "risk",
+        "signal",
+        "signals",
+        "source",
+        "state",
+        "structural",
+        "subsystem",
+        "suggestion",
+        "type",
+        "uncertainty",
+        "value",
+        "view"
+      ]
+    },
     "cli/src/main/ts/domain/repositories/feedback-repository.ts": {
       "criticality": "core",
       "imports": [
@@ -7455,6 +7526,23 @@
         "services"
       ]
     },
+    "cli/src/main/ts/domain/services/java-adapter.ts": {
+      "criticality": "core",
+      "imports": [
+        "cli/src/main/ts/domain/models/ueg-ir.ts",
+        "cli/src/main/ts/domain/services/ueg-interfaces.ts"
+      ],
+      "runtimeUsage": "cold",
+      "symbols": [
+        "JavaAdapter"
+      ],
+      "tags": [
+        "adapter",
+        "domain",
+        "java",
+        "services"
+      ]
+    },
     "cli/src/main/ts/domain/services/llm-provider.ts": {
       "criticality": "core",
       "imports": [],
@@ -7910,6 +7998,76 @@
         "services",
         "transient",
         "window"
+      ]
+    },
+    "cli/src/main/ts/domain/services/typescript-adapter.ts": {
+      "criticality": "core",
+      "imports": [
+        "cli/src/main/ts/domain/models/ueg-ir.ts",
+        "cli/src/main/ts/domain/services/ueg-interfaces.ts"
+      ],
+      "runtimeUsage": "cold",
+      "symbols": [
+        "TypeScriptAdapter"
+      ],
+      "tags": [
+        "adapter",
+        "domain",
+        "script",
+        "services",
+        "type",
+        "typescript"
+      ]
+    },
+    "cli/src/main/ts/domain/services/ueg-analysis-layer.ts": {
+      "criticality": "core",
+      "imports": [
+        "cli/src/main/ts/domain/models/ueg-ir.ts"
+      ],
+      "runtimeUsage": "cold",
+      "symbols": [
+        "UEGAnalysisLayer"
+      ],
+      "tags": [
+        "analysis",
+        "domain",
+        "layer",
+        "services"
+      ]
+    },
+    "cli/src/main/ts/domain/services/ueg-interfaces.ts": {
+      "criticality": "core",
+      "imports": [
+        "cli/src/main/ts/domain/models/ueg-ir.ts"
+      ],
+      "runtimeUsage": "cold",
+      "symbols": [
+        "IRBuilder",
+        "LanguageAdapter"
+      ],
+      "tags": [
+        "adapter",
+        "builder",
+        "domain",
+        "interfaces",
+        "language",
+        "services"
+      ]
+    },
+    "cli/src/main/ts/domain/services/ueg-ir-builder.ts": {
+      "criticality": "core",
+      "imports": [
+        "cli/src/main/ts/domain/models/ueg-ir.ts",
+        "cli/src/main/ts/domain/services/ueg-interfaces.ts"
+      ],
+      "runtimeUsage": "cold",
+      "symbols": [
+        "UEGIRBuilder"
+      ],
+      "tags": [
+        "builder",
+        "domain",
+        "services"
       ]
     },
     "cli/src/main/ts/domain/services/verifiability-scorer.ts": {
@@ -8951,48 +9109,20 @@
       }
     },
     "TASK-927": {
-      "commitCount": 5,
+      "commitCount": 2,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-18T12:16:32+02:00",
       "recentCommitRefs": [
-        "11f5cdcb",
-        "1a317a06",
         "718b2b81",
-        "a7016a92",
-        "a938de94"
+        "a7016a92"
       ],
       "touchedFrequency": {
         "docs/EVENTS.md": 2,
-        "docs/ROADMAP.md": 1,
         "docs/archive/TASK-255.md": 1,
         "docs/archive/TASK-257.md": 1,
         "docs/archive/TASK-927.md": 2,
         "docs/archive/TASK-935.md": 1,
-        "docs/refinement/IDEA-actor-routing-config-key.md": 1,
-        "docs/refinement/IDEA-approval-checker-field-index.md": 1,
-        "docs/refinement/IDEA-archive-status-drift-check.md": 1,
-        "docs/refinement/IDEA-inbox-invariant-contradiction.md": 1,
-        "docs/refinement/IDEA-lock-model-contradiction.md": 1,
-        "docs/refinement/IDEA-tiered-obligations.md": 1,
-        "docs/superpowers/plans/2026-05-18-v1-readiness.md": 2,
-        "docs/tasks/TASK-927.md": 2,
-        "docs/tasks/TASK-930.md": 1,
-        "docs/tasks/TASK-931.md": 1,
-        "docs/tasks/TASK-932.md": 1,
         "docs/tasks/TASK-935.md": 1
-      }
-    },
-    "TASK-928": {
-      "commitCount": 1,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-18T10:44:35+02:00",
-      "recentCommitRefs": [
-        "1a317a06"
-      ],
-      "touchedFrequency": {
-        "docs/refinement/IDEA-actor-routing-config-key.md": 1,
-        "docs/refinement/IDEA-approval-checker-field-index.md": 1,
-        "docs/tasks/TASK-927.md": 1
       }
     },
     "TASK-930": {
@@ -9051,24 +9181,21 @@
       }
     },
     "TASK-933": {
-      "commitCount": 4,
+      "commitCount": 3,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-18T11:27:23+02:00",
       "recentCommitRefs": [
         "adc46242",
         "dac3a1e1",
-        "f854d3fd",
         "fc39bf89"
       ],
       "touchedFrequency": {
         "docs/INBOX.md": 1,
         "docs/archive/TASK-933.md": 1,
-        "docs/refinement/IDEA-corpus-drift-repair.md": 1,
         "docs/tasks/TASK-249.md": 1,
         "docs/tasks/TASK-258.md": 1,
         "docs/tasks/TASK-919.md": 1,
-        "docs/tasks/TASK-927.md": 1,
-        "docs/tasks/TASK-933.md": 3
+        "docs/tasks/TASK-933.md": 2
       }
     },
     "TASK-934": {
@@ -10002,9 +10129,9 @@
       }
     },
     "TASK-966": {
-      "commitCount": 17,
+      "commitCount": 18,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-21T16:35:43+02:00",
+      "lastCommitDate": "2026-05-21T17:04:20+02:00",
       "recentCommitRefs": [
         "044acf6a",
         "109a798f",
@@ -10022,11 +10149,12 @@
         "bed43715",
         "c5ebb340",
         "d239124b",
-        "d5c5b74d"
+        "d5c5b74d",
+        "da4586f1"
       ],
       "touchedFrequency": {
         ".arch/corpus-index.json": 1,
-        ".arch/focus-ledger.jsonl": 16,
+        ".arch/focus-ledger.jsonl": 17,
         ".arch/reflect-breach-log.jsonl": 1,
         "docs/METRICS.md": 1,
         "docs/tasks/TASK-966.md": 1
@@ -10384,6 +10512,26 @@
         "cli/src/main/ts/domain/services/subsystem-clusterer.ts": 1,
         "docs/archive/TASK-981.md": 1,
         "docs/tasks/TASK-981.md": 1
+      }
+    },
+    "TASK-982": {
+      "commitCount": 2,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-05-21T17:04:20+02:00",
+      "recentCommitRefs": [
+        "1d82c293",
+        "9d37d345"
+      ],
+      "touchedFrequency": {
+        "cli/src/main/ts/application/commands/audit-command.ts": 1,
+        "cli/src/main/ts/domain/models/ueg-ir.ts": 1,
+        "cli/src/main/ts/domain/services/java-adapter.ts": 1,
+        "cli/src/main/ts/domain/services/typescript-adapter.ts": 1,
+        "cli/src/main/ts/domain/services/ueg-analysis-layer.ts": 1,
+        "cli/src/main/ts/domain/services/ueg-interfaces.ts": 1,
+        "cli/src/main/ts/domain/services/ueg-ir-builder.ts": 1,
+        "docs/archive/TASK-982.md": 1,
+        "docs/tasks/TASK-982.md": 1
       }
     }
   },
