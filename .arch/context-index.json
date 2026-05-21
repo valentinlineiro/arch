@@ -178,6 +178,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-976.md"
+        },
+        "TASK-984": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-984.md"
         }
       }
     },
@@ -731,6 +737,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-983.md"
+        },
+        "TASK-984": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-984.md"
         }
       }
     },
@@ -804,6 +816,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-983.md"
+        },
+        "TASK-984": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-984.md"
         }
       }
     },
@@ -3962,7 +3980,7 @@
       "title": "Unified Epistemic Invariant Specification — Bounded Stream Enforcement"
     }
   },
-  "builtAt": "2026-05-21T15:16:36.403Z",
+  "builtAt": "2026-05-21T15:36:20.066Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -4743,6 +4761,7 @@
       "imports": [
         "cli/src/main/ts/domain/models/ueg-ir.ts",
         "cli/src/main/ts/domain/services/java-adapter.ts",
+        "cli/src/main/ts/domain/services/python-adapter.ts",
         "cli/src/main/ts/domain/services/typescript-adapter.ts",
         "cli/src/main/ts/domain/services/ueg-analysis-layer.ts",
         "cli/src/main/ts/domain/services/ueg-interfaces.ts",
@@ -7743,6 +7762,23 @@
         "services"
       ]
     },
+    "cli/src/main/ts/domain/services/python-adapter.ts": {
+      "criticality": "core",
+      "imports": [
+        "cli/src/main/ts/domain/models/ueg-ir.ts",
+        "cli/src/main/ts/domain/services/ueg-interfaces.ts"
+      ],
+      "runtimeUsage": "cold",
+      "symbols": [
+        "PythonAdapter"
+      ],
+      "tags": [
+        "adapter",
+        "domain",
+        "python",
+        "services"
+      ]
+    },
     "cli/src/main/ts/domain/services/repository-summarizer.ts": {
       "criticality": "core",
       "imports": [
@@ -8677,38 +8713,6 @@
         "docs/tasks/TASK-253.md": 2
       }
     },
-    "TASK-255": {
-      "commitCount": 1,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-18T12:16:32+02:00",
-      "recentCommitRefs": [
-        "718b2b81"
-      ],
-      "touchedFrequency": {
-        "docs/EVENTS.md": 1,
-        "docs/archive/TASK-255.md": 1,
-        "docs/archive/TASK-257.md": 1,
-        "docs/archive/TASK-927.md": 1,
-        "docs/archive/TASK-935.md": 1,
-        "docs/tasks/TASK-935.md": 1
-      }
-    },
-    "TASK-257": {
-      "commitCount": 1,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-18T12:16:32+02:00",
-      "recentCommitRefs": [
-        "718b2b81"
-      ],
-      "touchedFrequency": {
-        "docs/EVENTS.md": 1,
-        "docs/archive/TASK-255.md": 1,
-        "docs/archive/TASK-257.md": 1,
-        "docs/archive/TASK-927.md": 1,
-        "docs/archive/TASK-935.md": 1,
-        "docs/tasks/TASK-935.md": 1
-      }
-    },
     "TASK-258": {
       "commitCount": 2,
       "commitRefOverflow": false,
@@ -9110,92 +9114,6 @@
       "touchedFrequency": {
         "docs/tasks/TASK-961.md": 1,
         "docs/tasks/TASK-975.md": 1
-      }
-    },
-    "TASK-927": {
-      "commitCount": 1,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-18T12:16:32+02:00",
-      "recentCommitRefs": [
-        "718b2b81"
-      ],
-      "touchedFrequency": {
-        "docs/EVENTS.md": 1,
-        "docs/archive/TASK-255.md": 1,
-        "docs/archive/TASK-257.md": 1,
-        "docs/archive/TASK-927.md": 1,
-        "docs/archive/TASK-935.md": 1,
-        "docs/tasks/TASK-935.md": 1
-      }
-    },
-    "TASK-930": {
-      "commitCount": 1,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-18T12:12:33+02:00",
-      "recentCommitRefs": [
-        "cc3d76d3"
-      ],
-      "touchedFrequency": {
-        "docs/INBOX.md": 1
-      }
-    },
-    "TASK-934": {
-      "commitCount": 2,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-18T12:12:33+02:00",
-      "recentCommitRefs": [
-        "a2dcd66a",
-        "cc3d76d3"
-      ],
-      "touchedFrequency": {
-        "cli/src/main/ts/application/use-cases/drift-checker.ts": 1,
-        "cli/src/main/ts/domain/services/task-validator.ts": 1,
-        "cli/src/test/ts/drift-checker.test.ts": 1,
-        "cli/src/test/ts/hansei-validation.test.ts": 1,
-        "cli/src/test/ts/task-validator.test.ts": 1,
-        "docs/AGENTS.md": 1,
-        "docs/EVENTS.md": 1,
-        "docs/INBOX.md": 2,
-        "docs/TASK-FORMAT.md": 1,
-        "docs/archive/TASK-934.md": 1,
-        "docs/tasks/TASK-934.md": 1
-      }
-    },
-    "TASK-935": {
-      "commitCount": 2,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-18T12:16:32+02:00",
-      "recentCommitRefs": [
-        "718b2b81",
-        "9c64198e"
-      ],
-      "touchedFrequency": {
-        "docs/EVENTS.md": 1,
-        "docs/archive/TASK-255.md": 1,
-        "docs/archive/TASK-257.md": 1,
-        "docs/archive/TASK-927.md": 1,
-        "docs/archive/TASK-935.md": 1,
-        "docs/tasks/TASK-935.md": 2
-      }
-    },
-    "TASK-936": {
-      "commitCount": 2,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-18T12:23:10+02:00",
-      "recentCommitRefs": [
-        "7c8db2df",
-        "b9a5e40b"
-      ],
-      "touchedFrequency": {
-        "docs/EVENTS.md": 1,
-        "docs/archive/TASK-215.md": 1,
-        "docs/archive/TASK-231.md": 1,
-        "docs/archive/TASK-234.md": 1,
-        "docs/archive/TASK-235.md": 1,
-        "docs/archive/TASK-236.md": 1,
-        "docs/archive/TASK-237.md": 1,
-        "docs/archive/TASK-936.md": 1,
-        "docs/tasks/TASK-936.md": 2
       }
     },
     "TASK-937": {
@@ -10067,18 +9985,18 @@
       }
     },
     "TASK-966": {
-      "commitCount": 21,
+      "commitCount": 22,
       "commitRefOverflow": true,
-      "lastCommitDate": "2026-05-21T17:16:34+02:00",
+      "lastCommitDate": "2026-05-21T17:36:18+02:00",
       "recentCommitRefs": [
         "044acf6a",
         "109a798f",
-        "1642d844",
         "197f0cad",
         "352ab3a4",
         "4ee462fb",
         "639675cc",
         "686d36aa",
+        "70f53e0f",
         "8240442d",
         "8ab92fb8",
         "964b5a8c",
@@ -10094,7 +10012,7 @@
       ],
       "touchedFrequency": {
         ".arch/corpus-index.json": 1,
-        ".arch/focus-ledger.jsonl": 20,
+        ".arch/focus-ledger.jsonl": 21,
         ".arch/reflect-breach-log.jsonl": 1,
         "docs/METRICS.md": 1,
         "docs/tasks/TASK-966.md": 1
@@ -10510,6 +10428,22 @@
         "cli/src/main/ts/application/commands/audit-command.ts": 1,
         "docs/archive/TASK-983.md": 1,
         "docs/tasks/TASK-983.md": 2
+      }
+    },
+    "TASK-984": {
+      "commitCount": 3,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-05-21T17:36:17+02:00",
+      "recentCommitRefs": [
+        "001d18d7",
+        "4ab2af5e",
+        "72ce3bb8"
+      ],
+      "touchedFrequency": {
+        "cli/src/main/ts/application/commands/audit-command.ts": 1,
+        "cli/src/main/ts/domain/services/python-adapter.ts": 1,
+        "docs/archive/TASK-984.md": 1,
+        "docs/tasks/TASK-984.md": 2
       }
     }
   },
