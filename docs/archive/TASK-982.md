@@ -1,5 +1,7 @@
 ## TASK-982: Implement ARCH Audit v1.1 Language-Agnostic Engine
-**Meta:** P3 | M | IN_PROGRESS | Focus:no | 2-code-generation | local | docs/tasks/
+**Meta:** P3 | M | DONE | Focus:false | 2-code-generation | local | docs/tasks/
+**Turns:** 1
+**Closed-at:** 2026-05-21T15:04:20.656Z
 **Actor:** unknown
 **Locked-commit:** e52dbbcc
 **Created-at:** 2026-05-21T15:03:28.459Z
