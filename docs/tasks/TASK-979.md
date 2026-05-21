@@ -1,4 +1,4 @@
-## TASK-979: Deterministic Governance Gates --id TASK-950 --priority P1 -
+## TASK-979: Implement Deterministic Governance Gates (ADR-023)
 **Meta:** P3 | S | READY | Focus:no | 1-code-reasoning | local | docs/tasks/
 **Depends:** none
 
@@ -11,23 +11,23 @@
 ### Context
 
 ### Relevant Context
-_confidence: 0.56_
+_confidence: 0.51_
 
 **Files:**
-- cli/src/main/ts/domain/services/action-governance-service.ts _(core)_
-- cli/src/main/ts/domain/models/reconciliation.ts _(core)_
-- cli/src/main/ts/domain/models/evidence.ts _(core)_
-- cli/src/main/ts/domain/models/task.ts _(core)_
+- .arch/focus-ledger.jsonl _(utility)_
 - .arch/causal-signal.jsonl _(utility)_
+- .arch/chronicle.jsonl _(utility)_
+- .arch/reflect-breach-log.jsonl _(utility)_
+- docs/EVENTS.md _(utility)_
 
 **ADRs:**
-- ADR-023: Deterministic Gate Invariant _(enforced)_
 - ADR-013: Two-Tier Drift Detection Architecture _(enforced)_
-- ADR-011: Unified Provider Strategies _(enforced)_
+- ADR-017: Deterministic Observability & Operational Metrics _(enforced)_
+- ADR-018: Adversarially Robust Epistemology & Graded Integrity _(enforced)_
 
 **Failure Patterns:**
 - Decision Blindness (High Velocity)*(Sprint 3)*: The agent executes architectural changes (ADR) and detects bugs (TASK-061) that stay in logs or PRs without immediate human visibility. High velocity (35 tasks/48h) makes individual monitoring impossible. **Proposal:** GOVERNANCE.md contract + INBOX.md weekly dashboard + `arch inbox` agent. _(docs/KAIZEN-LOG.md)_
-- Unstructured IDEAs before TASK-033*(Sprint 3)*: The original TEMPLATE only had `## Proposal` with no structured fields. THINK had to infer gaps without dependency or size context. The first 8 IDEAs were refined with more friction than necessary. _(docs/KAIZEN-LOG.md)_
+- Invariant Discovery Gap*(2026-05-12)*: The boundary ambiguity between `arch govern` (deterministic enforcement) and THINK (LLM analysis) was not surfaced by any ARCH mechanism. No DriftChecker rule, no structural check, no semantic scan detected it. A human noticed it during a reflection session. The specific risk: `arch govern` triggers THINK via `runConduct()`, creating naming confusion between enforcement and advisory synthesis — with no written invariant to refuse the rationalization "THINK already participates in govern, so it can also…". **Resolution:** Constitutional split written in IDENTITY.md §7. IDEA-architectural-tension-capture proposed as a new artifact class for structural ambiguities that are not yet broken but will be misused. **The deeper pattern:** ARCH models tasks, decisions, and causal edges, but not category errors or ontological drift. Invariants that live only in the author's head do not scale. _(docs/KAIZEN-LOG.md)_
 
 ### Context Feedback
 - [ ] accurate — files and ADRs were on-target
@@ -35,7 +35,7 @@ _confidence: 0.56_
 - [ ] off — wrong files dominated
 
 #### Intent
-Deterministic Governance Gates --id TASK-950 --priority P1 --size S
+Implement Deterministic Governance Gates (ADR-023)
 
 ### Definition of Done
 - [ ] All ACs checked by Auditor
