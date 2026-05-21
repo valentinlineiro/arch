@@ -919,6 +919,12 @@
           ],
           "taskPath": "docs/tasks/TASK-970.md"
         },
+        "TASK-971": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-971.md"
+        },
         "TASK-972": {
           "evidenceKinds": [
             "literal-mention"
@@ -1060,6 +1066,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/tasks/TASK-969.md"
+        },
+        "TASK-971": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-971.md"
         }
       }
     },
@@ -1350,6 +1362,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/tasks/TASK-957.md"
+        },
+        "TASK-971": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-971.md"
         }
       }
     },
@@ -3878,7 +3896,7 @@
       "title": "Unified Epistemic Invariant Specification — Bounded Stream Enforcement"
     }
   },
-  "builtAt": "2026-05-21T08:35:39.420Z",
+  "builtAt": "2026-05-21T08:38:29.457Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -8748,35 +8766,28 @@
       }
     },
     "TASK-926": {
-      "commitCount": 7,
+      "commitCount": 4,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-20T15:27:56+02:00",
       "recentCommitRefs": [
-        "00d5190a",
         "1cbddc60",
-        "3fa9c506",
         "414a527d",
         "867fecf4",
-        "b3858c7a",
         "ca8c4ada"
       ],
       "touchedFrequency": {
-        ".arch/.think-prompt-1779088043152.md": 1,
-        ".arch/reflect-breach-log.jsonl": 1,
-        "cli/src/main/ts/domain/services/archive-parser.ts": 2,
-        "cli/src/test/ts/report.test.ts": 1,
-        "docs/EVENTS.md": 2,
-        "docs/INBOX.md": 2,
-        "docs/METRICS.md": 2,
+        "cli/src/main/ts/domain/services/archive-parser.ts": 1,
+        "docs/EVENTS.md": 1,
+        "docs/INBOX.md": 1,
+        "docs/METRICS.md": 1,
         "docs/archive/TASK-926.md": 1,
         "docs/refinement/IDEA-actor-routing-config-key.md": 1,
         "docs/refinement/IDEA-approval-checker-field-index.md": 1,
-        "docs/refinement/IDEA-archive-parser-skip-non-done.md": 1,
         "docs/refinement/IDEA-archive-status-drift-check.md": 1,
         "docs/refinement/IDEA-corpus-drift-repair.md": 1,
         "docs/refinement/IDEA-inbox-invariant-contradiction.md": 1,
         "docs/refinement/IDEA-lock-model-contradiction.md": 1,
-        "docs/tasks/TASK-926.md": 4,
+        "docs/tasks/TASK-926.md": 1,
         "docs/tasks/TASK-927.md": 1,
         "docs/tasks/TASK-961.md": 1,
         "docs/tasks/TASK-975.md": 1
@@ -9875,9 +9886,9 @@
       }
     },
     "TASK-966": {
-      "commitCount": 14,
+      "commitCount": 15,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-21T10:35:37+02:00",
+      "lastCommitDate": "2026-05-21T10:38:27+02:00",
       "recentCommitRefs": [
         "044acf6a",
         "1642d844",
@@ -9892,11 +9903,12 @@
         "a3227691",
         "ac0e2be6",
         "bed43715",
-        "d239124b"
+        "d239124b",
+        "d5c5b74d"
       ],
       "touchedFrequency": {
         ".arch/corpus-index.json": 1,
-        ".arch/focus-ledger.jsonl": 13,
+        ".arch/focus-ledger.jsonl": 14,
         ".arch/reflect-breach-log.jsonl": 1,
         "docs/METRICS.md": 1,
         "docs/tasks/TASK-966.md": 1
@@ -9923,26 +9935,34 @@
       }
     },
     "TASK-971": {
-      "commitCount": 3,
+      "commitCount": 4,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-21T10:35:37+02:00",
+      "lastCommitDate": "2026-05-21T10:38:27+02:00",
       "recentCommitRefs": [
         "20596e46",
+        "3cda82da",
         "6a7574fb",
         "f60b08ca"
       ],
       "touchedFrequency": {
-        ".arch/reflect-breach-log.jsonl": 1,
-        ".arch/status-projection.json": 1,
-        "README.md": 2,
+        ".arch/causal-signal.jsonl": 1,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/reflect-breach-log.jsonl": 2,
+        ".arch/status-projection.json": 2,
+        ".arch/temporal-index.jsonl": 1,
+        "README.md": 3,
+        "cli/.arch/status-projection.json": 1,
         "cli/src/main/ts/application/commands/status-command.ts": 1,
         "cli/src/main/ts/application/use-cases/govern-system.ts": 1,
         "cli/src/main/ts/domain/services/status-report-service.ts": 1,
         "cli/src/main/ts/index.ts": 1,
-        "docs/ROADMAP.md": 2,
+        "cli/src/main/ts/infrastructure/filesystem/markdown-task-repository.ts": 1,
+        "docs/EVENTS.md": 1,
+        "docs/ROADMAP.md": 3,
         "docs/adr/ADR-023-deterministic-gate-invariant.md": 1,
+        "docs/archive/TASK-971.md": 1,
         "docs/tasks/TASK-950.md": 1,
-        "docs/tasks/TASK-971.md": 2,
+        "docs/tasks/TASK-971.md": 3,
         "docs/tasks/TASK-978.md": 1
       }
     },
