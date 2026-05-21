@@ -725,6 +725,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-968.md"
+        },
+        "TASK-983": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-983.md"
         }
       }
     },
@@ -792,6 +798,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-981.md"
+        },
+        "TASK-983": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-983.md"
         }
       }
     },
@@ -1120,6 +1132,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-971.md"
+        },
+        "TASK-983": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-983.md"
         }
       }
     },
@@ -3944,7 +3962,7 @@
       "title": "Unified Epistemic Invariant Specification — Bounded Stream Enforcement"
     }
   },
-  "builtAt": "2026-05-21T15:12:28.878Z",
+  "builtAt": "2026-05-21T15:16:36.403Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -9095,51 +9113,38 @@
       }
     },
     "TASK-927": {
-      "commitCount": 2,
+      "commitCount": 1,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-18T12:16:32+02:00",
       "recentCommitRefs": [
-        "718b2b81",
-        "a7016a92"
+        "718b2b81"
       ],
       "touchedFrequency": {
-        "docs/EVENTS.md": 2,
+        "docs/EVENTS.md": 1,
         "docs/archive/TASK-255.md": 1,
         "docs/archive/TASK-257.md": 1,
-        "docs/archive/TASK-927.md": 2,
+        "docs/archive/TASK-927.md": 1,
         "docs/archive/TASK-935.md": 1,
         "docs/tasks/TASK-935.md": 1
       }
     },
     "TASK-930": {
-      "commitCount": 3,
+      "commitCount": 1,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-18T12:12:33+02:00",
       "recentCommitRefs": [
-        "739762bf",
-        "cc3d76d3",
-        "cc5b1353"
+        "cc3d76d3"
       ],
       "touchedFrequency": {
-        "cli/src/main/ts/application/commands/next-command.ts": 1,
-        "cli/src/main/ts/application/use-cases/escalation-store.ts": 1,
-        "cli/src/main/ts/application/use-cases/loop-engine.ts": 1,
-        "cli/src/test/ts/escalation-maturity-e5.test.ts": 1,
-        "cli/src/test/ts/select-next-task.test.ts": 1,
-        "docs/INBOX.md": 2,
-        "docs/agents/DO.md": 1,
-        "docs/archive/TASK-930.md": 1,
-        "docs/tasks/TASK-930.md": 2
+        "docs/INBOX.md": 1
       }
     },
     "TASK-934": {
-      "commitCount": 4,
+      "commitCount": 2,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-18T12:12:33+02:00",
       "recentCommitRefs": [
         "a2dcd66a",
-        "b519fa74",
-        "c10d3960",
         "cc3d76d3"
       ],
       "touchedFrequency": {
@@ -9153,8 +9158,7 @@
         "docs/INBOX.md": 2,
         "docs/TASK-FORMAT.md": 1,
         "docs/archive/TASK-934.md": 1,
-        "docs/refinement/IDEA-tiered-obligations.md": 1,
-        "docs/tasks/TASK-934.md": 3
+        "docs/tasks/TASK-934.md": 1
       }
     },
     "TASK-935": {
@@ -10063,9 +10067,9 @@
       }
     },
     "TASK-966": {
-      "commitCount": 20,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-21T17:12:27+02:00",
+      "commitCount": 21,
+      "commitRefOverflow": true,
+      "lastCommitDate": "2026-05-21T17:16:34+02:00",
       "recentCommitRefs": [
         "044acf6a",
         "109a798f",
@@ -10080,7 +10084,7 @@
         "964b5a8c",
         "a3227691",
         "ab3b8915",
-        "ac0e2be6",
+        "ad98a28e",
         "bed43715",
         "c5ebb340",
         "d239124b",
@@ -10090,7 +10094,7 @@
       ],
       "touchedFrequency": {
         ".arch/corpus-index.json": 1,
-        ".arch/focus-ledger.jsonl": 19,
+        ".arch/focus-ledger.jsonl": 20,
         ".arch/reflect-breach-log.jsonl": 1,
         "docs/METRICS.md": 1,
         "docs/tasks/TASK-966.md": 1
@@ -10491,6 +10495,21 @@
         "docs/archive/TASK-982.md": 1,
         "docs/index.html": 1,
         "docs/tasks/TASK-982.md": 1
+      }
+    },
+    "TASK-983": {
+      "commitCount": 3,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-05-21T17:17:18+02:00",
+      "recentCommitRefs": [
+        "08a71e86",
+        "0c9e78f8",
+        "3cb48559"
+      ],
+      "touchedFrequency": {
+        "cli/src/main/ts/application/commands/audit-command.ts": 1,
+        "docs/archive/TASK-983.md": 1,
+        "docs/tasks/TASK-983.md": 2
       }
     }
   },
