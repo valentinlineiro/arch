@@ -3878,7 +3878,7 @@
       "title": "Unified Epistemic Invariant Specification — Bounded Stream Enforcement"
     }
   },
-  "builtAt": "2026-05-21T08:16:17.097Z",
+  "builtAt": "2026-05-21T08:35:39.420Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -5206,6 +5206,7 @@
       "imports": [
         "cli/src/main/ts/domain/repositories/file-system.ts",
         "cli/src/main/ts/domain/repositories/task-repository.ts",
+        "cli/src/main/ts/domain/services/status-report-service.ts",
         "cli/src/main/ts/infrastructure/cli/output-formatter.ts"
       ],
       "runtimeUsage": "hot",
@@ -5808,6 +5809,7 @@
         "cli/src/main/ts/domain/repositories/git-repository.ts",
         "cli/src/main/ts/domain/repositories/task-repository.ts",
         "cli/src/main/ts/domain/services/config-loader.ts",
+        "cli/src/main/ts/domain/services/status-report-service.ts",
         "cli/src/main/ts/domain/services/task-validator.ts"
       ],
       "runtimeUsage": "hot",
@@ -7635,13 +7637,14 @@
         "cli/src/main/ts/domain/models/task.ts",
         "cli/src/main/ts/domain/repositories/task-repository.ts"
       ],
-      "runtimeUsage": "cold",
+      "runtimeUsage": "hot",
       "symbols": [
-        "StatusReport",
+        "PrimitiveStatusReport",
         "StatusReportService"
       ],
       "tags": [
         "domain",
+        "primitive",
         "report",
         "service",
         "services",
@@ -8154,19 +8157,8 @@
         "docs/tensions/TENSION-005-specdrift.md": 2
       }
     },
-    "TASK-231": {
-      "commitCount": 1,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-18T09:45:31+02:00",
-      "recentCommitRefs": [
-        "f1a89659"
-      ],
-      "touchedFrequency": {
-        "docs/EVENTS.md": 1
-      }
-    },
     "TASK-249": {
-      "commitCount": 19,
+      "commitCount": 18,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-18T16:06:18+02:00",
       "recentCommitRefs": [
@@ -8181,7 +8173,6 @@
         "41077ee0",
         "53969f70",
         "5812f053",
-        "665755fd",
         "785e985f",
         "8a1f0d0b",
         "b1b144d6",
@@ -8191,7 +8182,7 @@
         "fc39bf89"
       ],
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 9,
+        ".arch/focus-ledger.jsonl": 8,
         "arch.config.json": 1,
         "docs/INBOX.md": 1,
         "docs/METRICS.md": 1,
@@ -8757,7 +8748,7 @@
       }
     },
     "TASK-926": {
-      "commitCount": 8,
+      "commitCount": 7,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-20T15:27:56+02:00",
       "recentCommitRefs": [
@@ -8767,15 +8758,14 @@
         "414a527d",
         "867fecf4",
         "b3858c7a",
-        "ca8c4ada",
-        "f1a89659"
+        "ca8c4ada"
       ],
       "touchedFrequency": {
         ".arch/.think-prompt-1779088043152.md": 1,
         ".arch/reflect-breach-log.jsonl": 1,
         "cli/src/main/ts/domain/services/archive-parser.ts": 2,
         "cli/src/test/ts/report.test.ts": 1,
-        "docs/EVENTS.md": 3,
+        "docs/EVENTS.md": 2,
         "docs/INBOX.md": 2,
         "docs/METRICS.md": 2,
         "docs/archive/TASK-926.md": 1,
@@ -9885,9 +9875,9 @@
       }
     },
     "TASK-966": {
-      "commitCount": 13,
+      "commitCount": 14,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-21T10:16:15+02:00",
+      "lastCommitDate": "2026-05-21T10:35:37+02:00",
       "recentCommitRefs": [
         "044acf6a",
         "1642d844",
@@ -9901,11 +9891,12 @@
         "964b5a8c",
         "a3227691",
         "ac0e2be6",
-        "bed43715"
+        "bed43715",
+        "d239124b"
       ],
       "touchedFrequency": {
         ".arch/corpus-index.json": 1,
-        ".arch/focus-ledger.jsonl": 12,
+        ".arch/focus-ledger.jsonl": 13,
         ".arch/reflect-breach-log.jsonl": 1,
         "docs/METRICS.md": 1,
         "docs/tasks/TASK-966.md": 1
@@ -9932,18 +9923,27 @@
       }
     },
     "TASK-971": {
-      "commitCount": 2,
+      "commitCount": 3,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-21T09:16:47+02:00",
+      "lastCommitDate": "2026-05-21T10:35:37+02:00",
       "recentCommitRefs": [
         "20596e46",
+        "6a7574fb",
         "f60b08ca"
       ],
       "touchedFrequency": {
-        "README.md": 1,
-        "docs/ROADMAP.md": 1,
+        ".arch/reflect-breach-log.jsonl": 1,
+        ".arch/status-projection.json": 1,
+        "README.md": 2,
+        "cli/src/main/ts/application/commands/status-command.ts": 1,
+        "cli/src/main/ts/application/use-cases/govern-system.ts": 1,
+        "cli/src/main/ts/domain/services/status-report-service.ts": 1,
+        "cli/src/main/ts/index.ts": 1,
+        "docs/ROADMAP.md": 2,
+        "docs/adr/ADR-023-deterministic-gate-invariant.md": 1,
         "docs/tasks/TASK-950.md": 1,
-        "docs/tasks/TASK-971.md": 1
+        "docs/tasks/TASK-971.md": 2,
+        "docs/tasks/TASK-978.md": 1
       }
     },
     "TASK-972": {
