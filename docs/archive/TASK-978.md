@@ -1,5 +1,6 @@
 ## TASK-978: Pre-existence check in arch task start: detect pre-implemented tasks
-**Meta:** P1 | S | REVIEW | Focus:no | 1-code-reasoning | claude-code | cli/src/main/ts/application/use-cases/mark-task-in-progress.ts
+**Meta:** P1 | S | DONE | Focus:no | 1-code-reasoning | claude-code | cli/src/main/ts/application/use-cases/mark-task-in-progress.ts
+**Closed-at:** 2026-05-21T08:40:38.883Z
 
 **Depends:** none
 

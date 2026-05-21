@@ -1,5 +1,6 @@
 ## TASK-980: Implement Deterministic Governance Gates (ADR-023)
-**Meta:** P1 | S | REVIEW | Focus:no | 1-code-reasoning | local | cli/src/main/ts/application/commands/reflect-command.ts
+**Meta:** P1 | S | DONE | Focus:no | 1-code-reasoning | local | cli/src/main/ts/application/commands/reflect-command.ts
+**Closed-at:** 2026-05-21T08:40:38.958Z
 
 **Depends:** none
 
