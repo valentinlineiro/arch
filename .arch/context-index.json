@@ -1301,7 +1301,7 @@
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-980.md"
+          "taskPath": "docs/archive/TASK-980.md"
         }
       }
     },
@@ -3896,7 +3896,7 @@
       "title": "Unified Epistemic Invariant Specification — Bounded Stream Enforcement"
     }
   },
-  "builtAt": "2026-05-21T08:38:29.457Z",
+  "builtAt": "2026-05-21T08:40:43.686Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -8766,63 +8766,44 @@
       }
     },
     "TASK-926": {
-      "commitCount": 4,
+      "commitCount": 1,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-20T15:27:56+02:00",
       "recentCommitRefs": [
-        "1cbddc60",
-        "414a527d",
-        "867fecf4",
-        "ca8c4ada"
+        "1cbddc60"
       ],
       "touchedFrequency": {
-        "cli/src/main/ts/domain/services/archive-parser.ts": 1,
-        "docs/EVENTS.md": 1,
-        "docs/INBOX.md": 1,
-        "docs/METRICS.md": 1,
-        "docs/archive/TASK-926.md": 1,
-        "docs/refinement/IDEA-actor-routing-config-key.md": 1,
-        "docs/refinement/IDEA-approval-checker-field-index.md": 1,
-        "docs/refinement/IDEA-archive-status-drift-check.md": 1,
-        "docs/refinement/IDEA-corpus-drift-repair.md": 1,
-        "docs/refinement/IDEA-inbox-invariant-contradiction.md": 1,
-        "docs/refinement/IDEA-lock-model-contradiction.md": 1,
-        "docs/tasks/TASK-926.md": 1,
-        "docs/tasks/TASK-927.md": 1,
         "docs/tasks/TASK-961.md": 1,
         "docs/tasks/TASK-975.md": 1
       }
     },
     "TASK-927": {
-      "commitCount": 7,
+      "commitCount": 6,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-18T12:16:32+02:00",
       "recentCommitRefs": [
         "11f5cdcb",
         "1a317a06",
         "718b2b81",
-        "867fecf4",
         "a7016a92",
         "a938de94",
         "ebce982f"
       ],
       "touchedFrequency": {
-        "docs/EVENTS.md": 3,
+        "docs/EVENTS.md": 2,
         "docs/ROADMAP.md": 1,
         "docs/archive/TASK-255.md": 1,
         "docs/archive/TASK-257.md": 1,
-        "docs/archive/TASK-926.md": 1,
         "docs/archive/TASK-927.md": 2,
         "docs/archive/TASK-935.md": 1,
-        "docs/refinement/IDEA-actor-routing-config-key.md": 2,
-        "docs/refinement/IDEA-approval-checker-field-index.md": 2,
-        "docs/refinement/IDEA-archive-status-drift-check.md": 2,
-        "docs/refinement/IDEA-corpus-drift-repair.md": 1,
-        "docs/refinement/IDEA-inbox-invariant-contradiction.md": 2,
-        "docs/refinement/IDEA-lock-model-contradiction.md": 2,
+        "docs/refinement/IDEA-actor-routing-config-key.md": 1,
+        "docs/refinement/IDEA-approval-checker-field-index.md": 1,
+        "docs/refinement/IDEA-archive-status-drift-check.md": 1,
+        "docs/refinement/IDEA-inbox-invariant-contradiction.md": 1,
+        "docs/refinement/IDEA-lock-model-contradiction.md": 1,
         "docs/refinement/IDEA-tiered-obligations.md": 1,
         "docs/superpowers/plans/2026-05-18-v1-readiness.md": 2,
-        "docs/tasks/TASK-927.md": 3,
+        "docs/tasks/TASK-927.md": 2,
         "docs/tasks/TASK-928.md": 1,
         "docs/tasks/TASK-929.md": 1,
         "docs/tasks/TASK-930.md": 1,
@@ -9886,9 +9867,9 @@
       }
     },
     "TASK-966": {
-      "commitCount": 15,
+      "commitCount": 16,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-21T10:38:27+02:00",
+      "lastCommitDate": "2026-05-21T10:40:41+02:00",
       "recentCommitRefs": [
         "044acf6a",
         "1642d844",
@@ -9903,12 +9884,13 @@
         "a3227691",
         "ac0e2be6",
         "bed43715",
+        "c5ebb340",
         "d239124b",
         "d5c5b74d"
       ],
       "touchedFrequency": {
         ".arch/corpus-index.json": 1,
-        ".arch/focus-ledger.jsonl": 14,
+        ".arch/focus-ledger.jsonl": 15,
         ".arch/reflect-breach-log.jsonl": 1,
         "docs/METRICS.md": 1,
         "docs/tasks/TASK-966.md": 1
@@ -10173,22 +10155,33 @@
       }
     },
     "TASK-978": {
-      "commitCount": 2,
+      "commitCount": 3,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-21T09:54:29+02:00",
+      "lastCommitDate": "2026-05-21T10:40:41+02:00",
       "recentCommitRefs": [
         "22308ce5",
+        "4e3b96ce",
         "8baf2ec0"
       ],
       "touchedFrequency": {
         ".arch/cache/git-signals.jsonl": 1,
+        ".arch/causal-signal.jsonl": 1,
+        ".arch/chronicle.jsonl": 1,
         ".arch/last-audit.json": 1,
-        ".arch/reflect-breach-log.jsonl": 1,
+        ".arch/reflect-breach-log.jsonl": 2,
+        ".arch/status-projection.json": 1,
+        ".arch/temporal-index.jsonl": 1,
+        "README.md": 1,
+        "cli/.arch/status-projection.json": 1,
         "cli/src/main/ts/application/use-cases/hansei-wizard.ts": 1,
         "cli/src/main/ts/application/use-cases/mark-task-in-progress.ts": 2,
         "cli/src/test/ts/mark-task-in-progress.test.ts": 1,
+        "docs/EVENTS.md": 1,
         "docs/INBOX.md": 1,
-        "docs/METRICS.md": 1,
+        "docs/METRICS.md": 2,
+        "docs/ROADMAP.md": 1,
+        "docs/archive/TASK-978.md": 1,
+        "docs/archive/TASK-980.md": 1,
         "docs/refinement/archive/IDEA-automatic-sprint-lifecycle.md": 1,
         "docs/refinement/archive/IDEA-governance-epistemic-doctrine.md": 1,
         "docs/refinement/archive/IDEA-hansei-wizard.md": 1,
@@ -10207,6 +10200,28 @@
       ],
       "touchedFrequency": {
         "docs/tasks/TASK-979.md": 2
+      }
+    },
+    "TASK-980": {
+      "commitCount": 1,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-05-21T10:40:41+02:00",
+      "recentCommitRefs": [
+        "4e3b96ce"
+      ],
+      "touchedFrequency": {
+        ".arch/causal-signal.jsonl": 1,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/reflect-breach-log.jsonl": 1,
+        ".arch/status-projection.json": 1,
+        ".arch/temporal-index.jsonl": 1,
+        "README.md": 1,
+        "cli/.arch/status-projection.json": 1,
+        "docs/EVENTS.md": 1,
+        "docs/METRICS.md": 1,
+        "docs/ROADMAP.md": 1,
+        "docs/archive/TASK-978.md": 1,
+        "docs/archive/TASK-980.md": 1
       }
     }
   },
