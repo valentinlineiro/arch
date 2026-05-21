@@ -3944,7 +3944,7 @@
       "title": "Unified Epistemic Invariant Specification — Bounded Stream Enforcement"
     }
   },
-  "builtAt": "2026-05-21T15:04:22.986Z",
+  "builtAt": "2026-05-21T15:06:46.331Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -8508,7 +8508,7 @@
       }
     },
     "TASK-249": {
-      "commitCount": 17,
+      "commitCount": 15,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-18T16:06:18+02:00",
       "recentCommitRefs": [
@@ -8526,19 +8526,15 @@
         "8a1f0d0b",
         "b1b144d6",
         "d2dedb09",
-        "dac3a1e1",
-        "f0faaf5c",
-        "fc39bf89"
+        "f0faaf5c"
       ],
       "touchedFrequency": {
         ".arch/focus-ledger.jsonl": 7,
         "arch.config.json": 1,
-        "docs/INBOX.md": 1,
         "docs/METRICS.md": 1,
         "docs/adr/ADR-021-refinement-ttl-and-admission.md": 1,
         "docs/agents/THINK.md": 1,
         "docs/archive/TASK-249.md": 1,
-        "docs/archive/TASK-933.md": 1,
         "docs/refinement/IDEA-active-constraint-injection.md": 1,
         "docs/refinement/IDEA-actor-routing-config-key.md": 1,
         "docs/refinement/IDEA-approval-checker-field-index.md": 1,
@@ -8568,10 +8564,8 @@
         "docs/refinement/archive/IDEA-proportional-protocol.md": 1,
         "docs/refinement/archive/IDEA-semantic-collision-detection.md": 1,
         "docs/refinement/archive/IDEA-tiered-obligations.md": 2,
-        "docs/tasks/TASK-249.md": 5,
-        "docs/tasks/TASK-258.md": 1,
-        "docs/tasks/TASK-919.md": 2,
-        "docs/tasks/TASK-933.md": 1
+        "docs/tasks/TASK-249.md": 4,
+        "docs/tasks/TASK-919.md": 1
       }
     },
     "TASK-250": {
@@ -8698,23 +8692,19 @@
       }
     },
     "TASK-258": {
-      "commitCount": 3,
+      "commitCount": 2,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-19T13:40:09+02:00",
       "recentCommitRefs": [
         "20282e9a",
-        "e8db70ea",
-        "fc39bf89"
+        "e8db70ea"
       ],
       "touchedFrequency": {
         ".arch/reflect-breach-log.jsonl": 1,
         "docs/INBOX.md": 1,
         "docs/METRICS.md": 1,
         "docs/archive/TASK-258.md": 1,
-        "docs/tasks/TASK-249.md": 1,
-        "docs/tasks/TASK-258.md": 2,
-        "docs/tasks/TASK-919.md": 1,
-        "docs/tasks/TASK-933.md": 1
+        "docs/tasks/TASK-258.md": 1
       }
     },
     "TASK-259": {
@@ -8990,7 +8980,7 @@
       }
     },
     "TASK-919": {
-      "commitCount": 8,
+      "commitCount": 7,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-19T12:01:06+02:00",
       "recentCommitRefs": [
@@ -9000,18 +8990,14 @@
         "c58f389e",
         "c8e126a2",
         "dcbee88f",
-        "e842817b",
-        "fc39bf89"
+        "e842817b"
       ],
       "touchedFrequency": {
         "cli/src/main/ts/application/commands/init-command.ts": 2,
         "docs/INBOX.md": 2,
         "docs/METRICS.md": 1,
         "docs/archive/TASK-919.md": 1,
-        "docs/tasks/TASK-249.md": 1,
-        "docs/tasks/TASK-258.md": 1,
-        "docs/tasks/TASK-919.md": 6,
-        "docs/tasks/TASK-933.md": 1
+        "docs/tasks/TASK-919.md": 5
       }
     },
     "TASK-920": {
@@ -9178,24 +9164,6 @@
         "docs/INBOX.md": 1,
         "docs/archive/TASK-932.md": 1,
         "docs/tasks/TASK-932.md": 2
-      }
-    },
-    "TASK-933": {
-      "commitCount": 3,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-18T11:27:23+02:00",
-      "recentCommitRefs": [
-        "adc46242",
-        "dac3a1e1",
-        "fc39bf89"
-      ],
-      "touchedFrequency": {
-        "docs/INBOX.md": 1,
-        "docs/archive/TASK-933.md": 1,
-        "docs/tasks/TASK-249.md": 1,
-        "docs/tasks/TASK-258.md": 1,
-        "docs/tasks/TASK-919.md": 1,
-        "docs/tasks/TASK-933.md": 2
       }
     },
     "TASK-934": {
@@ -10129,9 +10097,9 @@
       }
     },
     "TASK-966": {
-      "commitCount": 18,
+      "commitCount": 19,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-21T17:04:20+02:00",
+      "lastCommitDate": "2026-05-21T17:06:44+02:00",
       "recentCommitRefs": [
         "044acf6a",
         "109a798f",
@@ -10145,6 +10113,7 @@
         "8ab92fb8",
         "964b5a8c",
         "a3227691",
+        "ab3b8915",
         "ac0e2be6",
         "bed43715",
         "c5ebb340",
@@ -10154,7 +10123,7 @@
       ],
       "touchedFrequency": {
         ".arch/corpus-index.json": 1,
-        ".arch/focus-ledger.jsonl": 17,
+        ".arch/focus-ledger.jsonl": 18,
         ".arch/reflect-breach-log.jsonl": 1,
         "docs/METRICS.md": 1,
         "docs/tasks/TASK-966.md": 1
@@ -10515,14 +10484,22 @@
       }
     },
     "TASK-982": {
-      "commitCount": 2,
+      "commitCount": 3,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-21T17:04:20+02:00",
+      "lastCommitDate": "2026-05-21T17:06:41+02:00",
       "recentCommitRefs": [
+        "175c75e3",
         "1d82c293",
         "9d37d345"
       ],
       "touchedFrequency": {
+        ".arch/causal-signal.jsonl": 1,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/reflect-breach-log.jsonl": 1,
+        ".arch/temporal-index.jsonl": 1,
+        "cli/.arch/deployment-map-v1.1.json": 1,
+        "cli/.arch/deployment-map.json": 1,
+        "cli/.arch/status-projection.json": 1,
         "cli/src/main/ts/application/commands/audit-command.ts": 1,
         "cli/src/main/ts/domain/models/ueg-ir.ts": 1,
         "cli/src/main/ts/domain/services/java-adapter.ts": 1,
@@ -10530,6 +10507,8 @@
         "cli/src/main/ts/domain/services/ueg-analysis-layer.ts": 1,
         "cli/src/main/ts/domain/services/ueg-interfaces.ts": 1,
         "cli/src/main/ts/domain/services/ueg-ir-builder.ts": 1,
+        "docs/EVENTS.md": 1,
+        "docs/METRICS.md": 1,
         "docs/archive/TASK-982.md": 1,
         "docs/tasks/TASK-982.md": 1
       }
