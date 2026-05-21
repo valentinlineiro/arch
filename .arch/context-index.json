@@ -3878,7 +3878,7 @@
       "title": "Unified Epistemic Invariant Specification — Bounded Stream Enforcement"
     }
   },
-  "builtAt": "2026-05-21T08:15:19.832Z",
+  "builtAt": "2026-05-21T08:16:17.097Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -8757,28 +8757,25 @@
       }
     },
     "TASK-926": {
-      "commitCount": 10,
+      "commitCount": 8,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-20T15:27:56+02:00",
       "recentCommitRefs": [
         "00d5190a",
         "1cbddc60",
-        "2ad7bac2",
         "3fa9c506",
         "414a527d",
         "867fecf4",
         "b3858c7a",
         "ca8c4ada",
-        "f1a89659",
-        "f9912d69"
+        "f1a89659"
       ],
       "touchedFrequency": {
         ".arch/.think-prompt-1779088043152.md": 1,
         ".arch/reflect-breach-log.jsonl": 1,
         "cli/src/main/ts/domain/services/archive-parser.ts": 2,
-        "cli/src/main/ts/domain/services/metrics-engine.ts": 1,
-        "cli/src/test/ts/report.test.ts": 2,
-        "docs/EVENTS.md": 4,
+        "cli/src/test/ts/report.test.ts": 1,
+        "docs/EVENTS.md": 3,
         "docs/INBOX.md": 2,
         "docs/METRICS.md": 2,
         "docs/archive/TASK-926.md": 1,
@@ -8789,7 +8786,7 @@
         "docs/refinement/IDEA-corpus-drift-repair.md": 1,
         "docs/refinement/IDEA-inbox-invariant-contradiction.md": 1,
         "docs/refinement/IDEA-lock-model-contradiction.md": 1,
-        "docs/tasks/TASK-926.md": 5,
+        "docs/tasks/TASK-926.md": 4,
         "docs/tasks/TASK-927.md": 1,
         "docs/tasks/TASK-961.md": 1,
         "docs/tasks/TASK-975.md": 1
@@ -9888,15 +9885,16 @@
       }
     },
     "TASK-966": {
-      "commitCount": 12,
+      "commitCount": 13,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-21T10:15:18+02:00",
+      "lastCommitDate": "2026-05-21T10:16:15+02:00",
       "recentCommitRefs": [
         "044acf6a",
         "1642d844",
         "197f0cad",
         "352ab3a4",
         "4ee462fb",
+        "639675cc",
         "686d36aa",
         "8240442d",
         "8ab92fb8",
@@ -9907,7 +9905,7 @@
       ],
       "touchedFrequency": {
         ".arch/corpus-index.json": 1,
-        ".arch/focus-ledger.jsonl": 11,
+        ".arch/focus-ledger.jsonl": 12,
         ".arch/reflect-breach-log.jsonl": 1,
         "docs/METRICS.md": 1,
         "docs/tasks/TASK-966.md": 1
