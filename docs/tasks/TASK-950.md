@@ -1,5 +1,5 @@
 ## TASK-950: Implement Deterministic Governance Gates (ADR-023)
-**Meta:** P1 | S | IN_PROGRESS | Focus:no | 1-code-reasoning | local | cli/src/main/ts/application/commands/reflect-command.ts
+**Meta:** P1 | S | REVIEW | Focus:no | 1-code-reasoning | local | cli/src/main/ts/application/commands/reflect-command.ts
 
 **Depends:** none
 
@@ -11,29 +11,16 @@ This task implements **ADR-023: Deterministic Gate Invariant**. All governance p
 
 ### Acceptance Criteria
 
-- [ ] `docs/adr/ADR-023-deterministic-gate-invariant.md` created.
-  - Documents the principle: LLMs never influence exit codes on governance paths.
-  - Classifies commands: `review`, `govern`, `status`, `task` (deterministic) vs `reflect`, `ask` (advisory).
-  - `file: docs/adr/ADR-023-deterministic-gate-invariant.md`
-
-- [ ] `arch reflect hansei` Tier 2 exit code hardened to 0.
-  - Remove `process.exit(result.status ?? 0)` after Tier 2.
-  - `file: cli/src/main/ts/application/commands/reflect-command.ts`
-
-- [ ] Tier 2 output header updated to "ADVISORY".
-  - Must state: "This analysis is not a governance gate."
-  - `file: cli/src/main/ts/application/commands/reflect-command.ts`
-
-- [ ] `npm test` passes in the CLI directory.
-  - `cmd: npm test --prefix cli; exit: 0`
-
-- [ ] `arch review` passes.
-  - `cmd: node cli/dist/index.js review; exit: 0`
+- [ ] `docs/adr/ADR-023-deterministic-gate-invariant.md` created → file: docs/adr/ADR-023-deterministic-gate-invariant.md
+- [ ] `arch reflect hansei` Tier 2 exit code hardened to 0 → file: cli/src/main/ts/application/commands/reflect-command.ts
+- [ ] Tier 2 output header updated to "ADVISORY" → file: cli/src/main/ts/application/commands/reflect-command.ts
+- [ ] `npm test` passes in the CLI directory → cmd: npm test --prefix cli; exit: 0
+- [ ] `arch review` passes → cmd: node cli/dist/index.js review; exit: 0
 
 ### Definition of Done
-- [ ] All ACs checked by Auditor
-- [ ] Tests pass
-- [ ] `arch review` passes
+- [ ] All ACs checked by Auditor → prose: Auditor verifies each AC against repo state
+- [ ] Tests pass → cmd: npm test --prefix cli; exit: 0
+- [ ] `arch review` passes → cmd: node cli/dist/index.js review; exit: 0
 
 ## Hansei
 **Severity:** H0

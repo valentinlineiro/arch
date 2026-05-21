@@ -316,14 +316,18 @@ ${taskSections}`;
           if (which.status !== 0) continue;
 
           const cmd = cli.template.replace(/\{prompt\}/g, `$(cat ${tmpPath})`);
-          const result = spawnSync('sh', ['-c', cmd], { stdio: 'inherit' });
+          
+          // Execute Advisory analysis
+          spawnSync('sh', ['-c', cmd], { stdio: 'inherit' });
 
-          if (deepMode && result.status === 0) {
+          if (deepMode) {
             await this.updateDeepState();
           }
 
           try { fs.unlinkSync(tmpPath); } catch {}
-          process.exit(result.status ?? 0);
+          
+          // Per ADR-023: Advisory analysis always exits 0
+          process.exit(0);
         }
       } finally {
         try { fs.unlinkSync(tmpPath); } catch {}
@@ -331,10 +335,10 @@ ${taskSections}`;
 
       console.log('  Note: No AI CLI detected. Showing THINK protocol:');
       console.log(prompt);
-      process.exit(1);
+      process.exit(0); // Advisory fallback
     } catch (e: any) {
-      console.error('Error in arch reflect:', e.message);
-      process.exit(1);
+      console.error('Error in arch reflect (Advisory):', e.message);
+      process.exit(0); // Error in advisory channel does not fail governance
     }
   }
 
