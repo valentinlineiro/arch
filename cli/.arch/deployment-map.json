@@ -1,0 +1,4491 @@
+{
+  "repository": {
+    "languages": [
+      "typescript"
+    ],
+    "entrypoints": [
+      "dist/index.js",
+      "dist/index.js"
+    ],
+    "buildSystem": [
+      "npm/yarn",
+      "tsc"
+    ]
+  },
+  "subsystems": [
+    {
+      "id": "root",
+      "files": [
+        ".gitignore",
+        ".npmignore",
+        ".npmrc",
+        "README.md",
+        "package-lock.json",
+        "package.json",
+        "tsconfig.json",
+        "tsup.config.ts"
+      ],
+      "dependencyProfile": {
+        "inbound": 0,
+        "outbound": 0,
+        "externalDependencies": []
+      },
+      "behavioralProfile": {
+        "ioIntensity": "LOW",
+        "asyncDensity": "LOW",
+        "stateMutationDensity": "LOW",
+        "configDependency": "LOW"
+      },
+      "inferredRole": {
+        "label": "General-purpose module",
+        "basis": []
+      }
+    },
+    {
+      "id": "src/main/ts",
+      "files": [
+        "src/main/ts/application/commands/ask-command.ts",
+        "src/main/ts/application/commands/audit-command.ts",
+        "src/main/ts/application/commands/batch-command.ts",
+        "src/main/ts/application/commands/capture-command.ts",
+        "src/main/ts/application/commands/causal-command.ts",
+        "src/main/ts/application/commands/compile-command.ts",
+        "src/main/ts/application/commands/conduct-command.ts",
+        "src/main/ts/application/commands/corpus-audit-command.ts",
+        "src/main/ts/application/commands/deps-command.ts",
+        "src/main/ts/application/commands/exec-command.ts",
+        "src/main/ts/application/commands/explain-command.ts",
+        "src/main/ts/application/commands/govern-command.ts",
+        "src/main/ts/application/commands/inbox-command.ts",
+        "src/main/ts/application/commands/index-command.ts",
+        "src/main/ts/application/commands/init-command.ts",
+        "src/main/ts/application/commands/lint-command.ts",
+        "src/main/ts/application/commands/loop-command.ts",
+        "src/main/ts/application/commands/merge-resolve-command.ts",
+        "src/main/ts/application/commands/move-command.ts",
+        "src/main/ts/application/commands/next-command.ts",
+        "src/main/ts/application/commands/promote-command.ts",
+        "src/main/ts/application/commands/rank-command.ts",
+        "src/main/ts/application/commands/reflect-command.ts",
+        "src/main/ts/application/commands/report-command.ts",
+        "src/main/ts/application/commands/reprioritize-command.ts",
+        "src/main/ts/application/commands/review-command.ts",
+        "src/main/ts/application/commands/sandbox-command.ts",
+        "src/main/ts/application/commands/sentinel-command.ts",
+        "src/main/ts/application/commands/serve-command.ts",
+        "src/main/ts/application/commands/status-command.ts",
+        "src/main/ts/application/commands/task-command.ts",
+        "src/main/ts/application/commands/validate-command.ts",
+        "src/main/ts/application/commands/verify-acs-command.ts",
+        "src/main/ts/application/commands/version-command.ts",
+        "src/main/ts/application/use-cases/ask-corpus.ts",
+        "src/main/ts/application/use-cases/batch-system.ts",
+        "src/main/ts/application/use-cases/build-index.ts",
+        "src/main/ts/application/use-cases/causal-arbitrator.ts",
+        "src/main/ts/application/use-cases/causal-graph.ts",
+        "src/main/ts/application/use-cases/causal-signal-log.ts",
+        "src/main/ts/application/use-cases/compress-task.ts",
+        "src/main/ts/application/use-cases/compute-trusted-metrics.ts",
+        "src/main/ts/application/use-cases/constraint-preflight.ts",
+        "src/main/ts/application/use-cases/context-inference.ts",
+        "src/main/ts/application/use-cases/corpus-index.ts",
+        "src/main/ts/application/use-cases/correction-signal-store.ts",
+        "src/main/ts/application/use-cases/create-task.ts",
+        "src/main/ts/application/use-cases/decision-validator.ts",
+        "src/main/ts/application/use-cases/deep-analysis-state.ts",
+        "src/main/ts/application/use-cases/drift-checker.ts",
+        "src/main/ts/application/use-cases/edit-task-metadata.ts",
+        "src/main/ts/application/use-cases/escalation-store.ts",
+        "src/main/ts/application/use-cases/extract-context-feedback.ts",
+        "src/main/ts/application/use-cases/focus-ledger.ts",
+        "src/main/ts/application/use-cases/generate-inbox.ts",
+        "src/main/ts/application/use-cases/get-sprint-status.ts",
+        "src/main/ts/application/use-cases/govern-system.ts",
+        "src/main/ts/application/use-cases/hansei-synthesizer.ts",
+        "src/main/ts/application/use-cases/hansei-wizard.ts",
+        "src/main/ts/application/use-cases/lightweight-metrics-refresh.ts",
+        "src/main/ts/application/use-cases/load-bearing-memory.ts",
+        "src/main/ts/application/use-cases/loop-engine.ts",
+        "src/main/ts/application/use-cases/mark-task-done.ts",
+        "src/main/ts/application/use-cases/mark-task-in-progress.ts",
+        "src/main/ts/application/use-cases/mark-task-review.ts",
+        "src/main/ts/application/use-cases/merge-resolve.ts",
+        "src/main/ts/application/use-cases/move-artifact.ts",
+        "src/main/ts/application/use-cases/normalize-repo-events.ts",
+        "src/main/ts/application/use-cases/promote-idea.ts",
+        "src/main/ts/application/use-cases/rank-tasks.ts",
+        "src/main/ts/application/use-cases/reflect-decision-log.ts",
+        "src/main/ts/application/use-cases/reflect-influence-report.ts",
+        "src/main/ts/application/use-cases/reflect-proposal-log.ts",
+        "src/main/ts/application/use-cases/reprioritize-corpus.ts",
+        "src/main/ts/application/use-cases/review-system.ts",
+        "src/main/ts/application/use-cases/select-next-task.ts",
+        "src/main/ts/application/use-cases/semantic-collision-detector.ts",
+        "src/main/ts/application/use-cases/task-reject-stale.ts",
+        "src/main/ts/application/use-cases/task-reject.ts",
+        "src/main/ts/application/use-cases/temporal-index.ts",
+        "src/main/ts/application/use-cases/update-task-metrics.ts",
+        "src/main/ts/application/use-cases/validate-system.ts",
+        "src/main/ts/application/use-cases/validate-task-acs.ts",
+        "src/main/ts/application/use-cases/weak-signal-checker.ts",
+        "src/main/ts/domain/models/action.ts",
+        "src/main/ts/domain/models/audit-inference.ts",
+        "src/main/ts/domain/models/batch-entry.ts",
+        "src/main/ts/domain/models/causal-relation.ts",
+        "src/main/ts/domain/models/causal-signal.ts",
+        "src/main/ts/domain/models/context-index.ts",
+        "src/main/ts/domain/models/decision.ts",
+        "src/main/ts/domain/models/deployment-map.ts",
+        "src/main/ts/domain/models/epistemic-report.ts",
+        "src/main/ts/domain/models/event.ts",
+        "src/main/ts/domain/models/evidence.ts",
+        "src/main/ts/domain/models/feedback-signal.ts",
+        "src/main/ts/domain/models/ontology.ts",
+        "src/main/ts/domain/models/outcome.ts",
+        "src/main/ts/domain/models/provenance.ts",
+        "src/main/ts/domain/models/reconciliation.ts",
+        "src/main/ts/domain/models/reflect-decision.ts",
+        "src/main/ts/domain/models/reflect-proposal.ts",
+        "src/main/ts/domain/models/semantic-stability.ts",
+        "src/main/ts/domain/models/stability.ts",
+        "src/main/ts/domain/models/task.ts",
+        "src/main/ts/domain/models/traceability-graph.ts",
+        "src/main/ts/domain/repositories/feedback-repository.ts",
+        "src/main/ts/domain/repositories/file-system.ts",
+        "src/main/ts/domain/repositories/git-repository.ts",
+        "src/main/ts/domain/repositories/task-repository.ts",
+        "src/main/ts/domain/services/action-governance-service.ts",
+        "src/main/ts/domain/services/adr-inference-engine.ts",
+        "src/main/ts/domain/services/archive-parser.ts",
+        "src/main/ts/domain/services/behavioral-profiler.ts",
+        "src/main/ts/domain/services/bridge-provider.ts",
+        "src/main/ts/domain/services/command-registry.ts",
+        "src/main/ts/domain/services/config-loader.ts",
+        "src/main/ts/domain/services/decision-impact-engine.ts",
+        "src/main/ts/domain/services/decision-observability-service.ts",
+        "src/main/ts/domain/services/decision-reconciliation-engine.ts",
+        "src/main/ts/domain/services/deterministic-ac-verifier.ts",
+        "src/main/ts/domain/services/deterministic-hansei-checker.ts",
+        "src/main/ts/domain/services/epistemic-integrity-service.ts",
+        "src/main/ts/domain/services/event-logger.ts",
+        "src/main/ts/domain/services/governance-drift-detector.ts",
+        "src/main/ts/domain/services/governance-stability-service.ts",
+        "src/main/ts/domain/services/hansei-auditor.ts",
+        "src/main/ts/domain/services/human-coordination-service.ts",
+        "src/main/ts/domain/services/identity-resolver.ts",
+        "src/main/ts/domain/services/init-recommendation-engine.ts",
+        "src/main/ts/domain/services/institutional-anomaly-tracker.ts",
+        "src/main/ts/domain/services/instrumentation-planner.ts",
+        "src/main/ts/domain/services/llm-provider.ts",
+        "src/main/ts/domain/services/measurement-governance-layer.ts",
+        "src/main/ts/domain/services/metrics-engine.ts",
+        "src/main/ts/domain/services/native-provider.ts",
+        "src/main/ts/domain/services/noise-filter.ts",
+        "src/main/ts/domain/services/outcome-validation-service.ts",
+        "src/main/ts/domain/services/pattern-engine.ts",
+        "src/main/ts/domain/services/precedent-novelty-scorer.ts",
+        "src/main/ts/domain/services/provider-registry.ts",
+        "src/main/ts/domain/services/repository-summarizer.ts",
+        "src/main/ts/domain/services/reviewer.ts",
+        "src/main/ts/domain/services/risk-detector.ts",
+        "src/main/ts/domain/services/role-inference-engine.ts",
+        "src/main/ts/domain/services/sandbox.ts",
+        "src/main/ts/domain/services/signal-extraction-engine.ts",
+        "src/main/ts/domain/services/signal-router.ts",
+        "src/main/ts/domain/services/stateless-hypothesis-generator.ts",
+        "src/main/ts/domain/services/status-report-service.ts",
+        "src/main/ts/domain/services/structural-extractor.ts",
+        "src/main/ts/domain/services/subsystem-clusterer.ts",
+        "src/main/ts/domain/services/task-validator.ts",
+        "src/main/ts/domain/services/traceability-projection.ts",
+        "src/main/ts/domain/services/transient-actuation-projector.ts",
+        "src/main/ts/domain/services/transient-window-compiler.ts",
+        "src/main/ts/domain/services/verifiability-scorer.ts",
+        "src/main/ts/domain/task.ts",
+        "src/main/ts/index.ts",
+        "src/main/ts/infrastructure/cli/command-parser.ts",
+        "src/main/ts/infrastructure/cli/git-cli.ts",
+        "src/main/ts/infrastructure/cli/output-formatter.ts",
+        "src/main/ts/infrastructure/cli/subprocess-runner.ts",
+        "src/main/ts/infrastructure/filesystem/chronicle-event-repository.ts",
+        "src/main/ts/infrastructure/filesystem/markdown-task-repository.ts",
+        "src/main/ts/infrastructure/filesystem/node-feedback-repository.ts",
+        "src/main/ts/infrastructure/filesystem/node-file-system.ts",
+        "src/main/ts/infrastructure/filesystem/signal-cache.ts",
+        "src/main/ts/infrastructure/git/adr-decision-parser.ts",
+        "src/main/ts/infrastructure/git/git-evidence-collector.ts",
+        "src/main/ts/infrastructure/git/git-semantic-extractor.ts"
+      ],
+      "dependencyProfile": {
+        "inbound": 124,
+        "outbound": 0,
+        "externalDependencies": []
+      },
+      "behavioralProfile": {
+        "ioIntensity": "LOW",
+        "asyncDensity": "MEDIUM",
+        "stateMutationDensity": "LOW",
+        "configDependency": "LOW"
+      },
+      "inferredRole": {
+        "label": "General-purpose module",
+        "basis": []
+      }
+    },
+    {
+      "id": "src/test/ts",
+      "files": [
+        "src/test/ts/archive/capture-command.test.ts",
+        "src/test/ts/archive/capture-intent.test.ts",
+        "src/test/ts/archive/finalize-promotion.test.ts",
+        "src/test/ts/archive/markdown-intent-repository.test.ts",
+        "src/test/ts/archive/scaffold-task.test.ts",
+        "src/test/ts/archive/think-command.test.ts",
+        "src/test/ts/ask-corpus.test.ts",
+        "src/test/ts/build-index-v2.test.ts",
+        "src/test/ts/build-index.test.ts",
+        "src/test/ts/capture-command-verifiability.test.ts",
+        "src/test/ts/causal-arbitrator.test.ts",
+        "src/test/ts/causal-graph.test.ts",
+        "src/test/ts/command-registry.test.ts",
+        "src/test/ts/compile-command.test.ts",
+        "src/test/ts/compress-task.test.ts",
+        "src/test/ts/compute-trusted-metrics.test.ts",
+        "src/test/ts/constraint-preflight.test.ts",
+        "src/test/ts/context-inference-feedback.test.ts",
+        "src/test/ts/context-inference.test.ts",
+        "src/test/ts/corpus-audit-command.test.ts",
+        "src/test/ts/corpus-audit-weighted.test.ts",
+        "src/test/ts/corpus-index.test.ts",
+        "src/test/ts/corpus-stress-test.test.ts",
+        "src/test/ts/create-task.test.ts",
+        "src/test/ts/deep-analysis-state.test.ts",
+        "src/test/ts/deterministic-ac-verifier.test.ts",
+        "src/test/ts/deterministic-hansei-checker.test.ts",
+        "src/test/ts/drift-checker.test.ts",
+        "src/test/ts/escalation-maturity-e5.test.ts",
+        "src/test/ts/exec-command.test.ts",
+        "src/test/ts/extract-context-feedback.test.ts",
+        "src/test/ts/get-sprint-status.test.ts",
+        "src/test/ts/git-cli-integration.test.ts",
+        "src/test/ts/govern-command.test.ts",
+        "src/test/ts/govern-system.test.ts",
+        "src/test/ts/governance-drift-detector.test.ts",
+        "src/test/ts/hansei-auditor.test.ts",
+        "src/test/ts/hansei-validation.test.ts",
+        "src/test/ts/hansei-wizard.test.ts",
+        "src/test/ts/institutional-anomaly-tracker.test.ts",
+        "src/test/ts/lightweight-metrics-refresh.test.ts",
+        "src/test/ts/llm-provider.test.ts",
+        "src/test/ts/loop-sprint.test.ts",
+        "src/test/ts/mark-task-done-feedback.test.ts",
+        "src/test/ts/mark-task-done.test.ts",
+        "src/test/ts/mark-task-in-progress.test.ts",
+        "src/test/ts/mark-task-review.test.ts",
+        "src/test/ts/markdown-task-repository.test.ts",
+        "src/test/ts/merge-resolve.test.ts",
+        "src/test/ts/mocks/index.ts",
+        "src/test/ts/mocks/telemetry-sample.json",
+        "src/test/ts/precedent-novelty-scorer.test.ts",
+        "src/test/ts/reflect-command.test.ts",
+        "src/test/ts/report.test.ts",
+        "src/test/ts/review-command.test.ts",
+        "src/test/ts/review-system.test.ts",
+        "src/test/ts/reviewer.test.ts",
+        "src/test/ts/sandbox.test.ts",
+        "src/test/ts/select-next-task.test.ts",
+        "src/test/ts/serve-command.test.ts",
+        "src/test/ts/size-tiered-closure.test.ts",
+        "src/test/ts/task-command.test.ts",
+        "src/test/ts/task-reject.test.ts",
+        "src/test/ts/task-validator.test.ts",
+        "src/test/ts/temporal-index.test.ts",
+        "src/test/ts/validate-system.test.ts",
+        "src/test/ts/validate-task-acs-v2.test.ts",
+        "src/test/ts/validate-task-acs.test.ts",
+        "src/test/ts/verifiability-scorer.test.ts",
+        "src/test/ts/weak-signal-checker.test.ts"
+      ],
+      "dependencyProfile": {
+        "inbound": 0,
+        "outbound": 124,
+        "externalDependencies": []
+      },
+      "behavioralProfile": {
+        "ioIntensity": "HIGH",
+        "asyncDensity": "HIGH",
+        "stateMutationDensity": "LOW",
+        "configDependency": "LOW"
+      },
+      "inferredRole": {
+        "label": "Test / Mock Infrastructure",
+        "basis": [
+          "Elevated IO Intensity (HIGH)",
+          "High Async density",
+          "ID contains \"src/test/ts\""
+        ]
+      }
+    }
+  ],
+  "dependencyGraph": {
+    "nodes": [
+      {
+        "id": "src/main/ts/application/commands/ask-command.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/application/commands/audit-command.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/application/commands/batch-command.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/application/commands/capture-command.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/application/commands/causal-command.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/application/commands/compile-command.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/application/commands/conduct-command.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/application/commands/corpus-audit-command.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/application/commands/deps-command.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/application/commands/exec-command.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/application/commands/explain-command.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/application/commands/govern-command.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/application/commands/inbox-command.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/application/commands/index-command.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/application/commands/init-command.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/application/commands/lint-command.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/application/commands/loop-command.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/application/commands/merge-resolve-command.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/application/commands/move-command.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/application/commands/next-command.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/application/commands/promote-command.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/application/commands/rank-command.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/application/commands/reflect-command.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/application/commands/report-command.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/application/commands/reprioritize-command.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/application/commands/review-command.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/application/commands/sandbox-command.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/application/commands/sentinel-command.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/application/commands/serve-command.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/application/commands/status-command.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/application/commands/task-command.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/application/commands/validate-command.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/application/commands/verify-acs-command.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/application/commands/version-command.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/application/use-cases/ask-corpus.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/application/use-cases/batch-system.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/application/use-cases/build-index.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/application/use-cases/causal-arbitrator.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/application/use-cases/causal-graph.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/application/use-cases/causal-signal-log.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/application/use-cases/compress-task.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/application/use-cases/compute-trusted-metrics.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/application/use-cases/constraint-preflight.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/application/use-cases/context-inference.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/application/use-cases/corpus-index.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/application/use-cases/correction-signal-store.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/application/use-cases/create-task.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/application/use-cases/decision-validator.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/application/use-cases/deep-analysis-state.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/application/use-cases/drift-checker.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/application/use-cases/edit-task-metadata.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/application/use-cases/escalation-store.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/application/use-cases/extract-context-feedback.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/application/use-cases/focus-ledger.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/application/use-cases/generate-inbox.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/application/use-cases/get-sprint-status.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/application/use-cases/govern-system.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/application/use-cases/hansei-synthesizer.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/application/use-cases/hansei-wizard.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/application/use-cases/lightweight-metrics-refresh.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/application/use-cases/load-bearing-memory.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/application/use-cases/loop-engine.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/application/use-cases/mark-task-done.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/application/use-cases/mark-task-in-progress.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/application/use-cases/mark-task-review.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/application/use-cases/merge-resolve.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/application/use-cases/move-artifact.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/application/use-cases/normalize-repo-events.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/application/use-cases/promote-idea.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/application/use-cases/rank-tasks.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/application/use-cases/reflect-decision-log.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/application/use-cases/reflect-influence-report.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/application/use-cases/reflect-proposal-log.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/application/use-cases/reprioritize-corpus.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/application/use-cases/review-system.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/application/use-cases/select-next-task.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/application/use-cases/semantic-collision-detector.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/application/use-cases/task-reject-stale.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/application/use-cases/task-reject.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/application/use-cases/temporal-index.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/application/use-cases/update-task-metrics.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/application/use-cases/validate-system.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/application/use-cases/validate-task-acs.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/application/use-cases/weak-signal-checker.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/domain/models/action.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/domain/models/audit-inference.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/domain/models/batch-entry.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/domain/models/causal-relation.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/domain/models/causal-signal.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/domain/models/context-index.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/domain/models/decision.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/domain/models/deployment-map.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/domain/models/epistemic-report.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/domain/models/event.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/domain/models/evidence.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/domain/models/feedback-signal.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/domain/models/ontology.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/domain/models/outcome.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/domain/models/provenance.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/domain/models/reconciliation.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/domain/models/reflect-decision.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/domain/models/reflect-proposal.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/domain/models/semantic-stability.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/domain/models/stability.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/domain/models/task.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/domain/models/traceability-graph.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/domain/repositories/feedback-repository.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/domain/repositories/file-system.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/domain/repositories/git-repository.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/domain/repositories/task-repository.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/domain/services/action-governance-service.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/domain/services/adr-inference-engine.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/domain/services/archive-parser.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/domain/services/behavioral-profiler.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/domain/services/bridge-provider.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/domain/services/command-registry.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/domain/services/config-loader.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/domain/services/decision-impact-engine.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/domain/services/decision-observability-service.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/domain/services/decision-reconciliation-engine.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/domain/services/deterministic-ac-verifier.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/domain/services/deterministic-hansei-checker.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/domain/services/epistemic-integrity-service.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/domain/services/event-logger.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/domain/services/governance-drift-detector.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/domain/services/governance-stability-service.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/domain/services/hansei-auditor.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/domain/services/human-coordination-service.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/domain/services/identity-resolver.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/domain/services/init-recommendation-engine.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/domain/services/institutional-anomaly-tracker.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/domain/services/instrumentation-planner.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/domain/services/llm-provider.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/domain/services/measurement-governance-layer.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/domain/services/metrics-engine.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/domain/services/native-provider.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/domain/services/noise-filter.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/domain/services/outcome-validation-service.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/domain/services/pattern-engine.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/domain/services/precedent-novelty-scorer.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/domain/services/provider-registry.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/domain/services/repository-summarizer.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/domain/services/reviewer.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/domain/services/risk-detector.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/domain/services/role-inference-engine.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/domain/services/sandbox.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/domain/services/signal-extraction-engine.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/domain/services/signal-router.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/domain/services/stateless-hypothesis-generator.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/domain/services/status-report-service.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/domain/services/structural-extractor.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/domain/services/subsystem-clusterer.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/domain/services/task-validator.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/domain/services/traceability-projection.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/domain/services/transient-actuation-projector.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/domain/services/transient-window-compiler.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/domain/services/verifiability-scorer.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/domain/task.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/index.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/infrastructure/cli/command-parser.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/infrastructure/cli/git-cli.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/infrastructure/cli/output-formatter.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/infrastructure/cli/subprocess-runner.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/infrastructure/filesystem/chronicle-event-repository.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/infrastructure/filesystem/markdown-task-repository.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/infrastructure/filesystem/node-feedback-repository.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/infrastructure/filesystem/node-file-system.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/infrastructure/filesystem/signal-cache.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/infrastructure/git/adr-decision-parser.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/infrastructure/git/git-evidence-collector.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/main/ts/infrastructure/git/git-semantic-extractor.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/test/ts/archive/capture-command.test.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/test/ts/archive/capture-intent.test.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/test/ts/archive/finalize-promotion.test.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/test/ts/archive/markdown-intent-repository.test.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/test/ts/archive/scaffold-task.test.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/test/ts/archive/think-command.test.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/test/ts/ask-corpus.test.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/test/ts/build-index-v2.test.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/test/ts/build-index.test.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/test/ts/capture-command-verifiability.test.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/test/ts/causal-arbitrator.test.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/test/ts/causal-graph.test.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/test/ts/command-registry.test.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/test/ts/compile-command.test.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/test/ts/compress-task.test.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/test/ts/compute-trusted-metrics.test.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/test/ts/constraint-preflight.test.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/test/ts/context-inference-feedback.test.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/test/ts/context-inference.test.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/test/ts/corpus-audit-command.test.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/test/ts/corpus-audit-weighted.test.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/test/ts/corpus-index.test.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/test/ts/corpus-stress-test.test.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/test/ts/create-task.test.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/test/ts/deep-analysis-state.test.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/test/ts/deterministic-ac-verifier.test.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/test/ts/deterministic-hansei-checker.test.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/test/ts/drift-checker.test.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/test/ts/escalation-maturity-e5.test.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/test/ts/exec-command.test.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/test/ts/extract-context-feedback.test.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/test/ts/get-sprint-status.test.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/test/ts/git-cli-integration.test.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/test/ts/govern-command.test.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/test/ts/govern-system.test.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/test/ts/governance-drift-detector.test.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/test/ts/hansei-auditor.test.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/test/ts/hansei-validation.test.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/test/ts/hansei-wizard.test.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/test/ts/institutional-anomaly-tracker.test.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/test/ts/lightweight-metrics-refresh.test.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/test/ts/llm-provider.test.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/test/ts/loop-sprint.test.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/test/ts/mark-task-done-feedback.test.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/test/ts/mark-task-done.test.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/test/ts/mark-task-in-progress.test.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/test/ts/mark-task-review.test.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/test/ts/markdown-task-repository.test.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/test/ts/merge-resolve.test.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/test/ts/mocks/index.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/test/ts/precedent-novelty-scorer.test.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/test/ts/reflect-command.test.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/test/ts/report.test.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/test/ts/review-command.test.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/test/ts/review-system.test.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/test/ts/reviewer.test.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/test/ts/sandbox.test.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/test/ts/select-next-task.test.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/test/ts/serve-command.test.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/test/ts/size-tiered-closure.test.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/test/ts/task-command.test.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/test/ts/task-reject.test.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/test/ts/task-validator.test.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/test/ts/temporal-index.test.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/test/ts/validate-system.test.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/test/ts/validate-task-acs-v2.test.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/test/ts/validate-task-acs.test.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/test/ts/verifiability-scorer.test.ts",
+        "type": "file"
+      },
+      {
+        "id": "src/test/ts/weak-signal-checker.test.ts",
+        "type": "file"
+      },
+      {
+        "id": "tsup.config.ts",
+        "type": "file"
+      }
+    ],
+    "edges": [
+      {
+        "from": "src/main/ts/application/commands/ask-command.ts",
+        "to": "src/main/ts/application/use-cases/ask-corpus.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/audit-command.ts",
+        "to": "src/main/ts/infrastructure/filesystem/node-file-system.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/audit-command.ts",
+        "to": "src/main/ts/domain/services/structural-extractor.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/audit-command.ts",
+        "to": "src/main/ts/domain/services/subsystem-clusterer.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/audit-command.ts",
+        "to": "src/main/ts/domain/services/behavioral-profiler.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/audit-command.ts",
+        "to": "src/main/ts/domain/services/role-inference-engine.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/audit-command.ts",
+        "to": "src/main/ts/domain/services/risk-detector.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/audit-command.ts",
+        "to": "src/main/ts/domain/services/instrumentation-planner.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/audit-command.ts",
+        "to": "src/main/ts/domain/models/deployment-map.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/batch-command.ts",
+        "to": "src/main/ts/application/use-cases/batch-system.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/batch-command.ts",
+        "to": "src/main/ts/domain/repositories/file-system.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/capture-command.ts",
+        "to": "src/main/ts/domain/repositories/task-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/capture-command.ts",
+        "to": "src/main/ts/domain/repositories/file-system.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/capture-command.ts",
+        "to": "src/main/ts/domain/repositories/git-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/capture-command.ts",
+        "to": "src/main/ts/application/use-cases/create-task.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/capture-command.ts",
+        "to": "src/main/ts/application/use-cases/mark-task-in-progress.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/capture-command.ts",
+        "to": "src/main/ts/application/use-cases/semantic-collision-detector.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/capture-command.ts",
+        "to": "src/main/ts/domain/services/verifiability-scorer.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/causal-command.ts",
+        "to": "src/main/ts/application/use-cases/causal-graph.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/causal-command.ts",
+        "to": "src/main/ts/application/use-cases/causal-arbitrator.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/causal-command.ts",
+        "to": "src/main/ts/application/use-cases/causal-signal-log.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/causal-command.ts",
+        "to": "src/main/ts/domain/models/causal-relation.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/compile-command.ts",
+        "to": "src/main/ts/domain/repositories/file-system.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/compile-command.ts",
+        "to": "src/main/ts/application/use-cases/normalize-repo-events.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/compile-command.ts",
+        "to": "src/main/ts/domain/services/transient-window-compiler.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/compile-command.ts",
+        "to": "src/main/ts/domain/services/stateless-hypothesis-generator.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/compile-command.ts",
+        "to": "src/main/ts/domain/services/transient-actuation-projector.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/corpus-audit-command.ts",
+        "to": "src/main/ts/domain/repositories/file-system.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/corpus-audit-command.ts",
+        "to": "src/main/ts/domain/repositories/git-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/corpus-audit-command.ts",
+        "to": "src/main/ts/application/use-cases/corpus-index.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/corpus-audit-command.ts",
+        "to": "src/main/ts/domain/services/governance-drift-detector.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/corpus-audit-command.ts",
+        "to": "src/main/ts/domain/services/institutional-anomaly-tracker.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/corpus-audit-command.ts",
+        "to": "src/main/ts/domain/services/deterministic-hansei-checker.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/deps-command.ts",
+        "to": "src/main/ts/domain/repositories/task-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/deps-command.ts",
+        "to": "src/main/ts/domain/models/task.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/exec-command.ts",
+        "to": "src/main/ts/domain/repositories/task-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/exec-command.ts",
+        "to": "src/main/ts/domain/repositories/file-system.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/exec-command.ts",
+        "to": "src/main/ts/domain/models/task.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/exec-command.ts",
+        "to": "src/main/ts/domain/services/config-loader.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/exec-command.ts",
+        "to": "src/main/ts/application/use-cases/batch-system.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/exec-command.ts",
+        "to": "src/main/ts/domain/services/provider-registry.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/exec-command.ts",
+        "to": "src/main/ts/domain/services/bridge-provider.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/explain-command.ts",
+        "to": "src/main/ts/domain/repositories/task-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/explain-command.ts",
+        "to": "src/main/ts/domain/repositories/file-system.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/explain-command.ts",
+        "to": "src/main/ts/application/use-cases/causal-signal-log.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/govern-command.ts",
+        "to": "src/main/ts/application/use-cases/govern-system.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/govern-command.ts",
+        "to": "src/main/ts/application/use-cases/build-index.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/govern-command.ts",
+        "to": "src/main/ts/domain/services/config-loader.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/govern-command.ts",
+        "to": "src/main/ts/infrastructure/cli/subprocess-runner.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/govern-command.ts",
+        "to": "src/main/ts/domain/repositories/task-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/govern-command.ts",
+        "to": "src/main/ts/domain/repositories/git-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/govern-command.ts",
+        "to": "src/main/ts/domain/repositories/file-system.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/govern-command.ts",
+        "to": "src/main/ts/application/use-cases/causal-signal-log.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/inbox-command.ts",
+        "to": "src/main/ts/application/use-cases/generate-inbox.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/inbox-command.ts",
+        "to": "src/main/ts/domain/repositories/task-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/inbox-command.ts",
+        "to": "src/main/ts/domain/services/reviewer.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/inbox-command.ts",
+        "to": "src/main/ts/application/use-cases/drift-checker.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/inbox-command.ts",
+        "to": "src/main/ts/domain/repositories/file-system.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/inbox-command.ts",
+        "to": "src/main/ts/infrastructure/cli/output-formatter.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/index-command.ts",
+        "to": "src/main/ts/application/use-cases/build-index.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/index-command.ts",
+        "to": "src/main/ts/domain/services/config-loader.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/index-command.ts",
+        "to": "src/main/ts/domain/repositories/file-system.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/index-command.ts",
+        "to": "src/main/ts/domain/repositories/git-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/lint-command.ts",
+        "to": "src/main/ts/domain/repositories/task-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/lint-command.ts",
+        "to": "src/main/ts/domain/services/task-validator.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/lint-command.ts",
+        "to": "src/main/ts/infrastructure/cli/output-formatter.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/lint-command.ts",
+        "to": "src/main/ts/domain/repositories/file-system.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/loop-command.ts",
+        "to": "src/main/ts/domain/repositories/task-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/loop-command.ts",
+        "to": "src/main/ts/domain/repositories/git-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/loop-command.ts",
+        "to": "src/main/ts/domain/repositories/file-system.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/loop-command.ts",
+        "to": "src/main/ts/domain/services/reviewer.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/loop-command.ts",
+        "to": "src/main/ts/application/use-cases/drift-checker.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/loop-command.ts",
+        "to": "src/main/ts/application/use-cases/loop-engine.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/merge-resolve-command.ts",
+        "to": "src/main/ts/application/use-cases/merge-resolve.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/merge-resolve-command.ts",
+        "to": "src/main/ts/domain/repositories/git-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/merge-resolve-command.ts",
+        "to": "src/main/ts/domain/repositories/file-system.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/merge-resolve-command.ts",
+        "to": "src/main/ts/domain/services/config-loader.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/move-command.ts",
+        "to": "src/main/ts/application/use-cases/move-artifact.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/move-command.ts",
+        "to": "src/main/ts/domain/repositories/task-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/move-command.ts",
+        "to": "src/main/ts/domain/repositories/git-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/move-command.ts",
+        "to": "src/main/ts/domain/repositories/file-system.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/move-command.ts",
+        "to": "src/main/ts/infrastructure/cli/output-formatter.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/next-command.ts",
+        "to": "src/main/ts/application/use-cases/select-next-task.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/next-command.ts",
+        "to": "src/main/ts/domain/repositories/task-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/next-command.ts",
+        "to": "src/main/ts/domain/services/deterministic-ac-verifier.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/promote-command.ts",
+        "to": "src/main/ts/application/use-cases/promote-idea.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/promote-command.ts",
+        "to": "src/main/ts/domain/repositories/task-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/promote-command.ts",
+        "to": "src/main/ts/domain/repositories/file-system.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/promote-command.ts",
+        "to": "src/main/ts/domain/repositories/git-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/promote-command.ts",
+        "to": "src/main/ts/infrastructure/cli/output-formatter.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/rank-command.ts",
+        "to": "src/main/ts/application/use-cases/rank-tasks.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/rank-command.ts",
+        "to": "src/main/ts/domain/repositories/task-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/reflect-command.ts",
+        "to": "src/main/ts/domain/repositories/file-system.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/reflect-command.ts",
+        "to": "src/main/ts/application/use-cases/causal-signal-log.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/reflect-command.ts",
+        "to": "src/main/ts/domain/services/signal-router.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/reflect-command.ts",
+        "to": "src/main/ts/infrastructure/filesystem/node-file-system.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/reflect-command.ts",
+        "to": "src/main/ts/application/use-cases/reflect-influence-report.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/reflect-command.ts",
+        "to": "src/main/ts/domain/services/config-loader.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/reflect-command.ts",
+        "to": "src/main/ts/application/use-cases/deep-analysis-state.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/reflect-command.ts",
+        "to": "src/main/ts/application/use-cases/focus-ledger.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/reflect-command.ts",
+        "to": "src/main/ts/domain/services/deterministic-hansei-checker.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/reflect-command.ts",
+        "to": "src/main/ts/application/use-cases/temporal-index.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/reflect-command.ts",
+        "to": "src/main/ts/application/use-cases/hansei-synthesizer.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/reflect-command.ts",
+        "to": "src/main/ts/application/commands/audit-command.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/report-command.ts",
+        "to": "src/main/ts/domain/repositories/file-system.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/report-command.ts",
+        "to": "src/main/ts/domain/repositories/git-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/report-command.ts",
+        "to": "src/main/ts/domain/services/archive-parser.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/report-command.ts",
+        "to": "src/main/ts/domain/services/metrics-engine.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/reprioritize-command.ts",
+        "to": "src/main/ts/domain/repositories/task-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/reprioritize-command.ts",
+        "to": "src/main/ts/domain/repositories/file-system.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/reprioritize-command.ts",
+        "to": "src/main/ts/application/use-cases/reprioritize-corpus.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/review-command.ts",
+        "to": "src/main/ts/application/use-cases/review-system.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/review-command.ts",
+        "to": "src/main/ts/domain/repositories/task-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/review-command.ts",
+        "to": "src/main/ts/domain/repositories/git-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/review-command.ts",
+        "to": "src/main/ts/domain/repositories/file-system.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/review-command.ts",
+        "to": "src/main/ts/domain/services/reviewer.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/review-command.ts",
+        "to": "src/main/ts/application/use-cases/drift-checker.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/review-command.ts",
+        "to": "src/main/ts/domain/services/deterministic-ac-verifier.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/review-command.ts",
+        "to": "src/main/ts/application/use-cases/hansei-wizard.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/review-command.ts",
+        "to": "src/main/ts/infrastructure/cli/output-formatter.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/sandbox-command.ts",
+        "to": "src/main/ts/domain/services/sandbox.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/sandbox-command.ts",
+        "to": "src/main/ts/domain/repositories/task-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/sandbox-command.ts",
+        "to": "src/main/ts/domain/repositories/file-system.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/sandbox-command.ts",
+        "to": "src/main/ts/application/use-cases/escalation-store.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/sandbox-command.ts",
+        "to": "src/main/ts/infrastructure/cli/output-formatter.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/sentinel-command.ts",
+        "to": "src/main/ts/domain/repositories/file-system.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/status-command.ts",
+        "to": "src/main/ts/domain/repositories/task-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/status-command.ts",
+        "to": "src/main/ts/domain/repositories/file-system.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/status-command.ts",
+        "to": "src/main/ts/domain/services/status-report-service.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/status-command.ts",
+        "to": "src/main/ts/infrastructure/cli/output-formatter.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/task-command.ts",
+        "to": "src/main/ts/application/use-cases/create-task.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/task-command.ts",
+        "to": "src/main/ts/application/use-cases/edit-task-metadata.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/task-command.ts",
+        "to": "src/main/ts/application/use-cases/load-bearing-memory.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/task-command.ts",
+        "to": "src/main/ts/application/use-cases/mark-task-in-progress.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/task-command.ts",
+        "to": "src/main/ts/application/use-cases/mark-task-done.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/task-command.ts",
+        "to": "src/main/ts/application/use-cases/mark-task-review.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/task-command.ts",
+        "to": "src/main/ts/application/use-cases/task-reject.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/task-command.ts",
+        "to": "src/main/ts/application/use-cases/task-reject-stale.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/task-command.ts",
+        "to": "src/main/ts/application/use-cases/update-task-metrics.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/task-command.ts",
+        "to": "src/main/ts/application/use-cases/context-inference.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/task-command.ts",
+        "to": "src/main/ts/application/use-cases/constraint-preflight.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/task-command.ts",
+        "to": "src/main/ts/application/use-cases/semantic-collision-detector.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/task-command.ts",
+        "to": "src/main/ts/application/use-cases/correction-signal-store.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/task-command.ts",
+        "to": "src/main/ts/application/use-cases/compress-task.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/task-command.ts",
+        "to": "src/main/ts/application/commands/next-command.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/task-command.ts",
+        "to": "src/main/ts/application/commands/rank-command.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/task-command.ts",
+        "to": "src/main/ts/application/commands/promote-command.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/task-command.ts",
+        "to": "src/main/ts/domain/services/human-coordination-service.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/task-command.ts",
+        "to": "src/main/ts/domain/repositories/task-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/task-command.ts",
+        "to": "src/main/ts/domain/services/reviewer.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/task-command.ts",
+        "to": "src/main/ts/domain/repositories/file-system.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/task-command.ts",
+        "to": "src/main/ts/domain/repositories/git-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/task-command.ts",
+        "to": "src/main/ts/domain/models/event.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/task-command.ts",
+        "to": "src/main/ts/infrastructure/filesystem/node-feedback-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/task-command.ts",
+        "to": "src/main/ts/application/use-cases/causal-signal-log.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/task-command.ts",
+        "to": "src/main/ts/domain/services/event-logger.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/task-command.ts",
+        "to": "src/main/ts/application/use-cases/lightweight-metrics-refresh.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/task-command.ts",
+        "to": "src/main/ts/infrastructure/cli/output-formatter.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/task-command.ts",
+        "to": "src/main/ts/domain/services/command-registry.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/task-command.ts",
+        "to": "src/main/ts/application/use-cases/temporal-index.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/task-command.ts",
+        "to": "src/main/ts/application/commands/reprioritize-command.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/task-command.ts",
+        "to": "src/main/ts/application/use-cases/hansei-wizard.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/validate-command.ts",
+        "to": "src/main/ts/application/use-cases/validate-system.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/validate-command.ts",
+        "to": "src/main/ts/application/use-cases/validate-task-acs.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/validate-command.ts",
+        "to": "src/main/ts/domain/repositories/task-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/validate-command.ts",
+        "to": "src/main/ts/domain/repositories/file-system.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/validate-command.ts",
+        "to": "src/main/ts/infrastructure/cli/output-formatter.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/verify-acs-command.ts",
+        "to": "src/main/ts/domain/services/deterministic-ac-verifier.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/verify-acs-command.ts",
+        "to": "src/main/ts/domain/repositories/task-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/verify-acs-command.ts",
+        "to": "src/main/ts/infrastructure/cli/output-formatter.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/commands/version-command.ts",
+        "to": "src/main/ts/infrastructure/cli/output-formatter.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/ask-corpus.ts",
+        "to": "src/main/ts/domain/repositories/file-system.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/ask-corpus.ts",
+        "to": "src/main/ts/application/use-cases/causal-graph.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/ask-corpus.ts",
+        "to": "src/main/ts/application/use-cases/temporal-index.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/batch-system.ts",
+        "to": "src/main/ts/domain/repositories/file-system.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/batch-system.ts",
+        "to": "src/main/ts/domain/models/batch-entry.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/build-index.ts",
+        "to": "src/main/ts/domain/repositories/file-system.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/build-index.ts",
+        "to": "src/main/ts/domain/repositories/git-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/causal-arbitrator.ts",
+        "to": "src/main/ts/domain/models/causal-signal.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/causal-arbitrator.ts",
+        "to": "src/main/ts/domain/models/causal-relation.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/causal-arbitrator.ts",
+        "to": "src/main/ts/application/use-cases/causal-signal-log.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/causal-arbitrator.ts",
+        "to": "src/main/ts/application/use-cases/causal-graph.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/causal-graph.ts",
+        "to": "src/main/ts/domain/repositories/file-system.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/causal-signal-log.ts",
+        "to": "src/main/ts/domain/repositories/file-system.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/causal-signal-log.ts",
+        "to": "src/main/ts/domain/models/causal-relation.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/compress-task.ts",
+        "to": "src/main/ts/domain/repositories/file-system.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/compute-trusted-metrics.ts",
+        "to": "src/main/ts/domain/repositories/file-system.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/constraint-preflight.ts",
+        "to": "src/main/ts/domain/repositories/file-system.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/context-inference.ts",
+        "to": "src/main/ts/domain/repositories/file-system.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/context-inference.ts",
+        "to": "src/main/ts/domain/models/context-index.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/context-inference.ts",
+        "to": "src/main/ts/domain/models/feedback-signal.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/context-inference.ts",
+        "to": "src/main/ts/application/use-cases/decision-validator.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/corpus-index.ts",
+        "to": "src/main/ts/domain/repositories/file-system.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/corpus-index.ts",
+        "to": "src/main/ts/domain/repositories/git-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/correction-signal-store.ts",
+        "to": "src/main/ts/domain/repositories/file-system.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/create-task.ts",
+        "to": "src/main/ts/domain/repositories/task-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/create-task.ts",
+        "to": "src/main/ts/domain/repositories/file-system.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/create-task.ts",
+        "to": "src/main/ts/domain/repositories/git-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/create-task.ts",
+        "to": "src/main/ts/domain/services/task-validator.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/create-task.ts",
+        "to": "src/main/ts/domain/services/provider-registry.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/create-task.ts",
+        "to": "src/main/ts/domain/services/config-loader.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/create-task.ts",
+        "to": "src/main/ts/application/use-cases/context-inference.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/decision-validator.ts",
+        "to": "src/main/ts/domain/repositories/file-system.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/deep-analysis-state.ts",
+        "to": "src/main/ts/domain/repositories/file-system.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/drift-checker.ts",
+        "to": "src/main/ts/domain/services/hansei-auditor.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/drift-checker.ts",
+        "to": "src/main/ts/domain/models/task.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/edit-task-metadata.ts",
+        "to": "src/main/ts/domain/repositories/task-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/edit-task-metadata.ts",
+        "to": "src/main/ts/domain/repositories/git-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/edit-task-metadata.ts",
+        "to": "src/main/ts/domain/services/task-validator.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/edit-task-metadata.ts",
+        "to": "src/main/ts/domain/models/task.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/escalation-store.ts",
+        "to": "src/main/ts/domain/repositories/file-system.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/extract-context-feedback.ts",
+        "to": "src/main/ts/domain/models/feedback-signal.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/generate-inbox.ts",
+        "to": "src/main/ts/domain/repositories/task-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/generate-inbox.ts",
+        "to": "src/main/ts/domain/repositories/file-system.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/generate-inbox.ts",
+        "to": "src/main/ts/domain/models/task.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/generate-inbox.ts",
+        "to": "src/main/ts/domain/services/reviewer.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/generate-inbox.ts",
+        "to": "src/main/ts/application/use-cases/drift-checker.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/generate-inbox.ts",
+        "to": "src/main/ts/application/use-cases/escalation-store.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/get-sprint-status.ts",
+        "to": "src/main/ts/domain/repositories/task-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/get-sprint-status.ts",
+        "to": "src/main/ts/domain/models/task.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/get-sprint-status.ts",
+        "to": "src/main/ts/domain/repositories/file-system.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/govern-system.ts",
+        "to": "src/main/ts/domain/repositories/task-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/govern-system.ts",
+        "to": "src/main/ts/domain/repositories/git-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/govern-system.ts",
+        "to": "src/main/ts/domain/repositories/file-system.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/govern-system.ts",
+        "to": "src/main/ts/domain/models/task.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/govern-system.ts",
+        "to": "src/main/ts/application/use-cases/batch-system.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/govern-system.ts",
+        "to": "src/main/ts/domain/services/config-loader.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/govern-system.ts",
+        "to": "src/main/ts/application/use-cases/causal-signal-log.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/govern-system.ts",
+        "to": "src/main/ts/application/use-cases/reflect-influence-report.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/govern-system.ts",
+        "to": "src/main/ts/domain/services/task-validator.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/govern-system.ts",
+        "to": "src/main/ts/application/commands/corpus-audit-command.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/govern-system.ts",
+        "to": "src/main/ts/domain/services/status-report-service.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/govern-system.ts",
+        "to": "src/main/ts/application/use-cases/compute-trusted-metrics.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/govern-system.ts",
+        "to": "src/main/ts/application/use-cases/lightweight-metrics-refresh.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/govern-system.ts",
+        "to": "src/main/ts/application/use-cases/deep-analysis-state.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/govern-system.ts",
+        "to": "src/main/ts/application/use-cases/weak-signal-checker.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/govern-system.ts",
+        "to": "src/main/ts/application/use-cases/corpus-index.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/hansei-synthesizer.ts",
+        "to": "src/main/ts/domain/repositories/file-system.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/hansei-synthesizer.ts",
+        "to": "src/main/ts/domain/repositories/git-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/hansei-synthesizer.ts",
+        "to": "src/main/ts/application/use-cases/corpus-index.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/hansei-synthesizer.ts",
+        "to": "src/main/ts/domain/services/archive-parser.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/hansei-synthesizer.ts",
+        "to": "src/main/ts/domain/services/metrics-engine.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/hansei-wizard.ts",
+        "to": "src/main/ts/domain/models/task.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/hansei-wizard.ts",
+        "to": "src/main/ts/domain/repositories/git-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/hansei-wizard.ts",
+        "to": "src/main/ts/domain/services/deterministic-hansei-checker.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/lightweight-metrics-refresh.ts",
+        "to": "src/main/ts/domain/repositories/file-system.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/lightweight-metrics-refresh.ts",
+        "to": "src/main/ts/application/use-cases/compute-trusted-metrics.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/load-bearing-memory.ts",
+        "to": "src/main/ts/domain/repositories/file-system.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/load-bearing-memory.ts",
+        "to": "src/main/ts/domain/repositories/task-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/load-bearing-memory.ts",
+        "to": "src/main/ts/domain/models/task.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/load-bearing-memory.ts",
+        "to": "src/main/ts/domain/models/context-index.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/loop-engine.ts",
+        "to": "src/main/ts/domain/repositories/task-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/loop-engine.ts",
+        "to": "src/main/ts/domain/repositories/git-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/loop-engine.ts",
+        "to": "src/main/ts/domain/repositories/file-system.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/loop-engine.ts",
+        "to": "src/main/ts/domain/services/reviewer.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/loop-engine.ts",
+        "to": "src/main/ts/application/use-cases/drift-checker.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/loop-engine.ts",
+        "to": "src/main/ts/domain/models/task.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/loop-engine.ts",
+        "to": "src/main/ts/application/use-cases/select-next-task.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/loop-engine.ts",
+        "to": "src/main/ts/application/use-cases/govern-system.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/loop-engine.ts",
+        "to": "src/main/ts/application/use-cases/review-system.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/loop-engine.ts",
+        "to": "src/main/ts/application/use-cases/mark-task-done.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/loop-engine.ts",
+        "to": "src/main/ts/application/use-cases/escalation-store.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/loop-engine.ts",
+        "to": "src/main/ts/infrastructure/filesystem/node-feedback-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/loop-engine.ts",
+        "to": "src/main/ts/infrastructure/cli/subprocess-runner.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/loop-engine.ts",
+        "to": "src/main/ts/domain/services/config-loader.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/loop-engine.ts",
+        "to": "src/main/ts/domain/services/provider-registry.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/loop-engine.ts",
+        "to": "src/main/ts/domain/services/bridge-provider.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/mark-task-done.ts",
+        "to": "src/main/ts/domain/repositories/task-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/mark-task-done.ts",
+        "to": "src/main/ts/domain/models/task.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/mark-task-done.ts",
+        "to": "src/main/ts/domain/services/reviewer.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/mark-task-done.ts",
+        "to": "src/main/ts/domain/services/task-validator.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/mark-task-done.ts",
+        "to": "src/main/ts/domain/repositories/file-system.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/mark-task-done.ts",
+        "to": "src/main/ts/domain/models/event.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/mark-task-done.ts",
+        "to": "src/main/ts/domain/repositories/feedback-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/mark-task-done.ts",
+        "to": "src/main/ts/application/use-cases/extract-context-feedback.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/mark-task-done.ts",
+        "to": "src/main/ts/application/use-cases/causal-signal-log.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/mark-task-done.ts",
+        "to": "src/main/ts/domain/services/event-logger.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/mark-task-done.ts",
+        "to": "src/main/ts/domain/services/deterministic-ac-verifier.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/mark-task-done.ts",
+        "to": "src/main/ts/domain/services/signal-router.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/mark-task-done.ts",
+        "to": "src/main/ts/domain/repositories/git-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/mark-task-done.ts",
+        "to": "src/main/ts/application/use-cases/compute-trusted-metrics.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/mark-task-done.ts",
+        "to": "src/main/ts/application/use-cases/lightweight-metrics-refresh.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/mark-task-done.ts",
+        "to": "src/main/ts/application/use-cases/temporal-index.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/mark-task-done.ts",
+        "to": "src/main/ts/application/use-cases/hansei-wizard.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/mark-task-done.ts",
+        "to": "src/main/ts/domain/services/config-loader.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/mark-task-in-progress.ts",
+        "to": "src/main/ts/domain/repositories/task-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/mark-task-in-progress.ts",
+        "to": "src/main/ts/domain/models/task.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/mark-task-in-progress.ts",
+        "to": "src/main/ts/domain/models/event.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/mark-task-in-progress.ts",
+        "to": "src/main/ts/domain/repositories/git-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/mark-task-in-progress.ts",
+        "to": "src/main/ts/application/use-cases/validate-task-acs.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/mark-task-review.ts",
+        "to": "src/main/ts/domain/repositories/task-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/mark-task-review.ts",
+        "to": "src/main/ts/domain/models/task.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/mark-task-review.ts",
+        "to": "src/main/ts/application/use-cases/validate-task-acs.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/mark-task-review.ts",
+        "to": "src/main/ts/domain/services/task-validator.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/merge-resolve.ts",
+        "to": "src/main/ts/domain/repositories/git-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/merge-resolve.ts",
+        "to": "src/main/ts/domain/repositories/file-system.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/move-artifact.ts",
+        "to": "src/main/ts/domain/repositories/task-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/move-artifact.ts",
+        "to": "src/main/ts/domain/repositories/git-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/move-artifact.ts",
+        "to": "src/main/ts/domain/repositories/file-system.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/move-artifact.ts",
+        "to": "src/main/ts/infrastructure/cli/output-formatter.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/normalize-repo-events.ts",
+        "to": "src/main/ts/domain/models/ontology.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/promote-idea.ts",
+        "to": "src/main/ts/domain/repositories/task-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/promote-idea.ts",
+        "to": "src/main/ts/domain/repositories/file-system.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/promote-idea.ts",
+        "to": "src/main/ts/domain/repositories/git-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/rank-tasks.ts",
+        "to": "src/main/ts/domain/repositories/task-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/rank-tasks.ts",
+        "to": "src/main/ts/domain/models/task.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/reflect-decision-log.ts",
+        "to": "src/main/ts/domain/repositories/file-system.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/reflect-influence-report.ts",
+        "to": "src/main/ts/application/use-cases/reflect-decision-log.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/reflect-influence-report.ts",
+        "to": "src/main/ts/application/use-cases/reflect-proposal-log.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/reflect-influence-report.ts",
+        "to": "src/main/ts/domain/repositories/file-system.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/reflect-proposal-log.ts",
+        "to": "src/main/ts/domain/repositories/file-system.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/reflect-proposal-log.ts",
+        "to": "src/main/ts/domain/models/reflect-proposal.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/reprioritize-corpus.ts",
+        "to": "src/main/ts/domain/repositories/file-system.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/reprioritize-corpus.ts",
+        "to": "src/main/ts/domain/repositories/task-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/reprioritize-corpus.ts",
+        "to": "src/main/ts/domain/models/task.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/review-system.ts",
+        "to": "src/main/ts/domain/repositories/task-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/review-system.ts",
+        "to": "src/main/ts/domain/repositories/git-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/review-system.ts",
+        "to": "src/main/ts/domain/repositories/file-system.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/review-system.ts",
+        "to": "src/main/ts/domain/models/task.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/review-system.ts",
+        "to": "src/main/ts/domain/services/reviewer.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/review-system.ts",
+        "to": "src/main/ts/application/use-cases/drift-checker.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/review-system.ts",
+        "to": "src/main/ts/domain/services/config-loader.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/review-system.ts",
+        "to": "src/main/ts/application/use-cases/focus-ledger.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/select-next-task.ts",
+        "to": "src/main/ts/domain/repositories/task-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/select-next-task.ts",
+        "to": "src/main/ts/domain/models/task.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/semantic-collision-detector.ts",
+        "to": "src/main/ts/domain/repositories/file-system.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/task-reject-stale.ts",
+        "to": "src/main/ts/domain/models/task.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/task-reject-stale.ts",
+        "to": "src/main/ts/domain/repositories/task-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/task-reject.ts",
+        "to": "src/main/ts/domain/models/task.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/task-reject.ts",
+        "to": "src/main/ts/domain/repositories/task-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/task-reject.ts",
+        "to": "src/main/ts/domain/services/event-logger.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/temporal-index.ts",
+        "to": "src/main/ts/domain/repositories/file-system.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/temporal-index.ts",
+        "to": "src/main/ts/application/use-cases/causal-signal-log.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/update-task-metrics.ts",
+        "to": "src/main/ts/domain/repositories/task-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/validate-system.ts",
+        "to": "src/main/ts/domain/repositories/task-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/validate-system.ts",
+        "to": "src/main/ts/domain/services/task-validator.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/application/use-cases/validate-system.ts",
+        "to": "src/main/ts/domain/repositories/file-system.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/domain/models/action.ts",
+        "to": "src/main/ts/domain/models/evidence.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/domain/models/causal-signal.ts",
+        "to": "src/main/ts/domain/models/causal-relation.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/domain/models/epistemic-report.ts",
+        "to": "src/main/ts/domain/models/evidence.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/domain/models/reconciliation.ts",
+        "to": "src/main/ts/domain/models/decision.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/domain/models/stability.ts",
+        "to": "src/main/ts/domain/models/reconciliation.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/domain/models/stability.ts",
+        "to": "src/main/ts/domain/models/action.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/domain/repositories/feedback-repository.ts",
+        "to": "src/main/ts/domain/models/feedback-signal.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/domain/repositories/task-repository.ts",
+        "to": "src/main/ts/domain/models/task.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/domain/services/action-governance-service.ts",
+        "to": "src/main/ts/domain/models/action.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/domain/services/action-governance-service.ts",
+        "to": "src/main/ts/domain/models/reconciliation.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/domain/services/adr-inference-engine.ts",
+        "to": "src/main/ts/domain/models/audit-inference.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/domain/services/archive-parser.ts",
+        "to": "src/main/ts/domain/repositories/file-system.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/domain/services/archive-parser.ts",
+        "to": "src/main/ts/domain/repositories/git-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/domain/services/archive-parser.ts",
+        "to": "src/main/ts/domain/models/provenance.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/domain/services/behavioral-profiler.ts",
+        "to": "src/main/ts/domain/models/deployment-map.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/domain/services/behavioral-profiler.ts",
+        "to": "src/main/ts/domain/repositories/file-system.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/domain/services/bridge-provider.ts",
+        "to": "src/main/ts/domain/services/llm-provider.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/domain/services/config-loader.ts",
+        "to": "src/main/ts/domain/repositories/file-system.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/domain/services/decision-impact-engine.ts",
+        "to": "src/main/ts/domain/models/reconciliation.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/domain/services/decision-impact-engine.ts",
+        "to": "src/main/ts/domain/models/action.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/domain/services/decision-observability-service.ts",
+        "to": "src/main/ts/domain/models/decision.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/domain/services/decision-observability-service.ts",
+        "to": "src/main/ts/domain/models/evidence.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/domain/services/decision-reconciliation-engine.ts",
+        "to": "src/main/ts/domain/models/decision.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/domain/services/decision-reconciliation-engine.ts",
+        "to": "src/main/ts/domain/models/reconciliation.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/domain/services/decision-reconciliation-engine.ts",
+        "to": "src/main/ts/domain/models/evidence.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/domain/services/deterministic-ac-verifier.ts",
+        "to": "src/main/ts/domain/models/task.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/domain/services/deterministic-hansei-checker.ts",
+        "to": "src/main/ts/domain/models/task.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/domain/services/epistemic-integrity-service.ts",
+        "to": "src/main/ts/domain/models/evidence.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/domain/services/epistemic-integrity-service.ts",
+        "to": "src/main/ts/domain/models/epistemic-report.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/domain/services/event-logger.ts",
+        "to": "src/main/ts/domain/repositories/file-system.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/domain/services/event-logger.ts",
+        "to": "src/main/ts/domain/repositories/git-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/domain/services/governance-drift-detector.ts",
+        "to": "src/main/ts/application/use-cases/corpus-index.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/domain/services/governance-stability-service.ts",
+        "to": "src/main/ts/domain/models/reconciliation.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/domain/services/governance-stability-service.ts",
+        "to": "src/main/ts/domain/models/action.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/domain/services/governance-stability-service.ts",
+        "to": "src/main/ts/domain/models/stability.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/domain/services/hansei-auditor.ts",
+        "to": "src/main/ts/domain/repositories/file-system.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/domain/services/hansei-auditor.ts",
+        "to": "src/main/ts/domain/models/task.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/domain/services/human-coordination-service.ts",
+        "to": "src/main/ts/domain/repositories/task-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/domain/services/human-coordination-service.ts",
+        "to": "src/main/ts/domain/repositories/git-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/domain/services/human-coordination-service.ts",
+        "to": "src/main/ts/domain/models/task.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/domain/services/init-recommendation-engine.ts",
+        "to": "src/main/ts/domain/models/audit-inference.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/domain/services/institutional-anomaly-tracker.ts",
+        "to": "src/main/ts/application/use-cases/corpus-index.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/domain/services/instrumentation-planner.ts",
+        "to": "src/main/ts/domain/models/deployment-map.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/domain/services/measurement-governance-layer.ts",
+        "to": "src/main/ts/domain/models/outcome.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/domain/services/measurement-governance-layer.ts",
+        "to": "src/main/ts/domain/models/semantic-stability.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/domain/services/metrics-engine.ts",
+        "to": "src/main/ts/domain/services/archive-parser.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/domain/services/metrics-engine.ts",
+        "to": "src/main/ts/domain/repositories/file-system.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/domain/services/metrics-engine.ts",
+        "to": "src/main/ts/domain/repositories/git-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/domain/services/metrics-engine.ts",
+        "to": "src/main/ts/domain/models/provenance.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/domain/services/native-provider.ts",
+        "to": "src/main/ts/domain/services/llm-provider.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/domain/services/outcome-validation-service.ts",
+        "to": "src/main/ts/domain/models/outcome.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/domain/services/outcome-validation-service.ts",
+        "to": "src/main/ts/domain/models/stability.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/domain/services/precedent-novelty-scorer.ts",
+        "to": "src/main/ts/application/use-cases/corpus-index.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/domain/services/provider-registry.ts",
+        "to": "src/main/ts/domain/services/bridge-provider.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/domain/services/provider-registry.ts",
+        "to": "src/main/ts/domain/services/native-provider.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/domain/services/provider-registry.ts",
+        "to": "src/main/ts/domain/services/llm-provider.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/domain/services/repository-summarizer.ts",
+        "to": "src/main/ts/domain/models/audit-inference.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/domain/services/repository-summarizer.ts",
+        "to": "src/main/ts/domain/models/decision.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/domain/services/repository-summarizer.ts",
+        "to": "src/main/ts/domain/models/reconciliation.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/domain/services/reviewer.ts",
+        "to": "src/main/ts/domain/models/task.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/domain/services/reviewer.ts",
+        "to": "src/main/ts/domain/services/task-validator.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/domain/services/risk-detector.ts",
+        "to": "src/main/ts/domain/models/deployment-map.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/domain/services/role-inference-engine.ts",
+        "to": "src/main/ts/domain/models/deployment-map.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/domain/services/signal-extraction-engine.ts",
+        "to": "src/main/ts/domain/models/audit-inference.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/domain/services/signal-router.ts",
+        "to": "src/main/ts/application/use-cases/causal-signal-log.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/domain/services/signal-router.ts",
+        "to": "src/main/ts/domain/models/task.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/domain/services/stateless-hypothesis-generator.ts",
+        "to": "src/main/ts/domain/models/ontology.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/domain/services/status-report-service.ts",
+        "to": "src/main/ts/domain/repositories/task-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/domain/services/status-report-service.ts",
+        "to": "src/main/ts/domain/models/task.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/domain/services/structural-extractor.ts",
+        "to": "src/main/ts/domain/models/deployment-map.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/domain/services/structural-extractor.ts",
+        "to": "src/main/ts/domain/repositories/file-system.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/domain/services/subsystem-clusterer.ts",
+        "to": "src/main/ts/domain/models/deployment-map.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/domain/services/task-validator.ts",
+        "to": "src/main/ts/domain/models/task.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/domain/services/traceability-projection.ts",
+        "to": "src/main/ts/domain/models/traceability-graph.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/domain/services/transient-actuation-projector.ts",
+        "to": "src/main/ts/domain/models/ontology.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/domain/services/transient-window-compiler.ts",
+        "to": "src/main/ts/domain/models/ontology.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/index.ts",
+        "to": "src/main/ts/infrastructure/filesystem/node-file-system.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/index.ts",
+        "to": "src/main/ts/infrastructure/filesystem/markdown-task-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/index.ts",
+        "to": "src/main/ts/infrastructure/cli/git-cli.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/index.ts",
+        "to": "src/main/ts/domain/services/event-logger.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/index.ts",
+        "to": "src/main/ts/domain/services/reviewer.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/index.ts",
+        "to": "src/main/ts/application/use-cases/drift-checker.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/index.ts",
+        "to": "src/main/ts/infrastructure/cli/command-parser.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/index.ts",
+        "to": "src/main/ts/application/commands/validate-command.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/index.ts",
+        "to": "src/main/ts/application/commands/review-command.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/index.ts",
+        "to": "src/main/ts/application/commands/task-command.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/index.ts",
+        "to": "src/main/ts/application/commands/inbox-command.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/index.ts",
+        "to": "src/main/ts/application/commands/next-command.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/index.ts",
+        "to": "src/main/ts/application/commands/version-command.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/index.ts",
+        "to": "src/main/ts/application/commands/govern-command.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/index.ts",
+        "to": "src/main/ts/application/commands/rank-command.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/index.ts",
+        "to": "src/main/ts/application/commands/batch-command.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/index.ts",
+        "to": "src/main/ts/application/commands/conduct-command.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/index.ts",
+        "to": "src/main/ts/application/commands/promote-command.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/index.ts",
+        "to": "src/main/ts/application/commands/loop-command.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/index.ts",
+        "to": "src/main/ts/application/commands/sandbox-command.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/index.ts",
+        "to": "src/main/ts/domain/services/sandbox.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/index.ts",
+        "to": "src/main/ts/domain/services/human-coordination-service.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/index.ts",
+        "to": "src/main/ts/application/commands/lint-command.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/index.ts",
+        "to": "src/main/ts/application/commands/move-command.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/index.ts",
+        "to": "src/main/ts/application/commands/exec-command.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/index.ts",
+        "to": "src/main/ts/application/commands/merge-resolve-command.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/index.ts",
+        "to": "src/main/ts/application/commands/index-command.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/index.ts",
+        "to": "src/main/ts/infrastructure/filesystem/chronicle-event-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/index.ts",
+        "to": "src/main/ts/application/commands/ask-command.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/index.ts",
+        "to": "src/main/ts/application/use-cases/ask-corpus.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/index.ts",
+        "to": "src/main/ts/application/commands/causal-command.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/index.ts",
+        "to": "src/main/ts/application/use-cases/causal-graph.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/index.ts",
+        "to": "src/main/ts/application/use-cases/causal-signal-log.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/index.ts",
+        "to": "src/main/ts/application/use-cases/temporal-index.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/index.ts",
+        "to": "src/main/ts/application/commands/reflect-command.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/index.ts",
+        "to": "src/main/ts/application/commands/report-command.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/index.ts",
+        "to": "src/main/ts/application/commands/init-command.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/index.ts",
+        "to": "src/main/ts/application/commands/verify-acs-command.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/index.ts",
+        "to": "src/main/ts/application/commands/status-command.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/index.ts",
+        "to": "src/main/ts/application/commands/serve-command.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/index.ts",
+        "to": "src/main/ts/application/commands/capture-command.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/index.ts",
+        "to": "src/main/ts/application/commands/explain-command.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/index.ts",
+        "to": "src/main/ts/application/commands/deps-command.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/index.ts",
+        "to": "src/main/ts/application/commands/compile-command.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/index.ts",
+        "to": "src/main/ts/domain/services/command-registry.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/index.ts",
+        "to": "src/main/ts/application/commands/sentinel-command.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/index.ts",
+        "to": "src/main/ts/application/use-cases/escalation-store.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/index.ts",
+        "to": "src/main/ts/application/use-cases/correction-signal-store.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/index.ts",
+        "to": "src/main/ts/application/commands/audit-command.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/index.ts",
+        "to": "src/main/ts/application/commands/corpus-audit-command.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/infrastructure/cli/git-cli.ts",
+        "to": "src/main/ts/domain/repositories/git-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/infrastructure/cli/git-cli.ts",
+        "to": "src/main/ts/infrastructure/cli/subprocess-runner.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/infrastructure/filesystem/markdown-task-repository.ts",
+        "to": "src/main/ts/domain/models/task.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/infrastructure/filesystem/markdown-task-repository.ts",
+        "to": "src/main/ts/domain/repositories/file-system.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/infrastructure/filesystem/node-feedback-repository.ts",
+        "to": "src/main/ts/domain/repositories/feedback-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/infrastructure/filesystem/node-feedback-repository.ts",
+        "to": "src/main/ts/domain/models/feedback-signal.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/infrastructure/filesystem/node-feedback-repository.ts",
+        "to": "src/main/ts/domain/repositories/file-system.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/infrastructure/filesystem/node-file-system.ts",
+        "to": "src/main/ts/domain/repositories/file-system.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/infrastructure/filesystem/signal-cache.ts",
+        "to": "src/main/ts/domain/repositories/file-system.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/infrastructure/filesystem/signal-cache.ts",
+        "to": "src/main/ts/domain/models/audit-inference.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/main/ts/infrastructure/git/git-semantic-extractor.ts",
+        "to": "src/main/ts/domain/models/audit-inference.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/ask-corpus.test.ts",
+        "to": "src/main/ts/application/use-cases/ask-corpus.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/ask-corpus.test.ts",
+        "to": "src/main/ts/application/use-cases/causal-graph.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/build-index-v2.test.ts",
+        "to": "src/main/ts/application/use-cases/build-index.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/build-index-v2.test.ts",
+        "to": "src/test/ts/mocks/index.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/build-index.test.ts",
+        "to": "src/main/ts/application/use-cases/build-index.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/build-index.test.ts",
+        "to": "src/test/ts/mocks/index.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/capture-command-verifiability.test.ts",
+        "to": "src/main/ts/application/commands/capture-command.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/capture-command-verifiability.test.ts",
+        "to": "src/test/ts/mocks/index.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/causal-arbitrator.test.ts",
+        "to": "src/main/ts/application/use-cases/causal-arbitrator.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/causal-arbitrator.test.ts",
+        "to": "src/main/ts/application/use-cases/causal-signal-log.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/causal-arbitrator.test.ts",
+        "to": "src/main/ts/application/use-cases/causal-graph.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/causal-arbitrator.test.ts",
+        "to": "src/test/ts/mocks/index.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/causal-graph.test.ts",
+        "to": "src/main/ts/application/use-cases/causal-graph.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/causal-graph.test.ts",
+        "to": "src/main/ts/application/commands/causal-command.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/causal-graph.test.ts",
+        "to": "src/test/ts/mocks/index.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/command-registry.test.ts",
+        "to": "src/main/ts/domain/services/command-registry.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/compile-command.test.ts",
+        "to": "src/main/ts/application/commands/compile-command.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/compile-command.test.ts",
+        "to": "src/test/ts/mocks/index.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/compress-task.test.ts",
+        "to": "src/main/ts/application/use-cases/compress-task.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/compress-task.test.ts",
+        "to": "src/test/ts/mocks/index.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/compute-trusted-metrics.test.ts",
+        "to": "src/main/ts/application/use-cases/compute-trusted-metrics.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/compute-trusted-metrics.test.ts",
+        "to": "src/test/ts/mocks/index.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/constraint-preflight.test.ts",
+        "to": "src/main/ts/application/use-cases/constraint-preflight.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/constraint-preflight.test.ts",
+        "to": "src/test/ts/mocks/index.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/context-inference-feedback.test.ts",
+        "to": "src/main/ts/application/use-cases/context-inference.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/context-inference-feedback.test.ts",
+        "to": "src/main/ts/domain/models/context-index.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/context-inference-feedback.test.ts",
+        "to": "src/main/ts/domain/models/feedback-signal.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/context-inference-feedback.test.ts",
+        "to": "src/test/ts/mocks/index.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/context-inference.test.ts",
+        "to": "src/main/ts/application/use-cases/context-inference.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/context-inference.test.ts",
+        "to": "src/main/ts/domain/models/context-index.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/context-inference.test.ts",
+        "to": "src/test/ts/mocks/index.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/context-inference.test.ts",
+        "to": "src/main/ts/application/commands/task-command.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/context-inference.test.ts",
+        "to": "src/main/ts/domain/models/task.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/corpus-audit-command.test.ts",
+        "to": "src/main/ts/application/commands/corpus-audit-command.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/corpus-audit-command.test.ts",
+        "to": "src/test/ts/mocks/index.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/corpus-audit-weighted.test.ts",
+        "to": "src/main/ts/application/commands/corpus-audit-command.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/corpus-audit-weighted.test.ts",
+        "to": "src/main/ts/application/use-cases/corpus-index.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/corpus-audit-weighted.test.ts",
+        "to": "src/test/ts/mocks/index.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/corpus-index.test.ts",
+        "to": "src/main/ts/application/use-cases/corpus-index.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/corpus-index.test.ts",
+        "to": "src/test/ts/mocks/index.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/corpus-stress-test.test.ts",
+        "to": "src/main/ts/application/use-cases/normalize-repo-events.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/corpus-stress-test.test.ts",
+        "to": "src/main/ts/domain/services/transient-window-compiler.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/corpus-stress-test.test.ts",
+        "to": "src/main/ts/domain/services/stateless-hypothesis-generator.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/corpus-stress-test.test.ts",
+        "to": "src/main/ts/domain/services/transient-actuation-projector.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/corpus-stress-test.test.ts",
+        "to": "src/main/ts/domain/models/ontology.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/create-task.test.ts",
+        "to": "src/main/ts/application/use-cases/create-task.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/create-task.test.ts",
+        "to": "src/test/ts/mocks/index.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/create-task.test.ts",
+        "to": "src/main/ts/domain/repositories/task-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/deep-analysis-state.test.ts",
+        "to": "src/main/ts/application/use-cases/deep-analysis-state.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/deep-analysis-state.test.ts",
+        "to": "src/test/ts/mocks/index.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/deterministic-ac-verifier.test.ts",
+        "to": "src/main/ts/domain/services/deterministic-ac-verifier.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/deterministic-ac-verifier.test.ts",
+        "to": "src/main/ts/domain/models/task.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/deterministic-ac-verifier.test.ts",
+        "to": "src/main/ts/domain/services/signal-router.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/deterministic-hansei-checker.test.ts",
+        "to": "src/main/ts/domain/services/deterministic-hansei-checker.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/deterministic-hansei-checker.test.ts",
+        "to": "src/main/ts/domain/models/task.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/drift-checker.test.ts",
+        "to": "src/main/ts/application/use-cases/drift-checker.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/drift-checker.test.ts",
+        "to": "src/test/ts/mocks/index.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/escalation-maturity-e5.test.ts",
+        "to": "src/main/ts/application/use-cases/mark-task-in-progress.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/escalation-maturity-e5.test.ts",
+        "to": "src/main/ts/application/commands/next-command.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/escalation-maturity-e5.test.ts",
+        "to": "src/main/ts/application/use-cases/drift-checker.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/escalation-maturity-e5.test.ts",
+        "to": "src/main/ts/domain/models/task.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/exec-command.test.ts",
+        "to": "src/main/ts/application/commands/exec-command.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/exec-command.test.ts",
+        "to": "src/main/ts/domain/services/provider-registry.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/extract-context-feedback.test.ts",
+        "to": "src/main/ts/application/use-cases/extract-context-feedback.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/get-sprint-status.test.ts",
+        "to": "src/main/ts/application/use-cases/get-sprint-status.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/get-sprint-status.test.ts",
+        "to": "src/main/ts/domain/models/task.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/git-cli-integration.test.ts",
+        "to": "src/main/ts/infrastructure/cli/git-cli.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/govern-command.test.ts",
+        "to": "src/main/ts/application/commands/govern-command.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/govern-command.test.ts",
+        "to": "src/test/ts/mocks/index.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/govern-system.test.ts",
+        "to": "src/main/ts/application/use-cases/govern-system.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/govern-system.test.ts",
+        "to": "src/main/ts/domain/models/task.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/govern-system.test.ts",
+        "to": "src/main/ts/application/use-cases/focus-ledger.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/governance-drift-detector.test.ts",
+        "to": "src/main/ts/domain/services/governance-drift-detector.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/governance-drift-detector.test.ts",
+        "to": "src/main/ts/application/use-cases/corpus-index.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/hansei-auditor.test.ts",
+        "to": "src/main/ts/domain/services/hansei-auditor.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/hansei-auditor.test.ts",
+        "to": "src/test/ts/mocks/index.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/hansei-validation.test.ts",
+        "to": "src/main/ts/domain/services/task-validator.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/hansei-validation.test.ts",
+        "to": "src/main/ts/domain/models/task.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/hansei-wizard.test.ts",
+        "to": "src/main/ts/application/use-cases/hansei-wizard.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/hansei-wizard.test.ts",
+        "to": "src/main/ts/domain/services/task-validator.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/hansei-wizard.test.ts",
+        "to": "src/main/ts/domain/models/task.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/institutional-anomaly-tracker.test.ts",
+        "to": "src/main/ts/domain/services/institutional-anomaly-tracker.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/institutional-anomaly-tracker.test.ts",
+        "to": "src/main/ts/application/use-cases/corpus-index.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/lightweight-metrics-refresh.test.ts",
+        "to": "src/main/ts/application/use-cases/lightweight-metrics-refresh.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/lightweight-metrics-refresh.test.ts",
+        "to": "src/test/ts/mocks/index.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/llm-provider.test.ts",
+        "to": "src/main/ts/domain/services/llm-provider.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/llm-provider.test.ts",
+        "to": "src/main/ts/domain/services/bridge-provider.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/llm-provider.test.ts",
+        "to": "src/main/ts/domain/services/native-provider.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/llm-provider.test.ts",
+        "to": "src/main/ts/domain/services/provider-registry.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/loop-sprint.test.ts",
+        "to": "src/main/ts/application/use-cases/select-next-task.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/loop-sprint.test.ts",
+        "to": "src/main/ts/domain/models/task.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/loop-sprint.test.ts",
+        "to": "src/main/ts/domain/repositories/task-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/mark-task-done-feedback.test.ts",
+        "to": "src/main/ts/application/use-cases/mark-task-done.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/mark-task-done-feedback.test.ts",
+        "to": "src/main/ts/domain/models/task.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/mark-task-done-feedback.test.ts",
+        "to": "src/test/ts/mocks/index.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/mark-task-done.test.ts",
+        "to": "src/main/ts/application/use-cases/mark-task-done.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/mark-task-done.test.ts",
+        "to": "src/main/ts/domain/models/task.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/mark-task-done.test.ts",
+        "to": "src/main/ts/domain/repositories/task-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/mark-task-done.test.ts",
+        "to": "src/main/ts/domain/services/reviewer.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/mark-task-done.test.ts",
+        "to": "src/main/ts/application/use-cases/compute-trusted-metrics.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/mark-task-done.test.ts",
+        "to": "src/test/ts/mocks/index.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/mark-task-done.test.ts",
+        "to": "src/main/ts/domain/services/deterministic-ac-verifier.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/mark-task-in-progress.test.ts",
+        "to": "src/main/ts/application/use-cases/mark-task-in-progress.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/mark-task-in-progress.test.ts",
+        "to": "src/main/ts/domain/models/task.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/mark-task-in-progress.test.ts",
+        "to": "src/main/ts/domain/repositories/task-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/mark-task-in-progress.test.ts",
+        "to": "src/test/ts/mocks/index.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/mark-task-review.test.ts",
+        "to": "src/main/ts/application/use-cases/mark-task-review.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/mark-task-review.test.ts",
+        "to": "src/main/ts/domain/models/task.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/mark-task-review.test.ts",
+        "to": "src/main/ts/domain/repositories/task-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/markdown-task-repository.test.ts",
+        "to": "src/main/ts/infrastructure/filesystem/markdown-task-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/markdown-task-repository.test.ts",
+        "to": "src/test/ts/mocks/index.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/merge-resolve.test.ts",
+        "to": "src/main/ts/application/use-cases/merge-resolve.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/merge-resolve.test.ts",
+        "to": "src/test/ts/mocks/index.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/mocks/index.ts",
+        "to": "src/main/ts/domain/repositories/file-system.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/mocks/index.ts",
+        "to": "src/main/ts/domain/repositories/git-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/precedent-novelty-scorer.test.ts",
+        "to": "src/main/ts/domain/services/precedent-novelty-scorer.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/precedent-novelty-scorer.test.ts",
+        "to": "src/main/ts/application/use-cases/corpus-index.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/reflect-command.test.ts",
+        "to": "src/main/ts/application/commands/reflect-command.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/reflect-command.test.ts",
+        "to": "src/test/ts/mocks/index.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/report.test.ts",
+        "to": "src/main/ts/domain/services/archive-parser.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/report.test.ts",
+        "to": "src/main/ts/domain/services/metrics-engine.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/report.test.ts",
+        "to": "src/main/ts/domain/services/event-logger.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/report.test.ts",
+        "to": "src/test/ts/mocks/index.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/review-command.test.ts",
+        "to": "src/main/ts/application/commands/review-command.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/review-command.test.ts",
+        "to": "src/main/ts/domain/models/task.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/review-system.test.ts",
+        "to": "src/main/ts/application/use-cases/review-system.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/review-system.test.ts",
+        "to": "src/main/ts/domain/services/reviewer.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/review-system.test.ts",
+        "to": "src/main/ts/domain/models/task.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/reviewer.test.ts",
+        "to": "src/main/ts/domain/services/reviewer.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/reviewer.test.ts",
+        "to": "src/main/ts/domain/models/task.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/sandbox.test.ts",
+        "to": "src/main/ts/domain/services/sandbox.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/select-next-task.test.ts",
+        "to": "src/main/ts/application/use-cases/select-next-task.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/select-next-task.test.ts",
+        "to": "src/main/ts/application/commands/next-command.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/select-next-task.test.ts",
+        "to": "src/main/ts/domain/models/task.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/select-next-task.test.ts",
+        "to": "src/main/ts/domain/repositories/task-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/select-next-task.test.ts",
+        "to": "src/test/ts/mocks/index.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/serve-command.test.ts",
+        "to": "src/main/ts/application/commands/serve-command.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/size-tiered-closure.test.ts",
+        "to": "src/main/ts/domain/services/task-validator.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/task-command.test.ts",
+        "to": "src/main/ts/application/commands/task-command.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/task-command.test.ts",
+        "to": "src/main/ts/domain/models/task.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/task-command.test.ts",
+        "to": "src/test/ts/mocks/index.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/task-reject.test.ts",
+        "to": "src/main/ts/application/use-cases/task-reject.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/task-reject.test.ts",
+        "to": "src/main/ts/domain/models/task.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/task-validator.test.ts",
+        "to": "src/main/ts/domain/services/task-validator.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/task-validator.test.ts",
+        "to": "src/main/ts/domain/models/task.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/temporal-index.test.ts",
+        "to": "src/main/ts/application/use-cases/temporal-index.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/temporal-index.test.ts",
+        "to": "src/test/ts/mocks/index.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/validate-system.test.ts",
+        "to": "src/main/ts/application/use-cases/validate-system.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/validate-system.test.ts",
+        "to": "src/main/ts/domain/repositories/task-repository.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/validate-system.test.ts",
+        "to": "src/main/ts/domain/models/task.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/validate-system.test.ts",
+        "to": "src/test/ts/mocks/index.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/validate-task-acs-v2.test.ts",
+        "to": "src/main/ts/application/use-cases/validate-task-acs.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/validate-task-acs.test.ts",
+        "to": "src/main/ts/application/use-cases/validate-task-acs.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/verifiability-scorer.test.ts",
+        "to": "src/main/ts/domain/services/verifiability-scorer.ts",
+        "weight": 1
+      },
+      {
+        "from": "src/test/ts/weak-signal-checker.test.ts",
+        "to": "src/main/ts/application/use-cases/weak-signal-checker.ts",
+        "weight": 1
+      }
+    ]
+  },
+  "riskMap": [
+    {
+      "type": "STRUCTURAL_AMBIGUITY",
+      "severity": "MEDIUM",
+      "locations": [
+        "root"
+      ],
+      "description": "Low signal density in root. No clear behavioral signature detected, making this subsystem an 'uncertainty cluster' that may hide complex interactions."
+    },
+    {
+      "type": "HIDDEN_BOUNDARY",
+      "severity": "MEDIUM",
+      "locations": [
+        "src/main/ts"
+      ],
+      "description": "Potential hidden boundary in large subsystem src/main/ts (171 files). High probability of missing internal modularity."
+    }
+  ],
+  "instrumentationPlan": {
+    "highPriority": [
+      "dist/index.js"
+    ],
+    "mediumPriority": [
+      "root"
+    ],
+    "lowPriority": [
+      "src/main/ts"
+    ],
+    "recommendedHooks": [
+      {
+        "location": "dist/index.js",
+        "type": "REQUEST_BOUNDARY",
+        "reason": "Primary repository entrypoint detected during structural extraction."
+      },
+      {
+        "location": "dist/index.js",
+        "type": "REQUEST_BOUNDARY",
+        "reason": "Primary repository entrypoint detected during structural extraction."
+      },
+      {
+        "location": "root",
+        "type": "DEPENDENCY_TRACKING",
+        "reason": "Mitigating STRUCTURAL_AMBIGUITY risk: explicit dependency tracking required to resolve architectural noise."
+      }
+    ]
+  }
+}
