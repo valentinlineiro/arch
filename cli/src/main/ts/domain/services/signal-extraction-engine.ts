@@ -138,6 +138,52 @@ const DEFAULT_SIGNALS: SignalDefinition[] = [
     category: "config",
     confidence: 0.9,
   },
+
+  // --- Queue ---
+  {
+    signal: "rabbitmq",
+    regex: /amqplib|rabbit/i,
+    category: "queue",
+    confidence: 0.9,
+  },
+  {
+    signal: "kafka",
+    regex: /kafkajs|kafka-python|confluent-kafka/i,
+    category: "queue",
+    confidence: 0.9,
+  },
+  {
+    signal: "bullmq",
+    regex: /bullmq|bull\./i,
+    category: "queue",
+    confidence: 0.9,
+  },
+  {
+    signal: "aws-sqs",
+    regex: /@aws-sdk\/client-sqs|boto3\.client\('sqs'\)/i,
+    category: "queue",
+    confidence: 0.9,
+  },
+
+  // --- Storage ---
+  {
+    signal: "aws-s3",
+    regex: /@aws-sdk\/client-s3|boto3\.client\('s3'\)/i,
+    category: "storage",
+    confidence: 0.9,
+  },
+  {
+    signal: "google-cloud-storage",
+    regex: /@google-cloud\/storage/i,
+    category: "storage",
+    confidence: 0.9,
+  },
+  {
+    signal: "azure-storage",
+    regex: /@azure\/storage-blob/i,
+    category: "storage",
+    confidence: 0.9,
+  },
 ];
 
 export const SIGNAL_ENGINE_VERSION = '1.2.1';

@@ -61,8 +61,8 @@ export class ADRInferenceEngine {
   private generateDecision(domain: string, signal: string, stability: string): string {
     const capitalized = signal.charAt(0).toUpperCase() + signal.slice(1);
     if (stability === "transitional") {
-      return `The project is currently transitioning to ${capitalized} for ${domain}. Implementation patterns show a clear increasing trajectory. New work should prefer this pattern unless migration blockers exist.`;
+      return `[INFERRED] The project is currently transitioning to ${capitalized} for ${domain}. Implementation patterns show a clear increasing trajectory. New work should prefer this pattern unless migration blockers exist.`;
     }
-    return `The project uses ${capitalized} as the primary observed standard for ${domain}. All new implementations in this domain should follow this pattern to maintain architectural consistency.`;
+    return `[INFERRED] The project uses ${capitalized} as the primary observed standard for ${domain}. All new implementations in this domain should follow this pattern to maintain architectural consistency.`;
   }
 }

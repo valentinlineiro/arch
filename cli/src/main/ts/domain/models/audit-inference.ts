@@ -97,8 +97,20 @@ export type InferredArchitecturalPattern = {
   status: "INFERRED";
 };
 
+export type InitSuggestion = {
+  recommended: boolean;
+  confidence: number;
+  rationale: string;
+  stableDomains: string[];
+  suggestedConfig: {
+    confidenceThreshold: number;
+    domains: string[];
+  };
+};
+
 export type AuditResultV2 = {
   patterns: Pattern[];
   inferredPatterns: InferredArchitecturalPattern[];
   initSuggestion?: InitSuggestion;
 };
+
