@@ -3878,7 +3878,7 @@
       "title": "Unified Epistemic Invariant Specification — Bounded Stream Enforcement"
     }
   },
-  "builtAt": "2026-05-21T08:15:15.684Z",
+  "builtAt": "2026-05-21T08:15:19.832Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -9888,9 +9888,9 @@
       }
     },
     "TASK-966": {
-      "commitCount": 11,
+      "commitCount": 12,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-21T10:15:13+02:00",
+      "lastCommitDate": "2026-05-21T10:15:18+02:00",
       "recentCommitRefs": [
         "044acf6a",
         "1642d844",
@@ -9900,13 +9900,14 @@
         "686d36aa",
         "8240442d",
         "8ab92fb8",
+        "964b5a8c",
         "a3227691",
         "ac0e2be6",
         "bed43715"
       ],
       "touchedFrequency": {
         ".arch/corpus-index.json": 1,
-        ".arch/focus-ledger.jsonl": 10,
+        ".arch/focus-ledger.jsonl": 11,
         ".arch/reflect-breach-log.jsonl": 1,
         "docs/METRICS.md": 1,
         "docs/tasks/TASK-966.md": 1
