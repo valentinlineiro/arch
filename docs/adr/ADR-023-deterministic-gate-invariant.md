@@ -21,7 +21,13 @@ Every ARCH output must belong to exactly one of three channels, with strictly de
 ### 2. Operational Rules
 *   **Zero Machine Authority for Advisory:** No advisory output may directly or indirectly produce a non-zero exit code, a `BLOCKED` task status, or an `ANDON_HALT` trigger.
 *   **The Consumption Prohibition:** No component of the ARCH system may consume an Advisory or Reporting output as operational evidence for a subsequent Deterministic gate.
-*   **Reproducibility Requirement:** For any given observable repository state, a Deterministic gate must yield an identical outcome every time it is executed.
+*   **Reproducibility (Hard Determinism):** For any given observable repository state, a Deterministic gate must yield an identical outcome. This requires:
+    *   **Canonical Ordering:** Sorting all file lists, task queues, and symbol maps before processing.
+    *   **Stable Hashing:** Using content-based hashes instead of timestamps or filesystem metadata for change detection.
+    *   **Closed-World Ingestion:** Explicitly defining the input set to exclude environment variables or non-normalized filesystem state.
+*   **Authority Laundering Prevention:** To prevent "soft pressure" from becoming informal authority:
+    *   **Namespace Separation:** Deterministic signals must use the `AUTHORITY:` prefix; heuristic findings must use `ADVISORY:`.
+    *   **Prohibition of Scores:** Machine-readable "confidence scores" or "health indices" are prohibited in the Advisory channel to prevent downstream automation from reacting to them as pseudo-metrics.
 *   **Degradation Policy:** A failure in the Advisory channel (e.g., LLM timeout, API error) is an informational event only and must never result in a governance failure or block the execution pipeline.
 *   **Exit Code Hardening:** `reflect-command.ts` and similar entry points must ensure that Tier 2 (Advisory) analysis always returns exit code 0. Only Tier 1 (Deterministic) validators have exit code control.
 

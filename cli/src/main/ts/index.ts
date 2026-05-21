@@ -90,7 +90,7 @@ async function main() {
       break;
 
     case 'status':
-      await new StatusCommand(taskRepository, fileSystem, rootPath).execute();
+      await new StatusCommand(taskRepository, fileSystem, rootPath).execute(process.argv.slice(3));
       break;
 
     case 'compile':

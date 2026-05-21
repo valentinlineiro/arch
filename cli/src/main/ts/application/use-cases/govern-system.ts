@@ -8,6 +8,7 @@ import { CausalSignalLog } from './causal-signal-log.js';
 import { ReflectInfluenceReport, DEFAULT_THRESHOLDS } from './reflect-influence-report.js';
 import { TaskValidator } from '../../domain/services/task-validator.js';
 import { CorpusAuditCommand } from '../commands/corpus-audit-command.js';
+import { StatusReportService } from '../../domain/services/status-report-service.js';
 import {
   FocusRuling, LedgerState, FOCUS_LEDGER_PATH,
   parseLedger, committedRulings, serializeLedger,
@@ -91,6 +92,22 @@ export class GovernSystem {
     await this.decideFocus(config);
 
     await this.checkReflectThresholds(config);
+
+    // 4. Materialized Reporting Layer (TASK-971)
+    // Triggers after deterministic tick completion. Non-authoritative projection.
+    try {
+      const statusService = new StatusReportService(this.taskRepository, this.rootPath);
+      const report = await statusService.generateReport();
+      const markdown = statusService.generateMarkdown(report);
+      
+      console.log('\n  ARCH — Materialized Reporting Layer');
+      console.log('  \x1b[33m⚠ Warning: Materialized report is strictly non-authoritative.\x1b[0m');
+      
+      await statusService.publish('README.md', markdown);
+      await statusService.publish('docs/ROADMAP.md', markdown);
+    } catch (err) {
+      if (process.env.ARCH_DEBUG) console.error('[TASK-971] status refresh failed:', err);
+    }
 
     // Lightweight metrics refresh — non-fatal
     try {
@@ -363,15 +380,15 @@ export class GovernSystem {
             await this.appendInbox('REFLECT', 'INFLUENCE_THRESHOLD_VIOLATION', violation!.message);
             console.log(`  ⚠ REFLECT threshold breach: ${violation!.message}`);
           } else if (newConsecutive >= thresholds.persistenceN) {
-            const persistMsg = `Persistent breach (${newConsecutive} consecutive cycles): ${violation!.message}`;
-            await this.appendInbox('REFLECT', 'INFLUENCE_BREACH_PERSISTENT', persistMsg);
-            console.log(`  ✖ REFLECT persistent breach: ${persistMsg}`);
+            const msg = `Persistent breach (${newConsecutive} consecutive cycles): ${violation!.message}`;
+            await this.appendInbox('REFLECT', 'INFLUENCE_BREACH_PERSISTENT', msg);
+            console.log(`  ✖ REFLECT persistent breach: ${msg}`);
           } else {
             console.log(`  ⚠ REFLECT breach continues (${newConsecutive}/${thresholds.persistenceN}): ${violation!.message}`);
           }
         } else if (wasBreachedLastTick) {
-          const clearMsg = `${rule} threshold breach cleared. Verify: did health improve (more decisions attributed) — or did operators adapt behavior to the threshold (worked around the measurement)? These are opposite outcomes that look identical in the data.`;
-          await this.appendInbox('REFLECT', 'INFLUENCE_BREACH_CLEARED', clearMsg);
+          const msg = `${rule} threshold breach cleared. Verify: did health improve (more decisions attributed) — or did operators adapt behavior to the threshold (worked around the measurement)? These are opposite outcomes that look identical in the data.`;
+          await this.appendInbox('REFLECT', 'INFLUENCE_BREACH_CLEARED', msg);
           console.log(`  ✔ REFLECT breach cleared: ${rule}`);
         }
       }

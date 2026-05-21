@@ -1,5 +1,6 @@
 import type { TaskRepository } from '../../domain/repositories/task-repository.js';
 import type { FileSystem } from '../../domain/repositories/file-system.js';
+import { StatusReportService } from '../../domain/services/status-report-service.js';
 import * as fmt from '../../infrastructure/cli/output-formatter.js';
 
 export class StatusCommand {
@@ -9,14 +10,19 @@ export class StatusCommand {
     private rootPath: string = '.',
   ) {}
 
-  async execute(): Promise<void> {
+  async execute(args: string[] = []): Promise<void> {
+    if (args.includes('--publish')) {
+      await this.publishReport();
+      return;
+    }
+
     const tasks = await this.taskRepository.getAll();
+
+    fmt.header('Session Status');
 
     const inProgress = tasks.filter(t => t.status === 'IN_PROGRESS');
     const review = tasks.filter(t => t.status === 'REVIEW');
     const ready = tasks.filter(t => t.status === 'READY');
-
-    fmt.header('Session Status');
 
     // Current work
     if (inProgress.length > 0) {
@@ -97,6 +103,21 @@ export class StatusCommand {
         }
       }
     } catch { /* no adr dir — skip */ }
+
+    console.log('');
+  }
+
+  async publishReport(): Promise<void> {
+    console.log('\n  ARCH — arch status --publish');
+    console.log('  \x1b[33m⚠ Warning: Materialized report is strictly non-authoritative.\x1b[0m');
+    console.log('  This artifact is for human consumption only and must never be used as operational input.\n');
+
+    const service = new StatusReportService(this.taskRepository, this.rootPath);
+    const report = await service.generateReport();
+    const markdown = service.generateMarkdown(report);
+
+    await service.publish('README.md', markdown);
+    await service.publish('docs/ROADMAP.md', markdown);
 
     console.log('');
   }

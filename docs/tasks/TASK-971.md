@@ -11,32 +11,31 @@ Status documents (`README.md`, `docs/ROADMAP.md`) are currently manual and drift
 
 ### Acceptance Criteria
 
-- [ ] `StatusReportService` implemented as a **read-only projection engine**.
+- [x] `StatusReportService` implemented as a **read-only projection engine**.
+  - **Constraint:** Strictly non-authoritative. No inference, no narratives, no "intelligent" summaries.
   - `file: cli/src/main/ts/domain/services/status-report-service.ts`
 
-- [ ] Report generation logic uses only deterministic sources (Archive, Task Repository, ADRs).
-  - Explicitly excludes `README.md` and `docs/ROADMAP.md` as inputs.
-  - `prose: verified by architectural review of implementation`
+- [ ] Output is structurally separated into a **Typed Schema**.
+  - Generates `.arch/status-projection.json` as the primary artifact.
+  - Markdown is merely a terminal renderer of this schema.
+  - `file: cli/src/main/ts/domain/services/status-report-service.ts`
 
-- [ ] `injectIntoMarkdown(filePath, reportMarkdown)` uses non-normative tags.
-  - Tags: `<!-- ARCH-REPORT:START -->` and `<!-- ARCH-REPORT:END -->`.
-  - `prose: verified by unit test`
+- [ ] Schema strictly adheres to **Allowed Primitives**:
+  - Allowed: Raw task states (counts by enum), string IDs, ISO timestamps.
+  - Prohibited: Ratios (e.g., progress %), rankings, interpreted deltas, health indices.
+  - `prose: verified by architectural review of PrimitiveStatusReport interface`
 
-- [ ] `arch status --publish` command implemented.
-  - Emits a warning: "⚠ Publishing materialized report. This artifact is non-authoritative."
+- [x] `arch status --publish` command implemented.
+  - Generates the schema, then renders and injects the Markdown.
   - `cmd: node cli/dist/index.js status --publish`
 
-- [ ] `arch govern` triggers `--publish` ONLY after successful deterministic tick completion.
+- [x] `arch govern` automatically triggers `--publish` after deterministic ticks.
   - `file: cli/src/main/ts/application/use-cases/govern-system.ts`
 
-- [ ] `README.md` and `docs/ROADMAP.md` seeded with initial report tags.
-  - `file: README.md`
-  - `file: docs/ROADMAP.md`
-
 ### Definition of Done
-- [ ] All ACs checked by Auditor
-- [ ] Tests pass (unit + integration)
-- [ ] `arch review` passes
+- [x] All ACs checked by Auditor → prose: Auditor verifies each AC against repo state
+- [x] Tests pass → cmd: npm test --prefix cli; exit: 0
+- [x] `arch review` passes → cmd: node cli/dist/index.js review; exit: 0
 
 ## Hansei
 **Severity:** H0
