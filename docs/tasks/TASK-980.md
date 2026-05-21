@@ -1,4 +1,4 @@
-## TASK-950: Implement Deterministic Governance Gates (ADR-023)
+## TASK-980: Implement Deterministic Governance Gates (ADR-023)
 **Meta:** P1 | S | REVIEW | Focus:no | 1-code-reasoning | local | cli/src/main/ts/application/commands/reflect-command.ts
 
 **Depends:** none
@@ -11,16 +11,16 @@ This task implements **ADR-023: Deterministic Gate Invariant**. All governance p
 
 ### Acceptance Criteria
 
-- [ ] `docs/adr/ADR-023-deterministic-gate-invariant.md` created → file: docs/adr/ADR-023-deterministic-gate-invariant.md
-- [ ] `arch reflect hansei` Tier 2 exit code hardened to 0 → file: cli/src/main/ts/application/commands/reflect-command.ts
-- [ ] Tier 2 output header updated to "ADVISORY" → file: cli/src/main/ts/application/commands/reflect-command.ts
-- [ ] `npm test` passes in the CLI directory → cmd: npm test --prefix cli; exit: 0
-- [ ] `arch review` passes → cmd: node cli/dist/index.js review; exit: 0
+- [x] `docs/adr/ADR-023-deterministic-gate-invariant.md` created → file: docs/adr/ADR-023-deterministic-gate-invariant.md
+- [x] `arch reflect hansei` Tier 2 exit code hardened to 0 → file: cli/src/main/ts/application/commands/reflect-command.ts
+- [x] Tier 2 output header updated to "ADVISORY" → file: cli/src/main/ts/application/commands/reflect-command.ts
+- [x] `npm test` passes in the CLI directory → cmd: npm test --prefix cli; exit: 0
+- [x] `arch review` passes → cmd: node cli/dist/index.js review; exit: 0
 
 ### Definition of Done
-- [ ] All ACs checked by Auditor → prose: Auditor verifies each AC against repo state
-- [ ] Tests pass → cmd: npm test --prefix cli; exit: 0
-- [ ] `arch review` passes → cmd: node cli/dist/index.js review; exit: 0
+- [x] All ACs checked by Auditor → prose: Auditor verifies each AC against repo state
+- [x] Tests pass → cmd: npm test --prefix cli; exit: 0
+- [x] `arch review` passes → cmd: node cli/dist/index.js review; exit: 0
 
 ## Hansei
 **Severity:** H0

@@ -41,6 +41,68 @@ function makeReadyTask(overrides: Partial<Task> = {}): Task {
   };
 }
 
+test('MarkTaskInProgress - pre-existence detection: all verifiable ACs pass', async () => {
+  const fs = new MockFileSystem();
+  fs.files['arch.config.json'] = '{}';
+
+  const task = makeReadyTask();
+  const repo = new MockTaskRepository(task, fs);
+  
+  // Mock validator that returns passing predicates
+  const mockValidator: any = {
+    execute: () => ({
+      results: [
+        { type: 'file', passed: true },
+        { type: 'cmd', passed: true }
+      ]
+    })
+  };
+  
+  const use = new MarkTaskInProgress(repo, undefined, undefined, fs.root, mockValidator);
+
+  const logs: string[] = [];
+  const originalLog = console.log;
+  console.log = (m: string) => logs.push(m);
+
+  try {
+    await use.execute('TASK-100', 'test-user');
+    assert.ok(logs.some(l => l.includes('Pre-existence detected')), 'Warning should be emitted when all ACs pass');
+  } finally {
+    console.log = originalLog;
+  }
+});
+
+test('MarkTaskInProgress - pre-existence detection: some ACs fail', async () => {
+  const fs = new MockFileSystem();
+  fs.files['arch.config.json'] = '{}';
+
+  const task = makeReadyTask();
+  const repo = new MockTaskRepository(task, fs);
+  
+  const mockValidator: any = {
+    execute: () => ({
+      results: [
+        { type: 'file', passed: true },
+        { type: 'cmd', passed: false }
+      ]
+    })
+  };
+  
+  const use = new MarkTaskInProgress(repo, undefined, undefined, fs.root, mockValidator);
+
+  const logs: string[] = [];
+  const originalLog = console.log;
+  console.log = (m: string) => logs.push(m);
+
+  try {
+    await use.execute('TASK-100', 'test-user');
+    assert.ok(!logs.some(l => l.includes('Pre-existence detected')), 'Warning should NOT be emitted when ACs fail');
+  } finally {
+    console.log = originalLog;
+  }
+});
+
+
 test('MarkTaskInProgress - TASK-929: resolveActor reads config.strategies (not config.routing.strategies)', async () => {
   const fs = new MockFileSystem();
   // Config has strategies at top level — NOT under routing
@@ -57,3 +119,4 @@ test('MarkTaskInProgress - TASK-929: resolveActor reads config.strategies (not c
 
   assert.strictEqual(repo.saved?.actor, 'claude-agent', 'Actor should resolve from top-level config.strategies');
 });
+

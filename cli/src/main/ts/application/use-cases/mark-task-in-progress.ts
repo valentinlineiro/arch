@@ -2,6 +2,7 @@ import { TaskRepository } from '../../domain/repositories/task-repository.js';
 import { TaskStatus } from '../../domain/models/task.js';
 import { EventRepository } from '../../domain/models/event.js';
 import type { GitRepository } from '../../domain/repositories/git-repository.js';
+import { ValidateTaskAcs } from './validate-task-acs.js';
 import crypto from 'node:crypto';
 
 export class DefinitionOfReadyError extends Error {
@@ -16,6 +17,8 @@ export class MarkTaskInProgress {
     private taskRepository: TaskRepository,
     private eventRepository?: EventRepository,
     private gitRepository?: GitRepository,
+    private rootPath: string = '.',
+    private validator?: ValidateTaskAcs,
   ) {}
 
   async execute(taskId: string, user: string) {
@@ -72,42 +75,19 @@ export class MarkTaskInProgress {
   private async checkPreExistence(task: any): Promise<boolean> {
     if (!task.content) return false;
 
-    // Extract file: and cmd: predicates from ACs
-    const filePredicates: string[] = [];
-    const cmdPredicates: string[] = [];
-    const predicateRe = /`(file|cmd):\s*([^`]+)`/g;
-    let m;
-    while ((m = predicateRe.exec(task.content)) !== null) {
-      const type = m[1];
-      const value = m[2].trim().split(';')[0].trim(); // strip ; exit: N
-      if (type === 'file') filePredicates.push(value);
-      else if (type === 'cmd') cmdPredicates.push(value);
-    }
+    // Use ValidateTaskAcs for robust predicate checking
+    const validator = this.validator ?? new ValidateTaskAcs(this.rootPath, 5000); // 5s timeout per AC
+    const result = validator.execute(task.content, task.id);
 
-    if (filePredicates.length === 0 && cmdPredicates.length === 0) return false;
+    // Verifiable ACs are those with file, cmd, or grep predicates
+    const verifiableResults = result.results.filter(r => ['file', 'cmd', 'grep'].includes(r.type));
 
-    // Check file predicates
-    const { existsSync } = await import('node:fs');
-    for (const filePath of filePredicates) {
-      if (!existsSync(filePath)) return false; // at least one doesn't exist
-    }
+    // If no verifiable ACs exist, we can't detect pre-existence
+    if (verifiableResults.length === 0) return false;
 
-    // Check cmd predicates (with timeout, non-blocking)
-    if (cmdPredicates.length > 0) {
-      const { execSync } = await import('node:child_process');
-      for (const cmd of cmdPredicates) {
-        try {
-          execSync(cmd, { stdio: 'ignore', timeout: 5000 });
-        } catch {
-          return false; // at least one cmd fails
-        }
-      }
-    }
-
-    // All verifiable ACs already pass — pre-existence detected
-    return filePredicates.length + cmdPredicates.length > 0;
+    // Pre-existence is detected ONLY if ALL verifiable ACs pass
+    return verifiableResults.every(r => r.passed);
   }
-
   private checkDefinitionOfReady(task: { id: string; priority: string; size: string; class: string; cli: string; context: string[]; acceptanceCriteria?: { description: string }[]; content: string }): string[] {
     const reasons: string[] = [];
 
@@ -132,6 +112,7 @@ export class MarkTaskInProgress {
 
     return reasons;
   }
+
   private async resolveActor(taskClass: string): Promise<string> {
     try {
       const configRaw = await (this as any).taskRepository?.fileSystem?.readFile?.('arch.config.json') ?? '{}';
@@ -146,7 +127,7 @@ export class MarkTaskInProgress {
       return 'unknown';
     }
   }
-
 }
+
 
 
