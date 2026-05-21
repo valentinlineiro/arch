@@ -1,5 +1,6 @@
 ## TASK-983: Fix EACCES permission crash in audit command
-**Meta:** P3 | XS | IN_PROGRESS | Focus:yes | 2-code-generation | local | docs/tasks/
+**Meta:** P3 | XS | DONE | Focus:no | 2-code-generation | local | docs/tasks/
+**Closed-at:** 2026-05-21T15:16:33.694Z
 **Actor:** unknown
 **Created-at:** 2026-05-21T15:16:07.034Z
 **Depends:** none
