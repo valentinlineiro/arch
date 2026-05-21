@@ -1,16 +1,15 @@
 
 import { execSync } from 'node:child_process';
-import { existsSync, mkdtempSync, rmSync, writeFileSync, mkdirSync } from 'node:fs';
+import { existsSync, mkdtempSync, rmSync, writeFileSync, mkdirSync, readFileSync, readdirSync, statSync } from 'node:fs';
 import { tmpdir } from 'node:os';
-import { join, resolve } from 'node:path';
+import { join, resolve, extname } from 'node:path';
 import { NodeFileSystem } from '../../infrastructure/filesystem/node-file-system.js';
-import { StructuralExtractor } from '../../domain/services/structural-extractor.js';
-import { SubsystemClusterer } from '../../domain/services/subsystem-clusterer.js';
-import { BehavioralProfiler } from '../../domain/services/behavioral-profiler.js';
-import { RoleInferenceEngine } from '../../domain/services/role-inference-engine.js';
-import { RiskDetector } from '../../domain/services/risk-detector.js';
-import { InstrumentationPlanner } from '../../domain/services/instrumentation-planner.js';
-import { ARCHDeploymentMap, Subsystem, Risk, InstrumentationPlan } from '../../domain/models/deployment-map.js';
+import { TypeScriptAdapter } from '../../domain/services/typescript-adapter.js';
+import { JavaAdapter } from '../../domain/services/java-adapter.js';
+import { UEGIRBuilder } from '../../domain/services/ueg-ir-builder.js';
+import { UEGAnalysisLayer } from '../../domain/services/ueg-analysis-layer.js';
+import { ARCHDeploymentMap, UEGGraph, UEGGraphFragment } from '../../domain/models/ueg-ir.js';
+import { LanguageAdapter } from '../../domain/services/ueg-interfaces.js';
 
 export class AuditCommand {
   async execute(args: string[]): Promise<void> {
@@ -26,7 +25,6 @@ export class AuditCommand {
       try {
         execSync(`git clone --depth 1 "${target}" "${tmpDir}"`, { stdio: 'pipe' });
         repoPath = tmpDir;
-        console.log(`  Cloned to ${tmpDir}\n`);
       } catch (e: any) {
         if (tmpDir) rmSync(tmpDir, { recursive: true, force: true });
         process.stderr.write(`  Failed to clone: ${e.message}\n`);
@@ -48,116 +46,121 @@ export class AuditCommand {
   }
 
   private async runAudit(repoPath: string, opts: { verbose: boolean }): Promise<void> {
-    const fs = new NodeFileSystem();
-    console.log(`\n  \x1b[32mARCH\x1b[0m — Repository Audit (v1.0)\n`);
-    console.log(`  Path: ${repoPath}\n`);
+    console.log(`\n  \x1b[32mARCH\x1b[0m — Language-Agnostic Audit (v1.1)\n`);
+    
+    const adapters: LanguageAdapter[] = [
+      new TypeScriptAdapter(),
+      new JavaAdapter(),
+    ];
 
-    // ── Step 1: Structural Extraction ─────────────────────────────────────
-    process.stdout.write('  [1/6] Extracting structural metadata...');
-    const extractor = new StructuralExtractor(fs, repoPath);
-    const structural = await extractor.extract();
-    process.stdout.write(` ${structural.files.length} files, ${structural.graph.edges.length} edges\n`);
+    const fragments: UEGGraphFragment[] = [];
+    const languageCoverage = new Set<string>();
 
-    // ── Step 2: Subsystem Clustering ──────────────────────────────────────
-    process.stdout.write('  [2/6] Clustering subsystem boundaries...');
-    const clusterer = new SubsystemClusterer();
-    let subsystems = clusterer.cluster(structural.files, structural.graph);
-    process.stdout.write(` ${subsystems.length} clusters identified\n`);
+    const files = this.listAllFiles(repoPath);
+    console.log(`  [1/4] Extracting UEG fragments from ${files.length} files...`);
 
-    // ── Step 3: Behavioral Profiling ──────────────────────────────────────
-    process.stdout.write('  [3/6] Computing behavioral profiles...');
-    const profiler = new BehavioralProfiler(fs, repoPath);
-    subsystems = await profiler.profile(subsystems);
-    process.stdout.write(' done\n');
+    for (const file of files) {
+      const ext = extname(file).toLowerCase();
+      const adapter = adapters.find(a => a.supportedExtensions.includes(ext));
+      if (adapter) {
+        try {
+          const content = readFileSync(join(repoPath, file), 'utf8');
+          const fragment = await adapter.parse(file, content);
+          fragments.push(fragment);
+          languageCoverage.add(adapter.language);
+        } catch { /* skip */ }
+      }
+    }
 
-    // ── Step 4: Role Inference ───────────────────────────────────────────
-    process.stdout.write('  [4/6] Inferring subsystem roles...');
-    const inference = new RoleInferenceEngine();
-    subsystems = inference.infer(subsystems);
-    process.stdout.write(' done\n');
+    console.log(`  [2/4] Merging Unified Epistemic Graph IR...`);
+    const builder = new UEGIRBuilder();
+    const graph = builder.merge(fragments, Array.from(languageCoverage));
 
-    // ── Step 5: Risk Detection ───────────────────────────────────────────
-    process.stdout.write('  [5/6] Detecting structural risks...');
-    const riskDetector = new RiskDetector();
-    const risks = riskDetector.detect(subsystems, structural.graph);
-    process.stdout.write(` ${risks.length} hotspots detected\n`);
-
-    // ── Step 6: Instrumentation Mapping ──────────────────────────────────
-    process.stdout.write('  [6/6] Mapping instrumentation points...');
-    const planner = new InstrumentationPlanner();
-    const plan = planner.plan(subsystems, risks, structural);
-    process.stdout.write(` ${plan.recommendedHooks.length} hooks recommended\n\n`);
+    console.log(`  [3/4] Running non-authoritative analysis layers...`);
+    const analysis = new UEGAnalysisLayer();
+    const subsystems = analysis.generateSubsystemViews(graph);
+    const risks = analysis.detectRisks(graph);
+    const instrumentation = analysis.planInstrumentation(graph, risks);
 
     const map: ARCHDeploymentMap = {
-      repository: {
-        languages: structural.languages,
-        entrypoints: structural.entrypoints,
-        buildSystem: structural.buildSystem,
-      },
+      graph,
       subsystems,
-      dependencyGraph: structural.graph,
-      riskMap: risks,
-      instrumentationPlan: plan,
+      risks,
+      instrumentation,
     };
 
+    console.log(`  [4/4] Generating structural deployment map...\n`);
     this.render(map, opts.verbose);
 
     // Cache audit result
     try {
       const archDir = `${repoPath}/.arch`;
       if (!existsSync(archDir)) mkdirSync(archDir, { recursive: true });
-      writeFileSync(`${archDir}/deployment-map.json`, JSON.stringify(map, null, 2));
+      writeFileSync(`${archDir}/deployment-map-v1.1.json`, JSON.stringify(map, null, 2));
     } catch { /* non-blocking */ }
   }
 
-  private render(map: ARCHDeploymentMap, verbose: boolean): void {
-    // 1. Repository Overview
-    console.log(`  \x1b[1mREPOSITORY OVERVIEW\x1b[0m`);
-    console.log(`    Languages:    ${map.repository.languages.join(', ')}`);
-    console.log(`    Build System: ${map.repository.buildSystem.join(', ')}`);
-    console.log(`    Entrypoints:  ${map.repository.entrypoints.join(', ') || 'none detected'}\n`);
-
-    // 2. Subsystems
-    console.log(`  \x1b[1mSUBSYSTEM DEPLOYMENT MAP (${map.subsystems.length})\x1b[0m`);
-    const sortedSubsystems = [...map.subsystems].sort((a, b) => b.files.length - a.files.length);
-    for (const s of sortedSubsystems.slice(0, 10)) {
-      const p = s.behavioralProfile;
-      console.log(`    \x1b[36m${s.id.padEnd(20)}\x1b[0m — ${s.inferredRole.label}`);
-      if (verbose) {
-        console.log(`      \x1b[90mSignals: ${s.inferredRole.basis.join(', ') || 'none'}\x1b[0m`);
-        console.log(`      \x1b[90mProfile: IO:${p.ioIntensity} | Async:${p.asyncDensity} | Mutation:${p.stateMutationDensity} | Config:${p.configDependency}\x1b[0m`);
+  private listAllFiles(dir: string, base: string = ''): string[] {
+    const entries = readdirSync(dir);
+    let files: string[] = [];
+    for (const entry of entries) {
+      if (['node_modules', '.git', 'dist', '.arch', 'docs'].includes(entry)) continue;
+      const fullPath = join(dir, entry);
+      const relPath = join(base, entry);
+      if (statSync(fullPath).isDirectory()) {
+        files = files.concat(this.listAllFiles(fullPath, relPath));
+      } else {
+        files.push(relPath);
       }
     }
-    if (map.subsystems.length > 10) console.log(`    ... and ${map.subsystems.length - 10} more subsystems.`);
+    return files;
+  }
+
+  private render(map: ARCHDeploymentMap, verbose: boolean): void {
+    const { graph, subsystems, risks, instrumentation } = map;
+
+    // 1. Graph Overview
+    console.log(`  \x1b[1mUNIFIED EPISTEMIC GRAPH OVERVIEW\x1b[0m`);
+    console.log(`    Entities:     ${graph.entities.length}`);
+    console.log(`    Edges:        ${graph.edges.length}`);
+    console.log(`    Languages:    ${graph.metadata.languageCoverage.join(', ')}`);
+    console.log(`    Completeness: ${graph.metadata.completeness}\n`);
+
+    // 2. Subsystem Views (Emergent only, no roles)
+    console.log(`  \x1b[1mEMERGENT SUBSYSTEM VIEWS (${subsystems.length})\x1b[0m`);
+    // Note: No sorting or ranking as per v1.1 constraint 8.1
+    for (const s of subsystems.slice(0, 5)) {
+      console.log(`    \x1b[36mStructural View:\x1b[0m ${s.entities.length} entities, ${s.relations.length} relations`);
+      if (verbose) {
+        const topEntities = s.entities.slice(0, 3).map(e => e.name).join(', ');
+        console.log(`      \x1b[90mSample: ${topEntities}...\x1b[0m`);
+      }
+    }
+    if (subsystems.length > 5) console.log(`    ... and ${subsystems.length - 5} more views.`);
     console.log('');
 
-    // 3. Structural Risks
-    if (map.riskMap.length > 0) {
-      console.log(`  \x1b[31m\x1b[1mSTRUCTURAL RISKS (${map.riskMap.length})\x1b[0m`);
-      for (const risk of map.riskMap) {
-        const severityColor = risk.severity === 'HIGH' ? '\x1b[31m' : '\x1b[33m';
-        console.log(`    ${severityColor}[${risk.type}]\x1b[0m ${risk.locations[0]}`);
-        console.log(`    \x1b[90m→ ${risk.description}\x1b[0m`);
+    // 3. Structural Risks (Descriptive only, no severity levels)
+    if (risks.length > 0) {
+      console.log(`  \x1b[31m\x1b[1mSTRUCTURAL OBSERVATIONS (${risks.length})\x1b[0m`);
+      for (const risk of risks.slice(0, 5)) {
+        console.log(`    \x1b[31m[${risk.type}]\x1b[0m ${risk.entities[0]}`);
+        console.log(`    \x1b[90mObservation: ${risk.observation}\x1b[0m`);
+        console.log(`    \x1b[90mCondition:   ${risk.structuralCondition}\x1b[0m`);
       }
       console.log('');
     }
 
-    // 4. Instrumentation Plan
-    console.log(`  \x1b[32m\x1b[1mARCH INSTRUMENTATION PLAN\x1b[0m`);
-    console.log(`    High Priority:   ${map.instrumentationPlan.highPriority.length} zones`);
-    console.log(`    Medium Priority: ${map.instrumentationPlan.mediumPriority.length} zones`);
-    console.log(`    Low Priority:    ${map.instrumentationPlan.lowPriority.length} zones\n`);
-
-    console.log(`    \x1b[1mRecommended Hooks (${map.instrumentationPlan.recommendedHooks.length}):\x1b[0m`);
-    for (const hook of map.instrumentationPlan.recommendedHooks.slice(0, 8)) {
-      console.log(`    \x1b[32m[${hook.type.padEnd(22)}]\x1b[0m ${hook.location}`);
-      if (verbose) console.log(`      \x1b[90mReason: ${hook.reason}\x1b[0m`);
+    // 4. Instrumentation Suggestions (Unordered)
+    console.log(`  \x1b[32m\x1b[1mINSTRUMENTATION SUGGESTIONS (${instrumentation.length})\x1b[0m`);
+    for (const suggest of instrumentation.slice(0, 5)) {
+      console.log(`    \x1b[32m[${suggest.hookType.padEnd(22)}]\x1b[0m ${suggest.entityId}`);
+      if (verbose) console.log(`      \x1b[90mReason: ${suggest.reason}\x1b[0m`);
     }
-    if (map.instrumentationPlan.recommendedHooks.length > 8) {
-      console.log(`    ... and ${map.instrumentationPlan.recommendedHooks.length - 8} more recommendations.`);
+    if (instrumentation.length > 5) {
+      console.log(`    ... and ${instrumentation.length - 5} more suggestions.`);
     }
     console.log('');
 
-    console.log(`  \x1b[90mNote: This map is generated from structural and behavioral signals. Labels are hypotheses, not truth claims.\x1b[0m\n`);
+    console.log(`  \x1b[90mNote: ARCH v1.1 is a structural decomposition engine. Labels and views are emergent lenses, not truth claims.\x1b[0m\n`);
   }
 }
