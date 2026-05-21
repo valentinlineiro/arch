@@ -346,3 +346,4 @@
 {"escalation_id":"E-status-1716300006","timestamp":"2026-05-21T15:20:06Z","type":"AWAITING_PROMOTION","subject":"IDEA-status-doc-refresh","reason":"Surfaced for human decision","status":"OPEN"}
 {"escalation_id":"E-think-1716300007","timestamp":"2026-05-21T15:20:07Z","type":"AWAITING_PROMOTION","subject":"IDEA-think-generated-proposals","reason":"Surfaced for human decision","status":"OPEN"}
 {"escalation_id":"E-verif-1716300008","timestamp":"2026-05-21T15:20:08Z","type":"AWAITING_PROMOTION","subject":"IDEA-verifiability-first-templates","reason":"Surfaced for human decision","status":"OPEN"}
+{"escalation_id":"e-55555555-4444-3333-2222-111111111111","timestamp":"2026-05-21T15:46:00Z","type":"AWAITING_PROMOTION","subject":"IDEA-automate-govern-metadata-flush","reason":"Idea refinement pending human decision","status":"OPEN"}
