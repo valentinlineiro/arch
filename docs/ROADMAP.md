@@ -2,6 +2,9 @@
 <!-- ARCH Strategic Roadmap | v1.0.0 → 2.0 -->
 <!-- Updated: 2026-05-18 -->
 
+<!-- ARCH-REPORT:START -->
+<!-- ARCH-REPORT:END -->
+
 ## Identity
 
 > **ARCH is a git-native operational protocol for human+AI collaborative work.**

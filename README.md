@@ -33,6 +33,11 @@ d9d41db chore: pivot CLI migration from Python to Node.js [TASK-027]
 
 ---
 
+## Status
+
+<!-- ARCH-REPORT:START -->
+<!-- ARCH-REPORT:END -->
+
 ## The problem
 
 AI CLIs exist. Standards like `AGENTS.md` and `MCP` exist. What doesn't exist is a **method** for operating work with multiple AI agents across a whole organization — one that:
