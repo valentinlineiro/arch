@@ -3878,7 +3878,7 @@
       "title": "Unified Epistemic Invariant Specification — Bounded Stream Enforcement"
     }
   },
-  "builtAt": "2026-05-21T07:54:31.337Z",
+  "builtAt": "2026-05-21T08:15:15.684Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -7629,6 +7629,25 @@
         "stateless"
       ]
     },
+    "cli/src/main/ts/domain/services/status-report-service.ts": {
+      "criticality": "core",
+      "imports": [
+        "cli/src/main/ts/domain/models/task.ts",
+        "cli/src/main/ts/domain/repositories/task-repository.ts"
+      ],
+      "runtimeUsage": "cold",
+      "symbols": [
+        "StatusReport",
+        "StatusReportService"
+      ],
+      "tags": [
+        "domain",
+        "report",
+        "service",
+        "services",
+        "status"
+      ]
+    },
     "cli/src/main/ts/domain/services/task-validator.ts": {
       "criticality": "core",
       "imports": [
@@ -9869,9 +9888,9 @@
       }
     },
     "TASK-966": {
-      "commitCount": 10,
+      "commitCount": 11,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-21T09:54:30+02:00",
+      "lastCommitDate": "2026-05-21T10:15:13+02:00",
       "recentCommitRefs": [
         "044acf6a",
         "1642d844",
@@ -9879,6 +9898,7 @@
         "352ab3a4",
         "4ee462fb",
         "686d36aa",
+        "8240442d",
         "8ab92fb8",
         "a3227691",
         "ac0e2be6",
@@ -9886,7 +9906,7 @@
       ],
       "touchedFrequency": {
         ".arch/corpus-index.json": 1,
-        ".arch/focus-ledger.jsonl": 9,
+        ".arch/focus-ledger.jsonl": 10,
         ".arch/reflect-breach-log.jsonl": 1,
         "docs/METRICS.md": 1,
         "docs/tasks/TASK-966.md": 1
