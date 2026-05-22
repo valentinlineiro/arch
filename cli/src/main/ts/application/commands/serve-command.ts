@@ -1,9 +1,10 @@
+import { Command } from '../../domain/models/command.js';
 import http from 'node:http';
 import fs from 'node:fs';
 import path from 'node:path';
 import { URL } from 'node:url';
 
-export class ServeCommand {
+export class ServeCommand implements Command {
   constructor(private rootPath: string = '.') {}
 
   async execute(args: string[] = []): Promise<void> {

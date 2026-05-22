@@ -28,7 +28,7 @@
    - **Telemetry:** Finally, print `Turns: [count]` and `Cost: $[amount]` to stdout for loop tracking.
 7. **Auditor Step (human-supervised — not an automated loop):**
    - The human reads `docs/INBOX.md` for `REVIEW_REQUEST` entries, then starts a fresh Auditor session.
-   - Run `arch review` and verify each AC against actual repository state.
+   - Run `arch check` and verify each AC against actual repository state.
    - If pass: Append `REVIEW_PASS` to `docs/INBOX.md`, set status to `DONE`.
    - If fail: Append `REVIEW_FAIL` to `docs/INBOX.md` with evidence, set status back to `READY` (Focus:no).
    - Only an Auditor can move a task to `docs/archive/`.
@@ -79,7 +79,7 @@
 ## Andon Cord (Halt Conditions)
 The autonomous execution loop must halt and yield to a human when any of these conditions are met:
 
-1. **Review Failure Loop:** If `arch review` fails 3 consecutive times on the same task.
+1. **Review Failure Loop:** If `arch check` fails 3 consecutive times on the same task.
 2. **Budget Exceeded:** If the task turn count exceeds the Muri threshold for its size (see `arch.config.json`).
 3. **EXEC Timeout:** If the `EXEC` phase exceeds the configured timeout (default: 10 minutes) without returning. Configurable via `governance.execTimeoutMinutes` in `arch.config.json`.
 4. **Major Change / Protected Path:** If implementation requires touching a `protectedPath` or triggers a MAJOR architectural change without a prior ADR.
@@ -104,7 +104,7 @@ These boundaries define which tools can be invoked autonomously in CI environmen
 
 | Size | Close command | Hansei | REVIEW stage |
 |------|--------------|--------|--------------|
-| XS   | `arch task done TASK-XXX` | Not required | Skipped — direct to DONE when `arch review` passes |
+| XS   | `arch task done TASK-XXX` | Not required | Skipped — direct to DONE when `arch check` passes |
 | S    | `arch task done TASK-XXX` | Optional | Required only if present in task |
 | M    | `arch task done TASK-XXX` | Required — wizard runs | Required |
 | L    | `arch task done TASK-XXX` | Required — wizard runs | Required + Auditor |

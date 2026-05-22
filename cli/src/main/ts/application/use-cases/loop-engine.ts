@@ -6,7 +6,7 @@ import { DriftChecker } from '../use-cases/drift-checker.js';
 import { Task, TaskStatus } from '../../domain/models/task.js';
 import { SelectNextTask } from './select-next-task.js';
 import { GovernSystem } from './govern-system.js';
-import { ReviewSystem } from './review-system.js';
+import { CheckSystem } from './check-system.js';
 import { MarkTaskDone } from './mark-task-done.js';
 import { EscalationStore } from './escalation-store.js';
 import { NodeFeedbackRepository } from '../../infrastructure/filesystem/node-feedback-repository.js';
@@ -34,7 +34,7 @@ export class LoopEngine {
   private sprintAndonCount = 0;
   private checkpointWritten = false;
   private governSystem: GovernSystem;
-  private reviewSystem: ReviewSystem;
+  private checkSystem: CheckSystem;
   private markTaskDone: MarkTaskDone;
 
   constructor(
@@ -46,7 +46,7 @@ export class LoopEngine {
     private providerRegistry?: ProviderRegistry
   ) {
     this.governSystem = new GovernSystem(taskRepository, gitRepository, fileSystem);
-    this.reviewSystem = new ReviewSystem(taskRepository, gitRepository, reviewer, fileSystem, driftChecker);
+    this.checkSystem = new CheckSystem(taskRepository, gitRepository, reviewer, fileSystem, driftChecker);
     this.markTaskDone = new MarkTaskDone(taskRepository, reviewer, fileSystem, undefined, new NodeFeedbackRepository(fileSystem));
   }
 
@@ -240,7 +240,7 @@ export class LoopEngine {
 
       // 4. REVIEW — in-process check; track consecutive failures per task
       this.log(`[LOOP] Phase: REVIEW (${task.id})`);
-      const reviewResult = await this.reviewSystem.execute();
+      const reviewResult = await this.checkSystem.execute();
 
       if (!reviewResult.success) {
         const failures = (this.reviewFailures.get(task.id) ?? 0) + 1;

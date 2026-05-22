@@ -10,7 +10,7 @@ import { parseLedger } from '../use-cases/focus-ledger.js';
 import { spawnSync } from 'node:child_process';
 import fs from 'node:fs';
 
-export class ReflectCommand implements Command {
+export class AnalyzeCommand implements Command {
   constructor(private fileSystem: FileSystem, private rootPath: string, private taskRepository?: any) {}
 
   async execute(args: string[]): Promise<void> {
@@ -41,7 +41,7 @@ export class ReflectCommand implements Command {
     }
 
     console.log([
-      'Usage: arch reflect [--deep] [subcommand]',
+      'Usage: arch analyze [--deep] [subcommand]',
       '',
       'Flags:',
       '  --deep      Run full analysis including Phase 2.5 and Phase 3 (cadence-gated)',
@@ -58,7 +58,7 @@ export class ReflectCommand implements Command {
     const tier1Only = args.includes('--tier1-only');
     const taskId = args.find(a => /^TASK-\d+$/.test(a));
 
-    console.log('\n  ARCH — arch reflect --hansei: Hansei reconciliation');
+    console.log('\n  ARCH — arch analyze --hansei: Hansei reconciliation');
     console.log('  Authority: analysis only — proposals, never enforcement');
     console.log('  This is THINK mode. Output is ephemeral. No task state will be mutated.\n');
 
@@ -111,7 +111,7 @@ export class ReflectCommand implements Command {
       // If Tier 1 found undeclared drift, we STILL exit with 1 but may show Tier 2 for context.
       // Per ADR-023, Tier 1 is the machine authority.
     } catch (e: any) {
-      console.error('Error in arch reflect hansei (Tier 1):', e.message);
+      console.error('Error in arch analyze hansei (Tier 1):', e.message);
       process.exit(1);
     }
 
@@ -296,7 +296,7 @@ ${taskSections}`;
       }
     } catch { /* non-blocking — no ADRs, not a git repo, etc. */ }
 
-    console.log('  ARCH — arch reflect [analysis]: invoking THINK mode');
+    console.log('  ARCH — arch analyze [analysis]: invoking THINK mode');
     console.log('  Purpose: regenerate INBOX, surface Kaizen, refine ideas, detect semantic drift');
     console.log('  Authority: proposals only — never mutates task state, never satisfies policy gates');
 
@@ -338,7 +338,7 @@ ${taskSections}`;
       console.log(prompt);
       process.exit(0); // Advisory fallback
     } catch (e: any) {
-      console.error('Error in arch reflect (Advisory):', e.message);
+      console.error('Error in arch analyze (Advisory):', e.message);
       process.exit(0); // Error in advisory channel does not fail governance
     }
   }

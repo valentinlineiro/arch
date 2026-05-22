@@ -1,3 +1,4 @@
+import { Command } from '../../domain/models/command.js';
 import readline from 'node:readline/promises';
 import { PromoteIdea } from '../use-cases/promote-idea.js';
 import { TaskRepository } from '../../domain/repositories/task-repository.js';
@@ -5,7 +6,7 @@ import { FileSystem } from '../../domain/repositories/file-system.js';
 import { GitRepository } from '../../domain/repositories/git-repository.js';
 import * as fmt from '../../infrastructure/cli/output-formatter.js';
 
-export class PromoteCommand {
+export class PromoteCommand implements Command {
   private promoteIdea: PromoteIdea;
 
   constructor(

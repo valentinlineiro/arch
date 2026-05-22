@@ -31,12 +31,12 @@
 ### Detected Patterns & Risks
 1. **Organically captured work:** The arch.sh → npm transition was initiated as a debugging question ("why is there still a duality?") and produced 3 tasks (TASK-943, TASK-944, TASK-945) with no prior refinement. The work was sound but the capture happened mid-session rather than from the backlog. This pattern is acceptable for XS/S work; it would be a risk for M+.
 2. **Task title drift:** TASK-941 was titled "Verify Stripped Template Generation for Small Task" but implemented "capture deterministic by default." The title was a refinement artifact that was never updated at implementation time. `arch task capture` now generates the task — the title must reflect implementation intent, not the refinement question.
-3. **Regression undetected until triggered:** The `modePreamble is not defined` bug in `reflect-command.ts` existed in the committed codebase but was only surfaced when `arch govern` auto-triggered `arch reflect` at runtime. No test covered the `runAnalysis` code path. The fix was trivial; the detection was accidental.
+3. **Regression undetected until triggered:** The `modePreamble is not defined` bug in `reflect-command.ts` existed in the committed codebase but was only surfaced when `arch govern` auto-triggered `arch analyze` at runtime. No test covered the `runAnalysis` code path. The fix was trivial; the detection was accidental.
 4. **External analysis accuracy gradient:** A performance review correctly identified `getById` full-scan as a real bottleneck but incorrectly proposed lazy loading (misunderstanding the tsup bundle) and overstated sequential I/O latency as "seconds." Measured startup: 44ms. This illustrates that static code reading without running the system produces mixed-quality diagnoses.
 
 ### Proposed Guideline Additions
 - **Title at implementation, not refinement:** When a task's implementation scope diverges from its refinement title, update the title before the first IN_PROGRESS commit. A misleading title in the archive corrupts future `arch ask` retrieval.
-- **Smoke test for reflect path:** `arch govern reflect` must be verified to run without error as part of the release checklist. A runtime-only failure path with no test coverage will stay broken indefinitely.
+- **Smoke test for reflect path:** `arch analyze` must be verified to run without error as part of the release checklist. A runtime-only failure path with no test coverage will stay broken indefinitely.
 
 ### Next Sprint Focus
 Performance improvements sprint. Anchored on the `getById` full-scan bottleneck: direct path lookup by ID instead of scanning all 340 files. See backlog for scoped tasks.

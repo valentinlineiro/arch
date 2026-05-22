@@ -1,3 +1,4 @@
+import { Command } from '../../domain/models/command.js';
 import type { FileSystem } from '../../domain/repositories/file-system.js';
 
 const SENTINEL_LOG_PATH = 'docs/SENTINEL-LOG.md';
@@ -18,7 +19,7 @@ interface SentinelEntry {
   note: string;
 }
 
-export class SentinelCommand {
+export class SentinelCommand implements Command {
   constructor(private fileSystem: FileSystem) {}
 
   async execute(args: string[]): Promise<void> {

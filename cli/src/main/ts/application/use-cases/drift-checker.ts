@@ -10,7 +10,7 @@ export interface DriftResult {
   details: string[];
 }
 
-const CLI_COMMANDS = new Set(['review', 'task', 'inbox', 'merge-resolve', 'ask', 'causal', 'govern', 'reflect']);
+const CLI_COMMANDS = new Set(['check', 'status', 'trace', 'init', 'version', 'task', 'govern', 'analyze', 'memory']);
 const ROOT_RUNTIME_ARTIFACTS = new Set(['.codex']);
 
 export class DriftChecker {

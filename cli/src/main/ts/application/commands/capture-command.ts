@@ -1,3 +1,4 @@
+import { Command } from '../../domain/models/command.js';
 import type { TaskRepository } from '../../domain/repositories/task-repository.js';
 import type { FileSystem } from '../../domain/repositories/file-system.js';
 import type { GitRepository } from '../../domain/repositories/git-repository.js';
@@ -6,7 +7,7 @@ import { MarkTaskInProgress, DefinitionOfReadyError } from '../use-cases/mark-ta
 import { SemanticCollisionDetector } from '../use-cases/semantic-collision-detector.js';
 import { VerifiabilityScorer } from '../../domain/services/verifiability-scorer.js';
 
-export class CaptureCommand {
+export class CaptureCommand implements Command {
   constructor(
     private taskRepository: TaskRepository,
     private fileSystem: FileSystem,

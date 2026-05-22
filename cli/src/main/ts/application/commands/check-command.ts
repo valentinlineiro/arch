@@ -1,5 +1,5 @@
 import { Command } from '../../domain/models/command.js';
-import { ReviewSystem } from '../use-cases/review-system.js';
+import { CheckSystem } from '../use-cases/check-system.js';
 import type { TaskRepository } from '../../domain/repositories/task-repository.js';
 import type { GitRepository } from '../../domain/repositories/git-repository.js';
 import type { FileSystem } from '../../domain/repositories/file-system.js';
@@ -9,8 +9,8 @@ import { DeterministicACVerifier } from '../../domain/services/deterministic-ac-
 import { HanseiWizard } from '../use-cases/hansei-wizard.js';
 import * as fmt from '../../infrastructure/cli/output-formatter.js';
 
-export class ReviewCommand implements Command {
-  private useCase: ReviewSystem;
+export class CheckCommand implements Command {
+  private useCase: CheckSystem;
 
   constructor(
     private taskRepository: TaskRepository,
@@ -19,7 +19,7 @@ export class ReviewCommand implements Command {
     private driftChecker: DriftChecker,
     private fileSystem: FileSystem,
   ) {
-    this.useCase = new ReviewSystem(taskRepository, gitRepository, reviewer, fileSystem, driftChecker);
+    this.useCase = new CheckSystem(taskRepository, gitRepository, reviewer, fileSystem, driftChecker);
   }
 
 
@@ -100,7 +100,7 @@ export class ReviewCommand implements Command {
 
     const scope = isStaged ? 'delta' : isFull ? 'full' : 'hybrid';
     const system = isFast
-      ? new ReviewSystem(this.taskRepository, this.gitRepository, this.reviewer, this.fileSystem)
+      ? new CheckSystem(this.taskRepository, this.gitRepository, this.reviewer, this.fileSystem)
       : this.useCase;
     const result = await system.execute({ scope });
 

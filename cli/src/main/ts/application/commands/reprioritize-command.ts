@@ -1,3 +1,4 @@
+import { Command } from '../../domain/models/command.js';
 import type { TaskRepository } from '../../domain/repositories/task-repository.js';
 import type { FileSystem } from '../../domain/repositories/file-system.js';
 import { ReprioritizeCorpus } from '../use-cases/reprioritize-corpus.js';
@@ -7,7 +8,7 @@ function pad(s: string, n: number): string {
   return s.padEnd(n).slice(0, n);
 }
 
-export class ReprioritizeCommand {
+export class ReprioritizeCommand implements Command {
   constructor(
     private taskRepository: TaskRepository,
     private fileSystem: FileSystem,

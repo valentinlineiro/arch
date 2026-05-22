@@ -1,4 +1,5 @@
 
+import { Command } from '../../domain/models/command.js';
 import { execSync } from 'node:child_process';
 import { existsSync, mkdtempSync, rmSync, writeFileSync, mkdirSync, readFileSync, readdirSync, statSync } from 'node:fs';
 import { tmpdir } from 'node:os';
@@ -12,7 +13,7 @@ import { UEGAnalysisLayer } from '../../domain/services/ueg-analysis-layer.js';
 import { ARCHDeploymentMap, UEGGraph, UEGGraphFragment } from '../../domain/models/ueg-ir.js';
 import { LanguageAdapter } from '../../domain/services/ueg-interfaces.js';
 
-export class AuditCommand {
+export class AuditCommand implements Command {
   async execute(args: string[]): Promise<void> {
     const target = args[0] ?? '.';
     const verbose = args.includes('--verbose') || args.includes('-v');

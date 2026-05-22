@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert';
-import { ReviewSystem } from '../../main/ts/application/use-cases/review-system.js';
+import { CheckSystem } from '../../main/ts/application/use-cases/check-system.js';
 import { Reviewer } from '../../main/ts/domain/services/reviewer.js';
 import { TaskStatus } from '../../main/ts/domain/models/task.js';
 
@@ -61,9 +61,9 @@ class StubFileSystem {
   async deleteFile(_p: string) {}
 }
 
-test('ReviewSystem does not validate archived tasks', async () => {
+test('CheckSystem does not validate archived tasks', async () => {
   const repo = new SpyTaskRepository();
-  const system = new ReviewSystem(repo as any, new StubGitRepository() as any, new Reviewer(), new StubFileSystem() as any);
+  const system = new CheckSystem(repo as any, new StubGitRepository() as any, new Reviewer(), new StubFileSystem() as any);
 
   const result = await system.execute();
 
@@ -75,7 +75,7 @@ test('ReviewSystem does not validate archived tasks', async () => {
   );
 });
 
-test('ReviewSystem still validates active DONE/REVIEW tasks with pending ACs', async () => {
+test('CheckSystem still validates active DONE/REVIEW tasks with pending ACs', async () => {
   for (const status of [TaskStatus.DONE, TaskStatus.REVIEW]) {
     const activeTaskWithPendingAC = {
       ...ACTIVE_TASK,
@@ -93,7 +93,7 @@ test('ReviewSystem still validates active DONE/REVIEW tasks with pending ACs', a
       async getNextId() { return 'TASK-999'; }
     }
 
-    const system = new ReviewSystem(new RepoWithPendingTask() as any, new StubGitRepository() as any, new Reviewer(), new StubFileSystem() as any);
+    const system = new CheckSystem(new RepoWithPendingTask() as any, new StubGitRepository() as any, new Reviewer(), new StubFileSystem() as any);
     const result = await system.execute();
 
     assert.ok(

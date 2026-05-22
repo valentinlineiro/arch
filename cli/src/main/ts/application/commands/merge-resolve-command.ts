@@ -1,9 +1,10 @@
+import { Command } from '../../domain/models/command.js';
 import { MergeResolve } from '../use-cases/merge-resolve.js';
 import { GitRepository } from '../../domain/repositories/git-repository.js';
 import { FileSystem } from '../../domain/repositories/file-system.js';
 import { ConfigLoader } from '../../domain/services/config-loader.js';
 
-export class MergeResolveCommand {
+export class MergeResolveCommand implements Command {
   constructor(
     private gitRepository: GitRepository,
     private fileSystem: FileSystem

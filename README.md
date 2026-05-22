@@ -137,19 +137,19 @@ your-project/
 ## Task format (v0.4.0)
 
 ```markdown
-## TASK-077: Automate push after successful arch review
+## TASK-077: Automate push after successful arch check
 **Meta:** P3 | S | READY | Focus:yes | 7-operations | local | scripts/arch.sh
 **Depends:** none
 
 ### Acceptance Criteria
-- [ ] Add a `--push` flag to `arch review` in `scripts/arch.sh`.
+- [ ] Add a `--push` flag to `arch check` in `scripts/arch.sh`.
 - [ ] If `--push` is present and review is OK, execute `git push`.
 - [ ] Ensure `git push` is NOT executed if any review check fails.
 
 ### Definition of Done
-- [ ] `arch review --push` works as expected.
+- [ ] `arch check --push` works as expected.
 - [ ] Manual verification of safety (no push on failure).
-- [ ] `arch review` passes.
+- [ ] `arch check` passes.
 ```
 
 ---
@@ -157,11 +157,11 @@ your-project/
 ## CLI & Quick start
 
 ```bash
-npx arch-init my-project
+arch init --minimal
 cd my-project
 
 # Sprint management
-arch inbox                            # Weekly dashboard and pending refinement
+arch govern inbox                     # Weekly dashboard and pending refinement
 arch task next                        # Suggests next most relevant task
 arch task rank                        # Rank READY tasks by priority and size
 arch task start TASK-001              # Mark IN_PROGRESS
@@ -169,28 +169,25 @@ arch task done  TASK-001              # Archive as DONE
 arch task promote my-idea             # Promote an IDEA to a TASK
 
 # Memory queries
-arch ask "why did auth routing keep failing?"
+arch memory ask "why did auth routing keep failing?"
 # → query class, cause groups, ranked matches with causal context, entity refs
 
-# Causal graph
-arch causal add TASK-220 caused_by TASK-184 --note "routing debt"
-arch causal add TASK-220 implements ADR-011 --confidence asserted
-arch causal show TASK-220             # Active edges for entity
-arch causal show TASK-220 --all       # Full history including weakened/invalidated
-arch causal synthesize TASK-220       # Dominant belief + competing interpretations + superseded
-arch causal weaken <edge-id>          # Downgrade belief with new evidence
-arch causal invalidate <edge-id>      # Contradict — kept for audit, excluded from active queries
-arch causal arbitrate                 # Consume pending signals → apply/conflict/expire
+# Causal graph & Tracing
+arch trace TASK-220                   # Active edges for entity
+arch trace TASK-220 --all             # Full history including weakened/invalidated
+arch trace add TASK-220 caused_by TASK-184 --note "routing debt"
 
 # Governance and analysis
 arch govern                           # Enforcement tick: archive DONE, assign focus, check thresholds
-arch reflect                          # Analysis: regenerate INBOX, surface Kaizen, detect drift (THINK)
-arch reflect influence                # Epistemic influence report — engagement, attribution, gaps
+arch analyze                          # Analysis: regenerate INBOX, surface Kaizen, detect drift (THINK)
+arch analyze influence                # Epistemic influence report — engagement, attribution, gaps
 
 # Integrity
-arch review                           # Full audit: task format, commit, drift checks
-arch review --fast                    # Format-only: skips drift checks (replaces arch validate/lint)
-arch merge-resolve                    # Auto-resolve trivial merge conflicts
+arch check                            # Full audit: task format, commit, drift checks
+arch check --fast                     # Format-only: skips drift checks (replaces arch validate/lint)
+arch task merge-resolve               # Auto-resolve trivial merge conflicts
+arch status                           # High-level sprint and task progress
+arch version                          # Show CLI version
 ```
 
 ---
@@ -206,7 +203,7 @@ arch merge-resolve                    # Auto-resolve trivial merge conflicts
 arch task start TASK-032
 
 # 3. Implement, then verify
-arch review
+arch check
 #   ✔ System Review: OK
 #
 #   Drift
@@ -224,7 +221,7 @@ arch task done TASK-077
 ## Status
 
 **v1.0.0 — Operational.**
-ARCH is a usable, self-governing operational framework for disciplined, git-native teams. The deterministic core is stable: `arch review` enforces structural integrity across 22+ checks, task lifecycle is fully operational, `arch ask` retrieval is conditioned on committed causal beliefs, and the CLI is published as `@valentinlineiro/arch` on npm.
+ARCH is a usable, self-governing operational framework for disciplined, git-native teams. The deterministic core is stable: `arch check` enforces structural integrity across 22+ checks, task lifecycle is fully operational, `arch ask` retrieval is conditioned on committed causal beliefs, and the CLI is published as `@valentinlineiro/arch` on npm.
 
 The gap is no longer "can ARCH run daily work?" It can. The question now is whether repeated use produces observable compounding advantage — whether `arch ask` returns better results as the causal graph fills, and whether REFLECT proposals improve as the archive grows. That validation requires real operational time, not more features.
 

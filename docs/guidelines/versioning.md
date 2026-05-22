@@ -40,7 +40,7 @@ improved, migration tooling stabilized, or bugfix accumulation justifies a cut.
 
 - `arch.config.json::minimumCliVersion` — minimum CLI version required by the current protocol.
 - `cli/package.json::archProtocol` — CLI-declared supported protocol range (e.g. `">=1.0 <2"`).
-- `arch review` enforces: CLI version >= `minimumCliVersion` (FAIL); declared range includes `protocolVersion` when present (FAIL); range absent is advisory (WARN).
+- `arch check` enforces: CLI version >= `minimumCliVersion` (FAIL); declared range includes `protocolVersion` when present (FAIL); range absent is advisory (WARN).
 - When metadata conflicts, `arch.config.json` is authoritative.
 
 ---
@@ -50,7 +50,7 @@ improved, migration tooling stabilized, or bugfix accumulation justifies a cut.
 **CLI release:**
 1. Bump `cli/package.json::version`
 2. Update `archProtocol` if supported range changed
-3. `arch review` must pass (VersionCompat check)
+3. `arch check` must pass (VersionCompat check)
 4. Tag v{major}.{minor}.{patch} on `main`
 5. `npm publish` from `cli/`
 

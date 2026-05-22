@@ -11,7 +11,7 @@ export interface CausalIO {
   exit(code: number): never;
 }
 
-export class CausalCommand implements Command {
+export class TraceCommand implements Command {
   constructor(
     private graph: CausalGraph,
     private io: CausalIO,
@@ -36,7 +36,7 @@ export class CausalCommand implements Command {
       await this.arbitrate();
     } else {
       this.io.error(
-        'Usage: arch causal <add|show|weaken|invalidate|synthesize|arbitrate>\n' +
+        'Usage: arch trace <add|show|weaken|invalidate|synthesize|arbitrate>\n' +
         '  add <from> <relation> <to> [--note "..."] [--confidence asserted|inferred|heuristic]\n' +
         '  show <entity> [--all]\n' +
         '  weaken <edge-id> [--note "..."]\n' +
@@ -112,7 +112,7 @@ export class CausalCommand implements Command {
     const { value: confidenceRaw, rest: core } = this.parseFlag(afterNote, '--confidence');
 
     if (core.length < 3) {
-      this.io.error('Usage: arch causal add <from> <relation> <to> [--note "..."] [--confidence asserted|inferred|heuristic]');
+      this.io.error('Usage: arch trace add <from> <relation> <to> [--note "..."] [--confidence asserted|inferred|heuristic]');
       this.io.exit(1);
     }
 
@@ -142,7 +142,7 @@ export class CausalCommand implements Command {
   private async correct(args: string[], action: 'weaken' | 'invalidate'): Promise<void> {
     const { value: note, rest: core } = this.parseFlag(args, '--note');
     if (core.length === 0) {
-      this.io.error(`Usage: arch causal ${action} <edge-id> [--note "..."]`);
+      this.io.error(`Usage: arch trace ${action} <edge-id> [--note "..."]`);
       this.io.exit(1);
     }
 
@@ -164,7 +164,7 @@ export class CausalCommand implements Command {
 
   private async synthesize(args: string[]): Promise<void> {
     if (args.length === 0) {
-      this.io.error('Usage: arch causal synthesize <entity>');
+      this.io.error('Usage: arch trace synthesize <entity>');
       this.io.exit(1);
     }
 
@@ -219,7 +219,7 @@ export class CausalCommand implements Command {
     const showAll = allFlag !== undefined || args.includes('--all');
 
     if (core.length === 0) {
-      this.io.error('Usage: arch causal show <entity> [--all]');
+      this.io.error('Usage: arch trace show <entity> [--all]');
       this.io.exit(1);
     }
 

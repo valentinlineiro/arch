@@ -21,7 +21,7 @@
 3. Read `docs/TASK-FORMAT.md` — the meta line format is authoritative. Violations fail lint on every commit.
 4. Read `docs/guidelines/core.md` — commit conventions, git policy, and task lifecycle rules.
 5. Read `docs/guidelines/models.md` for model naming conventions.
-6. Run `arch review` to verify system integrity. This command is **read-only**.
+6. Run `arch check` to verify system integrity. This command is **read-only**.
    - `HanseiPresent` warnings on pre-TASK-195 archived tasks are pre-existing — ignore them.
    - Any new violation your change introduces is blocking. Fix before committing.
 
@@ -70,7 +70,7 @@ Every task archived as DONE must include:
 
 ### What `arch govern` does vs. what agents do
 - `arch govern` — deterministic enforcement: archives DONE tasks, assigns Focus, checks thresholds. No LLM. Run it; don't replicate its logic.
-- `arch govern reflect` — triggers THINK mode (LLM analysis). Proposals only. Never satisfies a governance gate.
+- `arch analyze` — triggers THINK mode (LLM analysis). Proposals only. Never satisfies a governance gate.
 - Agents do not archive their own tasks, select their own next task, or run replenishment. `arch govern` does those.
 
 ---
@@ -78,7 +78,7 @@ Every task archived as DONE must include:
 ## Modes
 
 ### THINK mode
-**Invoked by:** `arch govern reflect` (or as analysis side-effect of `arch govern`).
+**Invoked by:** `arch analyze` (or as analysis side-effect of `arch govern`).
 **Full protocol:** `docs/agents/THINK.md` — read it before running.
 
 Rules most often broken:
@@ -95,7 +95,7 @@ Rules most often broken:
 - Set status to `IN_PROGRESS` and commit **before** touching any implementation file.
 - Implement against Acceptance Criteria only. No scope additions.
 - Stop at REVIEW + `REVIEW_REQUEST`. Do not archive.
-- On 3 consecutive `arch review` failures: append `ANDON_HALT` to `docs/INBOX.md` and `.arch/escalations.jsonl`, halt.
+- On 3 consecutive `arch check` failures: append `ANDON_HALT` to `docs/INBOX.md` and `.arch/escalations.jsonl`, halt.
 
 ---
 
@@ -134,11 +134,11 @@ Session lock fields (`lockedBy`, `lockedAt`) are in-memory only — never writte
 **Every commit must reference a TASK-ID and use an authoritative prefix.**
 Prefixes: `feat:`, `fix:`, `chore:`, `docs:`, `refactor:`, `idea:`
 Exception: `idea:` commits for IDEA drafts do not require a TASK-ID.
-Merge commits are strictly forbidden — `arch review` will fail.
+Merge commits are strictly forbidden — `arch check` will fail.
 
 ---
 
-**XS Auditor exception:** XS tasks bypass the Auditor review stage and close directly to DONE when `arch review` passes. This is an explicit exception to the default Auditor invariant — not a bug or shortcut. The Auditor gate exists to catch spec drift on substantive work; XS tasks are bounded enough that `arch review` structural checks are sufficient.
+**XS Auditor exception:** XS tasks bypass the Auditor review stage and close directly to DONE when `arch check` passes. This is an explicit exception to the default Auditor invariant — not a bug or shortcut. The Auditor gate exists to catch spec drift on substantive work; XS tasks are bounded enough that `arch check` structural checks are sufficient.
 
 ## Hard limits
 - Never merge a PR without human approval.

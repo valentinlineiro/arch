@@ -43,11 +43,11 @@ export class GovernCommand implements Command {
       // Nothing changed or git not available — acceptable
     }
 
-    // Analysis side-effect: trigger arch reflect when replenishment or cadence conditions are met.
+    // Analysis side-effect: trigger arch analyze when replenishment or cadence conditions are met.
     // This is labeled explicitly as analysis — it never affects enforcement decisions.
     if (result.analysisNeeded && !noConduct) {
-      console.log(`  → Triggering arch reflect [analysis] (reasons: ${result.reasons.join(', ')})`);
-      SubprocessRunner.runSync('./scripts/arch.sh', ['reflect']);
+      console.log(`  → Triggering arch analyze [analysis] (reasons: ${result.reasons.join(', ')})`);
+      SubprocessRunner.runSync('./scripts/arch.sh', ['analyze']);
     }
 
     console.log('');

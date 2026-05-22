@@ -13,18 +13,24 @@ export interface CommandEntry {
 export const COMMAND_REGISTRY: CommandEntry[] = [
   // ── Core ─────────────────────────────────────────────────────────────────────
   {
-    name: 'arch review',
-    topLevel: 'review',
+    name: 'arch check',
+    topLevel: 'check',
     visibility: 'public',
     description: 'structural validation and integrity audit',
     category: 'Core',
-    aliases: ['validate', 'lint'],
   },
   {
     name: 'arch status',
     topLevel: 'status',
     visibility: 'public',
     description: 'high-level sprint and task progress',
+    category: 'Core',
+  },
+  {
+    name: 'arch trace',
+    topLevel: 'trace',
+    visibility: 'public',
+    description: 'show causal edges and task/ADR provenance',
     category: 'Core',
   },
   {
@@ -240,13 +246,6 @@ export const COMMAND_REGISTRY: CommandEntry[] = [
 
   // ── Governance & Analysis ────────────────────────────────────────────────────
   {
-    name: 'arch compile',
-    topLevel: 'compile',
-    visibility: 'public',
-    description: 'compile telemetry stream through epistemic pipeline',
-    category: 'Governance & Analysis',
-  },
-  {
     name: 'arch govern',
     topLevel: 'govern',
     visibility: 'public',
@@ -262,9 +261,8 @@ export const COMMAND_REGISTRY: CommandEntry[] = [
     category: 'Governance & Analysis',
   },
   {
-    name: 'arch govern reflect',
-    topLevel: 'govern',
-    subCommand: 'reflect',
+    name: 'arch analyze',
+    topLevel: 'analyze',
     visibility: 'public',
     description: 'trigger THINK mode for pattern analysis',
     category: 'Governance & Analysis',
@@ -309,14 +307,6 @@ export const COMMAND_REGISTRY: CommandEntry[] = [
     subCommand: 'ask',
     visibility: 'public',
     description: 'query the causal graph and task archive',
-    category: 'Memory & Knowledge',
-  },
-  {
-    name: 'arch memory causal show',
-    topLevel: 'memory',
-    subCommand: 'causal',
-    visibility: 'public',
-    description: 'show causal edges for a task/ADR',
     category: 'Memory & Knowledge',
   },
   {
@@ -365,6 +355,13 @@ export const COMMAND_REGISTRY: CommandEntry[] = [
     topLevel: 'sentinel',
     visibility: 'internal',
     description: 'system sentinel monitor',
+    category: 'System Internals',
+  },
+  {
+    name: 'arch compile',
+    topLevel: 'compile',
+    visibility: 'internal',
+    description: 'compile telemetry stream (internal)',
     category: 'System Internals',
   },
 ];

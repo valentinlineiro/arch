@@ -48,7 +48,7 @@ Hansei requirements are proportional to task size:
 
 | Size | Hansei required? | Notes |
 |------|-----------------|-------|
-| XS   | No              | Closes directly to DONE when `arch review` passes. No Hansei block needed. |
+| XS   | No              | Closes directly to DONE when `arch check` passes. No Hansei block needed. |
 | S    | No              | Optional — write one if you discovered something worth tracking. |
 | M    | Yes             | Full Hansei block required at close. Wizard runs automatically. |
 | L    | Yes             | Full Hansei block + Auditor review required. |
@@ -111,7 +111,7 @@ The meta line is the source of truth for task state and routing. It MUST be a si
 An AC item may include an executable predicate or an exemption marker appended after a `→` separator:
 
 ```markdown
-- [ ] `arch review` passes  →  cmd: arch review; exit: 0
+- [ ] `arch check` passes  →  cmd: arch check; exit: 0
 - [ ] Tests pass            →  cmd: npm test --prefix cli; exit: 0
 - [ ] File exists           →  file: docs/PRINCIPLES.md
 - [ ] Logic implemented     →  grep: "export class Reviewer" cli/src/main/ts/domain/services/reviewer.ts
@@ -131,7 +131,7 @@ An AC item may include an executable predicate or an exemption marker appended a
 - Predicates are executed from the repository root with a 30-second timeout.
 
 ### 7. Definition of Done (DoD)
-- Project-level quality standards (e.g., "PR approved", "`arch review` passes").
+- Project-level quality standards (e.g., "PR approved", "`arch check` passes").
 - **XS tasks: Definition of Done is optional and omitted by default.** The stripped capture template for XS tasks does not include a DoD section. Operators may add one manually if the task warrants it, but absence is not a lint violation for XS.
 
 ### 8. Turns (optional)

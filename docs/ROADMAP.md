@@ -68,7 +68,7 @@ A feature is `DONE` only when it is **Operational**. Implemented-but-not-operati
 
 **Prohibited:** retrieval ranking, governance *enforcement*, causal graph mutation, task/entity extraction as primary method, AC verification as a gate.
 
-**Governance is two layers, not one.** Enforcement is deterministic and must remain so. Analysis is the LLM-permitted proposal layer. They must not share a name or a command boundary. Current state: `arch govern` (enforcement) and `arch reflect` (analysis) are now explicitly separate at the command surface. The remaining work is not the split itself, but keeping future features from quietly re-blurring that boundary. See [docs/IDENTITY.md § 7](IDENTITY.md) — the slippery slope to refuse is named there.
+**Governance is two layers, not one.** Enforcement is deterministic and must remain so. Analysis is the LLM-permitted proposal layer. They must not share a name or a command boundary. Current state: `arch govern` (enforcement) and `arch analyze` (analysis) are now explicitly separate at the command surface. The remaining work is not the split itself, but keeping future features from quietly re-blurring that boundary. See [docs/IDENTITY.md § 7](IDENTITY.md) — the slippery slope to refuse is named there.
 
 Full treatment: [docs/IDENTITY.md § 7](IDENTITY.md).
 
@@ -84,7 +84,7 @@ The old linear priority list is replaced by four structural phases. These are no
 
 **What it is:** Freeze the invariants that prevent authority from leaking. REFLECT/GOVERN separation. LLM exclusion zones. Decision ownership. Signal vs state distinction.
 
-**Status:** Mostly closed. IDENTITY.md §7 frozen. Deterministic Core Invariant frozen. REFLECT authority invariant frozen. Influence measurement introduced. `arch govern` / `arch reflect` command split is now structurally enforced. The remaining gaps are surface cleanliness and long-term boundary hardening: proportional obligations, trusted-metrics narrowing, and preventing future features from reintroducing silent authority leakage.
+**Status:** Mostly closed. IDENTITY.md §7 frozen. Deterministic Core Invariant frozen. REFLECT authority invariant frozen. Influence measurement introduced. `arch govern` / `arch analyze` command split is now structurally enforced. The remaining gaps are surface cleanliness and long-term boundary hardening: proportional obligations, trusted-metrics narrowing, and preventing future features from reintroducing silent authority leakage.
 
 **This phase is never truly closed.** Every new feature that touches the REFLECT/GOVERN boundary is a Phase A test.
 
@@ -157,7 +157,7 @@ These were previously treated as core milestones. They are now supporting infras
 
 **Objective:** Freeze the invariants that prevent authority from leaking between layers. What ARCH is, what it is not, and — critically — which layer can decide what.
 
-> **Core invariants frozen 2026-05-12:** REFLECT/GOVERN separation (IDENTITY.md §7), Deterministic Core Invariant, authority boundary (REFLECT may influence interpretation but may never determine state transitions), influence measurement requirement. The remaining open item: semantic stability — core concepts still drift across sessions. Second remaining item: `arch govern` / `arch reflect` command split not yet implemented — the boundary is constitutionally frozen but structurally leaky at the command surface (IDEA-govern-reflect-split.md).
+> **Core invariants frozen 2026-05-12:** REFLECT/GOVERN separation (IDENTITY.md §7), Deterministic Core Invariant, authority boundary (REFLECT may influence interpretation but may never determine state transitions), influence measurement requirement. The remaining open item: semantic stability — core concepts still drift across sessions. Second remaining item: `arch govern` / `arch analyze` command split not yet implemented — the boundary is constitutionally frozen but structurally leaky at the command surface (IDEA-govern-reflect-split.md).
 
 | Feature | Status | Key Artifact |
 |---------|--------|--------------|
@@ -176,7 +176,7 @@ These were previously treated as core milestones. They are now supporting infras
 
 | Feature | Status | Key Artifact |
 |---------|--------|--------------|
-| CLI Unification (Intent-based verbs) | `DONE` | arch.sh collapsed to installer shim. `@valentinlineiro/arch@1.0.0` published to npm. `arch capture`, `arch review`, `arch task`, `arch govern`, `arch memory` surface is canonical. |
+| CLI Unification (Intent-based verbs) | `DONE` | arch.sh collapsed to installer shim. `@valentinlineiro/arch@1.0.0` published to npm. `arch capture`, `arch check`, `arch task`, `arch govern`, `arch memory` surface is canonical. |
 | Refinement Funnel Tightening | `DONE` | TTL enforcement (`ttlCycles` in arch.config.json), admission gate (executable candidates only get IDEA-*.md files; speculative → ROADMAP-IDEAS.md). [ADR-021](adr/ADR-021-refinement-ttl-and-admission.md), TASK-249 |
 | Metrics Narrowing | `DONE` | 0% confidence context injection suppressed (threshold <0.1 in ContextInference). Census budget recalibrated to 1500 to reflect capture template reality. [ADR-022](adr/ADR-022-census-budget-recalibration.md), TASK-946 |
 | Tiered Obligations | `DONE` | XS/S Hansei triggered-only; M/L mandatory. XS L3 self-archive gate (DeterministicACVerifier). [ADR-009](adr/ADR-009-deterministic-ac-verifier.md), TASK-934 |
@@ -228,7 +228,7 @@ These were previously treated as core milestones. They are now supporting infras
 |---------|--------|--------------|
 | Structural policies (forbidden deps, arch boundaries, naming invariants, mandatory tests) | `NOT STARTED` | [IDEA-roadmap-structural-policies](refinement/IDEA-roadmap-structural-policies.md) |
 | AI-proposed policies — ARCH detects patterns → proposes → human approves | `NOT STARTED` | [IDEA-roadmap-ai-proposed-policies](refinement/IDEA-roadmap-ai-proposed-policies.md). **Constraint:** proposals must be tagged as `[REFLECT-SUGGESTS]` and require human approval before entering any enforcement rule. LLM-originated policies that become enforcement rules without explicit human promotion violate the Deterministic Core Invariant. |
-| `arch govern` / `arch reflect` command split | `DONE` | TASK-230 — `arch govern` runs enforcement only (deterministic, no LLM); `arch reflect` runs analysis only (proposals, never enforcement authority). `arch govern` may trigger `arch reflect` as an explicit named side-effect — labeled as analysis, not enforcement. |
+| `arch govern` / `arch analyze` command split | `DONE` | TASK-230 — `arch govern` runs enforcement only (deterministic, no LLM); `arch analyze` runs analysis only (proposals, never enforcement authority). `arch govern` may trigger `arch analyze` as an explicit named side-effect — labeled as analysis, not enforcement. |
 
 ---
 

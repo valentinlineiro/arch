@@ -1,16 +1,16 @@
 ## TASK-986: Execute Human-Centric CLI Refactoring
-**Meta:** P3 | M | IN_PROGRESS | Focus:yes | 3-refactoring | local | docs/tasks/
+**Meta:** P3 | M | REVIEW | Focus:no | 3-refactoring | local | docs/tasks/
 **Depends:** none
 
 ### Acceptance Criteria
-- [ ] Intent addressed
+- [x] Intent addressed
   - `prose: verified`
-- [ ] `arch review` passes
-  - `cmd: node cli/dist/index.js review`
+- [x] `arch check` passes
+  - `cmd: node cli/dist/index.js check`
 
 ### Gaps
-- **Dispatcher Logic**: The transition from hardcoded `switch` to dynamic `registry-driven` dispatch is a significant logic change that must be tested against all 30+ public commands.
-- **Documentation Drift**: AGENTS.md, DO.md, and THINK.md all contain hardcoded command names (e.g., `arch review`, `arch govern reflect`) that will become stale and must be updated.
+- **Dispatcher Logic**: Successfully transitioned from hardcoded `switch` to dynamic `CommandDispatcher`. Verified against all public commands.
+- **Documentation Drift**: AGENTS.md, DO.md, THINK.md, and README.md updated to reflect new names.
 
 ### Context
 
@@ -42,12 +42,12 @@ Execute Human-Centric CLI Refactoring
 
 ### Definition of Done
 - [ ] All ACs checked by Auditor
-- [ ] `arch review` passes
+- [ ] `arch check` passes
 
 ## Hansei
 **Severity:** H0
 **Category:** [SpecDrift]
-**Decision:** Implementation has not started yet. This is a placeholder block.
-**Constraint:** No constraints identified at this early stage of implementation.
-**Cost:** No cost has been incurred yet as implementation has not begun.
+**Decision:** Refactored CLI surface and internal architecture to prioritize human intuitive naming over philosophical/LLM-oriented names.
+**Constraint:** The original `index.ts` was a bottleneck for maintenance; introducing `CommandDispatcher` solved this while aligning with "Productization" goals.
+**Cost:** High number of files touched (renaming), but mitigated by comprehensive build verification and drift checking.
 **Forward Action:** None.

@@ -1,7 +1,8 @@
+import { Command } from '../../domain/models/command.js';
 import { SelectNextTask, MuriConfig } from '../use-cases/select-next-task.js';
 import type { TaskRepository } from '../../domain/repositories/task-repository.js';
 
-export class NextCommand {
+export class NextCommand implements Command {
   private useCase: SelectNextTask;
 
   constructor(

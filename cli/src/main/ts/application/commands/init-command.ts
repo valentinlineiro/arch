@@ -21,13 +21,15 @@ export class InitCommand implements Command {
 
   async execute(args: string[]): Promise<void> {
     const force = args.includes('--force');
+    const minimal = args.includes('--minimal');
 
-    console.log('\n  ARCH — initializing framework\n');
+    console.log('\n  ARCH — initializing framework' + (minimal ? ' [MINIMAL]' : '') + '\n');
 
     // Guard: already initialized (check canonical file)
-    const alreadyExists = await this.exists('docs/AGENTS.md') || await this.exists('AGENTS.md');
+    const canonical = minimal ? 'ARCH.md' : 'docs/AGENTS.md';
+    const alreadyExists = await this.exists(canonical) || await this.exists('AGENTS.md');
     if (alreadyExists && !force) {
-      console.log('  Already initialised. Run arch review to check system state.');
+      console.log(`  Already initialised. Run arch check to check system state.`);
       process.exit(0);
     }
 
@@ -35,15 +37,25 @@ export class InitCommand implements Command {
     console.log(`  Detected stack: ${stack.label}`);
     console.log('');
 
-    await this.scaffold(stack);
+    if (minimal) {
+      await this.scaffoldMinimal(stack);
+    } else {
+      await this.scaffold(stack);
+    }
 
     console.log('');
     console.log('  Done. Next steps:');
     console.log('');
-    console.log('  1. Review docs/guidelines/core.md  — adjust stack rules if needed');
-    console.log('  2. Create docs/tasks/TASK-001.md   — your first task');
-    console.log('  3. Run: arch review                — verify system integrity');
-    console.log('  4. Run: arch reflect               — THINK populates INBOX');
+    if (minimal) {
+      console.log('  1. Review ARCH.md               — your protocol rules');
+      console.log('  2. Create docs/tasks/TASK-001.md — your first task');
+      console.log('  3. Run: arch check               — verify system integrity');
+    } else {
+      console.log('  1. Review docs/guidelines/core.md  — adjust stack rules if needed');
+      console.log('  2. Create docs/tasks/TASK-001.md   — your first task');
+      console.log('  3. Run: arch check                — verify system integrity');
+      console.log('  4. Run: arch analyze              — THINK populates INBOX');
+    }
     console.log('');
   }
 
@@ -108,6 +120,40 @@ export class InitCommand implements Command {
   }
 
   // ── Scaffolding ────────────────────────────────────────────────────────────
+
+  private async scaffoldMinimal(stack: DetectedStack): Promise<void> {
+    const dirs = [
+      'docs/tasks',
+      'docs/archive',
+      '.arch',
+    ];
+
+    for (const dir of dirs) {
+      await fs.mkdir(path.join(this.rootPath, dir), { recursive: true });
+    }
+
+    const files: Array<{ dest: string; content: string }> = [
+      { dest: 'ARCH.md',                                 content: this.minimalArchMd() },
+      { dest: 'arch.config.json',                        content: this.archConfig(stack) },
+      { dest: 'docs/INBOX.md',                           content: this.inboxMd() },
+      { dest: 'docs/TASK-FORMAT.md',                     content: this.taskFormatMd() },
+      { dest: 'docs/tasks/.gitkeep',                     content: '' },
+      { dest: 'docs/archive/.gitkeep',                   content: '' },
+      { dest: 'docs/tasks/TASK-001.md',                  content: this.seedTaskMd() },
+    ];
+
+    for (const { dest, content } of files) {
+      const fullPath = path.join(this.rootPath, dest);
+      if (!await this.exists(dest)) {
+        await fs.writeFile(fullPath, content, 'utf-8');
+        console.log(`  + ${dest}`);
+      } else {
+        console.log(`  ~ ${dest} (skipped — already exists)`);
+      }
+    }
+
+    await this.appendGitignore();
+  }
 
   private async scaffold(stack: DetectedStack): Promise<void> {
     const dirs = [
@@ -201,16 +247,37 @@ export class InitCommand implements Command {
 
   // ── Templates ──────────────────────────────────────────────────────────────
 
+  private minimalArchMd(): string {
+    return `# ARCH.md
+<!-- ARCH Framework v1.0.0 | Minimal Protocol -->
+
+## Core Protocol
+1. Read \`docs/TASK-FORMAT.md\` — the meta line format is authoritative.
+2. Run \`arch check\` before every commit to verify system integrity.
+3. Every commit must reference a TASK-ID and use an authoritative prefix (\`feat:\`, \`fix:\`, \`chore:\`).
+
+## Task Lifecycle
+\`\`\`
+READY → IN_PROGRESS → REVIEW → DONE → archived (docs/archive/)
+\`\`\`
+
+- **READY:** Available for selection.
+- **IN_PROGRESS:** Set \`Focus:yes\` and commit before implementing.
+- **REVIEW:** Run predicates, write Hansei, append \`REVIEW_REQUEST\` to \`docs/INBOX.md\`, commit, stop.
+- **DONE:** Auditor verifies, moves to archive.
+`;
+  }
+
   private agentsMd(): string {
     return `# AGENTS.md
-<!-- ARCH Framework v0.6.0 | Universal Entry Point -->
+<!-- ARCH Framework v1.2.0 | Universal Entry Point -->
 
 ## Onboarding
 1. Read this file completely before taking any action.
 2. Read \`arch.config.json\` for routing and active sprint state.
 3. Read \`docs/TASK-FORMAT.md\` — the meta line format is authoritative. Violations fail lint on every commit.
 4. Read \`docs/guidelines/core.md\` — commit conventions, git policy, and task lifecycle rules.
-5. Run \`arch review\` to verify system integrity. This command is **read-only**.
+5. Run \`arch check\` to verify system integrity. This command is **read-only**.
 
 ---
 
@@ -239,7 +306,7 @@ TASK: READY → IN_PROGRESS → REVIEW → DONE → archived (docs/archive/)
 ## Modes
 
 ### THINK mode
-**Invoked by:** \`arch reflect\`
+**Invoked by:** \`arch analyze\`
 **Full protocol:** \`docs/agents/THINK.md\`
 
 - Output is ephemeral (terminal only). THINK never creates tasks directly — only IDEAs and proposals.
@@ -263,7 +330,7 @@ TASK: READY → IN_PROGRESS → REVIEW → DONE → archived (docs/archive/)
 
 ## What \`arch govern\` does vs. what agents do
 - \`arch govern\` — deterministic enforcement: archives DONE tasks, assigns Focus, checks thresholds. No LLM.
-- \`arch reflect\` — triggers THINK mode (LLM analysis). Proposals only. Never satisfies a governance gate.
+- \`arch analyze\` — triggers THINK mode (LLM analysis). Proposals only. Never satisfies a governance gate.
 - Agents do not archive their own tasks, select their own next task, or run replenishment. \`arch govern\` does those.
 `;
   }
@@ -380,7 +447,7 @@ TASK: READY → IN_PROGRESS → REVIEW → DONE → archived (docs/archive/)
 
   private doMd(): string {
     return `# DO.md
-<!-- ARCH v0.6.0 — Execution Protocol -->
+<!-- ARCH v1.2.0 — Execution Protocol -->
 
 ## Intent: Execute Task
 1. \`git fetch\` — sync state safely without merging.
@@ -393,14 +460,14 @@ TASK: READY → IN_PROGRESS → REVIEW → DONE → archived (docs/archive/)
    - Run \`arch task review TASK-XXX\` to execute all \`cmd:\` predicates and set status to REVIEW.
    - Append \`REVIEW_REQUEST\` to \`docs/INBOX.md\` with Task ID, AC list, changed files.
    - Release lock and stop.
-7. **Auditor Step:** A fresh session reads \`docs/INBOX.md\`, runs \`arch review\`, verifies each AC. Pass → \`REVIEW_PASS\` + DONE. Fail → \`REVIEW_FAIL\` + back to READY.
+7. **Auditor Step:** A fresh session reads \`docs/INBOX.md\`, runs \`arch check\`, verifies each AC. Pass → \`REVIEW_PASS\` + DONE. Fail → \`REVIEW_FAIL\` + back to READY.
 
 ## Intent: Operations
 - \`idea:\` prefix → create \`docs/refinement/IDEA-[slug].md\` and commit.
 - Mark DONE → add \`Closed-at\` timestamp, set status DONE. Auditor moves to archive.
 
 ## Andon Cord (halt immediately)
-1. \`arch review\` fails 3 consecutive times on the same task.
+1. \`arch check\` fails 3 consecutive times on the same task.
 2. Turn count exceeds Muri threshold for task size.
 3. EXEC phase exceeds \`governance.execTimeoutMinutes\`.
 4. Implementation requires touching a \`protectedPath\` without a prior ADR.
@@ -411,12 +478,12 @@ TASK: READY → IN_PROGRESS → REVIEW → DONE → archived (docs/archive/)
 
   private thinkMd(): string {
     return `# THINK.md
-<!-- ARCH v0.6.0 — Analysis Protocol (Invoked by arch reflect) -->
+<!-- ARCH v1.2.0 — Analysis Protocol (Invoked by arch analyze) -->
 <!-- Authority: proposals only. Never mutates task state. Never satisfies a governance gate. -->
 
 ## Phase 1: Context & Replenishment
 0. Print: \`[THINK] Phase 1 — Context & Replenishment\` to stdout.
-1. Note: \`arch reflect\` triggered this session. This is the analysis layer — proposals only.
+1. Note: \`arch analyze\` triggered this session. This is the analysis layer — proposals only.
 2. **Health Evaluation:** Identify P0 tasks that are blocked or not focused. If a task is \`IN_PROGRESS\` with a lock > 3 days, create a P1 \`READY\` bug task in \`docs/tasks/\`.
 3. **Replenishment check:** Count \`READY\` tasks in \`docs/tasks/\`. If count < 3, propose at least one new IDEA in \`docs/refinement/\` before continuing.
 4. **INBOX Regeneration:** Overwrite \`docs/INBOX.md\` with current loop status, active/READY task counts, pending items (\`AWAITING_PROMOTION\`, \`AWAITING_REVIEW\`), and summaries of the last 5 completed tasks. Commit with \`[THINK]\` tag.
@@ -576,7 +643,7 @@ _No entries yet. THINK mode populates this during arch reflect._
 
 ### Definition of Done
 - [ ] All ACs checked by Auditor
-- [ ] \`arch review\` passes
+- [ ] \`arch check\` passes
 
 ## Hansei
 **Severity:** H0
@@ -635,12 +702,12 @@ Describe the primary goal, expected deliverables, and how you will decompose it 
 - [ ] Epic decomposed into at least 2 concrete sub-tasks in docs/tasks/
   - \`prose: TASK-002 and TASK-003 (or higher) exist in docs/tasks/\`
 
-- [ ] \`arch review\` passes after sub-tasks are created
-  - \`cmd: arch review\`
+- [ ] \`arch check\` passes after sub-tasks are created
+  - \`cmd: arch check\`
 
 ### Definition of Done
 - [ ] All ACs checked by Auditor
-- [ ] \`arch review\` passes
+- [ ] \`arch check\` passes
 
 ## Hansei
 **Severity:** H0

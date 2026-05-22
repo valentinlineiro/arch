@@ -1,8 +1,9 @@
+import { Command } from '../../domain/models/command.js';
 import { spawnSync } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
 
-export class ConductCommand {
+export class ConductCommand implements Command {
   async execute(args: string[]): Promise<void> {
     const promptFile = 'docs/agents/THINK.md';
     const extraFlags = args.join(' ');

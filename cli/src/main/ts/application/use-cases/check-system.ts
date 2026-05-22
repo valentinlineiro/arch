@@ -7,11 +7,11 @@ import { DriftChecker, DriftResult } from '../use-cases/drift-checker.js';
 import { ConfigLoader } from '../../domain/services/config-loader.js';
 import { FOCUS_LEDGER_PATH, parseLedger, committedRulings, LedgerState } from './focus-ledger.js';
 
-export type ReviewCondition = 'NONE' | 'FOCUS_SOVEREIGNTY' | 'FOCUS_INTEGRITY_VIOLATION';
-export type ReviewScope = 'delta' | 'full' | 'hybrid';
+export type CheckCondition = 'NONE' | 'FOCUS_SOVEREIGNTY' | 'FOCUS_INTEGRITY_VIOLATION';
+export type CheckScope = 'delta' | 'full' | 'hybrid';
 
-export interface ReviewOptions {
-  scope?: ReviewScope;
+export interface CheckOptions {
+  scope?: CheckScope;
 }
 
 const DELTA_GLOBAL_CHECKS = new Set([
@@ -50,7 +50,7 @@ const DELTA_LOCAL_CHECKS = new Set([
   'VersionCompat',
 ]);
 
-export class ReviewSystem {
+export class CheckSystem {
   constructor(
     private taskRepository: TaskRepository,
     private gitRepository: GitRepository,
@@ -59,7 +59,7 @@ export class ReviewSystem {
     private driftChecker?: DriftChecker
   ) {}
 
-  async execute(options: ReviewOptions = {}) {
+  async execute(options: CheckOptions = {}) {
     const scope = options.scope ?? 'hybrid';
     const violations: string[] = [];
     
@@ -147,7 +147,7 @@ export class ReviewSystem {
     }
 
     // 5. Focus sovereignty check — global only (not relevant to delta)
-    let sovereigntyCondition: ReviewCondition = 'NONE';
+    let sovereigntyCondition: CheckCondition = 'NONE';
     if (scope !== 'delta') {
       const config = await ConfigLoader.load(this.fileSystem).catch(() => ({}));
       sovereigntyCondition = await this.checkFocusSovereignty(tasks, config);
@@ -166,7 +166,7 @@ export class ReviewSystem {
     };
   }
 
-  private async checkFocusSovereignty(activeTasks: Task[], config: any): Promise<ReviewCondition> {
+  private async checkFocusSovereignty(activeTasks: Task[], config: any): Promise<CheckCondition> {
     try {
       let ledger: LedgerState = { lastCommittedTick: 0, rulings: [] };
       if (await this.fileSystem.exists(FOCUS_LEDGER_PATH)) {

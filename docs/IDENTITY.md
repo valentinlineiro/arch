@@ -173,10 +173,10 @@ The target architecture separates these explicitly:
 
 ```
 arch govern   → Governance Enforcement (deterministic, always correct)
-arch reflect  → Governance Analysis (LLM, proposals only, never authority)
+arch analyze  → Governance Analysis (LLM, proposals only, never authority)
 ```
 
-`arch govern` may trigger `arch reflect` as an explicit named side-effect — labeled as analysis, not enforcement. They are not the same layer and must not share a name. This separation is implemented: `arch govern` runs enforcement only (deterministic, no LLM); `arch reflect` runs analysis only (LLM, proposals, never enforcement authority).
+`arch govern` may trigger `arch analyze` as an explicit named side-effect — labeled as analysis, not enforcement. They are not the same layer and must not share a name. This separation is implemented: `arch govern` runs enforcement only (deterministic, no LLM); `arch analyze` runs analysis only (LLM, proposals, never enforcement authority).
 
 **A system survives by invariants that are comprehensible to anyone entering the codebase — not by private intentions of the original author.**
 

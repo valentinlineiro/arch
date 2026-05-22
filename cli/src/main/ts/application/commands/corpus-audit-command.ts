@@ -1,3 +1,4 @@
+import { Command } from '../../domain/models/command.js';
 import type { FileSystem } from '../../domain/repositories/file-system.js';
 import type { GitRepository } from '../../domain/repositories/git-repository.js';
 import { CorpusIndexService, type CorpusEntry } from '../use-cases/corpus-index.js';
@@ -23,7 +24,7 @@ interface AuditResult {
   };
 }
 
-export class CorpusAuditCommand {
+export class CorpusAuditCommand implements Command {
   private indexService: CorpusIndexService;
 
   constructor(

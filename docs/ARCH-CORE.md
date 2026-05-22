@@ -9,17 +9,17 @@
 ## Step 1 — Verify system integrity
 
 ```
-arch review
+arch check
 ```
 
 Read-only. Always safe. If it fails, stop and write the failure reason to `docs/INBOX.md` as:
 
 ```
 ## [ANDON_HALT] TASK-XXX
-Reason: arch review failed — <paste output>
+Reason: arch check failed — <paste output>
 ```
 
-Do not proceed until `arch review` passes.
+Do not proceed until `arch check` passes.
 
 ---
 
@@ -92,7 +92,7 @@ When all ACs are complete:
 
 ## Halt conditions — stop immediately if any of these occur
 
-- `arch review` fails 3 consecutive times on the same task
+- `arch check` fails 3 consecutive times on the same task
 - You modify a file in `docs/adr/`, `arch.config.json`, or any path listed in `governance.protectedPaths` without a prior ADR
 - The task requires a decision you cannot make from the ACs alone
 - Turn count exceeds the Muri threshold for the task size (XS: 5, S: 15, M: 40, L: 100)
@@ -111,7 +111,7 @@ Commit and stop. Do not attempt recovery.
 ## What you must NOT do in Core mode
 
 - Create tasks, promote IDEAs, or modify the refinement queue
-- Run `arch reflect` or `arch govern`
+- Run `arch analyze` or `arch govern`
 - Modify `docs/guidelines/` directly
 - Archive your own task (an Auditor session does that)
 - Select a different task than the one with `Focus:yes`

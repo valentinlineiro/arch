@@ -17,7 +17,7 @@ This document establishes the governance contract between the ARCH Agent and the
 ### Core Principle
 > ARCH exists to externalize procedural discipline without externalizing epistemic responsibility.
 
-This is the load-bearing constraint. Any automation that violates it is unconstitutional regardless of whether it passes `arch review`. ARCH must distinguish between **Bureaucratic friction** (overhead to be eliminated) and **Constructive friction** (overhead that protects decision quality and must be preserved).
+This is the load-bearing constraint. Any automation that violates it is unconstitutional regardless of whether it passes `arch check`. ARCH must distinguish between **Bureaucratic friction** (overhead to be eliminated) and **Constructive friction** (overhead that protects decision quality and must be preserved).
 
 ### Anti-Goals
 Systems decay toward unnamed failure modes. These must be resisted:

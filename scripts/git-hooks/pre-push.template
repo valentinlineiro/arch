@@ -4,7 +4,7 @@
 
 echo -e "  \033[0;32mARCH\033[0m — running pre-push integrity review..."
 
-./scripts/arch.sh review
+./scripts/arch check
 
 if [ $? -ne 0 ]; then
     echo -e "  \033[0;31m✖\033[0m Error: Integrity review failed. Push aborted."

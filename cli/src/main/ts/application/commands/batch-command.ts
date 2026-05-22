@@ -1,7 +1,8 @@
+import { Command } from '../../domain/models/command.js';
 import { BatchSystem } from '../use-cases/batch-system.js';
 import { FileSystem } from '../../domain/repositories/file-system.js';
 
-export class BatchCommand {
+export class BatchCommand implements Command {
   private batchSystem: BatchSystem;
 
   constructor(fileSystem: FileSystem) {
