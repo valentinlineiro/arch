@@ -4165,7 +4165,7 @@
       "title": "Human-Centric CLI Surface & Command Dispatcher"
     }
   },
-  "builtAt": "2026-05-22T12:17:13.412Z",
+  "builtAt": "2026-05-22T13:52:06.569Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -6928,6 +6928,23 @@
         "models"
       ]
     },
+    "cli/src/main/ts/domain/models/config.ts": {
+      "criticality": "core",
+      "imports": [],
+      "runtimeUsage": "cold",
+      "symbols": [
+        "ArchConfig",
+        "ArchPaths",
+        "DEFAULT_PATHS"
+      ],
+      "tags": [
+        "arch",
+        "config",
+        "domain",
+        "models",
+        "paths"
+      ]
+    },
     "cli/src/main/ts/domain/models/context-index.ts": {
       "criticality": "core",
       "imports": [],
@@ -8824,11 +8841,10 @@
       }
     },
     "TASK-249": {
-      "commitCount": 9,
+      "commitCount": 8,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-18T16:06:18+02:00",
       "recentCommitRefs": [
-        "0bfec523",
         "0cda162a",
         "0f646f23",
         "1b15c8ac",
@@ -8839,7 +8855,6 @@
         "d2dedb09"
       ],
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 1,
         "arch.config.json": 1,
         "docs/METRICS.md": 1,
         "docs/adr/ADR-021-refinement-ttl-and-admission.md": 1,
@@ -9402,36 +9417,6 @@
         "docs/tasks/TASK-939.md": 1,
         "docs/tasks/TASK-940.md": 2,
         "docs/tasks/TASK-955.md": 1
-      }
-    },
-    "TASK-941": {
-      "commitCount": 2,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-18T15:18:30+02:00",
-      "recentCommitRefs": [
-        "0292eb43",
-        "4054b60d"
-      ],
-      "touchedFrequency": {
-        "docs/INBOX.md": 1,
-        "docs/tasks/TASK-941.md": 2,
-        "docs/tasks/TASK-942.md": 2
-      }
-    },
-    "TASK-942": {
-      "commitCount": 3,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-18T15:18:32+02:00",
-      "recentCommitRefs": [
-        "0292eb43",
-        "353aeab7",
-        "4054b60d"
-      ],
-      "touchedFrequency": {
-        "docs/INBOX.md": 1,
-        "docs/archive/TASK-942.md": 1,
-        "docs/tasks/TASK-941.md": 2,
-        "docs/tasks/TASK-942.md": 2
       }
     },
     "TASK-943": {
@@ -10781,26 +10766,51 @@
       }
     },
     "TASK-992": {
-      "commitCount": 6,
+      "commitCount": 8,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-22T14:17:11+02:00",
+      "lastCommitDate": "2026-05-22T15:51:55+02:00",
       "recentCommitRefs": [
         "09053962",
         "38cdbe7d",
         "4adf109f",
+        "959540a1",
         "be21eb50",
         "bf50994a",
-        "c6f654dd"
+        "c6f654dd",
+        "cee5e051"
       ],
       "touchedFrequency": {
         ".arch/focus-ledger.jsonl": 5,
         ".arch/reflect-decisions.jsonl": 1,
         ".arch/reflect-proposals.jsonl": 1,
+        "arch.config.json": 1,
+        "cli/.arch/status-projection.json": 1,
+        "cli/src/main/ts/application/commands/report-command.ts": 1,
+        "cli/src/main/ts/domain/models/config.ts": 1,
+        "cli/src/main/ts/domain/services/archive-parser.ts": 1,
+        "cli/src/main/ts/domain/services/deterministic-hansei-checker.ts": 1,
+        "cli/src/main/ts/domain/services/event-logger.ts": 1,
+        "cli/src/main/ts/domain/services/metrics-engine.ts": 1,
+        "cli/src/main/ts/index.ts": 1,
+        "docs/INBOX.md": 1,
+        "docs/archive/TASK-992.md": 1,
+        "docs/refinement/IDEA-governance-knowledge-store.md": 1,
         "docs/refinement/archive/IDEA-productizing-arch-separation.md": 1,
         "docs/tasks/TASK-992.md": 1,
         "docs/tasks/TASK-993.md": 1,
         "docs/tasks/TASK-994.md": 1,
         "docs/tasks/TASK-995.md": 1
+      }
+    },
+    "TASK-993": {
+      "commitCount": 1,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-05-22T15:52:04+02:00",
+      "recentCommitRefs": [
+        "5458bd0b"
+      ],
+      "touchedFrequency": {
+        ".arch/focus-ledger.jsonl": 1
       }
     }
   },
