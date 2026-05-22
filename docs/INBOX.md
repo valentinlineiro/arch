@@ -43,3 +43,15 @@
 5. AC5 (arch check): `arch check` → PASS (all green, pre-existing warnings only)
 6. AC6 (core.md references hooks): `grep "\.githooks" docs/guidelines/core.md` → PASS
 **Note:** AC4 grep target path uses `commands/init.ts` but file is at `application/commands/init-command.ts`. Verified on the actual file.
+
+## 2026-05-22 14:00 — REVIEW_PASS | TASK-993 | Add ARCH git hooks [L3-AUTO]
+**Evidence table:**
+| AC | Test | Result |
+|----|------|--------|
+| AC1: commit-msg exists | `test -f .githooks/commit-msg` | PASS |
+| AC2: pre-commit scope delta | `grep "arch check --scope delta" .githooks/pre-commit` | PASS |
+| AC3: pre-push arch check | `grep "arch check" .githooks/pre-push` | PASS |
+| AC4: githooks in init | `grep "githooks" cli/src/main/ts/application/commands/init-command.ts` | PASS |
+| AC5: arch check passes | `arch check` | PASS |
+| AC6: core.md references hooks | `grep "\\.githooks" docs/guidelines/core.md` | PASS |
+**Closed at:** 2026-05-22T14:00:00Z
