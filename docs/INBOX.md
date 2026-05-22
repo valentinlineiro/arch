@@ -8,7 +8,7 @@
 
 ## Pending Items
 - **AWAITING_PROMOTION:** 0
-- **AWAITING_REVIEW:** 4 (TASK-975, TASK-985, TASK-986, TASK-987)
+- **AWAITING_REVIEW:** 4 (TASK-975, TASK-985, TASK-986, TASK-987) - TASK-989 self-archived [L3-AUTO]
 
 ## Refinement Queue
 - IDEA-automate-govern-metadata-flush: Sessions: 5
@@ -86,3 +86,14 @@
 
 ## 2026-05-22 14:34:17 — Pattern Alerts
 [PATTERN-ALERT] [SpecDrift] detected 8 times — systemic issue. See docs/tensions/
+
+## 2026-05-22 14:39 — REVIEW_PASS | TASK-989 | Fix config gaps [L3-AUTO]
+**Evidence table:**
+| AC | Test | Result |
+|---|---|---|
+| AC1: XL entry in Muri | `grep "XL" arch.config.json` | PASS |
+| AC2: XL present | `node -e "const c=require('./arch.config.json'); if(c.muri?.XL?.turns) console.log('XL ok')"` | PASS |
+| AC3: strategies in models.md | `grep "strategies" docs/guidelines/models.md` | PASS |
+| AC4: no modelTiers | `grep -q "modelTiers" docs/guidelines/models.md ; exit: 1` | PASS |
+| AC5: XL cost ≤ 5.0 | `node -e "const c=require('./arch.config.json'); if(c.muri.XL.cost<=5.0) console.log('cost ok')"` | PASS |
+**Closed at:** 2026-05-22T14:39:20.847Z
