@@ -1,8 +1,9 @@
 # IDEA: sprint-state-machine — formalize ACTIVE/CLOSED/NEXT_PENDING states
+**Decision-required:** yes
 **Created:** 2026-05-22
 **Source:** TASK-957 BLOCKED — no formal sprint state model
 **Status:** DRAFT
-**Meta:** P1 | S | 2-code-generation | cli/src/main/ts/domain/models/sprint.ts, arch.config.json | Sessions: 1
+Sessions: 4
 
 ## Problem
 

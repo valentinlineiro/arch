@@ -1,8 +1,10 @@
 # IDEA: automate-govern-metadata-flush — govern should commit its own metadata writes atomically
+**Decision-required:** yes
 **Created:** 2026-05-16
 **Source:** TASK-258 Hansei H3b — govern writes to .arch/ outside of any committed transaction
 **Status:** DRAFT
-**Meta:** P2 | S | 7-operations | cli/src/main/ts/application/use-cases/govern-system.ts, .arch/ | Sessions: 2
+**Decision-required:** yes
+Sessions: 5
 **Decision-required:** yes
 
 ## Problem

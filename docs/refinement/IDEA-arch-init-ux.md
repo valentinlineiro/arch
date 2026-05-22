@@ -1,4 +1,6 @@
 # IDEA: arch init UX — 2-minute project bootstrap
+**Decision-required:** yes
+Sessions: 3
 <!-- **Decision-required:** yes -->
 <!-- **Session-count:** 1 -->
 

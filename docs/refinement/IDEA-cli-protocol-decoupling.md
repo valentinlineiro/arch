@@ -1,4 +1,6 @@
 # IDEA: Decouple CLI from Repository Protocol
+**Decision-required:** yes
+Sessions: 3
 <!-- **Decision-required:** yes -->
 <!-- **Session-count:** 1 -->
 

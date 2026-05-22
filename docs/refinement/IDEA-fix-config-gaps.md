@@ -1,8 +1,9 @@
 # IDEA: fix-config-gaps
+**Decision-required:** yes
 **Created:** 2026-05-22
 **Source:** ARCH protocol review — arch.config.json missing XL Muri, models.md documents non-existent key
 **Status:** DRAFT
-**Meta:** P2 | S | local | arch.config.json, docs/guidelines/models.md | Sessions: 2
+Sessions: 5
 **Decision-required:** yes
 
 ## Problem
@@ -34,3 +35,6 @@ S — documentation + config change.
 ## Gaps
 
 ## Decision
+
+**PROMOTE → TASK-989**
+**Rationale:** Two mechanical config/doc drifts. Apply XL Muri safety net (option a) + rewrite models.md examples to match actual strategies schema.

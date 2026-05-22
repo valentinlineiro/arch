@@ -1,34 +1,33 @@
 # INBOX
 
-## Status
-- **Active loop:** THINK Phase 1 (Context & Replenishment)
-- **Active tasks:** 0
-- **READY tasks:** 21
-- **Awaiting promotion:** 10
-- **Awaiting review:** 1
+## System Status
+- **Loop Status:** ACTIVE
+- **Active Tasks:** 0 IN_PROGRESS
+- **READY Tasks:** 24
+- **Refinement Queue:** 10 IDEAs pending
 
-## Refinement Queue
-- `IDEA-automate-govern-metadata-flush.md`: automate-govern-metadata-flush — govern should commit its own metadata writes atomically
-- `IDEA-resolve-hansei-contradiction.md`: resolve-hansei-contradiction — Hansei diagnostic blocks must be internally consistent
-- `IDEA-fix-config-gaps.md`: fix-config-gaps — reconcile arch.config.json with observed system behavior
-- `IDEA-fix-escalation-deduplication.md`: fix-escalation-deduplication — prevent redundant entries in .arch/escalations.jsonl
-- `IDEA-fix-meta-line-regex-and-fields.md`: fix-meta-line-regex-and-fields — align parser with meta line reality
-- `IDEA-guided-close-path.md`: guided-close-path — improve terminal guidance for task closure
-- `IDEA-semantic-compression-layer.md`: semantic-compression-layer — introduce protocol for reducing context overhead
-- `IDEA-verifiability-first-templates.md`: verifiability-first-templates — bake verification into task templates
+## Pending Actions
+### AWAITING_REVIEW
+- [TASK-975](docs/tasks/TASK-975.md)
+- [TASK-985](docs/tasks/TASK-985.md)
+- [TASK-986](docs/tasks/TASK-986.md)
+- [TASK-987](docs/tasks/TASK-987.md)
 
-## Recent Completed Tasks
-- **TASK-984:** Improve audit signal/noise for large Python repos
-- **TASK-983:** Fix EACCES permission crash in audit command
-- **TASK-982:** Implement ARCH Audit v1.1 Language-Agnostic Engine
-- **TASK-981:** Pivot ARCH Audit to structural analysis engine
-- **TASK-980:** Implement Deterministic Governance Gates (ADR-023)
+### AWAITING_PROMOTION
+- [IDEA-arch-init-ux](docs/refinement/IDEA-arch-init-ux.md)
+- [IDEA-arch-resume](docs/refinement/IDEA-arch-resume.md)
+- [IDEA-automate-govern-metadata-flush](docs/refinement/IDEA-automate-govern-metadata-flush.md)
+- [IDEA-brownfield-onboarding-pipeline](docs/refinement/IDEA-brownfield-onboarding-pipeline.md)
+- [IDEA-cli-protocol-decoupling](docs/refinement/IDEA-cli-protocol-decoupling.md)
+- [IDEA-fix-config-gaps](docs/refinement/IDEA-fix-config-gaps.md)
+- [IDEA-fix-escalation-deduplication](docs/refinement/IDEA-fix-escalation-deduplication.md)
+- [IDEA-fix-meta-line-regex-and-fields](docs/refinement/IDEA-fix-meta-line-regex-and-fields.md)
+- [IDEA-resolve-hansei-contradiction](docs/refinement/IDEA-resolve-hansei-contradiction.md)
+- [IDEA-sprint-state-machine](docs/refinement/IDEA-sprint-state-machine.md)
 
----
-*Last updated: 2026-05-22T08:05:00Z*
-- [ ] REVIEW_REQUEST: [TASK-975] Bug fix for INTEGRITY_FIX
-- [ ] REVIEW_REQUEST: [TASK-987] Clean up stale CI workflows and scripts
-
-## 2026-05-22 08:05:00 — Pattern Alerts
-[PATTERN-ALERT] [SpecDrift] detected 8 times — systemic issue. See docs/tensions/TENSION-005-specdrift.md
-- [ ] REVIEW_REQUEST: [TASK-985] Documentation simplification and consolidation
+## Last 5 Completed Tasks
+- **TASK-988:** capture ADR for CLI Refactoring
+- **TASK-932:** Add archive status validation to drift-checker ArchiveMetaIntegrity
+- **TASK-933:** Repair corpus drift in TASK-249, TASK-919, TASK-258
+- **TASK-934:** Implement tiered Hansei and Approval obligations
+- **TASK-240:** Verbose fallback logging for provider switching

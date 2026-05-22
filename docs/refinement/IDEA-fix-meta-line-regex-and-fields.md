@@ -1,8 +1,9 @@
 # IDEA: fix-meta-line-regex-and-fields
+**Decision-required:** yes
 **Created:** 2026-05-22
 **Source:** ARCH protocol review — Meta line regex doesn't match documented field semantics
 **Status:** DRAFT
-**Meta:** P2 | S | local | docs/TASK-FORMAT.md, cli/src/main/ts/domain/services/task-validator.ts
+Sessions: 3
 
 ## Problem
 
@@ -29,3 +30,6 @@ S — impacts regex in TypeScript validator and documentation in two files.
 ## Gaps
 
 ## Decision
+
+**PROMOTE → TASK-990**
+**Rationale:** Well-bounded spec fix. Add Turns capture group to regex + document Locked-commit and auxiliary fields in TASK-FORMAT.md.

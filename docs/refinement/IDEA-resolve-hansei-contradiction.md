@@ -1,8 +1,9 @@
 # IDEA: resolve-hansei-contradiction
+**Decision-required:** yes
 **Created:** 2026-05-22
 **Source:** ARCH protocol review — Hansei requirement mismatch between DO.md and AGENTS.md/TASK-FORMAT.md
 **Status:** DRAFT
-**Meta:** P2 | XS | local | docs/agents/DO.md, docs/AGENTS.md, docs/TASK-FORMAT.md | Sessions: 2
+Sessions: 5
 **Decision-required:** yes
 
 ## Problem
@@ -41,3 +42,6 @@ XS — single-round doc edit.
 ## Gaps
 
 ## Decision
+
+**PROMOTE → TASK-991**
+**Rationale:** Clean XS fix. Option A aligns spec with intent (ADR-019 triggered-only design). DO.md deviation is the bug.

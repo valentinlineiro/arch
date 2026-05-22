@@ -1,4 +1,6 @@
 # IDEA: arch resume — self-healing for common halts
+**Decision-required:** yes
+Sessions: 3
 <!-- **Decision-required:** yes -->
 <!-- **Session-count:** 1 -->
 
