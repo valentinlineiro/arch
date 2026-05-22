@@ -49,13 +49,13 @@ _confidence: 0.45_
 Harmonize Hansei requirement for XS/S tasks: DO.md says "always required", TASK-FORMAT.md and AGENTS.md say "triggered-only". Align DO.md to the spec.
 
 ### Definition of Done
-- [x] All ACs checked by Auditor
-- [x] `arch review` passes
+- [x] All ACs checked by Auditor → prose: auditor verifies against repository state
+- [x] `arch review` passes → cmd: arch check; exit: 0
 
 ## Hansei
 **Severity:** H0
 **Category:** [SpecDrift]
-**Decision:** Not yet started.
-**Constraint:** No constraints apply — task has not started.
-**Cost:** No cost incurred — task has not started.
+**Decision:** DO.md line 20 aligned to TASK-FORMAT.md triggered-only language for XS/S; stale "always" phrasing removed.
+**Constraint:** None — pure documentation change, no code or config modified.
+**Cost:** No cost incurred.
 **Forward Action:** None.
