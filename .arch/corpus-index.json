@@ -1,8 +1,8 @@
 {
   "version": 1,
-  "builtAt": "2026-05-22T14:42:45.714Z",
-  "archiveCommit": "354:design",
-  "taskCount": 154,
+  "builtAt": "2026-05-22T14:43:57.309Z",
+  "archiveCommit": "355:design",
+  "taskCount": 155,
   "entries": {
     "TASK-180": {
       "id": "TASK-180",
@@ -1839,6 +1839,23 @@
       "acCount": 0,
       "acMachineVerifiable": 0,
       "closurePath": "auditor"
+    },
+    "TASK-920": {
+      "id": "TASK-920",
+      "size": "S",
+      "class": "7-operations",
+      "closedAt": "2026-05-22T14:45:00Z",
+      "lockedCommit": null,
+      "actor": null,
+      "severity": "H0",
+      "category": "[no-issue]",
+      "decision": "First ARCH CLI release published to npm under v0.8.0, npx arch init verified in clean directory.",
+      "constraint": "Requires npm credentials and access — human-executed only.",
+      "cost": "Standard npm publish cost, no unexpected expense.",
+      "forwardAction": "None.",
+      "acCount": 5,
+      "acMachineVerifiable": 1,
+      "closurePath": "L3"
     },
     "TASK-921": {
       "id": "TASK-921",

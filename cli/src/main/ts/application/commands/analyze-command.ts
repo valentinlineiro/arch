@@ -296,6 +296,20 @@ ${taskSections}`;
       }
     } catch { /* non-blocking — no ADRs, not a git repo, etc. */ }
 
+    // Promotion proposals: scan IDEA files and generate advisory task drafts
+    try {
+      const { PromotionProposalGenerator } = await import('../../domain/services/promotion-proposal-generator.js');
+      const generator = new PromotionProposalGenerator();
+      const proposals = generator.generateAll();
+      if (proposals.length > 0) {
+        console.log('\n  ── Promotion Proposals (Advisory) ─────────────────');
+        console.log('  Labeled: preparation only — not a decision. Human Decision field required.\n');
+        for (const p of proposals) {
+          console.log(generator.formatProposal(p));
+        }
+      }
+    } catch { /* non-blocking — proposals are advisory */ }
+
     console.log('  ARCH — arch analyze [analysis]: invoking THINK mode');
     console.log('  Purpose: regenerate INBOX, surface Kaizen, refine ideas, detect semantic drift');
     console.log('  Authority: proposals only — never mutates task state, never satisfies policy gates');

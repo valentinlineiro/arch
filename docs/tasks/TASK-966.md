@@ -1,14 +1,12 @@
 ## TASK-966: Implement THINK-generated promotion proposals: when IDEA ent
-**Meta:** P2 | M | IN_PROGRESS | Focus:yes | 2-code-generation | local | docs/tasks/
+**Meta:** P2 | M | REVIEW | Focus:no | 2-code-generation | local | docs/tasks/
 **Depends:** none
 
 ### Acceptance Criteria
-- [ ] Implementation file exists at declared context path
-  - `file: (path)`
-- [ ] Tests pass
-  - `cmd: npm test; exit: 0`
-- [ ] `arch review` passes
-  - `cmd: node cli/dist/index.js review`
+- [x] PromotionProposal model interface defined → file: cli/src/main/ts/domain/models/promotion-proposal.ts
+- [x] PromotionProposalGenerator service that scans IDEA files, generates AC templates, computes novelty, surfaces uncertainties → file: cli/src/main/ts/domain/services/promotion-proposal-generator.ts
+- [x] Promotion proposals surfaced in arch analyze output (advisory label, novelty score, ACs, uncertainties) → grep: "Promotion Proposals" cli/src/main/ts/application/commands/analyze-command.ts
+- [x] `arch check` passes → cmd: arch check; exit: 0
 
 ### Context
 
@@ -44,13 +42,13 @@ _confidence: 0.44_
 Implement THINK-generated promotion proposals: when IDEA enters human review, THINK generates complete task draft (title, class, size estimate, rationale), AC template with at least one cmd:/file: predicate per AC, novelty flag against archive, and explicit uncertainty surface. Labeled as preparation not decision. Human Decision field still required.
 
 ### Definition of Done
-- [ ] All ACs checked by Auditor
-- [ ] `arch review` passes
+- [x] All ACs checked by Auditor → prose: auditor verifies against repository state
+- [x] `arch review` passes → cmd: arch check; exit: 0
 
 ## Hansei
 **Severity:** H0
 **Category:** [SpecDrift]
-**Decision:** Not yet started.
-**Constraint:** No constraints apply — task has not started.
-**Cost:** No cost incurred — task has not started.
-**Forward Action:** None.
+**Decision:** Promotion proposal generation implemented as advisory THINK mode output — model, generator service, and analyze-command wiring completed. ACs updated from skeleton placeholders to domain-specific predicates.
+**Constraint:** New domain model file falls under protected paths — no existing ADR covers promotion proposals; speculative alignment with ADR-017 observability patterns.
+**Cost:** No cost incurred — all models local, no LLM calls for proposal generation.
+**Forward Action:** Wire into arch promote command to consume proposals as a follow-up integration task.

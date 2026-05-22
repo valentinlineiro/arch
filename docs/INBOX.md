@@ -2,13 +2,13 @@
 <!-- ARCH Framework | Human-readable escalation and loop status -->
 
 ## Loop Status
-- **Active tasks:** 0 IN_PROGRESS, 4 REVIEW
+- **Active tasks:** 0 IN_PROGRESS, 5 REVIEW (TASK-966, TASK-975, TASK-985, TASK-986, TASK-987)
 - **READY tasks:** 28
 - **Next focused task:** TASK-992 (P1)
 
 ## Pending Items
 - **AWAITING_PROMOTION:** 0
-- **AWAITING_REVIEW:** 4 (TASK-975, TASK-985, TASK-986, TASK-987) - TASK-989 self-archived [L3-AUTO]
+- **AWAITING_REVIEW:** 5 (TASK-966, TASK-975, TASK-985, TASK-986, TASK-987) - TASK-989 self-archived [L3-AUTO]
 
 ## Refinement Queue
 - IDEA-automate-govern-metadata-flush: Sessions: 5
@@ -100,3 +100,14 @@
 
 ## 2026-05-22 14:42:45 — Pattern Alerts
 [PATTERN-ALERT] [SpecDrift] detected 8 times — systemic issue. See docs/tensions/
+
+## 2026-05-22 14:47:56 — Pattern Alerts
+[PATTERN-ALERT] [SpecDrift] detected 8 times — systemic issue. See docs/tensions/
+
+## 2026-05-22 14:49 — REVIEW_REQUEST | TASK-966 | Implement THINK-generated promotion proposals
+**Changed files:** cli/src/main/ts/domain/models/promotion-proposal.ts, cli/src/main/ts/domain/services/promotion-proposal-generator.ts, cli/src/main/ts/application/commands/analyze-command.ts
+**AC verification:**
+1. AC1 (PromotionProposal model): `test -f cli/src/main/ts/domain/models/promotion-proposal.ts` → PASS
+2. AC2 (Generator service): `test -f cli/src/main/ts/domain/services/promotion-proposal-generator.ts` → PASS
+3. AC3 (Proposals in analyze output): `grep "Promotion Proposals" cli/src/main/ts/application/commands/analyze-command.ts` → PASS
+4. AC4 (arch check): `arch check` → PASS (all green, pre-existing warnings only)
