@@ -1,5 +1,5 @@
 ## TASK-966: Implement THINK-generated promotion proposals: when IDEA ent
-**Meta:** P2 | M | READY | Focus:no | 2-code-generation | local | docs/tasks/
+**Meta:** P2 | M | IN_PROGRESS | Focus:yes | 2-code-generation | local | docs/tasks/
 **Depends:** none
 
 ### Acceptance Criteria
