@@ -38,3 +38,39 @@ adopt/defer/reject outcome tracking. Immediate output would be a planning policy
 **Gap preventing graduation:** The policy content is undefined — this is an exploratory idea about
 what the policy should contain, not a task to implement a known policy. Needs a concrete proposal
 before it can be scoped as an executable task.
+
+---
+
+## arch-init-ux
+
+**Source:** ARCH Value Report (2026-05-22) | **Created:** 2026-05-22 | **Migrated from:** IDEA-arch-init-ux.md
+
+**Problem:** Onboarding to ARCH currently requires reading over 50 markdown files and understanding a complex governance corpus.
+
+**Direction:** Implement a streamlined `arch init` command generating a minimal starter corpus and guided first task.
+
+**Gap preventing graduation:** Needs a concrete technical design for the `arch init` implementation and the minimal corpus content.
+
+---
+
+## arch-resume
+
+**Source:** ARCH Value Report (2026-05-22) | **Created:** 2026-05-22 | **Migrated from:** IDEA-arch-resume.md
+
+**Problem:** The "Andon Cord" (ANDON_HALT) creates a high-friction manual recovery process.
+
+**Direction:** Implement `arch resume <taskId>` to automate common recovery paths (budget extension, review failure recovery).
+
+**Gap preventing graduation:** Requires mapping specific HALT states to deterministic recovery actions.
+
+---
+
+## cli-protocol-decoupling
+
+**Source:** ARCH Value Report (2026-05-22) | **Created:** 2026-05-22 | **Migrated from:** IDEA-cli-protocol-decoupling.md
+
+**Problem:** The ARCH CLI is currently "repo-aware" rather than "protocol-aware," with hardcoded paths and rules.
+
+**Direction:** Refactor CLI to operate against a configurable Protocol Schema in `arch.config.json`.
+
+**Gap preventing graduation:** Requires a full audit of hardcoded paths and the design of the Protocol Schema.
