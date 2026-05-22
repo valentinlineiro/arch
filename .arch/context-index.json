@@ -1320,6 +1320,24 @@
             "literal-mention"
           ],
           "taskPath": "docs/tasks/TASK-991.md"
+        },
+        "TASK-993": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-993.md"
+        },
+        "TASK-994": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-994.md"
+        },
+        "TASK-995": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-995.md"
         }
       }
     },
@@ -4147,7 +4165,7 @@
       "title": "Human-Centric CLI Surface & Command Dispatcher"
     }
   },
-  "builtAt": "2026-05-22T10:46:38.305Z",
+  "builtAt": "2026-05-22T11:58:37.038Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -8806,7 +8824,7 @@
       }
     },
     "TASK-249": {
-      "commitCount": 14,
+      "commitCount": 11,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-18T16:06:18+02:00",
       "recentCommitRefs": [
@@ -8815,9 +8833,6 @@
         "0f646f23",
         "1b15c8ac",
         "1fcb5837",
-        "2e233226",
-        "3276b04f",
-        "41077ee0",
         "5812f053",
         "785e985f",
         "8a1f0d0b",
@@ -8826,7 +8841,7 @@
         "f0faaf5c"
       ],
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 6,
+        ".arch/focus-ledger.jsonl": 3,
         "arch.config.json": 1,
         "docs/METRICS.md": 1,
         "docs/adr/ADR-021-refinement-ttl-and-admission.md": 1,
@@ -9335,29 +9350,15 @@
         "docs/tasks/TASK-975.md": 1
       }
     },
-    "TASK-937": {
-      "commitCount": 2,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-18T14:19:18+02:00",
-      "recentCommitRefs": [
-        "4634fdba",
-        "e3ad55d2"
-      ],
-      "touchedFrequency": {
-        "docs/archive/TASK-937.md": 1,
-        "docs/tasks/TASK-937.md": 1
-      }
-    },
     "TASK-938": {
-      "commitCount": 5,
+      "commitCount": 4,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-18T14:55:19+02:00",
       "recentCommitRefs": [
         "0410cda8",
         "0420409c",
         "2e7c1dd1",
-        "84a64f65",
-        "cee9dd30"
+        "84a64f65"
       ],
       "touchedFrequency": {
         "cli/src/main/ts/application/commands/task-command.ts": 1,
@@ -9365,11 +9366,7 @@
         "cli/src/test/ts/constraint-preflight.test.ts": 1,
         "docs/INBOX.md": 1,
         "docs/archive/TASK-938.md": 1,
-        "docs/refinement/IDEA-capture-deterministic-default.md": 1,
-        "docs/refinement/IDEA-memory-ask-narrow-scope.md": 1,
-        "docs/tasks/TASK-938.md": 3,
-        "docs/tasks/TASK-941.md": 1,
-        "docs/tasks/TASK-942.md": 1
+        "docs/tasks/TASK-938.md": 2
       }
     },
     "TASK-939": {
@@ -9429,7 +9426,7 @@
       }
     },
     "TASK-941": {
-      "commitCount": 7,
+      "commitCount": 6,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-18T15:18:30+02:00",
       "recentCommitRefs": [
@@ -9438,7 +9435,6 @@
         "562d3227",
         "7ffd6ee4",
         "b0d497ef",
-        "cee9dd30",
         "e3838d0f"
       ],
       "touchedFrequency": {
@@ -9449,15 +9445,12 @@
         "cli/src/test/ts/ask-corpus.test.ts": 1,
         "cli/src/test/ts/create-task.test.ts": 1,
         "docs/INBOX.md": 1,
-        "docs/refinement/IDEA-capture-deterministic-default.md": 1,
-        "docs/refinement/IDEA-memory-ask-narrow-scope.md": 1,
-        "docs/tasks/TASK-938.md": 1,
-        "docs/tasks/TASK-941.md": 5,
-        "docs/tasks/TASK-942.md": 5
+        "docs/tasks/TASK-941.md": 4,
+        "docs/tasks/TASK-942.md": 4
       }
     },
     "TASK-942": {
-      "commitCount": 6,
+      "commitCount": 5,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-18T15:18:32+02:00",
       "recentCommitRefs": [
@@ -9465,8 +9458,7 @@
         "353aeab7",
         "4054b60d",
         "562d3227",
-        "7ffd6ee4",
-        "cee9dd30"
+        "7ffd6ee4"
       ],
       "touchedFrequency": {
         "cli/src/main/ts/application/commands/ask-command.ts": 1,
@@ -9474,11 +9466,8 @@
         "cli/src/test/ts/ask-corpus.test.ts": 1,
         "docs/INBOX.md": 1,
         "docs/archive/TASK-942.md": 1,
-        "docs/refinement/IDEA-capture-deterministic-default.md": 1,
-        "docs/refinement/IDEA-memory-ask-narrow-scope.md": 1,
-        "docs/tasks/TASK-938.md": 1,
-        "docs/tasks/TASK-941.md": 4,
-        "docs/tasks/TASK-942.md": 5
+        "docs/tasks/TASK-941.md": 3,
+        "docs/tasks/TASK-942.md": 4
       }
     },
     "TASK-943": {
@@ -10166,7 +10155,7 @@
     "TASK-966": {
       "commitCount": 24,
       "commitRefOverflow": true,
-      "lastCommitDate": "2026-05-22T12:46:36+02:00",
+      "lastCommitDate": "2026-05-22T12:59:33+02:00",
       "recentCommitRefs": [
         "044acf6a",
         "109a798f",
@@ -10174,15 +10163,15 @@
         "4ee462fb",
         "639675cc",
         "686d36aa",
-        "70f53e0f",
-        "71cb1e2f",
+        "80a0d2f5",
         "8240442d",
         "964b5a8c",
         "a3227691",
         "ab3b8915",
         "ad98a28e",
-        "b7798607",
+        "bb9c5c03",
         "bed43715",
+        "beff09af",
         "c5ebb340",
         "d239124b",
         "d5c5b74d",
@@ -10381,11 +10370,11 @@
     "TASK-975": {
       "commitCount": 3,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-22T09:36:08+02:00",
+      "lastCommitDate": "2026-05-22T12:59:23+02:00",
       "recentCommitRefs": [
+        "2879afed",
         "28f6941d",
-        "31dc7cda",
-        "4294de07"
+        "f5d41942"
       ],
       "touchedFrequency": {
         "cli/src/main/ts/application/use-cases/generate-inbox.ts": 1,
@@ -10621,10 +10610,10 @@
     "TASK-984": {
       "commitCount": 3,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-21T17:36:17+02:00",
+      "lastCommitDate": "2026-05-22T12:59:23+02:00",
       "recentCommitRefs": [
-        "001d18d7",
         "4ab2af5e",
+        "597d61d0",
         "72ce3bb8"
       ],
       "touchedFrequency": {
@@ -10635,14 +10624,15 @@
       }
     },
     "TASK-985": {
-      "commitCount": 4,
+      "commitCount": 5,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-22T09:58:31+02:00",
+      "lastCommitDate": "2026-05-22T12:59:33+02:00",
       "recentCommitRefs": [
-        "0c85cd57",
-        "930e2168",
-        "b6153e49",
-        "ba4fa5a2"
+        "327d868d",
+        "43cde843",
+        "4d4a2cb3",
+        "97b5b6e4",
+        "d0a0df03"
       ],
       "touchedFrequency": {
         ".arch/corpus-index.json": 1,
@@ -10693,18 +10683,24 @@
         "docs/refinement/IDEA-arch-resume.md": 1,
         "docs/refinement/IDEA-cli-protocol-decoupling.md": 1,
         "docs/refinement/IDEA-consolidate-arch-docs.md": 1,
+        "docs/refinement/IDEA-fix-config-gaps.md": 1,
+        "docs/refinement/IDEA-fix-meta-line-regex-and-fields.md": 1,
+        "docs/refinement/IDEA-resolve-hansei-contradiction.md": 1,
         "docs/tasks/TASK-975.md": 1,
         "docs/tasks/TASK-985.md": 3,
+        "docs/tasks/TASK-989.md": 1,
+        "docs/tasks/TASK-990.md": 1,
+        "docs/tasks/TASK-991.md": 1,
         "docs/tensions/TENSION-005-specdrift.md": 1
       }
     },
     "TASK-986": {
       "commitCount": 2,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-22T11:41:54+02:00",
+      "lastCommitDate": "2026-05-22T12:59:33+02:00",
       "recentCommitRefs": [
-        "4f310fa1",
-        "90e57d89"
+        "967e3380",
+        "aaa2848b"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
@@ -10764,12 +10760,13 @@
       }
     },
     "TASK-987": {
-      "commitCount": 2,
+      "commitCount": 3,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-22T11:09:23+02:00",
+      "lastCommitDate": "2026-05-22T12:59:33+02:00",
       "recentCommitRefs": [
-        "9f530eb3",
-        "a2d4bdc8"
+        "68ee9f0f",
+        "cc11e3b6",
+        "ea46bdf4"
       ],
       "touchedFrequency": {
         ".arch/chronicle.jsonl": 1,
@@ -10809,6 +10806,25 @@
         "docs/reviews/ARCH-comprehensive-review-2026-05-22.md": 1,
         "docs/tasks/TASK-987.md": 2,
         "scripts/arch.sh": 1
+      }
+    },
+    "TASK-992": {
+      "commitCount": 2,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-05-22T13:58:35+02:00",
+      "recentCommitRefs": [
+        "4adf109f",
+        "bf50994a"
+      ],
+      "touchedFrequency": {
+        ".arch/focus-ledger.jsonl": 1,
+        ".arch/reflect-decisions.jsonl": 1,
+        ".arch/reflect-proposals.jsonl": 1,
+        "docs/refinement/archive/IDEA-productizing-arch-separation.md": 1,
+        "docs/tasks/TASK-992.md": 1,
+        "docs/tasks/TASK-993.md": 1,
+        "docs/tasks/TASK-994.md": 1,
+        "docs/tasks/TASK-995.md": 1
       }
     }
   },
