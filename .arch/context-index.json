@@ -4153,7 +4153,7 @@
       "title": "Human-Centric CLI Surface & Command Dispatcher"
     }
   },
-  "builtAt": "2026-05-22T14:33:05.984Z",
+  "builtAt": "2026-05-22T14:34:17.016Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -9239,9 +9239,9 @@
       }
     },
     "TASK-920": {
-      "commitCount": 10,
+      "commitCount": 11,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-22T16:33:03+02:00",
+      "lastCommitDate": "2026-05-22T16:34:15+02:00",
       "recentCommitRefs": [
         "17c5d0ea",
         "456c73df",
@@ -9251,12 +9251,13 @@
         "9a8aa9b9",
         "a01fc6f4",
         "c1484282",
+        "c57267b2",
         "d911d4cf",
         "df299037"
       ],
       "touchedFrequency": {
         ".arch/chronicle.jsonl": 1,
-        ".arch/focus-ledger.jsonl": 9,
+        ".arch/focus-ledger.jsonl": 10,
         ".arch/reflect-breach-log.jsonl": 1,
         "docs/METRICS.md": 1
       }
@@ -9390,27 +9391,22 @@
       }
     },
     "TASK-944": {
-      "commitCount": 5,
+      "commitCount": 3,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-18T16:39:47+02:00",
       "recentCommitRefs": [
         "4c595bd6",
         "58fa008c",
-        "b287a04b",
-        "b7ccd274",
         "be54376a"
       ],
       "touchedFrequency": {
         "cli/README.md": 1,
         "cli/package.json": 2,
-        "cli/src/main/ts/application/commands/review-command.ts": 1,
-        "cli/src/main/ts/application/commands/task-command.ts": 1,
         "docs/archive/TASK-944.md": 1,
-        "docs/tasks/TASK-944.md": 1,
         "scripts/arch-init.sh": 1,
         "scripts/arch-install.sh": 1,
         "scripts/arch-upgrade.sh": 1,
-        "scripts/arch.sh": 2
+        "scripts/arch.sh": 1
       }
     },
     "TASK-945": {
