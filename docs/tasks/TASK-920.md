@@ -1,5 +1,5 @@
 ## TASK-920: npm publish and verify npx arch init end-to-end
-**Meta:** P2 | S | READY | Focus:no | 7-operations | human | cli/package.json
+**Meta:** P2 | S | READY | Focus:yes | 7-operations | human | cli/package.json
 
 **Depends:** TASK-919
 

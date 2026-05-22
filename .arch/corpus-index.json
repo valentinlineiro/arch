@@ -1,8 +1,8 @@
 {
   "version": 1,
-  "builtAt": "2026-05-22T14:13:18.101Z",
-  "archiveCommit": "352:design",
-  "taskCount": 152,
+  "builtAt": "2026-05-22T14:33:06.168Z",
+  "archiveCommit": "353:design",
+  "taskCount": 153,
   "entries": {
     "TASK-180": {
       "id": "TASK-180",
@@ -2583,6 +2583,23 @@
       "decision": "Implemented three git hooks with auto-install in arch init. Used existing script templates as reference, adapted to .githooks/ directory pattern. Added core.md documentation for hook activation path.",
       "constraint": "AC4 grep target path (cli/src/main/ts/commands/init.ts) differs from actual file (application/commands/init-command.ts) — grep passes on the actual file.",
       "cost": "Straightforward implementation with no deviations from ACs.",
+      "forwardAction": "None required.",
+      "acCount": 0,
+      "acMachineVerifiable": 0,
+      "closurePath": "auditor"
+    },
+    "TASK-994": {
+      "id": "TASK-994",
+      "size": "M",
+      "class": "2-code-generation",
+      "closedAt": "2026-05-22T14:30:00Z",
+      "lockedCommit": null,
+      "actor": null,
+      "severity": "H0",
+      "category": "[standard-delivery]",
+      "decision": "Implemented three CLI features: arch init --guided (interactive stdin prompts), arch review (REVIEW task queue with AC verification and y/N/edit flow), arch check --auto-fix --dry-run (whitespace/newline cleanup with dry-run mode). Also fixed pre-existing undefined config bug in index.ts. Updated command registry and dispatcher wiring. Rebuilt CLI bundle.",
+      "constraint": "AC4 file predicate (cli/src/main/ts/commands/review.ts) requires a re-export file separate from the actual implementation in application/commands/.",
+      "cost": "Straightforward implementation covering three subcommands with no deviations from ACs. One pre-existing bug (undefined config) fixed along the way.",
       "forwardAction": "None required.",
       "acCount": 0,
       "acMachineVerifiable": 0,

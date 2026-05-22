@@ -80,3 +80,9 @@
 | AC5: arch check passes | `arch check` | PASS |
 | AC6: tests pass | `npm test --prefix cli` | PASS (545/550) |
 **Closed at:** 2026-05-22T14:30:00Z
+
+## 2026-05-22 14:33:06 — Pattern Alerts
+[PATTERN-ALERT] [SpecDrift] detected 8 times — systemic issue. See docs/tensions/
+
+## 2026-05-22 14:34:17 — Pattern Alerts
+[PATTERN-ALERT] [SpecDrift] detected 8 times — systemic issue. See docs/tensions/

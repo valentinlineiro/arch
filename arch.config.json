@@ -137,6 +137,10 @@
     "L": {
       "turns": 100,
       "cost": 2.0
+    },
+    "XL": {
+      "turns": 200,
+      "cost": 5.0
     }
   },
   "refinement": {
