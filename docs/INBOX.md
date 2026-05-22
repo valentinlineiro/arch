@@ -30,3 +30,4 @@
 
 ## 2026-05-22 08:05:00 — Pattern Alerts
 [PATTERN-ALERT] [SpecDrift] detected 8 times — systemic issue. See docs/tensions/TENSION-005-specdrift.md
+- [ ] REVIEW_REQUEST: [TASK-985] Documentation simplification and consolidation
