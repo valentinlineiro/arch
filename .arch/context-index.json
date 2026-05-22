@@ -167,12 +167,6 @@
           ],
           "taskPath": "docs/tasks/TASK-969.md"
         },
-        "TASK-975": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/tasks/TASK-975.md"
-        },
         "TASK-976": {
           "evidenceKinds": [
             "literal-mention"
@@ -356,12 +350,6 @@
             "literal-mention"
           ],
           "taskPath": "docs/tasks/TASK-966.md"
-        },
-        "TASK-975": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/tasks/TASK-975.md"
         }
       }
     },
@@ -1270,6 +1258,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-247.md"
+        },
+        "TASK-975": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-975.md"
         }
       }
     },
@@ -1305,12 +1299,6 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-955.md"
-        },
-        "TASK-975": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/tasks/TASK-975.md"
         }
       }
     },
@@ -3980,7 +3968,7 @@
       "title": "Unified Epistemic Invariant Specification — Bounded Stream Enforcement"
     }
   },
-  "builtAt": "2026-05-21T15:36:20.066Z",
+  "builtAt": "2026-05-22T07:43:55.143Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -8623,13 +8611,10 @@
       }
     },
     "TASK-250": {
-      "commitCount": 5,
+      "commitCount": 2,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-18T13:51:45+02:00",
       "recentCommitRefs": [
-        "0659222d",
-        "3fd5ebbd",
-        "44d4a818",
         "66a130f1",
         "ec6658a8"
       ],
@@ -8642,7 +8627,7 @@
         "docs/agents/THINK.md": 1,
         "docs/archive/TASK-250.md": 1,
         "docs/refinement/IDEA-semantic-collision-detection.md": 1,
-        "docs/tasks/TASK-250.md": 4,
+        "docs/tasks/TASK-250.md": 1,
         "docs/tasks/TASK-940.md": 1
       }
     },
@@ -9985,18 +9970,18 @@
       }
     },
     "TASK-966": {
-      "commitCount": 22,
+      "commitCount": 23,
       "commitRefOverflow": true,
-      "lastCommitDate": "2026-05-21T17:36:18+02:00",
+      "lastCommitDate": "2026-05-22T09:43:52+02:00",
       "recentCommitRefs": [
         "044acf6a",
         "109a798f",
-        "197f0cad",
         "352ab3a4",
         "4ee462fb",
         "639675cc",
         "686d36aa",
         "70f53e0f",
+        "71cb1e2f",
         "8240442d",
         "8ab92fb8",
         "964b5a8c",
@@ -10012,7 +9997,7 @@
       ],
       "touchedFrequency": {
         ".arch/corpus-index.json": 1,
-        ".arch/focus-ledger.jsonl": 21,
+        ".arch/focus-ledger.jsonl": 22,
         ".arch/reflect-breach-log.jsonl": 1,
         "docs/METRICS.md": 1,
         "docs/tasks/TASK-966.md": 1
@@ -10200,14 +10185,23 @@
       }
     },
     "TASK-975": {
-      "commitCount": 1,
+      "commitCount": 3,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-20T15:25:51+02:00",
+      "lastCommitDate": "2026-05-22T09:36:08+02:00",
       "recentCommitRefs": [
-        "28f6941d"
+        "28f6941d",
+        "31dc7cda",
+        "4294de07"
       ],
       "touchedFrequency": {
-        "docs/tasks/TASK-975.md": 1
+        "cli/src/main/ts/application/use-cases/generate-inbox.ts": 1,
+        "cli/src/main/ts/application/use-cases/govern-system.ts": 1,
+        "cli/src/main/ts/application/use-cases/select-next-task.ts": 1,
+        "cli/src/main/ts/infrastructure/filesystem/markdown-task-repository.ts": 1,
+        "cli/src/test/ts/govern-system.test.ts": 1,
+        "cli/src/test/ts/select-next-task.test.ts": 1,
+        "docs/INBOX.md": 1,
+        "docs/tasks/TASK-975.md": 3
       }
     },
     "TASK-976": {
