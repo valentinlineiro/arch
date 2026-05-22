@@ -126,6 +126,18 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-982.md"
+        },
+        "TASK-986": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-986.md"
+        },
+        "TASK-987": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-987.md"
         }
       }
     },
@@ -249,6 +261,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-982.md"
+        },
+        "TASK-987": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-987.md"
         }
       }
     },
@@ -350,6 +368,18 @@
             "literal-mention"
           ],
           "taskPath": "docs/tasks/TASK-966.md"
+        },
+        "TASK-986": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-986.md"
+        },
+        "TASK-987": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-987.md"
         }
       }
     },
@@ -485,6 +515,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-982.md"
+        },
+        "TASK-987": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-987.md"
         }
       }
     },
@@ -731,6 +767,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-984.md"
+        },
+        "TASK-988": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-988.md"
         }
       }
     },
@@ -810,6 +852,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-984.md"
+        },
+        "TASK-987": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-987.md"
         }
       }
     },
@@ -908,6 +956,18 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-960.md"
+        },
+        "TASK-986": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-986.md"
+        },
+        "TASK-987": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-987.md"
         }
       }
     },
@@ -1172,6 +1232,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-972.md"
+        },
+        "TASK-987": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-987.md"
         }
       }
     },
@@ -1248,6 +1314,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-901.md"
+        },
+        "TASK-991": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-991.md"
         }
       }
     },
@@ -1309,6 +1381,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-946.md"
+        },
+        "TASK-988": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-988.md"
         }
       }
     },
@@ -1402,6 +1480,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-956.md"
+        },
+        "TASK-987": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-987.md"
         }
       }
     },
@@ -1424,6 +1508,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-973.md"
+        },
+        "TASK-987": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-987.md"
         }
       }
     },
@@ -1440,6 +1530,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-971.md"
+        },
+        "TASK-987": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-987.md"
         }
       }
     },
@@ -1466,6 +1562,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-976.md"
+        },
+        "TASK-987": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-987.md"
         }
       }
     }
@@ -3203,11 +3305,11 @@
         "actually",
         "adr",
         "after",
-        "agents",
         "agfm",
         "appears",
         "arch",
         "architect",
+        "archive",
         "archived",
         "assigned",
         "backlog",
@@ -3254,7 +3356,6 @@
         "records",
         "redesigned",
         "remembering",
-        "repeated",
         "resolution",
         "resolve",
         "retained",
@@ -3966,9 +4067,87 @@
       ],
       "strength": "enforced",
       "title": "Unified Epistemic Invariant Specification — Bounded Stream Enforcement"
+    },
+    "ADR-029": {
+      "affectedModules": [],
+      "keywords": [
+        "029",
+        "460",
+        "accepted",
+        "adr",
+        "alias",
+        "aliases",
+        "analyze",
+        "arch",
+        "bootstrap",
+        "causal",
+        "centric",
+        "check",
+        "cli",
+        "command",
+        "commanddispatcher",
+        "compile",
+        "complicates",
+        "context",
+        "creates",
+        "decision",
+        "decouple",
+        "deprecated",
+        "designed",
+        "dispatcher",
+        "driven",
+        "enhance",
+        "entry",
+        "esoteric",
+        "file",
+        "flag",
+        "friction",
+        "govern",
+        "grew",
+        "human",
+        "humans",
+        "index",
+        "init",
+        "instantiation",
+        "internalized",
+        "interpretation",
+        "introduce",
+        "leading",
+        "legacy",
+        "lines",
+        "llm",
+        "maintenance",
+        "memory",
+        "minimal",
+        "monolithic",
+        "names",
+        "onboarding",
+        "originally",
+        "over",
+        "philosophical",
+        "point",
+        "protoc",
+        "pruning",
+        "reduce",
+        "reflect",
+        "registry",
+        "remove",
+        "renaming",
+        "resolution",
+        "review",
+        "show",
+        "status",
+        "streamlined",
+        "support",
+        "surface",
+        "trace",
+        "which"
+      ],
+      "strength": "enforced",
+      "title": "Human-Centric CLI Surface & Command Dispatcher"
     }
   },
-  "builtAt": "2026-05-22T07:43:55.143Z",
+  "builtAt": "2026-05-22T10:46:38.305Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -4309,6 +4488,7 @@
         "backlog",
         "bug",
         "bugs",
+        "check",
         "created",
         "defined",
         "detection",
@@ -4322,7 +4502,6 @@
         "protocol",
         "registration",
         "resolved",
-        "review",
         "sprint",
         "task",
         "throughout",
@@ -4336,7 +4515,7 @@
       "severityHint": "medium",
       "sourceRef": "docs/KAIZEN-LOG.md",
       "sourceType": "kaizen",
-      "title": "Bugs without formal registration*(Sprint 3)*: `arch review` WARNs had no defined path to the backlog. TASK-041/042/043 were created manually after detection. The bug protocol (TASK-040) resolved this, but friction persisted throughout Sprint 2 and part of Sprint 3."
+      "title": "Bugs without formal registration*(Sprint 3)*: `arch check` WARNs had no defined path to the backlog. TASK-041/042/043 were created manually after detection. The bug protocol (TASK-040) resolved this, but friction persisted throughout Sprint 2 and part of Sprint 3."
     },
     "KAIZEN-PROTOCOL-4": {
       "id": "KAIZEN-PROTOCOL-4",
@@ -4420,6 +4599,7 @@
         "arch",
         "archive",
         "chain",
+        "check",
         "cleanup",
         "created",
         "done",
@@ -4454,7 +4634,7 @@
       "severityHint": "medium",
       "sourceRef": "docs/KAIZEN-LOG.md",
       "sourceType": "kaizen",
-      "title": "Recursive review violation tasks*(Sprint 4)*: TASK-112, 113, and 114 show a pattern where a task is created to fix a review violation, but then marked DONE with its own violations (e.g. pending ACs), leading to a chain of cleanup tasks. **Proposal:** Implement pre-archive guards (TASK-115) and enforce AC validation during `arch review`."
+      "title": "Recursive review violation tasks*(Sprint 4)*: TASK-112, 113, and 114 show a pattern where a task is created to fix a review violation, but then marked DONE with its own violations (e.g. pending ACs), leading to a chain of cleanup tasks. **Proposal:** Implement pre-archive guards (TASK-115) and enforce AC validation during `arch check`."
     },
     "KAIZEN-PROTOCOL-7": {
       "id": "KAIZEN-PROTOCOL-7",
@@ -4462,6 +4642,7 @@
         "arch",
         "block",
         "bug",
+        "check",
         "checking",
         "cli",
         "commits",
@@ -4485,7 +4666,6 @@
         "protocol",
         "pull",
         "resolved",
-        "review",
         "sprint",
         "src",
         "stealth",
@@ -4496,7 +4676,7 @@
       "severityHint": "medium",
       "sourceRef": "docs/KAIZEN-LOG.md",
       "sourceType": "kaizen",
-      "title": "Stealth Merge Commits*(Sprint 6)*: Implicit merges from `git pull` violated the \"No-Merge\" policy. `arch review` initially failed to block them effectively due to a bug in `MergeCommitCheck` (it found the last 20 merges instead of checking the last 20 commits). **Resolved:** Fixed `MergeCommitCheck` in `cli/src/main/ts/infrastructure/cli/git-cli.ts` and hardened protocol."
+      "title": "Stealth Merge Commits*(Sprint 6)*: Implicit merges from `git pull` violated the \"No-Merge\" policy. `arch check` initially failed to block them effectively due to a bug in `MergeCommitCheck` (it found the last 20 merges instead of checking the last 20 commits). **Resolved:** Fixed `MergeCommitCheck` in `cli/src/main/ts/infrastructure/cli/git-cli.ts` and hardened protocol."
     },
     "KAIZEN-PROTOCOL-8": {
       "id": "KAIZEN-PROTOCOL-8",
@@ -4629,6 +4809,7 @@
         "arrived",
         "before",
         "block",
+        "check",
         "detected",
         "detection",
         "did",
@@ -4638,7 +4819,6 @@
         "late",
         "next",
         "resolved",
-        "review",
         "reviewer",
         "session",
         "sprint",
@@ -4654,7 +4834,7 @@
       "severityHint": "medium",
       "sourceRef": "docs/KAIZEN-LOG.md",
       "sourceType": "kaizen",
-      "title": "`arch review` does not validate ACs before archiving*(Sprint 3)*: TASK-031 was archived as DONE but with unchecked ACs. The reviewer detected the inconsistency but did not block archival at the time. Detection arrived late (next session). *(Resolved by TASK-078)*"
+      "title": "`arch check` does not validate ACs before archiving*(Sprint 3)*: TASK-031 was archived as DONE but with unchecked ACs. The reviewer detected the inconsistency but did not block archival at the time. Detection arrived late (next session). *(Resolved by TASK-078)*"
     },
     "KAIZEN-TOOL-3": {
       "id": "KAIZEN-TOOL-3",
@@ -4664,6 +4844,7 @@
         "batch",
         "case",
         "caused",
+        "check",
         "commit",
         "commits",
         "edge",
@@ -4674,7 +4855,6 @@
         "per",
         "planning",
         "report",
-        "review",
         "single",
         "sprint",
         "task",
@@ -4687,7 +4867,7 @@
       "severityHint": "medium",
       "sourceRef": "docs/KAIZEN-LOG.md",
       "sourceType": "kaizen",
-      "title": "Batch lock commit fails TASK-ID validator*(Sprint 3)*: Locking 4 tasks in a `[SPRINT]` commit caused `arch review` to report a format violation. The validator assumes a single TASK-ID per commit — batch planning commits are an uncovered edge case."
+      "title": "Batch lock commit fails TASK-ID validator*(Sprint 3)*: Locking 4 tasks in a `[SPRINT]` commit caused `arch check` to report a format violation. The validator assumes a single TASK-ID per commit — batch planning commits are an uncovered edge case."
     },
     "KAIZEN-TOOL-4": {
       "id": "KAIZEN-TOOL-4",
@@ -4728,10 +4908,92 @@
     }
   },
   "files": {
+    "cli/src/main/ts/application/command-dispatcher.ts": {
+      "criticality": "domain",
+      "imports": [
+        "cli/src/main/ts/application/commands/analyze-command.ts",
+        "cli/src/main/ts/application/commands/ask-command.ts",
+        "cli/src/main/ts/application/commands/batch-command.ts",
+        "cli/src/main/ts/application/commands/capture-command.ts",
+        "cli/src/main/ts/application/commands/check-command.ts",
+        "cli/src/main/ts/application/commands/compile-command.ts",
+        "cli/src/main/ts/application/commands/conduct-command.ts",
+        "cli/src/main/ts/application/commands/deps-command.ts",
+        "cli/src/main/ts/application/commands/exec-command.ts",
+        "cli/src/main/ts/application/commands/explain-command.ts",
+        "cli/src/main/ts/application/commands/govern-command.ts",
+        "cli/src/main/ts/application/commands/inbox-command.ts",
+        "cli/src/main/ts/application/commands/index-command.ts",
+        "cli/src/main/ts/application/commands/init-command.ts",
+        "cli/src/main/ts/application/commands/loop-command.ts",
+        "cli/src/main/ts/application/commands/merge-resolve-command.ts",
+        "cli/src/main/ts/application/commands/move-command.ts",
+        "cli/src/main/ts/application/commands/rank-command.ts",
+        "cli/src/main/ts/application/commands/report-command.ts",
+        "cli/src/main/ts/application/commands/sandbox-command.ts",
+        "cli/src/main/ts/application/commands/sentinel-command.ts",
+        "cli/src/main/ts/application/commands/serve-command.ts",
+        "cli/src/main/ts/application/commands/status-command.ts",
+        "cli/src/main/ts/application/commands/task-command.ts",
+        "cli/src/main/ts/application/commands/trace-command.ts",
+        "cli/src/main/ts/application/commands/verify-acs-command.ts",
+        "cli/src/main/ts/application/commands/version-command.ts",
+        "cli/src/main/ts/application/use-cases/ask-corpus.ts",
+        "cli/src/main/ts/application/use-cases/causal-graph.ts",
+        "cli/src/main/ts/application/use-cases/causal-signal-log.ts",
+        "cli/src/main/ts/application/use-cases/drift-checker.ts",
+        "cli/src/main/ts/application/use-cases/temporal-index.ts",
+        "cli/src/main/ts/domain/models/command.ts",
+        "cli/src/main/ts/domain/services/command-registry.ts",
+        "cli/src/main/ts/domain/services/config-loader.ts",
+        "cli/src/main/ts/domain/services/event-logger.ts",
+        "cli/src/main/ts/domain/services/human-coordination-service.ts",
+        "cli/src/main/ts/domain/services/reviewer.ts",
+        "cli/src/main/ts/domain/services/sandbox.ts",
+        "cli/src/main/ts/infrastructure/cli/git-cli.ts",
+        "cli/src/main/ts/infrastructure/filesystem/chronicle-event-repository.ts",
+        "cli/src/main/ts/infrastructure/filesystem/markdown-task-repository.ts",
+        "cli/src/main/ts/infrastructure/filesystem/node-file-system.ts"
+      ],
+      "runtimeUsage": "hot",
+      "symbols": [
+        "CommandDispatcher"
+      ],
+      "tags": [
+        "application",
+        "command",
+        "dispatcher"
+      ]
+    },
+    "cli/src/main/ts/application/commands/analyze-command.ts": {
+      "criticality": "domain",
+      "imports": [
+        "cli/src/main/ts/application/use-cases/causal-signal-log.ts",
+        "cli/src/main/ts/application/use-cases/deep-analysis-state.ts",
+        "cli/src/main/ts/application/use-cases/focus-ledger.ts",
+        "cli/src/main/ts/application/use-cases/reflect-influence-report.ts",
+        "cli/src/main/ts/domain/models/command.ts",
+        "cli/src/main/ts/domain/repositories/file-system.ts",
+        "cli/src/main/ts/domain/services/config-loader.ts",
+        "cli/src/main/ts/domain/services/signal-router.ts",
+        "cli/src/main/ts/infrastructure/filesystem/node-file-system.ts"
+      ],
+      "runtimeUsage": "hot",
+      "symbols": [
+        "AnalyzeCommand"
+      ],
+      "tags": [
+        "analyze",
+        "application",
+        "command",
+        "commands"
+      ]
+    },
     "cli/src/main/ts/application/commands/ask-command.ts": {
       "criticality": "domain",
       "imports": [
-        "cli/src/main/ts/application/use-cases/ask-corpus.ts"
+        "cli/src/main/ts/application/use-cases/ask-corpus.ts",
+        "cli/src/main/ts/domain/models/command.ts"
       ],
       "runtimeUsage": "hot",
       "symbols": [
@@ -4747,6 +5009,7 @@
     "cli/src/main/ts/application/commands/audit-command.ts": {
       "criticality": "domain",
       "imports": [
+        "cli/src/main/ts/domain/models/command.ts",
         "cli/src/main/ts/domain/models/ueg-ir.ts",
         "cli/src/main/ts/domain/services/java-adapter.ts",
         "cli/src/main/ts/domain/services/python-adapter.ts",
@@ -4771,6 +5034,7 @@
       "criticality": "domain",
       "imports": [
         "cli/src/main/ts/application/use-cases/batch-system.ts",
+        "cli/src/main/ts/domain/models/command.ts",
         "cli/src/main/ts/domain/repositories/file-system.ts"
       ],
       "runtimeUsage": "hot",
@@ -4790,6 +5054,7 @@
         "cli/src/main/ts/application/use-cases/create-task.ts",
         "cli/src/main/ts/application/use-cases/mark-task-in-progress.ts",
         "cli/src/main/ts/application/use-cases/semantic-collision-detector.ts",
+        "cli/src/main/ts/domain/models/command.ts",
         "cli/src/main/ts/domain/repositories/file-system.ts",
         "cli/src/main/ts/domain/repositories/git-repository.ts",
         "cli/src/main/ts/domain/repositories/task-repository.ts",
@@ -4806,22 +5071,27 @@
         "commands"
       ]
     },
-    "cli/src/main/ts/application/commands/causal-command.ts": {
+    "cli/src/main/ts/application/commands/check-command.ts": {
       "criticality": "domain",
       "imports": [
-        "cli/src/main/ts/application/use-cases/causal-arbitrator.ts",
-        "cli/src/main/ts/application/use-cases/causal-graph.ts",
-        "cli/src/main/ts/application/use-cases/causal-signal-log.ts",
-        "cli/src/main/ts/domain/models/causal-relation.ts"
+        "cli/src/main/ts/application/use-cases/check-system.ts",
+        "cli/src/main/ts/application/use-cases/drift-checker.ts",
+        "cli/src/main/ts/application/use-cases/hansei-wizard.ts",
+        "cli/src/main/ts/domain/models/command.ts",
+        "cli/src/main/ts/domain/repositories/file-system.ts",
+        "cli/src/main/ts/domain/repositories/git-repository.ts",
+        "cli/src/main/ts/domain/repositories/task-repository.ts",
+        "cli/src/main/ts/domain/services/deterministic-ac-verifier.ts",
+        "cli/src/main/ts/domain/services/reviewer.ts",
+        "cli/src/main/ts/infrastructure/cli/output-formatter.ts"
       ],
       "runtimeUsage": "hot",
       "symbols": [
-        "CausalCommand",
-        "CausalIO"
+        "CheckCommand"
       ],
       "tags": [
         "application",
-        "causal",
+        "check",
         "command",
         "commands"
       ]
@@ -4830,6 +5100,7 @@
       "criticality": "domain",
       "imports": [
         "cli/src/main/ts/application/use-cases/normalize-repo-events.ts",
+        "cli/src/main/ts/domain/models/command.ts",
         "cli/src/main/ts/domain/repositories/file-system.ts",
         "cli/src/main/ts/domain/services/stateless-hypothesis-generator.ts",
         "cli/src/main/ts/domain/services/transient-actuation-projector.ts",
@@ -4848,7 +5119,9 @@
     },
     "cli/src/main/ts/application/commands/conduct-command.ts": {
       "criticality": "domain",
-      "imports": [],
+      "imports": [
+        "cli/src/main/ts/domain/models/command.ts"
+      ],
       "runtimeUsage": "hot",
       "symbols": [
         "ConductCommand"
@@ -4864,6 +5137,7 @@
       "criticality": "domain",
       "imports": [
         "cli/src/main/ts/application/use-cases/corpus-index.ts",
+        "cli/src/main/ts/domain/models/command.ts",
         "cli/src/main/ts/domain/repositories/file-system.ts",
         "cli/src/main/ts/domain/repositories/git-repository.ts",
         "cli/src/main/ts/domain/services/governance-drift-detector.ts",
@@ -4884,6 +5158,7 @@
     "cli/src/main/ts/application/commands/deps-command.ts": {
       "criticality": "domain",
       "imports": [
+        "cli/src/main/ts/domain/models/command.ts",
         "cli/src/main/ts/domain/models/task.ts",
         "cli/src/main/ts/domain/repositories/task-repository.ts"
       ],
@@ -4902,6 +5177,7 @@
       "criticality": "domain",
       "imports": [
         "cli/src/main/ts/application/use-cases/batch-system.ts",
+        "cli/src/main/ts/domain/models/command.ts",
         "cli/src/main/ts/domain/models/task.ts",
         "cli/src/main/ts/domain/repositories/file-system.ts",
         "cli/src/main/ts/domain/repositories/task-repository.ts",
@@ -4924,6 +5200,7 @@
       "criticality": "domain",
       "imports": [
         "cli/src/main/ts/application/use-cases/causal-signal-log.ts",
+        "cli/src/main/ts/domain/models/command.ts",
         "cli/src/main/ts/domain/repositories/file-system.ts",
         "cli/src/main/ts/domain/repositories/task-repository.ts"
       ],
@@ -4944,6 +5221,7 @@
         "cli/src/main/ts/application/use-cases/build-index.ts",
         "cli/src/main/ts/application/use-cases/causal-signal-log.ts",
         "cli/src/main/ts/application/use-cases/govern-system.ts",
+        "cli/src/main/ts/domain/models/command.ts",
         "cli/src/main/ts/domain/repositories/file-system.ts",
         "cli/src/main/ts/domain/repositories/git-repository.ts",
         "cli/src/main/ts/domain/repositories/task-repository.ts",
@@ -4966,6 +5244,7 @@
       "imports": [
         "cli/src/main/ts/application/use-cases/drift-checker.ts",
         "cli/src/main/ts/application/use-cases/generate-inbox.ts",
+        "cli/src/main/ts/domain/models/command.ts",
         "cli/src/main/ts/domain/repositories/file-system.ts",
         "cli/src/main/ts/domain/repositories/task-repository.ts",
         "cli/src/main/ts/domain/services/reviewer.ts",
@@ -4986,6 +5265,7 @@
       "criticality": "domain",
       "imports": [
         "cli/src/main/ts/application/use-cases/build-index.ts",
+        "cli/src/main/ts/domain/models/command.ts",
         "cli/src/main/ts/domain/repositories/file-system.ts",
         "cli/src/main/ts/domain/repositories/git-repository.ts",
         "cli/src/main/ts/domain/services/config-loader.ts"
@@ -5003,7 +5283,9 @@
     },
     "cli/src/main/ts/application/commands/init-command.ts": {
       "criticality": "domain",
-      "imports": [],
+      "imports": [
+        "cli/src/main/ts/domain/models/command.ts"
+      ],
       "runtimeUsage": "hot",
       "symbols": [
         "InitCommand"
@@ -5018,12 +5300,13 @@
     "cli/src/main/ts/application/commands/lint-command.ts": {
       "criticality": "domain",
       "imports": [
+        "cli/src/main/ts/domain/models/command.ts",
         "cli/src/main/ts/domain/repositories/file-system.ts",
         "cli/src/main/ts/domain/repositories/task-repository.ts",
         "cli/src/main/ts/domain/services/task-validator.ts",
         "cli/src/main/ts/infrastructure/cli/output-formatter.ts"
       ],
-      "runtimeUsage": "hot",
+      "runtimeUsage": "cold",
       "symbols": [
         "LintCommand"
       ],
@@ -5039,6 +5322,7 @@
       "imports": [
         "cli/src/main/ts/application/use-cases/drift-checker.ts",
         "cli/src/main/ts/application/use-cases/loop-engine.ts",
+        "cli/src/main/ts/domain/models/command.ts",
         "cli/src/main/ts/domain/repositories/file-system.ts",
         "cli/src/main/ts/domain/repositories/git-repository.ts",
         "cli/src/main/ts/domain/repositories/task-repository.ts",
@@ -5059,6 +5343,7 @@
       "criticality": "domain",
       "imports": [
         "cli/src/main/ts/application/use-cases/merge-resolve.ts",
+        "cli/src/main/ts/domain/models/command.ts",
         "cli/src/main/ts/domain/repositories/file-system.ts",
         "cli/src/main/ts/domain/repositories/git-repository.ts",
         "cli/src/main/ts/domain/services/config-loader.ts"
@@ -5079,6 +5364,7 @@
       "criticality": "domain",
       "imports": [
         "cli/src/main/ts/application/use-cases/move-artifact.ts",
+        "cli/src/main/ts/domain/models/command.ts",
         "cli/src/main/ts/domain/repositories/file-system.ts",
         "cli/src/main/ts/domain/repositories/git-repository.ts",
         "cli/src/main/ts/domain/repositories/task-repository.ts",
@@ -5099,9 +5385,10 @@
       "criticality": "domain",
       "imports": [
         "cli/src/main/ts/application/use-cases/select-next-task.ts",
+        "cli/src/main/ts/domain/models/command.ts",
         "cli/src/main/ts/domain/repositories/task-repository.ts"
       ],
-      "runtimeUsage": "hot",
+      "runtimeUsage": "warm",
       "symbols": [
         "NextCommand"
       ],
@@ -5116,12 +5403,13 @@
       "criticality": "domain",
       "imports": [
         "cli/src/main/ts/application/use-cases/promote-idea.ts",
+        "cli/src/main/ts/domain/models/command.ts",
         "cli/src/main/ts/domain/repositories/file-system.ts",
         "cli/src/main/ts/domain/repositories/git-repository.ts",
         "cli/src/main/ts/domain/repositories/task-repository.ts",
         "cli/src/main/ts/infrastructure/cli/output-formatter.ts"
       ],
-      "runtimeUsage": "hot",
+      "runtimeUsage": "warm",
       "symbols": [
         "PromoteCommand"
       ],
@@ -5136,6 +5424,7 @@
       "criticality": "domain",
       "imports": [
         "cli/src/main/ts/application/use-cases/rank-tasks.ts",
+        "cli/src/main/ts/domain/models/command.ts",
         "cli/src/main/ts/domain/repositories/task-repository.ts"
       ],
       "runtimeUsage": "hot",
@@ -5149,32 +5438,10 @@
         "rank"
       ]
     },
-    "cli/src/main/ts/application/commands/reflect-command.ts": {
-      "criticality": "domain",
-      "imports": [
-        "cli/src/main/ts/application/use-cases/causal-signal-log.ts",
-        "cli/src/main/ts/application/use-cases/deep-analysis-state.ts",
-        "cli/src/main/ts/application/use-cases/focus-ledger.ts",
-        "cli/src/main/ts/application/use-cases/reflect-influence-report.ts",
-        "cli/src/main/ts/domain/repositories/file-system.ts",
-        "cli/src/main/ts/domain/services/config-loader.ts",
-        "cli/src/main/ts/domain/services/signal-router.ts",
-        "cli/src/main/ts/infrastructure/filesystem/node-file-system.ts"
-      ],
-      "runtimeUsage": "hot",
-      "symbols": [
-        "ReflectCommand"
-      ],
-      "tags": [
-        "application",
-        "command",
-        "commands",
-        "reflect"
-      ]
-    },
     "cli/src/main/ts/application/commands/report-command.ts": {
       "criticality": "domain",
       "imports": [
+        "cli/src/main/ts/domain/models/command.ts",
         "cli/src/main/ts/domain/repositories/file-system.ts",
         "cli/src/main/ts/domain/repositories/git-repository.ts",
         "cli/src/main/ts/domain/services/archive-parser.ts",
@@ -5195,6 +5462,7 @@
       "criticality": "domain",
       "imports": [
         "cli/src/main/ts/application/use-cases/reprioritize-corpus.ts",
+        "cli/src/main/ts/domain/models/command.ts",
         "cli/src/main/ts/domain/repositories/file-system.ts",
         "cli/src/main/ts/domain/repositories/task-repository.ts"
       ],
@@ -5209,34 +5477,11 @@
         "reprioritize"
       ]
     },
-    "cli/src/main/ts/application/commands/review-command.ts": {
-      "criticality": "domain",
-      "imports": [
-        "cli/src/main/ts/application/use-cases/drift-checker.ts",
-        "cli/src/main/ts/application/use-cases/hansei-wizard.ts",
-        "cli/src/main/ts/application/use-cases/review-system.ts",
-        "cli/src/main/ts/domain/repositories/file-system.ts",
-        "cli/src/main/ts/domain/repositories/git-repository.ts",
-        "cli/src/main/ts/domain/repositories/task-repository.ts",
-        "cli/src/main/ts/domain/services/deterministic-ac-verifier.ts",
-        "cli/src/main/ts/domain/services/reviewer.ts",
-        "cli/src/main/ts/infrastructure/cli/output-formatter.ts"
-      ],
-      "runtimeUsage": "hot",
-      "symbols": [
-        "ReviewCommand"
-      ],
-      "tags": [
-        "application",
-        "command",
-        "commands",
-        "review"
-      ]
-    },
     "cli/src/main/ts/application/commands/sandbox-command.ts": {
       "criticality": "domain",
       "imports": [
         "cli/src/main/ts/application/use-cases/escalation-store.ts",
+        "cli/src/main/ts/domain/models/command.ts",
         "cli/src/main/ts/domain/repositories/file-system.ts",
         "cli/src/main/ts/domain/repositories/task-repository.ts",
         "cli/src/main/ts/domain/services/sandbox.ts",
@@ -5256,9 +5501,10 @@
     "cli/src/main/ts/application/commands/sentinel-command.ts": {
       "criticality": "domain",
       "imports": [
+        "cli/src/main/ts/domain/models/command.ts",
         "cli/src/main/ts/domain/repositories/file-system.ts"
       ],
-      "runtimeUsage": "cold",
+      "runtimeUsage": "hot",
       "symbols": [
         "SentinelCommand"
       ],
@@ -5271,7 +5517,9 @@
     },
     "cli/src/main/ts/application/commands/serve-command.ts": {
       "criticality": "domain",
-      "imports": [],
+      "imports": [
+        "cli/src/main/ts/domain/models/command.ts"
+      ],
       "runtimeUsage": "hot",
       "symbols": [
         "ServeCommand"
@@ -5286,6 +5534,7 @@
     "cli/src/main/ts/application/commands/status-command.ts": {
       "criticality": "domain",
       "imports": [
+        "cli/src/main/ts/domain/models/command.ts",
         "cli/src/main/ts/domain/repositories/file-system.ts",
         "cli/src/main/ts/domain/repositories/task-repository.ts",
         "cli/src/main/ts/domain/services/status-report-service.ts",
@@ -5324,6 +5573,7 @@
         "cli/src/main/ts/application/use-cases/task-reject-stale.ts",
         "cli/src/main/ts/application/use-cases/task-reject.ts",
         "cli/src/main/ts/application/use-cases/update-task-metrics.ts",
+        "cli/src/main/ts/domain/models/command.ts",
         "cli/src/main/ts/domain/models/event.ts",
         "cli/src/main/ts/domain/repositories/file-system.ts",
         "cli/src/main/ts/domain/repositories/git-repository.ts",
@@ -5348,16 +5598,39 @@
         "unchecked"
       ]
     },
+    "cli/src/main/ts/application/commands/trace-command.ts": {
+      "criticality": "domain",
+      "imports": [
+        "cli/src/main/ts/application/use-cases/causal-arbitrator.ts",
+        "cli/src/main/ts/application/use-cases/causal-graph.ts",
+        "cli/src/main/ts/application/use-cases/causal-signal-log.ts",
+        "cli/src/main/ts/domain/models/causal-relation.ts",
+        "cli/src/main/ts/domain/models/command.ts"
+      ],
+      "runtimeUsage": "hot",
+      "symbols": [
+        "CausalIO",
+        "TraceCommand"
+      ],
+      "tags": [
+        "application",
+        "causal",
+        "command",
+        "commands",
+        "trace"
+      ]
+    },
     "cli/src/main/ts/application/commands/validate-command.ts": {
       "criticality": "domain",
       "imports": [
         "cli/src/main/ts/application/use-cases/validate-system.ts",
         "cli/src/main/ts/application/use-cases/validate-task-acs.ts",
+        "cli/src/main/ts/domain/models/command.ts",
         "cli/src/main/ts/domain/repositories/file-system.ts",
         "cli/src/main/ts/domain/repositories/task-repository.ts",
         "cli/src/main/ts/infrastructure/cli/output-formatter.ts"
       ],
-      "runtimeUsage": "hot",
+      "runtimeUsage": "cold",
       "symbols": [
         "ValidateCommand"
       ],
@@ -5371,6 +5644,7 @@
     "cli/src/main/ts/application/commands/verify-acs-command.ts": {
       "criticality": "domain",
       "imports": [
+        "cli/src/main/ts/domain/models/command.ts",
         "cli/src/main/ts/domain/repositories/task-repository.ts",
         "cli/src/main/ts/domain/services/deterministic-ac-verifier.ts",
         "cli/src/main/ts/infrastructure/cli/output-formatter.ts"
@@ -5389,6 +5663,7 @@
     "cli/src/main/ts/application/commands/version-command.ts": {
       "criticality": "domain",
       "imports": [
+        "cli/src/main/ts/domain/models/command.ts",
         "cli/src/main/ts/infrastructure/cli/output-formatter.ts"
       ],
       "runtimeUsage": "hot",
@@ -5432,7 +5707,7 @@
         "cli/src/main/ts/domain/models/batch-entry.ts",
         "cli/src/main/ts/domain/repositories/file-system.ts"
       ],
-      "runtimeUsage": "hot",
+      "runtimeUsage": "warm",
       "symbols": [
         "BatchSystem"
       ],
@@ -5450,7 +5725,7 @@
         "cli/src/main/ts/domain/repositories/file-system.ts",
         "cli/src/main/ts/domain/repositories/git-repository.ts"
       ],
-      "runtimeUsage": "hot",
+      "runtimeUsage": "warm",
       "symbols": [
         "ACTIVE_EPOCH",
         "BuildIndex",
@@ -5478,7 +5753,7 @@
         "cli/src/main/ts/domain/models/causal-relation.ts",
         "cli/src/main/ts/domain/models/causal-signal.ts"
       ],
-      "runtimeUsage": "hot",
+      "runtimeUsage": "warm",
       "symbols": [
         "ArbitrationAction",
         "ArbitrationResult",
@@ -5538,12 +5813,41 @@
         "signal"
       ]
     },
+    "cli/src/main/ts/application/use-cases/check-system.ts": {
+      "criticality": "domain",
+      "imports": [
+        "cli/src/main/ts/application/use-cases/drift-checker.ts",
+        "cli/src/main/ts/application/use-cases/focus-ledger.ts",
+        "cli/src/main/ts/domain/models/task.ts",
+        "cli/src/main/ts/domain/repositories/file-system.ts",
+        "cli/src/main/ts/domain/repositories/git-repository.ts",
+        "cli/src/main/ts/domain/repositories/task-repository.ts",
+        "cli/src/main/ts/domain/services/config-loader.ts",
+        "cli/src/main/ts/domain/services/reviewer.ts"
+      ],
+      "runtimeUsage": "warm",
+      "symbols": [
+        "CheckCondition",
+        "CheckOptions",
+        "CheckScope",
+        "CheckSystem"
+      ],
+      "tags": [
+        "application",
+        "cases",
+        "check",
+        "condition",
+        "options",
+        "scope",
+        "system"
+      ]
+    },
     "cli/src/main/ts/application/use-cases/compress-task.ts": {
       "criticality": "domain",
       "imports": [
         "cli/src/main/ts/domain/repositories/file-system.ts"
       ],
-      "runtimeUsage": "hot",
+      "runtimeUsage": "warm",
       "symbols": [
         "CompressTask"
       ],
@@ -5576,7 +5880,7 @@
       "imports": [
         "cli/src/main/ts/domain/repositories/file-system.ts"
       ],
-      "runtimeUsage": "hot",
+      "runtimeUsage": "warm",
       "symbols": [
         "ConstraintPreflight"
       ],
@@ -5595,7 +5899,7 @@
         "cli/src/main/ts/domain/models/feedback-signal.ts",
         "cli/src/main/ts/domain/repositories/file-system.ts"
       ],
-      "runtimeUsage": "hot",
+      "runtimeUsage": "warm",
       "symbols": [
         "ContextInference",
         "ContextResult",
@@ -5620,7 +5924,7 @@
         "cli/src/main/ts/domain/repositories/file-system.ts",
         "cli/src/main/ts/domain/repositories/git-repository.ts"
       ],
-      "runtimeUsage": "warm",
+      "runtimeUsage": "cold",
       "symbols": [
         "CorpusEntry",
         "CorpusIndex",
@@ -5640,7 +5944,7 @@
       "imports": [
         "cli/src/main/ts/domain/repositories/file-system.ts"
       ],
-      "runtimeUsage": "hot",
+      "runtimeUsage": "warm",
       "symbols": [
         "CorrectionAuthority",
         "CorrectionKind",
@@ -5675,7 +5979,7 @@
         "cli/src/main/ts/domain/services/provider-registry.ts",
         "cli/src/main/ts/domain/services/task-validator.ts"
       ],
-      "runtimeUsage": "hot",
+      "runtimeUsage": "warm",
       "symbols": [
         "CreateTask"
       ],
@@ -5710,7 +6014,7 @@
       "imports": [
         "cli/src/main/ts/domain/repositories/file-system.ts"
       ],
-      "runtimeUsage": "hot",
+      "runtimeUsage": "warm",
       "symbols": [
         "DeepAnalysisState",
         "isDeepAnalysisDue"
@@ -5752,7 +6056,7 @@
         "cli/src/main/ts/domain/repositories/task-repository.ts",
         "cli/src/main/ts/domain/services/task-validator.ts"
       ],
-      "runtimeUsage": "hot",
+      "runtimeUsage": "warm",
       "symbols": [
         "EditTaskMetadata"
       ],
@@ -5769,7 +6073,7 @@
       "imports": [
         "cli/src/main/ts/domain/repositories/file-system.ts"
       ],
-      "runtimeUsage": "hot",
+      "runtimeUsage": "warm",
       "symbols": [
         "EscalationEntry",
         "EscalationStatus",
@@ -5806,7 +6110,7 @@
     "cli/src/main/ts/application/use-cases/focus-ledger.ts": {
       "criticality": "domain",
       "imports": [],
-      "runtimeUsage": "hot",
+      "runtimeUsage": "warm",
       "symbols": [
         "committedRulings",
         "FOCUS_LEDGER_PATH",
@@ -5840,7 +6144,7 @@
         "cli/src/main/ts/domain/repositories/task-repository.ts",
         "cli/src/main/ts/domain/services/reviewer.ts"
       ],
-      "runtimeUsage": "hot",
+      "runtimeUsage": "warm",
       "symbols": [
         "DecisionItem",
         "GenerateInbox",
@@ -5894,7 +6198,7 @@
         "cli/src/main/ts/domain/services/status-report-service.ts",
         "cli/src/main/ts/domain/services/task-validator.ts"
       ],
-      "runtimeUsage": "hot",
+      "runtimeUsage": "warm",
       "symbols": [
         "GovernResult",
         "GovernSystem"
@@ -5934,7 +6238,7 @@
         "cli/src/main/ts/domain/repositories/git-repository.ts",
         "cli/src/main/ts/domain/services/deterministic-hansei-checker.ts"
       ],
-      "runtimeUsage": "hot",
+      "runtimeUsage": "warm",
       "symbols": [
         "HanseiBlock",
         "HanseiWizard",
@@ -5955,7 +6259,7 @@
         "cli/src/main/ts/application/use-cases/compute-trusted-metrics.ts",
         "cli/src/main/ts/domain/repositories/file-system.ts"
       ],
-      "runtimeUsage": "hot",
+      "runtimeUsage": "warm",
       "symbols": [
         "LightweightMetricsRefresh"
       ],
@@ -5975,7 +6279,7 @@
         "cli/src/main/ts/domain/repositories/file-system.ts",
         "cli/src/main/ts/domain/repositories/task-repository.ts"
       ],
-      "runtimeUsage": "hot",
+      "runtimeUsage": "warm",
       "symbols": [
         "LoadBearingMemory"
       ],
@@ -5990,11 +6294,11 @@
     "cli/src/main/ts/application/use-cases/loop-engine.ts": {
       "criticality": "domain",
       "imports": [
+        "cli/src/main/ts/application/use-cases/check-system.ts",
         "cli/src/main/ts/application/use-cases/drift-checker.ts",
         "cli/src/main/ts/application/use-cases/escalation-store.ts",
         "cli/src/main/ts/application/use-cases/govern-system.ts",
         "cli/src/main/ts/application/use-cases/mark-task-done.ts",
-        "cli/src/main/ts/application/use-cases/review-system.ts",
         "cli/src/main/ts/application/use-cases/select-next-task.ts",
         "cli/src/main/ts/domain/models/task.ts",
         "cli/src/main/ts/domain/repositories/file-system.ts",
@@ -6007,7 +6311,7 @@
         "cli/src/main/ts/infrastructure/cli/subprocess-runner.ts",
         "cli/src/main/ts/infrastructure/filesystem/node-feedback-repository.ts"
       ],
-      "runtimeUsage": "hot",
+      "runtimeUsage": "warm",
       "symbols": [
         "LoopEngine",
         "LoopOptions"
@@ -6040,7 +6344,7 @@
         "cli/src/main/ts/domain/services/signal-router.ts",
         "cli/src/main/ts/domain/services/task-validator.ts"
       ],
-      "runtimeUsage": "hot",
+      "runtimeUsage": "warm",
       "symbols": [
         "MarkTaskDone"
       ],
@@ -6061,7 +6365,7 @@
         "cli/src/main/ts/domain/repositories/git-repository.ts",
         "cli/src/main/ts/domain/repositories/task-repository.ts"
       ],
-      "runtimeUsage": "hot",
+      "runtimeUsage": "warm",
       "symbols": [
         "DefinitionOfReadyError",
         "MarkTaskInProgress"
@@ -6085,7 +6389,7 @@
         "cli/src/main/ts/domain/repositories/task-repository.ts",
         "cli/src/main/ts/domain/services/task-validator.ts"
       ],
-      "runtimeUsage": "hot",
+      "runtimeUsage": "warm",
       "symbols": [
         "MarkTaskReview"
       ],
@@ -6103,7 +6407,7 @@
         "cli/src/main/ts/domain/repositories/file-system.ts",
         "cli/src/main/ts/domain/repositories/git-repository.ts"
       ],
-      "runtimeUsage": "hot",
+      "runtimeUsage": "warm",
       "symbols": [
         "MergeResolve"
       ],
@@ -6122,7 +6426,7 @@
         "cli/src/main/ts/domain/repositories/task-repository.ts",
         "cli/src/main/ts/infrastructure/cli/output-formatter.ts"
       ],
-      "runtimeUsage": "hot",
+      "runtimeUsage": "warm",
       "symbols": [
         "MoveArtifact"
       ],
@@ -6138,7 +6442,7 @@
       "imports": [
         "cli/src/main/ts/domain/models/ontology.ts"
       ],
-      "runtimeUsage": "hot",
+      "runtimeUsage": "warm",
       "symbols": [
         "NormalizeRepoEvents",
         "RawInputTrace"
@@ -6160,7 +6464,7 @@
         "cli/src/main/ts/domain/repositories/git-repository.ts",
         "cli/src/main/ts/domain/repositories/task-repository.ts"
       ],
-      "runtimeUsage": "hot",
+      "runtimeUsage": "warm",
       "symbols": [
         "PromoteIdea"
       ],
@@ -6177,7 +6481,7 @@
         "cli/src/main/ts/domain/models/task.ts",
         "cli/src/main/ts/domain/repositories/task-repository.ts"
       ],
-      "runtimeUsage": "hot",
+      "runtimeUsage": "warm",
       "symbols": [
         "RankTasks"
       ],
@@ -6212,7 +6516,7 @@
         "cli/src/main/ts/application/use-cases/reflect-proposal-log.ts",
         "cli/src/main/ts/domain/repositories/file-system.ts"
       ],
-      "runtimeUsage": "hot",
+      "runtimeUsage": "warm",
       "symbols": [
         "DEFAULT_THRESHOLDS",
         "InfluenceReport",
@@ -6278,42 +6582,13 @@
         "unclassified"
       ]
     },
-    "cli/src/main/ts/application/use-cases/review-system.ts": {
-      "criticality": "domain",
-      "imports": [
-        "cli/src/main/ts/application/use-cases/drift-checker.ts",
-        "cli/src/main/ts/application/use-cases/focus-ledger.ts",
-        "cli/src/main/ts/domain/models/task.ts",
-        "cli/src/main/ts/domain/repositories/file-system.ts",
-        "cli/src/main/ts/domain/repositories/git-repository.ts",
-        "cli/src/main/ts/domain/repositories/task-repository.ts",
-        "cli/src/main/ts/domain/services/config-loader.ts",
-        "cli/src/main/ts/domain/services/reviewer.ts"
-      ],
-      "runtimeUsage": "hot",
-      "symbols": [
-        "ReviewCondition",
-        "ReviewOptions",
-        "ReviewScope",
-        "ReviewSystem"
-      ],
-      "tags": [
-        "application",
-        "cases",
-        "condition",
-        "options",
-        "review",
-        "scope",
-        "system"
-      ]
-    },
     "cli/src/main/ts/application/use-cases/select-next-task.ts": {
       "criticality": "domain",
       "imports": [
         "cli/src/main/ts/domain/models/task.ts",
         "cli/src/main/ts/domain/repositories/task-repository.ts"
       ],
-      "runtimeUsage": "hot",
+      "runtimeUsage": "warm",
       "symbols": [
         "HaltReason",
         "MuriConfig",
@@ -6340,7 +6615,7 @@
       "imports": [
         "cli/src/main/ts/domain/repositories/file-system.ts"
       ],
-      "runtimeUsage": "hot",
+      "runtimeUsage": "warm",
       "symbols": [
         "SemanticCollisionDetector"
       ],
@@ -6358,7 +6633,7 @@
         "cli/src/main/ts/domain/models/task.ts",
         "cli/src/main/ts/domain/repositories/task-repository.ts"
       ],
-      "runtimeUsage": "hot",
+      "runtimeUsage": "warm",
       "symbols": [
         "RejectStaleTask"
       ],
@@ -6377,7 +6652,7 @@
         "cli/src/main/ts/domain/repositories/task-repository.ts",
         "cli/src/main/ts/domain/services/event-logger.ts"
       ],
-      "runtimeUsage": "hot",
+      "runtimeUsage": "warm",
       "symbols": [
         "RejectTask"
       ],
@@ -6414,7 +6689,7 @@
       "imports": [
         "cli/src/main/ts/domain/repositories/task-repository.ts"
       ],
-      "runtimeUsage": "hot",
+      "runtimeUsage": "warm",
       "symbols": [
         "UpdateTaskMetrics"
       ],
@@ -6433,7 +6708,7 @@
         "cli/src/main/ts/domain/repositories/task-repository.ts",
         "cli/src/main/ts/domain/services/task-validator.ts"
       ],
-      "runtimeUsage": "hot",
+      "runtimeUsage": "cold",
       "symbols": [
         "ValidateSystem",
         "ValidationResult"
@@ -6450,7 +6725,7 @@
     "cli/src/main/ts/application/use-cases/validate-task-acs.ts": {
       "criticality": "domain",
       "imports": [],
-      "runtimeUsage": "hot",
+      "runtimeUsage": "warm",
       "symbols": [
         "AcPredicateResult",
         "PredicateType",
@@ -6622,6 +6897,19 @@
         "update"
       ]
     },
+    "cli/src/main/ts/domain/models/command.ts": {
+      "criticality": "core",
+      "imports": [],
+      "runtimeUsage": "hot",
+      "symbols": [
+        "Command"
+      ],
+      "tags": [
+        "command",
+        "domain",
+        "models"
+      ]
+    },
     "cli/src/main/ts/domain/models/context-index.ts": {
       "criticality": "core",
       "imports": [],
@@ -6729,7 +7017,7 @@
     "cli/src/main/ts/domain/models/event.ts": {
       "criticality": "core",
       "imports": [],
-      "runtimeUsage": "hot",
+      "runtimeUsage": "warm",
       "symbols": [
         "ArchEvent",
         "EventRepository"
@@ -6878,7 +7166,7 @@
     "cli/src/main/ts/domain/models/reflect-decision.ts": {
       "criticality": "core",
       "imports": [],
-      "runtimeUsage": "warm",
+      "runtimeUsage": "cold",
       "symbols": [
         "DecisionFinality",
         "DecisionOutcome",
@@ -6898,7 +7186,7 @@
     "cli/src/main/ts/domain/models/reflect-proposal.ts": {
       "criticality": "core",
       "imports": [],
-      "runtimeUsage": "warm",
+      "runtimeUsage": "cold",
       "symbols": [
         "ProposalType",
         "ReflectProposal"
@@ -7165,7 +7453,7 @@
         "cli/src/main/ts/domain/repositories/file-system.ts",
         "cli/src/main/ts/domain/repositories/git-repository.ts"
       ],
-      "runtimeUsage": "hot",
+      "runtimeUsage": "warm",
       "symbols": [
         "ArchivedTaskMetrics",
         "ArchiveParser"
@@ -7202,7 +7490,7 @@
       "imports": [
         "cli/src/main/ts/domain/services/llm-provider.ts"
       ],
-      "runtimeUsage": "hot",
+      "runtimeUsage": "warm",
       "symbols": [
         "BridgeConfig",
         "BridgeProvider"
@@ -7321,7 +7609,7 @@
       "imports": [
         "cli/src/main/ts/domain/models/task.ts"
       ],
-      "runtimeUsage": "hot",
+      "runtimeUsage": "warm",
       "symbols": [
         "ACEvidence",
         "DeterministicACVerifier",
@@ -7404,7 +7692,7 @@
       "imports": [
         "cli/src/main/ts/application/use-cases/corpus-index.ts"
       ],
-      "runtimeUsage": "warm",
+      "runtimeUsage": "cold",
       "symbols": [
         "DriftReport",
         "GovernanceDriftDetector"
@@ -7515,7 +7803,7 @@
       "imports": [
         "cli/src/main/ts/application/use-cases/corpus-index.ts"
       ],
-      "runtimeUsage": "warm",
+      "runtimeUsage": "cold",
       "symbols": [
         "AnomalyReport",
         "ClassConcentration",
@@ -7617,7 +7905,7 @@
         "cli/src/main/ts/domain/repositories/git-repository.ts",
         "cli/src/main/ts/domain/services/archive-parser.ts"
       ],
-      "runtimeUsage": "hot",
+      "runtimeUsage": "warm",
       "symbols": [
         "ActorStat",
         "CalculatedMetrics",
@@ -7736,7 +8024,7 @@
         "cli/src/main/ts/domain/services/llm-provider.ts",
         "cli/src/main/ts/domain/services/native-provider.ts"
       ],
-      "runtimeUsage": "hot",
+      "runtimeUsage": "warm",
       "symbols": [
         "ProviderRegistry",
         "ResolveResult"
@@ -7883,7 +8171,7 @@
         "cli/src/main/ts/application/use-cases/causal-signal-log.ts",
         "cli/src/main/ts/domain/models/task.ts"
       ],
-      "runtimeUsage": "hot",
+      "runtimeUsage": "warm",
       "symbols": [
         "HanseiAggregate",
         "HanseiSignalContext",
@@ -7905,7 +8193,7 @@
       "imports": [
         "cli/src/main/ts/domain/models/ontology.ts"
       ],
-      "runtimeUsage": "hot",
+      "runtimeUsage": "warm",
       "symbols": [
         "StatelessHypothesisGenerator"
       ],
@@ -7923,7 +8211,7 @@
         "cli/src/main/ts/domain/models/task.ts",
         "cli/src/main/ts/domain/repositories/task-repository.ts"
       ],
-      "runtimeUsage": "hot",
+      "runtimeUsage": "warm",
       "symbols": [
         "PrimitiveStatusReport",
         "StatusReportService"
@@ -8010,7 +8298,7 @@
       "imports": [
         "cli/src/main/ts/domain/models/ontology.ts"
       ],
-      "runtimeUsage": "hot",
+      "runtimeUsage": "warm",
       "symbols": [
         "TransientActuationProjector"
       ],
@@ -8027,7 +8315,7 @@
       "imports": [
         "cli/src/main/ts/domain/models/ontology.ts"
       ],
-      "runtimeUsage": "hot",
+      "runtimeUsage": "warm",
       "symbols": [
         "PartitioningConfig",
         "TransientWindowCompiler"
@@ -8115,7 +8403,7 @@
     "cli/src/main/ts/domain/services/verifiability-scorer.ts": {
       "criticality": "core",
       "imports": [],
-      "runtimeUsage": "hot",
+      "runtimeUsage": "warm",
       "symbols": [
         "VerifiabilityReport",
         "VerifiabilityScorer"
@@ -8147,42 +8435,10 @@
     "cli/src/main/ts/index.ts": {
       "criticality": "utility",
       "imports": [
-        "cli/src/main/ts/application/commands/ask-command.ts",
-        "cli/src/main/ts/application/commands/batch-command.ts",
-        "cli/src/main/ts/application/commands/capture-command.ts",
-        "cli/src/main/ts/application/commands/causal-command.ts",
-        "cli/src/main/ts/application/commands/compile-command.ts",
-        "cli/src/main/ts/application/commands/conduct-command.ts",
-        "cli/src/main/ts/application/commands/deps-command.ts",
-        "cli/src/main/ts/application/commands/exec-command.ts",
-        "cli/src/main/ts/application/commands/explain-command.ts",
-        "cli/src/main/ts/application/commands/govern-command.ts",
-        "cli/src/main/ts/application/commands/inbox-command.ts",
-        "cli/src/main/ts/application/commands/index-command.ts",
-        "cli/src/main/ts/application/commands/init-command.ts",
-        "cli/src/main/ts/application/commands/lint-command.ts",
-        "cli/src/main/ts/application/commands/loop-command.ts",
-        "cli/src/main/ts/application/commands/merge-resolve-command.ts",
-        "cli/src/main/ts/application/commands/move-command.ts",
-        "cli/src/main/ts/application/commands/next-command.ts",
-        "cli/src/main/ts/application/commands/promote-command.ts",
-        "cli/src/main/ts/application/commands/rank-command.ts",
-        "cli/src/main/ts/application/commands/reflect-command.ts",
-        "cli/src/main/ts/application/commands/report-command.ts",
-        "cli/src/main/ts/application/commands/review-command.ts",
-        "cli/src/main/ts/application/commands/sandbox-command.ts",
-        "cli/src/main/ts/application/commands/serve-command.ts",
-        "cli/src/main/ts/application/commands/status-command.ts",
-        "cli/src/main/ts/application/commands/task-command.ts",
-        "cli/src/main/ts/application/commands/validate-command.ts",
-        "cli/src/main/ts/application/commands/verify-acs-command.ts",
-        "cli/src/main/ts/application/commands/version-command.ts",
-        "cli/src/main/ts/application/use-cases/ask-corpus.ts",
-        "cli/src/main/ts/application/use-cases/causal-graph.ts",
+        "cli/src/main/ts/application/command-dispatcher.ts",
         "cli/src/main/ts/application/use-cases/causal-signal-log.ts",
         "cli/src/main/ts/application/use-cases/drift-checker.ts",
         "cli/src/main/ts/application/use-cases/temporal-index.ts",
-        "cli/src/main/ts/domain/services/command-registry.ts",
         "cli/src/main/ts/domain/services/event-logger.ts",
         "cli/src/main/ts/domain/services/human-coordination-service.ts",
         "cli/src/main/ts/domain/services/reviewer.ts",
@@ -8232,7 +8488,7 @@
     "cli/src/main/ts/infrastructure/cli/output-formatter.ts": {
       "criticality": "support",
       "imports": [],
-      "runtimeUsage": "hot",
+      "runtimeUsage": "warm",
       "symbols": [
         "arrow",
         "check",
@@ -8315,7 +8571,7 @@
         "cli/src/main/ts/domain/repositories/feedback-repository.ts",
         "cli/src/main/ts/domain/repositories/file-system.ts"
       ],
-      "runtimeUsage": "hot",
+      "runtimeUsage": "warm",
       "symbols": [
         "NodeFeedbackRepository"
       ],
@@ -8550,7 +8806,7 @@
       }
     },
     "TASK-249": {
-      "commitCount": 15,
+      "commitCount": 14,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-18T16:06:18+02:00",
       "recentCommitRefs": [
@@ -8562,7 +8818,6 @@
         "2e233226",
         "3276b04f",
         "41077ee0",
-        "53969f70",
         "5812f053",
         "785e985f",
         "8a1f0d0b",
@@ -8571,7 +8826,7 @@
         "f0faaf5c"
       ],
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 7,
+        ".arch/focus-ledger.jsonl": 6,
         "arch.config.json": 1,
         "docs/METRICS.md": 1,
         "docs/adr/ADR-021-refinement-ttl-and-admission.md": 1,
@@ -8608,27 +8863,6 @@
         "docs/refinement/archive/IDEA-tiered-obligations.md": 2,
         "docs/tasks/TASK-249.md": 4,
         "docs/tasks/TASK-919.md": 1
-      }
-    },
-    "TASK-250": {
-      "commitCount": 2,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-18T13:51:45+02:00",
-      "recentCommitRefs": [
-        "66a130f1",
-        "ec6658a8"
-      ],
-      "touchedFrequency": {
-        "cli/src/main/ts/index.ts": 1,
-        "docs/AGENTS.md": 1,
-        "docs/EVENTS.md": 1,
-        "docs/INBOX.md": 2,
-        "docs/agents/DO.md": 1,
-        "docs/agents/THINK.md": 1,
-        "docs/archive/TASK-250.md": 1,
-        "docs/refinement/IDEA-semantic-collision-detection.md": 1,
-        "docs/tasks/TASK-250.md": 1,
-        "docs/tasks/TASK-940.md": 1
       }
     },
     "TASK-252": {
@@ -9102,40 +9336,20 @@
       }
     },
     "TASK-937": {
-      "commitCount": 7,
+      "commitCount": 2,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-18T14:19:18+02:00",
       "recentCommitRefs": [
-        "0e2a4a11",
-        "2874d104",
         "4634fdba",
-        "7629dce8",
-        "99381dd3",
-        "cdcbcdf9",
         "e3ad55d2"
       ],
       "touchedFrequency": {
-        "cli/src/main/ts/application/commands/capture-command.ts": 1,
-        "cli/src/main/ts/application/use-cases/create-task.ts": 1,
-        "cli/src/main/ts/application/use-cases/mark-task-done.ts": 1,
-        "cli/src/test/ts/create-task.test.ts": 1,
-        "cli/src/test/ts/mark-task-done.test.ts": 1,
-        "docs/INBOX.md": 2,
-        "docs/TASK-FORMAT.md": 1,
         "docs/archive/TASK-937.md": 1,
-        "docs/refinement/IDEA-active-constraint-injection.md": 1,
-        "docs/refinement/IDEA-correction-signal.md": 1,
-        "docs/refinement/IDEA-proportional-protocol.md": 1,
-        "docs/refinement/IDEA-semantic-collision-detection.md": 1,
-        "docs/tasks/TASK-937.md": 6,
-        "docs/tasks/TASK-938.md": 2,
-        "docs/tasks/TASK-939.md": 1,
-        "docs/tasks/TASK-940.md": 1,
-        "docs/tasks/TASK-941.md": 1
+        "docs/tasks/TASK-937.md": 1
       }
     },
     "TASK-938": {
-      "commitCount": 6,
+      "commitCount": 5,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-18T14:55:19+02:00",
       "recentCommitRefs": [
@@ -9143,7 +9357,6 @@
         "0420409c",
         "2e7c1dd1",
         "84a64f65",
-        "99381dd3",
         "cee9dd30"
       ],
       "touchedFrequency": {
@@ -9152,27 +9365,20 @@
         "cli/src/test/ts/constraint-preflight.test.ts": 1,
         "docs/INBOX.md": 1,
         "docs/archive/TASK-938.md": 1,
-        "docs/refinement/IDEA-active-constraint-injection.md": 1,
         "docs/refinement/IDEA-capture-deterministic-default.md": 1,
-        "docs/refinement/IDEA-correction-signal.md": 1,
         "docs/refinement/IDEA-memory-ask-narrow-scope.md": 1,
-        "docs/refinement/IDEA-proportional-protocol.md": 1,
-        "docs/refinement/IDEA-semantic-collision-detection.md": 1,
-        "docs/tasks/TASK-937.md": 1,
-        "docs/tasks/TASK-938.md": 4,
-        "docs/tasks/TASK-939.md": 1,
+        "docs/tasks/TASK-938.md": 3,
         "docs/tasks/TASK-941.md": 1,
         "docs/tasks/TASK-942.md": 1
       }
     },
     "TASK-939": {
-      "commitCount": 6,
+      "commitCount": 5,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-19T15:29:54+02:00",
       "recentCommitRefs": [
         "51003e69",
         "636d7d7a",
-        "99381dd3",
         "dda8500f",
         "ded2b6fb",
         "f928a703"
@@ -9186,20 +9392,14 @@
         "docs/INBOX.md": 1,
         "docs/SENTINEL-LOG.md": 1,
         "docs/archive/TASK-939.md": 1,
-        "docs/refinement/IDEA-active-constraint-injection.md": 1,
-        "docs/refinement/IDEA-correction-signal.md": 1,
-        "docs/refinement/IDEA-proportional-protocol.md": 1,
-        "docs/refinement/IDEA-semantic-collision-detection.md": 1,
         "docs/tasks/TASK-283.md": 1,
-        "docs/tasks/TASK-937.md": 1,
-        "docs/tasks/TASK-938.md": 1,
-        "docs/tasks/TASK-939.md": 3,
+        "docs/tasks/TASK-939.md": 2,
         "docs/tasks/TASK-940.md": 1,
         "docs/tasks/TASK-955.md": 1
       }
     },
     "TASK-940": {
-      "commitCount": 7,
+      "commitCount": 6,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-19T15:29:54+02:00",
       "recentCommitRefs": [
@@ -9208,8 +9408,7 @@
         "3c50e3f1",
         "51003e69",
         "a11645f2",
-        "cac3c46c",
-        "ec6658a8"
+        "cac3c46c"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
@@ -9219,20 +9418,18 @@
         "cli/src/main/ts/application/commands/capture-command.ts": 1,
         "cli/src/main/ts/application/commands/task-command.ts": 1,
         "cli/src/main/ts/application/use-cases/semantic-collision-detector.ts": 1,
-        "docs/EVENTS.md": 2,
-        "docs/INBOX.md": 2,
+        "docs/EVENTS.md": 1,
+        "docs/INBOX.md": 1,
         "docs/METRICS.md": 1,
-        "docs/archive/TASK-250.md": 1,
         "docs/archive/TASK-940.md": 1,
-        "docs/refinement/IDEA-semantic-collision-detection.md": 1,
         "docs/tasks/TASK-283.md": 1,
         "docs/tasks/TASK-939.md": 1,
-        "docs/tasks/TASK-940.md": 3,
+        "docs/tasks/TASK-940.md": 2,
         "docs/tasks/TASK-955.md": 1
       }
     },
     "TASK-941": {
-      "commitCount": 9,
+      "commitCount": 7,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-18T15:18:30+02:00",
       "recentCommitRefs": [
@@ -9240,11 +9437,9 @@
         "4054b60d",
         "562d3227",
         "7ffd6ee4",
-        "921e8815",
         "b0d497ef",
         "cee9dd30",
-        "e3838d0f",
-        "ec30b467"
+        "e3838d0f"
       ],
       "touchedFrequency": {
         "cli/src/main/ts/application/commands/ask-command.ts": 1,
@@ -9254,11 +9449,10 @@
         "cli/src/test/ts/ask-corpus.test.ts": 1,
         "cli/src/test/ts/create-task.test.ts": 1,
         "docs/INBOX.md": 1,
-        "docs/archive/TASK-941.md": 1,
         "docs/refinement/IDEA-capture-deterministic-default.md": 1,
         "docs/refinement/IDEA-memory-ask-narrow-scope.md": 1,
         "docs/tasks/TASK-938.md": 1,
-        "docs/tasks/TASK-941.md": 6,
+        "docs/tasks/TASK-941.md": 5,
         "docs/tasks/TASK-942.md": 5
       }
     },
@@ -9970,9 +10164,9 @@
       }
     },
     "TASK-966": {
-      "commitCount": 23,
+      "commitCount": 24,
       "commitRefOverflow": true,
-      "lastCommitDate": "2026-05-22T09:43:52+02:00",
+      "lastCommitDate": "2026-05-22T12:46:36+02:00",
       "recentCommitRefs": [
         "044acf6a",
         "109a798f",
@@ -9983,11 +10177,11 @@
         "70f53e0f",
         "71cb1e2f",
         "8240442d",
-        "8ab92fb8",
         "964b5a8c",
         "a3227691",
         "ab3b8915",
         "ad98a28e",
+        "b7798607",
         "bed43715",
         "c5ebb340",
         "d239124b",
@@ -9997,7 +10191,7 @@
       ],
       "touchedFrequency": {
         ".arch/corpus-index.json": 1,
-        ".arch/focus-ledger.jsonl": 22,
+        ".arch/focus-ledger.jsonl": 23,
         ".arch/reflect-breach-log.jsonl": 1,
         "docs/METRICS.md": 1,
         "docs/tasks/TASK-966.md": 1
@@ -10438,6 +10632,183 @@
         "cli/src/main/ts/domain/services/python-adapter.ts": 1,
         "docs/archive/TASK-984.md": 1,
         "docs/tasks/TASK-984.md": 2
+      }
+    },
+    "TASK-985": {
+      "commitCount": 4,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-05-22T09:58:31+02:00",
+      "recentCommitRefs": [
+        "0c85cd57",
+        "930e2168",
+        "b6153e49",
+        "ba4fa5a2"
+      ],
+      "touchedFrequency": {
+        ".arch/corpus-index.json": 1,
+        ".arch/escalations.jsonl": 1,
+        ".arch/reflect-breach-log.jsonl": 1,
+        ".arch/reflect-decisions.jsonl": 1,
+        ".arch/status-projection.json": 1,
+        "README.md": 1,
+        "docs/EPISTEMIC-DOCTRINE.md": 1,
+        "docs/EVENTS.md": 1,
+        "docs/EXPERIMENT-PROTOCOL.md": 1,
+        "docs/GOVERNANCE.md": 1,
+        "docs/HALT-LOG.md": 1,
+        "docs/INBOX.md": 1,
+        "docs/META-PROTOCOL.md": 1,
+        "docs/METRICS.md": 1,
+        "docs/ROADMAP.md": 2,
+        "docs/SPRINT-STATE-MACHINE.md": 1,
+        "docs/adr/ADR-020-focus-sovereignty-model.md": 1,
+        "docs/agents/THINK-audit.md": 1,
+        "docs/archive/design/governance-execution-model.md": 1,
+        "docs/archive/design/superpowers/plans/2026-05-06-llm-bridge.md": 1,
+        "docs/archive/design/superpowers/plans/2026-05-07-arch-capture.md": 1,
+        "docs/archive/design/superpowers/plans/2026-05-07-auto-context-engine.md": 1,
+        "docs/archive/design/superpowers/plans/2026-05-07-drift-detection.md": 1,
+        "docs/archive/design/superpowers/plans/2026-05-08-automatic-entity-linking.md": 1,
+        "docs/archive/design/superpowers/plans/2026-05-08-roadmap-reflection.md": 1,
+        "docs/archive/design/superpowers/plans/2026-05-11-arch-think-plan.md": 1,
+        "docs/archive/design/superpowers/plans/2026-05-11-close-learning-loop.md": 1,
+        "docs/archive/design/superpowers/plans/2026-05-15-think-compression.md": 1,
+        "docs/archive/design/superpowers/plans/2026-05-18-next-phase.md": 1,
+        "docs/archive/design/superpowers/plans/2026-05-18-protocol-upgrade-policy.md": 1,
+        "docs/archive/design/superpowers/plans/2026-05-18-v1-readiness.md": 1,
+        "docs/archive/design/superpowers/plans/2026-05-19-arch-versioning.md": 1,
+        "docs/archive/design/superpowers/specs/2026-05-05-rag-arch-design.md": 1,
+        "docs/archive/design/superpowers/specs/2026-05-07-arch-capture-design.md": 1,
+        "docs/archive/design/superpowers/specs/2026-05-07-auto-context-engine-design.md": 1,
+        "docs/archive/design/superpowers/specs/2026-05-07-drift-detection-design.md": 1,
+        "docs/archive/design/superpowers/specs/2026-05-08-automatic-entity-linking-design.md": 1,
+        "docs/archive/design/superpowers/specs/2026-05-08-roadmap-reflection-design.md": 1,
+        "docs/archive/design/superpowers/specs/2026-05-11-arch-think-design.md": 1,
+        "docs/archive/design/superpowers/specs/2026-05-14-shared-test-mocks-design.md": 1,
+        "docs/archive/design/superpowers/specs/2026-05-19-arch-versioning-design.md": 1,
+        "docs/guidelines/core.md": 1,
+        "docs/guidelines/resources.md": 1,
+        "docs/guidelines/what-ai-must-never-do-in-this-repo.md": 1,
+        "docs/refinement/IDEA-arch-init-ux.md": 1,
+        "docs/refinement/IDEA-arch-resume.md": 1,
+        "docs/refinement/IDEA-cli-protocol-decoupling.md": 1,
+        "docs/refinement/IDEA-consolidate-arch-docs.md": 1,
+        "docs/tasks/TASK-975.md": 1,
+        "docs/tasks/TASK-985.md": 3,
+        "docs/tensions/TENSION-005-specdrift.md": 1
+      }
+    },
+    "TASK-986": {
+      "commitCount": 2,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-05-22T11:41:54+02:00",
+      "recentCommitRefs": [
+        "4f310fa1",
+        "90e57d89"
+      ],
+      "touchedFrequency": {
+        ".arch/causal-signal.jsonl": 1,
+        ".arch/chronicle.jsonl": 1,
+        "AGENTS.md": 1,
+        "GEMINI.md": 1,
+        "README.md": 1,
+        "cli/src/main/ts/application/command-dispatcher.ts": 1,
+        "cli/src/main/ts/application/commands/analyze-command.ts": 1,
+        "cli/src/main/ts/application/commands/audit-command.ts": 1,
+        "cli/src/main/ts/application/commands/batch-command.ts": 1,
+        "cli/src/main/ts/application/commands/capture-command.ts": 1,
+        "cli/src/main/ts/application/commands/check-command.ts": 1,
+        "cli/src/main/ts/application/commands/conduct-command.ts": 1,
+        "cli/src/main/ts/application/commands/corpus-audit-command.ts": 1,
+        "cli/src/main/ts/application/commands/govern-command.ts": 1,
+        "cli/src/main/ts/application/commands/init-command.ts": 1,
+        "cli/src/main/ts/application/commands/merge-resolve-command.ts": 1,
+        "cli/src/main/ts/application/commands/next-command.ts": 1,
+        "cli/src/main/ts/application/commands/promote-command.ts": 1,
+        "cli/src/main/ts/application/commands/reprioritize-command.ts": 1,
+        "cli/src/main/ts/application/commands/sentinel-command.ts": 1,
+        "cli/src/main/ts/application/commands/serve-command.ts": 1,
+        "cli/src/main/ts/application/commands/trace-command.ts": 1,
+        "cli/src/main/ts/application/use-cases/check-system.ts": 1,
+        "cli/src/main/ts/application/use-cases/create-task.ts": 1,
+        "cli/src/main/ts/application/use-cases/drift-checker.ts": 1,
+        "cli/src/main/ts/application/use-cases/loop-engine.ts": 1,
+        "cli/src/main/ts/domain/services/command-registry.ts": 1,
+        "cli/src/main/ts/index.ts": 1,
+        "cli/src/test/ts/check-system.test.ts": 1,
+        "docs/AGENTS.md": 1,
+        "docs/ARCH-CORE.md": 1,
+        "docs/EVENTS.md": 1,
+        "docs/GOVERNANCE.md": 1,
+        "docs/HALT.md": 1,
+        "docs/IDENTITY.md": 1,
+        "docs/KAIZEN-LOG.md": 1,
+        "docs/PRINCIPLES.md": 1,
+        "docs/RETRO.md": 1,
+        "docs/ROADMAP.md": 1,
+        "docs/TASK-FORMAT.md": 1,
+        "docs/adr/ADR-029-cli-refactoring.md": 1,
+        "docs/agents/DO.md": 1,
+        "docs/agents/THINK.md": 1,
+        "docs/archive/TASK-988.md": 1,
+        "docs/guidelines/bugs.md": 1,
+        "docs/guidelines/core.md": 1,
+        "docs/guidelines/testing-a-change.md": 1,
+        "docs/guidelines/versioning.md": 1,
+        "docs/refinement/IDEA-brownfield-onboarding-pipeline.md": 1,
+        "docs/tasks/TASK-986.md": 2,
+        "scripts/arch": 1,
+        "scripts/arch.sh": 1,
+        "scripts/git-hooks/pre-commit.template": 1,
+        "scripts/git-hooks/pre-push.template": 1
+      }
+    },
+    "TASK-987": {
+      "commitCount": 2,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-05-22T11:09:23+02:00",
+      "recentCommitRefs": [
+        "9f530eb3",
+        "a2d4bdc8"
+      ],
+      "touchedFrequency": {
+        ".arch/chronicle.jsonl": 1,
+        ".github/workflows/aggregate-registry.yml": 1,
+        ".github/workflows/conduct.yml": 1,
+        ".github/workflows/exec.yml": 1,
+        ".github/workflows/register-project.yml": 1,
+        ".github/workflows/review.yml": 1,
+        "cli/src/main/ts/application/commands/ask-command.ts": 1,
+        "cli/src/main/ts/application/commands/causal-command.ts": 1,
+        "cli/src/main/ts/application/commands/compile-command.ts": 1,
+        "cli/src/main/ts/application/commands/deps-command.ts": 1,
+        "cli/src/main/ts/application/commands/exec-command.ts": 1,
+        "cli/src/main/ts/application/commands/explain-command.ts": 1,
+        "cli/src/main/ts/application/commands/govern-command.ts": 1,
+        "cli/src/main/ts/application/commands/inbox-command.ts": 1,
+        "cli/src/main/ts/application/commands/index-command.ts": 1,
+        "cli/src/main/ts/application/commands/init-command.ts": 1,
+        "cli/src/main/ts/application/commands/lint-command.ts": 1,
+        "cli/src/main/ts/application/commands/loop-command.ts": 1,
+        "cli/src/main/ts/application/commands/move-command.ts": 1,
+        "cli/src/main/ts/application/commands/rank-command.ts": 1,
+        "cli/src/main/ts/application/commands/reflect-command.ts": 1,
+        "cli/src/main/ts/application/commands/report-command.ts": 1,
+        "cli/src/main/ts/application/commands/review-command.ts": 1,
+        "cli/src/main/ts/application/commands/sandbox-command.ts": 1,
+        "cli/src/main/ts/application/commands/status-command.ts": 1,
+        "cli/src/main/ts/application/commands/task-command.ts": 1,
+        "cli/src/main/ts/application/commands/validate-command.ts": 1,
+        "cli/src/main/ts/application/commands/verify-acs-command.ts": 1,
+        "cli/src/main/ts/application/commands/version-command.ts": 1,
+        "cli/src/main/ts/domain/models/command.ts": 1,
+        "docs/INBOX.md": 1,
+        "docs/registry/aggregate.json": 1,
+        "docs/registry/entries/.gitkeep": 1,
+        "docs/registry/entries/1ad21fa1-93fb-43be-a9a4-213966539206.json": 1,
+        "docs/reviews/ARCH-comprehensive-review-2026-05-22.md": 1,
+        "docs/tasks/TASK-987.md": 2,
+        "scripts/arch.sh": 1
       }
     }
   },
