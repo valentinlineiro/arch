@@ -4165,7 +4165,7 @@
       "title": "Human-Centric CLI Surface & Command Dispatcher"
     }
   },
-  "builtAt": "2026-05-22T12:07:13.899Z",
+  "builtAt": "2026-05-22T12:14:52.831Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -9406,7 +9406,7 @@
       }
     },
     "TASK-941": {
-      "commitCount": 6,
+      "commitCount": 5,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-18T15:18:30+02:00",
       "recentCommitRefs": [
@@ -9414,8 +9414,7 @@
         "4054b60d",
         "562d3227",
         "7ffd6ee4",
-        "b0d497ef",
-        "e3838d0f"
+        "b0d497ef"
       ],
       "touchedFrequency": {
         "cli/src/main/ts/application/commands/ask-command.ts": 1,
@@ -9425,7 +9424,7 @@
         "cli/src/test/ts/ask-corpus.test.ts": 1,
         "cli/src/test/ts/create-task.test.ts": 1,
         "docs/INBOX.md": 1,
-        "docs/tasks/TASK-941.md": 4,
+        "docs/tasks/TASK-941.md": 3,
         "docs/tasks/TASK-942.md": 4
       }
     },
@@ -10795,16 +10794,17 @@
       }
     },
     "TASK-992": {
-      "commitCount": 3,
+      "commitCount": 4,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-22T14:07:12+02:00",
+      "lastCommitDate": "2026-05-22T14:14:51+02:00",
       "recentCommitRefs": [
+        "38cdbe7d",
         "4adf109f",
         "bf50994a",
         "c6f654dd"
       ],
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 2,
+        ".arch/focus-ledger.jsonl": 3,
         ".arch/reflect-decisions.jsonl": 1,
         ".arch/reflect-proposals.jsonl": 1,
         "docs/refinement/archive/IDEA-productizing-arch-separation.md": 1,
