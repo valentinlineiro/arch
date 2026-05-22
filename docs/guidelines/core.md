@@ -2,28 +2,27 @@
 <!-- Always loaded. Max 200 tokens. -->
 
 ### 1. Communication
-- **English-first:** All documentation, task titles, and commit messages must be written in English. Non-ASCII characters in task titles are a drift signal. Translate legacy content on edit.
-- **Evidence Required:** Every proposal in REFINEMENT.md must include a `Source:` field citing the signal or feedback.
+- **English-first:** All documentation, task titles, and commit messages must be in English.
+- **Evidence Required:** Every proposal must citing the signal or feedback in a `Source:` field.
 
 ### 2. Git & Commits
-- **Conventional Commits:** Use authoritative prefixes (feat, fix, chore, docs, refactor, idea). Every commit must reference a TASK-ID. Exception: `idea:` commits for IDEA drafts do not require a TASK-ID.
-- **No-Merge Policy:** ARCH enforces a clean, linear git history. Merge commits (2+ parents) are strictly FORBIDDEN and will fail `arch review`.
-- **Sync Strategy:** Use `git fetch`. History-changing ops (`pull`, `merge`, `rebase`) are FORBIDDEN without explicit human approval.
-- **Atomicity:** One task per commit where possible. Use `git commit --amend` for follow-up fixes on unpushed commits.
+- **Conventional Commits:** Use authoritative prefixes (feat, fix, chore, docs, refactor, idea). Every commit must reference a TASK-ID (except `idea:` drafts).
+- **No-Merge Policy:** ARCH enforces a clean, linear history. Merge commits (2+ parents) and history-changing ops (`pull`, `merge`, `rebase`) are **FORBIDDEN** without explicit human approval. Use `git fetch`.
+- **Atomicity:** One task per commit where possible.
+- **Hygiene:** Every new code directory must include a `.gitignore`.
 
-### 3. Authority & Governance
-- **No Self-Merging:** Agents cannot merge their own PRs (Exception: L3 Autonomy in `docs/guidelines/autonomy.md`).
-- **Breaking Changes:** MAJOR changes require an ADR before implementation.
+### 3. Authority & Governance (The "Never" List)
+- **No Direct Guideline Edits:** Propose changes to `docs/guidelines/` via `idea:` (refinement) or THINK mode.
+- **No Unauthorized Promotion:** Promotion from IDEA → BACKLOG requires explicit human approval.
+- **No Unauthorized Merging:** Agents cannot merge PRs (Exception: L3 Autonomy).
+- **Scope Stability:** If a task's implementation model changes fundamentally, return to `READY` unless human authorizes continuation.
 
 ### 4. Task Lifecycle
-- **Definition of Ready:** Tasks must meet the criteria in `docs/TASK-FORMAT.md` before being set to `READY`.
-- **Decomposition:** Tasks estimated XL must be decomposed before entering READY status.
-- **Execution Priority:** Within the same priority level (P0-P3), smaller sizes win (XS → S → M → L).
+- **Definition of Ready:** Tasks must meet `docs/TASK-FORMAT.md` criteria before entering `READY`.
+- **Validation Gate:** Run `arch review` before any move to `REVIEW` or `DONE`. Zero violations permitted.
+- **Execution Priority:** Within priority levels (P0-P3), smaller sizes win (XS → S → M → L).
+- **Decomposition:** XL tasks must be decomposed before `READY`.
 
 ### 5. Backlog Health
-- **Autonomous Replenishment:** Propose at least one new IDEA when READY tasks < 3 (THINK Phase 1).
-- **Metrics:** `Closed-at: <ISO 8601>` is required when archiving as DONE for cycle-time tracking.
-
-### 6. Implementation
-- **Technical Ops:** Rules regarding `npm install` and `npm run build` are relocated to `DEVELOPMENT.md`.
-- **Autonomy Pilot:** Details on Level 2 self-promotion are maintained in `docs/guidelines/autonomy.md`.
+- **Autonomous Replenishment:** Propose an IDEA when READY tasks < 3 (THINK Phase 1).
+- **Metrics:** `Closed-at: <ISO 8601>` is required for DONE tasks.

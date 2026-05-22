@@ -1,5 +1,7 @@
 ## TASK-985: Execute docs/ simplification and consolidation per proposal
-**Meta:** P3 | S | READY | Focus:no | 3-refactoring | local | docs/tasks/
+**Meta:** P3 | S | IN_PROGRESS | Focus:yes | 3-refactoring | local | docs/tasks/
+**Actor:** unknown
+**Created-at:** 2026-05-22T07:50:24.785Z
 **Depends:** none
 
 ### Acceptance Criteria
