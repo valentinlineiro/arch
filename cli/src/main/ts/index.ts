@@ -13,13 +13,15 @@ import { CausalSignalLog } from './application/use-cases/causal-signal-log.js';
 import { TemporalIndex } from './application/use-cases/temporal-index.js';
 import { parseCommand } from './infrastructure/cli/command-parser.js';
 import { CommandDispatcher } from './application/command-dispatcher.js';
+import { ConfigLoader } from './domain/services/config-loader.js';
 
 async function main() {
   const fileSystem = new NodeFileSystem();
+  const config = await ConfigLoader.load(fileSystem);
   const taskRepository = new MarkdownTaskRepository(fileSystem);
   const gitRepository = new GitCli();
   const eventRepository = new ChronicleEventRepository(fileSystem);
-  const eventLogger = new EventLogger(fileSystem, gitRepository, config.paths.events);
+  const eventLogger = new EventLogger(fileSystem, gitRepository, config.paths?.events ?? 'docs/EVENTS.md');
   const reviewer = new Reviewer();
   const sandboxService = new SandboxService();
   const rootPath = path.resolve('.');

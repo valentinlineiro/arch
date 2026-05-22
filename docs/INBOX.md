@@ -58,3 +58,13 @@
 
 ## 2026-05-22 14:13:18 — Pattern Alerts
 [PATTERN-ALERT] [SpecDrift] detected 8 times — systemic issue. See docs/tensions/
+
+## 2026-05-22 14:25 — REVIEW_REQUEST | TASK-994 | Interactive CLI improvements
+**Changed files:** cli/src/main/ts/index.ts, cli/src/main/ts/application/commands/check-command.ts, cli/src/main/ts/application/commands/review-command.ts, cli/src/main/ts/application/commands/init-command.ts, cli/src/main/ts/application/command-dispatcher.ts, cli/src/main/ts/domain/services/command-registry.ts, cli/src/main/ts/commands/review.ts, cli/src/test/ts/review-command.test.ts
+**AC verification:**
+1. AC1 (init --guided): `echo -e "test-project\n\n\n" | arch init --guided; exit: 0` → PASS
+2. AC2 (review --help): `arch review --help; exit: 0` → PASS
+3. AC3 (check --auto-fix --dry-run): `arch check --auto-fix --dry-run; exit: 0` → PASS
+4. AC4 (review.ts exists): `test -f cli/src/main/ts/commands/review.ts` → PASS
+5. AC5 (arch check): `arch check` → PASS (all green, pre-existing warnings only)
+6. AC6 (tests): `npm test --prefix cli` → PASS (543/550, 7 pre-existing failures only)
