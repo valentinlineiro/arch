@@ -1,5 +1,5 @@
 ## TASK-993: Add ARCH git hooks (commit-msg, pre-commit, pre-push)
-**Meta:** P1 | M | READY | Focus:no | 7-operations | local | docs/guidelines/core.md, cli/src/main/ts
+**Meta:** P1 | M | IN_PROGRESS | Focus:yes | 7-operations | local | docs/guidelines/core.md, cli/src/main/ts
 **Source:** IDEA-productizing-arch-separation Phase B
 
 ### Acceptance Criteria
