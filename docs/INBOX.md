@@ -1,33 +1,30 @@
 # INBOX
+<!-- ARCH Framework | Human-readable escalation and loop status -->
 
-## System Status
-- **Loop Status:** ACTIVE
-- **Active Tasks:** 0 IN_PROGRESS
-- **READY Tasks:** 24
-- **Refinement Queue:** 10 IDEAs pending
+## Loop Status
+- **Active tasks:** 0 IN_PROGRESS, 4 REVIEW
+- **READY tasks:** 28
+- **Next focused task:** TASK-992 (P1)
 
-## Pending Actions
-### AWAITING_REVIEW
-- [TASK-975](docs/tasks/TASK-975.md)
-- [TASK-985](docs/tasks/TASK-985.md)
-- [TASK-986](docs/tasks/TASK-986.md)
-- [TASK-987](docs/tasks/TASK-987.md)
+## Pending Items
+- **AWAITING_PROMOTION:** 0
+- **AWAITING_REVIEW:** 4 (TASK-975, TASK-985, TASK-986, TASK-987)
 
-### AWAITING_PROMOTION
-- [IDEA-arch-init-ux](docs/refinement/IDEA-arch-init-ux.md)
-- [IDEA-arch-resume](docs/refinement/IDEA-arch-resume.md)
-- [IDEA-automate-govern-metadata-flush](docs/refinement/IDEA-automate-govern-metadata-flush.md)
-- [IDEA-brownfield-onboarding-pipeline](docs/refinement/IDEA-brownfield-onboarding-pipeline.md)
-- [IDEA-cli-protocol-decoupling](docs/refinement/IDEA-cli-protocol-decoupling.md)
-- [IDEA-fix-config-gaps](docs/refinement/IDEA-fix-config-gaps.md)
-- [IDEA-fix-escalation-deduplication](docs/refinement/IDEA-fix-escalation-deduplication.md)
-- [IDEA-fix-meta-line-regex-and-fields](docs/refinement/IDEA-fix-meta-line-regex-and-fields.md)
-- [IDEA-resolve-hansei-contradiction](docs/refinement/IDEA-resolve-hansei-contradiction.md)
-- [IDEA-sprint-state-machine](docs/refinement/IDEA-sprint-state-machine.md)
+## Refinement Queue
+- IDEA-automate-govern-metadata-flush: Sessions: 5
+- IDEA-brownfield-onboarding-pipeline: Sessions: 3
+- IDEA-fix-escalation-deduplication: Sessions: 3
+- IDEA-sprint-state-machine: Sessions: 4
 
-## Last 5 Completed Tasks
-- **TASK-988:** capture ADR for CLI Refactoring
-- **TASK-932:** Add archive status validation to drift-checker ArchiveMetaIntegrity
-- **TASK-933:** Repair corpus drift in TASK-249, TASK-919, TASK-258
-- **TASK-934:** Implement tiered Hansei and Approval obligations
-- **TASK-240:** Verbose fallback logging for provider switching
+## Recent Completions
+- **TASK-195**: Hansei drift check - mandate and verify Hansei section on archived tasks
+- **TASK-130**: Simplify agent protocols by consolidating phases
+- **TASK-132**: Implement 'arch promote' command for easier IDEA promotion
+- **TASK-136**: Implement Kaizen learning from review mistakes
+- **TASK-138**: Fix stale RETRO.md reference in what-ai-must-never-do
+
+## System Health
+- **Archive size:** 8396/8000 lines. **Action required: PURGE** (arch task compress --all)
+- **TASK-975**: [CONCEALMENT] Undeclared debt detected. **Action: REJECT and reclassify.**
+- **TASK-957**: Orphan task detected.
+- **TASK-992**: Focus:yes assigned while READY (FocusStatusAlignment warning).
