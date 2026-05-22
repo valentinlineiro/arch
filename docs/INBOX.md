@@ -97,3 +97,6 @@
 | AC4: no modelTiers | `grep -q "modelTiers" docs/guidelines/models.md ; exit: 1` | PASS |
 | AC5: XL cost ≤ 5.0 | `node -e "const c=require('./arch.config.json'); if(c.muri.XL.cost<=5.0) console.log('cost ok')"` | PASS |
 **Closed at:** 2026-05-22T14:39:20.847Z
+
+## 2026-05-22 14:42:45 — Pattern Alerts
+[PATTERN-ALERT] [SpecDrift] detected 8 times — systemic issue. See docs/tensions/

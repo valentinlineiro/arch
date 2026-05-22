@@ -1,8 +1,8 @@
 {
   "version": 1,
-  "builtAt": "2026-05-22T14:33:06.168Z",
-  "archiveCommit": "353:design",
-  "taskCount": 153,
+  "builtAt": "2026-05-22T14:42:45.714Z",
+  "archiveCommit": "354:design",
+  "taskCount": 154,
   "entries": {
     "TASK-180": {
       "id": "TASK-180",
@@ -2570,6 +2570,23 @@
       "acCount": 5,
       "acMachineVerifiable": 4,
       "closurePath": "unknown"
+    },
+    "TASK-989": {
+      "id": "TASK-989",
+      "size": "S",
+      "class": "7-operations",
+      "closedAt": "2026-05-22T14:39:20.847Z",
+      "lockedCommit": null,
+      "actor": null,
+      "severity": "H0",
+      "category": "[SpecDrift]",
+      "decision": "Both gaps fixed cleanly — XL added to Muri thresholds in arch.config.json and models.md rewritten to use strategies schema instead of stale modelTiers.",
+      "constraint": "arch.config.json is a protected path — modification is within task scope and does not alter governance semantics.",
+      "cost": "No cost incurred — task has not started.",
+      "forwardAction": "None.",
+      "acCount": 0,
+      "acMachineVerifiable": 0,
+      "closurePath": "L3"
     },
     "TASK-993": {
       "id": "TASK-993",
