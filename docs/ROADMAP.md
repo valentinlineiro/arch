@@ -112,6 +112,14 @@ The old linear priority list is replaced by four structural phases. These are no
 
 **This phase does not exist in any other system.** It is what separates ARCH from a sophisticated retrieval + synthesis pipeline with governance theater on top.
 
+### Phase P — Productization (Decoupling) *(NEW — immediate)*
+
+**What it is:** Decoupling the ARCH CLI from this specific repository's protocol. Making the CLI "protocol-aware" (via schema) rather than "repo-aware."
+
+**Status:** Strategic intent established. Core refactor required to move hardcoded paths and rules to configuration.
+
+**The Goal:** Enable `arch init` in any repository, delivering a minimal starter protocol and immediate governance value in under 2 minutes.
+
 ---
 
 ### Deprioritized (not removed — downgraded from primary axis)
@@ -286,3 +294,16 @@ These were previously treated as core milestones. They are now supporting infras
 | REFLECT influence tracking | `PARTIAL` | Divergence tracking protocol introduced in `docs/tensions/weak-signals.md` (2026-05-12). Every adjudication records REFLECT suggestion vs human decision. Low divergence rate over time is a warning signal, not success. No corpus yet — mechanism is in place, data accumulation begins with first real adjudication. |
 | Human decision drift monitoring | `NOT STARTED` | Requires REFLECT influence corpus. Pattern: if REFLECT suggests X and human decides X at high rate without documented rationale for alignment, governance authority has drifted. Detection requires Chronicle edges linking REFLECT emissions to human decisions over time. |
 | Semantic authority leakage detection | `NOT STARTED` | Structural analog of influence tracking: detect naming, command surface, or artifact class changes that implicitly grant REFLECT authority without a formal boundary decision. TENSION records are the current manual mechanism. Automated detection requires TENSION corpus + pattern analysis. |
+
+---
+
+## Phase 9 — Standalone Architecture (Productization)
+
+**Objective:** Decouple the ARCH CLI from the internal repo protocol to enable universal adoption.
+
+| Feature | Status | Key Artifact |
+|---------|--------|--------------|
+| Configurable Protocol Schema (remove hardcoded paths/rules) | `NOT STARTED` | [IDEA-cli-protocol-decoupling](refinement/IDEA-cli-protocol-decoupling.md) |
+| `arch init` — 2-minute project bootstrap | `NOT STARTED` | [IDEA-arch-init-ux](refinement/IDEA-arch-init-ux.md) |
+| Lean Starter Protocol (minimal protocol corpus) | `PARTIAL` | `docs/ARCH-CORE.md`, `TASK-985` (Doc Consolidation) |
+| `arch resume` — self-healing for common halts | `NOT STARTED` | [IDEA-arch-resume](refinement/IDEA-arch-resume.md) |
