@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert';
 import { GovernSystem } from '../../main/ts/application/use-cases/govern-system.js';
-import { TaskStatus } from '../../main/ts/domain/models/task.js';
+import { TaskStatus, FocusLevel } from '../../main/ts/domain/models/task.js';
 import { parseLedger } from '../../main/ts/application/use-cases/focus-ledger.js';
 
 const TASK_META_READY_NO = `**Meta:** P2 | S | READY | Focus:no | 6-writing | local | docs/`;
@@ -10,6 +10,7 @@ const TASK_META_P1_NO = `**Meta:** P1 | S | READY | Focus:no | 6-writing | local
 
 function makeTask(id: string, priority = 'P2', status = TaskStatus.READY, focus = false) {
   const focusStr = focus ? 'Focus:yes' : 'Focus:no';
+  const focusLevel = focus ? FocusLevel.HIGH : FocusLevel.NONE;
   const rawMeta = `**Meta:** ${priority} | S | ${status} | ${focusStr} | 6-writing | local | docs/`;
   return {
     id,
@@ -17,7 +18,7 @@ function makeTask(id: string, priority = 'P2', status = TaskStatus.READY, focus 
     priority,
     size: 'S',
     status,
-    focus,
+    focus: focusLevel,
     sprint: '',
     class: '6-writing',
     cli: 'local',

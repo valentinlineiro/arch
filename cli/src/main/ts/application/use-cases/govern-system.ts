@@ -1,7 +1,7 @@
 import { TaskRepository } from '../../domain/repositories/task-repository.js';
 import { GitRepository } from '../../domain/repositories/git-repository.js';
 import { FileSystem } from '../../domain/repositories/file-system.js';
-import { Task, TaskStatus } from '../../domain/models/task.js';
+import { Task, TaskStatus, FocusLevel } from '../../domain/models/task.js';
 import { BatchSystem } from './batch-system.js';
 import { ConfigLoader } from '../../domain/services/config-loader.js';
 import { CausalSignalLog } from './causal-signal-log.js';
@@ -168,20 +168,20 @@ export class GovernSystem {
 
   private isEligible(task: Task, doneTaskIds: Set<string>): boolean {
     if (task.status !== TaskStatus.READY) return false;
-    if (task.focus) return false;
+    if (task.focus !== FocusLevel.NONE) return false;
     const deps = (task.depends ?? []).filter(d => d.toLowerCase() !== 'none');
     return deps.every(dep => doneTaskIds.has(dep));
   }
 
   private isEligibleAfterFix(task: Task, doneTaskIds: Set<string>, fixedIds: Set<string>): boolean {
     if (task.status !== TaskStatus.READY) return false;
-    if (task.focus && !fixedIds.has(task.id)) return false;
+    if (task.focus !== FocusLevel.NONE && !fixedIds.has(task.id)) return false;
     const deps = (task.depends ?? []).filter(d => d.toLowerCase() !== 'none');
     return deps.every(dep => doneTaskIds.has(dep));
   }
 
   private isFocusRetainable(task: Task, doneTaskIds: Set<string>): boolean {
-    if (task.status !== TaskStatus.READY) return false;
+    if (task.status !== TaskStatus.READY && task.status !== TaskStatus.IN_PROGRESS && task.status !== TaskStatus.REVIEW) return false;
     const deps = (task.depends ?? []).filter(d => d.toLowerCase() !== 'none');
     return deps.every(dep => doneTaskIds.has(dep));
   }
@@ -201,7 +201,7 @@ export class GovernSystem {
 
   private async updateFocusFlag(task: Task, focusYes: boolean): Promise<boolean> {
     if (!task.rawMetaLine) return false;
-    const filePath = `docs/tasks/${task.id}.md`;
+    const filePath = task.filePath;
     const original = await this.fileSystem.readFile(filePath);
     const from = focusYes ? 'Focus:no' : 'Focus:yes';
     const to = focusYes ? 'Focus:yes' : 'Focus:no';
@@ -263,13 +263,13 @@ export class GovernSystem {
 
     // Rule 1: Integrity fix — Focus:yes in world state with no FOCUS_ACQUIRED in committed ledger
     const integrityFixedIds = new Set<string>();
-    for (const t of activeTasks.filter(t => t.focus)) {
+    for (const t of allTasks.filter(t => t.focus !== FocusLevel.NONE)) {
       const hasAcquisition = committed.some(r => r.action === 'FOCUS_ACQUIRED' && r.taskId === t.id);
       if (!hasAcquisition) {
         integrityFixedIds.add(t.id);
         newRulings.push({ tick: nextTick, taskId: t.id, action: 'INTEGRITY_FIX', timestamp: new Date().toISOString() });
         const changed = await this.updateFocusFlag(t, false);
-        if (changed) changedFiles.push(`docs/tasks/${t.id}.md`);
+        if (changed) changedFiles.push(t.filePath);
         console.log(`  INTEGRITY_FIX: ${t.id} held Focus:yes with no acquisition ruling`);
       }
     }
@@ -287,7 +287,7 @@ export class GovernSystem {
         const top = eligible[0];
         newRulings.push({ tick: nextTick, taskId: top.id, action: 'FOCUS_ACQUIRED', timestamp: new Date().toISOString() });
         const changed = await this.updateFocusFlag(top, true);
-        if (changed) changedFiles.push(`docs/tasks/${top.id}.md`);
+        if (changed) changedFiles.push(top.filePath);
         console.log(`  FOCUS_ACQUIRED: ${top.id} (no previous focus)`);
       } else {
         console.log('  No eligible tasks. No focus assigned.');
@@ -299,12 +299,12 @@ export class GovernSystem {
     // Rule 3: Focused task lost eligibility
     if (!this.isFocusRetainable(focused, doneTaskIds)) {
       const cleared = await this.updateFocusFlag(focused, false);
-      if (cleared) changedFiles.push(`docs/tasks/${focused.id}.md`);
+      if (cleared) changedFiles.push(focused.filePath);
       if (eligible.length > 0) {
         const top = eligible[0];
         newRulings.push({ tick: nextTick, taskId: top.id, action: 'FOCUS_ACQUIRED', previousTask: focused.id, timestamp: new Date().toISOString() });
         const changed = await this.updateFocusFlag(top, true);
-        if (changed) changedFiles.push(`docs/tasks/${top.id}.md`);
+        if (changed) changedFiles.push(top.filePath);
         console.log(`  FOCUS_ACQUIRED: ${top.id} (${focused.id} lost eligibility)`);
       } else {
         newRulings.push({ tick: nextTick, taskId: focused.id, action: 'FOCUS_RELEASED', timestamp: new Date().toISOString() });
@@ -328,9 +328,9 @@ export class GovernSystem {
     const preemptor = eligible.find(c => this.priorityNum(c.priority) < focusedPriority);
     if (preemptor) {
       const clearedOld = await this.updateFocusFlag(focused, false);
-      if (clearedOld) changedFiles.push(`docs/tasks/${focused.id}.md`);
+      if (clearedOld) changedFiles.push(focused.filePath);
       const changedNew = await this.updateFocusFlag(preemptor, true);
-      if (changedNew) changedFiles.push(`docs/tasks/${preemptor.id}.md`);
+      if (changedNew) changedFiles.push(preemptor.filePath);
       newRulings.push({ tick: nextTick, taskId: preemptor.id, action: 'FOCUS_ACQUIRED', previousTask: focused.id, timestamp: new Date().toISOString() });
       console.log(`  FOCUS_ACQUIRED: ${preemptor.id} preempts ${focused.id} (P${this.priorityNum(preemptor.priority)} > P${focusedPriority})`);
       await this.writeLedgerTick(ledger, newRulings, nextTick, changedFiles);

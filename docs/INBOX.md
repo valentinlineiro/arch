@@ -19,3 +19,4 @@
 
 ---
 *Last updated: 2026-05-21T15:45:00Z*
+- [ ] REVIEW_REQUEST: [TASK-975] Bug fix for INTEGRITY_FIX

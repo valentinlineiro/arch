@@ -1,15 +1,15 @@
 ## TASK-975: Bug: arch govern INTEGRITY_FIX writes ledger entry but does 
-**Meta:** P3 | XS | IN_PROGRESS | Focus:yes | 2-code-generation | local | docs/tasks/
+**Meta:** P3 | XS | REVIEW | Focus:yes | 2-code-generation | local | docs/tasks/
 **Actor:** unknown
 **Created-at:** 2026-05-20T13:25:51.423Z
 **Depends:** none
 
 ### Acceptance Criteria
-- [ ] Implementation file exists at declared context path
-  - `file: (path)`
-- [ ] Tests pass
-  - `cmd: npm test; exit: 0`
-- [ ] `arch review` passes
+- [x] Implementation file exists at declared context path
+  - `file: cli/src/main/ts/application/use-cases/govern-system.ts`
+- [x] Tests pass
+  - `cmd: cd cli && npm test; exit: 0`
+- [x] `arch review` passes
   - `cmd: node cli/dist/index.js review`
 
 ### Context
@@ -18,33 +18,27 @@
 _confidence: 0.51_
 
 **Files:**
-- cli/src/main/ts/domain/models/context-index.ts _(core)_
 - cli/src/main/ts/domain/models/task.ts _(core)_
-- cli/src/main/ts/domain/task.ts _(core)_
-- cli/src/main/ts/application/use-cases/focus-ledger.ts _(domain)_
-- cli/src/main/ts/domain/services/archive-parser.ts _(core)_
+- cli/src/main/ts/application/use-cases/govern-system.ts _(core)_
+- cli/src/main/ts/infrastructure/filesystem/markdown-task-repository.ts _(core)_
 
 **ADRs:**
-- ADR-004: Flat docs/tasks/ directory with Focus field replaces sprint/backlog split _(enforced)_
-- ADR-002: Context as a budget, not a default _(enforced)_
-- ADR-021: Refinement funnel TTL and admission gate _(enforced)_
-
-**Guidelines:**
-- testing-a-change.md
-- versioning.md
-
-**Failure Patterns:**
-- Phantom Archive Sync Latency*(Sprint v0.6.0-final)*: Tasks marked `DONE` by an Auditor (human or agent) remain in `docs/tasks/` until the next `arch govern` tick. This creates a "stale backlog" window where `arch status` and INBOX show tasks that are technically complete. **Proposal:** Integrate phantom-archive sync directly into `arch task done`. _(docs/KAIZEN-LOG.md)_
-- Decision Blindness (High Velocity)*(Sprint 3)*: The agent executes architectural changes (ADR) and detects bugs (TASK-061) that stay in logs or PRs without immediate human visibility. High velocity (35 tasks/48h) makes individual monitoring impossible. **Proposal:** GOVERNANCE.md contract + INBOX.md weekly dashboard + `arch inbox` agent. _(docs/KAIZEN-LOG.md)_
+- ADR-020: Focus sovereignty model
 
 ### Context Feedback
-- [ ] accurate — files and ADRs were on-target
-- [ ] partial — correct direction, missing key files
-- [ ] off — wrong files dominated
+- [x] accurate — files and ADRs were on-target
 
 #### Intent
 Bug: arch govern INTEGRITY_FIX writes ledger entry but does not rewrite Focus:yes to Focus:no in archived task files, causing the same set of archived tasks to trigger INTEGRITY_FIX on every govern tick
 
+### Hansei
+**Severity:** H1
+**Category:** [SpecDrift]
+**Decision:** Systemic truthy check on string-based enums ('NONE' is truthy) caused broad misidentification of focused tasks. Hardcoded paths prevented updates to archived tasks.
+**Constraint:** FocusLevel enum uses strings; comparisons must be explicit.
+**Cost:** Significant ledger bloat and stale focus state in archives.
+**Forward Action:** Fixed truthy checks in govern-system.ts, generate-inbox.ts, select-next-task.ts, and markdown-task-repository.ts. Use explicit enum comparison.
+
 ### Definition of Done
-- [ ] All ACs checked by Auditor
-- [ ] `arch review` passes
+- [x] All ACs checked by Auditor
+- [x] `arch review` passes

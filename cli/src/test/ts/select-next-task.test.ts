@@ -2,10 +2,10 @@ import { test } from 'node:test';
 import assert from 'node:assert';
 import { SelectNextTask } from '../../main/ts/application/use-cases/select-next-task.js';
 import { NextCommand } from '../../main/ts/application/commands/next-command.js';
-import { Task, TaskStatus } from '../../main/ts/domain/models/task.js';
-import { TaskRepository } from '../../main/ts/domain/repositories/task-repository.js';
+import { Task, TaskStatus, FocusLevel } from '../../main/ts/domain/models/task.js';
+import { TaskRepository } from '../../domain/repositories/task-repository.js';
 import { MockFileSystem } from './mocks/index.js';
-
+// ...
 function makeTask(overrides: Partial<Task> = {}): Task {
   return {
     id: 'TASK-001',
@@ -13,7 +13,7 @@ function makeTask(overrides: Partial<Task> = {}): Task {
     priority: 'P1',
     size: 'S',
     status: TaskStatus.READY,
-    focus: false,
+    focus: FocusLevel.NONE,
     sprint: 'Sprint 1',
     class: '2-code-generation',
     cli: 'claude-code',
@@ -81,8 +81,8 @@ test('sorts by TASK-ID numerically when priority is equal', async () => {
 
 test('Focus:yes wins over higher priority non-focused task', async () => {
   const tasks = [
-    makeTask({ id: 'TASK-001', priority: 'P0', status: TaskStatus.READY, focus: false }),
-    makeTask({ id: 'TASK-002', priority: 'P2', status: TaskStatus.READY, focus: true }),
+    makeTask({ id: 'TASK-001', priority: 'P0', status: TaskStatus.READY, focus: FocusLevel.NONE }),
+    makeTask({ id: 'TASK-002', priority: 'P2', status: TaskStatus.READY, focus: FocusLevel.HIGH }),
   ];
   const repo = new MockTaskRepository(tasks);
   const useCase = new SelectNextTask(repo);

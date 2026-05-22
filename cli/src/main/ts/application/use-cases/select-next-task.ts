@@ -1,5 +1,5 @@
 import { TaskRepository } from '../../domain/repositories/task-repository.js';
-import { Task, TaskStatus } from '../../domain/models/task.js';
+import { Task, TaskStatus, FocusLevel } from '../../domain/models/task.js';
 
 export type MuriThreshold = { turns: number; cost: number };
 export type MuriConfig = Record<string, MuriThreshold>;
@@ -29,8 +29,8 @@ function isStale(lockedAt: string): boolean {
 
 function compareTasksForSort(a: Task, b: Task, priorityOrder: Record<string, number>): number {
   // 1. Focus:yes wins first
-  const focusA = a.focus ? 0 : 1;
-  const focusB = b.focus ? 0 : 1;
+  const focusA = a.focus !== FocusLevel.NONE ? 0 : 1;
+  const focusB = b.focus !== FocusLevel.NONE ? 0 : 1;
   if (focusA !== focusB) return focusA - focusB;
 
   // 2. Priority (P0 < P1 < P2 < P3)

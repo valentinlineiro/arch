@@ -1,7 +1,7 @@
 import path from 'node:path';
 import { TaskRepository } from '../../domain/repositories/task-repository.js';
 import { FileSystem } from '../../domain/repositories/file-system.js';
-import { TaskStatus, Task } from '../../domain/models/task.js';
+import { TaskStatus, Task, FocusLevel } from '../../domain/models/task.js';
 import { Reviewer } from '../../domain/services/reviewer.js';
 import { DriftChecker, DriftResult } from '../use-cases/drift-checker.js';
 import { EscalationStore, EscalationEntry } from './escalation-store.js';
@@ -57,7 +57,7 @@ export class GenerateInbox {
     }
     
     // 1. Detect Urgent: P0/P1 tasks in Focus:yes
-    const focusTasks = activeTasks.filter(t => t.focus);
+    const focusTasks = activeTasks.filter(t => t.focus !== FocusLevel.NONE);
     for (const t of focusTasks) {
       if (t.priority === 'P0' || t.priority === 'P1') {
         urgentItems.push(`[${t.id}] ${t.title} (${t.priority}) - Active in Focus`);
