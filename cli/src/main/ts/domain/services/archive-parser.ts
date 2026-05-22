@@ -87,7 +87,7 @@ export class ArchiveParser {
           }
 
           // Special case: Move to archive is a completion signal
-          if (normalizedPath.startsWith(path.normalize('docs/archive/')) && normalizedOldPath.startsWith(path.normalize('docs/tasks/'))) {
+          if (normalizedPath.startsWith(path.normalize(this.paths.archive + '/')) && normalizedOldPath.startsWith(path.normalize(this.paths.tasks + '/'))) {
             completionDates.set(normalizedPath, commit.date);
           }
         }

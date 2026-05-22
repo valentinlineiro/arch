@@ -19,7 +19,7 @@ async function main() {
   const taskRepository = new MarkdownTaskRepository(fileSystem);
   const gitRepository = new GitCli();
   const eventRepository = new ChronicleEventRepository(fileSystem);
-  const eventLogger = new EventLogger(fileSystem, gitRepository);
+  const eventLogger = new EventLogger(fileSystem, gitRepository, config.paths.events);
   const reviewer = new Reviewer();
   const sandboxService = new SandboxService();
   const rootPath = path.resolve('.');

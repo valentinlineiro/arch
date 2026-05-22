@@ -142,9 +142,11 @@ export class DeterministicHanseiChecker {
 
         for (const file of changedFiles) {
           const inContext = validContextPaths.some(p => file.startsWith(p.replace(/^\//, '')));
-          // Allow docs/tasks/ and .arch/ as always-valid
-          const isSystemPath = file.startsWith('docs/tasks/') || file.startsWith('.arch/') ||
-                               file.startsWith('docs/archive/');
+          // Allow system paths (tasks, archive, statusProjection dir) as always-valid
+          const statusDir = path.dirname(this.paths.statusProjection);
+          const isSystemPath = file.startsWith(this.paths.tasks) || 
+                               file.startsWith(this.paths.archive) ||
+                               file.startsWith(statusDir);
           if (!inContext && !isSystemPath) {
             const declared = constraint.toLowerCase().includes(file.split('/')[0]) ||
                              constraint.toLowerCase().includes('context');

@@ -153,7 +153,11 @@
     "guidelines": "docs/guidelines",
     "agents": "docs/agents",
     "refinement": "docs/refinement",
-    "adr": "docs/adr"
+    "refinementArchive": "docs/refinement/archive",
+    "adr": "docs/adr",
+    "inbox": "docs/INBOX.md",
+    "events": "docs/EVENTS.md",
+    "statusProjection": ".arch/status-projection.json"
   },
   "contextRules": {
     "testing-a-change.md": {

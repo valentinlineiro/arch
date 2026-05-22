@@ -10,11 +10,10 @@ export interface LifecycleEvent {
 }
 
 export class EventLogger {
-  private readonly EVENTS_PATH = 'docs/EVENTS.md';
-
   constructor(
     private fileSystem: FileSystem,
-    private gitRepository: GitRepository
+    private gitRepository: GitRepository,
+    private eventsPath: string = 'docs/EVENTS.md'
   ) {}
 
   async append(event: LifecycleEvent): Promise<void> {
@@ -25,7 +24,7 @@ export class EventLogger {
     // Read existing content (or start fresh)
     let content: string;
     try {
-      content = await this.fileSystem.readFile(this.EVENTS_PATH);
+      content = await this.fileSystem.readFile(this.eventsPath);
     } catch {
       content = '# Event Log\n\n';
     }
@@ -34,7 +33,7 @@ export class EventLogger {
     const insertionPoint = this.findInsertionPoint(content, event.timestamp);
     const newContent = content.slice(0, insertionPoint) + entry + '\n' + content.slice(insertionPoint);
 
-    await this.fileSystem.writeFile(this.EVENTS_PATH, newContent);
+    await this.fileSystem.writeFile(this.eventsPath, newContent);
   }
 
   /**

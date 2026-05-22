@@ -50,7 +50,8 @@ export interface GovernanceEvent {
 export class MetricsEngine {
   constructor(
     private fileSystem: FileSystem,
-    private gitRepository: GitRepository
+    private gitRepository: GitRepository,
+    private eventsPath: string = 'docs/EVENTS.md'
   ) {}
 
   async calculate(archivedTasks: ArchivedTaskMetrics[]): Promise<CalculatedMetrics> {
@@ -257,15 +258,14 @@ export class MetricsEngine {
   }
 
   private async loadEvents(): Promise<string[]> {
-    const eventsPath = 'docs/EVENTS.md';
-    if (!(await this.fileSystem.exists(eventsPath))) {
+    if (!(await this.fileSystem.exists(this.eventsPath))) {
       return [];
     }
 
-    const content = await this.fileSystem.readFile(eventsPath);
+    const content = await this.fileSystem.readFile(this.eventsPath);
 
     // Severity 2: Truth Anchors - Detect non-append-only rewrites via git
-    await this.verifyAppendOnly(eventsPath, content);
+    await this.verifyAppendOnly(this.eventsPath, content);
 
     const lines = content.split('\n');
     
@@ -280,7 +280,7 @@ export class MetricsEngine {
       if (trimmedLine.startsWith('## ')) {
         const tsMatch = trimmedLine.match(/^## (\d{4}-\d{2}-\d{2}T[^\s]+)/);
         if (!tsMatch) {
-          throw new Error(`Integrity Violation: Malformed event header "${trimmedLine}" in docs/EVENTS.md`);
+          throw new Error(`Integrity Violation: Malformed event header "${trimmedLine}" in ${this.eventsPath}`);
         }
         
         const timestamp = new Date(tsMatch[1]).getTime();
@@ -289,7 +289,7 @@ export class MetricsEngine {
         }
 
         if (timestamp < lastTimestamp) {
-          throw new Error(`Integrity Violation: Chronological regression detected in docs/EVENTS.md. "${trimmedLine}" is older than previous entry.`);
+          throw new Error(`Integrity Violation: Chronological regression detected in ${this.eventsPath}. "${trimmedLine}" is older than previous entry.`);
         }
 
         lastTimestamp = timestamp;
@@ -298,17 +298,17 @@ export class MetricsEngine {
         // Broadened regex to support optional commit/agent fields
         const match = trimmedLine.match(/^TASK-\d{3} \| [A-Z_]+ -> [A-Z_]+( \| commit:[a-zA-Z0-9-]+)?( \| agent:[^|]+)?$/);
         if (!match) {
-          throw new Error(`Integrity Violation: Malformed event entry "${trimmedLine}" in docs/EVENTS.md`);
+          throw new Error(`Integrity Violation: Malformed event entry "${trimmedLine}" in ${this.eventsPath}`);
         }
         uniqueEvents.push(`${currentHeader}\n${trimmedLine}`);
       } else {
-        throw new Error(`Integrity Violation: Unexpected content "${trimmedLine}" in docs/EVENTS.md`);
+        throw new Error(`Integrity Violation: Unexpected content "${trimmedLine}" in ${this.eventsPath}`);
       }
     }
 
     // detect a header written without a subsequent event body (interrupted write)
     if (currentHeader && (uniqueEvents.length === 0 || !uniqueEvents[uniqueEvents.length - 1].startsWith(currentHeader))) {
-      throw new Error(`Integrity Violation: Incomplete event in docs/EVENTS.md — header "${currentHeader}" has no event body. File may have been written mid-operation.`);
+      throw new Error(`Integrity Violation: Incomplete event in ${this.eventsPath} — header "${currentHeader}" has no event body. File may have been written mid-operation.`);
     }
 
     return uniqueEvents;

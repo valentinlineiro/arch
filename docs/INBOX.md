@@ -17,6 +17,7 @@
 - IDEA-sprint-state-machine: Sessions: 4
 
 ## Recent Completions
+- **TASK-992**: Extract hardcoded ARCH paths to arch.config.json
 - **TASK-195**: Hansei drift check - mandate and verify Hansei section on archived tasks
 - **TASK-130**: Simplify agent protocols by consolidating phases
 - **TASK-132**: Implement 'arch promote' command for easier IDEA promotion
@@ -27,4 +28,4 @@
 - **Archive size:** 8396/8000 lines. **Action required: PURGE** (arch task compress --all)
 - **TASK-975**: [CONCEALMENT] Undeclared debt detected. **Action: REJECT and reclassify.**
 - **TASK-957**: Orphan task detected.
-- **TASK-992**: Focus:yes assigned while READY (FocusStatusAlignment warning).
+<!-- TASK-992 closed and archived -->
