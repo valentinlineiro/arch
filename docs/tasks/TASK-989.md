@@ -1,5 +1,5 @@
 ## TASK-989: Fix config gaps - XL Muri guard and models.md schema mismatch
-**Meta:** P2 | S | IN_PROGRESS | Focus:yes | 7-operations | local | docs/tasks/
+**Meta:** P2 | S | IN_PROGRESS | Focus:no | 7-operations | local | docs/tasks/
 **Depends:** none
 
 ### Acceptance Criteria
