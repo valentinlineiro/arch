@@ -1321,12 +1321,6 @@
           ],
           "taskPath": "docs/tasks/TASK-991.md"
         },
-        "TASK-993": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/tasks/TASK-993.md"
-        },
         "TASK-994": {
           "evidenceKinds": [
             "literal-mention"
@@ -4165,7 +4159,7 @@
       "title": "Human-Centric CLI Surface & Command Dispatcher"
     }
   },
-  "builtAt": "2026-05-22T13:52:06.569Z",
+  "builtAt": "2026-05-22T14:13:17.911Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -8841,55 +8835,16 @@
       }
     },
     "TASK-249": {
-      "commitCount": 8,
+      "commitCount": 2,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-18T16:06:18+02:00",
       "recentCommitRefs": [
-        "0cda162a",
-        "0f646f23",
-        "1b15c8ac",
-        "1fcb5837",
         "5812f053",
-        "8a1f0d0b",
-        "b1b144d6",
-        "d2dedb09"
+        "b1b144d6"
       ],
       "touchedFrequency": {
-        "arch.config.json": 1,
         "docs/METRICS.md": 1,
-        "docs/adr/ADR-021-refinement-ttl-and-admission.md": 1,
-        "docs/agents/THINK.md": 1,
         "docs/archive/TASK-249.md": 1,
-        "docs/refinement/IDEA-active-constraint-injection.md": 1,
-        "docs/refinement/IDEA-actor-routing-config-key.md": 1,
-        "docs/refinement/IDEA-approval-checker-field-index.md": 1,
-        "docs/refinement/IDEA-archive-status-drift-check.md": 1,
-        "docs/refinement/IDEA-backlog-compression.md": 1,
-        "docs/refinement/IDEA-capture-deterministic-default.md": 1,
-        "docs/refinement/IDEA-corpus-drift-repair.md": 1,
-        "docs/refinement/IDEA-correction-signal.md": 1,
-        "docs/refinement/IDEA-inbox-invariant-contradiction.md": 1,
-        "docs/refinement/IDEA-lock-model-contradiction.md": 1,
-        "docs/refinement/IDEA-memory-ask-narrow-scope.md": 1,
-        "docs/refinement/IDEA-proportional-protocol.md": 1,
-        "docs/refinement/IDEA-protocol-upgrade-policy.md": 1,
-        "docs/refinement/IDEA-semantic-collision-detection.md": 1,
-        "docs/refinement/IDEA-tiered-obligations.md": 1,
-        "docs/refinement/ROADMAP-IDEAS.md": 1,
-        "docs/refinement/archive/IDEA-active-constraint-injection.md": 1,
-        "docs/refinement/archive/IDEA-actor-routing-config-key.md": 2,
-        "docs/refinement/archive/IDEA-approval-checker-field-index.md": 2,
-        "docs/refinement/archive/IDEA-archive-status-drift-check.md": 2,
-        "docs/refinement/archive/IDEA-capture-deterministic-default.md": 1,
-        "docs/refinement/archive/IDEA-corpus-drift-repair.md": 2,
-        "docs/refinement/archive/IDEA-correction-signal.md": 1,
-        "docs/refinement/archive/IDEA-inbox-invariant-contradiction.md": 2,
-        "docs/refinement/archive/IDEA-lock-model-contradiction.md": 2,
-        "docs/refinement/archive/IDEA-memory-ask-narrow-scope.md": 1,
-        "docs/refinement/archive/IDEA-proportional-protocol.md": 1,
-        "docs/refinement/archive/IDEA-semantic-collision-detection.md": 1,
-        "docs/refinement/archive/IDEA-tiered-obligations.md": 2,
-        "docs/tasks/TASK-249.md": 4,
         "docs/tasks/TASK-919.md": 1
       }
     },
@@ -10803,11 +10758,66 @@
       }
     },
     "TASK-993": {
+      "commitCount": 6,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-05-22T16:12:25+02:00",
+      "recentCommitRefs": [
+        "5458bd0b",
+        "603fcefd",
+        "723dfc69",
+        "77bc8c24",
+        "c124cb5e",
+        "d30d9895"
+      ],
+      "touchedFrequency": {
+        ".arch/corpus-index.json": 1,
+        ".arch/focus-ledger.jsonl": 1,
+        ".arch/reflect-breach-log.jsonl": 1,
+        ".arch/status-projection.json": 1,
+        ".githooks/commit-msg": 1,
+        ".githooks/pre-commit": 1,
+        ".githooks/pre-push": 1,
+        "README.md": 1,
+        "cli/src/main/ts/application/commands/init-command.ts": 1,
+        "docs/INBOX.md": 3,
+        "docs/METRICS.md": 1,
+        "docs/ROADMAP.md": 1,
+        "docs/archive/TASK-129.md": 1,
+        "docs/archive/TASK-130.md": 1,
+        "docs/archive/TASK-132.md": 1,
+        "docs/archive/TASK-136.md": 1,
+        "docs/archive/TASK-138.md": 1,
+        "docs/archive/TASK-169.md": 1,
+        "docs/archive/TASK-209.md": 1,
+        "docs/archive/TASK-216.md": 1,
+        "docs/archive/TASK-218.md": 1,
+        "docs/archive/TASK-220.md": 1,
+        "docs/archive/TASK-232.md": 1,
+        "docs/archive/TASK-238.md": 1,
+        "docs/archive/TASK-239.md": 1,
+        "docs/archive/TASK-240.md": 1,
+        "docs/archive/TASK-249.md": 1,
+        "docs/archive/TASK-930.md": 1,
+        "docs/archive/TASK-931.md": 1,
+        "docs/archive/TASK-932.md": 1,
+        "docs/archive/TASK-933.md": 1,
+        "docs/archive/TASK-934.md": 1,
+        "docs/archive/TASK-975.md": 1,
+        "docs/archive/TASK-985.md": 1,
+        "docs/archive/TASK-986.md": 1,
+        "docs/archive/TASK-987.md": 1,
+        "docs/archive/TASK-988.md": 1,
+        "docs/archive/TASK-993.md": 1,
+        "docs/guidelines/core.md": 1,
+        "docs/tasks/TASK-993.md": 3
+      }
+    },
+    "TASK-994": {
       "commitCount": 1,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-22T15:52:04+02:00",
+      "lastCommitDate": "2026-05-22T16:13:15+02:00",
       "recentCommitRefs": [
-        "5458bd0b"
+        "03d83265"
       ],
       "touchedFrequency": {
         ".arch/focus-ledger.jsonl": 1
