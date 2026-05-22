@@ -32,3 +32,14 @@
 
 ## 2026-05-22 13:52:06 — Pattern Alerts
 [PATTERN-ALERT] [SpecDrift] detected 8 times — systemic issue. See docs/tensions/
+
+## 2026-05-22 13:58 — REVIEW_REQUEST | TASK-993 | Add ARCH git hooks
+**Changed files:** .githooks/commit-msg, .githooks/pre-commit, .githooks/pre-push, cli/src/main/ts/application/commands/init-command.ts, docs/guidelines/core.md
+**AC verification:**
+1. AC1 (commit-msg exists): `test -f .githooks/commit-msg` → PASS
+2. AC2 (pre-commit arch check --scope delta): `grep "arch check --scope delta" .githooks/pre-commit` → PASS
+3. AC3 (pre-push arch check): `grep "arch check" .githooks/pre-push` → PASS
+4. AC4 (githooks in init): `grep "githooks" cli/src/main/ts/application/commands/init-command.ts` → PASS
+5. AC5 (arch check): `arch check` → PASS (all green, pre-existing warnings only)
+6. AC6 (core.md references hooks): `grep "\.githooks" docs/guidelines/core.md` → PASS
+**Note:** AC4 grep target path uses `commands/init.ts` but file is at `application/commands/init-command.ts`. Verified on the actual file.
