@@ -4153,7 +4153,7 @@
       "title": "Human-Centric CLI Surface & Command Dispatcher"
     }
   },
-  "builtAt": "2026-05-22T14:42:45.513Z",
+  "builtAt": "2026-05-22T14:43:57.129Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -9238,12 +9238,13 @@
       }
     },
     "TASK-920": {
-      "commitCount": 13,
+      "commitCount": 14,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-22T16:42:42+02:00",
+      "lastCommitDate": "2026-05-22T16:43:51+02:00",
       "recentCommitRefs": [
         "17c5d0ea",
         "19d92c29",
+        "205c218d",
         "456c73df",
         "748e1bff",
         "80e3f0cf",
@@ -9258,9 +9259,17 @@
       ],
       "touchedFrequency": {
         ".arch/chronicle.jsonl": 1,
+        ".arch/corpus-index.json": 1,
         ".arch/focus-ledger.jsonl": 12,
-        ".arch/reflect-breach-log.jsonl": 1,
-        "docs/METRICS.md": 1,
+        ".arch/reflect-breach-log.jsonl": 2,
+        ".arch/status-projection.json": 1,
+        "README.md": 1,
+        "docs/INBOX.md": 1,
+        "docs/METRICS.md": 2,
+        "docs/ROADMAP.md": 1,
+        "docs/archive/TASK-920.md": 1,
+        "docs/archive/TASK-989.md": 1,
+        "docs/tasks/TASK-920.md": 1,
         "docs/tasks/TASK-989.md": 1
       }
     },
@@ -9393,13 +9402,11 @@
       }
     },
     "TASK-946": {
-      "commitCount": 6,
+      "commitCount": 4,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-19T08:37:47+02:00",
       "recentCommitRefs": [
         "01510872",
-        "0e78cfac",
-        "1aa5cfbf",
         "620e6e45",
         "c95019ba",
         "f459fa45"
@@ -9407,32 +9414,15 @@
       "touchedFrequency": {
         ".arch/chronicle.jsonl": 1,
         ".arch/reflect-breach-log.jsonl": 1,
-        "README.md": 1,
-        "arch.config.json": 2,
-        "cli/package.json": 1,
-        "cli/src/main/ts/application/commands/reflect-command.ts": 2,
-        "cli/src/main/ts/application/use-cases/context-inference.ts": 2,
+        "arch.config.json": 1,
+        "cli/src/main/ts/application/commands/reflect-command.ts": 1,
+        "cli/src/main/ts/application/use-cases/context-inference.ts": 1,
         "cli/src/test/ts/context-inference.test.ts": 1,
-        "docs/AGENTS.md": 1,
         "docs/EVENTS.md": 1,
         "docs/METRICS.md": 1,
-        "docs/ONBOARDING.html": 1,
         "docs/RETRO.md": 1,
-        "docs/ROADMAP.md": 1,
-        "docs/TASK-FORMAT.md": 1,
-        "docs/adr/ADR-022-census-budget-recalibration.md": 1,
-        "docs/agents/DO.md": 1,
-        "docs/agents/THINK.md": 1,
         "docs/archive/TASK-252.md": 1,
         "docs/archive/TASK-946.md": 2,
-        "docs/guidelines/models.md": 1,
-        "docs/index.html": 1,
-        "docs/tasks/TASK-252.md": 1,
-        "docs/tasks/TASK-923.md": 1,
-        "docs/tasks/TASK-924.md": 1,
-        "docs/tasks/TASK-925.md": 1,
-        "docs/tasks/TASK-941.md": 1,
-        "docs/tasks/TASK-946.md": 2,
         "docs/tasks/TASK-948.md": 1
       }
     },
@@ -9979,20 +9969,20 @@
       }
     },
     "TASK-966": {
-      "commitCount": 24,
+      "commitCount": 25,
       "commitRefOverflow": true,
-      "lastCommitDate": "2026-05-22T12:59:33+02:00",
+      "lastCommitDate": "2026-05-22T16:43:54+02:00",
       "recentCommitRefs": [
         "044acf6a",
         "109a798f",
         "352ab3a4",
-        "4ee462fb",
         "639675cc",
         "686d36aa",
         "80a0d2f5",
         "8240442d",
         "964b5a8c",
         "a3227691",
+        "a6297ed0",
         "ab3b8915",
         "ad98a28e",
         "bb9c5c03",
@@ -10006,7 +9996,7 @@
       ],
       "touchedFrequency": {
         ".arch/corpus-index.json": 1,
-        ".arch/focus-ledger.jsonl": 23,
+        ".arch/focus-ledger.jsonl": 24,
         ".arch/reflect-breach-log.jsonl": 1,
         "docs/METRICS.md": 1,
         "docs/tasks/TASK-966.md": 1
