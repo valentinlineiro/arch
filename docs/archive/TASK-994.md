@@ -1,6 +1,7 @@
 ## TASK-994: Interactive CLI improvements (init --guided, arch review, --auto-fix)
-**Meta:** P1 | M | REVIEW | Focus:yes | 2-code-generation | local | cli/src/main/ts
+**Meta:** P1 | M | DONE | Focus:no | 2-code-generation | local | cli/src/main/ts
 **Source:** IDEA-productizing-arch-separation Phase C
+**Closed-at:** 2026-05-22T14:30:00Z
 
 ### Acceptance Criteria
 - [x] `arch init --guided` generates `arch.config.json` via interactive prompts (project type, paths override, protocol version) → cmd: echo -e "test-project\n\n\n" | arch init --guided; exit: 0
@@ -21,3 +22,9 @@
 **Constraint:** AC4 file predicate (cli/src/main/ts/commands/review.ts) requires a re-export file separate from the actual implementation in application/commands/.
 **Cost:** Straightforward implementation covering three subcommands with no deviations from ACs. One pre-existing bug (undefined config) fixed along the way.
 **Forward Action:** None required.
+
+## Approval
+**Reviewer:** Auditor (automated)
+**Date:** 2026-05-22
+**Result:** APPROVED
+**Evidence:** All 6 ACs verified against actual repository state. Fixed pre-existing undefined `config` bug in index.ts. 545/550 tests pass (5 pre-existing failures only).

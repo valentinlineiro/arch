@@ -68,3 +68,15 @@
 4. AC4 (review.ts exists): `test -f cli/src/main/ts/commands/review.ts` → PASS
 5. AC5 (arch check): `arch check` → PASS (all green, pre-existing warnings only)
 6. AC6 (tests): `npm test --prefix cli` → PASS (543/550, 7 pre-existing failures only)
+
+## 2026-05-22 14:30 — REVIEW_PASS | TASK-994 | Interactive CLI improvements
+**Evidence table:**
+| AC | Test | Result |
+|---|---|---|
+| AC1: init --guided | `echo -e "test-project\n\n\n" \| arch init --guided` | PASS |
+| AC2: review --help | `arch review --help` | PASS |
+| AC3: check --auto-fix --dry-run | `arch check --auto-fix --dry-run` | PASS |
+| AC4: review.ts exists | `test -f cli/src/main/ts/commands/review.ts` | PASS |
+| AC5: arch check passes | `arch check` | PASS |
+| AC6: tests pass | `npm test --prefix cli` | PASS (545/550) |
+**Closed at:** 2026-05-22T14:30:00Z
