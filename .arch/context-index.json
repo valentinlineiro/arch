@@ -1321,12 +1321,6 @@
           ],
           "taskPath": "docs/tasks/TASK-991.md"
         },
-        "TASK-994": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/tasks/TASK-994.md"
-        },
         "TASK-995": {
           "evidenceKinds": [
             "literal-mention"
@@ -4159,7 +4153,7 @@
       "title": "Human-Centric CLI Surface & Command Dispatcher"
     }
   },
-  "builtAt": "2026-05-22T14:13:17.911Z",
+  "builtAt": "2026-05-22T14:33:05.984Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -4942,6 +4936,7 @@
         "cli/src/main/ts/application/commands/move-command.ts",
         "cli/src/main/ts/application/commands/rank-command.ts",
         "cli/src/main/ts/application/commands/report-command.ts",
+        "cli/src/main/ts/application/commands/review-command.ts",
         "cli/src/main/ts/application/commands/sandbox-command.ts",
         "cli/src/main/ts/application/commands/sentinel-command.ts",
         "cli/src/main/ts/application/commands/serve-command.ts",
@@ -5487,6 +5482,28 @@
         "command",
         "commands",
         "reprioritize"
+      ]
+    },
+    "cli/src/main/ts/application/commands/review-command.ts": {
+      "criticality": "domain",
+      "imports": [
+        "cli/src/main/ts/domain/models/command.ts",
+        "cli/src/main/ts/domain/models/task.ts",
+        "cli/src/main/ts/domain/repositories/file-system.ts",
+        "cli/src/main/ts/domain/repositories/git-repository.ts",
+        "cli/src/main/ts/domain/repositories/task-repository.ts",
+        "cli/src/main/ts/domain/services/deterministic-ac-verifier.ts",
+        "cli/src/main/ts/infrastructure/cli/output-formatter.ts"
+      ],
+      "runtimeUsage": "hot",
+      "symbols": [
+        "ReviewCommand"
+      ],
+      "tags": [
+        "application",
+        "command",
+        "commands",
+        "review"
       ]
     },
     "cli/src/main/ts/application/commands/sandbox-command.ts": {
@@ -6772,6 +6789,18 @@
         "parse",
         "signal",
         "weak"
+      ]
+    },
+    "cli/src/main/ts/commands/review.ts": {
+      "criticality": "utility",
+      "imports": [
+        "cli/src/main/ts/application/commands/review-command.ts"
+      ],
+      "runtimeUsage": "cold",
+      "symbols": [],
+      "tags": [
+        "commands",
+        "review"
       ]
     },
     "cli/src/main/ts/domain/models/action.ts": {
@@ -8468,6 +8497,7 @@
         "cli/src/main/ts/application/use-cases/causal-signal-log.ts",
         "cli/src/main/ts/application/use-cases/drift-checker.ts",
         "cli/src/main/ts/application/use-cases/temporal-index.ts",
+        "cli/src/main/ts/domain/services/config-loader.ts",
         "cli/src/main/ts/domain/services/event-logger.ts",
         "cli/src/main/ts/domain/services/human-coordination-service.ts",
         "cli/src/main/ts/domain/services/reviewer.ts",
@@ -8834,20 +8864,6 @@
         "docs/tensions/TENSION-005-specdrift.md": 2
       }
     },
-    "TASK-249": {
-      "commitCount": 2,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-18T16:06:18+02:00",
-      "recentCommitRefs": [
-        "5812f053",
-        "b1b144d6"
-      ],
-      "touchedFrequency": {
-        "docs/METRICS.md": 1,
-        "docs/archive/TASK-249.md": 1,
-        "docs/tasks/TASK-919.md": 1
-      }
-    },
     "TASK-252": {
       "commitCount": 7,
       "commitRefOverflow": false,
@@ -9204,13 +9220,12 @@
       }
     },
     "TASK-919": {
-      "commitCount": 7,
+      "commitCount": 6,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-19T12:01:06+02:00",
       "recentCommitRefs": [
         "306cca45",
         "aa652715",
-        "b1b144d6",
         "c58f389e",
         "c8e126a2",
         "dcbee88f",
@@ -9219,16 +9234,16 @@
       "touchedFrequency": {
         "cli/src/main/ts/application/commands/init-command.ts": 2,
         "docs/INBOX.md": 2,
-        "docs/METRICS.md": 1,
         "docs/archive/TASK-919.md": 1,
-        "docs/tasks/TASK-919.md": 5
+        "docs/tasks/TASK-919.md": 4
       }
     },
     "TASK-920": {
-      "commitCount": 9,
+      "commitCount": 10,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-20T14:47:09+02:00",
+      "lastCommitDate": "2026-05-22T16:33:03+02:00",
       "recentCommitRefs": [
+        "17c5d0ea",
         "456c73df",
         "748e1bff",
         "80e3f0cf",
@@ -9241,7 +9256,7 @@
       ],
       "touchedFrequency": {
         ".arch/chronicle.jsonl": 1,
-        ".arch/focus-ledger.jsonl": 8,
+        ".arch/focus-ledger.jsonl": 9,
         ".arch/reflect-breach-log.jsonl": 1,
         "docs/METRICS.md": 1
       }
@@ -9372,27 +9387,6 @@
         "docs/tasks/TASK-939.md": 1,
         "docs/tasks/TASK-940.md": 2,
         "docs/tasks/TASK-955.md": 1
-      }
-    },
-    "TASK-943": {
-      "commitCount": 4,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-18T16:06:30+02:00",
-      "recentCommitRefs": [
-        "135a49f9",
-        "2313e068",
-        "2cd38d2a",
-        "31c78ffe"
-      ],
-      "touchedFrequency": {
-        ".arch/chronicle.jsonl": 1,
-        ".arch/focus-ledger.jsonl": 1,
-        ".arch/reflect-breach-log.jsonl": 1,
-        "cli/src/main/ts/application/commands/task-command.ts": 1,
-        "docs/EVENTS.md": 1,
-        "docs/archive/TASK-943.md": 1,
-        "docs/tasks/TASK-943.md": 2,
-        "scripts/arch.sh": 1
       }
     },
     "TASK-944": {
@@ -10813,14 +10807,36 @@
       }
     },
     "TASK-994": {
-      "commitCount": 1,
+      "commitCount": 5,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-22T16:13:15+02:00",
+      "lastCommitDate": "2026-05-22T16:29:43+02:00",
       "recentCommitRefs": [
-        "03d83265"
+        "03d83265",
+        "5b38fa33",
+        "7396d480",
+        "9f572145",
+        "ae1d5f61"
       ],
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 1
+        ".arch/corpus-index.json": 1,
+        ".arch/focus-ledger.jsonl": 1,
+        ".arch/reflect-breach-log.jsonl": 1,
+        ".arch/status-projection.json": 1,
+        "README.md": 1,
+        "cli/.arch/status-projection.json": 1,
+        "cli/src/main/ts/application/command-dispatcher.ts": 1,
+        "cli/src/main/ts/application/commands/check-command.ts": 1,
+        "cli/src/main/ts/application/commands/init-command.ts": 1,
+        "cli/src/main/ts/application/commands/review-command.ts": 1,
+        "cli/src/main/ts/commands/review.ts": 1,
+        "cli/src/main/ts/domain/services/command-registry.ts": 1,
+        "cli/src/main/ts/index.ts": 1,
+        "cli/src/test/ts/review-command.test.ts": 1,
+        "docs/INBOX.md": 3,
+        "docs/METRICS.md": 1,
+        "docs/ROADMAP.md": 1,
+        "docs/archive/TASK-994.md": 1,
+        "docs/tasks/TASK-994.md": 2
       }
     }
   },
