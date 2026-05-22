@@ -1,5 +1,7 @@
 ## TASK-987: Clean up stale CI workflows and scripts  remove exec.yml, c
-**Meta:** P3 | M | REVIEW | Focus:yes | 7-operations | local | docs/tasks/
+**Meta:** P3 | M | DONE | Focus:yes | 7-operations | local | docs/tasks/
+**Turns:** 30
+**Closed-at:** 2026-05-22T12:04:12.128Z
 **Actor:** unknown
 **Locked-commit:** 90e57d89
 **Created-at:** 2026-05-22T09:07:38.119Z
@@ -65,8 +67,8 @@ _confidence: 0.47_
 Clean up stale CI workflows and scripts — remove exec.yml, conduct.yml, aggregate-registry.yml, register-project.yml, scripts/arch.sh, and docs/registry/; rewrite review.yml to use CLI directly instead of shell shim
 
 ### Definition of Done
-- [ ] All ACs checked by Auditor
-- [ ] `arch review` passes
+- [x] All ACs checked by Auditor
+- [x] `arch review` passes
 
 ## Hansei
 **Severity:** H0
