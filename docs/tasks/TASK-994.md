@@ -1,5 +1,5 @@
 ## TASK-994: Interactive CLI improvements (init --guided, arch review, --auto-fix)
-**Meta:** P1 | M | READY | Focus:no | 2-code-generation | local | cli/src/main/ts
+**Meta:** P1 | M | IN_PROGRESS | Focus:yes | 2-code-generation | local | cli/src/main/ts
 **Source:** IDEA-productizing-arch-separation Phase C
 
 ### Acceptance Criteria
