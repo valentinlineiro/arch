@@ -4153,7 +4153,7 @@
       "title": "Human-Centric CLI Surface & Command Dispatcher"
     }
   },
-  "builtAt": "2026-05-22T14:36:03.011Z",
+  "builtAt": "2026-05-22T14:42:45.513Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -8865,11 +8865,10 @@
       }
     },
     "TASK-252": {
-      "commitCount": 7,
+      "commitCount": 6,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-19T08:37:47+02:00",
       "recentCommitRefs": [
-        "33a4df9f",
         "6df9c8a7",
         "7e4ab5e2",
         "98c93e9b",
@@ -8879,7 +8878,7 @@
       ],
       "touchedFrequency": {
         ".arch/chronicle.jsonl": 1,
-        ".arch/focus-ledger.jsonl": 3,
+        ".arch/focus-ledger.jsonl": 2,
         ".arch/reflect-breach-log.jsonl": 1,
         "cli/src/test/ts/size-tiered-closure.test.ts": 1,
         "docs/AGENTS.md": 1,
@@ -9239,11 +9238,12 @@
       }
     },
     "TASK-920": {
-      "commitCount": 12,
+      "commitCount": 13,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-22T16:36:00+02:00",
+      "lastCommitDate": "2026-05-22T16:42:42+02:00",
       "recentCommitRefs": [
         "17c5d0ea",
+        "19d92c29",
         "456c73df",
         "748e1bff",
         "80e3f0cf",
@@ -9258,7 +9258,7 @@
       ],
       "touchedFrequency": {
         ".arch/chronicle.jsonl": 1,
-        ".arch/focus-ledger.jsonl": 11,
+        ".arch/focus-ledger.jsonl": 12,
         ".arch/reflect-breach-log.jsonl": 1,
         "docs/METRICS.md": 1,
         "docs/tasks/TASK-989.md": 1
@@ -9390,72 +9390,6 @@
         "docs/tasks/TASK-939.md": 1,
         "docs/tasks/TASK-940.md": 2,
         "docs/tasks/TASK-955.md": 1
-      }
-    },
-    "TASK-944": {
-      "commitCount": 1,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-18T16:39:47+02:00",
-      "recentCommitRefs": [
-        "be54376a"
-      ],
-      "touchedFrequency": {
-        "cli/README.md": 1,
-        "cli/package.json": 1,
-        "scripts/arch-init.sh": 1,
-        "scripts/arch-install.sh": 1,
-        "scripts/arch-upgrade.sh": 1
-      }
-    },
-    "TASK-945": {
-      "commitCount": 3,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-18T16:48:04+02:00",
-      "recentCommitRefs": [
-        "164e647b",
-        "30f15b3a",
-        "83ba7936"
-      ],
-      "touchedFrequency": {
-        ".arch/chronicle.jsonl": 2,
-        "DEVELOPMENT.md": 1,
-        "README.md": 1,
-        "docs/EVENTS.md": 1,
-        "docs/INBOX.md": 1,
-        "docs/TASK-FORMAT.md": 1,
-        "docs/archive/TASK-945.md": 1,
-        "docs/tasks/TASK-252.md": 1,
-        "docs/tasks/TASK-253.md": 1,
-        "docs/tasks/TASK-259.md": 1,
-        "docs/tasks/TASK-260.md": 1,
-        "docs/tasks/TASK-261.md": 1,
-        "docs/tasks/TASK-262.md": 1,
-        "docs/tasks/TASK-263.md": 1,
-        "docs/tasks/TASK-264.md": 1,
-        "docs/tasks/TASK-265.md": 1,
-        "docs/tasks/TASK-266.md": 1,
-        "docs/tasks/TASK-267.md": 1,
-        "docs/tasks/TASK-268.md": 1,
-        "docs/tasks/TASK-269.md": 1,
-        "docs/tasks/TASK-270.md": 1,
-        "docs/tasks/TASK-271.md": 1,
-        "docs/tasks/TASK-272.md": 1,
-        "docs/tasks/TASK-273.md": 1,
-        "docs/tasks/TASK-274.md": 1,
-        "docs/tasks/TASK-275.md": 1,
-        "docs/tasks/TASK-276.md": 1,
-        "docs/tasks/TASK-277.md": 1,
-        "docs/tasks/TASK-278.md": 1,
-        "docs/tasks/TASK-279.md": 1,
-        "docs/tasks/TASK-280.md": 1,
-        "docs/tasks/TASK-281.md": 1,
-        "docs/tasks/TASK-282.md": 1,
-        "docs/tasks/TASK-283.md": 1,
-        "docs/tasks/TASK-284.md": 1,
-        "docs/tasks/TASK-939.md": 1,
-        "docs/tasks/TASK-940.md": 1,
-        "docs/tasks/TASK-941.md": 1,
-        "docs/tasks/TASK-945.md": 2
       }
     },
     "TASK-946": {
@@ -10706,6 +10640,34 @@
         "docs/reviews/ARCH-comprehensive-review-2026-05-22.md": 1,
         "docs/tasks/TASK-987.md": 2,
         "scripts/arch.sh": 1
+      }
+    },
+    "TASK-989": {
+      "commitCount": 3,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-05-22T16:39:51+02:00",
+      "recentCommitRefs": [
+        "61b88b39",
+        "7d67f451",
+        "e802f206"
+      ],
+      "touchedFrequency": {
+        ".arch/causal-signal.jsonl": 1,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/corpus-index.json": 1,
+        ".arch/reflect-breach-log.jsonl": 1,
+        ".arch/status-projection.json": 1,
+        ".arch/temporal-index.jsonl": 1,
+        "README.md": 1,
+        "arch.config.json": 1,
+        "docs/EVENTS.md": 1,
+        "docs/INBOX.md": 2,
+        "docs/METRICS.md": 1,
+        "docs/ROADMAP.md": 1,
+        "docs/archive/TASK-989.md": 1,
+        "docs/guidelines/models.md": 1,
+        "docs/tasks/TASK-920.md": 1,
+        "docs/tasks/TASK-989.md": 2
       }
     },
     "TASK-992": {
