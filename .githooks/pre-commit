@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# ARCH pre-commit hook
+# Runs arch check --scope delta on staged changes
+
+echo -e "  \033[0;32mARCH\033[0m — checking staged changes..."
+arch check --scope delta
+if [ $? -ne 0 ]; then
+    echo -e "  \033[0;31m\u2716\033[0m Error: Staged changes violate ARCH integrity."
+    exit 1
+fi

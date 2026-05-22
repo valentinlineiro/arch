@@ -1,5 +1,5 @@
 ## TASK-934: Implement tiered Hansei and Approval obligations
-**Meta:** P1 | S | DONE | Focus:yes | 2-code-generation | claude | cli/src/main/ts/application/use-cases/drift-checker.ts, cli/src/main/ts/domain/services/task-validator.ts, docs/TASK-FORMAT.md, docs/AGENTS.md | Closed-at: 2026-05-18T17:00:00Z
+**Meta:** P1 | S | DONE | Focus:no | 2-code-generation | claude | cli/src/main/ts/application/use-cases/drift-checker.ts, cli/src/main/ts/domain/services/task-validator.ts, docs/TASK-FORMAT.md, docs/AGENTS.md | Closed-at: 2026-05-18T17:00:00Z
 
 ### Context
 

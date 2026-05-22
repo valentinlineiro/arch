@@ -153,6 +153,9 @@ export class InitCommand implements Command {
     }
 
     await this.appendGitignore();
+
+    // Git hooks
+    await this.installGithooks();
   }
 
   private async scaffold(stack: DetectedStack): Promise<void> {
@@ -209,6 +212,101 @@ export class InitCommand implements Command {
 
     // .gitignore entry
     await this.appendGitignore();
+
+    // Git hooks
+    await this.installGithooks();
+  }
+
+  private async installGithooks(): Promise<void> {
+    const hooksDir = '.githooks';
+    if (await this.exists(hooksDir)) {
+      console.log(`  ~ ${hooksDir}/ (skipped — already exists)`);
+      return;
+    }
+
+    await fs.mkdir(path.join(this.rootPath, hooksDir), { recursive: true });
+
+    const hooks: Array<{ name: string; content: string }> = [
+      {
+        name: 'commit-msg',
+        content: `#!/usr/bin/env bash
+# ARCH commit-msg hook
+# Auto-appends TASK-ID reference to commit messages if missing
+
+COMMIT_MSG_FILE=$1
+COMMIT_MSG=$(cat "$COMMIT_MSG_FILE")
+
+# Exemptions
+if [[ "$COMMIT_MSG" =~ ^idea: ]] || \\
+   [[ "$COMMIT_MSG" =~ ^chore:\\\\ (open|close)\\\\ sprint/ ]] || \\
+   [[ "$COMMIT_MSG" =~ \\\\[THINK\\\\] ]]; then
+    exit 0
+fi
+
+# Check if TASK-ID already present
+if [[ "$COMMIT_MSG" =~ \\\\[TASK-[0-9]+\\\\] ]]; then
+    exit 0
+fi
+
+# Try to extract TASK-ID from branch name
+BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
+if [[ "$BRANCH_NAME" =~ [Tt][Aa][Ss][Kk]-[0-9]+ ]]; then
+    TASK_ID=$(echo "$BRANCH_NAME" | grep -ioE '[Tt][Aa][Ss][Kk]-[0-9]+' | head -1 | tr '[:lower:]' '[:upper:]')
+    echo "[$TASK_ID] $COMMIT_MSG" > "$COMMIT_MSG_FILE"
+    exit 0
+fi
+
+# Warn but don't block
+echo "Warning: No TASK-ID found in commit message or branch name."
+exit 0
+`,
+      },
+      {
+        name: 'pre-commit',
+        content: `#!/usr/bin/env bash
+# ARCH pre-commit hook
+# Runs arch check --scope delta on staged changes
+
+echo "ARCH -- checking staged changes..."
+arch check --scope delta
+if [ $? -ne 0 ]; then
+    echo "Error: Staged changes violate ARCH integrity."
+    exit 1
+fi
+`,
+      },
+      {
+        name: 'pre-push',
+        content: `#!/usr/bin/env bash
+# ARCH pre-push hook
+# Rejects pushes with REVIEW-status tasks in docs/tasks/
+
+echo "ARCH -- checking for REVIEW-status tasks..."
+REVIEW_TASKS=$(grep -rl "\\\\| REVIEW |" docs/tasks/ 2>/dev/null || true)
+if [ -n "$REVIEW_TASKS" ]; then
+    echo "Error: Push blocked -- REVIEW-status tasks found:"
+    echo "$REVIEW_TASKS" | sed 's/^/    - /'
+    exit 1
+fi
+
+echo "ARCH -- running pre-push integrity review..."
+arch check
+if [ $? -ne 0 ]; then
+    echo "Error: Integrity review failed. Push aborted."
+    exit 1
+fi
+
+echo "Integrity review passed. Proceeding with push."
+`,
+      },
+    ];
+
+    for (const hook of hooks) {
+      const hookPath = path.join(this.rootPath, hooksDir, hook.name);
+      await fs.writeFile(hookPath, hook.content, 'utf-8');
+      await fs.chmod(hookPath, 0o755);
+      console.log(`  + ${hooksDir}/${hook.name}`);
+    }
   }
 
   private async createSymlink(target: string, link: string): Promise<void> {
@@ -528,6 +626,7 @@ TASK: READY → IN_PROGRESS → REVIEW → DONE → archived (docs/archive/)
 - **Conventional Commits:** Use authoritative prefixes (\`feat\`, \`fix\`, \`chore\`, \`docs\`, \`refactor\`, \`idea\`). Every commit must reference a TASK-ID.
 - **No-Merge Policy:** ARCH enforces a clean, linear git history. Merge commits are FORBIDDEN.
 - **Atomicity:** One task per commit where possible.
+- **Git Hooks:** \`arch init\` installs git hooks (commit-msg, pre-commit, pre-push) in \`.githooks/\`. Run \`git config core.hooksPath .githooks\` to activate.
 
 ### 3. Authority & Governance
 - **No Self-Merging:** Agents cannot merge their own PRs.

@@ -1,5 +1,5 @@
 ## TASK-987: Clean up stale CI workflows and scripts  remove exec.yml, c
-**Meta:** P3 | M | DONE | Focus:yes | 7-operations | local | docs/tasks/
+**Meta:** P3 | M | DONE | Focus:no | 7-operations | local | docs/tasks/
 **Turns:** 30
 **Closed-at:** 2026-05-22T12:04:12.128Z
 **Actor:** unknown

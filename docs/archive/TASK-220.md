@@ -1,5 +1,5 @@
 ## TASK-220: Automatic entity linking — guidelines↔failures
-**Meta:** P1 | M | DONE | Focus:yes | 2-code-generation | claude-code | cli/src/main/ts/
+**Meta:** P1 | M | DONE | Focus:no | 2-code-generation | claude-code | cli/src/main/ts/
 **Depends:** TASK-218
 
 ## Approval

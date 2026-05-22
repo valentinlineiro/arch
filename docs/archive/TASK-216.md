@@ -1,5 +1,5 @@
 ## TASK-216: Reflect strategic roadmap into ROADMAP.md and IDEA files
-**Meta:** P1 | S | DONE | Focus:yes | 3-writing | claude-code | docs/ROADMAP.md,docs/refinement/
+**Meta:** P1 | S | DONE | Focus:no | 3-writing | claude-code | docs/ROADMAP.md,docs/refinement/
 **Depends:** none
 
 ## Approval

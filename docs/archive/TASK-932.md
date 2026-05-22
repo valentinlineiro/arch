@@ -1,5 +1,5 @@
 ## TASK-932: Add archive status validation to drift-checker ArchiveMetaIntegrity
-**Meta:** P2 | XS | DONE | Focus:yes | 2-code-generation | claude | cli/src/main/ts/application/use-cases/drift-checker.ts | Closed-at: 2026-05-18T13:00:00Z
+**Meta:** P2 | XS | DONE | Focus:no | 2-code-generation | claude | cli/src/main/ts/application/use-cases/drift-checker.ts | Closed-at: 2026-05-18T13:00:00Z
 
 ### Context
 

@@ -29,3 +29,6 @@
 - **TASK-975**: [CONCEALMENT] Undeclared debt detected. **Action: REJECT and reclassify.**
 - **TASK-957**: Orphan task detected.
 <!-- TASK-992 closed and archived -->
+
+## 2026-05-22 13:52:06 — Pattern Alerts
+[PATTERN-ALERT] [SpecDrift] detected 8 times — systemic issue. See docs/tensions/

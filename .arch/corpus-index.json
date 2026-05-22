@@ -1,8 +1,8 @@
 {
   "version": 1,
-  "builtAt": "2026-05-22T07:43:55.330Z",
-  "archiveCommit": "344:TASK-984.md",
-  "taskCount": 147,
+  "builtAt": "2026-05-22T13:52:06.771Z",
+  "archiveCommit": "351:design",
+  "taskCount": 151,
   "entries": {
     "TASK-180": {
       "id": "TASK-180",
@@ -2401,6 +2401,23 @@
       "acMachineVerifiable": 2,
       "closurePath": "auditor"
     },
+    "TASK-975": {
+      "id": "TASK-975",
+      "size": "XS",
+      "class": "2-code-generation",
+      "closedAt": "2026-05-22T12:15:41.528Z",
+      "lockedCommit": "297ee930",
+      "actor": "local",
+      "severity": "H0",
+      "category": "[SpecDrift]",
+      "decision": "Resolved the concealment that led to previous rejection. Refactored `GovernSystem` to use an `onProgress` callback instead of direct `console.log` and introduced `ArchConfig` interface to remove all `any` casts.",
+      "constraint": "Domain/Use-case layer must remain free of side-effecting CLI I/O.",
+      "cost": "Refactored 3 files to ensure protocol compliance.",
+      "forwardAction": "None.",
+      "acCount": 5,
+      "acMachineVerifiable": 5,
+      "closurePath": "L3"
+    },
     "TASK-976": {
       "id": "TASK-976",
       "size": "S",
@@ -2501,6 +2518,57 @@
       "forwardAction": "None required; v1.1 core pipeline is fully functional and compliant with the implementation contract.",
       "acCount": 3,
       "acMachineVerifiable": 3,
+      "closurePath": "unknown"
+    },
+    "TASK-985": {
+      "id": "TASK-985",
+      "size": "S",
+      "class": "3-refactoring",
+      "closedAt": "2026-05-22T12:03:08.626Z",
+      "lockedCommit": null,
+      "actor": "unknown",
+      "severity": "H0",
+      "category": "[SpecDrift]",
+      "decision": "Executed major documentation consolidation to reduce cognitive surface area. Merged EPISTEMIC-DOCTRINE into GOVERNANCE and what-ai-must-never-do into core.md.",
+      "constraint": "`arch review` currently requires `docs/HALT-LOG.md` to exist, so it was kept as a dummy file.",
+      "cost": "Reduced root doc count from 21 to 14.",
+      "forwardAction": "None. System state is cleaner and more cohesive.",
+      "acCount": 2,
+      "acMachineVerifiable": 1,
+      "closurePath": "L3"
+    },
+    "TASK-986": {
+      "id": "TASK-986",
+      "size": "M",
+      "class": "3-refactoring",
+      "closedAt": "2026-05-22T12:04:00.442Z",
+      "lockedCommit": null,
+      "actor": null,
+      "severity": "H0",
+      "category": "[SpecDrift]",
+      "decision": "Refactored CLI surface and internal architecture to prioritize human intuitive naming over philosophical/LLM-oriented names.",
+      "constraint": "The original `index.ts` was a bottleneck for maintenance; introducing `CommandDispatcher` solved this while aligning with \"Productization\" goals.",
+      "cost": "High number of files touched (renaming), but mitigated by comprehensive build verification and drift checking.",
+      "forwardAction": "None.",
+      "acCount": 2,
+      "acMachineVerifiable": 1,
+      "closurePath": "unknown"
+    },
+    "TASK-987": {
+      "id": "TASK-987",
+      "size": "M",
+      "class": "7-operations",
+      "closedAt": "2026-05-22T12:04:12.128Z",
+      "lockedCommit": "90e57d89",
+      "actor": "unknown",
+      "severity": "H0",
+      "category": "[SpecDrift]",
+      "decision": "Removed 4 stale and dangerous GitHub Actions workflows, rewrote review.yml to use CLI directly, removed dead shell shim and registry directory.",
+      "constraint": "Pre-existing FOCUS_INTEGRITY_VIOLATION in arch review is unrelated to this task.",
+      "cost": "No cost introduced — pure cleanup of dead code and risk reduction (removed autonomous agent CI runs with API keys).",
+      "forwardAction": "None required.",
+      "acCount": 5,
+      "acMachineVerifiable": 4,
       "closurePath": "unknown"
     }
   }

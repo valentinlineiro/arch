@@ -1,5 +1,5 @@
 ## TASK-930: Remove machine reads of INBOX.md from loop-engine and next-command
-**Meta:** P1 | S | DONE | Focus:yes | 2-code-generation | claude | cli/src/main/ts/application/use-cases/loop-engine.ts, cli/src/main/ts/application/commands/next-command.ts, docs/agents/DO.md | Closed-at: 2026-05-18T15:00:00Z
+**Meta:** P1 | S | DONE | Focus:no | 2-code-generation | claude | cli/src/main/ts/application/use-cases/loop-engine.ts, cli/src/main/ts/application/commands/next-command.ts, docs/agents/DO.md | Closed-at: 2026-05-18T15:00:00Z
 
 ### Context
 

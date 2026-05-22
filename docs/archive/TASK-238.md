@@ -1,5 +1,5 @@
 ## TASK-238: Disambiguate Level terminology - autonomy vs escalation scales
-**Meta:** P2 | XS | DONE | Focus:yes | 6-writing | claude-code | docs/guidelines/autonomy.md, docs/adr/ | Closed-at: 2026-05-13T13:40:00Z
+**Meta:** P2 | XS | DONE | Focus:no | 6-writing | claude-code | docs/guidelines/autonomy.md, docs/adr/ | Closed-at: 2026-05-13T13:40:00Z
 **Depends:** none
 
 ### Context

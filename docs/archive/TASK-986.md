@@ -1,5 +1,5 @@
 ## TASK-986: Execute Human-Centric CLI Refactoring
-**Meta:** P3 | M | DONE | Focus:yes | 3-refactoring | local | docs/tasks/
+**Meta:** P3 | M | DONE | Focus:no | 3-refactoring | local | docs/tasks/
 **Closed-at:** 2026-05-22T12:04:00.442Z
 **Depends:** none
 

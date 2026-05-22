@@ -1,5 +1,5 @@
 ## TASK-218: Automatic entity linking — ADRs↔tasks
-**Meta:** P1 | S | DONE | Focus:yes | 2-code-generation | claude-code | cli/src/main/ts/
+**Meta:** P1 | S | DONE | Focus:no | 2-code-generation | claude-code | cli/src/main/ts/
 **Depends:** TASK-217
 
 ## Approval

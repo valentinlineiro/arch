@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+# ARCH pre-push hook
+# Rejects pushes with REVIEW-status tasks in docs/tasks/
+
+echo -e "  \033[0;32mARCH\033[0m — checking for REVIEW-status tasks..."
+REVIEW_TASKS=$(grep -rl "\| REVIEW |" docs/tasks/ 2>/dev/null || true)
+if [ -n "$REVIEW_TASKS" ]; then
+    echo -e "  \033[0;31m\u2716 Error:\033[0m Push blocked: REVIEW-status tasks found:"
+    echo "$REVIEW_TASKS" | sed 's/^/    - /'
+    exit 1
+fi
+
+echo -e "  \033[0;32mARCH\033[0m — running pre-push integrity review..."
+arch check
+if [ $? -ne 0 ]; then
+    echo -e "  \033[0;31m\u2716\033[0m Error: Integrity review failed. Push aborted."
+    exit 1
+fi
+
+echo -e "  \033[0;32m\u2713\033[0m Integrity review passed. Proceeding with push."

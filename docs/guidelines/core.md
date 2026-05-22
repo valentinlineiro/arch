@@ -10,6 +10,7 @@
 - **No-Merge Policy:** ARCH enforces a clean, linear history. Merge commits (2+ parents) and history-changing ops (`pull`, `merge`, `rebase`) are **FORBIDDEN** without explicit human approval. Use `git fetch`.
 - **Atomicity:** One task per commit where possible.
 - **Hygiene:** Every new code directory must include a `.gitignore`.
+- **Git Hooks:** `arch init` installs git hooks (commit-msg, pre-commit, pre-push) in `.githooks/`. Run `arch init` to install, or manually execute `git config core.hooksPath .githooks`.
 
 ### 3. Authority & Governance (The "Never" List)
 - **No Direct Guideline Edits:** Propose changes to `docs/guidelines/` via `idea:` (refinement) or THINK mode.
