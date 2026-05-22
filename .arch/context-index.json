@@ -4153,7 +4153,7 @@
       "title": "Human-Centric CLI Surface & Command Dispatcher"
     }
   },
-  "builtAt": "2026-05-22T14:34:17.016Z",
+  "builtAt": "2026-05-22T14:36:03.011Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -9239,14 +9239,15 @@
       }
     },
     "TASK-920": {
-      "commitCount": 11,
+      "commitCount": 12,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-22T16:34:15+02:00",
+      "lastCommitDate": "2026-05-22T16:36:00+02:00",
       "recentCommitRefs": [
         "17c5d0ea",
         "456c73df",
         "748e1bff",
         "80e3f0cf",
+        "8e1f0366",
         "9577ff69",
         "9a8aa9b9",
         "a01fc6f4",
@@ -9257,9 +9258,10 @@
       ],
       "touchedFrequency": {
         ".arch/chronicle.jsonl": 1,
-        ".arch/focus-ledger.jsonl": 10,
+        ".arch/focus-ledger.jsonl": 11,
         ".arch/reflect-breach-log.jsonl": 1,
-        "docs/METRICS.md": 1
+        "docs/METRICS.md": 1,
+        "docs/tasks/TASK-989.md": 1
       }
     },
     "TASK-923": {
@@ -9391,22 +9393,18 @@
       }
     },
     "TASK-944": {
-      "commitCount": 3,
+      "commitCount": 1,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-18T16:39:47+02:00",
       "recentCommitRefs": [
-        "4c595bd6",
-        "58fa008c",
         "be54376a"
       ],
       "touchedFrequency": {
         "cli/README.md": 1,
-        "cli/package.json": 2,
-        "docs/archive/TASK-944.md": 1,
+        "cli/package.json": 1,
         "scripts/arch-init.sh": 1,
         "scripts/arch-install.sh": 1,
-        "scripts/arch-upgrade.sh": 1,
-        "scripts/arch.sh": 1
+        "scripts/arch-upgrade.sh": 1
       }
     },
     "TASK-945": {
