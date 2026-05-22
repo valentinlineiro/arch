@@ -1,3 +1,4 @@
+import { Command } from '../../domain/models/command.js';
 import type { FileSystem } from '../../domain/repositories/file-system.js';
 import { CausalSignalLog } from '../use-cases/causal-signal-log.js';
 import { aggregateHanseiSignals, WEAK_SIGNAL_THRESHOLD } from '../../domain/services/signal-router.js';
@@ -9,7 +10,7 @@ import { parseLedger } from '../use-cases/focus-ledger.js';
 import { spawnSync } from 'node:child_process';
 import fs from 'node:fs';
 
-export class ReflectCommand {
+export class ReflectCommand implements Command {
   constructor(private fileSystem: FileSystem, private rootPath: string, private taskRepository?: any) {}
 
   async execute(args: string[]): Promise<void> {

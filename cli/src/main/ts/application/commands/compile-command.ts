@@ -1,3 +1,4 @@
+import { Command } from '../../domain/models/command.js';
 import * as fs from 'node:fs/promises';
 import { FileSystem } from '../../domain/repositories/file-system.js';
 import { NormalizeRepoEvents, type RawInputTrace } from '../use-cases/normalize-repo-events.js';
@@ -5,7 +6,7 @@ import { TransientWindowCompiler } from '../../domain/services/transient-window-
 import { StatelessHypothesisGenerator } from '../../domain/services/stateless-hypothesis-generator.js';
 import { TransientActuationProjector } from '../../domain/services/transient-actuation-projector.js';
 
-export class CompileCommand {
+export class CompileCommand implements Command {
   constructor(private fileSystem: FileSystem) {}
 
   async execute(args: string[]): Promise<void> {

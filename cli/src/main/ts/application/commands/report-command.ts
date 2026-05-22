@@ -1,9 +1,10 @@
+import { Command } from '../../domain/models/command.js';
 import { FileSystem } from '../../domain/repositories/file-system.js';
 import { GitRepository } from '../../domain/repositories/git-repository.js';
 import { ArchiveParser } from '../../domain/services/archive-parser.js';
 import { MetricsEngine, CalculatedMetrics } from '../../domain/services/metrics-engine.js';
 
-export class ReportCommand {
+export class ReportCommand implements Command {
   private readonly METRICS_PATH = 'docs/METRICS.md';
 
   constructor(

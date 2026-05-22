@@ -1,8 +1,9 @@
+import { Command } from '../../domain/models/command.js';
 import { DeterministicACVerifier } from '../../domain/services/deterministic-ac-verifier.js';
 import type { TaskRepository } from '../../domain/repositories/task-repository.js';
 import * as fmt from '../../infrastructure/cli/output-formatter.js';
 
-export class VerifyAcsCommand {
+export class VerifyAcsCommand implements Command {
   constructor(
     private taskRepository: TaskRepository,
     private rootPath: string,

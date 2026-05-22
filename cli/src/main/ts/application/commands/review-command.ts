@@ -1,3 +1,4 @@
+import { Command } from '../../domain/models/command.js';
 import { ReviewSystem } from '../use-cases/review-system.js';
 import type { TaskRepository } from '../../domain/repositories/task-repository.js';
 import type { GitRepository } from '../../domain/repositories/git-repository.js';
@@ -8,7 +9,7 @@ import { DeterministicACVerifier } from '../../domain/services/deterministic-ac-
 import { HanseiWizard } from '../use-cases/hansei-wizard.js';
 import * as fmt from '../../infrastructure/cli/output-formatter.js';
 
-export class ReviewCommand {
+export class ReviewCommand implements Command {
   private useCase: ReviewSystem;
 
   constructor(

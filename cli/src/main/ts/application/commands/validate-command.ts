@@ -1,10 +1,11 @@
+import { Command } from '../../domain/models/command.js';
 import { ValidateSystem } from '../use-cases/validate-system.js';
 import { ValidateTaskAcs } from '../use-cases/validate-task-acs.js';
 import type { TaskRepository } from '../../domain/repositories/task-repository.js';
 import type { FileSystem } from '../../domain/repositories/file-system.js';
 import * as fmt from '../../infrastructure/cli/output-formatter.js';
 
-export class ValidateCommand {
+export class ValidateCommand implements Command {
   private useCase: ValidateSystem;
 
   constructor(

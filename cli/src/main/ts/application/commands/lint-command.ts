@@ -1,10 +1,11 @@
+import { Command } from '../../domain/models/command.js';
 import { TaskRepository } from '../../domain/repositories/task-repository.js';
 import { TaskValidator } from '../../domain/services/task-validator.js';
 import * as fmt from '../../infrastructure/cli/output-formatter.js';
 import { FileSystem } from '../../domain/repositories/file-system.js';
 import path from 'node:path';
 
-export class LintCommand {
+export class LintCommand implements Command {
   constructor(
     private taskRepository: TaskRepository,
     private fileSystem: FileSystem

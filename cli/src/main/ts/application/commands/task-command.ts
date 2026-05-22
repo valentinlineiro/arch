@@ -1,3 +1,4 @@
+import { Command } from '../../domain/models/command.js';
 import { CreateTask } from '../use-cases/create-task.js';
 import { EditTaskMetadata } from '../use-cases/edit-task-metadata.js';
 import { LoadBearingMemory } from '../use-cases/load-bearing-memory.js';
@@ -42,7 +43,7 @@ export function hasUncheckedACs(content: string): boolean {
   return scoped.includes('- [ ]');
 }
 
-export class TaskCommand {
+export class TaskCommand implements Command {
   private markInProgress: MarkTaskInProgress;
   private markDone: MarkTaskDone;
   private markReview: MarkTaskReview;

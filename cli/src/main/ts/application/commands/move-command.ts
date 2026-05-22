@@ -1,10 +1,11 @@
+import { Command } from '../../domain/models/command.js';
 import { MoveArtifact } from '../use-cases/move-artifact.js';
 import type { TaskRepository } from '../../domain/repositories/task-repository.js';
 import type { GitRepository } from '../../domain/repositories/git-repository.js';
 import type { FileSystem } from '../../domain/repositories/file-system.js';
 import * as fmt from '../../infrastructure/cli/output-formatter.js';
 
-export class MoveCommand {
+export class MoveCommand implements Command {
   private useCase: MoveArtifact;
 
   constructor(

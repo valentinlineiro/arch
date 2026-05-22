@@ -1,3 +1,4 @@
+import { Command } from '../../domain/models/command.js';
 import { AskCorpus } from '../use-cases/ask-corpus.js';
 
 export interface AskIO {
@@ -7,7 +8,7 @@ export interface AskIO {
   exit(code: number): never;
 }
 
-export class AskCommand {
+export class AskCommand implements Command {
   constructor(
     private askCorpus: AskCorpus,
     private io: AskIO,

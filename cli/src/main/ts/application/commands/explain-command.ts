@@ -1,3 +1,4 @@
+import { Command } from '../../domain/models/command.js';
 import type { TaskRepository } from '../../domain/repositories/task-repository.js';
 import type { FileSystem } from '../../domain/repositories/file-system.js';
 import type { CausalSignalLog } from '../use-cases/causal-signal-log.js';
@@ -97,7 +98,7 @@ function normalizeTerm(term: string): string {
   return term.toLowerCase().replace(/[-_]/g, ' ').trim();
 }
 
-export class ExplainCommand {
+export class ExplainCommand implements Command {
   constructor(
     private taskRepository: TaskRepository,
     private fileSystem: FileSystem,

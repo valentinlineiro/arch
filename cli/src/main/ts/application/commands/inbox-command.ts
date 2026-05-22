@@ -1,3 +1,4 @@
+import { Command } from '../../domain/models/command.js';
 import { GenerateInbox, InboxData, DecisionItem } from '../use-cases/generate-inbox.js';
 import type { TaskRepository } from '../../domain/repositories/task-repository.js';
 import type { Reviewer } from '../../domain/services/reviewer.js';
@@ -5,7 +6,7 @@ import type { DriftChecker } from '../use-cases/drift-checker.js';
 import type { FileSystem } from '../../domain/repositories/file-system.js';
 import * as fmt from '../../infrastructure/cli/output-formatter.js';
 
-export class InboxCommand {
+export class InboxCommand implements Command {
   private useCase: GenerateInbox;
 
   constructor(

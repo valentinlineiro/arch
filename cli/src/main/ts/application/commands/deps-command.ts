@@ -1,7 +1,8 @@
+import { Command } from '../../domain/models/command.js';
 import type { TaskRepository } from '../../domain/repositories/task-repository.js';
 import type { Task } from '../../domain/models/task.js';
 
-export class DepsCommand {
+export class DepsCommand implements Command {
   constructor(private taskRepository: TaskRepository) {}
 
   async execute(args: string[]): Promise<void> {

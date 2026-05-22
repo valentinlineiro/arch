@@ -10,7 +10,7 @@ jobs:
   review:
     runs-on: ubuntu-latest
     permissions:
-      contents: write
+      contents: read
       pull-requests: write
     steps:
       - uses: actions/checkout@v4
@@ -30,24 +30,4 @@ jobs:
       - name: Run arch review
         id: review
         run: |
-          ./scripts/arch.sh review > review_output.txt 2>&1
-
-      - name: Report Failure
-        if: failure() && github.event_name == 'pull_request'
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const fs = require('fs');
-            const output = fs.readFileSync('review_output.txt', 'utf8');
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: `## ARCH Review Failed\n\`\`\`\n${output}\n\`\`\``
-            })
-
-      - name: Push bug task if on main
-        if: failure() && github.event_name == 'push' && github.ref == 'refs/heads/main'
-        run: |
-          # TASK-087 commits the bug task, we just need to push
-          git push origin main || echo "Nothing to push or push failed"
+          node cli/dist/index.js review

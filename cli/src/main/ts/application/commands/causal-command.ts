@@ -1,3 +1,4 @@
+import { Command } from '../../domain/models/command.js';
 import { CausalGraph, VALID_RELATIONS, type ScoredEdge } from '../use-cases/causal-graph.js';
 import { CausalArbitrator, type ArbitrationResult } from '../use-cases/causal-arbitrator.js';
 import { CausalSignalLog } from '../use-cases/causal-signal-log.js';
@@ -10,7 +11,7 @@ export interface CausalIO {
   exit(code: number): never;
 }
 
-export class CausalCommand {
+export class CausalCommand implements Command {
   constructor(
     private graph: CausalGraph,
     private io: CausalIO,

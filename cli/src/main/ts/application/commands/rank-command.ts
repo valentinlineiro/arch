@@ -1,7 +1,8 @@
+import { Command } from '../../domain/models/command.js';
 import { RankTasks } from '../use-cases/rank-tasks.js';
 import type { TaskRepository } from '../../domain/repositories/task-repository.js';
 
-export class RankCommand {
+export class RankCommand implements Command {
   private useCase: RankTasks;
 
   constructor(private taskRepository: TaskRepository) {

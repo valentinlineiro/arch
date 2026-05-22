@@ -1,3 +1,4 @@
+import { Command } from '../../domain/models/command.js';
 import { GovernSystem } from '../use-cases/govern-system.js';
 import { BuildIndex } from '../use-cases/build-index.js';
 import { ConfigLoader } from '../../domain/services/config-loader.js';
@@ -7,7 +8,7 @@ import type { GitRepository } from '../../domain/repositories/git-repository.js'
 import type { FileSystem } from '../../domain/repositories/file-system.js';
 import { CausalSignalLog } from '../use-cases/causal-signal-log.js';
 
-export class GovernCommand {
+export class GovernCommand implements Command {
   private useCase: GovernSystem;
 
   constructor(

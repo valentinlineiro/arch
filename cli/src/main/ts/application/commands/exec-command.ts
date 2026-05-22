@@ -1,3 +1,4 @@
+import { Command } from '../../domain/models/command.js';
 import { spawnSync, spawn } from 'node:child_process';
 import fs from 'node:fs';
 import { TaskRepository } from '../../domain/repositories/task-repository.js';
@@ -10,7 +11,7 @@ import { BridgeProvider } from '../../domain/services/bridge-provider.js';
 
 const DO_PROMPT_FILE = 'docs/agents/DO.md';
 
-export class ExecCommand {
+export class ExecCommand implements Command {
   constructor(
     private taskRepository: TaskRepository,
     private fileSystem: FileSystem

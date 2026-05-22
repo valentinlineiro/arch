@@ -1,10 +1,11 @@
+import { Command } from '../../domain/models/command.js';
 import { SandboxService } from '../../domain/services/sandbox.js';
 import { TaskRepository } from '../../domain/repositories/task-repository.js';
 import { FileSystem } from '../../domain/repositories/file-system.js';
 import { EscalationStore } from '../use-cases/escalation-store.js';
 import * as fmt from '../../infrastructure/cli/output-formatter.js';
 
-export class SandboxCommand {
+export class SandboxCommand implements Command {
   constructor(
     private sandboxService: SandboxService,
     private taskRepository: TaskRepository,

@@ -1,3 +1,4 @@
+import { Command } from '../../domain/models/command.js';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 
@@ -11,7 +12,7 @@ interface DetectedStack {
   buildCommand: string;
 }
 
-export class InitCommand {
+export class InitCommand implements Command {
   private rootPath: string;
 
   constructor(rootPath: string = '.') {

@@ -1,9 +1,10 @@
+import { Command } from '../../domain/models/command.js';
 import { BuildIndex } from '../use-cases/build-index.js';
 import { ConfigLoader } from '../../domain/services/config-loader.js';
 import type { FileSystem } from '../../domain/repositories/file-system.js';
 import type { GitRepository } from '../../domain/repositories/git-repository.js';
 
-export class IndexCommand {
+export class IndexCommand implements Command {
   constructor(
     private fileSystem: FileSystem,
     private gitRepository: GitRepository,

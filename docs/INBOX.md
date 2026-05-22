@@ -27,6 +27,7 @@
 ---
 *Last updated: 2026-05-22T08:05:00Z*
 - [ ] REVIEW_REQUEST: [TASK-975] Bug fix for INTEGRITY_FIX
+- [ ] REVIEW_REQUEST: [TASK-987] Clean up stale CI workflows and scripts
 
 ## 2026-05-22 08:05:00 — Pattern Alerts
 [PATTERN-ALERT] [SpecDrift] detected 8 times — systemic issue. See docs/tensions/TENSION-005-specdrift.md

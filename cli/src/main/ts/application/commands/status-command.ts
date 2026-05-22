@@ -1,9 +1,10 @@
+import { Command } from '../../domain/models/command.js';
 import type { TaskRepository } from '../../domain/repositories/task-repository.js';
 import type { FileSystem } from '../../domain/repositories/file-system.js';
 import { StatusReportService } from '../../domain/services/status-report-service.js';
 import * as fmt from '../../infrastructure/cli/output-formatter.js';
 
-export class StatusCommand {
+export class StatusCommand implements Command {
   constructor(
     private taskRepository: TaskRepository,
     private fileSystem: FileSystem,
