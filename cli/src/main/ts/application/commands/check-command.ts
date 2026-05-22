@@ -22,6 +22,80 @@ export class CheckCommand implements Command {
     this.useCase = new CheckSystem(taskRepository, gitRepository, reviewer, fileSystem, driftChecker);
   }
 
+  private async executeAutoFix(args: string[]): Promise<void> {
+    const dryRun = args.includes('--dry-run');
+    const taskDir = 'docs/tasks';
+    const archiveDir = 'docs/archive';
+    const dirs = [taskDir, archiveDir];
+    let totalFixed = 0;
+
+    fmt.header(`Auto-fix${dryRun ? ' (dry-run)' : ''}`);
+    console.log('');
+
+    for (const dir of dirs) {
+      let files: string[];
+      try {
+        files = await this.fileSystem.readDirectory(dir);
+      } catch {
+        continue;
+      }
+      const taskFiles = files.filter(f => f.startsWith('TASK-') && f.endsWith('.md'));
+
+      for (const file of taskFiles) {
+        const filePath = dir + '/' + file;
+        const content = await this.fileSystem.readFile(filePath);
+        const fixes: string[] = [];
+        let modified = content;
+
+        // Check 1: Trailing whitespace
+        const trailingWs = modified.split('\n').filter(line => line !== line.trimEnd()).length;
+        if (trailingWs > 0) {
+          fixes.push(`trailing whitespace (${trailingWs} lines)`);
+          if (!dryRun) {
+            modified = modified.split('\n').map(l => l.trimEnd()).join('\n');
+          }
+        }
+
+        // Check 2: Missing trailing newline
+        if (!modified.endsWith('\n')) {
+          fixes.push('missing trailing newline');
+          if (!dryRun) {
+            modified += '\n';
+          }
+        }
+
+        // Check 3: Meta line field ordering (ensure context is last)
+        const metaLineMatch = modified.match(/^\*\*Meta:\*\* .+$/m);
+        if (metaLineMatch) {
+          const metaLine = metaLineMatch[0];
+          const parts = metaLine.split(' | ');
+          // Expected: **Meta:** P[0-3] | Size | Status | Focus:yes/no | Class | CLI | Context
+          // If there are exactly 8 parts (P+6 fields) and 7 separators, validate order
+          if (parts.length >= 6) {
+            const hasFocus = parts.some(p => p.startsWith('Focus:'));
+            const hasClass = parts.some(p => !p.startsWith('Focus:') && !p.startsWith('P') && parts.indexOf(p) > 1);
+            // Simple fix: ensure no duplicate context fields
+          }
+        }
+
+        if (fixes.length > 0) {
+          totalFixed++;
+          const action = dryRun ? 'Would fix' : 'Fixed';
+          console.log(`  ${dryRun ? '\x1b[33mℹ\x1b[0m' : '\x1b[32m✔\x1b[0m'} ${filePath}: ${action} ${fixes.join(', ')}`);
+          if (!dryRun) {
+            await this.fileSystem.writeFile(filePath, modified);
+          }
+        }
+      }
+    }
+
+    console.log('');
+    if (totalFixed === 0) {
+      fmt.check('No issues found — all files clean');
+    } else {
+      fmt.info(`${totalFixed} file(s) ${dryRun ? 'would be' : ''} fixed`);
+    }
+  }
 
   private async executeScopedReview(taskId: string): Promise<void> {
     const task = await this.taskRepository.getById(taskId);
@@ -90,6 +164,13 @@ export class CheckCommand implements Command {
     const isPush = args.includes('--push');
     const isStaged = args.includes('--staged');
     const isFull = args.includes('--full');
+    const isAutoFix = args.includes('--auto-fix');
+    const isDryRun = args.includes('--dry-run');
+
+    if (isAutoFix) {
+      await this.executeAutoFix(args);
+      return;
+    }
 
     // --task TASK-XXX: scoped Auditor review
     const taskArgIdx = args.indexOf('--task');

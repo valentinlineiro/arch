@@ -16,6 +16,7 @@ import { AskCorpus } from './use-cases/ask-corpus.js';
 
 import { CheckCommand } from './commands/check-command.js';
 import { InitCommand } from './commands/init-command.js';
+import { ReviewCommand } from './commands/review-command.js';
 import { VersionCommand } from './commands/version-command.js';
 import { StatusCommand } from './commands/status-command.js';
 import { CompileCommand } from './commands/compile-command.js';
@@ -138,8 +139,8 @@ export class CommandDispatcher {
 
     // ── Standard Registry ───────────────────────────────────────────────────
     switch (name) {
-      case 'review': // Keep for internal/transition if needed, or remove
-        return new CheckCommand(this.taskRepository, this.gitRepository, this.reviewer, this.driftChecker, this.fileSystem);
+      case 'review':
+        return new ReviewCommand(this.taskRepository, this.gitRepository, this.fileSystem);
       case 'init':
         return new InitCommand(this.rootPath);
       case 'version':

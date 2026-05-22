@@ -9,7 +9,7 @@
 
 | Metric | Value | Notes |
 |--------|-------|-------|
-| **Completed Tasks** | 350 | total archived |
+| **Completed Tasks** | 351 | total archived |
 | **REVIEW_FAIL Rate** | pending (insufficient event history) | rejected / total review exits |
 
 ### Cycle Time (P50/P90)

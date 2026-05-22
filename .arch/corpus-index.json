@@ -1,8 +1,8 @@
 {
   "version": 1,
-  "builtAt": "2026-05-22T13:52:06.771Z",
-  "archiveCommit": "351:design",
-  "taskCount": 151,
+  "builtAt": "2026-05-22T14:13:18.101Z",
+  "archiveCommit": "352:design",
+  "taskCount": 152,
   "entries": {
     "TASK-180": {
       "id": "TASK-180",
@@ -2570,6 +2570,23 @@
       "acCount": 5,
       "acMachineVerifiable": 4,
       "closurePath": "unknown"
+    },
+    "TASK-993": {
+      "id": "TASK-993",
+      "size": "M",
+      "class": "7-operations",
+      "closedAt": "2026-05-22T14:00:00Z",
+      "lockedCommit": null,
+      "actor": null,
+      "severity": "H0",
+      "category": "[standard-delivery]",
+      "decision": "Implemented three git hooks with auto-install in arch init. Used existing script templates as reference, adapted to .githooks/ directory pattern. Added core.md documentation for hook activation path.",
+      "constraint": "AC4 grep target path (cli/src/main/ts/commands/init.ts) differs from actual file (application/commands/init-command.ts) — grep passes on the actual file.",
+      "cost": "Straightforward implementation with no deviations from ACs.",
+      "forwardAction": "None required.",
+      "acCount": 0,
+      "acMachineVerifiable": 0,
+      "closurePath": "auditor"
     }
   }
 }

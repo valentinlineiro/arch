@@ -55,3 +55,6 @@
 | AC5: arch check passes | `arch check` | PASS |
 | AC6: core.md references hooks | `grep "\\.githooks" docs/guidelines/core.md` | PASS |
 **Closed at:** 2026-05-22T14:00:00Z
+
+## 2026-05-22 14:13:18 — Pattern Alerts
+[PATTERN-ALERT] [SpecDrift] detected 8 times — systemic issue. See docs/tensions/

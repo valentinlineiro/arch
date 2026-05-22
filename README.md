@@ -37,16 +37,16 @@ d9d41db chore: pivot CLI migration from Python to Node.js [TASK-027]
 
 <!-- ARCH-REPORT:START -->
 #### ARCH Materialized Status
-**Generated:** 2026-05-22T13:52:04.281Z
+**Generated:** 2026-05-22T14:13:15.785Z
 **Sprint ID:** sprint/v1.0.0-improvements
 
 | Status | Count |
 | :--- | :--- |
-| Ready | 27 |
+| Ready | 26 |
 | In Progress | 0 |
 | Review | 0 |
 | Blocked | 8 |
-| Done (Archive) | 350 |
+| Done (Archive) | 351 |
 
 **Audit Score:** 100/100
 <!-- ARCH-REPORT:END -->

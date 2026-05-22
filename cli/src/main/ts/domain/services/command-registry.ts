@@ -16,7 +16,7 @@ export const COMMAND_REGISTRY: CommandEntry[] = [
     name: 'arch check',
     topLevel: 'check',
     visibility: 'public',
-    description: 'structural validation and integrity audit',
+    description: 'structural validation, integrity audit, and auto-fix',
     category: 'Core',
   },
   {
@@ -34,10 +34,17 @@ export const COMMAND_REGISTRY: CommandEntry[] = [
     category: 'Core',
   },
   {
+    name: 'arch review',
+    topLevel: 'review',
+    visibility: 'public',
+    description: 'interactive review queue — verify ACs, approve or skip REVIEW tasks',
+    category: 'Core',
+  },
+  {
     name: 'arch init',
     topLevel: 'init',
     visibility: 'public',
-    description: 'initialize ARCH in current repository',
+    description: 'initialize ARCH in current repository (--guided for interactive setup)',
     category: 'System',
   },
   {

@@ -22,8 +22,30 @@ export class InitCommand implements Command {
   async execute(args: string[]): Promise<void> {
     const force = args.includes('--force');
     const minimal = args.includes('--minimal');
+    const guided = args.includes('--guided');
 
-    console.log('\n  ARCH — initializing framework' + (minimal ? ' [MINIMAL]' : '') + '\n');
+    console.log('\n  ARCH — initializing framework' + (minimal ? ' [MINIMAL]' : '') + (guided ? ' [GUIDED]' : '') + '\n');
+
+    // Guided prompts
+    let projectName = '';
+    let pathsOverride = '';
+    let protocolVersion = '';
+    if (guided) {
+      const rl = await import('node:readline');
+      const prompt = (question: string, defaultVal = ''): Promise<string> => {
+        const r = rl.createInterface({ input: process.stdin, output: process.stdout });
+        return new Promise(resolve => {
+          r.question(`  ${question} `, answer => {
+            r.close();
+            resolve(answer.trim() || defaultVal);
+          });
+        });
+      };
+      projectName = await prompt('Project name:', 'arch-project');
+      pathsOverride = await prompt('Paths override (comma-separated, e.g. tasks=mytasks):', '');
+      protocolVersion = await prompt('Protocol version (1.2.0):', '1.2.0');
+      console.log('');
+    }
 
     // Guard: already initialized (check canonical file)
     const canonical = minimal ? 'ARCH.md' : 'docs/AGENTS.md';
