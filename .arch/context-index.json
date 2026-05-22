@@ -4165,7 +4165,7 @@
       "title": "Human-Centric CLI Surface & Command Dispatcher"
     }
   },
-  "builtAt": "2026-05-22T12:15:47.511Z",
+  "builtAt": "2026-05-22T12:17:13.412Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -9405,41 +9405,33 @@
       }
     },
     "TASK-941": {
-      "commitCount": 3,
+      "commitCount": 2,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-18T15:18:30+02:00",
       "recentCommitRefs": [
         "0292eb43",
-        "4054b60d",
-        "562d3227"
+        "4054b60d"
       ],
       "touchedFrequency": {
-        "cli/src/main/ts/application/commands/ask-command.ts": 1,
-        "cli/src/main/ts/application/use-cases/ask-corpus.ts": 1,
-        "cli/src/test/ts/ask-corpus.test.ts": 1,
         "docs/INBOX.md": 1,
-        "docs/tasks/TASK-941.md": 3,
-        "docs/tasks/TASK-942.md": 3
+        "docs/tasks/TASK-941.md": 2,
+        "docs/tasks/TASK-942.md": 2
       }
     },
     "TASK-942": {
-      "commitCount": 4,
+      "commitCount": 3,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-18T15:18:32+02:00",
       "recentCommitRefs": [
         "0292eb43",
         "353aeab7",
-        "4054b60d",
-        "562d3227"
+        "4054b60d"
       ],
       "touchedFrequency": {
-        "cli/src/main/ts/application/commands/ask-command.ts": 1,
-        "cli/src/main/ts/application/use-cases/ask-corpus.ts": 1,
-        "cli/src/test/ts/ask-corpus.test.ts": 1,
         "docs/INBOX.md": 1,
         "docs/archive/TASK-942.md": 1,
-        "docs/tasks/TASK-941.md": 3,
-        "docs/tasks/TASK-942.md": 3
+        "docs/tasks/TASK-941.md": 2,
+        "docs/tasks/TASK-942.md": 2
       }
     },
     "TASK-943": {
@@ -10789,10 +10781,11 @@
       }
     },
     "TASK-992": {
-      "commitCount": 5,
+      "commitCount": 6,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-22T14:15:44+02:00",
+      "lastCommitDate": "2026-05-22T14:17:11+02:00",
       "recentCommitRefs": [
+        "09053962",
         "38cdbe7d",
         "4adf109f",
         "be21eb50",
@@ -10800,7 +10793,7 @@
         "c6f654dd"
       ],
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 4,
+        ".arch/focus-ledger.jsonl": 5,
         ".arch/reflect-decisions.jsonl": 1,
         ".arch/reflect-proposals.jsonl": 1,
         "docs/refinement/archive/IDEA-productizing-arch-separation.md": 1,
