@@ -1,5 +1,5 @@
 ## TASK-995: Web dashboard (arch ui)
-**Meta:** P2 | M | READY | Focus:no | 2-code-generation | local | cli/src/main/ts, docs/refinement/archive/IDEA-productizing-arch-separation.md
+**Meta:** P2 | M | BLOCKED | Focus:no | 2-code-generation | local | cli/src/main/ts, docs/refinement/archive/IDEA-productizing-arch-separation.md
 **Source:** IDEA-productizing-arch-separation Phase D
 **Depends:** TASK-992
 
