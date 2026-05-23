@@ -3105,7 +3105,7 @@
       "title": "THINK-generated promotion proposals as a first-class domain model"
     }
   },
-  "builtAt": "2026-05-23T18:12:08.388Z",
+  "builtAt": "2026-05-23T18:12:11.274Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -8414,14 +8414,13 @@
       }
     },
     "TASK-947": {
-      "commitCount": 4,
+      "commitCount": 3,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-19T12:50:38+02:00",
       "recentCommitRefs": [
         "4aebb4eb",
         "4e09d475",
-        "76db2c9b",
-        "a54c4c77"
+        "76db2c9b"
       ],
       "touchedFrequency": {
         "cli/src/main/ts/infrastructure/filesystem/markdown-task-repository.ts": 1,
@@ -8433,7 +8432,7 @@
         "docs/tasks/TASK-161.md": 1,
         "docs/tasks/TASK-162.md": 1,
         "docs/tasks/TASK-163.md": 1,
-        "docs/tasks/TASK-947.md": 2
+        "docs/tasks/TASK-947.md": 1
       }
     },
     "TASK-948": {
