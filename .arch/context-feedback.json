@@ -142,5 +142,29 @@
       "tooMuchNoise": false,
       "confidenceMisleading": false
     }
+  },
+  {
+    "taskId": "TASK-957",
+    "timestamp": "2026-05-23T23:48:55.071Z",
+    "verdict": "accurate",
+    "details": {
+      "wrongFiles": false,
+      "missingFiles": false,
+      "wrongAdrs": false,
+      "tooMuchNoise": false,
+      "confidenceMisleading": false
+    }
+  },
+  {
+    "taskId": "TASK-969",
+    "timestamp": "2026-05-23T23:49:37.693Z",
+    "verdict": "accurate",
+    "details": {
+      "wrongFiles": false,
+      "missingFiles": false,
+      "wrongAdrs": false,
+      "tooMuchNoise": false,
+      "confidenceMisleading": false
+    }
   }
 ]

@@ -46,10 +46,16 @@ export class GovernSystem {
     await this.batchSystem.drain();
 
     // 0.1 Archival Guard — Auto-archive DONE/REJECTED tasks from tasksDir
+    let archivedThisTick = 0;
     try {
-      await this.archiveDoneTasks();
+      archivedThisTick = await this.archiveDoneTasks();
     } catch (error: any) {
       throw error; // Halt execution on archival escalation
+    }
+
+    // 0.2 Sprint lifecycle — close sprint when N tasks archived, open next
+    if (archivedThisTick > 0) {
+      await this.checkSprintLifecycle(config, archivedThisTick);
     }
 
     // 1. Rule 2 — Replenishment check
@@ -247,6 +253,88 @@ export class GovernSystem {
     }
   }
 
+  private async checkSprintLifecycle(config: any, archivedThisTick: number): Promise<void> {
+    const closeAfterN: number = config.sprintCloseAfterN ?? 15;
+    const currentSprintName: string = config.currentSprint ?? '';
+    if (!currentSprintName) return;
+
+    const { SprintService } = await import('../../domain/services/sprint-service.js');
+    const svc = new SprintService(this.fileSystem);
+
+    // Seed from config if no state file exists
+    let sprint = await svc.getCurrent();
+    if (!sprint || sprint.name !== currentSprintName) {
+      sprint = await SprintService.initFromConfig(this.fileSystem, currentSprintName);
+    }
+
+    if (sprint.status !== 'ACTIVE') return;
+
+    // Count tasks archived since sprint opened
+    const archivedFiles = await this.fileSystem.readDirectory('docs/archive').catch(() => [] as string[]);
+    const sprintOpenTs = new Date(sprint.startedAt).getTime();
+    let countSinceOpen = 0;
+    for (const f of archivedFiles.filter(x => x.startsWith('TASK-') && x.endsWith('.md'))) {
+      try {
+        const content = await this.fileSystem.readFile(`docs/archive/${f}`);
+        const closedAt = content.match(/\*\*Closed-at:\*\*\s*(\S+)/)?.[1];
+        if (closedAt && new Date(closedAt).getTime() >= sprintOpenTs) countSinceOpen++;
+      } catch { /* skip */ }
+    }
+
+    if (countSinceOpen < closeAfterN) return;
+
+    // Close current sprint
+    const velocity = countSinceOpen;
+    const closed = await svc.closeCurrent(velocity);
+    console.log(`\n  \x1b[32m⚡ Sprint closed:\x1b[0m ${closed.name} | velocity: ${velocity} tasks\n`);
+
+    // Write deterministic retro entry
+    await this.writeRetroEntry(closed, velocity);
+
+    // Derive next sprint name from version
+    const nextName = await this.deriveNextSprintName(config);
+    await svc.openNext(nextName);
+
+    // Update arch.config.json
+    const cfgRaw = await this.fileSystem.readFile('arch.config.json');
+    const cfgObj = JSON.parse(cfgRaw);
+    cfgObj.currentSprint = nextName;
+    await this.fileSystem.writeFile('arch.config.json', JSON.stringify(cfgObj, null, 2));
+
+    console.log(`  \x1b[32m⚡ Sprint opened:\x1b[0m ${nextName}\n`);
+  }
+
+  private async writeRetroEntry(sprint: any, velocity: number): Promise<void> {
+    const retroPath = 'docs/RETRO.md';
+    let existing = '';
+    try { existing = await this.fileSystem.readFile(retroPath); } catch {}
+    if (!existing) existing = '# Sprint Retrospectives\n\n';
+
+    const now = new Date().toISOString().slice(0, 10);
+    const entry = `## ${sprint.name}\n**Opened:** ${sprint.startedAt?.slice(0, 10) ?? '?'}  **Closed:** ${now}\n**Velocity:** ${velocity} tasks\n**SPRINT_CLOSE:** appended to .arch/focus-ledger.jsonl\n\n`;
+
+    // Append after the header
+    const headerEnd = existing.indexOf('\n\n');
+    const insertAt = headerEnd >= 0 ? headerEnd + 2 : existing.length;
+    const updated = existing.slice(0, insertAt) + entry + existing.slice(insertAt);
+    await this.fileSystem.writeFile(retroPath, updated);
+  }
+
+  private async deriveNextSprintName(config: any): Promise<string> {
+    const prefix = config.sprintAutoNamePrefix ?? 'sprint/v';
+    // Read version from package.json or cli/package.json
+    try {
+      const pkgRaw = await this.fileSystem.readFile('cli/package.json');
+      const pkg = JSON.parse(pkgRaw);
+      const ver = pkg.version ?? '1.0.0';
+      const ts = new Date().toISOString().slice(0, 7); // YYYY-MM
+      return `${prefix}${ver}-${ts}`;
+    } catch {
+      const ts = new Date().toISOString().slice(0, 10);
+      return `${prefix}next-${ts}`;
+    }
+  }
+
   private async decideFocus(config: any): Promise<void> {
     const allTasks = await this.taskRepository.getAll();
     const doneTaskIds = new Set(allTasks.filter(t => t.status === TaskStatus.DONE).map(t => t.id));
@@ -422,7 +510,7 @@ export class GovernSystem {
     return count;
   }
 
-  private async archiveDoneTasks(): Promise<void> {
+  private async archiveDoneTasks(): Promise<number> {
     const activeTasks = await this.taskRepository.getActive();
     const toArchive = activeTasks.filter(t => t.status === TaskStatus.DONE || t.status === TaskStatus.REJECTED);
 
@@ -434,7 +522,7 @@ export class GovernSystem {
     const phantomIds = new Set<string>();
 
     for (const line of statusLines) {
-      const match = line.match(/(D docs\/tasks\/|\?\? docs\/archive\/)(TASK-\d{3})\.md/);
+      const match = line.match(/(D docs\/tasks\/|\?\? docs\/archive\/)(TASK-\d{3})\\.md/);
       if (match) {
         phantomIds.add(match[2]);
       }
@@ -450,6 +538,8 @@ export class GovernSystem {
       const { CorpusIndexService } = await import('./corpus-index.js');
       await new CorpusIndexService(this.fileSystem, this.gitRepository).invalidate();
     }
+
+    return toArchive.length + phantomIds.size;
   }
 
   private async archiveFile(taskId: string): Promise<void> {

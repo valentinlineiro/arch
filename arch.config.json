@@ -291,5 +291,7 @@
       "estimatedCostUSD": 0.048,
       "sessionId": null
     }
-  }
+  },
+  "sprintCloseAfterN": 15,
+  "sprintAutoNamePrefix": "sprint/v"
 }

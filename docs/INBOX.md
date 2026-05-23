@@ -157,3 +157,13 @@
 | Transaction flushes atomically before the `git commit` step  | prose | ✔ | prose: human-verified (non-automated) |
 | `arch check` passes after govern runs with the transaction. | cmd | ✔ | exit 0 (expected 0) |
 | `npm test` passes. | prose | ✔ | prose: human-verified (non-automated) |
+
+## [AWAITING_REVIEW] TASK-969 [L3-AUTO]
+**Closed:** 2026-05-23T23:49:37.688Z
+**Title:** Automate Turns: metadata in task closure: derive turn count 
+
+| AC | Type | Pass | Detail |
+|---|---|---|---|
+| `mark-task-done.ts` derives Turns count via `git rev-list -- | file | ✔ | exists: cli/src/main/ts/application/use-cases/mark-task-done |
+| If `lockedCommit` is absent (XS tasks without it), Turns fie | prose | ✔ | prose: human-verified (non-automated) |
+| `npm test` passes. | prose | ✔ | prose: human-verified (non-automated) |
