@@ -3105,7 +3105,7 @@
       "title": "THINK-generated promotion proposals as a first-class domain model"
     }
   },
-  "builtAt": "2026-05-23T18:12:11.274Z",
+  "builtAt": "2026-05-23T18:12:31.437Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -8436,32 +8436,29 @@
       }
     },
     "TASK-948": {
-      "commitCount": 5,
+      "commitCount": 3,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-19T10:13:46+02:00",
       "recentCommitRefs": [
-        "2a4c113d",
         "2f1a3656",
         "88e3c162",
-        "c634b4a8",
-        "e0336e88"
+        "c634b4a8"
       ],
       "touchedFrequency": {
         ".arch/chronicle.jsonl": 1,
         ".arch/context-feedback.json": 2,
         ".arch/reflect-breach-log.jsonl": 1,
         "cli/src/main/ts/application/commands/corpus-audit-command.ts": 1,
-        "cli/src/main/ts/application/commands/serve-command.ts": 2,
-        "cli/src/main/ts/application/commands/task-command.ts": 2,
-        "cli/src/main/ts/index.ts": 2,
+        "cli/src/main/ts/application/commands/serve-command.ts": 1,
+        "cli/src/main/ts/application/commands/task-command.ts": 1,
+        "cli/src/main/ts/index.ts": 1,
         "cli/src/test/ts/corpus-audit-command.test.ts": 1,
         "cli/src/test/ts/deterministic-ac-verifier.test.ts": 1,
         "cli/src/test/ts/serve-command.test.ts": 2,
         "docs/EVENTS.md": 1,
         "docs/INBOX.md": 1,
-        "docs/arch-viewer.html": 1,
         "docs/archive/TASK-948.md": 1,
-        "docs/tasks/TASK-948.md": 3
+        "docs/tasks/TASK-948.md": 1
       }
     },
     "TASK-949": {
@@ -8992,6 +8989,17 @@
         "docs/METRICS.md": 2,
         "docs/ROADMAP.md": 1,
         "docs/tasks/TASK-966.md": 3
+      }
+    },
+    "TASK-967": {
+      "commitCount": 1,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-05-23T18:12:28+00:00",
+      "recentCommitRefs": [
+        "aa9e74de"
+      ],
+      "touchedFrequency": {
+        ".arch/focus-ledger.jsonl": 1
       }
     },
     "TASK-968": {
