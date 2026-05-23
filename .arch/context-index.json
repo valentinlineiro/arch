@@ -3273,7 +3273,7 @@
       "title": "Sprint as a first-class domain model"
     }
   },
-  "builtAt": "2026-05-23T23:35:16.379Z",
+  "builtAt": "2026-05-23T23:35:41.451Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -8009,7 +8009,7 @@
   },
   "tasks": {
     "TASK-206": {
-      "commitCount": 14,
+      "commitCount": 13,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-23T18:12:51+00:00",
       "recentCommitRefs": [
@@ -8018,7 +8018,6 @@
         "22308ce5",
         "4a348d92",
         "519e55c1",
-        "5a2d682f",
         "638f2846",
         "76db2c9b",
         "8cc6d95a",
@@ -8042,11 +8041,11 @@
         "cli/.arch/status-projection.json": 1,
         "cli/src/main/ts/application/commands/audit-command.ts": 2,
         "cli/src/main/ts/application/commands/corpus-audit-command.ts": 3,
-        "cli/src/main/ts/application/commands/reflect-command.ts": 2,
+        "cli/src/main/ts/application/commands/reflect-command.ts": 1,
         "cli/src/main/ts/application/commands/status-command.ts": 3,
         "cli/src/main/ts/application/use-cases/corpus-index.ts": 2,
         "cli/src/main/ts/application/use-cases/govern-system.ts": 2,
-        "cli/src/main/ts/application/use-cases/hansei-synthesizer.ts": 2,
+        "cli/src/main/ts/application/use-cases/hansei-synthesizer.ts": 1,
         "cli/src/main/ts/application/use-cases/hansei-wizard.ts": 2,
         "cli/src/main/ts/application/use-cases/mark-task-done.ts": 1,
         "cli/src/main/ts/application/use-cases/mark-task-in-progress.ts": 1,
@@ -8436,7 +8435,7 @@
         "docs/tasks/TASK-967.md": 1,
         "docs/tasks/TASK-978.md": 1,
         "docs/tasks/TASK-996.md": 1,
-        "docs/tensions/TENSION-005-specdrift.md": 3
+        "docs/tensions/TENSION-005-specdrift.md": 2
       }
     },
     "TASK-252": {
@@ -9281,19 +9280,21 @@
       }
     },
     "TASK-957": {
-      "commitCount": 5,
+      "commitCount": 6,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-23T20:32:35+00:00",
+      "lastCommitDate": "2026-05-23T23:35:38+00:00",
       "recentCommitRefs": [
         "19e59cac",
         "1a01ec66",
         "262b9d14",
+        "531deb91",
         "ac25df8c",
         "c33d90a1"
       ],
       "touchedFrequency": {
         ".arch/ecp-registry.jsonl": 1,
         ".arch/escalations.jsonl": 1,
+        ".arch/focus-ledger.jsonl": 1,
         "docs/refinement/IDEA-automatic-sprint-lifecycle.md": 1,
         "docs/refinement/IDEA-sprint-state-machine.md": 1,
         "docs/tasks/TASK-957.md": 5,
