@@ -37,107 +37,11 @@
           ],
           "taskPath": "docs/archive/TASK-157.md"
         },
-        "TASK-258": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-258.md"
-        },
-        "TASK-259": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-259.md"
-        },
-        "TASK-260": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-260.md"
-        },
-        "TASK-269": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-269.md"
-        },
-        "TASK-891": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-891.md"
-        },
-        "TASK-941": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-941.md"
-        },
-        "TASK-943": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-943.md"
-        },
-        "TASK-945": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-945.md"
-        },
-        "TASK-951": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-951.md"
-        },
-        "TASK-952": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-952.md"
-        },
         "TASK-969": {
           "evidenceKinds": [
             "literal-mention"
           ],
           "taskPath": "docs/tasks/TASK-969.md"
-        },
-        "TASK-973": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-973.md"
-        },
-        "TASK-976": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-976.md"
-        },
-        "TASK-981": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-981.md"
-        },
-        "TASK-982": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-982.md"
-        },
-        "TASK-986": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-986.md"
-        },
-        "TASK-987": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-987.md"
         }
       }
     },
@@ -149,47 +53,11 @@
           ],
           "taskPath": "docs/archive/TASK-003.md"
         },
-        "TASK-943": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-943.md"
-        },
-        "TASK-947": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-947.md"
-        },
-        "TASK-959": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-959.md"
-        },
-        "TASK-962": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-962.md"
-        },
         "TASK-969": {
           "evidenceKinds": [
             "literal-mention"
           ],
           "taskPath": "docs/tasks/TASK-969.md"
-        },
-        "TASK-976": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-976.md"
-        },
-        "TASK-984": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-984.md"
         }
       }
     },
@@ -213,60 +81,6 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-160.md"
-        },
-        "TASK-258": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-258.md"
-        },
-        "TASK-260": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-260.md"
-        },
-        "TASK-269": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-269.md"
-        },
-        "TASK-945": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-945.md"
-        },
-        "TASK-951": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-951.md"
-        },
-        "TASK-952": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-952.md"
-        },
-        "TASK-981": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-981.md"
-        },
-        "TASK-982": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-982.md"
-        },
-        "TASK-987": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-987.md"
         }
       }
     },
@@ -279,107 +93,17 @@
           ],
           "taskPath": "docs/archive/TASK-047.md"
         },
-        "TASK-185": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-185.md"
-        },
-        "TASK-186": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-186.md"
-        },
-        "TASK-200": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-200.md"
-        },
-        "TASK-261": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-261.md"
-        },
-        "TASK-267": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-267.md"
-        },
-        "TASK-268": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-268.md"
-        },
-        "TASK-945": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-945.md"
-        },
-        "TASK-947": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-947.md"
-        },
-        "TASK-952": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-952.md"
-        },
-        "TASK-954": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-954.md"
-        },
         "TASK-957": {
           "evidenceKinds": [
             "literal-mention"
           ],
           "taskPath": "docs/tasks/TASK-957.md"
         },
-        "TASK-960": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-960.md"
-        },
-        "TASK-961": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-961.md"
-        },
-        "TASK-965": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-965.md"
-        },
         "TASK-966": {
           "evidenceKinds": [
             "literal-mention"
           ],
           "taskPath": "docs/tasks/TASK-966.md"
-        },
-        "TASK-986": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-986.md"
-        },
-        "TASK-987": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-987.md"
         }
       }
     },
@@ -396,184 +120,16 @@
     },
     "ADR-006": {
       "tasks": {
-        "TASK-185": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-185.md"
-        },
-        "TASK-186": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-186.md"
-        },
-        "TASK-200": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-200.md"
-        },
-        "TASK-253": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-253.md"
-        },
-        "TASK-259": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-259.md"
-        },
-        "TASK-261": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-261.md"
-        },
-        "TASK-267": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-267.md"
-        },
-        "TASK-269": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-269.md"
-        },
-        "TASK-284": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-284.md"
-        },
-        "TASK-890": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-890.md"
-        },
-        "TASK-944": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-944.md"
-        },
-        "TASK-945": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-945.md"
-        },
-        "TASK-947": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-947.md"
-        },
-        "TASK-961": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-961.md"
-        },
-        "TASK-962": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-962.md"
-        },
-        "TASK-963": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-963.md"
-        },
-        "TASK-965": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-965.md"
-        },
         "TASK-966": {
           "evidenceKinds": [
             "literal-mention"
           ],
           "taskPath": "docs/tasks/TASK-966.md"
-        },
-        "TASK-973": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-973.md"
-        },
-        "TASK-982": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-982.md"
-        },
-        "TASK-987": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-987.md"
         }
       }
     },
     "ADR-007": {
       "tasks": {
-        "TASK-186": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-186.md"
-        },
-        "TASK-200": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-200.md"
-        },
-        "TASK-258": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-258.md"
-        },
-        "TASK-284": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-284.md"
-        },
-        "TASK-946": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-946.md"
-        },
-        "TASK-959": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-959.md"
-        },
-        "TASK-962": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-962.md"
-        },
-        "TASK-964": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-964.md"
-        },
         "TASK-967": {
           "evidenceKinds": [
             "literal-mention"
@@ -590,83 +146,11 @@
           ],
           "taskPath": "docs/archive/TASK-233.md"
         },
-        "TASK-258": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-258.md"
-        },
-        "TASK-263": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-263.md"
-        },
-        "TASK-265": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-265.md"
-        },
-        "TASK-268": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-268.md"
-        },
-        "TASK-284": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-284.md"
-        },
-        "TASK-952": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-952.md"
-        },
-        "TASK-953": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-953.md"
-        },
-        "TASK-956": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-956.md"
-        },
-        "TASK-959": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-959.md"
-        },
-        "TASK-963": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-963.md"
-        },
-        "TASK-965": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-965.md"
-        },
         "TASK-970": {
           "evidenceKinds": [
             "literal-mention"
           ],
           "taskPath": "docs/tasks/TASK-970.md"
-        },
-        "TASK-982": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-982.md"
         }
       }
     },
@@ -677,12 +161,6 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-208.md"
-        },
-        "TASK-934": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-934.md"
         }
       }
     },
@@ -708,71 +186,11 @@
     },
     "ADR-012": {
       "tasks": {
-        "TASK-185": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-185.md"
-        },
-        "TASK-890": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-890.md"
-        },
-        "TASK-891": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-891.md"
-        },
-        "TASK-919": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-919.md"
-        },
-        "TASK-944": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-944.md"
-        },
-        "TASK-948": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-948.md"
-        },
         "TASK-967": {
           "evidenceKinds": [
             "literal-mention"
           ],
           "taskPath": "docs/tasks/TASK-967.md"
-        },
-        "TASK-968": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-968.md"
-        },
-        "TASK-983": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-983.md"
-        },
-        "TASK-984": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-984.md"
-        },
-        "TASK-988": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-988.md"
         }
       }
     },
@@ -798,66 +216,12 @@
           ],
           "taskPath": "docs/archive/TASK-268.md"
         },
-        "TASK-950": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-950.md"
-        },
         "TASK-953": {
           "evidenceKinds": [
             "context-path",
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-953.md"
-        },
-        "TASK-958": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-958.md"
-        },
-        "TASK-963": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-963.md"
-        },
-        "TASK-968": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-968.md"
-        },
-        "TASK-972": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-972.md"
-        },
-        "TASK-981": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-981.md"
-        },
-        "TASK-983": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-983.md"
-        },
-        "TASK-984": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-984.md"
-        },
-        "TASK-987": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-987.md"
         }
       }
     },
@@ -868,36 +232,6 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-224.md"
-        },
-        "TASK-279": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-279.md"
-        },
-        "TASK-283": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-283.md"
-        },
-        "TASK-939": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-939.md"
-        },
-        "TASK-941": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-941.md"
-        },
-        "TASK-954": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-954.md"
         }
       }
     },
@@ -909,65 +243,11 @@
           ],
           "taskPath": "docs/archive/TASK-225.md"
         },
-        "TASK-253": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-253.md"
-        },
-        "TASK-939": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-939.md"
-        },
-        "TASK-940": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-940.md"
-        },
-        "TASK-944": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-944.md"
-        },
-        "TASK-946": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-946.md"
-        },
-        "TASK-955": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-955.md"
-        },
         "TASK-957": {
           "evidenceKinds": [
             "literal-mention"
           ],
           "taskPath": "docs/tasks/TASK-957.md"
-        },
-        "TASK-960": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-960.md"
-        },
-        "TASK-986": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-986.md"
-        },
-        "TASK-987": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-987.md"
         }
       }
     },
@@ -985,201 +265,27 @@
           ],
           "taskPath": "docs/archive/TASK-227.md"
         },
-        "TASK-261": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-261.md"
-        },
-        "TASK-265": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-265.md"
-        },
-        "TASK-269": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-269.md"
-        },
-        "TASK-919": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-919.md"
-        },
-        "TASK-956": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-956.md"
-        },
-        "TASK-958": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-958.md"
-        },
-        "TASK-960": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-960.md"
-        },
-        "TASK-968": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-968.md"
-        },
         "TASK-970": {
           "evidenceKinds": [
             "literal-mention"
           ],
           "taskPath": "docs/tasks/TASK-970.md"
-        },
-        "TASK-971": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-971.md"
-        },
-        "TASK-972": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-972.md"
-        },
-        "TASK-981": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-981.md"
         }
       }
     },
     "ADR-017": {
       "tasks": {
-        "TASK-201": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-201.md"
-        },
-        "TASK-259": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-259.md"
-        },
-        "TASK-263": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-263.md"
-        },
-        "TASK-267": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-267.md"
-        },
-        "TASK-279": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-279.md"
-        },
-        "TASK-283": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-283.md"
-        },
-        "TASK-890": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-890.md"
-        },
-        "TASK-891": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-891.md"
-        },
-        "TASK-919": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-919.md"
-        },
-        "TASK-939": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-939.md"
-        },
-        "TASK-940": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-940.md"
-        },
-        "TASK-941": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-941.md"
-        },
-        "TASK-943": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-943.md"
-        },
-        "TASK-950": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-950.md"
-        },
-        "TASK-951": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-951.md"
-        },
-        "TASK-955": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-955.md"
-        },
         "TASK-957": {
           "evidenceKinds": [
             "literal-mention"
           ],
           "taskPath": "docs/tasks/TASK-957.md"
         },
-        "TASK-961": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-961.md"
-        },
-        "TASK-964": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-964.md"
-        },
         "TASK-966": {
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-966.md"
+          "taskPath": "docs/archive/TASK-966.md"
         },
         "TASK-967": {
           "evidenceKinds": [
@@ -1192,18 +298,6 @@
             "literal-mention"
           ],
           "taskPath": "docs/tasks/TASK-969.md"
-        },
-        "TASK-971": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-971.md"
-        },
-        "TASK-983": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-983.md"
         }
       }
     },
@@ -1214,30 +308,6 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-201.md"
-        },
-        "TASK-946": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-946.md"
-        },
-        "TASK-958": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-958.md"
-        },
-        "TASK-972": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-972.md"
-        },
-        "TASK-987": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-987.md"
         }
       }
     },
@@ -1248,12 +318,6 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-244.md"
-        },
-        "TASK-262": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-262.md"
         },
         "TASK-264": {
           "evidenceKinds": [
@@ -1266,12 +330,6 @@
             "literal-mention"
           ],
           "taskPath": "docs/tasks/TASK-266.md"
-        },
-        "TASK-269": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-269.md"
         },
         "TASK-273": {
           "evidenceKinds": [
@@ -1309,12 +367,6 @@
           ],
           "taskPath": "docs/tasks/TASK-282.md"
         },
-        "TASK-901": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-901.md"
-        },
         "TASK-991": {
           "evidenceKinds": [
             "literal-mention"
@@ -1336,47 +388,6 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-247.md"
-        },
-        "TASK-975": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-975.md"
-        }
-      }
-    },
-    "ADR-021": {
-      "tasks": {
-        "TASK-249": {
-          "evidenceKinds": [
-            "adr-field",
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-249.md"
-        },
-        "TASK-260": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-260.md"
-        },
-        "TASK-950": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-950.md"
-        },
-        "TASK-951": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-951.md"
-        },
-        "TASK-955": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-955.md"
         }
       }
     },
@@ -1387,65 +398,17 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-946.md"
-        },
-        "TASK-988": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-988.md"
         }
       }
     },
     "ADR-023": {
       "tasks": {
-        "TASK-253": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-253.md"
-        },
-        "TASK-265": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-265.md"
-        },
-        "TASK-279": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-279.md"
-        },
-        "TASK-940": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-940.md"
-        },
         "TASK-950": {
           "evidenceKinds": [
             "context-path",
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-950.md"
-        },
-        "TASK-953": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-953.md"
-        },
-        "TASK-954": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-954.md"
-        },
-        "TASK-964": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-964.md"
         },
         "TASK-970": {
           "evidenceKinds": [
@@ -1458,40 +421,6 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-980.md"
-        }
-      }
-    },
-    "ADR-024": {
-      "tasks": {
-        "TASK-261": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-261.md"
-        },
-        "TASK-263": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-263.md"
-        },
-        "TASK-283": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-283.md"
-        },
-        "TASK-956": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-956.md"
-        },
-        "TASK-987": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-987.md"
         }
       }
     },
@@ -1508,18 +437,6 @@
             "literal-mention"
           ],
           "taskPath": "docs/tasks/TASK-957.md"
-        },
-        "TASK-973": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-973.md"
-        },
-        "TASK-987": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-987.md"
         }
       }
     },
@@ -1530,50 +447,6 @@
             "literal-mention"
           ],
           "taskPath": "docs/tasks/TASK-957.md"
-        },
-        "TASK-971": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-971.md"
-        },
-        "TASK-987": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-987.md"
-        }
-      }
-    },
-    "ADR-027": {
-      "tasks": {
-        "TASK-972": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-972.md"
-        }
-      }
-    },
-    "ADR-028": {
-      "tasks": {
-        "TASK-972": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-972.md"
-        },
-        "TASK-976": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-976.md"
-        },
-        "TASK-987": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-987.md"
         }
       }
     }
@@ -4151,9 +3024,88 @@
       ],
       "strength": "enforced",
       "title": "Human-Centric CLI Surface & Command Dispatcher"
+    },
+    "ADR-030": {
+      "affectedModules": [
+        "cli/src/main/ts/domain/models/promotion-proposal.ts"
+      ],
+      "keywords": [
+        "030",
+        "2026",
+        "966",
+        "abstraction",
+        "accept",
+        "accepted",
+        "added",
+        "adr",
+        "affect",
+        "agent",
+        "application",
+        "arch",
+        "asked",
+        "because",
+        "changes",
+        "class",
+        "cli",
+        "context",
+        "contracts",
+        "corpus",
+        "date",
+        "deciders",
+        "decision",
+        "depends",
+        "distance",
+        "domain",
+        "entire",
+        "entries",
+        "escalationmaturity",
+        "fields",
+        "first",
+        "flagging",
+        "generated",
+        "human",
+        "idea",
+        "implementation",
+        "implemented",
+        "judgment",
+        "layer",
+        "main",
+        "model",
+        "models",
+        "nearest",
+        "novelty",
+        "path",
+        "precedents",
+        "preceding",
+        "produces",
+        "promote",
+        "promotion",
+        "promotionproposal",
+        "proposal",
+        "proposals",
+        "protected",
+        "requiring",
+        "scoring",
+        "source",
+        "src",
+        "stable",
+        "status",
+        "structured",
+        "task",
+        "templates",
+        "think",
+        "uncertainty",
+        "under",
+        "valen",
+        "violation",
+        "when",
+        "without"
+      ],
+      "strength": "advisory",
+      "title": "THINK-generated promotion proposals as a first-class domain model"
     }
   },
-  "builtAt": "2026-05-22T14:43:57.129Z",
+  "builtAt": "2026-05-23T18:12:08.388Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -7181,6 +6133,27 @@
         "truth"
       ]
     },
+    "cli/src/main/ts/domain/models/promotion-proposal.ts": {
+      "criticality": "core",
+      "imports": [],
+      "runtimeUsage": "cold",
+      "symbols": [
+        "NoveltyInfo",
+        "PromotionProposal",
+        "ProposalAc",
+        "UncertaintyEntry"
+      ],
+      "tags": [
+        "domain",
+        "entry",
+        "info",
+        "models",
+        "novelty",
+        "promotion",
+        "proposal",
+        "uncertainty"
+      ]
+    },
     "cli/src/main/ts/domain/models/provenance.ts": {
       "criticality": "core",
       "imports": [],
@@ -8075,6 +7048,26 @@
         "task"
       ]
     },
+    "cli/src/main/ts/domain/services/promotion-proposal-generator.ts": {
+      "criticality": "core",
+      "imports": [
+        "cli/src/main/ts/application/use-cases/corpus-index.ts",
+        "cli/src/main/ts/domain/models/promotion-proposal.ts",
+        "cli/src/main/ts/domain/services/precedent-novelty-scorer.ts",
+        "cli/src/main/ts/infrastructure/filesystem/node-file-system.ts"
+      ],
+      "runtimeUsage": "cold",
+      "symbols": [
+        "PromotionProposalGenerator"
+      ],
+      "tags": [
+        "domain",
+        "generator",
+        "promotion",
+        "proposal",
+        "services"
+      ]
+    },
     "cli/src/main/ts/domain/services/provider-registry.ts": {
       "criticality": "core",
       "imports": [
@@ -8865,7 +7858,7 @@
       }
     },
     "TASK-252": {
-      "commitCount": 6,
+      "commitCount": 5,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-19T08:37:47+02:00",
       "recentCommitRefs": [
@@ -8873,12 +7866,11 @@
         "7e4ab5e2",
         "98c93e9b",
         "f459fa45",
-        "f64cac9f",
-        "fc61e6ad"
+        "f64cac9f"
       ],
       "touchedFrequency": {
         ".arch/chronicle.jsonl": 1,
-        ".arch/focus-ledger.jsonl": 2,
+        ".arch/focus-ledger.jsonl": 1,
         ".arch/reflect-breach-log.jsonl": 1,
         "cli/src/test/ts/size-tiered-closure.test.ts": 1,
         "docs/AGENTS.md": 1,
@@ -9402,40 +8394,34 @@
       }
     },
     "TASK-946": {
-      "commitCount": 4,
+      "commitCount": 2,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-19T08:37:47+02:00",
       "recentCommitRefs": [
-        "01510872",
         "620e6e45",
-        "c95019ba",
         "f459fa45"
       ],
       "touchedFrequency": {
-        ".arch/chronicle.jsonl": 1,
         ".arch/reflect-breach-log.jsonl": 1,
-        "arch.config.json": 1,
         "cli/src/main/ts/application/commands/reflect-command.ts": 1,
         "cli/src/main/ts/application/use-cases/context-inference.ts": 1,
         "cli/src/test/ts/context-inference.test.ts": 1,
         "docs/EVENTS.md": 1,
         "docs/METRICS.md": 1,
-        "docs/RETRO.md": 1,
         "docs/archive/TASK-252.md": 1,
-        "docs/archive/TASK-946.md": 2,
+        "docs/archive/TASK-946.md": 1,
         "docs/tasks/TASK-948.md": 1
       }
     },
     "TASK-947": {
-      "commitCount": 5,
+      "commitCount": 4,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-19T12:50:38+02:00",
       "recentCommitRefs": [
         "4aebb4eb",
         "4e09d475",
         "76db2c9b",
-        "a54c4c77",
-        "f1a6b3f4"
+        "a54c4c77"
       ],
       "touchedFrequency": {
         "cli/src/main/ts/infrastructure/filesystem/markdown-task-repository.ts": 1,
@@ -9447,7 +8433,7 @@
         "docs/tasks/TASK-161.md": 1,
         "docs/tasks/TASK-162.md": 1,
         "docs/tasks/TASK-163.md": 1,
-        "docs/tasks/TASK-947.md": 3
+        "docs/tasks/TASK-947.md": 2
       }
     },
     "TASK-948": {
@@ -9969,24 +8955,24 @@
       }
     },
     "TASK-966": {
-      "commitCount": 25,
+      "commitCount": 29,
       "commitRefOverflow": true,
-      "lastCommitDate": "2026-05-22T16:43:54+02:00",
+      "lastCommitDate": "2026-05-23T18:12:06+00:00",
       "recentCommitRefs": [
-        "044acf6a",
         "109a798f",
+        "1d07330a",
         "352ab3a4",
         "639675cc",
-        "686d36aa",
+        "7133fd1c",
         "80a0d2f5",
         "8240442d",
         "964b5a8c",
-        "a3227691",
+        "98bc98ff",
         "a6297ed0",
         "ab3b8915",
         "ad98a28e",
+        "b947acb1",
         "bb9c5c03",
-        "bed43715",
         "beff09af",
         "c5ebb340",
         "d239124b",
@@ -9995,11 +8981,18 @@
         "f5b37a66"
       ],
       "touchedFrequency": {
-        ".arch/corpus-index.json": 1,
-        ".arch/focus-ledger.jsonl": 24,
-        ".arch/reflect-breach-log.jsonl": 1,
-        "docs/METRICS.md": 1,
-        "docs/tasks/TASK-966.md": 1
+        ".arch/corpus-index.json": 2,
+        ".arch/focus-ledger.jsonl": 26,
+        ".arch/reflect-breach-log.jsonl": 2,
+        ".arch/status-projection.json": 1,
+        "README.md": 1,
+        "cli/src/main/ts/application/commands/analyze-command.ts": 1,
+        "cli/src/main/ts/domain/models/promotion-proposal.ts": 1,
+        "cli/src/main/ts/domain/services/promotion-proposal-generator.ts": 1,
+        "docs/INBOX.md": 1,
+        "docs/METRICS.md": 2,
+        "docs/ROADMAP.md": 1,
+        "docs/tasks/TASK-966.md": 3
       }
     },
     "TASK-968": {
