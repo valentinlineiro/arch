@@ -1,5 +1,5 @@
 ## TASK-999: Fix escalation deduplication: idempotency key on (subject, type) before append
-**Meta:** P2 | S | DONE | Focus:yes | 1-code-reasoning | claude-code | cli/src/main/ts/, docs/agents/AGENTS.md
+**Meta:** P2 | S | DONE | Focus:no | 1-code-reasoning | claude-code | cli/src/main/ts/, docs/agents/AGENTS.md
 **Turns:** 0
 **Closed-at:** 2026-05-23T23:40:31.253Z
 **Actor:** unknown

@@ -24,7 +24,24 @@ export class EscalationStore {
     return `${this.rootPath}/${ESCALATION_PATH}`;
   }
 
-  async append(type: EscalationType, subject: string, reason: string): Promise<EscalationEntry> {
+  async append(type: EscalationType, subject: string, reason: string): Promise<EscalationEntry | null> {
+    // Deduplication: read last 100 lines, skip if OPEN record for same (subject, type) within 24h
+    try {
+      const raw = await this.fileSystem.readFile(this.path);
+      const lines = raw.trim().split('\n').filter(Boolean);
+      const tail = lines.slice(-100);
+      const cutoff = Date.now() - 24 * 60 * 60 * 1000;
+      for (const line of tail) {
+        try {
+          const rec = JSON.parse(line) as EscalationEntry;
+          if (rec.status === 'OPEN' && rec.type === type && rec.subject === subject
+              && new Date(rec.timestamp).getTime() > cutoff) {
+            return null; // Duplicate — skip
+          }
+        } catch { /* skip malformed line */ }
+      }
+    } catch { /* file doesn't exist yet — first write */ }
+
     const entry: EscalationEntry = {
       escalation_id: `ESC-${randomUUID().slice(0, 8)}`,
       timestamp: new Date().toISOString(),
@@ -37,6 +54,41 @@ export class EscalationStore {
     };
     await this.fileSystem.appendFile(this.path, JSON.stringify(entry) + '\n');
     return entry;
+  }
+
+  /**
+   * Compact: deduplicate OPEN records by (subject, type), keeping only the
+   * most recent. RESOLVED records are preserved as-is (audit trail).
+   */
+  async compact(): Promise<{ before: number; after: number }> {
+    let raw: string;
+    try { raw = await this.fileSystem.readFile(this.path); }
+    catch { return { before: 0, after: 0 }; }
+
+    const lines = raw.trim().split('\n').filter(Boolean);
+    const before = lines.length;
+
+    // Parse all records
+    const records = lines.map(l => { try { return JSON.parse(l) as EscalationEntry; } catch { return null; } }).filter(Boolean) as EscalationEntry[];
+
+    // Keep all RESOLVED records (audit trail)
+    const resolved = records.filter(r => r.status === 'RESOLVED');
+
+    // For OPEN records: keep only most recent per (subject, type)
+    const openMap = new Map<string, EscalationEntry>();
+    for (const r of records.filter(r => r.status === 'OPEN')) {
+      const key = `${r.type}::${r.subject}`;
+      const existing = openMap.get(key);
+      if (!existing || new Date(r.timestamp) > new Date(existing.timestamp)) {
+        openMap.set(key, r);
+      }
+    }
+
+    const compacted = [...resolved, ...openMap.values()]
+      .sort((a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime());
+
+    await this.fileSystem.writeFile(this.path, compacted.map(r => JSON.stringify(r)).join('\n') + '\n');
+    return { before, after: compacted.length };
   }
 
   async resolve(escalationId: string, resolvedBy: string): Promise<void> {

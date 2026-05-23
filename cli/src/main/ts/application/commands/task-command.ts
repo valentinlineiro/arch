@@ -274,17 +274,42 @@ export class TaskCommand implements Command {
         fmt.fail(`Correction signal: ${error.message}`);
       }
     } else if (subCommand === 'done' && taskId) {
-      if (!force) {
-        const taskFile = `${this.rootPath}/docs/tasks/${taskId}.md`;
-        try {
-          const content = await this.fileSystem.readFile(taskFile);
-          if (hasUncheckedACs(content)) {
-            fmt.fail(`Task ${taskId} has unchecked Acceptance Criteria.`);
-            console.error(`    Please check all ACs or use --force to override.`);
-            process.exit(1);
+      const taskFile = `${this.rootPath}/docs/tasks/${taskId}.md`;
+      let content = '';
+      try { content = await this.fileSystem.readFile(taskFile); } catch { /* let markDone handle */ }
+
+      if (!force && content) {
+        // Run DeterministicACVerifier for guided summary
+        const { DeterministicACVerifier } = await import('../../domain/services/deterministic-ac-verifier.js');
+        const verifier = new DeterministicACVerifier(this.rootPath);
+        const task = { id: taskId, content } as any;
+        const result = await verifier.verify(task);
+
+        // Show AC summary
+        if (result.evidence.length > 0) {
+          console.log('');
+          for (const ev of result.evidence) {
+            const icon = ev.pass ? '\x1b[32m✔\x1b[0m' : '\x1b[31m✖\x1b[0m';
+            const label = ev.ac.slice(0, 60) + (ev.ac.length > 60 ? '…' : '');
+            console.log(`  ${icon} ${label}`);
+            if (!ev.pass) console.log(`    → ${ev.detail}`);
           }
-        } catch { /* file not found — let markDone handle it */ }
+          console.log('');
+        }
+
+        if (!result.pass) {
+          fmt.fail(`Task ${taskId} has failing Acceptance Criteria.`);
+          console.error(`    Fix the above or use --force to override.`);
+          process.exit(1);
+        }
+
+        if (hasUncheckedACs(content)) {
+          fmt.fail(`Task ${taskId} has unchecked Acceptance Criteria.`);
+          console.error(`    Please check all ACs or use --force to override.`);
+          process.exit(1);
+        }
       }
+
       try {
         await this.markDone.execute(taskId, force);
         fmt.check(`marking ${taskId} as DONE`);

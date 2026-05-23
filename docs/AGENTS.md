@@ -84,7 +84,7 @@ Every task archived as DONE must include:
 Rules most often broken:
 - Output is ephemeral (terminal only). THINK never creates tasks directly — only IDEAs and proposals.
 - THINK may autonomously **execute** IDEA promotion only when the human has already written a Decision field. THINK never decides to promote.
-- For every IDEA surfaced requiring human decision: append one `AWAITING_PROMOTION` record to `.arch/escalations.jsonl` (schema in THINK.md Phase 1). Do not read the file first — always append.
+- For every IDEA surfaced requiring human decision: append one `AWAITING_PROMOTION` record to `.arch/escalations.jsonl` (schema in THINK.md Phase 1). Before appending, read the last 100 lines to check for an existing OPEN record with the same `(subject, type)` within the last 24 hours — if found, skip the append (idempotency).
 - All weak signal decay emissions due in a session must surface in that session — no cap.
 
 ### DO mode

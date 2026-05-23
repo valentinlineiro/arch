@@ -9,3 +9,5 @@
 {"taskId":"TASK-998","timestamp":"2026-05-23T23:32:34.076Z","labels":["[MissingDecisionRecord]"]}
 {"taskId":"TASK-990","timestamp":"2026-05-23T23:33:27.734Z","labels":["[SpecDrift]"]}
 {"taskId":"TASK-997","timestamp":"2026-05-23T23:35:53.280Z","labels":["[SpecDrift]"]}
+{"taskId":"TASK-999","timestamp":"2026-05-23T23:40:31.267Z","labels":["[SpecDrift]"]}
+{"taskId":"TASK-967","timestamp":"2026-05-23T23:42:21.178Z","labels":["[SpecDrift]"]}

@@ -1,4 +1,5 @@
 import { Command } from '../domain/models/command.js';
+import { EscalationStore } from './use-cases/escalation-store.js';
 import { NodeFileSystem } from '../infrastructure/filesystem/node-file-system.js';
 import { MarkdownTaskRepository } from '../infrastructure/filesystem/markdown-task-repository.js';
 import { GitCli } from '../infrastructure/cli/git-cli.js';
@@ -181,6 +182,15 @@ export class CommandDispatcher {
         if (sub === 'inbox') return new InboxCommand(this.taskRepository, this.fileSystem, this.reviewer, this.driftChecker);
         if (sub === 'conduct') return new ConductCommand();
         if (sub === 'serve') return new ServeCommand(this.rootPath);
+        if (sub === 'compact-escalations') {
+          const store = new EscalationStore(this.fileSystem, this.rootPath);
+          return {
+            execute: async () => {
+              const { before, after } = await store.compact();
+              console.log(`\n  Escalation compaction: ${before} → ${after} records (removed ${before - after} duplicates)\n`);
+            }
+          } as any;
+        }
         return new GovernCommand(this.taskRepository, this.gitRepository, this.fileSystem, this.causalSignalLog, this.rootPath);
       }
 
