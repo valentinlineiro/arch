@@ -47,7 +47,7 @@
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-997.md"
+          "taskPath": "docs/archive/TASK-997.md"
         }
       }
     },
@@ -92,7 +92,7 @@
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-997.md"
+          "taskPath": "docs/archive/TASK-997.md"
         }
       }
     },
@@ -154,7 +154,7 @@
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-997.md"
+          "taskPath": "docs/archive/TASK-997.md"
         },
         "TASK-998": {
           "evidenceKinds": [
@@ -238,7 +238,7 @@
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-997.md"
+          "taskPath": "docs/archive/TASK-997.md"
         }
       }
     },
@@ -3273,7 +3273,7 @@
       "title": "Sprint as a first-class domain model"
     }
   },
-  "builtAt": "2026-05-23T23:35:41.451Z",
+  "builtAt": "2026-05-23T23:36:13.932Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -8009,7 +8009,7 @@
   },
   "tasks": {
     "TASK-206": {
-      "commitCount": 13,
+      "commitCount": 12,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-23T18:12:51+00:00",
       "recentCommitRefs": [
@@ -8017,7 +8017,6 @@
         "07c38fd1",
         "22308ce5",
         "4a348d92",
-        "519e55c1",
         "638f2846",
         "76db2c9b",
         "8cc6d95a",
@@ -8046,8 +8045,7 @@
         "cli/src/main/ts/application/use-cases/corpus-index.ts": 2,
         "cli/src/main/ts/application/use-cases/govern-system.ts": 2,
         "cli/src/main/ts/application/use-cases/hansei-synthesizer.ts": 1,
-        "cli/src/main/ts/application/use-cases/hansei-wizard.ts": 2,
-        "cli/src/main/ts/application/use-cases/mark-task-done.ts": 1,
+        "cli/src/main/ts/application/use-cases/hansei-wizard.ts": 1,
         "cli/src/main/ts/application/use-cases/mark-task-in-progress.ts": 1,
         "cli/src/main/ts/domain/services/decision-reconciliation-engine.ts": 1,
         "cli/src/main/ts/domain/services/deterministic-hansei-checker.ts": 1,
@@ -8439,11 +8437,10 @@
       }
     },
     "TASK-252": {
-      "commitCount": 4,
+      "commitCount": 3,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-19T08:37:47+02:00",
       "recentCommitRefs": [
-        "6df9c8a7",
         "98c93e9b",
         "f459fa45",
         "f64cac9f"
@@ -8459,12 +8456,12 @@
         "docs/agents/DO.md": 1,
         "docs/archive/TASK-252.md": 2,
         "docs/archive/TASK-946.md": 1,
-        "docs/tasks/TASK-252.md": 2,
+        "docs/tasks/TASK-252.md": 1,
         "docs/tasks/TASK-253.md": 1
       }
     },
     "TASK-253": {
-      "commitCount": 15,
+      "commitCount": 14,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-19T11:31:58+02:00",
       "recentCommitRefs": [
@@ -8473,7 +8470,6 @@
         "1e50bcfa",
         "1fe4c543",
         "24f6e850",
-        "5e445343",
         "755eaa37",
         "7f76abf0",
         "8aaa21ac",
@@ -8488,7 +8484,7 @@
         ".arch/causal-signal.jsonl": 1,
         ".arch/chronicle.jsonl": 2,
         ".arch/context-feedback.json": 1,
-        ".arch/focus-ledger.jsonl": 8,
+        ".arch/focus-ledger.jsonl": 7,
         ".arch/reflect-breach-log.jsonl": 1,
         "cli/src/main/ts/application/use-cases/mark-task-done.ts": 1,
         "cli/src/main/ts/application/use-cases/validate-task-acs.ts": 1,
@@ -9280,21 +9276,22 @@
       }
     },
     "TASK-957": {
-      "commitCount": 6,
+      "commitCount": 7,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-23T23:35:38+00:00",
+      "lastCommitDate": "2026-05-23T23:36:10+00:00",
       "recentCommitRefs": [
         "19e59cac",
         "1a01ec66",
         "262b9d14",
         "531deb91",
+        "758cac88",
         "ac25df8c",
         "c33d90a1"
       ],
       "touchedFrequency": {
         ".arch/ecp-registry.jsonl": 1,
         ".arch/escalations.jsonl": 1,
-        ".arch/focus-ledger.jsonl": 1,
+        ".arch/focus-ledger.jsonl": 2,
         "docs/refinement/IDEA-automatic-sprint-lifecycle.md": 1,
         "docs/refinement/IDEA-sprint-state-machine.md": 1,
         "docs/tasks/TASK-957.md": 5,
@@ -10407,6 +10404,18 @@
       "touchedFrequency": {
         "docs/archive/TASK-996.md": 1,
         "docs/tasks/TASK-996.md": 1
+      }
+    },
+    "TASK-997": {
+      "commitCount": 1,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-05-23T23:36:10+00:00",
+      "recentCommitRefs": [
+        "23340e94"
+      ],
+      "touchedFrequency": {
+        "docs/archive/TASK-997.md": 1,
+        "docs/tasks/TASK-997.md": 1
       }
     },
     "TASK-998": {
