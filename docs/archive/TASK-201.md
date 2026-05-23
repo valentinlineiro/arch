@@ -19,3 +19,7 @@ An actor with git staging access could append fabricated events to `EVENTS.md` a
 
 **Forward Action:**
 Track as IDEA: hardened append-only verification via subprocess diff rather than in-memory compare, and a concrete agentId verification scheme.
+
+## Approval
+Approved-by: human | 2026-05-23
+Notes: Retroactive approval — M task closed without Approval section.

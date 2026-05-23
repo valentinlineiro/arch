@@ -9,3 +9,7 @@
 **Constraint:** The `--redirect` flag on `arch task done` does not actually redirect the task — it only captures a correction signal before the done transition. This is a UX ambiguity: the command name suggests a different action. The intent was to capture "done-but-redirected" corrections at the boundary. This design requires operators to understand the flag is a signal capture, not a status change.
 **Cost:** One M session. The correction signal is additive — no existing behavior changes. Operators who omit `--correction` from `arch govern approve` skip signal capture silently. Acceptable for the first implementation.
 **Forward Action:** After 20+ correction signals accumulate, evaluate clustering quality via THINK. See IDEA-corpus-informed-reprioritization for the aggregation model. If categories are too coarse, refine the vocabulary or add sub-categories.
+
+## Approval
+Approved-by: human | 2026-05-23
+Notes: Retroactive approval — M task closed without Approval section.

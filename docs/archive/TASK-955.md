@@ -10,3 +10,7 @@
 **Constraint:** The recurrence signal uses `taskClass` substring matching against archived Hansei categories — this is a proxy for causal entity match, not exact match. The IDEA spec defines recurrence as "same causal entity" but the causal entity registry (I1 vocabulary) is not yet populated in arch.config.json, so the implementation falls back to class-based pattern matching. This is the acknowledged v0 simplification from the IDEA spec (Design Decision 3: TASK-954 dependency).
 **Cost:** One M session. The scoring logic has a subtle sign convention bug in the delta calculation that was fixed during implementation (signed arithmetic with two sign flips needed careful review). ECP GC is explicitly deferred.
 **Forward Action:** When TASK-954 (temporal-index label store) lands, swap the archive keyword scan in loadArchiveTasks() with temporal-index queries. The interface is compatible — the class_field and category matching logic stays the same. See IDEA-corpus-informed-reprioritization §Design Decision 3 for the swap specification.
+
+## Approval
+Approved-by: human | 2026-05-23
+Notes: Retroactive approval — M task closed without Approval section.

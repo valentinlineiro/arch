@@ -9,3 +9,7 @@
 **Constraint:** Token overlap remains a proxy for semantic conflict. Two ACs can share 5+ terms with an ADR while being architecturally compatible (e.g., implementing the same system in a compliant way). The system cannot distinguish compliance from contradiction without semantic reasoning. Operators must read the advisory and judge. This limitation is explicit and accepted by design.
 **Cost:** Each capture and task-start now reads all ACCEPTED ADR files (~24 files, ~50KB total). Negligible at current scale. At 100+ ADRs a pre-computed term index would be warranted. Deferred.
 **Forward Action:** After 30 days of operation, check dismissed-annotation count vs total advisory emissions. If dismissal rate exceeds 30%, raise the term threshold from 3 to 4 or narrow the negation vocabulary. See IDEA-corpus-informed-reprioritization for related advisory-layer design patterns.
+
+## Approval
+Approved-by: human | 2026-05-23
+Notes: Retroactive approval — M task closed without Approval section.

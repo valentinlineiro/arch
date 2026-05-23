@@ -9,3 +9,7 @@
 **Constraint:** AdrEntry is a domain model in a protected path (arch.config.json protectedPaths includes domain/models/). Adding a constraint field requires an ADR.
 **Cost:** One design assumption invalidated at implementation time — the constraint display was dropped from the ADR injection block. Minor divergence from the designed stdout format.
 **Forward Action:** If ADR constraint injection is needed, extend AdrEntry with a constraint field via ADR and rebuild the context index. Track as an IDEA if this matters.
+
+## Approval
+Approved-by: human | 2026-05-23
+Notes: Retroactive approval — M task closed without Approval section.

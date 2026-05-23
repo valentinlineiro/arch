@@ -1,56 +1,29 @@
-# IDEA: sprint-state-machine
-**Meta:**Source: human | Status: DRAFT | Sessions: 1
-**Created:** 2026-05-19
+# IDEA: sprint-state-machine — formalize ACTIVE/CLOSED/NEXT_PENDING states
+**Decision-required:** yes
+**Created:** 2026-05-22
+**Source:** TASK-957 BLOCKED — no formal sprint state model
+**Status:** PROMOTED
+Sessions: 4
 
 ## Problem
 
-TASK-957 (automatic sprint lifecycle) is BLOCKED because "sprint" does not exist as a formal entity in the system. The current design has events, a counter config, and ledger entries, but no state machine. Without one:
+`TASK-957` (Automatic sprint lifecycle) is blocked because the system lacks a formal model of a sprint. Currently, "sprint" is just a string in `arch.config.json`. There is no state machine to manage transitions between sprints, no authoritative oracle for sprint metadata, and no way to ensure idempotency when closing a sprint and opening the next one.
 
-- The ledger is not trustworthy (no invariants to validate against)
-- `arch govern` cannot be idempotent (no defined state to check before acting)
-- The retro is not derivable (no canonical source of truth for sprint boundaries)
-- Any implementation is cosmetic on top of implicit, unverified state
+## Proposed Solution
 
-The system also has a multi-oracle problem: `arch.config.json`, `.arch/focus-ledger.jsonl`, `docs/tasks/`, and `docs/RETRO.md` all implicitly encode sprint state with no arbiter. Bugs under this model are irreproducible and replays can diverge.
+1. **Sprint Domain Model**: Create `Sprint` and `SprintStatus` (ACTIVE, CLOSED, NEXT_PENDING) models in the domain layer.
+2. **Authoritative Oracle**: Define `arch.config.json` as the intent oracle and `.arch/focus-ledger.jsonl` as the event oracle.
+3. **Transition Logic**: Implement a `SprintService` that handles:
+    - `closeCurrent(velocityData)` -> marks current sprint CLOSED, appends SPRINT_CLOSE to ledger.
+    - `openNext(nextName)` -> creates NEXT_PENDING sprint, transitions to ACTIVE on first task archive.
+4. **Idempotency**: Ensure that re-running `arch govern` during a sprint transition does not create duplicate sprints or retros.
 
-## Proposed direction
-
-This IDEA should produce a design document (not code) that closes three contracts:
-
-**1. SprintState model**
-
-Define sprint as a system entity with explicit states:
-- `ACTIVE` — sprint is open, tasks are being archived toward it
-- `CLOSED` — close condition met, retro written, new sprint not yet opened
-- `NEXT_PENDING` — (optional) transition state if close and open are separated in time
-
-For each state: what is invariantly true, what events are valid, what events are forbidden.
-
-**2. Source of truth declaration**
-
-Pick one oracle and make it authoritative. Candidates:
-- Focus-ledger as the event log (SPRINT_OPEN timestamp = start of sprint; everything derived from it)
-- arch.config.json as intent + ledger as audit trail
-
-The multi-oracle problem must be resolved here. The design must answer: if ledger and config disagree, which wins and why?
-
-**3. Authority boundary for arch govern**
-
-Define what `arch govern` is permitted to read, write, and never touch on the sprint path:
-- Reads: ledger (to derive current state), task archive (to count)
-- Writes: ledger (new events), RETRO.md (projection), config (sprint name update)
-- Never touches: task status, focus assignment (these are existing govern responsibilities with their own invariants)
-
-Idempotency must be a provable property of the state machine, not a "we'll be careful" claim.
-
-## Scope
-
-This is a design artifact only. Output: a spec in `docs/superpowers/specs/` or a committed design document. No code. Once this design is approved, TASK-957 can be unblocked and re-specced against it.
-
-## Governance class
-Class: 0 (design / pre-implementation)
-Does NOT produce: code, ADRs, config changes
-Produces: closed state machine contract that TASK-957 depends on
+## Constraint Axes
+- Dependency ordering: None.
+- Temporal validity: Valid; needed to unblock P1 task.
+- Abstraction layer: Correct — domain concern.
+- Observability validity: Deterministic — events in ledger.
+- Priority displacement: P1 — unblocks P1 task.
 
 ## Decision
-PROMOTE → TASK-960
+PROMOTE → TASK-998

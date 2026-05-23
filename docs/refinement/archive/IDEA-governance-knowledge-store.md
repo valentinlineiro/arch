@@ -2,7 +2,7 @@
 **Decision-required:** yes
 **Created:** 2026-05-22
 **Source:** Human-led design session
-**Status:** DRAFT
+**Status:** DEFERRED
 **Meta:** P1 | XL | cli | context
 
 ## Problem
@@ -106,4 +106,4 @@ XL — touches CLI domain models, repository layer, governance enforcement, anal
 <!-- THINK fills this section when invoked — do not edit manually -->
 
 ## Decision
-<!-- PROMOTE → TASK-XXX | REJECT: reason | DEFERRED: reason + condition -->
+DEFERRED: Temporal validity constraint — requires real domain corpus (PGW) before claim evidence base exists. Revisit after 4 weeks of PGW operational data. Architecture is correct; timing is not.

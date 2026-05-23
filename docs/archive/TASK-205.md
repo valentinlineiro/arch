@@ -5,3 +5,7 @@
 
 ## Hansei
 The initial implementation of the `file:` and `grep:` predicates in tests failed due to path resolution issues relative to the test runner's CWD. Switching to a temporary directory with controlled file creation fixed the flakiness. Extending the validation to detect missing predicates successfully closes the quality gap for executable documentation.
+
+## Approval
+Approved-by: human | 2026-05-23
+Notes: Retroactive approval — M task closed without Approval section.

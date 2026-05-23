@@ -5,3 +5,7 @@
 
 ## Hansei
 Straightforward M task, no blockers. Self-referential first AC (`test -f docs/archive/TASK-200.md`) cannot pass until the Auditor archives the task — noted in INBOX. Compression is pure text manipulation; chose to keep `**Depends:**` and `**Sprint:**` lines in compressed form since they are part of the canonical TASK-FORMAT and removing them could break parsers. Also compressed TASK-222 as a live example during implementation.
+
+## Approval
+Approved-by: human | 2026-05-23
+Notes: Retroactive approval — M task closed without Approval section.

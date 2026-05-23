@@ -74,3 +74,9 @@ before it can be scoped as an executable task.
 **Direction:** Refactor CLI to operate against a configurable Protocol Schema in `arch.config.json`.
 
 **Gap preventing graduation:** Requires a full audit of hardcoded paths and the design of the Protocol Schema.
+
+## Added by THINK 2026-05-23
+
+- **arch-init-ux** (P3): 2-minute project bootstrap via `arch init`. Generate 3 starter files, guided first task, zero-config review baseline.
+- **arch-resume** (P2): `arch resume <taskId>` automates ANDON_HALT recovery paths. Guided resolution, FOCUS_RECOVERED audit trail.
+- **cli-protocol-decoupling** (P3): Refactor CLI to operate against configurable Protocol Schema. Configurable paths, rules engine, portable `arch init`.

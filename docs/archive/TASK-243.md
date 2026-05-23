@@ -18,3 +18,7 @@ No debt introduced. The `written`/`files` separation reflects a legitimate test-
 
 **Forward Action:**
 The `process.chdir` isolation pattern should be resolved by exposing a `cwd` parameter on `GitCli` constructor — deferred to a future task.
+
+## Approval
+Approved-by: human | 2026-05-23
+Notes: Retroactive approval — M task closed without Approval section.

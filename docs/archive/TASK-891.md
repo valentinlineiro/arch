@@ -9,3 +9,7 @@
 **Constraint:** LLM output is free-form text; any field parsed from it must be sanitized before use in structured markdown. The parseDraft method now strips leading/trailing quotes and non-ASCII characters from the title.
 **Cost:** One extra turn to identify and fix the quote propagation bug during smoke testing. No rework of architecture required.
 **Forward Action:** If LLM output quality issues recur, consider a more constrained output format (JSON) instead of line-by-line parsing. Track as an IDEA if the prose parser proves fragile.
+
+## Approval
+Approved-by: human | 2026-05-23
+Notes: Retroactive approval — M task closed without Approval section.

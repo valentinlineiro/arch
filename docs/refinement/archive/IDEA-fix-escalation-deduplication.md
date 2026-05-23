@@ -2,7 +2,7 @@
 **Decision-required:** yes
 **Created:** 2026-05-22
 **Source:** ARCH protocol review — .arch/escalations.jsonl has massive duplicate record storm
-**Status:** DRAFT
+**Status:** PROMOTED
 Sessions: 3
 
 ## Problem

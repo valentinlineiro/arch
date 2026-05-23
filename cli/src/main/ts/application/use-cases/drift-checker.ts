@@ -10,7 +10,13 @@ export interface DriftResult {
   details: string[];
 }
 
-const CLI_COMMANDS = new Set(['check', 'status', 'trace', 'init', 'version', 'task', 'govern', 'analyze', 'memory']);
+const CLI_COMMANDS = new Set([
+  'check', 'review', 'init', 'version', 'status', 'sentinel', 'task', 'govern',
+  'memory', 'validate', 'lint', 'next', 'rank', 'promote', 'loop', 'batch',
+  'drain', 'conduct', 'sandbox', 'mv', 'exec', 'merge-resolve', 'verify-acs',
+  'corpus', 'capture', 'inbox', 'reflect', 'report', 'ask', 'causal',
+  'index', 'audit', 'analyze',
+]);
 const ROOT_RUNTIME_ARTIFACTS = new Set(['.codex']);
 
 export class DriftChecker {

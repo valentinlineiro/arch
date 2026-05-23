@@ -5,3 +5,7 @@
 
 ## Hansei
 The implementation was already present in the repository but the task remained in READY status, possibly due to a previous execution failure or omission. I have verified the implementation against all ACs and confirmed that the full test suite passes, including new provider-specific tests.
+
+## Approval
+Approved-by: human | 2026-05-23
+Notes: Retroactive approval — M task closed without Approval section.

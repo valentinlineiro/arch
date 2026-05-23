@@ -2,7 +2,7 @@
 **Decision-required:** yes
 **Created:** 2026-05-16
 **Source:** TASK-258 Hansei H3b — govern writes to .arch/ outside of any committed transaction
-**Status:** DRAFT
+**Status:** PROMOTED
 **Decision-required:** yes
 Sessions: 5
 **Decision-required:** yes
@@ -27,4 +27,4 @@ Implementation: `GovernTransaction` class that buffers `fileSystem.writeFile` ca
 - Priority displacement: P2 — not blocking but systemic risk
 
 ## Decision
-<!-- PROMOTE → TASK-XXX | REJECT: reason | DEFERRED: reason + condition -->
+PROMOTE → TASK-997

@@ -10,3 +10,7 @@
 **Constraint:** 74 archived IDEAs backfilled with inferred decisions — inference was mechanical (DEFERRED/REJECTED by status field), not human-authored. 44 remain unfixed (pre-existing corpus debt).
 **Cost:** ArchivedIdeaDecisions WARN will persist until the 44 remaining pre-corpus IDEAs are backfilled. arch review is OK overall but the WARN is visible noise on every run.
 **Forward Action:** None.
+
+## Approval
+Approved-by: human | 2026-05-23
+Notes: Retroactive approval — M task closed without Approval section.

@@ -4,3 +4,7 @@
 
 ## Hansei
 Active root set is execution-centric (READY/IN_PROGRESS/REVIEW) — the shift to intention-centric (INTENT nodes) will require revisiting the orphan semantics when docs/intents/ is introduced.
+
+## Approval
+Approved-by: human | 2026-05-23
+Notes: Retroactive approval — M task closed without Approval section.

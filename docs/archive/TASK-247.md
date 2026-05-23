@@ -18,3 +18,7 @@ An auditor reading ADR-020 ruling names (HARD_PREEMPTION etc.) and then reading 
 
 **Forward Action:**
 Add a note to ADR-020 §6 clarifying that ruling names were simplified in the AGFM; the AGFM is authoritative for implementation. File as IDEA for a follow-up reconciliation pass if the divergence causes confusion during future audits.
+
+## Approval
+Approved-by: human | 2026-05-23
+Notes: Retroactive approval — M task closed without Approval section.

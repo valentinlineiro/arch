@@ -2,7 +2,7 @@
 **Decision-required:** yes
 **Created:** 2026-05-22
 **Source:** ARCH comprehensive review + strategic reframing
-**Status:** DRAFT
+**Status:** PROMOTED
 Sessions: 3
 
 ## Problem
@@ -112,3 +112,4 @@ M — Phase 1 is ~1 week. Phase 2 depends on deployment map stability.
 - Large monorepo handling: 10k+ entities needs compression or tiered summarization.
 
 ## Decision
+PROMOTE → TASK-1000 (Phase 1 only — Phase 2-4 deferred until Phase 1 has real users)
