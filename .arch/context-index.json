@@ -41,7 +41,7 @@
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-969.md"
+          "taskPath": "docs/archive/TASK-969.md"
         },
         "TASK-997": {
           "evidenceKinds": [
@@ -63,7 +63,7 @@
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-969.md"
+          "taskPath": "docs/archive/TASK-969.md"
         }
       }
     },
@@ -88,6 +88,12 @@
           ],
           "taskPath": "docs/archive/TASK-160.md"
         },
+        "TASK-969": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-969.md"
+        },
         "TASK-997": {
           "evidenceKinds": [
             "literal-mention"
@@ -109,7 +115,7 @@
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-957.md"
+          "taskPath": "docs/archive/TASK-957.md"
         },
         "TASK-990": {
           "evidenceKinds": [
@@ -313,7 +319,7 @@
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-957.md"
+          "taskPath": "docs/archive/TASK-957.md"
         },
         "TASK-999": {
           "evidenceKinds": [
@@ -369,7 +375,7 @@
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-957.md"
+          "taskPath": "docs/archive/TASK-957.md"
         },
         "TASK-966": {
           "evidenceKinds": [
@@ -387,7 +393,7 @@
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-969.md"
+          "taskPath": "docs/archive/TASK-969.md"
         },
         "TASK-991": {
           "evidenceKinds": [
@@ -527,22 +533,6 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-956.md"
-        },
-        "TASK-957": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/tasks/TASK-957.md"
-        }
-      }
-    },
-    "ADR-026": {
-      "tasks": {
-        "TASK-957": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/tasks/TASK-957.md"
         }
       }
     },
@@ -553,6 +543,16 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-998.md"
+        }
+      }
+    },
+    "ADR-032": {
+      "tasks": {
+        "TASK-957": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-957.md"
         }
       }
     }
@@ -3289,9 +3289,85 @@
       ],
       "strength": "advisory",
       "title": "Sprint as a first-class domain model"
+    },
+    "ADR-032": {
+      "affectedModules": [],
+      "keywords": [
+        "031",
+        "032",
+        "2026",
+        "957",
+        "accepted",
+        "additions",
+        "adr",
+        "appends",
+        "arch",
+        "archived",
+        "authorises",
+        "auto",
+        "automatic",
+        "automatically",
+        "been",
+        "close",
+        "closecurrent",
+        "closes",
+        "config",
+        "context",
+        "current",
+        "date",
+        "deciders",
+        "decision",
+        "default",
+        "deterministic",
+        "docs",
+        "edits",
+        "generated",
+        "govern",
+        "human",
+        "into",
+        "json",
+        "lifecycle",
+        "loop",
+        "machine",
+        "manual",
+        "model",
+        "names",
+        "next",
+        "now",
+        "number",
+        "open",
+        "opened",
+        "opens",
+        "prefix",
+        "provides",
+        "required",
+        "retro",
+        "schema",
+        "since",
+        "source",
+        "sprint",
+        "sprintautonameprefix",
+        "sprintcloseaftern",
+        "sprintservice",
+        "stable",
+        "state",
+        "status",
+        "string",
+        "task",
+        "tasks",
+        "threshold",
+        "valen",
+        "velocity",
+        "when",
+        "where",
+        "wiring",
+        "writes"
+      ],
+      "strength": "advisory",
+      "title": "Automatic sprint lifecycle in arch govern"
     }
   },
-  "builtAt": "2026-05-23T23:42:39.333Z",
+  "builtAt": "2026-05-23T23:49:44.480Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -4087,6 +4163,7 @@
         "cli/src/main/ts/application/use-cases/causal-graph.ts",
         "cli/src/main/ts/application/use-cases/causal-signal-log.ts",
         "cli/src/main/ts/application/use-cases/drift-checker.ts",
+        "cli/src/main/ts/application/use-cases/escalation-store.ts",
         "cli/src/main/ts/application/use-cases/temporal-index.ts",
         "cli/src/main/ts/domain/models/command.ts",
         "cli/src/main/ts/domain/services/command-registry.ts",
@@ -5255,7 +5332,7 @@
       "imports": [
         "cli/src/main/ts/domain/repositories/file-system.ts"
       ],
-      "runtimeUsage": "warm",
+      "runtimeUsage": "hot",
       "symbols": [
         "EscalationEntry",
         "EscalationStatus",
@@ -8045,13 +8122,13 @@
     "TASK-206": {
       "commitCount": 12,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-23T18:12:51+00:00",
+      "lastCommitDate": "2026-05-23T23:49:41+00:00",
       "recentCommitRefs": [
         "0379ddd7",
         "07c38fd1",
         "22308ce5",
         "4a348d92",
-        "638f2846",
+        "4f97602e",
         "76db2c9b",
         "8cc6d95a",
         "9e353d7f",
@@ -8062,11 +8139,11 @@
       ],
       "touchedFrequency": {
         ".arch/cache/git-signals.jsonl": 1,
-        ".arch/chronicle.jsonl": 1,
         ".arch/corpus-index.json": 3,
         ".arch/ecp-registry.jsonl": 1,
+        ".arch/focus-ledger.jsonl": 1,
         ".arch/last-audit.json": 2,
-        ".arch/reflect-breach-log.jsonl": 6,
+        ".arch/reflect-breach-log.jsonl": 5,
         ".arch/status-projection.json": 1,
         "README.md": 1,
         "arch.config.json": 1,
@@ -8075,7 +8152,7 @@
         "cli/src/main/ts/application/commands/audit-command.ts": 2,
         "cli/src/main/ts/application/commands/corpus-audit-command.ts": 3,
         "cli/src/main/ts/application/commands/reflect-command.ts": 1,
-        "cli/src/main/ts/application/commands/status-command.ts": 3,
+        "cli/src/main/ts/application/commands/status-command.ts": 2,
         "cli/src/main/ts/application/use-cases/corpus-index.ts": 2,
         "cli/src/main/ts/application/use-cases/govern-system.ts": 2,
         "cli/src/main/ts/application/use-cases/hansei-synthesizer.ts": 1,
@@ -8084,15 +8161,15 @@
         "cli/src/main/ts/domain/services/decision-reconciliation-engine.ts": 1,
         "cli/src/main/ts/domain/services/deterministic-hansei-checker.ts": 1,
         "cli/src/main/ts/domain/services/event-logger.ts": 1,
-        "cli/src/main/ts/index.ts": 2,
+        "cli/src/main/ts/index.ts": 1,
         "cli/src/main/ts/infrastructure/git/adr-decision-parser.ts": 1,
         "cli/src/main/ts/infrastructure/git/git-evidence-collector.ts": 1,
         "cli/src/test/ts/corpus-audit-command.test.ts": 1,
         "cli/src/test/ts/corpus-audit-weighted.test.ts": 1,
         "cli/src/test/ts/corpus-index.test.ts": 1,
-        "docs/EVENTS.md": 3,
+        "docs/EVENTS.md": 2,
         "docs/INBOX.md": 4,
-        "docs/METRICS.md": 4,
+        "docs/METRICS.md": 3,
         "docs/ROADMAP.md": 1,
         "docs/adr/ADR-030-think-promotion-proposals-domain-model.md": 1,
         "docs/archive/TASK-001.md": 1,
@@ -8483,7 +8560,7 @@
       }
     },
     "TASK-253": {
-      "commitCount": 13,
+      "commitCount": 12,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-19T11:31:58+02:00",
       "recentCommitRefs": [
@@ -8495,7 +8572,6 @@
         "755eaa37",
         "7f76abf0",
         "8aaa21ac",
-        "9fa9ed05",
         "a2720f67",
         "c7d3eb9c",
         "d56c0888",
@@ -8505,7 +8581,7 @@
         ".arch/causal-signal.jsonl": 1,
         ".arch/chronicle.jsonl": 2,
         ".arch/context-feedback.json": 1,
-        ".arch/focus-ledger.jsonl": 6,
+        ".arch/focus-ledger.jsonl": 5,
         ".arch/reflect-breach-log.jsonl": 1,
         "cli/src/main/ts/application/use-cases/mark-task-done.ts": 1,
         "cli/src/main/ts/application/use-cases/validate-task-acs.ts": 1,
@@ -9582,17 +9658,36 @@
       }
     },
     "TASK-967": {
-      "commitCount": 3,
+      "commitCount": 4,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-23T23:42:36+00:00",
+      "lastCommitDate": "2026-05-23T23:46:02+00:00",
       "recentCommitRefs": [
         "6473ca90",
         "aa9e74de",
-        "b118bd3f"
+        "b118bd3f",
+        "f5af0023"
       ],
       "touchedFrequency": {
+        ".arch/causal-signal.jsonl": 1,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/context-feedback.json": 1,
+        ".arch/escalations.jsonl": 1,
         ".arch/focus-ledger.jsonl": 2,
+        ".arch/reflect-breach-log.jsonl": 1,
+        ".arch/status-projection.json": 1,
+        ".arch/temporal-index.jsonl": 1,
+        "README.md": 1,
+        "cli/.arch/status-projection.json": 1,
+        "cli/src/main/ts/application/command-dispatcher.ts": 1,
+        "cli/src/main/ts/application/commands/task-command.ts": 1,
+        "cli/src/main/ts/application/commands/task-done-command.ts": 1,
+        "cli/src/main/ts/application/use-cases/escalation-store.ts": 1,
+        "docs/AGENTS.md": 1,
+        "docs/EVENTS.md": 1,
+        "docs/METRICS.md": 1,
+        "docs/ROADMAP.md": 1,
         "docs/archive/TASK-967.md": 1,
+        "docs/archive/TASK-999.md": 1,
         "docs/tasks/TASK-967.md": 1
       }
     },
@@ -10490,14 +10585,32 @@
       }
     },
     "TASK-999": {
-      "commitCount": 1,
+      "commitCount": 2,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-23T23:42:36+00:00",
+      "lastCommitDate": "2026-05-23T23:46:02+00:00",
       "recentCommitRefs": [
-        "e33052d0"
+        "e33052d0",
+        "f5af0023"
       ],
       "touchedFrequency": {
-        "docs/archive/TASK-999.md": 1,
+        ".arch/causal-signal.jsonl": 1,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/context-feedback.json": 1,
+        ".arch/escalations.jsonl": 1,
+        ".arch/reflect-breach-log.jsonl": 1,
+        ".arch/status-projection.json": 1,
+        ".arch/temporal-index.jsonl": 1,
+        "README.md": 1,
+        "cli/.arch/status-projection.json": 1,
+        "cli/src/main/ts/application/command-dispatcher.ts": 1,
+        "cli/src/main/ts/application/commands/task-command.ts": 1,
+        "cli/src/main/ts/application/commands/task-done-command.ts": 1,
+        "cli/src/main/ts/application/use-cases/escalation-store.ts": 1,
+        "docs/AGENTS.md": 1,
+        "docs/EVENTS.md": 1,
+        "docs/METRICS.md": 1,
+        "docs/ROADMAP.md": 1,
+        "docs/archive/TASK-999.md": 2,
         "docs/tasks/TASK-999.md": 1
       }
     }
