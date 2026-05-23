@@ -20,3 +20,7 @@
 
 - [ ] `npm test` passes.
   - `prose: 590+ tests pass`
+
+### Definition of Done
+- [ ] All ACs checked
+- [ ] `arch review` passes

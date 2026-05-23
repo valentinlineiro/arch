@@ -1,6 +1,6 @@
 ## TASK-957: Implement automatic sprint lifecycle in arch govern
-**Meta:** P1 | L | BLOCKED | Focus:no | 2-code-generation | claude | arch.config.json, docs/RETRO.md, .arch/focus-ledger.jsonl
-**Depends:** TASK-998
+**Meta:** P1 | L | READY | Focus:yes | 2-code-generation | claude | arch.config.json, docs/RETRO.md, .arch/focus-ledger.jsonl
+**Depends:** none
 
 ### Acceptance Criteria
 - [ ] `arch.config.json` has `sprintCloseAfterN` field (default 15).  →  file: arch.config.json

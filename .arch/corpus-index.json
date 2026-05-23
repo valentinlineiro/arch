@@ -1,8 +1,8 @@
 {
   "version": 1,
-  "builtAt": "2026-05-23T18:12:28.247Z",
-  "archiveCommit": "356:design",
-  "taskCount": 152,
+  "builtAt": "2026-05-23T20:43:48.463Z",
+  "archiveCommit": "",
+  "taskCount": 154,
   "entries": {
     "TASK-180": {
       "id": "TASK-180",
@@ -274,7 +274,7 @@
       "forwardAction": "",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "unknown"
+      "closurePath": "auditor"
     },
     "TASK-200": {
       "id": "TASK-200",
@@ -291,7 +291,7 @@
       "forwardAction": "",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "unknown"
+      "closurePath": "auditor"
     },
     "TASK-201": {
       "id": "TASK-201",
@@ -308,7 +308,7 @@
       "forwardAction": "Track as IDEA: hardened append-only verification via subprocess diff rather than in-memory compare, and a concrete agentId verification scheme.",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "unknown"
+      "closurePath": "auditor"
     },
     "TASK-202": {
       "id": "TASK-202",
@@ -325,7 +325,7 @@
       "forwardAction": "",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "unknown"
+      "closurePath": "auditor"
     },
     "TASK-203": {
       "id": "TASK-203",
@@ -376,7 +376,7 @@
       "forwardAction": "",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "unknown"
+      "closurePath": "auditor"
     },
     "TASK-207": {
       "id": "TASK-207",
@@ -461,7 +461,7 @@
       "forwardAction": "",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "unknown"
+      "closurePath": "auditor"
     },
     "TASK-212": {
       "id": "TASK-212",
@@ -495,7 +495,7 @@
       "forwardAction": "",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "unknown"
+      "closurePath": "auditor"
     },
     "TASK-214": {
       "id": "TASK-214",
@@ -529,7 +529,7 @@
       "forwardAction": "",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "unknown"
+      "closurePath": "auditor"
     },
     "TASK-216": {
       "id": "TASK-216",
@@ -563,7 +563,7 @@
       "forwardAction": "",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "unknown"
+      "closurePath": "auditor"
     },
     "TASK-218": {
       "id": "TASK-218",
@@ -614,7 +614,7 @@
       "forwardAction": "",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "unknown"
+      "closurePath": "auditor"
     },
     "TASK-222": {
       "id": "TASK-222",
@@ -631,7 +631,7 @@
       "forwardAction": "",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "unknown"
+      "closurePath": "auditor"
     },
     "TASK-223": {
       "id": "TASK-223",
@@ -767,7 +767,7 @@
       "forwardAction": "",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "unknown"
+      "closurePath": "auditor"
     },
     "TASK-231": {
       "id": "TASK-231",
@@ -971,7 +971,7 @@
       "forwardAction": "The `process.chdir` isolation pattern should be resolved by exposing a `cwd` parameter on `GitCli` constructor — deferred to a future task.",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "unknown"
+      "closurePath": "auditor"
     },
     "TASK-244": {
       "id": "TASK-244",
@@ -988,7 +988,7 @@
       "forwardAction": "none",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "unknown"
+      "closurePath": "auditor"
     },
     "TASK-245": {
       "id": "TASK-245",
@@ -1039,7 +1039,7 @@
       "forwardAction": "Add a note to ADR-020 §6 clarifying that ruling names were simplified in the AGFM; the AGFM is authoritative for implementation. File as IDEA for a follow-up reconciliation pass if the divergence causes confusion during future audits.",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "unknown"
+      "closurePath": "auditor"
     },
     "TASK-248": {
       "id": "TASK-248",
@@ -1243,7 +1243,7 @@
       "forwardAction": "None required. Implementation complete.",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "unknown"
+      "closurePath": "auditor"
     },
     "TASK-267": {
       "id": "TASK-267",
@@ -1311,7 +1311,7 @@
       "forwardAction": "See IDEA-corpus-informed-reprioritization for patterns on advisory-layer design. After 60 days, audit whether Sentinel entries show a non-trivial HALT rate. If HALT rate is > 10%, the check is surfacing real preflight decisions. If it is < 1%, the log is ceremonial and the check's threshold should be tightened to L/XL only.",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "unknown"
+      "closurePath": "auditor"
     },
     "TASK-889": {
       "id": "TASK-889",
@@ -1345,7 +1345,7 @@
       "forwardAction": "If ADR constraint injection is needed, extend AdrEntry with a constraint field via ADR and rebuild the context index. Track as an IDEA if this matters.",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "unknown"
+      "closurePath": "auditor"
     },
     "TASK-891": {
       "id": "TASK-891",
@@ -1362,7 +1362,7 @@
       "forwardAction": "If LLM output quality issues recur, consider a more constrained output format (JSON) instead of line-by-line parsing. Track as an IDEA if the prose parser proves fragile.",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "unknown"
+      "closurePath": "auditor"
     },
     "TASK-892": {
       "id": "TASK-892",
@@ -1396,7 +1396,7 @@
       "forwardAction": "None.",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "unknown"
+      "closurePath": "auditor"
     },
     "TASK-894": {
       "id": "TASK-894",
@@ -2093,7 +2093,7 @@
       "forwardAction": "After 20+ correction signals accumulate, evaluate clustering quality via THINK. See IDEA-corpus-informed-reprioritization for the aggregation model. If categories are too coarse, refine the vocabulary or add sub-categories.",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "unknown"
+      "closurePath": "auditor"
     },
     "TASK-940": {
       "id": "TASK-940",
@@ -2110,7 +2110,7 @@
       "forwardAction": "After 30 days of operation, check dismissed-annotation count vs total advisory emissions. If dismissal rate exceeds 30%, raise the term threshold from 3 to 4 or narrow the negation vocabulary. See IDEA-corpus-informed-reprioritization for related advisory-layer design patterns.",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "unknown"
+      "closurePath": "auditor"
     },
     "TASK-942": {
       "id": "TASK-942",
@@ -2180,6 +2180,23 @@
       "acMachineVerifiable": 0,
       "closurePath": "auditor"
     },
+    "TASK-954": {
+      "id": "TASK-954",
+      "size": "M",
+      "class": "2-code-generation",
+      "closedAt": "2026-05-20T16:16:00Z",
+      "lockedCommit": null,
+      "actor": null,
+      "severity": "H0",
+      "category": "[no-issue]",
+      "decision": "Temporal pattern layer implemented cleanly. No architectural compromises.",
+      "constraint": "None encountered.",
+      "cost": "No architectural debt introduced.",
+      "forwardAction": "None required.",
+      "acCount": 0,
+      "acMachineVerifiable": 0,
+      "closurePath": "auditor"
+    },
     "TASK-955": {
       "id": "TASK-955",
       "size": "M",
@@ -2195,7 +2212,7 @@
       "forwardAction": "When TASK-954 (temporal-index label store) lands, swap the archive keyword scan in loadArchiveTasks() with temporal-index queries. The interface is compatible — the class_field and category matching logic stays the same. See IDEA-corpus-informed-reprioritization §Design Decision 3 for the swap specification.",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "unknown"
+      "closurePath": "auditor"
     },
     "TASK-956": {
       "id": "TASK-956",
@@ -2229,7 +2246,7 @@
       "forwardAction": "None required — implementation complete and verified.",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "unknown"
+      "closurePath": "auditor"
     },
     "TASK-961": {
       "id": "TASK-961",
@@ -2551,6 +2568,23 @@
       "cost": "No cost incurred — task has not started.",
       "forwardAction": "None.",
       "acCount": 0,
+      "acMachineVerifiable": 0,
+      "closurePath": "L3"
+    },
+    "TASK-991": {
+      "id": "TASK-991",
+      "size": "XS",
+      "class": "default",
+      "closedAt": "2026-05-23T20:43:35.356Z",
+      "lockedCommit": "262b9d14",
+      "actor": "unknown",
+      "severity": "H0",
+      "category": "[SpecDrift]",
+      "decision": "Not yet started.",
+      "constraint": "No constraints apply — task has not started.",
+      "cost": "No cost incurred — task has not started.",
+      "forwardAction": "None.",
+      "acCount": 2,
       "acMachineVerifiable": 0,
       "closurePath": "L3"
     },

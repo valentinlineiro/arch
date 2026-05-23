@@ -1,5 +1,5 @@
 ## TASK-967: Enhance arch task done as guided close path mirror of arch t
-**Meta:** P2 | M | READY | Focus:yes | 2-code-generation | local | docs/tasks/
+**Meta:** P2 | M | READY | Focus:no | 2-code-generation | local | docs/tasks/
 **Depends:** none
 
 ### Acceptance Criteria

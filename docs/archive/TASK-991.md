@@ -1,5 +1,5 @@
 ## TASK-991: Resolve Hansei contradiction between DO.md and TASK-FORMAT.md
-**Meta:** P2 | XS | DONE | Focus:yes | default | local | docs/tasks/
+**Meta:** P2 | XS | DONE | Focus:no | default | local | docs/tasks/
 **Turns:** 0
 **Closed-at:** 2026-05-23T20:43:35.356Z
 **Actor:** unknown

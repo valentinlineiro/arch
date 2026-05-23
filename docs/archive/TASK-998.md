@@ -1,5 +1,5 @@
 ## TASK-998: Sprint domain model: Sprint/SprintStatus/SprintService to unblock TASK-957
-**Meta:** P1 | S | DONE | Focus:yes | 1-code-reasoning | claude-code | cli/src/main/ts/domain/models/, cli/src/main/ts/domain/services/
+**Meta:** P1 | S | DONE | Focus:no | 1-code-reasoning | claude-code | cli/src/main/ts/domain/models/, cli/src/main/ts/domain/services/
 **Turns:** 0
 **Closed-at:** 2026-05-23T23:32:34.062Z
 **Actor:** unknown

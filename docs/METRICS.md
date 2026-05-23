@@ -9,7 +9,7 @@
 
 | Metric | Value | Notes |
 |--------|-------|-------|
-| **Completed Tasks** | 355 | total archived |
+| **Completed Tasks** | 360 | total archived |
 | **REVIEW_FAIL Rate** | 0.0% | rejected / total review exits |
 
 ### Cycle Time (P50/P90)

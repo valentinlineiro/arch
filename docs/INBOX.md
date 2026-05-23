@@ -117,3 +117,43 @@
 
 ## 2026-05-23 18:12:11 — Pattern Alerts
 [PATTERN-ALERT] [SpecDrift] detected 8 times — systemic issue. See docs/tensions/
+
+## 2026-05-23 20:44:17 — Pattern Alerts
+[PATTERN-ALERT] [SpecDrift] detected 8 times — systemic issue. See docs/tensions/
+
+## 2026-05-23 20:44:17 — Pattern Alerts
+[PATTERN-ALERT] [SpecDrift] detected 8 times — systemic issue. See docs/tensions/
+
+## [AWAITING_REVIEW] TASK-996 [L3-AUTO]
+**Closed:** 2026-05-23T20:44:17.917Z
+**Title:** Register arch analyze in index.ts: command built but not wired
+
+| AC | Type | Pass | Detail |
+|---|---|---|---|
+| `case 'analyze':` added to `index.ts` dispatch switch, impor | cmd | ✔ | exit 0 (expected 0) |
+| `arch review` passes | cmd | ✔ | exit 0 (expected 0) |
+
+## [AWAITING_REVIEW] TASK-998 [L3-AUTO]
+**Closed:** 2026-05-23T23:32:34.069Z
+**Title:** Sprint domain model: Sprint/SprintStatus/SprintService to unblock TASK-957
+
+| AC | Type | Pass | Detail |
+|---|---|---|---|
+| `Sprint` and `SprintStatus` (ACTIVE, CLOSED, NEXT_PENDING) m | file | ✔ | exists: cli/src/main/ts/domain/models/sprint.ts |
+| `SprintService` implements `closeCurrent(velocityData)` → ap | file | ✔ | exists: cli/src/main/ts/domain/services/sprint-service.ts |
+| Re-running `arch govern` during a sprint transition is idemp | prose | ✔ | prose: human-verified (non-automated) |
+| `arch.config.json` is the intent oracle (sprint name/target) | prose | ✔ | prose: human-verified (non-automated) |
+| ADR filed for new domain model (protected path). | prose | ✔ | prose: human-verified (non-automated) |
+| `npm test` passes. | prose | ✔ | prose: human-verified (non-automated) |
+
+## [AWAITING_REVIEW] TASK-997 [L3-AUTO]
+**Closed:** 2026-05-23T23:35:53.272Z
+**Title:** GovernTransaction: atomic .arch/ writes to eliminate partial-state corruption
+
+| AC | Type | Pass | Detail |
+|---|---|---|---|
+| `GovernTransaction` class buffers all `.arch/` `writeFile` c | file | ✔ | exists: cli/src/main/ts/application/use-cases/govern-transac |
+| All `.arch/` writes in `govern-system.ts` use the transactio | prose | ✔ | prose: human-verified (non-automated) |
+| Transaction flushes atomically before the `git commit` step  | prose | ✔ | prose: human-verified (non-automated) |
+| `arch check` passes after govern runs with the transaction. | cmd | ✔ | exit 0 (expected 0) |
+| `npm test` passes. | prose | ✔ | prose: human-verified (non-automated) |

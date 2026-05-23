@@ -1,5 +1,5 @@
 ## TASK-990: Fix meta line regex - add Turns capture group, document Locked-commit and auxiliary fields
-**Meta:** P2 | S | DONE | Focus:yes | 6-writing | local | docs/tasks/
+**Meta:** P2 | S | DONE | Focus:no | 6-writing | local | docs/tasks/
 **Turns:** 0
 **Closed-at:** 2026-05-23T23:33:27.720Z
 **Actor:** unknown

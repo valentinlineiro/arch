@@ -70,5 +70,53 @@
       "tooMuchNoise": false,
       "confidenceMisleading": false
     }
+  },
+  {
+    "taskId": "TASK-991",
+    "timestamp": "2026-05-23T20:43:35.374Z",
+    "verdict": "accurate",
+    "details": {
+      "wrongFiles": false,
+      "missingFiles": false,
+      "wrongAdrs": false,
+      "tooMuchNoise": false,
+      "confidenceMisleading": false
+    }
+  },
+  {
+    "taskId": "TASK-998",
+    "timestamp": "2026-05-23T23:32:34.074Z",
+    "verdict": "accurate",
+    "details": {
+      "wrongFiles": false,
+      "missingFiles": false,
+      "wrongAdrs": false,
+      "tooMuchNoise": false,
+      "confidenceMisleading": false
+    }
+  },
+  {
+    "taskId": "TASK-990",
+    "timestamp": "2026-05-23T23:33:27.732Z",
+    "verdict": "accurate",
+    "details": {
+      "wrongFiles": false,
+      "missingFiles": false,
+      "wrongAdrs": false,
+      "tooMuchNoise": false,
+      "confidenceMisleading": false
+    }
+  },
+  {
+    "taskId": "TASK-997",
+    "timestamp": "2026-05-23T23:35:53.278Z",
+    "verdict": "accurate",
+    "details": {
+      "wrongFiles": false,
+      "missingFiles": false,
+      "wrongAdrs": false,
+      "tooMuchNoise": false,
+      "confidenceMisleading": false
+    }
   }
 ]

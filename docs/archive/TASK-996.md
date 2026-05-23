@@ -1,5 +1,5 @@
 ## TASK-996: Register arch analyze in index.ts: command built but not wired
-**Meta:** P2 | XS | DONE | Focus:yes | 2-code-generation | claude-code | cli/src/main/ts/index.ts
+**Meta:** P2 | XS | DONE | Focus:no | 2-code-generation | claude-code | cli/src/main/ts/index.ts
 **Turns:** 0
 **Closed-at:** 2026-05-23T20:44:17.535Z
 **Actor:** unknown

@@ -1,5 +1,5 @@
 ## TASK-997: GovernTransaction: atomic .arch/ writes to eliminate partial-state corruption
-**Meta:** P2 | S | DONE | Focus:yes | 2-code-generation | claude-code | cli/src/main/ts/application/use-cases/govern-system.ts, .arch/
+**Meta:** P2 | S | DONE | Focus:no | 2-code-generation | claude-code | cli/src/main/ts/application/use-cases/govern-system.ts, .arch/
 **Turns:** 8
 **Closed-at:** 2026-05-23T23:35:52.655Z
 **Actor:** unknown

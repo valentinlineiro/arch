@@ -9,6 +9,7 @@ import { ReflectInfluenceReport, DEFAULT_THRESHOLDS } from './reflect-influence-
 import { TaskValidator } from '../../domain/services/task-validator.js';
 import { CorpusAuditCommand } from '../commands/corpus-audit-command.js';
 import { StatusReportService } from '../../domain/services/status-report-service.js';
+import { GovernTransaction } from './govern-transaction.js';
 import {
   FocusRuling, LedgerState, FOCUS_LEDGER_PATH,
   parseLedger, committedRulings, serializeLedger,
@@ -222,7 +223,12 @@ export class GovernSystem {
     const allRulings = [...committedRulings(ledger), ...newRulings];
     const content = serializeLedger(allRulings, nextTick);
 
-    await this.fileSystem.writeFile(ledgerPath, content);
+    // Use GovernTransaction to buffer .arch/ write and flush atomically before commit
+    const tx = new GovernTransaction(this.fileSystem);
+    await tx.writeFile(ledgerPath, content);
+
+    // Flush all buffered .arch/ writes atomically before committing
+    await tx.flush();
 
     // Stage and commit only the ledger — task meta files are updated on disk
     // but not committed by govern (pre-commit hook requires Hansei on M+ task files,

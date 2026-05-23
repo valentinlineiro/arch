@@ -141,7 +141,20 @@ An AC item may include an executable predicate or an exemption marker appended a
 - **Required:** When the agent records a Hansei section (i.e., same triggers: size delta, blocker, or M+).
 - **Purpose:** Input for Mura detection in THINK Phase 3 and Turns-per-Size trend in METRICS.md.
 
-## Hansei
+## Auxiliary Fields
+
+Fields persisted below the Meta line by the lifecycle system. Not part of the Meta line itself.
+
+| Field | Example | Written by |
+|-------|---------|------------|
+| `Locked-commit` | `**Locked-commit:** abc1234` | `arch task start` — records HEAD at IN_PROGRESS |
+| `Closed-at` | `**Closed-at:** 2026-05-23T10:00:00Z` | `arch task done` — ISO-8601 timestamp |
+| `Created-at` | `**Created-at:** 2026-05-22T08:00:00Z` | `arch task new` — ISO-8601 timestamp |
+| `Actor` | `**Actor:** claude-code` | `arch task start` — agent identifier |
+
+These fields are read-only after being set. They are used by `DeterministicHanseiChecker` (Locked-commit), `MetricsEngine` (Closed-at, Created-at), and `EvidenceCollector` (Actor).
+
+
 - **M/L/XL:** Mandatory structured Hansei on every close.
 - **XS/S:** Hansei only when a triggering condition applies: (a) actual size differed from estimate, (b) a blocker was encountered, (c) constitutional or process anomaly. No Hansei required on a clean XS/S close.
 - If a Hansei section is present on any task, it is validated for correctness regardless of size.
