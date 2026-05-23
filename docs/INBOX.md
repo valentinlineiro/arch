@@ -111,3 +111,9 @@
 2. AC2 (Generator service): `test -f cli/src/main/ts/domain/services/promotion-proposal-generator.ts` → PASS
 3. AC3 (Proposals in analyze output): `grep "Promotion Proposals" cli/src/main/ts/application/commands/analyze-command.ts` → PASS
 4. AC4 (arch check): `arch check` → PASS (all green, pre-existing warnings only)
+
+## 2026-05-23 18:12:08 — Pattern Alerts
+[PATTERN-ALERT] [SpecDrift] detected 8 times — systemic issue. See docs/tensions/
+
+## 2026-05-23 18:12:11 — Pattern Alerts
+[PATTERN-ALERT] [SpecDrift] detected 8 times — systemic issue. See docs/tensions/

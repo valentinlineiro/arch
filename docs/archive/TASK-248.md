@@ -2,14 +2,6 @@
 **Meta:** P2 | XS | DONE | Focus:no | 0-maintenance | local | docs/tasks/, docs/archive/
 **Depends:** none
 
-### Acceptance Criteria
-- [x] Remove dead context paths from TASK-245 and TASK-246 meta lines
-- [x] Add structured Hansei sections to archived tasks TASK-196, TASK-229, and TASK-888
-- [x] `arch review` passes with no DeadContext or HanseiPresent warnings
-
-## Approval
-Approved-by: Auditor | 2026-05-16
-
 ## Hansei
 **Severity:** H0
 **Category:** [SpecDrift]

@@ -1,8 +1,8 @@
 {
   "version": 1,
-  "builtAt": "2026-05-22T14:43:57.309Z",
-  "archiveCommit": "355:design",
-  "taskCount": 155,
+  "builtAt": "2026-05-23T18:12:28.247Z",
+  "archiveCommit": "356:design",
+  "taskCount": 152,
   "entries": {
     "TASK-180": {
       "id": "TASK-180",
@@ -19,7 +19,7 @@
       "forwardAction": "",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "auditor"
+      "closurePath": "L3"
     },
     "TASK-181": {
       "id": "TASK-181",
@@ -36,7 +36,7 @@
       "forwardAction": "",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "auditor"
+      "closurePath": "L3"
     },
     "TASK-184": {
       "id": "TASK-184",
@@ -53,7 +53,7 @@
       "forwardAction": "",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "auditor"
+      "closurePath": "unknown"
     },
     "TASK-185": {
       "id": "TASK-185",
@@ -70,7 +70,7 @@
       "forwardAction": "",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "auditor"
+      "closurePath": "unknown"
     },
     "TASK-186": {
       "id": "TASK-186",
@@ -87,7 +87,7 @@
       "forwardAction": "",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "auditor"
+      "closurePath": "unknown"
     },
     "TASK-189": {
       "id": "TASK-189",
@@ -104,7 +104,7 @@
       "forwardAction": "",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "auditor"
+      "closurePath": "unknown"
     },
     "TASK-190": {
       "id": "TASK-190",
@@ -121,7 +121,7 @@
       "forwardAction": "",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "auditor"
+      "closurePath": "unknown"
     },
     "TASK-191": {
       "id": "TASK-191",
@@ -138,7 +138,7 @@
       "forwardAction": "",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "auditor"
+      "closurePath": "unknown"
     },
     "TASK-192": {
       "id": "TASK-192",
@@ -155,7 +155,7 @@
       "forwardAction": "",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "auditor"
+      "closurePath": "L3"
     },
     "TASK-193": {
       "id": "TASK-193",
@@ -172,7 +172,7 @@
       "forwardAction": "",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "auditor"
+      "closurePath": "unknown"
     },
     "TASK-194": {
       "id": "TASK-194",
@@ -189,7 +189,7 @@
       "forwardAction": "",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "auditor"
+      "closurePath": "L3"
     },
     "TASK-195": {
       "id": "TASK-195",
@@ -206,7 +206,7 @@
       "forwardAction": "",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "auditor"
+      "closurePath": "L3"
     },
     "TASK-196": {
       "id": "TASK-196",
@@ -223,7 +223,7 @@
       "forwardAction": "No forward action required. Exit-code contract is enforced and covered by integration tests added in this task.",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "auditor"
+      "closurePath": "L3"
     },
     "TASK-197": {
       "id": "TASK-197",
@@ -240,7 +240,7 @@
       "forwardAction": "",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "auditor"
+      "closurePath": "L3"
     },
     "TASK-198": {
       "id": "TASK-198",
@@ -257,7 +257,7 @@
       "forwardAction": "",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "auditor"
+      "closurePath": "L3"
     },
     "TASK-199": {
       "id": "TASK-199",
@@ -274,7 +274,7 @@
       "forwardAction": "",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "auditor"
+      "closurePath": "unknown"
     },
     "TASK-200": {
       "id": "TASK-200",
@@ -291,7 +291,7 @@
       "forwardAction": "",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "auditor"
+      "closurePath": "unknown"
     },
     "TASK-201": {
       "id": "TASK-201",
@@ -308,7 +308,7 @@
       "forwardAction": "Track as IDEA: hardened append-only verification via subprocess diff rather than in-memory compare, and a concrete agentId verification scheme.",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "auditor"
+      "closurePath": "unknown"
     },
     "TASK-202": {
       "id": "TASK-202",
@@ -325,7 +325,7 @@
       "forwardAction": "",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "auditor"
+      "closurePath": "unknown"
     },
     "TASK-203": {
       "id": "TASK-203",
@@ -376,7 +376,7 @@
       "forwardAction": "",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "auditor"
+      "closurePath": "unknown"
     },
     "TASK-207": {
       "id": "TASK-207",
@@ -427,7 +427,7 @@
       "forwardAction": "",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "auditor"
+      "closurePath": "L3"
     },
     "TASK-210": {
       "id": "TASK-210",
@@ -444,7 +444,7 @@
       "forwardAction": "",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "auditor"
+      "closurePath": "L3"
     },
     "TASK-211": {
       "id": "TASK-211",
@@ -461,7 +461,7 @@
       "forwardAction": "",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "auditor"
+      "closurePath": "unknown"
     },
     "TASK-212": {
       "id": "TASK-212",
@@ -478,7 +478,7 @@
       "forwardAction": "",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "auditor"
+      "closurePath": "L3"
     },
     "TASK-213": {
       "id": "TASK-213",
@@ -495,7 +495,7 @@
       "forwardAction": "",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "auditor"
+      "closurePath": "unknown"
     },
     "TASK-214": {
       "id": "TASK-214",
@@ -512,7 +512,7 @@
       "forwardAction": "",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "auditor"
+      "closurePath": "L3"
     },
     "TASK-215": {
       "id": "TASK-215",
@@ -529,7 +529,7 @@
       "forwardAction": "",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "auditor"
+      "closurePath": "unknown"
     },
     "TASK-216": {
       "id": "TASK-216",
@@ -546,7 +546,7 @@
       "forwardAction": "",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "auditor"
+      "closurePath": "L3"
     },
     "TASK-217": {
       "id": "TASK-217",
@@ -563,7 +563,7 @@
       "forwardAction": "",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "auditor"
+      "closurePath": "unknown"
     },
     "TASK-218": {
       "id": "TASK-218",
@@ -580,7 +580,7 @@
       "forwardAction": "",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "auditor"
+      "closurePath": "L3"
     },
     "TASK-219": {
       "id": "TASK-219",
@@ -597,7 +597,7 @@
       "forwardAction": "",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "auditor"
+      "closurePath": "L3"
     },
     "TASK-220": {
       "id": "TASK-220",
@@ -614,7 +614,7 @@
       "forwardAction": "",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "auditor"
+      "closurePath": "unknown"
     },
     "TASK-222": {
       "id": "TASK-222",
@@ -631,7 +631,7 @@
       "forwardAction": "",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "auditor"
+      "closurePath": "unknown"
     },
     "TASK-223": {
       "id": "TASK-223",
@@ -648,7 +648,7 @@
       "forwardAction": "",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "auditor"
+      "closurePath": "L3"
     },
     "TASK-224": {
       "id": "TASK-224",
@@ -665,7 +665,7 @@
       "forwardAction": "",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "auditor"
+      "closurePath": "L3"
     },
     "TASK-225": {
       "id": "TASK-225",
@@ -682,7 +682,7 @@
       "forwardAction": "",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "auditor"
+      "closurePath": "L3"
     },
     "TASK-226": {
       "id": "TASK-226",
@@ -699,7 +699,7 @@
       "forwardAction": "",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "auditor"
+      "closurePath": "L3"
     },
     "TASK-227": {
       "id": "TASK-227",
@@ -716,7 +716,7 @@
       "forwardAction": "",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "auditor"
+      "closurePath": "L3"
     },
     "TASK-228": {
       "id": "TASK-228",
@@ -733,7 +733,7 @@
       "forwardAction": "",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "auditor"
+      "closurePath": "L3"
     },
     "TASK-229": {
       "id": "TASK-229",
@@ -750,7 +750,7 @@
       "forwardAction": "No forward action required. Filter is verified against both format variants; IDEA file format is now implicitly documented through the regex pattern.",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "auditor"
+      "closurePath": "L3"
     },
     "TASK-230": {
       "id": "TASK-230",
@@ -767,7 +767,7 @@
       "forwardAction": "",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "auditor"
+      "closurePath": "unknown"
     },
     "TASK-231": {
       "id": "TASK-231",
@@ -801,7 +801,7 @@
       "forwardAction": "",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "auditor"
+      "closurePath": "L3"
     },
     "TASK-233": {
       "id": "TASK-233",
@@ -818,7 +818,7 @@
       "forwardAction": "",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "auditor"
+      "closurePath": "L3"
     },
     "TASK-234": {
       "id": "TASK-234",
@@ -903,7 +903,7 @@
       "forwardAction": "",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "auditor"
+      "closurePath": "L3"
     },
     "TASK-239": {
       "id": "TASK-239",
@@ -920,7 +920,7 @@
       "forwardAction": "",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "auditor"
+      "closurePath": "L3"
     },
     "TASK-240": {
       "id": "TASK-240",
@@ -937,7 +937,7 @@
       "forwardAction": "",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "auditor"
+      "closurePath": "L3"
     },
     "TASK-241": {
       "id": "TASK-241",
@@ -954,7 +954,7 @@
       "forwardAction": "",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "auditor"
+      "closurePath": "L3"
     },
     "TASK-243": {
       "id": "TASK-243",
@@ -971,7 +971,7 @@
       "forwardAction": "The `process.chdir` isolation pattern should be resolved by exposing a `cwd` parameter on `GitCli` constructor — deferred to a future task.",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "auditor"
+      "closurePath": "unknown"
     },
     "TASK-244": {
       "id": "TASK-244",
@@ -988,7 +988,7 @@
       "forwardAction": "none",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "auditor"
+      "closurePath": "unknown"
     },
     "TASK-245": {
       "id": "TASK-245",
@@ -1039,7 +1039,7 @@
       "forwardAction": "Add a note to ADR-020 §6 clarifying that ruling names were simplified in the AGFM; the AGFM is authoritative for implementation. File as IDEA for a follow-up reconciliation pass if the divergence causes confusion during future audits.",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "auditor"
+      "closurePath": "unknown"
     },
     "TASK-248": {
       "id": "TASK-248",
@@ -1056,7 +1056,7 @@
       "forwardAction": "No forward action required. arch review is clean after these corrections.",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "auditor"
+      "closurePath": "L3"
     },
     "TASK-249": {
       "id": "TASK-249",
@@ -1131,8 +1131,8 @@
       "size": "M",
       "class": "2-code-generation",
       "closedAt": "2026-05-19T09:02:39.823Z",
-      "lockedCommit": "c7bcc04",
-      "actor": "unknown",
+      "lockedCommit": null,
+      "actor": null,
       "severity": "H0",
       "category": "[SpecDrift]",
       "decision": "Schema compatibility resolved by reusing `source: \"system\"` rather than introducing a new `source: \"auto\"` variant. Automatic provenance is conveyed via `confidence: 0.5` and the `task_completed` event rather than a new source discriminator.",
@@ -1216,8 +1216,8 @@
       "size": "XS",
       "class": "7-operations",
       "closedAt": "2026-05-19T11:40:07.047Z",
-      "lockedCommit": "20282e9a",
-      "actor": "unknown",
+      "lockedCommit": null,
+      "actor": null,
       "severity": "H3b",
       "category": "RecurringProcess",
       "decision": "Root cause is governance metadata accumulation between `arch govern` ticks. Files `.arch/*.jsonl`, `docs/EVENTS.md`, `docs/METRICS.md`, `docs/INBOX.md` are written by govern but not committed atomically — they drift until the next explicit commit. The 5000-byte threshold in `review-system.ts` fires on unstaged accumulation, not on any single large commit. Fixed by committing accumulated metadata. Owner: recurring process — govern output should be committed in the same tick.",
@@ -1243,15 +1243,15 @@
       "forwardAction": "None required. Implementation complete.",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "auditor"
+      "closurePath": "unknown"
     },
     "TASK-267": {
       "id": "TASK-267",
       "size": "S",
       "class": "7-operations",
       "closedAt": "2026-05-19T12:48:54.872Z",
-      "lockedCommit": "789f4d8e",
-      "actor": "unknown",
+      "lockedCommit": null,
+      "actor": null,
       "severity": "H2",
       "category": "[SpecDrift]",
       "decision": "AC1 was already satisfied before work began — `ArchiveMetaIntegrity` drift check already passes against all archive files. No empty size fields exist. The original incident (empty size fields in archive) was fixed by a prior task. The real gap was AC2: no pre-archive guard in `archiveFile()` to block a malformed meta line from being archived in the first place. `validateMetaLineFormat()` added to `govern-system.ts` validates Priority (P0-P3), Size (XS/S/M/L/XL), and Status presence before any archive move.",
@@ -1267,8 +1267,8 @@
       "size": "XS",
       "class": "6-writing",
       "closedAt": "2026-05-19T12:49:43.829Z",
-      "lockedCommit": "bb1cd4d4",
-      "actor": "unknown",
+      "lockedCommit": null,
+      "actor": null,
       "severity": "H2",
       "category": "[SpecDrift]",
       "decision": "Alignment was already complete before this task was picked up. TASK-231 (\"Fix stale Phase 3.5 reference in ADR-013\") resolved the exact discrepancy this task describes. Both ADR-013 and THINK.md reference \"Phase 2.5 (Semantic Drift Analysis)\". No code or docs written this session — only verification.",
@@ -1284,8 +1284,8 @@
       "size": "M",
       "class": "2-code-generation",
       "closedAt": "2026-05-19T12:02:23.796Z",
-      "lockedCommit": "ee9dee2b",
-      "actor": "unknown",
+      "lockedCommit": null,
+      "actor": null,
       "severity": "H0",
       "category": "[SpecDrift]",
       "decision": "Implementation was fully complete before this task was picked up — `arch ask` existed in `ask-command.ts` + `ask-corpus.ts` from the TASK-942 era. The task was promoted and picked up as if it were unimplemented. The actual work this session was verification: confirmed corpus matches, related task/ADR refs, and no-API-key operation. No code written.",
@@ -1301,8 +1301,8 @@
       "size": "M",
       "class": "2-code-generation",
       "closedAt": "2026-05-19T13:29:06Z",
-      "lockedCommit": "644e1330",
-      "actor": "unknown",
+      "lockedCommit": null,
+      "actor": null,
       "severity": "H2",
       "category": "[SpecDrift]",
       "decision": "The `SentinelCoverage` check uses task size (M/L/XL) as the cost proxy because that is the only durable, structured field available at review time without requiring DO.md protocol adherence to be tracked separately. The check is advisory (WARN not FAIL) — making it a gate would block legitimate IN_PROGRESS tasks that started before this feature was deployed, since they have no retroactive sentinel entries.",
@@ -1311,7 +1311,7 @@
       "forwardAction": "See IDEA-corpus-informed-reprioritization for patterns on advisory-layer design. After 60 days, audit whether Sentinel entries show a non-trivial HALT rate. If HALT rate is > 10%, the check is surfacing real preflight decisions. If it is < 1%, the log is ceremonial and the check's threshold should be tightened to L/XL only.",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "auditor"
+      "closurePath": "unknown"
     },
     "TASK-889": {
       "id": "TASK-889",
@@ -1328,7 +1328,7 @@
       "forwardAction": "Document AC predicate format in TASK-FORMAT.md so implementers do not need to read source to discover it. The Depends field ambiguity is a separate bug in the promote scaffold worth an IDEA.",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "auditor"
+      "closurePath": "L3"
     },
     "TASK-890": {
       "id": "TASK-890",
@@ -1345,7 +1345,7 @@
       "forwardAction": "If ADR constraint injection is needed, extend AdrEntry with a constraint field via ADR and rebuild the context index. Track as an IDEA if this matters.",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "auditor"
+      "closurePath": "unknown"
     },
     "TASK-891": {
       "id": "TASK-891",
@@ -1362,7 +1362,7 @@
       "forwardAction": "If LLM output quality issues recur, consider a more constrained output format (JSON) instead of line-by-line parsing. Track as an IDEA if the prose parser proves fragile.",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "auditor"
+      "closurePath": "unknown"
     },
     "TASK-892": {
       "id": "TASK-892",
@@ -1379,7 +1379,7 @@
       "forwardAction": "None.",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "auditor"
+      "closurePath": "L3"
     },
     "TASK-893": {
       "id": "TASK-893",
@@ -1394,9 +1394,9 @@
       "constraint": "74 archived IDEAs backfilled with inferred decisions — inference was mechanical (DEFERRED/REJECTED by status field), not human-authored. 44 remain unfixed (pre-existing corpus debt).",
       "cost": "ArchivedIdeaDecisions WARN will persist until the 44 remaining pre-corpus IDEAs are backfilled. arch review is OK overall but the WARN is visible noise on every run.",
       "forwardAction": "None.",
-      "acCount": 6,
-      "acMachineVerifiable": 6,
-      "closurePath": "auditor"
+      "acCount": 0,
+      "acMachineVerifiable": 0,
+      "closurePath": "unknown"
     },
     "TASK-894": {
       "id": "TASK-894",
@@ -1411,8 +1411,8 @@
       "constraint": "Backfilled approvals use Closed-at date as approval date — mechanically inferred, not human-authored. Acceptable for pre-corpus tasks; new tasks require explicit Auditor write.",
       "cost": "185 archive files modified in one batch — large commit, not atomic. Necessary to clear WARN on first run of the check.",
       "forwardAction": "None.",
-      "acCount": 4,
-      "acMachineVerifiable": 4,
+      "acCount": 0,
+      "acMachineVerifiable": 0,
       "closurePath": "L3"
     },
     "TASK-895": {
@@ -1428,9 +1428,9 @@
       "constraint": "Check is named PriorityDrift, not PriorityFocusDrift as specified. Functionally identical — renaming would be noise without value.",
       "cost": "None — no implementation needed.",
       "forwardAction": "None.",
-      "acCount": 4,
-      "acMachineVerifiable": 4,
-      "closurePath": "auditor"
+      "acCount": 0,
+      "acMachineVerifiable": 0,
+      "closurePath": "L3"
     },
     "TASK-896": {
       "id": "TASK-896",
@@ -1445,9 +1445,9 @@
       "constraint": "Escalation IDs in current .arch/escalations.jsonl use full UUID format, not ESC-<8-char> prefix as specified. Functionally equivalent — no change warranted.",
       "cost": "None — no implementation needed.",
       "forwardAction": "None.",
-      "acCount": 6,
-      "acMachineVerifiable": 6,
-      "closurePath": "auditor"
+      "acCount": 0,
+      "acMachineVerifiable": 0,
+      "closurePath": "L3"
     },
     "TASK-897": {
       "id": "TASK-897",
@@ -1462,8 +1462,8 @@
       "constraint": "ARCH-CORE.md is a doc artifact — no CLI enforcement of Core mode boundary. Relies on human routing the right doc to the right model.",
       "cost": "ARCH-CORE.md is not enforced by the CLI — no runtime boundary between Core and Governance mode. Relies entirely on human routing the correct doc.",
       "forwardAction": "None.",
-      "acCount": 5,
-      "acMachineVerifiable": 5,
+      "acCount": 0,
+      "acMachineVerifiable": 0,
       "closurePath": "auditor"
     },
     "TASK-898": {
@@ -1479,8 +1479,8 @@
       "constraint": "arch report CRITICAL INTEGRITY BREACH persists — root cause is EventLogger witnessing system, outside this task scope.",
       "cost": "The report INVALID continues to mask Hansei breakdown output. Forward action: investigate MetricsEngine INVALID root cause as a separate task.",
       "forwardAction": "Create IDEA for MetricsEngine INVALID investigation.",
-      "acCount": 5,
-      "acMachineVerifiable": 4,
+      "acCount": 0,
+      "acMachineVerifiable": 0,
       "closurePath": "auditor"
     },
     "TASK-899": {
@@ -1496,8 +1496,8 @@
       "constraint": "The implementation predated this task — same pattern as previous resurrections.",
       "cost": "No cost — all fixes were corpus maintenance, no code change required.",
       "forwardAction": "None required.",
-      "acCount": 4,
-      "acMachineVerifiable": 3,
+      "acCount": 0,
+      "acMachineVerifiable": 0,
       "closurePath": "auditor"
     },
     "TASK-900": {
@@ -1513,8 +1513,8 @@
       "constraint": "Sprint checkpoint detection (SPRINT_CHECKPOINT in INBOX) was removed from handleResume — it depended on INBOX.md. Sprint flow now relies on escalation store for all resume signals.",
       "cost": "Existing loops that used APPROVE/REDIRECT inline in INBOX.md will not be recognized. Operators must use arch approve going forward.",
       "forwardAction": "Document arch approve in AGENTS.md and ARCH-CORE.md.",
-      "acCount": 6,
-      "acMachineVerifiable": 5,
+      "acCount": 0,
+      "acMachineVerifiable": 0,
       "closurePath": "auditor"
     },
     "TASK-901": {
@@ -1530,8 +1530,8 @@
       "constraint": "The placeholder regex only catches bare \"None.\" — \"None required.\" passes. Intentional: Forward Action often legitimately needs no follow-up.",
       "cost": "No architectural debt introduced. One test fixture required updating to use a non-placeholder Forward Action string.",
       "forwardAction": "console.log replaced with stdout.write wrapper — use-case layer boundary compliance restored.",
-      "acCount": 4,
-      "acMachineVerifiable": 3,
+      "acCount": 0,
+      "acMachineVerifiable": 0,
       "closurePath": "auditor"
     },
     "TASK-902": {
@@ -1547,8 +1547,8 @@
       "constraint": "Dynamic import of DeterministicACVerifier in NextCommand adds minor startup latency on --verify path only.",
       "cost": "None — no architectural debt introduced.",
       "forwardAction": "None required.",
-      "acCount": 7,
-      "acMachineVerifiable": 5,
+      "acCount": 0,
+      "acMachineVerifiable": 0,
       "closurePath": "auditor"
     },
     "TASK-903": {
@@ -1564,8 +1564,8 @@
       "constraint": "MockFileSystem.readDirectory returned [] for all tests, breaking initial unit tests. Fixed by implementing proper directory listing in the mock.",
       "cost": "No architectural debt introduced.",
       "forwardAction": "None required.",
-      "acCount": 4,
-      "acMachineVerifiable": 1,
+      "acCount": 0,
+      "acMachineVerifiable": 0,
       "closurePath": "auditor"
     },
     "TASK-904": {
@@ -1581,8 +1581,8 @@
       "constraint": "Gate 3 (build-clean) is not actively run during arch review to avoid expensive npm run build invocation. Treated as implicitly passing at review time.",
       "cost": "getDiff with extra args may fail on repos with no prior commit — handled with try/catch, falls back to treating all protected changes as modifications.",
       "forwardAction": "None required.",
-      "acCount": 5,
-      "acMachineVerifiable": 4,
+      "acCount": 0,
+      "acMachineVerifiable": 0,
       "closurePath": "auditor"
     },
     "TASK-905": {
@@ -1598,8 +1598,8 @@
       "constraint": "getCommitCountBetween counts commits since lockedCommit was set — this includes all commits from task start to close, not just agent turns. In multi-commit tasks the count reflects total commits, which is a reasonable proxy.",
       "cost": "Minor: git rev-list call on every arch task done. Negligible overhead.",
       "forwardAction": "None required.",
-      "acCount": 5,
-      "acMachineVerifiable": 2,
+      "acCount": 0,
+      "acMachineVerifiable": 0,
       "closurePath": "auditor"
     },
     "TASK-906": {
@@ -1615,8 +1615,8 @@
       "constraint": "Resurrection is display-only — the mechanic for moving IDEAs back is documented in the UI but not automated. Human performs the move manually.",
       "cost": "None — no architectural debt introduced.",
       "forwardAction": "None required.",
-      "acCount": 5,
-      "acMachineVerifiable": 4,
+      "acCount": 0,
+      "acMachineVerifiable": 0,
       "closurePath": "auditor"
     },
     "TASK-907": {
@@ -1632,8 +1632,8 @@
       "constraint": "Class is validated as non-empty only — no enum check. Class values are open-ended per routing strategy.",
       "cost": "O(n) scan over docs/tasks/ on every arch review. Acceptable at current backlog size.",
       "forwardAction": "None required.",
-      "acCount": 5,
-      "acMachineVerifiable": 4,
+      "acCount": 0,
+      "acMachineVerifiable": 0,
       "closurePath": "auditor"
     },
     "TASK-908": {
@@ -1649,8 +1649,8 @@
       "constraint": "Scoped review runs DeterministicACVerifier which executes cmd: predicates — can be slow for test-runner ACs.",
       "cost": "No architectural debt introduced.",
       "forwardAction": "None required.",
-      "acCount": 6,
-      "acMachineVerifiable": 2,
+      "acCount": 0,
+      "acMachineVerifiable": 0,
       "closurePath": "auditor"
     },
     "TASK-909": {
@@ -1666,8 +1666,8 @@
       "constraint": "Pattern synthesis is documented in THINK.md but not yet automated in the CLI — THINK is executed by an LLM reading the protocol, not by arch reflect directly. The synthesis will run on the next arch reflect session.",
       "cost": "None — no architectural debt introduced.",
       "forwardAction": "None required.",
-      "acCount": 5,
-      "acMachineVerifiable": 4,
+      "acCount": 0,
+      "acMachineVerifiable": 0,
       "closurePath": "auditor"
     },
     "TASK-910": {
@@ -1683,8 +1683,8 @@
       "constraint": "Tier 1 parser uses simple regex on git diff output — catches most common patterns but not all TypeScript type violations. False negatives possible for complex type shenanigans.",
       "cost": "One additional git diff call per arch reflect hansei invocation. Negligible overhead.",
       "forwardAction": "None required — Tier 1 grows more useful as lockedCommit adoption increases in new tasks.",
-      "acCount": 5,
-      "acMachineVerifiable": 4,
+      "acCount": 0,
+      "acMachineVerifiable": 0,
       "closurePath": "auditor"
     },
     "TASK-911": {
@@ -1700,8 +1700,8 @@
       "constraint": "resolveActor reads config via taskRepository.fileSystem — this is fragile. A cleaner injection path would pass FileSystem directly to MarkTaskInProgress. Acceptable for now.",
       "cost": "None — no architectural debt beyond the constraint above.",
       "forwardAction": "None required.",
-      "acCount": 7,
-      "acMachineVerifiable": 4,
+      "acCount": 0,
+      "acMachineVerifiable": 0,
       "closurePath": "auditor"
     },
     "TASK-912": {
@@ -1717,8 +1717,8 @@
       "constraint": "arch deps scans only active tasks (docs/tasks/) — archived tasks not traversed. Leverage count excludes archived dependents.",
       "cost": "No architectural debt introduced — read-only command, no state mutation.",
       "forwardAction": "None required.",
-      "acCount": 6,
-      "acMachineVerifiable": 5,
+      "acCount": 0,
+      "acMachineVerifiable": 0,
       "closurePath": "auditor"
     },
     "TASK-913": {
@@ -1734,8 +1734,8 @@
       "constraint": "arch task split does not automatically set Depends: chains between sub-tasks — ordering is the human's responsibility post-split.",
       "cost": "Template literal with backticks inside caused a build failure — required string concatenation workaround. Minor friction.",
       "forwardAction": "None required.",
-      "acCount": 6,
-      "acMachineVerifiable": 2,
+      "acCount": 0,
+      "acMachineVerifiable": 0,
       "closurePath": "auditor"
     },
     "TASK-914": {
@@ -1751,8 +1751,8 @@
       "constraint": "Template resolution uses class prefix only (e.g. \"2\" for \"2-code-generation\"). Full class name match checked first.",
       "cost": "None — bugs were in new code, not existing paths.",
       "forwardAction": "None required.",
-      "acCount": 6,
-      "acMachineVerifiable": 3,
+      "acCount": 0,
+      "acMachineVerifiable": 0,
       "closurePath": "auditor"
     },
     "TASK-915": {
@@ -1768,8 +1768,8 @@
       "constraint": "Same-category search scans first 50 archived tasks only — sufficient for current corpus, may miss older matches as archive grows.",
       "cost": "No architectural debt introduced.",
       "forwardAction": "None required.",
-      "acCount": 5,
-      "acMachineVerifiable": 3,
+      "acCount": 0,
+      "acMachineVerifiable": 0,
       "closurePath": "auditor"
     },
     "TASK-916": {
@@ -1785,8 +1785,8 @@
       "constraint": "actorBreakdown requires >=5 actor-tagged tasks — returns empty until corpus grows.",
       "cost": "No architectural debt introduced.",
       "forwardAction": "None required.",
-      "acCount": 6,
-      "acMachineVerifiable": 4,
+      "acCount": 0,
+      "acMachineVerifiable": 0,
       "closurePath": "auditor"
     },
     "TASK-917": {
@@ -1802,8 +1802,8 @@
       "constraint": "Integrity is LOW/100% entropy because the corpus was built before strict witnessing. This is historically correct and will improve as new tasks are closed with the EventLogger operational.",
       "cost": "The 10s timestamp tolerance is more permissive than the original 2s. Acceptable: forgery would require a >10s discrepancy between Closed-at and EventLogger write, which is implausible under normal operation.",
       "forwardAction": "None required.",
-      "acCount": 4,
-      "acMachineVerifiable": 2,
+      "acCount": 0,
+      "acMachineVerifiable": 0,
       "closurePath": "L3"
     },
     "TASK-918": {
@@ -1819,8 +1819,8 @@
       "constraint": "Package name \"arch-cli\" — verify availability on npm before publish (TASK-920).",
       "cost": "No architectural debt introduced — packaging only.",
       "forwardAction": "None required.",
-      "acCount": 6,
-      "acMachineVerifiable": 5,
+      "acCount": 0,
+      "acMachineVerifiable": 0,
       "closurePath": "L3"
     },
     "TASK-919": {
@@ -1828,8 +1828,8 @@
       "size": "M",
       "class": "2-code-generation",
       "closedAt": "2026-05-19T10:15:00.000Z",
-      "lockedCommit": "c88385b",
-      "actor": "unknown",
+      "lockedCommit": null,
+      "actor": null,
       "severity": "H0",
       "category": "[SpecDrift]",
       "decision": "The implementation was largely pre-existing — stack detection, seed task, idempotency, and arch.config.json routing were all already in place. The primary gap was the AGENTS.md symlink: the command was writing AGENTS.md as a file rather than placing content in docs/AGENTS.md and symlinking from root. Fixed by swapping the write target and adding a third symlink creation call. AC format was also rewritten from DeterministicACVerifier sub-bullet style to ValidateTaskAcs inline `→` style.",
@@ -1853,8 +1853,8 @@
       "constraint": "Requires npm credentials and access — human-executed only.",
       "cost": "Standard npm publish cost, no unexpected expense.",
       "forwardAction": "None.",
-      "acCount": 5,
-      "acMachineVerifiable": 1,
+      "acCount": 0,
+      "acMachineVerifiable": 0,
       "closurePath": "L3"
     },
     "TASK-921": {
@@ -1870,8 +1870,8 @@
       "constraint": "LLM-generated ACs get suggestive predicates (cmd/file/prose) but not actual command strings — the user must fill in the real command.",
       "cost": "None — no architectural debt introduced.",
       "forwardAction": "None required.",
-      "acCount": 5,
-      "acMachineVerifiable": 3,
+      "acCount": 0,
+      "acMachineVerifiable": 0,
       "closurePath": "L3"
     },
     "TASK-922": {
@@ -1887,8 +1887,8 @@
       "constraint": "Auto-fix only handles CLI and context path violations. Priority, Size, Class require human edit since they are intent-dependent.",
       "cost": "No architectural debt introduced.",
       "forwardAction": "None required.",
-      "acCount": 6,
-      "acMachineVerifiable": 3,
+      "acCount": 0,
+      "acMachineVerifiable": 0,
       "closurePath": "L3"
     },
     "TASK-926": {
@@ -1906,7 +1906,7 @@
       "forwardAction": "IDEA-archive-parser-skip-non-done is now implemented as part of this task. Remaining risk: tasks with READY status persist in docs/archive/ as legacy anomalies; they should be corrected to DONE or explicitly excised in a follow-up.",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "auditor"
+      "closurePath": "L3"
     },
     "TASK-927": {
       "id": "TASK-927",
@@ -1940,7 +1940,7 @@
       "forwardAction": "None specific. If meta format evolves again, all field-position reads in drift-checker.ts should be audited.",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "auditor"
+      "closurePath": "L3"
     },
     "TASK-929": {
       "id": "TASK-929",
@@ -1957,7 +1957,7 @@
       "forwardAction": "If actor-level routing is needed, add a `defaultActor` field to `arch.config.json` and document the string-vs-array distinction in the config schema.",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "auditor"
+      "closurePath": "L3"
     },
     "TASK-930": {
       "id": "TASK-930",
@@ -1981,7 +1981,7 @@
       "size": "S",
       "class": "2-code-generation",
       "closedAt": null,
-      "lockedCommit": "`",
+      "lockedCommit": null,
       "actor": null,
       "severity": "H1",
       "category": "[SpecDrift]",
@@ -2023,8 +2023,8 @@
       "constraint": "Remaining TaskTemplateCompliance warnings (TASK-259 through TASK-284) are pre-existing — beyond this task's scope.",
       "cost": "",
       "forwardAction": "TASK-927 can close once TASK-930, 931, 932 are done. TaskTemplateCompliance residual backlog tracked by IDEA-tiered-obligations (once promoted).",
-      "acCount": 4,
-      "acMachineVerifiable": 4,
+      "acCount": 0,
+      "acMachineVerifiable": 0,
       "closurePath": "L3"
     },
     "TASK-934": {
@@ -2040,8 +2040,8 @@
       "constraint": "ApprovalPresent still has 3 M-task violations (TASK-255, 257, 927). These require explicit human Approval sections added to archived tasks — separate from this task's scope.",
       "cost": "One pre-existing test (`validateHansei - missing Hansei for S task in REVIEW`) encoded the old rule and was updated to reflect the decided tier model.",
       "forwardAction": "Next step: ApprovalPresent cleanup for TASK-255, 257, 927 (add ## Approval sections). Then Metrics Narrowing.",
-      "acCount": 3,
-      "acMachineVerifiable": 3,
+      "acCount": 0,
+      "acMachineVerifiable": 0,
       "closurePath": "L3"
     },
     "TASK-937": {
@@ -2083,8 +2083,8 @@
       "size": "M",
       "class": "2-code-generation",
       "closedAt": "2026-05-19T13:29:06Z",
-      "lockedCommit": "9a8aa9b9",
-      "actor": "unknown",
+      "lockedCommit": null,
+      "actor": null,
       "severity": "H2",
       "category": "[MissingDecisionRecord]",
       "decision": "The summary field authorship constraint was resolved by a prompt-or-flag design: `arch task done --redirect` opens an interactive prompt if `--correction` is not provided; `arch govern approve` accepts `--correction \"<category>: <summary>\"` as an inline flag. The category field is resolved through an alias table (sd=[SpecDrift], etc.) to reduce friction. File refs and ADR refs are extracted deterministically from the task's Context block — no inference.",
@@ -2093,15 +2093,15 @@
       "forwardAction": "After 20+ correction signals accumulate, evaluate clustering quality via THINK. See IDEA-corpus-informed-reprioritization for the aggregation model. If categories are too coarse, refine the vocabulary or add sub-categories.",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "auditor"
+      "closurePath": "unknown"
     },
     "TASK-940": {
       "id": "TASK-940",
       "size": "M",
       "class": "2-code-generation",
       "closedAt": "2026-05-19T13:29:06Z",
-      "lockedCommit": "17e3a68d",
-      "actor": "unknown",
+      "lockedCommit": null,
+      "actor": null,
       "severity": "H2",
       "category": "[SpecDrift]",
       "decision": "The negation vocabulary (13 patterns seeded from actual ADR constraint language) and the stop-word list (40 common words plus ARCH-specific noise terms) were derived empirically from the repo's ADRs rather than assumed. The ≥3-term threshold is intentionally conservative — it will miss narrow conflicts but avoids false-positive noise that trains operators to dismiss the advisory. The advisory-only design is the load-bearing invariant: this is a signal layer, not a gate.",
@@ -2110,7 +2110,7 @@
       "forwardAction": "After 30 days of operation, check dismissed-annotation count vs total advisory emissions. If dismissal rate exceeds 30%, raise the term threshold from 3 to 4 or narrow the negation vocabulary. See IDEA-corpus-informed-reprioritization for related advisory-layer design patterns.",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "auditor"
+      "closurePath": "unknown"
     },
     "TASK-942": {
       "id": "TASK-942",
@@ -2142,8 +2142,8 @@
       "constraint": "Neither bug was caught by the existing test suite — both were reachable via normal CLI paths. The confidence threshold change required updating the guard condition and three test assertions.",
       "cost": "One extra cycle to identify the Census staleness root cause (required ADR-022). Test assertion updates for the feedback section collapse added minor rework.",
       "forwardAction": "None required.",
-      "acCount": 7,
-      "acMachineVerifiable": 7,
+      "acCount": 0,
+      "acMachineVerifiable": 0,
       "closurePath": "auditor"
     },
     "TASK-948": {
@@ -2152,15 +2152,15 @@
       "class": "7-operations",
       "closedAt": "2026-05-19T08:13:08.165Z",
       "lockedCommit": null,
-      "actor": "unknown",
+      "actor": null,
       "severity": "H1",
       "category": "[DeferredTest]",
       "decision": "Four bugs introduced in the serve command were not caught before review: query strings caused ENOENT, async Promise.all rejection was unhandled (crash risk on Node ≥ 15), port conflict produced a raw stack trace, and port parsing accepted partially-numeric args. None were caught because serve-command had only a smoke test (instantiation check). Review caught all four.",
       "constraint": "HTTP handler logic is inline in execute(), making it untestable without a running server. Extracting createHandler() and parsePort() as methods was the prerequisite for meaningful tests.",
       "cost": "Additional review cycle required. Six tests added covering the critical and important paths.",
       "forwardAction": "None required.",
-      "acCount": 1,
-      "acMachineVerifiable": 1,
+      "acCount": 0,
+      "acMachineVerifiable": 0,
       "closurePath": "L3"
     },
     "TASK-949": {
@@ -2176,40 +2176,6 @@
       "constraint": "Severity calibration only runs on tasks with lockedCommit (1 of 116 audited). The majority of the corpus predates TASK-905. Calibration coverage will grow as new tasks are closed.",
       "cost": "No architectural debt introduced.",
       "forwardAction": "None required — H1 debt is contained, calibration coverage will grow organically as new tasks close with lockedCommit.",
-      "acCount": 4,
-      "acMachineVerifiable": 1,
-      "closurePath": "auditor"
-    },
-    "TASK-950": {
-      "id": "TASK-950",
-      "size": "S",
-      "class": "2-code-generation",
-      "closedAt": "2026-05-19T09:45:48.733Z",
-      "lockedCommit": null,
-      "actor": "unknown",
-      "severity": "",
-      "category": "",
-      "decision": "",
-      "constraint": "",
-      "cost": "",
-      "forwardAction": "",
-      "acCount": 0,
-      "acMachineVerifiable": 0,
-      "closurePath": "L3"
-    },
-    "TASK-954": {
-      "id": "TASK-954",
-      "size": "M",
-      "class": "2-code-generation",
-      "closedAt": "2026-05-20T16:16:00Z",
-      "lockedCommit": "e29ca26f",
-      "actor": "unknown",
-      "severity": "H0",
-      "category": "[AuditGap]",
-      "decision": "Task promoted with EXTEND decision overridden by human. Three gaps (underspecified ACs, wrong size, missing recurs_in) were documented and resolved inline in this task file rather than in a prerequisite task. The binding definitions and prerequisite AC are embedded in Context and ACs.",
-      "constraint": "Human chose to consolidate prerequisite work into a single M task rather than split into XS prerequisite + M implementation task.",
-      "cost": "If the recurs_in prerequisite AC is missed during implementation the causal signal emission will fail schema validation at runtime — forward-caught by the AC predicate.",
-      "forwardAction": "No IDEA required — gaps are fully resolved in this task's ACs.",
       "acCount": 0,
       "acMachineVerifiable": 0,
       "closurePath": "auditor"
@@ -2219,8 +2185,8 @@
       "size": "M",
       "class": "2-code-generation",
       "closedAt": "2026-05-19T13:29:06Z",
-      "lockedCommit": "81439332",
-      "actor": "unknown",
+      "lockedCommit": null,
+      "actor": null,
       "severity": "H2",
       "category": "[SpecDrift]",
       "decision": "The implementation resolves Gaps 1-3 from the task spec: ECP schema is in `EcpRecord` interface (reprioritize-corpus.ts), output format matches the IDEA spec table, and N=10 for GC is deferred (GC not implemented this session — ECP records are created but never transitioned to DISCARDED; the N threshold is out of scope for v0). The priority scoring uses a signed delta system where negative = promote, positive = demote. The I4 demotion bound is implemented as `maxDemotion = DEMOTION_BOUND` (1) except under strong evidence (recurrence ≥ 2× threshold AND causal ancestry present). I7 recency guard uses 30 days from `createdAt` field.",
@@ -2229,15 +2195,15 @@
       "forwardAction": "When TASK-954 (temporal-index label store) lands, swap the archive keyword scan in loadArchiveTasks() with temporal-index queries. The interface is compatible — the class_field and category matching logic stays the same. See IDEA-corpus-informed-reprioritization §Design Decision 3 for the swap specification.",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "auditor"
+      "closurePath": "unknown"
     },
     "TASK-956": {
       "id": "TASK-956",
       "size": "M",
       "class": "2-code-generation",
       "closedAt": "2026-05-20T12:46:07Z",
-      "lockedCommit": "9414abd1",
-      "actor": "unknown",
+      "lockedCommit": null,
+      "actor": null,
       "severity": "H0",
       "category": "[SpecDrift]",
       "decision": "Implementation proceeded cleanly against spec. No blockers, scope additions, or invariant violations encountered. ADR-025 was written before modifying the protected path arch.config.json, satisfying the protection constraint.",
@@ -2261,25 +2227,25 @@
       "constraint": "None — no debt introduced.",
       "cost": "No additional cost incurred beyond planned implementation scope.",
       "forwardAction": "None required — implementation complete and verified.",
-      "acCount": 3,
-      "acMachineVerifiable": 3,
-      "closurePath": "auditor"
+      "acCount": 0,
+      "acMachineVerifiable": 0,
+      "closurePath": "unknown"
     },
     "TASK-961": {
       "id": "TASK-961",
       "size": "XS",
       "class": "2-code-generation",
       "closedAt": "2026-05-20T13:10:00Z",
-      "lockedCommit": "28f6941d",
-      "actor": "unknown",
+      "lockedCommit": null,
+      "actor": null,
       "severity": "H0",
       "category": "[ReviewBlindspot]",
       "decision": "Duplicate of TASK-926. The status filter (lines 51-53 of archive-parser.ts) was added by TASK-926 on 2026-05-18, one day before this task was filed. Discovery made during TDD pre-flight: archive-parser.ts already contained `if (statusField !== 'DONE') continue;`. No non-DONE files exist in docs/archive/. No code change required.",
       "constraint": "None — task was obsolete at creation time.",
       "cost": "One investigation cycle to confirm the prior fix was complete and correct.",
       "forwardAction": "None required.",
-      "acCount": 3,
-      "acMachineVerifiable": 3,
+      "acCount": 0,
+      "acMachineVerifiable": 0,
       "closurePath": "L3"
     },
     "TASK-962": {
@@ -2287,8 +2253,8 @@
       "size": "XS",
       "class": "2-code-generation",
       "closedAt": "2026-05-20T14:16:19.694Z",
-      "lockedCommit": "b48d0bac",
-      "actor": "unknown",
+      "lockedCommit": null,
+      "actor": null,
       "severity": "H0",
       "category": "[ReviewBlindspot]",
       "decision": "Implementation was a one-function extraction mirroring the existing ValidateTaskAcs.extractACSections pattern. Initial TDD attempt used stdout capture to detect the bug signal, but fmt.fail writes to console.log (stdout) which interfered with the test runner's own output stream. Switched to testing the extracted helper function directly — cleaner isolation with no side effects.",
@@ -2304,8 +2270,8 @@
       "size": "S",
       "class": "2-code-generation",
       "closedAt": "2026-05-20T15:10:00Z",
-      "lockedCommit": "240e42fd",
-      "actor": "unknown",
+      "lockedCommit": null,
+      "actor": null,
       "severity": "H0",
       "category": "[ReviewBlindspot]",
       "decision": "Gate 2 had two divergent branches: one for IDEA archive files (requiring REJECT in Decision section) and one for ADR files (any mention). The asymmetry was inconsistent with the stated invariant — Class I gates verify structural presence, not content. Collapsed to a single check: does any decision record file mention the artifact? TDD isolated this as a one-condition removal.",
@@ -2321,7 +2287,7 @@
       "size": "M",
       "class": "2-code-generation",
       "closedAt": "2026-05-20T16:29:00Z",
-      "lockedCommit": "035724f3",
+      "lockedCommit": null,
       "actor": null,
       "severity": "H1",
       "category": "[SpecDrift]",
@@ -2338,7 +2304,7 @@
       "size": "M",
       "class": "2-code-generation",
       "closedAt": "2026-05-20T16:55:00Z",
-      "lockedCommit": "a7f0dbf6",
+      "lockedCommit": null,
       "actor": null,
       "severity": "H1",
       "category": "[SpecDrift]",
@@ -2350,13 +2316,30 @@
       "acMachineVerifiable": 0,
       "closurePath": "auditor"
     },
+    "TASK-966": {
+      "id": "TASK-966",
+      "size": "M",
+      "class": "2-code-generation",
+      "closedAt": "2026-05-23T17:47:51.287Z",
+      "lockedCommit": null,
+      "actor": null,
+      "severity": "H0",
+      "category": "[SpecDrift]",
+      "decision": "Promotion proposal generation implemented as advisory THINK mode output — model, generator service, and analyze-command wiring completed. ACs updated from skeleton placeholders to domain-specific predicates.",
+      "constraint": "New domain model file falls under protected paths — no existing ADR covers promotion proposals; speculative alignment with ADR-017 observability patterns.",
+      "cost": "No cost incurred — all models local, no LLM calls for proposal generation.",
+      "forwardAction": "Wire into arch promote command to consume proposals as a follow-up integration task.",
+      "acCount": 0,
+      "acMachineVerifiable": 0,
+      "closurePath": "unknown"
+    },
     "TASK-968": {
       "id": "TASK-968",
       "size": "S",
       "class": "6-writing",
       "closedAt": "2026-05-20T15:45:00Z",
-      "lockedCommit": "c9df753c",
-      "actor": "unknown",
+      "lockedCommit": null,
+      "actor": null,
       "severity": "H0",
       "category": "[ReviewBlindspot]",
       "decision": "This was a writing task requiring a survey of the full CLI source tree. Used an Explore subagent to gather raw facts (imports, line counts, comment densities) then synthesized findings into three structured sections. The agent's upward-dependency finding (4 domain/services importing from application/use-cases/) was confirmed via direct grep. The govern-system → CorpusAuditCommand coupling (use-case importing a command) was independently verified. All violation claims are grounded in actual file/line references.",
@@ -2372,8 +2355,8 @@
       "size": "S",
       "class": "2-code-generation",
       "closedAt": "2026-05-21T08:38:22.087Z",
-      "lockedCommit": "4427caeb",
-      "actor": "unknown",
+      "lockedCommit": null,
+      "actor": null,
       "severity": "H0",
       "category": "[SpecDrift]",
       "decision": "Redefined as a \"Materialized Reporting Layer\" to prevent documentary feedback loops and protect epistemic integrity.",
@@ -2397,8 +2380,8 @@
       "constraint": "THINK currently produces narrative text with no queryable recommendation schema; building calibration infrastructure without an upstream recommendation feed would produce an empty data store.",
       "cost": "No additional cost beyond planned scope — deferral was scoped out explicitly in the implementation plan before implementation began, with rationale recorded.",
       "forwardAction": "Create a dedicated task for confidence calibration after IDEA-think-generated-proposals produces structured recommendation records with outcome data.",
-      "acCount": 2,
-      "acMachineVerifiable": 1,
+      "acCount": 0,
+      "acMachineVerifiable": 0,
       "closurePath": "auditor"
     },
     "TASK-974": {
@@ -2414,26 +2397,9 @@
       "constraint": "Registry must be kept manually aligned with index.ts switch-case. Scope defaults to hybrid; explicit --staged required for delta mode. Global checks fire on FAIL regardless of scope in hybrid/full.",
       "cost": "Reduced pre-push hook noise. Global health now requires explicit --full run. False positives from historical state eliminated.",
       "forwardAction": "Address the Focus/IN_PROGRESS incoherence separately — it's a model-level decision not a review implementation issue.",
-      "acCount": 3,
-      "acMachineVerifiable": 2,
+      "acCount": 0,
+      "acMachineVerifiable": 0,
       "closurePath": "auditor"
-    },
-    "TASK-975": {
-      "id": "TASK-975",
-      "size": "XS",
-      "class": "2-code-generation",
-      "closedAt": "2026-05-22T12:15:41.528Z",
-      "lockedCommit": "297ee930",
-      "actor": "local",
-      "severity": "H0",
-      "category": "[SpecDrift]",
-      "decision": "Resolved the concealment that led to previous rejection. Refactored `GovernSystem` to use an `onProgress` callback instead of direct `console.log` and introduced `ArchConfig` interface to remove all `any` casts.",
-      "constraint": "Domain/Use-case layer must remain free of side-effecting CLI I/O.",
-      "cost": "Refactored 3 files to ensure protocol compliance.",
-      "forwardAction": "None.",
-      "acCount": 5,
-      "acMachineVerifiable": 5,
-      "closurePath": "L3"
     },
     "TASK-976": {
       "id": "TASK-976",
@@ -2441,15 +2407,15 @@
       "class": "2-code-generation",
       "closedAt": "2026-05-21T07:30:00.000Z",
       "lockedCommit": null,
-      "actor": "unknown",
+      "actor": null,
       "severity": "H1",
       "category": "[ReviewBlindspot]",
       "decision": "Task verified and closed. A test regression in `command-registry.test.ts` (missing `hansei` subcommand from TASK-964) was identified and fixed during review.",
       "constraint": "Test suite must be updated whenever public CLI surface changes.",
       "cost": "Review turn count increased due to test stabilization.",
       "forwardAction": "Add a pre-commit check to verify CLI subcommand parity with registry.",
-      "acCount": 3,
-      "acMachineVerifiable": 3,
+      "acCount": 0,
+      "acMachineVerifiable": 0,
       "closurePath": "L3"
     },
     "TASK-977": {
@@ -2465,8 +2431,8 @@
       "constraint": "Trajectory detection required significant temporal sorting which was initially overlooked in the PatternEngine.",
       "cost": "Added 2 implementation turns to refactor the model and update the rendering logic for explainability.",
       "forwardAction": "IDEA-deep-architectural-inference for post-regex pattern detection.",
-      "acCount": 1,
-      "acMachineVerifiable": 1,
+      "acCount": 0,
+      "acMachineVerifiable": 0,
       "closurePath": "auditor"
     },
     "TASK-978": {
@@ -2508,51 +2474,34 @@
       "size": "M",
       "class": "2-code-generation",
       "closedAt": "2026-05-21T14:35:40.541Z",
-      "lockedCommit": "36500311",
-      "actor": "unknown",
+      "lockedCommit": null,
+      "actor": null,
       "severity": "H0",
       "category": "[SpecDrift]",
       "decision": "Pivoted ARCH Audit from governance-alignment to structural analysis as per Product Spec v1.0.",
       "constraint": "Structural and behavioral signals only; no authoritative truth claims allowed.",
       "cost": "Minimal implementation overhead; leveraged existing NodeFileSystem and Git components.",
       "forwardAction": "None required; feature is feature-complete for MVP scope.",
-      "acCount": 3,
-      "acMachineVerifiable": 3,
-      "closurePath": "unknown"
+      "acCount": 0,
+      "acMachineVerifiable": 0,
+      "closurePath": "auditor"
     },
     "TASK-982": {
       "id": "TASK-982",
       "size": "M",
       "class": "2-code-generation",
       "closedAt": "2026-05-21T15:04:20.656Z",
-      "lockedCommit": "e52dbbcc",
-      "actor": "unknown",
+      "lockedCommit": null,
+      "actor": null,
       "severity": "H0",
       "category": "[SpecDrift]",
       "decision": "Implemented ARCH Audit v1.1 as a structural decomposition engine utilizing a Unified Epistemic Graph (UEG-IR).",
       "constraint": "Strict non-authoritative constraints enforced: absolute removal of all ranking, scoring, and semantic inference logic.",
       "cost": "Refactored previous structural extraction into a plugin-based adapter system; added Java support via regex-based adapter.",
       "forwardAction": "None required; v1.1 core pipeline is fully functional and compliant with the implementation contract.",
-      "acCount": 3,
-      "acMachineVerifiable": 3,
-      "closurePath": "unknown"
-    },
-    "TASK-985": {
-      "id": "TASK-985",
-      "size": "S",
-      "class": "3-refactoring",
-      "closedAt": "2026-05-22T12:03:08.626Z",
-      "lockedCommit": null,
-      "actor": "unknown",
-      "severity": "H0",
-      "category": "[SpecDrift]",
-      "decision": "Executed major documentation consolidation to reduce cognitive surface area. Merged EPISTEMIC-DOCTRINE into GOVERNANCE and what-ai-must-never-do into core.md.",
-      "constraint": "`arch review` currently requires `docs/HALT-LOG.md` to exist, so it was kept as a dummy file.",
-      "cost": "Reduced root doc count from 21 to 14.",
-      "forwardAction": "None. System state is cleaner and more cohesive.",
-      "acCount": 2,
-      "acMachineVerifiable": 1,
-      "closurePath": "L3"
+      "acCount": 0,
+      "acMachineVerifiable": 0,
+      "closurePath": "auditor"
     },
     "TASK-986": {
       "id": "TASK-986",
@@ -2567,26 +2516,26 @@
       "constraint": "The original `index.ts` was a bottleneck for maintenance; introducing `CommandDispatcher` solved this while aligning with \"Productization\" goals.",
       "cost": "High number of files touched (renaming), but mitigated by comprehensive build verification and drift checking.",
       "forwardAction": "None.",
-      "acCount": 2,
-      "acMachineVerifiable": 1,
-      "closurePath": "unknown"
+      "acCount": 0,
+      "acMachineVerifiable": 0,
+      "closurePath": "auditor"
     },
     "TASK-987": {
       "id": "TASK-987",
       "size": "M",
       "class": "7-operations",
       "closedAt": "2026-05-22T12:04:12.128Z",
-      "lockedCommit": "90e57d89",
-      "actor": "unknown",
+      "lockedCommit": null,
+      "actor": null,
       "severity": "H0",
       "category": "[SpecDrift]",
       "decision": "Removed 4 stale and dangerous GitHub Actions workflows, rewrote review.yml to use CLI directly, removed dead shell shim and registry directory.",
       "constraint": "Pre-existing FOCUS_INTEGRITY_VIOLATION in arch review is unrelated to this task.",
       "cost": "No cost introduced — pure cleanup of dead code and risk reduction (removed autonomous agent CI runs with API keys).",
       "forwardAction": "None required.",
-      "acCount": 5,
-      "acMachineVerifiable": 4,
-      "closurePath": "unknown"
+      "acCount": 0,
+      "acMachineVerifiable": 0,
+      "closurePath": "auditor"
     },
     "TASK-989": {
       "id": "TASK-989",

@@ -3,24 +3,6 @@
 **Closed-at:** 2026-05-14T12:20:00Z
 **Depends:** none
 
-### Acceptance Criteria
-- [x] `task-validator.ts` enforces the mandatory structured Hansei schema defined in ADR-019 (Severity, Category, Decision, Constraint, Cost, Forward Action).
-- [x] Enum validation for Severity: `[H0, H1, H2, H3a, H3b]`.
-- [x] Enum validation for Category: strictly limited to the controlled vocabulary in ADR-019.
-- [x] Detect semantic vagueness in fields (Decision, Constraint, Cost) using length thresholds (min 10 chars) and forbidden vague phrases (e.g., "temporary workaround").
-- [x] Logic validation: H2 classification strictly requires an `IDEA-XXX` link in Forward Action or evidence of repetition in Decision.
-- [x] Logic validation: H3b classification requires a specific Expiry Resource (`TASK-XXX` or `IDEA-XXX`) and an Owner/Architect in the Decision field.
-- [x] Task move to `REVIEW` or `DONE` is blocked if the Hansei section is missing, malformed, contains unauthorized categories, or is semantically vague.
-- [x] Update `docs/TASK-FORMAT.md` and `GEMINI.md` to reflect the mandatory structured Hansei requirements.
-
-### Definition of Done
-- [x] `arch review` passes on a task with valid structured Hansei.
-- [x] `arch review` fails on a task with narrative Hansei or missing required fields.
-- [x] Unit tests for `task-validator.ts` cover all Hansei validation edge cases.
-
-## Approval
-Approved-by: Auditor | 2026-05-14
-
 ## Hansei
 **Severity:** H1
 **Category:** [TypeHack]

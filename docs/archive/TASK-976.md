@@ -1,54 +1,7 @@
 ## TASK-976: optimize context indexing to eliminate rebuild amplification
 **Meta:** P3 | S | DONE | Focus:no | 2-code-generation | local | ARCH_CONTEXT_AXIOMS.md
-**Actor:** unknown
-**Created-at:** 2026-05-20T15:00:43.348Z
 **Closed-at:** 2026-05-21T07:30:00.000Z
 **Depends:** none
-
-### Acceptance Criteria
-- [x] Implementation file exists at declared context path
-  - `file: ARCH_CONTEXT_AXIOMS.md`
-- [x] Tests pass
-  - `cmd: npm test; exit: 0`
-- [x] `arch review` passes
-  - `cmd: node cli/dist/index.js review`
-
-### Context
-
-### Relevant Context
-_confidence: 0.45_
-
-**Files:**
-- cli/src/main/ts/domain/repositories/file-system.ts _(core)_
-- cli/src/main/ts/domain/models/feedback-signal.ts _(core)_
-- cli/src/main/ts/domain/models/task.ts _(core)_
-- cli/src/main/ts/application/use-cases/context-inference.ts _(domain)_
-- cli/src/main/ts/application/use-cases/causal-signal-log.ts _(domain)_
-
-**ADRs:**
-- ADR-028: Unified Epistemic Invariant Specification — Bounded Stream Enforcement _(enforced)_
-- ADR-001: Use git as the primary state engine _(enforced)_
-- ADR-002: Context as a budget, not a default _(enforced)_
-
-**Guidelines:**
-- testing-a-change.md
-- versioning.md
-
-**Failure Patterns:**
-- Completed Task Stagnation*(Sprint 5)*: `TASK-117` was marked DONE but remained in `docs/tasks/`, consuming context and potentially misleading agents. **Proposal:** Implement "Archival Guard" in THINK mode to autonomously move DONE tasks to `docs/archive/`. _(docs/KAIZEN-LOG.md)_
-- Unstructured IDEAs before TASK-033*(Sprint 3)*: The original TEMPLATE only had `## Proposal` with no structured fields. THINK had to infer gaps without dependency or size context. The first 8 IDEAs were refined with more friction than necessary. _(docs/KAIZEN-LOG.md)_
-
-### Context Feedback
-- [x] accurate — files and ADRs were on-target
-- [ ] partial — correct direction, missing key files
-- [ ] off — wrong files dominated
-
-#### Intent
-optimize context indexing to eliminate rebuild amplification
-
-### Definition of Done
-- [x] All ACs checked by Auditor
-- [x] `arch review` passes
 
 ## Hansei
 **Severity:** H1

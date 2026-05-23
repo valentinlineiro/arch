@@ -3,20 +3,6 @@
 **Closed-at:** 2026-05-16T17:20:42.174Z
 **Depends:** TASK-203, TASK-194
 
-### Context
-Phase 3 of 3. Escalations become verifiable: `arch review` checks that every halt was resolved, and integration tests prove escalation paths work.
-
-### Acceptance Criteria
-- [x] `arch review` checks that each entry in `docs/HALT-LOG.md` has a corresponding human resolution or explicit deferral - unresolved halts cause a review violation → cmd: arch review; exit: 0
-- [x] Integration tests cover at least three missed-escalation scenarios: (a) protected-path edit without ADR, (b) ambiguous task shape reaching `arch task start`, (c) stale INBOX not blocking `arch next` → cmd: npm test --prefix cli; exit: 0
-- [x] `arch review` passes → cmd: arch review; exit: 0
-- [x] Tests pass → cmd: npm test --prefix cli; exit: 0
-
-### Definition of Done
-- [x] All ACs checked.
-- [x] `arch review` passes.
-- [x] `npm test` passes in `cli/`.
-
 ## Hansei
 **Severity:** H0
 **Category:** [AuditGap]

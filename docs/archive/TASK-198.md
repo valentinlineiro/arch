@@ -3,8 +3,5 @@
 **Closed-at:** 2026-05-05T11:47:37.581Z
 **Depends:** none
 
-## Approval
-Approved-by: Auditor | 2026-05-05
-
 ## Hansei
 Integrating escalation directly into the governance tick ensures that archival failures (like missing Hansei) are caught immediately and surfaced to the human via INBOX. Surfaces the "hidden" failures that occur between implementation and archival.

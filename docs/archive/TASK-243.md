@@ -3,20 +3,6 @@
 **Closed-at:** 2026-05-14T00:00:00Z
 **Depends:** none
 
-### Acceptance Criteria
-- [x] `cli/src/test/ts/mocks/index.ts` exports `MockFileSystem` and `MockGitRepository` that explicitly `implement` their domain interfaces → grep: "implements FileSystem" cli/src/test/ts/mocks/index.ts
-- [x] No migrated test file retains a local `MockFileSystem` or `MockGitRepository` declaration → cmd: bash -c "grep -rl 'class MockFileSystem\|class MockGitRepository' cli/src/test/ts/*.test.ts | grep -v ask-corpus | grep -v get-sprint-status | wc -l | grep -q '^0$'"; exit: 0
-- [x] `npm test` passes with no regressions → cmd: npm test --prefix cli; exit: 0
-- [x] Integration smoke test for `GitCli` exists and passes → file: cli/src/test/ts/git-cli-integration.test.ts
-
-### Definition of Done
-- [x] All ACs checked.
-- [x] `arch review` passes → cmd: bash scripts/arch.sh review; exit: 0
-- [x] `npm test` passes in `cli/`.
-
-## Approval
-Approved-by: Auditor | 2026-05-14
-
 ## Hansei
 **Severity:** H0
 **Category:** [SymbolDiscovery]

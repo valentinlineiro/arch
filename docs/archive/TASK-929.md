@@ -2,27 +2,6 @@
 **Meta:** P2 | XS | DONE | Focus:no | 2-code-generation | claude | cli/src/main/ts/application/use-cases/mark-task-in-progress.ts
 **Closed-at:** 2026-05-18T09:00:00Z
 
-### Context
-
-Promoted from IDEA-actor-routing-config-key (surfaced in TASK-927 audit).
-
-`mark-task-in-progress.ts:resolveActor` reads `config.routing?.strategies ?? {}`. The real `arch.config.json` stores strategies at the top level as `config.strategies`, not under a `routing` key. `config.routing` is always `undefined`, so `strategies` is always `{}`, and actor resolution always falls through to `'unknown'`.
-
-### Acceptance Criteria
-
-- [x] `resolveActor` reads `config.strategies` (top-level key).
-- [x] `config.defaultActor` fallback reads the correct top-level key.
-- [x] Actor field resolves to a non-unknown value when a matching strategy exists.
-
-### Definition of Done
-- [x] Tests pass.
-- [x] `arch review` passes.
-
-## Approval
-
-**Approved-by:** human (via TASK-927 triage)
-**Approved-at:** 2026-05-18T09:00:00Z
-
 ## Hansei
 
 **Severity:** H1

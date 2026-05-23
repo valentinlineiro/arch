@@ -2,5 +2,3 @@
 **Meta:** P2 | S | DONE | Focus:no | 6-writing | local | docs/agents/THINK.md, arch.config.json
 **Sprint:** sprint/v0.7-foundations
 **Depends:** TASK-147
-## Approval
-Approved-by: Auditor | 2026-05-16

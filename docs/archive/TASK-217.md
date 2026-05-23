@@ -2,8 +2,5 @@
 **Meta:** P1 | M | DONE | Focus:no | 2-code-generation | claude-code | cli/src/main/ts/
 **Depends:** TASK-210
 
-## Approval
-Approved-by: Auditor | 2026-05-16
-
 ## Hansei
 The Phase 1 slice is intentionally narrow. `tasks↔commits` delivers immediate execution value and validates the provenance/scoring model, but the roadmap-level Feature 3 remains partial until `ADRs↔tasks` and `guidelines↔failures` are materialized with equally explicit evidence contracts.

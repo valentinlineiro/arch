@@ -1,31 +1,7 @@
 ## TASK-917: Fix MetricsEngine calibration: accept IN_PROGRESS->DONE as valid completion
 **Meta:** P1 | S | DONE | Focus:no | 1-code-reasoning | claude-code | cli/src/main/ts/domain/services/metrics-engine.ts
 **Closed-at:** 2026-05-17T21:33:33.889Z
-
 **Depends:** none
-
-### Context
-
-`arch report` exits 1 with "CRITICAL INTEGRITY BREACH" because `MetricsEngine.calibrateTask()` only recognises `REVIEW -> DONE` as a valid completion event. Tasks closed via `arch task done` from IN_PROGRESS status (L3 self-archive or direct close) produce an `IN_PROGRESS -> DONE` event in `docs/EVENTS.md` — which the calibrator doesn't match. Since `completedAt` is set post-EventLogger-activation, these tasks hit the "logistics-governance gap" branch and are marked INVALID. One INVALID task makes the whole report INVALID.
-
-### Acceptance Criteria
-
-- [x] `MetricsEngine.calibrateTask()` accepts both `REVIEW -> DONE` and `IN_PROGRESS -> DONE` as valid completion transitions. Filter updated from `e.transition === 'REVIEW -> DONE'` to include both.
-  - `file: cli/src/main/ts/domain/services/metrics-engine.ts`
-
-- [x] `arch report` exits 0 after the fix. No CRITICAL INTEGRITY BREACH.
-  - `prose: verified by running arch report after fix`
-
-- [x] Unit test: task with `IN_PROGRESS -> DONE` event gets HIGH or MEDIUM integrity (not INVALID).
-  - `prose: 415 tests pass — verified during implementation`
-
-- [x] `arch review` passes.
-  - `cmd: node cli/dist/index.js review`
-
-### Definition of Done
-- [x] All ACs checked by Auditor
-- [x] `arch review` passes
-- [x] `npm test` passes in `cli/`
 
 ## Hansei
 **Severity:** H1

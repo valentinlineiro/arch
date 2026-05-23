@@ -3,8 +3,5 @@
 **Closed-at:** 2026-05-12T08:06:31.589Z
 **Depends:** none
 
-## Approval
-Approved-by: Auditor | 2026-05-12
-
 ## Hansei
 The AC said `ontological/reinforce` but the signal model requires `reinforce` to target an existing edge. Implemented as `create` instead — semantically correct (signals are hypotheses, not facts), and the arbitrator handles both. The govern violation signal was scoped to archival failures (the only concrete violation govern detects today); protected-path violations remain in the drift checker, not govern. That boundary is a follow-up decision.

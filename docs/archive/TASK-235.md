@@ -2,13 +2,6 @@
 **Meta:** P3 | XS | DONE | Focus:no | 6-writing | claude-code | docs/guidelines/what-ai-must-never-do-in-this-repo.md | Closed-at: 2026-05-16T00:00:00Z
 **Depends:** none
 
-### Context
-`what-ai-must-never-do-in-this-repo.md` references "GUIDELINES.md" which no longer exists as a single file — it was decomposed into the `docs/guidelines/` directory. The reference is stale and misleading.
-
-### Acceptance Criteria
-- [ ] Reference updated to `docs/guidelines/` directory
-- [ ] Protocol instruction updated to reflect modifying any file within `docs/guidelines/`
-
 ## Hansei
 **Severity:** H1
 **Category:** [SpecDrift]

@@ -3,8 +3,5 @@
 **Closed-at:** 2026-05-06T10:46:34.776Z
 **Depends:** TASK-191
 
-## Approval
-Approved-by: Auditor | 2026-05-06
-
 ## Hansei
 The implementation was already present in the repository but the task remained in READY status, possibly due to a previous execution failure or omission. I have verified the implementation against all ACs and confirmed that the full test suite passes, including new provider-specific tests.

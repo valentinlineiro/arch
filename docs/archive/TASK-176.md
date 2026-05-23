@@ -2,5 +2,3 @@
 **Meta:** P2 | XS | DONE | Focus:no | 6-writing | local | docs/agents/DO.md, arch.config.json
 **Closed-at:** 2026-05-04T14:20:32.370Z
 **Depends:** none
-## Approval
-Approved-by: Auditor | 2026-05-04

@@ -2,9 +2,6 @@
 **Meta:** P1 | M | DONE  <!-- backfilled: 2026-05-16 --> | Focus:no | 2-code-generation | local | cli/
 **Closed-at:** 2026-05-13T10:00:00Z
 
-## Approval
-Approved-by: Auditor | 2026-05-13
-
 ## Hansei
 **Severity:** H0
 **Category:** [MissingDecisionRecord]
@@ -20,4 +17,3 @@ No code debt introduced. Process debt only: a DONE record with no implementation
 
 **Forward Action:**
 No forward action required. No implementation was performed; this record documents the absence of traceable work.
-

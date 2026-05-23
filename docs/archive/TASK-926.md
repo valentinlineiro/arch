@@ -2,29 +2,6 @@
 **Meta:** P1 | S | DONE | Focus:no | 2-code-generation | claude | docs/EVENTS.md, cli/src/main/ts/application/commands/report-command.ts
 **Closed-at:** 2026-05-18T08:30:00Z
 
-### Context
-
-`arch report` failed with a `CRITICAL INTEGRITY BREACH` because `docs/EVENTS.md` contains duplicate `DONE -> DONE` transitions for several tasks (TASK-207, TASK-231, TASK-234, TASK-235, TASK-236, TASK-237). 
-
-The metrics engine expects a linear state machine transition. Duplicate archival events corrupt the cycle-time and throughput calculations.
-
-### Acceptance Criteria
-
-- [x] `docs/EVENTS.md` is cleaned up: the five `DONE -> DONE` entries for TASK-231/234/235/236/237 are removed (enabled by the ArchiveParser fix below).
-- [x] `arch report` passes without `INTEGRITY BREACH` warning.
-- [x] Metrics engine is hardened to handle duplicate events gracefully (e.g. use only the first `DONE` event for a task) if they ever recur.
-- [x] `ArchiveParser.parseArchivedTasks()` skips archived tasks whose `Meta:` status is not `DONE`, preventing false INVALID signals from non-DONE archived tasks.
-- [x] `arch review` passes.
-
-### Definition of Done
-- [x] `arch report` works.
-- [x] `arch review` passes.
-
-## Approval
-
-**Approved-by:** human
-**Approved-at:** 2026-05-18T08:30:00Z
-
 ## Hansei
 
 **Severity:** H2

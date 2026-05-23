@@ -2,14 +2,6 @@
 **Meta:** P3 | XS | DONE | Focus:no | 6-writing | claude-code | docs/guidelines/documentation.md | Closed-at: 2026-05-16T00:00:00Z
 **Depends:** none
 
-### Context
-`docs/guidelines/documentation.md` states "no YAML, no JSON" but the project uses arch.config.json, .arch/*.jsonl, and other machine-readable JSON. The rule is contradictory as written.
-
-### Acceptance Criteria
-- [ ] Rule clarified to apply strictly to protocol definitions, task files, and human-facing documentation
-- [ ] JSON for configuration and machine-readable state explicitly permitted
-- [ ] No contradiction with observed system files
-
 ## Hansei
 **Severity:** H1
 **Category:** [SpecDrift]

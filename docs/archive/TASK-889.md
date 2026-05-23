@@ -1,38 +1,6 @@
 ## TASK-889: arch task edit - Interactive Metadata Management
 **Meta:** P1 | S | DONE | Focus:no | 2-code-generation | local | cli/src/main/ts/ | Closed-at: 2026-05-15T11:45:00Z
-**Created-at:** 2026-05-15T07:23:10.296Z
 **Depends:** none
-
-### Acceptance Criteria
-- [x] arch task edit TASK-XXX subcommand added to TaskCommand → grep: "subCommand === 'edit'" cli/src/main/ts/application/commands/task-command.ts
-- [x] CLI reads the current task and displays each editable meta field with current value in brackets → prose: verified interactively, each field shown with current value
-- [x] User input validated against TaskValidator before any file is written → grep: "TaskValidator" cli/src/main/ts/application/use-cases/edit-task-metadata.ts
-- [x] On success, task file updated with correctly formatted meta line and committed → prose: verified by running arch task edit and confirming chore: commit in git log
-- [x] arch review passes after the edit → cmd: node cli/dist/index.js review; exit: 0
-
-#### Problem
-The `**Meta:**` line in ARCH tasks is a high-discipline regex-based string. Manually editing it (e.g., changing `P2` to `P1` or updating `Context`) is brittle and often causes `arch review` failures due to formatting errors.
-
-#### Solution
-Implement `arch task edit TASK-XXX` as an interactive CLI command.
-
-**Workflow:**
-1.  `arch task edit TASK-064`
-2.  CLI displays current values and prompts for changes:
-    - Priority (P0-P3)
-    - Size (XS-XL)
-    - Status (READY, BLOCKED, etc.)
-    - Class (Select from registry)
-    - Context (Comma-separated paths)
-3.  CLI validates the new values against the `TaskValidator`.
-4.  CLI updates the file directly and commits the change with a `chore: update metadata for TASK-XXX` message.
-
-### Definition of Done
-- [x] All ACs checked → prose: all ACs above marked complete
-- [x] arch review passes → cmd: node cli/dist/index.js review; exit: 0
-
-## Approval
-Approved-by: Auditor | 2026-05-16
 
 ## Hansei
 **Severity:** H1

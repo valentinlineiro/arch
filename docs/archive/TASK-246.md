@@ -1,20 +1,7 @@
 ## TASK-246: Hansei Signal Routing & Reflect Integration
 **Meta:** P2 | M | DONE | Focus:no | 7-operations | local | cli/src/main/ts/domain/services/
 **Closed-at:** 2026-05-16T17:36:38.331Z
-
 **Depends:** TASK-245
-
-### Acceptance Criteria
-- [x] Implement `SignalRouter` to append H2 and H3 Hansei signals to `.arch/causal-signal.jsonl`.
-- [x] `arch report` aggregates Hansei categories to identify systemic friction trends (e.g., "High [ContextWaste] in Module X").
-- [x] Hansei signals feed the `arch reflect` (THINK Phase 3) prioritization engine.
-- [x] Generate automated "Weak Signal" warnings when H2 thresholds (≥3 occurrences) are met for a specific category or module.
-- [x] Link Hansei "Forward Action" tasks/IDEAs to the causal graph for traceability.
-
-### Definition of Done
-- [x] Completing a task with H2 Hansei results in a new entry in `causal-signal.jsonl`.
-- [x] `arch report` shows a breakdown of Hansei categories.
-- [x] `arch reflect` identifies a systemic issue based on aggregated Hansei data.
 
 ## Hansei
 **Severity:** H0

@@ -1,19 +1,6 @@
 ## TASK-994: Interactive CLI improvements (init --guided, arch review, --auto-fix)
 **Meta:** P1 | M | DONE | Focus:no | 2-code-generation | local | cli/src/main/ts
-**Source:** IDEA-productizing-arch-separation Phase C
 **Closed-at:** 2026-05-22T14:30:00Z
-
-### Acceptance Criteria
-- [x] `arch init --guided` generates `arch.config.json` via interactive prompts (project type, paths override, protocol version) → cmd: echo -e "test-project\n\n\n" | arch init --guided; exit: 0
-- [x] `arch review` lists all `REVIEW` tasks with AC checkboxes and diff summary, accepts `[y/N/edit]` per task → cmd: arch review --help; exit: 0
-- [x] `arch check --auto-fix` auto-corrects minor formatting violations (whitespace, meta line order) and reports what was fixed → cmd: arch check --auto-fix --dry-run; exit: 0
-- [x] `arch review` with `[y]` transitions task to `DONE` and writes `Closed-at` timestamp → file: cli/src/main/ts/commands/review.ts
-- [x] `arch check` passes → cmd: arch check; exit: 0
-- [x] Existing tests pass → cmd: npm test --prefix cli; exit: 0
-
-### Definition of Done
-- [x] Three new CLI subcommands operational
-- [x] `arch check` passes
 
 ## Hansei
 **Severity:** H0
