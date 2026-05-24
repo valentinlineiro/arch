@@ -212,9 +212,9 @@
   },
   "clis": [
     {
-      "name": "gemini",
-      "bin": "gemini",
-      "template": "gemini -p \"{prompt}\" -y"
+      "name": "opencode",
+      "bin": "opencode",
+      "template": "opencode \"{prompt}\""
     },
     {
       "name": "claude",
@@ -229,28 +229,22 @@
   ],
   "providers": [
     {
+      "name": "opencode",
+      "type": "bridge",
+      "bin": "opencode",
+      "template": "opencode \"{prompt}\""
+    },
+    {
       "name": "claude-code",
       "type": "bridge",
       "bin": "claude",
       "template": "claude -p \"{prompt}\" --dangerously-skip-permissions"
     },
     {
-      "name": "gemini",
-      "type": "bridge",
-      "bin": "gemini",
-      "template": "gemini -p \"{prompt}\" -y"
-    },
-    {
       "name": "codex",
       "type": "bridge",
       "bin": "codex",
       "template": "codex \"{prompt}\""
-    },
-    {
-      "name": "opencode",
-      "type": "bridge",
-      "bin": "opencode",
-      "template": "opencode \"{prompt}\""
     },
     {
       "name": "claude",
@@ -271,6 +265,13 @@
       "type": "native",
       "endpoint": "https://openrouter.ai/api/v1",
       "apiKeyEnv": "OPENROUTER_API_KEY"
+    },
+    {
+      "name": "gemini",
+      "type": "bridge",
+      "bin": "gemini",
+      "template": "gemini -p \"{prompt}\" -y",
+      "_deprecated": "Use opencode instead \u2014 Gemini deprecated in AGY context"
     }
   ],
   "costs": {
