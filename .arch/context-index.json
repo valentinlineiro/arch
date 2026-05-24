@@ -3504,7 +3504,7 @@
       "title": "Protocol upgrade policy — patch/minor/major classification and adoption"
     }
   },
-  "builtAt": "2026-05-24T11:56:52.331Z",
+  "builtAt": "2026-05-24T12:02:55.211Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -4288,6 +4288,7 @@
         "cli/src/main/ts/application/commands/move-command.ts",
         "cli/src/main/ts/application/commands/rank-command.ts",
         "cli/src/main/ts/application/commands/report-command.ts",
+        "cli/src/main/ts/application/commands/resume-command.ts",
         "cli/src/main/ts/application/commands/review-command.ts",
         "cli/src/main/ts/application/commands/sandbox-command.ts",
         "cli/src/main/ts/application/commands/sentinel-command.ts",
@@ -4844,7 +4845,7 @@
         "cli/src/main/ts/domain/repositories/git-repository.ts",
         "cli/src/main/ts/domain/repositories/task-repository.ts"
       ],
-      "runtimeUsage": "cold",
+      "runtimeUsage": "hot",
       "symbols": [
         "ResumeCommand"
       ],
@@ -8306,26 +8307,88 @@
       }
     },
     "TASK-1001": {
-      "commitCount": 2,
+      "commitCount": 3,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-24T11:54:31+00:00",
+      "lastCommitDate": "2026-05-24T11:56:52+00:00",
       "recentCommitRefs": [
+        "73f12f84",
         "9c4d7e91",
         "d3593add"
       ],
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 2
+        ".arch/causal-signal.jsonl": 1,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/context-feedback.json": 1,
+        ".arch/corpus-index.json": 1,
+        ".arch/escalations.jsonl": 1,
+        ".arch/focus-ledger.jsonl": 2,
+        ".arch/protocol-versions.jsonl": 1,
+        ".arch/reflect-breach-log.jsonl": 1,
+        ".arch/status-projection.json": 1,
+        ".arch/temporal-index.jsonl": 1,
+        "README.md": 1,
+        "arch.config.json": 1,
+        "cli/.arch/status-projection.json": 1,
+        "cli/src/main/ts/application/command-dispatcher.ts": 1,
+        "cli/src/main/ts/application/commands/resume-command.ts": 1,
+        "docs/EVENTS.md": 1,
+        "docs/INBOX.md": 1,
+        "docs/METRICS.md": 1,
+        "docs/PROTOCOL-UPGRADES.md": 1,
+        "docs/ROADMAP.md": 1,
+        "docs/adr/ADR-033-protocol-upgrade-policy.md": 1,
+        "docs/archive/TASK-1001.md": 1,
+        "docs/archive/TASK-1002.md": 1,
+        "docs/tasks/TASK-1001.md": 1,
+        "docs/tasks/TASK-1002.md": 1,
+        "docs/tasks/TASK-206.md": 1
+      }
+    },
+    "TASK-1002": {
+      "commitCount": 1,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-05-24T11:56:52+00:00",
+      "recentCommitRefs": [
+        "73f12f84"
+      ],
+      "touchedFrequency": {
+        ".arch/causal-signal.jsonl": 1,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/context-feedback.json": 1,
+        ".arch/corpus-index.json": 1,
+        ".arch/escalations.jsonl": 1,
+        ".arch/protocol-versions.jsonl": 1,
+        ".arch/reflect-breach-log.jsonl": 1,
+        ".arch/status-projection.json": 1,
+        ".arch/temporal-index.jsonl": 1,
+        "README.md": 1,
+        "arch.config.json": 1,
+        "cli/.arch/status-projection.json": 1,
+        "cli/src/main/ts/application/command-dispatcher.ts": 1,
+        "cli/src/main/ts/application/commands/resume-command.ts": 1,
+        "docs/EVENTS.md": 1,
+        "docs/INBOX.md": 1,
+        "docs/METRICS.md": 1,
+        "docs/PROTOCOL-UPGRADES.md": 1,
+        "docs/ROADMAP.md": 1,
+        "docs/adr/ADR-033-protocol-upgrade-policy.md": 1,
+        "docs/archive/TASK-1001.md": 1,
+        "docs/archive/TASK-1002.md": 1,
+        "docs/tasks/TASK-1001.md": 1,
+        "docs/tasks/TASK-1002.md": 1,
+        "docs/tasks/TASK-206.md": 1
       }
     },
     "TASK-206": {
-      "commitCount": 16,
+      "commitCount": 17,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-24T11:56:48+00:00",
+      "lastCommitDate": "2026-05-24T12:02:50+00:00",
       "recentCommitRefs": [
         "0379ddd7",
         "07c38fd1",
         "21a5605b",
         "22308ce5",
+        "313d5a3e",
         "3edef157",
         "4a348d92",
         "4f97602e",
@@ -8344,7 +8407,7 @@
         ".arch/context-index.json": 1,
         ".arch/corpus-index.json": 3,
         ".arch/ecp-registry.jsonl": 1,
-        ".arch/focus-ledger.jsonl": 5,
+        ".arch/focus-ledger.jsonl": 6,
         ".arch/last-audit.json": 2,
         ".arch/reflect-breach-log.jsonl": 5,
         ".arch/status-projection.json": 1,
@@ -8751,7 +8814,7 @@
       }
     },
     "TASK-253": {
-      "commitCount": 10,
+      "commitCount": 9,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-19T11:31:58+02:00",
       "recentCommitRefs": [
@@ -8761,7 +8824,6 @@
         "1fe4c543",
         "755eaa37",
         "7f76abf0",
-        "8aaa21ac",
         "a2720f67",
         "c7d3eb9c",
         "d56c0888"
@@ -8770,7 +8832,7 @@
         ".arch/causal-signal.jsonl": 1,
         ".arch/chronicle.jsonl": 2,
         ".arch/context-feedback.json": 1,
-        ".arch/focus-ledger.jsonl": 3,
+        ".arch/focus-ledger.jsonl": 2,
         ".arch/reflect-breach-log.jsonl": 1,
         "cli/src/main/ts/application/use-cases/mark-task-done.ts": 1,
         "cli/src/main/ts/application/use-cases/validate-task-acs.ts": 1,
