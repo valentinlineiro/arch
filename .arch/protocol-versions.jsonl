@@ -1,0 +1,1 @@
+{"decision_id": "PV-founding", "timestamp": "2026-05-24T11:56:03.160103+00:00", "from_version": "0.0.0", "to_version": "1.2.0", "classification": "major", "outcome": "Adopt", "rationale": "Retroactive adoption of upgrade policy at initial policy definition", "evaluation_task": "TASK-1002", "adopted_at": "2026-05-24T11:56:03.160119+00:00"}

@@ -293,5 +293,6 @@
     }
   },
   "sprintCloseAfterN": 15,
-  "sprintAutoNamePrefix": "sprint/v"
+  "sprintAutoNamePrefix": "sprint/v",
+  "archVersion": "1.2.0"
 }

@@ -44,6 +44,7 @@ import { DepsCommand } from './commands/deps-command.js';
 import { SentinelCommand } from './commands/sentinel-command.js';
 import { RankCommand } from './commands/rank-command.js';
 import { AuditCommand } from './commands/audit-command.js';
+import { ResumeCommand } from './commands/resume-command.js';
 
 import { getPublicTopLevel, getPublicEntriesByNamespace, type CommandEntry } from '../domain/services/command-registry.js';
 
@@ -218,6 +219,9 @@ export class CommandDispatcher {
       
       case 'audit':
         return new AuditCommand();
+
+      case 'resume':
+        return new ResumeCommand(this.fileSystem, this.gitRepository, this.taskRepository, this.rootPath);
 
       default:
         return null;
