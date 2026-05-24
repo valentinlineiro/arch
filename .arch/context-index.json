@@ -144,6 +144,12 @@
     },
     "ADR-006": {
       "tasks": {
+        "TASK-1001": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-1001.md"
+        },
         "TASK-990": {
           "evidenceKinds": [
             "literal-mention"
@@ -371,6 +377,12 @@
     },
     "ADR-017": {
       "tasks": {
+        "TASK-1001": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-1001.md"
+        },
         "TASK-957": {
           "evidenceKinds": [
             "literal-mention"
@@ -533,6 +545,16 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-956.md"
+        }
+      }
+    },
+    "ADR-029": {
+      "tasks": {
+        "TASK-1001": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-1001.md"
         }
       }
     },
@@ -3367,7 +3389,7 @@
       "title": "Automatic sprint lifecycle in arch govern"
     }
   },
-  "builtAt": "2026-05-24T11:49:50.095Z",
+  "builtAt": "2026-05-24T11:54:35.062Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -4698,6 +4720,24 @@
         "command",
         "commands",
         "reprioritize"
+      ]
+    },
+    "cli/src/main/ts/application/commands/resume-command.ts": {
+      "criticality": "domain",
+      "imports": [
+        "cli/src/main/ts/domain/repositories/file-system.ts",
+        "cli/src/main/ts/domain/repositories/git-repository.ts",
+        "cli/src/main/ts/domain/repositories/task-repository.ts"
+      ],
+      "runtimeUsage": "cold",
+      "symbols": [
+        "ResumeCommand"
+      ],
+      "tags": [
+        "application",
+        "command",
+        "commands",
+        "resume"
       ]
     },
     "cli/src/main/ts/application/commands/review-command.ts": {
@@ -8151,14 +8191,15 @@
       }
     },
     "TASK-1001": {
-      "commitCount": 1,
+      "commitCount": 2,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-24T11:49:46+00:00",
+      "lastCommitDate": "2026-05-24T11:54:31+00:00",
       "recentCommitRefs": [
-        "9c4d7e91"
+        "9c4d7e91",
+        "d3593add"
       ],
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 1
+        ".arch/focus-ledger.jsonl": 2
       }
     },
     "TASK-206": {
@@ -8589,18 +8630,6 @@
         "docs/tasks/TASK-978.md": 1,
         "docs/tasks/TASK-996.md": 1,
         "docs/tensions/TENSION-005-specdrift.md": 2
-      }
-    },
-    "TASK-252": {
-      "commitCount": 1,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-19T08:37:47+02:00",
-      "recentCommitRefs": [
-        "f459fa45"
-      ],
-      "touchedFrequency": {
-        "docs/archive/TASK-252.md": 1,
-        "docs/archive/TASK-946.md": 1
       }
     },
     "TASK-253": {
@@ -9106,18 +9135,6 @@
         "docs/tasks/TASK-955.md": 1
       }
     },
-    "TASK-946": {
-      "commitCount": 1,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-19T08:37:47+02:00",
-      "recentCommitRefs": [
-        "f459fa45"
-      ],
-      "touchedFrequency": {
-        "docs/archive/TASK-252.md": 1,
-        "docs/archive/TASK-946.md": 1
-      }
-    },
     "TASK-947": {
       "commitCount": 3,
       "commitRefOverflow": false,
@@ -9184,7 +9201,7 @@
       }
     },
     "TASK-950": {
-      "commitCount": 13,
+      "commitCount": 12,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-21T09:54:29+02:00",
       "recentCommitRefs": [
@@ -9196,7 +9213,6 @@
         "8b93f240",
         "8baf2ec0",
         "8d16707e",
-        "b37a4948",
         "bee5f78e",
         "c88385bd",
         "d793c34d",
@@ -9225,7 +9241,7 @@
         "docs/refinement/IDEA-temporal-pattern-layer.md": 1,
         "docs/tasks/TASK-259.md": 1,
         "docs/tasks/TASK-919.md": 1,
-        "docs/tasks/TASK-950.md": 8,
+        "docs/tasks/TASK-950.md": 7,
         "docs/tasks/TASK-953.md": 1,
         "docs/tasks/TASK-971.md": 1,
         "docs/tasks/TASK-978.md": 1,
