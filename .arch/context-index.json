@@ -246,6 +246,12 @@
     },
     "ADR-012": {
       "tasks": {
+        "TASK-1005": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1005.md"
+        },
         "TASK-967": {
           "evidenceKinds": [
             "literal-mention"
@@ -274,6 +280,12 @@
     },
     "ADR-013": {
       "tasks": {
+        "TASK-1005": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1005.md"
+        },
         "TASK-231": {
           "evidenceKinds": [
             "context-path",
@@ -592,7 +604,7 @@
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-1005.md"
+          "taskPath": "docs/archive/TASK-1005.md"
         },
         "TASK-958": {
           "evidenceKinds": [
@@ -659,6 +671,16 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-1002.md"
+        }
+      }
+    },
+    "ADR-034": {
+      "tasks": {
+        "TASK-1005": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1005.md"
         }
       }
     }
@@ -3558,9 +3580,94 @@
       ],
       "strength": "advisory",
       "title": "Protocol upgrade policy — patch/minor/major classification and adoption"
+    },
+    "ADR-034": {
+      "affectedModules": [],
+      "keywords": [
+        "026",
+        "034",
+        "1005",
+        "2026",
+        "accepted",
+        "adr",
+        "always",
+        "arch",
+        "auditable",
+        "boundary",
+        "call",
+        "classification",
+        "code",
+        "console",
+        "contains",
+        "context",
+        "date",
+        "deciders",
+        "decision",
+        "decisions",
+        "declared",
+        "deterministic",
+        "documents",
+        "enforce",
+        "enforces",
+        "entry",
+        "epistemic",
+        "every",
+        "execsync",
+        "execute",
+        "extends",
+        "fails",
+        "gate",
+        "govern",
+        "governance",
+        "human",
+        "inbox",
+        "influence",
+        "informational",
+        "invocations",
+        "layer",
+        "llm",
+        "make",
+        "may",
+        "must",
+        "negotiation",
+        "never",
+        "non",
+        "only",
+        "output",
+        "passes",
+        "principle",
+        "probabilistic",
+        "produces",
+        "provider",
+        "reflect",
+        "relies",
+        "repo",
+        "reproducible",
+        "result",
+        "rule",
+        "running",
+        "same",
+        "separation",
+        "source",
+        "spawnsync",
+        "state",
+        "status",
+        "structural",
+        "suggest",
+        "system",
+        "task",
+        "tick",
+        "type",
+        "valen",
+        "value",
+        "whether",
+        "zero"
+      ],
+      "strength": "advisory",
+      "title": "Govern/Reflect Structural Separation"
     }
   },
-  "builtAt": "2026-05-24T19:03:27.015Z",
+  "builtAt": "2026-05-24T23:15:03.476Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -8473,14 +8580,23 @@
       }
     },
     "TASK-1005": {
-      "commitCount": 1,
+      "commitCount": 2,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-24T19:03:22+00:00",
+      "lastCommitDate": "2026-05-24T19:03:45+00:00",
       "recentCommitRefs": [
+        "4ccc4238",
         "d6a7a50a"
       ],
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 1
+        ".arch/focus-ledger.jsonl": 1,
+        ".arch/reflect-breach-log.jsonl": 1,
+        ".arch/reflect-decisions.jsonl": 1,
+        ".arch/status-projection.json": 1,
+        "README.md": 1,
+        "docs/ROADMAP.md": 1,
+        "docs/refinement/archive/IDEA-deterministic-governance-gates.md": 1,
+        "docs/tasks/TASK-1005.md": 1,
+        "docs/tasks/TASK-995.md": 1
       }
     },
     "TASK-206": {
@@ -8952,19 +9068,18 @@
       }
     },
     "TASK-259": {
-      "commitCount": 6,
+      "commitCount": 5,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-19T12:22:02+02:00",
       "recentCommitRefs": [
         "0f1de9f3",
-        "55dd9837",
         "b81087f8",
         "c8449fc0",
         "d448515a",
         "f97a6407"
       ],
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 4,
+        ".arch/focus-ledger.jsonl": 3,
         "docs/archive/TASK-259.md": 1,
         "docs/tasks/TASK-259.md": 1
       }
@@ -9428,13 +9543,11 @@
       }
     },
     "TASK-950": {
-      "commitCount": 8,
+      "commitCount": 6,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-21T09:54:29+02:00",
       "recentCommitRefs": [
-        "05cad83d",
         "20596e46",
-        "55b390e5",
         "89479bb2",
         "8baf2ec0",
         "8d16707e",
@@ -9460,7 +9573,7 @@
         "docs/archive/TASK-950.md": 1,
         "docs/tasks/TASK-259.md": 1,
         "docs/tasks/TASK-919.md": 1,
-        "docs/tasks/TASK-950.md": 6,
+        "docs/tasks/TASK-950.md": 4,
         "docs/tasks/TASK-953.md": 1,
         "docs/tasks/TASK-971.md": 1,
         "docs/tasks/TASK-978.md": 1,
@@ -10837,21 +10950,22 @@
       }
     },
     "TASK-995": {
-      "commitCount": 7,
+      "commitCount": 8,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-24T18:48:58+00:00",
+      "lastCommitDate": "2026-05-24T23:14:58+00:00",
       "recentCommitRefs": [
         "262b9d14",
         "3eb4493b",
         "4804ff7d",
         "8dcf3ac3",
         "9ab10dbc",
+        "9d151798",
         "ba4ba6a7",
         "e7700905"
       ],
       "touchedFrequency": {
         ".arch/ecp-registry.jsonl": 1,
-        ".arch/focus-ledger.jsonl": 6,
+        ".arch/focus-ledger.jsonl": 7,
         "docs/tasks/TASK-957.md": 1,
         "docs/tasks/TASK-995.md": 1
       }
