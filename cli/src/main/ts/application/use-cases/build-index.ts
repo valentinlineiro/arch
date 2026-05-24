@@ -530,7 +530,7 @@ export class BuildIndex {
   }
 
   private extractTaskId(content: string): string | null {
-    return content.match(/^##\s+(TASK-\d{3}):/m)?.[1] ?? null;
+    return content.match(/^##\s+(TASK-\d+):/m)?.[1] ?? null;
   }
 
   private extractTaskAdrEvidence(content: string): Record<string, Set<string>> {

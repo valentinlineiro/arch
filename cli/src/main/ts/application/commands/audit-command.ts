@@ -15,7 +15,8 @@ import { LanguageAdapter } from '../../domain/services/ueg-interfaces.js';
 
 export class AuditCommand implements Command {
   async execute(args: string[]): Promise<void> {
-    const target = args[0] ?? '.';
+    const isPublic = args.includes('--public');
+    const target = (isPublic ? args[args.indexOf('--public') + 1] : args[0]) ?? '.';
     const verbose = args.includes('--verbose') || args.includes('-v');
 
     let repoPath: string;
@@ -41,14 +42,17 @@ export class AuditCommand implements Command {
     }
 
     try {
-      await this.runAudit(repoPath, { verbose });
+      await this.runAudit(repoPath, { verbose, publicMode: isPublic });
     } finally {
       if (tmpDir) rmSync(tmpDir, { recursive: true, force: true });
     }
   }
 
-  private async runAudit(repoPath: string, opts: { verbose: boolean }): Promise<void> {
-    console.log(`\n  \x1b[32mARCH\x1b[0m — Language-Agnostic Audit (v1.2.0)\n`);
+  private async runAudit(repoPath: string, opts: { verbose: boolean; publicMode?: boolean }): Promise<void> {
+    const modeLabel = opts.publicMode
+      ? 'Structural MRI (public, non-authoritative)'
+      : 'Language-Agnostic Audit (v1.2.0)';
+    console.log(`\n  \x1b[32mARCH\x1b[0m — ${modeLabel}\n`);
     
     const adapters: LanguageAdapter[] = [
       new TypeScriptAdapter(),
@@ -94,6 +98,19 @@ export class AuditCommand implements Command {
 
     console.log(`  [4/4] Generating structural deployment map...\n`);
     this.render(map, opts.verbose);
+
+    // Public mode: add MRI summary line + canonical disclaimer
+    if (opts.publicMode) {
+      const hotspots = risks.filter(r => r.type === 'HIGH_COUPLING' || r.type === 'GOD_ENTITY').length;
+      const orphans = risks.filter(r => r.type === 'ORPHAN' || r.type === 'DEAD_CODE').length;
+      const coupledPairs = graph.edges.filter((e: any) => e.weight > 3).length;
+      const couplingPct = graph.entities.length > 0
+        ? Math.round((coupledPairs / graph.entities.length) * 100)
+        : 0;
+      console.log(`  \x1b[1mMRI SUMMARY:\x1b[0m ${hotspots} hotspot${hotspots !== 1 ? 's' : ''}, ${orphans} orphan file${orphans !== 1 ? 's' : ''}, ${couplingPct}% hidden coupling`);
+      console.log(`  \x1b[90m⚠ These are structural observations — not canonical truths.\x1b[0m`);
+      console.log(`  \x1b[90m  ARCH v1.2 applies heuristic analysis. No claim is authoritative without domain context.\x1b[0m\n`);
+    }
 
     // Cache audit result
     try {

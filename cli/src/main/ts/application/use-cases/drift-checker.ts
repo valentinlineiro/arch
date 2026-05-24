@@ -337,7 +337,7 @@ export class DriftChecker {
 
     for (const file of activeFiles) {
       const content = await this.fileSystem.readFile(`${this.rootPath}/docs/tasks/${file}`);
-      const headerMatch = content.match(/^## (TASK-\d{3}): (.*)/m);
+      const headerMatch = content.match(/^## (TASK-\d+): (.*)/m);
       const metaMatch = content.match(/^\*\*Meta:\*\* .*/m);
       const dependsMatch = content.match(/^\*\*Depends:\*\* (.*)/m);
       

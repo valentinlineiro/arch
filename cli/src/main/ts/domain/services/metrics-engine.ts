@@ -149,7 +149,7 @@ export class MetricsEngine {
       const [header, body] = event.split('\n');
       const tsMatch = header.match(/^## (\d{4}-\d{2}-\d{2}T[^\s]+)/);
       // TASK-001 | REVIEW -> DONE | commit:abc | agent:human
-      const bodyMatch = body.match(/^(TASK-\d{3}) \| ([^|]+)(?: \| commit:([^|]+))?(?: \| agent:([^|]+))?$/);
+      const bodyMatch = body.match(/^(TASK-\d+) \| ([^|]+)(?: \| commit:([^|]+))?(?: \| agent:([^|]+))?$/);
       
       if (tsMatch && bodyMatch) {
         const taskId = bodyMatch[1];
@@ -296,7 +296,7 @@ export class MetricsEngine {
         currentHeader = trimmedLine;
       } else if (trimmedLine.includes(' | ')) {
         // Broadened regex to support optional commit/agent fields
-        const match = trimmedLine.match(/^TASK-\d{3} \| [A-Z_]+ -> [A-Z_]+( \| commit:[a-zA-Z0-9-]+)?( \| agent:[^|]+)?$/);
+        const match = trimmedLine.match(/^TASK-\d+ \| [A-Z_]+ -> [A-Z_]+( \| commit:[a-zA-Z0-9-]+)?( \| agent:[^|]+)?$/);
         if (!match) {
           throw new Error(`Integrity Violation: Malformed event entry "${trimmedLine}" in ${this.eventsPath}`);
         }

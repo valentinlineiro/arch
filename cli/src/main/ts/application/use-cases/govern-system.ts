@@ -505,7 +505,7 @@ export class GovernSystem {
     let count = 0;
     for (const msg of log) {
       if (msg.includes('[THINK]')) break;
-      if (/\[TASK-\d{3}\]/.test(msg)) count++;
+      if (/\[TASK-\d+\]/.test(msg)) count++;
     }
     return count;
   }
@@ -522,7 +522,7 @@ export class GovernSystem {
     const phantomIds = new Set<string>();
 
     for (const line of statusLines) {
-      const match = line.match(/(D docs\/tasks\/|\?\? docs\/archive\/)(TASK-\d{3})\\.md/);
+      const match = line.match(/(D docs\/tasks\/|\?\? docs\/archive\/)(TASK-\d+)\\.md/);
       if (match) {
         phantomIds.add(match[2]);
       }

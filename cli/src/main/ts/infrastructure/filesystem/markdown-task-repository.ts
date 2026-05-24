@@ -128,7 +128,7 @@ export class MarkdownTaskRepository implements TaskRepository {
   }
 
   public parseTask(content: string): Task | null {
-    const headerMatch = content.match(/^## (TASK-\d{3}): (.*)/m);
+    const headerMatch = content.match(/^## (TASK-\d+): (.*)/m);
     const metaMatch = content.match(/^\*\*Meta:\*\* (.*)/m);
 
     if (headerMatch && metaMatch) {

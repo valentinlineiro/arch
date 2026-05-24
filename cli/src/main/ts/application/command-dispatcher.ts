@@ -43,6 +43,7 @@ import { ExplainCommand } from './commands/explain-command.js';
 import { DepsCommand } from './commands/deps-command.js';
 import { SentinelCommand } from './commands/sentinel-command.js';
 import { RankCommand } from './commands/rank-command.js';
+import { AuditCommand } from './commands/audit-command.js';
 
 import { getPublicTopLevel, getPublicEntriesByNamespace, type CommandEntry } from '../domain/services/command-registry.js';
 
@@ -215,6 +216,9 @@ export class CommandDispatcher {
         return null;
       }
       
+      case 'audit':
+        return new AuditCommand();
+
       default:
         return null;
     }
