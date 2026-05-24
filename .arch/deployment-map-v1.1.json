@@ -210,6 +210,14 @@
         }
       },
       {
+        "id": "file:cli/src/main/ts/application/commands/resume-command.ts",
+        "kind": "FILE",
+        "name": "cli/src/main/ts/application/commands/resume-command.ts",
+        "location": {
+          "file": "cli/src/main/ts/application/commands/resume-command.ts"
+        }
+      },
+      {
         "id": "file:cli/src/main/ts/application/commands/review-command.ts",
         "kind": "FILE",
         "name": "cli/src/main/ts/application/commands/review-command.ts",
@@ -2392,6 +2400,13 @@
       },
       {
         "from": "file:cli/src/main/ts/application/command-dispatcher.ts",
+        "to": "file:cli/src/main/ts/application/commands/resume-command",
+        "type": "IMPORT",
+        "uncertainty": "LOW",
+        "source": "STATIC"
+      },
+      {
+        "from": "file:cli/src/main/ts/application/command-dispatcher.ts",
         "to": "file:cli/src/main/ts/domain/services/command-registry",
         "type": "IMPORT",
         "uncertainty": "LOW",
@@ -3457,6 +3472,48 @@
       {
         "from": "file:cli/src/main/ts/application/commands/reprioritize-command.ts",
         "to": "file:cli/src/main/ts/application/use-cases/reprioritize-corpus",
+        "type": "IMPORT",
+        "uncertainty": "LOW",
+        "source": "STATIC"
+      },
+      {
+        "from": "file:cli/src/main/ts/application/commands/resume-command.ts",
+        "to": "module:node:fs",
+        "type": "IMPORT",
+        "uncertainty": "LOW",
+        "source": "STATIC"
+      },
+      {
+        "from": "file:cli/src/main/ts/application/commands/resume-command.ts",
+        "to": "module:node:child_process",
+        "type": "IMPORT",
+        "uncertainty": "LOW",
+        "source": "STATIC"
+      },
+      {
+        "from": "file:cli/src/main/ts/application/commands/resume-command.ts",
+        "to": "module:node:path",
+        "type": "IMPORT",
+        "uncertainty": "LOW",
+        "source": "STATIC"
+      },
+      {
+        "from": "file:cli/src/main/ts/application/commands/resume-command.ts",
+        "to": "file:cli/src/main/ts/domain/repositories/file-system",
+        "type": "IMPORT",
+        "uncertainty": "LOW",
+        "source": "STATIC"
+      },
+      {
+        "from": "file:cli/src/main/ts/application/commands/resume-command.ts",
+        "to": "file:cli/src/main/ts/domain/repositories/git-repository",
+        "type": "IMPORT",
+        "uncertainty": "LOW",
+        "source": "STATIC"
+      },
+      {
+        "from": "file:cli/src/main/ts/application/commands/resume-command.ts",
+        "to": "file:cli/src/main/ts/domain/repositories/task-repository",
         "type": "IMPORT",
         "uncertainty": "LOW",
         "source": "STATIC"
@@ -8772,13 +8829,13 @@
         "stateMutation": [
           {
             "source": "regex",
-            "value": 0.029368575624082235
+            "value": 0.02886002886002886
           }
         ],
         "asyncDensity": [
           {
             "source": "regex",
-            "value": 0.44052863436123346
+            "value": 0.43290043290043284
           }
         ],
         "configDependency": [
@@ -9454,6 +9511,33 @@
           {
             "source": "regex",
             "value": 0.7216494845360824
+          }
+        ],
+        "configDependency": [
+          {
+            "source": "regex",
+            "value": 0
+          }
+        ],
+        "externalDependencyRatio": []
+      },
+      "file:cli/src/main/ts/application/commands/resume-command.ts": {
+        "ioIntensity": [
+          {
+            "source": "regex",
+            "value": 0
+          }
+        ],
+        "stateMutation": [
+          {
+            "source": "regex",
+            "value": 0.07142857142857144
+          }
+        ],
+        "asyncDensity": [
+          {
+            "source": "regex",
+            "value": 1
           }
         ],
         "configDependency": [
@@ -16093,6 +16177,13 @@
         },
         {
           "from": "file:cli/src/main/ts/application/command-dispatcher.ts",
+          "to": "file:cli/src/main/ts/application/commands/resume-command",
+          "type": "IMPORT",
+          "uncertainty": "LOW",
+          "source": "STATIC"
+        },
+        {
+          "from": "file:cli/src/main/ts/application/command-dispatcher.ts",
           "to": "file:cli/src/main/ts/domain/services/command-registry",
           "type": "IMPORT",
           "uncertainty": "LOW",
@@ -16301,6 +16392,14 @@
           "name": "cli/src/main/ts/application/commands/reprioritize-command.ts",
           "location": {
             "file": "cli/src/main/ts/application/commands/reprioritize-command.ts"
+          }
+        },
+        {
+          "id": "file:cli/src/main/ts/application/commands/resume-command.ts",
+          "kind": "FILE",
+          "name": "cli/src/main/ts/application/commands/resume-command.ts",
+          "location": {
+            "file": "cli/src/main/ts/application/commands/resume-command.ts"
           }
         },
         {
@@ -17453,6 +17552,48 @@
         {
           "from": "file:cli/src/main/ts/application/commands/reprioritize-command.ts",
           "to": "file:cli/src/main/ts/application/use-cases/reprioritize-corpus",
+          "type": "IMPORT",
+          "uncertainty": "LOW",
+          "source": "STATIC"
+        },
+        {
+          "from": "file:cli/src/main/ts/application/commands/resume-command.ts",
+          "to": "module:node:fs",
+          "type": "IMPORT",
+          "uncertainty": "LOW",
+          "source": "STATIC"
+        },
+        {
+          "from": "file:cli/src/main/ts/application/commands/resume-command.ts",
+          "to": "module:node:child_process",
+          "type": "IMPORT",
+          "uncertainty": "LOW",
+          "source": "STATIC"
+        },
+        {
+          "from": "file:cli/src/main/ts/application/commands/resume-command.ts",
+          "to": "module:node:path",
+          "type": "IMPORT",
+          "uncertainty": "LOW",
+          "source": "STATIC"
+        },
+        {
+          "from": "file:cli/src/main/ts/application/commands/resume-command.ts",
+          "to": "file:cli/src/main/ts/domain/repositories/file-system",
+          "type": "IMPORT",
+          "uncertainty": "LOW",
+          "source": "STATIC"
+        },
+        {
+          "from": "file:cli/src/main/ts/application/commands/resume-command.ts",
+          "to": "file:cli/src/main/ts/domain/repositories/git-repository",
+          "type": "IMPORT",
+          "uncertainty": "LOW",
+          "source": "STATIC"
+        },
+        {
+          "from": "file:cli/src/main/ts/application/commands/resume-command.ts",
+          "to": "file:cli/src/main/ts/domain/repositories/task-repository",
           "type": "IMPORT",
           "uncertainty": "LOW",
           "source": "STATIC"

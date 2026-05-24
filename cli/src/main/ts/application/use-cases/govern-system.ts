@@ -58,6 +58,12 @@ export class GovernSystem {
       await this.checkSprintLifecycle(config, archivedThisTick);
     }
 
+    // 0.3 Sprint state sync — ensure state file matches arch.config.json intent
+    if (config.currentSprint) {
+      const { SprintService } = await import('../../domain/services/sprint-service.js');
+      await SprintService.initFromConfig(this.fileSystem, config.currentSprint);
+    }
+
     // 1. Rule 2 — Replenishment check
     const readyTasks = await this.taskRepository.findReady();
     if (readyTasks.length < 3) {

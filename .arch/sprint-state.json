@@ -1,8 +1,5 @@
 {
-  "name": "test-sprint-idempotency",
-  "status": "CLOSED",
-  "startedAt": "2026-05-23T23:32:10.403Z",
-  "target": "test goal",
-  "closedAt": "2026-05-23T23:32:10.407Z",
-  "velocity": 5
+  "name": "sprint/v1.0.0-improvements",
+  "status": "ACTIVE",
+  "startedAt": "2026-05-24T15:33:01.635Z"
 }
