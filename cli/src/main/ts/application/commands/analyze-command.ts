@@ -276,7 +276,7 @@ ${taskSections}`;
       console.log(`  Note: Hansei synthesis skipped (${e.message})`);
     }
 
-    // Alignment audit: runs on deep cadence, surfaces emergent patterns to INBOX
+    // Alignment audit: advisory only — surfaces emergent patterns to INBOX with [ADVISORY] prefix
     try {
       const { AuditCommand } = await import('./audit-command.js');
       const auditor = new AuditCommand();
@@ -287,10 +287,10 @@ ${taskSections}`;
         const inbox = await fs.readFile(inboxPath).catch(() => '');
         const now = new Date().toISOString().slice(0, 19).replace('T', ' ');
         const alerts = result.emergent
-          .map(e => `[EMERGENT] ${e.subject}: ${e.description}`)
+          .map(e => `[ADVISORY][EMERGENT] ${e.subject}: ${e.description}`)
           .join('\n');
-        await fs.writeFile(inboxPath, (inbox.trimEnd()) + `\n\n## ${now} — Alignment Audit\nAlignment: ${result.score}/100\n${alerts}\n`);
-        console.log(`  ⚡ Alignment audit: ${result.score}/100, ${result.emergentCount} emergent pattern(s) → INBOX`);
+        await fs.writeFile(inboxPath, (inbox.trimEnd()) + `\n\n## ${now} — Alignment Audit (Advisory)\n<!-- These entries are advisory only — not governance gates. Source: arch analyze -->\nAlignment: ${result.score}/100\n${alerts}\n`);
+        console.log(`  ⚡ Alignment audit: ${result.score}/100, ${result.emergentCount} emergent pattern(s) → INBOX [ADVISORY]`);
       } else {
         console.log(`  ✔ Alignment audit: ${result.score}/100`);
       }

@@ -1,8 +1,8 @@
 {
   "version": 1,
-  "builtAt": "2026-05-24T18:09:22.418Z",
-  "archiveCommit": "368:design",
-  "taskCount": 165,
+  "builtAt": "2026-05-24T23:14:58.326Z",
+  "archiveCommit": "369:design",
+  "taskCount": 166,
   "entries": {
     "TASK-1000": {
       "id": "TASK-1000",
@@ -53,6 +53,23 @@
       "forwardAction": "None required.",
       "acCount": 5,
       "acMachineVerifiable": 3,
+      "closurePath": "L3"
+    },
+    "TASK-1005": {
+      "id": "TASK-1005",
+      "size": "S",
+      "class": "1-code-reasoning",
+      "closedAt": "2026-05-24T23:14:41.478Z",
+      "lockedCommit": "4ccc4238",
+      "actor": "unknown",
+      "severity": "H1",
+      "category": "[SpecDrift]",
+      "decision": "govern-system.ts has zero LLM invocations — verified by grep. The advisory INBOX path (analyze-command.ts AuditCommand.runQuiet) now prefixes entries [ADVISORY][EMERGENT] with HTML comment noting advisory-only status. ADR-034 filed with explicit INBOX entry classification table. HanseiSynthesizer PATTERN-ALERT is deterministic (corpus counts) — correctly kept without advisory prefix.",
+      "constraint": "The [ADVISORY] prefix is a naming convention, not a code-enforced gate. An agent reading INBOX.md must filter by prefix — the wall is structural in that govern never calls LLM, but advisory entries still co-exist in the same file.",
+      "cost": "No architectural debt. If INBOX co-mingling becomes a problem, a future task can split docs/INBOX.md into deterministic and advisory channels.",
+      "forwardAction": "None required.",
+      "acCount": 6,
+      "acMachineVerifiable": 2,
       "closurePath": "L3"
     },
     "TASK-180": {

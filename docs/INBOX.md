@@ -51,3 +51,17 @@ _Generated: 2026-05-24T11:47Z by [THINK] DEEP session_
 
 ## 2026-05-24 18:09:22 — Pattern Alerts
 [PATTERN-ALERT] [SpecDrift] detected 8 times — systemic issue. See docs/tensions/
+
+## [AWAITING_REVIEW] TASK-1005 [L3-AUTO]
+**Closed:** 2026-05-24T23:14:41.632Z
+**Title:** Decouple arch govern reflect from govern tick : enforce structural LLM/governance separation
+
+| AC | Type | Pass | Detail |
+|---|---|---|---|
+| `arch govern reflect` is removed from the govern tick. Refle | prose | ✔ | prose: human-verified (non-automated) |
+| `arch govern` tick is fully deterministic: no LLM invocation | prose | ✔ | prose: human-verified (non-automated) |
+| INBOX.md entries from THINK/reflect are written with a `[ADV | unknown | ✔ | no predicate declared — treated as prose |
+| `arch govern` exit code is always determined by deterministi | prose | ✔ | prose: human-verified (non-automated) |
+| ADR-034 filed extending ADR-026 with explicit govern/reflect | file | ✔ | exists: docs/adr/ADR-034-govern-reflect-separation.md |
+| `npm test` passes. | prose | ✔ | prose: human-verified (non-automated) |
+| `arch review` passes. | cmd | ✔ | exit 0 (expected 0) |

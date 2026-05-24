@@ -16,3 +16,4 @@
 {"taskId":"TASK-1000","timestamp":"2026-05-24T00:07:24.784Z","labels":["[SpecDrift]"]}
 {"taskId":"TASK-1001","timestamp":"2026-05-24T11:55:02.706Z","labels":["[SpecDrift]"]}
 {"taskId":"TASK-1002","timestamp":"2026-05-24T11:56:30.877Z","labels":["[MissingDecisionRecord]"]}
+{"taskId":"TASK-1005","timestamp":"2026-05-24T23:14:41.641Z","labels":["[SpecDrift]"]}
