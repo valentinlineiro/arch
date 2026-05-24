@@ -1,7 +1,7 @@
 # IDEA: protocol-upgrade-policy — define patch/minor/major upgrade adoption protocol
 **Created:** 2026-05-24
 **Source:** ROADMAP-IDEAS — protocol-upgrade-policy entry, graduated by THINK 2026-05-24
-**Status:** DRAFT
+**Status:** PROMOTED
 **Meta:** P2 | S | human | docs/adr/, docs/PROTOCOL-UPGRADES.md
 
 ## Problem
@@ -40,4 +40,4 @@ A new file `docs/PROTOCOL-UPGRADES.md` and an ADR (ADR-033) defining:
 - `.arch/protocol-versions.jsonl` schema needs definition
 
 ## Decision
-<!-- PROMOTE → TASK-XXX | REJECT: reason | DEFERRED: reason + condition -->
+PROMOTE → TASK-1002

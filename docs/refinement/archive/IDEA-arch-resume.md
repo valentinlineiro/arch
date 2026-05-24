@@ -1,29 +1,41 @@
-# IDEA: arch resume — self-healing for common halts
-**Decision-required:** yes
-Sessions: 3
-<!-- **Decision-required:** yes -->
-<!-- **Session-count:** 1 -->
+# IDEA: arch-resume — automate ANDON_HALT recovery paths
+**Created:** 2026-05-24
+**Source:** ROADMAP-IDEAS — arch-resume entry, graduated by THINK 2026-05-24
+**Status:** PROMOTED
+**Meta:** P2 | S | human | cli/src/main/ts/application/commands/resume-command.ts, .arch/escalations.jsonl
 
 ## Problem
-The "Andon Cord" (ANDON_HALT) is essential for safety but currently creates a high-friction manual recovery process. Humans must find the record in `INBOX.md`, resolve the underlying issue, and then manually update the task state or rerun complex commands.
+
+`arch resume` does not exist. When `ANDON_HALT` fires, recovery is a manual process: read INBOX.md, identify the halt reason, take the correct sequence of actions, re-run `arch govern`. This costs 5–15 minutes per halt and requires knowing the recovery action for each halt type. Under time pressure, humans skip the correct procedure and force past the halt with `--force`, which corrupts the integrity audit trail.
 
 ## Proposed Solution
-Implement `arch resume <taskId>` to automate common recovery paths.
-1.  **Guided Resolution:** The command analyzes why the task was halted (e.g., Budget Exceeded, Review Failure) and presents specific resolution options.
-2.  **Deterministic Healing:**
-    - If Budget Exceeded: Prompt human for budget extension -> Update metadata -> Move back to `IN_PROGRESS`.
-    - If Review Failure: Prompt human to confirm fixes -> Rerun `arch review` -> Move back to `IN_PROGRESS`.
-3.  **Audit Trail:** Log the `arch resume` event as a `FOCUS_RECOVERED` ruling in the ledger to maintain traceability.
 
-## Expected Value
-- **Usability:** Lower the "metabolic cost" of failure, encouraging agents to halt safely rather than attempting fragile workarounds.
-- **Traceability:** Formalize the recovery path in the system logs.
+`arch resume <taskId>` reads `.arch/escalations.jsonl` for the most recent OPEN ANDON record for that task, determines the halt reason, and executes the deterministic recovery path:
 
-## Governance Class
-**Class:** II
-**Evaluates:** Recovery safety and operational efficiency.
-**Boundary risk:** `arch resume` could become a "blind override" button if it doesn't require explicit human input for the resolution reason, effectively ratifying a failure without addressing the root cause.
+| HALT reason | Recovery action |
+|---|---|
+| `REVIEW_FAIL` (3x) | Resets task to READY, clears REVIEW lock, appends REVIEW_RESET to ledger |
+| `INTEGRITY_BREACH` | Runs append-only repair, commits fix, re-validates |
+| `FOCUS_VIOLATION` | Runs `arch govern` tick — auto-resolves |
+| `BUDGET_EXHAUSTED` | Prompts for new size, updates Meta line, reopens task |
+| `ANDON_HALT` (corpus) | Surfaces `arch corpus audit` output, prompts action |
+| Unknown | Prints halt context and exits non-zero — no silent swallowing |
+
+After successful recovery: closes the escalation record (sets `status: RESOLVED`, `resolved_by: arch-resume`, `resolved_at: <timestamp>`), appends `FOCUS_RECOVERED` ruling to `.arch/focus-ledger.jsonl`, runs `arch check` to confirm clean state.
+
+## Constraint Axes
+- **Dependency ordering:** None — escalations.jsonl and focus-ledger exist and are stable
+- **Temporal validity:** Valid now — ANDON_HALT has been firing for weeks, patterns are known
+- **Abstraction layer:** Correct — CLI command, not a protocol change
+- **Observability validity:** Deterministic — escalations.jsonl is machine-readable
+- **Priority displacement:** P2 — not blocking current work but compounds every halt
+
+## Gaps
+- `arch task restart` (REVIEW_FAIL path) does not exist — needs S sub-task
+- `arch govern --repair` (INTEGRITY_BREACH path) does not exist — needs XS sub-task
+- `arch task extend` (BUDGET_EXHAUSTED path) does not exist — needs XS sub-task
+
+These can be stubbed initially with clear error messages and implemented incrementally.
 
 ## Decision
-**PROMOTE → ROADMAP**
-**Source:** ARCH Value Report (2026-05-22)
+PROMOTE → TASK-1001
