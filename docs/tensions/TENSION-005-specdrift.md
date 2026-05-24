@@ -43,3 +43,8 @@ Severities observed: H2, H3b.
 **Count:** 8 occurrences
 **Task IDs:** TASK-267, TASK-268, TASK-283, TASK-926, TASK-927, TASK-930, TASK-940, TASK-955
 **Severities:** H2, H3b
+## Evidence block — 2026-05-24
+**Count:** 2 new causal signals (total systemic signal: 8+ tasks)
+**Task IDs:** recent session work — see causal-signal.jsonl
+**Severities:** friction:[SpecDrift]
+**Note:** signal count declining — intervention (TASK-978 pre-existence check, TASK-991 DO.md fix) may be taking effect.
