@@ -1,5 +1,5 @@
 # IDEA: deterministic-governance-gates
-**Meta:**Source: human | Status: DRAFT | Sessions: 1
+**Meta:** P1 | S | human | Status: PROMOTED | Sessions: 1
 **Created:** 2026-05-19
 
 ## Problem
@@ -43,3 +43,7 @@ Class: I (principle) + II (code enforcement)
 Evaluates: Whether governance gate outcomes are deterministic.
 Does NOT evaluate: Quality of LLM advisory output.
 Boundary risk: Low — the Tier 2 code change is a one-line exit code fix. ADR touches a protected path but is self-authorizing.
+
+## THINK note (2026-05-24)
+Original scope (ADR-023 + Tier 2 exit code) was completed by TASK-950 (DONE).
+Extended scope: structural govern/reflect separation → TASK-1005.
