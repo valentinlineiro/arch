@@ -3554,7 +3554,7 @@
       "title": "Protocol upgrade policy — patch/minor/major classification and adoption"
     }
   },
-  "builtAt": "2026-05-24T15:33:44.588Z",
+  "builtAt": "2026-05-24T18:09:21.926Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -8429,6 +8429,22 @@
         "docs/tasks/TASK-206.md": 1
       }
     },
+    "TASK-1003": {
+      "commitCount": 3,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-05-24T20:02:13+02:00",
+      "recentCommitRefs": [
+        "16c1ca83",
+        "3d491437",
+        "653b6482"
+      ],
+      "touchedFrequency": {
+        "cli/src/main/ts/application/use-cases/drift-checker.ts": 1,
+        "cli/src/main/ts/domain/services/reviewer.ts": 1,
+        "docs/refinement/archive/IDEA-opencode-fallback.md": 1,
+        "docs/tasks/TASK-1003.md": 1
+      }
+    },
     "TASK-206": {
       "commitCount": 18,
       "commitRefOverflow": false,
@@ -8882,34 +8898,22 @@
       }
     },
     "TASK-253": {
-      "commitCount": 8,
+      "commitCount": 3,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-19T11:31:58+02:00",
       "recentCommitRefs": [
         "095c8e23",
-        "1c35aca9",
         "1e50bcfa",
-        "1fe4c543",
-        "755eaa37",
-        "7f76abf0",
-        "a2720f67",
-        "d56c0888"
+        "7f76abf0"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
-        ".arch/chronicle.jsonl": 2,
+        ".arch/chronicle.jsonl": 1,
         ".arch/context-feedback.json": 1,
-        ".arch/focus-ledger.jsonl": 1,
-        ".arch/reflect-breach-log.jsonl": 1,
-        "cli/src/main/ts/application/use-cases/mark-task-done.ts": 1,
-        "cli/src/main/ts/application/use-cases/validate-task-acs.ts": 1,
-        "cli/src/test/ts/mark-task-done.test.ts": 1,
         "docs/EVENTS.md": 1,
-        "docs/INBOX.md": 2,
-        "docs/METRICS.md": 1,
+        "docs/INBOX.md": 1,
         "docs/archive/TASK-253.md": 2,
-        "docs/archive/TASK-949.md": 1,
-        "docs/tasks/TASK-253.md": 2
+        "docs/archive/TASK-949.md": 1
       }
     },
     "TASK-258": {
@@ -9635,9 +9639,9 @@
       }
     },
     "TASK-957": {
-      "commitCount": 9,
+      "commitCount": 10,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-23T23:49:58+00:00",
+      "lastCommitDate": "2026-05-24T15:33:56+00:00",
       "recentCommitRefs": [
         "19e59cac",
         "1a01ec66",
@@ -9647,26 +9651,29 @@
         "758cac88",
         "a0db17ec",
         "ac25df8c",
+        "b14992cd",
         "c33d90a1"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
         ".arch/chronicle.jsonl": 1,
         ".arch/context-feedback.json": 1,
+        ".arch/deployment-map-v1.1.json": 1,
         ".arch/ecp-registry.jsonl": 1,
         ".arch/escalations.jsonl": 1,
         ".arch/focus-ledger.jsonl": 3,
-        ".arch/reflect-breach-log.jsonl": 1,
-        ".arch/status-projection.json": 1,
+        ".arch/reflect-breach-log.jsonl": 2,
+        ".arch/sprint-state.json": 1,
+        ".arch/status-projection.json": 2,
         ".arch/temporal-index.jsonl": 1,
-        "README.md": 1,
+        "README.md": 2,
         "arch.config.json": 1,
-        "cli/.arch/status-projection.json": 1,
-        "cli/src/main/ts/application/use-cases/govern-system.ts": 1,
+        "cli/.arch/status-projection.json": 2,
+        "cli/src/main/ts/application/use-cases/govern-system.ts": 2,
         "docs/EVENTS.md": 1,
         "docs/INBOX.md": 1,
         "docs/METRICS.md": 1,
-        "docs/ROADMAP.md": 1,
+        "docs/ROADMAP.md": 2,
         "docs/adr/ADR-032-automatic-sprint-lifecycle.md": 1,
         "docs/archive/TASK-957.md": 1,
         "docs/archive/TASK-969.md": 1,
@@ -9993,10 +10000,12 @@
       }
     },
     "TASK-969": {
-      "commitCount": 1,
+      "commitCount": 3,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-23T23:49:58+00:00",
+      "lastCommitDate": "2026-05-24T19:49:04+02:00",
       "recentCommitRefs": [
+        "18fa2fbd",
+        "9a85cd48",
         "a0db17ec"
       ],
       "touchedFrequency": {
@@ -10017,7 +10026,10 @@
         "docs/adr/ADR-032-automatic-sprint-lifecycle.md": 1,
         "docs/archive/TASK-957.md": 1,
         "docs/archive/TASK-969.md": 1,
-        "docs/tasks/TASK-206.md": 1
+        "docs/archive/TASK-991.md": 1,
+        "docs/refinement/archive/IDEA-opencode-fallback.md": 1,
+        "docs/tasks/TASK-206.md": 1,
+        "docs/tasks/TASK-996.md": 1
       }
     },
     "TASK-971": {
@@ -10671,12 +10683,14 @@
       }
     },
     "TASK-991": {
-      "commitCount": 2,
+      "commitCount": 4,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-23T23:36:14+00:00",
+      "lastCommitDate": "2026-05-24T19:49:04+02:00",
       "recentCommitRefs": [
         "1180f496",
-        "5b41c4cc"
+        "18fa2fbd",
+        "5b41c4cc",
+        "9a85cd48"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
@@ -10701,14 +10715,16 @@
         "docs/adr/ADR-031-sprint-domain-model.md": 1,
         "docs/agents/DO.md": 1,
         "docs/archive/TASK-990.md": 1,
-        "docs/archive/TASK-991.md": 2,
+        "docs/archive/TASK-991.md": 3,
         "docs/archive/TASK-996.md": 1,
         "docs/archive/TASK-997.md": 1,
         "docs/archive/TASK-998.md": 1,
+        "docs/refinement/archive/IDEA-opencode-fallback.md": 1,
         "docs/tasks/TASK-1000.md": 1,
         "docs/tasks/TASK-957.md": 1,
         "docs/tasks/TASK-967.md": 1,
         "docs/tasks/TASK-991.md": 1,
+        "docs/tasks/TASK-996.md": 1,
         "docs/tasks/TASK-999.md": 1
       }
     },
@@ -10841,31 +10857,35 @@
       }
     },
     "TASK-995": {
-      "commitCount": 4,
+      "commitCount": 5,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-24T15:33:40+00:00",
+      "lastCommitDate": "2026-05-24T18:09:17+00:00",
       "recentCommitRefs": [
         "262b9d14",
         "4804ff7d",
         "8dcf3ac3",
+        "ba4ba6a7",
         "e7700905"
       ],
       "touchedFrequency": {
         ".arch/ecp-registry.jsonl": 1,
-        ".arch/focus-ledger.jsonl": 3,
+        ".arch/focus-ledger.jsonl": 4,
         "docs/tasks/TASK-957.md": 1,
         "docs/tasks/TASK-995.md": 1
       }
     },
     "TASK-996": {
-      "commitCount": 1,
+      "commitCount": 2,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-23T23:35:13+00:00",
+      "lastCommitDate": "2026-05-24T19:54:40+02:00",
       "recentCommitRefs": [
+        "3d491437",
         "c7054bae"
       ],
       "touchedFrequency": {
         "docs/archive/TASK-996.md": 1,
+        "docs/refinement/archive/IDEA-opencode-fallback.md": 1,
+        "docs/tasks/TASK-1003.md": 1,
         "docs/tasks/TASK-996.md": 1
       }
     },
