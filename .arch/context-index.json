@@ -3367,7 +3367,7 @@
       "title": "Automatic sprint lifecycle in arch govern"
     }
   },
-  "builtAt": "2026-05-24T00:07:31.182Z",
+  "builtAt": "2026-05-24T11:49:50.095Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -4133,6 +4133,7 @@
       "imports": [
         "cli/src/main/ts/application/commands/analyze-command.ts",
         "cli/src/main/ts/application/commands/ask-command.ts",
+        "cli/src/main/ts/application/commands/audit-command.ts",
         "cli/src/main/ts/application/commands/batch-command.ts",
         "cli/src/main/ts/application/commands/capture-command.ts",
         "cli/src/main/ts/application/commands/check-command.ts",
@@ -4241,7 +4242,7 @@
         "cli/src/main/ts/domain/services/ueg-ir-builder.ts",
         "cli/src/main/ts/infrastructure/filesystem/node-file-system.ts"
       ],
-      "runtimeUsage": "cold",
+      "runtimeUsage": "hot",
       "symbols": [
         "AuditCommand"
       ],
@@ -6649,7 +6650,7 @@
     "cli/src/main/ts/domain/models/ueg-ir.ts": {
       "criticality": "core",
       "imports": [],
-      "runtimeUsage": "cold",
+      "runtimeUsage": "warm",
       "symbols": [
         "ARCHDeploymentMap",
         "BehavioralSignals",
@@ -7189,7 +7190,7 @@
         "cli/src/main/ts/domain/models/ueg-ir.ts",
         "cli/src/main/ts/domain/services/ueg-interfaces.ts"
       ],
-      "runtimeUsage": "cold",
+      "runtimeUsage": "warm",
       "symbols": [
         "JavaAdapter"
       ],
@@ -7408,7 +7409,7 @@
         "cli/src/main/ts/domain/models/ueg-ir.ts",
         "cli/src/main/ts/domain/services/ueg-interfaces.ts"
       ],
-      "runtimeUsage": "cold",
+      "runtimeUsage": "warm",
       "symbols": [
         "PythonAdapter"
       ],
@@ -7717,7 +7718,7 @@
         "cli/src/main/ts/domain/models/ueg-ir.ts",
         "cli/src/main/ts/domain/services/ueg-interfaces.ts"
       ],
-      "runtimeUsage": "cold",
+      "runtimeUsage": "warm",
       "symbols": [
         "TypeScriptAdapter"
       ],
@@ -7735,7 +7736,7 @@
       "imports": [
         "cli/src/main/ts/domain/models/ueg-ir.ts"
       ],
-      "runtimeUsage": "cold",
+      "runtimeUsage": "warm",
       "symbols": [
         "UEGAnalysisLayer"
       ],
@@ -7751,7 +7752,7 @@
       "imports": [
         "cli/src/main/ts/domain/models/ueg-ir.ts"
       ],
-      "runtimeUsage": "cold",
+      "runtimeUsage": "warm",
       "symbols": [
         "IRBuilder",
         "LanguageAdapter"
@@ -7771,7 +7772,7 @@
         "cli/src/main/ts/domain/models/ueg-ir.ts",
         "cli/src/main/ts/domain/services/ueg-interfaces.ts"
       ],
-      "runtimeUsage": "cold",
+      "runtimeUsage": "warm",
       "symbols": [
         "UEGIRBuilder"
       ],
@@ -8119,6 +8120,47 @@
     }
   },
   "tasks": {
+    "TASK-1000": {
+      "commitCount": 1,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-05-24T11:45:40+00:00",
+      "recentCommitRefs": [
+        "d4855400"
+      ],
+      "touchedFrequency": {
+        ".arch/causal-signal.jsonl": 1,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/deployment-map-v1.1.json": 1,
+        ".arch/reflect-breach-log.jsonl": 1,
+        ".arch/status-projection.json": 1,
+        ".arch/temporal-index.jsonl": 1,
+        "README.md": 1,
+        "cli/.arch/status-projection.json": 1,
+        "cli/src/main/ts/application/command-dispatcher.ts": 1,
+        "cli/src/main/ts/application/commands/audit-command.ts": 1,
+        "cli/src/main/ts/application/use-cases/build-index.ts": 1,
+        "cli/src/main/ts/application/use-cases/drift-checker.ts": 1,
+        "cli/src/main/ts/application/use-cases/govern-system.ts": 1,
+        "cli/src/main/ts/domain/services/metrics-engine.ts": 1,
+        "cli/src/main/ts/infrastructure/filesystem/markdown-task-repository.ts": 1,
+        "docs/EVENTS.md": 1,
+        "docs/METRICS.md": 1,
+        "docs/ROADMAP.md": 1,
+        "docs/archive/TASK-1000.md": 1,
+        "docs/tasks/TASK-1000.md": 1
+      }
+    },
+    "TASK-1001": {
+      "commitCount": 1,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-05-24T11:49:46+00:00",
+      "recentCommitRefs": [
+        "9c4d7e91"
+      ],
+      "touchedFrequency": {
+        ".arch/focus-ledger.jsonl": 1
+      }
+    },
     "TASK-206": {
       "commitCount": 14,
       "commitRefOverflow": false,
@@ -8562,7 +8604,7 @@
       }
     },
     "TASK-253": {
-      "commitCount": 11,
+      "commitCount": 10,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-19T11:31:58+02:00",
       "recentCommitRefs": [
@@ -8575,14 +8617,13 @@
         "8aaa21ac",
         "a2720f67",
         "c7d3eb9c",
-        "d56c0888",
-        "f11e5a2d"
+        "d56c0888"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
         ".arch/chronicle.jsonl": 2,
         ".arch/context-feedback.json": 1,
-        ".arch/focus-ledger.jsonl": 4,
+        ".arch/focus-ledger.jsonl": 3,
         ".arch/reflect-breach-log.jsonl": 1,
         "cli/src/main/ts/application/use-cases/mark-task-done.ts": 1,
         "cli/src/main/ts/application/use-cases/validate-task-acs.ts": 1,
@@ -9122,14 +9163,13 @@
       }
     },
     "TASK-949": {
-      "commitCount": 4,
+      "commitCount": 3,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-19T11:31:58+02:00",
       "recentCommitRefs": [
         "1e50bcfa",
         "2f1a3656",
-        "c272e54a",
-        "d5fcb7c4"
+        "c272e54a"
       ],
       "touchedFrequency": {
         ".arch/chronicle.jsonl": 1,
@@ -9140,8 +9180,7 @@
         "docs/EVENTS.md": 1,
         "docs/archive/TASK-253.md": 1,
         "docs/archive/TASK-949.md": 2,
-        "docs/tasks/TASK-948.md": 1,
-        "docs/tasks/TASK-949.md": 1
+        "docs/tasks/TASK-948.md": 1
       }
     },
     "TASK-950": {
