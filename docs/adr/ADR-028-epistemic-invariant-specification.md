@@ -108,3 +108,7 @@ To guarantee these invariants are programmatically enforced, the codebase must p
 * Temporal smoothing and alert hysteresis must be handled entirely outside the core engine (e.g. using standard OS job schedulers or simple shell script wrapping).
 
 ---
+
+## Referenced-by
+**Files:** cli/src/main/ts/domain/services/
+**Note:** Epistemic invariant specification — task-validator enforces invariants

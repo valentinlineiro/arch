@@ -29,5 +29,7 @@ XS
 
 ## Decision
 
+DEFERRED: status docs refreshed continuously as part of each task. No dedicated refresh task needed.
 
+DEFERRED: status docs refreshed as part of ongoing doc maintenance
 PROMOTE → TASK-971

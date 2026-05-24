@@ -90,3 +90,7 @@ This ADR defines the model. Implementation is a separate task:
 - `arch review` gains a `DriftCoverage` check that surfaces persistent WARNs with no pending intervention.
 - Stale `Covers:` fields are flagged when a drift check is removed or renamed — a lightweight consistency gate between the two layers.
 - Migration to Option C (relational primitive) is a non-breaking upgrade: the `.arch/coverage-map.jsonl` file can be generated from existing `Covers:` fields and extended from there.
+
+## Referenced-by
+**Files:** cli/src/main/ts/application/use-cases/drift-checker.ts
+**Note:** Drift coverage identity model — DriftChecker implements coverage checks

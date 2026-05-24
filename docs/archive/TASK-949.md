@@ -2,6 +2,7 @@
 **Meta:** P2 | M | DONE | Focus:no | 1-code-reasoning | claude-code | none
 **Closed-at:** 2026-05-19T08:13:49.818Z
 **Depends:** none
+<!-- adr-ref: ADR-024 — Governs drift coverage identity model for corpus audit -->
 
 ## Hansei
 **Severity:** H1

@@ -37,15 +37,15 @@ d9d41db chore: pivot CLI migration from Python to Node.js [TASK-027]
 
 <!-- ARCH-REPORT:START -->
 #### ARCH Materialized Status
-**Generated:** 2026-05-24T11:56:48.612Z
+**Generated:** 2026-05-24T12:06:30.065Z
 **Sprint ID:** sprint/v1.0.0-improvements
 
 | Status | Count |
 | :--- | :--- |
-| Ready | 17 |
+| Ready | 18 |
 | In Progress | 0 |
 | Review | 0 |
-| Blocked | 8 |
+| Blocked | 7 |
 | Done (Archive) | 367 |
 
 **Audit Score:** 100/100
@@ -161,33 +161,57 @@ arch init --minimal
 cd my-project
 
 # Sprint management
+arch govern                           # Enforcement tick: archive DONE, assign focus, check thresholds
 arch govern inbox                     # Weekly dashboard and pending refinement
+arch govern reflect                   # THINK analysis: INBOX, Kaizen, drift detection
+arch govern report                    # Operational metrics report
+arch govern compact-escalations       # Deduplicate escalations.jsonl
 arch task next                        # Suggests next most relevant task
 arch task rank                        # Rank READY tasks by priority and size
 arch task start TASK-001              # Mark IN_PROGRESS
 arch task done  TASK-001              # Archive as DONE
 arch task promote my-idea             # Promote an IDEA to a TASK
-
-# Memory queries
-arch memory ask "why did auth routing keep failing?"
-# → query class, cause groups, ranked matches with causal context, entity refs
-
-# Causal graph & Tracing
-arch trace TASK-220                   # Active edges for entity
-arch trace TASK-220 --all             # Full history including weakened/invalidated
-arch trace add TASK-220 caused_by TASK-184 --note "routing debt"
-
-# Governance and analysis
-arch govern                           # Enforcement tick: archive DONE, assign focus, check thresholds
-arch analyze                          # Analysis: regenerate INBOX, surface Kaizen, detect drift (THINK)
-arch analyze influence                # Epistemic influence report — engagement, attribution, gaps
-
-# Integrity
-arch check                            # Full audit: task format, commit, drift checks
-arch check --fast                     # Format-only: skips drift checks (replaces arch validate/lint)
+arch task reprioritize                # Corpus-informed priority adjustment
+arch task compress --all              # Compress archive to save Census budget
+arch task loop                        # Autonomous task loop (agent mode)
+arch task batch                       # Batch task operations
+arch task drain                       # Drain task batch queue
+arch task conduct                     # Conduct a batch session
+arch task sandbox                     # Sandbox task execution
+arch task mv TASK-001                 # Move task between states
+arch task exec TASK-001               # Execute task in agent mode
 arch task merge-resolve               # Auto-resolve trivial merge conflicts
-arch status                           # High-level sprint and task progress
+arch task verify-acs TASK-001         # Run AC verification without closing
+arch task validate TASK-001           # Validate task format
+arch task lint                        # Lint all task files
+
+# Corpus intelligence
+arch memory ask "why did auth routing fail?"  # Semantic query over corpus
+arch ask "pattern in SpecDrift tasks"          # Alias for memory ask
+arch corpus audit                              # Deterministic corpus quality report
+arch corpus audit --verbose                    # Full findings with INFO entries
+arch audit .                                   # Alignment audit: ADRs vs git evidence
+arch audit --public https://github.com/x/y    # Structural MRI for any public repo
+arch analyze                                   # THINK analysis: surface Kaizen, detect drift
+arch analyze influence                         # Epistemic influence report
+arch causal                                    # Causal graph operations
+
+# Lifecycle
+arch review                           # Auditor queue: tasks needing human review
+arch check                            # Full system review: format, drift, integrity
+arch status                           # Session orientation: focus, alerts, alignment
+arch resume TASK-001                  # Automate ANDON_HALT recovery
+arch resume TASK-001                  # Automate ANDON_HALT recovery
+arch capture                          # Capture decision or observation to corpus
+arch explain TASK-001                 # Explain a task in corpus context
+arch report                           # Operational report
+arch reflect                          # THINK reflect analysis
+arch inbox                            # View governance inbox
+arch sentinel                         # Sentinel coverage check
+arch index                            # Rebuild context index
+arch init                             # Initialize ARCH in a repo
 arch version                          # Show CLI version
+arch status                           # High-level sprint and task progress
 ```
 
 ---

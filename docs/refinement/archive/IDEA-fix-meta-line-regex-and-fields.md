@@ -30,6 +30,6 @@ S — impacts regex in TypeScript validator and documentation in two files.
 ## Gaps
 
 ## Decision
-
+PROMOTE → TASK-990 (meta line regex + TASK-FORMAT.md auxiliary fields)
 **PROMOTE → TASK-990**
 **Rationale:** Well-bounded spec fix. Add Turns capture group to regex + document Locked-commit and auxiliary fields in TASK-FORMAT.md.

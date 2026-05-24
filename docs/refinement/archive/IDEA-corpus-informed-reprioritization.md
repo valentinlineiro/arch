@@ -215,6 +215,6 @@ IMeta produces the UNCLASSIFIED cluster report. That report triggers ECP_CREATED
 An ECP transitions to DISCARDED when: no new recurrence signals for N govern cycles AND no active task association remains. DISCARDED is a terminal state with full history preserved in `.arch/ecp-registry.jsonl`. Nothing is deleted.
 
 ## Decision
-
+PROMOTE → TASK-955 (corpus-informed reprioritization implemented)
 **Adjudicate by:** 2026-05-19
 PROMOTE → TASK-955

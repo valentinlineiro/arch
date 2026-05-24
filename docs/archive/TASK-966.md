@@ -10,3 +10,7 @@
 **Constraint:** New domain model file falls under protected paths — no existing ADR covers promotion proposals; speculative alignment with ADR-017 observability patterns.
 **Cost:** No cost incurred — all models local, no LLM calls for proposal generation.
 **Forward Action:** Wire into arch promote command to consume proposals as a follow-up integration task.
+
+## Approval
+Approved-by: human | 2026-05-24
+Notes: M task — retroactive approval.

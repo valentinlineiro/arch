@@ -2,6 +2,7 @@
 **Meta:** P3 | M | DONE | Focus:no | 2-code-generation | local | docs/tasks/
 **Closed-at:** 2026-05-20T17:05:00Z
 **Depends:** none
+<!-- adr-ref: ADR-028 — Governs epistemic invariant specification for stream enforcement -->
 
 ## Hansei
 **Severity:** H1

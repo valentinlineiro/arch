@@ -54,3 +54,7 @@ This model preserves causal identifiability while guaranteeing identity-non-reco
 * Temporal alerts requiring multi-session tracking (e.g. tracking whether an alert was triggered yesterday) must be delegated entirely to the external runtime environment (e.g. comparing the logs of a cron orchestrator) rather than being resolved inside the core execution model.
 
 ---
+
+## Referenced-by
+**Files:** .arch/*.jsonl, cli/src/main/ts/application/use-cases/
+**Note:** Bounded stream projections — focus-ledger, escalations, causal-signal are all append-only

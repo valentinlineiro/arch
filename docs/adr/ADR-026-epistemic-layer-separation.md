@@ -132,3 +132,7 @@ It kills the fix reflex. It prevents silent degradation (ignoring the finding en
 - CLAUDE.md §Invariants: "INBOX.md is human-only. Agents write to it; humans read it."
 - ADR-015: Causal Signal Arbitration Layer
 - ADR-017: Deterministic Observability & Operational Metrics
+
+## Referenced-by
+**Files:** cli/src/main/ts/application/use-cases/govern-system.ts, .arch/
+**Note:** Epistemic layer separation — govern enforces event log/state projection/governance boundary

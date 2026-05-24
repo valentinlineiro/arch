@@ -24,5 +24,7 @@ S
 
 ## Decision
 
+PROMOTE → TASK-970 (code quality audit process for agent-emitted code)
 
+PROMOTE → TASK-970 (code quality audit process for agent-emitted code)
 PROMOTE → TASK-970

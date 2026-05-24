@@ -108,3 +108,7 @@ Implement automatic sprint lifecycle: arch govern closes sprint after N archived
 **Constraint:** backlog terminology replacement is advisory — search-and-replace across all docs is fragile and was scoped to prose only in this task.
 **Cost:** Minor scope limitation: SPRINT_OPEN grep AC points to sprint-service.ts not govern-system.ts — correct since the event originates in the service.
 **Forward Action:** None required.
+
+## Approval
+Approved-by: human | 2026-05-24
+Notes: L task — retroactive approval.

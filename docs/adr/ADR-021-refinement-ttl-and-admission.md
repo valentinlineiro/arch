@@ -37,3 +37,7 @@ value.
 
 - Whether any specific IDEA content is valid.
 - Priority ordering within ROADMAP-IDEAS.md.
+
+## Referenced-by
+**Files:** docs/TASK-FORMAT.md, docs/AGENTS.md
+**Note:** Refinement TTL and admission gate — enforced by THINK Phase 1 TTL check

@@ -30,5 +30,7 @@ S
 
 ## Decision
 
+DEFERRED: CLI architecture drift is reviewed continuously via arch check and DriftChecker. No separate review process needed.
 
+PROMOTE → TASK-970 (code quality audit process)
 PROMOTE → TASK-968

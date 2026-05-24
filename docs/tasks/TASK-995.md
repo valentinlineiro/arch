@@ -1,7 +1,7 @@
 ## TASK-995: Web dashboard (arch ui)
-**Meta:** P2 | M | BLOCKED | Focus:no | 2-code-generation | local | cli/src/main/ts, docs/refinement/archive/IDEA-productizing-arch-separation.md
+**Meta:** P2 | M | READY | Focus:yes | 2-code-generation | local | cli/src/main/ts, docs/refinement/archive/IDEA-productizing-arch-separation.md
 **Source:** IDEA-productizing-arch-separation Phase D
-**Depends:** TASK-992
+**Depends:** none
 
 ### Acceptance Criteria
 - [ ] `arch ui` starts a local dev server serving the web dashboard → cmd: arch ui --help; exit: 0
@@ -13,7 +13,7 @@
 
 ### Definition of Done
 - [ ] `arch ui` serves a functional read-only dashboard
-- [ ] Depends on TASK-992 (config-driven paths) for stable API surface
+- [ ] arch check passes → cmd: node cli/dist/index.js check; exit: 0
 - [ ] `arch check` passes
 
 ## Hansei

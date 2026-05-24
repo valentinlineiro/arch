@@ -1,5 +1,6 @@
 ## TASK-920: npm publish and verify npx arch init end-to-end
 **Meta:** P2 | S | DONE | Focus:no | 7-operations | human | cli/package.json
+<!-- adr-ref: ADR-027 — Governs bounded stream projections for append-only logs -->
 **Closed-at:** 2026-05-22T14:45:00Z
 **Depends:** TASK-919
 

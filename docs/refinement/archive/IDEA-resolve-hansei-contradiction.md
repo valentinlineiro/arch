@@ -42,6 +42,6 @@ XS — single-round doc edit.
 ## Gaps
 
 ## Decision
-
+PROMOTE → TASK-991 (Hansei contradiction DO.md vs TASK-FORMAT resolved)
 **PROMOTE → TASK-991**
 **Rationale:** Clean XS fix. Option A aligns spec with intent (ADR-019 triggered-only design). DO.md deviation is the bug.

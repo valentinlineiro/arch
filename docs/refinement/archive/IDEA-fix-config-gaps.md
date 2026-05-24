@@ -35,6 +35,6 @@ S — documentation + config change.
 ## Gaps
 
 ## Decision
-
+DEFERRED: config gaps addressed incrementally as tasks arise
 **PROMOTE → TASK-989**
 **Rationale:** Two mechanical config/doc drifts. Apply XL Muri safety net (option a) + rewrite models.md examples to match actual strategies schema.

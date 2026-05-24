@@ -32,3 +32,4 @@ S — impacts THINK.md Phase 1 step 4 and potentially the CLI.
 ## Gaps
 
 ## Decision
+PROMOTE → TASK-999 (escalation deduplication implemented)
