@@ -1,8 +1,8 @@
 {
   "version": 1,
-  "builtAt": "2026-05-24T11:56:16.256Z",
-  "archiveCommit": "367:design",
-  "taskCount": 164,
+  "builtAt": "2026-05-24T18:09:22.418Z",
+  "archiveCommit": "368:design",
+  "taskCount": 165,
   "entries": {
     "TASK-1000": {
       "id": "TASK-1000",
@@ -19,7 +19,7 @@
       "forwardAction": "None required for this task scope.",
       "acCount": 7,
       "acMachineVerifiable": 2,
-      "closurePath": "unknown"
+      "closurePath": "auditor"
     },
     "TASK-1001": {
       "id": "TASK-1001",
@@ -35,6 +35,23 @@
       "cost": "No architectural debt. BUDGET_EXHAUSTED interactive prompt requires stdin — will not work in non-interactive CI. Acceptable for a recovery command.",
       "forwardAction": "None required.",
       "acCount": 6,
+      "acMachineVerifiable": 3,
+      "closurePath": "L3"
+    },
+    "TASK-1002": {
+      "id": "TASK-1002",
+      "size": "S",
+      "class": "6-writing",
+      "closedAt": "2026-05-24T11:56:30.666Z",
+      "lockedCommit": "d3593add",
+      "actor": "unknown",
+      "severity": "H0",
+      "category": "[MissingDecisionRecord]",
+      "decision": "PROTOCOL-UPGRADES.md + ADR-033 + archVersion in arch.config.json + protocol-versions.jsonl seeded. Patch/minor/major classification defined. Adoption protocol specified. arch init --upgrade is a future S task — stubbed via documentation.",
+      "constraint": "arch check does not yet emit version mismatch warnings — detection requires a S sub-task. Policy is defined but not enforced until that task ships.",
+      "cost": "No architectural debt. Detection task is pre-announced in the policy doc.",
+      "forwardAction": "None required.",
+      "acCount": 5,
       "acMachineVerifiable": 3,
       "closurePath": "L3"
     },
@@ -2280,7 +2297,7 @@
       "forwardAction": "None required.",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "unknown"
+      "closurePath": "auditor"
     },
     "TASK-959": {
       "id": "TASK-959",
@@ -2399,7 +2416,7 @@
       "forwardAction": "Wire into arch promote command to consume proposals as a follow-up integration task.",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "unknown"
+      "closurePath": "auditor"
     },
     "TASK-967": {
       "id": "TASK-967",
@@ -2682,9 +2699,9 @@
       "actor": "unknown",
       "severity": "H0",
       "category": "[SpecDrift]",
-      "decision": "Not yet started.",
-      "constraint": "No constraints apply — task has not started.",
-      "cost": "No cost incurred — task has not started.",
+      "decision": "DO.md line 20 aligned to TASK-FORMAT.md triggered-only language for XS/S; stale \"always\" phrasing removed.",
+      "constraint": "None — pure documentation change, no code or config modified.",
+      "cost": "No cost incurred.",
       "forwardAction": "None.",
       "acCount": 2,
       "acMachineVerifiable": 0,

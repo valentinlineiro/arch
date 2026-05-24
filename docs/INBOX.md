@@ -48,3 +48,6 @@ _Generated: 2026-05-24T11:47Z by [THINK] DEEP session_
 | `arch.config.json` gains `archVersion` field set to current  | prose | ✔ | prose: human-verified (non-automated) |
 | `.arch/protocol-versions.jsonl` schema documented in PROTOCO | prose | ✔ | prose: human-verified (non-automated) |
 | `arch review` passes. | cmd | ✔ | exit 0 (expected 0) |
+
+## 2026-05-24 18:09:22 — Pattern Alerts
+[PATTERN-ALERT] [SpecDrift] detected 8 times — systemic issue. See docs/tensions/

@@ -1,7 +1,7 @@
 # IDEA: Rely on opencode when gemini is exhausted for LLM assistance
 **Created:** 2026-05-22
 **Source:** Operational observation — Gemini quota exhaustion halts THINK advisory analysis
-**Status:** DRAFT
+**Status:** PROMOTED
 **Meta:** P3 | S | 7-operations | local | cli/src/main/ts/application/commands/analyze-command.ts, arch.config.json
 
 ## Problem
@@ -49,4 +49,4 @@ S — single-file change in `analyze-command.ts` (change loop exit logic, ~5 lin
 4. **Spawning overhead** — Each CLI `which` check is fast (~1ms). No performance concern.
 
 ## Decision
-PROMOTE → TASK-1003
+PROMOTE → TASK-1004

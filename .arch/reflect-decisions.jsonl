@@ -19,3 +19,4 @@
 {"decision_id":"D-621249a5","timestamp":"2026-05-22T12:00:00Z","target":"productizing-arch-separation","outcome":"PROMOTE","finality":"committed","influence_declared":false,"based_on_proposals":[]}
 {"decision_id": "D-c9d9fc46", "timestamp": "2026-05-24T11:49:37.001211Z", "target": "IDEA-arch-resume", "outcome": "PROMOTE", "finality": "committed", "influence_declared": false, "based_on_proposals": []}
 {"decision_id": "D-9eae89b8", "timestamp": "2026-05-24T11:49:37.001422Z", "target": "IDEA-protocol-upgrade-policy", "outcome": "PROMOTE", "finality": "committed", "influence_declared": false, "based_on_proposals": []}
+{"decision_id": "D-opencode", "timestamp": "2026-05-24T18:46:19.803171+00:00", "target": "IDEA-opencode-fallback", "outcome": "PROMOTE", "finality": "committed", "influence_declared": false, "based_on_proposals": []}
