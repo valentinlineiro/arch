@@ -111,6 +111,12 @@
           ],
           "taskPath": "docs/archive/TASK-047.md"
         },
+        "TASK-1002": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-1002.md"
+        },
         "TASK-957": {
           "evidenceKinds": [
             "literal-mention"
@@ -148,7 +154,7 @@
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-1001.md"
+          "taskPath": "docs/archive/TASK-1001.md"
         },
         "TASK-990": {
           "evidenceKinds": [
@@ -381,7 +387,13 @@
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-1001.md"
+          "taskPath": "docs/archive/TASK-1001.md"
+        },
+        "TASK-1002": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-1002.md"
         },
         "TASK-957": {
           "evidenceKinds": [
@@ -540,6 +552,12 @@
     },
     "ADR-025": {
       "tasks": {
+        "TASK-1002": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-1002.md"
+        },
         "TASK-956": {
           "evidenceKinds": [
             "literal-mention"
@@ -554,7 +572,7 @@
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-1001.md"
+          "taskPath": "docs/archive/TASK-1001.md"
         }
       }
     },
@@ -575,6 +593,16 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-957.md"
+        }
+      }
+    },
+    "ADR-033": {
+      "tasks": {
+        "TASK-1002": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-1002.md"
         }
       }
     }
@@ -3387,9 +3415,96 @@
       ],
       "strength": "advisory",
       "title": "Automatic sprint lifecycle in arch govern"
+    },
+    "ADR-033": {
+      "affectedModules": [],
+      "keywords": [
+        "033",
+        "1002",
+        "2026",
+        "accepted",
+        "adopt",
+        "adopted",
+        "adoption",
+        "adopts",
+        "adr",
+        "arch",
+        "archversion",
+        "blocker",
+        "break",
+        "breaking",
+        "bug",
+        "changed",
+        "changes",
+        "checks",
+        "classification",
+        "cli",
+        "commands",
+        "config",
+        "context",
+        "cost",
+        "date",
+        "deciders",
+        "decision",
+        "evaluation",
+        "external",
+        "fire",
+        "fixes",
+        "format",
+        "gates",
+        "governance",
+        "hansei",
+        "human",
+        "installed",
+        "introduce",
+        "json",
+        "major",
+        "manually",
+        "may",
+        "minor",
+        "notes",
+        "only",
+        "other",
+        "pace",
+        "patch",
+        "path",
+        "policy",
+        "primary",
+        "proportional",
+        "protocol",
+        "reading",
+        "recommending",
+        "release",
+        "repo",
+        "repos",
+        "required",
+        "schema",
+        "silently",
+        "source",
+        "status",
+        "task",
+        "team",
+        "teams",
+        "templates",
+        "than",
+        "their",
+        "there",
+        "three",
+        "tier",
+        "updated",
+        "upgrade",
+        "upgrades",
+        "valen",
+        "version",
+        "warning",
+        "when",
+        "without"
+      ],
+      "strength": "advisory",
+      "title": "Protocol upgrade policy — patch/minor/major classification and adoption"
     }
   },
-  "builtAt": "2026-05-24T11:54:35.062Z",
+  "builtAt": "2026-05-24T11:56:20.407Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -8203,12 +8318,13 @@
       }
     },
     "TASK-206": {
-      "commitCount": 14,
+      "commitCount": 15,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-24T00:07:28+00:00",
+      "lastCommitDate": "2026-05-24T11:56:16+00:00",
       "recentCommitRefs": [
         "0379ddd7",
         "07c38fd1",
+        "21a5605b",
         "22308ce5",
         "3edef157",
         "4a348d92",
@@ -8224,9 +8340,10 @@
       ],
       "touchedFrequency": {
         ".arch/cache/git-signals.jsonl": 1,
+        ".arch/context-index.json": 1,
         ".arch/corpus-index.json": 3,
         ".arch/ecp-registry.jsonl": 1,
-        ".arch/focus-ledger.jsonl": 3,
+        ".arch/focus-ledger.jsonl": 4,
         ".arch/last-audit.json": 2,
         ".arch/reflect-breach-log.jsonl": 5,
         ".arch/status-projection.json": 1,
@@ -9201,7 +9318,7 @@
       }
     },
     "TASK-950": {
-      "commitCount": 12,
+      "commitCount": 11,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-21T09:54:29+02:00",
       "recentCommitRefs": [
@@ -9213,7 +9330,6 @@
         "8b93f240",
         "8baf2ec0",
         "8d16707e",
-        "bee5f78e",
         "c88385bd",
         "d793c34d",
         "daef31ac"
@@ -9237,11 +9353,10 @@
         "docs/METRICS.md": 2,
         "docs/adr/ADR-023-deterministic-gate-invariant.md": 3,
         "docs/archive/TASK-950.md": 1,
-        "docs/refinement/IDEA-deterministic-governance-gates.md": 1,
         "docs/refinement/IDEA-temporal-pattern-layer.md": 1,
         "docs/tasks/TASK-259.md": 1,
         "docs/tasks/TASK-919.md": 1,
-        "docs/tasks/TASK-950.md": 7,
+        "docs/tasks/TASK-950.md": 6,
         "docs/tasks/TASK-953.md": 1,
         "docs/tasks/TASK-971.md": 1,
         "docs/tasks/TASK-978.md": 1,
