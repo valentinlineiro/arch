@@ -588,6 +588,12 @@
     },
     "ADR-026": {
       "tasks": {
+        "TASK-1005": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-1005.md"
+        },
         "TASK-958": {
           "evidenceKinds": [
             "literal-mention"
@@ -3554,7 +3560,7 @@
       "title": "Protocol upgrade policy — patch/minor/major classification and adoption"
     }
   },
-  "builtAt": "2026-05-24T18:49:03.105Z",
+  "builtAt": "2026-05-24T19:03:27.015Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -8446,22 +8452,35 @@
       }
     },
     "TASK-1004": {
-      "commitCount": 1,
+      "commitCount": 2,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-24T18:46:38+00:00",
+      "lastCommitDate": "2026-05-24T18:49:03+00:00",
       "recentCommitRefs": [
+        "79523126",
         "a291c509"
       ],
       "touchedFrequency": {
         ".arch/corpus-index.json": 1,
-        ".arch/reflect-breach-log.jsonl": 1,
+        ".arch/reflect-breach-log.jsonl": 2,
         ".arch/reflect-decisions.jsonl": 1,
-        ".arch/status-projection.json": 1,
-        "README.md": 1,
+        ".arch/status-projection.json": 2,
+        "README.md": 2,
+        "arch.config.json": 1,
         "docs/INBOX.md": 1,
-        "docs/ROADMAP.md": 1,
+        "docs/ROADMAP.md": 2,
         "docs/refinement/archive/IDEA-opencode-fallback.md": 1,
-        "docs/tasks/TASK-1004.md": 1
+        "docs/tasks/TASK-1004.md": 2
+      }
+    },
+    "TASK-1005": {
+      "commitCount": 1,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-05-24T19:03:22+00:00",
+      "recentCommitRefs": [
+        "d6a7a50a"
+      ],
+      "touchedFrequency": {
+        ".arch/focus-ledger.jsonl": 1
       }
     },
     "TASK-206": {
@@ -8914,18 +8933,6 @@
         "docs/tasks/TASK-995.md": 1,
         "docs/tasks/TASK-996.md": 1,
         "docs/tensions/TENSION-005-specdrift.md": 2
-      }
-    },
-    "TASK-253": {
-      "commitCount": 1,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-19T11:31:58+02:00",
-      "recentCommitRefs": [
-        "1e50bcfa"
-      ],
-      "touchedFrequency": {
-        "docs/archive/TASK-253.md": 1,
-        "docs/archive/TASK-949.md": 1
       }
     },
     "TASK-258": {
@@ -9420,27 +9427,14 @@
         "docs/tasks/TASK-947.md": 1
       }
     },
-    "TASK-949": {
-      "commitCount": 1,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-19T11:31:58+02:00",
-      "recentCommitRefs": [
-        "1e50bcfa"
-      ],
-      "touchedFrequency": {
-        "docs/archive/TASK-253.md": 1,
-        "docs/archive/TASK-949.md": 1
-      }
-    },
     "TASK-950": {
-      "commitCount": 9,
+      "commitCount": 8,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-21T09:54:29+02:00",
       "recentCommitRefs": [
         "05cad83d",
         "20596e46",
         "55b390e5",
-        "7d5de7df",
         "89479bb2",
         "8baf2ec0",
         "8d16707e",
@@ -9461,11 +9455,9 @@
         "cli/src/test/ts/govern-system.test.ts": 1,
         "cli/src/test/ts/mark-task-in-progress.test.ts": 1,
         "docs/EVENTS.md": 1,
-        "docs/INBOX.md": 1,
         "docs/METRICS.md": 2,
         "docs/adr/ADR-023-deterministic-gate-invariant.md": 1,
         "docs/archive/TASK-950.md": 1,
-        "docs/refinement/IDEA-temporal-pattern-layer.md": 1,
         "docs/tasks/TASK-259.md": 1,
         "docs/tasks/TASK-919.md": 1,
         "docs/tasks/TASK-950.md": 6,
@@ -9524,11 +9516,10 @@
       }
     },
     "TASK-954": {
-      "commitCount": 10,
+      "commitCount": 9,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-20T18:28:59+02:00",
       "recentCommitRefs": [
-        "038f7deb",
         "31ad8752",
         "62d782fe",
         "866b0fe6",
@@ -9560,8 +9551,7 @@
         "docs/METRICS.md": 1,
         "docs/SENTINEL-LOG.md": 1,
         "docs/archive/TASK-954.md": 1,
-        "docs/refinement/archive/IDEA-temporal-pattern-layer.md": 1,
-        "docs/tasks/TASK-954.md": 4
+        "docs/tasks/TASK-954.md": 3
       }
     },
     "TASK-955": {
