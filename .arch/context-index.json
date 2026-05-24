@@ -3367,7 +3367,7 @@
       "title": "Automatic sprint lifecycle in arch govern"
     }
   },
-  "builtAt": "2026-05-24T00:03:37.870Z",
+  "builtAt": "2026-05-24T00:07:31.182Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -8120,13 +8120,14 @@
   },
   "tasks": {
     "TASK-206": {
-      "commitCount": 13,
+      "commitCount": 14,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-24T00:03:34+00:00",
+      "lastCommitDate": "2026-05-24T00:07:28+00:00",
       "recentCommitRefs": [
         "0379ddd7",
         "07c38fd1",
         "22308ce5",
+        "3edef157",
         "4a348d92",
         "4f97602e",
         "6cdaa81d",
@@ -8142,7 +8143,7 @@
         ".arch/cache/git-signals.jsonl": 1,
         ".arch/corpus-index.json": 3,
         ".arch/ecp-registry.jsonl": 1,
-        ".arch/focus-ledger.jsonl": 2,
+        ".arch/focus-ledger.jsonl": 3,
         ".arch/last-audit.json": 2,
         ".arch/reflect-breach-log.jsonl": 5,
         ".arch/status-projection.json": 1,
@@ -9121,30 +9122,26 @@
       }
     },
     "TASK-949": {
-      "commitCount": 6,
+      "commitCount": 4,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-19T11:31:58+02:00",
       "recentCommitRefs": [
         "1e50bcfa",
         "2f1a3656",
-        "6e124e88",
         "c272e54a",
-        "c765232e",
         "d5fcb7c4"
       ],
       "touchedFrequency": {
         ".arch/chronicle.jsonl": 1,
-        ".arch/reflect-breach-log.jsonl": 1,
-        "cli/src/main/ts/application/commands/corpus-audit-command.ts": 2,
+        "cli/src/main/ts/application/commands/corpus-audit-command.ts": 1,
         "cli/src/main/ts/application/commands/serve-command.ts": 1,
-        "cli/src/main/ts/index.ts": 1,
         "cli/src/test/ts/corpus-audit-command.test.ts": 1,
         "cli/src/test/ts/serve-command.test.ts": 1,
         "docs/EVENTS.md": 1,
         "docs/archive/TASK-253.md": 1,
         "docs/archive/TASK-949.md": 2,
         "docs/tasks/TASK-948.md": 1,
-        "docs/tasks/TASK-949.md": 3
+        "docs/tasks/TASK-949.md": 1
       }
     },
     "TASK-950": {
