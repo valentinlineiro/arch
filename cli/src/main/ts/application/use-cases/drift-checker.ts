@@ -12,10 +12,8 @@ export interface DriftResult {
 
 const CLI_COMMANDS = new Set([
   'check', 'review', 'init', 'version', 'status', 'sentinel', 'task', 'govern',
-  'memory', 'validate', 'lint', 'next', 'rank', 'promote', 'loop', 'batch',
-  'drain', 'conduct', 'sandbox', 'mv', 'exec', 'merge-resolve', 'verify-acs',
-  'corpus', 'capture', 'inbox', 'reflect', 'report', 'ask', 'causal',
-  'index', 'audit', 'analyze',
+  'memory', 'corpus', 'capture', 'inbox', 'reflect', 'report', 'ask', 'causal',
+  'index', 'audit', 'analyze', 'resume', 'explain',
 ]);
 const ROOT_RUNTIME_ARTIFACTS = new Set(['.codex']);
 
