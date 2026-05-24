@@ -49,4 +49,4 @@ S — single-file change in `analyze-command.ts` (change loop exit logic, ~5 lin
 4. **Spawning overhead** — Each CLI `which` check is fast (~1ms). No performance concern.
 
 ## Decision
-PROMOTE → TASK-996
+PROMOTE → TASK-1003
