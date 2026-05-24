@@ -3554,7 +3554,7 @@
       "title": "Protocol upgrade policy — patch/minor/major classification and adoption"
     }
   },
-  "builtAt": "2026-05-24T18:09:21.926Z",
+  "builtAt": "2026-05-24T18:46:38.520Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -8898,21 +8898,14 @@
       }
     },
     "TASK-253": {
-      "commitCount": 3,
+      "commitCount": 1,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-19T11:31:58+02:00",
       "recentCommitRefs": [
-        "095c8e23",
-        "1e50bcfa",
-        "7f76abf0"
+        "1e50bcfa"
       ],
       "touchedFrequency": {
-        ".arch/causal-signal.jsonl": 1,
-        ".arch/chronicle.jsonl": 1,
-        ".arch/context-feedback.json": 1,
-        "docs/EVENTS.md": 1,
-        "docs/INBOX.md": 1,
-        "docs/archive/TASK-253.md": 2,
+        "docs/archive/TASK-253.md": 1,
         "docs/archive/TASK-949.md": 1
       }
     },
@@ -10857,19 +10850,20 @@
       }
     },
     "TASK-995": {
-      "commitCount": 5,
+      "commitCount": 6,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-24T18:09:17+00:00",
+      "lastCommitDate": "2026-05-24T18:46:32+00:00",
       "recentCommitRefs": [
         "262b9d14",
         "4804ff7d",
         "8dcf3ac3",
+        "9ab10dbc",
         "ba4ba6a7",
         "e7700905"
       ],
       "touchedFrequency": {
         ".arch/ecp-registry.jsonl": 1,
-        ".arch/focus-ledger.jsonl": 4,
+        ".arch/focus-ledger.jsonl": 5,
         "docs/tasks/TASK-957.md": 1,
         "docs/tasks/TASK-995.md": 1
       }
