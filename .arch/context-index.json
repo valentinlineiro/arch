@@ -3554,7 +3554,7 @@
       "title": "Protocol upgrade policy — patch/minor/major classification and adoption"
     }
   },
-  "builtAt": "2026-05-24T18:46:38.520Z",
+  "builtAt": "2026-05-24T18:49:03.105Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -8445,6 +8445,25 @@
         "docs/tasks/TASK-1003.md": 1
       }
     },
+    "TASK-1004": {
+      "commitCount": 1,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-05-24T18:46:38+00:00",
+      "recentCommitRefs": [
+        "a291c509"
+      ],
+      "touchedFrequency": {
+        ".arch/corpus-index.json": 1,
+        ".arch/reflect-breach-log.jsonl": 1,
+        ".arch/reflect-decisions.jsonl": 1,
+        ".arch/status-projection.json": 1,
+        "README.md": 1,
+        "docs/INBOX.md": 1,
+        "docs/ROADMAP.md": 1,
+        "docs/refinement/archive/IDEA-opencode-fallback.md": 1,
+        "docs/tasks/TASK-1004.md": 1
+      }
+    },
     "TASK-206": {
       "commitCount": 18,
       "commitRefOverflow": false,
@@ -9459,71 +9478,49 @@
       }
     },
     "TASK-951": {
-      "commitCount": 4,
+      "commitCount": 2,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-19T14:54:26+02:00",
       "recentCommitRefs": [
-        "1878c2f4",
         "72bd614a",
-        "86f31ff9",
         "a5f0b07a"
       ],
       "touchedFrequency": {
-        "docs/INBOX.md": 1,
         "docs/archive/TASK-951.md": 1,
         "docs/guidelines/core.md": 1,
-        "docs/refinement/archive/IDEA-fix-commit-exception-contradiction.md": 1,
-        "docs/refinement/archive/IDEA-fix-decomposition-duplication.md": 1,
-        "docs/refinement/archive/IDEA-fix-governance-terminology-collision.md": 1,
-        "docs/tasks/TASK-951.md": 3,
-        "docs/tasks/TASK-952.md": 1,
-        "docs/tasks/TASK-953.md": 1
+        "docs/tasks/TASK-951.md": 1
       }
     },
     "TASK-952": {
-      "commitCount": 4,
+      "commitCount": 3,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-19T14:54:53+02:00",
       "recentCommitRefs": [
         "7077d1dc",
-        "86f31ff9",
         "c45ab38d",
         "cc7336f3"
       ],
       "touchedFrequency": {
         ".arch/focus-ledger.jsonl": 1,
         "docs/AGENTS.md": 1,
-        "docs/INBOX.md": 1,
         "docs/archive/TASK-952.md": 1,
-        "docs/refinement/archive/IDEA-fix-commit-exception-contradiction.md": 1,
-        "docs/refinement/archive/IDEA-fix-decomposition-duplication.md": 1,
-        "docs/refinement/archive/IDEA-fix-governance-terminology-collision.md": 1,
-        "docs/tasks/TASK-951.md": 1,
-        "docs/tasks/TASK-952.md": 2,
-        "docs/tasks/TASK-953.md": 1
+        "docs/tasks/TASK-952.md": 1
       }
     },
     "TASK-953": {
-      "commitCount": 4,
+      "commitCount": 3,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-19T14:55:38+02:00",
       "recentCommitRefs": [
-        "86f31ff9",
         "dfda61a0",
         "e09f37bc",
         "e9f2a29c"
       ],
       "touchedFrequency": {
         ".arch/focus-ledger.jsonl": 1,
-        "docs/INBOX.md": 1,
         "docs/adr/ADR-013-two-tier-drift-detection.md": 1,
         "docs/archive/TASK-953.md": 1,
-        "docs/refinement/archive/IDEA-fix-commit-exception-contradiction.md": 1,
-        "docs/refinement/archive/IDEA-fix-decomposition-duplication.md": 1,
-        "docs/refinement/archive/IDEA-fix-governance-terminology-collision.md": 1,
-        "docs/tasks/TASK-951.md": 1,
-        "docs/tasks/TASK-952.md": 1,
-        "docs/tasks/TASK-953.md": 2
+        "docs/tasks/TASK-953.md": 1
       }
     },
     "TASK-954": {
@@ -10850,11 +10847,12 @@
       }
     },
     "TASK-995": {
-      "commitCount": 6,
+      "commitCount": 7,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-24T18:46:32+00:00",
+      "lastCommitDate": "2026-05-24T18:48:58+00:00",
       "recentCommitRefs": [
         "262b9d14",
+        "3eb4493b",
         "4804ff7d",
         "8dcf3ac3",
         "9ab10dbc",
@@ -10863,7 +10861,7 @@
       ],
       "touchedFrequency": {
         ".arch/ecp-registry.jsonl": 1,
-        ".arch/focus-ledger.jsonl": 5,
+        ".arch/focus-ledger.jsonl": 6,
         "docs/tasks/TASK-957.md": 1,
         "docs/tasks/TASK-995.md": 1
       }
