@@ -3504,7 +3504,7 @@
       "title": "Protocol upgrade policy — patch/minor/major classification and adoption"
     }
   },
-  "builtAt": "2026-05-24T12:02:55.211Z",
+  "builtAt": "2026-05-24T12:05:19.638Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -9338,46 +9338,34 @@
       }
     },
     "TASK-948": {
-      "commitCount": 2,
+      "commitCount": 1,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-19T10:13:46+02:00",
       "recentCommitRefs": [
-        "2f1a3656",
         "88e3c162"
       ],
       "touchedFrequency": {
         ".arch/chronicle.jsonl": 1,
         ".arch/context-feedback.json": 1,
         ".arch/reflect-breach-log.jsonl": 1,
-        "cli/src/main/ts/application/commands/corpus-audit-command.ts": 1,
-        "cli/src/main/ts/application/commands/serve-command.ts": 1,
-        "cli/src/test/ts/corpus-audit-command.test.ts": 1,
-        "cli/src/test/ts/serve-command.test.ts": 1,
         "docs/EVENTS.md": 1,
         "docs/INBOX.md": 1,
-        "docs/archive/TASK-948.md": 1,
-        "docs/tasks/TASK-948.md": 1
+        "docs/archive/TASK-948.md": 1
       }
     },
     "TASK-949": {
-      "commitCount": 3,
+      "commitCount": 2,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-19T11:31:58+02:00",
       "recentCommitRefs": [
         "1e50bcfa",
-        "2f1a3656",
         "c272e54a"
       ],
       "touchedFrequency": {
         ".arch/chronicle.jsonl": 1,
-        "cli/src/main/ts/application/commands/corpus-audit-command.ts": 1,
-        "cli/src/main/ts/application/commands/serve-command.ts": 1,
-        "cli/src/test/ts/corpus-audit-command.test.ts": 1,
-        "cli/src/test/ts/serve-command.test.ts": 1,
         "docs/EVENTS.md": 1,
         "docs/archive/TASK-253.md": 1,
-        "docs/archive/TASK-949.md": 2,
-        "docs/tasks/TASK-948.md": 1
+        "docs/archive/TASK-949.md": 2
       }
     },
     "TASK-950": {
@@ -10805,14 +10793,16 @@
       }
     },
     "TASK-995": {
-      "commitCount": 1,
+      "commitCount": 2,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-23T20:32:35+00:00",
+      "lastCommitDate": "2026-05-24T12:05:15+00:00",
       "recentCommitRefs": [
-        "262b9d14"
+        "262b9d14",
+        "e7700905"
       ],
       "touchedFrequency": {
         ".arch/ecp-registry.jsonl": 1,
+        ".arch/focus-ledger.jsonl": 1,
         "docs/tasks/TASK-957.md": 1,
         "docs/tasks/TASK-995.md": 1
       }
