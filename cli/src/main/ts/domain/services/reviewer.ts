@@ -89,7 +89,7 @@ export class Reviewer {
       violations.push(`Commit message must start with one of: ${Reviewer.COMMIT_PREFIXES.join(', ')} or a governance tag ([THINK], [KAIZEN], [SELF-PROMOTION])`);
     }
 
-    if (!message.startsWith('idea:') && !message.startsWith('task:') && !/\[TASK-\d{3}\]/.test(message) && !isGovernance) {
+    if (!message.startsWith('idea:') && !message.startsWith('task:') && !/\[TASK-\d+\]/.test(message) && !isGovernance) {
       violations.push('Commit message must reference a TASK-ID (e.g., [TASK-001])');
     }
 
