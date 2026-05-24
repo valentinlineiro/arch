@@ -115,7 +115,7 @@
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-1002.md"
+          "taskPath": "docs/archive/TASK-1002.md"
         },
         "TASK-957": {
           "evidenceKinds": [
@@ -393,7 +393,7 @@
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-1002.md"
+          "taskPath": "docs/archive/TASK-1002.md"
         },
         "TASK-957": {
           "evidenceKinds": [
@@ -556,7 +556,7 @@
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-1002.md"
+          "taskPath": "docs/archive/TASK-1002.md"
         },
         "TASK-956": {
           "evidenceKinds": [
@@ -602,7 +602,7 @@
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-1002.md"
+          "taskPath": "docs/archive/TASK-1002.md"
         }
       }
     }
@@ -3504,7 +3504,7 @@
       "title": "Protocol upgrade policy — patch/minor/major classification and adoption"
     }
   },
-  "builtAt": "2026-05-24T11:56:20.407Z",
+  "builtAt": "2026-05-24T11:56:52.331Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -8318,9 +8318,9 @@
       }
     },
     "TASK-206": {
-      "commitCount": 15,
+      "commitCount": 16,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-24T11:56:16+00:00",
+      "lastCommitDate": "2026-05-24T11:56:48+00:00",
       "recentCommitRefs": [
         "0379ddd7",
         "07c38fd1",
@@ -8331,6 +8331,7 @@
         "4f97602e",
         "6cdaa81d",
         "76db2c9b",
+        "7b3553bb",
         "8cc6d95a",
         "9e353d7f",
         "a8b4cb0c",
@@ -8343,7 +8344,7 @@
         ".arch/context-index.json": 1,
         ".arch/corpus-index.json": 3,
         ".arch/ecp-registry.jsonl": 1,
-        ".arch/focus-ledger.jsonl": 4,
+        ".arch/focus-ledger.jsonl": 5,
         ".arch/last-audit.json": 2,
         ".arch/reflect-breach-log.jsonl": 5,
         ".arch/status-projection.json": 1,
@@ -9318,7 +9319,7 @@
       }
     },
     "TASK-950": {
-      "commitCount": 11,
+      "commitCount": 9,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-21T09:54:29+02:00",
       "recentCommitRefs": [
@@ -9327,12 +9328,10 @@
         "55b390e5",
         "7d5de7df",
         "89479bb2",
-        "8b93f240",
         "8baf2ec0",
         "8d16707e",
         "c88385bd",
-        "d793c34d",
-        "daef31ac"
+        "d793c34d"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
@@ -9340,18 +9339,17 @@
         ".arch/context-feedback.json": 1,
         ".arch/corpus-index.json": 2,
         ".arch/reflect-breach-log.jsonl": 3,
-        "cli/src/main/ts/application/commands/reflect-command.ts": 3,
+        "cli/src/main/ts/application/commands/reflect-command.ts": 2,
         "cli/src/main/ts/application/use-cases/drift-checker.ts": 1,
         "cli/src/main/ts/application/use-cases/govern-system.ts": 1,
         "cli/src/main/ts/application/use-cases/mark-task-in-progress.ts": 1,
         "cli/src/test/ts/drift-checker.test.ts": 1,
         "cli/src/test/ts/govern-system.test.ts": 1,
         "cli/src/test/ts/mark-task-in-progress.test.ts": 1,
-        "cli/src/test/ts/reflect-command.test.ts": 2,
         "docs/EVENTS.md": 1,
         "docs/INBOX.md": 1,
         "docs/METRICS.md": 2,
-        "docs/adr/ADR-023-deterministic-gate-invariant.md": 3,
+        "docs/adr/ADR-023-deterministic-gate-invariant.md": 1,
         "docs/archive/TASK-950.md": 1,
         "docs/refinement/IDEA-temporal-pattern-layer.md": 1,
         "docs/tasks/TASK-259.md": 1,
