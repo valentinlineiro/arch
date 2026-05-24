@@ -3554,7 +3554,7 @@
       "title": "Protocol upgrade policy — patch/minor/major classification and adoption"
     }
   },
-  "builtAt": "2026-05-24T12:06:33.721Z",
+  "builtAt": "2026-05-24T15:33:44.588Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -8430,14 +8430,15 @@
       }
     },
     "TASK-206": {
-      "commitCount": 17,
+      "commitCount": 18,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-24T12:02:50+00:00",
+      "lastCommitDate": "2026-05-24T12:08:18+00:00",
       "recentCommitRefs": [
         "0379ddd7",
         "07c38fd1",
         "21a5605b",
         "22308ce5",
+        "290f2b42",
         "313d5a3e",
         "3edef157",
         "4a348d92",
@@ -8459,9 +8460,9 @@
         ".arch/ecp-registry.jsonl": 1,
         ".arch/focus-ledger.jsonl": 6,
         ".arch/last-audit.json": 2,
-        ".arch/reflect-breach-log.jsonl": 5,
-        ".arch/status-projection.json": 1,
-        "README.md": 1,
+        ".arch/reflect-breach-log.jsonl": 6,
+        ".arch/status-projection.json": 2,
+        "README.md": 2,
         "arch.config.json": 1,
         "cli/.arch/corpus-index.json": 2,
         "cli/.arch/status-projection.json": 1,
@@ -8486,7 +8487,12 @@
         "docs/EVENTS.md": 2,
         "docs/INBOX.md": 4,
         "docs/METRICS.md": 3,
-        "docs/ROADMAP.md": 1,
+        "docs/ROADMAP.md": 2,
+        "docs/adr/ADR-021-refinement-ttl-and-admission.md": 1,
+        "docs/adr/ADR-024-drift-coverage-identity-model.md": 1,
+        "docs/adr/ADR-026-epistemic-layer-separation.md": 1,
+        "docs/adr/ADR-027-phase-3-epistemic-stability.md": 1,
+        "docs/adr/ADR-028-epistemic-invariant-specification.md": 1,
         "docs/adr/ADR-030-think-promotion-proposals-domain-model.md": 1,
         "docs/archive/TASK-001.md": 1,
         "docs/archive/TASK-002.md": 1,
@@ -8583,6 +8589,7 @@
         "docs/archive/TASK-095.md": 1,
         "docs/archive/TASK-096.md": 1,
         "docs/archive/TASK-097.md": 1,
+        "docs/archive/TASK-1000.md": 1,
         "docs/archive/TASK-102.md": 1,
         "docs/archive/TASK-103.md": 1,
         "docs/archive/TASK-104.md": 1,
@@ -8778,7 +8785,7 @@
         "docs/archive/TASK-917.md": 1,
         "docs/archive/TASK-918.md": 1,
         "docs/archive/TASK-919.md": 1,
-        "docs/archive/TASK-920.md": 1,
+        "docs/archive/TASK-920.md": 2,
         "docs/archive/TASK-921.md": 1,
         "docs/archive/TASK-922.md": 1,
         "docs/archive/TASK-926.md": 1,
@@ -8804,7 +8811,7 @@
         "docs/archive/TASK-946.md": 1,
         "docs/archive/TASK-947.md": 1,
         "docs/archive/TASK-948.md": 1,
-        "docs/archive/TASK-949.md": 1,
+        "docs/archive/TASK-949.md": 2,
         "docs/archive/TASK-950.md": 1,
         "docs/archive/TASK-951.md": 1,
         "docs/archive/TASK-952.md": 1,
@@ -8812,7 +8819,8 @@
         "docs/archive/TASK-954.md": 1,
         "docs/archive/TASK-955.md": 1,
         "docs/archive/TASK-956.md": 1,
-        "docs/archive/TASK-958.md": 1,
+        "docs/archive/TASK-957.md": 1,
+        "docs/archive/TASK-958.md": 2,
         "docs/archive/TASK-959.md": 1,
         "docs/archive/TASK-960.md": 1,
         "docs/archive/TASK-961.md": 1,
@@ -8820,7 +8828,7 @@
         "docs/archive/TASK-963.md": 1,
         "docs/archive/TASK-964.md": 1,
         "docs/archive/TASK-965.md": 1,
-        "docs/archive/TASK-966.md": 1,
+        "docs/archive/TASK-966.md": 2,
         "docs/archive/TASK-968.md": 1,
         "docs/archive/TASK-971.md": 1,
         "docs/archive/TASK-972.md": 1,
@@ -8828,7 +8836,7 @@
         "docs/archive/TASK-974.md": 1,
         "docs/archive/TASK-975.md": 1,
         "docs/archive/TASK-976.md": 1,
-        "docs/archive/TASK-977.md": 1,
+        "docs/archive/TASK-977.md": 2,
         "docs/archive/TASK-978.md": 1,
         "docs/archive/TASK-980.md": 1,
         "docs/archive/TASK-981.md": 1,
@@ -8846,8 +8854,16 @@
         "docs/refinement/IDEA-automate-govern-metadata-flush.md": 1,
         "docs/refinement/IDEA-verify-pre-existing-before-start.md": 1,
         "docs/refinement/archive/IDEA-automatic-sprint-lifecycle.md": 1,
+        "docs/refinement/archive/IDEA-cli-architecture-drift-review.md": 1,
+        "docs/refinement/archive/IDEA-code-quality-audit-process.md": 1,
+        "docs/refinement/archive/IDEA-corpus-informed-reprioritization.md": 1,
+        "docs/refinement/archive/IDEA-fix-config-gaps.md": 1,
+        "docs/refinement/archive/IDEA-fix-escalation-deduplication.md": 1,
+        "docs/refinement/archive/IDEA-fix-meta-line-regex-and-fields.md": 1,
         "docs/refinement/archive/IDEA-governance-epistemic-doctrine.md": 1,
         "docs/refinement/archive/IDEA-hansei-wizard.md": 1,
+        "docs/refinement/archive/IDEA-resolve-hansei-contradiction.md": 1,
+        "docs/refinement/archive/IDEA-status-doc-refresh.md": 1,
         "docs/refinement/archive/IDEA-verify-pre-existing-before-start.md": 1,
         "docs/tasks/TASK-098.md": 1,
         "docs/tasks/TASK-099.md": 1,
@@ -8856,9 +8872,11 @@
         "docs/tasks/TASK-161.md": 1,
         "docs/tasks/TASK-162.md": 1,
         "docs/tasks/TASK-163.md": 1,
+        "docs/tasks/TASK-206.md": 1,
         "docs/tasks/TASK-947.md": 1,
         "docs/tasks/TASK-967.md": 1,
         "docs/tasks/TASK-978.md": 1,
+        "docs/tasks/TASK-995.md": 1,
         "docs/tasks/TASK-996.md": 1,
         "docs/tensions/TENSION-005-specdrift.md": 2
       }
@@ -9386,35 +9404,16 @@
         "docs/tasks/TASK-947.md": 1
       }
     },
-    "TASK-948": {
-      "commitCount": 1,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-19T10:13:46+02:00",
-      "recentCommitRefs": [
-        "88e3c162"
-      ],
-      "touchedFrequency": {
-        ".arch/chronicle.jsonl": 1,
-        ".arch/context-feedback.json": 1,
-        ".arch/reflect-breach-log.jsonl": 1,
-        "docs/EVENTS.md": 1,
-        "docs/INBOX.md": 1,
-        "docs/archive/TASK-948.md": 1
-      }
-    },
     "TASK-949": {
-      "commitCount": 2,
+      "commitCount": 1,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-19T11:31:58+02:00",
       "recentCommitRefs": [
-        "1e50bcfa",
-        "c272e54a"
+        "1e50bcfa"
       ],
       "touchedFrequency": {
-        ".arch/chronicle.jsonl": 1,
-        "docs/EVENTS.md": 1,
         "docs/archive/TASK-253.md": 1,
-        "docs/archive/TASK-949.md": 2
+        "docs/archive/TASK-949.md": 1
       }
     },
     "TASK-950": {
@@ -10842,17 +10841,18 @@
       }
     },
     "TASK-995": {
-      "commitCount": 3,
+      "commitCount": 4,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-24T12:06:30+00:00",
+      "lastCommitDate": "2026-05-24T15:33:40+00:00",
       "recentCommitRefs": [
         "262b9d14",
+        "4804ff7d",
         "8dcf3ac3",
         "e7700905"
       ],
       "touchedFrequency": {
         ".arch/ecp-registry.jsonl": 1,
-        ".arch/focus-ledger.jsonl": 2,
+        ".arch/focus-ledger.jsonl": 3,
         "docs/tasks/TASK-957.md": 1,
         "docs/tasks/TASK-995.md": 1
       }
