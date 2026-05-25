@@ -146,3 +146,21 @@ ACs:
 - 17/17 govern-system tests pass → cmd: pass
 - arch review passes → cmd: pass
 Changed files: cli/src/main/ts/domain/services/path-resolver.ts, cli/src/main/ts/application/use-cases/govern-system.ts, cli/src/main/ts/application/use-cases/loop-engine.ts, cli/src/main/ts/application/use-cases/focus-ledger.ts, cli/src/main/ts/application/use-cases/escalation-store.ts, cli/src/main/ts/application/use-cases/govern-transaction.ts, cli/src/main/ts/infrastructure/filesystem/markdown-task-repository.ts
+
+---
+## REVIEW_REQUEST — TASK-1015
+**Task:** cli-protocol-decoupling phase 3: wire PathResolver into commands and analysis layer
+**Status:** REVIEW
+**Date:** 2026-05-25
+
+### ACs verified (all cmd: predicates passed)
+- [x] Zero hardcoded path literals outside path-resolver.ts (grep count = 0)
+- [x] `arch review` passes
+- [x] `arch govern --no-conduct` runs cleanly
+
+### Changed files (56 .ts files + task file)
+All files in `cli/src/main/ts/` — commands, use-cases, domain services, infrastructure.
+Key: drift-checker.ts (46→0), build-index.ts (28→0, required sed bug fix), init-command.ts (51→0).
+
+### Hansei
+H1/ToolingError — sed introduced broken single-quoted template strings in build-index.ts; corrected before build.
