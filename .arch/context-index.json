@@ -3799,7 +3799,7 @@
       "title": "Govern/Reflect Structural Separation"
     }
   },
-  "builtAt": "2026-05-25T14:47:55.981Z",
+  "builtAt": "2026-05-25T14:48:42.978Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -8956,15 +8956,16 @@
       }
     },
     "TASK-1012": {
-      "commitCount": 2,
+      "commitCount": 3,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-25T16:47:52+02:00",
+      "lastCommitDate": "2026-05-25T16:48:39+02:00",
       "recentCommitRefs": [
+        "345f7225",
         "3862fc3c",
         "53ea5a58"
       ],
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 1,
+        ".arch/focus-ledger.jsonl": 2,
         "docs/tasks/TASK-1012.md": 2
       }
     },
@@ -9485,26 +9486,6 @@
         "docs/METRICS.md": 1,
         "docs/archive/TASK-263.md": 1,
         "docs/tasks/TASK-263.md": 1
-      }
-    },
-    "TASK-267": {
-      "commitCount": 3,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-19T14:48:58+02:00",
-      "recentCommitRefs": [
-        "0b9bb9f6",
-        "4a33bfdb",
-        "fdccf202"
-      ],
-      "touchedFrequency": {
-        ".arch/causal-signal.jsonl": 1,
-        ".arch/chronicle.jsonl": 1,
-        ".arch/reflect-breach-log.jsonl": 1,
-        "cli/src/main/ts/application/use-cases/govern-system.ts": 1,
-        "docs/EVENTS.md": 1,
-        "docs/METRICS.md": 1,
-        "docs/archive/TASK-267.md": 1,
-        "docs/tasks/TASK-267.md": 1
       }
     },
     "TASK-268": {
