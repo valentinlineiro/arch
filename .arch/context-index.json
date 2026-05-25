@@ -3823,7 +3823,7 @@
       "title": "Govern/Reflect Structural Separation"
     }
   },
-  "builtAt": "2026-05-25T15:06:05.710Z",
+  "builtAt": "2026-05-25T15:13:41.322Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -5829,7 +5829,8 @@
     "cli/src/main/ts/application/use-cases/escalation-store.ts": {
       "criticality": "domain",
       "imports": [
-        "cli/src/main/ts/domain/repositories/file-system.ts"
+        "cli/src/main/ts/domain/repositories/file-system.ts",
+        "cli/src/main/ts/domain/services/path-resolver.ts"
       ],
       "runtimeUsage": "hot",
       "symbols": [
@@ -5867,7 +5868,9 @@
     },
     "cli/src/main/ts/application/use-cases/focus-ledger.ts": {
       "criticality": "domain",
-      "imports": [],
+      "imports": [
+        "cli/src/main/ts/domain/services/path-resolver.ts"
+      ],
       "runtimeUsage": "warm",
       "symbols": [
         "committedRulings",
@@ -5955,6 +5958,7 @@
         "cli/src/main/ts/domain/repositories/task-repository.ts",
         "cli/src/main/ts/domain/services/config-loader.ts",
         "cli/src/main/ts/domain/services/deterministic-ac-verifier.ts",
+        "cli/src/main/ts/domain/services/path-resolver.ts",
         "cli/src/main/ts/domain/services/status-report-service.ts",
         "cli/src/main/ts/domain/services/task-validator.ts"
       ],
@@ -5974,7 +5978,8 @@
     "cli/src/main/ts/application/use-cases/govern-transaction.ts": {
       "criticality": "domain",
       "imports": [
-        "cli/src/main/ts/domain/repositories/file-system.ts"
+        "cli/src/main/ts/domain/repositories/file-system.ts",
+        "cli/src/main/ts/domain/services/path-resolver.ts"
       ],
       "runtimeUsage": "warm",
       "symbols": [
@@ -6082,6 +6087,7 @@
         "cli/src/main/ts/domain/repositories/task-repository.ts",
         "cli/src/main/ts/domain/services/bridge-provider.ts",
         "cli/src/main/ts/domain/services/config-loader.ts",
+        "cli/src/main/ts/domain/services/path-resolver.ts",
         "cli/src/main/ts/domain/services/provider-registry.ts",
         "cli/src/main/ts/domain/services/reviewer.ts",
         "cli/src/main/ts/infrastructure/cli/subprocess-runner.ts",
@@ -7825,7 +7831,7 @@
     "cli/src/main/ts/domain/services/path-resolver.ts": {
       "criticality": "core",
       "imports": [],
-      "runtimeUsage": "cold",
+      "runtimeUsage": "hot",
       "symbols": [
         "PathResolver"
       ],
@@ -8446,7 +8452,8 @@
       "criticality": "support",
       "imports": [
         "cli/src/main/ts/domain/models/task.ts",
-        "cli/src/main/ts/domain/repositories/file-system.ts"
+        "cli/src/main/ts/domain/repositories/file-system.ts",
+        "cli/src/main/ts/domain/services/path-resolver.ts"
       ],
       "runtimeUsage": "hot",
       "symbols": [
@@ -9025,20 +9032,30 @@
       }
     },
     "TASK-1014": {
-      "commitCount": 6,
+      "commitCount": 8,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-25T17:06:02+02:00",
+      "lastCommitDate": "2026-05-25T17:13:38+02:00",
       "recentCommitRefs": [
         "132fb725",
         "1971106f",
         "5ab39e38",
+        "72b6acdc",
         "74b3eb3f",
         "85402993",
-        "d864ae0f"
+        "d864ae0f",
+        "d885f8c6"
       ],
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 5,
-        "docs/tasks/TASK-1014.md": 2
+        ".arch/focus-ledger.jsonl": 6,
+        "cli/src/main/ts/application/use-cases/escalation-store.ts": 1,
+        "cli/src/main/ts/application/use-cases/focus-ledger.ts": 1,
+        "cli/src/main/ts/application/use-cases/govern-system.ts": 1,
+        "cli/src/main/ts/application/use-cases/govern-transaction.ts": 1,
+        "cli/src/main/ts/application/use-cases/loop-engine.ts": 1,
+        "cli/src/main/ts/domain/services/path-resolver.ts": 1,
+        "cli/src/main/ts/infrastructure/filesystem/markdown-task-repository.ts": 1,
+        "docs/INBOX.md": 1,
+        "docs/tasks/TASK-1014.md": 3
       }
     },
     "TASK-1015": {
@@ -9509,26 +9526,6 @@
         "cli/.arch/status-projection.json": 1,
         "docs/tasks/TASK-1010.md": 1,
         "docs/tasks/TASK-242.md": 1
-      }
-    },
-    "TASK-263": {
-      "commitCount": 3,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-19T15:02:26+02:00",
-      "recentCommitRefs": [
-        "0c3adeff",
-        "158799e5",
-        "c20b1979"
-      ],
-      "touchedFrequency": {
-        ".arch/causal-signal.jsonl": 1,
-        ".arch/chronicle.jsonl": 1,
-        ".arch/reflect-breach-log.jsonl": 1,
-        "cli/src/main/ts/application/commands/explain-command.ts": 1,
-        "docs/EVENTS.md": 1,
-        "docs/METRICS.md": 1,
-        "docs/archive/TASK-263.md": 1,
-        "docs/tasks/TASK-263.md": 1
       }
     },
     "TASK-283": {
