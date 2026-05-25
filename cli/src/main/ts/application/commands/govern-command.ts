@@ -7,6 +7,7 @@ import type { TaskRepository } from '../../domain/repositories/task-repository.j
 import type { GitRepository } from '../../domain/repositories/git-repository.js';
 import type { FileSystem } from '../../domain/repositories/file-system.js';
 import { CausalSignalLog } from '../use-cases/causal-signal-log.js';
+import { PathResolver } from '../../domain/services/path-resolver.js';
 
 export class GovernCommand implements Command {
   private useCase: GovernSystem;
@@ -37,7 +38,7 @@ export class GovernCommand implements Command {
     }
 
     try {
-      await this.gitRepository.add('.arch/context-index.json');
+      await this.gitRepository.add(PathResolver.from({}).contextIndex);
       await this.gitRepository.commit('chore: [THINK] rebuild context index');
     } catch {
       // Nothing changed or git not available — acceptable

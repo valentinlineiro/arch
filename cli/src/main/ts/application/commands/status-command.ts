@@ -3,6 +3,7 @@ import type { TaskRepository } from '../../domain/repositories/task-repository.j
 import type { FileSystem } from '../../domain/repositories/file-system.js';
 import { StatusReportService } from '../../domain/services/status-report-service.js';
 import * as fmt from '../../infrastructure/cli/output-formatter.js';
+import { PathResolver } from '../../domain/services/path-resolver.js';
 
 export class StatusCommand implements Command {
   constructor(
@@ -60,7 +61,7 @@ export class StatusCommand implements Command {
 
     // INBOX alerts
     try {
-      const inbox = await this.fileSystem.readFile(`${this.rootPath}/docs/INBOX.md`);
+      const inbox = await this.fileSystem.readFile(`${this.rootPath}/${PathResolver.from({}).inbox}`);
       const alerts = inbox.split('\n').filter(l =>
         l.includes('PATTERN-ALERT') || l.includes('ANDON_HALT') || l.includes('CORPUS_ALERT')
       );
@@ -84,14 +85,14 @@ export class StatusCommand implements Command {
 
     // Alignment score — only if ADRs exist and a cached score is available
     try {
-      const adrDir = `${this.rootPath}/docs/adr`;
+      const adrDir = `${this.rootPath}/${PathResolver.from({}).adr}`;
       const adrFiles = await this.fileSystem.readDirectory(adrDir);
       const adrCount = adrFiles.filter(f => f.endsWith('.md') && !f.includes('template')).length;
 
       if (adrCount > 0) {
-        // Try to read last audit score from .arch/last-audit.json
+        // Try to read last audit score from last-audit.json
         try {
-          const auditCache = await this.fileSystem.readFile(`${this.rootPath}/.arch/last-audit.json`);
+          const auditCache = await this.fileSystem.readFile(`${this.rootPath}/${PathResolver.from({}).archDir}/last-audit.json`);
           const { score, timestamp, emergentCount } = JSON.parse(auditCache);
           const age = Math.round((Date.now() - new Date(timestamp).getTime()) / 3600000);
           const icon = score >= 80 ? '\x1b[32m✔\x1b[0m' : score >= 60 ? '\x1b[33m⚠\x1b[0m' : '\x1b[31m✖\x1b[0m';

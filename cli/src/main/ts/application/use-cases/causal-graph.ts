@@ -9,8 +9,9 @@ import {
   type CausalSource,
   type EdgeStatus,
 } from '../../domain/models/causal-relation.js';
+import { PathResolver } from '../../domain/services/path-resolver.js';
 
-const GRAPH_PATH = '.arch/causal-graph.jsonl';
+const GRAPH_PATH = `${PathResolver.from({}).archDir}/causal-graph.jsonl`;
 
 export { VALID_RELATIONS };
 

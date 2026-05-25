@@ -3,6 +3,7 @@ import type { TaskRepository } from '../../domain/repositories/task-repository.j
 import type { Task } from '../../domain/models/task.js';
 import { TaskStatus } from '../../domain/models/task.js';
 import type { ContextIndex } from '../../domain/models/context-index.js';
+import { PathResolver } from '../../domain/services/path-resolver.js';
 
 const HEADER = '--- LOAD-BEARING CONTEXT ---';
 const FOOTER = '----------------------------';
@@ -12,7 +13,7 @@ interface EnforcedAdr { id: string; title: string }
 interface HanseiFailure { taskId: string; category: string; decision: string; cost: string }
 
 export class LoadBearingMemory {
-  private readonly indexPath = '.arch/context-index.json';
+  private readonly indexPath = PathResolver.from({}).contextIndex;
 
   constructor(
     private taskRepository: TaskRepository,

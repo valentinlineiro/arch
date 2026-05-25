@@ -4,6 +4,7 @@ import type { GitRepository } from '../../domain/repositories/git-repository.js'
 import { CorpusIndexService, type CorpusEntry } from '../use-cases/corpus-index.js';
 import { GovernanceDriftDetector } from '../../domain/services/governance-drift-detector.js';
 import { InstitutionalAnomalyTracker } from '../../domain/services/institutional-anomaly-tracker.js';
+import { PathResolver } from '../../domain/services/path-resolver.js';
 
 interface AuditFinding {
   taskId: string;
@@ -190,7 +191,8 @@ export class CorpusAuditCommand implements Command {
 
   private async loadIdeaSlugs(): Promise<Set<string>> {
     const slugs = new Set<string>();
-    for (const dir of ['docs/refinement/archive', 'docs/refinement']) {
+    const pr = PathResolver.from({});
+    for (const dir of [pr.refinementArchive, pr.refinement]) {
       try {
         const files = await this.fileSystem.readDirectory(dir);
         files.filter(f => f.startsWith('IDEA-')).forEach(f => slugs.add(f.replace('.md', '').toLowerCase()));

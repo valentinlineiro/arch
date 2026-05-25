@@ -1,8 +1,9 @@
 import type { FileSystem } from '../repositories/file-system.js';
 import type { Sprint, SprintStatus, SprintTransitionEvent } from '../models/sprint.js';
+import { PathResolver } from './path-resolver.js';
 
-const LEDGER_PATH = '.arch/focus-ledger.jsonl';
-const SPRINT_STATE_PATH = '.arch/sprint-state.json';
+const LEDGER_PATH = PathResolver.from({}).focusLedger;
+const SPRINT_STATE_PATH = `${PathResolver.from({}).archDir}/sprint-state.json`;
 
 export class SprintService {
   constructor(private fileSystem: FileSystem) {}

@@ -1,4 +1,5 @@
 import type { FileSystem } from '../../domain/repositories/file-system.js';
+import { PathResolver } from '../../domain/services/path-resolver.js';
 
 interface AdrHit {
   id: string;
@@ -74,12 +75,13 @@ export class ConstraintPreflight {
   private async scanAdrs(tokens: string[]): Promise<AdrHit[]> {
     const hits: AdrHit[] = [];
     let files: string[];
-    try { files = await this.fileSystem.readDirectory('docs/adr'); } catch { return []; }
+    const pr = PathResolver.from({});
+    try { files = await this.fileSystem.readDirectory(pr.adr); } catch { return []; }
 
     for (const file of files) {
       if (!file.endsWith('.md') || file.startsWith('ADR-000') || file.startsWith('TEMPLATE')) continue;
       try {
-        const content = await this.fileSystem.readFile(`docs/adr/${file}`);
+        const content = await this.fileSystem.readFile(`${PathResolver.from({}).adr}/${file}`);
         if (!content.includes('**Status:** ACCEPTED')) continue;
         if (!this.overlaps(tokens, content)) continue;
         const idMatch = content.match(/^#\s+(ADR-\d+)/m);
@@ -115,12 +117,13 @@ export class ConstraintPreflight {
     cutoff.setDate(cutoff.getDate() - 30);
 
     let files: string[];
-    try { files = await this.fileSystem.readDirectory('docs/archive'); } catch { return []; }
+    const archivePr = PathResolver.from({});
+    try { files = await this.fileSystem.readDirectory(archivePr.archive); } catch { return []; }
 
     for (const file of files) {
       if (!file.match(/^TASK-\d+\.md$/)) continue;
       try {
-        const content = await this.fileSystem.readFile(`docs/archive/${file}`);
+        const content = await this.fileSystem.readFile(`${archivePr.archive}/${file}`);
         const closedMatch = content.match(/Closed-at:\s*([^\s|*\n]+)/);
         if (!closedMatch) continue;
         const closedAt = new Date(closedMatch[1]);

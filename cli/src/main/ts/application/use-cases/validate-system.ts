@@ -1,6 +1,7 @@
 import { TaskRepository } from '../../domain/repositories/task-repository.js';
 import { TaskValidator } from '../../domain/services/task-validator.js';
 import { FileSystem } from '../../domain/repositories/file-system.js';
+import { PathResolver } from '../../domain/services/path-resolver.js';
 
 export interface ValidationResult {
   success: boolean;
@@ -32,7 +33,7 @@ export class ValidateSystem {
     const tasks = await this.taskRepository.getAll();
     for (const task of tasks) {
       if (task.rawMetaLine && !TaskValidator.isValidMeta(task.rawMetaLine)) {
-        errors.push(`[docs/tasks/${task.id}.md] Task ${task.id} has an invalid Meta line: ${task.rawMetaLine}`);
+        errors.push(`[${PathResolver.from({}).tasks}/${task.id}.md] Task ${task.id} has an invalid Meta line: ${task.rawMetaLine}`);
       }
       const hanseiErrors = TaskValidator.validateHansei(task);
       for (const e of hanseiErrors) {

@@ -1,8 +1,9 @@
 import type { FeedbackRepository } from '../../domain/repositories/feedback-repository.js';
 import type { FeedbackSignal } from '../../domain/models/feedback-signal.js';
 import type { FileSystem } from '../../domain/repositories/file-system.js';
+import { PathResolver } from '../../domain/services/path-resolver.js';
 
-const FEEDBACK_PATH = '.arch/context-feedback.json';
+const FEEDBACK_PATH = `${PathResolver.from({}).archDir}/context-feedback.json`;
 
 export class NodeFeedbackRepository implements FeedbackRepository {
   constructor(private fileSystem: FileSystem) {}

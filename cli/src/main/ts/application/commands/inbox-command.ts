@@ -5,6 +5,7 @@ import type { Reviewer } from '../../domain/services/reviewer.js';
 import type { DriftChecker } from '../use-cases/drift-checker.js';
 import type { FileSystem } from '../../domain/repositories/file-system.js';
 import * as fmt from '../../infrastructure/cli/output-formatter.js';
+import { PathResolver } from '../../domain/services/path-resolver.js';
 
 export class InboxCommand implements Command {
   private useCase: GenerateInbox;
@@ -48,7 +49,8 @@ export class InboxCommand implements Command {
       console.log(`  [${item.created}] ${item.sessions}s  ${item.slug}`);
       console.log(`    Title:   ${item.title}`);
       console.log(`    Problem: ${item.problem}`);
-      console.log(`    Resurrect: move from docs/refinement/archive/ to docs/refinement/, clear Decision, reset Status to DRAFT`);
+      const pr = PathResolver.from({});
+      console.log(`    Resurrect: move from ${pr.refinementArchive}/ to ${pr.refinement}/, clear Decision, reset Status to DRAFT`);
       console.log('');
     }
   }

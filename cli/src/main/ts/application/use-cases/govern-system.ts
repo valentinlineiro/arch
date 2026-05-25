@@ -313,11 +313,11 @@ export class GovernSystem {
     const allRulings = [...committedRulings(ledger), ...newRulings];
     const content = serializeLedger(allRulings, nextTick);
 
-    // Use GovernTransaction to buffer .arch/ write and flush atomically before commit
+    // Use GovernTransaction to buffer arch-dir writes and flush atomically before commit
     const tx = new GovernTransaction(this.fileSystem);
     await tx.writeFile(ledgerPath, content);
 
-    // Flush all buffered .arch/ writes atomically before committing
+    // Flush all buffered arch-dir writes atomically before committing
     await tx.flush();
 
     // Stage ledger + any task meta files whose Focus flag was flipped this tick.
@@ -396,7 +396,7 @@ export class GovernSystem {
     if (!existing) existing = '# Sprint Retrospectives\n\n';
 
     const now = new Date().toISOString().slice(0, 10);
-    const entry = `## ${sprint.name}\n**Opened:** ${sprint.startedAt?.slice(0, 10) ?? '?'}  **Closed:** ${now}\n**Velocity:** ${velocity} tasks\n**SPRINT_CLOSE:** appended to .arch/focus-ledger.jsonl\n\n`;
+    const entry = `## ${sprint.name}\n**Opened:** ${sprint.startedAt?.slice(0, 10) ?? '?'}  **Closed:** ${now}\n**Velocity:** ${velocity} tasks\n**SPRINT_CLOSE:** appended to ${this.pathResolver.focusLedger}\n\n`;
 
     // Append after the header
     const headerEnd = existing.indexOf('\n\n');

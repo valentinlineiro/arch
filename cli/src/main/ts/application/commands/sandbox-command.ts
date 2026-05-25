@@ -4,6 +4,7 @@ import { TaskRepository } from '../../domain/repositories/task-repository.js';
 import { FileSystem } from '../../domain/repositories/file-system.js';
 import { EscalationStore } from '../use-cases/escalation-store.js';
 import * as fmt from '../../infrastructure/cli/output-formatter.js';
+import { PathResolver } from '../../domain/services/path-resolver.js';
 
 export class SandboxCommand implements Command {
   constructor(
@@ -69,7 +70,7 @@ export class SandboxCommand implements Command {
       try {
         const ts = new Date().toISOString().slice(0, 16).replace('T', ' ');
         const entry = `\n## [${ts}] AWAITING_APPROVAL | PRIVILEGED_EXECUTION | ${focusedTask.id}\nEvidence: Agent requested privileged execution. Approve by running: arch approve ${focusedTask.id}\n`;
-        const inboxPath = 'docs/INBOX.md';
+        const inboxPath = PathResolver.from({}).inbox;
         const existing = await this.fileSystem.readFile(inboxPath).catch(() => '');
         await this.fileSystem.writeFile(inboxPath, existing + entry);
       } catch { /* non-blocking */ }

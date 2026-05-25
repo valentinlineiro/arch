@@ -4,6 +4,7 @@ import { ValidateTaskAcs } from '../use-cases/validate-task-acs.js';
 import type { TaskRepository } from '../../domain/repositories/task-repository.js';
 import type { FileSystem } from '../../domain/repositories/file-system.js';
 import * as fmt from '../../infrastructure/cli/output-formatter.js';
+import { PathResolver } from '../../domain/services/path-resolver.js';
 
 export class ValidateCommand implements Command {
   private useCase: ValidateSystem;
@@ -43,7 +44,7 @@ export class ValidateCommand implements Command {
 
     const task = await this.taskRepository.getById(taskId);
     if (!task) {
-      fmt.fail(`Task file not found: docs/tasks/${taskId}.md`);
+      fmt.fail(`Task file not found: ${PathResolver.from({}).tasks}/${taskId}.md`);
       process.exit(1);
     }
 

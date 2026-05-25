@@ -1,5 +1,6 @@
 import { randomUUID } from 'node:crypto';
 import type { FileSystem } from '../../domain/repositories/file-system.js';
+import { PathResolver } from '../../domain/services/path-resolver.js';
 
 export type CorrectionKind = 'factual' | 'style' | 'authority' | 'scope';
 export type CorrectionAuthority = 'low' | 'medium' | 'high';
@@ -39,7 +40,7 @@ export interface CorrectionSignal {
   status: CorrectionStatus;
 }
 
-const CORRECTION_SIGNALS_PATH = '.arch/correction-signals.jsonl';
+const CORRECTION_SIGNALS_PATH = `${PathResolver.from({}).archDir}/correction-signals.jsonl`;
 
 export class CorrectionSignalStore {
   constructor(private fileSystem: FileSystem, private rootPath: string = '.') {}

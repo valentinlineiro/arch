@@ -1,4 +1,5 @@
 import type { FileSystem } from '../../domain/repositories/file-system.js';
+import { PathResolver } from '../../domain/services/path-resolver.js';
 
 interface CollisionHit {
   adrId: string;
@@ -69,7 +70,7 @@ export class SemanticCollisionDetector {
 
     let files: string[];
     try {
-      files = await this.fileSystem.readDirectory('docs/adr');
+      files = await this.fileSystem.readDirectory(PathResolver.from({}).adr);
     } catch {
       return null;
     }
@@ -84,7 +85,7 @@ export class SemanticCollisionDetector {
       if (dismissedAdrs.has(adrId)) continue;
 
       try {
-        const content = await this.fileSystem.readFile(`docs/adr/${file}`);
+        const content = await this.fileSystem.readFile(`${PathResolver.from({}).adr}/${file}`);
         if (!content.includes('**Status:** ACCEPTED')) continue;
 
         const snippet = findNegationSnippet(content);

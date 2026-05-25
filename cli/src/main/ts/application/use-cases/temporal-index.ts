@@ -1,7 +1,8 @@
 import type { FileSystem } from '../../domain/repositories/file-system.js';
 import type { CausalSignalLog } from './causal-signal-log.js';
+import { PathResolver } from '../../domain/services/path-resolver.js';
 
-const TEMPORAL_INDEX_PATH = '.arch/temporal-index.jsonl';
+const TEMPORAL_INDEX_PATH = `${PathResolver.from({}).archDir}/temporal-index.jsonl`;
 const DEFAULT_WINDOW = 20;
 const DEFAULT_THRESHOLD = 3;
 

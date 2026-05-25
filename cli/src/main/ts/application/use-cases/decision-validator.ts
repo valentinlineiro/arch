@@ -1,4 +1,5 @@
 import type { FileSystem } from '../../domain/repositories/file-system.js';
+import { PathResolver } from '../../domain/services/path-resolver.js';
 
 export interface CausalTrace {
   readonly traceId: string;
@@ -30,8 +31,9 @@ export class DecisionValidator {
   }
 
   async logTrace(trace: CausalTrace): Promise<void> {
-    await this.fileSystem.mkdir('.arch/context');
-    const logPath = '.arch/context/trace-log.jsonl';
+    const contextDir = `${PathResolver.from({}).archDir}/context`;
+    await this.fileSystem.mkdir(contextDir);
+    const logPath = `${contextDir}/trace-log.jsonl`;
     const line = JSON.stringify(trace) + '\n';
     await this.fileSystem.appendFile(logPath, line);
   }

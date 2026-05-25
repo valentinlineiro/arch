@@ -8,6 +8,7 @@ import { ConfigLoader } from '../../domain/services/config-loader.js';
 import { writeDeepAnalysisState } from '../use-cases/deep-analysis-state.js';
 import { parseLedger } from '../use-cases/focus-ledger.js';
 import { spawnSync } from 'node:child_process';
+import { PathResolver } from '../../domain/services/path-resolver.js';
 import fs from 'node:fs';
 
 export class AnalyzeCommand implements Command {
@@ -157,7 +158,7 @@ export class AnalyzeCommand implements Command {
   }
 
   private async getReviewTasks(filterTaskId?: string): Promise<Array<{ id: string; content: string }>> {
-    const tasksDir = 'docs/tasks';
+    const tasksDir = PathResolver.from({}).tasks;
     const tasks: Array<{ id: string; content: string }> = [];
 
     let files: string[] = [];
@@ -283,7 +284,7 @@ ${taskSections}`;
       const result = await auditor.runQuiet('.');
       if (result.emergentCount > 0) {
         const fs = new NodeFileSystem();
-        const inboxPath = 'docs/INBOX.md';
+        const inboxPath = PathResolver.from({}).inbox;
         const inbox = await fs.readFile(inboxPath).catch(() => '');
         const now = new Date().toISOString().slice(0, 19).replace('T', ' ');
         const alerts = result.emergent
@@ -321,7 +322,7 @@ ${taskSections}`;
       const prompt = modePreamble + thinkContent;
 
       // Write to a temp file so CLI templates using $(cat file) work correctly
-      const tmpPath = `.arch/.think-prompt-${Date.now()}.md`;
+      const tmpPath = `${PathResolver.from({}).archDir}/.think-prompt-${Date.now()}.md`;
       fs.writeFileSync(tmpPath, prompt);
 
       const clis = config.clis || [];
@@ -371,7 +372,7 @@ ${taskSections}`;
 
   private async getCurrentTick(): Promise<number> {
     try {
-      const ledgerPath = '.arch/focus-ledger.jsonl';
+      const ledgerPath = PathResolver.from({}).focusLedger;
       if (!(await this.fileSystem.exists(ledgerPath))) return 0;
       const content = await this.fileSystem.readFile(ledgerPath);
       const state = parseLedger(content);

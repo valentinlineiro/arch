@@ -1,6 +1,7 @@
 import { GitRepository } from '../../domain/repositories/git-repository.js';
 import { FileSystem } from '../../domain/repositories/file-system.js';
 import path from 'node:path';
+import { PathResolver } from '../../domain/services/path-resolver.js';
 
 export class MergeResolve {
   constructor(
@@ -46,10 +47,11 @@ export class MergeResolve {
       }
     }
 
-    if (resolved.length > 0 && !escalated.includes('docs/INBOX.md')) {
+    const inbox = PathResolver.from({}).inbox;
+    if (resolved.length > 0 && !escalated.includes(inbox)) {
       await this.logToInbox('MERGE_AUTO', resolved);
     }
-    if (escalated.length > 0 && !escalated.includes('docs/INBOX.md')) {
+    if (escalated.length > 0 && !escalated.includes(inbox)) {
       await this.logToInbox('MERGE_ESCALATE', escalated);
     }
 
@@ -61,10 +63,11 @@ export class MergeResolve {
   }
 
   private tryResolveConflict(file: string, content: string): { success: boolean; mergedContent: string } {
-    if (file === 'docs/INBOX.md') {
+    const pr = PathResolver.from({});
+    if (file === pr.inbox) {
       return this.resolveInboxConflict(content);
     }
-    if (file.startsWith('docs/tasks/') && file.endsWith('.md')) {
+    if (file.startsWith(pr.tasks + '/') && file.endsWith('.md')) {
       return this.resolveTaskMetaConflict(content);
     }
     return { success: false, mergedContent: content };
@@ -201,17 +204,15 @@ export class MergeResolve {
   }
 
   private async logToInbox(type: 'MERGE_AUTO' | 'MERGE_ESCALATE', files: string[]) {
-    const inboxPath = 'docs/INBOX.md';
+    const inboxPath = PathResolver.from({}).inbox;
     const timestamp = new Date().toISOString();
     const entry = `\n## [${timestamp}] ${type} | ${files.join(', ')}\n`;
-    
+
     let content = '';
     if (await this.fileSystem.exists(inboxPath)) {
       content = await this.fileSystem.readFile(inboxPath);
     }
-    
-    // If MERGE_AUTO, we already called git add on the resolved files.
-    // If we are logging to INBOX, we should probably add INBOX too.
+
     await this.fileSystem.writeFile(inboxPath, content + entry);
     await this.gitRepository.add(inboxPath);
   }

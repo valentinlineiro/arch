@@ -5,8 +5,9 @@ import type {
   ReflectDecision,
   ReflectDecisionUpdate,
 } from '../../domain/models/reflect-decision.js';
+import { PathResolver } from '../../domain/services/path-resolver.js';
 
-const DECISION_PATH = '.arch/reflect-decisions.jsonl';
+const DECISION_PATH = `${PathResolver.from({}).archDir}/reflect-decisions.jsonl`;
 
 type RawRecord = ReflectDecision | ReflectDecisionUpdate;
 

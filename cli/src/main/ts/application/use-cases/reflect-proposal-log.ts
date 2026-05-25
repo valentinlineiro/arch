@@ -1,8 +1,9 @@
 import { randomUUID } from 'node:crypto';
 import type { FileSystem } from '../../domain/repositories/file-system.js';
 import type { ProposalType, ReflectProposal } from '../../domain/models/reflect-proposal.js';
+import { PathResolver } from '../../domain/services/path-resolver.js';
 
-const PROPOSAL_PATH = '.arch/reflect-proposals.jsonl';
+const PROPOSAL_PATH = `${PathResolver.from({}).archDir}/reflect-proposals.jsonl`;
 
 export class ReflectProposalLog {
   constructor(

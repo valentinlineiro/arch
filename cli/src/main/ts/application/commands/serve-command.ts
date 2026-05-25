@@ -3,6 +3,7 @@ import http from 'node:http';
 import fs from 'node:fs';
 import path from 'node:path';
 import { URL } from 'node:url';
+import { PathResolver } from '../../domain/services/path-resolver.js';
 
 export class ServeCommand implements Command {
   constructor(private rootPath: string = '.') {}
@@ -37,7 +38,7 @@ export class ServeCommand implements Command {
     return (req, res) => {
       // API Endpoints
       if (req.url?.split('?')[0] === '/api/tasks') {
-        const tasksDir = path.join(this.rootPath, 'docs/tasks');
+        const tasksDir = path.join(this.rootPath, PathResolver.from({}).tasks);
         fs.readdir(tasksDir, async (err, files) => {
           if (err) {
             res.statusCode = 500;
@@ -64,7 +65,7 @@ export class ServeCommand implements Command {
                 class: parts[4] || '',
                 cli: parts[5] || '',
                 context: parts[6] || '',
-                path: `docs/tasks/${f}`,
+                path: `${PathResolver.from({}).tasks}/${f}`,
               };
             }));
             res.setHeader('Content-Type', 'application/json');

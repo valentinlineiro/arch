@@ -2,6 +2,7 @@ import { FileSystem } from '../repositories/file-system.js';
 import { GitRepository } from '../repositories/git-repository.js';
 import { EpistemicDigest } from '../models/provenance.js';
 import path from 'node:path';
+import { PathResolver } from './path-resolver.js';
 
 export interface ArchivedTaskMetrics {
   id: string;
@@ -29,7 +30,7 @@ export class ArchiveParser {
   ) {}
 
   async parseArchivedTasks(): Promise<ArchivedTaskMetrics[]> {
-    const archiveDir = 'docs/archive';
+    const archiveDir = PathResolver.from({}).archive;
     if (!(await this.fileSystem.exists(archiveDir))) {
       return [];
     }
@@ -175,11 +176,11 @@ export class ArchiveParser {
     const hanseiCategoryMatch = content.match(/\*\*Category:\*\*\s*(\[\w+\])/);
     const actorMatch = content.match(/\*\*Actor:\*\*\s*([^\n]+)/);
 
-    // Override heuristic cost with real data from .arch/costs/ if available
+    // Override heuristic cost with real data from costs/ directory if available
     let finalCost: number | null = cost;
     let costSource: 'real' | 'heuristic' = 'heuristic';
     try {
-      const costJson = await this.fileSystem.readFile(`.arch/costs/${id}.json`);
+      const costJson = await this.fileSystem.readFile(`${PathResolver.from({}).archDir}/costs/${id}.json`);
       const costData = JSON.parse(costJson);
       if (typeof costData.estimatedCostUSD === 'number') {
         finalCost = costData.estimatedCostUSD;

@@ -1,10 +1,11 @@
 import type { FileSystem } from '../../domain/repositories/file-system.js';
+import { PathResolver } from '../../domain/services/path-resolver.js';
 
 export class CompressTask {
   constructor(private fileSystem: FileSystem, private rootPath: string) {}
 
   async execute(taskId: string): Promise<void> {
-    const archivePath = `${this.rootPath}/docs/archive/${taskId}.md`;
+    const archivePath = `${this.rootPath}/${PathResolver.from({}).archive}/${taskId}.md`;
     if (!(await this.fileSystem.exists(archivePath))) {
       throw new Error(`Archive file not found: ${archivePath}`);
     }
@@ -14,7 +15,7 @@ export class CompressTask {
   }
 
   async executeAll(): Promise<string[]> {
-    const archiveDir = `${this.rootPath}/docs/archive`;
+    const archiveDir = `${this.rootPath}/${PathResolver.from({}).archive}`;
     if (!(await this.fileSystem.exists(archiveDir))) return [];
     const files = await this.fileSystem.readDirectory(archiveDir);
     const compressed: string[] = [];

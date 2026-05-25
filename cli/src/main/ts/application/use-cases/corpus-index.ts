@@ -1,5 +1,6 @@
 import type { FileSystem } from '../../domain/repositories/file-system.js';
 import type { GitRepository } from '../../domain/repositories/git-repository.js';
+import { PathResolver } from '../../domain/services/path-resolver.js';
 
 export interface CorpusEntry {
   id: string;
@@ -27,8 +28,8 @@ export interface CorpusIndex {
   entries: Record<string, CorpusEntry>;
 }
 
-const INDEX_PATH = '.arch/corpus-index.json';
-const ARCHIVE_DIR = 'docs/archive';
+const INDEX_PATH = PathResolver.from({}).corpusIndex;
+const ARCHIVE_DIR = PathResolver.from({}).archive;
 const CURRENT_VERSION = 1;
 
 export class CorpusIndexService {

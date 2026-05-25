@@ -3,6 +3,7 @@ import { GitRepository } from '../repositories/git-repository.js';
 import { HanseiAuditor } from '../../domain/services/hansei-auditor.js';
 import semver from 'semver';
 import { FocusLevel, ConflictSeverity, FocusConflict } from '../../domain/models/task.js';
+import { PathResolver } from '../../domain/services/path-resolver.js';
 
 export interface DriftResult {
   check: string;
@@ -18,12 +19,16 @@ const CLI_COMMANDS = new Set([
 const ROOT_RUNTIME_ARTIFACTS = new Set(['.codex']);
 
 export class DriftChecker {
+  private readonly pr: PathResolver;
   constructor(
     private fileSystem: FileSystem,
     private gitRepository: GitRepository,
     private rootPath: string,
-    private cliVersion: string
-  ) {}
+    private cliVersion: string,
+    pathResolver?: PathResolver
+  ) {
+    this.pr = pathResolver ?? PathResolver.from({});
+  }
 
   async check(): Promise<DriftResult[]> {
     return Promise.all([
@@ -68,9 +73,9 @@ export class DriftChecker {
     const protectedPaths = config.governance?.protectedPaths || [];
 
     // 1. Repeated Review Failure Detection
-    const activeTasks = await this.getMarkdownFiles('docs/tasks');
+    const activeTasks = await this.getMarkdownFiles(this.pr.tasks);
     for (const file of activeTasks) {
-      const content = await this.fileSystem.readFile(`${this.rootPath}/docs/tasks/${file}`);
+      const content = await this.fileSystem.readFile(`${this.rootPath}/${this.pr.tasks}/${file}`);
       const metaMatch = content.match(/^\*\*Meta:\*\* .*/m);
       if (metaMatch) {
         const parts = metaMatch[0].split('|').map(s => s.trim());
@@ -84,11 +89,11 @@ export class DriftChecker {
     // 2. Protected Path Enforcement (Current Worktree)
     const statusLines = await this.gitRepository.getStatusLines();
     const touchedProtectedPaths: string[] = [];
-    const adrAdded = statusLines.some(line => line.startsWith('A') && line.includes('docs/adr/'));
+    const adrAdded = statusLines.some(line => line.startsWith('A') && line.includes(this.pr.adr + '/'));
 
     for (const line of statusLines) {
       const filePath = line.slice(3).trim();
-      if (protectedPaths.some((p: string) => filePath.startsWith(p) && !filePath.startsWith('docs/adr/'))) {
+      if (protectedPaths.some((p: string) => filePath.startsWith(p) && !filePath.startsWith(this.pr.adr + '/'))) {
         touchedProtectedPaths.push(filePath);
       }
     }
@@ -100,9 +105,9 @@ export class DriftChecker {
     // 3. Git diff parsing: check last commit for protected path changes without ADR
     const lastCommitFiles = await this.gitRepository.getChangedFilesInLastCommit();
     const commitTouchedProtected = lastCommitFiles.filter(f =>
-      protectedPaths.some((p: string) => f.startsWith(p) && !f.startsWith('docs/adr/'))
+      protectedPaths.some((p: string) => f.startsWith(p) && !f.startsWith(this.pr.adr + '/'))
     );
-    const commitHasAdr = lastCommitFiles.some(f => f.startsWith('docs/adr/'));
+    const commitHasAdr = lastCommitFiles.some(f => f.startsWith(this.pr.adr + '/'));
 
     if (commitTouchedProtected.length > 0 && !commitHasAdr) {
       // Separate deletions from additions/modifications
@@ -143,7 +148,7 @@ export class DriftChecker {
 
       const lastCommitFiles = await this.gitRepository.getChangedFilesInLastCommit();
       const commitTouchedProtected = lastCommitFiles.filter(f =>
-        protectedPaths.some((p: string) => f.startsWith(p) && !f.startsWith('docs/adr/'))
+        protectedPaths.some((p: string) => f.startsWith(p) && !f.startsWith(this.pr.adr + '/'))
       );
       if (commitTouchedProtected.length === 0) {
         return { check: 'ExcisionStructuralCheck', status: 'OK', details: [] };
@@ -181,7 +186,7 @@ export class DriftChecker {
       try {
         const { execSync } = await import('node:child_process');
         const result = execSync(
-          `grep -r "${artifactName}" cli/src/ docs/ --include="*.ts" --include="*.md" 2>/dev/null | grep -v "docs/refinement/archive/" | grep -v "docs/superpowers/" | wc -l`,
+          `grep -r "${artifactName}" cli/src/ docs/ --include="*.ts" --include="*.md" 2>/dev/null | grep -v "${this.pr.refinementArchive}/" | grep -v "docs/superpowers/" | wc -l`,
           { cwd: this.rootPath, encoding: 'utf-8', stdio: ['pipe', 'pipe', 'pipe'] }
         ).trim();
         const refCount = parseInt(result, 10);
@@ -193,8 +198,8 @@ export class DriftChecker {
       // Gate 2: Decision-record exists — IDEA archive or ADR references the removed artifact
       let gate2Pass = false;
       try {
-        const archiveDir = `${this.rootPath}/docs/refinement/archive`;
-        const adrDir = `${this.rootPath}/docs/adr`;
+        const archiveDir = `${this.rootPath}/${this.pr.refinementArchive}`;
+        const adrDir = `${this.rootPath}/${this.pr.adr}`;
         const archiveFiles = await this.fileSystem.readDirectory(archiveDir).catch(() => []);
         const adrFiles = await this.fileSystem.readDirectory(adrDir).catch(() => []);
         for (const f of [...archiveFiles, ...adrFiles]) {
@@ -205,7 +210,7 @@ export class DriftChecker {
           }
         }
         if (!gate2Pass) {
-          fileFailures.push(`Gate 2 FAIL — no decision record in docs/refinement/archive/ or docs/adr/ referencing '${artifactName}'`);
+          fileFailures.push(`Gate 2 FAIL — no decision record in ${this.pr.refinementArchive}/ or ${this.pr.adr}/ referencing '${artifactName}'`);
         }
       } catch {
         fileFailures.push(`Gate 2 WARN — decision record check inconclusive (archive unreadable)`);
@@ -292,19 +297,19 @@ export class DriftChecker {
 
   private async checkStaleTasks(): Promise<DriftResult> {
     const details: string[] = [];
-    const activeFiles = await this.getMarkdownFiles('docs/tasks');
+    const activeFiles = await this.getMarkdownFiles(this.pr.tasks);
     const THIRTY_DAYS_MS = 30 * 24 * 60 * 60 * 1000;
     const THREE_DAYS_MS = 3 * 24 * 60 * 60 * 1000;
     const now = new Date().getTime();
 
     for (const file of activeFiles) {
-      const content = await this.fileSystem.readFile(`${this.rootPath}/docs/tasks/${file}`);
+      const content = await this.fileSystem.readFile(`${this.rootPath}/${this.pr.tasks}/${file}`);
       const metaMatch = content.match(/^\*\*Meta:\*\* .*/m);
       if (metaMatch) {
         const parts = metaMatch[0].split('|').map(s => s.trim());
         const status = parts[2];
         
-        const lastMod = await this.gitRepository.getFileLastModifiedDate(`docs/tasks/${file}`);
+        const lastMod = await this.gitRepository.getFileLastModifiedDate(`${this.pr.tasks}/${file}`);
         if (!lastMod) continue;
 
         const ageMs = now - lastMod.getTime();
@@ -328,14 +333,14 @@ export class DriftChecker {
 
   private async checkPriorityDrift(): Promise<DriftResult> {
     const details: string[] = [];
-    const activeFiles = await this.getMarkdownFiles('docs/tasks');
-    const archiveFiles = await this.getMarkdownFiles('docs/archive');
+    const activeFiles = await this.getMarkdownFiles(this.pr.tasks);
+    const archiveFiles = await this.getMarkdownFiles(this.pr.archive);
     
     const doneTaskIds = new Set(archiveFiles.map(f => f.replace('.md', '')));
     const allActiveTasks: any[] = [];
 
     for (const file of activeFiles) {
-      const content = await this.fileSystem.readFile(`${this.rootPath}/docs/tasks/${file}`);
+      const content = await this.fileSystem.readFile(`${this.rootPath}/${this.pr.tasks}/${file}`);
       const headerMatch = content.match(/^## (TASK-\d+): (.*)/m);
       const metaMatch = content.match(/^\*\*Meta:\*\* .*/m);
       const dependsMatch = content.match(/^\*\*Depends:\*\* (.*)/m);
@@ -384,10 +389,10 @@ export class DriftChecker {
 
   private async checkDeadContext(): Promise<DriftResult> {
     const details: string[] = [];
-    const taskFiles = await this.getMarkdownFiles('docs/tasks');
+    const taskFiles = await this.getMarkdownFiles(this.pr.tasks);
 
     for (const file of taskFiles) {
-      const content = await this.fileSystem.readFile(`${this.rootPath}/docs/tasks/${file}`);
+      const content = await this.fileSystem.readFile(`${this.rootPath}/${this.pr.tasks}/${file}`);
       const metaMatch = content.match(/^\*\*Meta:\*\* .*/m);
       if (metaMatch) {
         const parts = metaMatch[0].split('|').map(s => s.trim());
@@ -417,14 +422,14 @@ export class DriftChecker {
 
   private async checkStaleDepends(): Promise<DriftResult> {
     const details: string[] = [];
-    const activeFiles = await this.getMarkdownFiles('docs/tasks');
-    const archiveFiles = await this.getMarkdownFiles('docs/archive');
+    const activeFiles = await this.getMarkdownFiles(this.pr.tasks);
+    const archiveFiles = await this.getMarkdownFiles(this.pr.archive);
     
     const allTaskFiles = [...activeFiles, ...archiveFiles];
     const existingTaskIds = new Set(allTaskFiles.map(f => f.replace('.md', '')));
 
     for (const file of activeFiles) {
-      const content = await this.fileSystem.readFile(`${this.rootPath}/docs/tasks/${file}`);
+      const content = await this.fileSystem.readFile(`${this.rootPath}/${this.pr.tasks}/${file}`);
       const dependsMatch = content.match(/^\*\*Depends:\*\* (.*)/m);
       if (dependsMatch) {
         const deps = dependsMatch[1].split(',').map(s => s.trim());
@@ -446,8 +451,8 @@ export class DriftChecker {
 
   private async checkDependsGraph(): Promise<DriftResult> {
     const details: string[] = [];
-    const activeFiles = await this.getMarkdownFiles('docs/tasks');
-    const archiveFiles = await this.getMarkdownFiles('docs/archive');
+    const activeFiles = await this.getMarkdownFiles(this.pr.tasks);
+    const archiveFiles = await this.getMarkdownFiles(this.pr.archive);
     const allTaskIds = new Set([
       ...activeFiles.map(f => f.replace('.md', '')),
       ...archiveFiles.map(f => f.replace('.md', '')),
@@ -456,7 +461,7 @@ export class DriftChecker {
     const graph = new Map<string, string[]>();
     for (const file of activeFiles) {
       const id = file.replace('.md', '');
-      const content = await this.fileSystem.readFile(`${this.rootPath}/docs/tasks/${file}`);
+      const content = await this.fileSystem.readFile(`${this.rootPath}/${this.pr.tasks}/${file}`);
       const dependsMatch = content.match(/^\*\*Depends:\*\* (.*)/m);
       const deps: string[] = [];
       if (dependsMatch) {
@@ -697,8 +702,8 @@ export class DriftChecker {
 
   private async checkTaskArchiveDrift(): Promise<DriftResult> {
     const details: string[] = [];
-    const taskFiles = await this.getMarkdownFiles('docs/tasks');
-    const archiveFiles = await this.getMarkdownFiles('docs/archive');
+    const taskFiles = await this.getMarkdownFiles(this.pr.tasks);
+    const archiveFiles = await this.getMarkdownFiles(this.pr.archive);
 
     const duplicateIds = taskFiles.filter(file => archiveFiles.includes(file));
     for (const file of duplicateIds) {
@@ -751,7 +756,7 @@ export class DriftChecker {
     const configRaw = await this.fileSystem.readFile(`${this.rootPath}/arch.config.json`);
     const config = JSON.parse(configRaw);
     const hanseiSinceTaskId = (config.governance?.hanseiSinceTaskId ?? config.hanseiSinceTaskId) as number | undefined;
-    const archiveFiles = await this.getMarkdownFiles('docs/archive');
+    const archiveFiles = await this.getMarkdownFiles(this.pr.archive);
     const details: string[] = [];
 
     for (const file of archiveFiles) {
@@ -763,7 +768,7 @@ export class DriftChecker {
         continue;
       }
 
-      const content = await this.fileSystem.readFile(`${this.rootPath}/docs/archive/${file}`);
+      const content = await this.fileSystem.readFile(`${this.rootPath}/${this.pr.archive}/${file}`);
       const metaMatch = content.match(/^\*\*Meta:\*\*\s+[^|]+\|\s*(\S+)\s*\|/m);
       const size = metaMatch?.[1] ?? '';
       if (!['M', 'L', 'XL'].includes(size)) continue;
@@ -780,12 +785,12 @@ export class DriftChecker {
   }
 
   private async checkOrphanTasks(): Promise<DriftResult> {
-    const activeFiles = await this.getMarkdownFiles('docs/tasks');
+    const activeFiles = await this.getMarkdownFiles(this.pr.tasks);
 
     const tasks: { id: string; status: string; dependsOn: string[] }[] = [];
 
     for (const file of activeFiles) {
-      const content = await this.fileSystem.readFile(`${this.rootPath}/docs/tasks/${file}`);
+      const content = await this.fileSystem.readFile(`${this.rootPath}/${this.pr.tasks}/${file}`);
       const id = file.replace('.md', '');
       const metaMatch = content.match(/^\*\*Meta:\*\* .*/m);
       const status = metaMatch ? metaMatch[0].split('|').map(s => s.trim())[2] : '';
@@ -867,7 +872,7 @@ export class DriftChecker {
   }
 
   private async checkUnappliedADRs(): Promise<DriftResult> {
-    const adrDir = `${this.rootPath}/docs/adr`;
+    const adrDir = `${this.rootPath}/${this.pr.adr}`;
     if (!(await this.fileSystem.exists(adrDir))) {
       return { check: 'UnappliedADRs', status: 'OK', details: [] };
     }
@@ -875,7 +880,7 @@ export class DriftChecker {
     const adrFiles = (await this.fileSystem.readDirectory(adrDir)).filter(f => f.endsWith('.md'));
 
     // Build combined search corpus from tasks + archive
-    const searchDirs = ['docs/tasks', 'docs/archive'];
+    const searchDirs = [this.pr.tasks, this.pr.archive];
     const corpus: string[] = [];
     for (const dir of searchDirs) {
       const dirPath = `${this.rootPath}/${dir}`;
@@ -910,7 +915,7 @@ export class DriftChecker {
     const config = JSON.parse(configRaw);
     const sinceTaskId = (config.governance?.hanseiSinceTaskId ?? config.hanseiSinceTaskId) as number | undefined;
 
-    const archiveFiles = await this.getMarkdownFiles('docs/archive');
+    const archiveFiles = await this.getMarkdownFiles(this.pr.archive);
     const details: string[] = [];
 
     for (const file of archiveFiles) {
@@ -920,7 +925,7 @@ export class DriftChecker {
       const taskId = parseInt(taskIdMatch[1], 10);
       if (sinceTaskId !== undefined && taskId < sinceTaskId) continue;
 
-      const content = await this.fileSystem.readFile(`${this.rootPath}/docs/archive/${file}`);
+      const content = await this.fileSystem.readFile(`${this.rootPath}/${this.pr.archive}/${file}`);
 
       // L3 gate (ADR-009): XS and S tasks self-archive eligible — exempt from Approval requirement
       const metaMatch = content.match(/^\*\*Meta:\*\* .*/m);
@@ -948,7 +953,7 @@ export class DriftChecker {
 
 
   private async checkTaskTemplateCompliance(): Promise<DriftResult> {
-    const tasksDir = `${this.rootPath}/docs/tasks`;
+    const tasksDir = `${this.rootPath}/${this.pr.tasks}`;
     if (!(await this.fileSystem.exists(tasksDir))) {
       return { check: 'TaskTemplateCompliance', status: 'OK', details: [] };
     }
@@ -1020,7 +1025,7 @@ export class DriftChecker {
   }
 
   private async checkFocusStatusAlignment(): Promise<DriftResult> {
-    const tasksDir = `${this.rootPath}/docs/tasks`;
+    const tasksDir = `${this.rootPath}/${this.pr.tasks}`;
     if (!(await this.fileSystem.exists(tasksDir))) {
       return { check: 'FocusStatusAlignment', status: 'OK', details: [] };
     }
@@ -1096,7 +1101,7 @@ export class DriftChecker {
   }
 
   private async checkArchiveMetaIntegrity(): Promise<DriftResult> {
-    const archiveDir = `${this.rootPath}/docs/archive`;
+    const archiveDir = `${this.rootPath}/${this.pr.archive}`;
     if (!(await this.fileSystem.exists(archiveDir))) {
       return { check: 'ArchiveMetaIntegrity', status: 'OK', details: [] };
     }
@@ -1139,7 +1144,7 @@ export class DriftChecker {
   }
 
   private async checkArchivedIdeaDecisions(): Promise<DriftResult> {
-    const archiveDir = `${this.rootPath}/docs/refinement/archive`;
+    const archiveDir = `${this.rootPath}/${this.pr.refinementArchive}`;
     if (!(await this.fileSystem.exists(archiveDir))) {
       return { check: 'ArchivedIdeaDecisions', status: 'OK', details: [] };
     }
@@ -1155,14 +1160,14 @@ export class DriftChecker {
       // Find Decision field content
       const decisionMatch = content.match(/^## Decision\n([\s\S]*?)(?=\n##|$)/m);
       if (!decisionMatch) {
-        details.push(`docs/refinement/archive/${file}: missing Decision section — every archived IDEA must have a human decision (PROMOTE, REJECT, or DEFERRED).`);
+        details.push(`${this.pr.refinementArchive}/${file}: missing Decision section — every archived IDEA must have a human decision (PROMOTE, REJECT, or DEFERRED).`);
         continue;
       }
 
       const decision = decisionMatch[1].trim();
       // Empty or only a placeholder comment
       if (decision === '' || decision.startsWith('<!--')) {
-        details.push(`docs/refinement/archive/${file}: empty Decision field — archived without a recorded human decision.`);
+        details.push(`${this.pr.refinementArchive}/${file}: empty Decision field — archived without a recorded human decision.`);
       }
     }
 
@@ -1174,7 +1179,7 @@ export class DriftChecker {
   }
 
   private async checkHanseiReconciliation(): Promise<DriftResult> {
-    const tasksDir = `${this.rootPath}/docs/tasks`;
+    const tasksDir = `${this.rootPath}/${this.pr.tasks}`;
     const auditor = new HanseiAuditor(this.fileSystem, this.rootPath);
     const details: string[] = [];
 
@@ -1239,7 +1244,7 @@ export class DriftChecker {
   }
 
   private async checkSentinelCoverage(): Promise<DriftResult> {
-    const tasksDir = `${this.rootPath}/docs/tasks`;
+    const tasksDir = `${this.rootPath}/${this.pr.tasks}`;
     const sentinelLogPath = `${this.rootPath}/docs/SENTINEL-LOG.md`;
 
     const SENTINEL_SIZES = new Set(['M', 'L', 'XL']);
@@ -1360,7 +1365,7 @@ export class DriftChecker {
     const details: string[] = [];
     let raw: string;
     try {
-      raw = await this.fileSystem.readFile(`${this.rootPath}/.arch/escalations.jsonl`);
+      raw = await this.fileSystem.readFile(`${this.rootPath}/${this.pr.escalations}`);
     } catch {
       return { check: 'StaleEscalations', status: 'OK', details: [] };
     }
@@ -1372,7 +1377,7 @@ export class DriftChecker {
       .filter(e => e && e.type === 'AWAITING_PROMOTION' && e.status === 'OPEN');
 
     for (const entry of openPromotions) {
-      const ideaFile = `${this.rootPath}/docs/refinement/${entry.subject}.md`;
+      const ideaFile = `${this.rootPath}/${this.pr.refinement}/${entry.subject}.md`;
       let content: string;
       try {
         content = await this.fileSystem.readFile(ideaFile);
@@ -1382,7 +1387,7 @@ export class DriftChecker {
       const decisionMatch = content.match(/^\*\*Decision:\*\*\s*(.*)$/m);
       const decisionValue = decisionMatch?.[1]?.trim() ?? '';
       if (decisionValue) {
-        details.push(`${entry.subject} has a populated Decision field but escalation is still OPEN — append RESOLVED to .arch/escalations.jsonl`);
+        details.push(`${entry.subject} has a populated Decision field but escalation is still OPEN — append RESOLVED to ${this.pr.escalations}`);
       }
     }
 

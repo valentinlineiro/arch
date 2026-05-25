@@ -8,8 +8,9 @@ import {
   type SignalStatus,
   type SignalType,
 } from '../../domain/models/causal-signal.js';
+import { PathResolver } from '../../domain/services/path-resolver.js';
 
-const SIGNAL_PATH = '.arch/causal-signal.jsonl';
+const SIGNAL_PATH = `${PathResolver.from({}).archDir}/causal-signal.jsonl`;
 
 type RawRecord = CausalSignal | CausalSignalUpdate;
 

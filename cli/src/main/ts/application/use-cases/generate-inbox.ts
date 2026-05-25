@@ -5,6 +5,7 @@ import { TaskStatus, Task, FocusLevel } from '../../domain/models/task.js';
 import { Reviewer } from '../../domain/services/reviewer.js';
 import { DriftChecker, DriftResult } from '../use-cases/drift-checker.js';
 import { EscalationStore, EscalationEntry } from './escalation-store.js';
+import { PathResolver } from '../../domain/services/path-resolver.js';
 
 export interface InboxData {
   summary: {
@@ -32,7 +33,7 @@ export interface DecisionItem {
 }
 
 export class GenerateInbox {
-  private refinementDir = 'docs/refinement';
+  private refinementDir = PathResolver.from({}).refinement;
 
   constructor(
     private taskRepository: TaskRepository,

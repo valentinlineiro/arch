@@ -1,6 +1,7 @@
 import type { FileSystem } from '../../domain/repositories/file-system.js';
 import type { CausalGraph } from './causal-graph.js';
 import type { TemporalIndex, TemporalSpike } from './temporal-index.js';
+import { PathResolver } from '../../domain/services/path-resolver.js';
 
 export type QueryClass = 'DEFINITIONAL' | 'HISTORICAL' | 'STRUCTURAL' | 'PATTERN' | 'GENERAL';
 
@@ -38,8 +39,8 @@ const STOP_WORDS = new Set([
 // Scoped to moat artifacts only. Active tasks and guidelines are covered by
 // the constraint preflight (TASK-938); scanning them here duplicates work.
 const CORPUS_DIRS = [
-  'docs/archive',
-  'docs/adr',
+  PathResolver.from({}).archive,
+  PathResolver.from({}).adr,
 ];
 
 const CORPUS_FILES = [

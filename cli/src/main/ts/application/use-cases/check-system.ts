@@ -6,6 +6,7 @@ import { Reviewer, ReviewResult } from '../../domain/services/reviewer.js';
 import { DriftChecker, DriftResult } from '../use-cases/drift-checker.js';
 import { ConfigLoader } from '../../domain/services/config-loader.js';
 import { FOCUS_LEDGER_PATH, parseLedger, committedRulings, LedgerState } from './focus-ledger.js';
+import { PathResolver } from '../../domain/services/path-resolver.js';
 
 export type CheckCondition = 'NONE' | 'FOCUS_SOVEREIGNTY' | 'FOCUS_INTEGRITY_VIOLATION';
 export type CheckScope = 'delta' | 'full' | 'hybrid';
@@ -120,7 +121,7 @@ export class CheckSystem {
 
     // 4. Review git diff size — full mode only (not relevant to staged delta)
     if (scope === 'full') {
-      const diff = await this.gitRepository.getDiff(['--', ':!docs/archive/**']);
+      const diff = await this.gitRepository.getDiff(['--', `:!${PathResolver.from({}).archive}/**`]);
       if (diff && diff.length > 5000) {
         violations.push('Warning: Large git diff detected. Ensure commits remain atomic.');
       }

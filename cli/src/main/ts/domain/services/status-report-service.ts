@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import type { TaskRepository } from '../repositories/task-repository.js';
 import { TaskStatus } from '../models/task.js';
+import { PathResolver } from './path-resolver.js';
 
 export interface PrimitiveStatusReport {
   schemaVersion: "1.0.0";
@@ -46,7 +47,7 @@ export class StatusReportService {
   }
 
   private saveSchema(report: PrimitiveStatusReport): void {
-    const projectionPath = path.join(this.rootPath, '.arch/status-projection.json');
+    const projectionPath = path.join(this.rootPath, PathResolver.from({}).statusProjection);
     try {
       fs.writeFileSync(projectionPath, JSON.stringify(report, null, 2), 'utf8');
     } catch {
@@ -108,7 +109,7 @@ export class StatusReportService {
 
   private getArchiveCount(): number {
     try {
-      const archiveDir = path.join(this.rootPath, 'docs/archive');
+      const archiveDir = path.join(this.rootPath, PathResolver.from({}).archive);
       return fs.readdirSync(archiveDir).filter(f => f.endsWith('.md')).length;
     } catch {
       return 0;

@@ -28,6 +28,7 @@ import { EventLogger } from '../../domain/services/event-logger.js';
 import { LightweightMetricsRefresh } from '../use-cases/lightweight-metrics-refresh.js';
 import * as fmt from '../../infrastructure/cli/output-formatter.js';
 import { getPublicSubCommands } from '../../domain/services/command-registry.js';
+import { PathResolver } from '../../domain/services/path-resolver.js';
 
 /** Returns true if the AC or DoD sections contain any unchecked checkbox items. */
 export function hasUncheckedACs(content: string): boolean {
@@ -139,7 +140,7 @@ export class TaskCommand implements Command {
         } catch { /* memory injection errors must never block task start */ }
 
         try {
-          const taskPath = `docs/tasks/${taskId}.md`;
+          const taskPath = `${PathResolver.from({}).tasks}/${taskId}.md`;
           const taskContent = await this.fileSystem.readFile(taskPath);
           const detector = new SemanticCollisionDetector(this.fileSystem);
           const advisory = await detector.execute(taskContent, taskId);
@@ -254,7 +255,7 @@ export class TaskCommand implements Command {
           category = resolved;
         }
 
-        const taskPath = `${this.rootPath}/docs/tasks/${taskId}.md`;
+        const taskPath = `${this.rootPath}/${PathResolver.from({}).tasks}/${taskId}.md`;
         let taskContent = '';
         try { taskContent = await this.fileSystem.readFile(taskPath); } catch { /* archive path */ }
 
@@ -274,7 +275,7 @@ export class TaskCommand implements Command {
         fmt.fail(`Correction signal: ${error.message}`);
       }
     } else if (subCommand === 'done' && taskId) {
-      const taskFile = `${this.rootPath}/docs/tasks/${taskId}.md`;
+      const taskFile = `${this.rootPath}/${PathResolver.from({}).tasks}/${taskId}.md`;
       let content = '';
       try { content = await this.fileSystem.readFile(taskFile); } catch { /* let markDone handle */ }
 
@@ -316,14 +317,15 @@ export class TaskCommand implements Command {
 
         if (this.gitRepository) {
           const rp = this.rootPath ? this.rootPath + '/' : '';
+          const pr = PathResolver.from({});
           const filesToStage = [
-            `${rp}docs/archive/${taskId}.md`,
-            `${rp}docs/tasks/${taskId}.md`,
-            `${rp}.arch/chronicle.jsonl`,
-            `${rp}.arch/causal-signal.jsonl`,
-            `${rp}.arch/context-feedback.json`,
-            `${rp}.arch/temporal-index.jsonl`,
-            `${rp}docs/EVENTS.md`,
+            `${rp}${pr.archive}/${taskId}.md`,
+            `${rp}${pr.tasks}/${taskId}.md`,
+            `${rp}${pr.archDir}/chronicle.jsonl`,
+            `${rp}${pr.archDir}/causal-signal.jsonl`,
+            `${rp}${pr.archDir}/context-feedback.json`,
+            `${rp}${pr.archDir}/temporal-index.jsonl`,
+            `${rp}${pr.events}`,
           ];
           for (const f of filesToStage) {
             try { await this.gitRepository.add(f); } catch { /* may not exist */ }
@@ -395,7 +397,7 @@ export class TaskCommand implements Command {
       const task = await this.taskRepository.getById(taskId);
       if (!task) { fmt.fail(`Task ${taskId} not found`); process.exit(1); }
 
-      const taskPath = `${this.rootPath}/docs/tasks/${taskId}.md`;
+      const taskPath = `${this.rootPath}/${PathResolver.from({}).tasks}/${taskId}.md`;
       let content: string;
       try {
         content = await this.fileSystem.readFile(taskPath);
@@ -532,7 +534,7 @@ export class TaskCommand implements Command {
         '**Cost:** None.',
         '**Forward Action:** None.',
       ].join('\n');
-      await this.fileSystem.writeFile(`docs/tasks/${newId}.md`, newContent);
+      await this.fileSystem.writeFile(`${PathResolver.from({}).tasks}/${newId}.md`, newContent);
       fmt.check(`Created ${newId}: ${titles[i]}`);
     }
 
@@ -558,7 +560,7 @@ export class TaskCommand implements Command {
       .replace(/\| (READY|IN_PROGRESS|REVIEW) \|/, '| DONE |')
       .replace(/Focus:yes/, 'Focus:no') + splitHansei;
 
-    await this.fileSystem.writeFile(`docs/tasks/${taskId}.md`, updatedContent);
+    await this.fileSystem.writeFile(`${PathResolver.from({}).tasks}/${taskId}.md`, updatedContent);
     fmt.info(`Archived ${taskId} as DONE (superseded by ${newIds.join(', ')})`);
   }
 
@@ -588,7 +590,7 @@ export class TaskCommand implements Command {
 
     // Get next task ID
     const allTasks = await this.taskRepository.getAll();
-    const archiveDir = (this.rootPath ? this.rootPath + '/' : '') + 'docs/archive';
+    const archiveDir = (this.rootPath ? this.rootPath + '/' : '') + PathResolver.from({}).archive;
     let archiveFiles: string[] = [];
     try { archiveFiles = await this.fileSystem.readDirectory(archiveDir); } catch { /* no archive */ }
     const archiveNums = archiveFiles
@@ -648,8 +650,9 @@ export class TaskCommand implements Command {
       .replace(/{{CONTEXT}}/g, context)
       .replace(/{{CONTEXT_DESCRIPTION}}/g, '(describe context here)');
 
-    await this.fileSystem.writeFile('docs/tasks/' + newId + '.md', content);
-    fmt.check(newId + ' created: docs/tasks/' + newId + '.md');
+    const tasksDir = PathResolver.from({}).tasks;
+    await this.fileSystem.writeFile(`${tasksDir}/${newId}.md`, content);
+    fmt.check(`${newId} created: ${tasksDir}/${newId}.md`);
   }
 
 

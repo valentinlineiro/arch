@@ -3,6 +3,7 @@ import type { TaskRepository } from '../../domain/repositories/task-repository.j
 import type { FileSystem } from '../../domain/repositories/file-system.js';
 import type { GitRepository } from '../../domain/repositories/git-repository.js';
 import { CreateTask } from '../use-cases/create-task.js';
+import { PathResolver } from '../../domain/services/path-resolver.js';
 import { MarkTaskInProgress, DefinitionOfReadyError } from '../use-cases/mark-task-in-progress.js';
 import { SemanticCollisionDetector } from '../use-cases/semantic-collision-detector.js';
 import { VerifiabilityScorer } from '../../domain/services/verifiability-scorer.js';
@@ -61,7 +62,7 @@ export class CaptureCommand implements Command {
     // Step 2: Apply context override if provided
     if (context) {
       try {
-        const taskPath = `docs/tasks/${taskId}.md`;
+        const taskPath = `${PathResolver.from({}).tasks}/${taskId}.md`;
         let content = await this.fileSystem.readFile(taskPath);
         content = content.replace(/\| docs\/tasks\/$/, `| ${context}`);
         await this.fileSystem.writeFile(taskPath, content);
@@ -70,14 +71,14 @@ export class CaptureCommand implements Command {
 
     // Step 2b: Verifiability score — displayed after creation, warns below threshold
     try {
-      const taskPath = `docs/tasks/${taskId}.md`;
+      const taskPath = `${PathResolver.from({}).tasks}/${taskId}.md`;
       const taskContent = await this.fileSystem.readFile(taskPath);
       console.log(VerifiabilityScorer.format(VerifiabilityScorer.score(taskContent)));
     } catch { /* scoring errors must never block capture */ }
 
     // Step 2c: Semantic collision check (advisory only — never blocks)
     try {
-      const taskPath = `docs/tasks/${taskId}.md`;
+      const taskPath = `${PathResolver.from({}).tasks}/${taskId}.md`;
       const taskContent = await this.fileSystem.readFile(taskPath);
       const detector = new SemanticCollisionDetector(this.fileSystem);
       const advisory = await detector.execute(taskContent, taskId);
@@ -92,7 +93,7 @@ export class CaptureCommand implements Command {
       try {
         await markInProgress.execute(taskId, 'arch-capture');
         console.log(`  ✔ ${taskId} is IN_PROGRESS and READY\n`);
-        console.log(`  Task: docs/tasks/${taskId}.md`);
+        console.log(`  Task: ${PathResolver.from({}).tasks}/${taskId}.md`);
         console.log(`  Next: arch task done ${taskId}\n`);
         return;
       } catch (err: any) {
@@ -104,10 +105,10 @@ export class CaptureCommand implements Command {
 
           if (needsCLI || needsContext) {
             try {
-              const taskPath = `docs/tasks/${taskId}.md`;
+              const taskPath = `${PathResolver.from({}).tasks}/${taskId}.md`;
               let content = await this.fileSystem.readFile(taskPath);
               if (needsCLI) content = content.replace('| local |', '| claude-code |');
-              if (needsContext) content = content.replace('| docs/tasks/ |', '| none |');
+              if (needsContext) content = content.replace(`| ${PathResolver.from({}).tasks}/ |`, '| none |');
               await this.fileSystem.writeFile(taskPath, content);
               console.log(`  → Auto-fixed: ${violations.filter(v => v.includes('CLI') || v.includes('context')).join(', ')}`);
               continue;
@@ -118,11 +119,11 @@ export class CaptureCommand implements Command {
           const remaining = violations.filter(v => !v.includes('CLI') && !v.includes('context'));
           if (remaining.length > 0) {
             if (process.stdout.isTTY) {
-              console.log(`\n  ⚠ Manual fixes required in docs/tasks/${taskId}.md:`);
+              console.log(`\n  ⚠ Manual fixes required in ${PathResolver.from({}).tasks}/${taskId}.md:`);
               for (const v of remaining) console.log(`    - ${v}`);
               console.log(`\n  Edit the file then run: arch task start ${taskId}\n`);
             } else {
-              process.stderr.write(`Cannot auto-fix: ${remaining.join('; ')}. Edit docs/tasks/${taskId}.md then run: arch task start ${taskId}\n`);
+              process.stderr.write(`Cannot auto-fix: ${remaining.join('; ')}. Edit ${PathResolver.from({}).tasks}/${taskId}.md then run: arch task start ${taskId}\n`);
             }
             process.exit(1);
           }

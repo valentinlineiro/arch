@@ -2,6 +2,7 @@ import path from 'node:path';
 import { TaskRepository } from '../../domain/repositories/task-repository.js';
 import { FileSystem } from '../../domain/repositories/file-system.js';
 import { GitRepository } from '../../domain/repositories/git-repository.js';
+import { PathResolver } from '../../domain/services/path-resolver.js';
 
 export class PromoteIdea {
   constructor(
@@ -11,8 +12,9 @@ export class PromoteIdea {
   ) {}
 
   async execute(ideaSlug: string): Promise<string> {
-    const ideaPath = path.join('docs/refinement', `${ideaSlug.startsWith('IDEA-') ? '' : 'IDEA-'}${ideaSlug}.md`);
-    
+    const pr = PathResolver.from({});
+    const ideaPath = path.join(pr.refinement, `${ideaSlug.startsWith('IDEA-') ? '' : 'IDEA-'}${ideaSlug}.md`);
+
     if (!(await this.fileSystem.exists(ideaPath))) {
       throw new Error(`Idea file not found: ${ideaPath}`);
     }
@@ -20,7 +22,7 @@ export class PromoteIdea {
     const ideaContent = await this.fileSystem.readFile(ideaPath);
     const nextTaskId = await this.taskRepository.getNextId();
     const taskContent = this.transformIdeaToTask(ideaContent, nextTaskId);
-    const taskPath = path.join('docs/tasks', `${nextTaskId}.md`);
+    const taskPath = path.join(pr.tasks, `${nextTaskId}.md`);
 
     // 1. Create task file
     await this.fileSystem.writeFile(taskPath, taskContent);
@@ -30,7 +32,7 @@ export class PromoteIdea {
     await this.fileSystem.writeFile(ideaPath, updatedIdeaContent);
 
     // 3. Move IDEA to archive using git mv
-    const archivePath = path.join('docs/refinement/archive', path.basename(ideaPath));
+    const archivePath = path.join(pr.refinementArchive, path.basename(ideaPath));
     await this.gitRepository.mv(ideaPath, archivePath);
 
     // 4. Git add task and commit

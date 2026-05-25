@@ -4,6 +4,7 @@ import { join } from 'node:path';
 import type { FileSystem } from '../../domain/repositories/file-system.js';
 import type { GitRepository } from '../../domain/repositories/git-repository.js';
 import type { TaskRepository } from '../../domain/repositories/task-repository.js';
+import { PathResolver } from '../../domain/services/path-resolver.js';
 
 interface EscalationRecord {
   escalation_id: string;
@@ -85,7 +86,7 @@ export class ResumeCommand {
       default: {
         console.log(`  \x1b[33m⚠ Unknown halt type: ${esc.type}\x1b[0m`);
         console.log(`  Reason: ${esc.reason}`);
-        console.log(`  Manual intervention required. See docs/INBOX.md for context.\n`);
+        console.log(`  Manual intervention required. See ${PathResolver.from({}).inbox} for context.\n`);
         return false;
       }
     }

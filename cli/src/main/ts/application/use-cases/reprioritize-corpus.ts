@@ -4,6 +4,7 @@ import type { FileSystem } from '../../domain/repositories/file-system.js';
 import type { TaskRepository } from '../../domain/repositories/task-repository.js';
 import type { Task } from '../../domain/models/task.js';
 import { TaskStatus } from '../../domain/models/task.js';
+import { PathResolver } from '../../domain/services/path-resolver.js';
 
 export const DEMOTION_BOUND = 1;
 export const CAUSAL_RECURRENCE_THRESHOLD = 3;
@@ -51,7 +52,7 @@ export type UnclassifiedCluster = {
   recurrence_count: number;
 };
 
-const ECP_REGISTRY_PATH = '.arch/ecp-registry.jsonl';
+const ECP_REGISTRY_PATH = `${PathResolver.from({}).archDir}/ecp-registry.jsonl`;
 
 function computeEcpId(classField: string, taskIds: string[]): string {
   const signature = JSON.stringify(classField) + '|' + JSON.stringify([...taskIds].sort());
@@ -218,7 +219,7 @@ export class ReprioritizeCorpus {
     hansei: { category: string; severity: string } | null;
     closedAt: string | null;
   }>> {
-    const archiveDir = `${this.rootPath}/docs/archive`;
+    const archiveDir = `${this.rootPath}/${PathResolver.from({}).archive}`;
     const results = [];
 
     let files: string[] = [];

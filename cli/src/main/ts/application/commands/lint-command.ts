@@ -4,6 +4,7 @@ import { TaskValidator } from '../../domain/services/task-validator.js';
 import * as fmt from '../../infrastructure/cli/output-formatter.js';
 import { FileSystem } from '../../domain/repositories/file-system.js';
 import path from 'node:path';
+import { PathResolver } from '../../domain/services/path-resolver.js';
 
 export class LintCommand implements Command {
   constructor(
@@ -12,7 +13,7 @@ export class LintCommand implements Command {
   ) {}
 
   async execute(args: string[]): Promise<void> {
-    const tasksDir = 'docs/tasks';
+    const tasksDir = PathResolver.from({}).tasks;
     let mdFiles: string[] = [];
 
     if (args.length > 0) {

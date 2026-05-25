@@ -3,6 +3,7 @@ import type { GitRepository } from '../../domain/repositories/git-repository.js'
 import { CorpusIndexService } from './corpus-index.js';
 import { ArchiveParser } from '../../domain/services/archive-parser.js';
 import { MetricsEngine } from '../../domain/services/metrics-engine.js';
+import { PathResolver } from '../../domain/services/path-resolver.js';
 import * as path from 'node:path';
 
 interface TensionEntry {
@@ -180,7 +181,7 @@ export class HanseiSynthesizer {
   }
 
   private async appendInboxAlert(tensions: TensionEntry[]): Promise<void> {
-    const inboxPath = `${this.rootPath}/docs/INBOX.md`;
+    const inboxPath = `${this.rootPath}/${PathResolver.from({}).inbox}`;
     const today = new Date().toISOString().slice(0, 19).replace('T', ' ');
     const alerts = tensions.map(t =>
       `[PATTERN-ALERT] ${t.category} detected ${t.count} times — systemic issue. See docs/tensions/`

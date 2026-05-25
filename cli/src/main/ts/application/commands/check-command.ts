@@ -8,6 +8,7 @@ import type { DriftChecker } from '../use-cases/drift-checker.js';
 import { DeterministicACVerifier } from '../../domain/services/deterministic-ac-verifier.js';
 import { HanseiWizard } from '../use-cases/hansei-wizard.js';
 import * as fmt from '../../infrastructure/cli/output-formatter.js';
+import { PathResolver } from '../../domain/services/path-resolver.js';
 
 export class CheckCommand implements Command {
   private useCase: CheckSystem;
@@ -24,8 +25,9 @@ export class CheckCommand implements Command {
 
   private async executeAutoFix(args: string[]): Promise<void> {
     const dryRun = args.includes('--dry-run');
-    const taskDir = 'docs/tasks';
-    const archiveDir = 'docs/archive';
+    const pr = PathResolver.from({});
+    const taskDir = pr.tasks;
+    const archiveDir = pr.archive;
     const dirs = [taskDir, archiveDir];
     let totalFixed = 0;
 

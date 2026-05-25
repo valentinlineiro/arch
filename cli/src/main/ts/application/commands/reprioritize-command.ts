@@ -3,6 +3,7 @@ import type { TaskRepository } from '../../domain/repositories/task-repository.j
 import type { FileSystem } from '../../domain/repositories/file-system.js';
 import { ReprioritizeCorpus } from '../use-cases/reprioritize-corpus.js';
 import type { PriorityDiffEntry } from '../use-cases/reprioritize-corpus.js';
+import { PathResolver } from '../../domain/services/path-resolver.js';
 
 function pad(s: string, n: number): string {
   return s.padEnd(n).slice(0, n);
@@ -61,7 +62,7 @@ export class ReprioritizeCommand implements Command {
     let applied = 0;
     for (const entry of diff) {
       try {
-        const taskPath = `${this.rootPath}/docs/tasks/${entry.taskId}.md`;
+        const taskPath = `${this.rootPath}/${PathResolver.from({}).tasks}/${entry.taskId}.md`;
         let content = await this.fileSystem.readFile(taskPath);
         content = content.replace(
           /(\*\*Meta:\*\*\s+)(P[0-3])(\s*\|)/,

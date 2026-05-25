@@ -1,11 +1,12 @@
 import { FileSystem } from '../../domain/repositories/file-system.js';
+import { PathResolver } from '../../domain/services/path-resolver.js';
 
 export interface DeepAnalysisState {
   lastDeepRunTick: number;
   lastDeepRunTimestamp: string;
 }
 
-const STATE_PATH = '.arch/deep-analysis-state.json';
+const STATE_PATH = `${PathResolver.from({}).archDir}/deep-analysis-state.json`;
 
 export async function readDeepAnalysisState(fs: FileSystem): Promise<DeepAnalysisState | null> {
   try {

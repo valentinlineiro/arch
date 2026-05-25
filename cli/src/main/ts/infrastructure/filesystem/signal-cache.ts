@@ -1,8 +1,9 @@
 
 import type { FileSystem } from '../../domain/repositories/file-system.js';
 import type { CachedSignalEntry } from '../../domain/models/audit-inference.js';
+import { PathResolver } from '../../domain/services/path-resolver.js';
 
-const CACHE_PATH = '.arch/cache/git-signals.jsonl';
+const CACHE_PATH = `${PathResolver.from({}).archDir}/cache/git-signals.jsonl`;
 
 export class SignalCache {
   constructor(private fileSystem: FileSystem, private rootPath: string) {}

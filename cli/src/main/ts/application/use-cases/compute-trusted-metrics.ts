@@ -1,4 +1,5 @@
 import { FileSystem } from '../../domain/repositories/file-system.js';
+import { PathResolver } from '../../domain/services/path-resolver.js';
 
 export interface TrustedMetrics {
   completedTasks: number;
@@ -7,8 +8,8 @@ export interface TrustedMetrics {
 
 /**
  * Computes the two lightweight Trusted Metrics:
- *  - completedTasks: count of .md files in docs/archive/
- *  - reviewFailRate: rejections / total review exits from docs/EVENTS.md
+ *  - completedTasks: count of .md files in the archive directory
+ *  - reviewFailRate: rejections / total review exits from EVENTS.md
  *
  * This is intentionally fast: no archive scanning, no git verification.
  * Used on every task closure and govern tick. For full metrics, use arch report.
@@ -22,16 +23,18 @@ export async function computeTrustedMetrics(fileSystem: FileSystem): Promise<Tru
 async function countArchivedTasks(fileSystem: FileSystem): Promise<number> {
   let count = 0;
   try {
-    const archiveFiles = await fileSystem.readDirectory('docs/archive');
+    const pr = PathResolver.from({});
+    const archiveFiles = await fileSystem.readDirectory(pr.archive);
     count += archiveFiles.filter(f => f.endsWith('.md')).length;
   } catch {
     // archive may not exist yet
   }
   try {
-    const taskFiles = await fileSystem.readDirectory('docs/tasks');
+    const pr = PathResolver.from({});
+    const taskFiles = await fileSystem.readDirectory(pr.tasks);
     for (const file of taskFiles.filter(f => f.endsWith('.md'))) {
       try {
-        const content = await fileSystem.readFile(`docs/tasks/${file}`);
+        const content = await fileSystem.readFile(`${pr.tasks}/${file}`);
         if (content.includes('| DONE |')) count++;
       } catch {
         // skip unreadable files

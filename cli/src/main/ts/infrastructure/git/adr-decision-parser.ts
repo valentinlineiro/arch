@@ -2,6 +2,7 @@ import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import type { Decision } from '../models/decision.js';
 import { randomUUID } from 'node:crypto';
+import { PathResolver } from '../../domain/services/path-resolver.js';
 
 export class AdrDecisionParser {
   constructor(private repoPath: string) {}
@@ -9,7 +10,7 @@ export class AdrDecisionParser {
   parse(): Decision[] {
     const decisions: Decision[] = [];
 
-    for (const dir of ['docs/adr', 'adr', '.adr']) {
+    for (const dir of [PathResolver.from({}).adr, 'adr', '.adr']) {
       const full = join(this.repoPath, dir);
       if (!existsSync(full)) continue;
 

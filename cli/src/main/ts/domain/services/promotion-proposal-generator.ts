@@ -3,6 +3,7 @@ import path from 'node:path';
 import type { PromotionProposal, ProposalAc, NoveltyInfo, UncertaintyEntry } from '../models/promotion-proposal.js';
 import { PrecedentNoveltyScorer, type TaskDescriptor } from './precedent-novelty-scorer.js';
 import { CorpusIndexService } from '../../application/use-cases/corpus-index.js';
+import { PathResolver } from './path-resolver.js';
 import { NodeFileSystem } from '../../infrastructure/filesystem/node-file-system.js';
 
 const CLASS_TEMPLATES: Record<string, Array<{ desc: string; predicate: string }>> = {
@@ -106,7 +107,7 @@ function surfaceUncertainties(content: string): UncertaintyEntry[] {
 }
 
 export class PromotionProposalGenerator {
-  constructor(private refinementDir: string = 'docs/refinement') {}
+  constructor(private refinementDir: string = PathResolver.from({}).refinement) {}
 
   generateAll(): PromotionProposal[] {
     const proposals: PromotionProposal[] = [];

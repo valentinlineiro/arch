@@ -7,6 +7,7 @@ import { ConfigLoader } from '../../domain/services/config-loader.js';
 import { ProviderRegistry } from '../../domain/services/provider-registry.js';
 import { BridgeProvider } from '../../domain/services/bridge-provider.js';
 import { spawnSync } from 'node:child_process';
+import { PathResolver } from '../../domain/services/path-resolver.js';
 
 interface DecomposedADR {
   title: string;
@@ -131,8 +132,9 @@ Rules:
 
   private async writeAll(output: DecompositionOutput, spec: string): Promise<void> {
     const config = await ConfigLoader.load(this.fileSystem);
-    const adrDir = (config.paths as any)?.adr ?? 'docs/adr';
-    const tasksDir = (config.paths as any)?.tasks ?? 'docs/tasks';
+    const pr = PathResolver.from({});
+    const adrDir = (config.paths as any)?.adr ?? pr.adr;
+    const tasksDir = (config.paths as any)?.tasks ?? pr.tasks;
 
     // Determine ADR starting number
     let adrFiles: string[] = [];

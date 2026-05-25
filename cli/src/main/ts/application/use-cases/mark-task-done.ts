@@ -17,6 +17,7 @@ import { TemporalIndex } from './temporal-index.js';
 import type { Task } from '../../domain/models/task.js';
 import { stdout } from 'node:process';
 import crypto from 'node:crypto';
+import { PathResolver } from '../../domain/services/path-resolver.js';
 
 export class MarkTaskDone {
   private feedbackExtractor = new ExtractContextFeedback();
@@ -65,12 +66,13 @@ export class MarkTaskDone {
           if (!HanseiWizard.isHanseiComplete(task.content ?? '')) {
             const hanseiBlock = await wizard.run(task, this.gitRepository, hanseiTrigger);
             // Write Hansei block to task file
-            const currentContent = await this.fileSystem.readFile(`docs/tasks/${taskId}.md`);
+            const pr = PathResolver.from({});
+            const currentContent = await this.fileSystem.readFile(`${pr.tasks}/${taskId}.md`);
             const hasSection = currentContent.includes('## Hansei');
             const newContent = hasSection
               ? currentContent.replace(/## Hansei[\s\S]*$/, hanseiBlock)
               : currentContent.trimEnd() + '\n\n' + hanseiBlock;
-            await this.fileSystem.writeFile(`docs/tasks/${taskId}.md`, newContent);
+            await this.fileSystem.writeFile(`${pr.tasks}/${taskId}.md`, newContent);
             // Re-read task from file
             task.content = newContent;
           }
@@ -233,7 +235,7 @@ export class MarkTaskDone {
 
   private async writeL3InboxEntry(task: Task, evidence: import('../../domain/services/deterministic-ac-verifier.js').ACEvidence[]): Promise<void> {
     try {
-      const inboxPath = 'docs/INBOX.md';
+      const inboxPath = PathResolver.from({}).inbox;
       const timestamp = new Date().toISOString();
 
       const evidenceTable = [

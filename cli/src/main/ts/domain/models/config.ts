@@ -1,3 +1,5 @@
+import { PathResolver } from '../services/path-resolver.js';
+
 export interface ArchPaths {
   tasks: string;
   archive: string;
@@ -32,16 +34,16 @@ export interface ArchConfig {
   muri?: Record<string, { turns: number; cost?: number }>;
 }
 
-// arch-allow-hardcoded-path — canonical fallback defaults, overridden by arch.config.json
+const _pr = PathResolver.from({});
 export const DEFAULT_PATHS: ArchPaths = {
-  tasks: 'docs/tasks',
-  archive: 'docs/archive',
-  guidelines: 'docs/guidelines',
-  agents: 'docs/agents',
-  refinement: 'docs/refinement',
-  refinementArchive: 'docs/refinement/archive',
-  adr: 'docs/adr',
-  inbox: 'docs/INBOX.md',
-  events: 'docs/EVENTS.md',
-  statusProjection: '.arch/status-projection.json',
+  tasks: _pr.tasks,
+  archive: _pr.archive,
+  guidelines: _pr.guidelines,
+  agents: _pr.agents,
+  refinement: _pr.refinement,
+  refinementArchive: _pr.refinementArchive,
+  adr: _pr.adr,
+  inbox: _pr.inbox,
+  events: _pr.events,
+  statusProjection: _pr.statusProjection,
 };

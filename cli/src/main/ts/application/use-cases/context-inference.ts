@@ -2,6 +2,7 @@ import type { FileSystem } from '../../domain/repositories/file-system.js';
 import type { ContextIndex } from '../../domain/models/context-index.js';
 import type { FeedbackSignal } from '../../domain/models/feedback-signal.js';
 import { DecisionValidator, CausalTrace } from './decision-validator.js';
+import { PathResolver } from '../../domain/services/path-resolver.js';
 
 const DIRECT_TASK_REFERENCE_BOOST = 4.0;
 const DIRECT_ADR_REFERENCE_BOOST = 4.0;
@@ -51,7 +52,7 @@ export interface ContextResult {
 }
 
 export class ContextInference {
-  private readonly indexPath = '.arch/context-index.json';
+  private readonly indexPath = PathResolver.from({}).contextIndex;
   private readonly stopwords = new Set([
     'the', 'a', 'an', 'is', 'are', 'in', 'of', 'to', 'and', 'for', 'that',
     'this', 'it', 'not', 'as', 'at', 'by', 'or', 'be', 'do', 'if', 'on',
@@ -119,7 +120,7 @@ export class ContextInference {
 
     const section = this.formatSection(result);
 
-    const taskPath = `docs/tasks/${taskId}.md`;
+    const taskPath = `${PathResolver.from({}).tasks}/${taskId}.md`;
     try {
       const content = await this.fileSystem.readFile(taskPath);
       const needsFeedback = !content.includes('### Context Feedback');
@@ -133,7 +134,7 @@ export class ContextInference {
 
   private async loadFeedbackMap(): Promise<Map<string, FeedbackSignal>> {
     try {
-      const raw = await this.fileSystem.readFile('.arch/context-feedback.json');
+      const raw = await this.fileSystem.readFile(`${PathResolver.from({}).archDir}/context-feedback.json`);
       const signals = JSON.parse(raw) as FeedbackSignal[];
       const map = new Map<string, FeedbackSignal>();
       for (const s of signals) {

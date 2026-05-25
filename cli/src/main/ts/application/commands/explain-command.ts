@@ -2,6 +2,7 @@ import { Command } from '../../domain/models/command.js';
 import type { TaskRepository } from '../../domain/repositories/task-repository.js';
 import type { FileSystem } from '../../domain/repositories/file-system.js';
 import type { CausalSignalLog } from '../use-cases/causal-signal-log.js';
+import { PathResolver } from '../../domain/services/path-resolver.js';
 
 const GLOSSARY: Record<string, { definition: string; usage: string }> = {
   hansei: {
@@ -29,7 +30,7 @@ const GLOSSARY: Record<string, { definition: string; usage: string }> = {
     usage: 'M/L/XL tasks require human Auditor review. XS/S tasks use L3 self-archive when DeterministicACVerifier passes.',
   },
   done: {
-    definition: 'Task status: all ACs verified, Hansei written, Approval present (M/L/XL). Closed-at timestamp added by Auditor. arch govern moves file to docs/archive/.',
+    definition: `Task status: all ACs verified, Hansei written, Approval present (M/L/XL). Closed-at timestamp added by Auditor. arch govern moves file to ${PathResolver.from({}).archive}/.`,
     usage: 'Set by Auditor. arch govern archives on next tick.',
   },
   blocked: {
@@ -37,7 +38,7 @@ const GLOSSARY: Record<string, { definition: string; usage: string }> = {
     usage: 'Set manually with the blocking reason. arch review StaleDepends catches BLOCKED tasks whose dependency is already DONE.',
   },
   idea: {
-    definition: 'Pre-task artifact in docs/refinement/. Describes a proposed intervention without committing to implementation. Statuses: DRAFT, EXTEND, REJECTED, PROMOTED.',
+    definition: `Pre-task artifact in ${PathResolver.from({}).refinement}/. Describes a proposed intervention without committing to implementation. Statuses: DRAFT, EXTEND, REJECTED, PROMOTED.`,
     usage: 'Created via idea: commit prefix or arch task capture. THINK evaluates IDEAs. Human writes PROMOTE → TASK-XXX in the Decision field to promote.',
   },
   'arch govern': {
@@ -77,7 +78,7 @@ const GLOSSARY: Record<string, { definition: string; usage: string }> = {
     usage: 'THINK writes Kaizen entries with [KAIZEN] prefix. Humans review and promote to tasks.',
   },
   'causal graph': {
-    definition: 'Append-only record in .arch/causal-graph.jsonl linking operational entities (tasks, ADRs, IDEAs) via typed edges. Queryable by arch ask.',
+    definition: `Append-only record in ${PathResolver.from({}).archDir}/causal-graph.jsonl linking operational entities (tasks, ADRs, IDEAs) via typed edges. Queryable by arch ask.`,
     usage: 'Written by causal-signal-log.ts after arbitration. Never mutated — resolution is a new record.',
   },
   'arch ask': {
@@ -85,12 +86,12 @@ const GLOSSARY: Record<string, { definition: string; usage: string }> = {
     usage: 'arch ask "<question>" — works locally, no API key required.',
   },
   'focus ledger': {
-    definition: 'Append-only log at .arch/focus-ledger.jsonl. Records all Focus rulings (FOCUS_ACQUIRED, FOCUS_SOVEREIGNTY, FOCUS_INTEGRITY_VIOLATION) per govern tick.',
+    definition: `Append-only log at ${PathResolver.from({}).focusLedger}. Records all Focus rulings (FOCUS_ACQUIRED, FOCUS_SOVEREIGNTY, FOCUS_INTEGRITY_VIOLATION) per govern tick.`,
     usage: 'Written by arch govern. Source of truth for Focus state. Never mutated — rulings are immutable entries.',
   },
   inbox: {
-    definition: 'docs/INBOX.md — human-readable escalation surface. Agents write; humans read. Contains REVIEW_REQUEST, ANDON_HALT, and AWAITING_PROMOTION entries.',
-    usage: 'Agents append entries. Automated processes must never read it — use .arch/escalations.jsonl for machine-readable state.',
+    definition: `${PathResolver.from({}).inbox} — human-readable escalation surface. Agents write; humans read. Contains REVIEW_REQUEST, ANDON_HALT, and AWAITING_PROMOTION entries.`,
+    usage: `Agents append entries. Automated processes must never read it — use ${PathResolver.from({}).escalations} for machine-readable state.`,
   },
 };
 
@@ -143,11 +144,11 @@ export class ExplainCommand implements Command {
     let content: string | null = null;
     let source = '';
     try {
-      content = await this.fileSystem.readFile(`${this.rootPath}/docs/archive/${taskId}.md`);
+      content = await this.fileSystem.readFile(`${this.rootPath}/${PathResolver.from({}).archive}/${taskId}.md`);
       source = 'archive';
     } catch {
       try {
-        content = await this.fileSystem.readFile(`${this.rootPath}/docs/tasks/${taskId}.md`);
+        content = await this.fileSystem.readFile(`${this.rootPath}/${PathResolver.from({}).tasks}/${taskId}.md`);
         source = 'tasks';
       } catch {
         process.stderr.write(`Task ${taskId} not found in archive or tasks/\n`);
@@ -245,7 +246,7 @@ export class ExplainCommand implements Command {
   }
 
   private async findIdeaOrigin(taskId: string): Promise<{ slug: string; title: string; decision: string } | null> {
-    const archiveDir = `${this.rootPath}/docs/refinement/archive`;
+    const archiveDir = `${this.rootPath}/${PathResolver.from({}).refinementArchive}`;
     let files: string[] = [];
     try { files = await this.fileSystem.readDirectory(archiveDir); } catch { return null; }
 
@@ -274,7 +275,7 @@ export class ExplainCommand implements Command {
   }
 
   private async findSameCategory(taskId: string, category: string): Promise<Array<{ id: string; title: string }>> {
-    const archiveDir = `${this.rootPath}/docs/archive`;
+    const archiveDir = `${this.rootPath}/${PathResolver.from({}).archive}`;
     let files: string[] = [];
     try { files = await this.fileSystem.readDirectory(archiveDir); } catch { return []; }
 

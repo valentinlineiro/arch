@@ -6,6 +6,7 @@ import { TaskValidator } from '../../domain/services/task-validator.js';
 import { ProviderRegistry } from '../../domain/services/provider-registry.js';
 import { ConfigLoader } from '../../domain/services/config-loader.js';
 import { ContextInference } from './context-inference.js';
+import { PathResolver } from '../../domain/services/path-resolver.js';
 
 const DEFAULT_SIZE = 'S';
 const DEFAULT_CLASS = '2-code-generation';
@@ -75,7 +76,7 @@ export class CreateTask {
     }
     const content = this.scaffold(nextId, intent, draft, taskClassOverride, sizeOverride);
 
-    const taskPath = `docs/tasks/${nextId}.md`;
+    const taskPath = `${PathResolver.from({}).tasks}/${nextId}.md`;
     await this.fileSystem.writeFile(taskPath, content);
 
     try {
@@ -93,12 +94,12 @@ export class CreateTask {
     const title = draft?.title ?? intent.slice(0, 60).replace(/[^\x20-\x7E]/g, '');
     const size = sizeOverride ?? draft?.size ?? DEFAULT_SIZE;
     const cls = taskClassOverride ?? draft?.taskClass ?? DEFAULT_CLASS;
-    const metaLine = `**Meta:** ${DEFAULT_PRIORITY} | ${size} | READY | Focus:no | ${cls} | local | docs/tasks/`;
+    const metaLine = `**Meta:** ${DEFAULT_PRIORITY} | ${size} | READY | Focus:no | ${cls} | local | ${PathResolver.from({}).tasks}/`;
 
     const errors = TaskValidator.validateMeta(metaLine);
     const safeMetaLine = errors.length === 0
       ? metaLine
-      : `**Meta:** ${DEFAULT_PRIORITY} | ${DEFAULT_SIZE} | READY | Focus:no | ${DEFAULT_CLASS} | local | docs/tasks/`;
+      : `**Meta:** ${DEFAULT_PRIORITY} | ${DEFAULT_SIZE} | READY | Focus:no | ${DEFAULT_CLASS} | local | ${PathResolver.from({}).tasks}/`;
 
     // Build ACs with class-appropriate predicate types
     const llmAcs = draft?.acs ?? [];
