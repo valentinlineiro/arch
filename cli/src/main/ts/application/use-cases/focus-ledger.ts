@@ -1,4 +1,4 @@
-export type RulingAction = 'FOCUS_ACQUIRED' | 'FOCUS_PRESERVED' | 'FOCUS_RELEASED' | 'INTEGRITY_FIX';
+export type RulingAction = 'FOCUS_ACQUIRED' | 'FOCUS_PRESERVED' | 'FOCUS_RELEASED' | 'INTEGRITY_FIX' | 'PROJECT_COMPLETE';
 
 export interface FocusRuling {
   tick: number;

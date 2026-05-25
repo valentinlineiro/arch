@@ -51,5 +51,9 @@ export class GovernCommand implements Command {
     }
 
     console.log('');
+
+    if (result.projectComplete === true) {
+      process.exit(2);
+    }
   }
 }

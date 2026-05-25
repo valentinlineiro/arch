@@ -76,7 +76,11 @@ export class LoopEngine {
       // 1. GOVERN — select next task, handle replenishment (skip AI conduct when in loop)
       this.log('[LOOP] Phase: GOVERN');
       if (!options.dryRun) {
-        await this.governSystem.execute(true);
+        const governResult = await this.governSystem.execute(true);
+        if (governResult.projectComplete === true) {
+          this.log('[LOOP] PROJECT_COMPLETE detected — loop exits.');
+          break;
+        }
       } else {
         this.log('[dry-run] Would run: arch govern --no-conduct');
       }

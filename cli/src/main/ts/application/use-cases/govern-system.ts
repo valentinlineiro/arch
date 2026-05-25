@@ -18,10 +18,12 @@ import { computeTrustedMetrics } from './compute-trusted-metrics.js';
 import { LightweightMetricsRefresh } from './lightweight-metrics-refresh.js';
 import { readDeepAnalysisState, isDeepAnalysisDue } from './deep-analysis-state.js';
 import { hasOverdueWeakSignal } from './weak-signal-checker.js';
+import { DeterministicACVerifier } from '../../domain/services/deterministic-ac-verifier.js';
 
 export interface GovernResult {
   analysisNeeded: boolean;
   reasons: string[];
+  projectComplete?: boolean;
 }
 
 export class GovernSystem {
@@ -156,7 +158,10 @@ export class GovernSystem {
       }
     }
 
-    return { analysisNeeded: analysisReasons.length > 0, reasons: analysisReasons };
+    // 5. Project DoD gate
+    const projectComplete = await this.checkProjectDoD();
+
+    return { analysisNeeded: analysisReasons.length > 0, reasons: analysisReasons, projectComplete };
   }
 
   // ─────────────────────────────────────────────────────────────────────────
@@ -174,6 +179,52 @@ export class GovernSystem {
   // complexity. No refactor required unless testing or simulation demands
   // isolated decision execution.
   // ─────────────────────────────────────────────────────────────────────────
+
+  private async checkProjectDoD(): Promise<boolean | undefined> {
+    const projectPath = 'docs/PROJECT.md';
+    if (!await this.fileSystem.exists(projectPath)) return undefined;
+
+    const content = await this.fileSystem.readFile(projectPath);
+    const dodStart = content.indexOf('\n## Definition of Done');
+    if (dodStart === -1) return undefined;
+
+    const bodyStart = content.indexOf('\n', dodStart + 1) + 1;
+    const nextSection = content.indexOf('\n## ', bodyStart);
+    const dodSection = nextSection === -1 ? content.slice(bodyStart) : content.slice(bodyStart, nextSection);
+
+    const verifier = new DeterministicACVerifier(this.rootPath);
+    const result = await verifier.verifySection(dodSection);
+
+    if (!result.pass) return false;
+
+    // Check if already emitted to avoid duplicates
+    const ledgerPath = FOCUS_LEDGER_PATH;
+    let ledgerContent = '';
+    if (await this.fileSystem.exists(ledgerPath)) {
+      ledgerContent = await this.fileSystem.readFile(ledgerPath);
+    }
+    if (ledgerContent.includes('PROJECT_COMPLETE')) return true;
+
+    // Append ruling
+    const ruling = JSON.stringify({
+      action: 'PROJECT_COMPLETE',
+      taskId: 'PROJECT',
+      tick: await this.getCurrentTick(),
+      timestamp: new Date().toISOString(),
+    });
+    await this.fileSystem.appendFile(ledgerPath, ruling + '\n');
+
+    // Write RETRO.md
+    const retroLine = `\n## PROJECT_COMPLETE — ${new Date().toISOString().slice(0, 10)}\nAll Definition of Done predicates in docs/PROJECT.md passed. Project is complete.\n`;
+    const retroPath = 'docs/RETRO.md';
+    const existing = await this.fileSystem.exists(retroPath)
+      ? await this.fileSystem.readFile(retroPath)
+      : '';
+    await this.fileSystem.writeFile(retroPath, existing + retroLine);
+
+    console.log('  \x1b[32m✔\x1b[0m PROJECT_COMPLETE — all DoD predicates pass. Loop will exit.');
+    return true;
+  }
 
   private priorityNum(p: string): number {
     return parseInt(p.replace('P', ''), 10);

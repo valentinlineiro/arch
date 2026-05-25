@@ -36,13 +36,30 @@ export class DeterministicACVerifier {
     if (!acSection) return { pass: true, evidence: [] };
 
     const acLines = this.parseACLines(acSection);
-
     for (const ac of acLines) {
       const ev = await this.verifyAC(ac);
       evidence.push(ev);
     }
 
     const pass = evidence.every(e => e.pass);
+    return { pass, evidence };
+  }
+
+  async verifySection(content: string): Promise<VerificationResult> {
+    const evidence: ACEvidence[] = [];
+    const acLines = this.parseACLines(content);
+
+    for (const ac of acLines) {
+      let ev = await this.verifyAC(ac);
+      // For prose/unknown predicates, checkbox state is authoritative in section mode
+      if (ev.type === 'prose' || ev.type === 'unknown') {
+        const checked = ac.startsWith('- [x]');
+        ev = { ...ev, pass: checked, detail: checked ? `${ev.type}: checkbox checked` : `${ev.type}: checkbox unchecked` };
+      }
+      evidence.push(ev);
+    }
+
+    const pass = evidence.length > 0 && evidence.every(e => e.pass);
     return { pass, evidence };
   }
 
