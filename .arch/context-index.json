@@ -3685,7 +3685,7 @@
       "title": "Govern/Reflect Structural Separation"
     }
   },
-  "builtAt": "2026-05-25T12:05:52.550Z",
+  "builtAt": "2026-05-25T12:22:40.097Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -8632,24 +8632,32 @@
       }
     },
     "TASK-1006": {
-      "commitCount": 8,
+      "commitCount": 11,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-25T14:05:49+02:00",
+      "lastCommitDate": "2026-05-25T14:22:37+02:00",
       "recentCommitRefs": [
         "3862fc3c",
         "390e3bd0",
         "49c2ba94",
         "7122079d",
         "9e8e4892",
+        "b58e578a",
+        "d25f6070",
+        "d377bc98",
         "e02dc981",
         "fceb0396",
         "fd88d1c2"
       ],
       "touchedFrequency": {
         ".arch/escalations.jsonl": 2,
-        ".arch/focus-ledger.jsonl": 3,
+        ".arch/focus-ledger.jsonl": 4,
+        "arch.config.json": 1,
+        "cli/src/main/ts/application/use-cases/reflect-influence-report.ts": 1,
+        "cli/src/main/ts/application/use-cases/weak-signal-checker.ts": 1,
         "cli/src/main/ts/domain/services/task-validator.ts": 1,
+        "cli/src/test/ts/reflect-influence-report.test.ts": 1,
         "cli/src/test/ts/task-validator.test.ts": 1,
+        "cli/src/test/ts/weak-signal-checker.test.ts": 1,
         "docs/refinement/archive/IDEA-cli-architecture-drift-review.md": 1,
         "docs/refinement/archive/IDEA-code-quality-audit-process.md": 1,
         "docs/refinement/archive/IDEA-escalation-lifecycle-gap.md": 1,
@@ -9197,12 +9205,11 @@
       }
     },
     "TASK-262": {
-      "commitCount": 8,
+      "commitCount": 7,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-19T13:40:34+02:00",
       "recentCommitRefs": [
         "0e39400c",
-        "20ab89d3",
         "31c50e47",
         "36c949b7",
         "57aa8899",
@@ -9213,7 +9220,7 @@
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 2,
         ".arch/chronicle.jsonl": 2,
-        ".arch/focus-ledger.jsonl": 2,
+        ".arch/focus-ledger.jsonl": 1,
         ".arch/reflect-breach-log.jsonl": 2,
         "cli/src/main/ts/application/use-cases/hansei-wizard.ts": 1,
         "cli/src/main/ts/application/use-cases/mark-task-done.ts": 1,
@@ -9306,18 +9313,6 @@
         ".arch/focus-ledger.jsonl": 1,
         "docs/archive/TASK-268.md": 1,
         "docs/tasks/TASK-268.md": 1
-      }
-    },
-    "TASK-269": {
-      "commitCount": 1,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-19T12:42:54+02:00",
-      "recentCommitRefs": [
-        "01fc6537"
-      ],
-      "touchedFrequency": {
-        "docs/archive/TASK-269.md": 1,
-        "docs/tasks/TASK-269.md": 1
       }
     },
     "TASK-279": {
@@ -9426,66 +9421,6 @@
         "docs/archive/TASK-989.md": 1,
         "docs/tasks/TASK-920.md": 1,
         "docs/tasks/TASK-989.md": 1
-      }
-    },
-    "TASK-923": {
-      "commitCount": 1,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-19T12:43:39+02:00",
-      "recentCommitRefs": [
-        "45229662"
-      ],
-      "touchedFrequency": {
-        ".arch/causal-signal.jsonl": 1,
-        ".arch/chronicle.jsonl": 1,
-        ".arch/context-feedback.json": 1,
-        ".arch/reflect-breach-log.jsonl": 1,
-        "docs/EVENTS.md": 1,
-        "docs/METRICS.md": 1,
-        "docs/tasks/TASK-262.md": 1,
-        "docs/tasks/TASK-923.md": 1,
-        "docs/tasks/TASK-924.md": 1,
-        "docs/tasks/TASK-925.md": 1
-      }
-    },
-    "TASK-924": {
-      "commitCount": 1,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-19T12:43:39+02:00",
-      "recentCommitRefs": [
-        "45229662"
-      ],
-      "touchedFrequency": {
-        ".arch/causal-signal.jsonl": 1,
-        ".arch/chronicle.jsonl": 1,
-        ".arch/context-feedback.json": 1,
-        ".arch/reflect-breach-log.jsonl": 1,
-        "docs/EVENTS.md": 1,
-        "docs/METRICS.md": 1,
-        "docs/tasks/TASK-262.md": 1,
-        "docs/tasks/TASK-923.md": 1,
-        "docs/tasks/TASK-924.md": 1,
-        "docs/tasks/TASK-925.md": 1
-      }
-    },
-    "TASK-925": {
-      "commitCount": 1,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-19T12:43:39+02:00",
-      "recentCommitRefs": [
-        "45229662"
-      ],
-      "touchedFrequency": {
-        ".arch/causal-signal.jsonl": 1,
-        ".arch/chronicle.jsonl": 1,
-        ".arch/context-feedback.json": 1,
-        ".arch/reflect-breach-log.jsonl": 1,
-        "docs/EVENTS.md": 1,
-        "docs/METRICS.md": 1,
-        "docs/tasks/TASK-262.md": 1,
-        "docs/tasks/TASK-923.md": 1,
-        "docs/tasks/TASK-924.md": 1,
-        "docs/tasks/TASK-925.md": 1
       }
     },
     "TASK-926": {
