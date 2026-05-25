@@ -3823,7 +3823,7 @@
       "title": "Govern/Reflect Structural Separation"
     }
   },
-  "builtAt": "2026-05-25T16:20:24.902Z",
+  "builtAt": "2026-05-25T16:26:09.627Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -4656,6 +4656,7 @@
         "cli/src/main/ts/domain/models/command.ts",
         "cli/src/main/ts/domain/repositories/file-system.ts",
         "cli/src/main/ts/domain/services/config-loader.ts",
+        "cli/src/main/ts/domain/services/path-resolver.ts",
         "cli/src/main/ts/domain/services/signal-router.ts",
         "cli/src/main/ts/infrastructure/filesystem/node-file-system.ts"
       ],
@@ -4739,6 +4740,7 @@
         "cli/src/main/ts/domain/repositories/file-system.ts",
         "cli/src/main/ts/domain/repositories/git-repository.ts",
         "cli/src/main/ts/domain/repositories/task-repository.ts",
+        "cli/src/main/ts/domain/services/path-resolver.ts",
         "cli/src/main/ts/domain/services/verifiability-scorer.ts"
       ],
       "runtimeUsage": "hot",
@@ -4763,6 +4765,7 @@
         "cli/src/main/ts/domain/repositories/git-repository.ts",
         "cli/src/main/ts/domain/repositories/task-repository.ts",
         "cli/src/main/ts/domain/services/deterministic-ac-verifier.ts",
+        "cli/src/main/ts/domain/services/path-resolver.ts",
         "cli/src/main/ts/domain/services/reviewer.ts",
         "cli/src/main/ts/infrastructure/cli/output-formatter.ts"
       ],
@@ -4822,7 +4825,8 @@
         "cli/src/main/ts/domain/repositories/file-system.ts",
         "cli/src/main/ts/domain/repositories/git-repository.ts",
         "cli/src/main/ts/domain/services/governance-drift-detector.ts",
-        "cli/src/main/ts/domain/services/institutional-anomaly-tracker.ts"
+        "cli/src/main/ts/domain/services/institutional-anomaly-tracker.ts",
+        "cli/src/main/ts/domain/services/path-resolver.ts"
       ],
       "runtimeUsage": "warm",
       "symbols": [
@@ -4883,7 +4887,8 @@
         "cli/src/main/ts/application/use-cases/causal-signal-log.ts",
         "cli/src/main/ts/domain/models/command.ts",
         "cli/src/main/ts/domain/repositories/file-system.ts",
-        "cli/src/main/ts/domain/repositories/task-repository.ts"
+        "cli/src/main/ts/domain/repositories/task-repository.ts",
+        "cli/src/main/ts/domain/services/path-resolver.ts"
       ],
       "runtimeUsage": "hot",
       "symbols": [
@@ -4907,6 +4912,7 @@
         "cli/src/main/ts/domain/repositories/git-repository.ts",
         "cli/src/main/ts/domain/repositories/task-repository.ts",
         "cli/src/main/ts/domain/services/config-loader.ts",
+        "cli/src/main/ts/domain/services/path-resolver.ts",
         "cli/src/main/ts/infrastructure/cli/subprocess-runner.ts"
       ],
       "runtimeUsage": "hot",
@@ -4928,6 +4934,7 @@
         "cli/src/main/ts/domain/models/command.ts",
         "cli/src/main/ts/domain/repositories/file-system.ts",
         "cli/src/main/ts/domain/repositories/task-repository.ts",
+        "cli/src/main/ts/domain/services/path-resolver.ts",
         "cli/src/main/ts/domain/services/reviewer.ts",
         "cli/src/main/ts/infrastructure/cli/output-formatter.ts"
       ],
@@ -4949,7 +4956,8 @@
         "cli/src/main/ts/domain/models/command.ts",
         "cli/src/main/ts/domain/repositories/file-system.ts",
         "cli/src/main/ts/domain/repositories/git-repository.ts",
-        "cli/src/main/ts/domain/services/config-loader.ts"
+        "cli/src/main/ts/domain/services/config-loader.ts",
+        "cli/src/main/ts/domain/services/path-resolver.ts"
       ],
       "runtimeUsage": "hot",
       "symbols": [
@@ -4985,6 +4993,7 @@
         "cli/src/main/ts/domain/models/command.ts",
         "cli/src/main/ts/domain/repositories/file-system.ts",
         "cli/src/main/ts/domain/repositories/task-repository.ts",
+        "cli/src/main/ts/domain/services/path-resolver.ts",
         "cli/src/main/ts/domain/services/task-validator.ts",
         "cli/src/main/ts/infrastructure/cli/output-formatter.ts"
       ],
@@ -5090,6 +5099,7 @@
         "cli/src/main/ts/domain/services/bridge-provider.ts",
         "cli/src/main/ts/domain/services/config-loader.ts",
         "cli/src/main/ts/domain/services/llm-provider.ts",
+        "cli/src/main/ts/domain/services/path-resolver.ts",
         "cli/src/main/ts/domain/services/provider-registry.ts"
       ],
       "runtimeUsage": "hot",
@@ -5168,7 +5178,8 @@
         "cli/src/main/ts/application/use-cases/reprioritize-corpus.ts",
         "cli/src/main/ts/domain/models/command.ts",
         "cli/src/main/ts/domain/repositories/file-system.ts",
-        "cli/src/main/ts/domain/repositories/task-repository.ts"
+        "cli/src/main/ts/domain/repositories/task-repository.ts",
+        "cli/src/main/ts/domain/services/path-resolver.ts"
       ],
       "runtimeUsage": "cold",
       "symbols": [
@@ -5186,7 +5197,8 @@
       "imports": [
         "cli/src/main/ts/domain/repositories/file-system.ts",
         "cli/src/main/ts/domain/repositories/git-repository.ts",
-        "cli/src/main/ts/domain/repositories/task-repository.ts"
+        "cli/src/main/ts/domain/repositories/task-repository.ts",
+        "cli/src/main/ts/domain/services/path-resolver.ts"
       ],
       "runtimeUsage": "hot",
       "symbols": [
@@ -5228,6 +5240,7 @@
         "cli/src/main/ts/domain/models/command.ts",
         "cli/src/main/ts/domain/repositories/file-system.ts",
         "cli/src/main/ts/domain/repositories/task-repository.ts",
+        "cli/src/main/ts/domain/services/path-resolver.ts",
         "cli/src/main/ts/domain/services/sandbox.ts",
         "cli/src/main/ts/infrastructure/cli/output-formatter.ts"
       ],
@@ -5262,7 +5275,8 @@
     "cli/src/main/ts/application/commands/serve-command.ts": {
       "criticality": "domain",
       "imports": [
-        "cli/src/main/ts/domain/models/command.ts"
+        "cli/src/main/ts/domain/models/command.ts",
+        "cli/src/main/ts/domain/services/path-resolver.ts"
       ],
       "runtimeUsage": "hot",
       "symbols": [
@@ -5281,6 +5295,7 @@
         "cli/src/main/ts/domain/models/command.ts",
         "cli/src/main/ts/domain/repositories/file-system.ts",
         "cli/src/main/ts/domain/repositories/task-repository.ts",
+        "cli/src/main/ts/domain/services/path-resolver.ts",
         "cli/src/main/ts/domain/services/status-report-service.ts",
         "cli/src/main/ts/infrastructure/cli/output-formatter.ts"
       ],
@@ -5325,6 +5340,7 @@
         "cli/src/main/ts/domain/services/command-registry.ts",
         "cli/src/main/ts/domain/services/event-logger.ts",
         "cli/src/main/ts/domain/services/human-coordination-service.ts",
+        "cli/src/main/ts/domain/services/path-resolver.ts",
         "cli/src/main/ts/domain/services/reviewer.ts",
         "cli/src/main/ts/infrastructure/cli/output-formatter.ts",
         "cli/src/main/ts/infrastructure/filesystem/node-feedback-repository.ts"
@@ -5387,6 +5403,7 @@
         "cli/src/main/ts/domain/models/command.ts",
         "cli/src/main/ts/domain/repositories/file-system.ts",
         "cli/src/main/ts/domain/repositories/task-repository.ts",
+        "cli/src/main/ts/domain/services/path-resolver.ts",
         "cli/src/main/ts/infrastructure/cli/output-formatter.ts"
       ],
       "runtimeUsage": "cold",
@@ -5441,7 +5458,8 @@
       "imports": [
         "cli/src/main/ts/application/use-cases/causal-graph.ts",
         "cli/src/main/ts/application/use-cases/temporal-index.ts",
-        "cli/src/main/ts/domain/repositories/file-system.ts"
+        "cli/src/main/ts/domain/repositories/file-system.ts",
+        "cli/src/main/ts/domain/services/path-resolver.ts"
       ],
       "runtimeUsage": "hot",
       "symbols": [
@@ -5536,7 +5554,8 @@
       "criticality": "domain",
       "imports": [
         "cli/src/main/ts/domain/models/causal-relation.ts",
-        "cli/src/main/ts/domain/repositories/file-system.ts"
+        "cli/src/main/ts/domain/repositories/file-system.ts",
+        "cli/src/main/ts/domain/services/path-resolver.ts"
       ],
       "runtimeUsage": "hot",
       "symbols": [
@@ -5560,7 +5579,8 @@
       "imports": [
         "cli/src/main/ts/domain/models/causal-relation.ts",
         "cli/src/main/ts/domain/models/causal-signal.ts",
-        "cli/src/main/ts/domain/repositories/file-system.ts"
+        "cli/src/main/ts/domain/repositories/file-system.ts",
+        "cli/src/main/ts/domain/services/path-resolver.ts"
       ],
       "runtimeUsage": "hot",
       "symbols": [
@@ -5583,6 +5603,7 @@
         "cli/src/main/ts/domain/repositories/git-repository.ts",
         "cli/src/main/ts/domain/repositories/task-repository.ts",
         "cli/src/main/ts/domain/services/config-loader.ts",
+        "cli/src/main/ts/domain/services/path-resolver.ts",
         "cli/src/main/ts/domain/services/reviewer.ts"
       ],
       "runtimeUsage": "warm",
@@ -5605,7 +5626,8 @@
     "cli/src/main/ts/application/use-cases/compress-task.ts": {
       "criticality": "domain",
       "imports": [
-        "cli/src/main/ts/domain/repositories/file-system.ts"
+        "cli/src/main/ts/domain/repositories/file-system.ts",
+        "cli/src/main/ts/domain/services/path-resolver.ts"
       ],
       "runtimeUsage": "warm",
       "symbols": [
@@ -5621,7 +5643,8 @@
     "cli/src/main/ts/application/use-cases/compute-trusted-metrics.ts": {
       "criticality": "domain",
       "imports": [
-        "cli/src/main/ts/domain/repositories/file-system.ts"
+        "cli/src/main/ts/domain/repositories/file-system.ts",
+        "cli/src/main/ts/domain/services/path-resolver.ts"
       ],
       "runtimeUsage": "warm",
       "symbols": [
@@ -5638,7 +5661,8 @@
     "cli/src/main/ts/application/use-cases/constraint-preflight.ts": {
       "criticality": "domain",
       "imports": [
-        "cli/src/main/ts/domain/repositories/file-system.ts"
+        "cli/src/main/ts/domain/repositories/file-system.ts",
+        "cli/src/main/ts/domain/services/path-resolver.ts"
       ],
       "runtimeUsage": "warm",
       "symbols": [
@@ -5657,7 +5681,8 @@
         "cli/src/main/ts/application/use-cases/decision-validator.ts",
         "cli/src/main/ts/domain/models/context-index.ts",
         "cli/src/main/ts/domain/models/feedback-signal.ts",
-        "cli/src/main/ts/domain/repositories/file-system.ts"
+        "cli/src/main/ts/domain/repositories/file-system.ts",
+        "cli/src/main/ts/domain/services/path-resolver.ts"
       ],
       "runtimeUsage": "warm",
       "symbols": [
@@ -5682,7 +5707,8 @@
       "criticality": "domain",
       "imports": [
         "cli/src/main/ts/domain/repositories/file-system.ts",
-        "cli/src/main/ts/domain/repositories/git-repository.ts"
+        "cli/src/main/ts/domain/repositories/git-repository.ts",
+        "cli/src/main/ts/domain/services/path-resolver.ts"
       ],
       "runtimeUsage": "cold",
       "symbols": [
@@ -5702,7 +5728,8 @@
     "cli/src/main/ts/application/use-cases/correction-signal-store.ts": {
       "criticality": "domain",
       "imports": [
-        "cli/src/main/ts/domain/repositories/file-system.ts"
+        "cli/src/main/ts/domain/repositories/file-system.ts",
+        "cli/src/main/ts/domain/services/path-resolver.ts"
       ],
       "runtimeUsage": "warm",
       "symbols": [
@@ -5736,6 +5763,7 @@
         "cli/src/main/ts/domain/repositories/git-repository.ts",
         "cli/src/main/ts/domain/repositories/task-repository.ts",
         "cli/src/main/ts/domain/services/config-loader.ts",
+        "cli/src/main/ts/domain/services/path-resolver.ts",
         "cli/src/main/ts/domain/services/provider-registry.ts",
         "cli/src/main/ts/domain/services/task-validator.ts"
       ],
@@ -5753,7 +5781,8 @@
     "cli/src/main/ts/application/use-cases/decision-validator.ts": {
       "criticality": "domain",
       "imports": [
-        "cli/src/main/ts/domain/repositories/file-system.ts"
+        "cli/src/main/ts/domain/repositories/file-system.ts",
+        "cli/src/main/ts/domain/services/path-resolver.ts"
       ],
       "runtimeUsage": "warm",
       "symbols": [
@@ -5772,7 +5801,8 @@
     "cli/src/main/ts/application/use-cases/deep-analysis-state.ts": {
       "criticality": "domain",
       "imports": [
-        "cli/src/main/ts/domain/repositories/file-system.ts"
+        "cli/src/main/ts/domain/repositories/file-system.ts",
+        "cli/src/main/ts/domain/services/path-resolver.ts"
       ],
       "runtimeUsage": "warm",
       "symbols": [
@@ -5793,7 +5823,8 @@
         "cli/src/main/ts/application/repositories/file-system.ts",
         "cli/src/main/ts/application/repositories/git-repository.ts",
         "cli/src/main/ts/domain/models/task.ts",
-        "cli/src/main/ts/domain/services/hansei-auditor.ts"
+        "cli/src/main/ts/domain/services/hansei-auditor.ts",
+        "cli/src/main/ts/domain/services/path-resolver.ts"
       ],
       "runtimeUsage": "hot",
       "symbols": [
@@ -5905,6 +5936,7 @@
         "cli/src/main/ts/domain/models/task.ts",
         "cli/src/main/ts/domain/repositories/file-system.ts",
         "cli/src/main/ts/domain/repositories/task-repository.ts",
+        "cli/src/main/ts/domain/services/path-resolver.ts",
         "cli/src/main/ts/domain/services/reviewer.ts"
       ],
       "runtimeUsage": "warm",
@@ -6001,7 +6033,8 @@
         "cli/src/main/ts/domain/repositories/file-system.ts",
         "cli/src/main/ts/domain/repositories/git-repository.ts",
         "cli/src/main/ts/domain/services/archive-parser.ts",
-        "cli/src/main/ts/domain/services/metrics-engine.ts"
+        "cli/src/main/ts/domain/services/metrics-engine.ts",
+        "cli/src/main/ts/domain/services/path-resolver.ts"
       ],
       "runtimeUsage": "cold",
       "symbols": [
@@ -6060,7 +6093,8 @@
         "cli/src/main/ts/domain/models/context-index.ts",
         "cli/src/main/ts/domain/models/task.ts",
         "cli/src/main/ts/domain/repositories/file-system.ts",
-        "cli/src/main/ts/domain/repositories/task-repository.ts"
+        "cli/src/main/ts/domain/repositories/task-repository.ts",
+        "cli/src/main/ts/domain/services/path-resolver.ts"
       ],
       "runtimeUsage": "warm",
       "symbols": [
@@ -6124,6 +6158,7 @@
         "cli/src/main/ts/domain/repositories/task-repository.ts",
         "cli/src/main/ts/domain/services/deterministic-ac-verifier.ts",
         "cli/src/main/ts/domain/services/event-logger.ts",
+        "cli/src/main/ts/domain/services/path-resolver.ts",
         "cli/src/main/ts/domain/services/reviewer.ts",
         "cli/src/main/ts/domain/services/signal-router.ts",
         "cli/src/main/ts/domain/services/task-validator.ts"
@@ -6189,7 +6224,8 @@
       "criticality": "domain",
       "imports": [
         "cli/src/main/ts/domain/repositories/file-system.ts",
-        "cli/src/main/ts/domain/repositories/git-repository.ts"
+        "cli/src/main/ts/domain/repositories/git-repository.ts",
+        "cli/src/main/ts/domain/services/path-resolver.ts"
       ],
       "runtimeUsage": "warm",
       "symbols": [
@@ -6246,7 +6282,8 @@
       "imports": [
         "cli/src/main/ts/domain/repositories/file-system.ts",
         "cli/src/main/ts/domain/repositories/git-repository.ts",
-        "cli/src/main/ts/domain/repositories/task-repository.ts"
+        "cli/src/main/ts/domain/repositories/task-repository.ts",
+        "cli/src/main/ts/domain/services/path-resolver.ts"
       ],
       "runtimeUsage": "warm",
       "symbols": [
@@ -6280,7 +6317,8 @@
       "criticality": "domain",
       "imports": [
         "cli/src/main/ts/domain/models/reflect-decision.ts",
-        "cli/src/main/ts/domain/repositories/file-system.ts"
+        "cli/src/main/ts/domain/repositories/file-system.ts",
+        "cli/src/main/ts/domain/services/path-resolver.ts"
       ],
       "runtimeUsage": "warm",
       "symbols": [
@@ -6323,7 +6361,8 @@
       "criticality": "domain",
       "imports": [
         "cli/src/main/ts/domain/models/reflect-proposal.ts",
-        "cli/src/main/ts/domain/repositories/file-system.ts"
+        "cli/src/main/ts/domain/repositories/file-system.ts",
+        "cli/src/main/ts/domain/services/path-resolver.ts"
       ],
       "runtimeUsage": "warm",
       "symbols": [
@@ -6341,7 +6380,8 @@
       "imports": [
         "cli/src/main/ts/domain/models/task.ts",
         "cli/src/main/ts/domain/repositories/file-system.ts",
-        "cli/src/main/ts/domain/repositories/task-repository.ts"
+        "cli/src/main/ts/domain/repositories/task-repository.ts",
+        "cli/src/main/ts/domain/services/path-resolver.ts"
       ],
       "runtimeUsage": "cold",
       "symbols": [
@@ -6397,7 +6437,8 @@
     "cli/src/main/ts/application/use-cases/semantic-collision-detector.ts": {
       "criticality": "domain",
       "imports": [
-        "cli/src/main/ts/domain/repositories/file-system.ts"
+        "cli/src/main/ts/domain/repositories/file-system.ts",
+        "cli/src/main/ts/domain/services/path-resolver.ts"
       ],
       "runtimeUsage": "warm",
       "symbols": [
@@ -6451,7 +6492,8 @@
       "criticality": "domain",
       "imports": [
         "cli/src/main/ts/application/use-cases/causal-signal-log.ts",
-        "cli/src/main/ts/domain/repositories/file-system.ts"
+        "cli/src/main/ts/domain/repositories/file-system.ts",
+        "cli/src/main/ts/domain/services/path-resolver.ts"
       ],
       "runtimeUsage": "hot",
       "symbols": [
@@ -6490,6 +6532,7 @@
       "imports": [
         "cli/src/main/ts/domain/repositories/file-system.ts",
         "cli/src/main/ts/domain/repositories/task-repository.ts",
+        "cli/src/main/ts/domain/services/path-resolver.ts",
         "cli/src/main/ts/domain/services/task-validator.ts"
       ],
       "runtimeUsage": "cold",
@@ -6708,7 +6751,9 @@
     },
     "cli/src/main/ts/domain/models/config.ts": {
       "criticality": "core",
-      "imports": [],
+      "imports": [
+        "cli/src/main/ts/domain/services/path-resolver.ts"
+      ],
       "runtimeUsage": "cold",
       "symbols": [
         "ArchConfig",
@@ -7303,7 +7348,8 @@
       "imports": [
         "cli/src/main/ts/domain/models/provenance.ts",
         "cli/src/main/ts/domain/repositories/file-system.ts",
-        "cli/src/main/ts/domain/repositories/git-repository.ts"
+        "cli/src/main/ts/domain/repositories/git-repository.ts",
+        "cli/src/main/ts/domain/services/path-resolver.ts"
       ],
       "runtimeUsage": "warm",
       "symbols": [
@@ -7888,6 +7934,7 @@
       "imports": [
         "cli/src/main/ts/application/use-cases/corpus-index.ts",
         "cli/src/main/ts/domain/models/promotion-proposal.ts",
+        "cli/src/main/ts/domain/services/path-resolver.ts",
         "cli/src/main/ts/domain/services/precedent-novelty-scorer.ts",
         "cli/src/main/ts/infrastructure/filesystem/node-file-system.ts"
       ],
@@ -8078,7 +8125,8 @@
       "criticality": "core",
       "imports": [
         "cli/src/main/ts/domain/models/sprint.ts",
-        "cli/src/main/ts/domain/repositories/file-system.ts"
+        "cli/src/main/ts/domain/repositories/file-system.ts",
+        "cli/src/main/ts/domain/services/path-resolver.ts"
       ],
       "runtimeUsage": "cold",
       "symbols": [
@@ -8112,7 +8160,8 @@
       "criticality": "core",
       "imports": [
         "cli/src/main/ts/domain/models/task.ts",
-        "cli/src/main/ts/domain/repositories/task-repository.ts"
+        "cli/src/main/ts/domain/repositories/task-repository.ts",
+        "cli/src/main/ts/domain/services/path-resolver.ts"
       ],
       "runtimeUsage": "warm",
       "symbols": [
@@ -8435,6 +8484,7 @@
     "cli/src/main/ts/infrastructure/filesystem/chronicle-event-repository.ts": {
       "criticality": "support",
       "imports": [
+        "cli/src/main/ts/domain/services/path-resolver.ts",
         "cli/src/main/ts/infrastructure/models/event.ts",
         "cli/src/main/ts/infrastructure/repositories/file-system.ts"
       ],
@@ -8474,7 +8524,8 @@
       "imports": [
         "cli/src/main/ts/domain/models/feedback-signal.ts",
         "cli/src/main/ts/domain/repositories/feedback-repository.ts",
-        "cli/src/main/ts/domain/repositories/file-system.ts"
+        "cli/src/main/ts/domain/repositories/file-system.ts",
+        "cli/src/main/ts/domain/services/path-resolver.ts"
       ],
       "runtimeUsage": "warm",
       "symbols": [
@@ -8509,7 +8560,8 @@
       "criticality": "support",
       "imports": [
         "cli/src/main/ts/domain/models/audit-inference.ts",
-        "cli/src/main/ts/domain/repositories/file-system.ts"
+        "cli/src/main/ts/domain/repositories/file-system.ts",
+        "cli/src/main/ts/domain/services/path-resolver.ts"
       ],
       "runtimeUsage": "cold",
       "symbols": [
@@ -8525,6 +8577,7 @@
     "cli/src/main/ts/infrastructure/git/adr-decision-parser.ts": {
       "criticality": "support",
       "imports": [
+        "cli/src/main/ts/domain/services/path-resolver.ts",
         "cli/src/main/ts/infrastructure/models/decision.ts"
       ],
       "runtimeUsage": "cold",
@@ -8924,14 +8977,15 @@
       }
     },
     "TASK-1008": {
-      "commitCount": 1,
+      "commitCount": 2,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-25T18:20:20+02:00",
+      "lastCommitDate": "2026-05-25T18:26:07+02:00",
       "recentCommitRefs": [
+        "135b8191",
         "c7121810"
       ],
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 1,
+        ".arch/focus-ledger.jsonl": 2,
         "docs/tasks/TASK-1008.md": 1
       }
     },
@@ -9081,9 +9135,9 @@
       }
     },
     "TASK-1015": {
-      "commitCount": 10,
+      "commitCount": 12,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-25T18:20:20+02:00",
+      "lastCommitDate": "2026-05-25T18:25:39+02:00",
       "recentCommitRefs": [
         "0cf275d8",
         "2cfe3441",
@@ -9091,15 +9145,71 @@
         "6802401f",
         "6a6e06f5",
         "7bfae1ac",
+        "a449300b",
         "b4cc27dd",
         "ceacb994",
+        "e64a1706",
         "f4248f84",
         "f97716bd"
       ],
       "touchedFrequency": {
+        ".arch/chronicle.jsonl": 1,
         ".arch/focus-ledger.jsonl": 5,
+        "cli/src/main/ts/application/commands/analyze-command.ts": 1,
+        "cli/src/main/ts/application/commands/capture-command.ts": 1,
+        "cli/src/main/ts/application/commands/check-command.ts": 1,
+        "cli/src/main/ts/application/commands/corpus-audit-command.ts": 1,
+        "cli/src/main/ts/application/commands/explain-command.ts": 1,
+        "cli/src/main/ts/application/commands/govern-command.ts": 1,
+        "cli/src/main/ts/application/commands/inbox-command.ts": 1,
+        "cli/src/main/ts/application/commands/index-command.ts": 1,
         "cli/src/main/ts/application/commands/init-command.ts": 1,
+        "cli/src/main/ts/application/commands/lint-command.ts": 1,
+        "cli/src/main/ts/application/commands/project-command.ts": 1,
+        "cli/src/main/ts/application/commands/reprioritize-command.ts": 1,
+        "cli/src/main/ts/application/commands/resume-command.ts": 1,
+        "cli/src/main/ts/application/commands/sandbox-command.ts": 1,
+        "cli/src/main/ts/application/commands/serve-command.ts": 1,
+        "cli/src/main/ts/application/commands/status-command.ts": 1,
+        "cli/src/main/ts/application/commands/task-command.ts": 1,
+        "cli/src/main/ts/application/commands/validate-command.ts": 1,
+        "cli/src/main/ts/application/use-cases/ask-corpus.ts": 1,
         "cli/src/main/ts/application/use-cases/build-index.ts": 1,
+        "cli/src/main/ts/application/use-cases/causal-graph.ts": 1,
+        "cli/src/main/ts/application/use-cases/causal-signal-log.ts": 1,
+        "cli/src/main/ts/application/use-cases/check-system.ts": 1,
+        "cli/src/main/ts/application/use-cases/compress-task.ts": 1,
+        "cli/src/main/ts/application/use-cases/compute-trusted-metrics.ts": 1,
+        "cli/src/main/ts/application/use-cases/constraint-preflight.ts": 1,
+        "cli/src/main/ts/application/use-cases/context-inference.ts": 1,
+        "cli/src/main/ts/application/use-cases/corpus-index.ts": 1,
+        "cli/src/main/ts/application/use-cases/correction-signal-store.ts": 1,
+        "cli/src/main/ts/application/use-cases/create-task.ts": 1,
+        "cli/src/main/ts/application/use-cases/decision-validator.ts": 1,
+        "cli/src/main/ts/application/use-cases/deep-analysis-state.ts": 1,
+        "cli/src/main/ts/application/use-cases/drift-checker.ts": 1,
+        "cli/src/main/ts/application/use-cases/generate-inbox.ts": 1,
+        "cli/src/main/ts/application/use-cases/govern-system.ts": 1,
+        "cli/src/main/ts/application/use-cases/hansei-synthesizer.ts": 1,
+        "cli/src/main/ts/application/use-cases/load-bearing-memory.ts": 1,
+        "cli/src/main/ts/application/use-cases/mark-task-done.ts": 1,
+        "cli/src/main/ts/application/use-cases/merge-resolve.ts": 1,
+        "cli/src/main/ts/application/use-cases/promote-idea.ts": 1,
+        "cli/src/main/ts/application/use-cases/reflect-decision-log.ts": 1,
+        "cli/src/main/ts/application/use-cases/reflect-proposal-log.ts": 1,
+        "cli/src/main/ts/application/use-cases/reprioritize-corpus.ts": 1,
+        "cli/src/main/ts/application/use-cases/semantic-collision-detector.ts": 1,
+        "cli/src/main/ts/application/use-cases/temporal-index.ts": 1,
+        "cli/src/main/ts/application/use-cases/validate-system.ts": 1,
+        "cli/src/main/ts/domain/models/config.ts": 1,
+        "cli/src/main/ts/domain/services/archive-parser.ts": 1,
+        "cli/src/main/ts/domain/services/promotion-proposal-generator.ts": 1,
+        "cli/src/main/ts/domain/services/sprint-service.ts": 1,
+        "cli/src/main/ts/domain/services/status-report-service.ts": 1,
+        "cli/src/main/ts/infrastructure/filesystem/chronicle-event-repository.ts": 1,
+        "cli/src/main/ts/infrastructure/filesystem/node-feedback-repository.ts": 1,
+        "cli/src/main/ts/infrastructure/filesystem/signal-cache.ts": 1,
+        "cli/src/main/ts/infrastructure/git/adr-decision-parser.ts": 1,
         "docs/INBOX.md": 1,
         "docs/archive/TASK-1015.md": 1,
         "docs/tasks/TASK-1015.md": 4
@@ -9565,7 +9675,7 @@
       }
     },
     "TASK-920": {
-      "commitCount": 9,
+      "commitCount": 8,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-22T16:43:51+02:00",
       "recentCommitRefs": [
@@ -9576,12 +9686,11 @@
         "9577ff69",
         "a01fc6f4",
         "c57267b2",
-        "d911d4cf",
-        "df299037"
+        "d911d4cf"
       ],
       "touchedFrequency": {
         ".arch/corpus-index.json": 1,
-        ".arch/focus-ledger.jsonl": 8,
+        ".arch/focus-ledger.jsonl": 7,
         ".arch/reflect-breach-log.jsonl": 1,
         ".arch/status-projection.json": 1,
         "README.md": 1,
@@ -9670,19 +9779,8 @@
         "docs/tasks/TASK-954.md": 3
       }
     },
-    "TASK-955": {
-      "commitCount": 1,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-19T15:29:54+02:00",
-      "recentCommitRefs": [
-        "e1f2216e"
-      ],
-      "touchedFrequency": {
-        "docs/archive/TASK-955.md": 1
-      }
-    },
     "TASK-956": {
-      "commitCount": 10,
+      "commitCount": 9,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-20T14:47:09+02:00",
       "recentCommitRefs": [
@@ -9691,7 +9789,6 @@
         "5002467a",
         "598d90e9",
         "5d7e68fe",
-        "60596e57",
         "86adec0f",
         "c78d8fba",
         "d8c598b1",
@@ -9707,11 +9804,9 @@
         "cli/src/test/ts/drift-checker.test.ts": 1,
         "docs/INBOX.md": 1,
         "docs/PROTOCOL.md": 1,
-        "docs/adr/ADR-025-versioning-architecture.md": 1,
         "docs/archive/TASK-956.md": 1,
         "docs/guidelines/versioning.md": 1,
-        "docs/superpowers/plans/2026-05-19-arch-versioning.md": 1,
-        "docs/tasks/TASK-956.md": 5,
+        "docs/tasks/TASK-956.md": 4,
         "docs/tasks/TASK-972.md": 1,
         "docs/tasks/TASK-974.md": 1
       }
