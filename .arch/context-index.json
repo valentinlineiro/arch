@@ -3859,7 +3859,7 @@
       "title": "Govern/Reflect Structural Separation"
     }
   },
-  "builtAt": "2026-05-25T16:45:23.419Z",
+  "builtAt": "2026-05-25T16:45:26.795Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -9055,9 +9055,9 @@
       }
     },
     "TASK-1009": {
-      "commitCount": 9,
+      "commitCount": 10,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-25T18:45:20+02:00",
+      "lastCommitDate": "2026-05-25T18:45:23+02:00",
       "recentCommitRefs": [
         "1ca26fd7",
         "79c3e947",
@@ -9067,11 +9067,12 @@
         "a9c07f5d",
         "b3c2f544",
         "b7501560",
-        "c26ac146"
+        "c26ac146",
+        "f64b2a7b"
       ],
       "touchedFrequency": {
         ".arch/chronicle.jsonl": 1,
-        ".arch/focus-ledger.jsonl": 8,
+        ".arch/focus-ledger.jsonl": 9,
         "cli/src/main/ts/application/commands/govern-command.ts": 1,
         "cli/src/main/ts/application/use-cases/govern-system.ts": 1,
         "cli/src/main/ts/application/use-cases/inbox-hygiene.ts": 1,
@@ -9307,7 +9308,7 @@
       }
     },
     "TASK-206": {
-      "commitCount": 15,
+      "commitCount": 14,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-24T12:08:18+00:00",
       "recentCommitRefs": [
@@ -9324,7 +9325,6 @@
         "7b3553bb",
         "9e353d7f",
         "a8b4cb0c",
-        "c56fa7a0",
         "fc215eaa"
       ],
       "touchedFrequency": {
@@ -9334,26 +9334,20 @@
         ".arch/ecp-registry.jsonl": 1,
         ".arch/focus-ledger.jsonl": 6,
         ".arch/last-audit.json": 2,
-        ".arch/reflect-breach-log.jsonl": 5,
+        ".arch/reflect-breach-log.jsonl": 4,
         ".arch/status-projection.json": 2,
         "README.md": 2,
-        "cli/.arch/corpus-index.json": 1,
         "cli/.arch/status-projection.json": 1,
         "cli/src/main/ts/application/commands/audit-command.ts": 2,
-        "cli/src/main/ts/application/commands/corpus-audit-command.ts": 1,
         "cli/src/main/ts/application/commands/reflect-command.ts": 1,
         "cli/src/main/ts/application/commands/status-command.ts": 1,
-        "cli/src/main/ts/application/use-cases/corpus-index.ts": 1,
         "cli/src/main/ts/application/use-cases/hansei-wizard.ts": 1,
         "cli/src/main/ts/application/use-cases/mark-task-in-progress.ts": 1,
         "cli/src/main/ts/domain/services/decision-reconciliation-engine.ts": 1,
-        "cli/src/main/ts/domain/services/deterministic-hansei-checker.ts": 1,
         "cli/src/main/ts/domain/services/event-logger.ts": 1,
         "cli/src/main/ts/index.ts": 1,
         "cli/src/main/ts/infrastructure/git/adr-decision-parser.ts": 1,
         "cli/src/main/ts/infrastructure/git/git-evidence-collector.ts": 1,
-        "cli/src/test/ts/corpus-audit-weighted.test.ts": 1,
-        "cli/src/test/ts/corpus-index.test.ts": 1,
         "docs/EVENTS.md": 2,
         "docs/INBOX.md": 3,
         "docs/METRICS.md": 2,
