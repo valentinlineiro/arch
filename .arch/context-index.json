@@ -3703,7 +3703,7 @@
       "title": "Govern/Reflect Structural Separation"
     }
   },
-  "builtAt": "2026-05-25T13:21:13.811Z",
+  "builtAt": "2026-05-25T13:41:00.941Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -5811,6 +5811,7 @@
         "cli/src/main/ts/domain/repositories/git-repository.ts",
         "cli/src/main/ts/domain/repositories/task-repository.ts",
         "cli/src/main/ts/domain/services/config-loader.ts",
+        "cli/src/main/ts/domain/services/deterministic-ac-verifier.ts",
         "cli/src/main/ts/domain/services/status-report-service.ts",
         "cli/src/main/ts/domain/services/task-validator.ts"
       ],
@@ -8650,9 +8651,9 @@
       }
     },
     "TASK-1006": {
-      "commitCount": 15,
+      "commitCount": 17,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-25T15:21:11+02:00",
+      "lastCommitDate": "2026-05-25T15:40:57+02:00",
       "recentCommitRefs": [
         "2d0987f2",
         "3862fc3c",
@@ -8666,17 +8667,25 @@
         "b58e578a",
         "d25f6070",
         "d377bc98",
+        "dd032417",
         "e02dc981",
+        "e8d3d2b7",
         "fceb0396",
         "fd88d1c2"
       ],
       "touchedFrequency": {
         ".arch/escalations.jsonl": 2,
-        ".arch/focus-ledger.jsonl": 8,
+        ".arch/focus-ledger.jsonl": 9,
         "arch.config.json": 1,
+        "cli/src/main/ts/application/commands/govern-command.ts": 1,
+        "cli/src/main/ts/application/use-cases/focus-ledger.ts": 1,
+        "cli/src/main/ts/application/use-cases/govern-system.ts": 1,
+        "cli/src/main/ts/application/use-cases/loop-engine.ts": 1,
         "cli/src/main/ts/application/use-cases/reflect-influence-report.ts": 1,
         "cli/src/main/ts/application/use-cases/weak-signal-checker.ts": 1,
+        "cli/src/main/ts/domain/services/deterministic-ac-verifier.ts": 1,
         "cli/src/main/ts/domain/services/task-validator.ts": 1,
+        "cli/src/test/ts/project-dod-gate.test.ts": 1,
         "cli/src/test/ts/reflect-influence-report.test.ts": 1,
         "cli/src/test/ts/task-validator.test.ts": 1,
         "cli/src/test/ts/weak-signal-checker.test.ts": 1,
@@ -9183,17 +9192,13 @@
       }
     },
     "TASK-258": {
-      "commitCount": 2,
+      "commitCount": 1,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-19T13:40:09+02:00",
       "recentCommitRefs": [
-        "20282e9a",
         "e8db70ea"
       ],
       "touchedFrequency": {
-        ".arch/reflect-breach-log.jsonl": 1,
-        "docs/INBOX.md": 1,
-        "docs/METRICS.md": 1,
         "docs/archive/TASK-258.md": 1,
         "docs/tasks/TASK-258.md": 1
       }
@@ -9296,20 +9301,19 @@
       }
     },
     "TASK-265": {
-      "commitCount": 5,
+      "commitCount": 4,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-19T13:45:04+02:00",
       "recentCommitRefs": [
         "05026b1f",
         "28bcf9b1",
-        "3e540eae",
         "c369f2a9",
         "c5411089"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
         ".arch/chronicle.jsonl": 1,
-        ".arch/focus-ledger.jsonl": 3,
+        ".arch/focus-ledger.jsonl": 2,
         ".arch/reflect-breach-log.jsonl": 1,
         "cli/src/main/ts/application/use-cases/drift-checker.ts": 1,
         "docs/EVENTS.md": 1,
