@@ -3745,7 +3745,7 @@
       "title": "Govern/Reflect Structural Separation"
     }
   },
-  "builtAt": "2026-05-25T14:16:53.799Z",
+  "builtAt": "2026-05-25T14:26:02.378Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -8859,16 +8859,17 @@
       }
     },
     "TASK-1011": {
-      "commitCount": 3,
+      "commitCount": 4,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-25T16:16:50+02:00",
+      "lastCommitDate": "2026-05-25T16:25:59+02:00",
       "recentCommitRefs": [
+        "57515470",
         "b4aebcbf",
         "dc8eaa9d",
         "f64fcf63"
       ],
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 3,
+        ".arch/focus-ledger.jsonl": 4,
         "cli/src/main/ts/application/use-cases/govern-system.ts": 1,
         "cli/src/test/ts/govern-system.test.ts": 1,
         "docs/INBOX.md": 1,
@@ -8889,13 +8890,16 @@
       }
     },
     "TASK-1013": {
-      "commitCount": 1,
+      "commitCount": 2,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-25T16:11:05+02:00",
+      "lastCommitDate": "2026-05-25T16:19:29+02:00",
       "recentCommitRefs": [
+        "b5ce8edd",
         "bd85a1c9"
       ],
       "touchedFrequency": {
+        "cli/.arch/status-projection.json": 1,
+        "cli/.gitignore": 1,
         "docs/tasks/TASK-1013.md": 1
       }
     },
@@ -9359,28 +9363,20 @@
       }
     },
     "TASK-261": {
-      "commitCount": 6,
+      "commitCount": 4,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-19T14:41:37+02:00",
       "recentCommitRefs": [
         "005be5ba",
         "0920cc2a",
         "5443c52f",
-        "633455cf",
-        "a3737eab",
         "ff68d97c"
       ],
       "touchedFrequency": {
-        ".arch/causal-signal.jsonl": 1,
-        ".arch/chronicle.jsonl": 1,
-        ".arch/focus-ledger.jsonl": 2,
-        ".arch/reflect-breach-log.jsonl": 1,
-        "docs/EVENTS.md": 1,
-        "docs/METRICS.md": 1,
+        ".arch/focus-ledger.jsonl": 1,
         "docs/adr/ADR-024-drift-coverage-identity-model.md": 1,
         "docs/archive/TASK-261.md": 1,
-        "docs/refinement/IDEA-code-quality-audit-process.md": 1,
-        "docs/tasks/TASK-261.md": 3,
+        "docs/tasks/TASK-261.md": 2,
         "docs/tasks/TASK-264.md": 1,
         "docs/tasks/TASK-266.md": 1,
         "docs/tasks/TASK-267.md": 1,
