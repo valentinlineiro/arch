@@ -3703,7 +3703,7 @@
       "title": "Govern/Reflect Structural Separation"
     }
   },
-  "builtAt": "2026-05-25T12:56:32.862Z",
+  "builtAt": "2026-05-25T12:57:27.787Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -8650,10 +8650,11 @@
       }
     },
     "TASK-1006": {
-      "commitCount": 12,
+      "commitCount": 13,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-25T14:56:29+02:00",
+      "lastCommitDate": "2026-05-25T14:57:25+02:00",
       "recentCommitRefs": [
+        "2d0987f2",
         "3862fc3c",
         "390e3bd0",
         "49c2ba94",
@@ -8669,7 +8670,7 @@
       ],
       "touchedFrequency": {
         ".arch/escalations.jsonl": 2,
-        ".arch/focus-ledger.jsonl": 5,
+        ".arch/focus-ledger.jsonl": 6,
         "arch.config.json": 1,
         "cli/src/main/ts/application/use-cases/reflect-influence-report.ts": 1,
         "cli/src/main/ts/application/use-cases/weak-signal-checker.ts": 1,
@@ -8688,10 +8689,12 @@
       }
     },
     "TASK-1010": {
-      "commitCount": 2,
+      "commitCount": 4,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-25T14:34:19+02:00",
+      "lastCommitDate": "2026-05-25T14:56:52+02:00",
       "recentCommitRefs": [
+        "3dbfafeb",
+        "4d02ef57",
         "9b47f7e7",
         "b57c8c06"
       ],
@@ -8702,7 +8705,8 @@
         "cli/.arch/status-projection.json": 1,
         "cli/src/main/ts/application/commands/init-command.ts": 1,
         "cli/src/test/ts/init-command.test.ts": 1,
-        "docs/tasks/TASK-1010.md": 1,
+        "docs/INBOX.md": 1,
+        "docs/tasks/TASK-1010.md": 2,
         "docs/tasks/TASK-242.md": 1
       }
     },
@@ -9250,29 +9254,23 @@
       }
     },
     "TASK-262": {
-      "commitCount": 6,
+      "commitCount": 3,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-19T13:40:34+02:00",
       "recentCommitRefs": [
         "31c50e47",
-        "36c949b7",
-        "57aa8899",
-        "8ad5b108",
         "f03f7e40",
         "f361254a"
       ],
       "touchedFrequency": {
-        ".arch/causal-signal.jsonl": 2,
-        ".arch/chronicle.jsonl": 2,
-        ".arch/reflect-breach-log.jsonl": 2,
-        "cli/src/main/ts/application/use-cases/hansei-wizard.ts": 1,
-        "cli/src/main/ts/application/use-cases/mark-task-done.ts": 1,
-        "docs/EVENTS.md": 2,
-        "docs/INBOX.md": 1,
-        "docs/METRICS.md": 2,
+        ".arch/causal-signal.jsonl": 1,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/reflect-breach-log.jsonl": 1,
+        "docs/EVENTS.md": 1,
+        "docs/METRICS.md": 1,
         "docs/archive/TASK-262.md": 2,
         "docs/tasks/TASK-260.md": 1,
-        "docs/tasks/TASK-262.md": 3,
+        "docs/tasks/TASK-262.md": 1,
         "docs/tasks/TASK-265.md": 1
       }
     },
