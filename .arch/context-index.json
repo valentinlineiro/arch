@@ -123,6 +123,12 @@
           ],
           "taskPath": "docs/tasks/TASK-1006.md"
         },
+        "TASK-1010": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-1010.md"
+        },
         "TASK-957": {
           "evidenceKinds": [
             "literal-mention"
@@ -167,6 +173,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/tasks/TASK-1006.md"
+        },
+        "TASK-1010": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-1010.md"
         },
         "TASK-990": {
           "evidenceKinds": [
@@ -549,6 +561,12 @@
     },
     "ADR-021": {
       "tasks": {
+        "TASK-1010": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-1010.md"
+        },
         "TASK-958": {
           "evidenceKinds": [
             "literal-mention"
@@ -3685,7 +3703,7 @@
       "title": "Govern/Reflect Structural Separation"
     }
   },
-  "builtAt": "2026-05-25T12:22:40.097Z",
+  "builtAt": "2026-05-25T12:56:32.862Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -8632,14 +8650,15 @@
       }
     },
     "TASK-1006": {
-      "commitCount": 11,
+      "commitCount": 12,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-25T14:22:37+02:00",
+      "lastCommitDate": "2026-05-25T14:56:29+02:00",
       "recentCommitRefs": [
         "3862fc3c",
         "390e3bd0",
         "49c2ba94",
         "7122079d",
+        "8cc51101",
         "9e8e4892",
         "b58e578a",
         "d25f6070",
@@ -8650,7 +8669,7 @@
       ],
       "touchedFrequency": {
         ".arch/escalations.jsonl": 2,
-        ".arch/focus-ledger.jsonl": 4,
+        ".arch/focus-ledger.jsonl": 5,
         "arch.config.json": 1,
         "cli/src/main/ts/application/use-cases/reflect-influence-report.ts": 1,
         "cli/src/main/ts/application/use-cases/weak-signal-checker.ts": 1,
@@ -8662,9 +8681,28 @@
         "docs/refinement/archive/IDEA-code-quality-audit-process.md": 1,
         "docs/refinement/archive/IDEA-escalation-lifecycle-gap.md": 1,
         "docs/refinement/archive/IDEA-status-doc-refresh.md": 1,
-        "docs/tasks/TASK-1010.md": 1,
+        "docs/tasks/TASK-1010.md": 2,
         "docs/tasks/TASK-1011.md": 1,
         "docs/tasks/TASK-1012.md": 1,
+        "docs/tasks/TASK-242.md": 1
+      }
+    },
+    "TASK-1010": {
+      "commitCount": 2,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-05-25T14:34:19+02:00",
+      "recentCommitRefs": [
+        "9b47f7e7",
+        "b57c8c06"
+      ],
+      "touchedFrequency": {
+        ".arch/chronicle.jsonl": 1,
+        ".arch/ecp-registry.jsonl": 1,
+        ".arch/status-projection.json": 1,
+        "cli/.arch/status-projection.json": 1,
+        "cli/src/main/ts/application/commands/init-command.ts": 1,
+        "cli/src/test/ts/init-command.test.ts": 1,
+        "docs/tasks/TASK-1010.md": 1,
         "docs/tasks/TASK-242.md": 1
       }
     },
@@ -8680,7 +8718,7 @@
       }
     },
     "TASK-206": {
-      "commitCount": 18,
+      "commitCount": 17,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-24T12:08:18+00:00",
       "recentCommitRefs": [
@@ -8694,7 +8732,6 @@
         "4a348d92",
         "4f97602e",
         "6cdaa81d",
-        "76db2c9b",
         "7b3553bb",
         "8cc6d95a",
         "9e353d7f",
@@ -9115,20 +9152,28 @@
         "docs/refinement/archive/IDEA-resolve-hansei-contradiction.md": 1,
         "docs/refinement/archive/IDEA-status-doc-refresh.md": 1,
         "docs/refinement/archive/IDEA-verify-pre-existing-before-start.md": 1,
-        "docs/tasks/TASK-098.md": 1,
-        "docs/tasks/TASK-099.md": 1,
-        "docs/tasks/TASK-100.md": 1,
-        "docs/tasks/TASK-101.md": 1,
-        "docs/tasks/TASK-161.md": 1,
-        "docs/tasks/TASK-162.md": 1,
-        "docs/tasks/TASK-163.md": 1,
         "docs/tasks/TASK-206.md": 1,
-        "docs/tasks/TASK-947.md": 1,
         "docs/tasks/TASK-967.md": 1,
         "docs/tasks/TASK-978.md": 1,
         "docs/tasks/TASK-995.md": 1,
         "docs/tasks/TASK-996.md": 1,
         "docs/tensions/TENSION-005-specdrift.md": 2
+      }
+    },
+    "TASK-242": {
+      "commitCount": 1,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-05-25T14:32:45+02:00",
+      "recentCommitRefs": [
+        "9b47f7e7"
+      ],
+      "touchedFrequency": {
+        ".arch/chronicle.jsonl": 1,
+        ".arch/ecp-registry.jsonl": 1,
+        ".arch/status-projection.json": 1,
+        "cli/.arch/status-projection.json": 1,
+        "docs/tasks/TASK-1010.md": 1,
+        "docs/tasks/TASK-242.md": 1
       }
     },
     "TASK-258": {
@@ -9205,11 +9250,10 @@
       }
     },
     "TASK-262": {
-      "commitCount": 7,
+      "commitCount": 6,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-19T13:40:34+02:00",
       "recentCommitRefs": [
-        "0e39400c",
         "31c50e47",
         "36c949b7",
         "57aa8899",
@@ -9220,7 +9264,6 @@
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 2,
         ".arch/chronicle.jsonl": 2,
-        ".arch/focus-ledger.jsonl": 1,
         ".arch/reflect-breach-log.jsonl": 2,
         "cli/src/main/ts/application/use-cases/hansei-wizard.ts": 1,
         "cli/src/main/ts/application/use-cases/mark-task-done.ts": 1,
@@ -9489,28 +9532,6 @@
         "docs/tasks/TASK-939.md": 1,
         "docs/tasks/TASK-940.md": 2,
         "docs/tasks/TASK-955.md": 1
-      }
-    },
-    "TASK-947": {
-      "commitCount": 3,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-19T12:50:38+02:00",
-      "recentCommitRefs": [
-        "4aebb4eb",
-        "4e09d475",
-        "76db2c9b"
-      ],
-      "touchedFrequency": {
-        "cli/src/main/ts/infrastructure/filesystem/markdown-task-repository.ts": 1,
-        "docs/archive/TASK-947.md": 1,
-        "docs/tasks/TASK-098.md": 1,
-        "docs/tasks/TASK-099.md": 1,
-        "docs/tasks/TASK-100.md": 1,
-        "docs/tasks/TASK-101.md": 1,
-        "docs/tasks/TASK-161.md": 1,
-        "docs/tasks/TASK-162.md": 1,
-        "docs/tasks/TASK-163.md": 1,
-        "docs/tasks/TASK-947.md": 1
       }
     },
     "TASK-950": {
