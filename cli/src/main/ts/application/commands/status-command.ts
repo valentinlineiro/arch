@@ -5,6 +5,22 @@ import { StatusReportService } from '../../domain/services/status-report-service
 import * as fmt from '../../infrastructure/cli/output-formatter.js';
 import { PathResolver } from '../../domain/services/path-resolver.js';
 
+const ALERT_PREFIXES = ['[ANDON_HALT]', '[PATTERN-ALERT]', '[CORPUS_ALERT]'];
+
+export function parseInboxAlerts(inbox: string): string[] {
+  const lines = inbox.split('\n');
+  let inAlertsSection = false;
+  const alerts: string[] = [];
+  for (const line of lines) {
+    if (line.startsWith('## Alerts')) { inAlertsSection = true; continue; }
+    if (inAlertsSection && line.startsWith('## ')) break;
+    if (inAlertsSection && ALERT_PREFIXES.some(p => line.startsWith(p))) {
+      alerts.push(line.trim());
+    }
+  }
+  return alerts;
+}
+
 export class StatusCommand implements Command {
   constructor(
     private taskRepository: TaskRepository,
@@ -62,13 +78,14 @@ export class StatusCommand implements Command {
     // INBOX alerts
     try {
       const inbox = await this.fileSystem.readFile(`${this.rootPath}/${PathResolver.from({}).inbox}`);
-      const alerts = inbox.split('\n').filter(l =>
-        l.includes('PATTERN-ALERT') || l.includes('ANDON_HALT') || l.includes('CORPUS_ALERT')
-      );
+      const alerts = parseInboxAlerts(inbox);
       if (alerts.length > 0) {
         console.log(`\n  \x1b[33m⚠\x1b[0m  Alerts (${alerts.length}):`);
         for (const a of alerts.slice(0, 3)) {
-          console.log(`    ${a.trim().slice(0, 80)}`);
+          console.log(`    ${a.slice(0, 80)}`);
+        }
+        if (alerts.length > 3) {
+          console.log(`    ... ${alerts.length - 3} more — run arch govern inbox`);
         }
       }
     } catch { /* no inbox */ }
