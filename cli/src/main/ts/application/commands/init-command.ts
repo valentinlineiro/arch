@@ -20,6 +20,12 @@ export class InitCommand implements Command {
   }
 
   async execute(args: string[]): Promise<void> {
+    const dryRun = args.includes('--dry-run');
+    if (dryRun) {
+      console.log('\n  ARCH — dry-run: no files will be written\n');
+      return;
+    }
+
     const force = args.includes('--force');
     const minimal = args.includes('--minimal');
     const guided = args.includes('--guided');
@@ -804,39 +810,41 @@ _No entries yet. THINK mode populates this during arch reflect._
 `;
   }
   private seedTaskMd(): string {
-    const now = new Date().toISOString().slice(0, 10);
-    return `## TASK-001: Define first epic
-**Meta:** P1 | M | READY | Focus:no | 1-code-reasoning | claude-code | docs/
+    return `## TASK-001: Complete your first governed task
+**Meta:** P1 | S | READY | Focus:no | 2-code-generation | claude-code | docs/tasks/
 
 **Depends:** none
 
 ### Context
 
-This is your first ARCH task. Define the first work stream for this project.
-Describe the primary goal, expected deliverables, and how you will decompose it into smaller tasks.
+Welcome to ARCH. This task walks you through the full governed lifecycle.
+
+1. **Start:** Run \`arch task start TASK-001\` — sets status to IN_PROGRESS and commits.
+2. **Implement:** Make any change to your project. Check it with \`arch review\`.
+3. **Finish:** Run \`arch task done TASK-001\` (after review predicates pass).
 
 ### Acceptance Criteria
 
-- [ ] First epic defined — scope and goal written in this task's Context section
-  - \`prose: epic description written in ### Context\`
+- [ ] You have run \`arch task start TASK-001\` and the Meta line shows IN_PROGRESS
+  - \`prose: Meta line shows IN_PROGRESS\`
 
-- [ ] Epic decomposed into at least 2 concrete sub-tasks in docs/tasks/
-  - \`prose: TASK-002 and TASK-003 (or higher) exist in docs/tasks/\`
+- [ ] \`arch review\` passes with no blocking errors
+  - \`cmd: arch review\`
 
-- [ ] \`arch check\` passes after sub-tasks are created
-  - \`cmd: arch check\`
+- [ ] You have run \`arch task done TASK-001\` to complete the lifecycle
+  - \`prose: task archived to docs/archive/\`
 
 ### Definition of Done
 - [ ] All ACs checked by Auditor
-- [ ] \`arch check\` passes
+- [ ] \`arch review\` passes
 
 ## Hansei
 **Severity:** H0
 **Category:** [no-issue]
-**Decision:** Not yet started.
+**Decision:** Starter task — no implementation performed.
 **Constraint:** None.
 **Cost:** None.
-**Forward Action:** None.
+**Forward Action:** None required.
 `;
   }
 
