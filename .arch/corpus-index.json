@@ -1,8 +1,8 @@
 {
   "version": 1,
-  "builtAt": "2026-05-25T14:48:40.063Z",
-  "archiveCommit": "374:design",
-  "taskCount": 171,
+  "builtAt": "2026-05-25T16:19:02.376Z",
+  "archiveCommit": "376:design",
+  "taskCount": 173,
   "entries": {
     "TASK-1000": {
       "id": "TASK-1000",
@@ -140,6 +140,23 @@
       "acMachineVerifiable": 0,
       "closurePath": "auditor"
     },
+    "TASK-1012": {
+      "id": "TASK-1012",
+      "size": "M",
+      "class": "2-code-generation",
+      "closedAt": "2026-05-25T14:55:27.863Z",
+      "lockedCommit": "86601b25",
+      "actor": "unknown",
+      "severity": "H0",
+      "category": "[AuditGap]",
+      "decision": "Two-part fix implemented: (A) THINK.md Phase 1 step 15 now documents the RESOLVED write requirement alongside the AWAITING_PROMOTION append; (B) DO.md Ops section 1 now documents the RESOLVED append obligation when a human writes a Decision field on an IDEA. (C) DriftChecker.checkStaleEscalations() added — reads escalations.jsonl, finds OPEN AWAITING_PROMOTION entries, checks the referenced IDEA file for a populated Decision field, emits WARN per stale entry. 5 new TDD tests cover: missing file (OK), all RESOLVED (OK), OPEN+empty Decision (OK), OPEN+populated Decision (WARN), non-AWAITING_PROMOTION types (OK).",
+      "constraint": "StaleEscalations emits WARN not FAIL — informational only, does not block arch review. Existing 5 pre-existing test failures (causal-graph, reflect-command, ArchiveParser, command-registry) are out of scope.",
+      "cost": "No architectural debt. Pure additive: 1 new drift check, 2 protocol doc updates, 5 tests.",
+      "forwardAction": "TASK-1014 (cli-protocol-decoupling phase 2) is next in queue.",
+      "acCount": 0,
+      "acMachineVerifiable": 0,
+      "closurePath": "auditor"
+    },
     "TASK-1013": {
       "id": "TASK-1013",
       "size": "S",
@@ -153,6 +170,23 @@
       "constraint": "cli/.arch/status-projection.json is a test side-effect from running tests under the cli/ working directory — not staged as part of this fix.",
       "cost": "Three leaked-file patterns were silently dirtying the working tree after every govern tick, creating false git status noise and hiding real changes in uncommitted state.",
       "forwardAction": "None required. All leaks closed.",
+      "acCount": 0,
+      "acMachineVerifiable": 0,
+      "closurePath": "auditor"
+    },
+    "TASK-1014": {
+      "id": "TASK-1014",
+      "size": "M",
+      "class": "2-code-generation",
+      "closedAt": "2026-05-25T15:14:05.511Z",
+      "lockedCommit": "ea9d0469",
+      "actor": "unknown",
+      "severity": "H0",
+      "category": "[AuditGap]",
+      "decision": "PathResolver injected as optional constructor parameter (defaulting to PathResolver.from({})) into govern-system.ts, markdown-task-repository.ts, loop-engine.ts, escalation-store.ts, and govern-transaction.ts. focus-ledger.ts FOCUS_LEDGER_PATH export now derives from PathResolver.from({}).focusLedger instead of a literal string. PathResolver also gained archDir accessor (value: '.arch') for govern-transaction's isArchPath detection.",
+      "constraint": "PathResolver is optional in all constructors — existing callers pass no extra argument and get default paths unchanged. No behavior change.",
+      "cost": "No architectural debt. Pure additive injection with full backward compatibility.",
+      "forwardAction": "TASK-1015 (cli-protocol-decoupling phase 3) wires PathResolver into commands and analysis layer.",
       "acCount": 0,
       "acMachineVerifiable": 0,
       "closurePath": "auditor"
