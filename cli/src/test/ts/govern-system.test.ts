@@ -66,6 +66,7 @@ class SpyFileSystem {
 class SpyGitRepository {
   addCalls: string[] = [];
   commitCalls: string[] = [];
+  mvCalls: Array<{ src: string; dst: string }> = [];
 
   async getDiff() { return ''; }
   async getLastCommitMessage() { return 'chore: stub [TASK-001]'; }
@@ -78,7 +79,7 @@ class SpyGitRepository {
   async getChangedFilesInLastCommit() { return []; }
   async getMergeCommits() { return []; }
   async rm() {}
-  async mv() {}
+  async mv(src: string, dst: string) { this.mvCalls.push({ src, dst }); }
 }
 
 class FailingGitRepository extends SpyGitRepository {
@@ -435,4 +436,84 @@ test('govern surfaces deep analysis due when weak signal is overdue', async () =
   const result = await system.execute();
 
   assert.ok(result.reasons.includes('deep-analysis-due'), 'reasons must include deep-analysis-due from weak signal');
+});
+
+// ─── Uncommitted file leaks ───────────────────────────────────────────────────
+
+function makeDoneTask(id: string) {
+  const rawMeta = `**Meta:** P2 | S | DONE | Focus:no | 6-writing | local | docs/`;
+  return {
+    id,
+    title: `Task ${id}`,
+    priority: 'P2',
+    size: 'S',
+    status: TaskStatus.DONE,
+    focus: FocusLevel.NONE,
+    sprint: '',
+    class: '6-writing',
+    cli: 'local',
+    context: [],
+    acceptanceCriteria: [],
+    rawMetaLine: rawMeta,
+    depends: undefined,
+    content: `## ${id}: Title\n${rawMeta}\n\n## Hansei\n**Severity:** H0\n**Category:** [AuditGap]\n**Decision:** Clean delivery with no issues.\n**Constraint:** No constraints encountered.\n**Cost:** No debt introduced.\n**Forward Action:** None.\n`,
+    filePath: `docs/tasks/${id}.md`,
+  };
+}
+
+test('govern stages focus-flag task file in the FOCUS_ACQUIRED commit', async () => {
+  const task = makeTask('TASK-042', 'P2');
+  const fs = new SpyFileSystem();
+  fs.addFile('docs/tasks/TASK-042.md', task.content);
+  const repo = new SpyTaskRepository([task]);
+  const git = new SpyGitRepository();
+
+  const system = new GovernSystem(repo as any, git as any, fs as any);
+  await system.execute();
+
+  assert.ok(
+    git.addCalls.includes('docs/tasks/TASK-042.md'),
+    'changed task file must be staged alongside ledger in the FOCUS_ACQUIRED commit'
+  );
+});
+
+test('govern stages archived task file (including working-tree edits) in archive commit', async () => {
+  const task = makeDoneTask('TASK-099');
+  const fs = new SpyFileSystem();
+  fs.addFile('docs/tasks/TASK-099.md', task.content);
+  fs.addFile('.arch/corpus-index.json', '{}');
+  const repo = new SpyTaskRepository([task]);
+  const git = new SpyGitRepository();
+
+  const system = new GovernSystem(repo as any, git as any, fs as any);
+  await system.execute();
+
+  assert.ok(
+    git.addCalls.includes('docs/archive/TASK-099.md'),
+    'archive file must be staged (git add) after git mv so working-tree edits are captured'
+  );
+});
+
+test('govern commits materialized report files (README, ROADMAP, METRICS, status-projection)', async () => {
+  const task = makeTask('TASK-042', 'P2');
+  const fs = new SpyFileSystem();
+  fs.addFile('docs/tasks/TASK-042.md', task.content);
+  const repo = new SpyTaskRepository([task]);
+  const git = new SpyGitRepository();
+
+  const system = new GovernSystem(repo as any, git as any, fs as any);
+  await system.execute();
+
+  const stagedOrCommitted = [...git.addCalls, ...git.commitCalls.join(' ').split(' ')];
+  const reportFiles = ['README.md', 'docs/ROADMAP.md', 'docs/METRICS.md', '.arch/status-projection.json'];
+  for (const f of reportFiles) {
+    assert.ok(
+      git.addCalls.includes(f),
+      `${f} must be staged so it is included in a govern commit`
+    );
+  }
+  assert.ok(
+    git.commitCalls.some(m => m.includes('materialized') || m.includes('reporting') || m.includes('THINK')),
+    'a commit must exist for the materialized reporting files'
+  );
 });

@@ -161,6 +161,29 @@ export class GovernSystem {
     // 5. Project DoD gate
     const projectComplete = await this.checkProjectDoD();
 
+    // 6. Commit materialized output files produced this tick.
+    // These are non-authoritative projections written by the reporting and metrics layers;
+    // they have no pre-commit hook requirements, so a best-effort trailing commit is safe.
+    try {
+      const reportFiles = [
+        'README.md',
+        'docs/ROADMAP.md',
+        'docs/METRICS.md',
+        '.arch/status-projection.json',
+        '.arch/corpus-index.json',
+        'docs/SENTINEL-LOG.md',
+        '.arch/reflect-breach-log.jsonl',
+      ];
+      for (const f of reportFiles) {
+        try { await this.gitRepository.add(f); } catch { /* file may not exist */ }
+      }
+      await this.gitRepository.commit('chore: [THINK] govern materialized reporting');
+    } catch (err: any) {
+      if (!err.message?.includes('nothing to commit')) {
+        if (process.env.ARCH_DEBUG) console.error('[govern] materialized commit failed:', err);
+      }
+    }
+
     return { analysisNeeded: analysisReasons.length > 0, reasons: analysisReasons, projectComplete };
   }
 
@@ -293,10 +316,11 @@ export class GovernSystem {
     // Flush all buffered .arch/ writes atomically before committing
     await tx.flush();
 
-    // Stage and commit only the ledger — task meta files are updated on disk
-    // but not committed by govern (pre-commit hook requires Hansei on M+ task files,
-    // which govern does not add; the ledger is the durable record).
+    // Stage ledger + any task meta files whose Focus flag was flipped this tick.
     try { await this.gitRepository.add(ledgerPath); } catch { /* ok */ }
+    for (const f of changedTaskFiles) {
+      try { await this.gitRepository.add(f); } catch { /* ok */ }
+    }
 
     if (newRulings.length > 0) {
       const primary = newRulings[newRulings.length - 1];
@@ -619,6 +643,10 @@ export class GovernSystem {
       if (await this.fileSystem.exists(sourcePath)) {
         console.log(`  Auto-archiving ${taskId}...`);
         await this.gitRepository.mv(sourcePath, targetPath);
+        // Re-stage the destination to capture any working-tree edits (e.g. Closed-at, Approval)
+        // made to the file before govern ran — git mv stages the rename from the index, not
+        // the working tree, so local modifications are left unstaged without this add.
+        try { await this.gitRepository.add(targetPath); } catch { /* ok */ }
       } else if (await this.fileSystem.exists(targetPath)) {
         await this.gitRepository.add(targetPath);
         const status = await this.gitRepository.getStatusLines();

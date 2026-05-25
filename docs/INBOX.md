@@ -117,3 +117,8 @@ Date: 2026-05-25
 **Task:** arch project init: decompose spec into ADRs and task graph via LLM
 **Status:** REVIEW
 **Summary:** ProjectCommand implemented with 9 passing tests. Wired into command-dispatcher. TypeScript build clean. LLM decomposition, ADR/task file generation, PROJECT.md with Ratification section, malformed JSON rejection, and --depth flag all verified.
+
+## REVIEW_REQUEST — TASK-1013
+**Date:** 2026-05-25
+**Task:** fix govern: stage and commit all files written during a tick
+**Summary:** Three commit leaks fixed in govern-system.ts. 17/17 tests pass.
