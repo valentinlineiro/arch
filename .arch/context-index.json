@@ -3745,7 +3745,7 @@
       "title": "Govern/Reflect Structural Separation"
     }
   },
-  "builtAt": "2026-05-25T14:15:10.680Z",
+  "builtAt": "2026-05-25T14:16:53.799Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -8859,15 +8859,22 @@
       }
     },
     "TASK-1011": {
-      "commitCount": 2,
+      "commitCount": 3,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-25T16:15:07+02:00",
+      "lastCommitDate": "2026-05-25T16:16:50+02:00",
       "recentCommitRefs": [
         "b4aebcbf",
+        "dc8eaa9d",
         "f64fcf63"
       ],
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 2
+        ".arch/focus-ledger.jsonl": 3,
+        "cli/src/main/ts/application/use-cases/govern-system.ts": 1,
+        "cli/src/test/ts/govern-system.test.ts": 1,
+        "docs/INBOX.md": 1,
+        "docs/archive/TASK-1007.md": 1,
+        "docs/tasks/TASK-1011.md": 1,
+        "docs/tasks/TASK-1013.md": 1
       }
     },
     "TASK-1012": {
@@ -9352,7 +9359,7 @@
       }
     },
     "TASK-261": {
-      "commitCount": 7,
+      "commitCount": 6,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-19T14:41:37+02:00",
       "recentCommitRefs": [
@@ -9361,13 +9368,12 @@
         "5443c52f",
         "633455cf",
         "a3737eab",
-        "d63eeb47",
         "ff68d97c"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
         ".arch/chronicle.jsonl": 1,
-        ".arch/focus-ledger.jsonl": 3,
+        ".arch/focus-ledger.jsonl": 2,
         ".arch/reflect-breach-log.jsonl": 1,
         "docs/EVENTS.md": 1,
         "docs/METRICS.md": 1,
@@ -9456,22 +9462,14 @@
       }
     },
     "TASK-279": {
-      "commitCount": 3,
+      "commitCount": 1,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-19T14:14:27+02:00",
       "recentCommitRefs": [
-        "26f37a0e",
-        "89109a59",
         "cb21782d"
       ],
       "touchedFrequency": {
-        ".arch/causal-signal.jsonl": 1,
-        ".arch/chronicle.jsonl": 1,
-        ".arch/reflect-breach-log.jsonl": 1,
-        "docs/EVENTS.md": 1,
-        "docs/METRICS.md": 1,
-        "docs/archive/TASK-279.md": 2,
-        "docs/tasks/TASK-279.md": 1
+        "docs/archive/TASK-279.md": 1
       }
     },
     "TASK-283": {
