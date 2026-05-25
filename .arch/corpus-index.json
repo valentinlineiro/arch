@@ -1,8 +1,8 @@
 {
   "version": 1,
-  "builtAt": "2026-05-24T23:14:58.326Z",
-  "archiveCommit": "369:design",
-  "taskCount": 166,
+  "builtAt": "2026-05-25T13:40:57.991Z",
+  "archiveCommit": "370:design",
+  "taskCount": 167,
   "entries": {
     "TASK-1000": {
       "id": "TASK-1000",
@@ -71,6 +71,23 @@
       "acCount": 6,
       "acMachineVerifiable": 2,
       "closurePath": "L3"
+    },
+    "TASK-1010": {
+      "id": "TASK-1010",
+      "size": "M",
+      "class": "2-code-generation",
+      "closedAt": "2026-05-25T13:13:53.217Z",
+      "lockedCommit": "71ca37b9",
+      "actor": "unknown",
+      "severity": "H1",
+      "category": "[SpecDrift]",
+      "decision": "The `arch init` command already existed with substantial implementation (stack detection, guided mode, full scaffold). Task was written as if it needed to be built from scratch, but the delta was narrower: add `--dry-run` flag, fix seed task title/content, and add tests. AC format also required rewrite from sub-line backtick style to inline `→ cmd:` style to match `ValidateTaskAcs` parser.",
+      "constraint": "Pre-existing test failures in causal-graph, reflect-command, and ArchiveParser prevent `npm test` from exiting 0; scoped predicate to `init-command.test.ts` only.",
+      "cost": "One extra commit for AC format fix. Minor overhead.",
+      "forwardAction": "Pre-existing test failures are untracked debt — see TASK-1006 and related tasks for follow-up.",
+      "acCount": 0,
+      "acMachineVerifiable": 0,
+      "closurePath": "unknown"
     },
     "TASK-180": {
       "id": "TASK-180",
