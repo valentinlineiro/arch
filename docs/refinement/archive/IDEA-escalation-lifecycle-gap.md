@@ -43,3 +43,4 @@ M — touches THINK.md, DO.md, DriftChecker, and potentially a migration pass fo
 ## Gaps
 
 ## Decision
+PROMOTE → TASK-1012: two-part fix — (A) update THINK.md/DO.md to require RESOLVED write at promotion time; (B) add DriftChecker cross-check for stale open escalations.

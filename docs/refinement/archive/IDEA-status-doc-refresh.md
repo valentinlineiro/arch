@@ -28,8 +28,4 @@ XS
 ## Gaps
 
 ## Decision
-
-DEFERRED: status docs refreshed continuously as part of each task. No dedicated refresh task needed.
-
-DEFERRED: status docs refreshed as part of ongoing doc maintenance
-PROMOTE → TASK-971
+PROMOTE → TASK-971 (materialized reporting layer, archived). Status framing handled there.
