@@ -121,7 +121,7 @@
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-1006.md"
+          "taskPath": "docs/archive/TASK-1006.md"
         },
         "TASK-1010": {
           "evidenceKinds": [
@@ -172,7 +172,7 @@
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-1006.md"
+          "taskPath": "docs/archive/TASK-1006.md"
         },
         "TASK-1010": {
           "evidenceKinds": [
@@ -435,7 +435,7 @@
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-1006.md"
+          "taskPath": "docs/archive/TASK-1006.md"
         },
         "TASK-957": {
           "evidenceKinds": [
@@ -3703,7 +3703,7 @@
       "title": "Govern/Reflect Structural Separation"
     }
   },
-  "builtAt": "2026-05-25T13:41:00.941Z",
+  "builtAt": "2026-05-25T13:42:33.825Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -8651,16 +8651,18 @@
       }
     },
     "TASK-1006": {
-      "commitCount": 17,
+      "commitCount": 19,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-25T15:40:57+02:00",
+      "lastCommitDate": "2026-05-25T15:41:16+02:00",
       "recentCommitRefs": [
+        "009b8b5b",
         "2d0987f2",
         "3862fc3c",
         "390e3bd0",
         "49c2ba94",
         "553c1022",
         "7122079d",
+        "73a1258a",
         "8cc51101",
         "982a3a83",
         "9e8e4892",
@@ -8689,14 +8691,27 @@
         "cli/src/test/ts/reflect-influence-report.test.ts": 1,
         "cli/src/test/ts/task-validator.test.ts": 1,
         "cli/src/test/ts/weak-signal-checker.test.ts": 1,
+        "docs/INBOX.md": 1,
         "docs/refinement/archive/IDEA-cli-architecture-drift-review.md": 1,
         "docs/refinement/archive/IDEA-code-quality-audit-process.md": 1,
         "docs/refinement/archive/IDEA-escalation-lifecycle-gap.md": 1,
         "docs/refinement/archive/IDEA-status-doc-refresh.md": 1,
+        "docs/tasks/TASK-1006.md": 1,
         "docs/tasks/TASK-1010.md": 2,
         "docs/tasks/TASK-1011.md": 1,
         "docs/tasks/TASK-1012.md": 1,
         "docs/tasks/TASK-242.md": 1
+      }
+    },
+    "TASK-1007": {
+      "commitCount": 1,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-05-25T15:42:31+02:00",
+      "recentCommitRefs": [
+        "bbccc90f"
+      ],
+      "touchedFrequency": {
+        ".arch/focus-ledger.jsonl": 1
       }
     },
     "TASK-1010": {
@@ -9191,18 +9206,6 @@
         "docs/tasks/TASK-242.md": 1
       }
     },
-    "TASK-258": {
-      "commitCount": 1,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-19T13:40:09+02:00",
-      "recentCommitRefs": [
-        "e8db70ea"
-      ],
-      "touchedFrequency": {
-        "docs/archive/TASK-258.md": 1,
-        "docs/tasks/TASK-258.md": 1
-      }
-    },
     "TASK-260": {
       "commitCount": 1,
       "commitRefOverflow": false,
@@ -9260,24 +9263,6 @@
         "docs/tasks/TASK-953.md": 1
       }
     },
-    "TASK-262": {
-      "commitCount": 1,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-19T13:40:34+02:00",
-      "recentCommitRefs": [
-        "31c50e47"
-      ],
-      "touchedFrequency": {
-        ".arch/causal-signal.jsonl": 1,
-        ".arch/chronicle.jsonl": 1,
-        ".arch/reflect-breach-log.jsonl": 1,
-        "docs/EVENTS.md": 1,
-        "docs/METRICS.md": 1,
-        "docs/archive/TASK-262.md": 1,
-        "docs/tasks/TASK-260.md": 1,
-        "docs/tasks/TASK-265.md": 1
-      }
-    },
     "TASK-263": {
       "commitCount": 4,
       "commitRefOverflow": false,
@@ -9301,19 +9286,18 @@
       }
     },
     "TASK-265": {
-      "commitCount": 4,
+      "commitCount": 3,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-19T13:45:04+02:00",
       "recentCommitRefs": [
         "05026b1f",
         "28bcf9b1",
-        "c369f2a9",
-        "c5411089"
+        "c369f2a9"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
         ".arch/chronicle.jsonl": 1,
-        ".arch/focus-ledger.jsonl": 2,
+        ".arch/focus-ledger.jsonl": 1,
         ".arch/reflect-breach-log.jsonl": 1,
         "cli/src/main/ts/application/use-cases/drift-checker.ts": 1,
         "docs/EVENTS.md": 1,
