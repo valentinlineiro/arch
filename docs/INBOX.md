@@ -111,3 +111,9 @@ Date: 2026-05-25
 - `cli/src/main/ts/application/commands/govern-command.ts` — exit 2 on PROJECT_COMPLETE
 - `cli/src/main/ts/domain/services/deterministic-ac-verifier.ts` — verifySection method
 - `cli/src/test/ts/project-dod-gate.test.ts` — new, 9 tests
+
+## REVIEW_REQUEST — TASK-1007
+**Date:** 2026-05-25
+**Task:** arch project init: decompose spec into ADRs and task graph via LLM
+**Status:** REVIEW
+**Summary:** ProjectCommand implemented with 9 passing tests. Wired into command-dispatcher. TypeScript build clean. LLM decomposition, ADR/task file generation, PROJECT.md with Ratification section, malformed JSON rejection, and --depth flag all verified.

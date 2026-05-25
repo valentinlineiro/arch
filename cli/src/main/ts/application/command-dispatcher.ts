@@ -45,6 +45,7 @@ import { SentinelCommand } from './commands/sentinel-command.js';
 import { RankCommand } from './commands/rank-command.js';
 import { AuditCommand } from './commands/audit-command.js';
 import { ResumeCommand } from './commands/resume-command.js';
+import { ProjectCommand } from './commands/project-command.js';
 
 import { getPublicTopLevel, getPublicEntriesByNamespace, type CommandEntry } from '../domain/services/command-registry.js';
 
@@ -146,6 +147,8 @@ export class CommandDispatcher {
         return new ReviewCommand(this.taskRepository, this.gitRepository, this.fileSystem);
       case 'init':
         return new InitCommand(this.rootPath);
+      case 'project':
+        return new ProjectCommand(this.fileSystem, this.taskRepository, this.rootPath);
       case 'version':
         return new VersionCommand(this.cliVersion);
       case 'status':
