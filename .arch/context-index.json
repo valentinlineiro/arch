@@ -3859,7 +3859,7 @@
       "title": "Govern/Reflect Structural Separation"
     }
   },
-  "builtAt": "2026-05-25T16:42:29.163Z",
+  "builtAt": "2026-05-25T16:44:54.896Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -6023,6 +6023,7 @@
         "cli/src/main/ts/application/use-cases/deep-analysis-state.ts",
         "cli/src/main/ts/application/use-cases/focus-ledger.ts",
         "cli/src/main/ts/application/use-cases/govern-transaction.ts",
+        "cli/src/main/ts/application/use-cases/inbox-hygiene.ts",
         "cli/src/main/ts/application/use-cases/lightweight-metrics-refresh.ts",
         "cli/src/main/ts/application/use-cases/reflect-influence-report.ts",
         "cli/src/main/ts/application/use-cases/weak-signal-checker.ts",
@@ -6112,7 +6113,7 @@
     "cli/src/main/ts/application/use-cases/inbox-hygiene.ts": {
       "criticality": "domain",
       "imports": [],
-      "runtimeUsage": "cold",
+      "runtimeUsage": "warm",
       "symbols": [
         "runInboxHygiene"
       ],
@@ -9054,16 +9055,24 @@
       }
     },
     "TASK-1009": {
-      "commitCount": 2,
+      "commitCount": 4,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-25T18:42:26+02:00",
+      "lastCommitDate": "2026-05-25T18:44:51+02:00",
       "recentCommitRefs": [
+        "1ca26fd7",
+        "94201c50",
         "b3c2f544",
         "c26ac146"
       ],
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 2,
-        "docs/tasks/TASK-1009.md": 1
+        ".arch/chronicle.jsonl": 1,
+        ".arch/focus-ledger.jsonl": 3,
+        "cli/src/main/ts/application/commands/govern-command.ts": 1,
+        "cli/src/main/ts/application/use-cases/govern-system.ts": 1,
+        "cli/src/main/ts/application/use-cases/inbox-hygiene.ts": 1,
+        "cli/src/test/ts/inbox-hygiene.test.ts": 1,
+        "docs/INBOX.md": 1,
+        "docs/tasks/TASK-1009.md": 2
       }
     },
     "TASK-1010": {
@@ -9872,7 +9881,7 @@
       }
     },
     "TASK-957": {
-      "commitCount": 7,
+      "commitCount": 6,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-24T15:33:56+00:00",
       "recentCommitRefs": [
@@ -9881,8 +9890,7 @@
         "531deb91",
         "758cac88",
         "a0db17ec",
-        "b14992cd",
-        "c33d90a1"
+        "b14992cd"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
@@ -9890,7 +9898,6 @@
         ".arch/context-feedback.json": 1,
         ".arch/deployment-map-v1.1.json": 1,
         ".arch/ecp-registry.jsonl": 1,
-        ".arch/escalations.jsonl": 1,
         ".arch/focus-ledger.jsonl": 3,
         ".arch/reflect-breach-log.jsonl": 2,
         ".arch/sprint-state.json": 1,
@@ -9908,18 +9915,15 @@
         "docs/archive/TASK-957.md": 1,
         "docs/archive/TASK-969.md": 1,
         "docs/tasks/TASK-206.md": 1,
-        "docs/tasks/TASK-957.md": 2,
-        "docs/tasks/TASK-971.md": 1,
+        "docs/tasks/TASK-957.md": 1,
         "docs/tasks/TASK-995.md": 1
       }
     },
     "TASK-958": {
-      "commitCount": 18,
+      "commitCount": 15,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-20T08:29:54+02:00",
       "recentCommitRefs": [
-        "1816ccde",
-        "1bb6bc12",
         "3070c32e",
         "3f938696",
         "541d8566",
@@ -9932,15 +9936,14 @@
         "a817a579",
         "b2a1daab",
         "b727781e",
-        "c33d90a1",
         "e5d7e78d",
         "edf9c125",
         "f4c267ac"
       ],
       "touchedFrequency": {
         ".arch/chronicle.jsonl": 1,
-        ".arch/escalations.jsonl": 2,
-        ".arch/focus-ledger.jsonl": 6,
+        ".arch/escalations.jsonl": 1,
+        ".arch/focus-ledger.jsonl": 5,
         ".arch/reflect-breach-log.jsonl": 1,
         "docs/EPISTEMIC-DOCTRINE.md": 2,
         "docs/INBOX.md": 2,
@@ -9948,37 +9951,7 @@
         "docs/SENTINEL-LOG.md": 1,
         "docs/adr/ADR-026-epistemic-layer-separation.md": 2,
         "docs/archive/TASK-958.md": 1,
-        "docs/refinement/IDEA-archive-parser-skip-non-done.md": 1,
-        "docs/refinement/IDEA-automate-turn-count.md": 1,
-        "docs/refinement/IDEA-cli-architecture-drift-review.md": 1,
-        "docs/refinement/IDEA-code-quality-audit-process.md": 1,
-        "docs/refinement/IDEA-deterministic-ac-expansion.md": 1,
-        "docs/refinement/IDEA-done-command-ac-section-scoping.md": 1,
-        "docs/refinement/IDEA-fix-class-boundary-violation-excision.md": 1,
-        "docs/refinement/IDEA-governance-epistemic-doctrine.md": 1,
-        "docs/refinement/IDEA-guided-close-path.md": 1,
-        "docs/refinement/IDEA-hansei-wizard.md": 1,
-        "docs/refinement/IDEA-semantic-compression-layer.md": 1,
-        "docs/refinement/IDEA-sprint-state-machine.md": 1,
-        "docs/refinement/IDEA-status-doc-refresh.md": 1,
-        "docs/refinement/IDEA-think-generated-proposals.md": 1,
-        "docs/refinement/IDEA-verifiability-first-templates.md": 1,
-        "docs/tasks/TASK-957.md": 1,
-        "docs/tasks/TASK-958.md": 5,
-        "docs/tasks/TASK-959.md": 1,
-        "docs/tasks/TASK-960.md": 1,
-        "docs/tasks/TASK-961.md": 1,
-        "docs/tasks/TASK-962.md": 1,
-        "docs/tasks/TASK-963.md": 1,
-        "docs/tasks/TASK-964.md": 1,
-        "docs/tasks/TASK-965.md": 1,
-        "docs/tasks/TASK-966.md": 1,
-        "docs/tasks/TASK-967.md": 1,
-        "docs/tasks/TASK-968.md": 1,
-        "docs/tasks/TASK-969.md": 1,
-        "docs/tasks/TASK-970.md": 1,
-        "docs/tasks/TASK-971.md": 2,
-        "docs/tasks/TASK-972.md": 1,
+        "docs/tasks/TASK-958.md": 4,
         "docs/tensions/TENSION-006-inbox-dual-truth.md": 2
       }
     },
