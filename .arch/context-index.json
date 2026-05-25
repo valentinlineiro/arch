@@ -30,6 +30,12 @@
           ],
           "taskPath": "docs/archive/TASK-023.md"
         },
+        "TASK-1012": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1012.md"
+        },
         "TASK-1014": {
           "evidenceKinds": [
             "literal-mention"
@@ -93,6 +99,12 @@
           ],
           "taskPath": "docs/archive/TASK-074.md"
         },
+        "TASK-1012": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1012.md"
+        },
         "TASK-160": {
           "evidenceKinds": [
             "depends",
@@ -146,6 +158,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-1011.md"
+        },
+        "TASK-1012": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1012.md"
         },
         "TASK-957": {
           "evidenceKinds": [
@@ -656,6 +674,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-1010.md"
+        },
+        "TASK-1012": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1012.md"
         },
         "TASK-958": {
           "evidenceKinds": [
@@ -3799,7 +3823,7 @@
       "title": "Govern/Reflect Structural Separation"
     }
   },
-  "builtAt": "2026-05-25T14:48:42.978Z",
+  "builtAt": "2026-05-25T14:55:34.311Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -8956,17 +8980,25 @@
       }
     },
     "TASK-1012": {
-      "commitCount": 3,
+      "commitCount": 5,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-25T16:48:39+02:00",
+      "lastCommitDate": "2026-05-25T16:55:25+02:00",
       "recentCommitRefs": [
         "345f7225",
         "3862fc3c",
-        "53ea5a58"
+        "53ea5a58",
+        "70d394fb",
+        "b853e434"
       ],
       "touchedFrequency": {
+        ".arch/chronicle.jsonl": 1,
         ".arch/focus-ledger.jsonl": 2,
-        "docs/tasks/TASK-1012.md": 2
+        "cli/src/main/ts/application/use-cases/drift-checker.ts": 1,
+        "cli/src/test/ts/drift-checker.test.ts": 1,
+        "docs/INBOX.md": 1,
+        "docs/agents/DO.md": 1,
+        "docs/agents/THINK.md": 1,
+        "docs/tasks/TASK-1012.md": 3
       }
     },
     "TASK-1013": {
@@ -8986,14 +9018,16 @@
       }
     },
     "TASK-1014": {
-      "commitCount": 1,
+      "commitCount": 2,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-25T16:40:23+02:00",
+      "lastCommitDate": "2026-05-25T16:55:30+02:00",
       "recentCommitRefs": [
+        "132fb725",
         "d864ae0f"
       ],
       "touchedFrequency": {
-        "docs/tasks/TASK-1014.md": 1
+        ".arch/focus-ledger.jsonl": 1,
+        "docs/tasks/TASK-1014.md": 2
       }
     },
     "TASK-1015": {
@@ -9488,20 +9522,6 @@
         "docs/tasks/TASK-263.md": 1
       }
     },
-    "TASK-268": {
-      "commitCount": 2,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-19T14:49:43+02:00",
-      "recentCommitRefs": [
-        "09ae7c19",
-        "47e13e38"
-      ],
-      "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 1,
-        "docs/archive/TASK-268.md": 1,
-        "docs/tasks/TASK-268.md": 1
-      }
-    },
     "TASK-283": {
       "commitCount": 5,
       "commitRefOverflow": false,
@@ -9602,13 +9622,12 @@
       }
     },
     "TASK-940": {
-      "commitCount": 6,
+      "commitCount": 5,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-19T15:29:54+02:00",
       "recentCommitRefs": [
         "019681ea",
         "37dc6888",
-        "3c50e3f1",
         "51003e69",
         "a11645f2",
         "cac3c46c"
@@ -9616,7 +9635,6 @@
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
         ".arch/chronicle.jsonl": 1,
-        ".arch/focus-ledger.jsonl": 1,
         ".arch/reflect-breach-log.jsonl": 1,
         "cli/src/main/ts/application/commands/capture-command.ts": 1,
         "cli/src/main/ts/application/commands/task-command.ts": 1,
