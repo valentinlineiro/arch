@@ -3745,7 +3745,7 @@
       "title": "Govern/Reflect Structural Separation"
     }
   },
-  "builtAt": "2026-05-25T14:26:02.378Z",
+  "builtAt": "2026-05-25T14:30:22.318Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -8859,17 +8859,18 @@
       }
     },
     "TASK-1011": {
-      "commitCount": 4,
+      "commitCount": 5,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-25T16:25:59+02:00",
+      "lastCommitDate": "2026-05-25T16:30:19+02:00",
       "recentCommitRefs": [
+        "2aa48c1e",
         "57515470",
         "b4aebcbf",
         "dc8eaa9d",
         "f64fcf63"
       ],
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 4,
+        ".arch/focus-ledger.jsonl": 5,
         "cli/src/main/ts/application/use-cases/govern-system.ts": 1,
         "cli/src/test/ts/govern-system.test.ts": 1,
         "docs/INBOX.md": 1,
@@ -9455,17 +9456,6 @@
         ".arch/focus-ledger.jsonl": 1,
         "docs/archive/TASK-268.md": 1,
         "docs/tasks/TASK-268.md": 1
-      }
-    },
-    "TASK-279": {
-      "commitCount": 1,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-19T14:14:27+02:00",
-      "recentCommitRefs": [
-        "cb21782d"
-      ],
-      "touchedFrequency": {
-        "docs/archive/TASK-279.md": 1
       }
     },
     "TASK-283": {
