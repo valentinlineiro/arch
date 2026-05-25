@@ -24,8 +24,9 @@ export class GovernCommand implements Command {
 
   async execute(args: string[] = []): Promise<void> {
     const noConduct = args.includes('--no-conduct');
+    const cleanInbox = args.includes('--clean-inbox');
     console.log('\n  ARCH — Governance Tick');
-    const result = await this.useCase.execute(noConduct);
+    const result = await this.useCase.execute(noConduct, cleanInbox);
 
     try {
       const config = await ConfigLoader.load(this.fileSystem);

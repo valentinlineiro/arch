@@ -20,6 +20,7 @@ import { LightweightMetricsRefresh } from './lightweight-metrics-refresh.js';
 import { readDeepAnalysisState, isDeepAnalysisDue } from './deep-analysis-state.js';
 import { hasOverdueWeakSignal } from './weak-signal-checker.js';
 import { DeterministicACVerifier } from '../../domain/services/deterministic-ac-verifier.js';
+import { runInboxHygiene } from './inbox-hygiene.js';
 
 export interface GovernResult {
   analysisNeeded: boolean;
@@ -43,7 +44,7 @@ export class GovernSystem {
     this.pathResolver = pathResolver ?? PathResolver.from({});
   }
 
-  async execute(noConduct = false): Promise<GovernResult> {
+  async execute(noConduct = false, cleanInbox = false): Promise<GovernResult> {
     const config = await ConfigLoader.load(this.fileSystem);
     const conductEveryN = config.governance?.conductEveryN ?? 3;
     const analysisReasons: string[] = [];
@@ -186,6 +187,13 @@ export class GovernSystem {
       if (!err.message?.includes('nothing to commit')) {
         if (process.env.ARCH_DEBUG) console.error('[govern] materialized commit failed:', err);
       }
+    }
+
+    // 7. INBOX hygiene — runs every tick (or forced via --clean-inbox)
+    try {
+      await this.runInboxHygienePass(config, cleanInbox);
+    } catch (err) {
+      if (process.env.ARCH_DEBUG) console.error('[inbox-hygiene] pass failed:', err);
     }
 
     return { analysisNeeded: analysisReasons.length > 0, reasons: analysisReasons, projectComplete };
@@ -682,6 +690,33 @@ export class GovernSystem {
       confidence: 0.8,
       event: `govern_violation:${taskId}:${violation}`,
     });
+  }
+
+  private async runInboxHygienePass(config: any, force: boolean): Promise<void> {
+    const inboxPath = this.pathResolver.inbox;
+    let inbox: string;
+    try {
+      inbox = await this.fileSystem.readFile(inboxPath);
+    } catch {
+      return; // No INBOX to clean
+    }
+
+    const expiryDays: number = (config.governance as any)?.inboxExpiryDays ?? 14;
+
+    const archivedFiles = await this.fileSystem.readDirectory(this.pathResolver.archive).catch(() => [] as string[]);
+    const archivedIds = new Set(
+      archivedFiles
+        .filter(f => f.endsWith('.md'))
+        .map(f => f.replace(/\.md$/, ''))
+    );
+
+    const cleaned = runInboxHygiene(inbox, archivedIds, new Date(), expiryDays);
+    if (cleaned !== inbox) {
+      await this.fileSystem.writeFile(inboxPath, cleaned);
+      console.log(`  \x1b[32m✔\x1b[0m INBOX hygiene applied`);
+    } else if (force) {
+      console.log(`  \x1b[32m✔\x1b[0m INBOX already clean`);
+    }
   }
 
   private async appendInbox(taskId: string, type: string, evidence: string): Promise<void> {
