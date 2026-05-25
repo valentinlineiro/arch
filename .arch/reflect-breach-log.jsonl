@@ -439,3 +439,7 @@
 {"timestamp":"2026-05-25T13:42:31.195Z","rule":"observability_gap","breached":false}
 {"timestamp":"2026-05-25T13:43:01.603Z","rule":"engagement","breached":false}
 {"timestamp":"2026-05-25T13:43:01.603Z","rule":"observability_gap","breached":false}
+{"timestamp":"2026-05-25T14:08:41.621Z","rule":"engagement","breached":false}
+{"timestamp":"2026-05-25T14:08:41.621Z","rule":"observability_gap","breached":false}
+{"timestamp":"2026-05-25T14:15:07.966Z","rule":"engagement","breached":false}
+{"timestamp":"2026-05-25T14:15:07.966Z","rule":"observability_gap","breached":false}
