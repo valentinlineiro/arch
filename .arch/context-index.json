@@ -3667,7 +3667,7 @@
       "title": "Govern/Reflect Structural Separation"
     }
   },
-  "builtAt": "2026-05-24T23:15:03.476Z",
+  "builtAt": "2026-05-25T05:21:59.825Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -8580,23 +8580,36 @@
       }
     },
     "TASK-1005": {
-      "commitCount": 2,
+      "commitCount": 3,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-24T19:03:45+00:00",
+      "lastCommitDate": "2026-05-24T23:15:03+00:00",
       "recentCommitRefs": [
         "4ccc4238",
+        "6108de7a",
         "d6a7a50a"
       ],
       "touchedFrequency": {
+        ".arch/causal-signal.jsonl": 1,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/context-feedback.json": 1,
+        ".arch/corpus-index.json": 1,
         ".arch/focus-ledger.jsonl": 1,
-        ".arch/reflect-breach-log.jsonl": 1,
+        ".arch/reflect-breach-log.jsonl": 2,
         ".arch/reflect-decisions.jsonl": 1,
-        ".arch/status-projection.json": 1,
-        "README.md": 1,
-        "docs/ROADMAP.md": 1,
+        ".arch/status-projection.json": 2,
+        ".arch/temporal-index.jsonl": 1,
+        "README.md": 2,
+        "cli/.arch/status-projection.json": 1,
+        "cli/src/main/ts/application/commands/analyze-command.ts": 1,
+        "docs/EVENTS.md": 1,
+        "docs/INBOX.md": 1,
+        "docs/METRICS.md": 1,
+        "docs/ROADMAP.md": 2,
+        "docs/adr/ADR-034-govern-reflect-separation.md": 1,
+        "docs/archive/TASK-1005.md": 1,
         "docs/refinement/archive/IDEA-deterministic-governance-gates.md": 1,
-        "docs/tasks/TASK-1005.md": 1,
-        "docs/tasks/TASK-995.md": 1
+        "docs/tasks/TASK-1005.md": 2,
+        "docs/tasks/TASK-995.md": 2
       }
     },
     "TASK-206": {
@@ -9543,43 +9556,28 @@
       }
     },
     "TASK-950": {
-      "commitCount": 6,
+      "commitCount": 4,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-21T09:54:29+02:00",
       "recentCommitRefs": [
         "20596e46",
-        "89479bb2",
         "8baf2ec0",
         "8d16707e",
-        "c88385bd",
         "d793c34d"
       ],
       "touchedFrequency": {
-        ".arch/causal-signal.jsonl": 1,
-        ".arch/chronicle.jsonl": 1,
-        ".arch/context-feedback.json": 1,
         ".arch/corpus-index.json": 2,
-        ".arch/reflect-breach-log.jsonl": 3,
+        ".arch/reflect-breach-log.jsonl": 2,
         "cli/src/main/ts/application/commands/reflect-command.ts": 2,
-        "cli/src/main/ts/application/use-cases/drift-checker.ts": 1,
-        "cli/src/main/ts/application/use-cases/govern-system.ts": 1,
         "cli/src/main/ts/application/use-cases/mark-task-in-progress.ts": 1,
-        "cli/src/test/ts/drift-checker.test.ts": 1,
-        "cli/src/test/ts/govern-system.test.ts": 1,
         "cli/src/test/ts/mark-task-in-progress.test.ts": 1,
-        "docs/EVENTS.md": 1,
-        "docs/METRICS.md": 2,
+        "docs/METRICS.md": 1,
         "docs/adr/ADR-023-deterministic-gate-invariant.md": 1,
-        "docs/archive/TASK-950.md": 1,
-        "docs/tasks/TASK-259.md": 1,
-        "docs/tasks/TASK-919.md": 1,
-        "docs/tasks/TASK-950.md": 4,
-        "docs/tasks/TASK-953.md": 1,
+        "docs/tasks/TASK-950.md": 3,
         "docs/tasks/TASK-971.md": 1,
         "docs/tasks/TASK-978.md": 1,
         "docs/tasks/TASK-979.md": 1,
-        "docs/tasks/TASK-980.md": 1,
-        "docs/tensions/TENSION-005-specdrift.md": 1
+        "docs/tasks/TASK-980.md": 1
       }
     },
     "TASK-951": {
@@ -10950,13 +10948,14 @@
       }
     },
     "TASK-995": {
-      "commitCount": 8,
+      "commitCount": 9,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-24T23:14:58+00:00",
+      "lastCommitDate": "2026-05-25T05:21:54+00:00",
       "recentCommitRefs": [
         "262b9d14",
         "3eb4493b",
         "4804ff7d",
+        "57296df1",
         "8dcf3ac3",
         "9ab10dbc",
         "9d151798",
@@ -10965,7 +10964,7 @@
       ],
       "touchedFrequency": {
         ".arch/ecp-registry.jsonl": 1,
-        ".arch/focus-ledger.jsonl": 7,
+        ".arch/focus-ledger.jsonl": 8,
         "docs/tasks/TASK-957.md": 1,
         "docs/tasks/TASK-995.md": 1
       }
