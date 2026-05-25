@@ -4,7 +4,7 @@
 
 <!-- ARCH-REPORT:START -->
 #### ARCH Materialized Status
-**Generated:** 2026-05-25T16:44:52.030Z
+**Generated:** 2026-05-25T16:45:06.846Z
 **Sprint ID:** sprint/v1.0.0-improvements
 
 | Status | Count |
