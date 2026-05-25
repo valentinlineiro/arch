@@ -220,7 +220,7 @@
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-1009.md"
+          "taskPath": "docs/archive/TASK-1009.md"
         },
         "TASK-1010": {
           "evidenceKinds": [
@@ -491,7 +491,7 @@
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-1009.md"
+          "taskPath": "docs/archive/TASK-1009.md"
         },
         "TASK-1011": {
           "evidenceKinds": [
@@ -697,7 +697,7 @@
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-1009.md"
+          "taskPath": "docs/archive/TASK-1009.md"
         },
         "TASK-1010": {
           "evidenceKinds": [
@@ -3859,7 +3859,7 @@
       "title": "Govern/Reflect Structural Separation"
     }
   },
-  "builtAt": "2026-05-25T16:46:06.589Z",
+  "builtAt": "2026-05-25T16:46:26.289Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -9055,17 +9055,18 @@
       }
     },
     "TASK-1009": {
-      "commitCount": 21,
+      "commitCount": 23,
       "commitRefOverflow": true,
-      "lastCommitDate": "2026-05-25T18:46:03+02:00",
+      "lastCommitDate": "2026-05-25T18:46:21+02:00",
       "recentCommitRefs": [
         "0667e2de",
-        "1ca26fd7",
         "2f457ff6",
         "5cf6c712",
         "600fe183",
         "63c7a2c7",
         "66933859",
+        "718b0b8a",
+        "7688bdee",
         "79c3e947",
         "815324f1",
         "81d2b263",
@@ -9075,7 +9076,6 @@
         "a91af75b",
         "a9c07f5d",
         "afc43eec",
-        "b3c2f544",
         "b7501560",
         "e9259bf6",
         "f64b2a7b"
@@ -9088,7 +9088,8 @@
         "cli/src/main/ts/application/use-cases/inbox-hygiene.ts": 1,
         "cli/src/test/ts/inbox-hygiene.test.ts": 1,
         "docs/INBOX.md": 1,
-        "docs/tasks/TASK-1009.md": 2
+        "docs/archive/TASK-1009.md": 1,
+        "docs/tasks/TASK-1009.md": 3
       }
     },
     "TASK-1010": {
@@ -9737,23 +9738,25 @@
       }
     },
     "TASK-242": {
-      "commitCount": 1,
+      "commitCount": 2,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-25T14:32:45+02:00",
+      "lastCommitDate": "2026-05-25T18:46:22+02:00",
       "recentCommitRefs": [
+        "42bb8e79",
         "9b47f7e7"
       ],
       "touchedFrequency": {
         ".arch/chronicle.jsonl": 1,
         ".arch/ecp-registry.jsonl": 1,
+        ".arch/focus-ledger.jsonl": 1,
         ".arch/status-projection.json": 1,
         "cli/.arch/status-projection.json": 1,
         "docs/tasks/TASK-1010.md": 1,
-        "docs/tasks/TASK-242.md": 1
+        "docs/tasks/TASK-242.md": 2
       }
     },
     "TASK-920": {
-      "commitCount": 8,
+      "commitCount": 7,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-22T16:43:51+02:00",
       "recentCommitRefs": [
@@ -9763,12 +9766,11 @@
         "8e1f0366",
         "9577ff69",
         "a01fc6f4",
-        "c57267b2",
-        "d911d4cf"
+        "c57267b2"
       ],
       "touchedFrequency": {
         ".arch/corpus-index.json": 1,
-        ".arch/focus-ledger.jsonl": 7,
+        ".arch/focus-ledger.jsonl": 6,
         ".arch/reflect-breach-log.jsonl": 1,
         ".arch/status-projection.json": 1,
         "README.md": 1,
@@ -10178,30 +10180,22 @@
       }
     },
     "TASK-972": {
-      "commitCount": 4,
+      "commitCount": 2,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-20T14:47:09+02:00",
       "recentCommitRefs": [
         "598d90e9",
-        "694c97a2",
-        "8276e924",
-        "c76fbc40"
+        "694c97a2"
       ],
       "touchedFrequency": {
-        ".arch/corpus-index.json": 1,
-        ".arch/last-audit.json": 1,
-        ".arch/reflect-breach-log.jsonl": 1,
-        "docs/INBOX.md": 1,
-        "docs/METRICS.md": 1,
-        "docs/SENTINEL-LOG.md": 1,
         "docs/archive/TASK-972.md": 1,
         "docs/tasks/TASK-956.md": 1,
-        "docs/tasks/TASK-972.md": 2,
+        "docs/tasks/TASK-972.md": 1,
         "docs/tasks/TASK-974.md": 1
       }
     },
     "TASK-974": {
-      "commitCount": 9,
+      "commitCount": 8,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-20T15:17:49+02:00",
       "recentCommitRefs": [
@@ -10211,28 +10205,23 @@
         "466c192e",
         "598d90e9",
         "aa0c3120",
-        "b7ef4222",
         "dabce0c4",
         "e5d2c5d1"
       ],
       "touchedFrequency": {
         ".gitignore": 1,
         "cli/src/main/ts/application/commands/review-command.ts": 1,
-        "cli/src/main/ts/application/commands/task-command.ts": 1,
         "cli/src/main/ts/application/use-cases/drift-checker.ts": 1,
         "cli/src/main/ts/application/use-cases/review-system.ts": 2,
         "cli/src/main/ts/domain/models/task.ts": 1,
-        "cli/src/main/ts/domain/services/command-registry.ts": 1,
-        "cli/src/main/ts/index.ts": 1,
         "cli/src/main/ts/infrastructure/filesystem/markdown-task-repository.ts": 1,
-        "cli/src/test/ts/command-registry.test.ts": 1,
         "cli/src/test/ts/escalation-maturity-e5.test.ts": 1,
         "docs/INBOX.md": 1,
         "docs/SENTINEL-LOG.md": 1,
         "docs/archive/TASK-974.md": 1,
         "docs/tasks/TASK-956.md": 1,
         "docs/tasks/TASK-972.md": 1,
-        "docs/tasks/TASK-974.md": 4
+        "docs/tasks/TASK-974.md": 3
       }
     },
     "TASK-975": {
