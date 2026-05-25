@@ -3859,7 +3859,7 @@
       "title": "Govern/Reflect Structural Separation"
     }
   },
-  "builtAt": "2026-05-25T16:45:51.703Z",
+  "builtAt": "2026-05-25T16:45:56.061Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -9055,13 +9055,14 @@
       }
     },
     "TASK-1009": {
-      "commitCount": 17,
+      "commitCount": 18,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-25T18:45:48+02:00",
+      "lastCommitDate": "2026-05-25T18:45:52+02:00",
       "recentCommitRefs": [
         "0667e2de",
         "1ca26fd7",
         "5cf6c712",
+        "600fe183",
         "63c7a2c7",
         "66933859",
         "79c3e947",
@@ -9079,7 +9080,7 @@
       ],
       "touchedFrequency": {
         ".arch/chronicle.jsonl": 1,
-        ".arch/focus-ledger.jsonl": 16,
+        ".arch/focus-ledger.jsonl": 17,
         "cli/src/main/ts/application/commands/govern-command.ts": 1,
         "cli/src/main/ts/application/use-cases/govern-system.ts": 1,
         "cli/src/main/ts/application/use-cases/inbox-hygiene.ts": 1,
@@ -9909,20 +9910,14 @@
       }
     },
     "TASK-960": {
-      "commitCount": 4,
+      "commitCount": 1,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-20T09:17:43+02:00",
       "recentCommitRefs": [
-        "0a972648",
-        "25dbe4ab",
-        "c294b74a",
-        "d2b30086"
+        "0a972648"
       ],
       "touchedFrequency": {
-        "docs/INBOX.md": 1,
-        "docs/SPRINT-STATE-MACHINE.md": 2,
-        "docs/archive/TASK-960.md": 1,
-        "docs/tasks/TASK-960.md": 2
+        "docs/archive/TASK-960.md": 1
       }
     },
     "TASK-961": {
