@@ -214,7 +214,7 @@
     {
       "name": "opencode",
       "bin": "opencode",
-      "template": "opencode \"{prompt}\""
+      "template": "opencode run --title \"arch-analyze\" \"{prompt}\""
     },
     {
       "name": "claude",
@@ -232,7 +232,7 @@
       "name": "opencode",
       "type": "bridge",
       "bin": "opencode",
-      "template": "opencode \"{prompt}\""
+      "template": "opencode run --title \"arch-analyze\" \"{prompt}\""
     },
     {
       "name": "claude-code",
