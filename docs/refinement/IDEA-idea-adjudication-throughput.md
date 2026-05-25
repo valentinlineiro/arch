@@ -1,0 +1,22 @@
+# IDEA: IDEA adjudication throughput mismatch
+**Created:** 2026-05-25
+**Source:** Human structural review
+**Status:** DRAFT
+**Meta:** P0 | M | local | docs/refinement/
+
+## Problem
+The system generates IDEAs faster than a single human can adjudicate them. 33+ OPEN escalations, many duplicated across record formats, with no dedup or auto-expiry for orphaned proposals. The append-only escalations model guarantees noise accumulation with no compaction path. This is a systemic throughput mismatch between REFLECT's generation rate and the human's decision capacity — not a backlog problem, but a structural rate imbalance.
+
+## Proposed solution
+Introduce auto-expiry for OPEN escalation records past a configurable TTL (e.g., 30 days) with no human interaction. Add batch adjudication surface: group OPEN IDEAs by theme, present structured comparison, allow single-decision resolution of related proposals. Add a generation rate governor: if OPEN escalations exceed threshold N, REFLECT enters reduced-emission mode until the queue drains.
+
+## Dependencies
+- TASK-1017 (escalations dedup — clears current backlog before new policy applies)
+- IDEA-promotion-decision-support (decision quality at the gate is prerequisite to higher throughput)
+
+## Estimated size
+M
+
+## Gaps
+
+## Decision
