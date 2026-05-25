@@ -3823,7 +3823,7 @@
       "title": "Govern/Reflect Structural Separation"
     }
   },
-  "builtAt": "2026-05-25T16:17:13.280Z",
+  "builtAt": "2026-05-25T16:19:05.839Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -4965,7 +4965,8 @@
     "cli/src/main/ts/application/commands/init-command.ts": {
       "criticality": "domain",
       "imports": [
-        "cli/src/main/ts/domain/models/command.ts"
+        "cli/src/main/ts/domain/models/command.ts",
+        "cli/src/main/ts/domain/services/path-resolver.ts"
       ],
       "runtimeUsage": "hot",
       "symbols": [
@@ -5481,7 +5482,8 @@
       "imports": [
         "cli/src/main/ts/domain/models/context-index.ts",
         "cli/src/main/ts/domain/repositories/file-system.ts",
-        "cli/src/main/ts/domain/repositories/git-repository.ts"
+        "cli/src/main/ts/domain/repositories/git-repository.ts",
+        "cli/src/main/ts/domain/services/path-resolver.ts"
       ],
       "runtimeUsage": "warm",
       "symbols": [
@@ -9067,17 +9069,21 @@
       }
     },
     "TASK-1015": {
-      "commitCount": 4,
+      "commitCount": 6,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-25T18:17:10+02:00",
+      "lastCommitDate": "2026-05-25T18:19:02+02:00",
       "recentCommitRefs": [
         "0cf275d8",
+        "2cfe3441",
         "609cfb91",
         "7bfae1ac",
-        "f4248f84"
+        "f4248f84",
+        "f97716bd"
       ],
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 3,
+        ".arch/focus-ledger.jsonl": 4,
+        "cli/src/main/ts/application/commands/init-command.ts": 1,
+        "cli/src/main/ts/application/use-cases/build-index.ts": 1,
         "docs/tasks/TASK-1015.md": 2
       }
     },
@@ -9557,7 +9563,7 @@
       }
     },
     "TASK-920": {
-      "commitCount": 12,
+      "commitCount": 11,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-22T16:43:51+02:00",
       "recentCommitRefs": [
@@ -9565,7 +9571,6 @@
         "19d92c29",
         "205c218d",
         "456c73df",
-        "80e3f0cf",
         "8e1f0366",
         "9577ff69",
         "a01fc6f4",
@@ -9576,7 +9581,7 @@
       ],
       "touchedFrequency": {
         ".arch/corpus-index.json": 1,
-        ".arch/focus-ledger.jsonl": 11,
+        ".arch/focus-ledger.jsonl": 10,
         ".arch/reflect-breach-log.jsonl": 1,
         ".arch/status-projection.json": 1,
         "README.md": 1,
@@ -9698,30 +9703,21 @@
       }
     },
     "TASK-955": {
-      "commitCount": 5,
+      "commitCount": 3,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-19T15:29:54+02:00",
       "recentCommitRefs": [
-        "0e42a9a2",
         "4bed015a",
         "51003e69",
-        "8f0efce2",
         "e1f2216e"
       ],
       "touchedFrequency": {
-        ".arch/chronicle.jsonl": 1,
-        ".arch/ecp-registry.jsonl": 1,
-        ".arch/reflect-breach-log.jsonl": 1,
-        "cli/src/main/ts/application/commands/reprioritize-command.ts": 1,
-        "cli/src/main/ts/application/commands/task-command.ts": 1,
-        "cli/src/main/ts/application/use-cases/reprioritize-corpus.ts": 1,
         "docs/INBOX.md": 1,
-        "docs/SENTINEL-LOG.md": 1,
         "docs/archive/TASK-955.md": 1,
         "docs/tasks/TASK-283.md": 1,
         "docs/tasks/TASK-939.md": 1,
         "docs/tasks/TASK-940.md": 1,
-        "docs/tasks/TASK-955.md": 2
+        "docs/tasks/TASK-955.md": 1
       }
     },
     "TASK-956": {
