@@ -3859,7 +3859,7 @@
       "title": "Govern/Reflect Structural Separation"
     }
   },
-  "builtAt": "2026-05-25T16:46:26.289Z",
+  "builtAt": "2026-05-25T16:48:26.143Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -9738,17 +9738,18 @@
       }
     },
     "TASK-242": {
-      "commitCount": 2,
+      "commitCount": 3,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-25T18:46:22+02:00",
+      "lastCommitDate": "2026-05-25T18:48:22+02:00",
       "recentCommitRefs": [
+        "2125c0dc",
         "42bb8e79",
         "9b47f7e7"
       ],
       "touchedFrequency": {
         ".arch/chronicle.jsonl": 1,
         ".arch/ecp-registry.jsonl": 1,
-        ".arch/focus-ledger.jsonl": 1,
+        ".arch/focus-ledger.jsonl": 2,
         ".arch/status-projection.json": 1,
         "cli/.arch/status-projection.json": 1,
         "docs/tasks/TASK-1010.md": 1,
@@ -9756,7 +9757,7 @@
       }
     },
     "TASK-920": {
-      "commitCount": 7,
+      "commitCount": 6,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-22T16:43:51+02:00",
       "recentCommitRefs": [
@@ -9765,12 +9766,11 @@
         "205c218d",
         "8e1f0366",
         "9577ff69",
-        "a01fc6f4",
         "c57267b2"
       ],
       "touchedFrequency": {
         ".arch/corpus-index.json": 1,
-        ".arch/focus-ledger.jsonl": 6,
+        ".arch/focus-ledger.jsonl": 5,
         ".arch/reflect-breach-log.jsonl": 1,
         ".arch/status-projection.json": 1,
         "README.md": 1,
@@ -10195,33 +10195,26 @@
       }
     },
     "TASK-974": {
-      "commitCount": 8,
+      "commitCount": 6,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-20T15:17:49+02:00",
       "recentCommitRefs": [
         "01c0c958",
-        "17bc9a39",
         "431d7386",
         "466c192e",
         "598d90e9",
         "aa0c3120",
-        "dabce0c4",
-        "e5d2c5d1"
+        "dabce0c4"
       ],
       "touchedFrequency": {
         ".gitignore": 1,
-        "cli/src/main/ts/application/commands/review-command.ts": 1,
-        "cli/src/main/ts/application/use-cases/drift-checker.ts": 1,
-        "cli/src/main/ts/application/use-cases/review-system.ts": 2,
-        "cli/src/main/ts/domain/models/task.ts": 1,
-        "cli/src/main/ts/infrastructure/filesystem/markdown-task-repository.ts": 1,
-        "cli/src/test/ts/escalation-maturity-e5.test.ts": 1,
+        "cli/src/main/ts/application/use-cases/review-system.ts": 1,
         "docs/INBOX.md": 1,
         "docs/SENTINEL-LOG.md": 1,
         "docs/archive/TASK-974.md": 1,
         "docs/tasks/TASK-956.md": 1,
         "docs/tasks/TASK-972.md": 1,
-        "docs/tasks/TASK-974.md": 3
+        "docs/tasks/TASK-974.md": 2
       }
     },
     "TASK-975": {
