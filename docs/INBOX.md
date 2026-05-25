@@ -65,3 +65,6 @@ _Generated: 2026-05-24T11:47Z by [THINK] DEEP session_
 | ADR-034 filed extending ADR-026 with explicit govern/reflect | file | ✔ | exists: docs/adr/ADR-034-govern-reflect-separation.md |
 | `npm test` passes. | prose | ✔ | prose: human-verified (non-automated) |
 | `arch review` passes. | cmd | ✔ | exit 0 (expected 0) |
+
+## [2026-05-25 05:27] INFLUENCE_THRESHOLD_VIOLATION | REFLECT
+Evidence: Engagement 48% is below threshold 50% — attribution discipline review required

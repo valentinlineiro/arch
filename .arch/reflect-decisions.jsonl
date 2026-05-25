@@ -23,3 +23,5 @@
 {"decision_id": "D-det-gov-gates", "timestamp": "2026-05-24T19:03:18.088973+00:00", "target": "IDEA-deterministic-governance-gates", "outcome": "PROMOTE", "finality": "committed", "influence_declared": false, "based_on_proposals": []}
 {"decision_id": "D-IDEA-pro", "timestamp": "2026-05-25T05:21:45.857588+00:00", "target": "IDEA-project-dod-gate", "outcome": "PROMOTE", "finality": "committed", "influence_declared": false, "based_on_proposals": []}
 {"decision_id": "D-IDEA-pro", "timestamp": "2026-05-25T05:21:45.858105+00:00", "target": "IDEA-project-scaffold", "outcome": "PROMOTE", "finality": "committed", "influence_declared": false, "based_on_proposals": []}
+{"decision_id": "D-inbox-hy", "timestamp": "2026-05-25T05:27:16.788752+00:00", "target": "IDEA-inbox-hygiene", "outcome": "PROMOTE", "finality": "committed", "influence_declared": false, "based_on_proposals": []}
+{"decision_id": "D-status-a", "timestamp": "2026-05-25T05:27:16.789402+00:00", "target": "IDEA-status-alerts-fix", "outcome": "PROMOTE", "finality": "committed", "influence_declared": false, "based_on_proposals": []}
