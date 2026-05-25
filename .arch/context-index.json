@@ -3859,7 +3859,7 @@
       "title": "Govern/Reflect Structural Separation"
     }
   },
-  "builtAt": "2026-05-25T16:44:54.896Z",
+  "builtAt": "2026-05-25T16:45:10.037Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -9055,18 +9055,19 @@
       }
     },
     "TASK-1009": {
-      "commitCount": 4,
+      "commitCount": 5,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-25T18:44:51+02:00",
+      "lastCommitDate": "2026-05-25T18:45:06+02:00",
       "recentCommitRefs": [
         "1ca26fd7",
+        "815324f1",
         "94201c50",
         "b3c2f544",
         "c26ac146"
       ],
       "touchedFrequency": {
         ".arch/chronicle.jsonl": 1,
-        ".arch/focus-ledger.jsonl": 3,
+        ".arch/focus-ledger.jsonl": 4,
         "cli/src/main/ts/application/commands/govern-command.ts": 1,
         "cli/src/main/ts/application/use-cases/govern-system.ts": 1,
         "cli/src/main/ts/application/use-cases/inbox-hygiene.ts": 1,
@@ -9920,20 +9921,17 @@
       }
     },
     "TASK-958": {
-      "commitCount": 15,
+      "commitCount": 12,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-20T08:29:54+02:00",
       "recentCommitRefs": [
-        "3070c32e",
         "3f938696",
         "541d8566",
         "6eb1be6b",
         "7c3904de",
         "7d133f14",
-        "902b18ac",
         "929bb9b9",
         "a6edcda4",
-        "a817a579",
         "b2a1daab",
         "b727781e",
         "e5d7e78d",
@@ -9941,18 +9939,13 @@
         "f4c267ac"
       ],
       "touchedFrequency": {
-        ".arch/chronicle.jsonl": 1,
-        ".arch/escalations.jsonl": 1,
         ".arch/focus-ledger.jsonl": 5,
-        ".arch/reflect-breach-log.jsonl": 1,
         "docs/EPISTEMIC-DOCTRINE.md": 2,
-        "docs/INBOX.md": 2,
-        "docs/METRICS.md": 1,
-        "docs/SENTINEL-LOG.md": 1,
+        "docs/INBOX.md": 1,
         "docs/adr/ADR-026-epistemic-layer-separation.md": 2,
         "docs/archive/TASK-958.md": 1,
-        "docs/tasks/TASK-958.md": 4,
-        "docs/tensions/TENSION-006-inbox-dual-truth.md": 2
+        "docs/tasks/TASK-958.md": 3,
+        "docs/tensions/TENSION-006-inbox-dual-truth.md": 1
       }
     },
     "TASK-959": {
