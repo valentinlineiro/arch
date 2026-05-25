@@ -3823,7 +3823,7 @@
       "title": "Govern/Reflect Structural Separation"
     }
   },
-  "builtAt": "2026-05-25T14:55:34.311Z",
+  "builtAt": "2026-05-25T14:59:54.453Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -8980,25 +8980,32 @@
       }
     },
     "TASK-1012": {
-      "commitCount": 5,
+      "commitCount": 7,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-25T16:55:25+02:00",
+      "lastCommitDate": "2026-05-25T16:59:24+02:00",
       "recentCommitRefs": [
         "345f7225",
         "3862fc3c",
+        "39a776a1",
         "53ea5a58",
         "70d394fb",
+        "7aa66487",
         "b853e434"
       ],
       "touchedFrequency": {
-        ".arch/chronicle.jsonl": 1,
+        ".arch/causal-signal.jsonl": 1,
+        ".arch/chronicle.jsonl": 2,
+        ".arch/context-feedback.json": 1,
         ".arch/focus-ledger.jsonl": 2,
+        ".arch/temporal-index.jsonl": 1,
         "cli/src/main/ts/application/use-cases/drift-checker.ts": 1,
         "cli/src/test/ts/drift-checker.test.ts": 1,
+        "docs/EVENTS.md": 1,
         "docs/INBOX.md": 1,
         "docs/agents/DO.md": 1,
         "docs/agents/THINK.md": 1,
-        "docs/tasks/TASK-1012.md": 3
+        "docs/archive/TASK-1012.md": 1,
+        "docs/tasks/TASK-1012.md": 4
       }
     },
     "TASK-1013": {
@@ -9018,15 +9025,16 @@
       }
     },
     "TASK-1014": {
-      "commitCount": 2,
+      "commitCount": 3,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-25T16:55:30+02:00",
+      "lastCommitDate": "2026-05-25T16:59:51+02:00",
       "recentCommitRefs": [
         "132fb725",
+        "1971106f",
         "d864ae0f"
       ],
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 1,
+        ".arch/focus-ledger.jsonl": 2,
         "docs/tasks/TASK-1014.md": 2
       }
     },
@@ -9622,30 +9630,18 @@
       }
     },
     "TASK-940": {
-      "commitCount": 5,
+      "commitCount": 2,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-19T15:29:54+02:00",
       "recentCommitRefs": [
-        "019681ea",
-        "37dc6888",
         "51003e69",
-        "a11645f2",
         "cac3c46c"
       ],
       "touchedFrequency": {
-        ".arch/causal-signal.jsonl": 1,
-        ".arch/chronicle.jsonl": 1,
-        ".arch/reflect-breach-log.jsonl": 1,
-        "cli/src/main/ts/application/commands/capture-command.ts": 1,
-        "cli/src/main/ts/application/commands/task-command.ts": 1,
-        "cli/src/main/ts/application/use-cases/semantic-collision-detector.ts": 1,
-        "docs/EVENTS.md": 1,
-        "docs/INBOX.md": 1,
-        "docs/METRICS.md": 1,
         "docs/archive/TASK-940.md": 1,
         "docs/tasks/TASK-283.md": 1,
         "docs/tasks/TASK-939.md": 1,
-        "docs/tasks/TASK-940.md": 2,
+        "docs/tasks/TASK-940.md": 1,
         "docs/tasks/TASK-955.md": 1
       }
     },
@@ -9672,20 +9668,6 @@
         "docs/tasks/TASK-978.md": 1,
         "docs/tasks/TASK-979.md": 1,
         "docs/tasks/TASK-980.md": 1
-      }
-    },
-    "TASK-951": {
-      "commitCount": 2,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-19T14:54:26+02:00",
-      "recentCommitRefs": [
-        "72bd614a",
-        "a5f0b07a"
-      ],
-      "touchedFrequency": {
-        "docs/archive/TASK-951.md": 1,
-        "docs/guidelines/core.md": 1,
-        "docs/tasks/TASK-951.md": 1
       }
     },
     "TASK-952": {
