@@ -1,6 +1,7 @@
 import { createHash } from 'node:crypto';
 import type { FileSystem } from '../../domain/repositories/file-system.js';
 import type { GitRepository } from '../../domain/repositories/git-repository.js';
+import { PathResolver } from '../../domain/services/path-resolver.js';
 import type {
   ContextIndex,
   FileEntry,
@@ -61,10 +62,11 @@ export function computeHash(content: string): string {
 }
 
 export class BuildIndex {
-  private readonly indexPath = '.arch/context-index.json';
+  private readonly pr = PathResolver.from({});
+  private readonly indexPath = PathResolver.from({}).contextIndex;
   private readonly srcRoot = 'cli/src/main/ts';
-  private readonly adrDir = 'docs/adr';
-  private readonly taskDirs = ['docs/tasks', 'docs/archive'];
+  private readonly adrDir = PathResolver.from({}).adr;
+  private readonly taskDirs = [PathResolver.from({}).tasks, PathResolver.from({}).archive];
   private readonly stopwords = new Set([
     'the', 'a', 'an', 'is', 'are', 'in', 'of', 'to', 'and', 'for', 'that',
     'this', 'it', 'not', 'as', 'at', 'by', 'or', 'be', 'do', 'if', 'on',
@@ -105,19 +107,19 @@ export class BuildIndex {
   }
 
   private async checkEpochAndWipe(): Promise<void> {
-    const epochPath = '.arch/context/schema-version.json';
+    const epochPath = `${this.pr.archDir}/context/schema-version.json`;
     let currentEpoch = { ...ACTIVE_EPOCH };
     try {
       if (await this.fileSystem.exists(epochPath)) {
         const raw = await this.fileSystem.readFile(epochPath);
         currentEpoch = JSON.parse(raw);
       } else {
-        await this.fileSystem.mkdir('.arch/context');
+        await this.fileSystem.mkdir(`${this.pr.archDir}/context`);
         await this.fileSystem.writeFile(epochPath, JSON.stringify(ACTIVE_EPOCH, null, 2) + '\n');
         return;
       }
     } catch {
-      await this.fileSystem.mkdir('.arch/context');
+      await this.fileSystem.mkdir(`${this.pr.archDir}/context`);
       await this.fileSystem.writeFile(epochPath, JSON.stringify(ACTIVE_EPOCH, null, 2) + '\n');
       return;
     }
@@ -125,7 +127,7 @@ export class BuildIndex {
     let needsWrite = false;
 
     if (currentEpoch.heuristicModelVersion !== ACTIVE_EPOCH.heuristicModelVersion) {
-      await this.wipeDirectory('.arch/context/derived/heuristic');
+      await this.wipeDirectory(`${this.pr.archDir}/context/derived/heuristic`);
       currentEpoch.heuristicModelVersion = ACTIVE_EPOCH.heuristicModelVersion;
       needsWrite = true;
     }
@@ -134,7 +136,7 @@ export class BuildIndex {
       currentEpoch.projectionVersion !== ACTIVE_EPOCH.projectionVersion ||
       currentEpoch.schemaVersion !== ACTIVE_EPOCH.schemaVersion
     ) {
-      await this.wipeDirectory('.arch/context/governance/projections');
+      await this.wipeDirectory(`${this.pr.archDir}/context/governance/projections`);
       currentEpoch.projectionVersion = ACTIVE_EPOCH.projectionVersion;
       currentEpoch.schemaVersion = ACTIVE_EPOCH.schemaVersion;
       needsWrite = true;
@@ -144,11 +146,11 @@ export class BuildIndex {
       currentEpoch.canonicalizationVersion !== ACTIVE_EPOCH.canonicalizationVersion ||
       currentEpoch.operatorVersion !== ACTIVE_EPOCH.operatorVersion
     ) {
-      await this.wipeDirectory('.arch/context/source');
-      await this.wipeDirectory('.arch/context/governance/raw');
-      await this.wipeDirectory('.arch/context/governance/projections');
-      await this.wipeDirectory('.arch/context/provenance');
-      await this.wipeDirectory('.arch/context/derived');
+      await this.wipeDirectory(`${this.pr.archDir}/context/source`);
+      await this.wipeDirectory(`${this.pr.archDir}/context/governance/raw`);
+      await this.wipeDirectory(`${this.pr.archDir}/context/governance/projections`);
+      await this.wipeDirectory(`${this.pr.archDir}/context/provenance`);
+      await this.wipeDirectory(`${this.pr.archDir}/context/derived`);
 
       currentEpoch.canonicalizationVersion = ACTIVE_EPOCH.canonicalizationVersion;
       currentEpoch.operatorVersion = ACTIVE_EPOCH.operatorVersion;
@@ -172,43 +174,43 @@ export class BuildIndex {
     
     // Shard raw & projected governance
     for (const [adrId, adrEntry] of Object.entries(adrs)) {
-      await this.writeShard('.arch/context/governance/raw', `${adrId}.json`, adrEntry);
-      await this.writeShard('.arch/context/governance/projections', `${adrId}.json`, adrEntry);
+      await this.writeShard(`${this.pr.archDir}/context/governance/raw`, `${adrId}.json`, adrEntry);
+      await this.writeShard(`${this.pr.archDir}/context/governance/projections`, `${adrId}.json`, adrEntry);
     }
 
     const adrTaskLinks = await this.buildAdrTaskLinks(adrs);
     for (const [adrId, linkEntry] of Object.entries(adrTaskLinks)) {
-      await this.writeShard('.arch/context/provenance', `links-${adrId}.json`, linkEntry);
+      await this.writeShard(`${this.pr.archDir}/context/provenance`, `links-${adrId}.json`, linkEntry);
     }
-    await this.fileSystem.mkdir('.arch/context/provenance');
+    await this.fileSystem.mkdir(`${this.pr.archDir}/context/provenance`);
     await this.fileSystem.writeFile(
-      '.arch/context/provenance/adr-task-links.json',
+      `${this.pr.archDir}/context/provenance/adr-task-links.json`,
       JSON.stringify(canonicalize(adrTaskLinks), null, 2) + '\n'
     );
 
     const guidelines = this.buildGuidelineIndex(contextRules);
     for (const [guidelineFile, rule] of Object.entries(guidelines)) {
-      await this.writeShard('.arch/context/governance/projections/guidelines', guidelineFile, rule);
+      await this.writeShard(`${this.pr.archDir}/context/governance/projections/guidelines`, guidelineFile, rule);
     }
 
     const failures = await this.buildFailureIndex();
     for (const [failureId, failure] of Object.entries(failures)) {
-      await this.writeShard('.arch/context/derived/failures', `${failureId}.json`, failure);
+      await this.writeShard(`${this.pr.archDir}/context/derived/failures`, `${failureId}.json`, failure);
     }
 
     const guidelineFailureLinks = this.buildGuidelineFailureLinks(failures, guidelines);
-    await this.fileSystem.mkdir('.arch/context/derived');
+    await this.fileSystem.mkdir(`${this.pr.archDir}/context/derived`);
     await this.fileSystem.writeFile(
-      '.arch/context/derived/guideline-failure-links.json',
+      `${this.pr.archDir}/context/derived/guideline-failure-links.json`,
       JSON.stringify(canonicalize(guidelineFailureLinks), null, 2) + '\n'
     );
 
     // Dynamic heuristic overlap shard to satisfy Test 3
-    await this.writeShard('.arch/context/derived/heuristic', 'keyword-links.json', { links: [] });
+    await this.writeShard(`${this.pr.archDir}/context/derived/heuristic`, 'keyword-links.json', { links: [] });
 
     const tasks = await this.buildTaskIndex(gitRepository);
     for (const [taskId, task] of Object.entries(tasks)) {
-      await this.writeShard('.arch/context/provenance/tasks', `${taskId}.json`, task);
+      await this.writeShard(`${this.pr.archDir}/context/provenance/tasks`, `${taskId}.json`, task);
     }
 
     const index: ContextIndex = {
@@ -264,7 +266,7 @@ export class BuildIndex {
     const tsFiles = await this.findTsFiles(this.srcRoot);
     const entries: Record<string, FileEntry> = {};
 
-    const trackerPath = '.arch/context/change-tracker.json';
+    const trackerPath = `${this.pr.archDir}/context/change-tracker.json`;
     let tracker = {
       schemaVersion: ACTIVE_EPOCH.schemaVersion,
       operatorVersion: ACTIVE_EPOCH.operatorVersion,
@@ -290,7 +292,7 @@ export class BuildIndex {
       let fileEntry: FileEntry | null = null;
       let hash = '';
 
-      const shardPath = this.getShardPath('.arch/context/source', filePath);
+      const shardPath = this.getShardPath(`${this.pr.archDir}/context/source`, filePath);
       if (cached && cached.mtime === mtime && (await this.fileSystem.exists(shardPath))) {
         try {
           const rawEntry = await this.fileSystem.readFile(shardPath);
@@ -310,7 +312,7 @@ export class BuildIndex {
         }
         hash = computeHash(content);
         fileEntry = await this.extractFileEntry(filePath);
-        await this.writeShard('.arch/context/source', filePath, fileEntry);
+        await this.writeShard(`${this.pr.archDir}/context/source`, filePath, fileEntry);
       }
 
       entries[filePath] = fileEntry;
@@ -322,7 +324,7 @@ export class BuildIndex {
     }
 
     tracker.files = nextTrackerFiles;
-    await this.fileSystem.mkdir('.arch/context');
+    await this.fileSystem.mkdir(`${this.pr.archDir}/context`);
     await this.fileSystem.writeFile(trackerPath, JSON.stringify(tracker, null, 2) + '\n');
 
     const depths = this.computeImportDepths(entries, `${this.srcRoot}/index.ts`);

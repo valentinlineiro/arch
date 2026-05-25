@@ -1,6 +1,7 @@
 import { Command } from '../../domain/models/command.js';
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import { PathResolver } from '../../domain/services/path-resolver.js';
 
 type Stack = 'node' | 'python' | 'go' | 'rust' | 'java' | 'unknown';
 
@@ -14,6 +15,7 @@ interface DetectedStack {
 
 export class InitCommand implements Command {
   private rootPath: string;
+  private readonly pr = PathResolver.from({});
 
   constructor(rootPath: string = '.') {
     this.rootPath = path.resolve(rootPath);
@@ -76,11 +78,11 @@ export class InitCommand implements Command {
     console.log('');
     if (minimal) {
       console.log('  1. Review ARCH.md               — your protocol rules');
-      console.log('  2. Create docs/tasks/TASK-001.md — your first task');
+      console.log(`  2. Create ${this.pr.tasks}/TASK-001.md — your first task`);
       console.log('  3. Run: arch check               — verify system integrity');
     } else {
       console.log('  1. Review docs/guidelines/core.md  — adjust stack rules if needed');
-      console.log('  2. Create docs/tasks/TASK-001.md   — your first task');
+      console.log(`  2. Create ${this.pr.tasks}/TASK-001.md   — your first task`);
       console.log('  3. Run: arch check                — verify system integrity');
       console.log('  4. Run: arch analyze              — THINK populates INBOX');
     }
@@ -151,23 +153,24 @@ export class InitCommand implements Command {
 
   private async scaffoldMinimal(stack: DetectedStack): Promise<void> {
     const dirs = [
-      'docs/tasks',
-      'docs/archive',
-      '.arch',
+      this.pr.tasks,
+      this.pr.archive,
+      this.pr.archDir,
     ];
 
     for (const dir of dirs) {
       await fs.mkdir(path.join(this.rootPath, dir), { recursive: true });
     }
 
+    const pr = this.pr;
     const files: Array<{ dest: string; content: string }> = [
       { dest: 'ARCH.md',                                 content: this.minimalArchMd() },
       { dest: 'arch.config.json',                        content: this.archConfig(stack) },
-      { dest: 'docs/INBOX.md',                           content: this.inboxMd() },
+      { dest: pr.inbox,                                  content: this.inboxMd() },
       { dest: 'docs/TASK-FORMAT.md',                     content: this.taskFormatMd() },
-      { dest: 'docs/tasks/.gitkeep',                     content: '' },
-      { dest: 'docs/archive/.gitkeep',                   content: '' },
-      { dest: 'docs/tasks/TASK-001.md',                  content: this.seedTaskMd() },
+      { dest: `${pr.tasks}/.gitkeep`,                    content: '' },
+      { dest: `${pr.archive}/.gitkeep`,                  content: '' },
+      { dest: `${pr.tasks}/TASK-001.md`,                 content: this.seedTaskMd() },
     ];
 
     for (const { dest, content } of files) {
@@ -187,17 +190,18 @@ export class InitCommand implements Command {
   }
 
   private async scaffold(stack: DetectedStack): Promise<void> {
+    const pr = this.pr;
     const dirs = [
-      'docs/agents',
-      'docs/guidelines',
-      'docs/tasks',
-      'docs/archive',
-      'docs/refinement',
-      'docs/refinement/archive',
-      'docs/adr',
+      pr.agents,
+      pr.guidelines,
+      pr.tasks,
+      pr.archive,
+      pr.refinement,
+      pr.refinementArchive,
+      pr.adr,
       'docs/tensions',
-      '.arch',
-      '.arch/costs',
+      pr.archDir,
+      `${pr.archDir}/costs`,
     ];
 
     for (const dir of dirs) {
@@ -207,20 +211,20 @@ export class InitCommand implements Command {
     const files: Array<{ dest: string; content: string }> = [
       { dest: 'docs/AGENTS.md',                          content: this.agentsMd() },
       { dest: 'arch.config.json',                        content: this.archConfig(stack) },
-      { dest: 'docs/agents/DO.md',                       content: this.doMd() },
-      { dest: 'docs/agents/THINK.md',                    content: this.thinkMd() },
-      { dest: 'docs/guidelines/core.md',                 content: this.coreMd(stack) },
-      { dest: 'docs/guidelines/autonomy.md',             content: this.autonomyMd() },
-      { dest: 'docs/INBOX.md',                           content: this.inboxMd() },
+      { dest: `${pr.agents}/DO.md`,                      content: this.doMd() },
+      { dest: `${pr.agents}/THINK.md`,                   content: this.thinkMd() },
+      { dest: `${pr.guidelines}/core.md`,                content: this.coreMd(stack) },
+      { dest: `${pr.guidelines}/autonomy.md`,            content: this.autonomyMd() },
+      { dest: pr.inbox,                                  content: this.inboxMd() },
       { dest: 'docs/KAIZEN-LOG.md',                      content: this.kaizenMd() },
       { dest: 'docs/TASK-FORMAT.md',                     content: this.taskFormatMd() },
-      { dest: 'docs/adr/ADR-000-template.md',            content: this.adrTemplate() },
-      { dest: 'docs/tasks/.gitkeep',                     content: '' },
-      { dest: 'docs/archive/.gitkeep',                   content: '' },
-      { dest: 'docs/refinement/.gitkeep',                content: '' },
-      { dest: 'docs/refinement/archive/.gitkeep',        content: '' },
+      { dest: `${pr.adr}/ADR-000-template.md`,           content: this.adrTemplate() },
+      { dest: `${pr.tasks}/.gitkeep`,                    content: '' },
+      { dest: `${pr.archive}/.gitkeep`,                  content: '' },
+      { dest: `${pr.refinement}/.gitkeep`,               content: '' },
+      { dest: `${pr.refinementArchive}/.gitkeep`,        content: '' },
       { dest: 'docs/tensions/.gitkeep',                  content: '' },
-      { dest: 'docs/tasks/TASK-001.md',                  content: this.seedTaskMd() },
+      { dest: `${pr.tasks}/TASK-001.md`,                 content: this.seedTaskMd() },
     ];
 
     for (const { dest, content } of files) {
@@ -307,10 +311,10 @@ fi
         name: 'pre-push',
         content: `#!/usr/bin/env bash
 # ARCH pre-push hook
-# Rejects pushes with REVIEW-status tasks in docs/tasks/
+# Rejects pushes with REVIEW-status tasks in ${this.pr.tasks}/
 
 echo "ARCH -- checking for REVIEW-status tasks..."
-REVIEW_TASKS=$(grep -rl "\\\\| REVIEW |" docs/tasks/ 2>/dev/null || true)
+REVIEW_TASKS=$(grep -rl "\\\\| REVIEW |" ${this.pr.tasks}/ 2>/dev/null || true)
 if [ -n "$REVIEW_TASKS" ]; then
     echo "Error: Push blocked -- REVIEW-status tasks found:"
     echo "$REVIEW_TASKS" | sed 's/^/    - /'
@@ -384,12 +388,12 @@ echo "Integrity review passed. Proceeding with push."
 
 ## Task Lifecycle
 \`\`\`
-READY → IN_PROGRESS → REVIEW → DONE → archived (docs/archive/)
+READY → IN_PROGRESS → REVIEW → DONE → archived (${this.pr.archive}/)
 \`\`\`
 
 - **READY:** Available for selection.
 - **IN_PROGRESS:** Set \`Focus:yes\` and commit before implementing.
-- **REVIEW:** Run predicates, write Hansei, append \`REVIEW_REQUEST\` to \`docs/INBOX.md\`, commit, stop.
+- **REVIEW:** Run predicates, write Hansei, append \`REVIEW_REQUEST\` to \`${this.pr.inbox}\`, commit, stop.
 - **DONE:** Auditor verifies, moves to archive.
 `;
   }
@@ -410,22 +414,22 @@ READY → IN_PROGRESS → REVIEW → DONE → archived (docs/archive/)
 ## System Lifecycle
 
 \`\`\`
-IDEA → DRAFT (docs/refinement/) → THINK evaluates → human decides → TASK (docs/tasks/)
+IDEA → DRAFT (${this.pr.refinement}/) → THINK evaluates → human decides → TASK (${this.pr.tasks}/)
 
-TASK: READY → IN_PROGRESS → REVIEW → DONE → archived (docs/archive/)
+TASK: READY → IN_PROGRESS → REVIEW → DONE → archived (${this.pr.archive}/)
 \`\`\`
 
-**The implementing agent cannot archive its own task.** A separate Auditor session verifies each AC against the actual repository state, then moves the file to \`docs/archive/\`.
+**The implementing agent cannot archive its own task.** A separate Auditor session verifies each AC against the actual repository state, then moves the file to \`${this.pr.archive}/\`.
 
 ### Task status transitions
 
 | Status | Location | Agent action |
 |--------|----------|--------------|
-| \`READY\` | \`docs/tasks/\` | Available for selection. \`Focus:no\`. |
-| \`IN_PROGRESS\` | \`docs/tasks/\` | Set \`Focus:yes\`, commit **before** any implementation. |
-| \`REVIEW\` | \`docs/tasks/\` | Run predicates, write Hansei, append \`REVIEW_REQUEST\` to \`docs/INBOX.md\`, commit, stop. |
-| \`DONE\` | \`docs/tasks/\` → \`docs/archive/\` | Auditor sets DONE + \`Closed-at\`. \`arch govern\` moves the file. |
-| \`BLOCKED\` | \`docs/tasks/\` | Halted on missing dependency. |
+| \`READY\` | \`${this.pr.tasks}/\` | Available for selection. \`Focus:no\`. |
+| \`IN_PROGRESS\` | \`${this.pr.tasks}/\` | Set \`Focus:yes\`, commit **before** any implementation. |
+| \`REVIEW\` | \`${this.pr.tasks}/\` | Run predicates, write Hansei, append \`REVIEW_REQUEST\` to \`${this.pr.inbox}\`, commit, stop. |
+| \`DONE\` | \`${this.pr.tasks}/\` → \`${this.pr.archive}/\` | Auditor sets DONE + \`Closed-at\`. \`arch govern\` moves the file. |
+| \`BLOCKED\` | \`${this.pr.tasks}/\` | Halted on missing dependency. |
 
 ---
 
@@ -449,7 +453,7 @@ TASK: READY → IN_PROGRESS → REVIEW → DONE → archived (docs/archive/)
 ---
 
 ## Refinement flow
-- \`idea:\` prefix in DO → draft in \`docs/refinement/\` → THINK evaluates → human promotes → TASK
+- \`idea:\` prefix in DO → draft in \`${this.pr.refinement}/\` → THINK evaluates → human promotes → TASK
 - Promoting a draft: the **decision** requires explicit human instruction (human writes \`PROMOTE → TASK-XXX\` in the IDEA's Decision field). The **execution** of an already-decided promotion follows the L2 autonomy rule — see \`docs/guidelines/autonomy.md\`.
 
 ---
@@ -514,7 +518,7 @@ TASK: READY → IN_PROGRESS → REVIEW → DONE → archived (docs/archive/)
           'No major architectural changes without an approved ADR',
         ],
         protectedPaths: [
-          'docs/adr/',
+          `${this.pr.adr}/`,
           'arch.config.json',
         ],
         hanseiSinceTaskId: 1,
@@ -526,12 +530,12 @@ TASK: READY → IN_PROGRESS → REVIEW → DONE → archived (docs/archive/)
         L: { turns: 100, cost: 2.00 },
       },
       paths: {
-        tasks: 'docs/tasks',
-        archive: 'docs/archive',
-        guidelines: 'docs/guidelines',
-        agents: 'docs/agents',
-        refinement: 'docs/refinement',
-        adr: 'docs/adr',
+        tasks: this.pr.tasks,
+        archive: this.pr.archive,
+        guidelines: this.pr.guidelines,
+        agents: this.pr.agents,
+        refinement: this.pr.refinement,
+        adr: this.pr.adr,
       },
       clis: [
         {
@@ -577,19 +581,19 @@ TASK: READY → IN_PROGRESS → REVIEW → DONE → archived (docs/archive/)
 
 ## Intent: Execute Task
 1. \`git fetch\` — sync state safely without merging.
-2. Find highest priority \`READY\` task in \`docs/tasks/\` using \`arch task next\`.
+2. Find highest priority \`READY\` task in \`${this.pr.tasks}/\` using \`arch task next\`.
 3. Verify task ACs against \`negativeConstraints\` in \`arch.config.json\`. Halt if violation detected.
 4. Set status to \`IN_PROGRESS\`, add lock in Meta line, and commit immediately before touching any implementation file.
 5. Implement against Acceptance Criteria ONLY. No scope additions.
 6. On completion:
    - Append \`## Hansei\` section with: \`**Severity:**\`, \`**Category:**\`, \`**Decision:**\`, \`**Constraint:**\`, \`**Cost:**\`, \`**Forward Action:**\`
    - Run \`arch task review TASK-XXX\` to execute all \`cmd:\` predicates and set status to REVIEW.
-   - Append \`REVIEW_REQUEST\` to \`docs/INBOX.md\` with Task ID, AC list, changed files.
+   - Append \`REVIEW_REQUEST\` to \`${this.pr.inbox}\` with Task ID, AC list, changed files.
    - Release lock and stop.
-7. **Auditor Step:** A fresh session reads \`docs/INBOX.md\`, runs \`arch check\`, verifies each AC. Pass → \`REVIEW_PASS\` + DONE. Fail → \`REVIEW_FAIL\` + back to READY.
+7. **Auditor Step:** A fresh session reads \`${this.pr.inbox}\`, runs \`arch check\`, verifies each AC. Pass → \`REVIEW_PASS\` + DONE. Fail → \`REVIEW_FAIL\` + back to READY.
 
 ## Intent: Operations
-- \`idea:\` prefix → create \`docs/refinement/IDEA-[slug].md\` and commit.
+- \`idea:\` prefix → create \`${this.pr.refinement}/IDEA-[slug].md\` and commit.
 - Mark DONE → add \`Closed-at\` timestamp, set status DONE. Auditor moves to archive.
 
 ## Andon Cord (halt immediately)
@@ -598,7 +602,7 @@ TASK: READY → IN_PROGRESS → REVIEW → DONE → archived (docs/archive/)
 3. EXEC phase exceeds \`governance.execTimeoutMinutes\`.
 4. Implementation requires touching a \`protectedPath\` without a prior ADR.
 
-**On halt:** append \`ANDON_HALT\` to \`docs/INBOX.md\` and exit.
+**On halt:** append \`ANDON_HALT\` to \`${this.pr.inbox}\` and exit.
 `;
   }
 
@@ -610,9 +614,9 @@ TASK: READY → IN_PROGRESS → REVIEW → DONE → archived (docs/archive/)
 ## Phase 1: Context & Replenishment
 0. Print: \`[THINK] Phase 1 — Context & Replenishment\` to stdout.
 1. Note: \`arch analyze\` triggered this session. This is the analysis layer — proposals only.
-2. **Health Evaluation:** Identify P0 tasks that are blocked or not focused. If a task is \`IN_PROGRESS\` with a lock > 3 days, create a P1 \`READY\` bug task in \`docs/tasks/\`.
-3. **Replenishment check:** Count \`READY\` tasks in \`docs/tasks/\`. If count < 3, propose at least one new IDEA in \`docs/refinement/\` before continuing.
-4. **INBOX Regeneration:** Overwrite \`docs/INBOX.md\` with current loop status, active/READY task counts, pending items (\`AWAITING_PROMOTION\`, \`AWAITING_REVIEW\`), and summaries of the last 5 completed tasks. Commit with \`[THINK]\` tag.
+2. **Health Evaluation:** Identify P0 tasks that are blocked or not focused. If a task is \`IN_PROGRESS\` with a lock > 3 days, create a P1 \`READY\` bug task in \`${this.pr.tasks}/\`.
+3. **Replenishment check:** Count \`READY\` tasks in \`${this.pr.tasks}/\`. If count < 3, propose at least one new IDEA in \`${this.pr.refinement}/\` before continuing.
+4. **INBOX Regeneration:** Overwrite \`${this.pr.inbox}\` with current loop status, active/READY task counts, pending items (\`AWAITING_PROMOTION\`, \`AWAITING_REVIEW\`), and summaries of the last 5 completed tasks. Commit with \`[THINK]\` tag.
 5. **Evidence Required:** Every recommendation must cite a concrete signal.
 
 ## Phase 2: Kaizen
@@ -632,11 +636,11 @@ TASK: READY → IN_PROGRESS → REVIEW → DONE → archived (docs/archive/)
 ## Phase 3: Continuous Kaizen
 0. Print: \`[THINK] Phase 3 — Continuous Kaizen\` to stdout.
 1. Review guidelines in \`docs/guidelines/\` for stale or missing rules.
-2. If a guideline change is needed: create \`docs/refinement/IDEA-guideline-[slug].md\` and append \`AWAITING_PROMOTION\` to \`docs/INBOX.md\`.
+2. If a guideline change is needed: create \`${this.pr.refinement}/IDEA-guideline-[slug].md\` and append \`AWAITING_PROMOTION\` to \`${this.pr.inbox}\`.
 3. Never modify \`docs/guidelines/\` directly.
 
 ## Hard Rules
-- THINK never creates task files directly. It creates IDEA files in \`docs/refinement/\`.
+- THINK never creates task files directly. It creates IDEA files in \`${this.pr.refinement}/\`.
 - THINK never sets task status. It never archives. It never governs.
 - Every proposal requires a source signal (\`Source:\` field in IDEA files).
 `;
@@ -811,7 +815,7 @@ _No entries yet. THINK mode populates this during arch reflect._
   }
   private seedTaskMd(): string {
     return `## TASK-001: Complete your first governed task
-**Meta:** P1 | S | READY | Focus:no | 2-code-generation | claude-code | docs/tasks/
+**Meta:** P1 | S | READY | Focus:no | 2-code-generation | claude-code | ${this.pr.tasks}/
 
 **Depends:** none
 
@@ -832,7 +836,7 @@ Welcome to ARCH. This task walks you through the full governed lifecycle.
   - \`cmd: arch review\`
 
 - [ ] You have run \`arch task done TASK-001\` to complete the lifecycle
-  - \`prose: task archived to docs/archive/\`
+  - \`prose: task archived to ${this.pr.archive}/\`
 
 ### Definition of Done
 - [ ] All ACs checked by Auditor
