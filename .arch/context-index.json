@@ -127,7 +127,7 @@
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-1010.md"
+          "taskPath": "docs/archive/TASK-1010.md"
         },
         "TASK-957": {
           "evidenceKinds": [
@@ -178,7 +178,7 @@
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-1010.md"
+          "taskPath": "docs/archive/TASK-1010.md"
         },
         "TASK-990": {
           "evidenceKinds": [
@@ -565,7 +565,7 @@
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-1010.md"
+          "taskPath": "docs/archive/TASK-1010.md"
         },
         "TASK-958": {
           "evidenceKinds": [
@@ -3703,7 +3703,7 @@
       "title": "Govern/Reflect Structural Separation"
     }
   },
-  "builtAt": "2026-05-25T12:57:27.787Z",
+  "builtAt": "2026-05-25T13:13:59.944Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -8650,14 +8650,15 @@
       }
     },
     "TASK-1006": {
-      "commitCount": 13,
+      "commitCount": 14,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-25T14:57:25+02:00",
+      "lastCommitDate": "2026-05-25T15:13:57+02:00",
       "recentCommitRefs": [
         "2d0987f2",
         "3862fc3c",
         "390e3bd0",
         "49c2ba94",
+        "553c1022",
         "7122079d",
         "8cc51101",
         "9e8e4892",
@@ -8670,7 +8671,7 @@
       ],
       "touchedFrequency": {
         ".arch/escalations.jsonl": 2,
-        ".arch/focus-ledger.jsonl": 6,
+        ".arch/focus-ledger.jsonl": 7,
         "arch.config.json": 1,
         "cli/src/main/ts/application/use-cases/reflect-influence-report.ts": 1,
         "cli/src/main/ts/application/use-cases/weak-signal-checker.ts": 1,
@@ -9254,13 +9255,11 @@
       }
     },
     "TASK-262": {
-      "commitCount": 3,
+      "commitCount": 1,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-19T13:40:34+02:00",
       "recentCommitRefs": [
-        "31c50e47",
-        "f03f7e40",
-        "f361254a"
+        "31c50e47"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
@@ -9268,9 +9267,8 @@
         ".arch/reflect-breach-log.jsonl": 1,
         "docs/EVENTS.md": 1,
         "docs/METRICS.md": 1,
-        "docs/archive/TASK-262.md": 2,
+        "docs/archive/TASK-262.md": 1,
         "docs/tasks/TASK-260.md": 1,
-        "docs/tasks/TASK-262.md": 1,
         "docs/tasks/TASK-265.md": 1
       }
     },
