@@ -3823,7 +3823,7 @@
       "title": "Govern/Reflect Structural Separation"
     }
   },
-  "builtAt": "2026-05-25T16:19:05.839Z",
+  "builtAt": "2026-05-25T16:20:04.166Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -9069,22 +9069,25 @@
       }
     },
     "TASK-1015": {
-      "commitCount": 6,
+      "commitCount": 8,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-25T18:19:02+02:00",
+      "lastCommitDate": "2026-05-25T18:20:01+02:00",
       "recentCommitRefs": [
         "0cf275d8",
         "2cfe3441",
         "609cfb91",
+        "6802401f",
+        "6a6e06f5",
         "7bfae1ac",
         "f4248f84",
         "f97716bd"
       ],
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 4,
+        ".arch/focus-ledger.jsonl": 5,
         "cli/src/main/ts/application/commands/init-command.ts": 1,
         "cli/src/main/ts/application/use-cases/build-index.ts": 1,
-        "docs/tasks/TASK-1015.md": 2
+        "docs/INBOX.md": 1,
+        "docs/tasks/TASK-1015.md": 3
       }
     },
     "TASK-206": {
@@ -9563,25 +9566,23 @@
       }
     },
     "TASK-920": {
-      "commitCount": 11,
+      "commitCount": 9,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-22T16:43:51+02:00",
       "recentCommitRefs": [
         "17c5d0ea",
         "19d92c29",
         "205c218d",
-        "456c73df",
         "8e1f0366",
         "9577ff69",
         "a01fc6f4",
-        "c1484282",
         "c57267b2",
         "d911d4cf",
         "df299037"
       ],
       "touchedFrequency": {
         ".arch/corpus-index.json": 1,
-        ".arch/focus-ledger.jsonl": 10,
+        ".arch/focus-ledger.jsonl": 8,
         ".arch/reflect-breach-log.jsonl": 1,
         ".arch/status-projection.json": 1,
         "README.md": 1,
@@ -9703,16 +9704,14 @@
       }
     },
     "TASK-955": {
-      "commitCount": 3,
+      "commitCount": 2,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-19T15:29:54+02:00",
       "recentCommitRefs": [
-        "4bed015a",
         "51003e69",
         "e1f2216e"
       ],
       "touchedFrequency": {
-        "docs/INBOX.md": 1,
         "docs/archive/TASK-955.md": 1,
         "docs/tasks/TASK-283.md": 1,
         "docs/tasks/TASK-939.md": 1,
