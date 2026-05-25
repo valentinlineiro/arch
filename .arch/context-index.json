@@ -3823,7 +3823,7 @@
       "title": "Govern/Reflect Structural Separation"
     }
   },
-  "builtAt": "2026-05-25T15:39:39.489Z",
+  "builtAt": "2026-05-25T16:17:13.280Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -9067,16 +9067,17 @@
       }
     },
     "TASK-1015": {
-      "commitCount": 3,
+      "commitCount": 4,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-25T17:39:36+02:00",
+      "lastCommitDate": "2026-05-25T18:17:10+02:00",
       "recentCommitRefs": [
         "0cf275d8",
+        "609cfb91",
         "7bfae1ac",
         "f4248f84"
       ],
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 2,
+        ".arch/focus-ledger.jsonl": 3,
         "docs/tasks/TASK-1015.md": 2
       }
     },
@@ -9601,27 +9602,17 @@
       }
     },
     "TASK-939": {
-      "commitCount": 5,
+      "commitCount": 2,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-19T15:29:54+02:00",
       "recentCommitRefs": [
         "51003e69",
-        "636d7d7a",
-        "dda8500f",
-        "ded2b6fb",
         "f928a703"
       ],
       "touchedFrequency": {
-        ".arch/chronicle.jsonl": 1,
-        ".arch/correction-signals.jsonl": 1,
-        "cli/src/main/ts/application/commands/task-command.ts": 1,
-        "cli/src/main/ts/application/use-cases/correction-signal-store.ts": 1,
-        "cli/src/main/ts/index.ts": 1,
-        "docs/INBOX.md": 1,
-        "docs/SENTINEL-LOG.md": 1,
         "docs/archive/TASK-939.md": 1,
         "docs/tasks/TASK-283.md": 1,
-        "docs/tasks/TASK-939.md": 2,
+        "docs/tasks/TASK-939.md": 1,
         "docs/tasks/TASK-940.md": 1,
         "docs/tasks/TASK-955.md": 1
       }
