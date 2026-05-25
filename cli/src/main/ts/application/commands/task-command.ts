@@ -311,8 +311,31 @@ export class TaskCommand implements Command {
       }
 
       try {
-        await this.markDone.execute(taskId, force);
+        const doneTask = await this.markDone.execute(taskId, force);
         fmt.check(`marking ${taskId} as DONE`);
+
+        if (this.gitRepository) {
+          const rp = this.rootPath ? this.rootPath + '/' : '';
+          const filesToStage = [
+            `${rp}docs/archive/${taskId}.md`,
+            `${rp}docs/tasks/${taskId}.md`,
+            `${rp}.arch/chronicle.jsonl`,
+            `${rp}.arch/causal-signal.jsonl`,
+            `${rp}.arch/context-feedback.json`,
+            `${rp}.arch/temporal-index.jsonl`,
+            `${rp}docs/EVENTS.md`,
+          ];
+          for (const f of filesToStage) {
+            try { await this.gitRepository.add(f); } catch { /* may not exist */ }
+          }
+          try {
+            await this.gitRepository.commit(`done: [${taskId}] ${doneTask.title ?? taskId}`);
+          } catch (err: any) {
+            if (!err.message?.includes('nothing to commit')) {
+              if (process.env.ARCH_DEBUG) console.error('[task-done] commit failed:', err);
+            }
+          }
+        }
       } catch (error: any) {
         fmt.fail(error.message);
         process.exit(1);

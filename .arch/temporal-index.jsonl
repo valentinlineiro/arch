@@ -20,3 +20,5 @@
 {"taskId":"TASK-1010","timestamp":"2026-05-25T13:13:53.225Z","labels":["[SpecDrift]"]}
 {"taskId":"TASK-1006","timestamp":"2026-05-25T13:42:28.018Z","labels":["[SpecDrift]"]}
 {"taskId":"TASK-1012","timestamp":"2026-05-25T14:55:27.872Z","labels":["[AuditGap]"]}
+{"taskId":"TASK-1014","timestamp":"2026-05-25T15:14:05.519Z","labels":["[AuditGap]"]}
+{"taskId":"TASK-1014","timestamp":"2026-05-25T15:14:40.069Z","labels":["[AuditGap]"]}
