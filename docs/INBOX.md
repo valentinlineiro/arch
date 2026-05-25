@@ -68,3 +68,26 @@ _Generated: 2026-05-24T11:47Z by [THINK] DEEP session_
 
 ## [2026-05-25 05:27] INFLUENCE_THRESHOLD_VIOLATION | REFLECT
 Evidence: Engagement 48% is below threshold 50% — attribution discipline review required
+
+## 2026-05-25 12:05:52 — Pattern Alerts
+[PATTERN-ALERT] [SpecDrift] detected 8 times — systemic issue. See docs/tensions/
+
+## [2026-05-25 12:22] INFLUENCE_BREACH_CLEARED | REFLECT
+Evidence: engagement threshold breach cleared. Verify: did health improve (more decisions attributed) — or did operators adapt behavior to the threshold (worked around the measurement)? These are opposite outcomes that look identical in the data.
+
+---
+**[REVIEW_REQUEST] TASK-1010 — arch init: minimal project bootstrap for external repos**
+Date: 2026-05-25
+
+**ACs:**
+- [x] `arch init` command exists → `cli/src/main/ts/application/commands/init-command.ts`
+- [x] `arch init --dry-run` exits 0 without writing files
+- [x] `arch review` passes
+- [x] Seed task titled "Complete your first governed task" with workflow walkthrough
+- [x] Idempotent (second run skips existing files)
+- [x] `init-command.test.ts` — 7 tests all pass
+
+**Changed files:**
+- `cli/src/main/ts/application/commands/init-command.ts` — added `--dry-run` flag, updated `seedTaskMd()`
+- `cli/src/test/ts/init-command.test.ts` — new, 7 tests
+- `docs/tasks/TASK-1010.md` — status REVIEW
