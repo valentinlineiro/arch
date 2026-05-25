@@ -164,3 +164,19 @@ Key: drift-checker.ts (46→0), build-index.ts (28→0, required sed bug fix), i
 
 ### Hansei
 H1/ToolingError — sed introduced broken single-quoted template strings in build-index.ts; corrected before build.
+
+---
+## REVIEW_REQUEST — TASK-1008
+**Task:** Fix arch status alerts: parse INBOX sections correctly, filter advisory noise
+**Status:** REVIEW
+**Date:** 2026-05-25
+
+### ACs verified
+- [x] `parseInboxAlerts()` scopes to `## Alerts` section only — file: status-command.ts exists
+- [x] Only `[ANDON_HALT]`, `[PATTERN-ALERT]`, `[CORPUS_ALERT]` shown — 7 unit tests pass covering advisory/markdown exclusion
+- [x] Max 3 shown with "... N more — run arch govern inbox" overflow line — test with 5 alerts confirms
+- [x] `arch review` passes
+
+### Changed files
+- `cli/src/main/ts/application/commands/status-command.ts`
+- `cli/src/test/ts/status-alerts.test.ts` (new, 7 tests)
