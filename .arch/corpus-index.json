@@ -1,8 +1,8 @@
 {
   "version": 1,
-  "builtAt": "2026-05-25T16:19:02.376Z",
-  "archiveCommit": "",
-  "taskCount": 173,
+  "builtAt": "2026-05-25T16:45:16.996Z",
+  "archiveCommit": "378:design",
+  "taskCount": 175,
   "entries": {
     "TASK-1000": {
       "id": "TASK-1000",
@@ -106,6 +106,23 @@
       "acMachineVerifiable": 0,
       "closurePath": "auditor"
     },
+    "TASK-1008": {
+      "id": "TASK-1008",
+      "size": "XS",
+      "class": "1-code-reasoning",
+      "closedAt": "2026-05-25T17:15:00.000Z",
+      "lockedCommit": "76afec39",
+      "actor": "unknown",
+      "severity": "H1",
+      "category": "[AuditGap]",
+      "decision": "Straightforward section-parse fix. Extracted `parseInboxAlerts()` as a pure exported function for testability. TDD cycle completed: 7 tests RED → GREEN. HanseiReconciliation flagged 4 `any` casts in `isBlocked()` and `priorityScore()` — these are pre-existing in the file and were not introduced or touched by this change. Declared here to satisfy the audit trail.",
+      "constraint": "Pre-existing `any` casts are in helper methods unrelated to this task's scope. Proper fix requires typing against the Task domain model — out of scope for an XS alert-parsing fix.",
+      "cost": "Negligible — pre-existing debt, no regression introduced.",
+      "forwardAction": "Create an IDEA to type `isBlocked` and `priorityScore` against the Task domain model and eliminate `any` from status-command.ts.",
+      "acCount": 4,
+      "acMachineVerifiable": 2,
+      "closurePath": "auditor"
+    },
     "TASK-1010": {
       "id": "TASK-1010",
       "size": "M",
@@ -187,6 +204,23 @@
       "constraint": "PathResolver is optional in all constructors — existing callers pass no extra argument and get default paths unchanged. No behavior change.",
       "cost": "No architectural debt. Pure additive injection with full backward compatibility.",
       "forwardAction": "TASK-1015 (cli-protocol-decoupling phase 3) wires PathResolver into commands and analysis layer.",
+      "acCount": 0,
+      "acMachineVerifiable": 0,
+      "closurePath": "auditor"
+    },
+    "TASK-1015": {
+      "id": "TASK-1015",
+      "size": "M",
+      "class": "2-code-generation",
+      "closedAt": "2026-05-25T16:30:00.000Z",
+      "lockedCommit": "623369aa",
+      "actor": "unknown",
+      "severity": "H1",
+      "category": "[ToolingError]",
+      "decision": "A `sed -i` command introduced broken single-quoted template strings (`'${this.pr.archDir}/context/...'`) in build-index.ts — TypeScript does not interpolate `${}` in single-quoted strings. The error was caught on context restore and corrected with targeted `replace_all` edits before the build. No broken code shipped to dist.",
+      "constraint": "The sed approach was used to batch-replace a large number of occurrences across a file. The correct approach for multi-occurrence replacements in TypeScript files is `replace_all` with exact string matches, not shell sed with regex — sed cannot distinguish quote types.",
+      "cost": "~20 minutes of correction work across context boundary.",
+      "forwardAction": "Avoid `sed -i` for TypeScript string replacements. Use Edit tool replace_all exclusively for bulk substitutions in .ts files.",
       "acCount": 0,
       "acMachineVerifiable": 0,
       "closurePath": "auditor"
