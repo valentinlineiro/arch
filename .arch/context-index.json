@@ -3703,7 +3703,7 @@
       "title": "Govern/Reflect Structural Separation"
     }
   },
-  "builtAt": "2026-05-25T13:42:33.825Z",
+  "builtAt": "2026-05-25T13:43:04.003Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -8704,14 +8704,15 @@
       }
     },
     "TASK-1007": {
-      "commitCount": 1,
+      "commitCount": 2,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-25T15:42:31+02:00",
+      "lastCommitDate": "2026-05-25T15:43:01+02:00",
       "recentCommitRefs": [
+        "2c082188",
         "bbccc90f"
       ],
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 1
+        ".arch/focus-ledger.jsonl": 2
       }
     },
     "TASK-1010": {
@@ -9206,17 +9207,6 @@
         "docs/tasks/TASK-242.md": 1
       }
     },
-    "TASK-260": {
-      "commitCount": 1,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-19T13:40:46+02:00",
-      "recentCommitRefs": [
-        "f5896009"
-      ],
-      "touchedFrequency": {
-        "docs/archive/TASK-260.md": 1
-      }
-    },
     "TASK-261": {
       "commitCount": 7,
       "commitRefOverflow": false,
@@ -9286,18 +9276,16 @@
       }
     },
     "TASK-265": {
-      "commitCount": 3,
+      "commitCount": 2,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-19T13:45:04+02:00",
       "recentCommitRefs": [
-        "05026b1f",
         "28bcf9b1",
         "c369f2a9"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
         ".arch/chronicle.jsonl": 1,
-        ".arch/focus-ledger.jsonl": 1,
         ".arch/reflect-breach-log.jsonl": 1,
         "cli/src/main/ts/application/use-cases/drift-checker.ts": 1,
         "docs/EVENTS.md": 1,
