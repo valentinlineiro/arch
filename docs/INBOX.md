@@ -122,3 +122,8 @@ Date: 2026-05-25
 **Date:** 2026-05-25
 **Task:** fix govern: stage and commit all files written during a tick
 **Summary:** Three commit leaks fixed in govern-system.ts. 17/17 tests pass.
+
+## REVIEW_REQUEST — TASK-1011
+**Date:** 2026-05-25
+**Task:** cli-protocol-decoupling phase 1: PathResolver service
+**Summary:** PathResolver created at domain/services/path-resolver.ts. 14 typed accessors, hardcoded defaults, config override support, static factory. 5 tests pass. Phases 2+3 captured as TASK-1014/TASK-1015.
