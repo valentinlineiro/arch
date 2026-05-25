@@ -3703,7 +3703,7 @@
       "title": "Govern/Reflect Structural Separation"
     }
   },
-  "builtAt": "2026-05-25T13:13:59.944Z",
+  "builtAt": "2026-05-25T13:21:13.811Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -8650,9 +8650,9 @@
       }
     },
     "TASK-1006": {
-      "commitCount": 14,
+      "commitCount": 15,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-25T15:13:57+02:00",
+      "lastCommitDate": "2026-05-25T15:21:11+02:00",
       "recentCommitRefs": [
         "2d0987f2",
         "3862fc3c",
@@ -8661,6 +8661,7 @@
         "553c1022",
         "7122079d",
         "8cc51101",
+        "982a3a83",
         "9e8e4892",
         "b58e578a",
         "d25f6070",
@@ -8671,7 +8672,7 @@
       ],
       "touchedFrequency": {
         ".arch/escalations.jsonl": 2,
-        ".arch/focus-ledger.jsonl": 7,
+        ".arch/focus-ledger.jsonl": 8,
         "arch.config.json": 1,
         "cli/src/main/ts/application/use-cases/reflect-influence-report.ts": 1,
         "cli/src/main/ts/application/use-cases/weak-signal-checker.ts": 1,
@@ -9295,12 +9296,11 @@
       }
     },
     "TASK-265": {
-      "commitCount": 6,
+      "commitCount": 5,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-19T13:45:04+02:00",
       "recentCommitRefs": [
         "05026b1f",
-        "06580eed",
         "28bcf9b1",
         "3e540eae",
         "c369f2a9",
@@ -9309,7 +9309,7 @@
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
         ".arch/chronicle.jsonl": 1,
-        ".arch/focus-ledger.jsonl": 4,
+        ".arch/focus-ledger.jsonl": 3,
         ".arch/reflect-breach-log.jsonl": 1,
         "cli/src/main/ts/application/use-cases/drift-checker.ts": 1,
         "docs/EVENTS.md": 1,
