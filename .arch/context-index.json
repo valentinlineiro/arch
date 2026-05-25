@@ -3859,7 +3859,7 @@
       "title": "Govern/Reflect Structural Separation"
     }
   },
-  "builtAt": "2026-05-25T16:45:37.474Z",
+  "builtAt": "2026-05-25T16:45:41.004Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -9055,12 +9055,13 @@
       }
     },
     "TASK-1009": {
-      "commitCount": 13,
+      "commitCount": 14,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-25T18:45:34+02:00",
+      "lastCommitDate": "2026-05-25T18:45:37+02:00",
       "recentCommitRefs": [
         "0667e2de",
         "1ca26fd7",
+        "63c7a2c7",
         "66933859",
         "79c3e947",
         "815324f1",
@@ -9075,7 +9076,7 @@
       ],
       "touchedFrequency": {
         ".arch/chronicle.jsonl": 1,
-        ".arch/focus-ledger.jsonl": 12,
+        ".arch/focus-ledger.jsonl": 13,
         "cli/src/main/ts/application/commands/govern-command.ts": 1,
         "cli/src/main/ts/application/use-cases/govern-system.ts": 1,
         "cli/src/main/ts/application/use-cases/inbox-hygiene.ts": 1,
@@ -9902,21 +9903,6 @@
         "docs/tasks/TASK-206.md": 1,
         "docs/tasks/TASK-957.md": 1,
         "docs/tasks/TASK-995.md": 1
-      }
-    },
-    "TASK-958": {
-      "commitCount": 3,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-20T08:29:54+02:00",
-      "recentCommitRefs": [
-        "a6edcda4",
-        "b727781e",
-        "f4c267ac"
-      ],
-      "touchedFrequency": {
-        "docs/EPISTEMIC-DOCTRINE.md": 1,
-        "docs/archive/TASK-958.md": 1,
-        "docs/tasks/TASK-958.md": 1
       }
     },
     "TASK-959": {
