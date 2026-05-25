@@ -825,6 +825,69 @@ test('VersionCompat - OK when protocolVersion and minimumCliVersion absent (pre-
   assert.strictEqual(check?.status, 'OK');
 });
 
+function makeStaleEscalationsFs(escalationsContent: string, ideaFiles: Record<string, string> = {}): MockFileSystem {
+  const fs = makeBaseFs();
+  fs.files['/repo/.arch/escalations.jsonl'] = escalationsContent;
+  fs.dirs['/repo/docs/refinement'] = Object.keys(ideaFiles).map(k => k.split('/').pop()!);
+  for (const [path, content] of Object.entries(ideaFiles)) {
+    fs.files[`/repo/docs/refinement/${path}`] = content;
+  }
+  fs.dirs['/repo/docs/tasks'] = [];
+  return fs;
+}
+
+test('StaleEscalations - OK when escalations file does not exist', async () => {
+  const fs = makeBaseFs();
+  fs.dirs['/repo/docs/tasks'] = [];
+  fs.dirs['/repo/docs/refinement'] = [];
+  const checker = new DriftChecker(fs, new MockGitRepository(), '/repo', '0.2.0');
+  const result = await checker.check();
+  const check = result.find(r => r.check === 'StaleEscalations');
+  assert.ok(check);
+  assert.strictEqual(check?.status, 'OK');
+});
+
+test('StaleEscalations - OK when all AWAITING_PROMOTION entries are RESOLVED', async () => {
+  const resolved = JSON.stringify({ escalation_id: 'e1', type: 'AWAITING_PROMOTION', subject: 'IDEA-foo', status: 'RESOLVED' });
+  const fs = makeStaleEscalationsFs(resolved + '\n', { 'IDEA-foo.md': '**Decision:** PROMOTE → TASK-42\n' });
+  const checker = new DriftChecker(fs, new MockGitRepository(), '/repo', '0.2.0');
+  const result = await checker.check();
+  const check = result.find(r => r.check === 'StaleEscalations');
+  assert.ok(check);
+  assert.strictEqual(check?.status, 'OK');
+});
+
+test('StaleEscalations - OK when OPEN entry but IDEA Decision field is empty', async () => {
+  const open = JSON.stringify({ escalation_id: 'e1', type: 'AWAITING_PROMOTION', subject: 'IDEA-foo', status: 'OPEN' });
+  const fs = makeStaleEscalationsFs(open + '\n', { 'IDEA-foo.md': '**Decision:** \n' });
+  const checker = new DriftChecker(fs, new MockGitRepository(), '/repo', '0.2.0');
+  const result = await checker.check();
+  const check = result.find(r => r.check === 'StaleEscalations');
+  assert.ok(check);
+  assert.strictEqual(check?.status, 'OK');
+});
+
+test('StaleEscalations - WARN when OPEN entry and IDEA Decision field is populated', async () => {
+  const open = JSON.stringify({ escalation_id: 'e1', type: 'AWAITING_PROMOTION', subject: 'IDEA-foo', status: 'OPEN' });
+  const fs = makeStaleEscalationsFs(open + '\n', { 'IDEA-foo.md': '**Decision:** PROMOTE → TASK-99\n' });
+  const checker = new DriftChecker(fs, new MockGitRepository(), '/repo', '0.2.0');
+  const result = await checker.check();
+  const check = result.find(r => r.check === 'StaleEscalations');
+  assert.ok(check);
+  assert.strictEqual(check?.status, 'WARN');
+  assert.ok(check?.details.some(d => d.includes('IDEA-foo')));
+});
+
+test('StaleEscalations - WARN only for AWAITING_PROMOTION type, not other escalation types', async () => {
+  const andon = JSON.stringify({ escalation_id: 'e1', type: 'ANDON_HALT', subject: 'TASK-001', status: 'OPEN' });
+  const fs = makeStaleEscalationsFs(andon + '\n');
+  const checker = new DriftChecker(fs, new MockGitRepository(), '/repo', '0.2.0');
+  const result = await checker.check();
+  const check = result.find(r => r.check === 'StaleEscalations');
+  assert.ok(check);
+  assert.strictEqual(check?.status, 'OK');
+});
+
 test('ExcisionStructuralCheck Gate 2 - passes when decision record references artifact without REJECT keyword', async () => {
   const fs = new MockFileSystem();
   const git = new MockGitRepository();

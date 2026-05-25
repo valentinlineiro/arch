@@ -41,6 +41,7 @@
    - **Idea Drafts:** If input starts with `idea:`, create `docs/refinement/IDEA-[slug].md` and commit immediately with `idea: add draft [slug]`.
    - **Archive/Move:** Move files between `tasks/` and `archive/`. Update `Focus:yes/no`. Commit once per op.
    - **Marking DONE:** Add `Closed-at` timestamp.
+   - **IDEA Decision (PROMOTE or REJECT):** When a human writes `PROMOTE → TASK-XXX` or `REJECT` in an IDEA's Decision field, the executing agent MUST append a RESOLVED record to `.arch/escalations.jsonl`: `{ escalation_id: "RESOLVED-<idea-slug>-<timestamp>", timestamp, type: "AWAITING_PROMOTION", subject: "<idea-slug>", status: "RESOLVED", reason: "<decision summary>", resolved_at: <ISO 8601>, resolved_by: "<session-id>" }`. This closes the open AWAITING_PROMOTION escalation entry and prevents `StaleEscalations` drift warnings.
 2. **Sprint Open:**
    - **Trigger:** Human declares new sprint with slug.
    - **Set:** Update `"currentSprint": "<slug>"` in `arch.config.json`.

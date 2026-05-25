@@ -127,3 +127,13 @@ Date: 2026-05-25
 **Date:** 2026-05-25
 **Task:** cli-protocol-decoupling phase 1: PathResolver service
 **Summary:** PathResolver created at domain/services/path-resolver.ts. 14 typed accessors, hardcoded defaults, config override support, static factory. 5 tests pass. Phases 2+3 captured as TASK-1014/TASK-1015.
+
+---
+[REVIEW_REQUEST] TASK-1012 — Fix escalation lifecycle gap: close-loop write at promotion + DriftChecker stale check
+ACs:
+- THINK.md Phase 1 updated with RESOLVED write instruction → file: docs/agents/THINK.md
+- DO.md Ops updated with IDEA Decision RESOLVED append step → file: docs/agents/DO.md
+- DriftChecker.checkStaleEscalations() added (WARN, not FAIL) → file: cli/src/main/ts/application/use-cases/drift-checker.ts
+- 5 new TDD tests — 60/60 drift-checker pass
+- arch review passes
+Changed files: docs/agents/THINK.md, docs/agents/DO.md, cli/src/main/ts/application/use-cases/drift-checker.ts, cli/src/test/ts/drift-checker.test.ts

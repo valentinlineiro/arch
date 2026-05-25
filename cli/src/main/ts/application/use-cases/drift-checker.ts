@@ -57,6 +57,7 @@ export class DriftChecker {
       this.checkTaskTemplateCompliance(),
       this.checkSentinelCoverage(),
       this.checkVersionCompat(),
+      this.checkStaleEscalations(),
     ]);
   }
 
@@ -1353,5 +1354,38 @@ export class DriftChecker {
     } catch (e) {
       return { check: 'VersionCompat', status: 'WARN', details: [`VersionCompat check error: ${e}`] };
     }
+  }
+
+  private async checkStaleEscalations(): Promise<DriftResult> {
+    const details: string[] = [];
+    let raw: string;
+    try {
+      raw = await this.fileSystem.readFile(`${this.rootPath}/.arch/escalations.jsonl`);
+    } catch {
+      return { check: 'StaleEscalations', status: 'OK', details: [] };
+    }
+
+    const openPromotions = raw
+      .split('\n')
+      .filter(l => l.trim())
+      .map(l => { try { return JSON.parse(l); } catch { return null; } })
+      .filter(e => e && e.type === 'AWAITING_PROMOTION' && e.status === 'OPEN');
+
+    for (const entry of openPromotions) {
+      const ideaFile = `${this.rootPath}/docs/refinement/${entry.subject}.md`;
+      let content: string;
+      try {
+        content = await this.fileSystem.readFile(ideaFile);
+      } catch {
+        continue;
+      }
+      const decisionMatch = content.match(/^\*\*Decision:\*\*\s*(.*)$/m);
+      const decisionValue = decisionMatch?.[1]?.trim() ?? '';
+      if (decisionValue) {
+        details.push(`${entry.subject} has a populated Decision field but escalation is still OPEN — append RESOLVED to .arch/escalations.jsonl`);
+      }
+    }
+
+    return { check: 'StaleEscalations', status: details.length === 0 ? 'OK' : 'WARN', details };
   }
 }
