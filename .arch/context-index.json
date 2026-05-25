@@ -3823,7 +3823,7 @@
       "title": "Govern/Reflect Structural Separation"
     }
   },
-  "builtAt": "2026-05-25T15:05:38.628Z",
+  "builtAt": "2026-05-25T15:06:05.710Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -9025,18 +9025,19 @@
       }
     },
     "TASK-1014": {
-      "commitCount": 5,
+      "commitCount": 6,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-25T17:05:35+02:00",
+      "lastCommitDate": "2026-05-25T17:06:02+02:00",
       "recentCommitRefs": [
         "132fb725",
         "1971106f",
+        "5ab39e38",
         "74b3eb3f",
         "85402993",
         "d864ae0f"
       ],
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 4,
+        ".arch/focus-ledger.jsonl": 5,
         "docs/tasks/TASK-1014.md": 2
       }
     },
@@ -9511,11 +9512,10 @@
       }
     },
     "TASK-263": {
-      "commitCount": 4,
+      "commitCount": 3,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-19T15:02:26+02:00",
       "recentCommitRefs": [
-        "06d2560c",
         "0c3adeff",
         "158799e5",
         "c20b1979"
@@ -9523,7 +9523,6 @@
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
         ".arch/chronicle.jsonl": 1,
-        ".arch/focus-ledger.jsonl": 1,
         ".arch/reflect-breach-log.jsonl": 1,
         "cli/src/main/ts/application/commands/explain-command.ts": 1,
         "docs/EVENTS.md": 1,
@@ -9670,20 +9669,6 @@
         "docs/tasks/TASK-978.md": 1,
         "docs/tasks/TASK-979.md": 1,
         "docs/tasks/TASK-980.md": 1
-      }
-    },
-    "TASK-953": {
-      "commitCount": 2,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-19T14:55:38+02:00",
-      "recentCommitRefs": [
-        "dfda61a0",
-        "e9f2a29c"
-      ],
-      "touchedFrequency": {
-        "docs/adr/ADR-013-two-tier-drift-detection.md": 1,
-        "docs/archive/TASK-953.md": 1,
-        "docs/tasks/TASK-953.md": 1
       }
     },
     "TASK-954": {
