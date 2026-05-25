@@ -3859,7 +3859,7 @@
       "title": "Govern/Reflect Structural Separation"
     }
   },
-  "builtAt": "2026-05-25T16:46:03.119Z",
+  "builtAt": "2026-05-25T16:46:06.589Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -9055,9 +9055,9 @@
       }
     },
     "TASK-1009": {
-      "commitCount": 20,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-25T18:46:00+02:00",
+      "commitCount": 21,
+      "commitRefOverflow": true,
+      "lastCommitDate": "2026-05-25T18:46:03+02:00",
       "recentCommitRefs": [
         "0667e2de",
         "1ca26fd7",
@@ -9077,12 +9077,12 @@
         "afc43eec",
         "b3c2f544",
         "b7501560",
-        "c26ac146",
+        "e9259bf6",
         "f64b2a7b"
       ],
       "touchedFrequency": {
         ".arch/chronicle.jsonl": 1,
-        ".arch/focus-ledger.jsonl": 19,
+        ".arch/focus-ledger.jsonl": 20,
         "cli/src/main/ts/application/commands/govern-command.ts": 1,
         "cli/src/main/ts/application/use-cases/govern-system.ts": 1,
         "cli/src/main/ts/application/use-cases/inbox-hygiene.ts": 1,
@@ -10178,28 +10178,19 @@
       }
     },
     "TASK-972": {
-      "commitCount": 7,
+      "commitCount": 4,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-20T14:47:09+02:00",
       "recentCommitRefs": [
-        "2ce07671",
         "598d90e9",
         "694c97a2",
         "8276e924",
-        "b90a8aed",
-        "c76fbc40",
-        "fcc49b47"
+        "c76fbc40"
       ],
       "touchedFrequency": {
         ".arch/corpus-index.json": 1,
         ".arch/last-audit.json": 1,
         ".arch/reflect-breach-log.jsonl": 1,
-        "cli/src/main/ts/application/commands/corpus-audit-command.ts": 1,
-        "cli/src/main/ts/domain/services/governance-drift-detector.ts": 1,
-        "cli/src/main/ts/domain/services/institutional-anomaly-tracker.ts": 1,
-        "cli/src/test/ts/corpus-audit-weighted.test.ts": 1,
-        "cli/src/test/ts/governance-drift-detector.test.ts": 1,
-        "cli/src/test/ts/institutional-anomaly-tracker.test.ts": 1,
         "docs/INBOX.md": 1,
         "docs/METRICS.md": 1,
         "docs/SENTINEL-LOG.md": 1,
