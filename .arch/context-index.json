@@ -3859,7 +3859,7 @@
       "title": "Govern/Reflect Structural Separation"
     }
   },
-  "builtAt": "2026-05-25T16:45:13.326Z",
+  "builtAt": "2026-05-25T16:45:16.455Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -9055,20 +9055,21 @@
       }
     },
     "TASK-1009": {
-      "commitCount": 6,
+      "commitCount": 7,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-25T18:45:10+02:00",
+      "lastCommitDate": "2026-05-25T18:45:13+02:00",
       "recentCommitRefs": [
         "1ca26fd7",
         "815324f1",
         "94201c50",
+        "a5f69ed7",
         "b3c2f544",
         "b7501560",
         "c26ac146"
       ],
       "touchedFrequency": {
         ".arch/chronicle.jsonl": 1,
-        ".arch/focus-ledger.jsonl": 5,
+        ".arch/focus-ledger.jsonl": 6,
         "cli/src/main/ts/application/commands/govern-command.ts": 1,
         "cli/src/main/ts/application/use-cases/govern-system.ts": 1,
         "cli/src/main/ts/application/use-cases/inbox-hygiene.ts": 1,
@@ -9922,12 +9923,11 @@
       }
     },
     "TASK-958": {
-      "commitCount": 10,
+      "commitCount": 9,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-20T08:29:54+02:00",
       "recentCommitRefs": [
         "3f938696",
-        "6eb1be6b",
         "7d133f14",
         "929bb9b9",
         "a6edcda4",
@@ -9938,7 +9938,7 @@
         "f4c267ac"
       ],
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 5,
+        ".arch/focus-ledger.jsonl": 4,
         "docs/EPISTEMIC-DOCTRINE.md": 2,
         "docs/INBOX.md": 1,
         "docs/archive/TASK-958.md": 1,
@@ -10305,46 +10305,6 @@
         "docs/tasks/TASK-956.md": 1,
         "docs/tasks/TASK-972.md": 3,
         "docs/tasks/TASK-974.md": 1
-      }
-    },
-    "TASK-973": {
-      "commitCount": 2,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-19T18:28:28+02:00",
-      "recentCommitRefs": [
-        "1fe429bc",
-        "9f135659"
-      ],
-      "touchedFrequency": {
-        ".arch/causal-signal.jsonl": 1,
-        ".arch/chronicle.jsonl": 1,
-        ".arch/context-feedback.json": 1,
-        "cli/src/main/ts/domain/models/action.ts": 1,
-        "cli/src/main/ts/domain/models/decision.ts": 1,
-        "cli/src/main/ts/domain/models/epistemic-report.ts": 1,
-        "cli/src/main/ts/domain/models/evidence.ts": 1,
-        "cli/src/main/ts/domain/models/outcome.ts": 1,
-        "cli/src/main/ts/domain/models/reconciliation.ts": 1,
-        "cli/src/main/ts/domain/models/semantic-stability.ts": 1,
-        "cli/src/main/ts/domain/models/stability.ts": 1,
-        "cli/src/main/ts/domain/models/traceability-graph.ts": 1,
-        "cli/src/main/ts/domain/services/action-governance-service.ts": 1,
-        "cli/src/main/ts/domain/services/decision-impact-engine.ts": 1,
-        "cli/src/main/ts/domain/services/decision-observability-service.ts": 1,
-        "cli/src/main/ts/domain/services/decision-reconciliation-engine.ts": 1,
-        "cli/src/main/ts/domain/services/epistemic-integrity-service.ts": 1,
-        "cli/src/main/ts/domain/services/governance-stability-service.ts": 1,
-        "cli/src/main/ts/domain/services/identity-resolver.ts": 1,
-        "cli/src/main/ts/domain/services/measurement-governance-layer.ts": 1,
-        "cli/src/main/ts/domain/services/outcome-validation-service.ts": 1,
-        "cli/src/main/ts/domain/services/traceability-projection.ts": 1,
-        "docs/EVENTS.md": 1,
-        "docs/EXPERIMENT-PROTOCOL.md": 1,
-        "docs/INBOX.md": 1,
-        "docs/META-PROTOCOL.md": 1,
-        "docs/adr/ADR-026-epistemic-layer-separation.md": 1,
-        "docs/archive/TASK-973.md": 1,
-        "docs/tasks/TASK-973.md": 1
       }
     },
     "TASK-974": {
