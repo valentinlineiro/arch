@@ -3859,7 +3859,7 @@
       "title": "Govern/Reflect Structural Separation"
     }
   },
-  "builtAt": "2026-05-25T16:45:44.535Z",
+  "builtAt": "2026-05-25T16:45:48.289Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -9055,9 +9055,9 @@
       }
     },
     "TASK-1009": {
-      "commitCount": 15,
+      "commitCount": 16,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-25T18:45:41+02:00",
+      "lastCommitDate": "2026-05-25T18:45:45+02:00",
       "recentCommitRefs": [
         "0667e2de",
         "1ca26fd7",
@@ -9068,6 +9068,7 @@
         "81d2b263",
         "94201c50",
         "a5f69ed7",
+        "a86d41ee",
         "a9c07f5d",
         "afc43eec",
         "b3c2f544",
@@ -9077,7 +9078,7 @@
       ],
       "touchedFrequency": {
         ".arch/chronicle.jsonl": 1,
-        ".arch/focus-ledger.jsonl": 14,
+        ".arch/focus-ledger.jsonl": 15,
         "cli/src/main/ts/application/commands/govern-command.ts": 1,
         "cli/src/main/ts/application/use-cases/govern-system.ts": 1,
         "cli/src/main/ts/application/use-cases/inbox-hygiene.ts": 1,
@@ -9904,26 +9905,6 @@
         "docs/tasks/TASK-206.md": 1,
         "docs/tasks/TASK-957.md": 1,
         "docs/tasks/TASK-995.md": 1
-      }
-    },
-    "TASK-959": {
-      "commitCount": 3,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-20T09:07:30+02:00",
-      "recentCommitRefs": [
-        "6b75ff02",
-        "85107c97",
-        "cabcb8f2"
-      ],
-      "touchedFrequency": {
-        "cli/src/main/ts/application/commands/capture-command.ts": 1,
-        "cli/src/main/ts/domain/services/verifiability-scorer.ts": 1,
-        "cli/src/test/ts/capture-command-verifiability.test.ts": 1,
-        "cli/src/test/ts/create-task.test.ts": 1,
-        "cli/src/test/ts/verifiability-scorer.test.ts": 1,
-        "docs/INBOX.md": 1,
-        "docs/archive/TASK-959.md": 1,
-        "docs/tasks/TASK-959.md": 2
       }
     },
     "TASK-960": {
