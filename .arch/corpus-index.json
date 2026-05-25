@@ -1,8 +1,8 @@
 {
   "version": 1,
-  "builtAt": "2026-05-25T13:40:57.991Z",
-  "archiveCommit": "",
-  "taskCount": 167,
+  "builtAt": "2026-05-25T14:48:40.063Z",
+  "archiveCommit": "374:design",
+  "taskCount": 171,
   "entries": {
     "TASK-1000": {
       "id": "TASK-1000",
@@ -72,6 +72,40 @@
       "acMachineVerifiable": 2,
       "closurePath": "L3"
     },
+    "TASK-1006": {
+      "id": "TASK-1006",
+      "size": "S",
+      "class": "1-code-reasoning",
+      "closedAt": "2026-05-25T13:42:28.011Z",
+      "lockedCommit": "565cdd84",
+      "actor": "unknown",
+      "severity": "H1",
+      "category": "[SpecDrift]",
+      "decision": "Task was used as a working wrapper for unrelated bug fixes (WEAK-SIGNAL, REFLECT engagement) during a previous session before its actual ACs were implemented. Implementation proceeded cleanly once started. The `prose:` predicate behavior change in DeterministicACVerifier required isolating checkbox-aware logic to `verifySection` only — `verify(task)` retains the original always-pass semantics to avoid breaking existing task AC verification.",
+      "constraint": "Pre-existing test failures in causal-graph, reflect-command, ArchiveParser — not introduced by this task.",
+      "cost": "One extra design iteration on DeterministicACVerifier to avoid breaking existing tests.",
+      "forwardAction": "None required.",
+      "acCount": 0,
+      "acMachineVerifiable": 0,
+      "closurePath": "L3"
+    },
+    "TASK-1007": {
+      "id": "TASK-1007",
+      "size": "M",
+      "class": "1-code-reasoning",
+      "closedAt": "2026-05-25",
+      "lockedCommit": "712804c7",
+      "actor": "unknown",
+      "severity": "H0",
+      "category": "[AuditGap]",
+      "decision": "Implementation matched spec. ProjectCommand written test-first with 9 passing tests. Command wired into dispatcher and TypeScript build is clean. No architectural compromises made.",
+      "constraint": "No blocking constraints encountered during implementation.",
+      "cost": "No technical debt introduced by this implementation.",
+      "forwardAction": "None required. Task closed cleanly.",
+      "acCount": 0,
+      "acMachineVerifiable": 0,
+      "closurePath": "auditor"
+    },
     "TASK-1010": {
       "id": "TASK-1010",
       "size": "M",
@@ -87,7 +121,41 @@
       "forwardAction": "Pre-existing test failures are untracked debt — see TASK-1006 and related tasks for follow-up.",
       "acCount": 0,
       "acMachineVerifiable": 0,
-      "closurePath": "unknown"
+      "closurePath": "auditor"
+    },
+    "TASK-1011": {
+      "id": "TASK-1011",
+      "size": "M",
+      "class": "2-code-generation",
+      "closedAt": "2026-05-25",
+      "lockedCommit": "4031a8b7",
+      "actor": "unknown",
+      "severity": "H0",
+      "category": "[AuditGap]",
+      "decision": "PathResolver implemented as a pure typed service with no filesystem dependency. 5 tests cover defaults, overrides, partial overrides, static factory, and accessor completeness. Phases 2 and 3 captured as TASK-1014 and TASK-1015 with correct depends chain and real AC predicates.",
+      "constraint": "No consumer wiring in this phase — PathResolver is available but unused until Phase 2.",
+      "cost": "No debt introduced. Pure addition with no side effects on existing behaviour.",
+      "forwardAction": "TASK-1014 (Phase 2) is the next step.",
+      "acCount": 0,
+      "acMachineVerifiable": 0,
+      "closurePath": "auditor"
+    },
+    "TASK-1013": {
+      "id": "TASK-1013",
+      "size": "S",
+      "class": "2-code-generation",
+      "closedAt": "2026-05-25",
+      "lockedCommit": null,
+      "actor": "unknown",
+      "severity": "H1",
+      "category": "[AuditGap]",
+      "decision": "Three independent commit leaks in govern-system.ts: (1) writeLedgerTick staged only the ledger, not the task files it just modified; (2) archiveFile committed a git mv without re-staging the destination to capture pre-existing working-tree edits; (3) the materialized reporting layer (README, ROADMAP, METRICS, status-projection, corpus-index, SENTINEL-LOG, reflect-breach-log) had no commit at all. All three fixed with targeted add/commit calls. Three tests added for regression coverage.",
+      "constraint": "cli/.arch/status-projection.json is a test side-effect from running tests under the cli/ working directory — not staged as part of this fix.",
+      "cost": "Three leaked-file patterns were silently dirtying the working tree after every govern tick, creating false git status noise and hiding real changes in uncommitted state.",
+      "forwardAction": "None required. All leaks closed.",
+      "acCount": 0,
+      "acMachineVerifiable": 0,
+      "closurePath": "auditor"
     },
     "TASK-180": {
       "id": "TASK-180",
