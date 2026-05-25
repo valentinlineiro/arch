@@ -216,6 +216,12 @@
           ],
           "taskPath": "docs/archive/TASK-1007.md"
         },
+        "TASK-1009": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-1009.md"
+        },
         "TASK-1010": {
           "evidenceKinds": [
             "literal-mention"
@@ -481,6 +487,12 @@
           ],
           "taskPath": "docs/archive/TASK-1008.md"
         },
+        "TASK-1009": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-1009.md"
+        },
         "TASK-1011": {
           "evidenceKinds": [
             "literal-mention"
@@ -681,6 +693,12 @@
     },
     "ADR-021": {
       "tasks": {
+        "TASK-1009": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-1009.md"
+        },
         "TASK-1010": {
           "evidenceKinds": [
             "literal-mention"
@@ -3841,7 +3859,7 @@
       "title": "Govern/Reflect Structural Separation"
     }
   },
-  "builtAt": "2026-05-25T16:34:33.993Z",
+  "builtAt": "2026-05-25T16:42:29.163Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -6089,6 +6107,20 @@
         "hansei",
         "replace",
         "wizard"
+      ]
+    },
+    "cli/src/main/ts/application/use-cases/inbox-hygiene.ts": {
+      "criticality": "domain",
+      "imports": [],
+      "runtimeUsage": "cold",
+      "symbols": [
+        "runInboxHygiene"
+      ],
+      "tags": [
+        "application",
+        "cases",
+        "hygiene",
+        "inbox"
       ]
     },
     "cli/src/main/ts/application/use-cases/lightweight-metrics-refresh.ts": {
@@ -9022,14 +9054,15 @@
       }
     },
     "TASK-1009": {
-      "commitCount": 1,
+      "commitCount": 2,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-25T18:34:29+02:00",
+      "lastCommitDate": "2026-05-25T18:42:26+02:00",
       "recentCommitRefs": [
+        "b3c2f544",
         "c26ac146"
       ],
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 1,
+        ".arch/focus-ledger.jsonl": 2,
         "docs/tasks/TASK-1009.md": 1
       }
     },
@@ -9824,27 +9857,25 @@
       }
     },
     "TASK-956": {
-      "commitCount": 3,
+      "commitCount": 2,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-20T14:47:09+02:00",
       "recentCommitRefs": [
         "23127268",
-        "598d90e9",
-        "d8c598b1"
+        "598d90e9"
       ],
       "touchedFrequency": {
         "docs/archive/TASK-956.md": 1,
-        "docs/tasks/TASK-956.md": 2,
+        "docs/tasks/TASK-956.md": 1,
         "docs/tasks/TASK-972.md": 1,
         "docs/tasks/TASK-974.md": 1
       }
     },
     "TASK-957": {
-      "commitCount": 8,
+      "commitCount": 7,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-24T15:33:56+00:00",
       "recentCommitRefs": [
-        "1a01ec66",
         "262b9d14",
         "3da2d37a",
         "531deb91",
@@ -9876,15 +9907,14 @@
         "docs/adr/ADR-032-automatic-sprint-lifecycle.md": 1,
         "docs/archive/TASK-957.md": 1,
         "docs/archive/TASK-969.md": 1,
-        "docs/refinement/IDEA-sprint-state-machine.md": 1,
         "docs/tasks/TASK-206.md": 1,
-        "docs/tasks/TASK-957.md": 3,
+        "docs/tasks/TASK-957.md": 2,
         "docs/tasks/TASK-971.md": 1,
         "docs/tasks/TASK-995.md": 1
       }
     },
     "TASK-958": {
-      "commitCount": 19,
+      "commitCount": 18,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-20T08:29:54+02:00",
       "recentCommitRefs": [
@@ -9893,7 +9923,6 @@
         "3070c32e",
         "3f938696",
         "541d8566",
-        "63655f7b",
         "6eb1be6b",
         "7c3904de",
         "7d133f14",
@@ -9935,7 +9964,7 @@
         "docs/refinement/IDEA-think-generated-proposals.md": 1,
         "docs/refinement/IDEA-verifiability-first-templates.md": 1,
         "docs/tasks/TASK-957.md": 1,
-        "docs/tasks/TASK-958.md": 6,
+        "docs/tasks/TASK-958.md": 5,
         "docs/tasks/TASK-959.md": 1,
         "docs/tasks/TASK-960.md": 1,
         "docs/tasks/TASK-961.md": 1,
