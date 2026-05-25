@@ -23,6 +23,7 @@ function makeTask(overrides: Partial<Task> = {}): Task {
 test('TaskValidator - isValidHeader', () => {
   assert.strictEqual(TaskValidator.isValidHeader('## TASK-001: Title'), true);
   assert.strictEqual(TaskValidator.isValidHeader('## TASK-123: Multiple words in title'), true);
+  assert.strictEqual(TaskValidator.isValidHeader('## TASK-1010: Four digit ID'), true);
   assert.strictEqual(TaskValidator.isValidHeader('## INVALID-001: Title'), false);
   assert.strictEqual(TaskValidator.isValidHeader('## TASK-01: Too short'), false);
 });

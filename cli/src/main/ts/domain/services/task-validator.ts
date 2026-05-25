@@ -1,9 +1,9 @@
 import { Task, TaskStatus, Hansei } from '../models/task.js';
 
 export class TaskValidator {
-  private static TASK_HEADER_REGEX = /^## TASK-(?<id>\d{3}): (?<title>.+)$/;
+  private static TASK_HEADER_REGEX = /^## TASK-(?<id>\d{3,}): (?<title>.+)$/;
   private static META_LINE_REGEX = /^\*\*Meta:\*\* P(?<priority>[0-3]) \| (?<size>[A-Z]+) \| (?<status>[A-Z_]+) \| (?<focus>Focus:yes|Focus:no) \| (?<class>[^|]+) \| (?<cli>[^|]+) \| (?<context>[^|]+?)(?: \| Cost: \$(?<cost>\d+\.\d{2}))?(?: \| Steps: (?<steps>\d+))?(?: \| Turns: (?<turns>\d+))?$/;
-  private static DEPENDS_LINE_REGEX = /^\*\*Depends:\*\* (none|(TASK|ADR)-\d{3}(,\s?(TASK|ADR)-\d{3})*)$/;
+  private static DEPENDS_LINE_REGEX = /^\*\*Depends:\*\* (none|(TASK|ADR)-\d{3,}(,\s?(TASK|ADR)-\d{3,})*)$/;
 
   public static isValidHeader(header: string): boolean {
     return this.TASK_HEADER_REGEX.test(header);
