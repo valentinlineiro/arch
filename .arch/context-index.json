@@ -59,6 +59,12 @@
           ],
           "taskPath": "docs/archive/TASK-003.md"
         },
+        "TASK-1013": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-1013.md"
+        },
         "TASK-969": {
           "evidenceKinds": [
             "literal-mention"
@@ -375,6 +381,12 @@
     },
     "ADR-015": {
       "tasks": {
+        "TASK-1013": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-1013.md"
+        },
         "TASK-225": {
           "evidenceKinds": [
             "literal-mention"
@@ -701,6 +713,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-1001.md"
+        },
+        "TASK-1013": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-1013.md"
         }
       }
     },
@@ -3727,7 +3745,7 @@
       "title": "Govern/Reflect Structural Separation"
     }
   },
-  "builtAt": "2026-05-25T14:08:44.486Z",
+  "builtAt": "2026-05-25T14:15:10.680Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -8841,14 +8859,15 @@
       }
     },
     "TASK-1011": {
-      "commitCount": 1,
+      "commitCount": 2,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-25T16:08:41+02:00",
+      "lastCommitDate": "2026-05-25T16:15:07+02:00",
       "recentCommitRefs": [
+        "b4aebcbf",
         "f64fcf63"
       ],
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 1
+        ".arch/focus-ledger.jsonl": 2
       }
     },
     "TASK-1012": {
@@ -8860,6 +8879,17 @@
       ],
       "touchedFrequency": {
         "docs/tasks/TASK-1012.md": 1
+      }
+    },
+    "TASK-1013": {
+      "commitCount": 1,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-05-25T16:11:05+02:00",
+      "recentCommitRefs": [
+        "bd85a1c9"
+      ],
+      "touchedFrequency": {
+        "docs/tasks/TASK-1013.md": 1
       }
     },
     "TASK-206": {
@@ -9426,19 +9456,17 @@
       }
     },
     "TASK-279": {
-      "commitCount": 4,
+      "commitCount": 3,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-19T14:14:27+02:00",
       "recentCommitRefs": [
         "26f37a0e",
         "89109a59",
-        "cb21782d",
-        "edf9fcdd"
+        "cb21782d"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
         ".arch/chronicle.jsonl": 1,
-        ".arch/focus-ledger.jsonl": 1,
         ".arch/reflect-breach-log.jsonl": 1,
         "docs/EVENTS.md": 1,
         "docs/METRICS.md": 1,
@@ -9469,26 +9497,6 @@
         "docs/tasks/TASK-939.md": 1,
         "docs/tasks/TASK-940.md": 1,
         "docs/tasks/TASK-955.md": 1
-      }
-    },
-    "TASK-284": {
-      "commitCount": 2,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-19T13:47:41+02:00",
-      "recentCommitRefs": [
-        "83b5ba08",
-        "d48fa35c"
-      ],
-      "touchedFrequency": {
-        ".arch/causal-signal.jsonl": 1,
-        ".arch/chronicle.jsonl": 1,
-        ".arch/escalations.jsonl": 1,
-        ".arch/reflect-breach-log.jsonl": 1,
-        "docs/EVENTS.md": 1,
-        "docs/INBOX.md": 1,
-        "docs/METRICS.md": 1,
-        "docs/archive/TASK-284.md": 1,
-        "docs/tasks/TASK-279.md": 1
       }
     },
     "TASK-920": {
