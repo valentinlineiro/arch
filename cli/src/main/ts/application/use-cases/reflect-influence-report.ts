@@ -6,12 +6,15 @@ export interface ReflectThresholds {
   minEngagementRate: number;
   maxUnobservedWithProposalRate: number;
   persistenceN: number;
+  /** Minimum corpus size before engagement violations can fire. Prevents false alarms on small/bootstrapping corpora. */
+  minCorpusSize: number;
 }
 
 export const DEFAULT_THRESHOLDS: ReflectThresholds = {
   minEngagementRate: 0.5,
   maxUnobservedWithProposalRate: 0.3,
   persistenceN: 3,
+  minCorpusSize: 30,
 };
 
 export interface ThresholdViolation {
@@ -81,7 +84,7 @@ export class ReflectInfluenceReport {
 
     if (corpus > 0) {
       const engagementRate = engaged / corpus;
-      if (engagementRate < thresholds.minEngagementRate) {
+      if (corpus >= thresholds.minCorpusSize && engagementRate < thresholds.minEngagementRate) {
         violations.push({
           rule: 'engagement',
           message: `Engagement ${Math.round(engagementRate * 100)}% is below threshold ${Math.round(thresholds.minEngagementRate * 100)}% — attribution discipline review required`,

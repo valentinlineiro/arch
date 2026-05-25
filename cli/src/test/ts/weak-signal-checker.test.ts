@@ -32,6 +32,25 @@ test('hasOverdueWeakSignal returns false and warns when no ISO dates found', () 
   assert.ok(warnings[0].includes('[WEAK-SIGNAL]'));
 });
 
+test('hasOverdueWeakSignal silently skips PROMOTED/DEMOTED lines without warning', () => {
+  const warnings: string[] = [];
+  const content = [
+    '**Adjudicate by:** after 3 THINK reviews — PROMOTED 2026-05-15 [→ TENSION-002]',
+    '**Adjudicate by:** after 2 THINK reviews — DEMOTED 2026-05-16',
+  ].join('\n');
+  const result = hasOverdueWeakSignal(content, new Date('2026-05-20'), warnings);
+  assert.strictEqual(result, false);
+  assert.strictEqual(warnings.length, 0, 'PROMOTED/DEMOTED lines should not generate warnings');
+});
+
+test('hasOverdueWeakSignal silently skips HTML comment placeholder lines', () => {
+  const warnings: string[] = [];
+  const content = '<!-- **Adjudicate by:** [date or "after N THINK reviews"] -->';
+  const result = hasOverdueWeakSignal(content, new Date('2026-05-20'), warnings);
+  assert.strictEqual(result, false);
+  assert.strictEqual(warnings.length, 0, 'HTML comment lines should not generate warnings');
+});
+
 test('hasOverdueWeakSignal warns for each malformed line in a mixed file', () => {
   const warnings: string[] = [];
   const content = [
