@@ -91,3 +91,23 @@ Date: 2026-05-25
 - `cli/src/main/ts/application/commands/init-command.ts` — added `--dry-run` flag, updated `seedTaskMd()`
 - `cli/src/test/ts/init-command.test.ts` — new, 7 tests
 - `docs/tasks/TASK-1010.md` — status REVIEW
+
+---
+**[REVIEW_REQUEST] TASK-1006 — Project DoD gate: PROJECT.md predicates checked by govern, PROJECT_COMPLETE exit**
+Date: 2026-05-25
+
+**ACs:**
+- [x] `govern-system.ts` has `checkProjectDoD` — reads `docs/PROJECT.md` `## Definition of Done`, runs `DeterministicACVerifier.verifySection`
+- [x] `DeterministicACVerifier.verifySection` added — checkbox-aware for prose/unknown predicates
+- [x] On completion: appends `PROJECT_COMPLETE` to `.arch/focus-ledger.jsonl`, writes `docs/RETRO.md` — idempotent (no duplicate writes)
+- [x] `govern-command.ts` exits 2 when `projectComplete === true`
+- [x] `loop-engine.ts` breaks loop when `governResult.projectComplete === true`
+- [x] 9/9 project-dod-gate tests pass; all existing AC verifier tests pass
+
+**Changed files:**
+- `cli/src/main/ts/application/use-cases/govern-system.ts` — checkProjectDoD, GovernResult.projectComplete
+- `cli/src/main/ts/application/use-cases/focus-ledger.ts` — PROJECT_COMPLETE RulingAction
+- `cli/src/main/ts/application/use-cases/loop-engine.ts` — break on PROJECT_COMPLETE
+- `cli/src/main/ts/application/commands/govern-command.ts` — exit 2 on PROJECT_COMPLETE
+- `cli/src/main/ts/domain/services/deterministic-ac-verifier.ts` — verifySection method
+- `cli/src/test/ts/project-dod-gate.test.ts` — new, 9 tests
