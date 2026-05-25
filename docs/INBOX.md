@@ -137,3 +137,12 @@ ACs:
 - 5 new TDD tests — 60/60 drift-checker pass
 - arch review passes
 Changed files: docs/agents/THINK.md, docs/agents/DO.md, cli/src/main/ts/application/use-cases/drift-checker.ts, cli/src/test/ts/drift-checker.test.ts
+
+---
+[REVIEW_REQUEST] TASK-1014 — cli-protocol-decoupling phase 2: wire PathResolver into core execution layer
+ACs:
+- Zero hardcoded path literals in 6 target files → prose: verified by grep
+- arch govern runs cleanly → cmd: pass
+- 17/17 govern-system tests pass → cmd: pass
+- arch review passes → cmd: pass
+Changed files: cli/src/main/ts/domain/services/path-resolver.ts, cli/src/main/ts/application/use-cases/govern-system.ts, cli/src/main/ts/application/use-cases/loop-engine.ts, cli/src/main/ts/application/use-cases/focus-ledger.ts, cli/src/main/ts/application/use-cases/escalation-store.ts, cli/src/main/ts/application/use-cases/govern-transaction.ts, cli/src/main/ts/infrastructure/filesystem/markdown-task-repository.ts

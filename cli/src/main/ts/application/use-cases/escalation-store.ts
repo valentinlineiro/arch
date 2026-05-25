@@ -1,5 +1,6 @@
 import { randomUUID } from 'node:crypto';
 import type { FileSystem } from '../../domain/repositories/file-system.js';
+import { PathResolver } from '../../domain/services/path-resolver.js';
 
 export type EscalationType = 'ANDON_HALT' | 'AWAITING_PROMOTION' | 'APPROVED' | 'REDIRECT' | 'SPRINT_CHECKPOINT';
 export type EscalationStatus = 'OPEN' | 'RESOLVED';
@@ -15,13 +16,19 @@ export interface EscalationEntry {
   resolved_by: string | null;
 }
 
-const ESCALATION_PATH = '.arch/escalations.jsonl';
-
 export class EscalationStore {
-  constructor(private fileSystem: FileSystem, private rootPath: string = '.') {}
+  private readonly pathResolver: PathResolver;
+
+  constructor(
+    private fileSystem: FileSystem,
+    private rootPath: string = '.',
+    pathResolver?: PathResolver
+  ) {
+    this.pathResolver = pathResolver ?? PathResolver.from({});
+  }
 
   private get path(): string {
-    return `${this.rootPath}/${ESCALATION_PATH}`;
+    return `${this.rootPath}/${this.pathResolver.escalations}`;
   }
 
   async append(type: EscalationType, subject: string, reason: string): Promise<EscalationEntry | null> {

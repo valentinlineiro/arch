@@ -8,6 +8,7 @@ const DEFAULTS = {
   refinement: 'docs/refinement',
   refinementArchive: 'docs/refinement/archive',
   events: 'docs/EVENTS.md',
+  archDir: '.arch',
   statusProjection: '.arch/status-projection.json',
   focusLedger: '.arch/focus-ledger.jsonl',
   contextIndex: '.arch/context-index.json',
@@ -41,6 +42,7 @@ export class PathResolver {
   get refinement(): string       { return this.paths.refinement; }
   get refinementArchive(): string { return this.paths.refinementArchive; }
   get events(): string           { return this.paths.events; }
+  get archDir(): string          { return this.paths.archDir; }
   get statusProjection(): string { return this.paths.statusProjection; }
   get focusLedger(): string      { return this.paths.focusLedger; }
   get contextIndex(): string     { return this.paths.contextIndex; }

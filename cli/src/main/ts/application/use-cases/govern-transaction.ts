@@ -1,4 +1,5 @@
 import type { FileSystem } from '../../domain/repositories/file-system.js';
+import { PathResolver } from '../../domain/services/path-resolver.js';
 
 interface PendingWrite {
   path: string;
@@ -6,21 +7,16 @@ interface PendingWrite {
   mode: 'write' | 'append';
 }
 
-/**
- * Buffers all .arch/ writes during a govern tick.
- * flush() writes all buffered files atomically — or nothing on error.
- * Non-.arch/ writes (task files, docs/) pass through directly.
- */
 export class GovernTransaction {
   private pending: PendingWrite[] = [];
   private committed = false;
+  private readonly archPrefix: string;
 
-  constructor(private fileSystem: FileSystem) {}
+  constructor(private fileSystem: FileSystem, pathResolver?: PathResolver) {
+    const pr = pathResolver ?? PathResolver.from({});
+    this.archPrefix = pr.archDir + '/';
+  }
 
-  /**
-   * Buffer a write. If path starts with .arch/, buffer it.
-   * Otherwise write through immediately (task files etc.).
-   */
   async writeFile(path: string, content: string): Promise<void> {
     if (this.isArchPath(path)) {
       // Replace any existing pending write for same path
@@ -78,6 +74,6 @@ export class GovernTransaction {
   get pendingCount(): number { return this.pending.length; }
 
   private isArchPath(path: string): boolean {
-    return path.startsWith('.arch/') || path.includes('/.arch/');
+    return path.startsWith(this.archPrefix) || path.includes('/' + this.archPrefix);
   }
 }

@@ -1,12 +1,17 @@
 import path from 'node:path';
 import { Task, TaskRepository, TaskStatus, AcceptanceCriterion, FocusLevel, FocusConflict, ConflictSeverity } from '../../domain/models/task.js';
 import { FileSystem } from '../../domain/repositories/file-system.js';
+import { PathResolver } from '../../domain/services/path-resolver.js';
 
 export class MarkdownTaskRepository implements TaskRepository {
-  private tasksDir = 'docs/tasks';
-  private archiveDir = 'docs/archive';
+  private readonly tasksDir: string;
+  private readonly archiveDir: string;
 
-  constructor(private fileSystem: FileSystem) {}
+  constructor(private fileSystem: FileSystem, pathResolver?: PathResolver) {
+    const pr = pathResolver ?? PathResolver.from({});
+    this.tasksDir = pr.tasks;
+    this.archiveDir = pr.archive;
+  }
 
   async getById(id: string): Promise<Task | null> {
     for (const dir of [this.tasksDir, this.archiveDir]) {

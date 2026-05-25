@@ -10,8 +10,9 @@ import { TaskValidator } from '../../domain/services/task-validator.js';
 import { CorpusAuditCommand } from '../commands/corpus-audit-command.js';
 import { StatusReportService } from '../../domain/services/status-report-service.js';
 import { GovernTransaction } from './govern-transaction.js';
+import { PathResolver } from '../../domain/services/path-resolver.js';
 import {
-  FocusRuling, LedgerState, FOCUS_LEDGER_PATH,
+  FocusRuling, LedgerState,
   parseLedger, committedRulings, serializeLedger,
 } from './focus-ledger.js';
 import { computeTrustedMetrics } from './compute-trusted-metrics.js';
@@ -28,15 +29,18 @@ export interface GovernResult {
 
 export class GovernSystem {
   private batchSystem: BatchSystem;
+  private readonly pathResolver: PathResolver;
 
   constructor(
     private taskRepository: TaskRepository,
     private gitRepository: GitRepository,
     private fileSystem: FileSystem,
     private causalSignalLog?: CausalSignalLog,
-    private rootPath: string = '.'
+    private rootPath: string = '.',
+    pathResolver?: PathResolver
   ) {
     this.batchSystem = new BatchSystem(fileSystem);
+    this.pathResolver = pathResolver ?? PathResolver.from({});
   }
 
   async execute(noConduct = false): Promise<GovernResult> {
@@ -144,11 +148,11 @@ export class GovernSystem {
         if (score < haltThreshold) {
           const msg = `Corpus quality score ${score}/100 is below halt threshold (${haltThreshold}). Governance suggestions are unreliable. Run arch corpus audit --verbose.`;
           await this.appendInbox('CORPUS', 'ANDON_HALT', msg);
-          console.log(`  \x1b[31m✖ CORPUS HALT: score ${score}/100 < ${haltThreshold}. See docs/INBOX.md.\x1b[0m`);
+          console.log(`  \x1b[31m✖ CORPUS HALT: score ${score}/100 < ${haltThreshold}. See ${this.pathResolver.inbox}.\x1b[0m`);
         } else if (score < warnThreshold) {
           const msg = `Corpus quality score ${score}/100 is below warn threshold (${warnThreshold}). Governance suggestions shown with reduced confidence. Run arch corpus audit --verbose.`;
           await this.appendInbox('CORPUS', 'CORPUS_ALERT', msg);
-          console.log(`  \x1b[33m⚠ CORPUS ALERT: score ${score}/100 < ${warnThreshold}. See docs/INBOX.md.\x1b[0m`);
+          console.log(`  \x1b[33m⚠ CORPUS ALERT: score ${score}/100 < ${warnThreshold}. See ${this.pathResolver.inbox}.\x1b[0m`);
         } else {
           console.log(`  \x1b[32m✔\x1b[0m Corpus quality: ${score}/100`);
         }
@@ -169,10 +173,10 @@ export class GovernSystem {
         'README.md',
         'docs/ROADMAP.md',
         'docs/METRICS.md',
-        '.arch/status-projection.json',
-        '.arch/corpus-index.json',
+        this.pathResolver.statusProjection,
+        this.pathResolver.corpusIndex,
         'docs/SENTINEL-LOG.md',
-        '.arch/reflect-breach-log.jsonl',
+        `${this.pathResolver.archDir}/reflect-breach-log.jsonl`,
       ];
       for (const f of reportFiles) {
         try { await this.gitRepository.add(f); } catch { /* file may not exist */ }
@@ -221,7 +225,7 @@ export class GovernSystem {
     if (!result.pass) return false;
 
     // Check if already emitted to avoid duplicates
-    const ledgerPath = FOCUS_LEDGER_PATH;
+    const ledgerPath = this.pathResolver.focusLedger;
     let ledgerContent = '';
     if (await this.fileSystem.exists(ledgerPath)) {
       ledgerContent = await this.fileSystem.readFile(ledgerPath);
@@ -274,7 +278,7 @@ export class GovernSystem {
   }
 
   private get ledgerPath(): string {
-    return this.rootPath && this.rootPath !== '.' ? `${this.rootPath}/${FOCUS_LEDGER_PATH}` : FOCUS_LEDGER_PATH;
+    return this.rootPath && this.rootPath !== '.' ? `${this.rootPath}/${this.pathResolver.focusLedger}` : this.pathResolver.focusLedger;
   }
 
   private async loadLedger(): Promise<LedgerState> {
@@ -351,12 +355,12 @@ export class GovernSystem {
     if (sprint.status !== 'ACTIVE') return;
 
     // Count tasks archived since sprint opened
-    const archivedFiles = await this.fileSystem.readDirectory('docs/archive').catch(() => [] as string[]);
+    const archivedFiles = await this.fileSystem.readDirectory(this.pathResolver.archive).catch(() => [] as string[]);
     const sprintOpenTs = new Date(sprint.startedAt).getTime();
     let countSinceOpen = 0;
     for (const f of archivedFiles.filter(x => x.startsWith('TASK-') && x.endsWith('.md'))) {
       try {
-        const content = await this.fileSystem.readFile(`docs/archive/${f}`);
+        const content = await this.fileSystem.readFile(`${this.pathResolver.archive}/${f}`);
         const closedAt = content.match(/\*\*Closed-at:\*\*\s*(\S+)/)?.[1];
         if (closedAt && new Date(closedAt).getTime() >= sprintOpenTs) countSinceOpen++;
       } catch { /* skip */ }
@@ -524,7 +528,7 @@ export class GovernSystem {
       const reporter = new ReflectInfluenceReport(this.fileSystem, this.rootPath);
       const report = await reporter.compute(thresholds);
 
-      const breachLogPath = `${this.rootPath}/.arch/reflect-breach-log.jsonl`;
+      const breachLogPath = `${this.rootPath}/${this.pathResolver.archDir}/reflect-breach-log.jsonl`;
       const now = new Date().toISOString();
 
       let history: Array<{ timestamp: string; rule: string; breached: boolean }> = [];
@@ -624,8 +628,8 @@ export class GovernSystem {
   }
 
   private async archiveFile(taskId: string): Promise<void> {
-    const sourcePath = `docs/tasks/${taskId}.md`;
-    const targetPath = `docs/archive/${taskId}.md`;
+    const sourcePath = `${this.pathResolver.tasks}/${taskId}.md`;
+    const targetPath = `${this.pathResolver.archive}/${taskId}.md`;
 
     try {
       const archiveContent = await this.getArchiveCandidateContent(sourcePath, targetPath);
@@ -650,7 +654,7 @@ export class GovernSystem {
       } else if (await this.fileSystem.exists(targetPath)) {
         await this.gitRepository.add(targetPath);
         const status = await this.gitRepository.getStatusLines();
-        if (status.some(l => l.includes(`D docs/tasks/${taskId}.md`))) {
+        if (status.some(l => l.includes(`D ${this.pathResolver.tasks}/${taskId}.md`))) {
           await this.gitRepository.rm(sourcePath);
         }
       } else {
@@ -683,7 +687,7 @@ export class GovernSystem {
   private async appendInbox(taskId: string, type: string, evidence: string): Promise<void> {
     const ts = new Date().toISOString().slice(0, 16).replace('T', ' ');
     const entry = `\n## [${ts}] ${type} | ${taskId}\nEvidence: ${evidence}\n`;
-    const inboxPath = 'docs/INBOX.md';
+    const inboxPath = this.pathResolver.inbox;
     let existing = '';
     try {
       existing = await this.fileSystem.readFile(inboxPath);

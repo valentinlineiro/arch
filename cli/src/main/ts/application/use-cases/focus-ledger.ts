@@ -1,3 +1,5 @@
+import { PathResolver } from '../../domain/services/path-resolver.js';
+
 export type RulingAction = 'FOCUS_ACQUIRED' | 'FOCUS_PRESERVED' | 'FOCUS_RELEASED' | 'INTEGRITY_FIX' | 'PROJECT_COMPLETE';
 
 export interface FocusRuling {
@@ -13,7 +15,7 @@ export interface LedgerState {
   rulings: FocusRuling[];
 }
 
-export const FOCUS_LEDGER_PATH = '.arch/focus-ledger.jsonl';
+export const FOCUS_LEDGER_PATH = PathResolver.from({}).focusLedger;
 
 export function parseLedger(content: string): LedgerState {
   const lines = content.trim().split('\n').filter(Boolean);

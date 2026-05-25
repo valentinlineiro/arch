@@ -14,6 +14,7 @@ import { SubprocessRunner } from '../../infrastructure/cli/subprocess-runner.js'
 import { ConfigLoader } from '../../domain/services/config-loader.js';
 import { ProviderRegistry } from '../../domain/services/provider-registry.js';
 import { BridgeProvider } from '../../domain/services/bridge-provider.js';
+import { PathResolver } from '../../domain/services/path-resolver.js';
 import { spawnSync, spawn } from 'node:child_process';
 import fs from 'node:fs';
 
@@ -36,6 +37,7 @@ export class LoopEngine {
   private governSystem: GovernSystem;
   private checkSystem: CheckSystem;
   private markTaskDone: MarkTaskDone;
+  private readonly pathResolver: PathResolver;
 
   constructor(
     private taskRepository: TaskRepository,
@@ -43,8 +45,10 @@ export class LoopEngine {
     private fileSystem: FileSystem,
     private reviewer: Reviewer,
     private driftChecker?: DriftChecker,
-    private providerRegistry?: ProviderRegistry
+    private providerRegistry?: ProviderRegistry,
+    pathResolver?: PathResolver
   ) {
+    this.pathResolver = pathResolver ?? PathResolver.from({});
     this.governSystem = new GovernSystem(taskRepository, gitRepository, fileSystem);
     this.checkSystem = new CheckSystem(taskRepository, gitRepository, reviewer, fileSystem, driftChecker);
     this.markTaskDone = new MarkTaskDone(taskRepository, reviewer, fileSystem, undefined, new NodeFeedbackRepository(fileSystem));
@@ -162,7 +166,7 @@ export class LoopEngine {
           let cost: string | undefined;
 
           if (provider instanceof BridgeProvider) {
-            const DO_PROMPT_FILE = 'docs/agents/DO.md';
+            const DO_PROMPT_FILE = `${this.pathResolver.agents}/DO.md`;
             const cmd = provider.buildCommand(model || '', DO_PROMPT_FILE);
             const result = await this.runStreaming(cmd, EXEC_TIMEOUT_MS, !options.quiet);
             if (result.status !== 0) {
@@ -179,7 +183,7 @@ export class LoopEngine {
           } else {
             // NativeProvider: async completion
             try {
-              const DO_PROMPT_FILE = 'docs/agents/DO.md';
+              const DO_PROMPT_FILE = `${this.pathResolver.agents}/DO.md`;
               const promptContent = fs.readFileSync(DO_PROMPT_FILE, 'utf8');
               const response = await provider.complete({
                 model: model || '',
@@ -409,7 +413,7 @@ export class LoopEngine {
   private async appendInbox(taskId: string, type: string, evidence: string): Promise<void> {
     const ts = new Date().toISOString().slice(0, 16).replace('T', ' ');
     const entry = `\n## [${ts}] ${type} | ${taskId}\nEvidence: ${evidence}\n`;
-    const inboxPath = 'docs/INBOX.md';
+    const inboxPath = this.pathResolver.inbox;
     let existing = '';
     try { existing = await this.fileSystem.readFile(inboxPath); } catch {}
     await this.fileSystem.writeFile(inboxPath, existing + entry);
@@ -431,7 +435,7 @@ export class LoopEngine {
 
     // Write human-visible notification to INBOX (write-only for agents; humans read it)
     const entry = `\n## [${ts}] SPRINT_CHECKPOINT | ${normalised}\n${reason}\n`;
-    const inboxPath = 'docs/INBOX.md';
+    const inboxPath = this.pathResolver.inbox;
     let existing = '';
     try { existing = await this.fileSystem.readFile(inboxPath); } catch {}
     await this.fileSystem.writeFile(inboxPath, existing + entry);
