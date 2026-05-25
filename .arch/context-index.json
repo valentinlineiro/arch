@@ -336,6 +336,12 @@
           ],
           "taskPath": "docs/archive/TASK-1007.md"
         },
+        "TASK-1008": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1008.md"
+        },
         "TASK-1014": {
           "evidenceKinds": [
             "literal-mention"
@@ -469,6 +475,12 @@
     },
     "ADR-016": {
       "tasks": {
+        "TASK-1008": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1008.md"
+        },
         "TASK-1011": {
           "evidenceKinds": [
             "literal-mention"
@@ -791,6 +803,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-1001.md"
+        },
+        "TASK-1008": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1008.md"
         },
         "TASK-1013": {
           "evidenceKinds": [
@@ -3823,7 +3841,7 @@
       "title": "Govern/Reflect Structural Separation"
     }
   },
-  "builtAt": "2026-05-25T16:26:09.627Z",
+  "builtAt": "2026-05-25T16:34:33.993Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -5301,12 +5319,16 @@
       ],
       "runtimeUsage": "hot",
       "symbols": [
+        "parseInboxAlerts",
         "StatusCommand"
       ],
       "tags": [
+        "alerts",
         "application",
         "command",
         "commands",
+        "inbox",
+        "parse",
         "status"
       ]
     },
@@ -8977,16 +8999,38 @@
       }
     },
     "TASK-1008": {
-      "commitCount": 2,
+      "commitCount": 7,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-25T18:26:07+02:00",
+      "lastCommitDate": "2026-05-25T18:34:29+02:00",
       "recentCommitRefs": [
+        "0b6648a0",
+        "0ee7f274",
+        "11bf46ed",
         "135b8191",
-        "c7121810"
+        "c7121810",
+        "cd0c3211",
+        "e236c7f3"
       ],
       "touchedFrequency": {
+        ".arch/chronicle.jsonl": 1,
         ".arch/focus-ledger.jsonl": 2,
-        "docs/tasks/TASK-1008.md": 1
+        "cli/src/main/ts/application/commands/status-command.ts": 1,
+        "cli/src/test/ts/status-alerts.test.ts": 1,
+        "docs/INBOX.md": 1,
+        "docs/archive/TASK-1008.md": 1,
+        "docs/tasks/TASK-1008.md": 4
+      }
+    },
+    "TASK-1009": {
+      "commitCount": 1,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-05-25T18:34:29+02:00",
+      "recentCommitRefs": [
+        "c26ac146"
+      ],
+      "touchedFrequency": {
+        ".arch/focus-ledger.jsonl": 1,
+        "docs/tasks/TASK-1009.md": 1
       }
     },
     "TASK-1010": {
@@ -9780,50 +9824,32 @@
       }
     },
     "TASK-956": {
-      "commitCount": 9,
+      "commitCount": 3,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-20T14:47:09+02:00",
       "recentCommitRefs": [
         "23127268",
-        "4ea562bf",
-        "5002467a",
         "598d90e9",
-        "5d7e68fe",
-        "86adec0f",
-        "c78d8fba",
-        "d8c598b1",
-        "f2c8ae5d"
+        "d8c598b1"
       ],
       "touchedFrequency": {
-        "arch.config.json": 1,
-        "cli/package-lock.json": 1,
-        "cli/package.json": 1,
-        "cli/src/main/ts/application/use-cases/drift-checker.ts": 2,
-        "cli/src/main/ts/application/use-cases/review-system.ts": 1,
-        "cli/src/main/ts/infrastructure/cli/output-formatter.ts": 1,
-        "cli/src/test/ts/drift-checker.test.ts": 1,
-        "docs/INBOX.md": 1,
-        "docs/PROTOCOL.md": 1,
         "docs/archive/TASK-956.md": 1,
-        "docs/guidelines/versioning.md": 1,
-        "docs/tasks/TASK-956.md": 4,
+        "docs/tasks/TASK-956.md": 2,
         "docs/tasks/TASK-972.md": 1,
         "docs/tasks/TASK-974.md": 1
       }
     },
     "TASK-957": {
-      "commitCount": 10,
+      "commitCount": 8,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-24T15:33:56+00:00",
       "recentCommitRefs": [
-        "19e59cac",
         "1a01ec66",
         "262b9d14",
         "3da2d37a",
         "531deb91",
         "758cac88",
         "a0db17ec",
-        "ac25df8c",
         "b14992cd",
         "c33d90a1"
       ],
@@ -9850,10 +9876,9 @@
         "docs/adr/ADR-032-automatic-sprint-lifecycle.md": 1,
         "docs/archive/TASK-957.md": 1,
         "docs/archive/TASK-969.md": 1,
-        "docs/refinement/IDEA-automatic-sprint-lifecycle.md": 1,
         "docs/refinement/IDEA-sprint-state-machine.md": 1,
         "docs/tasks/TASK-206.md": 1,
-        "docs/tasks/TASK-957.md": 5,
+        "docs/tasks/TASK-957.md": 3,
         "docs/tasks/TASK-971.md": 1,
         "docs/tasks/TASK-995.md": 1
       }
