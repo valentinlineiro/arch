@@ -3859,7 +3859,7 @@
       "title": "Govern/Reflect Structural Separation"
     }
   },
-  "builtAt": "2026-05-25T16:45:56.061Z",
+  "builtAt": "2026-05-25T16:45:59.661Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -9055,12 +9055,13 @@
       }
     },
     "TASK-1009": {
-      "commitCount": 18,
+      "commitCount": 19,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-25T18:45:52+02:00",
+      "lastCommitDate": "2026-05-25T18:45:56+02:00",
       "recentCommitRefs": [
         "0667e2de",
         "1ca26fd7",
+        "2f457ff6",
         "5cf6c712",
         "600fe183",
         "63c7a2c7",
@@ -9080,7 +9081,7 @@
       ],
       "touchedFrequency": {
         ".arch/chronicle.jsonl": 1,
-        ".arch/focus-ledger.jsonl": 17,
+        ".arch/focus-ledger.jsonl": 18,
         "cli/src/main/ts/application/commands/govern-command.ts": 1,
         "cli/src/main/ts/application/use-cases/govern-system.ts": 1,
         "cli/src/main/ts/application/use-cases/inbox-hygiene.ts": 1,
@@ -9909,17 +9910,6 @@
         "docs/tasks/TASK-995.md": 1
       }
     },
-    "TASK-960": {
-      "commitCount": 1,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-20T09:17:43+02:00",
-      "recentCommitRefs": [
-        "0a972648"
-      ],
-      "touchedFrequency": {
-        "docs/archive/TASK-960.md": 1
-      }
-    },
     "TASK-961": {
       "commitCount": 4,
       "commitRefOverflow": false,
@@ -10187,11 +10177,10 @@
       }
     },
     "TASK-972": {
-      "commitCount": 11,
+      "commitCount": 10,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-20T14:47:09+02:00",
       "recentCommitRefs": [
-        "0692beb4",
         "2ce07671",
         "548cc1a6",
         "598d90e9",
@@ -10205,7 +10194,6 @@
       ],
       "touchedFrequency": {
         ".arch/corpus-index.json": 1,
-        ".arch/focus-ledger.jsonl": 1,
         ".arch/last-audit.json": 1,
         ".arch/reflect-breach-log.jsonl": 1,
         "cli/src/main/ts/application/commands/compile-command.ts": 1,
