@@ -3859,7 +3859,7 @@
       "title": "Govern/Reflect Structural Separation"
     }
   },
-  "builtAt": "2026-05-25T16:45:59.661Z",
+  "builtAt": "2026-05-25T16:46:03.119Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -9055,9 +9055,9 @@
       }
     },
     "TASK-1009": {
-      "commitCount": 19,
+      "commitCount": 20,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-25T18:45:56+02:00",
+      "lastCommitDate": "2026-05-25T18:46:00+02:00",
       "recentCommitRefs": [
         "0667e2de",
         "1ca26fd7",
@@ -9072,6 +9072,7 @@
         "94201c50",
         "a5f69ed7",
         "a86d41ee",
+        "a91af75b",
         "a9c07f5d",
         "afc43eec",
         "b3c2f544",
@@ -9081,7 +9082,7 @@
       ],
       "touchedFrequency": {
         ".arch/chronicle.jsonl": 1,
-        ".arch/focus-ledger.jsonl": 18,
+        ".arch/focus-ledger.jsonl": 19,
         "cli/src/main/ts/application/commands/govern-command.ts": 1,
         "cli/src/main/ts/application/use-cases/govern-system.ts": 1,
         "cli/src/main/ts/application/use-cases/inbox-hygiene.ts": 1,
@@ -10177,53 +10178,34 @@
       }
     },
     "TASK-972": {
-      "commitCount": 10,
+      "commitCount": 7,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-20T14:47:09+02:00",
       "recentCommitRefs": [
         "2ce07671",
-        "548cc1a6",
         "598d90e9",
         "694c97a2",
         "8276e924",
-        "a2b2a50d",
         "b90a8aed",
         "c76fbc40",
-        "d2ab798c",
         "fcc49b47"
       ],
       "touchedFrequency": {
         ".arch/corpus-index.json": 1,
         ".arch/last-audit.json": 1,
         ".arch/reflect-breach-log.jsonl": 1,
-        "cli/src/main/ts/application/commands/compile-command.ts": 1,
         "cli/src/main/ts/application/commands/corpus-audit-command.ts": 1,
-        "cli/src/main/ts/application/use-cases/corpus-index.ts": 1,
-        "cli/src/main/ts/application/use-cases/normalize-repo-events.ts": 1,
-        "cli/src/main/ts/domain/models/ontology.ts": 1,
         "cli/src/main/ts/domain/services/governance-drift-detector.ts": 1,
         "cli/src/main/ts/domain/services/institutional-anomaly-tracker.ts": 1,
-        "cli/src/main/ts/domain/services/precedent-novelty-scorer.ts": 1,
-        "cli/src/main/ts/domain/services/stateless-hypothesis-generator.ts": 1,
-        "cli/src/main/ts/domain/services/transient-actuation-projector.ts": 1,
-        "cli/src/main/ts/domain/services/transient-window-compiler.ts": 1,
-        "cli/src/main/ts/index.ts": 1,
-        "cli/src/test/ts/compile-command.test.ts": 1,
         "cli/src/test/ts/corpus-audit-weighted.test.ts": 1,
-        "cli/src/test/ts/corpus-index.test.ts": 1,
-        "cli/src/test/ts/corpus-stress-test.test.ts": 1,
         "cli/src/test/ts/governance-drift-detector.test.ts": 1,
         "cli/src/test/ts/institutional-anomaly-tracker.test.ts": 1,
-        "cli/src/test/ts/mocks/telemetry-sample.json": 1,
-        "cli/src/test/ts/precedent-novelty-scorer.test.ts": 1,
         "docs/INBOX.md": 1,
         "docs/METRICS.md": 1,
         "docs/SENTINEL-LOG.md": 1,
-        "docs/adr/ADR-027-phase-3-epistemic-stability.md": 1,
-        "docs/adr/ADR-028-epistemic-invariant-specification.md": 1,
         "docs/archive/TASK-972.md": 1,
         "docs/tasks/TASK-956.md": 1,
-        "docs/tasks/TASK-972.md": 3,
+        "docs/tasks/TASK-972.md": 2,
         "docs/tasks/TASK-974.md": 1
       }
     },
