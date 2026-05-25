@@ -346,7 +346,7 @@
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-1015.md"
+          "taskPath": "docs/archive/TASK-1015.md"
         },
         "TASK-967": {
           "evidenceKinds": [
@@ -386,7 +386,7 @@
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-1015.md"
+          "taskPath": "docs/archive/TASK-1015.md"
         },
         "TASK-231": {
           "evidenceKinds": [
@@ -479,7 +479,7 @@
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-1015.md"
+          "taskPath": "docs/archive/TASK-1015.md"
         },
         "TASK-202": {
           "evidenceKinds": [
@@ -3823,7 +3823,7 @@
       "title": "Govern/Reflect Structural Separation"
     }
   },
-  "builtAt": "2026-05-25T16:20:04.166Z",
+  "builtAt": "2026-05-25T16:20:24.902Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -8923,6 +8923,18 @@
         "docs/tensions/TENSION-005-specdrift.md": 1
       }
     },
+    "TASK-1008": {
+      "commitCount": 1,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-05-25T18:20:20+02:00",
+      "recentCommitRefs": [
+        "c7121810"
+      ],
+      "touchedFrequency": {
+        ".arch/focus-ledger.jsonl": 1,
+        "docs/tasks/TASK-1008.md": 1
+      }
+    },
     "TASK-1010": {
       "commitCount": 5,
       "commitRefOverflow": false,
@@ -9069,9 +9081,9 @@
       }
     },
     "TASK-1015": {
-      "commitCount": 8,
+      "commitCount": 10,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-25T18:20:01+02:00",
+      "lastCommitDate": "2026-05-25T18:20:20+02:00",
       "recentCommitRefs": [
         "0cf275d8",
         "2cfe3441",
@@ -9079,6 +9091,8 @@
         "6802401f",
         "6a6e06f5",
         "7bfae1ac",
+        "b4cc27dd",
+        "ceacb994",
         "f4248f84",
         "f97716bd"
       ],
@@ -9087,7 +9101,8 @@
         "cli/src/main/ts/application/commands/init-command.ts": 1,
         "cli/src/main/ts/application/use-cases/build-index.ts": 1,
         "docs/INBOX.md": 1,
-        "docs/tasks/TASK-1015.md": 3
+        "docs/archive/TASK-1015.md": 1,
+        "docs/tasks/TASK-1015.md": 4
       }
     },
     "TASK-206": {
@@ -9549,22 +9564,6 @@
         "docs/tasks/TASK-242.md": 1
       }
     },
-    "TASK-283": {
-      "commitCount": 2,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-19T15:29:54+02:00",
-      "recentCommitRefs": [
-        "51003e69",
-        "b088eda7"
-      ],
-      "touchedFrequency": {
-        "docs/archive/TASK-283.md": 1,
-        "docs/tasks/TASK-283.md": 1,
-        "docs/tasks/TASK-939.md": 1,
-        "docs/tasks/TASK-940.md": 1,
-        "docs/tasks/TASK-955.md": 1
-      }
-    },
     "TASK-920": {
       "commitCount": 9,
       "commitRefOverflow": false,
@@ -9605,38 +9604,6 @@
       "touchedFrequency": {
         "docs/tasks/TASK-961.md": 1,
         "docs/tasks/TASK-975.md": 1
-      }
-    },
-    "TASK-939": {
-      "commitCount": 2,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-19T15:29:54+02:00",
-      "recentCommitRefs": [
-        "51003e69",
-        "f928a703"
-      ],
-      "touchedFrequency": {
-        "docs/archive/TASK-939.md": 1,
-        "docs/tasks/TASK-283.md": 1,
-        "docs/tasks/TASK-939.md": 1,
-        "docs/tasks/TASK-940.md": 1,
-        "docs/tasks/TASK-955.md": 1
-      }
-    },
-    "TASK-940": {
-      "commitCount": 2,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-19T15:29:54+02:00",
-      "recentCommitRefs": [
-        "51003e69",
-        "cac3c46c"
-      ],
-      "touchedFrequency": {
-        "docs/archive/TASK-940.md": 1,
-        "docs/tasks/TASK-283.md": 1,
-        "docs/tasks/TASK-939.md": 1,
-        "docs/tasks/TASK-940.md": 1,
-        "docs/tasks/TASK-955.md": 1
       }
     },
     "TASK-950": {
@@ -9704,19 +9671,14 @@
       }
     },
     "TASK-955": {
-      "commitCount": 2,
+      "commitCount": 1,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-19T15:29:54+02:00",
       "recentCommitRefs": [
-        "51003e69",
         "e1f2216e"
       ],
       "touchedFrequency": {
-        "docs/archive/TASK-955.md": 1,
-        "docs/tasks/TASK-283.md": 1,
-        "docs/tasks/TASK-939.md": 1,
-        "docs/tasks/TASK-940.md": 1,
-        "docs/tasks/TASK-955.md": 1
+        "docs/archive/TASK-955.md": 1
       }
     },
     "TASK-956": {
