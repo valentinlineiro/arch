@@ -3859,7 +3859,7 @@
       "title": "Govern/Reflect Structural Separation"
     }
   },
-  "builtAt": "2026-05-25T16:45:16.455Z",
+  "builtAt": "2026-05-25T16:45:20.201Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -9055,11 +9055,12 @@
       }
     },
     "TASK-1009": {
-      "commitCount": 7,
+      "commitCount": 8,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-25T18:45:13+02:00",
+      "lastCommitDate": "2026-05-25T18:45:16+02:00",
       "recentCommitRefs": [
         "1ca26fd7",
+        "79c3e947",
         "815324f1",
         "94201c50",
         "a5f69ed7",
@@ -9069,7 +9070,7 @@
       ],
       "touchedFrequency": {
         ".arch/chronicle.jsonl": 1,
-        ".arch/focus-ledger.jsonl": 6,
+        ".arch/focus-ledger.jsonl": 7,
         "cli/src/main/ts/application/commands/govern-command.ts": 1,
         "cli/src/main/ts/application/use-cases/govern-system.ts": 1,
         "cli/src/main/ts/application/use-cases/inbox-hygiene.ts": 1,
@@ -9923,12 +9924,11 @@
       }
     },
     "TASK-958": {
-      "commitCount": 9,
+      "commitCount": 8,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-20T08:29:54+02:00",
       "recentCommitRefs": [
         "3f938696",
-        "7d133f14",
         "929bb9b9",
         "a6edcda4",
         "b2a1daab",
@@ -9938,7 +9938,7 @@
         "f4c267ac"
       ],
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 4,
+        ".arch/focus-ledger.jsonl": 3,
         "docs/EPISTEMIC-DOCTRINE.md": 2,
         "docs/INBOX.md": 1,
         "docs/archive/TASK-958.md": 1,
