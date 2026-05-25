@@ -3859,7 +3859,7 @@
       "title": "Govern/Reflect Structural Separation"
     }
   },
-  "builtAt": "2026-05-25T16:45:20.201Z",
+  "builtAt": "2026-05-25T16:45:23.419Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -9055,22 +9055,23 @@
       }
     },
     "TASK-1009": {
-      "commitCount": 8,
+      "commitCount": 9,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-25T18:45:16+02:00",
+      "lastCommitDate": "2026-05-25T18:45:20+02:00",
       "recentCommitRefs": [
         "1ca26fd7",
         "79c3e947",
         "815324f1",
         "94201c50",
         "a5f69ed7",
+        "a9c07f5d",
         "b3c2f544",
         "b7501560",
         "c26ac146"
       ],
       "touchedFrequency": {
         ".arch/chronicle.jsonl": 1,
-        ".arch/focus-ledger.jsonl": 7,
+        ".arch/focus-ledger.jsonl": 8,
         "cli/src/main/ts/application/commands/govern-command.ts": 1,
         "cli/src/main/ts/application/use-cases/govern-system.ts": 1,
         "cli/src/main/ts/application/use-cases/inbox-hygiene.ts": 1,
@@ -9306,7 +9307,7 @@
       }
     },
     "TASK-206": {
-      "commitCount": 17,
+      "commitCount": 15,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-24T12:08:18+00:00",
       "recentCommitRefs": [
@@ -9321,33 +9322,28 @@
         "4f97602e",
         "6cdaa81d",
         "7b3553bb",
-        "8cc6d95a",
         "9e353d7f",
         "a8b4cb0c",
-        "b56f1b1f",
         "c56fa7a0",
         "fc215eaa"
       ],
       "touchedFrequency": {
         ".arch/cache/git-signals.jsonl": 1,
         ".arch/context-index.json": 1,
-        ".arch/corpus-index.json": 3,
+        ".arch/corpus-index.json": 2,
         ".arch/ecp-registry.jsonl": 1,
         ".arch/focus-ledger.jsonl": 6,
         ".arch/last-audit.json": 2,
-        ".arch/reflect-breach-log.jsonl": 6,
+        ".arch/reflect-breach-log.jsonl": 5,
         ".arch/status-projection.json": 2,
         "README.md": 2,
-        "arch.config.json": 1,
-        "cli/.arch/corpus-index.json": 2,
+        "cli/.arch/corpus-index.json": 1,
         "cli/.arch/status-projection.json": 1,
         "cli/src/main/ts/application/commands/audit-command.ts": 2,
-        "cli/src/main/ts/application/commands/corpus-audit-command.ts": 3,
+        "cli/src/main/ts/application/commands/corpus-audit-command.ts": 1,
         "cli/src/main/ts/application/commands/reflect-command.ts": 1,
-        "cli/src/main/ts/application/commands/status-command.ts": 2,
-        "cli/src/main/ts/application/use-cases/corpus-index.ts": 2,
-        "cli/src/main/ts/application/use-cases/govern-system.ts": 2,
-        "cli/src/main/ts/application/use-cases/hansei-synthesizer.ts": 1,
+        "cli/src/main/ts/application/commands/status-command.ts": 1,
+        "cli/src/main/ts/application/use-cases/corpus-index.ts": 1,
         "cli/src/main/ts/application/use-cases/hansei-wizard.ts": 1,
         "cli/src/main/ts/application/use-cases/mark-task-in-progress.ts": 1,
         "cli/src/main/ts/domain/services/decision-reconciliation-engine.ts": 1,
@@ -9356,12 +9352,11 @@
         "cli/src/main/ts/index.ts": 1,
         "cli/src/main/ts/infrastructure/git/adr-decision-parser.ts": 1,
         "cli/src/main/ts/infrastructure/git/git-evidence-collector.ts": 1,
-        "cli/src/test/ts/corpus-audit-command.test.ts": 1,
         "cli/src/test/ts/corpus-audit-weighted.test.ts": 1,
         "cli/src/test/ts/corpus-index.test.ts": 1,
         "docs/EVENTS.md": 2,
-        "docs/INBOX.md": 4,
-        "docs/METRICS.md": 3,
+        "docs/INBOX.md": 3,
+        "docs/METRICS.md": 2,
         "docs/ROADMAP.md": 2,
         "docs/adr/ADR-021-refinement-ttl-and-admission.md": 1,
         "docs/adr/ADR-024-drift-coverage-identity-model.md": 1,
@@ -9924,7 +9919,7 @@
       }
     },
     "TASK-958": {
-      "commitCount": 8,
+      "commitCount": 7,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-20T08:29:54+02:00",
       "recentCommitRefs": [
@@ -9934,11 +9929,10 @@
         "b2a1daab",
         "b727781e",
         "e5d7e78d",
-        "edf9c125",
         "f4c267ac"
       ],
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 3,
+        ".arch/focus-ledger.jsonl": 2,
         "docs/EPISTEMIC-DOCTRINE.md": 2,
         "docs/INBOX.md": 1,
         "docs/archive/TASK-958.md": 1,
