@@ -3859,7 +3859,7 @@
       "title": "Govern/Reflect Structural Separation"
     }
   },
-  "builtAt": "2026-05-25T16:45:48.289Z",
+  "builtAt": "2026-05-25T16:45:51.703Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -9055,12 +9055,13 @@
       }
     },
     "TASK-1009": {
-      "commitCount": 16,
+      "commitCount": 17,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-25T18:45:45+02:00",
+      "lastCommitDate": "2026-05-25T18:45:48+02:00",
       "recentCommitRefs": [
         "0667e2de",
         "1ca26fd7",
+        "5cf6c712",
         "63c7a2c7",
         "66933859",
         "79c3e947",
@@ -9078,7 +9079,7 @@
       ],
       "touchedFrequency": {
         ".arch/chronicle.jsonl": 1,
-        ".arch/focus-ledger.jsonl": 15,
+        ".arch/focus-ledger.jsonl": 16,
         "cli/src/main/ts/application/commands/govern-command.ts": 1,
         "cli/src/main/ts/application/use-cases/govern-system.ts": 1,
         "cli/src/main/ts/application/use-cases/inbox-hygiene.ts": 1,
@@ -9908,23 +9909,20 @@
       }
     },
     "TASK-960": {
-      "commitCount": 6,
+      "commitCount": 4,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-20T09:17:43+02:00",
       "recentCommitRefs": [
         "0a972648",
         "25dbe4ab",
-        "a7aa33ec",
         "c294b74a",
-        "d2b30086",
-        "edc6a1ba"
+        "d2b30086"
       ],
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 1,
         "docs/INBOX.md": 1,
         "docs/SPRINT-STATE-MACHINE.md": 2,
         "docs/archive/TASK-960.md": 1,
-        "docs/tasks/TASK-960.md": 3
+        "docs/tasks/TASK-960.md": 2
       }
     },
     "TASK-961": {
