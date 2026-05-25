@@ -63,7 +63,7 @@
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-1013.md"
+          "taskPath": "docs/archive/TASK-1013.md"
         },
         "TASK-969": {
           "evidenceKinds": [
@@ -385,7 +385,7 @@
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-1013.md"
+          "taskPath": "docs/archive/TASK-1013.md"
         },
         "TASK-225": {
           "evidenceKinds": [
@@ -718,7 +718,7 @@
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-1013.md"
+          "taskPath": "docs/archive/TASK-1013.md"
         }
       }
     },
@@ -3745,7 +3745,7 @@
       "title": "Govern/Reflect Structural Separation"
     }
   },
-  "builtAt": "2026-05-25T14:30:22.318Z",
+  "builtAt": "2026-05-25T14:30:43.234Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -8859,18 +8859,19 @@
       }
     },
     "TASK-1011": {
-      "commitCount": 5,
+      "commitCount": 6,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-25T16:30:19+02:00",
+      "lastCommitDate": "2026-05-25T16:30:40+02:00",
       "recentCommitRefs": [
         "2aa48c1e",
         "57515470",
+        "57a8878a",
         "b4aebcbf",
         "dc8eaa9d",
         "f64fcf63"
       ],
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 5,
+        ".arch/focus-ledger.jsonl": 6,
         "cli/src/main/ts/application/use-cases/govern-system.ts": 1,
         "cli/src/test/ts/govern-system.test.ts": 1,
         "docs/INBOX.md": 1,
@@ -8891,16 +8892,18 @@
       }
     },
     "TASK-1013": {
-      "commitCount": 2,
+      "commitCount": 3,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-25T16:19:29+02:00",
+      "lastCommitDate": "2026-05-25T16:30:40+02:00",
       "recentCommitRefs": [
+        "81535711",
         "b5ce8edd",
         "bd85a1c9"
       ],
       "touchedFrequency": {
         "cli/.arch/status-projection.json": 1,
         "cli/.gitignore": 1,
+        "docs/archive/TASK-1013.md": 1,
         "docs/tasks/TASK-1013.md": 1
       }
     },
@@ -9698,7 +9701,7 @@
       }
     },
     "TASK-955": {
-      "commitCount": 6,
+      "commitCount": 5,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-19T15:29:54+02:00",
       "recentCommitRefs": [
@@ -9706,7 +9709,6 @@
         "4bed015a",
         "51003e69",
         "8f0efce2",
-        "bf996120",
         "e1f2216e"
       ],
       "touchedFrequency": {
@@ -9719,11 +9721,10 @@
         "docs/INBOX.md": 1,
         "docs/SENTINEL-LOG.md": 1,
         "docs/archive/TASK-955.md": 1,
-        "docs/refinement/IDEA-corpus-informed-reprioritization.md": 1,
         "docs/tasks/TASK-283.md": 1,
         "docs/tasks/TASK-939.md": 1,
         "docs/tasks/TASK-940.md": 1,
-        "docs/tasks/TASK-955.md": 3
+        "docs/tasks/TASK-955.md": 2
       }
     },
     "TASK-956": {
