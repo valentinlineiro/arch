@@ -4039,7 +4039,7 @@
       "title": "Govern/Reflect Structural Separation"
     }
   },
-  "builtAt": "2026-05-26T08:28:35.410Z",
+  "builtAt": "2026-05-26T08:42:13.495Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -9808,15 +9808,16 @@
       }
     },
     "TASK-1031": {
-      "commitCount": 2,
+      "commitCount": 3,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-26T10:28:31+02:00",
+      "lastCommitDate": "2026-05-26T10:42:08+02:00",
       "recentCommitRefs": [
         "6f7425f0",
+        "9eed4e7b",
         "ffae1fa4"
       ],
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 1,
+        ".arch/focus-ledger.jsonl": 2,
         "docs/tasks/TASK-1031.md": 2,
         "docs/tasks/TASK-1032.md": 1,
         "docs/tasks/TASK-1033.md": 1,
@@ -10559,42 +10560,19 @@
         "docs/tasks/TASK-995.md": 1
       }
     },
-    "TASK-964": {
-      "commitCount": 4,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-20T18:37:14+02:00",
-      "recentCommitRefs": [
-        "2a148c53",
-        "5332f48d",
-        "6a2d8d8a",
-        "9b5193ff"
-      ],
-      "touchedFrequency": {
-        "cli/src/main/ts/application/commands/task-command.ts": 1,
-        "cli/src/main/ts/application/use-cases/hansei-wizard.ts": 1,
-        "cli/src/main/ts/domain/services/command-registry.ts": 1,
-        "cli/src/test/ts/hansei-wizard.test.ts": 1,
-        "docs/INBOX.md": 1,
-        "docs/SENTINEL-LOG.md": 1,
-        "docs/archive/TASK-954.md": 1,
-        "docs/archive/TASK-964.md": 1,
-        "docs/tasks/TASK-964.md": 3
-      }
-    },
     "TASK-965": {
-      "commitCount": 6,
+      "commitCount": 5,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-20T19:03:09+02:00",
       "recentCommitRefs": [
         "6375b73f",
         "6b612fe7",
-        "6c8a6d03",
         "9236f27f",
         "a768d6f9",
         "bbe7fee3"
       ],
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 2,
+        ".arch/focus-ledger.jsonl": 1,
         "cli/src/main/ts/application/use-cases/mark-task-done.ts": 1,
         "cli/src/main/ts/domain/services/deterministic-ac-verifier.ts": 1,
         "cli/src/test/ts/deterministic-ac-verifier.test.ts": 1,
