@@ -4093,7 +4093,7 @@
       "title": "Govern/Reflect Structural Separation"
     }
   },
-  "builtAt": "2026-05-26T10:49:40.621Z",
+  "builtAt": "2026-05-26T12:19:01.756Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -9883,16 +9883,17 @@
       }
     },
     "TASK-1032": {
-      "commitCount": 2,
+      "commitCount": 3,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-26T12:18:46+02:00",
+      "lastCommitDate": "2026-05-26T14:18:56+02:00",
       "recentCommitRefs": [
         "01cafeea",
+        "514689c3",
         "931d7d99"
       ],
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 2,
-        "docs/tasks/TASK-1032.md": 1
+        ".arch/focus-ledger.jsonl": 3,
+        "docs/tasks/TASK-1032.md": 2
       }
     },
     "TASK-1038": {
@@ -9914,16 +9915,28 @@
       }
     },
     "TASK-1039": {
-      "commitCount": 3,
+      "commitCount": 8,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-26T12:49:36+02:00",
+      "lastCommitDate": "2026-05-26T14:18:56+02:00",
       "recentCommitRefs": [
+        "05b1ebbf",
+        "0864f111",
         "15f97787",
         "2b3f9897",
-        "bd44b64d"
+        "932ea5f4",
+        "bd44b64d",
+        "dcec7dd3",
+        "f16b3026"
       ],
       "touchedFrequency": {
         ".arch/focus-ledger.jsonl": 2,
+        "cli/src/test/ts/causal-graph.test.ts": 1,
+        "cli/src/test/ts/command-registry.test.ts": 1,
+        "cli/src/test/ts/mark-task-done-feedback.test.ts": 1,
+        "cli/src/test/ts/mark-task-review.test.ts": 1,
+        "cli/src/test/ts/reflect-command.test.ts": 1,
+        "docs/INBOX.md": 1,
+        "docs/archive/TASK-1039.md": 1,
         "docs/tasks/TASK-1016.md": 1,
         "docs/tasks/TASK-1017.md": 1,
         "docs/tasks/TASK-1018.md": 1,
@@ -9935,7 +9948,7 @@
         "docs/tasks/TASK-1032.md": 1,
         "docs/tasks/TASK-1033.md": 1,
         "docs/tasks/TASK-1035.md": 1,
-        "docs/tasks/TASK-1039.md": 2,
+        "docs/tasks/TASK-1039.md": 4,
         "docs/tasks/TASK-1040.md": 1,
         "docs/tasks/TASK-1041.md": 1,
         "docs/tasks/TASK-1042.md": 1,
@@ -10662,26 +10675,6 @@
         "docs/tasks/TASK-989.md": 1
       }
     },
-    "TASK-950": {
-      "commitCount": 2,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-21T09:54:29+02:00",
-      "recentCommitRefs": [
-        "8baf2ec0",
-        "8d16707e"
-      ],
-      "touchedFrequency": {
-        ".arch/corpus-index.json": 1,
-        ".arch/reflect-breach-log.jsonl": 1,
-        "cli/src/main/ts/application/commands/reflect-command.ts": 1,
-        "cli/src/main/ts/application/use-cases/mark-task-in-progress.ts": 1,
-        "cli/src/test/ts/mark-task-in-progress.test.ts": 1,
-        "docs/METRICS.md": 1,
-        "docs/tasks/TASK-950.md": 1,
-        "docs/tasks/TASK-978.md": 1,
-        "docs/tasks/TASK-980.md": 1
-      }
-    },
     "TASK-957": {
       "commitCount": 6,
       "commitRefOverflow": false,
@@ -10722,8 +10715,8 @@
       }
     },
     "TASK-966": {
-      "commitCount": 22,
-      "commitRefOverflow": true,
+      "commitCount": 20,
+      "commitRefOverflow": false,
       "lastCommitDate": "2026-05-23T18:12:06+00:00",
       "recentCommitRefs": [
         "109a798f",
@@ -10749,7 +10742,7 @@
       ],
       "touchedFrequency": {
         ".arch/corpus-index.json": 1,
-        ".arch/focus-ledger.jsonl": 20,
+        ".arch/focus-ledger.jsonl": 18,
         ".arch/reflect-breach-log.jsonl": 1,
         ".arch/status-projection.json": 1,
         "README.md": 1,
@@ -10830,13 +10823,12 @@
       }
     },
     "TASK-971": {
-      "commitCount": 3,
+      "commitCount": 2,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-21T10:38:27+02:00",
       "recentCommitRefs": [
         "3cda82da",
-        "6a7574fb",
-        "f60b08ca"
+        "6a7574fb"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
@@ -10844,7 +10836,7 @@
         ".arch/reflect-breach-log.jsonl": 2,
         ".arch/status-projection.json": 2,
         ".arch/temporal-index.jsonl": 1,
-        "README.md": 3,
+        "README.md": 2,
         "cli/.arch/status-projection.json": 1,
         "cli/src/main/ts/application/commands/status-command.ts": 1,
         "cli/src/main/ts/application/use-cases/govern-system.ts": 1,
@@ -10852,7 +10844,7 @@
         "cli/src/main/ts/index.ts": 1,
         "cli/src/main/ts/infrastructure/filesystem/markdown-task-repository.ts": 1,
         "docs/EVENTS.md": 1,
-        "docs/ROADMAP.md": 3,
+        "docs/ROADMAP.md": 2,
         "docs/adr/ADR-023-deterministic-gate-invariant.md": 1,
         "docs/archive/TASK-971.md": 1,
         "docs/tasks/TASK-971.md": 2,
@@ -10880,30 +10872,12 @@
         "docs/tasks/TASK-975.md": 2
       }
     },
-    "TASK-976": {
-      "commitCount": 2,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-21T09:49:26+02:00",
-      "recentCommitRefs": [
-        "3b820b55",
-        "a8ff2826"
-      ],
-      "touchedFrequency": {
-        ".arch/corpus-index.json": 1,
-        ".arch/reflect-breach-log.jsonl": 1,
-        "cli/src/test/ts/command-registry.test.ts": 1,
-        "docs/archive/TASK-976.md": 1,
-        "docs/tasks/TASK-966.md": 1,
-        "docs/tasks/TASK-976.md": 1
-      }
-    },
     "TASK-978": {
-      "commitCount": 2,
+      "commitCount": 1,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-21T10:40:41+02:00",
       "recentCommitRefs": [
-        "4e3b96ce",
-        "8baf2ec0"
+        "4e3b96ce"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
@@ -10913,15 +10887,11 @@
         ".arch/temporal-index.jsonl": 1,
         "README.md": 1,
         "cli/.arch/status-projection.json": 1,
-        "cli/src/main/ts/application/use-cases/mark-task-in-progress.ts": 1,
-        "cli/src/test/ts/mark-task-in-progress.test.ts": 1,
         "docs/EVENTS.md": 1,
         "docs/METRICS.md": 1,
         "docs/ROADMAP.md": 1,
         "docs/archive/TASK-978.md": 1,
-        "docs/archive/TASK-980.md": 1,
-        "docs/tasks/TASK-978.md": 1,
-        "docs/tasks/TASK-980.md": 1
+        "docs/archive/TASK-980.md": 1
       }
     },
     "TASK-980": {
