@@ -25,7 +25,7 @@ Full policy specified in `docs/PROTOCOL-UPGRADES.md`.
 
 ## Consequences
 
-- `arch check` will warn on CLI version delta against `archVersion` once detection is implemented
+- `arch review` will warn on CLI version delta against `archVersion` once detection is implemented
 - `arch init --upgrade` (future S task) generates the evaluation task and updates `archVersion` on Adopt
 - Teams can defer major upgrades without breaking their current governance — the repo pin is explicit and audited
 - ARCH maintainers must classify each release as Patch/Minor/Major and include `BREAKING.md` for Major releases

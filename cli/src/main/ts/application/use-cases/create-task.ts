@@ -16,22 +16,22 @@ const TEMPLATE_REGISTRY: Record<string, string[]> = {
   '2-code-generation': [
     'Implement logic',
     'Add unit tests',
-    'arch check passes',
+    'arch review passes',
     'npm test passes'
   ],
   '6-writing': [
     'Draft content',
     'Verify accuracy',
-    'arch check passes'
+    'arch review passes'
   ],
   '7-operations': [
     'Execute operation',
     'Verify outcome',
-    'arch check passes'
+    'arch review passes'
   ],
   'default': [
     'Implement intent',
-    'arch check passes'
+    'arch review passes'
   ]
 };
 
@@ -126,7 +126,7 @@ export class CreateTask {
         ``,
         `### Definition of Done`,
         `- [ ] All ACs checked by Auditor`,
-        `- [ ] \`arch check\` passes`,
+        `- [ ] \`arch review\` passes`,
       );
     }
 
@@ -165,8 +165,8 @@ export class CreateTask {
       }
     }
 
-    // Always add arch check AC
-    lines.push(`- [ ] \`arch check\` passes`);
+    // Always add arch review AC
+    lines.push(`- [ ] \`arch review\` passes`);
     lines.push(`  - \`cmd: node cli/dist/index.js review\``);
 
     return lines.join('\n');

@@ -80,7 +80,7 @@ export class PromoteIdea {
       if (solutionMatch) content += `#### Solution\n${solutionMatch[1].trim()}\n`;
     }
 
-    content += `\n### Definition of Done\n- [ ] All ACs checked.\n- [ ] arch check passes.\n`;
+    content += `\n### Definition of Done\n- [ ] All ACs checked.\n- [ ] arch review passes.\n`;
 
     return content;
   }

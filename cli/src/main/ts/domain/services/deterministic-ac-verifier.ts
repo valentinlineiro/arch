@@ -145,7 +145,7 @@ export class DeterministicACVerifier {
   private verifyCmd(ac: string, command: string, expectedExit: number): ACEvidence {
     // Defense in Depth: Prevent infinite recursion or constitutional violations
     if (command.includes('arch review')) {
-      return { ac, type: 'cmd', pass: false, detail: 'Constitutional Violation: arch review cannot be used as a cmd: predicate (infinite recursion risk). Use arch check instead.' };
+      return { ac, type: 'cmd', pass: false, detail: 'Constitutional Violation: arch review cannot be used as a cmd: predicate (infinite recursion risk). Use arch review instead.' };
     }
 
     try {

@@ -10,17 +10,17 @@ const CLASS_TEMPLATES: Record<string, Array<{ desc: string; predicate: string }>
   '2-code-generation': [
     { desc: 'Implementation file exists at declared context path', predicate: 'file: (path)' },
     { desc: 'Tests pass', predicate: 'cmd: npm test; exit: 0' },
-    { desc: 'arch check passes', predicate: 'cmd: arch check; exit: 0' },
+    { desc: 'arch review passes', predicate: 'cmd: arch review; exit: 0' },
   ],
   '6-writing': [
     { desc: 'Document created at declared path', predicate: 'file: (path)' },
     { desc: 'Content is accurate and complete', predicate: 'prose: reviewed and verified' },
-    { desc: 'arch check passes', predicate: 'cmd: arch check; exit: 0' },
+    { desc: 'arch review passes', predicate: 'cmd: arch review; exit: 0' },
   ],
   '7-operations': [
     { desc: 'Operation completes without error', predicate: 'cmd: (command); exit: 0' },
     { desc: 'Output exists at expected path', predicate: 'file: (path)' },
-    { desc: 'arch check passes', predicate: 'cmd: arch check; exit: 0' },
+    { desc: 'arch review passes', predicate: 'cmd: arch review; exit: 0' },
   ],
 };
 

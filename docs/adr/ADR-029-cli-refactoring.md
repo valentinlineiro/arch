@@ -8,7 +8,7 @@ The ARCH CLI surface was originally designed for LLM interpretation, leading to 
 
 ## Decision
 1.  **Human-Centric Renaming**:
-    -   `arch review` → `arch check`
+    -   `arch review` → `arch review`
     -   `arch govern reflect` → `arch analyze`
     -   `arch memory causal show` → `arch trace`
     -   `arch compile` → (internalized)

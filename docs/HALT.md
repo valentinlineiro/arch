@@ -10,4 +10,4 @@ This table centralizes all conditions under which the ARCH system or an agent MU
 | Predicate failure | `arch task start/review` | 1 | `[TIMESTAMP] HALT | PREDICATE_FAIL | TASK-XXX: AC "<Description>" failed.` |
 | Unchecked ACs at close | `arch task done` | 1 | `[TIMESTAMP] HALT | UNCHECKED_ACS | TASK-XXX has pending ACs.` |
 | Missing Hansei (post-rollout) | `arch task done` | 1 | `[TIMESTAMP] HALT | MISSING_HANSEI | TASK-XXX (post-rollout) is missing ## Hansei section.` |
-| System integrity violation | `arch check` | 1 | `[TIMESTAMP] HALT | REVIEW_FAIL | Violation: <Violation description>` |
+| System integrity violation | `arch review` | 1 | `[TIMESTAMP] HALT | REVIEW_FAIL | Violation: <Violation description>` |

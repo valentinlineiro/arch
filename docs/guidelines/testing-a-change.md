@@ -4,7 +4,7 @@ Verification is required for every change based on its type.
 ### CLI Changes (`cli/`)
 - Run `npm run build` to ensure compilation.
 - Run `npm test` to verify logic integrity.
-- Run `arch check` to verify system-wide drift.
+- Run `arch review` to verify system-wide drift.
 
 ### Agent Protocol Changes (`docs/agents/`)
 - Apply it to at least one real project using ARCH.
@@ -12,9 +12,9 @@ Verification is required for every change based on its type.
 - Note the result in the PR body.
 
 ### Guideline Changes (`docs/guidelines/`)
-- Run `arch check` to ensure format validity.
+- Run `arch review` to ensure format validity.
 - Manually verify that no active task references or existing protocols are broken by the change.
 
 ### Config Changes (`arch.config.json`)
-- Run `arch check` to verify schema validity.
+- Run `arch review` to verify schema validity.
 - Manually confirm the changed field is exercised (e.g., if changing routing, run a task that uses that route).

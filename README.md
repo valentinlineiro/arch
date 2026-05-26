@@ -137,19 +137,19 @@ your-project/
 ## Task format (v0.4.0)
 
 ```markdown
-## TASK-077: Automate push after successful arch check
+## TASK-077: Automate push after successful arch review
 **Meta:** P3 | S | READY | Focus:yes | 7-operations | local | scripts/arch.sh
 **Depends:** none
 
 ### Acceptance Criteria
-- [ ] Add a `--push` flag to `arch check` in `scripts/arch.sh`.
+- [ ] Add a `--push` flag to `arch review` in `scripts/arch.sh`.
 - [ ] If `--push` is present and review is OK, execute `git push`.
 - [ ] Ensure `git push` is NOT executed if any review check fails.
 
 ### Definition of Done
-- [ ] `arch check --push` works as expected.
+- [ ] `arch review --push` works as expected.
 - [ ] Manual verification of safety (no push on failure).
-- [ ] `arch check` passes.
+- [ ] `arch review` passes.
 ```
 
 ---
@@ -198,7 +198,7 @@ arch causal                                    # Causal graph operations
 
 # Lifecycle
 arch review                           # Auditor queue: tasks needing human review
-arch check                            # Full system review: format, drift, integrity
+arch review                            # Full system review: format, drift, integrity
 arch status                           # Session orientation: focus, alerts, alignment
 arch resume TASK-001                  # Automate ANDON_HALT recovery
 arch resume TASK-001                  # Automate ANDON_HALT recovery
@@ -227,7 +227,7 @@ arch status                           # High-level sprint and task progress
 arch task start TASK-032
 
 # 3. Implement, then verify
-arch check
+arch review
 #   ✔ System Review: OK
 #
 #   Drift
@@ -245,7 +245,7 @@ arch task done TASK-077
 ## Status
 
 **v1.0.0 — Operational.**
-ARCH is a usable, self-governing operational framework for disciplined, git-native teams. The deterministic core is stable: `arch check` enforces structural integrity across 22+ checks, task lifecycle is fully operational, `arch ask` retrieval is conditioned on committed causal beliefs, and the CLI is published as `@valentinlineiro/arch` on npm.
+ARCH is a usable, self-governing operational framework for disciplined, git-native teams. The deterministic core is stable: `arch review` enforces structural integrity across 22+ checks, task lifecycle is fully operational, `arch ask` retrieval is conditioned on committed causal beliefs, and the CLI is published as `@valentinlineiro/arch` on npm.
 
 The gap is no longer "can ARCH run daily work?" It can. The question now is whether repeated use produces observable compounding advantage — whether `arch ask` returns better results as the causal graph fills, and whether REFLECT proposals improve as the archive grows. That validation requires real operational time, not more features.
 

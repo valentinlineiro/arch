@@ -176,7 +176,7 @@ These were previously treated as core milestones. They are now supporting infras
 
 | Feature | Status | Key Artifact |
 |---------|--------|--------------|
-| CLI Unification (Intent-based verbs) | `DONE` | arch.sh collapsed to installer shim. `@valentinlineiro/arch@1.0.0` published to npm. `arch capture`, `arch check`, `arch task`, `arch govern`, `arch memory` surface is canonical. |
+| CLI Unification (Intent-based verbs) | `DONE` | arch.sh collapsed to installer shim. `@valentinlineiro/arch@1.0.0` published to npm. `arch capture`, `arch review`, `arch task`, `arch govern`, `arch memory` surface is canonical. |
 | Refinement Funnel Tightening | `DONE` | TTL enforcement (`ttlCycles` in arch.config.json), admission gate (executable candidates only get IDEA-*.md files; speculative → ROADMAP-IDEAS.md). [ADR-021](adr/ADR-021-refinement-ttl-and-admission.md), TASK-249 |
 | Metrics Narrowing | `DONE` | 0% confidence context injection suppressed (threshold <0.1 in ContextInference). Census budget recalibrated to 1500 to reflect capture template reality. [ADR-022](adr/ADR-022-census-budget-recalibration.md), TASK-946 |
 | Tiered Obligations | `DONE` | XS/S Hansei triggered-only; M/L mandatory. XS L3 self-archive gate (DeterministicACVerifier). [ADR-009](adr/ADR-009-deterministic-ac-verifier.md), TASK-934 |

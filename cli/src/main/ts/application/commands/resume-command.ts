@@ -39,7 +39,7 @@ export class ResumeCommand {
 
     if (!escalation) {
       console.log(`  No OPEN ANDON_HALT record found for ${taskId}.`);
-      console.log(`  Run \x1b[36march check\x1b[0m to see current system state.\n`);
+      console.log(`  Run \x1b[36march review\x1b[0m to see current system state.\n`);
       return 0;
     }
 
@@ -53,7 +53,7 @@ export class ResumeCommand {
     if (recovered) {
       await this.closeEscalation(escalation);
       await this.appendFocusRecovered(taskId);
-      console.log(`\n  \x1b[32m✔\x1b[0m Escalation closed. Running arch check...\n`);
+      console.log(`\n  \x1b[32m✔\x1b[0m Escalation closed. Running arch review...\n`);
       try {
         execSync(`node ${this.rootPath}/cli/dist/index.js check`, {
           stdio: 'inherit', cwd: this.rootPath, timeout: 30000,

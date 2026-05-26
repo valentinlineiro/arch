@@ -9,7 +9,7 @@
 
 **Source:** KAIZEN-LOG — "Bugs without formal registration" (Sprint 3)
 **Status:** ACTIVE
-**Rule:** Any WARN from `arch check`, or any detected misalignment, must create a bug task in `docs/tasks/` before the session ends. Detection without registration is noise.
+**Rule:** Any WARN from `arch review`, or any detected misalignment, must create a bug task in `docs/tasks/` before the session ends. Detection without registration is noise.
 **Rationale:** Ad-hoc bug fixes without a task record are invisible to future agents and cannot be tracked for recurrence. Formal registration is what turns a one-off fix into a hardening signal.
 
 ---
@@ -25,9 +25,9 @@
 
 ## P-003: Quality gates must be machine-enforced, not conventional
 
-**Source:** KAIZEN-LOG — "`arch check` does not validate ACs before archiving" (Sprint 3)
+**Source:** KAIZEN-LOG — "`arch review` does not validate ACs before archiving" (Sprint 3)
 **Status:** ACTIVE
-**Rule:** Any intended gate (AC completion, no-merge policy, format validity) must produce a non-zero exit from `arch check` or a pre-commit hook. A gate enforced only by convention will eventually be skipped under velocity pressure.
+**Rule:** Any intended gate (AC completion, no-merge policy, format validity) must produce a non-zero exit from `arch review` or a pre-commit hook. A gate enforced only by convention will eventually be skipped under velocity pressure.
 **Rationale:** TASK-031 was archived DONE with unchecked ACs. The detection lag was one full session. Machine enforcement closes the gap to zero.
 
 ---

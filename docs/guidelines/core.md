@@ -20,7 +20,7 @@
 
 ### 4. Task Lifecycle
 - **Definition of Ready:** Tasks must meet `docs/TASK-FORMAT.md` criteria before entering `READY`.
-- **Validation Gate:** Run `arch check` before any move to `REVIEW` or `DONE`. Zero violations permitted.
+- **Validation Gate:** Run `arch review` before any move to `REVIEW` or `DONE`. Zero violations permitted.
 - **Execution Priority:** Within priority levels (P0-P3), smaller sizes win (XS → S → M → L).
 - **Decomposition:** XL tasks must be decomposed before `READY`.
 

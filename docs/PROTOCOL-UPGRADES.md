@@ -20,7 +20,7 @@ This document defines how ARCH protocol upgrades are classified, communicated, a
 When a repo detects a CLI version delta against its `arch.config.json.archVersion`:
 
 ### 1. Detection
-`arch check` compares `arch.config.json.archVersion` against the installed CLI version on every run. Version mismatches emit a structured warning:
+`arch review` compares `arch.config.json.archVersion` against the installed CLI version on every run. Version mismatches emit a structured warning:
 
 ```
 ⚠ CLI version mismatch: repo expects v1.1.0, installed v1.2.0 (minor upgrade)
@@ -30,7 +30,7 @@ When a repo detects a CLI version delta against its `arch.config.json.archVersio
 ### 2. Evaluation task creation
 `arch init --upgrade` (S subcommand, to be implemented) generates a bounded evaluation task in `docs/tasks/` with size per classification:
 - Patch: no task
-- Minor: XS — run `arch check`, verify no failures, close
+- Minor: XS — run `arch review`, verify no failures, close
 - Major: M — audit changed checks, update task templates, verify corpus compatibility
 
 ### 3. Adoption decision
@@ -80,7 +80,7 @@ Major upgrades must include a `BREAKING.md` entry in the ARCH release with:
 
 ## Relationship to `archVersion` in `arch.config.json`
 
-`arch.config.json.archVersion` records the protocol version the repo has formally adopted — not the CLI version installed. These can differ during evaluation periods. The field is written by `arch init --upgrade` on Adopt, never by `arch check` or `arch govern`.
+`arch.config.json.archVersion` records the protocol version the repo has formally adopted — not the CLI version installed. These can differ during evaluation periods. The field is written by `arch init --upgrade` on Adopt, never by `arch review` or `arch govern`.
 
 ---
 

@@ -59,7 +59,7 @@ export class InitCommand implements Command {
     const canonical = minimal ? 'ARCH.md' : 'docs/AGENTS.md';
     const alreadyExists = await this.exists(canonical) || await this.exists('AGENTS.md');
     if (alreadyExists && !force) {
-      console.log(`  Already initialised. Run arch check to check system state.`);
+      console.log(`  Already initialised. Run arch review to check system state.`);
       return 0;
     }
 
@@ -79,11 +79,11 @@ export class InitCommand implements Command {
     if (minimal) {
       console.log('  1. Review ARCH.md               — your protocol rules');
       console.log(`  2. Create ${this.pr.tasks}/TASK-001.md — your first task`);
-      console.log('  3. Run: arch check               — verify system integrity');
+      console.log('  3. Run: arch review               — verify system integrity');
     } else {
       console.log('  1. Review docs/guidelines/core.md  — adjust stack rules if needed');
       console.log(`  2. Create ${this.pr.tasks}/TASK-001.md   — your first task`);
-      console.log('  3. Run: arch check                — verify system integrity');
+      console.log('  3. Run: arch review                — verify system integrity');
       console.log('  4. Run: arch analyze              — THINK populates INBOX');
     }
     console.log('');
@@ -298,10 +298,10 @@ exit 0
         name: 'pre-commit',
         content: `#!/usr/bin/env bash
 # ARCH pre-commit hook
-# Runs arch check --scope delta on staged changes
+# Runs arch review --scope delta on staged changes
 
 echo "ARCH -- checking staged changes..."
-arch check --scope delta
+arch review --scope delta
 if [ $? -ne 0 ]; then
     echo "Error: Staged changes violate ARCH integrity."
     exit 1
@@ -323,7 +323,7 @@ if [ -n "$REVIEW_TASKS" ]; then
 fi
 
 echo "ARCH -- running pre-push integrity review..."
-arch check
+arch review
 if [ $? -ne 0 ]; then
     echo "Error: Integrity review failed. Push aborted."
     exit 1
@@ -384,7 +384,7 @@ echo "Integrity review passed. Proceeding with push."
 
 ## Core Protocol
 1. Read \`docs/TASK-FORMAT.md\` — the meta line format is authoritative.
-2. Run \`arch check\` before every commit to verify system integrity.
+2. Run \`arch review\` before every commit to verify system integrity.
 3. Every commit must reference a TASK-ID and use an authoritative prefix (\`feat:\`, \`fix:\`, \`chore:\`).
 
 ## Task Lifecycle
@@ -408,7 +408,7 @@ READY → IN_PROGRESS → REVIEW → DONE → archived (${this.pr.archive}/)
 2. Read \`arch.config.json\` for routing and active sprint state.
 3. Read \`docs/TASK-FORMAT.md\` — the meta line format is authoritative. Violations fail lint on every commit.
 4. Read \`docs/guidelines/core.md\` — commit conventions, git policy, and task lifecycle rules.
-5. Run \`arch check\` to verify system integrity. This command is **read-only**.
+5. Run \`arch review\` to verify system integrity. This command is **read-only**.
 
 ---
 
@@ -591,14 +591,14 @@ TASK: READY → IN_PROGRESS → REVIEW → DONE → archived (${this.pr.archive}
    - Run \`arch task review TASK-XXX\` to execute all \`cmd:\` predicates and set status to REVIEW.
    - Append \`REVIEW_REQUEST\` to \`${this.pr.inbox}\` with Task ID, AC list, changed files.
    - Release lock and stop.
-7. **Auditor Step:** A fresh session reads \`${this.pr.inbox}\`, runs \`arch check\`, verifies each AC. Pass → \`REVIEW_PASS\` + DONE. Fail → \`REVIEW_FAIL\` + back to READY.
+7. **Auditor Step:** A fresh session reads \`${this.pr.inbox}\`, runs \`arch review\`, verifies each AC. Pass → \`REVIEW_PASS\` + DONE. Fail → \`REVIEW_FAIL\` + back to READY.
 
 ## Intent: Operations
 - \`idea:\` prefix → create \`${this.pr.refinement}/IDEA-[slug].md\` and commit.
 - Mark DONE → add \`Closed-at\` timestamp, set status DONE. Auditor moves to archive.
 
 ## Andon Cord (halt immediately)
-1. \`arch check\` fails 3 consecutive times on the same task.
+1. \`arch review\` fails 3 consecutive times on the same task.
 2. Turn count exceeds Muri threshold for task size.
 3. EXEC phase exceeds \`governance.execTimeoutMinutes\`.
 4. Implementation requires touching a \`protectedPath\` without a prior ADR.
@@ -775,7 +775,7 @@ _No entries yet. THINK mode populates this during arch reflect._
 
 ### Definition of Done
 - [ ] All ACs checked by Auditor
-- [ ] \`arch check\` passes
+- [ ] \`arch review\` passes
 
 ## Hansei
 **Severity:** H0
@@ -825,7 +825,7 @@ _No entries yet. THINK mode populates this during arch reflect._
 Welcome to ARCH. This task walks you through the full governed lifecycle.
 
 1. **Start:** Run \`arch task start TASK-001\` — sets status to IN_PROGRESS and commits.
-2. **Implement:** Make any change to your project. Check it with \`arch check\`.
+2. **Implement:** Make any change to your project. Check it with \`arch review\`.
 3. **Finish:** Run \`arch task done TASK-001\` (after review predicates pass).
 
 ### Acceptance Criteria
@@ -833,15 +833,15 @@ Welcome to ARCH. This task walks you through the full governed lifecycle.
 - [ ] You have run \`arch task start TASK-001\` and the Meta line shows IN_PROGRESS
   - \`prose: Meta line shows IN_PROGRESS\`
 
-- [ ] \`arch check\` passes with no blocking errors
-  - \`cmd: arch check\`
+- [ ] \`arch review\` passes with no blocking errors
+  - \`cmd: arch review\`
 
 - [ ] You have run \`arch task done TASK-001\` to complete the lifecycle
   - \`prose: task archived to ${this.pr.archive}/\`
 
 ### Definition of Done
 - [ ] All ACs checked by Auditor
-- [ ] \`arch check\` passes
+- [ ] \`arch review\` passes
 
 ## Hansei
 **Severity:** H0
