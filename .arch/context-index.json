@@ -4128,7 +4128,7 @@
       "title": "Govern/Reflect Structural Separation"
     }
   },
-  "builtAt": "2026-05-26T17:14:14.168Z",
+  "builtAt": "2026-05-26T17:15:41.924Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -9777,22 +9777,25 @@
       }
     },
     "TASK-1025": {
-      "commitCount": 1,
+      "commitCount": 2,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-26T06:01:25+00:00",
+      "lastCommitDate": "2026-05-26T17:14:14+00:00",
       "recentCommitRefs": [
-        "2a254292"
+        "2a254292",
+        "e65fd594"
       ],
       "touchedFrequency": {
-        ".arch/corpus-index.json": 1,
-        ".arch/reflect-breach-log.jsonl": 1,
+        ".arch/corpus-index.json": 2,
+        ".arch/reflect-breach-log.jsonl": 2,
         ".arch/reflect-decisions.jsonl": 1,
-        ".arch/status-projection.json": 1,
-        "README.md": 1,
-        "docs/INBOX.md": 1,
-        "docs/ROADMAP.md": 1,
+        ".arch/status-projection.json": 2,
+        "README.md": 2,
+        "docs/INBOX.md": 2,
+        "docs/METRICS.md": 1,
+        "docs/ROADMAP.md": 2,
         "docs/refinement/archive/IDEA-corpus-import.md": 1,
         "docs/tasks/TASK-1025.md": 1,
+        "docs/tasks/TASK-242.md": 1,
         "docs/tensions/TENSION-005-specdrift.md": 1
       }
     },
@@ -10832,20 +10835,21 @@
       }
     },
     "TASK-242": {
-      "commitCount": 5,
+      "commitCount": 6,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-26T17:14:11+00:00",
+      "lastCommitDate": "2026-05-26T17:15:39+00:00",
       "recentCommitRefs": [
         "0c33ebe1",
         "2125c0dc",
         "2ee79d92",
+        "37acbbfb",
         "42bb8e79",
         "9b47f7e7"
       ],
       "touchedFrequency": {
         ".arch/chronicle.jsonl": 1,
         ".arch/ecp-registry.jsonl": 1,
-        ".arch/focus-ledger.jsonl": 4,
+        ".arch/focus-ledger.jsonl": 5,
         ".arch/status-projection.json": 1,
         "cli/.arch/status-projection.json": 1,
         "docs/tasks/TASK-1010.md": 1,
@@ -11131,28 +11135,6 @@
         "docs/archive/TASK-975.md": 1
       }
     },
-    "TASK-986": {
-      "commitCount": 1,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-22T14:07:12+02:00",
-      "recentCommitRefs": [
-        "a4b5a928"
-      ],
-      "touchedFrequency": {
-        "docs/archive/TASK-986.md": 1
-      }
-    },
-    "TASK-987": {
-      "commitCount": 1,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-22T14:07:12+02:00",
-      "recentCommitRefs": [
-        "9d1ed47c"
-      ],
-      "touchedFrequency": {
-        "docs/archive/TASK-987.md": 1
-      }
-    },
     "TASK-989": {
       "commitCount": 3,
       "commitRefOverflow": false,
@@ -11240,7 +11222,7 @@
       }
     },
     "TASK-992": {
-      "commitCount": 7,
+      "commitCount": 6,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-23T20:32:35+00:00",
       "recentCommitRefs": [
@@ -11249,12 +11231,11 @@
         "38cdbe7d",
         "959540a1",
         "be21eb50",
-        "c6f654dd",
         "cee5e051"
       ],
       "touchedFrequency": {
         ".arch/ecp-registry.jsonl": 1,
-        ".arch/focus-ledger.jsonl": 4,
+        ".arch/focus-ledger.jsonl": 3,
         "arch.config.json": 1,
         "cli/.arch/status-projection.json": 1,
         "cli/src/main/ts/application/commands/report-command.ts": 1,
