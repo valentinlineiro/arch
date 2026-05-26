@@ -1,8 +1,8 @@
 {
   "version": 1,
-  "builtAt": "2026-05-26T13:18:36.936Z",
-  "archiveCommit": "",
-  "taskCount": 193,
+  "builtAt": "2026-05-26T16:04:13.118Z",
+  "archiveCommit": "412:design",
+  "taskCount": 197,
   "entries": {
     "TASK-1000": {
       "id": "TASK-1000",
@@ -242,6 +242,23 @@
       "acMachineVerifiable": 0,
       "closurePath": "auditor"
     },
+    "TASK-1018": {
+      "id": "TASK-1018",
+      "size": "S",
+      "class": "3-chore",
+      "closedAt": "2026-05-26T14:12:31.356Z",
+      "lockedCommit": null,
+      "actor": "unknown",
+      "severity": "H1",
+      "category": "[SpecDrift]",
+      "decision": "Replaced all \"arch check\" references with \"arch review\" across 29 files (docs/, CLI source, root docs). Bulk sed introduced one regression: command-registry.ts entry for topLevel:'check' had its name renamed to 'arch review', colliding with the existing 'arch review' review-queue entry. Fixed by restoring name:'arch check' for the check entry — the CLI has two distinct commands (arch check = structural validation, arch review = review queue) and the name field must match topLevel for routing.",
+      "constraint": "arch check and arch review are genuinely different commands. The rename is a documentation convention only — the CLI still exposes arch check as the structural validation entry point.",
+      "cost": "29 files changed, 1 regression caught and fixed. 644/644 tests pass.",
+      "forwardAction": "Consider whether arch check should be renamed to arch validate or arch lint to avoid the naming overlap with arch review. Track in a future IDEA. [TASK-1018]",
+      "acCount": 2,
+      "acMachineVerifiable": 1,
+      "closurePath": "L3"
+    },
     "TASK-1026": {
       "id": "TASK-1026",
       "size": "S",
@@ -378,6 +395,40 @@
       "acMachineVerifiable": 3,
       "closurePath": "auditor"
     },
+    "TASK-1041": {
+      "id": "TASK-1041",
+      "size": "M",
+      "class": "2-code-generation",
+      "closedAt": "2026-05-26T14:59:09.921Z",
+      "lockedCommit": null,
+      "actor": null,
+      "severity": "H1",
+      "category": "[SymbolDiscovery]",
+      "decision": "Implemented comprehensive integration tests in `arch-check-integration.test.ts`. Discovery: Found two critical bugs during implementation: 1) `index.ts` had a brittle relative import for `package.json` that failed when running via `tsx` from a different CWD. 2) `GitCli.getMergeCommits` used `HEAD~limit..HEAD` which fails for repositories with short history; fixed to use `-n limit`.",
+      "constraint": "Real git operations are significantly slower than mocked FS, but necessary for correctness validation of the integrity engine.",
+      "cost": "M size. 3 new tests, 2 bug fixes in core CLI logic. 647 tests pass.",
+      "forwardAction": "None. [TASK-1041]",
+      "acCount": 7,
+      "acMachineVerifiable": 4,
+      "closurePath": "unknown"
+    },
+    "TASK-1042": {
+      "id": "TASK-1042",
+      "size": "S",
+      "class": "2-code-generation",
+      "closedAt": "2026-05-26T16:04:01.273Z",
+      "lockedCommit": null,
+      "actor": null,
+      "severity": "H1",
+      "category": "[CleanCode]",
+      "decision": "Centralized and typed major mocks (TaskRepository, LLMProvider, GitRepository, FeedbackRepository, CausalSignalLog, EventRepository, Reviewer, HumanCoordinationService) in `mocks/index.ts`. Refactored 10+ test files to use these mocks and remove `as any`.",
+      "constraint": "`Reviewer` and `HumanCoordinationService` are classes, not interfaces; mocks implement their public shape. Brittle hacks in some use-cases (looking for `fileSystem` inside `taskRepository`) were accommodated in mocks.",
+      "cost": "S size. 13 files modified. 647 tests pass. `npm run typecheck` clean.",
+      "forwardAction": "Schedule a follow-up task to reach 0 `as any` in tests once high-priority tech debt is cleared. [TASK-1042]",
+      "acCount": 6,
+      "acMachineVerifiable": 6,
+      "closurePath": "L3"
+    },
     "TASK-1049": {
       "id": "TASK-1049",
       "size": "M",
@@ -393,6 +444,23 @@
       "forwardAction": "Enable tsc --noEmit in CI pre-merge hook to prevent recurrence. Track Hansei severity distribution to measure kaizen loop health.",
       "acCount": 3,
       "acMachineVerifiable": 3,
+      "closurePath": "auditor"
+    },
+    "TASK-1051": {
+      "id": "TASK-1051",
+      "size": "S",
+      "class": "2-code-generation",
+      "closedAt": "2026-05-26T15:40:00Z",
+      "lockedCommit": null,
+      "actor": "unknown",
+      "severity": "H0",
+      "category": "[AuditGap]",
+      "decision": "InitCommand constructor received no cliVersion; archConfig() had version:'0.6.0' hardcoded. Added cliVersion parameter to InitCommand constructor (default '0.0.0'), threaded it from CommandDispatcher, replaced hardcoded string with this.cliVersion. Verified on smartcart-os: arch.config.json now shows v1.2.0.",
+      "constraint": "None — single-call site in dispatcher, no interface changes required.",
+      "cost": "3 files, 4 lines changed. 647/647 tests pass.",
+      "forwardAction": "None. [TASK-1051]",
+      "acCount": 4,
+      "acMachineVerifiable": 4,
       "closurePath": "auditor"
     },
     "TASK-180": {
