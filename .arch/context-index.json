@@ -4128,7 +4128,7 @@
       "title": "Govern/Reflect Structural Separation"
     }
   },
-  "builtAt": "2026-05-26T15:49:09.327Z",
+  "builtAt": "2026-05-26T16:04:17.929Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -10223,6 +10223,18 @@
         "docs/tasks/TASK-1052.md": 1
       }
     },
+    "TASK-1045": {
+      "commitCount": 1,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-05-26T18:04:12+02:00",
+      "recentCommitRefs": [
+        "dcb9ebe2"
+      ],
+      "touchedFrequency": {
+        ".arch/focus-ledger.jsonl": 1,
+        "docs/tasks/TASK-1045.md": 1
+      }
+    },
     "TASK-1047": {
       "commitCount": 1,
       "commitRefOverflow": false,
@@ -11109,21 +11121,14 @@
       }
     },
     "TASK-985": {
-      "commitCount": 2,
+      "commitCount": 1,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-22T14:07:12+02:00",
       "recentCommitRefs": [
-        "6a2e464c",
-        "97b5b6e4"
+        "6a2e464c"
       ],
       "touchedFrequency": {
-        "docs/archive/TASK-985.md": 1,
-        "docs/refinement/IDEA-fix-config-gaps.md": 1,
-        "docs/refinement/IDEA-fix-meta-line-regex-and-fields.md": 1,
-        "docs/refinement/IDEA-resolve-hansei-contradiction.md": 1,
-        "docs/tasks/TASK-989.md": 1,
-        "docs/tasks/TASK-990.md": 1,
-        "docs/tasks/TASK-991.md": 1
+        "docs/archive/TASK-985.md": 1
       }
     },
     "TASK-986": {
@@ -11138,12 +11143,11 @@
       }
     },
     "TASK-987": {
-      "commitCount": 2,
+      "commitCount": 1,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-22T14:07:12+02:00",
       "recentCommitRefs": [
-        "9d1ed47c",
-        "cc11e3b6"
+        "9d1ed47c"
       ],
       "touchedFrequency": {
         "docs/archive/TASK-987.md": 1
@@ -11236,7 +11240,7 @@
       }
     },
     "TASK-992": {
-      "commitCount": 9,
+      "commitCount": 8,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-23T20:32:35+00:00",
       "recentCommitRefs": [
@@ -11246,15 +11250,12 @@
         "4adf109f",
         "959540a1",
         "be21eb50",
-        "bf50994a",
         "c6f654dd",
         "cee5e051"
       ],
       "touchedFrequency": {
         ".arch/ecp-registry.jsonl": 1,
         ".arch/focus-ledger.jsonl": 5,
-        ".arch/reflect-decisions.jsonl": 1,
-        ".arch/reflect-proposals.jsonl": 1,
         "arch.config.json": 1,
         "cli/.arch/status-projection.json": 1,
         "cli/src/main/ts/application/commands/report-command.ts": 1,
@@ -11267,12 +11268,8 @@
         "docs/INBOX.md": 1,
         "docs/archive/TASK-992.md": 1,
         "docs/refinement/IDEA-governance-knowledge-store.md": 1,
-        "docs/refinement/archive/IDEA-productizing-arch-separation.md": 1,
         "docs/tasks/TASK-957.md": 1,
-        "docs/tasks/TASK-992.md": 1,
-        "docs/tasks/TASK-993.md": 1,
-        "docs/tasks/TASK-994.md": 1,
-        "docs/tasks/TASK-995.md": 2
+        "docs/tasks/TASK-995.md": 1
       }
     },
     "TASK-993": {
