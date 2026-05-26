@@ -1,6 +1,7 @@
 {
     "name": "@valentinlineiro/arch",
-    "version": "1.2.0",    "archProtocol": ">=1.0 <2",
+    "version": "1.2.0",
+    "archProtocol": ">=1.0 <2",
     "description": "ARCH: autonomous agent task and reflection framework for software projects",
     "repository": {
         "type": "git",
@@ -12,6 +13,7 @@
     "type": "module",
     "scripts": {
         "test": "node --import tsx --test src/test/ts/*.test.ts",
+        "test:coverage": "c8 node --import tsx --test src/test/ts/*.test.ts",
         "typecheck": "tsc --noEmit",
         "build": "tsup",
         "upgrade": "npm run build && npm link",
@@ -41,6 +43,7 @@
     "devDependencies": {
         "@types/node": "^20.0.0",
         "@types/semver": "7.7.1",
+        "c8": "11.0.0",
         "tsup": "^8.0.0",
         "tsx": "^4.7.0",
         "typescript": "^5.4.0"
