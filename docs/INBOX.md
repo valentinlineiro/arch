@@ -1,10 +1,10 @@
 # INBOX
-_Generated: 2026-05-26T10:30Z by [THINK] DEFAULT session_
+_Generated: 2026-05-26T12:30Z by [THINK] DEFAULT session_
 
 ## Loop Status
 - IN_PROGRESS: 8 (TASK-1016, 1017, 1018, 1019, 1020, 1021, 1022, 1023)
 - REVIEW: 0
-- READY: 29
+- READY: 28
 - BLOCKED: 1 (TASK-1024 — compliance front door, explicitly deferred)
 
 ## Alerts
@@ -115,3 +115,6 @@ _Generated: 2026-05-26T10:30Z by [THINK] DEFAULT session_
 ## REVIEW_REQUEST — TASK-1009 — INBOX hygiene
 **Status:** DONE (archived)
 **ACs:** gouvern tick hygiene pass, dedup, 14-day expiry, --clean-inbox force, 15 tests
+
+## 2026-05-26 08:39:30 — Pattern Alerts
+[PATTERN-ALERT] [SpecDrift] detected 8 times — systemic issue. See docs/tensions/
