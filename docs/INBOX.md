@@ -160,3 +160,9 @@ H1/ToolingError — sed introduced broken single-quoted template strings in buil
 - `cli/src/test/ts/inbox-hygiene.test.ts` (new, 15 tests)
 - `cli/src/main/ts/application/use-cases/govern-system.ts` — import + `execute(cleanInbox)` + `runInboxHygienePass()`
 - `cli/src/main/ts/application/commands/govern-command.ts` — `--clean-inbox` flag
+
+## [2026-05-26 06:01] INFLUENCE_THRESHOLD_VIOLATION | REFLECT
+Evidence: Engagement 46% is below threshold 50% — attribution discipline review required
+
+## 2026-05-26 06:01:13 — Pattern Alerts
+[PATTERN-ALERT] [SpecDrift] detected 8 times — systemic issue. See docs/tensions/

@@ -1,8 +1,8 @@
 {
   "version": 1,
-  "builtAt": "2026-05-25T16:45:16.996Z",
-  "archiveCommit": "",
-  "taskCount": 175,
+  "builtAt": "2026-05-26T06:01:13.301Z",
+  "archiveCommit": "379:design",
+  "taskCount": 176,
   "entries": {
     "TASK-1000": {
       "id": "TASK-1000",
@@ -120,6 +120,23 @@
       "cost": "Negligible — pre-existing debt, no regression introduced.",
       "forwardAction": "Create an IDEA to type `isBlocked` and `priorityScore` against the Task domain model and eliminate `any` from status-command.ts.",
       "acCount": 4,
+      "acMachineVerifiable": 2,
+      "closurePath": "auditor"
+    },
+    "TASK-1009": {
+      "id": "TASK-1009",
+      "size": "S",
+      "class": "1-code-reasoning",
+      "closedAt": "2026-05-25T17:15:00Z",
+      "lockedCommit": "74ce24fa",
+      "actor": "unknown",
+      "severity": "H0",
+      "category": "[no-issue]",
+      "decision": "Implementation completed cleanly. Pure function `runInboxHygiene` keeps logic fully testable without I/O. All 15 unit tests pass; wiring into govern-system is non-fatal (errors caught, ARCH_DEBUG logged). `--clean-inbox` flag threads through GovernCommand → GovernSystem.execute(cleanInbox).",
+      "constraint": "None introduced.",
+      "cost": "No regressions — 5 pre-existing failures unchanged.",
+      "forwardAction": "None required. `governance.inboxExpiryDays` config key available for tuning if 14-day default proves too aggressive.",
+      "acCount": 7,
       "acMachineVerifiable": 2,
       "closurePath": "auditor"
     },
