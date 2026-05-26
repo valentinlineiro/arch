@@ -773,37 +773,37 @@
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-266.md"
+          "taskPath": "docs/archive/TASK-266.md"
         },
         "TASK-273": {
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-273.md"
+          "taskPath": "docs/archive/TASK-273.md"
         },
         "TASK-274": {
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-274.md"
+          "taskPath": "docs/archive/TASK-274.md"
         },
         "TASK-276": {
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-276.md"
+          "taskPath": "docs/archive/TASK-276.md"
         },
         "TASK-277": {
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-277.md"
+          "taskPath": "docs/archive/TASK-277.md"
         },
         "TASK-281": {
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-281.md"
+          "taskPath": "docs/archive/TASK-281.md"
         },
         "TASK-282": {
           "evidenceKinds": [
@@ -815,7 +815,7 @@
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-995.md"
+          "taskPath": "docs/archive/TASK-995.md"
         }
       }
     },
@@ -941,6 +941,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/tasks/TASK-1024.md"
+        },
+        "TASK-1029": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-1029.md"
         },
         "TASK-958": {
           "evidenceKinds": [
@@ -4033,7 +4039,7 @@
       "title": "Govern/Reflect Structural Separation"
     }
   },
-  "builtAt": "2026-05-26T07:16:49.790Z",
+  "builtAt": "2026-05-26T08:00:56.262Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -8924,6 +8930,39 @@
     }
   },
   "tasks": {
+    "TASK-098": {
+      "commitCount": 1,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-05-26T10:00:51+02:00",
+      "recentCommitRefs": [
+        "40bb05ec"
+      ],
+      "touchedFrequency": {
+        "docs/archive/TASK-098.md": 1
+      }
+    },
+    "TASK-099": {
+      "commitCount": 1,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-05-26T10:00:51+02:00",
+      "recentCommitRefs": [
+        "43b9a626"
+      ],
+      "touchedFrequency": {
+        "docs/archive/TASK-099.md": 1
+      }
+    },
+    "TASK-100": {
+      "commitCount": 1,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-05-26T10:00:51+02:00",
+      "recentCommitRefs": [
+        "af8a7877"
+      ],
+      "touchedFrequency": {
+        "docs/archive/TASK-100.md": 1
+      }
+    },
     "TASK-1000": {
       "commitCount": 1,
       "commitRefOverflow": false,
@@ -9264,6 +9303,17 @@
         "docs/INBOX.md": 1,
         "docs/archive/TASK-1009.md": 1,
         "docs/tasks/TASK-1009.md": 3
+      }
+    },
+    "TASK-101": {
+      "commitCount": 1,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-05-26T10:00:51+02:00",
+      "recentCommitRefs": [
+        "4d49876a"
+      ],
+      "touchedFrequency": {
+        "docs/archive/TASK-101.md": 1
       }
     },
     "TASK-1010": {
@@ -9623,14 +9673,16 @@
       }
     },
     "TASK-1026": {
-      "commitCount": 1,
+      "commitCount": 2,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-26T09:16:45+02:00",
+      "lastCommitDate": "2026-05-26T10:00:51+02:00",
       "recentCommitRefs": [
-        "37d06237"
+        "37d06237",
+        "41957030"
       ],
       "touchedFrequency": {
         ".arch/focus-ledger.jsonl": 1,
+        "docs/archive/TASK-1026.md": 1,
         "docs/refinement/IDEA-90-day-productization-sprint.md": 1,
         "docs/refinement/IDEA-chronicle-govern-coverage.md": 1,
         "docs/refinement/IDEA-compliance-front-door.md": 1,
@@ -9650,10 +9702,203 @@
         "docs/tasks/TASK-242.md": 1
       }
     },
-    "TASK-206": {
-      "commitCount": 11,
+    "TASK-1027": {
+      "commitCount": 1,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-24T12:08:18+00:00",
+      "lastCommitDate": "2026-05-26T10:00:51+02:00",
+      "recentCommitRefs": [
+        "d7bac14c"
+      ],
+      "touchedFrequency": {
+        "docs/archive/TASK-1027.md": 1
+      }
+    },
+    "TASK-1028": {
+      "commitCount": 2,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-05-26T09:28:44+02:00",
+      "recentCommitRefs": [
+        "8608f971",
+        "b27dbd45"
+      ],
+      "touchedFrequency": {
+        "docs/INBOX.md": 1,
+        "docs/refinement/IDEA-enforcement-boundary-demo.md": 1,
+        "docs/refinement/IDEA-plg-onboarding-flow.md": 1,
+        "docs/refinement/IDEA-progressive-cli-surface.md": 1,
+        "docs/tasks/TASK-098.md": 1,
+        "docs/tasks/TASK-099.md": 1,
+        "docs/tasks/TASK-100.md": 1,
+        "docs/tasks/TASK-101.md": 1,
+        "docs/tasks/TASK-1021.md": 1,
+        "docs/tasks/TASK-1022.md": 1,
+        "docs/tasks/TASK-1023.md": 1,
+        "docs/tasks/TASK-1024.md": 1,
+        "docs/tasks/TASK-1026.md": 1,
+        "docs/tasks/TASK-1027.md": 2,
+        "docs/tasks/TASK-1028.md": 1,
+        "docs/tasks/TASK-161.md": 1,
+        "docs/tasks/TASK-162.md": 1,
+        "docs/tasks/TASK-163.md": 1,
+        "docs/tasks/TASK-206.md": 1,
+        "docs/tasks/TASK-266.md": 1,
+        "docs/tasks/TASK-270.md": 1,
+        "docs/tasks/TASK-271.md": 1,
+        "docs/tasks/TASK-273.md": 1,
+        "docs/tasks/TASK-274.md": 1,
+        "docs/tasks/TASK-276.md": 1,
+        "docs/tasks/TASK-277.md": 1,
+        "docs/tasks/TASK-278.md": 1,
+        "docs/tasks/TASK-280.md": 1,
+        "docs/tasks/TASK-281.md": 1,
+        "docs/tasks/TASK-995.md": 1
+      }
+    },
+    "TASK-1029": {
+      "commitCount": 4,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-05-26T10:00:51+02:00",
+      "recentCommitRefs": [
+        "2b3f9897",
+        "2b7c5470",
+        "9be68b23",
+        "ffae1fa4"
+      ],
+      "touchedFrequency": {
+        ".arch/focus-ledger.jsonl": 1,
+        "docs/tasks/TASK-1029.md": 2,
+        "docs/tasks/TASK-1031.md": 1,
+        "docs/tasks/TASK-1032.md": 1,
+        "docs/tasks/TASK-1033.md": 2,
+        "docs/tasks/TASK-1034.md": 1,
+        "docs/tasks/TASK-1035.md": 1,
+        "docs/tasks/TASK-1036.md": 1,
+        "docs/tasks/TASK-1037.md": 1,
+        "docs/tasks/TASK-1038.md": 1,
+        "docs/tasks/TASK-1039.md": 1,
+        "docs/tasks/TASK-1040.md": 1,
+        "docs/tasks/TASK-1041.md": 1,
+        "docs/tasks/TASK-1042.md": 1,
+        "docs/tasks/TASK-1043.md": 1,
+        "docs/tasks/TASK-1044.md": 1,
+        "docs/tasks/TASK-1045.md": 1,
+        "docs/tasks/TASK-1046.md": 1,
+        "docs/tasks/TASK-1047.md": 1
+      }
+    },
+    "TASK-1031": {
+      "commitCount": 1,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-05-26T09:41:42+02:00",
+      "recentCommitRefs": [
+        "ffae1fa4"
+      ],
+      "touchedFrequency": {
+        "docs/tasks/TASK-1031.md": 1,
+        "docs/tasks/TASK-1032.md": 1,
+        "docs/tasks/TASK-1033.md": 1,
+        "docs/tasks/TASK-1034.md": 1,
+        "docs/tasks/TASK-1035.md": 1,
+        "docs/tasks/TASK-1036.md": 1,
+        "docs/tasks/TASK-1037.md": 1,
+        "docs/tasks/TASK-1038.md": 1
+      }
+    },
+    "TASK-1038": {
+      "commitCount": 1,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-05-26T09:41:42+02:00",
+      "recentCommitRefs": [
+        "ffae1fa4"
+      ],
+      "touchedFrequency": {
+        "docs/tasks/TASK-1031.md": 1,
+        "docs/tasks/TASK-1032.md": 1,
+        "docs/tasks/TASK-1033.md": 1,
+        "docs/tasks/TASK-1034.md": 1,
+        "docs/tasks/TASK-1035.md": 1,
+        "docs/tasks/TASK-1036.md": 1,
+        "docs/tasks/TASK-1037.md": 1,
+        "docs/tasks/TASK-1038.md": 1
+      }
+    },
+    "TASK-1039": {
+      "commitCount": 1,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-05-26T09:48:13+02:00",
+      "recentCommitRefs": [
+        "2b3f9897"
+      ],
+      "touchedFrequency": {
+        "docs/tasks/TASK-1033.md": 1,
+        "docs/tasks/TASK-1039.md": 1,
+        "docs/tasks/TASK-1040.md": 1,
+        "docs/tasks/TASK-1041.md": 1,
+        "docs/tasks/TASK-1042.md": 1,
+        "docs/tasks/TASK-1043.md": 1,
+        "docs/tasks/TASK-1044.md": 1,
+        "docs/tasks/TASK-1045.md": 1,
+        "docs/tasks/TASK-1046.md": 1,
+        "docs/tasks/TASK-1047.md": 1
+      }
+    },
+    "TASK-1047": {
+      "commitCount": 1,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-05-26T09:48:13+02:00",
+      "recentCommitRefs": [
+        "2b3f9897"
+      ],
+      "touchedFrequency": {
+        "docs/tasks/TASK-1033.md": 1,
+        "docs/tasks/TASK-1039.md": 1,
+        "docs/tasks/TASK-1040.md": 1,
+        "docs/tasks/TASK-1041.md": 1,
+        "docs/tasks/TASK-1042.md": 1,
+        "docs/tasks/TASK-1043.md": 1,
+        "docs/tasks/TASK-1044.md": 1,
+        "docs/tasks/TASK-1045.md": 1,
+        "docs/tasks/TASK-1046.md": 1,
+        "docs/tasks/TASK-1047.md": 1
+      }
+    },
+    "TASK-161": {
+      "commitCount": 1,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-05-26T10:00:51+02:00",
+      "recentCommitRefs": [
+        "27cd73e2"
+      ],
+      "touchedFrequency": {
+        "docs/archive/TASK-161.md": 1
+      }
+    },
+    "TASK-162": {
+      "commitCount": 1,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-05-26T10:00:51+02:00",
+      "recentCommitRefs": [
+        "d7c52d28"
+      ],
+      "touchedFrequency": {
+        "docs/archive/TASK-162.md": 1
+      }
+    },
+    "TASK-163": {
+      "commitCount": 1,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-05-26T10:00:51+02:00",
+      "recentCommitRefs": [
+        "503e51fa"
+      ],
+      "touchedFrequency": {
+        "docs/archive/TASK-163.md": 1
+      }
+    },
+    "TASK-206": {
+      "commitCount": 12,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-05-26T10:00:51+02:00",
       "recentCommitRefs": [
         "0379ddd7",
         "07c38fd1",
@@ -9665,7 +9910,8 @@
         "4a348d92",
         "4f97602e",
         "6cdaa81d",
-        "7b3553bb"
+        "7b3553bb",
+        "cc2b9fd5"
       ],
       "touchedFrequency": {
         ".arch/cache/git-signals.jsonl": 1,
@@ -9887,6 +10133,7 @@
         "docs/archive/TASK-203.md": 1,
         "docs/archive/TASK-204.md": 1,
         "docs/archive/TASK-205.md": 1,
+        "docs/archive/TASK-206.md": 1,
         "docs/archive/TASK-207.md": 1,
         "docs/archive/TASK-208.md": 1,
         "docs/archive/TASK-209.md": 1,
@@ -10089,6 +10336,116 @@
         "docs/tasks/TASK-242.md": 2
       }
     },
+    "TASK-266": {
+      "commitCount": 1,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-05-26T10:00:51+02:00",
+      "recentCommitRefs": [
+        "01783425"
+      ],
+      "touchedFrequency": {
+        "docs/archive/TASK-266.md": 1
+      }
+    },
+    "TASK-270": {
+      "commitCount": 1,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-05-26T10:00:51+02:00",
+      "recentCommitRefs": [
+        "b3706b6e"
+      ],
+      "touchedFrequency": {
+        "docs/archive/TASK-270.md": 1
+      }
+    },
+    "TASK-271": {
+      "commitCount": 1,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-05-26T10:00:51+02:00",
+      "recentCommitRefs": [
+        "ff0e75ea"
+      ],
+      "touchedFrequency": {
+        "docs/archive/TASK-271.md": 1
+      }
+    },
+    "TASK-273": {
+      "commitCount": 1,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-05-26T10:00:51+02:00",
+      "recentCommitRefs": [
+        "03aa2fa3"
+      ],
+      "touchedFrequency": {
+        "docs/archive/TASK-273.md": 1
+      }
+    },
+    "TASK-274": {
+      "commitCount": 1,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-05-26T10:00:51+02:00",
+      "recentCommitRefs": [
+        "4a655f56"
+      ],
+      "touchedFrequency": {
+        "docs/archive/TASK-274.md": 1
+      }
+    },
+    "TASK-276": {
+      "commitCount": 1,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-05-26T10:00:51+02:00",
+      "recentCommitRefs": [
+        "64f0d456"
+      ],
+      "touchedFrequency": {
+        "docs/archive/TASK-276.md": 1
+      }
+    },
+    "TASK-277": {
+      "commitCount": 1,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-05-26T10:00:51+02:00",
+      "recentCommitRefs": [
+        "859be4ee"
+      ],
+      "touchedFrequency": {
+        "docs/archive/TASK-277.md": 1
+      }
+    },
+    "TASK-278": {
+      "commitCount": 1,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-05-26T10:00:51+02:00",
+      "recentCommitRefs": [
+        "d1014b9e"
+      ],
+      "touchedFrequency": {
+        "docs/archive/TASK-278.md": 1
+      }
+    },
+    "TASK-280": {
+      "commitCount": 1,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-05-26T10:00:51+02:00",
+      "recentCommitRefs": [
+        "8e05a039"
+      ],
+      "touchedFrequency": {
+        "docs/archive/TASK-280.md": 1
+      }
+    },
+    "TASK-281": {
+      "commitCount": 1,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-05-26T10:00:51+02:00",
+      "recentCommitRefs": [
+        "6d9844c6"
+      ],
+      "touchedFrequency": {
+        "docs/archive/TASK-281.md": 1
+      }
+    },
     "TASK-920": {
       "commitCount": 5,
       "commitRefOverflow": false,
@@ -10141,25 +10498,19 @@
       }
     },
     "TASK-954": {
-      "commitCount": 9,
+      "commitCount": 4,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-20T18:28:59+02:00",
       "recentCommitRefs": [
-        "31ad8752",
         "62d782fe",
-        "866b0fe6",
         "984c3584",
-        "afdeb28e",
         "b4583e6e",
-        "c748b0e1",
-        "da14ec3d",
-        "e2349900"
+        "c748b0e1"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
         ".arch/chronicle.jsonl": 1,
         ".arch/corpus-index.json": 1,
-        ".arch/focus-ledger.jsonl": 4,
         ".arch/reflect-breach-log.jsonl": 1,
         "cli/src/main/ts/application/commands/ask-command.ts": 1,
         "cli/src/main/ts/application/commands/reflect-command.ts": 1,
@@ -10176,7 +10527,7 @@
         "docs/METRICS.md": 1,
         "docs/SENTINEL-LOG.md": 1,
         "docs/archive/TASK-954.md": 1,
-        "docs/tasks/TASK-954.md": 3
+        "docs/tasks/TASK-954.md": 2
       }
     },
     "TASK-957": {
@@ -10216,40 +10567,6 @@
         "docs/tasks/TASK-206.md": 1,
         "docs/tasks/TASK-957.md": 1,
         "docs/tasks/TASK-995.md": 1
-      }
-    },
-    "TASK-962": {
-      "commitCount": 3,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-20T16:16:26+02:00",
-      "recentCommitRefs": [
-        "240e42fd",
-        "4aa9c901",
-        "6fcbd40d"
-      ],
-      "touchedFrequency": {
-        "cli/src/main/ts/application/commands/task-command.ts": 1,
-        "cli/src/test/ts/task-command.test.ts": 1,
-        "docs/archive/TASK-962.md": 1,
-        "docs/tasks/TASK-962.md": 2
-      }
-    },
-    "TASK-963": {
-      "commitCount": 4,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-20T16:52:28+02:00",
-      "recentCommitRefs": [
-        "346950db",
-        "5192de69",
-        "93055e7a",
-        "cc2b031f"
-      ],
-      "touchedFrequency": {
-        "cli/src/main/ts/application/use-cases/drift-checker.ts": 1,
-        "cli/src/test/ts/drift-checker.test.ts": 1,
-        "docs/INBOX.md": 1,
-        "docs/archive/TASK-963.md": 1,
-        "docs/tasks/TASK-963.md": 2
       }
     },
     "TASK-964": {
@@ -10377,26 +10694,6 @@
         "docs/tasks/TASK-967.md": 1
       }
     },
-    "TASK-968": {
-      "commitCount": 6,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-20T17:00:45+02:00",
-      "recentCommitRefs": [
-        "338daecb",
-        "531c3d55",
-        "9962633f",
-        "9f71b858",
-        "c7b52128",
-        "fcd7cca2"
-      ],
-      "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 2,
-        "docs/INBOX.md": 1,
-        "docs/archive/TASK-968.md": 1,
-        "docs/reviews/cli-arch-review-2026-05-20.md": 1,
-        "docs/tasks/TASK-968.md": 2
-      }
-    },
     "TASK-969": {
       "commitCount": 3,
       "commitRefOverflow": false,
@@ -10484,31 +10781,22 @@
       }
     },
     "TASK-976": {
-      "commitCount": 6,
+      "commitCount": 3,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-21T09:49:26+02:00",
       "recentCommitRefs": [
         "3b820b55",
-        "848904aa",
-        "a4c0abaf",
         "a8ff2826",
-        "b718d8b2",
-        "e29ca26f"
+        "b718d8b2"
       ],
       "touchedFrequency": {
         ".arch/corpus-index.json": 1,
         ".arch/reflect-breach-log.jsonl": 1,
         ".gitignore": 1,
-        "ARCH_CONTEXT_AXIOMS.md": 1,
-        "cli/src/main/ts/application/use-cases/build-index.ts": 1,
-        "cli/src/main/ts/application/use-cases/context-inference.ts": 1,
-        "cli/src/main/ts/application/use-cases/decision-validator.ts": 1,
-        "cli/src/test/ts/build-index-v2.test.ts": 1,
         "cli/src/test/ts/command-registry.test.ts": 1,
-        "docs/INBOX.md": 1,
         "docs/archive/TASK-976.md": 1,
         "docs/tasks/TASK-966.md": 1,
-        "docs/tasks/TASK-976.md": 4
+        "docs/tasks/TASK-976.md": 1
       }
     },
     "TASK-977": {
@@ -11125,9 +11413,9 @@
       }
     },
     "TASK-995": {
-      "commitCount": 9,
+      "commitCount": 10,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-25T05:21:54+00:00",
+      "lastCommitDate": "2026-05-26T10:00:51+02:00",
       "recentCommitRefs": [
         "262b9d14",
         "3eb4493b",
@@ -11136,12 +11424,14 @@
         "8dcf3ac3",
         "9ab10dbc",
         "9d151798",
+        "a10ad873",
         "ba4ba6a7",
         "e7700905"
       ],
       "touchedFrequency": {
         ".arch/ecp-registry.jsonl": 1,
         ".arch/focus-ledger.jsonl": 8,
+        "docs/archive/TASK-995.md": 1,
         "docs/tasks/TASK-957.md": 1,
         "docs/tasks/TASK-995.md": 1
       }
