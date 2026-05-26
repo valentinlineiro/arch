@@ -27,7 +27,16 @@ async function main(): Promise<number> {
     const sandboxService = new SandboxService();
     const rootPath = path.resolve('.');
     const require = createRequire(import.meta.url);
-    const { version: cliVersion } = require('../package.json') as { version: string };
+    let cliVersion = '0.0.0';
+    try {
+      // Compiled: dist/index.js -> ../package.json
+      cliVersion = (require('../package.json') as { version: string }).version;
+    } catch {
+      try {
+        // Source: src/main/ts/index.ts -> ../../../package.json
+        cliVersion = (require('../../../package.json') as { version: string }).version;
+      } catch { /* fallback to 0.0.0 */ }
+    }
     const driftChecker = new DriftChecker(fileSystem, gitRepository, rootPath, cliVersion);
     const humanCoordinationService = new HumanCoordinationService(taskRepository, gitRepository);
     const causalSignalLog = new CausalSignalLog(fileSystem, rootPath);

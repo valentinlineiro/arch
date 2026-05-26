@@ -67,7 +67,7 @@ export class GitCli implements GitRepository {
   }
 
   async getMergeCommits(limit: number): Promise<string[]> {
-    const { stdout } = await SubprocessRunner.runWithOutput('git', ['rev-list', '--merges', `HEAD~${limit}..HEAD`]);
+    const { stdout } = await SubprocessRunner.runWithOutput('git', ['rev-list', '--merges', '-n', limit.toString(), 'HEAD']);
     return stdout.split('\n').map(line => line.trim()).filter(Boolean);
   }
 
