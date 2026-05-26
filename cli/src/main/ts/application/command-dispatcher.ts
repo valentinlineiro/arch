@@ -47,7 +47,7 @@ import { AuditCommand } from './commands/audit-command.js';
 import { ResumeCommand } from './commands/resume-command.js';
 import { ProjectCommand } from './commands/project-command.js';
 
-import { getPublicTopLevel, getPublicEntriesByNamespace, type CommandEntry } from '../domain/services/command-registry.js';
+import { getPublicTopLevel, getPublicEntriesByNamespace, resolveRoute, type CommandEntry } from '../domain/services/command-registry.js';
 
 export class CommandDispatcher {
   constructor(
@@ -131,103 +131,63 @@ export class CommandDispatcher {
   }
 
   private async resolveCommand(name: string, args: string[]): Promise<Command | null> {
-    // ── Human-Centric Renaming ──────────────────────────────────────────────
-    if (name === 'check') return new CheckCommand(this.taskRepository, this.gitRepository, this.reviewer, this.driftChecker, this.fileSystem);
-    if (name === 'trace') return new TraceCommand(new CausalGraph(this.fileSystem, this.rootPath), {
-      getArgs: () => args,
-      log: (s) => console.log(s),
-      error: (s) => console.error(s),
-      exit: (code) => process.exit(code) as never,
-    }, this.causalSignalLog);
-    if (name === 'analyze') return new AnalyzeCommand(this.fileSystem, this.rootPath, this.taskRepository);
-
-    // ── Standard Registry ───────────────────────────────────────────────────
-    switch (name) {
-      case 'review':
-        return new ReviewCommand(this.taskRepository, this.gitRepository, this.fileSystem);
-      case 'init':
-        return new InitCommand(this.rootPath);
-      case 'project':
-        return new ProjectCommand(this.fileSystem, this.taskRepository, this.rootPath);
-      case 'version':
-        return new VersionCommand(this.cliVersion);
-      case 'status':
-        return new StatusCommand(this.taskRepository, this.fileSystem, this.rootPath);
-      case 'compile':
-        return new CompileCommand(this.fileSystem);
-      case 'sentinel':
-        return new SentinelCommand(this.fileSystem);
-
-      case 'task': {
-        const sub = args[0];
-        const subArgs = args.slice(1);
-        if (sub === 'loop') return new LoopCommand(this.taskRepository, this.gitRepository, this.fileSystem, this.reviewer, this.driftChecker);
-        if (sub === 'batch') return new BatchCommand(this.fileSystem);
-        if (sub === 'drain') return { execute: async () => new BatchCommand(this.fileSystem).execute(['drain']) };
-        if (sub === 'sandbox') return new SandboxCommand(this.sandboxService, this.taskRepository, this.fileSystem);
-        if (sub === 'mv') return new MoveCommand(this.taskRepository, this.gitRepository, this.fileSystem);
-        if (sub === 'exec') return new ExecCommand(this.taskRepository, this.fileSystem);
-        if (sub === 'merge-resolve') return new MergeResolveCommand(this.gitRepository, this.fileSystem);
-        if (sub === 'verify-acs') return new VerifyAcsCommand(this.taskRepository, this.rootPath);
-        if (sub === 'capture') return new CaptureCommand(this.taskRepository, this.fileSystem, this.rootPath, this.gitRepository);
-        
-        let muriConfig;
-        try {
-          const configRaw = await this.fileSystem.readFile(`${this.rootPath}/arch.config.json`);
-          muriConfig = JSON.parse(configRaw).muri;
-        } catch { /* use default */ }
-        
-        return new TaskCommand(this.taskRepository, this.reviewer, this.humanCoordinationService, this.fileSystem, this.rootPath, this.eventRepository, this.causalSignalLog, this.gitRepository, muriConfig, this.eventLogger, this.temporalIndex);
-      }
-
-      case 'govern': {
-        const sub = args[0];
-        if (sub === 'reflect') return new AnalyzeCommand(this.fileSystem, this.rootPath, this.taskRepository);
-        if (sub === 'report') return new ReportCommand(this.fileSystem, this.gitRepository);
-        if (sub === 'inbox') return new InboxCommand(this.taskRepository, this.fileSystem, this.reviewer, this.driftChecker);
-        if (sub === 'conduct') return new ConductCommand();
-        if (sub === 'serve') return new ServeCommand(this.rootPath);
-        if (sub === 'compact-escalations') {
-          const store = new EscalationStore(this.fileSystem, this.rootPath);
-          return {
-            execute: async () => {
-              const { before, after } = await store.compact();
-              console.log(`\n  Escalation compaction: ${before} → ${after} records (removed ${before - after} duplicates)\n`);
-            }
-          } as any;
-        }
-        return new GovernCommand(this.taskRepository, this.gitRepository, this.fileSystem, this.causalSignalLog, this.rootPath);
-      }
-
-      case 'memory': {
-        const sub = args[0];
-        const subArgs = args.slice(1);
-        if (sub === 'ask') return new AskCommand(new AskCorpus(this.fileSystem, this.rootPath, new CausalGraph(this.fileSystem, this.rootPath), this.temporalIndex), {
-          getArgs: () => subArgs,
-          log: (s) => console.log(s),
-          error: (s) => console.error(s),
-          exit: (code) => process.exit(code) as never,
-        });
-        if (sub === 'causal') return new TraceCommand(new CausalGraph(this.fileSystem, this.rootPath), {
-          getArgs: () => subArgs,
-          log: (s) => console.log(s),
-          error: (s) => console.error(s),
-          exit: (code) => process.exit(code) as never,
-        }, this.causalSignalLog);
-        if (sub === 'index') return new IndexCommand(this.fileSystem, this.gitRepository);
-        if (sub === 'explain') return new ExplainCommand(this.taskRepository, this.fileSystem, this.causalSignalLog, this.rootPath);
-        if (sub === 'deps') return new DepsCommand(this.taskRepository);
-        return null;
-      }
-      
-      case 'audit':
-        return new AuditCommand();
-
-      case 'resume':
-        return new ResumeCommand(this.fileSystem, this.gitRepository, this.taskRepository, this.rootPath);
-
-      default:
-        return null;
-    }
+    const route = resolveRoute(name, args);
+    if (!route) return null;
+    const key = route.subCommand ? `${route.name}:${route.subCommand}` : route.name;
+    return (await this.builders[key]?.(route.remainingArgs)) ?? (await this.builders[route.name]?.(route.remainingArgs)) ?? null;
   }
+
+  private builders: Record<string, (args: string[]) => Promise<Command | null>> = {
+    'check': async () => new CheckCommand(this.taskRepository, this.gitRepository, this.reviewer, this.driftChecker, this.fileSystem),
+    'trace': async (args) => new TraceCommand(new CausalGraph(this.fileSystem, this.rootPath), {
+      getArgs: () => args, log: (s) => console.log(s), error: (s) => console.error(s), exit: (code) => process.exit(code) as never,
+    }, this.causalSignalLog),
+    'analyze': async () => new AnalyzeCommand(this.fileSystem, this.rootPath, this.taskRepository),
+    'review': async () => new ReviewCommand(this.taskRepository, this.gitRepository, this.fileSystem),
+    'init': async () => new InitCommand(this.rootPath),
+    'project': async () => new ProjectCommand(this.fileSystem, this.taskRepository, this.rootPath),
+    'version': async () => new VersionCommand(this.cliVersion),
+    'status': async () => new StatusCommand(this.taskRepository, this.fileSystem, this.rootPath),
+    'compile': async () => new CompileCommand(this.fileSystem),
+    'sentinel': async () => new SentinelCommand(this.fileSystem),
+    'audit': async () => new AuditCommand(),
+    'resume': async () => new ResumeCommand(this.fileSystem, this.gitRepository, this.taskRepository, this.rootPath),
+
+    'task:loop': async () => new LoopCommand(this.taskRepository, this.gitRepository, this.fileSystem, this.reviewer, this.driftChecker),
+    'task:batch': async () => new BatchCommand(this.fileSystem),
+    'task:drain': async () => ({ execute: async () => new BatchCommand(this.fileSystem).execute(['drain']) }),
+    'task:sandbox': async () => new SandboxCommand(this.sandboxService, this.taskRepository, this.fileSystem),
+    'task:mv': async () => new MoveCommand(this.taskRepository, this.gitRepository, this.fileSystem),
+    'task:exec': async () => new ExecCommand(this.taskRepository, this.fileSystem),
+    'task:merge-resolve': async () => new MergeResolveCommand(this.gitRepository, this.fileSystem),
+    'task:verify-acs': async () => new VerifyAcsCommand(this.taskRepository, this.rootPath),
+    'task:capture': async () => new CaptureCommand(this.taskRepository, this.fileSystem, this.rootPath, this.gitRepository),
+    'task': async (_args) => {
+      let muriConfig;
+      try {
+        const configRaw = await this.fileSystem.readFile(`${this.rootPath}/arch.config.json`);
+        muriConfig = JSON.parse(configRaw).muri;
+      } catch { /* use default */ }
+      return new TaskCommand(this.taskRepository, this.reviewer, this.humanCoordinationService, this.fileSystem, this.rootPath, this.eventRepository, this.causalSignalLog, this.gitRepository, muriConfig, this.eventLogger, this.temporalIndex);
+    },
+    'govern:reflect': async () => new AnalyzeCommand(this.fileSystem, this.rootPath, this.taskRepository),
+    'govern:report': async () => new ReportCommand(this.fileSystem, this.gitRepository),
+    'govern:inbox': async () => new InboxCommand(this.taskRepository, this.fileSystem, this.reviewer, this.driftChecker),
+    'govern:conduct': async () => new ConductCommand(),
+    'govern:serve': async () => new ServeCommand(this.rootPath),
+    'govern:compact-escalations': async () => {
+      const store = new EscalationStore(this.fileSystem, this.rootPath);
+      return { execute: async () => { const { before, after } = await store.compact(); console.log(`\n  Escalation compaction: ${before} → ${after} records (removed ${before - after} duplicates)\n`); } } as any;
+    },
+    'govern': async () => new GovernCommand(this.taskRepository, this.gitRepository, this.fileSystem, this.causalSignalLog, this.rootPath),
+    'memory:ask': async (args) => new AskCommand(new AskCorpus(this.fileSystem, this.rootPath, new CausalGraph(this.fileSystem, this.rootPath), this.temporalIndex), {
+      getArgs: () => args, log: (s) => console.log(s), error: (s) => console.error(s), exit: (code) => process.exit(code) as never,
+    }),
+    'memory:causal': async (args) => new TraceCommand(new CausalGraph(this.fileSystem, this.rootPath), {
+      getArgs: () => args, log: (s) => console.log(s), error: (s) => console.error(s), exit: (code) => process.exit(code) as never,
+    }, this.causalSignalLog),
+    'memory:index': async () => new IndexCommand(this.fileSystem, this.gitRepository),
+    'memory:explain': async () => new ExplainCommand(this.taskRepository, this.fileSystem, this.causalSignalLog, this.rootPath),
+    'memory:deps': async () => new DepsCommand(this.taskRepository),
+  };
 }

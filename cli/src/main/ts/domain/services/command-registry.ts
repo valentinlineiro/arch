@@ -406,3 +406,25 @@ export function getSubCommands(ns: string): CommandEntry[] {
 export function getPublicSubCommands(ns: string): CommandEntry[] {
   return COMMAND_REGISTRY.filter(e => e.topLevel === ns && e.subCommand !== undefined && e.visibility === 'public');
 }
+
+export interface RouteResult {
+  name: string;
+  subCommand: string | null;
+  remainingArgs: string[];
+}
+
+export function resolveRoute(name: string, args: string[]): RouteResult | null {
+  const topLevels = new Set(COMMAND_REGISTRY.map(e => e.topLevel));
+  if (!topLevels.has(name)) return null;
+
+  const hasSubCommands = COMMAND_REGISTRY.some(e => e.topLevel === name && e.subCommand);
+  if (hasSubCommands && args.length > 0) {
+    const sub = args[0];
+    const exists = COMMAND_REGISTRY.some(e => e.topLevel === name && e.subCommand === sub);
+    if (exists) {
+      return { name, subCommand: sub, remainingArgs: args.slice(1) };
+    }
+  }
+
+  return { name, subCommand: null, remainingArgs: args };
+}
