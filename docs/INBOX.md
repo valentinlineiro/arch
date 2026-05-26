@@ -19,14 +19,12 @@ _Generated: 2026-05-26T10:04Z by [THINK] session_
 ## Roadmap-Only (8 entries, not executable yet)
 See docs/refinement/ROADMAP-IDEAS.md
 
-## REVIEW_REQUEST
-**TASK-1035** — move process.exit() to main entry point (P0/M)
-All 6 ACs verified: Command interface returns Promise<number>, 0 process.exit() in commands, exactly 1 in index.ts, dispatcher propagates exit codes, 644/644 tests pass, arch review clean.
-Commit: b63bc704
-
 ## Last 5 Completed Tasks
-1. TASK-1039 — fix 13 pre-existing test failures (P0/S)
-2. TASK-1049 — resolve all tsc --noEmit typecheck errors to zero (P0/M)
-3. TASK-1031 — code hygiene quick wins (P1/XS)
-4. TASK-1029 — structural compaction: stale files, sprawl invariant, escalation compaction, archive partitioning (P1/M)
-5. TASK-1033 — extract command routing from command-dispatcher.ts into command-registry.ts (P2/S)
+1. TASK-1035 — move process.exit() to main entry point: commands return exit codes (P0/M)
+2. TASK-1039 — fix 13 pre-existing test failures (P0/S)
+3. TASK-1049 — resolve all tsc --noEmit typecheck errors to zero (P0/M)
+4. TASK-1031 — code hygiene quick wins (P1/XS)
+5. TASK-1029 — structural compaction: stale files, sprawl invariant, escalation compaction, archive partitioning (P1/M)
+
+## 2026-05-26 13:03:34 — Pattern Alerts
+[PATTERN-ALERT] [SpecDrift] detected 8 times — systemic issue. See docs/tensions/
