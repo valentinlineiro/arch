@@ -36,3 +36,6 @@ See docs/refinement/ROADMAP-IDEAS.md
 
 ## [2026-05-26 17:14] INFLUENCE_THRESHOLD_VIOLATION | REFLECT
 Evidence: Engagement 48% is below threshold 50% — attribution discipline review required
+
+## [2026-05-26 17:16] INFLUENCE_BREACH_PERSISTENT | REFLECT
+Evidence: Persistent breach (3 consecutive cycles): Engagement 48% is below threshold 50% — attribution discipline review required
