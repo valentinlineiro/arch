@@ -24,3 +24,4 @@
 {"taskId":"TASK-1014","timestamp":"2026-05-25T15:14:40.069Z","labels":["[AuditGap]"]}
 {"taskId":"TASK-1029","timestamp":"2026-05-26T08:23:25.691Z","labels":["AuditGap"]}
 {"taskId":"TASK-1031","timestamp":"2026-05-26T08:45:28.149Z","labels":["[no-issue]"]}
+{"taskId":"TASK-1031","timestamp":"2026-05-26T09:46:28.945Z","labels":["[SpecDrift]"]}
