@@ -1,5 +1,5 @@
 ## TASK-281: Implement operational load tracking - WIP, cognitive cost, rework rate metrics
-**Meta:** P3 | M | READY | Focus:no | 2-code-generation | claude | docs/METRICS.md, cli/src/main/ts/
+**Meta:** P3 | M | REJECTED | Focus:no | 2-code-generation | claude | docs/METRICS.md, cli/src/main/ts/
 
 ### Context
 

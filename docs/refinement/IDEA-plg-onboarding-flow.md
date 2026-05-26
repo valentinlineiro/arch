@@ -27,4 +27,4 @@ M
 ## Gaps
 
 ## Decision
-EXTEND. Gap: `arch fix` does not exist — no task, no implementation, no CLI surface. The exit action item ("Run `arch fix` to resolve them") is a dead end without it; the loop breaks at step 4. Trigger: a task for `arch fix` implementation reaches DONE and the init walkthrough can resolve at least one finding class end-to-end. This IDEA cannot enter BACKLOG before the loop closes.
+PROMOTE → TASK-1021. Resolution of EXTEND condition: `arch fix` for at least one finding class is in-scope within TASK-1021 itself — the task will not close until the exit action item has a working resolution path. The gap is now a scoped AC, not a blocking pre-req.

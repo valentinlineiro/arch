@@ -1,5 +1,5 @@
 ## TASK-273: Implement parallel task execution with file-overlap detection and locking
-**Meta:** P3 | M | READY | Focus:no | 7-operations | claude | cli/src/main/ts/
+**Meta:** P3 | M | REJECTED | Focus:no | 7-operations | claude | cli/src/main/ts/
 
 ### Context
 

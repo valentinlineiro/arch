@@ -1,5 +1,5 @@
 ## TASK-270: Add load-balancing mechanism to LoopEngine for refinement queue pressure
-**Meta:** P3 | S | READY | Focus:no | 2-code-generation | claude | cli/src/main/ts/
+**Meta:** P3 | S | REJECTED | Focus:no | 2-code-generation | claude | cli/src/main/ts/
 
 ### Context
 

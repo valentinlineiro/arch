@@ -1,5 +1,5 @@
 ## TASK-276: Implement AI-proposed policy generation from pattern analysis in THINK mode
-**Meta:** P3 | M | READY | Focus:no | 6-writing | claude | docs/refinement/, docs/guidelines/
+**Meta:** P3 | M | REJECTED | Focus:no | 6-writing | claude | docs/refinement/, docs/guidelines/
 
 ### Context
 
