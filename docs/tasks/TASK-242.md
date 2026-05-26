@@ -1,5 +1,5 @@
 ## TASK-242: Ship CLI as standalone npm package
-**Meta:** P2 | M | READY | Focus:no | 2-code-generation | claude-code | cli/
+**Meta:** P1 | M | READY | Focus:no | 2-code-generation | claude-code | cli/
 **Depends:** none
 
 ### Context
