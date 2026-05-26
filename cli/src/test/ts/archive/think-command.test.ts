@@ -1,8 +1,8 @@
 import { test } from 'node:test';
 import assert from 'node:assert';
-import { ThinkCommand } from '../../main/ts/application/commands/think-command.js';
-import { IntentStatus } from '../../main/ts/domain/models/intent.js';
-import type { Intent } from '../../main/ts/domain/models/intent.js';
+import { ThinkCommand } from '../../../main/ts/application/commands/think-command.js';
+import { IntentStatus } from '../../../main/ts/domain/models/intent.js';
+import type { Intent } from '../../../main/ts/domain/models/intent.js';
 
 class MockFS {
   files: Record<string, string> = {};

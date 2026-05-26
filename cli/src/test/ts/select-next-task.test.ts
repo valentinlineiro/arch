@@ -3,7 +3,7 @@ import assert from 'node:assert';
 import { SelectNextTask } from '../../main/ts/application/use-cases/select-next-task.js';
 import { NextCommand } from '../../main/ts/application/commands/next-command.js';
 import { Task, TaskStatus, FocusLevel } from '../../main/ts/domain/models/task.js';
-import { TaskRepository } from '../../domain/repositories/task-repository.js';
+import { TaskRepository } from '../../main/ts/domain/repositories/task-repository.js';
 import { MockFileSystem } from './mocks/index.js';
 // ...
 function makeTask(overrides: Partial<Task> = {}): Task {
@@ -33,6 +33,7 @@ class MockTaskRepository implements TaskRepository {
   async getActive() { return this.activeTasks ?? this.allTasks; }
   async findReady() { return this.allTasks.filter(t => t.status === TaskStatus.READY); }
   async getNextId() { return 'TASK-001'; }
+  async parseTask(_content: string): Promise<Task | null> { return null; }
   async save(_task: Task) {}
 }
 

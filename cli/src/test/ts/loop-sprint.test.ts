@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert';
 import { SelectNextTask } from '../../main/ts/application/use-cases/select-next-task.js';
-import { Task, TaskStatus } from '../../main/ts/domain/models/task.js';
+import { Task, TaskStatus, FocusLevel } from '../../main/ts/domain/models/task.js';
 import { TaskRepository } from '../../main/ts/domain/repositories/task-repository.js';
 
 function makeTask(overrides: Partial<Task> = {}): Task {
@@ -11,7 +11,7 @@ function makeTask(overrides: Partial<Task> = {}): Task {
     priority: 'P1',
     size: 'S',
     status: TaskStatus.READY,
-    focus: false,
+    focus: FocusLevel.NONE,
     sprint: '',
     class: '2-code-generation',
     cli: 'claude-code',
@@ -31,6 +31,7 @@ class MockTaskRepository implements TaskRepository {
   async getActive() { return this.activeTasks ?? this.allTasks; }
   async findReady() { return this.allTasks.filter(t => t.status === TaskStatus.READY); }
   async getNextId() { return 'TASK-999'; }
+  async parseTask(_content: string): Promise<Task | null> { return null; }
   async save(_task: Task) {}
 }
 

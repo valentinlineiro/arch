@@ -1,8 +1,8 @@
-import { FileSystem } from '../repositories/file-system.js';
-import { GitRepository } from '../repositories/git-repository.js';
+import { FileSystem } from '../../domain/repositories/file-system.js';
+import { GitRepository } from '../../domain/repositories/git-repository.js';
 import { HanseiAuditor } from '../../domain/services/hansei-auditor.js';
 import semver from 'semver';
-import { FocusLevel, ConflictSeverity, FocusConflict, TaskStatus, Hansei } from '../../domain/models/task.js';
+import { FocusLevel, ConflictSeverity, FocusConflict, TaskStatus, Hansei, Task } from '../../domain/models/task.js';
 import { PathResolver } from '../../domain/services/path-resolver.js';
 
 export interface DriftResult {
@@ -236,9 +236,9 @@ export class DriftChecker {
       try {
         const archiveDir = `${this.rootPath}/${this.pr.refinementArchive}`;
         const adrDir = `${this.rootPath}/${this.pr.adr}`;
-        const archiveFiles = await this.fileSystem.readDirectory(archiveDir).catch(() => []);
-        const adrFiles = await this.fileSystem.readDirectory(adrDir).catch(() => []);
-        for (const f of [...archiveFiles, ...adrFiles]) {
+        const archiveFiles: string[] = await this.fileSystem.readDirectory(archiveDir).catch((): string[] => []);
+        const adrFiles: string[] = await this.fileSystem.readDirectory(adrDir).catch((): string[] => []);
+        for (const f of allFiles) {
           const fPath = archiveFiles.includes(f) ? `${archiveDir}/${f}` : `${adrDir}/${f}`;
           const fc = await this.fileSystem.readFile(fPath).catch(() => '');
           if (fc.toLowerCase().includes(artifactName.toLowerCase())) {
@@ -1083,7 +1083,7 @@ export class DriftChecker {
 
       if (!statusMatch || !focusMatch) continue;
 
-      const status = statusMatch[1] as keyof typeof FocusLevel;
+      const status = statusMatch[1] as string;
       const rawFocus = focusMatch[1].toUpperCase();
       const focusMap: Record<string, FocusLevel> = {
         'YES': FocusLevel.HIGH,
@@ -1240,28 +1240,30 @@ export class DriftChecker {
       const hanseiMatch = content.match(/## Hansei\n\*\*Severity:\*\*\s*(\S+)\n\*\*Category:\*\*\s*(\S+)\n\*\*Decision:\*\*\s*([\s\S]*?)\n\*\*Constraint:\*\*\s*([\s\S]*?)\n\*\*Cost:\*\*\s*([\s\S]*?)\n\*\*Forward Action:\*\*\s*([\s\S]*?)(?=\n##|$)/m);
       if (!hanseiMatch) continue;
 
-      const task = {
+      const task: Task = {
         id: idMatch[1],
         title: '',
         priority: '',
         size: '',
         status: TaskStatus.REVIEW,
-        focus: false,
+        focus: FocusLevel.NONE,
         sprint: '',
         class: '',
         cli: '',
         context: [],
+        content: '',
+        filePath: '',
         acceptanceCriteria: [],
         hansei: {
-          severity: hanseiMatch[1].trim() as Hansei['severity'],
+          severity: hanseiMatch[1].trim() as unknown as Hansei['severity'],
           category: hanseiMatch[2].trim(),
           decision: hanseiMatch[3].trim(),
           constraint: hanseiMatch[4].trim(),
           cost: hanseiMatch[5].trim(),
           forwardAction: hanseiMatch[6].trim(),
         },
+        depends: [],
       };
-
       const changedFiles = HanseiAuditor.extractChangedFiles(content);
       const result = await auditor.audit(task, changedFiles);
 

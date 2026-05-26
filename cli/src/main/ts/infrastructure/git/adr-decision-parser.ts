@@ -1,6 +1,6 @@
 import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
-import type { Decision } from '../models/decision.js';
+import type { Decision } from '../../domain/models/decision.js';
 import { randomUUID } from 'node:crypto';
 import { PathResolver } from '../../domain/services/path-resolver.js';
 

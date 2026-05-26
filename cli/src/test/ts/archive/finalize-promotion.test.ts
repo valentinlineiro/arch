@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert';
-import { FinalizePromotion } from '../../main/ts/application/use-cases/finalize-promotion.js';
+import { FinalizePromotion } from '../../../main/ts/application/use-cases/finalize-promotion.js';
 
 class MockFS {
   files: Record<string, string> = {};

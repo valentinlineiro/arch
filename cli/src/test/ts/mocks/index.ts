@@ -82,5 +82,6 @@ export class MockGitRepository implements GitRepository {
   async getLastCommitHash(): Promise<string | null> { return this.lastCommitHash; }
   async isValidCommitHash(hash: string): Promise<boolean> { return this.validHashes.has(hash); }
   async getCommitAuthor(_hash: string): Promise<string | null> { return 'test-user'; }
+  async getCommitCountBetween(_fromHash: string, _toRef?: string): Promise<number | null> { return null; }
   async getCommitHistory(_limit?: number): Promise<CommitRecord[]> { return this.commits; }
 }

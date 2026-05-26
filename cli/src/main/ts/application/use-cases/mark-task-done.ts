@@ -1,5 +1,5 @@
 import { TaskRepository } from '../../domain/repositories/task-repository.js';
-import { TaskStatus } from '../../domain/models/task.js';
+import { TaskStatus, FocusLevel } from '../../domain/models/task.js';
 import { Reviewer } from '../../domain/services/reviewer.js';
 import { TaskValidator } from '../../domain/services/task-validator.js';
 import { FileSystem } from '../../domain/repositories/file-system.js';
@@ -98,7 +98,7 @@ export class MarkTaskDone {
 
     const fromStatus = task.status;
     task.status = TaskStatus.DONE;
-    task.focus = false;
+    task.focus = FocusLevel.NONE;
     if (!task.closedAt) {
       task.closedAt = new Date().toISOString();
     }

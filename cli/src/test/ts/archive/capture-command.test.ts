@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert';
-import { CaptureCommand } from '../../main/ts/application/commands/capture-command.js';
+import { CaptureCommand } from '../../../main/ts/application/commands/capture-command.js';
 
 class MockCaptureIntent {
   lastRaw: string | null = null;

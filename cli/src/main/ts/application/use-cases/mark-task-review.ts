@@ -1,5 +1,5 @@
 import { TaskRepository } from '../../domain/repositories/task-repository.js';
-import { TaskStatus } from '../../domain/models/task.js';
+import { TaskStatus, FocusLevel } from '../../domain/models/task.js';
 import { ValidateTaskAcs } from './validate-task-acs.js';
 import { TaskValidator } from '../../domain/services/task-validator.js';
 
@@ -38,7 +38,7 @@ export class MarkTaskReview {
     }
 
     task.status = TaskStatus.REVIEW;
-    task.focus = false;
+    task.focus = FocusLevel.NONE;
     await this.taskRepository.save(task);
     return { passed: true, failures: [] };
   }

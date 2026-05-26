@@ -1,12 +1,12 @@
 import { test } from 'node:test';
 import assert from 'node:assert';
 import { MarkTaskReview } from '../../main/ts/application/use-cases/mark-task-review.js';
-import { Task, TaskStatus } from '../../main/ts/domain/models/task.js';
+import { Task, TaskStatus, FocusLevel } from '../../main/ts/domain/models/task.js';
 import { TaskRepository } from '../../main/ts/domain/repositories/task-repository.js';
 
 const validHansei = {
-  severity: 'H1',
-  category: '[TypeHack]',
+  severity: 'H1' as const,
+  category: '[TypeHack]' as const,
   decision: 'Used any cast to bypass complex type circular dependency in parseTask (task-repository.ts).',
   constraint: 'P1 deadline and lack of specialized domain provider at the time.',
   cost: 'Type safety is degraded specifically in the parseTask method — src/repositories/task-repository.ts.',
@@ -20,7 +20,7 @@ function makeTask(overrides: Partial<Task> = {}): Task {
     priority: 'P1',
     size: 'S',
     status: TaskStatus.IN_PROGRESS,
-    focus: true,
+    focus: FocusLevel.HIGH,
     sprint: '',
     class: '2-code-generation',
     cli: 'claude-code',
@@ -43,6 +43,7 @@ class MockTaskRepository implements TaskRepository {
   async getActive() { return this.task ? [this.task] : []; }
   async findReady() { return []; }
   async getNextId() { return 'TASK-001'; }
+  async parseTask(_content: string): Promise<Task | null> { return null; }
   async save(task: Task) { this.saved = task; }
 }
 

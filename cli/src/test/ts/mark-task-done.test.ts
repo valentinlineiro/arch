@@ -8,8 +8,8 @@ import { TrustedMetrics } from '../../main/ts/application/use-cases/compute-trus
 import { MockFileSystem } from './mocks/index.js';
 
 const validHansei = {
-  severity: 'H1',
-  category: '[TypeHack]',
+  severity: 'H1' as const,
+  category: '[TypeHack]' as const,
   decision: 'Used any cast to bypass complex type circular dependency in parseTask (task-repository.ts).',
   constraint: 'P1 deadline and lack of specialized domain provider at the time.',
   cost: 'Type safety is degraded specifically in the parseTask method — src/repositories/task-repository.ts.',
@@ -17,6 +17,21 @@ const validHansei = {
 };
 
 function makeTask(overrides: Partial<Task> = {}): Task {
+  const base: Task = {
+    id: 'TASK-031',
+    title: 'Test Task',
+    priority: 'P1',
+    size: 'S',
+    status: TaskStatus.IN_PROGRESS,
+    sprint: 'Sprint 3',
+    class: '2-code-generation',
+    cli: 'claude-code',
+    context: ['src/'],
+    acceptanceCriteria: [],
+    rawMetaLine: '**Meta:** P1 | S | IN_PROGRESS | Sprint 3 | 2-code-generation | claude-code | src/',
+    hansei: validHansei,
+  };
+  return { ...base, ...overrides };
   return {
     id: 'TASK-031',
     title: 'Test Task',
@@ -47,6 +62,7 @@ class MockTaskRepository implements TaskRepository {
   async getActive() { return this.task ? [this.task] : []; }
   async findReady() { return []; }
   async getNextId() { return 'TASK-001'; }
+  async parseTask(_content: string): Promise<Task | null> { return null; }
   async save(task: Task) { this.saved = task; }
 }
 

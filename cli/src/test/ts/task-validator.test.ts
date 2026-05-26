@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert';
 import { TaskValidator } from '../../main/ts/domain/services/task-validator.js';
-import { Task, TaskStatus } from '../../main/ts/domain/models/task.js';
+import { Task, TaskStatus, FocusLevel } from '../../main/ts/domain/models/task.js';
 
 function makeTask(overrides: Partial<Task> = {}): Task {
   return {
@@ -10,7 +10,7 @@ function makeTask(overrides: Partial<Task> = {}): Task {
     priority: 'P1',
     size: 'M',
     status: TaskStatus.REVIEW,
-    focus: false,
+    focus: FocusLevel.NONE,
     sprint: '',
     class: '2-code-generation',
     cli: 'claude',

@@ -1,10 +1,10 @@
 import { test } from 'node:test';
 import assert from 'node:assert';
-import { TaskStatus } from '../../main/ts/domain/models/task.js';
-import type { Intent } from '../../main/ts/domain/models/intent.js';
-import type { IntentRepository } from '../../main/ts/domain/repositories/intent-repository.js';
-import { IntentStatus } from '../../main/ts/domain/models/intent.js';
-import { MarkdownIntentRepository } from '../../main/ts/infrastructure/filesystem/markdown-intent-repository.js';
+import { TaskStatus } from '../../../main/ts/domain/models/task.js';
+import type { Intent } from '../../../main/ts/domain/models/intent.js';
+import type { IntentRepository } from '../../../main/ts/domain/repositories/intent-repository.js';
+import { IntentStatus } from '../../../main/ts/domain/models/intent.js';
+import { MarkdownIntentRepository } from '../../../main/ts/infrastructure/filesystem/markdown-intent-repository.js';
 
 test('TaskStatus.DRAFT is defined and distinct from BACKLOG', () => {
   assert.strictEqual(TaskStatus.DRAFT, 'DRAFT');
@@ -105,8 +105,8 @@ test('MarkdownIntentRepository.update serializes status and promotedTo', async (
   assert.ok(written.includes('- TASK-212'));
 });
 
-import { ScaffoldTask } from '../../main/ts/application/use-cases/scaffold-task.js';
-import type { Task } from '../../main/ts/domain/models/task.js';
+import { ScaffoldTask } from '../../../main/ts/application/use-cases/scaffold-task.js';
+import type { Task } from '../../../main/ts/domain/models/task.js';
 
 class MockIntentRepo {
   intents = [{

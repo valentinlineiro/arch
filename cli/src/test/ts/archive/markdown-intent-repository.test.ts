@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert';
-import { IntentStatus } from '../../main/ts/domain/models/intent.js';
-import { MarkdownIntentRepository } from '../../main/ts/infrastructure/filesystem/markdown-intent-repository.js';
+import { IntentStatus } from '../../../main/ts/domain/models/intent.js';
+import { MarkdownIntentRepository } from '../../../main/ts/infrastructure/filesystem/markdown-intent-repository.js';
 
 class MockFileSystem {
   files: Record<string, string> = {};

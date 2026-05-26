@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert';
 import { TaskValidator } from '../../main/ts/domain/services/task-validator.js';
-import { Task, TaskStatus } from '../../main/ts/domain/models/task.js';
+import { Task, TaskStatus, FocusLevel } from '../../main/ts/domain/models/task.js';
 
 const baseTask: Task = {
   id: 'TASK-001',
@@ -9,7 +9,7 @@ const baseTask: Task = {
   priority: 'P1',
   size: 'M',
   status: TaskStatus.READY,
-  focus: false,
+  focus: FocusLevel.NONE,
   sprint: '',
   class: 'test',
   cli: 'local',

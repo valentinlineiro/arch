@@ -1,5 +1,5 @@
-import { ArchEvent, EventRepository } from '../models/event.js';
-import { FileSystem } from '../repositories/file-system.js';
+import { ArchEvent, EventRepository } from '../../domain/models/event.js';
+import { FileSystem } from '../../domain/repositories/file-system.js';
 import { PathResolver } from '../../domain/services/path-resolver.js';
 
 export class ChronicleEventRepository implements EventRepository {

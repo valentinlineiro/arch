@@ -1,7 +1,7 @@
 import { execSync } from 'node:child_process';
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
-import type { EvidenceEvent, ClaimType } from '../models/evidence.js';
+import type { EvidenceEvent, ClaimType } from '../../domain/models/evidence.js';
 import { randomUUID } from 'node:crypto';
 
 export class GitEvidenceCollector {

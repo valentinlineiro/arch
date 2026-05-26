@@ -1,8 +1,8 @@
 import { test } from 'node:test';
 import assert from 'node:assert';
-import { CaptureIntent } from '../../main/ts/application/use-cases/capture-intent.js';
-import { IntentStatus } from '../../main/ts/domain/models/intent.js';
-import type { Intent } from '../../main/ts/domain/models/intent.js';
+import { CaptureIntent } from '../../../main/ts/application/use-cases/capture-intent.js';
+import { IntentStatus } from '../../../main/ts/domain/models/intent.js';
+import type { Intent } from '../../../main/ts/domain/models/intent.js';
 
 class MockIntentRepository {
   saved: Intent[] = [];
