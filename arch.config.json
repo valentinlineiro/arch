@@ -97,6 +97,11 @@
     "conductEveryN": 5,
     "batchWritingTasks": false,
     "execTimeoutMinutes": 10,
+    "sprawlThresholds": {
+      ".arch": 30,
+      "docs": 25,
+      ".": 25
+    },
     "negativeConstraints": [
       "No new npm dependencies for tasks smaller than M",
       "No modifying protectedPaths without a preceding ADR",
@@ -149,7 +154,8 @@
   "contextBudget": {
     "docs/tasks": 1500,
     "docs/archive": 8000,
-    "docs/refinement": 3000
+    "docs/refinement": 3000,
+    "docs/adr": 2000
   },
   "paths": {
     "tasks": "docs/tasks",

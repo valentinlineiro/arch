@@ -63,7 +63,43 @@ export class DriftChecker {
       this.checkSentinelCoverage(),
       this.checkVersionCompat(),
       this.checkStaleEscalations(),
+      this.checkMaxTopLevelFiles(),
     ]);
+  }
+
+  private async checkMaxTopLevelFiles(): Promise<DriftResult> {
+    const configRaw = await this.fileSystem.readFile(`${this.rootPath}/arch.config.json`);
+    const config = JSON.parse(configRaw);
+    const thresholds = config.governance?.sprawlThresholds ?? {
+      '.arch': 30,
+      docs: 25,
+      '.': 25,
+    };
+    const details: string[] = [];
+
+    for (const [dir, threshold] of Object.entries(thresholds) as [string, number][]) {
+      const dirPath = dir === '.' ? this.rootPath : `${this.rootPath}/${dir}`;
+      if (!(await this.fileSystem.exists(dirPath))) continue;
+
+      let entries: string[];
+      try {
+        entries = await this.fileSystem.readDirectory(dirPath);
+      } catch {
+        continue;
+      }
+
+      // Filter out git-only tracked files and hidden entries for a "top-level files" count
+      const topLevel = entries.filter(e => !e.startsWith('.') && !e.startsWith('node_modules'));
+      if (topLevel.length > threshold) {
+        details.push(`${dir}: ${topLevel.length} top-level entries exceeds threshold of ${threshold}`);
+      }
+    }
+
+    return {
+      check: 'Sprawl',
+      status: details.length === 0 ? 'OK' : 'WARN',
+      details,
+    };
   }
 
   private async checkEscalationMaturity(): Promise<DriftResult> {

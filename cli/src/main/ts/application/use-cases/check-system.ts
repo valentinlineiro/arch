@@ -30,6 +30,7 @@ const DELTA_GLOBAL_CHECKS = new Set([
   'ArchivedIdeaDecisions',
   'ApprovalPresent',
   'ArchiveMetaIntegrity',
+  'Sprawl',
 ]);
 
 const DELTA_LOCAL_CHECKS = new Set([

@@ -917,3 +917,116 @@ test('ExcisionStructuralCheck Gate 2 - passes when decision record references ar
   assert.strictEqual(check?.status, 'OK',
     'Gate 2 must pass when a decision record references the artifact, regardless of REJECT keyword');
 });
+
+// ─── Sprawl (maxTopLevelFiles) ────────────────────────────────────────────
+
+test('Sprawl - OK when all directories are under threshold', async () => {
+  const fs = makeBaseFs();
+  fs.files['/repo/arch.config.json'] = JSON.stringify({
+    version: '0.2.0',
+    governance: {
+      sprawlThresholds: { '.arch': 30, docs: 25, '.': 25 },
+    },
+  });
+  fs.dirs['/repo/.arch'] = ['config.json', 'ledger.jsonl'];
+  fs.dirs['/repo/docs'] = ['tasks', 'archive', 'adr'];
+  fs.dirs['/repo'] = ['README.md', 'AGENTS.md'];
+
+  const checker = new DriftChecker(fs, new MockGitRepository(), '/repo', '0.2.0');
+  const result = await checker.check();
+  const check = result.find(r => r.check === 'Sprawl');
+
+  assert.ok(check);
+  assert.strictEqual(check?.status, 'OK');
+});
+
+test('Sprawl - WARN when .arch/ directory exceeds threshold', async () => {
+  const fs = makeBaseFs();
+  fs.files['/repo/arch.config.json'] = JSON.stringify({
+    version: '0.2.0',
+    governance: {
+      sprawlThresholds: { '.arch': 2, docs: 25, '.': 25 },
+    },
+  });
+  fs.dirs['/repo/.arch'] = ['a.md', 'b.md', 'c.md', 'd.md', 'e.md'];
+
+  const checker = new DriftChecker(fs, new MockGitRepository(), '/repo', '0.2.0');
+  const result = await checker.check();
+  const check = result.find(r => r.check === 'Sprawl');
+
+  assert.ok(check);
+  assert.strictEqual(check?.status, 'WARN');
+  assert.ok(check?.details.some(d => d.includes('.arch') && d.includes('exceeds threshold')));
+});
+
+test('Sprawl - WARN when root directory exceeds threshold', async () => {
+  const fs = makeBaseFs();
+  fs.files['/repo/arch.config.json'] = JSON.stringify({
+    version: '0.2.0',
+    governance: {
+      sprawlThresholds: { '.arch': 30, docs: 25, '.': 2 },
+    },
+  });
+  fs.dirs['/repo'] = ['README.md', 'AGENTS.md', 'CONTRIBUTING.md', 'package.json', 'tsconfig.json'];
+
+  const checker = new DriftChecker(fs, new MockGitRepository(), '/repo', '0.2.0');
+  const result = await checker.check();
+  const check = result.find(r => r.check === 'Sprawl');
+
+  assert.ok(check);
+  assert.strictEqual(check?.status, 'WARN');
+  assert.ok(check?.details.some(d => d.includes('exceeds threshold')));
+});
+
+test('Sprawl - uses default thresholds when config has no sprawlThresholds', async () => {
+  const fs = makeBaseFs();
+  fs.files['/repo/arch.config.json'] = JSON.stringify({
+    version: '0.2.0',
+    governance: {},
+  });
+  fs.dirs['/repo/.arch'] = Array.from({ length: 40 }, (_, i) => `file${i}.json`);
+
+  const checker = new DriftChecker(fs, new MockGitRepository(), '/repo', '0.2.0');
+  const result = await checker.check();
+  const check = result.find(r => r.check === 'Sprawl');
+
+  assert.ok(check);
+  assert.strictEqual(check?.status, 'WARN');
+});
+
+test('Sprawl - gracefully skips non-existent directories (no crash)', async () => {
+  const fs = makeBaseFs();
+  fs.files['/repo/arch.config.json'] = JSON.stringify({
+    version: '0.2.0',
+    governance: {
+      sprawlThresholds: { '.arch': 30, docs: 25, '.': 25 },
+    },
+  });
+  // .arch does not exist — should be skipped gracefully
+  fs.dirs['/repo/docs'] = ['tasks.md'];
+
+  const checker = new DriftChecker(fs, new MockGitRepository(), '/repo', '0.2.0');
+  const result = await checker.check();
+  const check = result.find(r => r.check === 'Sprawl');
+
+  assert.ok(check);
+  assert.strictEqual(check?.status, 'OK');
+});
+
+test('Sprawl - hidden files (dotfiles) and node_modules are excluded from count', async () => {
+  const fs = makeBaseFs();
+  fs.files['/repo/arch.config.json'] = JSON.stringify({
+    version: '0.2.0',
+    governance: {
+      sprawlThresholds: { '.': 3 },
+    },
+  });
+  fs.dirs['/repo'] = ['.git', '.arch', 'node_modules', 'README.md', 'AGENTS.md', 'package.json'];
+
+  const checker = new DriftChecker(fs, new MockGitRepository(), '/repo', '0.2.0');
+  const result = await checker.check();
+  const check = result.find(r => r.check === 'Sprawl');
+
+  assert.ok(check);
+  assert.strictEqual(check?.status, 'OK'); // .git, .arch, node_modules filtered out → 3 visible entries = threshold
+});

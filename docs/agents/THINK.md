@@ -21,7 +21,7 @@
 
 **Hansei Pattern Synthesis (runs before Idea Refinement):**
 Read `.arch/causal-signal.jsonl` and filter for `event` fields matching `hansei_signal:*`. Group by `candidate_to` category (e.g. `friction:[SpecDrift]`). For each category:
-- Count ≥ 3 (weak signal threshold): check `docs/tensions/` for an existing TENSION referencing this category. If none exists: create `docs/tensions/TENSION-XXX.md` using `docs/tensions/TENSION-template.md` as template, filling in: Pattern (category name), Affected tasks (IDs from `candidate_from`), Evidence (brief description), Proposed protocol change. Commit with `[THINK]` tag.
+- Count ≥ 3 (weak signal threshold): check `docs/tensions/` for an existing TENSION referencing this category. If none exists: create `docs/tensions/TENSION-XXX.md` using `docs/tensions/TEMPLATE.md` as template, filling in: Pattern (category name), Affected tasks (IDs from `candidate_from`), Evidence (brief description), Proposed protocol change. Commit with `[THINK]` tag.
 - Count ≥ 5 (strong signal): additionally append `[PATTERN-ALERT] [Category] N occurrences — systemic issue. See docs/tensions/TENSION-XXX.md` to `docs/INBOX.md`. Commit with `[THINK]` tag.
 - If a TENSION already exists for this category: append a new evidence block (date, task IDs, count) to the existing file. Commit with `[THINK]` tag.
 THINK never modifies `docs/guidelines/` directly. All output is proposals. Human promotes TENSION → guideline change.
