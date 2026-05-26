@@ -26,3 +26,4 @@
 {"decision_id": "D-inbox-hy", "timestamp": "2026-05-25T05:27:16.788752+00:00", "target": "IDEA-inbox-hygiene", "outcome": "PROMOTE", "finality": "committed", "influence_declared": false, "based_on_proposals": []}
 {"decision_id": "D-status-a", "timestamp": "2026-05-25T05:27:16.789402+00:00", "target": "IDEA-status-alerts-fix", "outcome": "PROMOTE", "finality": "committed", "influence_declared": false, "based_on_proposals": []}
 {"decision_id": "D-corpus-import", "timestamp": "2026-05-26T06:01:06.867059+00:00", "target": "IDEA-corpus-import", "outcome": "PROMOTE", "finality": "committed", "influence_declared": false, "based_on_proposals": []}
+{"decision_id":"D-task-exec-log","timestamp":"2026-05-26T13:00:00Z","target":"IDEA-task-execution-log","outcome":"PROMOTE","finality":"committed","influence_declared":true,"based_on_proposals":[]}

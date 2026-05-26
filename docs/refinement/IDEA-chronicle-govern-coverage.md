@@ -20,5 +20,7 @@ M
 
 ## Gaps
 
+**Sessions:** 1
+
 ## Decision
 EXTEND. Correct diagnosis; minimal schema is adoptable (tick_id, actions_taken, decision_count). This is a retention feature — it detects degradation in users who already have the system. Trigger: IDEA-plg-onboarding-flow reaches DONE and the 90-day sprint's first objective (`arch init` flow) ships. Promoting before acquisition infrastructure lands inverts the sprint's explicit priority ordering.

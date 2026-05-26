@@ -1,7 +1,7 @@
 # IDEA: task execution log for Hansei input
 **Created:** 2026-05-26
 **Source:** human — observed friction in Hansei authoring: difficulties and misalignments during task execution are not captured in-context and must be reconstructed retroactively
-**Status:** DRAFT
+**Status:** PROMOTED
 **Meta:** P2 | S | human | hansei
 
 ## Problem
