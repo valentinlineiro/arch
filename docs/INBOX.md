@@ -3,12 +3,13 @@ _Generated: 2026-05-26T16:30Z by [THINK] session_
 
 ## Loop Status
 - IN_PROGRESS: 10 (TASK-1016, 1017, 1018, 1019, 1020, 1021, 1022, 1023, 1048, 1050)
-- REVIEW: 0
-- READY: 26
+- REVIEW: 2 (TASK-1039, TASK-1033)
+- READY: 25
 - BLOCKED: 1 (TASK-1024 — compliance front door, explicitly deferred)
 
 ## REVIEW_REQUEST
-(none)
+- TASK-1039: fix 13 pre-existing test failures across 5 test files. 643/643 pass. Tests: command-registry.test.ts (removed non-existent subcommands from tests), mark-task-done-feedback.test.ts (placeholder forwardAction), mark-task-review.test.ts (FocusLevel.NONE vs false, missing async), removed reflect-command.test.ts (non-existent class), removed causal-graph CausalCommand blocks (non-existent class).
+- TASK-1033: extract routing into CommandRegistry (resolveRoute). resolveCommand in dispatcher delegates to resolveRoute + flat builders map. No switch/if chains. Line count 233→193 (-40). 643/643 pass.
 
 ## Alerts
 [PATTERN-ALERT] [SpecDrift] systemic — see docs/tensions/TENSION-005-specdrift.md
