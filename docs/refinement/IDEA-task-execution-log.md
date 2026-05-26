@@ -37,11 +37,39 @@ S — new convention + DO.md instruction update + optional `arch` CLI hook to re
 
 **Admissibility:** Structurally admissible on all 5 axes.
 
-**Open gaps for promotion:**
-1. Schema completeness: required vs optional fields in the event schema need specification before implementation
-2. Lifecycle hook: which point in DO mode triggers the append? After each arch review failure? After scope deviation decisions?
-3. File ownership: per-task `.arch/task-logs/TASK-XXXX.jsonl` vs shared single file — affects cleanup protocol at task close
-4. README convention: DO.md needs a new section describing the logging convention before agents can adopt it
+**Gap resolutions (human, 2026-05-26):**
+
+**Gap 1 — Schema completeness:**
+Required fields: `ts` (ISO 8601), `task` (TASK-XXXX), `type` (enum), `msg` (≤120 chars, human-readable).
+Optional fields: `context` (additional detail, e.g. failing check name or file path), `ac_ref` (which AC was involved), `resolution` (how the event was closed, filled in-place if known).
+
+Event types (exhaustive):
+- `blocker` — hard stop: missing dependency, unclear spec, external system unavailable
+- `review-fail` — `arch review` exited non-zero; `context` should name the failing check
+- `scope-deviation` — agent made an interpretation call on an ambiguous AC
+- `retry` — same operation attempted 2+ times; `context` should name the operation
+- `ac-misread` — agent discovers at review time that an AC was read differently than intended
+- `note` — any other friction worth capturing for Hansei
+
+Full example:
+```json
+{ "ts": "2026-05-26T10:15Z", "task": "TASK-1029", "type": "review-fail", "msg": "HanseiReconciliation flagged undeclared any casts", "context": "drift-checker.ts:6 occurrences", "resolution": "imported TaskStatus and Hansei types" }
+```
+
+**Gap 2 — Lifecycle hook:**
+Agents append on the event, not retroactively. Mandatory triggers in DO mode:
+1. When `arch review` exits non-zero → `review-fail`
+2. When a hard stop is encountered → `blocker`
+3. When an AC is ambiguous and the agent makes an interpretation call → `scope-deviation`
+4. On the second attempt of any operation → `retry`
+5. Never retroactively at REVIEW or DONE time — the log is only read there, not written
+
+**Gap 3 — File ownership:**
+Per-task file at `.arch/task-logs/TASK-XXXX.jsonl`. Rationale: log is only useful for the current task's Hansei; shared file grows unbounded and complicates cleanup. The `.arch/task-logs/` subdirectory is a one-time addition.
+Cleanup: agent deletes the log file immediately after writing Hansei at DONE. The Hansei is the durable artifact; the log is ephemeral scaffolding.
+
+**Gap 4 — DO.md convention:**
+A new `## Execution Logging` section in `docs/agents/DO.md` is the sole adoption surface. It must specify: when to append, the schema, the file path pattern, and the cleanup rule. No other files need updating — agents load DO.md at session start.
 
 ## Decision
 <!-- REJECT: <one-line rationale>                    — no THINK evaluation required. Write it now. -->
