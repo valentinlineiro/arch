@@ -4092,7 +4092,7 @@
       "title": "Govern/Reflect Structural Separation"
     }
   },
-  "builtAt": "2026-05-26T14:13:50.184Z",
+  "builtAt": "2026-05-26T14:24:19.196Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -9622,17 +9622,19 @@
       }
     },
     "TASK-1018": {
-      "commitCount": 2,
+      "commitCount": 4,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-26T16:07:37+02:00",
+      "lastCommitDate": "2026-05-26T16:20:49+02:00",
       "recentCommitRefs": [
+        "19955f66",
+        "9f9c753a",
         "a83f4c1c",
         "cde1c98c"
       ],
       "touchedFrequency": {
         "AGENTS.md": 1,
         "GEMINI.md": 1,
-        "README.md": 1,
+        "README.md": 2,
         "cli/src/main/ts/application/commands/init-command.ts": 1,
         "cli/src/main/ts/application/commands/project-command.ts": 1,
         "cli/src/main/ts/application/commands/resume-command.ts": 1,
@@ -9644,6 +9646,7 @@
         "docs/ARCH-CORE.md": 1,
         "docs/GOVERNANCE.md": 1,
         "docs/HALT.md": 1,
+        "docs/INBOX.md": 1,
         "docs/KAIZEN-LOG.md": 1,
         "docs/PRINCIPLES.md": 1,
         "docs/PROTOCOL-UPGRADES.md": 1,
@@ -10099,13 +10102,14 @@
       }
     },
     "TASK-1040": {
-      "commitCount": 7,
+      "commitCount": 8,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-26T16:01:09+02:00",
+      "lastCommitDate": "2026-05-26T16:18:18+02:00",
       "recentCommitRefs": [
         "5567fce2",
         "564f8b42",
         "81ccf347",
+        "81e6848d",
         "a8f3a700",
         "db5e076c",
         "e0913dc5",
@@ -10115,6 +10119,7 @@
         ".arch/causal-signal.jsonl": 1,
         ".arch/chronicle.jsonl": 1,
         ".arch/focus-ledger.jsonl": 3,
+        "cli/.gitignore": 1,
         "cli/package-lock.json": 1,
         "cli/package.json": 1,
         "cli/src/main/ts/application/commands/init-command.ts": 1,
@@ -10126,19 +10131,21 @@
         "docs/EVENTS.md": 1,
         "docs/INBOX.md": 1,
         "docs/archive/TASK-1040.md": 1,
+        "docs/tasks/TASK-1018.md": 1,
         "docs/tasks/TASK-1040.md": 2
       }
     },
     "TASK-1041": {
-      "commitCount": 2,
+      "commitCount": 3,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-26T16:13:47+02:00",
+      "lastCommitDate": "2026-05-26T16:24:16+02:00",
       "recentCommitRefs": [
         "06a0fc6e",
-        "668860f0"
+        "668860f0",
+        "74a01abb"
       ],
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 2,
+        ".arch/focus-ledger.jsonl": 3,
         "docs/archive/TASK-1018.md": 1,
         "docs/tasks/TASK-1041.md": 1
       }
@@ -10897,7 +10904,7 @@
       }
     },
     "TASK-966": {
-      "commitCount": 8,
+      "commitCount": 7,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-23T18:12:06+00:00",
       "recentCommitRefs": [
@@ -10907,12 +10914,11 @@
         "98bc98ff",
         "a6297ed0",
         "b947acb1",
-        "bb9c5c03",
-        "beff09af"
+        "bb9c5c03"
       ],
       "touchedFrequency": {
         ".arch/corpus-index.json": 1,
-        ".arch/focus-ledger.jsonl": 6,
+        ".arch/focus-ledger.jsonl": 5,
         ".arch/reflect-breach-log.jsonl": 1,
         ".arch/status-projection.json": 1,
         "README.md": 1,
@@ -10993,35 +10999,14 @@
       }
     },
     "TASK-975": {
-      "commitCount": 3,
+      "commitCount": 1,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-22T14:15:44+02:00",
       "recentCommitRefs": [
-        "23ac7071",
-        "2879afed",
-        "f5d41942"
+        "23ac7071"
       ],
       "touchedFrequency": {
-        "cli/src/main/ts/application/use-cases/generate-inbox.ts": 1,
-        "cli/src/main/ts/application/use-cases/govern-system.ts": 1,
-        "cli/src/main/ts/application/use-cases/select-next-task.ts": 1,
-        "cli/src/main/ts/infrastructure/filesystem/markdown-task-repository.ts": 1,
-        "cli/src/test/ts/govern-system.test.ts": 1,
-        "cli/src/test/ts/select-next-task.test.ts": 1,
-        "docs/INBOX.md": 1,
-        "docs/archive/TASK-975.md": 1,
-        "docs/tasks/TASK-975.md": 2
-      }
-    },
-    "TASK-984": {
-      "commitCount": 1,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-22T12:59:23+02:00",
-      "recentCommitRefs": [
-        "597d61d0"
-      ],
-      "touchedFrequency": {
-        "docs/archive/TASK-984.md": 1
+        "docs/archive/TASK-975.md": 1
       }
     },
     "TASK-985": {
