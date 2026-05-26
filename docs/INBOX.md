@@ -1,5 +1,5 @@
 # INBOX
-_Generated: 2026-05-26T12:30Z by [THINK] DEFAULT session_
+_Generated: 2026-05-26T12:45Z by [THINK] DEFAULT session_
 
 ## Loop Status
 - IN_PROGRESS: 8 (TASK-1016, 1017, 1018, 1019, 1020, 1021, 1022, 1023)
@@ -10,20 +10,12 @@ _Generated: 2026-05-26T12:30Z by [THINK] DEFAULT session_
 ## Alerts
 [PATTERN-ALERT] [SpecDrift] systemic — see docs/tensions/TENSION-005-specdrift.md
 
-## Refinement Queue (13 active)
-  - IDEA-90-day-productization-sprint
-  - IDEA-chronicle-govern-coverage
-  - IDEA-compliance-front-door
-  - IDEA-dual-truth-reconciliation
-  - IDEA-enforcement-boundary-demo
-  - IDEA-friction-measurement-instrumentation
-  - IDEA-generated-docs-coupling
-  - IDEA-idea-adjudication-throughput
-  - IDEA-plg-onboarding-flow
-  - IDEA-progressive-cli-surface
-  - IDEA-promotion-decision-support
-  - IDEA-reflect-independence-measurement
-  - IDEA-task-execution-log
+## Refinement Queue (5 active)
+  - IDEA-chronicle-govern-coverage (EXTEND)
+  - IDEA-dual-truth-reconciliation (EXTEND)
+  - IDEA-idea-adjudication-throughput (EXTEND)
+  - IDEA-promotion-decision-support (EXTEND)
+  - IDEA-task-execution-log (DRAFT, sessions: 1)
 
 ## Roadmap-Only (not executable yet)
   - backlog-compression: deferred — criteria undefined
