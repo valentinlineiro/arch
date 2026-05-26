@@ -352,6 +352,12 @@
           ],
           "taskPath": "docs/tasks/TASK-1023.md"
         },
+        "TASK-1051": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1051.md"
+        },
         "TASK-967": {
           "evidenceKinds": [
             "literal-mention"
@@ -422,6 +428,12 @@
     },
     "ADR-011": {
       "tasks": {
+        "TASK-1051": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1051.md"
+        },
         "TASK-213": {
           "evidenceKinds": [
             "literal-mention"
@@ -955,6 +967,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-1002.md"
+        },
+        "TASK-1051": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1051.md"
         },
         "TASK-956": {
           "evidenceKinds": [
@@ -4092,7 +4110,7 @@
       "title": "Govern/Reflect Structural Separation"
     }
   },
-  "builtAt": "2026-05-26T14:59:58.108Z",
+  "builtAt": "2026-05-26T15:13:18.636Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -10136,13 +10154,14 @@
       }
     },
     "TASK-1041": {
-      "commitCount": 4,
+      "commitCount": 5,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-26T16:49:56+02:00",
+      "lastCommitDate": "2026-05-26T17:00:11+02:00",
       "recentCommitRefs": [
         "06a0fc6e",
         "668860f0",
         "74a01abb",
+        "99964c16",
         "c2395675"
       ],
       "touchedFrequency": {
@@ -10151,18 +10170,20 @@
         "cli/src/main/ts/infrastructure/cli/git-cli.ts": 1,
         "cli/src/test/ts/arch-check-integration.test.ts": 1,
         "docs/archive/TASK-1018.md": 1,
+        "docs/archive/TASK-1041.md": 1,
         "docs/tasks/TASK-1041.md": 2
       }
     },
     "TASK-1042": {
-      "commitCount": 1,
+      "commitCount": 2,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-26T16:59:53+02:00",
+      "lastCommitDate": "2026-05-26T17:13:15+02:00",
       "recentCommitRefs": [
+        "0383b505",
         "0864844b"
       ],
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 1,
+        ".arch/focus-ledger.jsonl": 2,
         "docs/tasks/TASK-1042.md": 1
       }
     },
@@ -10284,6 +10305,23 @@
       ],
       "touchedFrequency": {
         "docs/tasks/TASK-1050.md": 1
+      }
+    },
+    "TASK-1051": {
+      "commitCount": 4,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-05-26T17:13:14+02:00",
+      "recentCommitRefs": [
+        "162694c8",
+        "7fdc8d22",
+        "a1e2b658",
+        "eaec61b4"
+      ],
+      "touchedFrequency": {
+        "cli/src/main/ts/application/command-dispatcher.ts": 1,
+        "cli/src/main/ts/application/commands/init-command.ts": 1,
+        "docs/archive/TASK-1051.md": 1,
+        "docs/tasks/TASK-1051.md": 3
       }
     },
     "TASK-161": {
@@ -11025,194 +11063,44 @@
       }
     },
     "TASK-985": {
-      "commitCount": 6,
+      "commitCount": 2,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-22T14:07:12+02:00",
       "recentCommitRefs": [
-        "327d868d",
-        "43cde843",
-        "4d4a2cb3",
         "6a2e464c",
-        "97b5b6e4",
-        "d0a0df03"
+        "97b5b6e4"
       ],
       "touchedFrequency": {
-        ".arch/corpus-index.json": 1,
-        ".arch/escalations.jsonl": 1,
-        ".arch/reflect-breach-log.jsonl": 1,
-        ".arch/reflect-decisions.jsonl": 1,
-        ".arch/status-projection.json": 1,
-        "README.md": 1,
-        "docs/EPISTEMIC-DOCTRINE.md": 1,
-        "docs/EVENTS.md": 1,
-        "docs/EXPERIMENT-PROTOCOL.md": 1,
-        "docs/GOVERNANCE.md": 1,
-        "docs/HALT-LOG.md": 1,
-        "docs/INBOX.md": 1,
-        "docs/META-PROTOCOL.md": 1,
-        "docs/METRICS.md": 1,
-        "docs/ROADMAP.md": 2,
-        "docs/SPRINT-STATE-MACHINE.md": 1,
-        "docs/adr/ADR-020-focus-sovereignty-model.md": 1,
-        "docs/agents/THINK-audit.md": 1,
         "docs/archive/TASK-985.md": 1,
-        "docs/archive/design/governance-execution-model.md": 1,
-        "docs/archive/design/superpowers/plans/2026-05-06-llm-bridge.md": 1,
-        "docs/archive/design/superpowers/plans/2026-05-07-arch-capture.md": 1,
-        "docs/archive/design/superpowers/plans/2026-05-07-auto-context-engine.md": 1,
-        "docs/archive/design/superpowers/plans/2026-05-07-drift-detection.md": 1,
-        "docs/archive/design/superpowers/plans/2026-05-08-automatic-entity-linking.md": 1,
-        "docs/archive/design/superpowers/plans/2026-05-08-roadmap-reflection.md": 1,
-        "docs/archive/design/superpowers/plans/2026-05-11-arch-think-plan.md": 1,
-        "docs/archive/design/superpowers/plans/2026-05-11-close-learning-loop.md": 1,
-        "docs/archive/design/superpowers/plans/2026-05-15-think-compression.md": 1,
-        "docs/archive/design/superpowers/plans/2026-05-18-next-phase.md": 1,
-        "docs/archive/design/superpowers/plans/2026-05-18-protocol-upgrade-policy.md": 1,
-        "docs/archive/design/superpowers/plans/2026-05-18-v1-readiness.md": 1,
-        "docs/archive/design/superpowers/plans/2026-05-19-arch-versioning.md": 1,
-        "docs/archive/design/superpowers/specs/2026-05-05-rag-arch-design.md": 1,
-        "docs/archive/design/superpowers/specs/2026-05-07-arch-capture-design.md": 1,
-        "docs/archive/design/superpowers/specs/2026-05-07-auto-context-engine-design.md": 1,
-        "docs/archive/design/superpowers/specs/2026-05-07-drift-detection-design.md": 1,
-        "docs/archive/design/superpowers/specs/2026-05-08-automatic-entity-linking-design.md": 1,
-        "docs/archive/design/superpowers/specs/2026-05-08-roadmap-reflection-design.md": 1,
-        "docs/archive/design/superpowers/specs/2026-05-11-arch-think-design.md": 1,
-        "docs/archive/design/superpowers/specs/2026-05-14-shared-test-mocks-design.md": 1,
-        "docs/archive/design/superpowers/specs/2026-05-19-arch-versioning-design.md": 1,
-        "docs/guidelines/core.md": 1,
-        "docs/guidelines/resources.md": 1,
-        "docs/guidelines/what-ai-must-never-do-in-this-repo.md": 1,
-        "docs/refinement/IDEA-arch-init-ux.md": 1,
-        "docs/refinement/IDEA-arch-resume.md": 1,
-        "docs/refinement/IDEA-cli-protocol-decoupling.md": 1,
-        "docs/refinement/IDEA-consolidate-arch-docs.md": 1,
         "docs/refinement/IDEA-fix-config-gaps.md": 1,
         "docs/refinement/IDEA-fix-meta-line-regex-and-fields.md": 1,
         "docs/refinement/IDEA-resolve-hansei-contradiction.md": 1,
-        "docs/tasks/TASK-975.md": 1,
-        "docs/tasks/TASK-985.md": 3,
         "docs/tasks/TASK-989.md": 1,
         "docs/tasks/TASK-990.md": 1,
-        "docs/tasks/TASK-991.md": 1,
-        "docs/tensions/TENSION-005-specdrift.md": 1
+        "docs/tasks/TASK-991.md": 1
       }
     },
     "TASK-986": {
-      "commitCount": 3,
+      "commitCount": 1,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-22T14:07:12+02:00",
       "recentCommitRefs": [
-        "967e3380",
-        "a4b5a928",
-        "aaa2848b"
+        "a4b5a928"
       ],
       "touchedFrequency": {
-        ".arch/causal-signal.jsonl": 1,
-        ".arch/chronicle.jsonl": 1,
-        "AGENTS.md": 1,
-        "GEMINI.md": 1,
-        "README.md": 1,
-        "cli/src/main/ts/application/command-dispatcher.ts": 1,
-        "cli/src/main/ts/application/commands/analyze-command.ts": 1,
-        "cli/src/main/ts/application/commands/audit-command.ts": 1,
-        "cli/src/main/ts/application/commands/batch-command.ts": 1,
-        "cli/src/main/ts/application/commands/capture-command.ts": 1,
-        "cli/src/main/ts/application/commands/check-command.ts": 1,
-        "cli/src/main/ts/application/commands/conduct-command.ts": 1,
-        "cli/src/main/ts/application/commands/corpus-audit-command.ts": 1,
-        "cli/src/main/ts/application/commands/govern-command.ts": 1,
-        "cli/src/main/ts/application/commands/init-command.ts": 1,
-        "cli/src/main/ts/application/commands/merge-resolve-command.ts": 1,
-        "cli/src/main/ts/application/commands/next-command.ts": 1,
-        "cli/src/main/ts/application/commands/promote-command.ts": 1,
-        "cli/src/main/ts/application/commands/reprioritize-command.ts": 1,
-        "cli/src/main/ts/application/commands/sentinel-command.ts": 1,
-        "cli/src/main/ts/application/commands/serve-command.ts": 1,
-        "cli/src/main/ts/application/commands/trace-command.ts": 1,
-        "cli/src/main/ts/application/use-cases/check-system.ts": 1,
-        "cli/src/main/ts/application/use-cases/create-task.ts": 1,
-        "cli/src/main/ts/application/use-cases/drift-checker.ts": 1,
-        "cli/src/main/ts/application/use-cases/loop-engine.ts": 1,
-        "cli/src/main/ts/domain/services/command-registry.ts": 1,
-        "cli/src/main/ts/index.ts": 1,
-        "cli/src/test/ts/check-system.test.ts": 1,
-        "docs/AGENTS.md": 1,
-        "docs/ARCH-CORE.md": 1,
-        "docs/EVENTS.md": 1,
-        "docs/GOVERNANCE.md": 1,
-        "docs/HALT.md": 1,
-        "docs/IDENTITY.md": 1,
-        "docs/KAIZEN-LOG.md": 1,
-        "docs/PRINCIPLES.md": 1,
-        "docs/RETRO.md": 1,
-        "docs/ROADMAP.md": 1,
-        "docs/TASK-FORMAT.md": 1,
-        "docs/adr/ADR-029-cli-refactoring.md": 1,
-        "docs/agents/DO.md": 1,
-        "docs/agents/THINK.md": 1,
-        "docs/archive/TASK-986.md": 1,
-        "docs/archive/TASK-988.md": 1,
-        "docs/guidelines/bugs.md": 1,
-        "docs/guidelines/core.md": 1,
-        "docs/guidelines/testing-a-change.md": 1,
-        "docs/guidelines/versioning.md": 1,
-        "docs/refinement/IDEA-brownfield-onboarding-pipeline.md": 1,
-        "docs/tasks/TASK-986.md": 2,
-        "scripts/arch": 1,
-        "scripts/arch.sh": 1,
-        "scripts/git-hooks/pre-commit.template": 1,
-        "scripts/git-hooks/pre-push.template": 1
+        "docs/archive/TASK-986.md": 1
       }
     },
     "TASK-987": {
-      "commitCount": 4,
+      "commitCount": 2,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-22T14:07:12+02:00",
       "recentCommitRefs": [
-        "68ee9f0f",
         "9d1ed47c",
-        "cc11e3b6",
-        "ea46bdf4"
+        "cc11e3b6"
       ],
       "touchedFrequency": {
-        ".arch/chronicle.jsonl": 1,
-        ".github/workflows/aggregate-registry.yml": 1,
-        ".github/workflows/conduct.yml": 1,
-        ".github/workflows/exec.yml": 1,
-        ".github/workflows/register-project.yml": 1,
-        ".github/workflows/review.yml": 1,
-        "cli/src/main/ts/application/commands/ask-command.ts": 1,
-        "cli/src/main/ts/application/commands/causal-command.ts": 1,
-        "cli/src/main/ts/application/commands/compile-command.ts": 1,
-        "cli/src/main/ts/application/commands/deps-command.ts": 1,
-        "cli/src/main/ts/application/commands/exec-command.ts": 1,
-        "cli/src/main/ts/application/commands/explain-command.ts": 1,
-        "cli/src/main/ts/application/commands/govern-command.ts": 1,
-        "cli/src/main/ts/application/commands/inbox-command.ts": 1,
-        "cli/src/main/ts/application/commands/index-command.ts": 1,
-        "cli/src/main/ts/application/commands/init-command.ts": 1,
-        "cli/src/main/ts/application/commands/lint-command.ts": 1,
-        "cli/src/main/ts/application/commands/loop-command.ts": 1,
-        "cli/src/main/ts/application/commands/move-command.ts": 1,
-        "cli/src/main/ts/application/commands/rank-command.ts": 1,
-        "cli/src/main/ts/application/commands/reflect-command.ts": 1,
-        "cli/src/main/ts/application/commands/report-command.ts": 1,
-        "cli/src/main/ts/application/commands/review-command.ts": 1,
-        "cli/src/main/ts/application/commands/sandbox-command.ts": 1,
-        "cli/src/main/ts/application/commands/status-command.ts": 1,
-        "cli/src/main/ts/application/commands/task-command.ts": 1,
-        "cli/src/main/ts/application/commands/validate-command.ts": 1,
-        "cli/src/main/ts/application/commands/verify-acs-command.ts": 1,
-        "cli/src/main/ts/application/commands/version-command.ts": 1,
-        "cli/src/main/ts/domain/models/command.ts": 1,
-        "docs/INBOX.md": 1,
-        "docs/archive/TASK-987.md": 1,
-        "docs/registry/aggregate.json": 1,
-        "docs/registry/entries/.gitkeep": 1,
-        "docs/registry/entries/1ad21fa1-93fb-43be-a9a4-213966539206.json": 1,
-        "docs/reviews/ARCH-comprehensive-review-2026-05-22.md": 1,
-        "docs/tasks/TASK-987.md": 2,
-        "scripts/arch.sh": 1
+        "docs/archive/TASK-987.md": 1
       }
     },
     "TASK-989": {
