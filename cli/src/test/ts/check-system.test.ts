@@ -2,68 +2,51 @@ import { test } from 'node:test';
 import assert from 'node:assert';
 import { CheckSystem } from '../../main/ts/application/use-cases/check-system.js';
 import { Reviewer } from '../../main/ts/domain/services/reviewer.js';
-import { TaskStatus } from '../../main/ts/domain/models/task.js';
+import { TaskStatus, Task, FocusLevel } from '../../main/ts/domain/models/task.js';
+import { MockFileSystem, MockTaskRepository, MockGitRepository } from './mocks/index.js';
 
-const ACTIVE_TASK = {
+const ACTIVE_TASK: Task = {
   id: 'TASK-100',
   title: 'Active task',
   priority: 'P1',
   size: 'S',
-  value: 5,
   status: TaskStatus.READY,
+  focus: FocusLevel.NONE,
   sprint: 'Focus:no',
   class: '6-writing',
   cli: 'local',
   context: [],
   acceptanceCriteria: [],
   rawMetaLine: '**Meta:** P1 | S | 5 | READY | Focus:no | 6-writing | local | docs/',
+  filePath: 'docs/tasks/TASK-100.md',
+  content: '',
+  depends: [],
 };
 
-const ARCHIVED_TASK_V4 = {
+const ARCHIVED_TASK_V4: Task = {
   id: 'TASK-001',
   title: 'Old archived task',
   priority: 'P0',
   size: 'S',
-  value: 0,
   status: TaskStatus.DONE,
+  focus: FocusLevel.NONE,
   sprint: 'Sprint 1',
-  class: '',
-  cli: '',
+  class: '6-writing',
+  cli: 'local',
   context: [],
   acceptanceCriteria: [],
   rawMetaLine: '**Meta:** P0 | S | 5 | DONE | Sprint 1', // v0.4 format — no Focus field
+  filePath: 'docs/archive/TASK-001.md',
+  content: '',
+  depends: [],
 };
 
-class SpyTaskRepository {
-  async getById() { return null; }
-  async getAll() { return [ACTIVE_TASK, ARCHIVED_TASK_V4]; }
-  async getActive() { return [ACTIVE_TASK]; }
-  async save() {}
-  async findReady() { return [ACTIVE_TASK]; }
-  async getNextId() { return 'TASK-999'; }
-}
-
-class StubGitRepository {
-  async getLastCommitMessage() { return 'feat: stub [TASK-001]'; }
-  async getDiff() { return ''; }
-  async getCurrentBranch() { return 'main'; }
-  async getStatusLines() { return []; }
-  async getLog() { return []; }
-  async add() {}
-  async commit() {}
-  async getChangedFilesInLastCommit() { return []; }
-  async getMergeCommits() { return []; }
-}
-
-class StubFileSystem {
-  async exists() { return false; }
-  async readFile() { return '{}'; }
-  async deleteFile(_p: string) {}
-}
-
 test('CheckSystem does not validate archived tasks', async () => {
-  const repo = new SpyTaskRepository();
-  const system = new CheckSystem(repo as any, new StubGitRepository() as any, new Reviewer(), new StubFileSystem() as any);
+  const repo = new MockTaskRepository();
+  repo.tasks = [ACTIVE_TASK];
+  repo.archivedTasks = [ARCHIVED_TASK_V4];
+  
+  const system = new CheckSystem(repo, new MockGitRepository(), new Reviewer(), new MockFileSystem());
 
   const result = await system.execute();
 
@@ -77,23 +60,17 @@ test('CheckSystem does not validate archived tasks', async () => {
 
 test('CheckSystem still validates active DONE/REVIEW tasks with pending ACs', async () => {
   for (const status of [TaskStatus.DONE, TaskStatus.REVIEW]) {
-    const activeTaskWithPendingAC = {
+    const activeTaskWithPendingAC: Task = {
       ...ACTIVE_TASK,
       id: `TASK-10${status === TaskStatus.DONE ? '0' : '1'}`,
       status,
       acceptanceCriteria: [{ description: 'AC1', completed: false }],
     };
 
-    class RepoWithPendingTask {
-      async getById() { return null; }
-      async getAll() { return [activeTaskWithPendingAC]; }
-      async getActive() { return [activeTaskWithPendingAC]; }
-      async save() {}
-      async findReady() { return []; }
-      async getNextId() { return 'TASK-999'; }
-    }
+    const repo = new MockTaskRepository();
+    repo.tasks = [activeTaskWithPendingAC];
 
-    const system = new CheckSystem(new RepoWithPendingTask() as any, new StubGitRepository() as any, new Reviewer(), new StubFileSystem() as any);
+    const system = new CheckSystem(repo, new MockGitRepository(), new Reviewer(), new MockFileSystem());
     const result = await system.execute();
 
     assert.ok(

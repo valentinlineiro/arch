@@ -2,7 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { HanseiWizard, replaceHanseiBlock } from '../../main/ts/application/use-cases/hansei-wizard.js';
 import { TaskValidator } from '../../main/ts/domain/services/task-validator.js';
-import { TaskStatus } from '../../main/ts/domain/models/task.js';
+import { TaskStatus, Task, FocusLevel } from '../../main/ts/domain/models/task.js';
 
 const COMPLETE_HANSEI = `## Hansei
 **Severity:** H1
@@ -28,6 +28,25 @@ const NO_HANSEI = `## TASK-001: Test task
 ### Acceptance Criteria
 - [x] something done
 `;
+
+function makeTestTask(overrides: Partial<Task> = {}): Task {
+  return {
+    id: 'TASK-001',
+    title: 'Test task',
+    priority: 'P2',
+    size: 'S',
+    status: TaskStatus.DONE,
+    focus: FocusLevel.NONE,
+    sprint: 'Focus:no',
+    class: '7-operations',
+    cli: 'local',
+    context: ['none'],
+    content: '',
+    filePath: 'docs/archive/TASK-001.md',
+    acceptanceCriteria: [{ description: 'something done', completed: true }],
+    ...overrides,
+  };
+}
 
 // Test 1: isHanseiComplete returns true for fully-populated Hansei
 test('HanseiWizard.isHanseiComplete — fully populated returns true', () => {
@@ -78,18 +97,18 @@ test('HanseiWizard.format — assembled block passes TaskValidator', () => {
   const costMatch = block.match(/\*\*Cost:\*\*\s*([\s\S]*?)(?=\n\*\*|$)/);
   const fwdMatch = block.match(/\*\*Forward Action:\*\*\s*([\s\S]*?)(?=\n\*\*|$)/);
 
-  const errors = TaskValidator.validateHansei({
-    id: 'TASK-001',
-    status: TaskStatus.DONE,
+  const task = makeTestTask({
     hansei: {
-      severity: hanseiMatch![1] as any,
+      severity: hanseiMatch![1] as 'H0' | 'H1' | 'H2' | 'H3a' | 'H3b',
       category: catMatch![1],
       decision: decMatch![1].trim(),
       constraint: conMatch![1].trim(),
       cost: costMatch![1].trim(),
       forwardAction: fwdMatch![1].trim(),
     },
-  } as any);
+  });
+
+  const errors = TaskValidator.validateHansei(task);
 
   assert.deepEqual(errors, [], `Expected no validation errors, got: ${JSON.stringify(errors)}`);
 });

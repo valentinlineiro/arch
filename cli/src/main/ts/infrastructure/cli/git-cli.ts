@@ -67,8 +67,16 @@ export class GitCli implements GitRepository {
   }
 
   async getMergeCommits(limit: number): Promise<string[]> {
-    const { stdout } = await SubprocessRunner.runWithOutput('git', ['rev-list', '--merges', '-n', limit.toString(), 'HEAD']);
-    return stdout.split('\n').map(line => line.trim()).filter(Boolean);
+    try {
+      // Use range-based rev-list to only check recent history.
+      // Falls back to checking from root if history is shorter than limit.
+      const { stdout } = await SubprocessRunner.runWithOutput('git', ['rev-list', '--merges', `HEAD~${limit}..HEAD`]);
+      return stdout.split('\n').map(line => line.trim()).filter(Boolean);
+    } catch {
+      // Fallback for short history: check everything from root
+      const { stdout } = await SubprocessRunner.runWithOutput('git', ['rev-list', '--merges', 'HEAD']);
+      return stdout.split('\n').map(line => line.trim()).filter(Boolean);
+    }
   }
 
   async getStagedFiles(): Promise<string[]> {

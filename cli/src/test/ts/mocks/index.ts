@@ -1,5 +1,21 @@
 import { FileSystem } from '../../../main/ts/domain/repositories/file-system.js';
 import { GitRepository } from '../../../main/ts/domain/repositories/git-repository.js';
+import { TaskRepository } from '../../../main/ts/domain/repositories/task-repository.js';
+import { Task, TaskStatus } from '../../../main/ts/domain/models/task.js';
+import { LLMProvider, ChatRequest, ChatResponse } from '../../../main/ts/domain/services/llm-provider.js';
+import { FeedbackRepository } from '../../../main/ts/domain/repositories/feedback-repository.js';
+import { FeedbackSignal } from '../../../main/ts/domain/models/feedback-signal.js';
+import { SignalDomain, SignalType } from '../../../main/ts/domain/models/causal-signal.js';
+import { RelationType } from '../../../main/ts/domain/models/causal-relation.js';
+import { EventRepository, ArchEvent } from '../../../main/ts/domain/models/event.js';
+import { Reviewer, ReviewResult } from '../../../main/ts/domain/services/reviewer.js';
+
+export type CommitRecord = {
+  hash: string;
+  message: string;
+  date: string;
+  files: Array<{ path: string; status: string; oldPath?: string }>;
+};
 
 export class MockFileSystem implements FileSystem {
   files: Record<string, string> = {};
@@ -32,7 +48,9 @@ export class MockFileSystem implements FileSystem {
     }
   }
 
-  async mkdir(_path: string): Promise<void> {}
+  async mkdir(path: string): Promise<void> {
+    this.dirs[path] = [];
+  }
 
   async appendFile(path: string, content: string): Promise<void> {
     this.files[path] = (this.files[path] ?? '') + content;
@@ -44,12 +62,85 @@ export class MockFileSystem implements FileSystem {
   }
 }
 
-export type CommitRecord = {
-  hash: string;
-  message: string;
-  date: string;
-  files: Array<{ path: string; status: string; oldPath?: string }>;
-};
+export class MockTaskRepository implements TaskRepository {
+  tasks: Task[] = [];
+  archivedTasks: Task[] = [];
+  nextId = 'TASK-001';
+  fileSystem?: FileSystem;
+
+  async getById(id: string): Promise<Task | null> {
+    return this.tasks.find(t => t.id === id) ?? this.archivedTasks.find(t => t.id === id) ?? null;
+  }
+  async getAll(): Promise<Task[]> { return [...this.tasks, ...this.archivedTasks]; }
+  async getActive(): Promise<Task[]> { return this.tasks; }
+  async save(task: Task): Promise<void> {
+    const idx = this.tasks.findIndex(t => t.id === task.id);
+    if (idx >= 0) this.tasks[idx] = task;
+    else this.tasks.push(task);
+  }
+  async findReady(): Promise<Task[]> { return this.tasks.filter(t => t.status === TaskStatus.READY); }
+  async getNextId(): Promise<string> { return this.nextId; }
+  parseTask(_content: string): Task | null { return null; }
+}
+
+export class MockLLMProvider implements LLMProvider {
+  response: string = '';
+  capturedRequest: ChatRequest | null = null;
+
+  async complete(request: ChatRequest): Promise<ChatResponse> {
+    this.capturedRequest = request;
+    return {
+      content: this.response,
+      usage: { latencyMs: 100 }
+    };
+  }
+}
+
+export class MockFeedbackRepository implements FeedbackRepository {
+  signals: FeedbackSignal[] = [];
+  async readAll(): Promise<FeedbackSignal[]> { return this.signals; }
+  async append(signal: FeedbackSignal): Promise<void> { this.signals.push(signal); }
+}
+
+export class MockCausalSignalLog {
+  emitted: any[] = [];
+  async append(params: {
+    domain: SignalDomain;
+    signal_type: SignalType;
+    candidate_from: string;
+    candidate_relation: RelationType;
+    candidate_to: string;
+    edge_id?: string;
+    confidence: number;
+    event: string;
+  }): Promise<any> {
+    this.emitted.push(params);
+    return { id: 'test-uuid' };
+  }
+}
+
+export class MockEventRepository implements EventRepository {
+  events: ArchEvent[] = [];
+  async append(event: ArchEvent): Promise<void> { this.events.push(event); }
+}
+
+export class MockHumanCoordinationService {
+  async approveTask(_taskId: string): Promise<void> {}
+  async redirectTask(_taskId: string, _instruction: string): Promise<void> {}
+}
+
+export class MockReviewer implements Reviewer {
+  violations: string[] = [];
+  reviewTask(_task: Task, _rawMetaLine?: string): ReviewResult {
+    return { valid: this.violations.length === 0, violations: this.violations };
+  }
+  validateCommitMessage(_message: string): ReviewResult {
+    return { valid: this.violations.length === 0, violations: this.violations };
+  }
+  validateImmutability(_changedFiles: string[], _commitMessage: string, _protectedPaths: string[], _activeTasks: Task[]): ReviewResult {
+    return { valid: this.violations.length === 0, violations: this.violations };
+  }
+}
 
 export class MockGitRepository implements GitRepository {
   commits: CommitRecord[] = [];
@@ -83,5 +174,8 @@ export class MockGitRepository implements GitRepository {
   async isValidCommitHash(hash: string): Promise<boolean> { return this.validHashes.has(hash); }
   async getCommitAuthor(_hash: string): Promise<string | null> { return 'test-user'; }
   async getCommitCountBetween(_fromHash: string, _toRef?: string): Promise<number | null> { return null; }
-  async getCommitHistory(_limit?: number): Promise<CommitRecord[]> { return this.commits; }
+  async getCommitHistory(_limit?: number): Promise<CommitRecord[]> { 
+    if (this.lastCommitMessage === 'FAIL_HISTORY') throw new Error('git log failed');
+    return this.commits; 
+  }
 }

@@ -86,7 +86,14 @@ test('TaskValidator - TASK-934: XS task with Hansei present is still validated f
   const task = makeTask({
     size: 'XS',
     status: TaskStatus.DONE,
-    hansei: { severity: 'INVALID' as any, category: '[SpecDrift]', decision: 'done properly here.', constraint: 'none found at all.', cost: 'zero cost incurred.', forwardAction: 'nothing more needed.' },
+    hansei: { 
+      severity: 'INVALID' as unknown as 'H0', 
+      category: '[SpecDrift]', 
+      decision: 'done properly here.', 
+      constraint: 'none found at all.', 
+      cost: 'zero cost incurred.', 
+      forwardAction: 'nothing more needed.' 
+    },
   });
   const errors = TaskValidator.validateHansei(task);
   assert.ok(errors.some(e => e.includes('Severity')), 'Hansei present on XS task must still be validated');

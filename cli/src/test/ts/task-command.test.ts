@@ -1,33 +1,8 @@
 import { test } from 'node:test';
 import assert from 'node:assert';
 import { TaskCommand } from '../../main/ts/application/commands/task-command.js';
-import { TaskStatus } from '../../main/ts/domain/models/task.js';
-import { MockFileSystem } from './mocks/index.js';
-
-class MockTaskRepository {
-  async getById(id: string) {
-    if (id === 'TASK-195') {
-      return {
-        id: 'TASK-195',
-        title: 'Post-rollout Task',
-        status: TaskStatus.IN_PROGRESS,
-        content: '## TASK-195\n**Meta:** P1 | S | IN_PROGRESS | Focus:yes | 2-code-generation | local | docs/',
-        rawMetaLine: '**Meta:** P1 | S | IN_PROGRESS | Focus:yes | 2-code-generation | local | docs/',
-        acceptanceCriteria: []
-      };
-    }
-    return null;
-  }
-  async save() {}
-  async getAll() { return []; }
-  async getActive() { return []; }
-  async findReady() { return []; }
-  async getNextId() { return 'TASK-001'; }
-}
-
-class MockReviewer {
-  reviewTask() { return { valid: true, violations: [] }; }
-}
+import { TaskStatus, Task, FocusLevel } from '../../main/ts/domain/models/task.js';
+import { MockFileSystem, MockTaskRepository, MockReviewer, MockGitRepository, MockHumanCoordinationService } from './mocks/index.js';
 
 function makeFs(): MockFileSystem {
   const fs = new MockFileSystem();
@@ -37,11 +12,28 @@ function makeFs(): MockFileSystem {
 
 test('TaskCommand done - exits 1 when transition fails (e.g. missing Hansei)', async () => {
   const repo = new MockTaskRepository();
+  repo.tasks.push({
+    id: 'TASK-195',
+    title: 'Post-rollout Task',
+    status: TaskStatus.IN_PROGRESS,
+    priority: 'P1',
+    size: 'M',
+    focus: FocusLevel.NONE,
+    sprint: 'Focus:yes',
+    class: '2-code-generation',
+    cli: 'local',
+    context: ['docs/'],
+    content: '## TASK-195\n**Meta:** P1 | M | IN_PROGRESS | Focus:yes | 2-code-generation | local | docs/',
+    rawMetaLine: '**Meta:** P1 | M | IN_PROGRESS | Focus:yes | 2-code-generation | local | docs/',
+    acceptanceCriteria: [],
+    filePath: 'docs/tasks/TASK-195.md'
+  } as Task);
+
   const command = new TaskCommand(
-    repo as any,
+    repo,
     new MockReviewer() as any,
-    {} as any,
-    makeFs() as any,
+    new MockHumanCoordinationService() as any,
+    makeFs(),
     '.',
   );
 
@@ -53,10 +45,10 @@ test('TaskCommand done - exits 1 when transition fails (e.g. missing Hansei)', a
 test('TaskCommand start - exits 1 when transition fails', async () => {
   const repo = new MockTaskRepository();
   const command = new TaskCommand(
-    repo as any,
+    repo,
     new MockReviewer() as any,
-    {} as any,
-    makeFs() as any,
+    new MockHumanCoordinationService() as any,
+    makeFs(),
     '.',
   );
 
@@ -68,10 +60,10 @@ test('TaskCommand start - exits 1 when transition fails', async () => {
 test('TaskCommand metrics - exits 1 when update fails', async () => {
   const repo = new MockTaskRepository();
   const command = new TaskCommand(
-    repo as any,
+    repo,
     new MockReviewer() as any,
-    {} as any,
-    makeFs() as any,
+    new MockHumanCoordinationService() as any,
+    makeFs(),
     '.',
   );
 
@@ -83,28 +75,37 @@ test('TaskCommand metrics - exits 1 when update fails', async () => {
 test('TaskCommand done - exits 0 when transition passes', async () => {
   const repo = new MockTaskRepository();
   const fileSystem = makeFs();
-  // Provide structured Hansei on the task object (parsed field, not raw content)
-  const getByIdOriginal = repo.getById;
-  repo.getById = async (id: string) => {
-    const task: any = await getByIdOriginal.call(repo, id);
-    if (task) {
-      task.hansei = {
-        severity: 'H1',
-        category: '[TypeHack]',
-        decision: 'Used any cast to bypass complex type circular dependency in parseTask (task-repository.ts).',
-        constraint: 'P1 deadline and lack of specialized domain provider at the time.',
-        cost: 'Type safety is degraded specifically in the parseTask method — src/repositories/task-repository.ts.',
-        forwardAction: 'None scheduled. TASK-031 resolved. Monitor parseTask for recurrence.',
-      };
+  
+  repo.tasks.push({
+    id: 'TASK-195',
+    title: 'Post-rollout Task',
+    status: TaskStatus.IN_PROGRESS,
+    priority: 'P1',
+    size: 'M',
+    focus: FocusLevel.NONE,
+    sprint: 'Focus:yes',
+    class: '2-code-generation',
+    cli: 'local',
+    context: ['docs/'],
+    content: '## TASK-195\n**Meta:** P1 | M | IN_PROGRESS | Focus:yes | 2-code-generation | local | docs/',
+    rawMetaLine: '**Meta:** P1 | S | IN_PROGRESS | Focus:yes | 2-code-generation | local | docs/',
+    acceptanceCriteria: [],
+    filePath: 'docs/tasks/TASK-195.md',
+    hansei: {
+      severity: 'H1',
+      category: '[TypeHack]',
+      decision: 'Used any cast to bypass complex type circular dependency in parseTask (task-repository.ts).',
+      constraint: 'P1 deadline and lack of specialized domain provider at the time.',
+      cost: 'Type safety is degraded specifically in the parseTask method — src/repositories/task-repository.ts.',
+      forwardAction: 'None scheduled. TASK-031 resolved. Monitor parseTask for recurrence.',
     }
-    return task;
-  };
+  } as Task);
 
   const command = new TaskCommand(
-    repo as any,
+    repo,
     new MockReviewer() as any,
-    {} as any,
-    fileSystem as any,
+    new MockHumanCoordinationService() as any,
+    fileSystem,
     '.',
   );
 

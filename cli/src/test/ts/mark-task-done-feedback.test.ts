@@ -1,14 +1,17 @@
 import { test } from 'node:test';
 import assert from 'node:assert';
 import { MarkTaskDone } from '../../main/ts/application/use-cases/mark-task-done.js';
-import { TaskStatus } from '../../main/ts/domain/models/task.js';
-import { MockFileSystem } from './mocks/index.js';
+import { TaskStatus, Task, FocusLevel } from '../../main/ts/domain/models/task.js';
+import { MockFileSystem, MockTaskRepository, MockReviewer, MockFeedbackRepository, MockGitRepository, MockEventRepository } from './mocks/index.js';
 
-class MockTaskRepo {
-  task: any = {
+function makeTestTask(): Task {
+  return {
     id: 'TASK-001',
+    title: 'test task',
+    priority: 'P1',
+    size: 'S',
     status: TaskStatus.IN_PROGRESS,
-    focus: false,
+    focus: FocusLevel.NONE,
     rawMetaLine: '**Meta:** P1 | S | IN_PROGRESS | Focus:no | 2-code-generation | claude-code | src/',
     hansei: {
       severity: 'H1',
@@ -28,37 +31,35 @@ class MockTaskRepo {
       '- [ ] partial',
       '- [ ] off',
     ].join('\n'),
-    cost: '0.00',
+    context: ['src/'],
+    sprint: 'Focus:no',
+    class: '2-code-generation',
+    cli: 'claude-code',
+    filePath: 'docs/tasks/TASK-001.md',
+    acceptanceCriteria: [],
     steps: 0,
-  };
-  async getById(_id: string) { return this.task; }
-  async save(t: any) { this.task = t; }
+  } as Task;
 }
 
-class MockReviewer {
-  reviewTask(_task: any, _meta: string) { return { valid: true, violations: [] }; }
-}
-
-
-class MockFeedbackRepo {
-  signals: any[] = [];
-  async readAll() { return this.signals; }
-  async append(s: any) { this.signals.push(s); }
-}
-
-function makeFs(): MockFileSystem {
+function setup() {
   const fs = new MockFileSystem();
   fs.files['arch.config.json'] = JSON.stringify({ hanseiSinceTaskId: 1 });
-  return fs;
+  
+  const taskRepo = new MockTaskRepository();
+  taskRepo.tasks = [makeTestTask()];
+  
+  const reviewer = new MockReviewer();
+  const feedbackRepo = new MockFeedbackRepository();
+  const gitRepo = new MockGitRepository();
+  const eventRepo = new MockEventRepository();
+
+  return { fs, taskRepo, reviewer, feedbackRepo, gitRepo, eventRepo };
 }
 
 test('MarkTaskDone persists feedback signal when Context Feedback is checked', async () => {
-  const taskRepo = new MockTaskRepo() as any;
-  const reviewer = new MockReviewer() as any;
-  const fs = makeFs();
-  const feedbackRepo = new MockFeedbackRepo();
+  const { fs, taskRepo, reviewer, feedbackRepo, gitRepo, eventRepo } = setup();
 
-  const useCase = new MarkTaskDone(taskRepo, reviewer, fs as any, undefined, feedbackRepo as any);
+  const useCase = new MarkTaskDone(taskRepo, reviewer as any, fs, eventRepo, feedbackRepo, undefined, undefined, gitRepo);
   await useCase.execute('TASK-001');
 
   assert.strictEqual(feedbackRepo.signals.length, 1);
@@ -67,27 +68,19 @@ test('MarkTaskDone persists feedback signal when Context Feedback is checked', a
 });
 
 test('MarkTaskDone does not crash when no feedback section exists', async () => {
-  const taskRepo = new MockTaskRepo() as any;
-  taskRepo.task = {
-    ...taskRepo.task,
-    content: '## TASK-001: test\n**Meta:** P1 | S | IN_PROGRESS\n\n## Hansei\nAll good.\n',
-  };
-  const reviewer = new MockReviewer() as any;
-  const fs = makeFs();
-  const feedbackRepo = new MockFeedbackRepo();
+  const { fs, taskRepo, reviewer, feedbackRepo, gitRepo, eventRepo } = setup();
+  taskRepo.tasks[0].content = '## TASK-001: test\n**Meta:** P1 | S | IN_PROGRESS\n\n## Hansei\nAll good.\n';
 
-  const useCase = new MarkTaskDone(taskRepo, reviewer, fs as any, undefined, feedbackRepo as any);
+  const useCase = new MarkTaskDone(taskRepo, reviewer as any, fs, eventRepo, feedbackRepo, undefined, undefined, gitRepo);
   await useCase.execute('TASK-001');
 
   assert.strictEqual(feedbackRepo.signals.length, 0);
 });
 
 test('MarkTaskDone skips feedback when no repository provided', async () => {
-  const taskRepo = new MockTaskRepo() as any;
-  const reviewer = new MockReviewer() as any;
-  const fs = makeFs();
+  const { fs, taskRepo, reviewer, gitRepo, eventRepo } = setup();
 
   // No feedbackRepo passed — should not throw
-  const useCase = new MarkTaskDone(taskRepo, reviewer, fs as any);
+  const useCase = new MarkTaskDone(taskRepo, reviewer as any, fs, eventRepo, undefined, undefined, undefined, gitRepo);
   await assert.doesNotReject(() => useCase.execute('TASK-001'));
 });

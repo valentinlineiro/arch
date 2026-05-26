@@ -2,27 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert';
 import { MarkTaskInProgress } from '../../main/ts/application/use-cases/mark-task-in-progress.js';
 import { Task, TaskStatus, FocusLevel } from '../../main/ts/domain/models/task.js';
-import { TaskRepository } from '../../main/ts/domain/repositories/task-repository.js';
-import { MockFileSystem } from './mocks/index.js';
-
-class MockTaskRepository implements TaskRepository {
-  saved: Task | null = null;
-  private task: Task;
-  fileSystem: MockFileSystem;
-
-  constructor(task: Task, fs: MockFileSystem) {
-    this.task = task;
-    this.fileSystem = fs;
-  }
-
-  async getById(id: string) { return this.task.id === id ? this.task : null; }
-  async getAll() { return [this.task]; }
-  async getActive() { return [this.task]; }
-  async findReady() { return [this.task]; }
-  async getNextId() { return 'TASK-999'; }
-  parseTask(_content: string): Task | null { return this.task; }
-  async save(task: Task) { this.saved = task; }
-}
+import { MockFileSystem, MockTaskRepository } from './mocks/index.js';
 
 function makeReadyTask(overrides: Partial<Task> = {}): Task {
   return {
@@ -36,10 +16,10 @@ function makeReadyTask(overrides: Partial<Task> = {}): Task {
     cli: 'claude',
     context: ['none'],
     content: '**Meta:** P2 | XS | READY | Focus:no | 2-code-generation | claude | none\n- [ ] AC item',
-    filePath: '',
+    filePath: 'docs/tasks/TASK-100.md',
     acceptanceCriteria: [{ description: 'AC item', completed: false }],
     rawMetaLine: '**Meta:** P2 | XS | READY | Focus:no | 2-code-generation | claude | none',
-    hansei: null as any,
+    hansei: undefined,
     ...overrides,
   } as Task;
 }
@@ -49,7 +29,8 @@ test('MarkTaskInProgress - pre-existence detection: all verifiable ACs pass', as
   fs.files['arch.config.json'] = '{}';
 
   const task = makeReadyTask();
-  const repo = new MockTaskRepository(task, fs);
+  const repo = new MockTaskRepository();
+  repo.tasks = [task];
   
   // Mock validator that returns passing predicates
   const mockValidator: any = {
@@ -61,7 +42,7 @@ test('MarkTaskInProgress - pre-existence detection: all verifiable ACs pass', as
     })
   };
   
-  const use = new MarkTaskInProgress(repo, undefined, undefined, (fs as any).root, mockValidator);
+  const use = new MarkTaskInProgress(repo, undefined, undefined, '.', mockValidator);
 
   const logs: string[] = [];
   const originalLog = console.log;
@@ -80,7 +61,8 @@ test('MarkTaskInProgress - pre-existence detection: some ACs fail', async () => 
   fs.files['arch.config.json'] = '{}';
 
   const task = makeReadyTask();
-  const repo = new MockTaskRepository(task, fs);
+  const repo = new MockTaskRepository();
+  repo.tasks = [task];
   
   const mockValidator: any = {
     execute: () => ({
@@ -91,7 +73,7 @@ test('MarkTaskInProgress - pre-existence detection: some ACs fail', async () => 
     })
   };
   
-  const use = new MarkTaskInProgress(repo, undefined, undefined, (fs as any).root, mockValidator);
+  const use = new MarkTaskInProgress(repo, undefined, undefined, '.', mockValidator);
 
   const logs: string[] = [];
   const originalLog = console.log;
@@ -105,7 +87,6 @@ test('MarkTaskInProgress - pre-existence detection: some ACs fail', async () => 
   }
 });
 
-
 test('MarkTaskInProgress - TASK-929: resolveActor reads config.strategies (not config.routing.strategies)', async () => {
   const fs = new MockFileSystem();
   // Config has strategies at top level — NOT under routing
@@ -115,11 +96,14 @@ test('MarkTaskInProgress - TASK-929: resolveActor reads config.strategies (not c
   });
 
   const task = makeReadyTask();
-  const repo = new MockTaskRepository(task, fs);
+  const repo = new MockTaskRepository();
+  repo.tasks = [task];
+  repo.fileSystem = fs;
   const use = new MarkTaskInProgress(repo);
 
   await use.execute('TASK-100', 'test-user');
 
-  assert.strictEqual(repo.saved?.actor, 'claude-agent', 'Actor should resolve from top-level config.strategies');
+  const saved = repo.tasks.find(t => t.id === 'TASK-100');
+  assert.strictEqual(saved?.actor, 'claude-agent', 'Actor should resolve from top-level config.strategies');
 });
 

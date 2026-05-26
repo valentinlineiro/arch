@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert';
 import { TemporalIndex } from '../../main/ts/application/use-cases/temporal-index.js';
-import { MockFileSystem } from './mocks/index.js';
+import { MockFileSystem, MockCausalSignalLog } from './mocks/index.js';
 
 test('TemporalIndex.append writes JSONL record with taskId, timestamp, labels', async () => {
   const fs = new MockFileSystem();
@@ -70,21 +70,16 @@ test('TemporalIndex.detectSpikes uses configurable window and threshold', async 
 test('TemporalIndex emits recurs_in causal signal when spike is detected', async () => {
   const fs = new MockFileSystem();
   const idx = new TemporalIndex(fs, '/root');
-  const emitted: Array<{ relation: string; from: string; to: string }> = [];
-  const mockSignalLog = {
-    append: async (params: any) => {
-      emitted.push({ relation: params.candidate_relation, from: params.candidate_from, to: params.candidate_to });
-    },
-  };
+  const mockSignalLog = new MockCausalSignalLog();
 
   await idx.append('TASK-001', ['[SpecDrift]']);
   await idx.append('TASK-002', ['[SpecDrift]']);
   // Third triggers spike
-  const spikes = await idx.appendAndDetect('TASK-003', ['[SpecDrift]'], mockSignalLog as any);
+  const spikes = await idx.appendAndDetect('TASK-003', ['[SpecDrift]'], mockSignalLog);
 
   assert.strictEqual(spikes.length, 1);
-  assert.strictEqual(emitted.length, 1, 'one causal signal must be emitted per spike');
-  assert.strictEqual(emitted[0].relation, 'recurs_in');
-  assert.strictEqual(emitted[0].from, 'TASK-003');
-  assert.strictEqual(emitted[0].to, 'pattern:[SpecDrift]');
+  assert.strictEqual(mockSignalLog.emitted.length, 1, 'one causal signal must be emitted per spike');
+  assert.strictEqual(mockSignalLog.emitted[0].candidate_relation, 'recurs_in');
+  assert.strictEqual(mockSignalLog.emitted[0].candidate_from, 'TASK-003');
+  assert.strictEqual(mockSignalLog.emitted[0].candidate_to, 'pattern:[SpecDrift]');
 });

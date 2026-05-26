@@ -1,41 +1,26 @@
 import { test } from 'node:test';
 import assert from 'node:assert';
 import { ProjectCommand } from '../../main/ts/application/commands/project-command.js';
+import { MockFileSystem, MockTaskRepository, MockLLMProvider } from './mocks/index.js';
 
 // ── Minimal mocks ─────────────────────────────────────────────────────────
 
-class MockFs {
-  files: Record<string, string> = {
-    'arch.config.json': JSON.stringify({
-      version: '1.2.0',
-      governance: { conductEveryN: 5 },
-      paths: { adr: 'docs/adr', tasks: 'docs/tasks' },
-    }),
-  };
-  dirs: Record<string, string[]> = { 'docs/adr': [], 'docs/tasks': [] };
-
-  async readFile(p: string) {
-    if (!(p in this.files)) throw new Error(`not found: ${p}`);
-    return this.files[p];
-  }
-  async writeFile(p: string, c: string) { this.files[p] = c; }
-  async appendFile(p: string, c: string) { this.files[p] = (this.files[p] ?? '') + c; }
-  async exists(p: string) { return p in this.files || p in this.dirs; }
-  async readDirectory(p: string) { return this.dirs[p] ?? []; }
-  async rename() {}
-  async deleteFile() {}
-  async mkdir(p: string) { this.dirs[p] = []; }
+function setupFs() {
+  const fs = new MockFileSystem();
+  fs.files['arch.config.json'] = JSON.stringify({
+    version: '1.2.0',
+    governance: { conductEveryN: 5 },
+    paths: { adr: 'docs/adr', tasks: 'docs/tasks' },
+  });
+  fs.dirs['docs/adr'] = [];
+  fs.dirs['docs/tasks'] = [];
+  return fs;
 }
 
 function makeTaskRepo(nextId = 'TASK-002') {
-  return {
-    getAll: async () => [],
-    getActive: async () => [],
-    findReady: async () => [],
-    getById: async () => null,
-    getNextId: async () => nextId,
-    save: async () => {},
-  } as any;
+  const repo = new MockTaskRepository();
+  repo.nextId = nextId;
+  return repo;
 }
 
 const VALID_LLM_OUTPUT = JSON.stringify({
@@ -45,16 +30,16 @@ const VALID_LLM_OUTPUT = JSON.stringify({
 });
 
 function makeMockProvider(response: string) {
-  return {
-    complete: async () => ({ content: response, usage: {} }),
-  } as any;
+  const provider = new MockLLMProvider();
+  provider.response = response;
+  return provider;
 }
 
 // ── Tests ─────────────────────────────────────────────────────────────────
 
 test('ProjectCommand: exits non-zero when spec arg is missing', async () => {
-  const fs = new MockFs();
-  const cmd = new ProjectCommand(fs as any, makeTaskRepo(), '.', makeMockProvider(VALID_LLM_OUTPUT));
+  const fs = setupFs();
+  const cmd = new ProjectCommand(fs, makeTaskRepo(), '.', makeMockProvider(VALID_LLM_OUTPUT));
   await assert.rejects(
     () => cmd.execute(['init']),
     /spec/i,
@@ -63,37 +48,33 @@ test('ProjectCommand: exits non-zero when spec arg is missing', async () => {
 });
 
 test('ProjectCommand: parses --depth flag (default 2)', async () => {
-  const fs = new MockFs();
-  let capturedPrompt = '';
-  const provider = {
-    complete: async (req: any) => {
-      capturedPrompt = req.messages[0].content;
-      return { content: VALID_LLM_OUTPUT, usage: {} };
-    },
-  } as any;
-  const cmd = new ProjectCommand(fs as any, makeTaskRepo(), '.', provider);
+  const fs = setupFs();
+  const provider = new MockLLMProvider();
+  provider.response = VALID_LLM_OUTPUT;
+  
+  const cmd = new ProjectCommand(fs, makeTaskRepo(), '.', provider);
   await cmd.execute(['init', 'todo app']);
+  
+  const capturedPrompt = provider.capturedRequest?.messages[0].content ?? '';
   assert.ok(capturedPrompt.includes('depth'), 'prompt should mention depth');
   assert.ok(capturedPrompt.includes('2'), 'default depth should be 2');
 });
 
 test('ProjectCommand: --depth N is passed to prompt', async () => {
-  const fs = new MockFs();
-  let capturedDepth = '';
-  const provider = {
-    complete: async (req: any) => {
-      capturedDepth = req.messages[0].content;
-      return { content: VALID_LLM_OUTPUT, usage: {} };
-    },
-  } as any;
-  const cmd = new ProjectCommand(fs as any, makeTaskRepo(), '.', provider);
+  const fs = setupFs();
+  const provider = new MockLLMProvider();
+  provider.response = VALID_LLM_OUTPUT;
+
+  const cmd = new ProjectCommand(fs, makeTaskRepo(), '.', provider);
   await cmd.execute(['init', 'todo app', '--depth', '3']);
+
+  const capturedDepth = provider.capturedRequest?.messages[0].content ?? '';
   assert.ok(capturedDepth.includes('3'), 'prompt should reference depth 3');
 });
 
 test('ProjectCommand: writes docs/PROJECT.md with Ratification section', async () => {
-  const fs = new MockFs();
-  const cmd = new ProjectCommand(fs as any, makeTaskRepo(), '.', makeMockProvider(VALID_LLM_OUTPUT));
+  const fs = setupFs();
+  const cmd = new ProjectCommand(fs, makeTaskRepo(), '.', makeMockProvider(VALID_LLM_OUTPUT));
   await cmd.execute(['init', 'todo app']);
   assert.ok('docs/PROJECT.md' in fs.files, 'PROJECT.md should be created');
   assert.ok(fs.files['docs/PROJECT.md'].includes('Ratification'), 'PROJECT.md must have ## Ratification section');
@@ -101,8 +82,8 @@ test('ProjectCommand: writes docs/PROJECT.md with Ratification section', async (
 });
 
 test('ProjectCommand: writes ADR file from LLM output', async () => {
-  const fs = new MockFs();
-  const cmd = new ProjectCommand(fs as any, makeTaskRepo(), '.', makeMockProvider(VALID_LLM_OUTPUT));
+  const fs = setupFs();
+  const cmd = new ProjectCommand(fs, makeTaskRepo(), '.', makeMockProvider(VALID_LLM_OUTPUT));
   await cmd.execute(['init', 'todo app']);
   const adrFiles = Object.keys(fs.files).filter(k => k.startsWith('docs/adr/ADR-'));
   assert.ok(adrFiles.length >= 1, 'at least one ADR file should be created');
@@ -110,8 +91,8 @@ test('ProjectCommand: writes ADR file from LLM output', async () => {
 });
 
 test('ProjectCommand: writes task file from LLM output', async () => {
-  const fs = new MockFs();
-  const cmd = new ProjectCommand(fs as any, makeTaskRepo(), '.', makeMockProvider(VALID_LLM_OUTPUT));
+  const fs = setupFs();
+  const cmd = new ProjectCommand(fs, makeTaskRepo(), '.', makeMockProvider(VALID_LLM_OUTPUT));
   await cmd.execute(['init', 'todo app']);
   const taskFiles = Object.keys(fs.files).filter(k => k.startsWith('docs/tasks/TASK-'));
   assert.ok(taskFiles.length >= 1, 'at least one task file should be created');
@@ -119,8 +100,8 @@ test('ProjectCommand: writes task file from LLM output', async () => {
 });
 
 test('ProjectCommand: rejects malformed JSON from LLM — no partial files written', async () => {
-  const fs = new MockFs();
-  const cmd = new ProjectCommand(fs as any, makeTaskRepo(), '.', makeMockProvider('not json at all'));
+  const fs = setupFs();
+  const cmd = new ProjectCommand(fs, makeTaskRepo(), '.', makeMockProvider('not json at all'));
   await assert.rejects(
     () => cmd.execute(['init', 'todo app']),
     /json|parse/i,
@@ -132,16 +113,16 @@ test('ProjectCommand: rejects malformed JSON from LLM — no partial files writt
 });
 
 test('ProjectCommand: extracts JSON from markdown code fence', async () => {
-  const fs = new MockFs();
+  const fs = setupFs();
   const fenced = '```json\n' + VALID_LLM_OUTPUT + '\n```';
-  const cmd = new ProjectCommand(fs as any, makeTaskRepo(), '.', makeMockProvider(fenced));
+  const cmd = new ProjectCommand(fs, makeTaskRepo(), '.', makeMockProvider(fenced));
   await cmd.execute(['init', 'todo app']);
   assert.ok('docs/PROJECT.md' in fs.files, 'should parse JSON from code fence');
 });
 
 test('ProjectCommand: task file uses standard ARCH meta format', async () => {
-  const fs = new MockFs();
-  const cmd = new ProjectCommand(fs as any, makeTaskRepo(), '.', makeMockProvider(VALID_LLM_OUTPUT));
+  const fs = setupFs();
+  const cmd = new ProjectCommand(fs, makeTaskRepo(), '.', makeMockProvider(VALID_LLM_OUTPUT));
   await cmd.execute(['init', 'todo app']);
   const taskFiles = Object.keys(fs.files).filter(k => k.startsWith('docs/tasks/TASK-'));
   const content = fs.files[taskFiles[0]];
