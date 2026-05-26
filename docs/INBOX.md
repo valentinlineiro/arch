@@ -39,3 +39,6 @@ Evidence: Engagement 48% is below threshold 50% — attribution discipline revie
 
 ## [2026-05-26 17:16] INFLUENCE_BREACH_PERSISTENT | REFLECT
 Evidence: Persistent breach (3 consecutive cycles): Engagement 48% is below threshold 50% — attribution discipline review required
+
+## [2026-05-26 22:43] INFLUENCE_BREACH_CLEARED | REFLECT
+Evidence: engagement threshold breach cleared. Verify: did health improve (more decisions attributed) — or did operators adapt behavior to the threshold (worked around the measurement)? These are opposite outcomes that look identical in the data.
