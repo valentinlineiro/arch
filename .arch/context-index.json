@@ -4093,7 +4093,7 @@
       "title": "Govern/Reflect Structural Separation"
     }
   },
-  "builtAt": "2026-05-26T10:18:50.024Z",
+  "builtAt": "2026-05-26T10:26:50.593Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -9913,23 +9913,37 @@
       }
     },
     "TASK-1039": {
-      "commitCount": 1,
+      "commitCount": 2,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-26T09:48:13+02:00",
+      "lastCommitDate": "2026-05-26T12:26:45+02:00",
       "recentCommitRefs": [
-        "2b3f9897"
+        "2b3f9897",
+        "bd44b64d"
       ],
       "touchedFrequency": {
+        ".arch/focus-ledger.jsonl": 1,
+        "docs/tasks/TASK-1016.md": 1,
+        "docs/tasks/TASK-1017.md": 1,
+        "docs/tasks/TASK-1018.md": 1,
+        "docs/tasks/TASK-1020.md": 1,
+        "docs/tasks/TASK-1021.md": 1,
+        "docs/tasks/TASK-1022.md": 1,
+        "docs/tasks/TASK-1023.md": 1,
+        "docs/tasks/TASK-1028.md": 1,
+        "docs/tasks/TASK-1032.md": 1,
         "docs/tasks/TASK-1033.md": 1,
-        "docs/tasks/TASK-1039.md": 1,
+        "docs/tasks/TASK-1035.md": 1,
+        "docs/tasks/TASK-1039.md": 2,
         "docs/tasks/TASK-1040.md": 1,
         "docs/tasks/TASK-1041.md": 1,
         "docs/tasks/TASK-1042.md": 1,
         "docs/tasks/TASK-1043.md": 1,
         "docs/tasks/TASK-1044.md": 1,
-        "docs/tasks/TASK-1045.md": 1,
+        "docs/tasks/TASK-1045.md": 2,
         "docs/tasks/TASK-1046.md": 1,
-        "docs/tasks/TASK-1047.md": 1
+        "docs/tasks/TASK-1047.md": 1,
+        "docs/tasks/TASK-1049.md": 1,
+        "docs/tasks/TASK-242.md": 1
       }
     },
     "TASK-1047": {
@@ -10038,13 +10052,12 @@
       }
     },
     "TASK-206": {
-      "commitCount": 10,
+      "commitCount": 9,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-26T10:00:51+02:00",
       "recentCommitRefs": [
         "07c38fd1",
         "21a5605b",
-        "22308ce5",
         "290f2b42",
         "313d5a3e",
         "3edef157",
@@ -10054,19 +10067,15 @@
         "cc2b9fd5"
       ],
       "touchedFrequency": {
-        ".arch/cache/git-signals.jsonl": 1,
         ".arch/context-index.json": 1,
         ".arch/corpus-index.json": 1,
         ".arch/focus-ledger.jsonl": 6,
-        ".arch/last-audit.json": 1,
-        ".arch/reflect-breach-log.jsonl": 3,
+        ".arch/reflect-breach-log.jsonl": 2,
         ".arch/status-projection.json": 2,
         "README.md": 2,
         "cli/.arch/status-projection.json": 1,
-        "cli/src/main/ts/application/use-cases/hansei-wizard.ts": 1,
-        "cli/src/main/ts/application/use-cases/mark-task-in-progress.ts": 1,
-        "docs/INBOX.md": 2,
-        "docs/METRICS.md": 2,
+        "docs/INBOX.md": 1,
+        "docs/METRICS.md": 1,
         "docs/ROADMAP.md": 2,
         "docs/adr/ADR-021-refinement-ttl-and-admission.md": 1,
         "docs/adr/ADR-024-drift-coverage-identity-model.md": 1,
@@ -10432,21 +10441,16 @@
         "docs/archive/TASK-992.md": 1,
         "docs/archive/TASK-993.md": 1,
         "docs/archive/TASK-994.md": 1,
-        "docs/refinement/archive/IDEA-automatic-sprint-lifecycle.md": 1,
         "docs/refinement/archive/IDEA-cli-architecture-drift-review.md": 1,
         "docs/refinement/archive/IDEA-code-quality-audit-process.md": 1,
         "docs/refinement/archive/IDEA-corpus-informed-reprioritization.md": 1,
         "docs/refinement/archive/IDEA-fix-config-gaps.md": 1,
         "docs/refinement/archive/IDEA-fix-escalation-deduplication.md": 1,
         "docs/refinement/archive/IDEA-fix-meta-line-regex-and-fields.md": 1,
-        "docs/refinement/archive/IDEA-governance-epistemic-doctrine.md": 1,
-        "docs/refinement/archive/IDEA-hansei-wizard.md": 1,
         "docs/refinement/archive/IDEA-resolve-hansei-contradiction.md": 1,
         "docs/refinement/archive/IDEA-status-doc-refresh.md": 1,
-        "docs/refinement/archive/IDEA-verify-pre-existing-before-start.md": 1,
         "docs/tasks/TASK-206.md": 1,
         "docs/tasks/TASK-967.md": 1,
-        "docs/tasks/TASK-978.md": 1,
         "docs/tasks/TASK-995.md": 1,
         "docs/tasks/TASK-996.md": 1,
         "docs/tensions/TENSION-005-specdrift.md": 1
@@ -10851,51 +10855,41 @@
       }
     },
     "TASK-978": {
-      "commitCount": 3,
+      "commitCount": 2,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-21T10:40:41+02:00",
       "recentCommitRefs": [
-        "22308ce5",
         "4e3b96ce",
         "8baf2ec0"
       ],
       "touchedFrequency": {
-        ".arch/cache/git-signals.jsonl": 1,
         ".arch/causal-signal.jsonl": 1,
         ".arch/chronicle.jsonl": 1,
-        ".arch/last-audit.json": 1,
-        ".arch/reflect-breach-log.jsonl": 2,
+        ".arch/reflect-breach-log.jsonl": 1,
         ".arch/status-projection.json": 1,
         ".arch/temporal-index.jsonl": 1,
         "README.md": 1,
         "cli/.arch/status-projection.json": 1,
-        "cli/src/main/ts/application/use-cases/hansei-wizard.ts": 1,
-        "cli/src/main/ts/application/use-cases/mark-task-in-progress.ts": 2,
+        "cli/src/main/ts/application/use-cases/mark-task-in-progress.ts": 1,
         "cli/src/test/ts/mark-task-in-progress.test.ts": 1,
         "docs/EVENTS.md": 1,
-        "docs/INBOX.md": 1,
-        "docs/METRICS.md": 2,
+        "docs/METRICS.md": 1,
         "docs/ROADMAP.md": 1,
         "docs/archive/TASK-978.md": 1,
         "docs/archive/TASK-980.md": 1,
-        "docs/refinement/archive/IDEA-automatic-sprint-lifecycle.md": 1,
-        "docs/refinement/archive/IDEA-governance-epistemic-doctrine.md": 1,
-        "docs/refinement/archive/IDEA-hansei-wizard.md": 1,
-        "docs/refinement/archive/IDEA-verify-pre-existing-before-start.md": 1,
-        "docs/tasks/TASK-978.md": 2,
+        "docs/tasks/TASK-978.md": 1,
         "docs/tasks/TASK-980.md": 1
       }
     },
     "TASK-979": {
-      "commitCount": 2,
+      "commitCount": 1,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-21T09:15:11+02:00",
       "recentCommitRefs": [
-        "6712c84a",
         "83a6b334"
       ],
       "touchedFrequency": {
-        "docs/tasks/TASK-979.md": 2
+        "docs/tasks/TASK-979.md": 1
       }
     },
     "TASK-980": {
