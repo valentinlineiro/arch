@@ -90,7 +90,7 @@ test('arch init seed task walks through arch task start workflow', async () => {
 
     const content = await fs.readFile(path.join(dir, 'docs/tasks/TASK-001.md'), 'utf-8');
     assert.ok(content.includes('arch task start'), 'seed task should mention arch task start');
-    assert.ok(content.includes('arch review'), 'seed task should mention arch review');
+    assert.ok(content.includes('arch check'), 'seed task should mention arch check');
     assert.ok(content.includes('arch task done'), 'seed task should mention arch task done');
   } finally {
     await cleanup(dir);

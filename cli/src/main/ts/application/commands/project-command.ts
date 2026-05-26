@@ -223,7 +223,7 @@ ${acs}
 
 ### Definition of Done
 - [ ] All ACs checked
-- [ ] \`arch review\` passes
+- [ ] \`arch check\` passes
 
 ## Hansei
 **Severity:** H0
