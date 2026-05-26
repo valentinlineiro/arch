@@ -2,7 +2,7 @@ import { FileSystem } from '../repositories/file-system.js';
 import { GitRepository } from '../repositories/git-repository.js';
 import { HanseiAuditor } from '../../domain/services/hansei-auditor.js';
 import semver from 'semver';
-import { FocusLevel, ConflictSeverity, FocusConflict } from '../../domain/models/task.js';
+import { FocusLevel, ConflictSeverity, FocusConflict, TaskStatus, Hansei } from '../../domain/models/task.js';
 import { PathResolver } from '../../domain/services/path-resolver.js';
 
 export interface DriftResult {
@@ -373,7 +373,7 @@ export class DriftChecker {
     const archiveFiles = await this.getMarkdownFiles(this.pr.archive);
     
     const doneTaskIds = new Set(archiveFiles.map(f => f.replace('.md', '')));
-    const allActiveTasks: any[] = [];
+    const allActiveTasks: { id: string; priority: number; status: string; isFocused: boolean; depends: string[] }[] = [];
 
     for (const file of activeFiles) {
       const content = await this.fileSystem.readFile(`${this.rootPath}/${this.pr.tasks}/${file}`);
@@ -1100,7 +1100,7 @@ export class DriftChecker {
       if (status === 'IN_PROGRESS' && focus === FocusLevel.NONE) {
         conflicts.push({
           taskId,
-          status: status as any,
+          status: status as TaskStatus,
           focus,
           severity: ConflictSeverity.H1,
           description: 'IN_PROGRESS with Focus:NONE — work has no energy assigned.',
@@ -1109,7 +1109,7 @@ export class DriftChecker {
       } else if (status === 'DONE' && focus !== FocusLevel.NONE) {
         conflicts.push({
           taskId,
-          status: status as any,
+          status: status as TaskStatus,
           focus,
           severity: ConflictSeverity.H2,
           description: 'DONE with non-NONE focus — post-hoc misalignment, no rollback needed.',
@@ -1118,7 +1118,7 @@ export class DriftChecker {
       } else if (status === 'BLOCKED' && focus === FocusLevel.HIGH) {
         conflicts.push({
           taskId,
-          status: status as any,
+          status: status as TaskStatus,
           focus,
           severity: ConflictSeverity.INFO,
           description: 'BLOCKED with Focus:HIGH — high energy on stalled work.',
@@ -1245,7 +1245,7 @@ export class DriftChecker {
         title: '',
         priority: '',
         size: '',
-        status: 'REVIEW' as any,
+        status: TaskStatus.REVIEW,
         focus: false,
         sprint: '',
         class: '',
@@ -1253,7 +1253,7 @@ export class DriftChecker {
         context: [],
         acceptanceCriteria: [],
         hansei: {
-          severity: hanseiMatch[1].trim() as any,
+          severity: hanseiMatch[1].trim() as Hansei['severity'],
           category: hanseiMatch[2].trim(),
           decision: hanseiMatch[3].trim(),
           constraint: hanseiMatch[4].trim(),
