@@ -1,8 +1,8 @@
 {
   "version": 1,
-  "builtAt": "2026-05-26T09:50:09.427Z",
+  "builtAt": "2026-05-26T10:49:40.801Z",
   "archiveCommit": "",
-  "taskCount": 188,
+  "taskCount": 189,
   "entries": {
     "TASK-1000": {
       "id": "TASK-1000",
@@ -309,6 +309,23 @@
       "acCount": 5,
       "acMachineVerifiable": 5,
       "closurePath": "L3"
+    },
+    "TASK-1049": {
+      "id": "TASK-1049",
+      "size": "M",
+      "class": "1-maintenance",
+      "closedAt": "2026-05-26T10:52:00Z",
+      "lockedCommit": "5caac51f",
+      "actor": "unknown",
+      "severity": "H1",
+      "category": "[SpecDrift]",
+      "decision": "Fix applied: tsc --noEmit zero errors. 234 errors across ~50 files resolved via batch 1 (import paths, FocusLevel, MockTaskRepository) and batch 2 (54 scattered errors across 33 files — tsconfig exclusion, mock types, ts-any casts, missing properties, dead import extensions).",
+      "constraint": "Pre-existing debt accumulated across ~26 days of development without tsc enforcement. Some `as any` casts applied where interface contracts are legitimately dynamic (audit risk type comparisons, signal router relation types).",
+      "cost": "~500 lines changed across 55 files. 4 net fewer test failures (23→19) — some pre-existing failures absorbed by type corrections.",
+      "forwardAction": "Enable tsc --noEmit in CI pre-merge hook to prevent recurrence. Track Hansei severity distribution to measure kaizen loop health.",
+      "acCount": 3,
+      "acMachineVerifiable": 3,
+      "closurePath": "auditor"
     },
     "TASK-180": {
       "id": "TASK-180",
