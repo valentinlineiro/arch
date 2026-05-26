@@ -20,13 +20,16 @@ _Generated: 2026-05-26T10:04Z by [THINK] session_
 See docs/refinement/ROADMAP-IDEAS.md
 
 ## Last 5 Completed Tasks
-1. TASK-1032 — fix enforcement/analysis boundary: move SubprocessRunner call to command layer (P1/S)
-2. TASK-1035 — move process.exit() to main entry point: commands return exit codes (P0/M)
-3. TASK-1039 — fix 13 pre-existing test failures (P0/S)
-4. TASK-1049 — resolve all tsc --noEmit typecheck errors to zero (P0/M)
-5. TASK-1031 — code hygiene quick wins (P1/XS)
+1. TASK-1040 — add c8 coverage reporting to npm test (P1/XS)
+2. TASK-1032 — fix enforcement/analysis boundary: move SubprocessRunner call to command layer (P1/S)
+3. TASK-1035 — move process.exit() to main entry point: commands return exit codes (P0/M)
+4. TASK-1039 — fix 13 pre-existing test failures (P0/S)
+5. TASK-1049 — resolve all tsc --noEmit typecheck errors to zero (P0/M)
 
 ## 2026-05-26 13:03:34 — Pattern Alerts
 
 ## 2026-05-26 13:11:34 — Pattern Alerts
-[PATTERN-ALERT] [SpecDrift] detected 8 times — systemic issue. See docs/tensions/
+
+## 2026-05-26 13:18:36 — Pattern Alerts
+
+## 2026-05-26 13:20:42 — Pattern Alerts
