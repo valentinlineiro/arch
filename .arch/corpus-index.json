@@ -1,8 +1,8 @@
 {
   "version": 1,
-  "builtAt": "2026-05-26T13:11:30.187Z",
-  "archiveCommit": "406:design",
-  "taskCount": 192,
+  "builtAt": "2026-05-26T13:18:36.936Z",
+  "archiveCommit": "407:design",
+  "taskCount": 193,
   "entries": {
     "TASK-1000": {
       "id": "TASK-1000",
@@ -308,6 +308,23 @@
       "forwardAction": "TASK-1049 owns the zero-errors remediation. This task closes with the three scoped wins delivered.",
       "acCount": 5,
       "acMachineVerifiable": 5,
+      "closurePath": "L3"
+    },
+    "TASK-1032": {
+      "id": "TASK-1032",
+      "size": "S",
+      "class": "2-code-generation",
+      "closedAt": "2026-05-26T13:18:22.051Z",
+      "lockedCommit": null,
+      "actor": null,
+      "severity": "H0",
+      "category": "[CleanCode]",
+      "decision": "Moved SubprocessRunner from use-case to command layer. Removed unused noConduct parameter from GovernSystem.execute. Implemented --no-analyze flag in GovernCommand as an alias/primary for --no-conduct.",
+      "constraint": "The move had been partially completed in a previous state but the cleanup (unused parameters, flag naming) was missing.",
+      "cost": "3 files modified. 644 tests pass.",
+      "forwardAction": "None. [TASK-1032]",
+      "acCount": 5,
+      "acMachineVerifiable": 3,
       "closurePath": "L3"
     },
     "TASK-1033": {
