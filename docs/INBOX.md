@@ -109,3 +109,13 @@ _Generated: 2026-05-26T12:45Z by [THINK] DEFAULT session_
 **ACs:** gouvern tick hygiene pass, dedup, 14-day expiry, --clean-inbox force, 15 tests
 
 ## 2026-05-26 08:39:30 — Pattern Alerts
+
+## [AWAITING_REVIEW] TASK-1031 [L3-AUTO]
+**Closed:** 2026-05-26T09:46:28.937Z
+**Title:** code hygiene quick wins: tsc --noEmit, dead task.ts, catch any
+
+| AC | Type | Pass | Detail |
+|---|---|---|---|
+| Add `"typecheck": "tsc --noEmit"` to `cli/package.json` scri | cmd | ✔ | exit 0 (expected 0) |
+| Verify `domain/task.ts` is not imported anywhere, then delet | cmd | ✔ | exit 0 (expected 0) |
+| Replace `catch (error: any)` with `catch (error: unknown)` i | cmd | ✔ | exit 0 (expected 0) |
