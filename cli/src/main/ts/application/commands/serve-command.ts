@@ -8,14 +8,14 @@ import { PathResolver } from '../../domain/services/path-resolver.js';
 export class ServeCommand implements Command {
   constructor(private rootPath: string = '.') {}
 
-  async execute(args: string[] = []): Promise<void> {
+  async execute(args: string[] = []): Promise<number> {
     const port = this.parsePort(args);
     const server = http.createServer(this.createHandler());
 
     server.on('error', (err: NodeJS.ErrnoException) => {
       if (err.code === 'EADDRINUSE') {
         console.error(`\n  ✗ Port ${port} is already in use. Try: arch govern serve ${port + 1}`);
-        process.exit(1);
+        return 1;
       }
       throw err;
     });
@@ -25,6 +25,7 @@ export class ServeCommand implements Command {
       console.log(`  Serving files from: ${path.join(this.rootPath, 'docs')}`);
       console.log('  Press Ctrl+C to stop.\n');
     });
+    return 0;
   }
 
   parsePort(args: string[]): number {
@@ -43,7 +44,7 @@ export class ServeCommand implements Command {
           if (err) {
             res.statusCode = 500;
             res.end(JSON.stringify({ error: 'Failed to read tasks directory' }));
-            return;
+            return 0;
           }
           try {
             const taskFiles = files.filter(f => f.startsWith('TASK-') && f.endsWith('.md'));

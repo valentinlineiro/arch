@@ -19,7 +19,7 @@ export class LoopCommand implements Command {
     this.engine = new LoopEngine(taskRepository, gitRepository, fileSystem, reviewer, driftChecker);
   }
 
-  async execute(args: string[]): Promise<void> {
+  async execute(args: string[]): Promise<number> {
     const options: LoopOptions = {
       dryRun: args.includes('--dry-run'),
       resume: args.includes('--resume'),
@@ -28,6 +28,7 @@ export class LoopCommand implements Command {
       quiet: args.includes('--quiet'),
     };
     await this.engine.execute(options);
+    return 0;
   }
 
   private parseSprint(args: string[]): string | undefined {

@@ -11,11 +11,12 @@ export class IndexCommand implements Command {
     private gitRepository: GitRepository,
   ) {}
 
-  async execute(): Promise<void> {
+  async execute(): Promise<number> {
     const config = await ConfigLoader.load(this.fileSystem);
     const contextRules = (config.contextRules as Record<string, { taskClasses: string[] }>) ?? {};
     const buildIndex = new BuildIndex(this.fileSystem);
     await buildIndex.execute(contextRules, this.gitRepository);
     console.log(`  \x1b[32m✔\x1b[0m context index rebuilt → ${PathResolver.from({}).contextIndex}`);
+    return 0;
   }
 }

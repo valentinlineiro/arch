@@ -19,23 +19,24 @@ export class InboxCommand implements Command {
     this.useCase = new GenerateInbox(taskRepository, fileSystem, reviewer, driftChecker);
   }
 
-  async execute(args: string[] = []): Promise<void> {
+  async execute(args: string[] = []): Promise<number> {
     try {
       if (args.includes('--decisions')) {
         const items = await this.useCase.getDecisionQueue();
         this.renderDecisions(items);
-        return;
+        return 0;
       }
       if (args.includes('--resurrect')) {
         const items = await this.useCase.getResurrectQueue();
         this.renderResurrect(items);
-        return;
+        return 0;
       }
       const data = await this.useCase.execute();
       this.render(data);
     } catch (error: any) {
       fmt.warn(error.message);
     }
+    return 0;
   }
 
   private renderResurrect(items: DecisionItem[]): void {

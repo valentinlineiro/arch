@@ -1,20 +1,13 @@
-import { Command } from '../../domain/models/command.js';
+import { Command, IO } from '../../domain/models/command.js';
 import { AskCorpus } from '../use-cases/ask-corpus.js';
-
-export interface AskIO {
-  getArgs(): string[];
-  log(s: string): void;
-  error(s: string): void;
-  exit(code: number): never;
-}
 
 export class AskCommand implements Command {
   constructor(
     private askCorpus: AskCorpus,
-    private io: AskIO,
+    private io: IO,
   ) {}
 
-  async execute(): Promise<void> {
+  async execute(): Promise<number> {
     const args = this.io.getArgs();
     if (args.length === 0) {
       this.io.error('Error: question required\nUsage: arch ask "<question>"');
@@ -46,7 +39,7 @@ export class AskCommand implements Command {
 
     if (matches.length === 0) {
       this.io.log('No matches found in corpus.');
-      return;
+      return 0;
     }
 
     this.io.log(`Corpus matches (${matches.length}):`);
@@ -60,5 +53,6 @@ export class AskCommand implements Command {
     if (taskRefs.length > 0) this.io.log(`Related tasks (top-5 matches): ${taskRefs.join(', ')}`);
     if (adrRefs.length > 0) this.io.log(`Related ADRs:                  ${adrRefs.join(', ')}`);
     if (principleRefs.length > 0) this.io.log(`Related principles:            ${principleRefs.join(', ')}`);
+    return 0;
   }
 }

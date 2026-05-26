@@ -43,7 +43,7 @@ test('GovernCommand fails when context index rebuild fails', async () => {
   );
 
   await assert.rejects(
-    () => command.execute(['--no-conduct']),
+    () => command.execute(['--no-analyze']),
     /failed to rebuild context index during govern/,
   );
 });

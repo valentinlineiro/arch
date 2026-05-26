@@ -1,4 +1,4 @@
-import { Command } from '../../domain/models/command.js';
+import { CommandExit, Command } from '../../domain/models/command.js';
 import { SandboxService } from '../../domain/services/sandbox.js';
 import { TaskRepository } from '../../domain/repositories/task-repository.js';
 import { FileSystem } from '../../domain/repositories/file-system.js';
@@ -13,17 +13,17 @@ export class SandboxCommand implements Command {
     private fileSystem: FileSystem
   ) {}
 
-  async execute(args: string[]): Promise<void> {
+  async execute(args: string[]): Promise<number> {
     const subCommand = args[0];
     if (subCommand !== 'exec') {
       console.log('Usage: arch sandbox exec "<command>" [--args "arg1 arg2"] [--privileged]');
-      process.exit(1);
+      return 1;
     }
 
     const command = args[1];
     if (!command) {
       fmt.fail('Missing command to execute.');
-      process.exit(1);
+      return 1;
     }
 
     const argString = this.getArg(args, '--args') || '';
@@ -42,19 +42,20 @@ export class SandboxCommand implements Command {
       } else {
         process.stderr.write(result.stderr);
         fmt.fail(`Command exited with status ${result.status}`);
-        process.exit(result.status ?? 1);
+        return result.status ?? 1;
       }
     } catch (e: any) {
       fmt.fail(e.message);
-      process.exit(1);
+      return 1;
     }
+    return 0;
   }
 
   private async checkPrivilegeApproval(): Promise<void> {
     const focusedTask = (await this.taskRepository.getActive()).find(t => t.focus);
     if (!focusedTask) {
       fmt.fail('Privileged execution requires an active focused task.');
-      process.exit(1);
+      throw new CommandExit(1);
     }
 
     const store = new EscalationStore(this.fileSystem);
@@ -77,7 +78,7 @@ export class SandboxCommand implements Command {
 
       fmt.warn(`Privileged execution requested for ${focusedTask.id}.`);
       fmt.info(`Halted: run 'arch approve ${focusedTask.id}' to grant approval.`);
-      process.exit(1);
+      throw new CommandExit(1);
     }
   }
 

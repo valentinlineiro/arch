@@ -1,4 +1,4 @@
-import { Command } from '../../domain/models/command.js';
+import { CommandExit, Command } from '../../domain/models/command.js';
 import type { TaskRepository } from '../../domain/repositories/task-repository.js';
 import type { GitRepository } from '../../domain/repositories/git-repository.js';
 import type { FileSystem } from '../../domain/repositories/file-system.js';
@@ -14,10 +14,10 @@ export class ReviewCommand implements Command {
     private fileSystem: FileSystem,
   ) {}
 
-  async execute(args: string[] = []): Promise<void> {
+  async execute(args: string[] = []): Promise<number> {
     if (args.includes('--help') || args.includes('-h')) {
       this.showHelp();
-      return;
+      return 0;
     }
 
     const tasks = await this.taskRepository.getAll();
@@ -25,7 +25,7 @@ export class ReviewCommand implements Command {
 
     if (reviewTasks.length === 0) {
       fmt.check('No REVIEW-status tasks found');
-      return;
+      return 0;
     }
 
     fmt.header(`Review Queue — ${reviewTasks.length} task(s)`);
@@ -70,6 +70,7 @@ export class ReviewCommand implements Command {
       }
       console.log('');
     }
+    return 0;
   }
 
   private async markTaskDone(taskId: string): Promise<void> {

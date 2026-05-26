@@ -14,7 +14,7 @@ import { ARCHDeploymentMap, UEGGraph, UEGGraphFragment } from '../../domain/mode
 import { LanguageAdapter } from '../../domain/services/ueg-interfaces.js';
 
 export class AuditCommand implements Command {
-  async execute(args: string[]): Promise<void> {
+  async execute(args: string[]): Promise<number> {
     const isPublic = args.includes('--public');
     const target = (isPublic ? args[args.indexOf('--public') + 1] : args[0]) ?? '.';
     const verbose = args.includes('--verbose') || args.includes('-v');
@@ -31,13 +31,13 @@ export class AuditCommand implements Command {
       } catch (e: any) {
         if (tmpDir) rmSync(tmpDir, { recursive: true, force: true });
         process.stderr.write(`  Failed to clone: ${e.message}\n`);
-        process.exit(1);
+        return 1;
       }
     } else {
       repoPath = resolve(target);
       if (!existsSync(repoPath)) {
         process.stderr.write(`  Path not found: ${repoPath}\n`);
-        process.exit(1);
+        return 1;
       }
     }
 
@@ -46,6 +46,7 @@ export class AuditCommand implements Command {
     } finally {
       if (tmpDir) rmSync(tmpDir, { recursive: true, force: true });
     }
+    return 0;
   }
 
   private async runAudit(repoPath: string, opts: { verbose: boolean; publicMode?: boolean }): Promise<void> {

@@ -25,11 +25,11 @@ export class ResumeCommand {
     private rootPath: string = '.',
   ) {}
 
-  async execute(args: string[]): Promise<void> {
+  async execute(args: string[]): Promise<number> {
     const taskId = args[0];
     if (!taskId || !taskId.startsWith('TASK-')) {
       console.error('\n  Usage: arch resume TASK-XXX\n');
-      process.exit(1);
+      return 1;
     }
 
     console.log(`\n  \x1b[32mARCH\x1b[0m — Resume: ${taskId}\n`);
@@ -40,7 +40,7 @@ export class ResumeCommand {
     if (!escalation) {
       console.log(`  No OPEN ANDON_HALT record found for ${taskId}.`);
       console.log(`  Run \x1b[36march check\x1b[0m to see current system state.\n`);
-      process.exit(0);
+      return 0;
     }
 
     console.log(`  Halt reason: \x1b[33m${escalation.type}\x1b[0m`);
@@ -60,6 +60,7 @@ export class ResumeCommand {
         });
       } catch { /* check output already shown */ }
     }
+    return 0;
   }
 
   private async recover(taskId: string, esc: EscalationRecord): Promise<boolean> {

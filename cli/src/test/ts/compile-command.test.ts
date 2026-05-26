@@ -54,17 +54,8 @@ test('CompileCommand fails gracefully on malformed JSON payload', async () => {
   const originalError = console.error;
   console.error = (s) => errors.push(s);
 
-  const exits: number[] = [];
-  const originalExit = process.exit;
-  process.exit = ((code: number) => { exits.push(code); }) as any;
-
-  try {
-    await command.execute([inputPath]);
-  } finally {
-    console.error = originalError;
-    process.exit = originalExit;
-  }
+  const exitCode = await command.execute([inputPath]);
 
   assert.ok(errors.some(e => e.includes('Compilation pipeline collapsed')));
-  assert.strictEqual(exits[0], 1);
+  assert.strictEqual(exitCode, 1);
 });

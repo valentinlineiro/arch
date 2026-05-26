@@ -28,10 +28,10 @@ export class StatusCommand implements Command {
     private rootPath: string = '.',
   ) {}
 
-  async execute(args: string[] = []): Promise<void> {
+  async execute(args: string[] = []): Promise<number> {
     if (args.includes('--publish')) {
       await this.publishReport();
-      return;
+      return 0;
     }
 
     const tasks = await this.taskRepository.getAll();
@@ -124,6 +124,7 @@ export class StatusCommand implements Command {
     } catch { /* no adr dir — skip */ }
 
     console.log('');
+    return 0;
   }
 
   async publishReport(): Promise<void> {

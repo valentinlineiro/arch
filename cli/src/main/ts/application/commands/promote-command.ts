@@ -17,11 +17,11 @@ export class PromoteCommand implements Command {
     this.promoteIdea = new PromoteIdea(taskRepository, gitRepository, fileSystem);
   }
 
-  async execute(args: string[]): Promise<void> {
+  async execute(args: string[]): Promise<number> {
     const ideaSlug = args[0];
     if (!ideaSlug) {
       console.log('Usage: arch promote [IDEA-slug] [--yes]');
-      return;
+      return 0;
     }
 
     const force = args.includes('--yes') || args.includes('-y');
@@ -35,7 +35,7 @@ export class PromoteCommand implements Command {
         const answer = await rl.question(`Confirm promotion of ${ideaSlug}? (y/N): `);
         if (answer.toLowerCase() !== 'y') {
           fmt.warn('Promotion cancelled.');
-          return;
+          return 0;
         }
       } finally {
         rl.close();
@@ -49,5 +49,6 @@ export class PromoteCommand implements Command {
     } catch (error: any) {
       fmt.warn(error.message);
     }
+    return 0;
   }
 }

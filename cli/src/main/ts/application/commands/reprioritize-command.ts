@@ -16,7 +16,7 @@ export class ReprioritizeCommand implements Command {
     private rootPath: string = '.',
   ) {}
 
-  async execute(args: string[]): Promise<void> {
+  async execute(args: string[]): Promise<number> {
     const dryRun = !args.includes('--apply');
 
     console.log(`\n  \x1b[32mARCH\x1b[0m — arch task reprioritize\n`);
@@ -27,7 +27,7 @@ export class ReprioritizeCommand implements Command {
     if (diff.length === 0) {
       console.log('  No priority changes proposed. Corpus signals are consistent with current priority assignments.\n');
       console.log(`  ECP registry: ${ecpPath}\n`);
-      return;
+      return 0;
     }
 
     console.log(`  ${pad('Task', 12)} ${pad('Current', 8)} ${pad('Proposed', 9)} Signals`);
@@ -43,7 +43,7 @@ export class ReprioritizeCommand implements Command {
 
     if (dryRun) {
       console.log(`\n  Dry-run mode. Run with --apply to prompt for confirmation.\n`);
-      return;
+      return 0;
     }
 
     // Apply? y/N
@@ -55,7 +55,7 @@ export class ReprioritizeCommand implements Command {
 
     if (answer.trim().toLowerCase() !== 'y') {
       console.log('  Cancelled.\n');
-      return;
+      return 0;
     }
 
     // Write priority changes
@@ -74,6 +74,7 @@ export class ReprioritizeCommand implements Command {
     }
 
     console.log(`\n  ✔ Applied ${applied} priority change(s).\n`);
+    return 0;
   }
 
   private priorityArrow(current: string, proposed: string): string {

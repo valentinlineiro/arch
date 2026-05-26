@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 export class ConductCommand implements Command {
-  async execute(args: string[]): Promise<void> {
+  async execute(args: string[]): Promise<number> {
     const promptFile = 'docs/agents/THINK.md';
     const extraFlags = args.join(' ');
     
@@ -26,7 +26,7 @@ export class ConductCommand implements Command {
           }
           
           const result = spawnSync('sh', ['-c', cmd], { stdio: 'inherit' });
-          process.exit(result.status ?? 0);
+          return result.status ?? 0;
         } catch (e) {
           // Try next CLI
         }
@@ -34,10 +34,10 @@ export class ConductCommand implements Command {
       
       console.log('  Note: No AI CLI detected or invocation failed. Showing protocol:');
       console.log(fs.readFileSync(promptFile, 'utf8'));
-      process.exit(1);
+      return 1;
     } catch (e: any) {
       console.error('Error in ConductCommand:', e.message);
-      process.exit(1);
+      return 1;
     }
   }
 }

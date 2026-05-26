@@ -1,4 +1,4 @@
-import { Command } from '../../domain/models/command.js';
+import { CommandExit, Command } from '../../domain/models/command.js';
 import { CheckSystem } from '../use-cases/check-system.js';
 import type { TaskRepository } from '../../domain/repositories/task-repository.js';
 import type { GitRepository } from '../../domain/repositories/git-repository.js';
@@ -23,7 +23,7 @@ export class CheckCommand implements Command {
     this.useCase = new CheckSystem(taskRepository, gitRepository, reviewer, fileSystem, driftChecker);
   }
 
-  private async executeAutoFix(args: string[]): Promise<void> {
+  private async executeAutoFix(args: string[]): Promise<number> {
     const dryRun = args.includes('--dry-run');
     const pr = PathResolver.from({});
     const taskDir = pr.tasks;
@@ -97,13 +97,14 @@ export class CheckCommand implements Command {
     } else {
       fmt.info(`${totalFixed} file(s) ${dryRun ? 'would be' : ''} fixed`);
     }
+    return 0;
   }
 
-  private async executeScopedReview(taskId: string): Promise<void> {
+  private async executeScopedReview(taskId: string): Promise<number> {
     const task = await this.taskRepository.getById(taskId);
     if (!task) {
       fmt.fail(`Task ${taskId} not found`);
-      process.exit(1);
+      throw new CommandExit(1);
     }
 
     fmt.header(`Scoped Review — ${taskId}`);
@@ -157,10 +158,11 @@ export class CheckCommand implements Command {
       console.log('  \x1b[32m✔\x1b[0m All checks passed. Task is ready for DONE.');
     } else {
       console.error('  \x1b[31m✖\x1b[0m Review failed — resolve issues before closing.');
-      process.exit(1);
+      throw new CommandExit(1);
     }
+    return 0;
   }
-  async execute(args: string[] = []): Promise<void> {
+  async execute(args: string[] = []): Promise<number> {
     const isJson = args.includes('--json');
     const isFast = args.includes('--fast');
     const isPush = args.includes('--push');
@@ -171,14 +173,14 @@ export class CheckCommand implements Command {
 
     if (isAutoFix) {
       await this.executeAutoFix(args);
-      return;
+      return 0;
     }
 
     // --task TASK-XXX: scoped Auditor review
     const taskArgIdx = args.indexOf('--task');
     if (taskArgIdx !== -1 && args[taskArgIdx + 1]) {
       await this.executeScopedReview(args[taskArgIdx + 1]);
-      return;
+      return 0;
     }
 
     const scope = isStaged ? 'delta' : isFull ? 'full' : 'hybrid';
@@ -189,7 +191,7 @@ export class CheckCommand implements Command {
 
     if (isJson) {
       console.log(JSON.stringify(result, null, 2));
-      process.exit(result.success ? 0 : 1);
+      return result.success ? 0 : 1;
     }
 
     if (result.success) {
@@ -213,6 +215,6 @@ export class CheckCommand implements Command {
       execSync('git push', { stdio: 'inherit' });
     }
 
-    process.exit(result.success ? 0 : 1);
+    return result.success ? 0 : 1;
   }
 }

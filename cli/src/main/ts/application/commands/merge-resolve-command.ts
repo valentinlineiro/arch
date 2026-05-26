@@ -10,7 +10,7 @@ export class MergeResolveCommand implements Command {
     private fileSystem: FileSystem
   ) {}
 
-  async execute(): Promise<void> {
+  async execute(): Promise<number> {
     const config = await ConfigLoader.load(this.fileSystem);
     const protectedPaths = config.governance?.protectedPaths || [];
     
@@ -22,11 +22,12 @@ export class MergeResolveCommand implements Command {
     }
     if (result.escalated.length > 0) {
       console.error(`Escalated (manual resolution required): ${result.escalated.join(', ')}`);
-      process.exit(1);
+      return 1;
     }
 
     if (result.resolved.length === 0 && result.escalated.length === 0) {
       console.log('No merge conflicts detected.');
     }
+    return 0;
   }
 }

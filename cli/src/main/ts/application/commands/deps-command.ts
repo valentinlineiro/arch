@@ -1,11 +1,11 @@
-import { Command } from '../../domain/models/command.js';
+import { CommandExit, Command } from '../../domain/models/command.js';
 import type { TaskRepository } from '../../domain/repositories/task-repository.js';
 import type { Task } from '../../domain/models/task.js';
 
 export class DepsCommand implements Command {
   constructor(private taskRepository: TaskRepository) {}
 
-  async execute(args: string[]): Promise<void> {
+  async execute(args: string[]): Promise<number> {
     const all = args.includes('--all');
     const taskId = args.find(a => /^TASK-\d+$/.test(a));
 
@@ -14,21 +14,22 @@ export class DepsCommand implements Command {
 
     if (all) {
       this.renderAll(tasks, byId);
-      return;
+      return 0;
     }
 
     if (!taskId) {
       process.stderr.write('Usage: arch deps TASK-XXX [--all]\n');
-      process.exit(1);
+      throw new CommandExit(1);
     }
 
     const task = byId.get(taskId);
     if (!task) {
       process.stderr.write(`Task ${taskId} not found in active tasks.\n`);
-      process.exit(1);
+      throw new CommandExit(1);
     }
 
     this.renderSingle(task, tasks, byId);
+    return 0;
   }
 
   private renderSingle(task: Task, all: Task[], byId: Map<string, Task>): void {
@@ -65,7 +66,7 @@ export class DepsCommand implements Command {
     const cycle = this.detectCycle(tasks);
     if (cycle) {
       process.stderr.write(`[CYCLE] ${cycle.join(' → ')}\n`);
-      process.exit(1);
+      throw new CommandExit(1);
     }
 
     // Unblocking leverage: count transitive dependents

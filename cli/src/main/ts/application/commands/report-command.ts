@@ -12,7 +12,7 @@ export class ReportCommand implements Command {
     private gitRepository: GitRepository
   ) {}
 
-  async execute(): Promise<void> {
+  async execute(): Promise<number> {
     const parser = new ArchiveParser(this.fileSystem, this.gitRepository);
     const engine = new MetricsEngine(this.fileSystem, this.gitRepository, 'docs/EVENTS.md');
 
@@ -25,7 +25,7 @@ export class ReportCommand implements Command {
       console.error('\n  ✖ CRITICAL INTEGRITY BREACH: Report data is INVALID due to protocol violations or ledger corruption.');
       console.error('  Manual intervention required. Check docs/EVENTS.md and task metadata for discrepancies.');
       console.error('  docs/METRICS.md updated with INVALID report for diagnostics.\n');
-      process.exit(1);
+      return 1;
     }
 
     const reportContent = this.formatReport(metrics);
@@ -35,8 +35,8 @@ export class ReportCommand implements Command {
     console.log(`  Completed: ${metrics.totalCompleted} tasks`);
     console.log(`  REVIEW_FAIL: ${metrics.reviewFailRate === 'pending' ? 'pending' : (metrics.reviewFailRate * 100).toFixed(1) + '%'}`);
     const costLabel = metrics.costPerTask.realCount > 0
-      ? `$${metrics.costPerTask.average.toFixed(2)} (${metrics.costPerTask.realCount} real, ${metrics.costPerTask.heuristicCount} heuristic)`
-      : `$${metrics.costPerTask.average.toFixed(2)} (heuristic)`;
+      ? `${metrics.costPerTask.average.toFixed(2)} (${metrics.costPerTask.realCount} real, ${metrics.costPerTask.heuristicCount} heuristic)`
+      : `${metrics.costPerTask.average.toFixed(2)} (heuristic)`;
     console.log(`  Avg Cost: ${costLabel}`);
     console.log('\n  Cycle Time (P50/P90):');
     for (const size of ['XS', 'S', 'M', 'L']) {
@@ -64,6 +64,7 @@ export class ReportCommand implements Command {
     }
 
     console.log('\n  ✔ docs/METRICS.md updated.');
+    return 0;
   }
 
   private formatReport(metrics: CalculatedMetrics): string {

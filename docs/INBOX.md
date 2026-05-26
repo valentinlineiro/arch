@@ -27,4 +27,6 @@ See docs/refinement/ROADMAP-IDEAS.md
 5. TASK-1029 — structural compaction: stale files, sprawl invariant, escalation compaction, archive partitioning (P1/M)
 
 ## 2026-05-26 13:03:34 — Pattern Alerts
+
+## 2026-05-26 13:11:34 — Pattern Alerts
 [PATTERN-ALERT] [SpecDrift] detected 8 times — systemic issue. See docs/tensions/

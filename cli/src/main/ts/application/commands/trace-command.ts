@@ -1,25 +1,18 @@
-import { Command } from '../../domain/models/command.js';
+import { Command, IO } from '../../domain/models/command.js';
 import { CausalGraph, VALID_RELATIONS, type ScoredEdge } from '../use-cases/causal-graph.js';
 import { CausalArbitrator, type ArbitrationResult } from '../use-cases/causal-arbitrator.js';
 import { CausalSignalLog } from '../use-cases/causal-signal-log.js';
 import { VALID_CONFIDENCES, RELATION_STRENGTH, type RelationType, type Confidence } from '../../domain/models/causal-relation.js';
 
-export interface CausalIO {
-  getArgs(): string[];
-  log(s: string): void;
-  error(s: string): void;
-  exit(code: number): never;
-}
-
 export class TraceCommand implements Command {
   constructor(
     private graph: CausalGraph,
-    private io: CausalIO,
+    private io: IO,
     private signalLog?: CausalSignalLog,
     private expiryReviews: number = 3,
   ) {}
 
-  async execute(): Promise<void> {
+  async execute(): Promise<number> {
     const [subcommand, ...rest] = this.io.getArgs();
 
     if (subcommand === 'add') {
@@ -47,6 +40,7 @@ export class TraceCommand implements Command {
       );
       this.io.exit(1);
     }
+    return 0;
   }
 
   private async arbitrate(): Promise<void> {

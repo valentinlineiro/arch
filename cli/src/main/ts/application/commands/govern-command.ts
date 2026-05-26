@@ -25,11 +25,11 @@ export class GovernCommand implements Command {
     this.useCase = new GovernSystem(taskRepository, gitRepository, fileSystem, causalSignalLog, rootPath);
   }
 
-  async execute(args: string[] = []): Promise<void> {
-    const noConduct = args.includes('--no-conduct');
+  async execute(args: string[] = []): Promise<number> {
+    const noAnalyze = args.includes('--no-analyze') || args.includes('--no-conduct');
     const cleanInbox = args.includes('--clean-inbox');
     console.log('\n  ARCH — Governance Tick');
-    const result = await this.useCase.execute(noConduct, cleanInbox);
+    const result = await this.useCase.execute(cleanInbox);
 
     try {
       const config = await ConfigLoader.load(this.fileSystem);
@@ -52,7 +52,7 @@ export class GovernCommand implements Command {
 
     // Analysis side-effect: trigger arch analyze when replenishment or cadence conditions are met.
     // This is labeled explicitly as analysis — it never affects enforcement decisions.
-    if (result.analysisNeeded && !noConduct) {
+    if (result.analysisNeeded && !noAnalyze) {
       console.log(`  → Triggering arch analyze [analysis] (reasons: ${result.reasons.join(', ')})`);
       SubprocessRunner.runSync('./scripts/arch.sh', ['analyze']);
     }
@@ -60,8 +60,9 @@ export class GovernCommand implements Command {
     console.log('');
 
     if (result.projectComplete === true) {
-      process.exit(2);
+      return 2;
     }
+    return 0;
   }
 
   private async compactEscalations(): Promise<void> {

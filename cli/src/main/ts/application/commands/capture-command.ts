@@ -16,7 +16,7 @@ export class CaptureCommand implements Command {
     private gitRepository?: GitRepository,
   ) {}
 
-  async execute(args: string[]): Promise<void> {
+  async execute(args: string[]): Promise<number> {
     // Parse args: arch capture "<intent>" [--class <class>] [--size <size>] [--context <paths>]
     const classIdx = args.indexOf('--class');
     const sizeIdx = args.indexOf('--size');
@@ -43,7 +43,7 @@ export class CaptureCommand implements Command {
       process.stderr.write('\nClasses: 1-code-reasoning, 2-code-generation, 6-writing, 7-operations\n');
       process.stderr.write('Sizes:   XS, S, M, L\n');
       process.stderr.write('Flags:   --draft  invoke LLM to generate title/size/ACs (requires configured provider)\n');
-      process.exit(1);
+      return 1;
     }
 
     console.log(`\n  → arch capture: "${intent.slice(0, 60)}"\n`);
@@ -56,7 +56,7 @@ export class CaptureCommand implements Command {
       console.log(`  ✔ Created ${taskId}`);
     } catch (err: any) {
       process.stderr.write(`  ✖ Failed to create task: ${err.message}\n`);
-      process.exit(1);
+      return 1;
     }
 
     // Step 2: Apply context override if provided
@@ -95,7 +95,7 @@ export class CaptureCommand implements Command {
         console.log(`  ✔ ${taskId} is IN_PROGRESS and READY\n`);
         console.log(`  Task: ${PathResolver.from({}).tasks}/${taskId}.md`);
         console.log(`  Next: arch task done ${taskId}\n`);
-        return;
+        return 0;
       } catch (err: any) {
         if (err instanceof DefinitionOfReadyError && attempts === 1) {
           // Auto-fix: apply defaults for missing CLI and context
@@ -125,13 +125,14 @@ export class CaptureCommand implements Command {
             } else {
               process.stderr.write(`Cannot auto-fix: ${remaining.join('; ')}. Edit ${PathResolver.from({}).tasks}/${taskId}.md then run: arch task start ${taskId}\n`);
             }
-            process.exit(1);
+            return 1;
           }
         } else {
           process.stderr.write(`  ✖ ${err.message}\n`);
-          process.exit(1);
+          return 1;
         }
       }
     }
+    return 0;
   }
 }

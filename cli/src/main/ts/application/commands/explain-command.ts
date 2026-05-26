@@ -1,4 +1,4 @@
-import { Command } from '../../domain/models/command.js';
+import { CommandExit, Command } from '../../domain/models/command.js';
 import type { TaskRepository } from '../../domain/repositories/task-repository.js';
 import type { FileSystem } from '../../domain/repositories/file-system.js';
 import type { CausalSignalLog } from '../use-cases/causal-signal-log.js';
@@ -126,18 +126,18 @@ export class ExplainCommand implements Command {
     console.log(`  Usage: ${entry.usage}\n`);
   }
 
-  async execute(args: string[]): Promise<void> {
+  async execute(args: string[]): Promise<number> {
     const taskId = args.find(a => /^TASK-\d+$/.test(a));
     if (!taskId) {
       const term = args.find(a => !a.startsWith('-'));
       if (term) {
         this.explainTerm(term);
-        return;
+        return 0;
       }
       process.stderr.write('Usage: arch explain <term>  — look up an ARCH ontology term\n');
       process.stderr.write('       arch explain TASK-XXX — show task provenance\n\n');
       process.stderr.write('Terms: ' + Object.keys(GLOSSARY).join(', ') + '\n');
-      process.exit(1);
+      return 1;
     }
 
     // Look in archive first (closed tasks have provenance), then active tasks
@@ -152,11 +152,11 @@ export class ExplainCommand implements Command {
         source = 'tasks';
       } catch {
         process.stderr.write(`Task ${taskId} not found in archive or tasks/\n`);
-        process.exit(1);
+        return 1;
       }
     }
 
-    if (!content) { process.exit(1); }
+    if (!content) { return 1; }
 
     console.log(`\n  \x1b[32mARCH\x1b[0m — ${taskId} Provenance\n`);
 
@@ -230,6 +230,7 @@ export class ExplainCommand implements Command {
     }
 
     console.log('');
+    return 0;
   }
 
   private extractHansei(content: string) {

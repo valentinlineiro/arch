@@ -36,7 +36,7 @@ export class CorpusAuditCommand implements Command {
     this.indexService = new CorpusIndexService(fileSystem, gitRepository);
   }
 
-  async execute(args: string[]): Promise<void> {
+  async execute(args: string[]): Promise<number> {
     const verbose = args.includes('--verbose') || args.includes('-v');
     const rebuild = args.includes('--rebuild');
 
@@ -54,6 +54,7 @@ export class CorpusAuditCommand implements Command {
     if (args.includes('--layer2')) {
       await this.renderLayer2();
     }
+    return 0;
   }
 
   /** Exposed for testing — parses Hansei section from raw content. */

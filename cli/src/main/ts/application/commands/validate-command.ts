@@ -17,35 +17,36 @@ export class ValidateCommand implements Command {
     this.useCase = new ValidateSystem(taskRepository, fileSystem);
   }
 
-  async execute(args: string[] = []): Promise<void> {
+  async execute(args: string[] = []): Promise<number> {
     const acsIdx = args.indexOf('--acs');
     if (acsIdx !== -1) {
       await this.executeAcs(args[acsIdx + 1]);
-      return;
+      return 0;
     }
 
     const result = await this.useCase.execute();
     if (result.success) {
       fmt.ok('System Validation: OK\n');
-      process.exit(0);
+      return 0;
     } else {
       fmt.fail('System Validation: FAILED');
       result.errors.forEach(err => console.log(`    - ${err}`));
       console.log('');
-      process.exit(1);
+      return 1;
     }
+    return 0;
   }
 
-  private async executeAcs(taskId: string | undefined): Promise<void> {
+  private async executeAcs(taskId: string | undefined): Promise<number> {
     if (!taskId) {
       fmt.fail('Usage: arch validate --acs TASK-XXX');
-      process.exit(1);
+      return 1;
     }
 
     const task = await this.taskRepository.getById(taskId);
     if (!task) {
       fmt.fail(`Task file not found: ${PathResolver.from({}).tasks}/${taskId}.md`);
-      process.exit(1);
+      return 1;
     }
 
     const validator = new ValidateTaskAcs(this.rootPath);
@@ -53,7 +54,7 @@ export class ValidateCommand implements Command {
 
     if (result.results.length === 0) {
       fmt.ok(`${taskId}: no ACs found`);
-      process.exit(0);
+      return 0;
     }
 
     let anyFailed = false;
@@ -82,6 +83,6 @@ export class ValidateCommand implements Command {
       }
     }
 
-    process.exit(anyFailed ? 1 : 0);
+    return anyFailed ? 1 : 0;
   }
 }

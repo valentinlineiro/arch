@@ -9,14 +9,14 @@ import { TransientActuationProjector } from '../../domain/services/transient-act
 export class CompileCommand implements Command {
   constructor(private fileSystem: FileSystem) {}
 
-  async execute(args: string[]): Promise<void> {
+  async execute(args: string[]): Promise<number> {
     const inputIdx = args.indexOf('--input');
     const inputPath = inputIdx !== -1 && inputIdx + 1 < args.length ? args[inputIdx + 1] : args[0];
 
     if (!inputPath) {
       console.error('Error: Please provide a raw input telemetry JSON trace path.');
       console.error('Usage: arch compile <path-to-trace.json> [--seed <optional-seed>]');
-      process.exit(1);
+      return 1;
     }
 
     const seedIdx = args.indexOf('--seed');
@@ -79,7 +79,8 @@ export class CompileCommand implements Command {
       console.log('\n[ARCH Compile] Execution scope successfully dissolved. Sandboxed memory purged.');
     } catch (err: any) {
       console.error(`Error: Compilation pipeline collapsed: ${err.message}`);
-      process.exit(1);
+      return 1;
     }
+    return 0;
   }
 }

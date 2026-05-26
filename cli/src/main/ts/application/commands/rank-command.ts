@@ -9,7 +9,7 @@ export class RankCommand implements Command {
     this.useCase = new RankTasks(taskRepository);
   }
 
-  async execute(): Promise<void> {
+  async execute(): Promise<number> {
     const rankedTasks = await this.useCase.execute();
     
     console.log('\n  ARCH — Backlog Ranking (Priority > Size)\n');
@@ -20,5 +20,6 @@ export class RankCommand implements Command {
       console.log(`  ${task.id.padEnd(10)}| ${task.priority.padEnd(3)}| ${task.size.padEnd(5)}| ${task.title}`);
     }
     console.log('');
+    return 0;
   }
 }

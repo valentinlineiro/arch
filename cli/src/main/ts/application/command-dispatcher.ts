@@ -1,4 +1,4 @@
-import { Command } from '../domain/models/command.js';
+import { Command, CommandExit, ioExit } from '../domain/models/command.js';
 import { EscalationStore } from './use-cases/escalation-store.js';
 import { NodeFileSystem } from '../infrastructure/filesystem/node-file-system.js';
 import { MarkdownTaskRepository } from '../infrastructure/filesystem/markdown-task-repository.js';
@@ -66,13 +66,18 @@ export class CommandDispatcher {
     private temporalIndex: TemporalIndex
   ) {}
 
-  async dispatch(name: string, args: string[]): Promise<void> {
+  async dispatch(name: string, args: string[]): Promise<number> {
     const command = await this.resolveCommand(name, args);
     if (command) {
-      await command.execute(args);
+      try {
+        return await command.execute(args);
+      } catch (err) {
+        if (err instanceof CommandExit) return err.code;
+        throw err;
+      }
     } else {
       this.showHelp();
-      process.exit(1);
+      return 1;
     }
   }
 
@@ -140,7 +145,7 @@ export class CommandDispatcher {
   private builders: Record<string, (args: string[]) => Promise<Command | null>> = {
     'check': async () => new CheckCommand(this.taskRepository, this.gitRepository, this.reviewer, this.driftChecker, this.fileSystem),
     'trace': async (args) => new TraceCommand(new CausalGraph(this.fileSystem, this.rootPath), {
-      getArgs: () => args, log: (s) => console.log(s), error: (s) => console.error(s), exit: (code) => process.exit(code) as never,
+      getArgs: () => args, log: (s) => console.log(s), error: (s) => console.error(s), exit: (code) => ioExit(code),
     }, this.causalSignalLog),
     'analyze': async () => new AnalyzeCommand(this.fileSystem, this.rootPath, this.taskRepository),
     'review': async () => new ReviewCommand(this.taskRepository, this.gitRepository, this.fileSystem),
@@ -177,14 +182,14 @@ export class CommandDispatcher {
     'govern:serve': async () => new ServeCommand(this.rootPath),
     'govern:compact-escalations': async () => {
       const store = new EscalationStore(this.fileSystem, this.rootPath);
-      return { execute: async () => { const { before, after } = await store.compact(); console.log(`\n  Escalation compaction: ${before} → ${after} records (removed ${before - after} duplicates)\n`); } } as any;
+      return { execute: async () => { const { before, after } = await store.compact(); console.log(`\n  Escalation compaction: ${before} → ${after} records (removed ${before - after} duplicates)\n`); return 0; } } as any;
     },
     'govern': async () => new GovernCommand(this.taskRepository, this.gitRepository, this.fileSystem, this.causalSignalLog, this.rootPath),
     'memory:ask': async (args) => new AskCommand(new AskCorpus(this.fileSystem, this.rootPath, new CausalGraph(this.fileSystem, this.rootPath), this.temporalIndex), {
-      getArgs: () => args, log: (s) => console.log(s), error: (s) => console.error(s), exit: (code) => process.exit(code) as never,
+      getArgs: () => args, log: (s) => console.log(s), error: (s) => console.error(s), exit: (code) => ioExit(code),
     }),
     'memory:causal': async (args) => new TraceCommand(new CausalGraph(this.fileSystem, this.rootPath), {
-      getArgs: () => args, log: (s) => console.log(s), error: (s) => console.error(s), exit: (code) => process.exit(code) as never,
+      getArgs: () => args, log: (s) => console.log(s), error: (s) => console.error(s), exit: (code) => ioExit(code),
     }, this.causalSignalLog),
     'memory:index': async () => new IndexCommand(this.fileSystem, this.gitRepository),
     'memory:explain': async () => new ExplainCommand(this.taskRepository, this.fileSystem, this.causalSignalLog, this.rootPath),

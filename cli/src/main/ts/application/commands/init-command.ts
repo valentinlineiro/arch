@@ -1,4 +1,4 @@
-import { Command } from '../../domain/models/command.js';
+import { CommandExit, Command } from '../../domain/models/command.js';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { PathResolver } from '../../domain/services/path-resolver.js';
@@ -21,11 +21,11 @@ export class InitCommand implements Command {
     this.rootPath = path.resolve(rootPath);
   }
 
-  async execute(args: string[]): Promise<void> {
+  async execute(args: string[]): Promise<number> {
     const dryRun = args.includes('--dry-run');
     if (dryRun) {
       console.log('\n  ARCH — dry-run: no files will be written\n');
-      return;
+      return 0;
     }
 
     const force = args.includes('--force');
@@ -60,7 +60,7 @@ export class InitCommand implements Command {
     const alreadyExists = await this.exists(canonical) || await this.exists('AGENTS.md');
     if (alreadyExists && !force) {
       console.log(`  Already initialised. Run arch check to check system state.`);
-      process.exit(0);
+      return 0;
     }
 
     const stack = await this.detectStack();
@@ -87,6 +87,7 @@ export class InitCommand implements Command {
       console.log('  4. Run: arch analyze              — THINK populates INBOX');
     }
     console.log('');
+    return 0;
   }
 
   // ── Stack Detection ────────────────────────────────────────────────────────

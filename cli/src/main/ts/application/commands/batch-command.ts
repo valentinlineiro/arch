@@ -9,7 +9,7 @@ export class BatchCommand implements Command {
     this.batchSystem = new BatchSystem(fileSystem);
   }
 
-  async execute(args: string[]): Promise<void> {
+  async execute(args: string[]): Promise<number> {
     const subCommand = args[0];
 
     switch (subCommand) {
@@ -31,5 +31,6 @@ export class BatchCommand implements Command {
       default:
         console.log('Usage: arch batch [add|drain]');
     }
+    return 0;
   }
 }

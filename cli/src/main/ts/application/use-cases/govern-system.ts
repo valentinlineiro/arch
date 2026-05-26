@@ -44,7 +44,7 @@ export class GovernSystem {
     this.pathResolver = pathResolver ?? PathResolver.from({});
   }
 
-  async execute(noConduct = false, cleanInbox = false): Promise<GovernResult> {
+  async execute(cleanInbox = false): Promise<GovernResult> {
     const config = await ConfigLoader.load(this.fileSystem);
     const conductEveryN = config.governance?.conductEveryN ?? 3;
     const analysisReasons: string[] = [];

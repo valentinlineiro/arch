@@ -15,7 +15,7 @@ export class NextCommand implements Command {
     this.useCase = new SelectNextTask(taskRepository, muriConfig);
   }
 
-  async execute(): Promise<void> {
+  async execute(): Promise<number> {
     const result = await this.useCase.execute();
 
     if (!result.ok) {
@@ -31,7 +31,7 @@ export class NextCommand implements Command {
         reason = `Highest-priority READY task ${halt.taskId} is blocked by unresolved dependencies: ${halt.blockedBy.join(', ')}.`;
       }
       process.stderr.write(reason + '\n');
-      process.exit(1);
+      return 1;
     }
 
     const task = result.task;
@@ -54,6 +54,7 @@ export class NextCommand implements Command {
     } else {
       console.log(task.content);
     }
+    return 0;
   }
 
 }

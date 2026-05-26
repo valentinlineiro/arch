@@ -37,14 +37,15 @@ export class ProjectCommand implements Command {
     private llmProvider?: LLMProvider,
   ) {}
 
-  async execute(args: string[]): Promise<void> {
+  async execute(args: string[]): Promise<number> {
     const sub = args[0];
     if (sub === 'init') {
       await this.runInit(args.slice(1));
     } else {
       console.error(`  Unknown subcommand: ${sub ?? '(none)'}. Usage: arch project init "<spec>"`);
-      process.exit(1);
+      return 1;
     }
+    return 0;
   }
 
   private async runInit(args: string[]): Promise<void> {

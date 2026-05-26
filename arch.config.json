@@ -2,7 +2,7 @@
   "version": "1.2.0",
   "protocolVersion": "1.1.0",
   "minimumCliVersion": "1.1.0",
-  "currentSprint": "sprint/v1.0.0-improvements",
+  "currentSprint": "sprint/v1.2.0-2026-05",
   "strategies": {
     "1-code-reasoning": {
       "M": [
@@ -141,11 +141,11 @@
     },
     "L": {
       "turns": 100,
-      "cost": 2.0
+      "cost": 2
     },
     "XL": {
       "turns": 200,
-      "cost": 5.0
+      "cost": 5
     }
   },
   "refinement": {
@@ -277,18 +277,18 @@
       "type": "bridge",
       "bin": "gemini",
       "template": "gemini -p \"{prompt}\" -y",
-      "_deprecated": "Use opencode instead \u2014 Gemini deprecated in AGY context"
+      "_deprecated": "Use opencode instead — Gemini deprecated in AGY context"
     }
   ],
   "costs": {
     "_schema": "Written by arch exec bridge after each session to .arch/costs/TASK-XXX.json",
     "_fields": {
-      "taskId": "string \u2014 the task ID (e.g. TASK-XXX)",
-      "actor": "string \u2014 provider/model (e.g. claude-code/sonnet)",
-      "inputTokens": "number \u2014 tokens consumed from context",
-      "outputTokens": "number \u2014 tokens generated",
-      "estimatedCostUSD": "number \u2014 estimated cost in USD (0.0 for local models)",
-      "sessionId": "string | null \u2014 optional session identifier"
+      "taskId": "string — the task ID (e.g. TASK-XXX)",
+      "actor": "string — provider/model (e.g. claude-code/sonnet)",
+      "inputTokens": "number — tokens consumed from context",
+      "outputTokens": "number — tokens generated",
+      "estimatedCostUSD": "number — estimated cost in USD (0.0 for local models)",
+      "sessionId": "string | null — optional session identifier"
     },
     "_example": {
       "taskId": "TASK-246",

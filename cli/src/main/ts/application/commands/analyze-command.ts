@@ -14,19 +14,17 @@ import fs from 'node:fs';
 export class AnalyzeCommand implements Command {
   constructor(private fileSystem: FileSystem, private rootPath: string, private taskRepository?: any) {}
 
-  async execute(args: string[]): Promise<void> {
+  async execute(args: string[]): Promise<number> {
     const deepMode = args.includes('--deep');
     const filteredArgs = args.filter(a => a !== '--deep');
     const sub = filteredArgs[0];
 
     if (!sub || sub === 'run') {
-      await this.runAnalysis(deepMode);
-      return;
+      return await this.runAnalysis(deepMode);
     }
 
     if (sub === 'hansei') {
-      await this.runHanseiAnalysis(args.slice(1));
-      return;
+      return await this.runHanseiAnalysis(args.slice(1));
     }
 
     if (sub === 'influence') {
@@ -38,7 +36,7 @@ export class AnalyzeCommand implements Command {
       const reporter = new ReflectInfluenceReport(this.fileSystem, this.rootPath);
       const report = await reporter.compute(thresholds);
       console.log(ReflectInfluenceReport.format(report, thresholds));
-      return;
+      return 0;
     }
 
     console.log([
@@ -53,9 +51,10 @@ export class AnalyzeCommand implements Command {
       '  hansei      LLM-assisted Hansei reconciliation: compare declared vs observed debt in REVIEW tasks',
       '  influence   Epistemic influence report — engagement, attribution, observability gaps',
     ].join('\n'));
+    return 0;
   }
 
-  private async runHanseiAnalysis(args: string[]): Promise<void> {
+  private async runHanseiAnalysis(args: string[]): Promise<number> {
     const tier1Only = args.includes('--tier1-only');
     const taskId = args.find(a => /^TASK-\d+$/.test(a));
 
@@ -69,7 +68,7 @@ export class AnalyzeCommand implements Command {
       const reviewTasks = await this.getReviewTasks(taskId);
       if (reviewTasks.length === 0) {
         console.log('  No tasks in REVIEW status found.' + (taskId ? ` (filtered to ${taskId})` : ''));
-        return;
+        return 0;
       }
 
       // Tier 1 — Deterministic diff-based check (always runs first)
@@ -105,15 +104,14 @@ export class AnalyzeCommand implements Command {
 
       if (tier1Only) {
         console.log('  --tier1-only: skipping Advisory Tier 2.');
-        process.exit(tier1HasFindings ? 1 : 0);
-        return;
+        return tier1HasFindings ? 1 : 0;
       }
 
       // If Tier 1 found undeclared drift, we STILL exit with 1 but may show Tier 2 for context.
       // Per ADR-023, Tier 1 is the machine authority.
     } catch (e: any) {
       console.error('Error in arch analyze hansei (Tier 1):', e.message);
-      process.exit(1);
+      return 1;
     }
 
     // Tier 2 — Advisory (LLM-assisted — strictly non-authoritative)
@@ -154,7 +152,7 @@ export class AnalyzeCommand implements Command {
     }
 
     // Final machine authority transition
-    process.exit(tier1HasFindings ? 1 : 0);
+    return tier1HasFindings ? 1 : 0;
   }
 
   private async getReviewTasks(filterTaskId?: string): Promise<Array<{ id: string; content: string }>> {
@@ -235,7 +233,7 @@ Output is for human attention only. Do not attempt to command state transitions.
 ${taskSections}`;
   }
 
-  private async runAnalysis(deepMode = false): Promise<void> {
+  private async runAnalysis(deepMode = false): Promise<number> {
     const promptFile = 'docs/agents/THINK.md';
     // AC4: Surface weak signal warnings before THINK invocation
     try {
@@ -343,7 +341,7 @@ ${taskSections}`;
           try { fs.unlinkSync(tmpPath); } catch {}
           
           // Per ADR-023: Advisory analysis always exits 0
-          process.exit(0);
+          return 0;
         }
       } finally {
         try { fs.unlinkSync(tmpPath); } catch {}
@@ -351,10 +349,10 @@ ${taskSections}`;
 
       console.log('  Note: No AI CLI detected. Showing THINK protocol:');
       console.log(prompt);
-      process.exit(0); // Advisory fallback
+      return 0; // Advisory fallback
     } catch (e: any) {
       console.error('Error in arch analyze (Advisory):', e.message);
-      process.exit(0); // Error in advisory channel does not fail governance
+      return 0; // Error in advisory channel does not fail governance
     }
   }
 

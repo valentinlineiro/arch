@@ -12,7 +12,7 @@ export class LintCommand implements Command {
     private fileSystem: FileSystem
   ) {}
 
-  async execute(args: string[]): Promise<void> {
+  async execute(args: string[]): Promise<number> {
     const tasksDir = PathResolver.from({}).tasks;
     let mdFiles: string[] = [];
 
@@ -21,7 +21,7 @@ export class LintCommand implements Command {
     } else {
       if (!(await this.fileSystem.exists(tasksDir))) {
         fmt.fail(`Directory not found: ${tasksDir}`);
-        process.exit(1);
+        return 1;
       }
       const files = await this.fileSystem.readDirectory(tasksDir);
       mdFiles = files.filter(f => f.endsWith('.md')).map(f => path.join(tasksDir, f));
@@ -75,9 +75,10 @@ export class LintCommand implements Command {
 
     if (failureCount > 0) {
       fmt.fail(`Lint failed with ${failureCount} violations.`);
-      process.exit(1);
+      return 1;
     } else {
       fmt.ok('All tasks follow canonical format.');
     }
+    return 0;
   }
 }

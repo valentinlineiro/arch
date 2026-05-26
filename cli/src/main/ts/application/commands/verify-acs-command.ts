@@ -9,17 +9,17 @@ export class VerifyAcsCommand implements Command {
     private rootPath: string,
   ) {}
 
-  async execute(args: string[]): Promise<void> {
+  async execute(args: string[]): Promise<number> {
     const taskId = args.find(a => /^TASK-\d+$/.test(a));
     if (!taskId) {
       fmt.fail('Usage: arch verify-acs TASK-XXX');
-      process.exit(1);
+      return 1;
     }
 
     const task = await this.taskRepository.getById(taskId);
     if (!task) {
       fmt.fail(`Task ${taskId} not found`);
-      process.exit(1);
+      return 1;
     }
 
     fmt.header(`AC Verification — ${taskId}`);
@@ -43,7 +43,8 @@ export class VerifyAcsCommand implements Command {
     } else {
       const failed = result.evidence.filter(e => !e.pass).length;
       console.error(`  \x1b[31m✖\x1b[0m ${failed} AC(s) failed.`);
-      process.exit(1);
+      return 1;
     }
+    return 0;
   }
 }

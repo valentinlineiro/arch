@@ -4,7 +4,8 @@ import * as fmt from '../../infrastructure/cli/output-formatter.js';
 export class VersionCommand implements Command {
   constructor(private version: string) {}
 
-  async execute(): Promise<void> {
+  async execute(): Promise<number> {
     console.log(`v${this.version}`);
+    return 0;
   }
 }

@@ -35,27 +35,6 @@ function makeFs(): MockFileSystem {
   return fs;
 }
 
-function captureExit(fn: () => Promise<void>): Promise<number | undefined> {
-  return new Promise(async (resolve) => {
-    const originalExit = process.exit;
-    process.exit = ((code: number) => {
-      process.exit = originalExit;
-      resolve(code);
-      throw new Error('process.exit');
-    }) as any;
-    try {
-      await fn();
-      process.exit = originalExit;
-      resolve(undefined);
-    } catch (e: any) {
-      if (e.message !== 'process.exit') {
-        process.exit = originalExit;
-        throw e;
-      }
-    }
-  });
-}
-
 test('TaskCommand done - exits 1 when transition fails (e.g. missing Hansei)', async () => {
   const repo = new MockTaskRepository();
   const command = new TaskCommand(
@@ -66,7 +45,7 @@ test('TaskCommand done - exits 1 when transition fails (e.g. missing Hansei)', a
     '.',
   );
 
-  const exitCode = await captureExit(() => command.execute(['done', 'TASK-195']));
+  const exitCode = await command.execute(['done', 'TASK-195']);
 
   assert.strictEqual(exitCode, 1, 'task done must exit 1 when transition is blocked');
 });
@@ -81,7 +60,7 @@ test('TaskCommand start - exits 1 when transition fails', async () => {
     '.',
   );
 
-  const exitCode = await captureExit(() => command.execute(['start', 'TASK-999']));
+  const exitCode = await command.execute(['start', 'TASK-999']);
 
   assert.strictEqual(exitCode, 1, 'task start must exit 1 on error');
 });
@@ -96,7 +75,7 @@ test('TaskCommand metrics - exits 1 when update fails', async () => {
     '.',
   );
 
-  const exitCode = await captureExit(() => command.execute(['metrics', 'TASK-999', '--cost', '0.05']));
+  const exitCode = await command.execute(['metrics', 'TASK-999', '--cost', '0.05']);
 
   assert.strictEqual(exitCode, 1, 'task metrics must exit 1 on error');
 });
@@ -129,9 +108,9 @@ test('TaskCommand done - exits 0 when transition passes', async () => {
     '.',
   );
 
-  const exitCode = await captureExit(() => command.execute(['done', 'TASK-195']));
+  const exitCode = await command.execute(['done', 'TASK-195']);
 
-  assert.strictEqual(exitCode, undefined, 'task done must not call process.exit(1) on success (should exit naturally with 0)');
+  assert.strictEqual(exitCode, 0, 'task done must return 0 on success');
 });
 
 import { hasUncheckedACs } from '../../main/ts/application/commands/task-command.js';

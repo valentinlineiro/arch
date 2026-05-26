@@ -16,7 +16,7 @@ export class MoveCommand implements Command {
     this.useCase = new MoveArtifact(taskRepository, gitRepository, fileSystem);
   }
 
-  async execute(args: string[]): Promise<void> {
+  async execute(args: string[]): Promise<number> {
     try {
       const source = args[0];
       const destination = args[1];
@@ -24,5 +24,6 @@ export class MoveCommand implements Command {
     } catch (error: any) {
       fmt.fail(error.message);
     }
+    return 0;
   }
 }

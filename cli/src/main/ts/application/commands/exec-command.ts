@@ -42,7 +42,7 @@ export class ExecCommand implements Command {
     return null;
   }
 
-  async execute(args: string[]): Promise<void> {
+  async execute(args: string[]): Promise<number> {
     const config = await ConfigLoader.load(this.fileSystem);
 
     const activeTasks = await this.taskRepository.getActive();
@@ -61,7 +61,7 @@ export class ExecCommand implements Command {
       console.log(`  \x1b[33mBATCH\x1b[0m — queuing ${taskId} for Anthropic Batch API`);
       const batchSystem = new BatchSystem(this.fileSystem);
       await batchSystem.add(taskId, DO_PROMPT_FILE);
-      return;
+      return 0;
     }
 
     console.log('  \x1b[32mARCH\x1b[0m — invoking EXEC (DO) mode');
@@ -80,7 +80,7 @@ export class ExecCommand implements Command {
         console.log(`  Note: No AI provider detected for task class "${taskClass}" size "${taskSize}". Showing protocol:`);
       }
       console.log(fs.readFileSync(DO_PROMPT_FILE, 'utf8'));
-      process.exit(1);
+      return 1;
     }
 
     const verbose = args.includes('--verbose');
@@ -100,7 +100,7 @@ export class ExecCommand implements Command {
         console.log('  Routing: local (no AI invocation)');
         console.log('');
         process.stdout.write(fs.readFileSync(DO_PROMPT_FILE, 'utf8'));
-        process.exit(0);
+        return 0;
       }
 
       if (!provider) continue;
@@ -145,7 +145,8 @@ export class ExecCommand implements Command {
 
     if (!success) {
       console.error('  \x1b[31mERROR\x1b[0m — All candidate providers failed.');
-      process.exit(1);
+      return 1;
     }
+    return 0;
   }
 }

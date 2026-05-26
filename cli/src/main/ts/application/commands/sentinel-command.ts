@@ -1,4 +1,4 @@
-import { Command } from '../../domain/models/command.js';
+import { CommandExit, Command } from '../../domain/models/command.js';
 import type { FileSystem } from '../../domain/repositories/file-system.js';
 
 const SENTINEL_LOG_PATH = 'docs/SENTINEL-LOG.md';
@@ -22,7 +22,7 @@ interface SentinelEntry {
 export class SentinelCommand implements Command {
   constructor(private fileSystem: FileSystem) {}
 
-  async execute(args: string[]): Promise<void> {
+  async execute(args: string[]): Promise<number> {
     const sub = args[0];
 
     if (sub === 'log') {
@@ -32,15 +32,16 @@ export class SentinelCommand implements Command {
     } else {
       process.stderr.write('Usage: arch sentinel log TASK-XXX --trigger "<reason>" --outcome GO|HALT [--note "<note>"]\n');
       process.stderr.write('       arch sentinel show [TASK-XXX]\n');
-      process.exit(1);
+      return 1;
     }
+    return 0;
   }
 
   private async log(args: string[]): Promise<void> {
     const taskId = args.find(a => /^TASK-\d+$/.test(a));
     if (!taskId) {
       process.stderr.write('Usage: arch sentinel log TASK-XXX --trigger "<reason>" --outcome GO|HALT\n');
-      process.exit(1);
+      throw new CommandExit(1);
     }
 
     const triggerIdx = args.indexOf('--trigger');
@@ -53,12 +54,12 @@ export class SentinelCommand implements Command {
 
     if (!trigger) {
       process.stderr.write('Error: --trigger "<reason>" is required\n');
-      process.exit(1);
+      throw new CommandExit(1);
     }
 
     if (outcomeRaw !== 'GO' && outcomeRaw !== 'HALT') {
       process.stderr.write('Error: --outcome must be GO or HALT\n');
-      process.exit(1);
+      /* dead */
     }
 
     const entry: SentinelEntry = {

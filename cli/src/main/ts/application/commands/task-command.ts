@@ -1,4 +1,4 @@
-import { Command } from '../../domain/models/command.js';
+import { Command, CommandExit } from '../../domain/models/command.js';
 import { CreateTask } from '../use-cases/create-task.js';
 import { EditTaskMetadata } from '../use-cases/edit-task-metadata.js';
 import { LoadBearingMemory } from '../use-cases/load-bearing-memory.js';
@@ -81,7 +81,7 @@ export class TaskCommand implements Command {
     this.updateMetrics = new UpdateTaskMetrics(taskRepository);
   }
 
-  async execute(args: string[]): Promise<void> {
+  async execute(args: string[]): Promise<number> {
     const subCommand = args[0];
     let taskId = args.find(arg => arg.startsWith('TASK-'));
     const force = args.includes('--force');
@@ -93,7 +93,7 @@ export class TaskCommand implements Command {
         const readyTasks = (await this.taskRepository.getAll()).filter(t => t.status === 'READY');
         if (readyTasks.length === 0) {
           fmt.fail('No READY tasks found.');
-          process.exit(1);
+          return 1;
         }
         fmt.header('Select a task to start:');
         readyTasks.forEach((t, i) => {
@@ -108,13 +108,13 @@ export class TaskCommand implements Command {
           taskId = readyTasks[idx].id;
         } else {
           fmt.info('Cancelled.');
-          process.exit(0);
+          return 0;
         }
       }
 
       if (!taskId) {
         fmt.fail('Usage: arch task start TASK-XXX');
-        process.exit(1);
+        return 1;
       }
 
       try {
@@ -148,7 +148,7 @@ export class TaskCommand implements Command {
         } catch { /* collision detection errors must never block task start */ }
       } catch (error: any) {
         fmt.fail(error.message);
-        process.exit(1);
+        return 1;
       }
     } else if (subCommand === 'create') {
       const classIdx = args.indexOf('--class');
@@ -162,7 +162,7 @@ export class TaskCommand implements Command {
       const intent = filteredArgs.slice(1).join(' ').replace(/^["']|["']$/g, '');
       if (!intent) {
         fmt.fail('Usage: arch task create "<intent>" [--class <class>]');
-        process.exit(1);
+        return 1;
       }
       try {
         fmt.arrow('scaffolding task from intent...');
@@ -171,7 +171,7 @@ export class TaskCommand implements Command {
         fmt.check(`created ${newId}`);
       } catch (error: any) {
         fmt.fail(error.message);
-        process.exit(1);
+        return 1;
       }
     } else if (subCommand === 'edit' && taskId) {
       try {
@@ -180,7 +180,7 @@ export class TaskCommand implements Command {
         fmt.check(`metadata updated for ${taskId}`);
       } catch (error: any) {
         fmt.fail(error.message);
-        process.exit(1);
+        return 1;
       }
     } else if (subCommand === 'metrics' && taskId) {
       const costIdx = args.indexOf('--cost');
@@ -199,7 +199,7 @@ export class TaskCommand implements Command {
         fmt.arrow(`updated metrics for ${taskId}`);
       } catch (error: any) {
         fmt.fail(error.message);
-        process.exit(1);
+        return 1;
       }
     } else if (subCommand === 'review' && taskId) {
       try {
@@ -209,11 +209,11 @@ export class TaskCommand implements Command {
         } else {
           fmt.fail(`${taskId} has failing cmd: predicates:`);
           result.failures.forEach(f => console.log(`    - ${f}`));
-          process.exit(1);
+          return 1;
         }
       } catch (error: any) {
         fmt.fail(error.message);
-        process.exit(1);
+        return 1;
       }
     } else if (subCommand === 'done' && args.includes('--redirect') && taskId) {
       try {
@@ -301,13 +301,13 @@ export class TaskCommand implements Command {
         if (!result.pass) {
           fmt.fail(`Task ${taskId} has failing Acceptance Criteria.`);
           console.error(`    Fix the above or use --force to override.`);
-          process.exit(1);
+          return 1;
         }
 
         if (hasUncheckedACs(content)) {
           fmt.fail(`Task ${taskId} has unchecked Acceptance Criteria.`);
           console.error(`    Please check all ACs or use --force to override.`);
-          process.exit(1);
+          return 1;
         }
       }
 
@@ -340,7 +340,7 @@ export class TaskCommand implements Command {
         }
       } catch (error: any) {
         fmt.fail(error.message);
-        process.exit(1);
+        return 1;
       }
     } else if (subCommand === 'reject' && taskId) {
       try {
@@ -349,7 +349,7 @@ export class TaskCommand implements Command {
         if (reason) console.log(`    Reason: ${reason}`);
       } catch (error: any) {
         fmt.fail(error.message);
-        process.exit(1);
+        return 1;
       }
     } else if (subCommand === 'reject-stale' && taskId) {
       try {
@@ -357,7 +357,7 @@ export class TaskCommand implements Command {
         fmt.arrow(`rejected ${taskId} — archived as stale`);
       } catch (error: any) {
         fmt.fail(error.message);
-        process.exit(1);
+        return 1;
       }
     } else if (subCommand === 'approve' && taskId) {
       try {
@@ -365,7 +365,7 @@ export class TaskCommand implements Command {
         fmt.check(`approved ${taskId}`);
       } catch (error: any) {
         fmt.fail(error.message);
-        process.exit(1);
+        return 1;
       }
     } else if (subCommand === 'redirect' && taskId) {
       try {
@@ -377,7 +377,7 @@ export class TaskCommand implements Command {
         fmt.check(`redirected ${taskId} with new instruction`);
       } catch (error: any) {
         fmt.fail(error.message);
-        process.exit(1);
+        return 1;
       }
     } else if (subCommand === 'reprioritize') {
       const { ReprioritizeCommand } = await import('./reprioritize-command.js');
@@ -391,11 +391,11 @@ export class TaskCommand implements Command {
     } else if (subCommand === 'hansei') {
       if (!taskId) {
         fmt.fail('Usage: arch task hansei TASK-XXX');
-        process.exit(1);
+        return 1;
       }
       const { HanseiWizard, replaceHanseiBlock } = await import('../use-cases/hansei-wizard.js');
       const task = await this.taskRepository.getById(taskId);
-      if (!task) { fmt.fail(`Task ${taskId} not found`); process.exit(1); }
+      if (!task) { fmt.fail(`Task ${taskId} not found`); return 1; }
 
       const taskPath = `${this.rootPath}/${PathResolver.from({}).tasks}/${taskId}.md`;
       let content: string;
@@ -403,17 +403,17 @@ export class TaskCommand implements Command {
         content = await this.fileSystem.readFile(taskPath);
       } catch {
         fmt.fail(`Could not read ${taskPath}`);
-        process.exit(1);
-        return;
+        return 1;
+        return 0;
       }
 
       if (!process.stdin.isTTY) {
         if (!HanseiWizard.isHanseiComplete(content)) {
           fmt.fail(`${taskId} Hansei section is incomplete. Run interactively to fill it in.`);
-          process.exit(1);
+          return 1;
         }
         fmt.check(`${taskId} Hansei already complete.`);
-        return;
+        return 0;
       }
 
       const wizard = new HanseiWizard();
@@ -433,11 +433,11 @@ export class TaskCommand implements Command {
           fmt.check(`compressed ${taskId}`);
         } else {
           fmt.fail('Usage: arch task compress TASK-XXX | arch task compress --all');
-          process.exit(1);
+          return 1;
         }
       } catch (error: any) {
         fmt.fail(error.message);
-        process.exit(1);
+        return 1;
       }
 } else if (subCommand === '--help' || subCommand === 'help' || !subCommand) {
       const entries = getPublicSubCommands('task');
@@ -460,23 +460,24 @@ export class TaskCommand implements Command {
       fmt.fail('Usage: arch task split TASK-XXX [--titles "A,B"]');
     } else {
       fmt.fail(`Unknown subcommand: ${subCommand}. Run 'arch task --help' for usage.`);
-      process.exit(1);
+      return 1;
     }
+    return 0;
   }
   private async executeSplit(args: string[]): Promise<void> {
     const taskId = args[0];
     if (!taskId || !/^TASK-\d+$/.test(taskId)) {
       fmt.fail('Usage: arch task split TASK-XXX [--titles "Title A,Title B"]');
-      process.exit(1);
+      throw new CommandExit(1);
     }
 
     const task = await this.taskRepository.getById(taskId);
-    if (!task) { fmt.fail(`Task ${taskId} not found`); process.exit(1); }
+    if (!task) { fmt.fail(`Task ${taskId} not found`); throw new CommandExit(1); }
 
     const validSizes = ['L', 'XL'];
     if (!validSizes.includes(task.size?.trim())) {
       fmt.fail(`arch task split only applies to L or XL tasks. ${taskId} is ${task.size}.`);
-      process.exit(1);
+      throw new CommandExit(1);
     }
 
     // Parse titles
@@ -499,7 +500,7 @@ export class TaskCommand implements Command {
       } finally { rl.close(); }
     } else {
       fmt.fail('Non-TTY: provide --titles "Title A,Title B"');
-      process.exit(1);
+      throw new CommandExit(1);
     }
 
     // Get next task ID
@@ -585,7 +586,7 @@ export class TaskCommand implements Command {
       console.log('');
       console.log('Classes: 1-code-reasoning, 2-code-generation, 6-writing, 7-operations, ...');
       console.log('Sizes:   XS, S, M, L');
-      process.exit(1);
+      throw new CommandExit(1);
     }
 
     // Get next task ID
