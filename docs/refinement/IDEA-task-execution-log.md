@@ -41,28 +41,30 @@ S — new convention + DO.md instruction update + optional `arch` CLI hook to re
 
 **Gap 1 — Schema completeness:**
 Required fields: `ts` (ISO 8601), `task` (TASK-XXXX), `type` (enum), `msg` (≤120 chars, human-readable).
-Optional fields: `context` (additional detail, e.g. failing check name or file path), `ac_ref` (which AC was involved), `resolution` (how the event was closed, filled in-place if known).
+Optional fields: `context` (additional detail, e.g. failing check name or file path), `ac_ref` (which AC was involved), `resolution` (how the event was closed, filled in-place if known), `retro` (boolean, true when the event is detected at REVIEW time rather than during execution).
 
-Event types (exhaustive):
+Event types (exhaustive — 5 types):
 - `blocker` — hard stop: missing dependency, unclear spec, external system unavailable
 - `review-fail` — `arch review` exited non-zero; `context` should name the failing check
-- `scope-deviation` — agent made an interpretation call on an ambiguous AC
+- `scope-deviation` — interpretation call on an ambiguous AC, whether made in-flight or discovered at REVIEW time; use `retro: true` for the latter. Subsumes `ac-misread`: a misread is a `scope-deviation` detected retroactively, not a separate type. Rationale: the distinction is temporal, not categorical — one type with a flag is less ambiguous than two overlapping types.
 - `retry` — same operation attempted 2+ times; `context` should name the operation
-- `ac-misread` — agent discovers at review time that an AC was read differently than intended
 - `note` — any other friction worth capturing for Hansei
 
 Full example:
 ```json
 { "ts": "2026-05-26T10:15Z", "task": "TASK-1029", "type": "review-fail", "msg": "HanseiReconciliation flagged undeclared any casts", "context": "drift-checker.ts:6 occurrences", "resolution": "imported TaskStatus and Hansei types" }
+{ "ts": "2026-05-26T11:00Z", "task": "TASK-1029", "type": "scope-deviation", "msg": "AC path pointed to domain/services/ but file lives in application/use-cases/", "retro": true, "ac_ref": "AC2" }
 ```
 
 **Gap 2 — Lifecycle hook:**
-Agents append on the event, not retroactively. Mandatory triggers in DO mode:
+Agents append on the event, not retroactively — except `scope-deviation` with `retro: true`, which may be appended at REVIEW time when the misread is first noticed. Mandatory triggers in DO mode:
 1. When `arch review` exits non-zero → `review-fail`
 2. When a hard stop is encountered → `blocker`
-3. When an AC is ambiguous and the agent makes an interpretation call → `scope-deviation`
+3. When an AC interpretation decision is made in-flight → `scope-deviation`
 4. On the second attempt of any operation → `retry`
-5. Never retroactively at REVIEW or DONE time — the log is only read there, not written
+5. At REVIEW time, if an AC was misread → `scope-deviation` with `retro: true`
+
+On `scope-deviation` meta-cognition: agents are not required to recognise ambiguity in real time. If a deviation surfaces only at REVIEW, append it then with `retro: true`. The trigger is best-effort for in-flight events; retrospective append at REVIEW is an explicit fallback, not a failure mode.
 
 **Gap 3 — File ownership:**
 Per-task file at `.arch/task-logs/TASK-XXXX.jsonl`. Rationale: log is only useful for the current task's Hansei; shared file grows unbounded and complicates cleanup. The `.arch/task-logs/` subdirectory is a one-time addition.
@@ -71,7 +73,8 @@ Cleanup: agent deletes the log file immediately after writing Hansei at DONE. Th
 **Gap 4 — DO.md convention:**
 A new `## Execution Logging` section in `docs/agents/DO.md` is the sole adoption surface. It must specify: when to append, the schema, the file path pattern, and the cleanup rule. No other files need updating — agents load DO.md at session start.
 
+**Human DO mode (review concern #3):** Out of scope for this IDEA. Human operators close tasks via `arch task done` which launches the Hansei wizard — they have interactive recall and don't need a background log. Convention applies to agent sessions only; DO.md is agent-facing.
+
 ## Decision
-<!-- REJECT: <one-line rationale>                    — no THINK evaluation required. Write it now. -->
-<!-- PROMOTE → TASK-XXX                              — commits to execution. THINK evaluation expected. -->
-<!-- EXTEND: <specific gap or dependency> until <event that triggers re-evaluation> — costs more than REJECT. -->
+PROMOTE → TASK-1048
+[influenced-by: none]
