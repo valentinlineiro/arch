@@ -4093,7 +4093,7 @@
       "title": "Govern/Reflect Structural Separation"
     }
   },
-  "builtAt": "2026-05-26T12:30:56.816Z",
+  "builtAt": "2026-05-26T13:03:34.341Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -9921,16 +9921,21 @@
       }
     },
     "TASK-1035": {
-      "commitCount": 1,
+      "commitCount": 4,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-26T14:30:52+02:00",
+      "lastCommitDate": "2026-05-26T15:03:36+02:00",
       "recentCommitRefs": [
-        "8abd6b70"
+        "5e3924db",
+        "8abd6b70",
+        "a1cfc046",
+        "b63bc704"
       ],
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 1,
+        ".arch/focus-ledger.jsonl": 2,
+        "cli/src/main/ts/index.ts": 1,
+        "docs/INBOX.md": 1,
         "docs/tasks/TASK-1032.md": 1,
-        "docs/tasks/TASK-1035.md": 1
+        "docs/tasks/TASK-1035.md": 2
       }
     },
     "TASK-1038": {
@@ -10752,7 +10757,7 @@
       }
     },
     "TASK-966": {
-      "commitCount": 15,
+      "commitCount": 13,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-23T18:12:06+00:00",
       "recentCommitRefs": [
@@ -10767,14 +10772,12 @@
         "b947acb1",
         "bb9c5c03",
         "beff09af",
-        "c5ebb340",
-        "d5c5b74d",
         "da4586f1",
         "f5b37a66"
       ],
       "touchedFrequency": {
         ".arch/corpus-index.json": 1,
-        ".arch/focus-ledger.jsonl": 13,
+        ".arch/focus-ledger.jsonl": 11,
         ".arch/reflect-breach-log.jsonl": 1,
         ".arch/status-projection.json": 1,
         "README.md": 1,
@@ -10854,28 +10857,6 @@
         "docs/tasks/TASK-996.md": 1
       }
     },
-    "TASK-971": {
-      "commitCount": 1,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-21T10:38:27+02:00",
-      "recentCommitRefs": [
-        "3cda82da"
-      ],
-      "touchedFrequency": {
-        ".arch/causal-signal.jsonl": 1,
-        ".arch/chronicle.jsonl": 1,
-        ".arch/reflect-breach-log.jsonl": 1,
-        ".arch/status-projection.json": 1,
-        ".arch/temporal-index.jsonl": 1,
-        "README.md": 1,
-        "cli/.arch/status-projection.json": 1,
-        "cli/src/main/ts/infrastructure/filesystem/markdown-task-repository.ts": 1,
-        "docs/EVENTS.md": 1,
-        "docs/ROADMAP.md": 1,
-        "docs/archive/TASK-971.md": 1,
-        "docs/tasks/TASK-971.md": 1
-      }
-    },
     "TASK-975": {
       "commitCount": 3,
       "commitRefOverflow": false,
@@ -10895,50 +10876,6 @@
         "docs/INBOX.md": 1,
         "docs/archive/TASK-975.md": 1,
         "docs/tasks/TASK-975.md": 2
-      }
-    },
-    "TASK-978": {
-      "commitCount": 1,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-21T10:40:41+02:00",
-      "recentCommitRefs": [
-        "4e3b96ce"
-      ],
-      "touchedFrequency": {
-        ".arch/causal-signal.jsonl": 1,
-        ".arch/chronicle.jsonl": 1,
-        ".arch/reflect-breach-log.jsonl": 1,
-        ".arch/status-projection.json": 1,
-        ".arch/temporal-index.jsonl": 1,
-        "README.md": 1,
-        "cli/.arch/status-projection.json": 1,
-        "docs/EVENTS.md": 1,
-        "docs/METRICS.md": 1,
-        "docs/ROADMAP.md": 1,
-        "docs/archive/TASK-978.md": 1,
-        "docs/archive/TASK-980.md": 1
-      }
-    },
-    "TASK-980": {
-      "commitCount": 1,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-21T10:40:41+02:00",
-      "recentCommitRefs": [
-        "4e3b96ce"
-      ],
-      "touchedFrequency": {
-        ".arch/causal-signal.jsonl": 1,
-        ".arch/chronicle.jsonl": 1,
-        ".arch/reflect-breach-log.jsonl": 1,
-        ".arch/status-projection.json": 1,
-        ".arch/temporal-index.jsonl": 1,
-        "README.md": 1,
-        "cli/.arch/status-projection.json": 1,
-        "docs/EVENTS.md": 1,
-        "docs/METRICS.md": 1,
-        "docs/ROADMAP.md": 1,
-        "docs/archive/TASK-978.md": 1,
-        "docs/archive/TASK-980.md": 1
       }
     },
     "TASK-981": {
