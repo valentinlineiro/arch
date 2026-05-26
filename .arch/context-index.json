@@ -4092,7 +4092,7 @@
       "title": "Govern/Reflect Structural Separation"
     }
   },
-  "builtAt": "2026-05-26T14:24:19.196Z",
+  "builtAt": "2026-05-26T14:59:58.108Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -10136,18 +10136,34 @@
       }
     },
     "TASK-1041": {
-      "commitCount": 3,
+      "commitCount": 4,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-26T16:24:16+02:00",
+      "lastCommitDate": "2026-05-26T16:49:56+02:00",
       "recentCommitRefs": [
         "06a0fc6e",
         "668860f0",
-        "74a01abb"
+        "74a01abb",
+        "c2395675"
       ],
       "touchedFrequency": {
         ".arch/focus-ledger.jsonl": 3,
+        "cli/src/main/ts/index.ts": 1,
+        "cli/src/main/ts/infrastructure/cli/git-cli.ts": 1,
+        "cli/src/test/ts/arch-check-integration.test.ts": 1,
         "docs/archive/TASK-1018.md": 1,
-        "docs/tasks/TASK-1041.md": 1
+        "docs/tasks/TASK-1041.md": 2
+      }
+    },
+    "TASK-1042": {
+      "commitCount": 1,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-05-26T16:59:53+02:00",
+      "recentCommitRefs": [
+        "0864844b"
+      ],
+      "touchedFrequency": {
+        ".arch/focus-ledger.jsonl": 1,
+        "docs/tasks/TASK-1042.md": 1
       }
     },
     "TASK-1047": {
@@ -10904,7 +10920,7 @@
       }
     },
     "TASK-966": {
-      "commitCount": 7,
+      "commitCount": 6,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-23T18:12:06+00:00",
       "recentCommitRefs": [
@@ -10913,12 +10929,11 @@
         "80a0d2f5",
         "98bc98ff",
         "a6297ed0",
-        "b947acb1",
-        "bb9c5c03"
+        "b947acb1"
       ],
       "touchedFrequency": {
         ".arch/corpus-index.json": 1,
-        ".arch/focus-ledger.jsonl": 5,
+        ".arch/focus-ledger.jsonl": 4,
         ".arch/reflect-breach-log.jsonl": 1,
         ".arch/status-projection.json": 1,
         "README.md": 1,
