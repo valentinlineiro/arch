@@ -7,10 +7,10 @@ import { TaskRepository } from '../../main/ts/domain/repositories/task-repositor
 const validHansei = {
   severity: 'H1',
   category: '[TypeHack]',
-  decision: 'Used any cast to bypass complex type circular dependency in repository.',
+  decision: 'Used any cast to bypass complex type circular dependency in parseTask (task-repository.ts).',
   constraint: 'P1 deadline and lack of specialized domain provider at the time.',
-  cost: 'Type safety is degraded specifically in the parseTask method.',
-  forwardAction: 'none',
+  cost: 'Type safety is degraded specifically in the parseTask method — src/repositories/task-repository.ts.',
+  forwardAction: 'None scheduled. TASK-031 resolved. Monitor parseTask for recurrence.',
 };
 
 function makeTask(overrides: Partial<Task> = {}): Task {

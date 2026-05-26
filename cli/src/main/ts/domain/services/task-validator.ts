@@ -91,6 +91,41 @@ export class TaskValidator {
     validateFieldContent(hansei.constraint, 'Constraint');
     validateFieldContent(hansei.cost, 'Cost');
 
+    // Status gate: specific content rules apply only to tasks that have been worked
+    const isInPlay = task.status === TaskStatus.IN_PROGRESS ||
+      task.status === TaskStatus.REVIEW ||
+      task.status === TaskStatus.DONE;
+
+    if (isInPlay) {
+      // 1. Placeholder rejection — catch default template values and empty filler (all sizes)
+      const placeholderPattern = /^(not yet started|none\.?|tbd|todo|none required|not applicable|n\/?a|nil)$/i;
+      const textFields = [
+        { value: hansei.decision, name: 'Decision' },
+        { value: hansei.constraint, name: 'Constraint' },
+        { value: hansei.cost, name: 'Cost' },
+        { value: hansei.forwardAction, name: 'Forward Action' },
+      ];
+      for (const field of textFields) {
+        if (field.value && placeholderPattern.test(field.value.trim())) {
+          errors.push(`Hansei ${field.name} is a placeholder (${field.value.trim()}). Provide specific diagnostic content.`);
+        }
+      }
+
+      // 2–3: Specific-content + H0 justification apply to M+ tasks only (XS/S are bounded enough that generic Hansei is acceptable)
+      if (isMPlus) {
+        const joined = textFields.map(f => f.value).filter(Boolean).join(' ');
+        const hasSpecificRef = /(AC[- ]?\d|TASK-\d{3,}|IDEA-\d{3,}|`[^`]+`|\b\w+\.\w{2,4}\b|\b(src|docs|cli|test)\/)/i.test(joined);
+
+        if (!hasSpecificRef) {
+          errors.push('Hansei lacks task-specific references. Include at least one: AC number (e.g. "AC1"), TASK/IDEA reference, file path, or quoted command (`command`).');
+        }
+
+        if (hansei.severity === 'H0' && (!hansei.decision || hansei.decision.length < 30)) {
+          errors.push('Hansei Severity H0 requires a justification explaining why no deviation occurred (Decision must be ≥30 characters).');
+        }
+      }
+    }
+
     // Logic: H3a is a blocking invalidity — requires immediate rejection before closure
     if (hansei.severity === 'H3a') {
       errors.push('BLOCKING: Hansei Severity H3a (Blocking Invalidity) requires task rejection before closure. Resolve the constitutional violation before re-submitting.');

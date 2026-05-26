@@ -10,10 +10,10 @@ import { MockFileSystem } from './mocks/index.js';
 const validHansei = {
   severity: 'H1',
   category: '[TypeHack]',
-  decision: 'Used any cast to bypass complex type circular dependency in repository.',
+  decision: 'Used any cast to bypass complex type circular dependency in parseTask (task-repository.ts).',
   constraint: 'P1 deadline and lack of specialized domain provider at the time.',
-  cost: 'Type safety is degraded specifically in the parseTask method.',
-  forwardAction: 'none',
+  cost: 'Type safety is degraded specifically in the parseTask method — src/repositories/task-repository.ts.',
+  forwardAction: 'None scheduled. TASK-031 resolved. Monitor parseTask for recurrence.',
 };
 
 function makeTask(overrides: Partial<Task> = {}): Task {
@@ -252,8 +252,8 @@ const M_TASK_WITH_CMD_AC = makeTask({
   size: 'M',
   class: '2-code-generation',
   status: TaskStatus.IN_PROGRESS,
-  content: `## TASK-201: M with cmd AC (2-code-generation — not L3 eligible)\n**Meta:** P2 | M | IN_PROGRESS | Focus:yes | 2-code-generation | local | none\n\n### Acceptance Criteria\n- [ ] echo passes\n  - \`cmd: echo ok; exit: 0\`\n\n## Hansei\n**Severity:** H0\n**Category:** [AuditGap]\n**Decision:** Test.\n**Constraint:** None — test only.\n**Cost:** No cost introduced.\n**Forward Action:** None required.\n`,
-  hansei: { severity: 'H0', category: '[AuditGap]', decision: 'Test task for L3 gate verification purposes only.', constraint: 'No constraint — this is a unit test fixture task.', cost: 'No cost introduced by this test fixture task.', forwardAction: 'No forward action required for test fixture.' },
+  content: `## TASK-201: M with cmd AC (2-code-generation — not L3 eligible)\n**Meta:** P2 | M | IN_PROGRESS | Focus:yes | 2-code-generation | local | none\n\n### Acceptance Criteria\n- [ ] echo passes\n  - \`cmd: echo ok; exit: 0\`\n\n## Hansei\n**Severity:** H0\n**Category:** [AuditGap]\n**Decision:** Test fixture for L3 gate — AC1 (cmd: echo ok) passes cleanly.\n**Constraint:** No constraint — unit test fixture for TASK-201.\n**Cost:** No cost introduced by this test fixture task.\n**Forward Action:** No forward action required for test fixture.\n`,
+  hansei: { severity: 'H0', category: '[AuditGap]', decision: 'Test fixture for L3 gate — AC1 (cmd: echo ok) passes cleanly.', constraint: 'No constraint — unit test fixture for TASK-201.', cost: 'No cost introduced by this test fixture task.', forwardAction: 'No forward action required for test fixture.' },
 });
 
 const S_TASK_FAILING_CMD = makeTask({
@@ -529,8 +529,8 @@ const M_6WRITING_ALL_CMD = makeTask({
   size: 'M',
   class: '6-writing',
   status: TaskStatus.IN_PROGRESS,
-  content: `## TASK-210: M in 6-writing, all cmd: ACs\n**Meta:** P2 | M | IN_PROGRESS | Focus:yes | 6-writing | local | none\n\n### Acceptance Criteria\n- [ ] echo passes\n  - \`cmd: echo ok; exit: 0\`\n\n## Hansei\n**Severity:** H0\n**Category:** [AuditGap]\n**Decision:** Test task for L3 extended gate verification.\n**Constraint:** No constraint — this is a unit test fixture task.\n**Cost:** No cost introduced by this test fixture.\n**Forward Action:** None required.\n`,
-  hansei: { severity: 'H0', category: '[AuditGap]', decision: 'Test task for L3 extended gate.', constraint: 'No constraint — unit test fixture.', cost: 'No cost introduced.', forwardAction: 'None required.' },
+  content: `## TASK-210: M in 6-writing, all cmd: ACs\n**Meta:** P2 | M | IN_PROGRESS | Focus:yes | 6-writing | local | none\n\n### Acceptance Criteria\n- [ ] echo passes\n  - \`cmd: echo ok; exit: 0\`\n\n## Hansei\n**Severity:** H0\n**Category:** [AuditGap]\n**Decision:** Test fixture for L3 extended gate — AC1 (cmd: echo ok) uses cmd predicate.\n**Constraint:** No constraint — unit test fixture for TASK-210.\n**Cost:** No cost introduced by this test fixture.\n**Forward Action:** No forward action required for test fixture TASK-210.\n`,
+  hansei: { severity: 'H0', category: '[AuditGap]', decision: 'Test fixture for L3 extended gate — AC1 (cmd: echo ok) uses cmd predicate.', constraint: 'No constraint — unit test fixture for TASK-210.', cost: 'No cost introduced by this test fixture.', forwardAction: 'No forward action required for test fixture TASK-210.' },
 });
 
 const M_7OPS_PROSE_AC = makeTask({
@@ -538,8 +538,8 @@ const M_7OPS_PROSE_AC = makeTask({
   size: 'M',
   class: '7-operations',
   status: TaskStatus.IN_PROGRESS,
-  content: `## TASK-211: M in 7-operations, has prose AC — not L3 eligible\n**Meta:** P2 | M | IN_PROGRESS | Focus:yes | 7-operations | local | none\n\n### Acceptance Criteria\n- [ ] human verifies\n  - \`prose: verified manually\`\n\n## Hansei\n**Severity:** H0\n**Category:** [AuditGap]\n**Decision:** Test task for L3 prose-blocks-M gate.\n**Constraint:** No constraint — unit test fixture.\n**Cost:** No cost introduced.\n**Forward Action:** None required.\n`,
-  hansei: { severity: 'H0', category: '[AuditGap]', decision: 'Test task for L3 prose gate.', constraint: 'No constraint — unit test fixture.', cost: 'No cost introduced.', forwardAction: 'None required.' },
+  content: `## TASK-211: M in 7-operations, has prose AC — not L3 eligible\n**Meta:** P2 | M | IN_PROGRESS | Focus:yes | 7-operations | local | none\n\n### Acceptance Criteria\n- [ ] human verifies\n  - \`prose: verified manually\`\n\n## Hansei\n**Severity:** H0\n**Category:** [AuditGap]\n**Decision:** Test fixture for L3 prose-blocks-M gate — AC1 uses prose: verified.\n**Constraint:** No constraint — unit test fixture for TASK-211.\n**Cost:** No cost introduced by this test fixture.\n**Forward Action:** No forward action required for test fixture TASK-211.\n`,
+  hansei: { severity: 'H0', category: '[AuditGap]', decision: 'Test fixture for L3 prose-blocks-M gate — AC1 uses prose: verified.', constraint: 'No constraint — unit test fixture for TASK-211.', cost: 'No cost introduced by this test fixture.', forwardAction: 'No forward action required for test fixture TASK-211.' },
 });
 
 test('L3 gate — M task in 6-writing with all cmd: ACs qualifies for self-archive', async () => {

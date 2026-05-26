@@ -1,8 +1,8 @@
 {
   "version": 1,
-  "builtAt": "2026-05-26T08:28:35.620Z",
-  "archiveCommit": "401:design",
-  "taskCount": 187,
+  "builtAt": "2026-05-26T09:50:09.427Z",
+  "archiveCommit": "402:design",
+  "taskCount": 188,
   "entries": {
     "TASK-1000": {
       "id": "TASK-1000",
@@ -292,6 +292,23 @@
       "acCount": 11,
       "acMachineVerifiable": 6,
       "closurePath": "unknown"
+    },
+    "TASK-1031": {
+      "id": "TASK-1031",
+      "size": "XS",
+      "class": "3-chore",
+      "closedAt": "2026-05-26T09:46:28.911Z",
+      "lockedCommit": null,
+      "actor": null,
+      "severity": "H1",
+      "category": "[SpecDrift]",
+      "decision": "Task originally included AC2 requiring tsc --noEmit to pass at zero errors. Codebase has 234 pre-existing type errors — scope exceeds XS. Task redirected: AC2 narrowed to script installation only; zero-error remediation explicitly deferred to TASK-1049 (M/P2). Three deliverables completed as intended: typecheck script wired, domain/task.ts deleted, catch (error: any) eliminated in govern files.",
+      "constraint": "Original task was filed without running typecheck first to establish a baseline; error count was unknown at spec time.",
+      "cost": "One false-close cycle (--force, then reopen and redirect). DeterministicACVerifier worked correctly throughout — blocked the bad close, unblocked the redirect.",
+      "forwardAction": "TASK-1049 owns the zero-errors remediation. This task closes with the three scoped wins delivered.",
+      "acCount": 5,
+      "acMachineVerifiable": 5,
+      "closurePath": "L3"
     },
     "TASK-180": {
       "id": "TASK-180",

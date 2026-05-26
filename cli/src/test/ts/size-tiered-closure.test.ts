@@ -15,13 +15,13 @@ describe('Size-tiered Hansei obligations', () => {
     hansei: hasHansei ? {
       severity: 'H0',
       category: '[AuditGap]',
-      decision: 'No issues found during implementation.',
-      constraint: 'None encountered.',
-      cost: 'No architectural debt introduced.',
-      forwardAction: 'None required.',
+      decision: 'AC1 implemented cleanly. AC2 verified via prose. No blockers encountered during TASK-001 execution.',
+      constraint: 'No constraints encountered. Work scoped to cli/src/main/ts/domain/services/ only.',
+      cost: 'No architectural debt introduced. All changes within existing patterns.',
+      forwardAction: 'No follow-up. TASK-001 closed cleanly.',
     } : undefined,
     content: hasHansei
-      ? '## TASK-001: Test\n**Meta:** P1 | ' + size + ' | IN_PROGRESS | Focus:no | 2-code-generation | claude-code | none\n\n### Acceptance Criteria\n\n- [x] Done\n  - `prose: verified`\n\n## Hansei\n**Severity:** H0\n**Category:** [AuditGap]\n**Decision:** No issues found during implementation.\n**Constraint:** None encountered.\n**Cost:** No architectural debt introduced.\n**Forward Action:** None required.\n'
+      ? '## TASK-001: Test\n**Meta:** P1 | ' + size + ' | IN_PROGRESS | Focus:no | 2-code-generation | claude-code | none\n\n### Acceptance Criteria\n\n- [x] Done\n  - `prose: verified`\n\n## Hansei\n**Severity:** H0\n**Category:** [AuditGap]\n**Decision:** AC1 implemented cleanly. AC2 verified via prose. No blockers encountered during TASK-001 execution.\n**Constraint:** No constraints encountered. Work scoped to cli/src/main/ts/domain/services/ only.\n**Cost:** No architectural debt introduced. All changes within existing patterns.\n**Forward Action:** No follow-up. TASK-001 closed cleanly.\n'
       : '## TASK-001: Test\n**Meta:** P1 | ' + size + ' | IN_PROGRESS | Focus:no | 2-code-generation | claude-code | none\n\n### Acceptance Criteria\n\n- [x] Done\n  - `prose: verified`\n',
     acceptanceCriteria: [{ text: 'Done', checked: true, predicates: [{ type: 'prose' as const, value: 'verified' }] }],
     lockedBy: 'test',

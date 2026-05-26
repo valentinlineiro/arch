@@ -78,7 +78,7 @@ export class HanseiWizard {
     const section = HanseiWizard.extractHanseiSection(content);
     if (!section) return false;
 
-    const PLACEHOLDER = /^(not yet started|none\.|tbd|todo)$/i;
+    const PLACEHOLDER = /^(not yet started|none\.?|tbd|todo|none required|not applicable|n\/?a|nil)$/i;
     const severity = section.match(/\*\*Severity:\*\*\s*(\S+)/)?.[1];
     const category = section.match(/\*\*Category:\*\*\s*(\S+)/)?.[1];
     const textFields = [
