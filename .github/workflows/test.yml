@@ -13,3 +13,7 @@ jobs:
           cd cli
           npm install
           npm test
+      # minimum floor — raise after baseline is established from TASK-1040
+      - run: |
+          cd cli
+          npm run test:coverage
