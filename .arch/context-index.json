@@ -4093,7 +4093,7 @@
       "title": "Govern/Reflect Structural Separation"
     }
   },
-  "builtAt": "2026-05-26T12:19:01.756Z",
+  "builtAt": "2026-05-26T12:20:02.554Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -9883,16 +9883,17 @@
       }
     },
     "TASK-1032": {
-      "commitCount": 3,
+      "commitCount": 4,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-26T14:18:56+02:00",
+      "lastCommitDate": "2026-05-26T14:19:58+02:00",
       "recentCommitRefs": [
         "01cafeea",
         "514689c3",
-        "931d7d99"
+        "931d7d99",
+        "b7f7cbe5"
       ],
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 3,
+        ".arch/focus-ledger.jsonl": 4,
         "docs/tasks/TASK-1032.md": 2
       }
     },
@@ -10715,17 +10716,15 @@
       }
     },
     "TASK-966": {
-      "commitCount": 20,
+      "commitCount": 18,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-23T18:12:06+00:00",
       "recentCommitRefs": [
         "109a798f",
         "1d07330a",
-        "352ab3a4",
         "639675cc",
         "7133fd1c",
         "80a0d2f5",
-        "8240442d",
         "964b5a8c",
         "98bc98ff",
         "a6297ed0",
@@ -10742,7 +10741,7 @@
       ],
       "touchedFrequency": {
         ".arch/corpus-index.json": 1,
-        ".arch/focus-ledger.jsonl": 18,
+        ".arch/focus-ledger.jsonl": 16,
         ".arch/reflect-breach-log.jsonl": 1,
         ".arch/status-projection.json": 1,
         "README.md": 1,
