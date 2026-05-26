@@ -165,4 +165,6 @@ H1/ToolingError — sed introduced broken single-quoted template strings in buil
 Evidence: Engagement 46% is below threshold 50% — attribution discipline review required
 
 ## 2026-05-26 06:01:13 — Pattern Alerts
-[PATTERN-ALERT] [SpecDrift] detected 8 times — systemic issue. See docs/tensions/
+
+## [2026-05-26 07:16] INFLUENCE_BREACH_CLEARED | REFLECT
+Evidence: engagement threshold breach cleared. Verify: did health improve (more decisions attributed) — or did operators adapt behavior to the threshold (worked around the measurement)? These are opposite outcomes that look identical in the data.
