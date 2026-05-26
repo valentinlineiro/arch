@@ -4,13 +4,13 @@ import { DeepAnalysisState, readDeepAnalysisState, writeDeepAnalysisState, isDee
 import { MockFileSystem } from './mocks/index.js';
 
 test('readDeepAnalysisState returns null when file missing', async () => {
-  const fs = new MockFileSystem({});
+  const fs = new MockFileSystem();
   const state = await readDeepAnalysisState(fs);
   assert.strictEqual(state, null);
 });
 
 test('writeDeepAnalysisState persists and readDeepAnalysisState retrieves', async () => {
-  const fs = new MockFileSystem({});
+  const fs = new MockFileSystem();
   const state: DeepAnalysisState = { lastDeepRunTick: 3, lastDeepRunTimestamp: '2026-05-15T10:00:00.000Z' };
   await writeDeepAnalysisState(fs, state);
   const retrieved = await readDeepAnalysisState(fs);

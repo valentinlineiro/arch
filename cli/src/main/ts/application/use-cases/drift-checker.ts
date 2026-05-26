@@ -238,7 +238,8 @@ export class DriftChecker {
         const adrDir = `${this.rootPath}/${this.pr.adr}`;
         const archiveFiles: string[] = await this.fileSystem.readDirectory(archiveDir).catch((): string[] => []);
         const adrFiles: string[] = await this.fileSystem.readDirectory(adrDir).catch((): string[] => []);
-        for (const f of allFiles) {
+        const allFiles2 = [...archiveFiles, ...adrFiles];
+        for (const f of allFiles2) {
           const fPath = archiveFiles.includes(f) ? `${archiveDir}/${f}` : `${adrDir}/${f}`;
           const fc = await this.fileSystem.readFile(fPath).catch(() => '');
           if (fc.toLowerCase().includes(artifactName.toLowerCase())) {

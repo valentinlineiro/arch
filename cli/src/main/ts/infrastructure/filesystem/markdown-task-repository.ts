@@ -213,7 +213,8 @@ export class MarkdownTaskRepository implements TaskRepository {
         steps: stepsMatch ? parseInt(stepsMatch[1], 10) : (inProgressMetricsMatch?.groups?.steps ? parseInt(inProgressMetricsMatch.groups.steps, 10) : undefined),
         rawMetaLine: metaLine,
         rawDependsLine: dependsMatch ? dependsMatch[0] : undefined,
-        content
+        content,
+        filePath: '' as string,
       };
     }
     return null;

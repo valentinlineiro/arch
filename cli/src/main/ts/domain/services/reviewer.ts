@@ -63,7 +63,7 @@ export class Reviewer {
     if (violatedPaths.length > 0) {
       const hasADRReferenceInCommit = /ADR-\d{3}/.test(commitMessage);
       const hasADRReferenceInTasks = activeTasks.some(task => {
-        const content = `${task.description} ${task.acceptanceCriteria.map(ac => ac.description).join(' ')} ${task.rawDependsLine || ''}`;
+        const content = `${task.title} ${(task.acceptanceCriteria ?? []).map(ac => ac.description).join(' ')} ${task.rawDependsLine || ''}`;
         return /ADR-\d{3}/.test(content);
       });
 

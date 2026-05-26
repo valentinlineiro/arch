@@ -228,8 +228,6 @@ test('BuildIndex.execute() fails when git history cannot be read', async () => {
 
 test('TaskEntry and ContextIndex.tasks are structurally correct', () => {
   const task: TaskEntry = {
-    title: 'Automatic Entity Linking',
-    keywords: ['entity', 'linking', 'automatic'],
     commitCount: 3,
     lastCommitDate: '2026-05-08T10:00:00Z',
     touchedFrequency: {

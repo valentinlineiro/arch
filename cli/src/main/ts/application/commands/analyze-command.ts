@@ -281,14 +281,14 @@ ${taskSections}`;
     try {
       const { AuditCommand } = await import('./audit-command.js');
       const auditor = new AuditCommand();
-      const result = await auditor.runQuiet('.');
+      const result = await (auditor as any).runQuiet('.');
       if (result.emergentCount > 0) {
         const fs = new NodeFileSystem();
         const inboxPath = PathResolver.from({}).inbox;
         const inbox = await fs.readFile(inboxPath).catch(() => '');
         const now = new Date().toISOString().slice(0, 19).replace('T', ' ');
         const alerts = result.emergent
-          .map(e => `[ADVISORY][EMERGENT] ${e.subject}: ${e.description}`)
+          .map((e: any) => `[ADVISORY][EMERGENT] ${e.subject}: ${e.description}`)
           .join('\n');
         await fs.writeFile(inboxPath, (inbox.trimEnd()) + `\n\n## ${now} — Alignment Audit (Advisory)\n<!-- These entries are advisory only — not governance gates. Source: arch analyze -->\nAlignment: ${result.score}/100\n${alerts}\n`);
         console.log(`  ⚡ Alignment audit: ${result.score}/100, ${result.emergentCount} emergent pattern(s) → INBOX [ADVISORY]`);

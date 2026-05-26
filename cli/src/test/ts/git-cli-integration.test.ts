@@ -31,7 +31,7 @@ test('GitCli - getCurrentBranch returns a branch name', { skip: !gitAvailable },
   try {
     // Need at least one commit to have a branch name
     writeFileSync(join(dir, 'README.md'), 'hello');
-    execSync('git add README.md && git commit -m "init"', { cwd: dir, stdio: 'ignore', shell: true });
+    execSync('git add README.md && git commit -m "init"', { cwd: dir, stdio: 'ignore', shell: true } as any);
 
     const git = new GitCli();
     const originalCwd = process.cwd();
@@ -51,7 +51,7 @@ test('GitCli - getLastCommitHash returns a hash after a commit', { skip: !gitAva
   const dir = setup();
   try {
     writeFileSync(join(dir, 'file.txt'), 'content');
-    execSync('git add file.txt && git commit -m "test commit"', { cwd: dir, stdio: 'ignore', shell: true });
+    execSync('git add file.txt && git commit -m "test commit"', { cwd: dir, stdio: 'ignore', shell: true } as any);
 
     const git = new GitCli();
     const originalCwd = process.cwd();
@@ -73,7 +73,7 @@ test('GitCli - isValidCommitHash returns true for real hash, false for garbage',
   const dir = setup();
   try {
     writeFileSync(join(dir, 'file.txt'), 'content');
-    execSync('git add file.txt && git commit -m "test commit"', { cwd: dir, stdio: 'ignore', shell: true });
+    execSync('git add file.txt && git commit -m "test commit"', { cwd: dir, stdio: 'ignore', shell: true } as any);
 
     const git = new GitCli();
     const originalCwd = process.cwd();
@@ -81,7 +81,7 @@ test('GitCli - isValidCommitHash returns true for real hash, false for garbage',
     try {
       const hash = await git.getLastCommitHash();
       assert.ok(hash !== null);
-      const fullHash = execSync('git rev-parse HEAD', { cwd: dir }).toString().trim();
+      const fullHash = execSync('git rev-parse HEAD', { cwd: dir } as any).toString().trim();
       assert.strictEqual(await git.isValidCommitHash(fullHash), true);
       assert.strictEqual(await git.isValidCommitHash('deadbeefdeadbeefdeadbeefdeadbeef00000000'), false);
     } finally {
@@ -96,9 +96,9 @@ test('GitCli - getCommitHistory returns structured file entries', { skip: !gitAv
   const dir = setup();
   try {
     writeFileSync(join(dir, 'alpha.txt'), 'a');
-    execSync('git add alpha.txt && git commit -m "add alpha"', { cwd: dir, stdio: 'ignore', shell: true });
+    execSync('git add alpha.txt && git commit -m "add alpha"', { cwd: dir, stdio: 'ignore', shell: true } as any);
     writeFileSync(join(dir, 'beta.txt'), 'b');
-    execSync('git add beta.txt && git commit -m "add beta"', { cwd: dir, stdio: 'ignore', shell: true });
+    execSync('git add beta.txt && git commit -m "add beta"', { cwd: dir, stdio: 'ignore', shell: true } as any);
 
     const git = new GitCli();
     const originalCwd = process.cwd();

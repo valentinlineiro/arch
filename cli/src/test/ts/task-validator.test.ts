@@ -15,6 +15,8 @@ function makeTask(overrides: Partial<Task> = {}): Task {
     class: '2-code-generation',
     cli: 'claude',
     context: [],
+    content: '',
+    filePath: '',
     acceptanceCriteria: [],
     ...overrides,
   };

@@ -1,5 +1,5 @@
 import { EvidenceEvent, ClaimType } from '../models/evidence.js';
-import { EpistemicReport, ConflictRecord, CoverageStats } from '../models/epistemic-report.ts';
+import { EpistemicReport, ConflictRecord, CoverageStats } from '../models/epistemic-report.js';
 
 export class EpistemicIntegrityService {
   /**

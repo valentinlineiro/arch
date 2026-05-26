@@ -88,7 +88,8 @@ export class ArchiveParser {
           }
 
           // Special case: Move to archive is a completion signal
-          if (normalizedPath.startsWith(path.normalize(this.paths.archive + '/')) && normalizedOldPath.startsWith(path.normalize(this.paths.tasks + '/'))) {
+          const paths = PathResolver.from({});
+          if (normalizedPath.startsWith(path.normalize(paths.archive + '/')) && normalizedOldPath.startsWith(path.normalize(paths.tasks + '/'))) {
             completionDates.set(normalizedPath, commit.date);
           }
         }
@@ -167,7 +168,7 @@ export class ArchiveParser {
       }
     } else if (gitClosedAt) {
       completedAt = gitClosedAt;
-      if (integrity !== 'INVALID') integrity = 'MEDIUM';
+      if ((integrity as string) !== 'INVALID') integrity = 'MEDIUM';
       provenance = { methodId: 'git-archive-move-inference', gitRevRange: 'HEAD' };
     }
 

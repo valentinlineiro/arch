@@ -95,7 +95,7 @@ export class HanseiAuditor {
       // If severity is H2+ but no concealment patterns found, check for inflation
       if (foundPatterns.length === 0 && changedFilePaths.length > 0) {
         const allSmall = changedFilePaths.every(f => this.isSmallScope(f));
-        if (allSmall && hansei.severity !== 'H1') {
+        if (allSmall && (hansei.severity as string) !== 'H1') {
           details.push(`[INFLATION] Hansei severity ${hansei.severity} declared for changes scoped to: ${changedFilePaths.join(', ')}`);
           details.push(`  No debt patterns found in implementation files.`);
           if (inflationSignals.length > 0) {

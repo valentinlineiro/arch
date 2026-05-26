@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert';
 import { Reviewer } from '../../main/ts/domain/services/reviewer.js';
-import { TaskStatus } from '../../main/ts/domain/models/task.js';
+import { TaskStatus, Task, FocusLevel } from '../../main/ts/domain/models/task.js';
 
 test('Reviewer - validateCommitMessage', () => {
   const reviewer = new Reviewer();
@@ -69,13 +69,16 @@ test('Reviewer - reviewTask (AC completion)', () => {
       class: 'test',
       cli: 'claude',
       context: [],
+      focus: FocusLevel.NONE,
+      content: '',
+      filePath: '',
       acceptanceCriteria: [
         { description: 'AC1', completed: true },
         { description: 'AC2', completed: false }
       ]
     };
 
-    const result = reviewer.reviewTask(taskWithPendingAC);
+    const result = reviewer.reviewTask(taskWithPendingAC as Task);
     assert.strictEqual(result.valid, false);
     assert.ok(result.violations[0].includes(`marked as ${status}`));
     assert.ok(result.violations[0].includes('pending Acceptance Criteria'));
@@ -95,12 +98,15 @@ test('Reviewer - reviewTask ignores pending ACs outside DONE/REVIEW', () => {
     class: 'test',
     cli: 'claude',
     context: [],
+    focus: FocusLevel.NONE,
+    content: '',
+    filePath: '',
     acceptanceCriteria: [
       { description: 'AC1', completed: false }
     ]
   };
 
-  const result = reviewer.reviewTask(readyTaskWithPendingAC);
+  const result = reviewer.reviewTask(readyTaskWithPendingAC as Task);
   assert.strictEqual(result.valid, true);
   assert.deepStrictEqual(result.violations, []);
 });
@@ -118,13 +124,16 @@ test('Reviewer - reviewTask allows REVIEW with all ACs completed', () => {
     class: 'test',
     cli: 'claude',
     context: [],
+    focus: FocusLevel.NONE,
+    content: '',
+    filePath: '',
     acceptanceCriteria: [
       { description: 'AC1', completed: true },
       { description: 'AC2', completed: true }
     ]
   };
   
-  const result = reviewer.reviewTask(taskReviewWithAllACs);
+  const result = reviewer.reviewTask(taskReviewWithAllACs as Task);
   assert.strictEqual(result.valid, true);
   assert.deepStrictEqual(result.violations, []);
 });

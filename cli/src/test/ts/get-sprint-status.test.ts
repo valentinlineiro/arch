@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert';
 import { GetSprintStatus } from '../../main/ts/application/use-cases/get-sprint-status.js';
-import { Task, TaskStatus } from '../../main/ts/domain/models/task.js';
+import { Task, TaskStatus, FocusLevel } from '../../main/ts/domain/models/task.js';
 
 class MockTaskRepository {
   constructor(private tasks: Task[]) {}
@@ -30,15 +30,17 @@ const makeTask = (overrides: Partial<Task>): Task => ({
   title: 'Task',
   priority: 'P2',
   size: 'S',
-  value: 5,
   status: TaskStatus.READY,
+  focus: FocusLevel.NONE,
   sprint: '',
   class: '2-code-generation',
   cli: 'claude',
   context: ['cli/src/main/ts/application/commands/status-command.ts'],
+  content: '',
+  filePath: '',
   acceptanceCriteria: [],
-  ...overrides
-});
+  ...overrides,
+} as Task);
 
 test('GetSprintStatus includes current sprint progress from config and Sprint field', async () => {
   const repo = new MockTaskRepository([

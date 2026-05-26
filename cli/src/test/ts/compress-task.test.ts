@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert';
-import { CompressTask } from '../../main/ts/application/use-cases/compress-task.ts';
+import { CompressTask } from '../../main/ts/application/use-cases/compress-task.js';
 import { MockFileSystem } from './mocks/index.js';
 
 const FULL_TASK = `## TASK-222: arch ask v1+v2

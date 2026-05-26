@@ -73,7 +73,8 @@ export class DecisionImpactEngine {
     return {
       id: `action:${id}`,
       type,
-      priority: decision.impact, // Inherit impact as priority
+      priority: decision.impact,
+      status: 'SUGGESTED',
       target: decision.subject,
       description,
       justification: {

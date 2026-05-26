@@ -66,7 +66,7 @@ export class ValidateTaskAcs {
           env: { ...process.env, PATH: `${this.rootPath}/scripts:${process.env.PATH ?? ''}` },
         });
 
-        const timedOut = result.error?.code === 'ETIMEDOUT';
+        const timedOut = (result.error as any)?.code === 'ETIMEDOUT';
         const actualExit = timedOut ? -1 : (result.status ?? 1);
 
         results.push({

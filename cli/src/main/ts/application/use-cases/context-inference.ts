@@ -100,7 +100,7 @@ export class ContextInference {
         }))
       ];
       const feedback = feedbackMap.get(taskId);
-      const humanDecisionOverride = feedback ? (feedback.accurate === false || feedback.partial === false) : false;
+      const humanDecisionOverride = feedback ? (feedback.verdict === 'off' || feedback.details.tooMuchNoise) : false;
       const hotSeeds = [...taskRefs, ...adrRefs];
       const trace: CausalTrace = {
         traceId: `trace-${Date.now()}-${Math.random().toString(36).substring(2, 11)}`,

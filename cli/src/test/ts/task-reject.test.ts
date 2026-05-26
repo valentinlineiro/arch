@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert';
 import { RejectTask } from '../../main/ts/application/use-cases/task-reject.js';
-import { Task, TaskStatus } from '../../main/ts/domain/models/task.js';
+import { Task, TaskStatus, FocusLevel } from '../../main/ts/domain/models/task.js';
 
 class MockTaskRepository {
   saved: Task | null = null;
@@ -21,18 +21,20 @@ function makeReviewTask(overrides: Partial<Task> = {}): Task {
     title: 'Feature X',
     priority: 'P1',
     size: 'S',
-    value: 7,
     status: TaskStatus.REVIEW,
+    focus: FocusLevel.NONE,
     sprint: 'Focus:yes',
     class: '2-code-generation',
     cli: 'claude',
     context: ['src/'],
+    content: '',
+    filePath: '',
     lockedBy: 'cli',
     lockedAt: '2026-04-29T06:00:00Z',
     acceptanceCriteria: [{ description: 'AC1', completed: true }],
     rawMetaLine: '**Meta:** P1 | S | 7 | REVIEW | Focus:yes | 2-code-generation | claude | src/',
     ...overrides,
-  };
+  } as Task;
 }
 
 test('RejectTask moves task from REVIEW to READY', async () => {

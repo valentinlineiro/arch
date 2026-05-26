@@ -101,8 +101,8 @@ export class AuditCommand implements Command {
 
     // Public mode: add MRI summary line + canonical disclaimer
     if (opts.publicMode) {
-      const hotspots = risks.filter(r => r.type === 'HIGH_COUPLING' || r.type === 'GOD_ENTITY').length;
-      const orphans = risks.filter(r => r.type === 'ORPHAN' || r.type === 'DEAD_CODE').length;
+      const hotspots = risks.filter(r => r.type === 'HIGH_COUPLING' || (r as any).type === 'GOD_ENTITY').length;
+      const orphans = risks.filter(r => (r as any).type === 'ORPHAN' || (r as any).type === 'DEAD_CODE').length;
       const coupledPairs = graph.edges.filter((e: any) => e.weight > 3).length;
       const couplingPct = graph.entities.length > 0
         ? Math.round((coupledPairs / graph.entities.length) * 100)

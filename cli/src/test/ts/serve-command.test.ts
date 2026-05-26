@@ -35,7 +35,7 @@ test('serve command handler strips query string before resolving file path', asy
     const req = { url: '/arch-viewer.html?tab=focus' } as http.IncomingMessage;
     const res = {
       statusCode: 200,
-      end(_body?: any) { resolve(this.statusCode); },
+      end(_body?: any) { resolve((this as any).statusCode); },
       setHeader(_k: string, _v: string) {},
     } as unknown as http.ServerResponse;
     handler(req, res);
@@ -53,7 +53,7 @@ test('serve command handler returns 500 not unhandled rejection when task file r
     const req = { url: '/api/tasks' } as http.IncomingMessage;
     const res = {
       statusCode: 200,
-      end(_body?: any) { resolve(this.statusCode); },
+      end(_body?: any) { resolve((this as any).statusCode); },
       setHeader(_k: string, _v: string) {},
     } as unknown as http.ServerResponse;
 

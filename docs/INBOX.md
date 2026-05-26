@@ -3,9 +3,17 @@ _Generated: 2026-05-26T13:00Z by [THINK] DEFAULT session_
 
 ## Loop Status
 - IN_PROGRESS: 11 (TASK-1016, 1017, 1018, 1019, 1020, 1021, 1022, 1023, 1048, 1049, 1050)
-- REVIEW: 0
+- REVIEW: 1 (TASK-1049)
 - READY: 27
 - BLOCKED: 1 (TASK-1024 — compliance front door, explicitly deferred)
+
+## REVIEW_REQUEST
+
+TASK-1049 — resolve all tsc --noEmit typecheck errors (234 across ~50 files) to zero
+**AC1:** `tsc --noEmit` passes with zero errors → ✅ PASS
+**AC2:** Type errors do not increase overall (vs baseline of 234) → ✅ PASS (0 remaining)
+**AC3:** `npm test` passes without new regressions → ✅ PASS (19 failures all pre-existing, 4 fewer than baseline of 23)
+**AC4:** `arch check` passes → ✅ PASS
 
 ## Alerts
 [PATTERN-ALERT] [SpecDrift] systemic — see docs/tensions/TENSION-005-specdrift.md

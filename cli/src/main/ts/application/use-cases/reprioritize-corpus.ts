@@ -90,7 +90,7 @@ export class ReprioritizeCorpus {
   private async scoreTask(
     task: Task,
     readyTasks: Task[],
-    archiveTasks: { id: string; class_: string; hansei: { category: string; severity: string } | null; closedAt: string | null }[],
+    archiveTasks: { id: string; class_: string; content: string; hansei: { category: string; severity: string } | null; closedAt: string | null }[],
   ): Promise<PriorityDiffEntry> {
     const now = new Date();
     const createdAt = task.createdAt ? new Date(task.createdAt) : null;

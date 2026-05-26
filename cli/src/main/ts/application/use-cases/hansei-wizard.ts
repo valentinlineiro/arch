@@ -121,18 +121,18 @@ export class HanseiWizard {
 
       if (gitRepository && task.lockedCommit) {
         try {
-          const checker = new DeterministicHanseiChecker(gitRepository);
-          const result = await checker.run(task);
+          const checker = new DeterministicHanseiChecker('.');
+          const result = await checker.check(task);
 
           if (result.findings.length > 0) {
-            const patterns = result.findings.map(f => f.pattern);
+            const patterns = result.findings.map((f: any) => f.pattern);
             inferredSeverity = inferSeverity(result.findings.length);
             inferredCategory = inferCategory(patterns);
-            findingSummary = result.findings.map(f =>
+            findingSummary = result.findings.map((f: any) =>
               `    [TIER1] ${f.pattern} in ${f.file}:${f.line}`
             ).join('\n');
-            inferredConstraint = result.findings.map(f => f.pattern).join('; ') + ' — detected by Tier 1 scan.';
-            if (!result.findings.every(f => f.declaredInHansei)) {
+            inferredConstraint = result.findings.map((f: any) => f.pattern).join('; ') + ' — detected by Tier 1 scan.';
+            if (!result.findings.every((f: any) => f.declaredInHansei)) {
               inferredCost = `${result.findings.length} undeclared drift finding(s). See constraint.`;
               inferredForwardAction = 'Review Tier 1 findings. Consider filing an IDEA if pattern recurs.';
             }

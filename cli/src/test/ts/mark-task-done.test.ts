@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert';
 import { MarkTaskDone } from '../../main/ts/application/use-cases/mark-task-done.js';
-import { Task, TaskStatus } from '../../main/ts/domain/models/task.js';
+import { Task, TaskStatus, FocusLevel } from '../../main/ts/domain/models/task.js';
 import { TaskRepository } from '../../main/ts/domain/repositories/task-repository.js';
 import { Reviewer, ReviewResult } from '../../main/ts/domain/services/reviewer.js';
 import { TrustedMetrics } from '../../main/ts/application/use-cases/compute-trusted-metrics.js';
@@ -23,30 +23,19 @@ function makeTask(overrides: Partial<Task> = {}): Task {
     priority: 'P1',
     size: 'S',
     status: TaskStatus.IN_PROGRESS,
+    focus: FocusLevel.NONE,
     sprint: 'Sprint 3',
     class: '2-code-generation',
     cli: 'claude-code',
     context: ['src/'],
+    content: '',
+    filePath: '',
     acceptanceCriteria: [],
     rawMetaLine: '**Meta:** P1 | S | IN_PROGRESS | Sprint 3 | 2-code-generation | claude-code | src/',
     hansei: validHansei,
+    depends: [],
   };
-  return { ...base, ...overrides };
-  return {
-    id: 'TASK-031',
-    title: 'Test Task',
-    priority: 'P1',
-    size: 'S',
-    status: TaskStatus.IN_PROGRESS,
-    sprint: 'Sprint 3',
-    class: '2-code-generation',
-    cli: 'claude-code',
-    context: ['src/'],
-    acceptanceCriteria: [],
-    rawMetaLine: '**Meta:** P1 | S | IN_PROGRESS | Sprint 3 | 2-code-generation | claude-code | src/',
-    hansei: validHansei,
-    ...overrides,
-  };
+  return { ...base, ...overrides } as Task;
 }
 
 class MockTaskRepository implements TaskRepository {
@@ -62,7 +51,7 @@ class MockTaskRepository implements TaskRepository {
   async getActive() { return this.task ? [this.task] : []; }
   async findReady() { return []; }
   async getNextId() { return 'TASK-001'; }
-  async parseTask(_content: string): Promise<Task | null> { return null; }
+  parseTask(_content: string): Task | null { return null; }
   async save(task: Task) { this.saved = task; }
 }
 

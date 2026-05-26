@@ -14,7 +14,7 @@ export class ReportCommand implements Command {
 
   async execute(): Promise<void> {
     const parser = new ArchiveParser(this.fileSystem, this.gitRepository);
-    const engine = new MetricsEngine(this.fileSystem, this.gitRepository, this.paths.events);
+    const engine = new MetricsEngine(this.fileSystem, this.gitRepository, 'docs/EVENTS.md');
 
     const archivedTasks = await parser.parseArchivedTasks();
     const metrics = await engine.calculate(archivedTasks);

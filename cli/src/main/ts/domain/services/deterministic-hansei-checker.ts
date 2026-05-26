@@ -1,4 +1,6 @@
 import { execSync } from 'node:child_process';
+import path from 'node:path';
+import { PathResolver } from './path-resolver.js';
 import type { Task } from '../models/task.js';
 
 export interface HanseiDriftFinding {
@@ -143,9 +145,10 @@ export class DeterministicHanseiChecker {
         for (const file of changedFiles) {
           const inContext = validContextPaths.some(p => file.startsWith(p.replace(/^\//, '')));
           // Allow system paths (tasks, archive, statusProjection dir) as always-valid
-          const statusDir = path.dirname(this.paths.statusProjection);
-          const isSystemPath = file.startsWith(this.paths.tasks) || 
-                               file.startsWith(this.paths.archive) ||
+          const p = PathResolver.from({});
+          const statusDir = path.dirname(p.statusProjection);
+          const isSystemPath = file.startsWith(p.tasks) || 
+                               file.startsWith(p.archive) ||
                                file.startsWith(statusDir);
           if (!inContext && !isSystemPath) {
             const declared = constraint.toLowerCase().includes(file.split('/')[0]) ||

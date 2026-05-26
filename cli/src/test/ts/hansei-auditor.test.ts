@@ -1,6 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert';
 import { HanseiAuditor } from '../../main/ts/domain/services/hansei-auditor.js';
+import { Task, TaskStatus, FocusLevel } from '../../main/ts/domain/models/task.js';
 import { MockFileSystem } from './mocks/index.js';
 
 // ── helpers ────────────────────────────────────────────────────────────────
@@ -13,21 +14,23 @@ function makeTask(overrides: Partial<{
   constraint: string;
   cost: string;
   forwardAction: string;
-}> = {}) {
+}> = {}): Task {
   return {
     id: overrides.id ?? 'TASK-TEST',
     title: 'Test task',
     priority: 'P2',
     size: 'S',
-    status: 'REVIEW' as any,
-    focus: false,
+    status: 'REVIEW' as TaskStatus,
+    focus: FocusLevel.NONE,
     sprint: '',
     class: '1-code-reasoning',
     cli: 'claude-code',
     context: [],
+    content: '',
+    filePath: '',
     acceptanceCriteria: [],
     hansei: {
-      severity: (overrides.severity ?? 'H0') as any,
+      severity: (overrides.severity ?? 'H0') as 'H0' | 'H1' | 'H2' | 'H3a' | 'H3b',
       category: overrides.category ?? '[no-issue]',
       decision: overrides.decision ?? 'Straightforward implementation.',
       constraint: overrides.constraint ?? 'None.',

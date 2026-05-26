@@ -31,7 +31,7 @@ class MockTaskRepository implements TaskRepository {
   async getActive() { return this.activeTasks ?? this.allTasks; }
   async findReady() { return this.allTasks.filter(t => t.status === TaskStatus.READY); }
   async getNextId() { return 'TASK-999'; }
-  async parseTask(_content: string): Promise<Task | null> { return null; }
+  parseTask(_content: string): Task | null { return null; }
   async save(_task: Task) {}
 }
 

@@ -77,8 +77,6 @@ const FIXTURE_INDEX: ContextIndex = {
   },
   tasks: {
     'TASK-217': {
-      title: 'Automatic Entity Linking',
-      keywords: ['entity', 'linking', 'automatic'],
       commitCount: 2,
       lastCommitDate: '2026-05-08T10:00:00Z',
       touchedFrequency: {
