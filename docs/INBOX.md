@@ -2,7 +2,7 @@
 _Generated: 2026-05-26T10:04Z by [THINK] session_
 
 ## Loop Status
-- IN_PROGRESS: 10 (TASK-1016, 1017, 1018, 1019, 1020, 1021, 1022, 1023, 1048, 1050)
+- IN_PROGRESS: 9 (TASK-1016, 1017, 1019, 1020, 1021, 1022, 1023, 1048, 1050)
 - REVIEW: 0
 - READY: 25
 - BLOCKED: 1 (TASK-1024 — compliance front door, explicitly deferred)
@@ -20,11 +20,11 @@ _Generated: 2026-05-26T10:04Z by [THINK] session_
 See docs/refinement/ROADMAP-IDEAS.md
 
 ## Last 5 Completed Tasks
-1. TASK-1040 — add c8 coverage reporting to npm test (P1/XS)
-2. TASK-1032 — fix enforcement/analysis boundary: move SubprocessRunner call to command layer (P1/S)
-3. TASK-1035 — move process.exit() to main entry point: commands return exit codes (P0/M)
-4. TASK-1039 — fix 13 pre-existing test failures (P0/S)
-5. TASK-1049 — resolve all tsc --noEmit typecheck errors to zero (P0/M)
+1. TASK-1018 — rename arch check to arch review in docs (P2/S)
+2. TASK-1040 — add c8 coverage reporting to npm test (P1/XS)
+3. TASK-1032 — fix enforcement/analysis boundary: move SubprocessRunner call to command layer (P1/S)
+4. TASK-1035 — move process.exit() to main entry point: commands return exit codes (P0/M)
+5. TASK-1039 — fix 13 pre-existing test failures (P0/S)
 
 ## 2026-05-26 13:03:34 — Pattern Alerts
 
