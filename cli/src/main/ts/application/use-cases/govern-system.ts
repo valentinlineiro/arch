@@ -56,8 +56,8 @@ export class GovernSystem {
     let archivedThisTick = 0;
     try {
       archivedThisTick = await this.archiveDoneTasks();
-    } catch (error: any) {
-      throw error; // Halt execution on archival escalation
+    } catch (error: unknown) {
+      throw error;
     }
 
     // 0.2 Sprint lifecycle — close sprint when N tasks archived, open next
@@ -671,10 +671,11 @@ export class GovernSystem {
 
       await this.gitRepository.commit(`chore: archive [${taskId}] DONE [${taskId}] [THINK]`);
       console.log(`  ✓ ${taskId} archived and committed.`);
-    } catch (error: any) {
-      console.error(`  ✖ Failed to archive ${taskId}: ${error.message}`);
-      await this.appendInbox(taskId, 'ANDON_HALT', error.message);
-      await this.emitGovernViolationSignal(taskId, error.message);
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : String(error);
+      console.error(`  ✖ Failed to archive ${taskId}: ${message}`);
+      await this.appendInbox(taskId, 'ANDON_HALT', message);
+      await this.emitGovernViolationSignal(taskId, message);
       throw error;
     }
   }
