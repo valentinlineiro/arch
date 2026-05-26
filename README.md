@@ -198,7 +198,7 @@ arch causal                                    # Causal graph operations
 
 # Lifecycle
 arch review                           # Auditor queue: tasks needing human review
-arch review                            # Full system review: format, drift, integrity
+arch check                            # Full system review: format, drift, integrity
 arch status                           # Session orientation: focus, alerts, alignment
 arch resume TASK-001                  # Automate ANDON_HALT recovery
 arch resume TASK-001                  # Automate ANDON_HALT recovery
