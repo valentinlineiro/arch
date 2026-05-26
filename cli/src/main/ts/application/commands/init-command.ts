@@ -15,10 +15,12 @@ interface DetectedStack {
 
 export class InitCommand implements Command {
   private rootPath: string;
+  private cliVersion: string;
   private readonly pr = PathResolver.from({});
 
-  constructor(rootPath: string = '.') {
+  constructor(rootPath: string = '.', cliVersion: string = '0.0.0') {
     this.rootPath = path.resolve(rootPath);
+    this.cliVersion = cliVersion;
   }
 
   async execute(args: string[]): Promise<number> {
@@ -470,7 +472,7 @@ TASK: READY → IN_PROGRESS → REVIEW → DONE → archived (${this.pr.archive}
     const testCmd = stack.testCommand;
     const buildCmd = stack.buildCommand;
     return JSON.stringify({
-      version: '0.6.0',
+      version: this.cliVersion,
       currentSprint: '',
       strategies: {
         '1-code-reasoning': {

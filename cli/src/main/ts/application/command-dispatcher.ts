@@ -149,7 +149,7 @@ export class CommandDispatcher {
     }, this.causalSignalLog),
     'analyze': async () => new AnalyzeCommand(this.fileSystem, this.rootPath, this.taskRepository),
     'review': async () => new ReviewCommand(this.taskRepository, this.gitRepository, this.fileSystem),
-    'init': async () => new InitCommand(this.rootPath),
+    'init': async () => new InitCommand(this.rootPath, this.cliVersion),
     'project': async () => new ProjectCommand(this.fileSystem, this.taskRepository, this.rootPath),
     'version': async () => new VersionCommand(this.cliVersion),
     'status': async () => new StatusCommand(this.taskRepository, this.fileSystem, this.rootPath),
