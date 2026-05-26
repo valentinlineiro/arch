@@ -1,8 +1,8 @@
 {
   "version": 1,
-  "builtAt": "2026-05-26T12:19:01.965Z",
-  "archiveCommit": "",
-  "taskCount": 190,
+  "builtAt": "2026-05-26T12:30:57.020Z",
+  "archiveCommit": "405:design",
+  "taskCount": 191,
   "entries": {
     "TASK-1000": {
       "id": "TASK-1000",
@@ -308,6 +308,23 @@
       "forwardAction": "TASK-1049 owns the zero-errors remediation. This task closes with the three scoped wins delivered.",
       "acCount": 5,
       "acMachineVerifiable": 5,
+      "closurePath": "L3"
+    },
+    "TASK-1033": {
+      "id": "TASK-1033",
+      "size": "S",
+      "class": "2-code-generation",
+      "closedAt": "2026-05-26T12:30:00Z",
+      "lockedCommit": null,
+      "actor": null,
+      "severity": "H1",
+      "category": "[TypeHack]",
+      "decision": "Replaced 100-line resolveCommand nested switch/if chains with route delegation to CommandRegistry.resolveRoute() + flat builders map. Line count 233→193 (-40). One pre-existing `as any` cast carried over from original compact-escalations handler (inline command object without proper interface). 8 console.log calls in CLI command context (showHelp + trace/ask IO adapters) — appropriate for CLI commands, not debt.",
+      "constraint": "Pre-existing as any cast on compact-escalations handler was present in original code.",
+      "cost": "~20 min.",
+      "forwardAction": "None. [TASK-1033]",
+      "acCount": 6,
+      "acMachineVerifiable": 4,
       "closurePath": "L3"
     },
     "TASK-1039": {
