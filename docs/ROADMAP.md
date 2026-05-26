@@ -4,16 +4,16 @@
 
 <!-- ARCH-REPORT:START -->
 #### ARCH Materialized Status
-**Generated:** 2026-05-26T13:03:30.438Z
+**Generated:** 2026-05-26T13:11:30.100Z
 **Sprint ID:** sprint/v1.2.0-2026-05
 
 | Status | Count |
 | :--- | :--- |
 | Ready | 24 |
 | In Progress | 10 |
-| Review | 1 |
+| Review | 0 |
 | Blocked | 1 |
-| Done (Archive) | 404 |
+| Done (Archive) | 405 |
 
 **Audit Score:** 100/100
 <!-- ARCH-REPORT:END -->

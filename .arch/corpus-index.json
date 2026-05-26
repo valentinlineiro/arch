@@ -1,8 +1,8 @@
 {
   "version": 1,
-  "builtAt": "2026-05-26T12:30:57.020Z",
-  "archiveCommit": "405:design",
-  "taskCount": 191,
+  "builtAt": "2026-05-26T13:11:30.187Z",
+  "archiveCommit": "406:design",
+  "taskCount": 192,
   "entries": {
     "TASK-1000": {
       "id": "TASK-1000",
@@ -326,6 +326,23 @@
       "acCount": 6,
       "acMachineVerifiable": 4,
       "closurePath": "L3"
+    },
+    "TASK-1035": {
+      "id": "TASK-1035",
+      "size": "M",
+      "class": "2-code-generation",
+      "closedAt": "2026-05-26T13:07:25.769Z",
+      "lockedCommit": null,
+      "actor": null,
+      "severity": "H1",
+      "category": "[SpecDrift]",
+      "decision": "All 14+ commands previously calling process.exit() now return exit codes. Command interface (domain/models/command.ts:2) declares execute(): Promise<number>. index.ts consolidated to single process.exit(await main()) — all setup moved inside main() try block so outer wrapper never needs a fallback exit. AC3 required restructuring: original two-exit design (one inside main, one in outer catch) was replaced by wrapping all setup and dispatch inside main()'s try/catch.",
+      "constraint": "The outer try/catch pattern was pre-existing; removing it required moving ConfigLoader.load() and all service construction inside the try block, which is the correct location anyway.",
+      "cost": "~40+ files changed (commands + index.ts). 644 tests pass, 0 failures.",
+      "forwardAction": "Enable TASK-1045 (CI coverage thresholds) — commands are now fully testable without process.exit() terminating the test runner. [TASK-1035]",
+      "acCount": 7,
+      "acMachineVerifiable": 6,
+      "closurePath": "unknown"
     },
     "TASK-1039": {
       "id": "TASK-1039",
