@@ -15,3 +15,6 @@ Append-only log of Sentinel preflight reasoning calls. Each entry records the ta
 | 2026-05-20 16:45:24 | TASK-965 | M-size L3 gate extension — bounded scope: DeterministicACVerifier + tryL3Gate | GO |  |
 | 2026-05-25 12:32:49 | TASK-1010 | implementing arch init --dry-run, seed task content per AC | GO |  |
 | 2026-05-25 13:45:18 | TASK-1007 | implementing arch project init LLM decomposition command | GO |  |
+| 2026-05-25 17:02:03 | TASK-1019 | P0 structural fix: INBOX READY count drifts stale between govern runs; TENSION-006 live instance | GO |  |
+| 2026-05-25 17:25:12 | TASK-1021 | 90-day productization sprint: first deliverable for PLG acquisition motion | GO |  |
+| 2026-05-25 17:26:04 | TASK-1024 | 90-day productization sprint: compliance front door for enterprise/procurement buyer | GO |  |
