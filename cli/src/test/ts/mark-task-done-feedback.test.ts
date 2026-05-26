@@ -16,7 +16,7 @@ class MockTaskRepo {
       decision: 'Used any cast to bypass complex type circular dependency in repository.',
       constraint: 'P1 deadline and lack of specialized domain provider at the time.',
       cost: 'Type safety is degraded specifically in the parseTask method.',
-      forwardAction: 'none',
+      forwardAction: 'None scheduled. Task TASK-031 resolved. Monitor for recurrence.',
     },
     content: [
       '## TASK-001: test task',

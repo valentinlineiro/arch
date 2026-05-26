@@ -88,9 +88,9 @@ test('subCommands for task namespace match actual runtime behavior', () => {
   }
 });
 
-test('memory namespace has all five public subcommands', () => {
+test('memory namespace has all four public subcommands', () => {
   const memorySubs = getPublicSubCommands('memory').map(e => e.subCommand);
-  const expected = ['ask', 'causal', 'index', 'explain', 'deps'];
+  const expected = ['ask', 'index', 'explain', 'deps'];
 
   assert.ok(memorySubs.length === expected.length,
     `memory public subcommands changed. Got: ${memorySubs.join(', ')}. Expected: ${expected.join(', ')}`);
@@ -100,9 +100,9 @@ test('memory namespace has all five public subcommands', () => {
   }
 });
 
-test('govern namespace has inbox, reflect, serve, report, conduct, approve', () => {
+test('govern namespace has inbox, serve, report, conduct, approve', () => {
   const governSubs = getPublicSubCommands('govern').map(e => e.subCommand);
-  const expected = ['inbox', 'reflect', 'serve', 'report', 'conduct', 'approve'];
+  const expected = ['inbox', 'serve', 'report', 'conduct', 'approve'];
 
   for (const exp of expected) {
     assert.ok(governSubs.includes(exp), `expected govern subcommand not in registry: ${exp}`);

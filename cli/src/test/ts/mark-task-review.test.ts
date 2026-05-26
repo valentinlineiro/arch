@@ -94,7 +94,7 @@ test('MarkTaskReview - sets status to REVIEW when all predicates pass', async ()
 
   assert.strictEqual(result.passed, true);
   assert.strictEqual(repo.saved?.status, TaskStatus.REVIEW);
-  assert.strictEqual(repo.saved?.focus, false);
+  assert.strictEqual(repo.saved?.focus, FocusLevel.NONE);
 });
 
 test('MarkTaskReview - sets status to REVIEW when no predicates present', async () => {
@@ -106,5 +106,5 @@ test('MarkTaskReview - sets status to REVIEW when no predicates present', async 
 
   assert.strictEqual(result.passed, true);
   assert.strictEqual(repo.saved?.status, TaskStatus.REVIEW);
-  assert.strictEqual(repo.saved?.focus, false);
+  assert.strictEqual(repo.saved?.focus, FocusLevel.NONE);
 });
