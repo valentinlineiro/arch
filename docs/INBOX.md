@@ -20,11 +20,11 @@ _Generated: 2026-05-26T10:04Z by [THINK] session_
 See docs/refinement/ROADMAP-IDEAS.md
 
 ## Last 5 Completed Tasks
-1. TASK-1035 — move process.exit() to main entry point: commands return exit codes (P0/M)
-2. TASK-1039 — fix 13 pre-existing test failures (P0/S)
-3. TASK-1049 — resolve all tsc --noEmit typecheck errors to zero (P0/M)
-4. TASK-1031 — code hygiene quick wins (P1/XS)
-5. TASK-1029 — structural compaction: stale files, sprawl invariant, escalation compaction, archive partitioning (P1/M)
+1. TASK-1032 — fix enforcement/analysis boundary: move SubprocessRunner call to command layer (P1/S)
+2. TASK-1035 — move process.exit() to main entry point: commands return exit codes (P0/M)
+3. TASK-1039 — fix 13 pre-existing test failures (P0/S)
+4. TASK-1049 — resolve all tsc --noEmit typecheck errors to zero (P0/M)
+5. TASK-1031 — code hygiene quick wins (P1/XS)
 
 ## 2026-05-26 13:03:34 — Pattern Alerts
 
