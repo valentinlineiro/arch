@@ -27,3 +27,4 @@ M
 ## Gaps
 
 ## Decision
+PROMOTE → TASK-1027. Scope simplified from the three-tier state machine to a two-surface visibility gate: `arch help` shows three commands (init, review, task capture); `arch help --full` shows the full inventory. No progressive unlock, no usage tracking, no tier state. All commands remain callable at all times — only the help surface is gated. This is the prerequisite surface for PLG onboarding flow.

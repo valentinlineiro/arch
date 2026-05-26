@@ -20,3 +20,4 @@ L
 ## Gaps
 
 ## Decision
+REJECT. The falsifiability condition cannot be established without a control population. Zero external users means every metric (cycle time, decision latency, violation frequency) reflects the author's usage patterns — endogenous measurement with no counterfactual. The P0|L priority classification was applied before any acquisition happened, which inverts the measurement problem: you can't baseline what you haven't yet changed. If the 90-day sprint produces external users, this IDEA should be re-filed from scratch with real baseline data and a real control group, not promoted from this draft.

@@ -26,3 +26,4 @@ L
 ## Gaps
 
 ## Decision
+ROADMAP. Correctly deferred by 90-day sprint. Two hard dependencies are unmet: (1) chronicle normal-path emit (IDEA-chronicle-govern-coverage) — the chronicle summary in the report would be empty without it; (2) generated docs coupling (IDEA-generated-docs-coupling) — the governance rule inventory requires docs coupled to enforced state. You cannot audit what hasn't shipped. Moving to ROADMAP-IDEAS.md; revisit after Chronicle emit lands and at least one external user has run `arch review`.

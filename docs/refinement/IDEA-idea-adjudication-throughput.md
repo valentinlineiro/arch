@@ -20,3 +20,4 @@ M
 ## Gaps
 
 ## Decision
+EXTEND. Required decomposition before this can be promoted: the auto-expiry TTL mechanism is independently actionable and should be extracted as a standalone S IDEA; the batch adjudication surface is speculative and should be deferred indefinitely; the rate governor is novel and can remain in this IDEA's scope. Trigger: a standalone IDEA for auto-expiry TTL enforcement is filed and this IDEA is narrowed to rate governor only. Do not promote the combined scope — the rate governor is useful; the batch surface is premature.

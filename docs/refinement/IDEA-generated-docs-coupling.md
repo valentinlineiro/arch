@@ -22,3 +22,4 @@ L
 ## Gaps
 
 ## Decision
+ROADMAP. Correct principle ("rendered, not written"), but L-sized with no isolated first deliverable. The INBOX split (IDEA-dual-truth-reconciliation) is the only currently-scoped instance of this pattern. Moving to ROADMAP-IDEAS.md. Graduation condition: identify one additional derivable artifact beyond INBOX and define its generation pipeline as a standalone S task — that S task becomes the entry point, not this IDEA.

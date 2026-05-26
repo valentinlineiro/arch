@@ -21,3 +21,4 @@ L
 ## Gaps
 
 ## Decision
+ROADMAP. The divergence metric is the right structural defense against Goodhart's Law on REFLECT — it is the most intellectually rigorous idea in the current set. Correctly deferred: requires ≥50 decided IDEAs to compute a meaningful divergence baseline; current history is near zero. Moving to ROADMAP-IDEAS.md. Graduation condition: 90-day sprint completes and decision history reaches ≥50 entries, at which point this IDEA can be re-evaluated with a real baseline.

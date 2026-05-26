@@ -80,3 +80,39 @@ before it can be scoped as an executable task.
 - **arch-init-ux** (P3): 2-minute project bootstrap via `arch init`. Generate 3 starter files, guided first task, zero-config review baseline.
 - **arch-resume** (P2): `arch resume <taskId>` automates ANDON_HALT recovery paths. Guided resolution, FOCUS_RECOVERED audit trail.
 - **cli-protocol-decoupling** (P3): Refactor CLI to operate against configurable Protocol Schema. Configurable paths, rules engine, portable `arch init`.
+
+---
+
+## reflect-independence-measurement
+
+**Source:** Human structural review | **Created:** 2026-05-25 | **Migrated from:** IDEA-reflect-independence-measurement.md
+
+**Problem:** REFLECT's engagement rate metric self-conceals Goodhart's Law: if REFLECT learns to suggest what humans already prefer, the metric stays healthy while advisory authority drifts.
+
+**Direction:** Independent audit layer sampling REFLECT suggestions against counterfactual (no-REFLECT) baseline. Core metric: divergence rate — proportion of suggestions that deviated from the human's historical prior and were still accepted. Low divergence = REFLECT is flattering, not advising.
+
+**Gap preventing graduation:** Requires ≥50 decided IDEAs to compute a meaningful divergence baseline. Current decision history is near zero. Revisit after 90-day sprint completes.
+
+---
+
+## generated-docs-coupling
+
+**Source:** Human structural review | **Created:** 2026-05-25 | **Migrated from:** IDEA-generated-docs-coupling.md
+
+**Problem:** ROADMAP, INBOX, and command references in docs drift the moment they're written because there is no structural coupling between prose artifacts and the state they describe.
+
+**Direction:** Generate documentation from machine-readable state rather than maintaining prose. INBOX summary, ROADMAP phase completion, and command references should be derived from `status-projection.json` and the task archive, not hand-edited.
+
+**Gap preventing graduation:** L-sized with no isolated first deliverable. INBOX split (IDEA-dual-truth-reconciliation) is the only currently-scoped instance. To graduate: identify one additional derivable artifact beyond INBOX and define its generation pipeline as a standalone S task.
+
+---
+
+## compliance-front-door
+
+**Source:** Product strategy discussion | **Created:** 2026-05-25 | **Migrated from:** IDEA-compliance-front-door.md
+
+**Problem:** The PLG onboarding flow is optimized for the already-burned developer. The compliance/enterprise buyer needs full governance depth visible and documented before deciding — a structured audit report (`arch audit --report`) covering rule inventory, chronicle summary, and enforcement separation attestation.
+
+**Direction:** `arch audit --report` generating a SOC2-adjacent structured compliance report in human-readable Markdown and machine-readable JSON. Requires chronicle normal-path coverage and generated-docs coupling to produce meaningful output.
+
+**Gap preventing graduation:** Two hard dependencies unmet: (1) chronicle normal-path emit (IDEA-chronicle-govern-coverage), (2) governance rule inventory coupled to enforced state (IDEA-generated-docs-coupling). Cannot audit what hasn't shipped.

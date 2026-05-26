@@ -19,3 +19,4 @@ S
 ## Gaps
 
 ## Decision
+PROMOTE → TASK-1026. Unblocked, S-sized, highest ROI per engineering day in the set. The demo moment converts the marketing claim ("structurally blocked, not procedurally asked") from assertion to evidence. Ship first — this is the most important moment in the acquisition loop.

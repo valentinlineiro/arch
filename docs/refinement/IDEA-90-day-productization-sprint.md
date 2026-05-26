@@ -40,3 +40,4 @@ L
 ## Gaps
 
 ## Decision
+PROMOTE → TASK-1028. Sprint thesis is sound; the acquisition window is real and time-limited. Revised rating: ★★★★☆ (not ★★★★★) — execution-ready only after AC decomposition, which is the first deliverable of the task itself. The task's initial output is a breakdown of ACs per objective (init, review, capture, progressive CLI); sub-tasks are created from those ACs. The four objectives are locked; scope additions require a new IDEA.
