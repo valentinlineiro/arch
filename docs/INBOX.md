@@ -33,3 +33,6 @@ See docs/refinement/ROADMAP-IDEAS.md
 ## 2026-05-26 13:18:36 — Pattern Alerts
 
 ## 2026-05-26 13:20:42 — Pattern Alerts
+
+## [2026-05-26 17:14] INFLUENCE_THRESHOLD_VIOLATION | REFLECT
+Evidence: Engagement 48% is below threshold 50% — attribution discipline review required

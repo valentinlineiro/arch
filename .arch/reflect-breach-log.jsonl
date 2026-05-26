@@ -575,3 +575,5 @@
 {"timestamp":"2026-05-26T15:49:06.080Z","rule":"observability_gap","breached":false}
 {"timestamp":"2026-05-26T16:04:12.960Z","rule":"engagement","breached":false}
 {"timestamp":"2026-05-26T16:04:12.960Z","rule":"observability_gap","breached":false}
+{"timestamp":"2026-05-26T17:14:11.370Z","rule":"engagement","breached":true}
+{"timestamp":"2026-05-26T17:14:11.370Z","rule":"observability_gap","breached":false}
