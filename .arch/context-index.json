@@ -4039,7 +4039,7 @@
       "title": "Govern/Reflect Structural Separation"
     }
   },
-  "builtAt": "2026-05-26T08:42:13.495Z",
+  "builtAt": "2026-05-26T08:42:31.888Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -9808,16 +9808,17 @@
       }
     },
     "TASK-1031": {
-      "commitCount": 3,
+      "commitCount": 4,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-26T10:42:08+02:00",
+      "lastCommitDate": "2026-05-26T10:42:27+02:00",
       "recentCommitRefs": [
         "6f7425f0",
+        "8ab8579b",
         "9eed4e7b",
         "ffae1fa4"
       ],
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 2,
+        ".arch/focus-ledger.jsonl": 3,
         "docs/tasks/TASK-1031.md": 2,
         "docs/tasks/TASK-1032.md": 1,
         "docs/tasks/TASK-1033.md": 1,
@@ -10561,18 +10562,16 @@
       }
     },
     "TASK-965": {
-      "commitCount": 5,
+      "commitCount": 4,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-20T19:03:09+02:00",
       "recentCommitRefs": [
         "6375b73f",
-        "6b612fe7",
         "9236f27f",
         "a768d6f9",
         "bbe7fee3"
       ],
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 1,
         "cli/src/main/ts/application/use-cases/mark-task-done.ts": 1,
         "cli/src/main/ts/domain/services/deterministic-ac-verifier.ts": 1,
         "cli/src/test/ts/deterministic-ac-verifier.test.ts": 1,
