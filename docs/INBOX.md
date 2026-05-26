@@ -19,6 +19,11 @@ _Generated: 2026-05-26T10:04Z by [THINK] session_
 ## Roadmap-Only (8 entries, not executable yet)
 See docs/refinement/ROADMAP-IDEAS.md
 
+## REVIEW_REQUEST
+**TASK-1035** — move process.exit() to main entry point (P0/M)
+All 6 ACs verified: Command interface returns Promise<number>, 0 process.exit() in commands, exactly 1 in index.ts, dispatcher propagates exit codes, 644/644 tests pass, arch review clean.
+Commit: b63bc704
+
 ## Last 5 Completed Tasks
 1. TASK-1039 — fix 13 pre-existing test failures (P0/S)
 2. TASK-1049 — resolve all tsc --noEmit typecheck errors to zero (P0/M)
