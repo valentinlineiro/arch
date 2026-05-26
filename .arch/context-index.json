@@ -4128,7 +4128,7 @@
       "title": "Govern/Reflect Structural Separation"
     }
   },
-  "builtAt": "2026-05-26T17:15:41.924Z",
+  "builtAt": "2026-05-26T17:16:27.624Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -10835,10 +10835,11 @@
       }
     },
     "TASK-242": {
-      "commitCount": 6,
+      "commitCount": 7,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-26T17:15:39+00:00",
+      "lastCommitDate": "2026-05-26T17:16:24+00:00",
       "recentCommitRefs": [
+        "0bde3f70",
         "0c33ebe1",
         "2125c0dc",
         "2ee79d92",
@@ -10849,7 +10850,7 @@
       "touchedFrequency": {
         ".arch/chronicle.jsonl": 1,
         ".arch/ecp-registry.jsonl": 1,
-        ".arch/focus-ledger.jsonl": 5,
+        ".arch/focus-ledger.jsonl": 6,
         ".arch/status-projection.json": 1,
         "cli/.arch/status-projection.json": 1,
         "docs/tasks/TASK-1010.md": 1,
@@ -11222,20 +11223,19 @@
       }
     },
     "TASK-992": {
-      "commitCount": 6,
+      "commitCount": 5,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-23T20:32:35+00:00",
       "recentCommitRefs": [
         "09053962",
         "262b9d14",
-        "38cdbe7d",
         "959540a1",
         "be21eb50",
         "cee5e051"
       ],
       "touchedFrequency": {
         ".arch/ecp-registry.jsonl": 1,
-        ".arch/focus-ledger.jsonl": 3,
+        ".arch/focus-ledger.jsonl": 2,
         "arch.config.json": 1,
         "cli/.arch/status-projection.json": 1,
         "cli/src/main/ts/application/commands/report-command.ts": 1,
