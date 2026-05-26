@@ -19,6 +19,29 @@ _Generated: 2026-05-24T11:47Z by [THINK] DEEP session_
   - IDEA-arch-resume: ready to promote — needs human Decision field
   - IDEA-protocol-upgrade-policy: ready to promote — needs human Decision field
 
+## REVIEW_REQUEST
+### TASK-1029: structural compaction
+**ACs implemented:**
+1. Deleted stale artifacts (docs/index.html.bak, .arch/.think-prompt-*.md)
+2. Added `maxTopLevelFiles` sprawl check to DriftChecker (Sprawl check, registered in CheckSystem)
+3. Added escalation compaction to govern tick (writes .arch/escalations-compacted.jsonl)
+4. Filed TASK-1030 for archive partitioning strategy (READY, 500-file trigger)
+5. Merged duplicate tension templates (kept TEMPLATE.md, deleted TENSION-template.md, updated THINK.md ref)
+6. Added ADRs to context budget in arch.config.json
+7. npm test passes (all drift-checker tests pass)
+8. arch review passes
+
+**Changed files:**
+- `arch.config.json` — added sprawlThresholds, docs/adr to contextBudget
+- `cli/src/main/ts/application/use-cases/drift-checker.ts` — added checkMaxTopLevelFiles()
+- `cli/src/main/ts/application/use-cases/check-system.ts` — registered Sprawl in DELTA_GLOBAL_CHECKS
+- `cli/src/main/ts/application/commands/govern-command.ts` — added compactEscalations()
+- `cli/src/test/ts/drift-checker.test.ts` — 6 new Sprawl tests
+- `docs/agents/THINK.md` — updated TENSION-template.md → TEMPLATE.md reference
+- `docs/tasks/TASK-1030.md` — new task (archive partitioning)
+- `docs/tasks/TASK-1029.md` — status → REVIEW + Hansei
+- Deleted: docs/index.html.bak, .arch/.think-prompt-*.md (3 files), docs/tensions/TENSION-template.md
+
 ## Roadmap-Only (not executable yet)
   - arch-init-ux: temporal validity — no external users to observe friction
   - backlog-compression: premature at 17 READY tasks
@@ -168,3 +191,29 @@ Evidence: Engagement 46% is below threshold 50% — attribution discipline revie
 
 ## [2026-05-26 07:16] INFLUENCE_BREACH_CLEARED | REFLECT
 Evidence: engagement threshold breach cleared. Verify: did health improve (more decisions attributed) — or did operators adapt behavior to the threshold (worked around the measurement)? These are opposite outcomes that look identical in the data.
+
+---
+## REVIEW_REQUEST — TASK-1029
+**Task:** structural compaction: stale files, sprawl invariant, escalation compaction, archive partitioning
+**Status:** REVIEW
+**Date:** 2026-05-26
+
+### ACs verified
+- [x] Delete stale artifacts — `git ls-files` returns 0 for all stale paths
+- [x] Add maxTopLevelFiles sprawl check to DriftChecker — checkMaxTopLevelFiles() added, registered in CheckSystem, 6 tests pass
+- [x] Add escalation compaction to govern tick — compactEscalations() writes .arch/escalations-compacted.jsonl with OPEN records
+- [x] File TASK-1030 for archive partitioning — exists in docs/tasks/ with 500-file trigger
+- [x] Merge duplicate tension templates — TEMPLATE.md kept, TENSION-template.md deleted, THINK.md ref updated, no remaining refs
+- [x] Add ADRs to context budget — docs/adr: 2000 added to arch.config.json
+- [x] npm test passes — all drift-checker tests pass (61/61)
+- [x] arch review passes
+
+### Changed files
+- `arch.config.json` — sprawlThresholds + contextBudget docs/adr
+- `cli/src/main/ts/application/use-cases/drift-checker.ts` — checkMaxTopLevelFiles()
+- `cli/src/main/ts/application/use-cases/check-system.ts` — Sprawl in DELTA_GLOBAL_CHECKS
+- `cli/src/main/ts/application/commands/govern-command.ts` — compactEscalations()
+- `cli/src/test/ts/drift-checker.test.ts` — 6 new Sprawl tests
+- `docs/agents/THINK.md` — TENSION-template.md → TEMPLATE.md
+- `docs/tasks/TASK-1030.md` — new file (archive partitioning)
+- Deleted: docs/index.html.bak, .arch/.think-prompt-*.md (×3), docs/tensions/TENSION-template.md
