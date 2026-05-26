@@ -4093,7 +4093,7 @@
       "title": "Govern/Reflect Structural Separation"
     }
   },
-  "builtAt": "2026-05-26T13:18:36.725Z",
+  "builtAt": "2026-05-26T13:20:42.560Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -10057,14 +10057,15 @@
       }
     },
     "TASK-1040": {
-      "commitCount": 1,
+      "commitCount": 2,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-26T15:18:31+02:00",
+      "lastCommitDate": "2026-05-26T15:20:39+02:00",
       "recentCommitRefs": [
+        "5567fce2",
         "81ccf347"
       ],
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 1,
+        ".arch/focus-ledger.jsonl": 2,
         "docs/tasks/TASK-1040.md": 1
       }
     },
@@ -10822,7 +10823,7 @@
       }
     },
     "TASK-966": {
-      "commitCount": 11,
+      "commitCount": 10,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-23T18:12:06+00:00",
       "recentCommitRefs": [
@@ -10831,7 +10832,6 @@
         "80a0d2f5",
         "98bc98ff",
         "a6297ed0",
-        "ab3b8915",
         "ad98a28e",
         "b947acb1",
         "bb9c5c03",
@@ -10840,7 +10840,7 @@
       ],
       "touchedFrequency": {
         ".arch/corpus-index.json": 1,
-        ".arch/focus-ledger.jsonl": 9,
+        ".arch/focus-ledger.jsonl": 8,
         ".arch/reflect-breach-log.jsonl": 1,
         ".arch/status-projection.json": 1,
         "README.md": 1,
@@ -10942,31 +10942,22 @@
       }
     },
     "TASK-982": {
-      "commitCount": 3,
+      "commitCount": 2,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-21T17:12:24+02:00",
       "recentCommitRefs": [
-        "175c75e3",
         "1d583448",
         "1d9d82dd"
       ],
       "touchedFrequency": {
-        ".arch/causal-signal.jsonl": 1,
-        ".arch/chronicle.jsonl": 1,
         ".arch/corpus-index.json": 1,
-        ".arch/reflect-breach-log.jsonl": 2,
-        ".arch/temporal-index.jsonl": 1,
+        ".arch/reflect-breach-log.jsonl": 1,
         "AGENTS.md": 1,
         "CHANGELOG.md": 1,
         "GEMINI.md": 1,
         "arch.config.json": 1,
-        "cli/.arch/deployment-map-v1.1.json": 1,
-        "cli/.arch/deployment-map.json": 1,
-        "cli/.arch/status-projection.json": 1,
         "cli/package.json": 1,
         "docs/AGENTS.md": 1,
-        "docs/EVENTS.md": 1,
-        "docs/METRICS.md": 1,
         "docs/ONBOARDING.html": 1,
         "docs/agents/DO.md": 1,
         "docs/agents/THINK.md": 1,
