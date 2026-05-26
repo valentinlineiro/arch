@@ -4093,7 +4093,7 @@
       "title": "Govern/Reflect Structural Separation"
     }
   },
-  "builtAt": "2026-05-26T12:20:02.554Z",
+  "builtAt": "2026-05-26T12:30:56.816Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -7705,7 +7705,9 @@
         "getPublicSubCommands",
         "getPublicTopLevel",
         "getSubCommands",
-        "getTopLevelCommands"
+        "getTopLevelCommands",
+        "resolveRoute",
+        "RouteResult"
       ],
       "tags": [
         "command",
@@ -7717,6 +7719,9 @@
         "namespace",
         "public",
         "registry",
+        "resolve",
+        "result",
+        "route",
         "services",
         "visibility"
       ]
@@ -9897,6 +9902,37 @@
         "docs/tasks/TASK-1032.md": 2
       }
     },
+    "TASK-1033": {
+      "commitCount": 4,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-05-26T14:30:51+02:00",
+      "recentCommitRefs": [
+        "0fb0fdb5",
+        "214a89b3",
+        "42f36683",
+        "88352930"
+      ],
+      "touchedFrequency": {
+        "cli/src/main/ts/application/command-dispatcher.ts": 1,
+        "cli/src/main/ts/domain/services/command-registry.ts": 1,
+        "docs/INBOX.md": 1,
+        "docs/archive/TASK-1033.md": 1,
+        "docs/tasks/TASK-1033.md": 3
+      }
+    },
+    "TASK-1035": {
+      "commitCount": 1,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-05-26T14:30:52+02:00",
+      "recentCommitRefs": [
+        "8abd6b70"
+      ],
+      "touchedFrequency": {
+        ".arch/focus-ledger.jsonl": 1,
+        "docs/tasks/TASK-1032.md": 1,
+        "docs/tasks/TASK-1035.md": 1
+      }
+    },
     "TASK-1038": {
       "commitCount": 1,
       "commitRefOverflow": false,
@@ -10716,16 +10752,14 @@
       }
     },
     "TASK-966": {
-      "commitCount": 18,
+      "commitCount": 15,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-23T18:12:06+00:00",
       "recentCommitRefs": [
         "109a798f",
         "1d07330a",
-        "639675cc",
         "7133fd1c",
         "80a0d2f5",
-        "964b5a8c",
         "98bc98ff",
         "a6297ed0",
         "ab3b8915",
@@ -10734,14 +10768,13 @@
         "bb9c5c03",
         "beff09af",
         "c5ebb340",
-        "d239124b",
         "d5c5b74d",
         "da4586f1",
         "f5b37a66"
       ],
       "touchedFrequency": {
         ".arch/corpus-index.json": 1,
-        ".arch/focus-ledger.jsonl": 16,
+        ".arch/focus-ledger.jsonl": 13,
         ".arch/reflect-breach-log.jsonl": 1,
         ".arch/status-projection.json": 1,
         "README.md": 1,
@@ -10822,32 +10855,25 @@
       }
     },
     "TASK-971": {
-      "commitCount": 2,
+      "commitCount": 1,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-21T10:38:27+02:00",
       "recentCommitRefs": [
-        "3cda82da",
-        "6a7574fb"
+        "3cda82da"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
         ".arch/chronicle.jsonl": 1,
-        ".arch/reflect-breach-log.jsonl": 2,
-        ".arch/status-projection.json": 2,
+        ".arch/reflect-breach-log.jsonl": 1,
+        ".arch/status-projection.json": 1,
         ".arch/temporal-index.jsonl": 1,
-        "README.md": 2,
+        "README.md": 1,
         "cli/.arch/status-projection.json": 1,
-        "cli/src/main/ts/application/commands/status-command.ts": 1,
-        "cli/src/main/ts/application/use-cases/govern-system.ts": 1,
-        "cli/src/main/ts/domain/services/status-report-service.ts": 1,
-        "cli/src/main/ts/index.ts": 1,
         "cli/src/main/ts/infrastructure/filesystem/markdown-task-repository.ts": 1,
         "docs/EVENTS.md": 1,
-        "docs/ROADMAP.md": 2,
-        "docs/adr/ADR-023-deterministic-gate-invariant.md": 1,
+        "docs/ROADMAP.md": 1,
         "docs/archive/TASK-971.md": 1,
-        "docs/tasks/TASK-971.md": 2,
-        "docs/tasks/TASK-978.md": 1
+        "docs/tasks/TASK-971.md": 1
       }
     },
     "TASK-975": {
