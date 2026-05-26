@@ -15,50 +15,46 @@ import { parseCommand } from './infrastructure/cli/command-parser.js';
 import { CommandDispatcher } from './application/command-dispatcher.js';
 import { ConfigLoader } from './domain/services/config-loader.js';
 
-async function main() {
-  const fileSystem = new NodeFileSystem();
-  const config = await ConfigLoader.load(fileSystem);
-  const taskRepository = new MarkdownTaskRepository(fileSystem);
-  const gitRepository = new GitCli();
-  const eventRepository = new ChronicleEventRepository(fileSystem);
-  const eventLogger = new EventLogger(fileSystem, gitRepository, config.paths?.events ?? 'docs/EVENTS.md');
-  const reviewer = new Reviewer();
-  const sandboxService = new SandboxService();
-  const rootPath = path.resolve('.');
-  const require = createRequire(import.meta.url);
-  const { version: cliVersion } = require('../package.json') as { version: string };
-  const driftChecker = new DriftChecker(fileSystem, gitRepository, rootPath, cliVersion);
-  const humanCoordinationService = new HumanCoordinationService(taskRepository, gitRepository);
-  const causalSignalLog = new CausalSignalLog(fileSystem, rootPath);
-  const temporalIndex = new TemporalIndex(fileSystem, rootPath);
-
-  const dispatcher = new CommandDispatcher(
-    fileSystem,
-    taskRepository,
-    gitRepository,
-    eventRepository,
-    eventLogger,
-    reviewer,
-    sandboxService,
-    rootPath,
-    cliVersion,
-    driftChecker,
-    humanCoordinationService,
-    causalSignalLog,
-    temporalIndex
-  );
-
-  const { name, args } = parseCommand(process.argv.slice(2));
-
+async function main(): Promise<number> {
   try {
-    await dispatcher.dispatch(name, args);
+    const fileSystem = new NodeFileSystem();
+    const config = await ConfigLoader.load(fileSystem);
+    const taskRepository = new MarkdownTaskRepository(fileSystem);
+    const gitRepository = new GitCli();
+    const eventRepository = new ChronicleEventRepository(fileSystem);
+    const eventLogger = new EventLogger(fileSystem, gitRepository, config.paths?.events ?? 'docs/EVENTS.md');
+    const reviewer = new Reviewer();
+    const sandboxService = new SandboxService();
+    const rootPath = path.resolve('.');
+    const require = createRequire(import.meta.url);
+    const { version: cliVersion } = require('../package.json') as { version: string };
+    const driftChecker = new DriftChecker(fileSystem, gitRepository, rootPath, cliVersion);
+    const humanCoordinationService = new HumanCoordinationService(taskRepository, gitRepository);
+    const causalSignalLog = new CausalSignalLog(fileSystem, rootPath);
+    const temporalIndex = new TemporalIndex(fileSystem, rootPath);
+
+    const dispatcher = new CommandDispatcher(
+      fileSystem,
+      taskRepository,
+      gitRepository,
+      eventRepository,
+      eventLogger,
+      reviewer,
+      sandboxService,
+      rootPath,
+      cliVersion,
+      driftChecker,
+      humanCoordinationService,
+      causalSignalLog,
+      temporalIndex
+    );
+
+    const { name, args } = parseCommand(process.argv.slice(2));
+    return await dispatcher.dispatch(name, args);
   } catch (err: any) {
-    console.error(`Error: ${err.message}`);
-    process.exit(1);
+    console.error(`Error: ${err.message ?? err}`);
+    return 1;
   }
 }
 
-main().catch(err => {
-  console.error(err);
-  process.exit(1);
-});
+process.exit(await main());
