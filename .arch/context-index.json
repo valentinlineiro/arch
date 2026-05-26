@@ -304,7 +304,7 @@
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-1018.md"
+          "taskPath": "docs/archive/TASK-1018.md"
         },
         "TASK-1022": {
           "evidenceKinds": [
@@ -366,7 +366,7 @@
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-1018.md"
+          "taskPath": "docs/archive/TASK-1018.md"
         },
         "TASK-1050": {
           "evidenceKinds": [
@@ -1054,7 +1054,7 @@
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-1018.md"
+          "taskPath": "docs/archive/TASK-1018.md"
         },
         "TASK-1021": {
           "evidenceKinds": [
@@ -1096,7 +1096,7 @@
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-1018.md"
+          "taskPath": "docs/archive/TASK-1018.md"
         }
       }
     },
@@ -3621,7 +3621,6 @@
         "bootstrap",
         "causal",
         "centric",
-        "check",
         "cli",
         "command",
         "commanddispatcher",
@@ -3665,7 +3664,7 @@
         "over",
         "philosophical",
         "point",
-        "protoc",
+        "proto",
         "pruning",
         "reduce",
         "reflect",
@@ -4093,7 +4092,7 @@
       "title": "Govern/Reflect Structural Separation"
     }
   },
-  "builtAt": "2026-05-26T14:00:37.405Z",
+  "builtAt": "2026-05-26T14:13:50.184Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -4434,7 +4433,6 @@
         "backlog",
         "bug",
         "bugs",
-        "check",
         "created",
         "defined",
         "detection",
@@ -4448,6 +4446,7 @@
         "protocol",
         "registration",
         "resolved",
+        "review",
         "sprint",
         "task",
         "throughout",
@@ -4461,7 +4460,7 @@
       "severityHint": "medium",
       "sourceRef": "docs/KAIZEN-LOG.md",
       "sourceType": "kaizen",
-      "title": "Bugs without formal registration*(Sprint 3)*: `arch check` WARNs had no defined path to the backlog. TASK-041/042/043 were created manually after detection. The bug protocol (TASK-040) resolved this, but friction persisted throughout Sprint 2 and part of Sprint 3."
+      "title": "Bugs without formal registration*(Sprint 3)*: `arch review` WARNs had no defined path to the backlog. TASK-041/042/043 were created manually after detection. The bug protocol (TASK-040) resolved this, but friction persisted throughout Sprint 2 and part of Sprint 3."
     },
     "KAIZEN-PROTOCOL-4": {
       "id": "KAIZEN-PROTOCOL-4",
@@ -4545,7 +4544,6 @@
         "arch",
         "archive",
         "chain",
-        "check",
         "cleanup",
         "created",
         "done",
@@ -4580,7 +4578,7 @@
       "severityHint": "medium",
       "sourceRef": "docs/KAIZEN-LOG.md",
       "sourceType": "kaizen",
-      "title": "Recursive review violation tasks*(Sprint 4)*: TASK-112, 113, and 114 show a pattern where a task is created to fix a review violation, but then marked DONE with its own violations (e.g. pending ACs), leading to a chain of cleanup tasks. **Proposal:** Implement pre-archive guards (TASK-115) and enforce AC validation during `arch check`."
+      "title": "Recursive review violation tasks*(Sprint 4)*: TASK-112, 113, and 114 show a pattern where a task is created to fix a review violation, but then marked DONE with its own violations (e.g. pending ACs), leading to a chain of cleanup tasks. **Proposal:** Implement pre-archive guards (TASK-115) and enforce AC validation during `arch review`."
     },
     "KAIZEN-PROTOCOL-7": {
       "id": "KAIZEN-PROTOCOL-7",
@@ -4588,7 +4586,6 @@
         "arch",
         "block",
         "bug",
-        "check",
         "checking",
         "cli",
         "commits",
@@ -4612,6 +4609,7 @@
         "protocol",
         "pull",
         "resolved",
+        "review",
         "sprint",
         "src",
         "stealth",
@@ -4622,7 +4620,7 @@
       "severityHint": "medium",
       "sourceRef": "docs/KAIZEN-LOG.md",
       "sourceType": "kaizen",
-      "title": "Stealth Merge Commits*(Sprint 6)*: Implicit merges from `git pull` violated the \"No-Merge\" policy. `arch check` initially failed to block them effectively due to a bug in `MergeCommitCheck` (it found the last 20 merges instead of checking the last 20 commits). **Resolved:** Fixed `MergeCommitCheck` in `cli/src/main/ts/infrastructure/cli/git-cli.ts` and hardened protocol."
+      "title": "Stealth Merge Commits*(Sprint 6)*: Implicit merges from `git pull` violated the \"No-Merge\" policy. `arch review` initially failed to block them effectively due to a bug in `MergeCommitCheck` (it found the last 20 merges instead of checking the last 20 commits). **Resolved:** Fixed `MergeCommitCheck` in `cli/src/main/ts/infrastructure/cli/git-cli.ts` and hardened protocol."
     },
     "KAIZEN-PROTOCOL-8": {
       "id": "KAIZEN-PROTOCOL-8",
@@ -4755,7 +4753,6 @@
         "arrived",
         "before",
         "block",
-        "check",
         "detected",
         "detection",
         "did",
@@ -4765,6 +4762,7 @@
         "late",
         "next",
         "resolved",
+        "review",
         "reviewer",
         "session",
         "sprint",
@@ -4780,7 +4778,7 @@
       "severityHint": "medium",
       "sourceRef": "docs/KAIZEN-LOG.md",
       "sourceType": "kaizen",
-      "title": "`arch check` does not validate ACs before archiving*(Sprint 3)*: TASK-031 was archived as DONE but with unchecked ACs. The reviewer detected the inconsistency but did not block archival at the time. Detection arrived late (next session). *(Resolved by TASK-078)*"
+      "title": "`arch review` does not validate ACs before archiving*(Sprint 3)*: TASK-031 was archived as DONE but with unchecked ACs. The reviewer detected the inconsistency but did not block archival at the time. Detection arrived late (next session). *(Resolved by TASK-078)*"
     },
     "KAIZEN-TOOL-3": {
       "id": "KAIZEN-TOOL-3",
@@ -4790,7 +4788,6 @@
         "batch",
         "case",
         "caused",
-        "check",
         "commit",
         "commits",
         "edge",
@@ -4801,6 +4798,7 @@
         "per",
         "planning",
         "report",
+        "review",
         "single",
         "sprint",
         "task",
@@ -4813,7 +4811,7 @@
       "severityHint": "medium",
       "sourceRef": "docs/KAIZEN-LOG.md",
       "sourceType": "kaizen",
-      "title": "Batch lock commit fails TASK-ID validator*(Sprint 3)*: Locking 4 tasks in a `[SPRINT]` commit caused `arch check` to report a format violation. The validator assumes a single TASK-ID per commit — batch planning commits are an uncovered edge case."
+      "title": "Batch lock commit fails TASK-ID validator*(Sprint 3)*: Locking 4 tasks in a `[SPRINT]` commit caused `arch review` to report a format violation. The validator assumes a single TASK-ID per commit — batch planning commits are an uncovered edge case."
     },
     "KAIZEN-TOOL-4": {
       "id": "KAIZEN-TOOL-4",
@@ -9624,14 +9622,55 @@
       }
     },
     "TASK-1018": {
-      "commitCount": 1,
+      "commitCount": 2,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-25T18:52:35+02:00",
+      "lastCommitDate": "2026-05-26T16:07:37+02:00",
       "recentCommitRefs": [
+        "a83f4c1c",
         "cde1c98c"
       ],
       "touchedFrequency": {
-        "docs/tasks/TASK-1018.md": 1
+        "AGENTS.md": 1,
+        "GEMINI.md": 1,
+        "README.md": 1,
+        "cli/src/main/ts/application/commands/init-command.ts": 1,
+        "cli/src/main/ts/application/commands/project-command.ts": 1,
+        "cli/src/main/ts/application/commands/resume-command.ts": 1,
+        "cli/src/main/ts/application/use-cases/create-task.ts": 1,
+        "cli/src/main/ts/application/use-cases/promote-idea.ts": 1,
+        "cli/src/main/ts/domain/services/deterministic-ac-verifier.ts": 1,
+        "cli/src/main/ts/domain/services/promotion-proposal-generator.ts": 1,
+        "cli/src/test/ts/init-command.test.ts": 1,
+        "docs/ARCH-CORE.md": 1,
+        "docs/GOVERNANCE.md": 1,
+        "docs/HALT.md": 1,
+        "docs/KAIZEN-LOG.md": 1,
+        "docs/PRINCIPLES.md": 1,
+        "docs/PROTOCOL-UPGRADES.md": 1,
+        "docs/ROADMAP.md": 1,
+        "docs/TASK-FORMAT.md": 1,
+        "docs/adr/ADR-029-cli-refactoring.md": 1,
+        "docs/adr/ADR-033-protocol-upgrade-policy.md": 1,
+        "docs/agents/DO.md": 1,
+        "docs/agents/THINK.md": 1,
+        "docs/archive/TASK-1032.md": 1,
+        "docs/guidelines/bugs.md": 1,
+        "docs/guidelines/core.md": 1,
+        "docs/guidelines/testing-a-change.md": 1,
+        "docs/guidelines/versioning.md": 1,
+        "docs/tasks/TASK-1016.md": 1,
+        "docs/tasks/TASK-1017.md": 1,
+        "docs/tasks/TASK-1018.md": 2,
+        "docs/tasks/TASK-1019.md": 1,
+        "docs/tasks/TASK-1020.md": 1,
+        "docs/tasks/TASK-1021.md": 1,
+        "docs/tasks/TASK-1022.md": 1,
+        "docs/tasks/TASK-1023.md": 1,
+        "docs/tasks/TASK-1024.md": 1,
+        "docs/tasks/TASK-1036.md": 1,
+        "docs/tasks/TASK-1041.md": 1,
+        "docs/tasks/TASK-1048.md": 1,
+        "docs/tasks/TASK-1050.md": 1
       }
     },
     "TASK-1019": {
@@ -10060,15 +10099,17 @@
       }
     },
     "TASK-1040": {
-      "commitCount": 5,
+      "commitCount": 7,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-26T16:00:30+02:00",
+      "lastCommitDate": "2026-05-26T16:01:09+02:00",
       "recentCommitRefs": [
         "5567fce2",
         "564f8b42",
         "81ccf347",
         "a8f3a700",
-        "e0913dc5"
+        "db5e076c",
+        "e0913dc5",
+        "eeb393d3"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
@@ -10076,20 +10117,29 @@
         ".arch/focus-ledger.jsonl": 3,
         "cli/package-lock.json": 1,
         "cli/package.json": 1,
+        "cli/src/main/ts/application/commands/init-command.ts": 1,
+        "cli/src/main/ts/application/commands/project-command.ts": 1,
+        "cli/src/main/ts/application/use-cases/promote-idea.ts": 1,
+        "cli/src/main/ts/domain/services/deterministic-ac-verifier.ts": 1,
+        "cli/src/test/ts/init-command.test.ts": 1,
+        "cli/src/test/ts/sandbox.test.ts": 1,
         "docs/EVENTS.md": 1,
+        "docs/INBOX.md": 1,
         "docs/archive/TASK-1040.md": 1,
         "docs/tasks/TASK-1040.md": 2
       }
     },
     "TASK-1041": {
-      "commitCount": 1,
+      "commitCount": 2,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-26T16:00:33+02:00",
+      "lastCommitDate": "2026-05-26T16:13:47+02:00",
       "recentCommitRefs": [
+        "06a0fc6e",
         "668860f0"
       ],
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 1,
+        ".arch/focus-ledger.jsonl": 2,
+        "docs/archive/TASK-1018.md": 1,
         "docs/tasks/TASK-1041.md": 1
       }
     },
@@ -10964,19 +11014,14 @@
       }
     },
     "TASK-984": {
-      "commitCount": 3,
+      "commitCount": 1,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-22T12:59:23+02:00",
       "recentCommitRefs": [
-        "4ab2af5e",
-        "597d61d0",
-        "72ce3bb8"
+        "597d61d0"
       ],
       "touchedFrequency": {
-        "cli/src/main/ts/application/commands/audit-command.ts": 1,
-        "cli/src/main/ts/domain/services/python-adapter.ts": 1,
-        "docs/archive/TASK-984.md": 1,
-        "docs/tasks/TASK-984.md": 2
+        "docs/archive/TASK-984.md": 1
       }
     },
     "TASK-985": {
