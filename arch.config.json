@@ -119,7 +119,7 @@
     "corpusAuditThresholdHalt": 60
   },
   "reflect": {
-    "deepCadenceN": 5,
+    "deepCadenceN": 50,
     "thresholds": {
       "minEngagementRate": 0.5,
       "maxUnobservedWithProposalRate": 0.3,
