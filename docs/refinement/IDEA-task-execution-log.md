@@ -23,8 +23,25 @@ None hard. Optionally benefits from IDEA-friction-measurement-instrumentation (s
 ## Estimated size
 S — new convention + DO.md instruction update + optional `arch` CLI hook to read/write the log. No parser changes required if log is JSONL in a known path.
 
+**Sessions:** 1
+
 ## Gaps
 <!-- THINK fills this section when invoked — do not edit manually -->
+
+**Constraint evaluation (THINK, 2026-05-26):**
+- Dependency ordering: PASS — no hard dependencies; optional benefit from friction measurement can be added later
+- Temporal validity: PASS — problem exists now; solution does not require future data
+- Abstraction layer: PASS — convention change for DO mode, not a new system layer
+- Observability validity: PASS — execution events are observable in the moment; schema is minimal and verifiable
+- Priority displacement: PASS — P2/S correctly sized; improves Hansei quality without displacing higher-priority work
+
+**Admissibility:** Structurally admissible on all 5 axes.
+
+**Open gaps for promotion:**
+1. Schema completeness: required vs optional fields in the event schema need specification before implementation
+2. Lifecycle hook: which point in DO mode triggers the append? After each arch review failure? After scope deviation decisions?
+3. File ownership: per-task `.arch/task-logs/TASK-XXXX.jsonl` vs shared single file — affects cleanup protocol at task close
+4. README convention: DO.md needs a new section describing the logging convention before agents can adopt it
 
 ## Decision
 <!-- REJECT: <one-line rationale>                    — no THINK evaluation required. Write it now. -->

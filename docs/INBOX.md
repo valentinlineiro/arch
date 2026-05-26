@@ -117,4 +117,3 @@ _Generated: 2026-05-26T12:30Z by [THINK] DEFAULT session_
 **ACs:** gouvern tick hygiene pass, dedup, 14-day expiry, --clean-inbox force, 15 tests
 
 ## 2026-05-26 08:39:30 — Pattern Alerts
-[PATTERN-ALERT] [SpecDrift] detected 8 times — systemic issue. See docs/tensions/
