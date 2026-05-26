@@ -4093,7 +4093,7 @@
       "title": "Govern/Reflect Structural Separation"
     }
   },
-  "builtAt": "2026-05-26T13:11:34.702Z",
+  "builtAt": "2026-05-26T13:18:36.725Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -4949,8 +4949,7 @@
       ],
       "runtimeUsage": "hot",
       "symbols": [
-        "AskCommand",
-        "AskIO"
+        "AskCommand"
       ],
       "tags": [
         "application",
@@ -5659,12 +5658,10 @@
       ],
       "runtimeUsage": "hot",
       "symbols": [
-        "CausalIO",
         "TraceCommand"
       ],
       "tags": [
         "application",
-        "causal",
         "command",
         "commands",
         "trace"
@@ -7031,11 +7028,15 @@
       "imports": [],
       "runtimeUsage": "hot",
       "symbols": [
-        "Command"
+        "Command",
+        "CommandExit",
+        "IO",
+        "ioExit"
       ],
       "tags": [
         "command",
         "domain",
+        "exit",
         "models"
       ]
     },
@@ -9888,11 +9889,13 @@
       }
     },
     "TASK-1032": {
-      "commitCount": 5,
+      "commitCount": 7,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-26T15:11:29+02:00",
+      "lastCommitDate": "2026-05-26T15:18:29+02:00",
       "recentCommitRefs": [
         "01cafeea",
+        "280eef1f",
+        "4f7c3ccb",
         "514689c3",
         "931d7d99",
         "b280d4fa",
@@ -9900,7 +9903,55 @@
       ],
       "touchedFrequency": {
         ".arch/focus-ledger.jsonl": 5,
-        "docs/tasks/TASK-1032.md": 3
+        ".arch/sprint-state.json": 1,
+        "arch.config.json": 1,
+        "cli/src/main/ts/application/command-dispatcher.ts": 1,
+        "cli/src/main/ts/application/commands/analyze-command.ts": 1,
+        "cli/src/main/ts/application/commands/ask-command.ts": 1,
+        "cli/src/main/ts/application/commands/audit-command.ts": 1,
+        "cli/src/main/ts/application/commands/batch-command.ts": 1,
+        "cli/src/main/ts/application/commands/capture-command.ts": 1,
+        "cli/src/main/ts/application/commands/check-command.ts": 1,
+        "cli/src/main/ts/application/commands/compile-command.ts": 1,
+        "cli/src/main/ts/application/commands/conduct-command.ts": 1,
+        "cli/src/main/ts/application/commands/corpus-audit-command.ts": 1,
+        "cli/src/main/ts/application/commands/deps-command.ts": 1,
+        "cli/src/main/ts/application/commands/exec-command.ts": 1,
+        "cli/src/main/ts/application/commands/explain-command.ts": 1,
+        "cli/src/main/ts/application/commands/govern-command.ts": 1,
+        "cli/src/main/ts/application/commands/inbox-command.ts": 1,
+        "cli/src/main/ts/application/commands/index-command.ts": 1,
+        "cli/src/main/ts/application/commands/init-command.ts": 1,
+        "cli/src/main/ts/application/commands/lint-command.ts": 1,
+        "cli/src/main/ts/application/commands/loop-command.ts": 1,
+        "cli/src/main/ts/application/commands/merge-resolve-command.ts": 1,
+        "cli/src/main/ts/application/commands/move-command.ts": 1,
+        "cli/src/main/ts/application/commands/next-command.ts": 1,
+        "cli/src/main/ts/application/commands/project-command.ts": 1,
+        "cli/src/main/ts/application/commands/promote-command.ts": 1,
+        "cli/src/main/ts/application/commands/rank-command.ts": 1,
+        "cli/src/main/ts/application/commands/report-command.ts": 1,
+        "cli/src/main/ts/application/commands/reprioritize-command.ts": 1,
+        "cli/src/main/ts/application/commands/resume-command.ts": 1,
+        "cli/src/main/ts/application/commands/review-command.ts": 1,
+        "cli/src/main/ts/application/commands/sandbox-command.ts": 1,
+        "cli/src/main/ts/application/commands/sentinel-command.ts": 1,
+        "cli/src/main/ts/application/commands/serve-command.ts": 1,
+        "cli/src/main/ts/application/commands/status-command.ts": 1,
+        "cli/src/main/ts/application/commands/task-command.ts": 1,
+        "cli/src/main/ts/application/commands/trace-command.ts": 1,
+        "cli/src/main/ts/application/commands/validate-command.ts": 1,
+        "cli/src/main/ts/application/commands/verify-acs-command.ts": 1,
+        "cli/src/main/ts/application/commands/version-command.ts": 1,
+        "cli/src/main/ts/application/use-cases/govern-system.ts": 1,
+        "cli/src/main/ts/domain/models/command.ts": 1,
+        "cli/src/test/ts/compile-command.test.ts": 1,
+        "cli/src/test/ts/govern-command.test.ts": 1,
+        "cli/src/test/ts/task-command.test.ts": 1,
+        "docs/INBOX.md": 2,
+        "docs/RETRO.md": 1,
+        "docs/archive/TASK-1035.md": 1,
+        "docs/tasks/TASK-1032.md": 4
       }
     },
     "TASK-1033": {
@@ -10003,6 +10054,18 @@
         "docs/tasks/TASK-1047.md": 1,
         "docs/tasks/TASK-1049.md": 1,
         "docs/tasks/TASK-242.md": 1
+      }
+    },
+    "TASK-1040": {
+      "commitCount": 1,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-05-26T15:18:31+02:00",
+      "recentCommitRefs": [
+        "81ccf347"
+      ],
+      "touchedFrequency": {
+        ".arch/focus-ledger.jsonl": 1,
+        "docs/tasks/TASK-1040.md": 1
       }
     },
     "TASK-1047": {
@@ -10759,7 +10822,7 @@
       }
     },
     "TASK-966": {
-      "commitCount": 12,
+      "commitCount": 11,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-23T18:12:06+00:00",
       "recentCommitRefs": [
@@ -10773,12 +10836,11 @@
         "b947acb1",
         "bb9c5c03",
         "beff09af",
-        "da4586f1",
         "f5b37a66"
       ],
       "touchedFrequency": {
         ".arch/corpus-index.json": 1,
-        ".arch/focus-ledger.jsonl": 10,
+        ".arch/focus-ledger.jsonl": 9,
         ".arch/reflect-breach-log.jsonl": 1,
         ".arch/status-projection.json": 1,
         "README.md": 1,
@@ -10880,15 +10942,13 @@
       }
     },
     "TASK-982": {
-      "commitCount": 5,
+      "commitCount": 3,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-21T17:12:24+02:00",
       "recentCommitRefs": [
         "175c75e3",
         "1d583448",
-        "1d82c293",
-        "1d9d82dd",
-        "9d37d345"
+        "1d9d82dd"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
@@ -10904,22 +10964,13 @@
         "cli/.arch/deployment-map.json": 1,
         "cli/.arch/status-projection.json": 1,
         "cli/package.json": 1,
-        "cli/src/main/ts/application/commands/audit-command.ts": 1,
-        "cli/src/main/ts/domain/models/ueg-ir.ts": 1,
-        "cli/src/main/ts/domain/services/java-adapter.ts": 1,
-        "cli/src/main/ts/domain/services/typescript-adapter.ts": 1,
-        "cli/src/main/ts/domain/services/ueg-analysis-layer.ts": 1,
-        "cli/src/main/ts/domain/services/ueg-interfaces.ts": 1,
-        "cli/src/main/ts/domain/services/ueg-ir-builder.ts": 1,
         "docs/AGENTS.md": 1,
         "docs/EVENTS.md": 1,
         "docs/METRICS.md": 1,
         "docs/ONBOARDING.html": 1,
         "docs/agents/DO.md": 1,
         "docs/agents/THINK.md": 1,
-        "docs/archive/TASK-982.md": 1,
-        "docs/index.html": 1,
-        "docs/tasks/TASK-982.md": 1
+        "docs/index.html": 1
       }
     },
     "TASK-983": {
