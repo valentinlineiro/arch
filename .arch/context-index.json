@@ -478,7 +478,7 @@
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-1049.md"
+          "taskPath": "docs/archive/TASK-1049.md"
         },
         "TASK-967": {
           "evidenceKinds": [
@@ -665,7 +665,7 @@
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-1049.md"
+          "taskPath": "docs/archive/TASK-1049.md"
         },
         "TASK-202": {
           "evidenceKinds": [
@@ -938,7 +938,7 @@
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-1049.md"
+          "taskPath": "docs/archive/TASK-1049.md"
         },
         "TASK-949": {
           "evidenceKinds": [
@@ -4093,7 +4093,7 @@
       "title": "Govern/Reflect Structural Separation"
     }
   },
-  "builtAt": "2026-05-26T10:26:50.593Z",
+  "builtAt": "2026-05-26T10:49:40.621Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -6095,9 +6095,9 @@
     "cli/src/main/ts/application/use-cases/drift-checker.ts": {
       "criticality": "domain",
       "imports": [
-        "cli/src/main/ts/application/repositories/file-system.ts",
-        "cli/src/main/ts/application/repositories/git-repository.ts",
         "cli/src/main/ts/domain/models/task.ts",
+        "cli/src/main/ts/domain/repositories/file-system.ts",
+        "cli/src/main/ts/domain/repositories/git-repository.ts",
         "cli/src/main/ts/domain/services/hansei-auditor.ts",
         "cli/src/main/ts/domain/services/path-resolver.ts"
       ],
@@ -7165,7 +7165,7 @@
     "cli/src/main/ts/domain/models/event.ts": {
       "criticality": "core",
       "imports": [],
-      "runtimeUsage": "warm",
+      "runtimeUsage": "hot",
       "symbols": [
         "ArchEvent",
         "EventRepository"
@@ -7818,7 +7818,8 @@
     "cli/src/main/ts/domain/services/deterministic-hansei-checker.ts": {
       "criticality": "core",
       "imports": [
-        "cli/src/main/ts/domain/models/task.ts"
+        "cli/src/main/ts/domain/models/task.ts",
+        "cli/src/main/ts/domain/services/path-resolver.ts"
       ],
       "runtimeUsage": "warm",
       "symbols": [
@@ -7841,7 +7842,7 @@
     "cli/src/main/ts/domain/services/epistemic-integrity-service.ts": {
       "criticality": "core",
       "imports": [
-        "cli/src/main/ts/domain/models/epistemic-report.ts.ts",
+        "cli/src/main/ts/domain/models/epistemic-report.ts",
         "cli/src/main/ts/domain/models/evidence.ts"
       ],
       "runtimeUsage": "cold",
@@ -8758,9 +8759,9 @@
     "cli/src/main/ts/infrastructure/filesystem/chronicle-event-repository.ts": {
       "criticality": "support",
       "imports": [
-        "cli/src/main/ts/domain/services/path-resolver.ts",
-        "cli/src/main/ts/infrastructure/models/event.ts",
-        "cli/src/main/ts/infrastructure/repositories/file-system.ts"
+        "cli/src/main/ts/domain/models/event.ts",
+        "cli/src/main/ts/domain/repositories/file-system.ts",
+        "cli/src/main/ts/domain/services/path-resolver.ts"
       ],
       "runtimeUsage": "hot",
       "symbols": [
@@ -8851,8 +8852,8 @@
     "cli/src/main/ts/infrastructure/git/adr-decision-parser.ts": {
       "criticality": "support",
       "imports": [
-        "cli/src/main/ts/domain/services/path-resolver.ts",
-        "cli/src/main/ts/infrastructure/models/decision.ts"
+        "cli/src/main/ts/domain/models/decision.ts",
+        "cli/src/main/ts/domain/services/path-resolver.ts"
       ],
       "runtimeUsage": "cold",
       "symbols": [
@@ -8867,7 +8868,7 @@
     "cli/src/main/ts/infrastructure/git/git-evidence-collector.ts": {
       "criticality": "support",
       "imports": [
-        "cli/src/main/ts/infrastructure/models/evidence.ts"
+        "cli/src/main/ts/domain/models/evidence.ts"
       ],
       "runtimeUsage": "cold",
       "symbols": [
@@ -9913,15 +9914,16 @@
       }
     },
     "TASK-1039": {
-      "commitCount": 2,
+      "commitCount": 3,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-26T12:26:45+02:00",
+      "lastCommitDate": "2026-05-26T12:49:36+02:00",
       "recentCommitRefs": [
+        "15f97787",
         "2b3f9897",
         "bd44b64d"
       ],
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 1,
+        ".arch/focus-ledger.jsonl": 2,
         "docs/tasks/TASK-1016.md": 1,
         "docs/tasks/TASK-1017.md": 1,
         "docs/tasks/TASK-1018.md": 1,
@@ -9982,10 +9984,13 @@
       }
     },
     "TASK-1049": {
-      "commitCount": 4,
+      "commitCount": 7,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-26T12:13:59+02:00",
+      "lastCommitDate": "2026-05-26T12:49:36+02:00",
       "recentCommitRefs": [
+        "341b65cd",
+        "3bc3b7bb",
+        "93b2a69b",
         "a1e36e66",
         "cfae44b7",
         "d419076e",
@@ -9994,16 +9999,61 @@
       "touchedFrequency": {
         ".arch/chronicle.jsonl": 1,
         ".arch/corpus-index.json": 1,
-        "cli/src/main/ts/application/use-cases/hansei-wizard.ts": 1,
+        "cli/src/main/ts/application/commands/analyze-command.ts": 1,
+        "cli/src/main/ts/application/commands/audit-command.ts": 1,
+        "cli/src/main/ts/application/commands/report-command.ts": 1,
+        "cli/src/main/ts/application/use-cases/context-inference.ts": 1,
+        "cli/src/main/ts/application/use-cases/drift-checker.ts": 2,
+        "cli/src/main/ts/application/use-cases/hansei-wizard.ts": 2,
+        "cli/src/main/ts/application/use-cases/mark-task-done.ts": 1,
+        "cli/src/main/ts/application/use-cases/mark-task-review.ts": 1,
+        "cli/src/main/ts/application/use-cases/reprioritize-corpus.ts": 1,
+        "cli/src/main/ts/application/use-cases/validate-task-acs.ts": 1,
+        "cli/src/main/ts/domain/services/archive-parser.ts": 1,
+        "cli/src/main/ts/domain/services/decision-impact-engine.ts": 1,
+        "cli/src/main/ts/domain/services/deterministic-hansei-checker.ts": 1,
+        "cli/src/main/ts/domain/services/epistemic-integrity-service.ts": 1,
+        "cli/src/main/ts/domain/services/hansei-auditor.ts": 1,
+        "cli/src/main/ts/domain/services/reviewer.ts": 1,
+        "cli/src/main/ts/domain/services/signal-router.ts": 1,
         "cli/src/main/ts/domain/services/task-validator.ts": 1,
-        "cli/src/test/ts/mark-task-done.test.ts": 1,
-        "cli/src/test/ts/mark-task-review.test.ts": 1,
+        "cli/src/main/ts/infrastructure/filesystem/chronicle-event-repository.ts": 1,
+        "cli/src/main/ts/infrastructure/filesystem/markdown-task-repository.ts": 1,
+        "cli/src/main/ts/infrastructure/git/adr-decision-parser.ts": 1,
+        "cli/src/main/ts/infrastructure/git/git-evidence-collector.ts": 1,
+        "cli/src/test/ts/archive/capture-command.test.ts": 1,
+        "cli/src/test/ts/archive/capture-intent.test.ts": 1,
+        "cli/src/test/ts/archive/finalize-promotion.test.ts": 1,
+        "cli/src/test/ts/archive/markdown-intent-repository.test.ts": 1,
+        "cli/src/test/ts/archive/scaffold-task.test.ts": 1,
+        "cli/src/test/ts/archive/think-command.test.ts": 1,
+        "cli/src/test/ts/build-index.test.ts": 1,
+        "cli/src/test/ts/compress-task.test.ts": 1,
+        "cli/src/test/ts/context-inference.test.ts": 1,
+        "cli/src/test/ts/deep-analysis-state.test.ts": 1,
+        "cli/src/test/ts/get-sprint-status.test.ts": 1,
+        "cli/src/test/ts/git-cli-integration.test.ts": 1,
+        "cli/src/test/ts/hansei-auditor.test.ts": 1,
+        "cli/src/test/ts/hansei-validation.test.ts": 1,
+        "cli/src/test/ts/loop-sprint.test.ts": 2,
+        "cli/src/test/ts/mark-task-done.test.ts": 3,
+        "cli/src/test/ts/mark-task-in-progress.test.ts": 2,
+        "cli/src/test/ts/mark-task-review.test.ts": 3,
+        "cli/src/test/ts/mocks/index.ts": 1,
+        "cli/src/test/ts/reviewer.test.ts": 1,
+        "cli/src/test/ts/select-next-task.test.ts": 2,
+        "cli/src/test/ts/serve-command.test.ts": 1,
         "cli/src/test/ts/size-tiered-closure.test.ts": 1,
         "cli/src/test/ts/task-command.test.ts": 1,
-        "docs/INBOX.md": 1,
+        "cli/src/test/ts/task-reject.test.ts": 1,
+        "cli/src/test/ts/task-validator.test.ts": 2,
+        "cli/src/test/ts/validate-system.test.ts": 2,
+        "cli/tsconfig.json": 1,
+        "docs/INBOX.md": 2,
         "docs/archive/TASK-1031.md": 1,
+        "docs/archive/TASK-1049.md": 1,
         "docs/tasks/TASK-1031.md": 1,
-        "docs/tasks/TASK-1049.md": 1,
+        "docs/tasks/TASK-1049.md": 2,
         "docs/tasks/TASK-1050.md": 1
       }
     },
@@ -10613,27 +10663,22 @@
       }
     },
     "TASK-950": {
-      "commitCount": 4,
+      "commitCount": 2,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-21T09:54:29+02:00",
       "recentCommitRefs": [
-        "20596e46",
         "8baf2ec0",
-        "8d16707e",
-        "d793c34d"
+        "8d16707e"
       ],
       "touchedFrequency": {
-        ".arch/corpus-index.json": 2,
-        ".arch/reflect-breach-log.jsonl": 2,
-        "cli/src/main/ts/application/commands/reflect-command.ts": 2,
+        ".arch/corpus-index.json": 1,
+        ".arch/reflect-breach-log.jsonl": 1,
+        "cli/src/main/ts/application/commands/reflect-command.ts": 1,
         "cli/src/main/ts/application/use-cases/mark-task-in-progress.ts": 1,
         "cli/src/test/ts/mark-task-in-progress.test.ts": 1,
         "docs/METRICS.md": 1,
-        "docs/adr/ADR-023-deterministic-gate-invariant.md": 1,
-        "docs/tasks/TASK-950.md": 3,
-        "docs/tasks/TASK-971.md": 1,
+        "docs/tasks/TASK-950.md": 1,
         "docs/tasks/TASK-978.md": 1,
-        "docs/tasks/TASK-979.md": 1,
         "docs/tasks/TASK-980.md": 1
       }
     },
@@ -10677,7 +10722,7 @@
       }
     },
     "TASK-966": {
-      "commitCount": 24,
+      "commitCount": 22,
       "commitRefOverflow": true,
       "lastCommitDate": "2026-05-23T18:12:06+00:00",
       "recentCommitRefs": [
@@ -10704,7 +10749,7 @@
       ],
       "touchedFrequency": {
         ".arch/corpus-index.json": 1,
-        ".arch/focus-ledger.jsonl": 22,
+        ".arch/focus-ledger.jsonl": 20,
         ".arch/reflect-breach-log.jsonl": 1,
         ".arch/status-projection.json": 1,
         "README.md": 1,
@@ -10785,11 +10830,10 @@
       }
     },
     "TASK-971": {
-      "commitCount": 4,
+      "commitCount": 3,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-21T10:38:27+02:00",
       "recentCommitRefs": [
-        "20596e46",
         "3cda82da",
         "6a7574fb",
         "f60b08ca"
@@ -10811,8 +10855,7 @@
         "docs/ROADMAP.md": 3,
         "docs/adr/ADR-023-deterministic-gate-invariant.md": 1,
         "docs/archive/TASK-971.md": 1,
-        "docs/tasks/TASK-950.md": 1,
-        "docs/tasks/TASK-971.md": 3,
+        "docs/tasks/TASK-971.md": 2,
         "docs/tasks/TASK-978.md": 1
       }
     },
@@ -10879,17 +10922,6 @@
         "docs/archive/TASK-980.md": 1,
         "docs/tasks/TASK-978.md": 1,
         "docs/tasks/TASK-980.md": 1
-      }
-    },
-    "TASK-979": {
-      "commitCount": 1,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-21T09:15:11+02:00",
-      "recentCommitRefs": [
-        "83a6b334"
-      ],
-      "touchedFrequency": {
-        "docs/tasks/TASK-979.md": 1
       }
     },
     "TASK-980": {
