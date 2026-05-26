@@ -1,8 +1,8 @@
 {
   "version": 1,
-  "builtAt": "2026-05-26T10:49:40.801Z",
-  "archiveCommit": "",
-  "taskCount": 189,
+  "builtAt": "2026-05-26T12:19:01.965Z",
+  "archiveCommit": "404:design",
+  "taskCount": 190,
   "entries": {
     "TASK-1000": {
       "id": "TASK-1000",
@@ -309,6 +309,23 @@
       "acCount": 5,
       "acMachineVerifiable": 5,
       "closurePath": "L3"
+    },
+    "TASK-1039": {
+      "id": "TASK-1039",
+      "size": "S",
+      "class": "3-chore",
+      "closedAt": "2026-05-26T12:20:00Z",
+      "lockedCommit": null,
+      "actor": null,
+      "severity": "H0",
+      "category": "[AuditGap]",
+      "decision": "Test suite had 9 stale failures — 2 files tested non-existent classes (reflect-command, causal-graph CausalCommand), 2 files had mock/assertion drift from code changes (command-registry, mark-task-review), 1 file had placeholder-forwardAction mock trigger Hansei validation (mark-task-done-feedback). Each fix matches current codebase reality.",
+      "constraint": "Pre-existing debt — test files were not updated when source was refactored.",
+      "cost": "~30 min investigation + fixes across 5 files.",
+      "forwardAction": "None scheduled. Wire stale-test detection into govern tick (IDEA-stale-test-detection). [TASK-1039]",
+      "acCount": 4,
+      "acMachineVerifiable": 3,
+      "closurePath": "auditor"
     },
     "TASK-1049": {
       "id": "TASK-1049",
