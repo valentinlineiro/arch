@@ -18,3 +18,4 @@ Append-only log of Sentinel preflight reasoning calls. Each entry records the ta
 | 2026-05-25 17:02:03 | TASK-1019 | P0 structural fix: INBOX READY count drifts stale between govern runs; TENSION-006 live instance | GO |  |
 | 2026-05-25 17:25:12 | TASK-1021 | 90-day productization sprint: first deliverable for PLG acquisition motion | GO |  |
 | 2026-05-25 17:26:04 | TASK-1024 | 90-day productization sprint: compliance front door for enterprise/procurement buyer | GO |  |
+| 2026-05-27 12:30:30 | TASK-1062 | trusted publisher configured, release.yml in repo, implementing sprint-close tagging | GO |  |

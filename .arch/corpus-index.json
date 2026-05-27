@@ -1,8 +1,8 @@
 {
   "version": 1,
-  "builtAt": "2026-05-27T11:45:04.285Z",
-  "archiveCommit": "420:design",
-  "taskCount": 205,
+  "builtAt": "2026-05-27T13:01:23.886Z",
+  "archiveCommit": "421:design",
+  "taskCount": 206,
   "entries": {
     "TASK-1000": {
       "id": "TASK-1000",
@@ -581,6 +581,23 @@
       "acCount": 0,
       "acMachineVerifiable": 0,
       "closurePath": "L3"
+    },
+    "TASK-1062": {
+      "id": "TASK-1062",
+      "size": "M",
+      "class": "2-code-generation",
+      "closedAt": "2026-05-27T13:30:00.000Z",
+      "lockedCommit": "a8e6affa",
+      "actor": "unknown",
+      "severity": "H0",
+      "category": "[no-issue]",
+      "decision": "Implementation complete with no design deviations. GitRepository interface extended with `tag` and `push` methods; `bumpVersionOnSprintClose` private method added to govern-system; four unit tests cover patch bump, tag creation, minor bump with reset, and threshold-not-reached guard. Tag/push failures are caught and logged rather than halting govern — prevents a transient network error from blocking sprint close and focus assignment.",
+      "constraint": "`arch upgrade` AC remains open pending TASK-1055. Changelog AC verified after first live tag push (prose-only, not automatable in unit tests).",
+      "cost": "Minor: tag/push is a new outbound network call in the govern hot path. Silently swallowed on failure to preserve govern determinism.",
+      "forwardAction": "None.",
+      "acCount": 0,
+      "acMachineVerifiable": 0,
+      "closurePath": "auditor"
     },
     "TASK-180": {
       "id": "TASK-180",
