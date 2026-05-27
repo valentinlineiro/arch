@@ -98,15 +98,33 @@ test('LightweightMetricsRefresh - leaves Cycle Time section unchanged', async ()
   assert.ok(result.includes('0.7h'), 'Cycle Time data preserved');
 });
 
-test('LightweightMetricsRefresh - does not write file when content is unchanged', async () => {
+test('LightweightMetricsRefresh - always writes because timestamp is updated', async () => {
   const fs = new MockFileSystem();
   fs.files['docs/METRICS.md'] = SAMPLE_METRICS;
 
   const refresh = new LightweightMetricsRefresh(fs);
-  // Use exact same values as in SAMPLE_METRICS (completedTasks: 100, reviewFailRate: 0 → "0.0%")
+  // Even with identical metric values the timestamp changes so the file is always written
   await refresh.execute({ completedTasks: 100, reviewFailRate: 0 });
 
-  assert.strictEqual(fs.written['docs/METRICS.md'], undefined, 'should not write if no change');
+  assert.ok(fs.written['docs/METRICS.md'] !== undefined, 'should write because timestamp changed');
+});
+
+test('LightweightMetricsRefresh - updates Last updated timestamp', async () => {
+  const fs = new MockFileSystem();
+  fs.files['docs/METRICS.md'] = SAMPLE_METRICS;
+
+  const before = Date.now();
+  const refresh = new LightweightMetricsRefresh(fs);
+  await refresh.execute({ completedTasks: 100, reviewFailRate: 0 });
+  const after = Date.now();
+
+  const result = fs.written['docs/METRICS.md'];
+  assert.ok(result, 'file must be written');
+  const match = result.match(/\*Last updated: ([^*]+)\*/);
+  assert.ok(match, 'Last updated line must be present');
+  const written = new Date(match![1].trim()).getTime();
+  assert.ok(written >= before && written <= after, 'timestamp must be within the execution window');
+  assert.ok(!result.includes('2026-01-01T00:00:00.000Z'), 'old timestamp must be replaced');
 });
 
 test('LightweightMetricsRefresh - throws on missing METRICS.md', async () => {

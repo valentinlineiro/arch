@@ -90,13 +90,19 @@ export class StatusCommand implements Command {
       }
     } catch { /* no inbox */ }
 
-    // Last report integrity
+    // Last report integrity — with age annotation
     try {
       const metrics = await this.fileSystem.readFile(`${this.rootPath}/docs/METRICS.md`);
       const integrity = metrics.match(/\*\*Integrity Level\*\*\s*\|\s*(\S+)/)?.[1];
       if (integrity && integrity !== 'N/A') {
         const icon = integrity === 'HIGH' ? '✔' : integrity === 'LOW' ? '⚠' : '~';
-        fmt.log(`\n  Report: ${icon} Integrity ${integrity}`);
+        const lastUpdatedMatch = metrics.match(/\*Last updated: ([^*]+)\*/);
+        let ageStr = '';
+        if (lastUpdatedMatch) {
+          const age = Math.round((Date.now() - new Date(lastUpdatedMatch[1].trim()).getTime()) / 3600000);
+          ageStr = ` (${age < 1 ? 'just now' : age < 24 ? `${age}h ago` : `${Math.round(age / 24)}d ago`})`;
+        }
+        fmt.log(`\n  Report: ${icon} Integrity ${integrity}${ageStr}`);
       }
     } catch { /* no metrics */ }
 

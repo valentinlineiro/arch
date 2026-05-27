@@ -43,6 +43,13 @@ export class LightweightMetricsRefresh {
       `$1${failRateStr} $3`
     );
 
+    // Update the Last updated timestamp — reflects when govern last refreshed this file
+    const now = new Date().toISOString();
+    result = result.replace(
+      /\*Last updated: [^*]+\*/,
+      `*Last updated: ${now}*`
+    );
+
     return result;
   }
 }
