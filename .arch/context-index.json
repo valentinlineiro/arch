@@ -72,6 +72,30 @@
           ],
           "taskPath": "docs/archive/TASK-1053.md"
         },
+        "TASK-1054": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1054.md"
+        },
+        "TASK-1056": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-1056.md"
+        },
+        "TASK-1057": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1057.md"
+        },
+        "TASK-1058": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-1058.md"
+        },
         "TASK-157": {
           "evidenceKinds": [
             "depends",
@@ -165,6 +189,18 @@
           ],
           "taskPath": "docs/archive/TASK-1053.md"
         },
+        "TASK-1054": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1054.md"
+        },
+        "TASK-1057": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1057.md"
+        },
         "TASK-160": {
           "evidenceKinds": [
             "depends",
@@ -243,11 +279,23 @@
           ],
           "taskPath": "docs/tasks/TASK-1020.md"
         },
+        "TASK-1025": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1025.md"
+        },
         "TASK-1050": {
           "evidenceKinds": [
             "literal-mention"
           ],
           "taskPath": "docs/tasks/TASK-1050.md"
+        },
+        "TASK-1057": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1057.md"
         },
         "TASK-242": {
           "evidenceKinds": [
@@ -342,11 +390,29 @@
           ],
           "taskPath": "docs/tasks/TASK-1022.md"
         },
+        "TASK-1025": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1025.md"
+        },
+        "TASK-1034": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1034.md"
+        },
         "TASK-1053": {
           "evidenceKinds": [
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-1053.md"
+        },
+        "TASK-1054": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1054.md"
         },
         "TASK-990": {
           "evidenceKinds": [
@@ -393,6 +459,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-1051.md"
+        },
+        "TASK-1055": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-1055.md"
         },
         "TASK-967": {
           "evidenceKinds": [
@@ -522,6 +594,18 @@
           ],
           "taskPath": "docs/tasks/TASK-1019.md"
         },
+        "TASK-1025": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1025.md"
+        },
+        "TASK-1034": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1034.md"
+        },
         "TASK-1049": {
           "evidenceKinds": [
             "literal-mention"
@@ -533,6 +617,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/tasks/TASK-1052.md"
+        },
+        "TASK-1055": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-1055.md"
         },
         "TASK-967": {
           "evidenceKinds": [
@@ -663,6 +753,12 @@
           ],
           "taskPath": "docs/archive/TASK-1014.md"
         },
+        "TASK-1058": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-1058.md"
+        },
         "TASK-225": {
           "evidenceKinds": [
             "literal-mention"
@@ -714,6 +810,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/tasks/TASK-1023.md"
+        },
+        "TASK-1034": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1034.md"
         },
         "TASK-1049": {
           "evidenceKinds": [
@@ -814,6 +916,18 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-1053.md"
+        },
+        "TASK-1054": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1054.md"
+        },
+        "TASK-1056": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-1056.md"
         },
         "TASK-957": {
           "evidenceKinds": [
@@ -957,6 +1071,12 @@
           ],
           "taskPath": "docs/archive/TASK-1012.md"
         },
+        "TASK-1058": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-1058.md"
+        },
         "TASK-958": {
           "evidenceKinds": [
             "literal-mention"
@@ -1006,6 +1126,12 @@
           ],
           "taskPath": "docs/archive/TASK-1049.md"
         },
+        "TASK-1055": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-1055.md"
+        },
         "TASK-949": {
           "evidenceKinds": [
             "literal-mention"
@@ -1027,6 +1153,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-1051.md"
+        },
+        "TASK-1056": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-1056.md"
         },
         "TASK-242": {
           "evidenceKinds": [
@@ -1079,6 +1211,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/tasks/TASK-1048.md"
+        },
+        "TASK-1057": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1057.md"
         },
         "TASK-958": {
           "evidenceKinds": [
@@ -4176,7 +4314,7 @@
       "title": "Govern/Reflect Structural Separation"
     }
   },
-  "builtAt": "2026-05-27T08:20:37.257Z",
+  "builtAt": "2026-05-27T11:17:50.204Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -4947,6 +5085,7 @@
         "cli/src/main/ts/application/commands/check-command.ts",
         "cli/src/main/ts/application/commands/compile-command.ts",
         "cli/src/main/ts/application/commands/conduct-command.ts",
+        "cli/src/main/ts/application/commands/corpus-import-command.ts",
         "cli/src/main/ts/application/commands/deps-command.ts",
         "cli/src/main/ts/application/commands/exec-command.ts",
         "cli/src/main/ts/application/commands/explain-command.ts",
@@ -5010,6 +5149,7 @@
         "cli/src/main/ts/domain/services/config-loader.ts",
         "cli/src/main/ts/domain/services/path-resolver.ts",
         "cli/src/main/ts/domain/services/signal-router.ts",
+        "cli/src/main/ts/infrastructure/cli/output-formatter.ts",
         "cli/src/main/ts/infrastructure/filesystem/node-file-system.ts"
       ],
       "runtimeUsage": "hot",
@@ -5050,6 +5190,7 @@
         "cli/src/main/ts/domain/services/ueg-analysis-layer.ts",
         "cli/src/main/ts/domain/services/ueg-interfaces.ts",
         "cli/src/main/ts/domain/services/ueg-ir-builder.ts",
+        "cli/src/main/ts/infrastructure/cli/output-formatter.ts",
         "cli/src/main/ts/infrastructure/filesystem/node-file-system.ts"
       ],
       "runtimeUsage": "hot",
@@ -5068,7 +5209,8 @@
       "imports": [
         "cli/src/main/ts/application/use-cases/batch-system.ts",
         "cli/src/main/ts/domain/models/command.ts",
-        "cli/src/main/ts/domain/repositories/file-system.ts"
+        "cli/src/main/ts/domain/repositories/file-system.ts",
+        "cli/src/main/ts/infrastructure/cli/output-formatter.ts"
       ],
       "runtimeUsage": "hot",
       "symbols": [
@@ -5092,7 +5234,8 @@
         "cli/src/main/ts/domain/repositories/git-repository.ts",
         "cli/src/main/ts/domain/repositories/task-repository.ts",
         "cli/src/main/ts/domain/services/path-resolver.ts",
-        "cli/src/main/ts/domain/services/verifiability-scorer.ts"
+        "cli/src/main/ts/domain/services/verifiability-scorer.ts",
+        "cli/src/main/ts/infrastructure/cli/output-formatter.ts"
       ],
       "runtimeUsage": "hot",
       "symbols": [
@@ -5139,7 +5282,8 @@
         "cli/src/main/ts/domain/repositories/file-system.ts",
         "cli/src/main/ts/domain/services/stateless-hypothesis-generator.ts",
         "cli/src/main/ts/domain/services/transient-actuation-projector.ts",
-        "cli/src/main/ts/domain/services/transient-window-compiler.ts"
+        "cli/src/main/ts/domain/services/transient-window-compiler.ts",
+        "cli/src/main/ts/infrastructure/cli/output-formatter.ts"
       ],
       "runtimeUsage": "hot",
       "symbols": [
@@ -5155,7 +5299,8 @@
     "cli/src/main/ts/application/commands/conduct-command.ts": {
       "criticality": "domain",
       "imports": [
-        "cli/src/main/ts/domain/models/command.ts"
+        "cli/src/main/ts/domain/models/command.ts",
+        "cli/src/main/ts/infrastructure/cli/output-formatter.ts"
       ],
       "runtimeUsage": "hot",
       "symbols": [
@@ -5177,7 +5322,8 @@
         "cli/src/main/ts/domain/repositories/git-repository.ts",
         "cli/src/main/ts/domain/services/governance-drift-detector.ts",
         "cli/src/main/ts/domain/services/institutional-anomaly-tracker.ts",
-        "cli/src/main/ts/domain/services/path-resolver.ts"
+        "cli/src/main/ts/domain/services/path-resolver.ts",
+        "cli/src/main/ts/infrastructure/cli/output-formatter.ts"
       ],
       "runtimeUsage": "warm",
       "symbols": [
@@ -5191,12 +5337,33 @@
         "corpus"
       ]
     },
+    "cli/src/main/ts/application/commands/corpus-import-command.ts": {
+      "criticality": "domain",
+      "imports": [
+        "cli/src/main/ts/application/use-cases/corpus-index.ts",
+        "cli/src/main/ts/domain/models/command.ts",
+        "cli/src/main/ts/domain/repositories/file-system.ts",
+        "cli/src/main/ts/infrastructure/cli/output-formatter.ts"
+      ],
+      "runtimeUsage": "hot",
+      "symbols": [
+        "CorpusImportCommand"
+      ],
+      "tags": [
+        "application",
+        "command",
+        "commands",
+        "corpus",
+        "import"
+      ]
+    },
     "cli/src/main/ts/application/commands/deps-command.ts": {
       "criticality": "domain",
       "imports": [
         "cli/src/main/ts/domain/models/command.ts",
         "cli/src/main/ts/domain/models/task.ts",
-        "cli/src/main/ts/domain/repositories/task-repository.ts"
+        "cli/src/main/ts/domain/repositories/task-repository.ts",
+        "cli/src/main/ts/infrastructure/cli/output-formatter.ts"
       ],
       "runtimeUsage": "hot",
       "symbols": [
@@ -5219,7 +5386,8 @@
         "cli/src/main/ts/domain/repositories/task-repository.ts",
         "cli/src/main/ts/domain/services/bridge-provider.ts",
         "cli/src/main/ts/domain/services/config-loader.ts",
-        "cli/src/main/ts/domain/services/provider-registry.ts"
+        "cli/src/main/ts/domain/services/provider-registry.ts",
+        "cli/src/main/ts/infrastructure/cli/output-formatter.ts"
       ],
       "runtimeUsage": "hot",
       "symbols": [
@@ -5239,7 +5407,8 @@
         "cli/src/main/ts/domain/models/command.ts",
         "cli/src/main/ts/domain/repositories/file-system.ts",
         "cli/src/main/ts/domain/repositories/task-repository.ts",
-        "cli/src/main/ts/domain/services/path-resolver.ts"
+        "cli/src/main/ts/domain/services/path-resolver.ts",
+        "cli/src/main/ts/infrastructure/cli/output-formatter.ts"
       ],
       "runtimeUsage": "hot",
       "symbols": [
@@ -5265,6 +5434,7 @@
         "cli/src/main/ts/domain/repositories/task-repository.ts",
         "cli/src/main/ts/domain/services/config-loader.ts",
         "cli/src/main/ts/domain/services/path-resolver.ts",
+        "cli/src/main/ts/infrastructure/cli/output-formatter.ts",
         "cli/src/main/ts/infrastructure/cli/subprocess-runner.ts"
       ],
       "runtimeUsage": "hot",
@@ -5309,7 +5479,8 @@
         "cli/src/main/ts/domain/repositories/file-system.ts",
         "cli/src/main/ts/domain/repositories/git-repository.ts",
         "cli/src/main/ts/domain/services/config-loader.ts",
-        "cli/src/main/ts/domain/services/path-resolver.ts"
+        "cli/src/main/ts/domain/services/path-resolver.ts",
+        "cli/src/main/ts/infrastructure/cli/output-formatter.ts"
       ],
       "runtimeUsage": "hot",
       "symbols": [
@@ -5326,7 +5497,8 @@
       "criticality": "domain",
       "imports": [
         "cli/src/main/ts/domain/models/command.ts",
-        "cli/src/main/ts/domain/services/path-resolver.ts"
+        "cli/src/main/ts/domain/services/path-resolver.ts",
+        "cli/src/main/ts/infrastructure/cli/output-formatter.ts"
       ],
       "runtimeUsage": "hot",
       "symbols": [
@@ -5389,7 +5561,8 @@
         "cli/src/main/ts/domain/models/command.ts",
         "cli/src/main/ts/domain/repositories/file-system.ts",
         "cli/src/main/ts/domain/repositories/git-repository.ts",
-        "cli/src/main/ts/domain/services/config-loader.ts"
+        "cli/src/main/ts/domain/services/config-loader.ts",
+        "cli/src/main/ts/infrastructure/cli/output-formatter.ts"
       ],
       "runtimeUsage": "hot",
       "symbols": [
@@ -5429,7 +5602,8 @@
       "imports": [
         "cli/src/main/ts/application/use-cases/select-next-task.ts",
         "cli/src/main/ts/domain/models/command.ts",
-        "cli/src/main/ts/domain/repositories/task-repository.ts"
+        "cli/src/main/ts/domain/repositories/task-repository.ts",
+        "cli/src/main/ts/infrastructure/cli/output-formatter.ts"
       ],
       "runtimeUsage": "warm",
       "symbols": [
@@ -5452,7 +5626,8 @@
         "cli/src/main/ts/domain/services/config-loader.ts",
         "cli/src/main/ts/domain/services/llm-provider.ts",
         "cli/src/main/ts/domain/services/path-resolver.ts",
-        "cli/src/main/ts/domain/services/provider-registry.ts"
+        "cli/src/main/ts/domain/services/provider-registry.ts",
+        "cli/src/main/ts/infrastructure/cli/output-formatter.ts"
       ],
       "runtimeUsage": "hot",
       "symbols": [
@@ -5491,7 +5666,8 @@
       "imports": [
         "cli/src/main/ts/application/use-cases/rank-tasks.ts",
         "cli/src/main/ts/domain/models/command.ts",
-        "cli/src/main/ts/domain/repositories/task-repository.ts"
+        "cli/src/main/ts/domain/repositories/task-repository.ts",
+        "cli/src/main/ts/infrastructure/cli/output-formatter.ts"
       ],
       "runtimeUsage": "hot",
       "symbols": [
@@ -5511,7 +5687,8 @@
         "cli/src/main/ts/domain/repositories/file-system.ts",
         "cli/src/main/ts/domain/repositories/git-repository.ts",
         "cli/src/main/ts/domain/services/archive-parser.ts",
-        "cli/src/main/ts/domain/services/metrics-engine.ts"
+        "cli/src/main/ts/domain/services/metrics-engine.ts",
+        "cli/src/main/ts/infrastructure/cli/output-formatter.ts"
       ],
       "runtimeUsage": "hot",
       "symbols": [
@@ -5531,7 +5708,8 @@
         "cli/src/main/ts/domain/models/command.ts",
         "cli/src/main/ts/domain/repositories/file-system.ts",
         "cli/src/main/ts/domain/repositories/task-repository.ts",
-        "cli/src/main/ts/domain/services/path-resolver.ts"
+        "cli/src/main/ts/domain/services/path-resolver.ts",
+        "cli/src/main/ts/infrastructure/cli/output-formatter.ts"
       ],
       "runtimeUsage": "cold",
       "symbols": [
@@ -5550,7 +5728,8 @@
         "cli/src/main/ts/domain/repositories/file-system.ts",
         "cli/src/main/ts/domain/repositories/git-repository.ts",
         "cli/src/main/ts/domain/repositories/task-repository.ts",
-        "cli/src/main/ts/domain/services/path-resolver.ts"
+        "cli/src/main/ts/domain/services/path-resolver.ts",
+        "cli/src/main/ts/infrastructure/cli/output-formatter.ts"
       ],
       "runtimeUsage": "hot",
       "symbols": [
@@ -5611,7 +5790,8 @@
       "criticality": "domain",
       "imports": [
         "cli/src/main/ts/domain/models/command.ts",
-        "cli/src/main/ts/domain/repositories/file-system.ts"
+        "cli/src/main/ts/domain/repositories/file-system.ts",
+        "cli/src/main/ts/infrastructure/cli/output-formatter.ts"
       ],
       "runtimeUsage": "hot",
       "symbols": [
@@ -5628,7 +5808,8 @@
       "criticality": "domain",
       "imports": [
         "cli/src/main/ts/domain/models/command.ts",
-        "cli/src/main/ts/domain/services/path-resolver.ts"
+        "cli/src/main/ts/domain/services/path-resolver.ts",
+        "cli/src/main/ts/infrastructure/cli/output-formatter.ts"
       ],
       "runtimeUsage": "hot",
       "symbols": [
@@ -5811,6 +5992,7 @@
       "criticality": "domain",
       "imports": [
         "cli/src/main/ts/application/use-cases/causal-graph.ts",
+        "cli/src/main/ts/application/use-cases/corpus-index.ts",
         "cli/src/main/ts/application/use-cases/temporal-index.ts",
         "cli/src/main/ts/domain/repositories/file-system.ts",
         "cli/src/main/ts/domain/services/path-resolver.ts"
@@ -6064,7 +6246,7 @@
         "cli/src/main/ts/domain/repositories/git-repository.ts",
         "cli/src/main/ts/domain/services/path-resolver.ts"
       ],
-      "runtimeUsage": "cold",
+      "runtimeUsage": "warm",
       "symbols": [
         "CorpusEntry",
         "CorpusIndex",
@@ -8817,9 +8999,11 @@
         "arrow",
         "check",
         "driftIcon",
+        "error",
         "fail",
         "header",
         "info",
+        "log",
         "ok",
         "warn"
       ],
@@ -8827,6 +9011,7 @@
         "arrow",
         "check",
         "drift",
+        "error",
         "fail",
         "formatter",
         "header",
@@ -9833,26 +10018,43 @@
       }
     },
     "TASK-1025": {
-      "commitCount": 3,
+      "commitCount": 5,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-27T10:20:32+02:00",
+      "lastCommitDate": "2026-05-27T11:02:34+02:00",
       "recentCommitRefs": [
         "2a254292",
         "5d147e42",
+        "848f26e4",
+        "8807864f",
         "e65fd594"
       ],
       "touchedFrequency": {
+        ".arch/chronicle.jsonl": 1,
         ".arch/corpus-index.json": 2,
         ".arch/focus-ledger.jsonl": 1,
         ".arch/reflect-breach-log.jsonl": 2,
         ".arch/reflect-decisions.jsonl": 1,
         ".arch/status-projection.json": 2,
         "README.md": 2,
-        "docs/INBOX.md": 2,
+        "cli/src/main/ts/application/command-dispatcher.ts": 1,
+        "cli/src/main/ts/application/commands/ask-command.ts": 1,
+        "cli/src/main/ts/application/commands/corpus-import-command.ts": 1,
+        "cli/src/main/ts/application/use-cases/ask-corpus.ts": 1,
+        "cli/src/main/ts/application/use-cases/corpus-index.ts": 1,
+        "cli/src/main/ts/application/use-cases/govern-system.ts": 1,
+        "cli/src/main/ts/application/use-cases/inbox-hygiene.ts": 1,
+        "cli/src/main/ts/domain/services/command-registry.ts": 1,
+        "cli/src/test/ts/corpus-import-command.test.ts": 1,
+        "cli/src/test/ts/govern-system.test.ts": 1,
+        "docs/INBOX.md": 3,
         "docs/METRICS.md": 1,
         "docs/ROADMAP.md": 2,
+        "docs/archive/TASK-1025.md": 1,
+        "docs/archive/TASK-1034.md": 1,
+        "docs/archive/TASK-1054.md": 1,
         "docs/refinement/archive/IDEA-corpus-import.md": 1,
-        "docs/tasks/TASK-1025.md": 2,
+        "docs/tasks/TASK-1025.md": 3,
+        "docs/tasks/TASK-1054.md": 1,
         "docs/tasks/TASK-242.md": 1,
         "docs/tensions/TENSION-005-specdrift.md": 1
       }
@@ -10111,6 +10313,59 @@
         "docs/tasks/TASK-1033.md": 3
       }
     },
+    "TASK-1034": {
+      "commitCount": 3,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-05-27T13:07:16+02:00",
+      "recentCommitRefs": [
+        "17672d73",
+        "851c3399",
+        "8807864f"
+      ],
+      "touchedFrequency": {
+        ".arch/chronicle.jsonl": 1,
+        "cli/src/main/ts/application/commands/analyze-command.ts": 1,
+        "cli/src/main/ts/application/commands/audit-command.ts": 1,
+        "cli/src/main/ts/application/commands/batch-command.ts": 1,
+        "cli/src/main/ts/application/commands/capture-command.ts": 1,
+        "cli/src/main/ts/application/commands/check-command.ts": 1,
+        "cli/src/main/ts/application/commands/compile-command.ts": 1,
+        "cli/src/main/ts/application/commands/conduct-command.ts": 1,
+        "cli/src/main/ts/application/commands/corpus-audit-command.ts": 1,
+        "cli/src/main/ts/application/commands/corpus-import-command.ts": 1,
+        "cli/src/main/ts/application/commands/deps-command.ts": 1,
+        "cli/src/main/ts/application/commands/exec-command.ts": 1,
+        "cli/src/main/ts/application/commands/explain-command.ts": 1,
+        "cli/src/main/ts/application/commands/govern-command.ts": 1,
+        "cli/src/main/ts/application/commands/inbox-command.ts": 1,
+        "cli/src/main/ts/application/commands/index-command.ts": 1,
+        "cli/src/main/ts/application/commands/lint-command.ts": 1,
+        "cli/src/main/ts/application/commands/merge-resolve-command.ts": 1,
+        "cli/src/main/ts/application/commands/next-command.ts": 1,
+        "cli/src/main/ts/application/commands/project-command.ts": 1,
+        "cli/src/main/ts/application/commands/promote-command.ts": 1,
+        "cli/src/main/ts/application/commands/rank-command.ts": 1,
+        "cli/src/main/ts/application/commands/report-command.ts": 1,
+        "cli/src/main/ts/application/commands/reprioritize-command.ts": 1,
+        "cli/src/main/ts/application/commands/resume-command.ts": 1,
+        "cli/src/main/ts/application/commands/review-command.ts": 1,
+        "cli/src/main/ts/application/commands/sandbox-command.ts": 1,
+        "cli/src/main/ts/application/commands/sentinel-command.ts": 1,
+        "cli/src/main/ts/application/commands/serve-command.ts": 1,
+        "cli/src/main/ts/application/commands/status-command.ts": 1,
+        "cli/src/main/ts/application/commands/task-command.ts": 1,
+        "cli/src/main/ts/application/commands/validate-command.ts": 1,
+        "cli/src/main/ts/application/commands/verify-acs-command.ts": 1,
+        "cli/src/main/ts/application/commands/version-command.ts": 1,
+        "cli/src/main/ts/infrastructure/cli/output-formatter.ts": 1,
+        "cli/src/test/ts/output-formatter.test.ts": 1,
+        "docs/INBOX.md": 1,
+        "docs/archive/TASK-1025.md": 1,
+        "docs/archive/TASK-1034.md": 1,
+        "docs/archive/TASK-1054.md": 1,
+        "docs/tasks/TASK-1034.md": 1
+      }
+    },
     "TASK-1035": {
       "commitCount": 6,
       "commitRefOverflow": false,
@@ -10285,6 +10540,18 @@
         "docs/archive/TASK-1045.md": 1,
         "docs/tasks/TASK-1042.md": 2,
         "docs/tasks/TASK-1052.md": 1
+      }
+    },
+    "TASK-1043": {
+      "commitCount": 1,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-05-27T13:17:36+02:00",
+      "recentCommitRefs": [
+        "d18b0569"
+      ],
+      "touchedFrequency": {
+        ".arch/focus-ledger.jsonl": 1,
+        "docs/tasks/TASK-1043.md": 1
       }
     },
     "TASK-1045": {
@@ -10485,16 +10752,92 @@
       }
     },
     "TASK-1054": {
-      "commitCount": 1,
+      "commitCount": 3,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-26T22:44:05+00:00",
+      "lastCommitDate": "2026-05-27T11:02:34+02:00",
       "recentCommitRefs": [
-        "642eb2c3"
+        "642eb2c3",
+        "848f26e4",
+        "8807864f"
+      ],
+      "touchedFrequency": {
+        ".arch/chronicle.jsonl": 2,
+        "cli/src/main/ts/application/command-dispatcher.ts": 1,
+        "cli/src/main/ts/application/commands/ask-command.ts": 1,
+        "cli/src/main/ts/application/commands/corpus-import-command.ts": 1,
+        "cli/src/main/ts/application/use-cases/ask-corpus.ts": 1,
+        "cli/src/main/ts/application/use-cases/corpus-index.ts": 1,
+        "cli/src/main/ts/application/use-cases/govern-system.ts": 1,
+        "cli/src/main/ts/application/use-cases/inbox-hygiene.ts": 1,
+        "cli/src/main/ts/domain/services/command-registry.ts": 1,
+        "cli/src/test/ts/corpus-import-command.test.ts": 1,
+        "cli/src/test/ts/govern-system.test.ts": 1,
+        "docs/INBOX.md": 2,
+        "docs/archive/TASK-1025.md": 1,
+        "docs/archive/TASK-1034.md": 1,
+        "docs/archive/TASK-1054.md": 1,
+        "docs/tasks/TASK-1025.md": 1,
+        "docs/tasks/TASK-1054.md": 2
+      }
+    },
+    "TASK-1055": {
+      "commitCount": 2,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-05-27T10:29:33+02:00",
+      "recentCommitRefs": [
+        "0e01661a",
+        "78fd5f36"
       ],
       "touchedFrequency": {
         ".arch/chronicle.jsonl": 1,
+        "docs/refinement/IDEA-upgrade-arch-other-repos.md": 1,
+        "docs/tasks/TASK-1055.md": 2,
+        "docs/tasks/TASK-1056.md": 1
+      }
+    },
+    "TASK-1056": {
+      "commitCount": 2,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-05-27T10:29:33+02:00",
+      "recentCommitRefs": [
+        "0e01661a",
+        "18dcd726"
+      ],
+      "touchedFrequency": {
+        ".arch/chronicle.jsonl": 1,
+        "docs/refinement/IDEA-upgrade-arch-other-repos.md": 1,
+        "docs/tasks/TASK-1055.md": 1,
+        "docs/tasks/TASK-1056.md": 2
+      }
+    },
+    "TASK-1057": {
+      "commitCount": 4,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-05-27T13:05:13+02:00",
+      "recentCommitRefs": [
+        "2d198726",
+        "786be784",
+        "8d9523d6",
+        "a12562b8"
+      ],
+      "touchedFrequency": {
+        "cli/src/main/ts/application/commands/init-command.ts": 1,
+        "cli/src/test/ts/init-command.test.ts": 1,
         "docs/INBOX.md": 1,
-        "docs/tasks/TASK-1054.md": 1
+        "docs/archive/TASK-1057.md": 1,
+        "docs/tasks/TASK-1057.md": 3
+      }
+    },
+    "TASK-1058": {
+      "commitCount": 2,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-05-27T13:16:30+02:00",
+      "recentCommitRefs": [
+        "42b51937",
+        "dfea0391"
+      ],
+      "touchedFrequency": {
+        "docs/tasks/TASK-1058.md": 2
       }
     },
     "TASK-161": {
@@ -11077,32 +11420,6 @@
         "docs/archive/TASK-281.md": 1
       }
     },
-    "TASK-920": {
-      "commitCount": 5,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-22T16:43:51+02:00",
-      "recentCommitRefs": [
-        "17c5d0ea",
-        "19d92c29",
-        "205c218d",
-        "8e1f0366",
-        "c57267b2"
-      ],
-      "touchedFrequency": {
-        ".arch/corpus-index.json": 1,
-        ".arch/focus-ledger.jsonl": 4,
-        ".arch/reflect-breach-log.jsonl": 1,
-        ".arch/status-projection.json": 1,
-        "README.md": 1,
-        "docs/INBOX.md": 1,
-        "docs/METRICS.md": 1,
-        "docs/ROADMAP.md": 1,
-        "docs/archive/TASK-920.md": 1,
-        "docs/archive/TASK-989.md": 1,
-        "docs/tasks/TASK-920.md": 1,
-        "docs/tasks/TASK-989.md": 1
-      }
-    },
     "TASK-957": {
       "commitCount": 6,
       "commitRefOverflow": false,
@@ -11143,19 +11460,18 @@
       }
     },
     "TASK-966": {
-      "commitCount": 5,
+      "commitCount": 4,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-23T18:12:06+00:00",
       "recentCommitRefs": [
         "1d07330a",
         "7133fd1c",
         "98bc98ff",
-        "a6297ed0",
         "b947acb1"
       ],
       "touchedFrequency": {
         ".arch/corpus-index.json": 1,
-        ".arch/focus-ledger.jsonl": 3,
+        ".arch/focus-ledger.jsonl": 2,
         ".arch/reflect-breach-log.jsonl": 1,
         ".arch/status-projection.json": 1,
         "README.md": 1,
@@ -11235,34 +11551,6 @@
         "docs/tasks/TASK-996.md": 1
       }
     },
-    "TASK-989": {
-      "commitCount": 3,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-22T16:39:51+02:00",
-      "recentCommitRefs": [
-        "61b88b39",
-        "7d67f451",
-        "e802f206"
-      ],
-      "touchedFrequency": {
-        ".arch/causal-signal.jsonl": 1,
-        ".arch/chronicle.jsonl": 1,
-        ".arch/corpus-index.json": 1,
-        ".arch/reflect-breach-log.jsonl": 1,
-        ".arch/status-projection.json": 1,
-        ".arch/temporal-index.jsonl": 1,
-        "README.md": 1,
-        "arch.config.json": 1,
-        "docs/EVENTS.md": 1,
-        "docs/INBOX.md": 2,
-        "docs/METRICS.md": 1,
-        "docs/ROADMAP.md": 1,
-        "docs/archive/TASK-989.md": 1,
-        "docs/guidelines/models.md": 1,
-        "docs/tasks/TASK-920.md": 1,
-        "docs/tasks/TASK-989.md": 2
-      }
-    },
     "TASK-990": {
       "commitCount": 1,
       "commitRefOverflow": false,
@@ -11332,36 +11620,6 @@
         ".arch/ecp-registry.jsonl": 1,
         "docs/tasks/TASK-957.md": 1,
         "docs/tasks/TASK-995.md": 1
-      }
-    },
-    "TASK-994": {
-      "commitCount": 3,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-22T16:29:43+02:00",
-      "recentCommitRefs": [
-        "5b38fa33",
-        "7396d480",
-        "9f572145"
-      ],
-      "touchedFrequency": {
-        ".arch/corpus-index.json": 1,
-        ".arch/reflect-breach-log.jsonl": 1,
-        ".arch/status-projection.json": 1,
-        "README.md": 1,
-        "cli/.arch/status-projection.json": 1,
-        "cli/src/main/ts/application/command-dispatcher.ts": 1,
-        "cli/src/main/ts/application/commands/check-command.ts": 1,
-        "cli/src/main/ts/application/commands/init-command.ts": 1,
-        "cli/src/main/ts/application/commands/review-command.ts": 1,
-        "cli/src/main/ts/commands/review.ts": 1,
-        "cli/src/main/ts/domain/services/command-registry.ts": 1,
-        "cli/src/main/ts/index.ts": 1,
-        "cli/src/test/ts/review-command.test.ts": 1,
-        "docs/INBOX.md": 3,
-        "docs/METRICS.md": 1,
-        "docs/ROADMAP.md": 1,
-        "docs/archive/TASK-994.md": 1,
-        "docs/tasks/TASK-994.md": 1
       }
     },
     "TASK-995": {
