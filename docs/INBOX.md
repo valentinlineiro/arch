@@ -53,3 +53,15 @@ ACs verified:
 - [x] Build pipeline produces distributable → `file: cli/tsup.config.ts`, tsup+prepublishOnly ✓
 Changed files: docs/tasks/TASK-242.md
 Note: Closure audit — implementation was already complete in a prior session. Lifecycle gap reconciled.
+
+---
+**REVIEW_REQUEST** | TASK-1053 | 2026-05-27
+Task: Strengthen IDEA template and arch analyze ingestion: reduce generic defaults
+ACs verified:
+- [x] TEMPLATE.md updated — `**Candidate-class:**`, `**Candidate-size:**`, `## Proposed outcome`, `## Validation hints` added → `file: docs/refinement/TEMPLATE.md` ✓
+- [x] arch analyze uses explicit fields when present; reports missing fields when absent → 9 unit tests in promotion-proposal-generator.test.ts ✓
+- [x] AWAITING_PROMOTION written to INBOX for undecided IDEAs; skipped when Decision set; idempotent ✓
+- [x] Missing fields reported as "IDEA-{slug}: missing candidate-class, candidate-size" in console output ✓
+- [x] 656 tests pass (647 baseline + 9 new) ✓
+- [x] arch review passes ✓
+Changed files: docs/refinement/TEMPLATE.md, cli/src/main/ts/domain/services/promotion-proposal-generator.ts, cli/src/main/ts/application/commands/analyze-command.ts, cli/src/main/ts/domain/models/promotion-proposal.ts, cli/src/test/ts/promotion-proposal-generator.test.ts

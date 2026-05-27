@@ -24,8 +24,19 @@ const CLASS_TEMPLATES: Record<string, Array<{ desc: string; predicate: string }>
   ],
 };
 
-const DEFAULT_CLASS = '2-code-generation';
-const DEFAULT_SIZE = 'M';
+const VALID_SIZES = new Set(['XS', 'S', 'M', 'L', 'XL']);
+const VALID_CLASSES = new Set([
+  '1-code-reasoning', '2-code-generation', '3-chore',
+  '4-test-generation', '5-data', '6-writing', '7-operations',
+]);
+
+export interface IdeaMetadata {
+  title: string | null;
+  candidateClass: string | null;
+  candidateSize: string | null;
+  hasDecision: boolean;
+  missingFields: string[];
+}
 
 function ideaSlug(filename: string): string {
   return filename.replace(/^IDEA-/, '').replace(/\.md$/, '');
@@ -36,32 +47,72 @@ function extractTitle(content: string): string {
   return m ? m[1].trim() : '(untitled)';
 }
 
-function extractMetaSize(content: string): string {
-  const m = content.match(/\*\*Meta:\*\*.*?\|\s*(\S+)\s*\|/);
-  return m ? m[1] : DEFAULT_SIZE;
+/** Parse explicit Candidate-class field (new template format) */
+function extractCandidateClass(content: string): string | null {
+  const explicit = content.match(/\*\*Candidate-class:\*\*\s*([^\s\n|]+)/i);
+  if (explicit) {
+    const val = explicit[1].trim().replace(/[[\]]/g, '');
+    return VALID_CLASSES.has(val) ? val : null;
+  }
+  return null;
 }
 
-function extractMetaClass(content: string): string {
-  const m = content.match(/\*\*Meta:\*\*.*?\|\s*\S+\s*\|\s*\S+\s*\|\s*\S+\s*\|\s*(\S+)/);
-  return m ? m[1] : DEFAULT_CLASS;
+/** Parse explicit Candidate-size field (new template format) */
+function extractCandidateSize(content: string): string | null {
+  const explicit = content.match(/\*\*Candidate-size:\*\*\s*([^\s\n|]+)/i);
+  if (explicit) {
+    const val = explicit[1].trim().replace(/[[\]]/g, '');
+    return VALID_SIZES.has(val) ? val : null;
+  }
+  // Fallback: legacy ## Estimated size section
+  const legacy = content.match(/## Estimated size\s*\n\s*([^\n]+)/);
+  if (legacy) {
+    const val = legacy[1].trim().split(/\s+/)[0];
+    return VALID_SIZES.has(val) ? val : null;
+  }
+  return null;
 }
 
-function extractEstimatedSize(content: string): string {
-  const m = content.match(/## Estimated size\s*\n\s*(.+)/);
-  return m ? m[1].trim() : DEFAULT_SIZE;
+function hasDecisionSet(content: string): boolean {
+  const decisionMatch = content.match(/## Decision\s*\n([\s\S]*?)(?=\n##|$)/m);
+  if (!decisionMatch) return false;
+  const body = decisionMatch[1];
+  // Strip comment lines — only real content counts
+  const uncommented = body.split('\n')
+    .filter(l => !l.trim().startsWith('<!--') && !l.trim().startsWith('-->') && l.trim() !== '')
+    .join('\n').trim();
+  return uncommented.length > 0;
+}
+
+export function extractIdeaMetadata(content: string): IdeaMetadata {
+  const title = extractTitle(content);
+  const candidateClass = extractCandidateClass(content);
+  const candidateSize = extractCandidateSize(content);
+  const missingFields: string[] = [];
+  if (!candidateClass) missingFields.push('candidate-class');
+  if (!candidateSize) missingFields.push('candidate-size');
+  return {
+    title,
+    candidateClass,
+    candidateSize,
+    hasDecision: hasDecisionSet(content),
+    missingFields,
+  };
 }
 
 function extractRationale(content: string): string {
   const problem = content.match(/## Problem\s*\n([\s\S]*?)(?=\n##|\Z)/);
+  const outcome = content.match(/## Proposed outcome\s*\n([\s\S]*?)(?=\n##|\Z)/i);
   const solution = content.match(/## Proposed solution\s*\n([\s\S]*?)(?=\n##|\Z)/i);
   const parts: string[] = [];
   if (problem) parts.push(`Problem: ${problem[1].trim().slice(0, 200)}`);
-  if (solution) parts.push(`Solution: ${solution[1].trim().slice(0, 200)}`);
+  if (outcome) parts.push(`Outcome: ${outcome[1].trim().slice(0, 200)}`);
+  else if (solution) parts.push(`Solution: ${solution[1].trim().slice(0, 200)}`);
   return parts.join('\n') || 'No rationale extracted.';
 }
 
-function buildAcs(taskClass: string, ideaContent: string): ProposalAc[] {
-  const templates = CLASS_TEMPLATES[taskClass] ?? CLASS_TEMPLATES[DEFAULT_CLASS];
+function buildAcs(taskClass: string): ProposalAc[] {
+  const templates = CLASS_TEMPLATES[taskClass] ?? CLASS_TEMPLATES['2-code-generation'];
   return templates.map(t => ({ description: t.desc, predicate: t.predicate }));
 }
 
@@ -89,65 +140,92 @@ function computeNovelty(taskClass: string, taskSize: string): NoveltyInfo {
   }
 }
 
-function surfaceUncertainties(content: string): UncertaintyEntry[] {
-  const uncertainties: UncertaintyEntry[] = [];
-  if (!content.match(/## Estimated size/)) {
-    uncertainties.push({ field: 'size', note: 'No estimated size declared in IDEA — defaulted to M.' });
-  }
-  if (!content.match(/\*\*Meta:\*\*.*?class/i) && !content.match(/## Governance Class/i) && !content.match(/## Class/i)) {
-    uncertainties.push({ field: 'class', note: 'No task class declared — defaulted to 2-code-generation.' });
-  }
-  if (!content.match(/## Dependencies/)) {
-    uncertainties.push({ field: 'dependencies', note: 'No dependencies section found — assumed none.' });
-  }
-  if (!content.match(/## Proposed solution/i)) {
-    uncertainties.push({ field: 'solution', note: 'No proposed solution section — recommendation is speculative.' });
-  }
-  return uncertainties;
+export interface IdeaFileEntry {
+  slug: string;
+  filePath: string;
+  content: string;
+  metadata: IdeaMetadata;
 }
 
 export class PromotionProposalGenerator {
   constructor(private refinementDir: string = PathResolver.from({}).refinement) {}
 
-  generateAll(): PromotionProposal[] {
-    const proposals: PromotionProposal[] = [];
+  /** Returns all IDEA files parsed with metadata — used for both proposals and AWAITING_PROMOTION scan. */
+  scanIdeas(): IdeaFileEntry[] {
+    const entries: IdeaFileEntry[] = [];
     let files: string[] = [];
     try {
       files = fs.readdirSync(this.refinementDir).filter(
         f => f.startsWith('IDEA-') && f.endsWith('.md') && !f.includes('TEMPLATE')
       );
     } catch {
-      return proposals;
+      return entries;
     }
 
     for (const file of files) {
       try {
         const content = fs.readFileSync(path.join(this.refinementDir, file), 'utf8');
-        const slug = ideaSlug(file);
-        const title = extractTitle(content);
-        const taskClass = extractMetaClass(content);
-        const estimatedSize = extractEstimatedSize(content);
-        const size = extractMetaSize(content) !== DEFAULT_SIZE ? extractMetaSize(content) : estimatedSize;
-        const rationale = extractRationale(content);
-        const acs = buildAcs(taskClass, content);
-        const novelty = computeNovelty(taskClass, size);
-        const uncertainties = surfaceUncertainties(content);
-
-        proposals.push({
-          ideaSlug: slug,
-          ideaPath: `${this.refinementDir}/${file}`,
-          title,
-          class: taskClass,
-          size,
-          rationale,
-          acs,
-          novelty,
-          uncertainties,
-          advisory: true,
+        entries.push({
+          slug: ideaSlug(file),
+          filePath: path.join(this.refinementDir, file),
+          content,
+          metadata: extractIdeaMetadata(content),
         });
       } catch {
-        // skip unreadable IDEA files
+        // skip unreadable files
       }
+    }
+    return entries;
+  }
+
+  generateAll(): PromotionProposal[] {
+    const proposals: PromotionProposal[] = [];
+    for (const entry of this.scanIdeas()) {
+      const { slug, content, metadata } = entry;
+      // Skip IDEA files that already have a Decision — they don't need a proposal
+      if (metadata.hasDecision) continue;
+
+      const rationale = extractRationale(content);
+
+      if (metadata.missingFields.length > 0) {
+        // Surface missing fields — include in proposal with empty ACs
+        proposals.push({
+          ideaSlug: slug,
+          ideaPath: entry.filePath,
+          title: metadata.title ?? '(untitled)',
+          class: null as any,
+          size: null as any,
+          rationale,
+          acs: [],
+          novelty: { score: 1.0, nearestPrecedents: [], clusterSize: 0, isHighNovelty: true },
+          uncertainties: metadata.missingFields.map(f => ({
+            field: f,
+            note: `Required field '${f}' is missing — cannot generate ACs without it.`,
+          })),
+          advisory: true,
+          missingFields: metadata.missingFields,
+        });
+        continue;
+      }
+
+      const taskClass = metadata.candidateClass!;
+      const size = metadata.candidateSize!;
+      const acs = buildAcs(taskClass);
+      const novelty = computeNovelty(taskClass, size);
+
+      proposals.push({
+        ideaSlug: slug,
+        ideaPath: entry.filePath,
+        title: metadata.title ?? '(untitled)',
+        class: taskClass,
+        size,
+        rationale,
+        acs,
+        novelty,
+        uncertainties: [],
+        advisory: true,
+        missingFields: [],
+      });
     }
 
     return proposals;
@@ -157,20 +235,20 @@ export class PromotionProposalGenerator {
     const lines: string[] = [];
     lines.push(`  IDEA: ${p.ideaSlug}`);
     lines.push(`  Title: ${p.title}`);
-    lines.push(`  Proposed: ${p.class} | ${p.size}`);
-    lines.push(`  Advisory — preparation only. Human Decision field still required.`);
-    lines.push(`  Novelty: ${p.novelty.isHighNovelty ? 'HIGH' : 'LOW'} (score: ${p.novelty.score.toFixed(2)}, cluster: ${p.novelty.clusterSize})`);
-    if (p.novelty.nearestPrecedents.length > 0) {
-      lines.push(`  Nearest precedents: ${p.novelty.nearestPrecedents.map(r => `${r.id}@${r.distance.toFixed(2)}`).join(', ')}`);
-    }
-    lines.push(`  ACs (${p.acs.length}):`);
-    for (const ac of p.acs) {
-      lines.push(`    - ${ac.description} → ${ac.predicate}`);
-    }
-    if (p.uncertainties.length > 0) {
-      lines.push(`  Uncertainties:`);
-      for (const u of p.uncertainties) {
-        lines.push(`    - ${u.field}: ${u.note}`);
+
+    if (p.missingFields && p.missingFields.length > 0) {
+      lines.push(`  ⚠ Missing required fields: ${p.missingFields.join(', ')}`);
+      lines.push(`  Cannot generate ACs — add fields to IDEA file and re-run.`);
+    } else {
+      lines.push(`  Proposed: ${p.class} | ${p.size}`);
+      lines.push(`  Advisory — preparation only. Human Decision field still required.`);
+      lines.push(`  Novelty: ${p.novelty.isHighNovelty ? 'HIGH' : 'LOW'} (score: ${p.novelty.score.toFixed(2)}, cluster: ${p.novelty.clusterSize})`);
+      if (p.novelty.nearestPrecedents.length > 0) {
+        lines.push(`  Nearest precedents: ${p.novelty.nearestPrecedents.map(r => `${r.id}@${r.distance.toFixed(2)}`).join(', ')}`);
+      }
+      lines.push(`  ACs (${p.acs.length}):`);
+      for (const ac of p.acs) {
+        lines.push(`    - ${ac.description} → ${ac.predicate}`);
       }
     }
     lines.push('');

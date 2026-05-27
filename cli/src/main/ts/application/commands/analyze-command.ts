@@ -295,15 +295,23 @@ ${taskSections}`;
       }
     } catch { /* non-blocking — no ADRs, not a git repo, etc. */ }
 
-    // Promotion proposals: scan IDEA files and generate advisory task drafts
+    // Promotion proposals: scan IDEA files, surface missing fields, write AWAITING_PROMOTION to INBOX
     try {
       const { PromotionProposalGenerator } = await import('../../domain/services/promotion-proposal-generator.js');
       const generator = new PromotionProposalGenerator();
+
+      // AC3: Write AWAITING_PROMOTION to INBOX for undecided IDEA files
+      await this.writeAwaitingPromotionToInbox(generator);
+
       const proposals = generator.generateAll();
       if (proposals.length > 0) {
         console.log('\n  ── Promotion Proposals (Advisory) ─────────────────');
         console.log('  Labeled: preparation only — not a decision. Human Decision field required.\n');
         for (const p of proposals) {
+          // AC4: Report missing fields explicitly instead of generating placeholder ACs
+          if (p.missingFields && p.missingFields.length > 0) {
+            console.log(`  IDEA-${p.ideaSlug}: missing ${p.missingFields.join(', ')}`);
+          }
           console.log(generator.formatProposal(p));
         }
       }
@@ -353,6 +361,40 @@ ${taskSections}`;
     } catch (e: any) {
       console.error('Error in arch analyze (Advisory):', e.message);
       return 0; // Error in advisory channel does not fail governance
+    }
+  }
+
+  /** AC3: For each IDEA in refinement/ with no Decision, append AWAITING_PROMOTION to INBOX (idempotent). */
+  private async writeAwaitingPromotionToInbox(generator: any): Promise<void> {
+    try {
+      const { PathResolver } = await import('../../domain/services/path-resolver.js');
+      const inboxPath = PathResolver.from({}).inbox;
+      const nodefs = new (await import('../../infrastructure/filesystem/node-file-system.js')).NodeFileSystem();
+
+      const ideas = generator.scanIdeas();
+      const undecided = ideas.filter((e: any) => !e.metadata.hasDecision);
+      if (undecided.length === 0) return;
+
+      const inboxContent = await nodefs.readFile(inboxPath).catch(() => '');
+
+      const lines: string[] = [];
+      for (const entry of undecided) {
+        const slug = entry.slug;
+        // Idempotency: skip if already present in INBOX
+        if (inboxContent.includes(`AWAITING_PROMOTION | IDEA-${slug}`)) continue;
+        const missingNote = entry.metadata.missingFields.length > 0
+          ? ` (missing: ${entry.metadata.missingFields.join(', ')})`
+          : '';
+        lines.push(`AWAITING_PROMOTION | IDEA-${slug} | ${new Date().toISOString().slice(0, 10)}${missingNote} — no Decision field set`);
+      }
+
+      if (lines.length > 0) {
+        const updated = (inboxContent.trimEnd()) + '\n\n' + lines.join('\n') + '\n';
+        await nodefs.writeFile(inboxPath, updated);
+        console.log(`  ✔ ${lines.length} AWAITING_PROMOTION entr${lines.length === 1 ? 'y' : 'ies'} written to INBOX`);
+      }
+    } catch {
+      // non-blocking
     }
   }
 

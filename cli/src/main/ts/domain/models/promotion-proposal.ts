@@ -26,4 +26,6 @@ export interface PromotionProposal {
   novelty: NoveltyInfo;
   uncertainties: UncertaintyEntry[];
   advisory: boolean;
+  /** Fields absent from the IDEA file that prevent AC generation. Empty when all required fields present. */
+  missingFields?: string[];
 }
