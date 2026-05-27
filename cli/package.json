@@ -1,66 +1,71 @@
 {
-    "name": "@valentinlineiro/arch",
-    "version": "1.2.0",
-    "archProtocol": ">=1.0 <2",
-    "description": "ARCH: autonomous agent task and reflection framework for software projects",
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/valentinlineiro/arch.git"
-    },
-    "bin": {
-        "arch": "dist/index.js"
-    },
-    "type": "module",
-    "scripts": {
-        "test": "node --import tsx --test src/test/ts/*.test.ts",
-        "test:coverage": "c8 node --import tsx --test src/test/ts/*.test.ts",
-        "typecheck": "tsc --noEmit",
-        "build": "tsup",
-        "upgrade": "npm run build && npm link",
-        "dev": "tsup src/main/ts/index.ts --format esm --watch",
-        "prepublishOnly": "npm run build"
-    },
-    "files": [
-        "dist/",
-        "README.md"
+  "name": "@valentinlineiro/arch",
+  "version": "1.2.1",
+  "archProtocol": ">=1.0 <2",
+  "description": "ARCH: autonomous agent task and reflection framework for software projects",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/valentinlineiro/arch.git"
+  },
+  "bin": {
+    "arch": "dist/index.js"
+  },
+  "type": "module",
+  "scripts": {
+    "test": "node --import tsx --test src/test/ts/*.test.ts",
+    "test:coverage": "c8 node --import tsx --test src/test/ts/*.test.ts",
+    "typecheck": "tsc --noEmit",
+    "build": "tsup",
+    "upgrade": "npm run build && npm link",
+    "dev": "tsup src/main/ts/index.ts --format esm --watch",
+    "prepublishOnly": "npm run build"
+  },
+  "files": [
+    "dist/",
+    "README.md"
+  ],
+  "keywords": [
+    "arch",
+    "framework",
+    "scaffolding",
+    "git",
+    "ai-agents"
+  ],
+  "author": "Valentin Lineiro",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "bugs": {
+    "url": "https://github.com/valentinlineiro/arch/issues"
+  },
+  "homepage": "https://github.com/valentinlineiro/arch#readme",
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/semver": "7.7.1",
+    "c8": "11.0.0",
+    "tsup": "^8.0.0",
+    "tsx": "^4.7.0",
+    "typescript": "^5.4.0"
+  },
+  "main": "dist/index.js",
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "dependencies": {
+    "semver": "7.8.0"
+  },
+  "c8": {
+    "branches": 60,
+    "lines": 60,
+    "functions": 60,
+    "statements": 60,
+    "reporter": [
+      "text",
+      "lcov"
     ],
-    "keywords": [
-        "arch",
-        "framework",
-        "scaffolding",
-        "git",
-        "ai-agents"
-    ],
-    "author": "Valentin Lineiro",
-    "license": "MIT",
-    "engines": {
-        "node": ">=20.0.0"
-    },
-    "bugs": {
-        "url": "https://github.com/valentinlineiro/arch/issues"
-    },
-    "homepage": "https://github.com/valentinlineiro/arch#readme",
-    "devDependencies": {
-        "@types/node": "^20.0.0",
-        "@types/semver": "7.7.1",
-        "c8": "11.0.0",
-        "tsup": "^8.0.0",
-        "tsx": "^4.7.0",
-        "typescript": "^5.4.0"
-    },
-    "main": "dist/index.js",
-    "exports": {
-        ".": "./dist/index.js"
-    },
-    "dependencies": {
-        "semver": "7.8.0"
-    },
-    "c8": {
-        "branches": 60,
-        "lines": 60,
-        "functions": 60,
-        "statements": 60,
-        "reporter": ["text", "lcov"],
-        "exclude": ["src/test/**"]
-    }
+    "exclude": [
+      "src/test/**"
+    ]
+  }
 }
