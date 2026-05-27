@@ -20,49 +20,47 @@ The risk: releases happen infrequently, ship multiple unrelated changes bundled 
 
 ## Proposed outcome
 
-Merging to `main` with a version bump commit triggers a fully automated release:
-- GitHub Actions builds, tests, and publishes to npm
-- A GitHub Release is created with a changelog derived from commit messages since the last tag
-- `arch.config.json` version is updated atomically with the npm publish
-- Consumers running `arch upgrade` get the new version
-
-Secondary: a `arch release` or `arch version bump` command (or npm script) makes the version bump a one-step operation locally, producing the correctly-formatted commit that the CI pipeline recognises as a release trigger.
+Sprint close automatically creates a git tag (`vX.Y.Z`), which triggers a GitHub Actions release workflow that builds, tests, publishes to npm, and creates a GitHub Release with a changelog. Consumers running `arch upgrade` get the new version. No human steps required between sprint close and published artifact.
 
 ## Proposed solution
 
 **Phase 1 — Publish pipeline (GitHub Actions)**
 
 New workflow `.github/workflows/release.yml`:
-- Trigger: push to `main` where `cli/package.json` version differs from the latest npm tag
+- Trigger: `push` on tags matching `v*.*.*`
 - Jobs: build → test → `npm publish --access public` → `gh release create vX.Y.Z`
-- Requires `NPM_TOKEN` secret in the repo
-- Changelog: `git log` between current and previous tag, filtered to `feat:/fix:` prefixes
+- Changelog: `git log <prev-tag>..HEAD` filtered to `feat:` and `fix:` prefixes, one line per commit
+- Requires `NPM_TOKEN` secret in repo settings — **this must be configured before the task starts**
 
-**Phase 2 — Version bump tooling**
+**Phase 2 — Sprint-close auto-tagging (govern integration)**
 
-`arch version bump [patch|minor|major]` (or npm script):
-- Updates `cli/package.json` version
-- Updates `version` field in `arch.config.json`
-- Produces a commit `chore: bump version to X.Y.Z`
-- This commit is the release trigger CI looks for
+`govern-system.ts` sprint-close path, when it closes a sprint and bumps `currentSprint` in `arch.config.json`:
+1. Reads the current `version` from `cli/package.json`
+2. Bumps patch version (e.g. `1.2.0` → `1.2.1`)
+3. Writes updated version back to `cli/package.json` and `arch.config.json`
+4. Runs `git tag vX.Y.Z` and `git push --tags`
+5. This tag push triggers Phase 1
+
+Version bump strategy: patch on every sprint close. Minor bump requires explicit human instruction (e.g. a field in `arch.config.json` like `nextVersionBump: minor`).
 
 **Phase 3 — Consumer upgrade (depends on TASK-1055)**
 
-`arch upgrade` checks the latest published npm version, compares to installed, and runs `npm install -g @valentinlineiro/arch@latest` if behind. Requires TASK-1055 to be implemented first.
+`arch upgrade` checks npm for the latest published version, compares to installed, and runs `npm install -g @valentinlineiro/arch@latest` if behind. Requires TASK-1055.
 
 ## Validation hints
 
-- `.github/workflows/release.yml` exists and triggers on main push with version change
-- `npm view @valentinlineiro/arch version` reflects the latest published version after a release
-- `arch version bump patch` produces a correctly-formed version bump commit
-- `arch upgrade` successfully upgrades an outdated install
+- `.github/workflows/release.yml` exists, triggers on `v*.*.*` tag push
+- `govern-system.ts` sprint-close path: bumps version in `cli/package.json` + `arch.config.json`, creates and pushes tag
+- After sprint close + CI run: `npm view @valentinlineiro/arch version` reflects the new version
+- `arch upgrade` successfully upgrades an outdated install (via TASK-1055)
 
 ## Dependencies
 
-- TASK-1055 (`arch upgrade` command) — consumer upgrade path
+- `NPM_TOKEN` secret must be configured in GitHub repo settings **before this task can start**
+- TASK-1055 (`arch upgrade` command) — consumer upgrade path (Phase 3 only; Phases 1+2 are independent)
 - TASK-1056 (`arch upgrade --protocol`) — protocol artifact sync on upgrade
-- Requires `NPM_TOKEN` secret configured in GitHub repo settings
 
 ## Gaps
 
 ## Decision
+PROMOTE → TASK-1062
