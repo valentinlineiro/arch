@@ -704,6 +704,15 @@ function makeSprintCloseFs(opts: {
   fs.files['docs/RETRO.md'] = '# Sprint Retrospectives\n\n';
   fs.files['.arch/corpus-index.json'] = '{}';
 
+  // Doc comment headers that DocVersion inspects — seeded with old version
+  for (const docFile of [
+    'AGENTS.md', 'GEMINI.md', 'docs/AGENTS.md',
+    'docs/ONBOARDING.html', 'docs/index.html',
+    'docs/agents/DO.md', 'docs/agents/THINK.md',
+  ]) {
+    fs.files[docFile] = `<!-- ARCH Framework v${version} | header -->\n`;
+  }
+
   const doneTask = {
     id: 'TASK-001',
     title: 'stub',
@@ -766,6 +775,25 @@ test('sprint close: nextVersionBump:minor produces vX.(Y+1).0 and resets to patc
   assert.ok(cfgWrite, 'arch.config.json must be written');
   const cfg = JSON.parse(cfgWrite!.content);
   assert.strictEqual(cfg.nextVersionBump, 'patch', 'nextVersionBump must be reset to patch after minor bump');
+});
+
+test('sprint close: doc-header files are updated and staged in the bump commit', async () => {
+  const { fs, repo, git } = makeSprintCloseFs({ version: '0.6.0' });
+  const system = new GovernSystem(repo as any, git as any, fs as any);
+  await system.execute();
+
+  const docFiles = [
+    'AGENTS.md', 'GEMINI.md', 'docs/AGENTS.md',
+    'docs/ONBOARDING.html', 'docs/index.html',
+    'docs/agents/DO.md', 'docs/agents/THINK.md',
+  ];
+
+  for (const docFile of docFiles) {
+    const content = fs.files[docFile];
+    assert.ok(content?.includes('v0.6.1'), `${docFile} should contain v0.6.1`);
+    assert.ok(!content?.includes('v0.6.0'), `${docFile} should not still contain v0.6.0`);
+    assert.ok(git.addCalls.includes(docFile), `${docFile} must be staged in the bump commit`);
+  }
 });
 
 test('sprint close: threshold not reached — no version bump or tag', async () => {

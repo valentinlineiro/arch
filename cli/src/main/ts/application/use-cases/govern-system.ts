@@ -454,10 +454,32 @@ export class GovernSystem {
 
     console.log(`  \x1b[32m⚡ Version bumped:\x1b[0m ${currentVersion} → ${newVersion} (${bumpType})`);
 
-    // Commit the version bump files
+    // Update doc comment headers — same file list DocVersion DriftChecker inspects
+    const docFiles = [
+      'AGENTS.md',
+      'GEMINI.md',
+      'docs/AGENTS.md',
+      'docs/ONBOARDING.html',
+      'docs/index.html',
+      'docs/agents/DO.md',
+      'docs/agents/THINK.md',
+    ];
+    for (const docFile of docFiles) {
+      try {
+        const content = await this.fileSystem.readFile(docFile);
+        if (content.includes(`v${currentVersion}`)) {
+          await this.fileSystem.writeFile(docFile, content.replaceAll(`v${currentVersion}`, `v${newVersion}`));
+        }
+      } catch { /* file absent — skip */ }
+    }
+
+    // Commit the version bump files (package.json, config, and any updated doc headers)
     try {
       await this.gitRepository.add('cli/package.json');
       await this.gitRepository.add('arch.config.json');
+      for (const docFile of docFiles) {
+        try { await this.gitRepository.add(docFile); } catch { /* absent — skip */ }
+      }
       await this.gitRepository.commit(`chore: bump version to ${newVersion} on sprint close`);
     } catch (err: any) {
       if (!err.message?.includes('nothing to commit')) throw err;
