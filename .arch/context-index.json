@@ -4128,7 +4128,7 @@
       "title": "Govern/Reflect Structural Separation"
     }
   },
-  "builtAt": "2026-05-26T22:43:55.835Z",
+  "builtAt": "2026-05-27T07:09:39.601Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -10412,6 +10412,19 @@
         "docs/tasks/TASK-1053.md": 1
       }
     },
+    "TASK-1054": {
+      "commitCount": 1,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-05-26T22:44:05+00:00",
+      "recentCommitRefs": [
+        "642eb2c3"
+      ],
+      "touchedFrequency": {
+        ".arch/chronicle.jsonl": 1,
+        "docs/INBOX.md": 1,
+        "docs/tasks/TASK-1054.md": 1
+      }
+    },
     "TASK-161": {
       "commitCount": 1,
       "commitRefOverflow": false,
@@ -10851,9 +10864,9 @@
       }
     },
     "TASK-242": {
-      "commitCount": 8,
+      "commitCount": 9,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-26T22:43:52+00:00",
+      "lastCommitDate": "2026-05-27T09:09:35+02:00",
       "recentCommitRefs": [
         "0bde3f70",
         "0c33ebe1",
@@ -10862,12 +10875,13 @@
         "37acbbfb",
         "42bb8e79",
         "5a52e7a4",
-        "9b47f7e7"
+        "9b47f7e7",
+        "c1d9354c"
       ],
       "touchedFrequency": {
         ".arch/chronicle.jsonl": 1,
         ".arch/ecp-registry.jsonl": 1,
-        ".arch/focus-ledger.jsonl": 7,
+        ".arch/focus-ledger.jsonl": 8,
         ".arch/status-projection.json": 1,
         "cli/.arch/status-projection.json": 1,
         "docs/tasks/TASK-1010.md": 1,
@@ -11229,30 +11243,14 @@
       }
     },
     "TASK-992": {
-      "commitCount": 4,
+      "commitCount": 1,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-23T20:32:35+00:00",
       "recentCommitRefs": [
-        "09053962",
-        "262b9d14",
-        "959540a1",
-        "cee5e051"
+        "262b9d14"
       ],
       "touchedFrequency": {
         ".arch/ecp-registry.jsonl": 1,
-        ".arch/focus-ledger.jsonl": 1,
-        "arch.config.json": 1,
-        "cli/.arch/status-projection.json": 1,
-        "cli/src/main/ts/application/commands/report-command.ts": 1,
-        "cli/src/main/ts/domain/models/config.ts": 1,
-        "cli/src/main/ts/domain/services/archive-parser.ts": 1,
-        "cli/src/main/ts/domain/services/deterministic-hansei-checker.ts": 1,
-        "cli/src/main/ts/domain/services/event-logger.ts": 1,
-        "cli/src/main/ts/domain/services/metrics-engine.ts": 1,
-        "cli/src/main/ts/index.ts": 1,
-        "docs/INBOX.md": 1,
-        "docs/archive/TASK-992.md": 1,
-        "docs/refinement/IDEA-governance-knowledge-store.md": 1,
         "docs/tasks/TASK-957.md": 1,
         "docs/tasks/TASK-995.md": 1
       }
