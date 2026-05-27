@@ -41,7 +41,7 @@ export class LintCommand implements Command {
 
       if (!task) {
         fmt.fail(`${filePath}:`);
-        console.log('    - Could not parse task header or meta line');
+        fmt.log('    - Could not parse task header or meta line');
         failureCount++;
         continue;
       }
@@ -68,7 +68,7 @@ export class LintCommand implements Command {
 
       if (!fileOk) {
         fmt.fail(`${filePath}:`);
-        errors.forEach(err => console.log(`    - ${err}`));
+        errors.forEach(err => fmt.log(`    - ${err}`));
         failureCount++;
       }
     }

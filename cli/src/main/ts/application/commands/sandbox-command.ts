@@ -16,7 +16,7 @@ export class SandboxCommand implements Command {
   async execute(args: string[]): Promise<number> {
     const subCommand = args[0];
     if (subCommand !== 'exec') {
-      console.log('Usage: arch sandbox exec "<command>" [--args "arg1 arg2"] [--privileged]');
+      fmt.log('Usage: arch sandbox exec "<command>" [--args "arg1 arg2"] [--privileged]');
       return 1;
     }
 

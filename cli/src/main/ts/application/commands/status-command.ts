@@ -44,19 +44,19 @@ export class StatusCommand implements Command {
 
     // Current work
     if (inProgress.length > 0) {
-      console.log('  IN_PROGRESS:');
+      fmt.log('  IN_PROGRESS:');
       for (const t of inProgress) {
-        console.log(`    ${t.id}  ${t.priority} ${t.size}  ${t.title}`);
+        fmt.log(`    ${t.id}  ${t.priority} ${t.size}  ${t.title}`);
       }
     } else {
-      console.log('  IN_PROGRESS: (none)');
+      fmt.log('  IN_PROGRESS: (none)');
     }
 
     // Needs audit
     if (review.length > 0) {
-      console.log(`\n  REVIEW (needs audit):`);
+      fmt.log(`\n  REVIEW (needs audit):`);
       for (const t of review) {
-        console.log(`    ${t.id}  ${t.priority} ${t.size}  ${t.title}`);
+        fmt.log(`    ${t.id}  ${t.priority} ${t.size}  ${t.title}`);
       }
     }
 
@@ -66,26 +66,26 @@ export class StatusCommand implements Command {
       .sort((a, b) => this.priorityScore(a) - this.priorityScore(b))[0];
 
     if (nextTask) {
-      console.log(`\n  NEXT:  ${nextTask.id}  ${nextTask.priority} ${nextTask.size}  ${nextTask.title}`);
-      console.log(`         arch task start ${nextTask.id}`);
+      fmt.log(`\n  NEXT:  ${nextTask.id}  ${nextTask.priority} ${nextTask.size}  ${nextTask.title}`);
+      fmt.log(`         arch task start ${nextTask.id}`);
     }
 
     // Backlog summary
     const unblocked = ready.filter(t => !this.isBlocked(t, tasks));
     const blocked = ready.filter(t => this.isBlocked(t, tasks));
-    console.log(`\n  Backlog: ${unblocked.length} actionable, ${blocked.length} blocked`);
+    fmt.log(`\n  Backlog: ${unblocked.length} actionable, ${blocked.length} blocked`);
 
     // INBOX alerts
     try {
       const inbox = await this.fileSystem.readFile(`${this.rootPath}/${PathResolver.from({}).inbox}`);
       const alerts = parseInboxAlerts(inbox);
       if (alerts.length > 0) {
-        console.log(`\n  \x1b[33m⚠\x1b[0m  Alerts (${alerts.length}):`);
+        fmt.log(`\n  \x1b[33m⚠\x1b[0m  Alerts (${alerts.length}):`);
         for (const a of alerts.slice(0, 3)) {
-          console.log(`    ${a.slice(0, 80)}`);
+          fmt.log(`    ${a.slice(0, 80)}`);
         }
         if (alerts.length > 3) {
-          console.log(`    ... ${alerts.length - 3} more — run arch govern inbox`);
+          fmt.log(`    ... ${alerts.length - 3} more — run arch govern inbox`);
         }
       }
     } catch { /* no inbox */ }
@@ -96,7 +96,7 @@ export class StatusCommand implements Command {
       const integrity = metrics.match(/\*\*Integrity Level\*\*\s*\|\s*(\S+)/)?.[1];
       if (integrity && integrity !== 'N/A') {
         const icon = integrity === 'HIGH' ? '✔' : integrity === 'LOW' ? '⚠' : '~';
-        console.log(`\n  Report: ${icon} Integrity ${integrity}`);
+        fmt.log(`\n  Report: ${icon} Integrity ${integrity}`);
       }
     } catch { /* no metrics */ }
 
@@ -115,22 +115,22 @@ export class StatusCommand implements Command {
           const icon = score >= 80 ? '\x1b[32m✔\x1b[0m' : score >= 60 ? '\x1b[33m⚠\x1b[0m' : '\x1b[31m✖\x1b[0m';
           const ageStr = age < 1 ? 'just now' : age < 24 ? `${age}h ago` : `${Math.round(age / 24)}d ago`;
           const emergentStr = emergentCount > 0 ? `  ${emergentCount} emergent` : '';
-          console.log(`  Audit:  ${icon} ${score}/100 alignment (${ageStr})${emergentStr}`);
+          fmt.log(`  Audit:  ${icon} ${score}/100 alignment (${ageStr})${emergentStr}`);
         } catch {
           // No cached audit — suggest running it
-          console.log(`  Audit:  ~ ${adrCount} ADRs found — run \x1b[36march audit .\x1b[0m for alignment score`);
+          fmt.log(`  Audit:  ~ ${adrCount} ADRs found — run \x1b[36march audit .\x1b[0m for alignment score`);
         }
       }
     } catch { /* no adr dir — skip */ }
 
-    console.log('');
+    fmt.log('');
     return 0;
   }
 
   async publishReport(): Promise<void> {
-    console.log('\n  ARCH — arch status --publish');
-    console.log('  \x1b[33m⚠ Warning: Materialized report is strictly non-authoritative.\x1b[0m');
-    console.log('  This artifact is for human consumption only and must never be used as operational input.\n');
+    fmt.log('\n  ARCH — arch status --publish');
+    fmt.log('  \x1b[33m⚠ Warning: Materialized report is strictly non-authoritative.\x1b[0m');
+    fmt.log('  This artifact is for human consumption only and must never be used as operational input.\n');
 
     const service = new StatusReportService(this.taskRepository, this.rootPath);
     const report = await service.generateReport();
@@ -139,7 +139,7 @@ export class StatusCommand implements Command {
     await service.publish('README.md', markdown);
     await service.publish('docs/ROADMAP.md', markdown);
 
-    console.log('');
+    fmt.log('');
   }
 
   private isBlocked(task: any, all: any[]): boolean {

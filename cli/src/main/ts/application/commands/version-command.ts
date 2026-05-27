@@ -5,7 +5,7 @@ export class VersionCommand implements Command {
   constructor(private version: string) {}
 
   async execute(): Promise<number> {
-    console.log(`v${this.version}`);
+    fmt.log(`v${this.version}`);
     return 0;
   }
 }

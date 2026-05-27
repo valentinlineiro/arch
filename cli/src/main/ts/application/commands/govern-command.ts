@@ -1,3 +1,4 @@
+import * as fmt from '../../infrastructure/cli/output-formatter.js';
 import { Command } from '../../domain/models/command.js';
 import { GovernSystem } from '../use-cases/govern-system.js';
 import { BuildIndex } from '../use-cases/build-index.js';
@@ -28,7 +29,7 @@ export class GovernCommand implements Command {
   async execute(args: string[] = []): Promise<number> {
     const noAnalyze = args.includes('--no-analyze') || args.includes('--no-conduct');
     const cleanInbox = args.includes('--clean-inbox');
-    console.log('\n  ARCH — Governance Tick');
+    fmt.log('\n  ARCH — Governance Tick');
     const result = await this.useCase.execute(cleanInbox);
 
     try {
@@ -36,7 +37,7 @@ export class GovernCommand implements Command {
       const contextRules = (config.contextRules as Record<string, { taskClasses: string[] }>) ?? {};
       const buildIndex = new BuildIndex(this.fileSystem);
       await buildIndex.execute(contextRules, this.gitRepository);
-      console.log('  \x1b[32m✔\x1b[0m context index rebuilt');
+      fmt.log('  \x1b[32m✔\x1b[0m context index rebuilt');
     } catch {
       throw new Error('failed to rebuild context index during govern');
     }
@@ -53,11 +54,11 @@ export class GovernCommand implements Command {
     // Analysis side-effect: trigger arch analyze when replenishment or cadence conditions are met.
     // This is labeled explicitly as analysis — it never affects enforcement decisions.
     if (result.analysisNeeded && !noAnalyze) {
-      console.log(`  → Triggering arch analyze [analysis] (reasons: ${result.reasons.join(', ')})`);
+      fmt.log(`  → Triggering arch analyze [analysis] (reasons: ${result.reasons.join(', ')})`);
       SubprocessRunner.runSync('./scripts/arch.sh', ['analyze']);
     }
 
-    console.log('');
+    fmt.log('');
 
     if (result.projectComplete === true) {
       return 2;
@@ -90,6 +91,6 @@ export class GovernCommand implements Command {
 
     const total = records.length;
     const open = openRecords.length;
-    console.log(`  Escalation compaction: ${total} total → ${open} OPEN records (compacted view: .arch/escalations-compacted.jsonl)`);
+    fmt.log(`  Escalation compaction: ${total} total → ${open} OPEN records (compacted view: .arch/escalations-compacted.jsonl)`);
   }
 }

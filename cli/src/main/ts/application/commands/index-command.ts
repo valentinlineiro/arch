@@ -1,3 +1,4 @@
+import * as fmt from '../../infrastructure/cli/output-formatter.js';
 import { Command } from '../../domain/models/command.js';
 import { BuildIndex } from '../use-cases/build-index.js';
 import { ConfigLoader } from '../../domain/services/config-loader.js';
@@ -16,7 +17,7 @@ export class IndexCommand implements Command {
     const contextRules = (config.contextRules as Record<string, { taskClasses: string[] }>) ?? {};
     const buildIndex = new BuildIndex(this.fileSystem);
     await buildIndex.execute(contextRules, this.gitRepository);
-    console.log(`  \x1b[32m✔\x1b[0m context index rebuilt → ${PathResolver.from({}).contextIndex}`);
+    fmt.log(`  \x1b[32m✔\x1b[0m context index rebuilt → ${PathResolver.from({}).contextIndex}`);
     return 0;
   }
 }

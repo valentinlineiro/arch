@@ -1,3 +1,4 @@
+import * as fmt from '../../infrastructure/cli/output-formatter.js';
 
 import { Command } from '../../domain/models/command.js';
 import { execSync } from 'node:child_process';
@@ -23,7 +24,7 @@ export class AuditCommand implements Command {
     let tmpDir: string | null = null;
 
     if (target.startsWith('https://') || target.startsWith('git@')) {
-      console.log(`\n  Cloning ${target}...`);
+      fmt.log(`\n  Cloning ${target}...`);
       tmpDir = mkdtempSync(join(tmpdir(), 'arch-audit-'));
       try {
         execSync(`git clone --depth 1 "${target}" "${tmpDir}"`, { stdio: 'pipe' });
@@ -53,7 +54,7 @@ export class AuditCommand implements Command {
     const modeLabel = opts.publicMode
       ? 'Structural MRI (public, non-authoritative)'
       : 'Language-Agnostic Audit (v1.2.0)';
-    console.log(`\n  \x1b[32mARCH\x1b[0m — ${modeLabel}\n`);
+    fmt.log(`\n  \x1b[32mARCH\x1b[0m — ${modeLabel}\n`);
     
     const adapters: LanguageAdapter[] = [
       new TypeScriptAdapter(),
@@ -65,7 +66,7 @@ export class AuditCommand implements Command {
     const languageCoverage = new Set<string>();
 
     const files = this.listAllFiles(repoPath);
-    console.log(`  [1/4] Extracting UEG fragments from ${files.length} files...`);
+    fmt.log(`  [1/4] Extracting UEG fragments from ${files.length} files...`);
 
     for (const file of files) {
       const ext = extname(file).toLowerCase();
@@ -80,11 +81,11 @@ export class AuditCommand implements Command {
       }
     }
 
-    console.log(`  [2/4] Merging Unified Epistemic Graph IR...`);
+    fmt.log(`  [2/4] Merging Unified Epistemic Graph IR...`);
     const builder = new UEGIRBuilder();
     const graph = builder.merge(fragments, Array.from(languageCoverage));
 
-    console.log(`  [3/4] Running non-authoritative analysis layers...`);
+    fmt.log(`  [3/4] Running non-authoritative analysis layers...`);
     const analysis = new UEGAnalysisLayer();
     const subsystems = analysis.generateSubsystemViews(graph);
     const risks = analysis.detectRisks(graph);
@@ -97,7 +98,7 @@ export class AuditCommand implements Command {
       instrumentation,
     };
 
-    console.log(`  [4/4] Generating structural deployment map...\n`);
+    fmt.log(`  [4/4] Generating structural deployment map...\n`);
     this.render(map, opts.verbose);
 
     // Public mode: add MRI summary line + canonical disclaimer
@@ -108,9 +109,9 @@ export class AuditCommand implements Command {
       const couplingPct = graph.entities.length > 0
         ? Math.round((coupledPairs / graph.entities.length) * 100)
         : 0;
-      console.log(`  \x1b[1mMRI SUMMARY:\x1b[0m ${hotspots} hotspot${hotspots !== 1 ? 's' : ''}, ${orphans} orphan file${orphans !== 1 ? 's' : ''}, ${couplingPct}% hidden coupling`);
-      console.log(`  \x1b[90m⚠ These are structural observations — not canonical truths.\x1b[0m`);
-      console.log(`  \x1b[90m  ARCH v1.2 applies heuristic analysis. No claim is authoritative without domain context.\x1b[0m\n`);
+      fmt.log(`  \x1b[1mMRI SUMMARY:\x1b[0m ${hotspots} hotspot${hotspots !== 1 ? 's' : ''}, ${orphans} orphan file${orphans !== 1 ? 's' : ''}, ${couplingPct}% hidden coupling`);
+      fmt.log(`  \x1b[90m⚠ These are structural observations — not canonical truths.\x1b[0m`);
+      fmt.log(`  \x1b[90m  ARCH v1.2 applies heuristic analysis. No claim is authoritative without domain context.\x1b[0m\n`);
     }
 
     // Cache audit result
@@ -154,47 +155,47 @@ export class AuditCommand implements Command {
     const { graph, subsystems, risks, instrumentation } = map;
 
     // 1. Graph Overview
-    console.log(`  \x1b[1mUNIFIED EPISTEMIC GRAPH OVERVIEW\x1b[0m`);
-    console.log(`    Entities:     ${graph.entities.length}`);
-    console.log(`    Edges:        ${graph.edges.length}`);
-    console.log(`    Languages:    ${graph.metadata.languageCoverage.join(', ')}`);
-    console.log(`    Completeness: ${graph.metadata.completeness}\n`);
+    fmt.log(`  \x1b[1mUNIFIED EPISTEMIC GRAPH OVERVIEW\x1b[0m`);
+    fmt.log(`    Entities:     ${graph.entities.length}`);
+    fmt.log(`    Edges:        ${graph.edges.length}`);
+    fmt.log(`    Languages:    ${graph.metadata.languageCoverage.join(', ')}`);
+    fmt.log(`    Completeness: ${graph.metadata.completeness}\n`);
 
     // 2. Subsystem Views (Emergent only, no roles)
-    console.log(`  \x1b[1mEMERGENT SUBSYSTEM VIEWS (${subsystems.length})\x1b[0m`);
+    fmt.log(`  \x1b[1mEMERGENT SUBSYSTEM VIEWS (${subsystems.length})\x1b[0m`);
     // Note: No sorting or ranking as per v1.1 constraint 8.1
     for (const s of subsystems.slice(0, 5)) {
-      console.log(`    \x1b[36mStructural View:\x1b[0m ${s.entities.length} entities, ${s.relations.length} relations`);
+      fmt.log(`    \x1b[36mStructural View:\x1b[0m ${s.entities.length} entities, ${s.relations.length} relations`);
       if (verbose) {
         const topEntities = s.entities.slice(0, 3).map(e => e.name).join(', ');
-        console.log(`      \x1b[90mSample: ${topEntities}...\x1b[0m`);
+        fmt.log(`      \x1b[90mSample: ${topEntities}...\x1b[0m`);
       }
     }
-    if (subsystems.length > 5) console.log(`    ... and ${subsystems.length - 5} more views.`);
-    console.log('');
+    if (subsystems.length > 5) fmt.log(`    ... and ${subsystems.length - 5} more views.`);
+    fmt.log('');
 
     // 3. Structural Risks (Descriptive only, no severity levels)
     if (risks.length > 0) {
-      console.log(`  \x1b[31m\x1b[1mSTRUCTURAL OBSERVATIONS (${risks.length})\x1b[0m`);
+      fmt.log(`  \x1b[31m\x1b[1mSTRUCTURAL OBSERVATIONS (${risks.length})\x1b[0m`);
       for (const risk of risks.slice(0, 5)) {
-        console.log(`    \x1b[31m[${risk.type}]\x1b[0m ${risk.entities[0]}`);
-        console.log(`    \x1b[90mObservation: ${risk.observation}\x1b[0m`);
-        console.log(`    \x1b[90mCondition:   ${risk.structuralCondition}\x1b[0m`);
+        fmt.log(`    \x1b[31m[${risk.type}]\x1b[0m ${risk.entities[0]}`);
+        fmt.log(`    \x1b[90mObservation: ${risk.observation}\x1b[0m`);
+        fmt.log(`    \x1b[90mCondition:   ${risk.structuralCondition}\x1b[0m`);
       }
-      console.log('');
+      fmt.log('');
     }
 
     // 4. Instrumentation Suggestions (Unordered)
-    console.log(`  \x1b[32m\x1b[1mINSTRUMENTATION SUGGESTIONS (${instrumentation.length})\x1b[0m`);
+    fmt.log(`  \x1b[32m\x1b[1mINSTRUMENTATION SUGGESTIONS (${instrumentation.length})\x1b[0m`);
     for (const suggest of instrumentation.slice(0, 5)) {
-      console.log(`    \x1b[32m[${suggest.hookType.padEnd(22)}]\x1b[0m ${suggest.entityId}`);
-      if (verbose) console.log(`      \x1b[90mReason: ${suggest.reason}\x1b[0m`);
+      fmt.log(`    \x1b[32m[${suggest.hookType.padEnd(22)}]\x1b[0m ${suggest.entityId}`);
+      if (verbose) fmt.log(`      \x1b[90mReason: ${suggest.reason}\x1b[0m`);
     }
     if (instrumentation.length > 5) {
-      console.log(`    ... and ${instrumentation.length - 5} more suggestions.`);
+      fmt.log(`    ... and ${instrumentation.length - 5} more suggestions.`);
     }
-    console.log('');
+    fmt.log('');
 
-    console.log(`  \x1b[90mNote: ARCH v1.1 is a structural decomposition engine. Labels and views are emergent lenses, not truth claims.\x1b[0m\n`);
+    fmt.log(`  \x1b[90mNote: ARCH v1.1 is a structural decomposition engine. Labels and views are emergent lenses, not truth claims.\x1b[0m\n`);
   }
 }

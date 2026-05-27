@@ -32,7 +32,7 @@ export class CheckCommand implements Command {
     let totalFixed = 0;
 
     fmt.header(`Auto-fix${dryRun ? ' (dry-run)' : ''}`);
-    console.log('');
+    fmt.log('');
 
     for (const dir of dirs) {
       let files: string[];
@@ -83,7 +83,7 @@ export class CheckCommand implements Command {
         if (fixes.length > 0) {
           totalFixed++;
           const action = dryRun ? 'Would fix' : 'Fixed';
-          console.log(`  ${dryRun ? '\x1b[33mℹ\x1b[0m' : '\x1b[32m✔\x1b[0m'} ${filePath}: ${action} ${fixes.join(', ')}`);
+          fmt.log(`  ${dryRun ? '\x1b[33mℹ\x1b[0m' : '\x1b[32m✔\x1b[0m'} ${filePath}: ${action} ${fixes.join(', ')}`);
           if (!dryRun) {
             await this.fileSystem.writeFile(filePath, modified);
           }
@@ -91,7 +91,7 @@ export class CheckCommand implements Command {
       }
     }
 
-    console.log('');
+    fmt.log('');
     if (totalFixed === 0) {
       fmt.check('No issues found — all files clean');
     } else {
@@ -108,38 +108,38 @@ export class CheckCommand implements Command {
     }
 
     fmt.header(`Scoped Review — ${taskId}`);
-    console.log('');
+    fmt.log('');
 
     let allPass = true;
 
     // 1. AC verification
-    console.log('  Acceptance Criteria:');
+    fmt.log('  Acceptance Criteria:');
     const verifier = new DeterministicACVerifier();
     const acResult = await verifier.verify(task);
     for (const ev of acResult.evidence) {
       const icon = ev.pass ? '\x1b[32m✔\x1b[0m' : '\x1b[31m✖\x1b[0m';
       const typeTag = `[${ev.type}]`.padEnd(8);
-      console.log(`    ${icon} ${typeTag} ${ev.ac.slice(0, 70)}`);
+      fmt.log(`    ${icon} ${typeTag} ${ev.ac.slice(0, 70)}`);
       if (!ev.pass) {
-        console.log(`           ${ev.detail.split('\n')[0]}`);
+        fmt.log(`           ${ev.detail.split('\n')[0]}`);
         allPass = false;
       }
     }
     if (acResult.evidence.length === 0) {
-      console.log('    (no predicates to verify)');
+      fmt.log('    (no predicates to verify)');
     }
 
     // 2. Hansei completeness
-    console.log('');
-    console.log('  Hansei:');
+    fmt.log('');
+    fmt.log('  Hansei:');
     const hanseiComplete = HanseiWizard.isHanseiComplete(task.content ?? '');
     const hanseiIcon = hanseiComplete ? '\x1b[32m✔\x1b[0m' : '\x1b[31m✖\x1b[0m';
-    console.log(`    ${hanseiIcon} [hansei]  ${hanseiComplete ? 'Complete' : 'Incomplete — missing or placeholder fields'}`);
+    fmt.log(`    ${hanseiIcon} [hansei]  ${hanseiComplete ? 'Complete' : 'Incomplete — missing or placeholder fields'}`);
     if (!hanseiComplete) allPass = false;
 
     // 3. Meta line compliance
-    console.log('');
-    console.log('  Meta compliance:');
+    fmt.log('');
+    fmt.log('  Meta compliance:');
     const VALID_PRIORITIES = new Set(['P0', 'P1', 'P2', 'P3']);
     const VALID_SIZES = new Set(['XS', 'S', 'M', 'L']);
     const metaChecks: Array<{ label: string; pass: boolean }> = [
@@ -149,15 +149,15 @@ export class CheckCommand implements Command {
     ];
     for (const check of metaChecks) {
       const icon = check.pass ? '\x1b[32m✔\x1b[0m' : '\x1b[31m✖\x1b[0m';
-      console.log(`    ${icon} [meta]    ${check.label}`);
+      fmt.log(`    ${icon} [meta]    ${check.label}`);
       if (!check.pass) allPass = false;
     }
 
-    console.log('');
+    fmt.log('');
     if (allPass) {
-      console.log('  \x1b[32m✔\x1b[0m All checks passed. Task is ready for DONE.');
+      fmt.log('  \x1b[32m✔\x1b[0m All checks passed. Task is ready for DONE.');
     } else {
-      console.error('  \x1b[31m✖\x1b[0m Review failed — resolve issues before closing.');
+      fmt.error('  \x1b[31m✖\x1b[0m Review failed — resolve issues before closing.');
       throw new CommandExit(1);
     }
     return 0;
@@ -190,7 +190,7 @@ export class CheckCommand implements Command {
     const result = await system.execute({ scope });
 
     if (isJson) {
-      console.log(JSON.stringify(result, null, 2));
+      fmt.log(JSON.stringify(result, null, 2));
       return result.success ? 0 : 1;
     }
 
@@ -198,20 +198,20 @@ export class CheckCommand implements Command {
       fmt.ok('System Review: OK');
     } else {
       fmt.fail('System Review: FAILED');
-      result.violations.forEach(v => console.log(`    - ${v}`));
+      result.violations.forEach(v => fmt.log(`    - ${v}`));
     }
     if (result.drift.length > 0) {
-      console.log(`\n  Drift`);
+      fmt.log(`\n  Drift`);
       for (const d of result.drift) {
-        console.log(`    ${fmt.driftIcon(d.status)} ${d.check}`);
-        d.details.forEach(detail => console.log(`        ${detail}`));
+        fmt.log(`    ${fmt.driftIcon(d.status)} ${d.check}`);
+        d.details.forEach(detail => fmt.log(`        ${detail}`));
       }
     }
-    console.log('');
+    fmt.log('');
 
     if (isPush && result.success) {
       const { execSync } = await import('child_process');
-      console.log('  Pushing to remote...');
+      fmt.log('  Pushing to remote...');
       execSync('git push', { stdio: 'inherit' });
     }
 

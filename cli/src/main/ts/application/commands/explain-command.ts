@@ -1,3 +1,4 @@
+import * as fmt from '../../infrastructure/cli/output-formatter.js';
 import { CommandExit, Command } from '../../domain/models/command.js';
 import type { TaskRepository } from '../../domain/repositories/task-repository.js';
 import type { FileSystem } from '../../domain/repositories/file-system.js';
@@ -112,18 +113,18 @@ export class ExplainCommand implements Command {
     const entry = GLOSSARY[normalized] ?? Object.entries(GLOSSARY).find(([k]) => k.includes(normalized) || normalized.includes(k))?.[1];
 
     if (!entry) {
-      console.log(`\n  \x1b[32mARCH\x1b[0m — No entry found for "${term}"\n`);
-      console.log('  Known terms:');
+      fmt.log(`\n  \x1b[32mARCH\x1b[0m — No entry found for "${term}"\n`);
+      fmt.log('  Known terms:');
       for (const key of Object.keys(GLOSSARY)) {
-        console.log(`    ${key}`);
+        fmt.log(`    ${key}`);
       }
-      console.log('');
+      fmt.log('');
       return;
     }
 
-    console.log(`\n  \x1b[32mARCH\x1b[0m — ${term}\n`);
-    console.log(`  ${entry.definition}\n`);
-    console.log(`  Usage: ${entry.usage}\n`);
+    fmt.log(`\n  \x1b[32mARCH\x1b[0m — ${term}\n`);
+    fmt.log(`  ${entry.definition}\n`);
+    fmt.log(`  Usage: ${entry.usage}\n`);
   }
 
   async execute(args: string[]): Promise<number> {
@@ -158,40 +159,40 @@ export class ExplainCommand implements Command {
 
     if (!content) { return 1; }
 
-    console.log(`\n  \x1b[32mARCH\x1b[0m — ${taskId} Provenance\n`);
+    fmt.log(`\n  \x1b[32mARCH\x1b[0m — ${taskId} Provenance\n`);
 
     // Title and status
     const titleMatch = content.match(/^## (TASK-\d+): (.*)/m);
     const metaMatch = content.match(/\*\*Meta:\*\*\s*(\S+)\s*\|\s*(\S+)\s*\|\s*(\S+)/);
-    if (titleMatch) console.log(`  ${titleMatch[1]}: ${titleMatch[2]}`);
-    if (metaMatch) console.log(`  ${metaMatch[1]} ${metaMatch[2]} ${metaMatch[3]}\n`);
+    if (titleMatch) fmt.log(`  ${titleMatch[1]}: ${titleMatch[2]}`);
+    if (metaMatch) fmt.log(`  ${metaMatch[1]} ${metaMatch[2]} ${metaMatch[3]}\n`);
 
     // Origin: look for Spawned-from or matching IDEA in archive
     const spawnedFrom = content.match(/\*\*Spawned-from:\*\*\s*(TASK-\d+)/)?.[1];
     if (spawnedFrom) {
-      console.log(`  Origin: decomposed from ${spawnedFrom}`);
+      fmt.log(`  Origin: decomposed from ${spawnedFrom}`);
     } else {
       // Search for IDEA that promoted to this task
       const ideaOrigin = await this.findIdeaOrigin(taskId);
       if (ideaOrigin) {
-        console.log(`  Origin: promoted from ${ideaOrigin.slug}`);
-        console.log(`    "${ideaOrigin.title}"`);
-        if (ideaOrigin.decision) console.log(`    Decision: ${ideaOrigin.decision.slice(0, 80)}`);
+        fmt.log(`  Origin: promoted from ${ideaOrigin.slug}`);
+        fmt.log(`    "${ideaOrigin.title}"`);
+        if (ideaOrigin.decision) fmt.log(`    Decision: ${ideaOrigin.decision.slice(0, 80)}`);
       }
     }
 
     // Hansei
     const hansei = this.extractHansei(content);
     if (hansei) {
-      console.log(`\n  Hansei:`);
-      console.log(`    Severity:  ${hansei.severity}`);
-      console.log(`    Category:  ${hansei.category}`);
-      console.log(`    Decision:  ${hansei.decision.slice(0, 100)}`);
+      fmt.log(`\n  Hansei:`);
+      fmt.log(`    Severity:  ${hansei.severity}`);
+      fmt.log(`    Category:  ${hansei.category}`);
+      fmt.log(`    Decision:  ${hansei.decision.slice(0, 100)}`);
       if (hansei.constraint && hansei.constraint.toLowerCase() !== 'none.') {
-        console.log(`    Constraint: ${hansei.constraint.slice(0, 100)}`);
+        fmt.log(`    Constraint: ${hansei.constraint.slice(0, 100)}`);
       }
       if (hansei.forwardAction && hansei.forwardAction.toLowerCase() !== 'none required.') {
-        console.log(`    Forward:   ${hansei.forwardAction.slice(0, 100)}`);
+        fmt.log(`    Forward:   ${hansei.forwardAction.slice(0, 100)}`);
       }
     }
 
@@ -201,9 +202,9 @@ export class ExplainCommand implements Command {
         const signals = await this.causalSignalLog.all();
         const emitted = signals.filter(s => s.candidate_from === taskId || s.event?.includes(taskId));
         if (emitted.length > 0) {
-          console.log(`\n  Signals emitted (${emitted.length}):`);
+          fmt.log(`\n  Signals emitted (${emitted.length}):`);
           for (const s of emitted.slice(0, 5)) {
-            console.log(`    [${s.domain}] ${s.candidate_from} → ${s.candidate_to}`);
+            fmt.log(`    [${s.domain}] ${s.candidate_from} → ${s.candidate_to}`);
           }
         }
       } catch { /* causal log unavailable */ }
@@ -212,9 +213,9 @@ export class ExplainCommand implements Command {
     // Downstream: tasks that reference this as Forward Action or Spawned-from
     const related = await this.findRelated(taskId);
     if (related.length > 0) {
-      console.log(`\n  Downstream (${related.length}):`);
+      fmt.log(`\n  Downstream (${related.length}):`);
       for (const r of related.slice(0, 5)) {
-        console.log(`    → ${r.id}  ${r.status}  ${r.title?.slice(0, 50)}`);
+        fmt.log(`    → ${r.id}  ${r.status}  ${r.title?.slice(0, 50)}`);
       }
     }
 
@@ -222,14 +223,14 @@ export class ExplainCommand implements Command {
     if (hansei?.category) {
       const sameCategory = await this.findSameCategory(taskId, hansei.category);
       if (sameCategory.length > 0) {
-        console.log(`\n  Same category ${hansei.category} (${sameCategory.length} other tasks):`);
+        fmt.log(`\n  Same category ${hansei.category} (${sameCategory.length} other tasks):`);
         for (const t of sameCategory.slice(0, 3)) {
-          console.log(`    ${t.id}  ${t.title?.slice(0, 55)}`);
+          fmt.log(`    ${t.id}  ${t.title?.slice(0, 55)}`);
         }
       }
     }
 
-    console.log('');
+    fmt.log('');
     return 0;
   }
 

@@ -1,3 +1,4 @@
+import * as fmt from '../../infrastructure/cli/output-formatter.js';
 import { Command } from '../../domain/models/command.js';
 import { FileSystem } from '../../domain/repositories/file-system.js';
 import { GitRepository } from '../../domain/repositories/git-repository.js';
@@ -22,48 +23,48 @@ export class ReportCommand implements Command {
     if (metrics.integrityLevel === 'INVALID') {
       const reportContent = this.formatReport(metrics);
       await this.updateMetricsFile(reportContent);
-      console.error('\n  ✖ CRITICAL INTEGRITY BREACH: Report data is INVALID due to protocol violations or ledger corruption.');
-      console.error('  Manual intervention required. Check docs/EVENTS.md and task metadata for discrepancies.');
-      console.error('  docs/METRICS.md updated with INVALID report for diagnostics.\n');
+      fmt.error('\n  ✖ CRITICAL INTEGRITY BREACH: Report data is INVALID due to protocol violations or ledger corruption.');
+      fmt.error('  Manual intervention required. Check docs/EVENTS.md and task metadata for discrepancies.');
+      fmt.error('  docs/METRICS.md updated with INVALID report for diagnostics.\n');
       return 1;
     }
 
     const reportContent = this.formatReport(metrics);
     await this.updateMetricsFile(reportContent);
 
-    console.log('\n  ARCH — Operational Report\n');
-    console.log(`  Completed: ${metrics.totalCompleted} tasks`);
-    console.log(`  REVIEW_FAIL: ${metrics.reviewFailRate === 'pending' ? 'pending' : (metrics.reviewFailRate * 100).toFixed(1) + '%'}`);
+    fmt.log('\n  ARCH — Operational Report\n');
+    fmt.log(`  Completed: ${metrics.totalCompleted} tasks`);
+    fmt.log(`  REVIEW_FAIL: ${metrics.reviewFailRate === 'pending' ? 'pending' : (metrics.reviewFailRate * 100).toFixed(1) + '%'}`);
     const costLabel = metrics.costPerTask.realCount > 0
       ? `${metrics.costPerTask.average.toFixed(2)} (${metrics.costPerTask.realCount} real, ${metrics.costPerTask.heuristicCount} heuristic)`
       : `${metrics.costPerTask.average.toFixed(2)} (heuristic)`;
-    console.log(`  Avg Cost: ${costLabel}`);
-    console.log('\n  Cycle Time (P50/P90):');
+    fmt.log(`  Avg Cost: ${costLabel}`);
+    fmt.log('\n  Cycle Time (P50/P90):');
     for (const size of ['XS', 'S', 'M', 'L']) {
       const { p50, p90, count } = metrics.cycleTime[size];
       const p50Str = p50 !== null ? p50.toFixed(1) + 'h' : 'N/A';
       const p90Str = p90 !== null ? p90.toFixed(1) + 'h' : 'N/A';
-      console.log(`    ${size}: ${p50Str} / ${p90Str} (${count} tasks)`);
+      fmt.log(`    ${size}: ${p50Str} / ${p90Str} (${count} tasks)`);
     }
     // Actor breakdown (requires TASK-911 Actor field + >=5 actor-tagged tasks)
     if (metrics.actorBreakdown && metrics.actorBreakdown.length > 0) {
-      console.log('\n  Actor Breakdown:');
+      fmt.log('\n  Actor Breakdown:');
       for (const entry of metrics.actorBreakdown) {
         const turns = entry.avgTurns !== null ? `avg ${entry.avgTurns} turns` : 'no turn data';
-        console.log(`    ${entry.actor.padEnd(32)} ${entry.size}  ${String(entry.taskCount).padStart(3)} tasks  ${turns}`);
+        fmt.log(`    ${entry.actor.padEnd(32)} ${entry.size}  ${String(entry.taskCount).padStart(3)} tasks  ${turns}`);
       }
     }
 
     // Hansei category breakdown
     if (metrics.hanseiBreakdown && metrics.hanseiBreakdown.length > 0) {
-      console.log('\n  Hansei Signals (H2+):');
+      fmt.log('\n  Hansei Signals (H2+):');
       for (const entry of metrics.hanseiBreakdown) {
         const weakTag = entry.isWeakSignal ? ' ⚠ WEAK SIGNAL' : '';
-        console.log(`    ${entry.category.padEnd(28)} ${String(entry.count).padStart(3)}x  [${entry.severities.join(', ')}]${weakTag}`);
+        fmt.log(`    ${entry.category.padEnd(28)} ${String(entry.count).padStart(3)}x  [${entry.severities.join(', ')}]${weakTag}`);
       }
     }
 
-    console.log('\n  ✔ docs/METRICS.md updated.');
+    fmt.log('\n  ✔ docs/METRICS.md updated.');
     return 0;
   }
 

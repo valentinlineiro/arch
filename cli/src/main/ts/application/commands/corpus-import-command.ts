@@ -1,3 +1,4 @@
+import * as fmt from '../../infrastructure/cli/output-formatter.js';
 import path from 'node:path';
 import os from 'node:os';
 import fs from 'node:fs';
@@ -14,7 +15,7 @@ export class CorpusImportCommand implements Command {
   async execute(args: string[]): Promise<number> {
     const source = args[0];
     if (!source) {
-      console.log('Usage: arch corpus import <path|url> [--as <slug>]');
+      fmt.log('Usage: arch corpus import <path|url> [--as <slug>]');
       return 1;
     }
 
@@ -28,10 +29,10 @@ export class CorpusImportCommand implements Command {
     if (URL_PATTERN.test(source)) {
       // Clone to temp dir
       tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'arch-import-'));
-      console.log(`  Cloning ${source}...`);
+      fmt.log(`  Cloning ${source}...`);
       const result = spawnSync('git', ['clone', '--depth', '1', source, tmpDir], { stdio: 'inherit' });
       if (result.status !== 0) {
-        console.log(`  Error: git clone failed (exit ${result.status ?? 'unknown'})`);
+        fmt.log(`  Error: git clone failed (exit ${result.status ?? 'unknown'})`);
         try { fs.rmSync(tmpDir, { recursive: true }); } catch { /* ignore */ }
         return 1;
       }
@@ -44,7 +45,7 @@ export class CorpusImportCommand implements Command {
 
     try {
       const { added } = await this.importFromPath(repoPath, slug);
-      console.log(`  \x1b[32m✔\x1b[0m Imported ${added} entries from ${repoPath} → source:${slug}`);
+      fmt.log(`  \x1b[32m✔\x1b[0m Imported ${added} entries from ${repoPath} → source:${slug}`);
     } finally {
       if (tmpDir) {
         try { fs.rmSync(tmpDir, { recursive: true }); } catch { /* ignore */ }

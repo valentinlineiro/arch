@@ -1,3 +1,4 @@
+import * as fmt from '../../infrastructure/cli/output-formatter.js';
 import { Command } from '../../domain/models/command.js';
 import http from 'node:http';
 import fs from 'node:fs';
@@ -14,16 +15,16 @@ export class ServeCommand implements Command {
 
     server.on('error', (err: NodeJS.ErrnoException) => {
       if (err.code === 'EADDRINUSE') {
-        console.error(`\n  ✗ Port ${port} is already in use. Try: arch govern serve ${port + 1}`);
+        fmt.error(`\n  ✗ Port ${port} is already in use. Try: arch govern serve ${port + 1}`);
         return 1;
       }
       throw err;
     });
 
     server.listen(port, () => {
-      console.log(`\n  \x1b[32m✔\x1b[0m ARCH Viewer serving at: \x1b[36mhttp://localhost:${port}\x1b[0m`);
-      console.log(`  Serving files from: ${path.join(this.rootPath, 'docs')}`);
-      console.log('  Press Ctrl+C to stop.\n');
+      fmt.log(`\n  \x1b[32m✔\x1b[0m ARCH Viewer serving at: \x1b[36mhttp://localhost:${port}\x1b[0m`);
+      fmt.log(`  Serving files from: ${path.join(this.rootPath, 'docs')}`);
+      fmt.log('  Press Ctrl+C to stop.\n');
     });
     return 0;
   }

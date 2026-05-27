@@ -20,7 +20,7 @@ export class PromoteCommand implements Command {
   async execute(args: string[]): Promise<number> {
     const ideaSlug = args[0];
     if (!ideaSlug) {
-      console.log('Usage: arch promote [IDEA-slug] [--yes]');
+      fmt.log('Usage: arch promote [IDEA-slug] [--yes]');
       return 0;
     }
 

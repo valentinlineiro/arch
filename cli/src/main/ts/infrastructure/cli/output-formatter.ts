@@ -36,3 +36,13 @@ export function driftIcon(status: string): string {
 export function header(label: string): void {
   console.log(`\n  ${GREEN}ARCH${NC} — ${label}`);
 }
+
+/** Raw output — single unified path for all command output. */
+export function log(message?: string): void {
+  console.log(message ?? '');
+}
+
+/** Error output — routes to stderr via console.error (mockable in tests). */
+export function error(message: string): void {
+  console.error(message);
+}

@@ -1,3 +1,4 @@
+import * as fmt from '../../infrastructure/cli/output-formatter.js';
 import { CommandExit, Command } from '../../domain/models/command.js';
 import type { TaskRepository } from '../../domain/repositories/task-repository.js';
 import type { Task } from '../../domain/models/task.js';
@@ -33,32 +34,32 @@ export class DepsCommand implements Command {
   }
 
   private renderSingle(task: Task, all: Task[], byId: Map<string, Task>): void {
-    console.log(`\n${task.id} (${task.priority} ${task.size} ${task.status})\n`);
+    fmt.log(`\n${task.id} (${task.priority} ${task.size} ${task.status})\n`);
 
     // Depends-on
     const deps = this.depsOf(task);
     if (deps.length > 0) {
-      console.log('  depends on:');
+      fmt.log('  depends on:');
       for (const dep of deps) {
         const t = byId.get(dep);
         const label = t ? `${t.size} ${t.status} — ${t.title}` : '(not in active tasks)';
-        console.log(`    ← ${dep}  ${label}`);
+        fmt.log(`    ← ${dep}  ${label}`);
       }
     } else {
-      console.log('  depends on: (none)');
+      fmt.log('  depends on: (none)');
     }
 
     // Unlocks
     const unlocked = all.filter(t => this.depsOf(t).includes(task.id));
     if (unlocked.length > 0) {
-      console.log('\n  unlocks:');
+      fmt.log('\n  unlocks:');
       for (const t of unlocked) {
-        console.log(`    → ${t.id}  ${t.size} ${t.status} — ${t.title}`);
+        fmt.log(`    → ${t.id}  ${t.size} ${t.status} — ${t.title}`);
       }
     } else {
-      console.log('\n  unlocks: (none)');
+      fmt.log('\n  unlocks: (none)');
     }
-    console.log('');
+    fmt.log('');
   }
 
   private renderAll(tasks: Task[], byId: Map<string, Task>): void {
@@ -77,15 +78,15 @@ export class DepsCommand implements Command {
 
     const sorted = [...tasks].sort((a, b) => (leverage.get(b.id) ?? 0) - (leverage.get(a.id) ?? 0));
 
-    console.log('\n  Dependency Graph (sorted by unblocking leverage):\n');
+    fmt.log('\n  Dependency Graph (sorted by unblocking leverage):\n');
     for (const t of sorted) {
       const count = leverage.get(t.id) ?? 0;
       const unlockStr = count > 0 ? ` [unlocks ${count}]` : '';
       const deps = this.depsOf(t);
       const depStr = deps.length > 0 ? `  ← ${deps.join(', ')}` : '';
-      console.log(`  ${t.id}  ${t.priority} ${t.size} ${t.status}${unlockStr}  ${t.title?.slice(0, 45) ?? ''}${depStr}`);
+      fmt.log(`  ${t.id}  ${t.priority} ${t.size} ${t.status}${unlockStr}  ${t.title?.slice(0, 45) ?? ''}${depStr}`);
     }
-    console.log('');
+    fmt.log('');
   }
 
   private depsOf(task: Task): string[] {

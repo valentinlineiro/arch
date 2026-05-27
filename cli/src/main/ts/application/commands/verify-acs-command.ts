@@ -23,7 +23,7 @@ export class VerifyAcsCommand implements Command {
     }
 
     fmt.header(`AC Verification — ${taskId}`);
-    console.log('');
+    fmt.log('');
 
     const verifier = new DeterministicACVerifier(this.rootPath);
     const result = await verifier.verify(task);
@@ -31,18 +31,18 @@ export class VerifyAcsCommand implements Command {
     for (const ev of result.evidence) {
       const icon = ev.pass ? '  \x1b[32m✔\x1b[0m' : '  \x1b[31m✖\x1b[0m';
       const typeTag = `[${ev.type}]`.padEnd(10);
-      console.log(`${icon} ${typeTag} ${ev.ac}`);
+      fmt.log(`${icon} ${typeTag} ${ev.ac}`);
       if (!ev.pass || ev.type === 'prose' || ev.type === 'code') {
-        console.log(`       ${ev.detail.replace(/\n/g, '\n       ')}`);
+        fmt.log(`       ${ev.detail.replace(/\n/g, '\n       ')}`);
       }
     }
 
-    console.log('');
+    fmt.log('');
     if (result.pass) {
-      console.log('  \x1b[32m✔\x1b[0m All ACs passed.');
+      fmt.log('  \x1b[32m✔\x1b[0m All ACs passed.');
     } else {
       const failed = result.evidence.filter(e => !e.pass).length;
-      console.error(`  \x1b[31m✖\x1b[0m ${failed} AC(s) failed.`);
+      fmt.error(`  \x1b[31m✖\x1b[0m ${failed} AC(s) failed.`);
       return 1;
     }
     return 0;

@@ -42,81 +42,81 @@ export class InboxCommand implements Command {
   private renderResurrect(items: DecisionItem[]): void {
     fmt.header('Resurrection Queue');
     if (items.length === 0) {
-      console.log('\n  No TTL-rejected or DEFERRED IDEAs in archive.\n');
+      fmt.log('\n  No TTL-rejected or DEFERRED IDEAs in archive.\n');
       return;
     }
-    console.log(`\n  ${items.length} IDEA(s) eligible for resurrection (oldest first):\n`);
+    fmt.log(`\n  ${items.length} IDEA(s) eligible for resurrection (oldest first):\n`);
     for (const item of items) {
-      console.log(`  [${item.created}] ${item.sessions}s  ${item.slug}`);
-      console.log(`    Title:   ${item.title}`);
-      console.log(`    Problem: ${item.problem}`);
+      fmt.log(`  [${item.created}] ${item.sessions}s  ${item.slug}`);
+      fmt.log(`    Title:   ${item.title}`);
+      fmt.log(`    Problem: ${item.problem}`);
       const pr = PathResolver.from({});
-      console.log(`    Resurrect: move from ${pr.refinementArchive}/ to ${pr.refinement}/, clear Decision, reset Status to DRAFT`);
-      console.log('');
+      fmt.log(`    Resurrect: move from ${pr.refinementArchive}/ to ${pr.refinement}/, clear Decision, reset Status to DRAFT`);
+      fmt.log('');
     }
   }
 
   private renderDecisions(items: DecisionItem[]): void {
     fmt.header('Decisions Required');
     if (items.length === 0) {
-      console.log('\n  No IDEAs pending decision.\n');
+      fmt.log('\n  No IDEAs pending decision.\n');
       return;
     }
-    console.log(`\n  ${items.length} IDEA(s) awaiting your decision:\n`);
+    fmt.log(`\n  ${items.length} IDEA(s) awaiting your decision:\n`);
     for (const item of items) {
       const marker = item.decisionRequired ? ' ⚠' : '';
-      console.log(`  [${item.sessions} sessions]${marker} ${item.slug}`);
-      console.log(`    Title:   ${item.title}`);
-      console.log(`    Problem: ${item.problem}`);
-      console.log(`    Created: ${item.created}`);
-      console.log(`    Write in Decision field: PROMOTE → TASK-XXX | REJECT: <reason> | DEFERRED: <reason>`);
-      console.log('');
+      fmt.log(`  [${item.sessions} sessions]${marker} ${item.slug}`);
+      fmt.log(`    Title:   ${item.title}`);
+      fmt.log(`    Problem: ${item.problem}`);
+      fmt.log(`    Created: ${item.created}`);
+      fmt.log(`    Write in Decision field: PROMOTE → TASK-XXX | REJECT: <reason> | DEFERRED: <reason>`);
+      fmt.log('');
     }
   }
 
   private render(data: InboxData): void {
     fmt.header('Interactive Inbox');
 
-    console.log(`\n  Summary:`);
-    console.log(`    - Active: ${data.summary.active}`);
-    console.log(`    - Review: ${data.summary.review}`);
-    console.log(`    - Ready:  ${data.summary.ready}`);
+    fmt.log(`\n  Summary:`);
+    fmt.log(`    - Active: ${data.summary.active}`);
+    fmt.log(`    - Review: ${data.summary.review}`);
+    fmt.log(`    - Ready:  ${data.summary.ready}`);
 
-    console.log(`\n  Urgent / Actions Required:`);
+    fmt.log(`\n  Urgent / Actions Required:`);
     if (data.urgent.length > 0) {
       data.urgent.forEach(item => fmt.warn(item));
     } else {
-      console.log(`    _No urgent items._`);
+      fmt.log(`    _No urgent items._`);
     }
 
     const awaitingPromotion = data.escalations.filter(e => e.type === 'AWAITING_PROMOTION');
     if (awaitingPromotion.length > 0) {
-      console.log(`\n  Escalations (Awaiting Human Decision):`);
+      fmt.log(`\n  Escalations (Awaiting Human Decision):`);
       awaitingPromotion.forEach(e => {
-        console.log(`    - [${e.escalation_id}] AWAITING_PROMOTION ${e.subject}: ${e.reason}`);
+        fmt.log(`    - [${e.escalation_id}] AWAITING_PROMOTION ${e.subject}: ${e.reason}`);
       });
     }
 
     if (data.sprint) {
-      console.log(`\n  Sprint: ${data.sprint.name} (${data.sprint.progress})`);
+      fmt.log(`\n  Sprint: ${data.sprint.name} (${data.sprint.progress})`);
       if (data.sprint.openTasks.length > 0) {
         data.sprint.openTasks.forEach(t => {
           const focus = t.focus ? ' [FOCUS]' : '';
-          console.log(`    - [${t.id}] ${t.title}${focus}`);
+          fmt.log(`    - [${t.id}] ${t.title}${focus}`);
         });
       }
     }
 
-    console.log(`\n  Refinement Queue:`);
+    fmt.log(`\n  Refinement Queue:`);
     if (data.refinement.length > 0) {
-      data.refinement.forEach(idea => console.log(`    - ${idea}`));
+      data.refinement.forEach(idea => fmt.log(`    - ${idea}`));
     } else {
-      console.log(`    _No pending ideas._`);
+      fmt.log(`    _No pending ideas._`);
     }
 
-    console.log(`\n  Commands:`);
-    console.log(`    arch task approve <task-id>  - Move REVIEW/IDEA to DONE/READY`);
-    console.log(`    arch task redirect <task-id> --to "<msg>" - Move REVIEW to IN_PROGRESS`);
-    console.log('');
+    fmt.log(`\n  Commands:`);
+    fmt.log(`    arch task approve <task-id>  - Move REVIEW/IDEA to DONE/READY`);
+    fmt.log(`    arch task redirect <task-id> --to "<msg>" - Move REVIEW to IN_PROGRESS`);
+    fmt.log('');
   }
 }

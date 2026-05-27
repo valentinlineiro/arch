@@ -1,3 +1,4 @@
+import * as fmt from '../../infrastructure/cli/output-formatter.js';
 import { CommandExit, Command } from '../../domain/models/command.js';
 import type { FileSystem } from '../../domain/repositories/file-system.js';
 
@@ -71,9 +72,9 @@ export class SentinelCommand implements Command {
     };
 
     await this.appendEntry(entry);
-    console.log(`  ✔ Sentinel logged: ${taskId} → ${entry.outcome}`);
+    fmt.log(`  ✔ Sentinel logged: ${taskId} → ${entry.outcome}`);
     if (entry.outcome === 'HALT') {
-      console.log(`  ⚠ HALT recorded. Review trigger before proceeding.`);
+      fmt.log(`  ⚠ HALT recorded. Review trigger before proceeding.`);
     }
   }
 
@@ -95,7 +96,7 @@ export class SentinelCommand implements Command {
     try {
       content = await this.fileSystem.readFile(SENTINEL_LOG_PATH);
     } catch {
-      console.log('  No sentinel log found.');
+      fmt.log('  No sentinel log found.');
       return;
     }
 
@@ -103,14 +104,14 @@ export class SentinelCommand implements Command {
     const filtered = taskId ? lines.filter(l => l.includes(taskId)) : lines;
 
     if (filtered.length === 0) {
-      console.log(taskId ? `  No sentinel entries for ${taskId}.` : '  No sentinel entries.');
+      fmt.log(taskId ? `  No sentinel entries for ${taskId}.` : '  No sentinel entries.');
       return;
     }
 
-    console.log(`\n  \x1b[32mARCH\x1b[0m — Sentinel Log${taskId ? ` (${taskId})` : ''}\n`);
+    fmt.log(`\n  \x1b[32mARCH\x1b[0m — Sentinel Log${taskId ? ` (${taskId})` : ''}\n`);
     for (const line of filtered.slice(-20)) {
-      console.log(`  ${line}`);
+      fmt.log(`  ${line}`);
     }
-    console.log('');
+    fmt.log('');
   }
 }

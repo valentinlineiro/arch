@@ -1,3 +1,4 @@
+import * as fmt from '../../infrastructure/cli/output-formatter.js';
 import { Command } from '../../domain/models/command.js';
 import * as fs from 'node:fs/promises';
 import { FileSystem } from '../../domain/repositories/file-system.js';
@@ -14,8 +15,8 @@ export class CompileCommand implements Command {
     const inputPath = inputIdx !== -1 && inputIdx + 1 < args.length ? args[inputIdx + 1] : args[0];
 
     if (!inputPath) {
-      console.error('Error: Please provide a raw input telemetry JSON trace path.');
-      console.error('Usage: arch compile <path-to-trace.json> [--seed <optional-seed>]');
+      fmt.error('Error: Please provide a raw input telemetry JSON trace path.');
+      fmt.error('Usage: arch compile <path-to-trace.json> [--seed <optional-seed>]');
       return 1;
     }
 
@@ -33,12 +34,12 @@ export class CompileCommand implements Command {
         throw new Error('Telemetry trace file must contain a JSON array of RawInputTrace objects.');
       }
 
-      console.log(`[ARCH Compile] Initiating stream transformation pipeline...`);
-      console.log(`[ARCH Compile] Execution Seed: "${seed}" (strictly non-persistent)`);
+      fmt.log(`[ARCH Compile] Initiating stream transformation pipeline...`);
+      fmt.log(`[ARCH Compile] Execution Seed: "${seed}" (strictly non-persistent)`);
 
       // 1. PHASE 1: Normalize
       const normalizedEvents = NormalizeRepoEvents.normalize(rawTraces);
-      console.log(`[ARCH Compile] Phase 1: Syntactic normalizer completed. Compiled ${normalizedEvents.length} ordered time-blind events.`);
+      fmt.log(`[ARCH Compile] Phase 1: Syntactic normalizer completed. Compiled ${normalizedEvents.length} ordered time-blind events.`);
 
       // 2. PHASE 2: Partition & Windowing
       const config = {
@@ -47,7 +48,7 @@ export class CompileCommand implements Command {
         variationDelta: 3,
       };
       const windows = TransientWindowCompiler.partition(normalizedEvents, config);
-      console.log(`[ARCH Compile] Phase 2: Transient Windowing Engine produced ${windows.length} isolated window frames.`);
+      fmt.log(`[ARCH Compile] Phase 2: Transient Windowing Engine produced ${windows.length} isolated window frames.`);
 
       // 3. PHASE 2: Hypothesis Generation
       const windowOutputs = windows.map((window, idx) =>
@@ -56,29 +57,29 @@ export class CompileCommand implements Command {
 
       // 4. PHASE 3: Project
       const signal = TransientActuationProjector.project(windowOutputs);
-      console.log(`[ARCH Compile] Phase 3: Actuation Projector compiled transient operational signals.`);
+      fmt.log(`[ARCH Compile] Phase 3: Actuation Projector compiled transient operational signals.`);
 
-      console.log('\n--- OBSERVATIONAL TELEMETRY DIGEST ---');
+      fmt.log('\n--- OBSERVATIONAL TELEMETRY DIGEST ---');
       if (signal.observations.length === 0) {
-        console.log('(No window observations available)');
+        fmt.log('(No window observations available)');
       } else {
         for (const obs of signal.observations) {
-          console.log(` • ${obs}`);
+          fmt.log(` • ${obs}`);
         }
       }
 
-      console.log('\n--- ACTIVE OPERATIONAL ALERTS ---');
+      fmt.log('\n--- ACTIVE OPERATIONAL ALERTS ---');
       if (signal.alerts.length === 0) {
-        console.log(' ✔ No alerts triggered in current execution window.');
+        fmt.log(' ✔ No alerts triggered in current execution window.');
       } else {
         for (const alert of signal.alerts) {
           const prefix = alert.severity === 'WARN' ? ' ⚠ [WARN]' : ' ℹ [INFO]';
-          console.log(`${prefix} ${alert.message}`);
+          fmt.log(`${prefix} ${alert.message}`);
         }
       }
-      console.log('\n[ARCH Compile] Execution scope successfully dissolved. Sandboxed memory purged.');
+      fmt.log('\n[ARCH Compile] Execution scope successfully dissolved. Sandboxed memory purged.');
     } catch (err: any) {
-      console.error(`Error: Compilation pipeline collapsed: ${err.message}`);
+      fmt.error(`Error: Compilation pipeline collapsed: ${err.message}`);
       return 1;
     }
     return 0;

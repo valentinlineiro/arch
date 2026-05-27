@@ -1,3 +1,4 @@
+import * as fmt from '../../infrastructure/cli/output-formatter.js';
 import { Command } from '../../domain/models/command.js';
 import { BatchSystem } from '../use-cases/batch-system.js';
 import { FileSystem } from '../../domain/repositories/file-system.js';
@@ -19,17 +20,17 @@ export class BatchCommand implements Command {
         if (taskId && promptPath) {
           await this.batchSystem.add(taskId, promptPath);
         } else {
-          console.error('Usage: arch batch add [TASK-ID] [PROMPT-PATH]');
+          fmt.error('Usage: arch batch add [TASK-ID] [PROMPT-PATH]');
         }
         break;
       
       case 'drain':
-        console.log('\n  ARCH — Draining batch queue...');
+        fmt.log('\n  ARCH — Draining batch queue...');
         await this.batchSystem.drain();
         break;
 
       default:
-        console.log('Usage: arch batch [add|drain]');
+        fmt.log('Usage: arch batch [add|drain]');
     }
     return 0;
   }

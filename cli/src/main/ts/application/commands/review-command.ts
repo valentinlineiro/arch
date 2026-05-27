@@ -29,7 +29,7 @@ export class ReviewCommand implements Command {
     }
 
     fmt.header(`Review Queue — ${reviewTasks.length} task(s)`);
-    console.log('');
+    fmt.log('');
 
     const verifier = new DeterministicACVerifier();
     for (const task of reviewTasks) {
@@ -37,16 +37,16 @@ export class ReviewCommand implements Command {
       const acPassed = acResult.evidence.filter(e => e.pass).length;
       const acTotal = acResult.evidence.length;
 
-      console.log(`  \x1b[1m${task.id}: ${task.title}\x1b[0m`);
-      console.log(`  ${'─'.repeat(50)}`);
+      fmt.log(`  \x1b[1m${task.id}: ${task.title}\x1b[0m`);
+      fmt.log(`  ${'─'.repeat(50)}`);
       for (const ev of acResult.evidence) {
         const icon = ev.pass ? '\x1b[32m✔\x1b[0m' : '\x1b[31m✖\x1b[0m';
-        console.log(`  ${icon} ${ev.ac.slice(0, 72)}`);
+        fmt.log(`  ${icon} ${ev.ac.slice(0, 72)}`);
         if (!ev.pass) {
-          console.log(`     ${ev.detail.split('\n')[0].slice(0, 70)}`);
+          fmt.log(`     ${ev.detail.split('\n')[0].slice(0, 70)}`);
         }
       }
-      console.log(`  \x1b[90mACs: ${acPassed}/${acTotal} passed\x1b[0m`);
+      fmt.log(`  \x1b[90mACs: ${acPassed}/${acTotal} passed\x1b[0m`);
 
       // Diff summary
       try {
@@ -54,7 +54,7 @@ export class ReviewCommand implements Command {
         if (diffOutput && diffOutput.length > 0) {
           const added = (diffOutput.match(/^\+/gm) || []).length;
           const removed = (diffOutput.match(/^-/gm) || []).length;
-          console.log(`  \x1b[90mDiff: +${added}/-${removed} lines\x1b[0m`);
+          fmt.log(`  \x1b[90mDiff: +${added}/-${removed} lines\x1b[0m`);
         }
       } catch { /* non-blocking */ }
 
@@ -68,7 +68,7 @@ export class ReviewCommand implements Command {
       } else {
         fmt.info(`${task.id} skipped`);
       }
-      console.log('');
+      fmt.log('');
     }
     return 0;
   }
@@ -101,14 +101,14 @@ export class ReviewCommand implements Command {
   }
 
   private showHelp(): void {
-    console.log('');
-    console.log('  Usage: arch review [options]');
-    console.log('');
-    console.log('  Lists all REVIEW-status tasks with AC verification and diff summary.');
-    console.log('  Prompts [y/N/edit] per task.');
-    console.log('');
-    console.log('  Options:');
-    console.log('    --help, -h    Show this help');
-    console.log('');
+    fmt.log('');
+    fmt.log('  Usage: arch review [options]');
+    fmt.log('');
+    fmt.log('  Lists all REVIEW-status tasks with AC verification and diff summary.');
+    fmt.log('  Prompts [y/N/edit] per task.');
+    fmt.log('');
+    fmt.log('  Options:');
+    fmt.log('    --help, -h    Show this help');
+    fmt.log('');
   }
 }

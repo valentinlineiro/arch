@@ -1,3 +1,4 @@
+import * as fmt from '../../infrastructure/cli/output-formatter.js';
 import { Command } from '../../domain/models/command.js';
 import { SelectNextTask, MuriConfig } from '../use-cases/select-next-task.js';
 import type { TaskRepository } from '../../domain/repositories/task-repository.js';
@@ -50,9 +51,9 @@ export class NextCommand implements Command {
     }
 
     if (this.args.includes('--json')) {
-      console.log(JSON.stringify({ taskId: task.id, filePath: task.filePath, content: task.content }));
+      fmt.log(JSON.stringify({ taskId: task.id, filePath: task.filePath, content: task.content }));
     } else {
-      console.log(task.content);
+      fmt.log(task.content);
     }
     return 0;
   }

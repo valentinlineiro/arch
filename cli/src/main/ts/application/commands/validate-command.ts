@@ -30,8 +30,8 @@ export class ValidateCommand implements Command {
       return 0;
     } else {
       fmt.fail('System Validation: FAILED');
-      result.errors.forEach(err => console.log(`    - ${err}`));
-      console.log('');
+      result.errors.forEach(err => fmt.log(`    - ${err}`));
+      fmt.log('');
       return 1;
     }
     return 0;
@@ -61,7 +61,7 @@ export class ValidateCommand implements Command {
     for (const r of result.results) {
       if (r.timedOut) {
         fmt.fail(`FAIL  ${r.ac} (TIMEOUT after 30s)`);
-        console.log(`      cmd: ${r.command}`);
+        fmt.log(`      cmd: ${r.command}`);
         anyFailed = true;
       } else if (r.passed) {
         if (r.type === 'prose') {
@@ -72,12 +72,12 @@ export class ValidateCommand implements Command {
       } else {
         if (r.type === 'cmd') {
           fmt.fail(`FAIL  ${r.ac} (exit ${r.actualExit}, expected ${r.expectedExit})`);
-          console.log(`      cmd: ${r.command}`);
+          fmt.log(`      cmd: ${r.command}`);
         } else if (r.type === 'missing') {
           fmt.warn(`WARN  ${r.ac} (missing predicate or prose: marker)`);
         } else {
           fmt.fail(`FAIL  ${r.ac} (${r.reason || 'failed'})`);
-          if (r.command) console.log(`      ${r.command}`);
+          if (r.command) fmt.log(`      ${r.command}`);
         }
         anyFailed = true;
       }

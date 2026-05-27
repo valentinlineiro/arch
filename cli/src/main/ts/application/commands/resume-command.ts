@@ -1,3 +1,4 @@
+import * as fmt from '../../infrastructure/cli/output-formatter.js';
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { execSync } from 'node:child_process';
 import { join } from 'node:path';
@@ -28,24 +29,24 @@ export class ResumeCommand {
   async execute(args: string[]): Promise<number> {
     const taskId = args[0];
     if (!taskId || !taskId.startsWith('TASK-')) {
-      console.error('\n  Usage: arch resume TASK-XXX\n');
+      fmt.error('\n  Usage: arch resume TASK-XXX\n');
       return 1;
     }
 
-    console.log(`\n  \x1b[32mARCH\x1b[0m — Resume: ${taskId}\n`);
+    fmt.log(`\n  \x1b[32mARCH\x1b[0m — Resume: ${taskId}\n`);
 
     // Find most recent OPEN ANDON record for this task
     const escalation = await this.findOpenHalt(taskId);
 
     if (!escalation) {
-      console.log(`  No OPEN ANDON_HALT record found for ${taskId}.`);
-      console.log(`  Run \x1b[36march review\x1b[0m to see current system state.\n`);
+      fmt.log(`  No OPEN ANDON_HALT record found for ${taskId}.`);
+      fmt.log(`  Run \x1b[36march review\x1b[0m to see current system state.\n`);
       return 0;
     }
 
-    console.log(`  Halt reason: \x1b[33m${escalation.type}\x1b[0m`);
-    console.log(`  Escalation: ${escalation.escalation_id}`);
-    console.log(`  Evidence: ${escalation.reason.slice(0, 80)}\n`);
+    fmt.log(`  Halt reason: \x1b[33m${escalation.type}\x1b[0m`);
+    fmt.log(`  Escalation: ${escalation.escalation_id}`);
+    fmt.log(`  Evidence: ${escalation.reason.slice(0, 80)}\n`);
 
     // Execute recovery
     const recovered = await this.recover(taskId, escalation);
@@ -53,7 +54,7 @@ export class ResumeCommand {
     if (recovered) {
       await this.closeEscalation(escalation);
       await this.appendFocusRecovered(taskId);
-      console.log(`\n  \x1b[32m✔\x1b[0m Escalation closed. Running arch review...\n`);
+      fmt.log(`\n  \x1b[32m✔\x1b[0m Escalation closed. Running arch review...\n`);
       try {
         execSync(`node ${this.rootPath}/cli/dist/index.js check`, {
           stdio: 'inherit', cwd: this.rootPath, timeout: 30000,
@@ -85,9 +86,9 @@ export class ResumeCommand {
         return this.recoverCorpusHalt();
 
       default: {
-        console.log(`  \x1b[33m⚠ Unknown halt type: ${esc.type}\x1b[0m`);
-        console.log(`  Reason: ${esc.reason}`);
-        console.log(`  Manual intervention required. See ${PathResolver.from({}).inbox} for context.\n`);
+        fmt.log(`  \x1b[33m⚠ Unknown halt type: ${esc.type}\x1b[0m`);
+        fmt.log(`  Reason: ${esc.reason}`);
+        fmt.log(`  Manual intervention required. See ${PathResolver.from({}).inbox} for context.\n`);
         return false;
       }
     }
@@ -96,12 +97,12 @@ export class ResumeCommand {
   // ── REVIEW_FAIL recovery ──────────────────────────────────────────────────
 
   private async recoverReviewFail(taskId: string): Promise<boolean> {
-    console.log(`  \x1b[36mRecovery: REVIEW_FAIL → reset to READY\x1b[0m`);
+    fmt.log(`  \x1b[36mRecovery: REVIEW_FAIL → reset to READY\x1b[0m`);
 
     // Find task in tasks or archive
     const taskPath = join(this.rootPath, 'docs', 'tasks', `${taskId}.md`);
     if (!existsSync(taskPath)) {
-      console.log(`  Task file not found at ${taskPath}. May already be archived.`);
+      fmt.log(`  Task file not found at ${taskPath}. May already be archived.`);
       return false;
     }
 
@@ -112,7 +113,7 @@ export class ResumeCommand {
     content = content.replace(/\| IN_PROGRESS \| Focus:\w+/, '| READY | Focus:no');
     writeFileSync(taskPath, content);
 
-    console.log(`  ✔ ${taskId} reset to READY`);
+    fmt.log(`  ✔ ${taskId} reset to READY`);
 
     // Append REVIEW_RESET to focus ledger
     const ledgerPath = join(this.rootPath, '.arch', 'focus-ledger.jsonl');
@@ -130,7 +131,7 @@ export class ResumeCommand {
       await this.gitRepository.add(taskPath);
       await this.gitRepository.add(ledgerPath);
       await this.gitRepository.commit(`chore: [${taskId}] REVIEW_RESET via arch resume`);
-      console.log(`  ✔ Committed REVIEW_RESET`);
+      fmt.log(`  ✔ Committed REVIEW_RESET`);
     } catch (e: any) {
       if (!e.message?.includes('nothing to commit')) console.warn(`  ⚠ Commit skipped: ${e.message}`);
     }
@@ -141,18 +142,18 @@ export class ResumeCommand {
   // ── INTEGRITY_BREACH recovery ─────────────────────────────────────────────
 
   private async recoverIntegrityBreach(taskId: string): Promise<boolean> {
-    console.log(`  \x1b[36mRecovery: INTEGRITY_BREACH → append-only repair\x1b[0m`);
+    fmt.log(`  \x1b[36mRecovery: INTEGRITY_BREACH → append-only repair\x1b[0m`);
 
     // Run arch govern which has INTEGRITY_FIX logic built in
     try {
       execSync(`node ${this.rootPath}/cli/dist/index.js govern`, {
         stdio: 'inherit', cwd: this.rootPath, timeout: 60000,
       });
-      console.log(`  ✔ Govern ran — INTEGRITY_FIX applied if needed`);
+      fmt.log(`  ✔ Govern ran — INTEGRITY_FIX applied if needed`);
       return true;
     } catch {
-      console.log(`  \x1b[31m✖ Govern failed — manual inspection required\x1b[0m`);
-      console.log(`  Run: git status && git diff HEAD to see what changed`);
+      fmt.log(`  \x1b[31m✖ Govern failed — manual inspection required\x1b[0m`);
+      fmt.log(`  Run: git status && git diff HEAD to see what changed`);
       return false;
     }
   }
@@ -160,16 +161,16 @@ export class ResumeCommand {
   // ── FOCUS_VIOLATION recovery ──────────────────────────────────────────────
 
   private async recoverFocusViolation(): Promise<boolean> {
-    console.log(`  \x1b[36mRecovery: FOCUS_VIOLATION → run arch govern tick\x1b[0m`);
+    fmt.log(`  \x1b[36mRecovery: FOCUS_VIOLATION → run arch govern tick\x1b[0m`);
 
     try {
       execSync(`node ${this.rootPath}/cli/dist/index.js govern`, {
         stdio: 'inherit', cwd: this.rootPath, timeout: 60000,
       });
-      console.log(`  ✔ Govern tick ran — focus re-adjudicated`);
+      fmt.log(`  ✔ Govern tick ran — focus re-adjudicated`);
       return true;
     } catch {
-      console.log(`  \x1b[31m✖ Govern failed\x1b[0m`);
+      fmt.log(`  \x1b[31m✖ Govern failed\x1b[0m`);
       return false;
     }
   }
@@ -177,11 +178,11 @@ export class ResumeCommand {
   // ── BUDGET_EXHAUSTED recovery ─────────────────────────────────────────────
 
   private async recoverBudgetExhausted(taskId: string): Promise<boolean> {
-    console.log(`  \x1b[36mRecovery: BUDGET_EXHAUSTED → prompt for new size\x1b[0m`);
+    fmt.log(`  \x1b[36mRecovery: BUDGET_EXHAUSTED → prompt for new size\x1b[0m`);
 
     const taskPath = join(this.rootPath, 'docs', 'tasks', `${taskId}.md`);
     if (!existsSync(taskPath)) {
-      console.log(`  Task file not found.`);
+      fmt.log(`  Task file not found.`);
       return false;
     }
 
@@ -192,7 +193,7 @@ export class ResumeCommand {
     });
 
     if (!['XS', 'S', 'M', 'L', 'XL'].includes(newSize)) {
-      console.log(`  Invalid size. No changes made.`);
+      fmt.log(`  Invalid size. No changes made.`);
       return false;
     }
 
@@ -206,7 +207,7 @@ export class ResumeCommand {
     try {
       await this.gitRepository.add(taskPath);
       await this.gitRepository.commit(`chore: [${taskId}] size extended to ${newSize} via arch resume`);
-      console.log(`  ✔ Size updated to ${newSize}`);
+      fmt.log(`  ✔ Size updated to ${newSize}`);
     } catch (e: any) {
       if (!e.message?.includes('nothing to commit')) console.warn(`  ⚠ ${e.message}`);
     }
@@ -217,13 +218,13 @@ export class ResumeCommand {
   // ── CORPUS_HALT recovery ──────────────────────────────────────────────────
 
   private async recoverCorpusHalt(): Promise<boolean> {
-    console.log(`  \x1b[36mRecovery: CORPUS_HALT → run arch corpus audit\x1b[0m\n`);
+    fmt.log(`  \x1b[36mRecovery: CORPUS_HALT → run arch corpus audit\x1b[0m\n`);
     try {
       execSync(`node ${this.rootPath}/cli/dist/index.js corpus audit --verbose`, {
         stdio: 'inherit', cwd: this.rootPath, timeout: 60000,
       });
     } catch { /* output already shown */ }
-    console.log(`\n  Fix the WARNINGs above, then run \x1b[36march resume ${'\x1b[0m'}again.`);
+    fmt.log(`\n  Fix the WARNINGs above, then run \x1b[36march resume ${'\x1b[0m'}again.`);
     return false; // Don't close escalation — user needs to fix corpus first
   }
 

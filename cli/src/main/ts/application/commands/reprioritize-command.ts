@@ -1,3 +1,4 @@
+import * as fmt from '../../infrastructure/cli/output-formatter.js';
 import { Command } from '../../domain/models/command.js';
 import type { TaskRepository } from '../../domain/repositories/task-repository.js';
 import type { FileSystem } from '../../domain/repositories/file-system.js';
@@ -19,42 +20,42 @@ export class ReprioritizeCommand implements Command {
   async execute(args: string[]): Promise<number> {
     const dryRun = !args.includes('--apply');
 
-    console.log(`\n  \x1b[32mARCH\x1b[0m — arch task reprioritize\n`);
+    fmt.log(`\n  \x1b[32mARCH\x1b[0m — arch task reprioritize\n`);
 
     const useCase = new ReprioritizeCorpus(this.taskRepository, this.fileSystem, this.rootPath);
     const { diff, ecpPath } = await useCase.execute();
 
     if (diff.length === 0) {
-      console.log('  No priority changes proposed. Corpus signals are consistent with current priority assignments.\n');
-      console.log(`  ECP registry: ${ecpPath}\n`);
+      fmt.log('  No priority changes proposed. Corpus signals are consistent with current priority assignments.\n');
+      fmt.log(`  ECP registry: ${ecpPath}\n`);
       return 0;
     }
 
-    console.log(`  ${pad('Task', 12)} ${pad('Current', 8)} ${pad('Proposed', 9)} Signals`);
-    console.log(`  ${'─'.repeat(65)}`);
+    fmt.log(`  ${pad('Task', 12)} ${pad('Current', 8)} ${pad('Proposed', 9)} Signals`);
+    fmt.log(`  ${'─'.repeat(65)}`);
 
     for (const entry of diff) {
       const arrow = this.priorityArrow(entry.currentPriority, entry.proposedPriority);
       const signals = this.formatSignals(entry);
-      console.log(`  ${pad(entry.taskId, 12)} ${pad(entry.currentPriority, 8)} ${arrow} ${pad(entry.proposedPriority, 9)} ${signals}`);
+      fmt.log(`  ${pad(entry.taskId, 12)} ${pad(entry.currentPriority, 8)} ${arrow} ${pad(entry.proposedPriority, 9)} ${signals}`);
     }
 
-    console.log(`\n  ECP registry: ${ecpPath}`);
+    fmt.log(`\n  ECP registry: ${ecpPath}`);
 
     if (dryRun) {
-      console.log(`\n  Dry-run mode. Run with --apply to prompt for confirmation.\n`);
+      fmt.log(`\n  Dry-run mode. Run with --apply to prompt for confirmation.\n`);
       return 0;
     }
 
     // Apply? y/N
-    console.log('');
+    fmt.log('');
     const { createInterface } = await import('node:readline/promises');
     const rl = createInterface({ input: process.stdin, output: process.stdout });
     const answer = await rl.question('  Apply? (y/N) ');
     rl.close();
 
     if (answer.trim().toLowerCase() !== 'y') {
-      console.log('  Cancelled.\n');
+      fmt.log('  Cancelled.\n');
       return 0;
     }
 
@@ -73,7 +74,7 @@ export class ReprioritizeCommand implements Command {
       } catch { /* skip archived/missing tasks */ }
     }
 
-    console.log(`\n  ✔ Applied ${applied} priority change(s).\n`);
+    fmt.log(`\n  ✔ Applied ${applied} priority change(s).\n`);
     return 0;
   }
 

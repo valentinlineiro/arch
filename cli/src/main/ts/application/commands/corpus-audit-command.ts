@@ -1,3 +1,4 @@
+import * as fmt from '../../infrastructure/cli/output-formatter.js';
 import { Command } from '../../domain/models/command.js';
 import type { FileSystem } from '../../domain/repositories/file-system.js';
 import type { GitRepository } from '../../domain/repositories/git-repository.js';
@@ -40,7 +41,7 @@ export class CorpusAuditCommand implements Command {
     const verbose = args.includes('--verbose') || args.includes('-v');
     const rebuild = args.includes('--rebuild');
 
-    console.log('\n  \x1b[32mARCH\x1b[0m — Corpus Quality Audit\n');
+    fmt.log('\n  \x1b[32mARCH\x1b[0m — Corpus Quality Audit\n');
 
     if (rebuild) {
       process.stdout.write('  Rebuilding corpus index...');
@@ -48,7 +49,7 @@ export class CorpusAuditCommand implements Command {
       process.stdout.write(' done\n');
     }
 
-    console.log('  Loading corpus index...\n');
+    fmt.log('  Loading corpus index...\n');
     const result = await this.audit(verbose);
     this.render(result, verbose);
     if (args.includes('--layer2')) {
@@ -223,79 +224,79 @@ export class CorpusAuditCommand implements Command {
 
   private render(result: AuditResult, verbose: boolean): void {
     const scoreColor = result.score >= 80 ? '\x1b[32m' : result.score >= 60 ? '\x1b[33m' : '\x1b[31m';
-    console.log(`  Corpus Quality Score: ${scoreColor}${result.score}/100\x1b[0m`);
-    console.log(`  Audited: ${result.audited} / ${result.total} archived tasks  (index-backed)\n`);
+    fmt.log(`  Corpus Quality Score: ${scoreColor}${result.score}/100\x1b[0m`);
+    fmt.log(`  Audited: ${result.audited} / ${result.total} archived tasks  (index-backed)\n`);
 
     const b = result.breakdown;
 
     const sevIcon = b.severityCalibration.understated === 0 ? '\x1b[32m✔\x1b[0m' : '\x1b[33m⚠\x1b[0m';
     const sevPct = b.severityCalibration.checked > 0 ? Math.round(100 * b.severityCalibration.understated / b.severityCalibration.checked) : 0;
-    console.log(`  ${sevIcon} Severity Calibration`);
-    console.log(`     ${b.severityCalibration.checked} tasks with commit baseline, ${b.severityCalibration.understated} understated (${sevPct}%)`);
+    fmt.log(`  ${sevIcon} Severity Calibration`);
+    fmt.log(`     ${b.severityCalibration.checked} tasks with commit baseline, ${b.severityCalibration.understated} understated (${sevPct}%)`);
 
     const entIcon = b.decisionEntropy.suspicious === 0 ? '\x1b[32m✔\x1b[0m' : '\x1b[33m⚠\x1b[0m';
     const entPct = b.decisionEntropy.checked > 0 ? Math.round(100 * b.decisionEntropy.suspicious / b.decisionEntropy.checked) : 0;
-    console.log(`\n  ${entIcon} Decision Entropy`);
-    console.log(`     ${b.decisionEntropy.checked} decisions, ${b.decisionEntropy.suspicious} suspicious (${entPct}%)`);
+    fmt.log(`\n  ${entIcon} Decision Entropy`);
+    fmt.log(`     ${b.decisionEntropy.checked} decisions, ${b.decisionEntropy.suspicious} suspicious (${entPct}%)`);
 
     const fwdIcon = b.forwardAction.missing === 0 ? '\x1b[32m✔\x1b[0m' : '\x1b[33m⚠\x1b[0m';
     const fwdPct = b.forwardAction.required > 0 ? Math.round(100 * b.forwardAction.missing / b.forwardAction.required) : 0;
-    console.log(`\n  ${fwdIcon} Forward Action Completion`);
-    console.log(`     ${b.forwardAction.required} H2+ required IDEA, ${b.forwardAction.missing} gap (${fwdPct}%)`);
+    fmt.log(`\n  ${fwdIcon} Forward Action Completion`);
+    fmt.log(`     ${b.forwardAction.required} H2+ required IDEA, ${b.forwardAction.missing} gap (${fwdPct}%)`);
 
     const warns = result.findings.filter(f => f.severity === 'WARN');
     const infos = result.findings.filter(f => f.severity === 'INFO');
 
     if (warns.length > 0) {
-      console.log(`\n  \x1b[31mWARNINGS (${warns.length}):\x1b[0m`);
+      fmt.log(`\n  \x1b[31mWARNINGS (${warns.length}):\x1b[0m`);
       for (const f of (verbose ? warns : warns.slice(0, 5))) {
-        console.log(`    ${f.taskId}  [${f.check}]`);
-        console.log(`    → ${f.detail.slice(0, 90)}`);
+        fmt.log(`    ${f.taskId}  [${f.check}]`);
+        fmt.log(`    → ${f.detail.slice(0, 90)}`);
       }
-      if (!verbose && warns.length > 5) console.log(`    ... and ${warns.length - 5} more (run --verbose)`);
+      if (!verbose && warns.length > 5) fmt.log(`    ... and ${warns.length - 5} more (run --verbose)`);
     }
 
     if (verbose && infos.length > 0) {
-      console.log(`\n  INFO (${infos.length}):`);
+      fmt.log(`\n  INFO (${infos.length}):`);
       for (const f of infos.slice(0, 10)) {
-        console.log(`    ${f.taskId}  [${f.check}]  ${f.detail.slice(0, 80)}`);
+        fmt.log(`    ${f.taskId}  [${f.check}]  ${f.detail.slice(0, 80)}`);
       }
     }
 
-    console.log('');
-    if (result.score >= 80) console.log('  \x1b[32m✔ Corpus is trustworthy enough to govern decisions.\x1b[0m');
-    else if (result.score >= 60) console.log('  \x1b[33m⚠ Corpus has integrity gaps. Governance suggestions partially reliable.\x1b[0m');
-    else console.log('  \x1b[31m✖ Corpus integrity low. Fix WARNINGs before enabling governance features.\x1b[0m');
-    console.log('');
+    fmt.log('');
+    if (result.score >= 80) fmt.log('  \x1b[32m✔ Corpus is trustworthy enough to govern decisions.\x1b[0m');
+    else if (result.score >= 60) fmt.log('  \x1b[33m⚠ Corpus has integrity gaps. Governance suggestions partially reliable.\x1b[0m');
+    else fmt.log('  \x1b[31m✖ Corpus integrity low. Fix WARNINGs before enabling governance features.\x1b[0m');
+    fmt.log('');
   }
 
   private async renderLayer2(): Promise<void> {
     const index = await this.indexService.load();
     const entries = Object.values(index.entries);
 
-    console.log('\n  \x1b[32mARCH\x1b[0m — Layer 2: Governance Drift\n');
+    fmt.log('\n  \x1b[32mARCH\x1b[0m — Layer 2: Governance Drift\n');
     const drift = GovernanceDriftDetector.detect(entries, 10);
     if (drift.signals.length === 0) {
-      console.log('  ✔ No drift signals detected\n');
+      fmt.log('  ✔ No drift signals detected\n');
     } else {
       for (const s of drift.signals) {
-        console.log(`  ⚠ ${s}`);
+        fmt.log(`  ⚠ ${s}`);
       }
-      console.log('');
+      fmt.log('');
     }
 
-    console.log('  \x1b[32mARCH\x1b[0m — Layer 2: Institutional Anomalies\n');
+    fmt.log('  \x1b[32mARCH\x1b[0m — Layer 2: Institutional Anomalies\n');
     const anomalies = InstitutionalAnomalyTracker.analyze(index.entries, 3);
     if (anomalies.recurringCategories.length === 0 && !anomalies.classConcentration) {
-      console.log('  ✔ No anomalies detected\n');
+      fmt.log('  ✔ No anomalies detected\n');
     } else {
       for (const cat of anomalies.recurringCategories) {
-        console.log(`  ⚠ Recurring category ${cat.category}: ${cat.count} tasks (${cat.taskIds.slice(0, 3).join(', ')}${cat.taskIds.length > 3 ? '…' : ''})`);
+        fmt.log(`  ⚠ Recurring category ${cat.category}: ${cat.count} tasks (${cat.taskIds.slice(0, 3).join(', ')}${cat.taskIds.length > 3 ? '…' : ''})`);
       }
       if (anomalies.classConcentration) {
-        console.log(`  ⚠ Class concentration: ${anomalies.classConcentration.dominantClass} = ${(anomalies.classConcentration.fraction * 100).toFixed(0)}% of corpus`);
+        fmt.log(`  ⚠ Class concentration: ${anomalies.classConcentration.dominantClass} = ${(anomalies.classConcentration.fraction * 100).toFixed(0)}% of corpus`);
       }
-      console.log('');
+      fmt.log('');
     }
   }
 }

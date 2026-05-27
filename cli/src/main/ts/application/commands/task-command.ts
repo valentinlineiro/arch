@@ -97,7 +97,7 @@ export class TaskCommand implements Command {
         }
         fmt.header('Select a task to start:');
         readyTasks.forEach((t, i) => {
-          console.log(`  ${i + 1}. [${t.id}] ${t.title}`);
+          fmt.log(`  ${i + 1}. [${t.id}] ${t.title}`);
         });
         const { createInterface } = await import('node:readline/promises');
         const rl = createInterface({ input: process.stdin, output: process.stdout });
@@ -130,13 +130,13 @@ export class TaskCommand implements Command {
         try {
           const preflight = new ConstraintPreflight(this.fileSystem);
           const block = await preflight.execute(task.context ?? []);
-          if (block) console.log(block);
+          if (block) fmt.log(block);
         } catch { /* preflight errors must never block task start */ }
 
         try {
           const memory = new LoadBearingMemory(this.taskRepository, this.fileSystem);
           const block = await memory.execute(task);
-          if (block) console.log(block);
+          if (block) fmt.log(block);
         } catch { /* memory injection errors must never block task start */ }
 
         try {
@@ -144,7 +144,7 @@ export class TaskCommand implements Command {
           const taskContent = await this.fileSystem.readFile(taskPath);
           const detector = new SemanticCollisionDetector(this.fileSystem);
           const advisory = await detector.execute(taskContent, taskId);
-          if (advisory) console.log(advisory);
+          if (advisory) fmt.log(advisory);
         } catch { /* collision detection errors must never block task start */ }
       } catch (error: any) {
         fmt.fail(error.message);
@@ -208,7 +208,7 @@ export class TaskCommand implements Command {
           fmt.check(`${taskId} predicates passed — status set to REVIEW`);
         } else {
           fmt.fail(`${taskId} has failing cmd: predicates:`);
-          result.failures.forEach(f => console.log(`    - ${f}`));
+          result.failures.forEach(f => fmt.log(`    - ${f}`));
           return 1;
         }
       } catch (error: any) {
@@ -234,9 +234,9 @@ export class TaskCommand implements Command {
         }
 
         if (!category || !summary) {
-          console.log(`\n  Capture correction signal for ${taskId}`);
-          console.log(`  Categories: ${HANSEI_CATEGORIES.join(', ')}`);
-          console.log(`  Aliases: ${Object.entries(HANSEI_CATEGORY_ALIASES).map(([k,v]) => `${k}=${v}`).join(', ')}`);
+          fmt.log(`\n  Capture correction signal for ${taskId}`);
+          fmt.log(`  Categories: ${HANSEI_CATEGORIES.join(', ')}`);
+          fmt.log(`  Aliases: ${Object.entries(HANSEI_CATEGORY_ALIASES).map(([k,v]) => `${k}=${v}`).join(', ')}`);
           if (!category) {
             const { createInterface } = await import('node:readline/promises');
             const rl = createInterface({ input: process.stdin, output: process.stdout });
@@ -288,25 +288,25 @@ export class TaskCommand implements Command {
 
         // Show AC summary
         if (result.evidence.length > 0) {
-          console.log('');
+          fmt.log('');
           for (const ev of result.evidence) {
             const icon = ev.pass ? '\x1b[32m✔\x1b[0m' : '\x1b[31m✖\x1b[0m';
             const label = ev.ac.slice(0, 60) + (ev.ac.length > 60 ? '…' : '');
-            console.log(`  ${icon} ${label}`);
-            if (!ev.pass) console.log(`    → ${ev.detail}`);
+            fmt.log(`  ${icon} ${label}`);
+            if (!ev.pass) fmt.log(`    → ${ev.detail}`);
           }
-          console.log('');
+          fmt.log('');
         }
 
         if (!result.pass) {
           fmt.fail(`Task ${taskId} has failing Acceptance Criteria.`);
-          console.error(`    Fix the above or use --force to override.`);
+          fmt.error(`    Fix the above or use --force to override.`);
           return 1;
         }
 
         if (hasUncheckedACs(content)) {
           fmt.fail(`Task ${taskId} has unchecked Acceptance Criteria.`);
-          console.error(`    Please check all ACs or use --force to override.`);
+          fmt.error(`    Please check all ACs or use --force to override.`);
           return 1;
         }
       }
@@ -334,7 +334,7 @@ export class TaskCommand implements Command {
             await this.gitRepository.commit(`done: [${taskId}] ${doneTask.title ?? taskId}`);
           } catch (err: any) {
             if (!err.message?.includes('nothing to commit')) {
-              if (process.env.ARCH_DEBUG) console.error('[task-done] commit failed:', err);
+              if (process.env.ARCH_DEBUG) fmt.error('[task-done] commit failed:', err);
             }
           }
         }
@@ -346,7 +346,7 @@ export class TaskCommand implements Command {
       try {
         await this.rejectTask.execute(taskId, reason);
         fmt.arrow(`rejected ${taskId} — moved back to READY`);
-        if (reason) console.log(`    Reason: ${reason}`);
+        if (reason) fmt.log(`    Reason: ${reason}`);
       } catch (error: any) {
         fmt.fail(error.message);
         return 1;
@@ -451,7 +451,7 @@ export class TaskCommand implements Command {
         const label = sub.length <= 18 ? sub.padEnd(18) : sub;
         lines.push(`  ${label} — ${e.description}`);
       }
-      console.log(lines.join('\n'));
+      fmt.log(lines.join('\n'));
     } else if (subCommand === 'new') {
       await this.executeNew(args.slice(1));
     } else if (subCommand === 'split' && taskId) {
@@ -582,10 +582,10 @@ export class TaskCommand implements Command {
     const title = args.filter(a => !a.startsWith('--') && args[Math.max(0, args.indexOf(a) - 1)]?.startsWith('--') !== true).pop();
 
     if (!taskClass || !title) {
-      console.log('Usage: arch task new --class <class> --size <size> "Task title"');
-      console.log('');
-      console.log('Classes: 1-code-reasoning, 2-code-generation, 6-writing, 7-operations, ...');
-      console.log('Sizes:   XS, S, M, L');
+      fmt.log('Usage: arch task new --class <class> --size <size> "Task title"');
+      fmt.log('');
+      fmt.log('Classes: 1-code-reasoning, 2-code-generation, 6-writing, 7-operations, ...');
+      fmt.log('Sizes:   XS, S, M, L');
       throw new CommandExit(1);
     }
 

@@ -1,3 +1,4 @@
+import * as fmt from '../../infrastructure/cli/output-formatter.js';
 import path from 'node:path';
 import type { Command } from '../../domain/models/command.js';
 import type { FileSystem } from '../../domain/repositories/file-system.js';
@@ -42,7 +43,7 @@ export class ProjectCommand implements Command {
     if (sub === 'init') {
       await this.runInit(args.slice(1));
     } else {
-      console.error(`  Unknown subcommand: ${sub ?? '(none)'}. Usage: arch project init "<spec>"`);
+      fmt.error(`  Unknown subcommand: ${sub ?? '(none)'}. Usage: arch project init "<spec>"`);
       return 1;
     }
     return 0;
@@ -59,7 +60,7 @@ export class ProjectCommand implements Command {
     const provider = await this.resolveProvider();
     if (!provider) throw new Error('No LLM provider available. Configure a provider in arch.config.json.');
 
-    console.log(`\n  ARCH — project init\n  Spec: ${spec}\n  Decomposition depth: ${depth}\n`);
+    fmt.log(`\n  ARCH — project init\n  Spec: ${spec}\n  Decomposition depth: ${depth}\n`);
 
     const prompt = this.buildPrompt(spec, depth);
     const response = await provider.complete({ messages: [{ role: 'user', content: prompt }], model: '' });
@@ -68,7 +69,7 @@ export class ProjectCommand implements Command {
 
     await this.writeAll(output, spec);
 
-    console.log(`\n  Done. Review docs/PROJECT.md — ratify before running arch task loop.\n`);
+    fmt.log(`\n  Done. Review docs/PROJECT.md — ratify before running arch task loop.\n`);
   }
 
   private async resolveProvider(): Promise<LLMProvider | null> {
@@ -157,7 +158,7 @@ Rules:
       const slug = adr.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
       const filePath = path.join(adrDir, `ADR-${num}-${slug}.md`);
       await this.fileSystem.writeFile(filePath, this.renderAdr(num, adr, now));
-      console.log(`  + ${filePath}`);
+      fmt.log(`  + ${filePath}`);
     }
 
     // Write tasks — build title→id map for depends resolution
@@ -174,12 +175,12 @@ Rules:
       const filePath = path.join(tasksDir, `${taskId}.md`);
       const depends = this.resolveDepends(task.depends, titleToId);
       await this.fileSystem.writeFile(filePath, this.renderTask(taskId, task, depends, now));
-      console.log(`  + ${filePath}`);
+      fmt.log(`  + ${filePath}`);
     }
 
     // Write PROJECT.md
     await this.fileSystem.writeFile('docs/PROJECT.md', this.renderProjectMd(spec, output, now));
-    console.log('  + docs/PROJECT.md');
+    fmt.log('  + docs/PROJECT.md');
   }
 
   private resolveDepends(depends: string, titleToId: Record<string, string>): string {

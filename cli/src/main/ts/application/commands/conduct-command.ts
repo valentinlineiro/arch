@@ -1,3 +1,4 @@
+import * as fmt from '../../infrastructure/cli/output-formatter.js';
 import { Command } from '../../domain/models/command.js';
 import { spawnSync } from 'node:child_process';
 import fs from 'node:fs';
@@ -8,7 +9,7 @@ export class ConductCommand implements Command {
     const promptFile = 'docs/agents/THINK.md';
     const extraFlags = args.join(' ');
     
-    console.log('  ARCH — invoking CONDUCTOR (THINK) mode');
+    fmt.log('  ARCH — invoking CONDUCTOR (THINK) mode');
     
     try {
       const config = JSON.parse(fs.readFileSync('arch.config.json', 'utf8'));
@@ -32,11 +33,11 @@ export class ConductCommand implements Command {
         }
       }
       
-      console.log('  Note: No AI CLI detected or invocation failed. Showing protocol:');
-      console.log(fs.readFileSync(promptFile, 'utf8'));
+      fmt.log('  Note: No AI CLI detected or invocation failed. Showing protocol:');
+      fmt.log(fs.readFileSync(promptFile, 'utf8'));
       return 1;
     } catch (e: any) {
-      console.error('Error in ConductCommand:', e.message);
+      fmt.error('Error in ConductCommand:', e.message);
       return 1;
     }
   }

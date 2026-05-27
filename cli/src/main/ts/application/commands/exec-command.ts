@@ -1,3 +1,4 @@
+import * as fmt from '../../infrastructure/cli/output-formatter.js';
 import { Command } from '../../domain/models/command.js';
 import { spawnSync, spawn } from 'node:child_process';
 import fs from 'node:fs';
@@ -58,13 +59,13 @@ export class ExecCommand implements Command {
       taskSize === 'XS' &&
       taskId
     ) {
-      console.log(`  \x1b[33mBATCH\x1b[0m — queuing ${taskId} for Anthropic Batch API`);
+      fmt.log(`  \x1b[33mBATCH\x1b[0m — queuing ${taskId} for Anthropic Batch API`);
       const batchSystem = new BatchSystem(this.fileSystem);
       await batchSystem.add(taskId, DO_PROMPT_FILE);
       return 0;
     }
 
-    console.log('  \x1b[32mARCH\x1b[0m — invoking EXEC (DO) mode');
+    fmt.log('  \x1b[32mARCH\x1b[0m — invoking EXEC (DO) mode');
 
     const registry = new ProviderRegistry(config);
     const candidates = registry.resolveAll(
@@ -75,11 +76,11 @@ export class ExecCommand implements Command {
 
     if (candidates.length === 0) {
       if (!focusedTask) {
-        console.log('  Note: No focused task found. Showing protocol:');
+        fmt.log('  Note: No focused task found. Showing protocol:');
       } else {
-        console.log(`  Note: No AI provider detected for task class "${taskClass}" size "${taskSize}". Showing protocol:`);
+        fmt.log(`  Note: No AI provider detected for task class "${taskClass}" size "${taskSize}". Showing protocol:`);
       }
-      console.log(fs.readFileSync(DO_PROMPT_FILE, 'utf8'));
+      fmt.log(fs.readFileSync(DO_PROMPT_FILE, 'utf8'));
       return 1;
     }
 
@@ -88,7 +89,7 @@ export class ExecCommand implements Command {
     const extraFlags = args.filter(a => !a.startsWith('--')).join(' ');
 
     if (verbose) {
-      console.log(`  Candidates: ${candidates.map(c => c.name).join(' → ')}`);
+      fmt.log(`  Candidates: ${candidates.map(c => c.name).join(' → ')}`);
     }
 
     let success = false;
@@ -97,15 +98,15 @@ export class ExecCommand implements Command {
       const nextName = ci + 1 < candidates.length ? candidates[ci + 1].name : null;
 
       if (name === 'local') {
-        console.log('  Routing: local (no AI invocation)');
-        console.log('');
+        fmt.log('  Routing: local (no AI invocation)');
+        fmt.log('');
         process.stdout.write(fs.readFileSync(DO_PROMPT_FILE, 'utf8'));
         return 0;
       }
 
       if (!provider) continue;
 
-      console.log(`  Provider: ${name} | Model: ${model || 'default'}`);
+      fmt.log(`  Provider: ${name} | Model: ${model || 'default'}`);
 
       if (provider instanceof BridgeProvider) {
         const cmd = provider.buildCommand(model || '', DO_PROMPT_FILE) +
@@ -130,10 +131,10 @@ export class ExecCommand implements Command {
             model: model || '',
             messages: [{ role: 'user', content: promptContent }],
           });
-          console.log(response.content);
-          if (response.usage.turns) console.log(`Turns: ${response.usage.turns}`);
-          if (response.usage.cost) console.log(`Cost: ${response.usage.cost}`);
-          if (response.usage.latencyMs) console.log(`Latency: ${response.usage.latencyMs}ms`);
+          fmt.log(response.content);
+          if (response.usage.turns) fmt.log(`Turns: ${response.usage.turns}`);
+          if (response.usage.cost) fmt.log(`Cost: ${response.usage.cost}`);
+          if (response.usage.latencyMs) fmt.log(`Latency: ${response.usage.latencyMs}ms`);
           success = true;
           break;
         } catch (err: any) {
@@ -144,7 +145,7 @@ export class ExecCommand implements Command {
     }
 
     if (!success) {
-      console.error('  \x1b[31mERROR\x1b[0m — All candidate providers failed.');
+      fmt.error('  \x1b[31mERROR\x1b[0m — All candidate providers failed.');
       return 1;
     }
     return 0;
