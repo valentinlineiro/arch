@@ -90,3 +90,8 @@ Changed files: cli/src/main/ts/application/use-cases/govern-system.ts, cli/src/m
 - [x] 663 tests pass (4 new: source tagging, idempotency, cross-source isolation, local entry preservation) ✓
 - [x] arch review passes ✓
 Changed files: cli/src/main/ts/application/use-cases/corpus-index.ts, cli/src/main/ts/application/commands/corpus-import-command.ts (new), cli/src/main/ts/application/commands/ask-command.ts, cli/src/main/ts/application/use-cases/ask-corpus.ts, cli/src/main/ts/application/command-dispatcher.ts, cli/src/main/ts/domain/services/command-registry.ts, cli/src/test/ts/corpus-import-command.test.ts (new)
+
+## REVIEW_REQUEST | TASK-1034 | 2026-05-27
+**Task:** TASK-1034 standardize CLI output strategy: one path, not three
+**Status:** REVIEW — all 5 ACs pass. 665 tests pass. 0 console.log in commands/. fmt.log/fmt.error added to output-formatter.ts. 23 command files migrated.
+**Auditor action:** Verify ACs, set DONE, archive.
