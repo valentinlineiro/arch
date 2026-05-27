@@ -1,8 +1,8 @@
 {
   "version": 1,
-  "builtAt": "2026-05-27T11:17:41.133Z",
-  "archiveCommit": "419:design",
-  "taskCount": 204,
+  "builtAt": "2026-05-27T11:45:04.285Z",
+  "archiveCommit": "420:design",
+  "taskCount": 205,
   "entries": {
     "TASK-1000": {
       "id": "TASK-1000",
@@ -560,6 +560,23 @@
       "decision": "Three-part fix: initialSprintName() generates sprint/v{version}-{YYYY-MM}; archConfig() sets currentSprint, sprintCloseAfterN, sprintAutoNamePrefix; seedSprint() writes .arch/sprint-state.json with ACTIVE status and appends SPRINT_OPEN to focus-ledger. Idempotent: skips if sprint-state.json already exists. 4 new tests added to init-command.test.ts, all passing. 669 tests total, 0 failures.",
       "constraint": "No regressions. seedSprint() checks fs.access before writing — safe on second run.",
       "cost": "No architectural debt. Sprint state is properly seeded so govern's first tick has an ACTIVE sprint.",
+      "forwardAction": "No follow-up required.",
+      "acCount": 0,
+      "acMachineVerifiable": 0,
+      "closurePath": "L3"
+    },
+    "TASK-1058": {
+      "id": "TASK-1058",
+      "size": "S",
+      "class": "2-code-generation",
+      "closedAt": "2026-05-27T11:25:00.000Z",
+      "lockedCommit": null,
+      "actor": "unknown",
+      "severity": "H0",
+      "category": "[no-issue]",
+      "decision": "Two-part fix in inbox-hygiene.ts: (1) REVIEW_REQUEST_RE added to filter ## header sections in all 4 format variants; (2) stripInlineReviewRequests() added to remove body-level REVIEW_REQUEST blocks delimited by --- separators. Both paths check archivedIds. 8 new tests (5 header variants, 3 inline body). INBOX had 6 stale REVIEW_REQUEST entries; govern cleaned them all after rebuild. 677 tests total, 0 failures.",
+      "constraint": "No regressions. Existing AWAITING_REVIEW / AWAITING_PROMOTION logic unchanged. stripInlineReviewRequests is purely additive.",
+      "cost": "No architectural debt. Inline block logic is self-contained in a helper function.",
       "forwardAction": "No follow-up required.",
       "acCount": 0,
       "acMachineVerifiable": 0,

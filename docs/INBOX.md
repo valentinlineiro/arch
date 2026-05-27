@@ -32,3 +32,10 @@ See docs/refinement/ROADMAP-IDEAS.md
 **Task:** TASK-1058 fix inbox hygiene — remove stale REVIEW_REQUEST entries after task is archived
 **Status:** REVIEW — 5/5 ACs pass. 677 tests pass. govern cleaned 6 stale REVIEW_REQUEST entries from INBOX after rebuild.
 **Auditor action:** Verify ACs, set DONE, archive.
+
+## 2026-05-27 11:45:04 — Pattern Alerts
+[PATTERN-ALERT] [SpecDrift] detected 8 times — systemic issue. See docs/tensions/
+
+AWAITING_PROMOTION | IDEA-context-injector-planned-artifact-projection | 2026-05-27 — no Decision field set
+AWAITING_PROMOTION | IDEA-govern-rebuild-context-before-focus | 2026-05-27 — no Decision field set
+AWAITING_PROMOTION | IDEA-inbox-stable-ledger-invariant | 2026-05-27 — no Decision field set
