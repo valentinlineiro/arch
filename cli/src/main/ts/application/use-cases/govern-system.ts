@@ -467,7 +467,7 @@ export class GovernSystem {
     const tagName = `v${newVersion}`;
     try {
       await this.gitRepository.tag(tagName, `Release ${tagName}`);
-      await this.gitRepository.push(['--tags']);
+      await this.gitRepository.push(['--follow-tags']);
       console.log(`  \x1b[32m⚡ Tag pushed:\x1b[0m ${tagName}`);
     } catch (err: any) {
       console.log(`  [version-bump] tag/push failed: ${err.message} — continuing`);

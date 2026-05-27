@@ -747,8 +747,8 @@ test('sprint close: creates git tag vX.Y.Z and pushes', async () => {
 
   assert.ok(git.tags.includes('v0.6.1'), 'git tag v0.6.1 must be created');
   assert.ok(
-    git.pushArgs.some(args => args.includes('--tags')),
-    'git push --tags must be called'
+    git.pushArgs.some(args => args.includes('--follow-tags')),
+    'git push --follow-tags must be called'
   );
 });
 
