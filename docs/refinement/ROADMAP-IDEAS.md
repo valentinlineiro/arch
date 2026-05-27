@@ -107,6 +107,18 @@ before it can be scoped as an executable task.
 
 ---
 
+## arch-report-downstream-findings
+
+**Source:** Downstream project smartcart-os | **Created:** 2026-05-27 | **Migrated from:** IDEA-user-issue-reporting.md
+
+**Problem:** Findings from downstream arch projects (rule gaps, improvement opportunities) have no formal channel back to the arch repo. Today the flow is copy-paste.
+
+**Direction:** `arch report "<description>" [--kind bug|idea|guideline] [--from <project>]` — generates a structured IDEA draft. Running from the arch repo writes the file directly to `docs/refinement/`. Running from a downstream project prints the draft to stdout for paste.
+
+**Gap preventing graduation:** The primary users of this command would be external arch users who don't have direct repo access. Until there is evidence of external users hitting the friction, the value is low — the current user controls both repos and the copy-paste overhead is seconds. Trigger: first external user reports friction getting findings upstream, OR arch gains ≥3 downstream installations not controlled by the primary maintainer.
+
+---
+
 ## compliance-front-door
 
 **Source:** Product strategy discussion | **Created:** 2026-05-25 | **Migrated from:** IDEA-compliance-front-door.md

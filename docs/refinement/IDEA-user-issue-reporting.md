@@ -97,3 +97,4 @@ The following is the concrete issue that triggered this IDEA, provided as a bund
 
 ## Decision
 
+DEFER. Bundled findings extracted to TASK-1065 (system-commit exemption) and TASK-1066 (IDEA Decision integrity). The `arch report` command is deferred to ROADMAP-IDEAS — trigger: ≥3 downstream installations not controlled by the primary maintainer hit the upstream-reporting friction. See `docs/refinement/ROADMAP-IDEAS.md#arch-report-downstream-findings`.
