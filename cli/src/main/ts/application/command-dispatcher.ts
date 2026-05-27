@@ -46,6 +46,7 @@ import { RankCommand } from './commands/rank-command.js';
 import { AuditCommand } from './commands/audit-command.js';
 import { ResumeCommand } from './commands/resume-command.js';
 import { ProjectCommand } from './commands/project-command.js';
+import { CorpusImportCommand } from './commands/corpus-import-command.js';
 
 import { getPublicTopLevel, getPublicEntriesByNamespace, resolveRoute, type CommandEntry } from '../domain/services/command-registry.js';
 
@@ -194,5 +195,6 @@ export class CommandDispatcher {
     'memory:index': async () => new IndexCommand(this.fileSystem, this.gitRepository),
     'memory:explain': async () => new ExplainCommand(this.taskRepository, this.fileSystem, this.causalSignalLog, this.rootPath),
     'memory:deps': async () => new DepsCommand(this.taskRepository),
+    'corpus:import': async () => new CorpusImportCommand(this.fileSystem),
   };
 }

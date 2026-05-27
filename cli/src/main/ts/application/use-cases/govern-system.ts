@@ -501,8 +501,36 @@ export class GovernSystem {
       return;
     }
 
-    // Rule 4: Minimum inercia window
+    // Rule 3b: Stale IN_PROGRESS detection
     const ticksSinceAcquired = nextTick - (lastAcquired?.tick ?? 0);
+    const staleThreshold: number = (config?.governance as any)?.staleTaskThresholdTicks ?? 10;
+    if (focused.status === TaskStatus.IN_PROGRESS && ticksSinceAcquired >= staleThreshold) {
+      // Append STALE_TASK to INBOX (idempotent — skip if already present)
+      const inboxPath = this.pathResolver.inbox;
+      let inboxContent = '';
+      try { inboxContent = await this.fileSystem.readFile(inboxPath); } catch { /* no inbox yet */ }
+      if (!inboxContent.includes(`[STALE_TASK] ${focused.id}`)) {
+        await this.appendInbox(focused.id, `[STALE_TASK] ${focused.id}`, `IN_PROGRESS for ${ticksSinceAcquired} ticks without progressing to REVIEW/DONE (threshold: ${staleThreshold})`);
+      }
+      // Yield focus to next eligible READY task
+      const cleared = await this.updateFocusFlag(focused, false);
+      if (cleared) changedFiles.push(focused.filePath);
+      const readyEligible = eligible.filter(c => c.status === TaskStatus.READY);
+      if (readyEligible.length > 0) {
+        const top = readyEligible[0];
+        newRulings.push({ tick: nextTick, taskId: top.id, action: 'FOCUS_ACQUIRED', previousTask: focused.id, timestamp: new Date().toISOString() });
+        const changed = await this.updateFocusFlag(top, true);
+        if (changed) changedFiles.push(top.filePath);
+        console.log(`  FOCUS_ACQUIRED: ${top.id} (${focused.id} is stale after ${ticksSinceAcquired} ticks)`);
+      } else {
+        newRulings.push({ tick: nextTick, taskId: focused.id, action: 'FOCUS_RELEASED', timestamp: new Date().toISOString() });
+        console.log(`  FOCUS_RELEASED: ${focused.id} (stale after ${ticksSinceAcquired} ticks, no READY candidates)`);
+      }
+      await this.writeLedgerTick(ledger, newRulings, nextTick, changedFiles);
+      return;
+    }
+
+    // Rule 4: Minimum inercia window
     if (ticksSinceAcquired < minTicks) {
       newRulings.push({ tick: nextTick, taskId: focused.id, action: 'FOCUS_PRESERVED', timestamp: new Date().toISOString() });
       console.log(`  FOCUS_PRESERVED: ${focused.id} (inercia window: ${ticksSinceAcquired}/${minTicks} ticks)`);

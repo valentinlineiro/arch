@@ -358,6 +358,14 @@ export const COMMAND_REGISTRY: CommandEntry[] = [
     category: 'System Internals',
   },
   {
+    name: 'arch corpus import',
+    topLevel: 'corpus',
+    subCommand: 'import',
+    visibility: 'internal',
+    description: 'import corpus entries from another ARCH repo',
+    category: 'System Internals',
+  },
+  {
     name: 'arch sentinel',
     topLevel: 'sentinel',
     visibility: 'internal',

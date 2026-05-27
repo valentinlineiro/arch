@@ -2,6 +2,7 @@ import type { FileSystem } from '../../domain/repositories/file-system.js';
 import type { CausalGraph } from './causal-graph.js';
 import type { TemporalIndex, TemporalSpike } from './temporal-index.js';
 import { PathResolver } from '../../domain/services/path-resolver.js';
+import { CorpusIndexService, type CorpusEntry } from './corpus-index.js';
 
 export type QueryClass = 'DEFINITIONAL' | 'HISTORICAL' | 'STRUCTURAL' | 'PATTERN' | 'GENERAL';
 
@@ -95,10 +96,15 @@ export class AskCorpus {
     private temporalIndex?: TemporalIndex,
   ) {}
 
-  async execute(question: string): Promise<AskResult> {
+  async execute(question: string, options?: { projectFilter?: string }): Promise<AskResult> {
     const keywords = this.tokenize(question);
     if (keywords.length === 0) {
       throw new Error('No searchable keywords in question. Add specific terms to query.');
+    }
+
+    // Project filter: query corpus index entries from a specific source slug
+    if (options?.projectFilter) {
+      return this.executeProjectFiltered(question, keywords, options.projectFilter);
     }
 
     const queryClass = this.classifyQuery(question);
@@ -162,6 +168,49 @@ export class AskCorpus {
       adrRefs: [...adrRefs].sort(),
       principleRefs: [...principleRefs].sort(),
       ...(recurringSignals !== undefined ? { recurringSignals } : {}),
+    };
+  }
+
+  private async executeProjectFiltered(question: string, keywords: string[], slug: string): Promise<AskResult> {
+    const queryClass = this.classifyQuery(question);
+    const indexService = new CorpusIndexService(this.fileSystem);
+    let index: Awaited<ReturnType<CorpusIndexService['load']>>;
+    try {
+      index = await indexService.load();
+    } catch {
+      return { queryClass, keywords, matches: [], taskRefs: [], adrRefs: [], principleRefs: [] };
+    }
+
+    const entries = Object.values(index.entries).filter((e: CorpusEntry) => e.source === slug);
+    const scored: Array<{ path: string; score: number; excerpt: string; reasons: string[] }> = [];
+
+    for (const entry of entries) {
+      const text = [entry.id, entry.decision, entry.constraint, entry.cost, entry.forwardAction, entry.category, entry.severity].join(' ');
+      const lower = text.toLowerCase();
+      const kwHits = new Map<string, number>();
+      for (const kw of keywords) {
+        let count = 0, pos = 0;
+        while ((pos = lower.indexOf(kw, pos)) !== -1) { count++; pos++; }
+        if (count > 0) kwHits.set(kw, count);
+      }
+      if (kwHits.size === 0) continue;
+
+      const totalHits = [...kwHits.values()].reduce((a, b) => a + b, 0);
+      const reasons = [[...kwHits.entries()].sort((a, b) => b[1] - a[1]).map(([kw, n]) => `${kw} ×${n}`).join(', ')];
+      const excerpt = (entry.decision || entry.constraint || '').slice(0, 120);
+      scored.push({ path: `corpus:${slug}/${entry.id}`, score: totalHits, excerpt, reasons });
+    }
+
+    scored.sort((a, b) => b.score - a.score);
+    const taskRefs = entries.slice(0, 5).map(e => e.id).sort();
+
+    return {
+      queryClass,
+      keywords,
+      matches: scored.slice(0, 10),
+      taskRefs,
+      adrRefs: [],
+      principleRefs: [],
     };
   }
 

@@ -10,14 +10,25 @@ export class AskCommand implements Command {
   async execute(): Promise<number> {
     const args = this.io.getArgs();
     if (args.length === 0) {
-      this.io.error('Error: question required\nUsage: arch ask "<question>"');
+      this.io.error('Error: question required\nUsage: arch ask "<question>" [--project <slug>]');
       this.io.exit(1);
     }
 
-    const question = args.join(' ');
+    // Extract --project <slug> flag
+    let projectFilter: string | undefined;
+    const filteredArgs: string[] = [];
+    for (let i = 0; i < args.length; i++) {
+      if (args[i] === '--project' && i + 1 < args.length) {
+        projectFilter = args[++i];
+      } else {
+        filteredArgs.push(args[i]);
+      }
+    }
+
+    const question = filteredArgs.join(' ');
     let result;
     try {
-      result = await this.askCorpus.execute(question);
+      result = await this.askCorpus.execute(question, projectFilter ? { projectFilter } : undefined);
     } catch (e: any) {
       this.io.error(`Error: ${e.message}`);
       this.io.exit(1);

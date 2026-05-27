@@ -65,3 +65,28 @@ ACs verified:
 - [x] 656 tests pass (647 baseline + 9 new) ✓
 - [x] arch review passes ✓
 Changed files: docs/refinement/TEMPLATE.md, cli/src/main/ts/domain/services/promotion-proposal-generator.ts, cli/src/main/ts/application/commands/analyze-command.ts, cli/src/main/ts/domain/models/promotion-proposal.ts, cli/src/test/ts/promotion-proposal-generator.test.ts
+
+## [REVIEW_REQUEST] TASK-1054
+**Status:** REVIEW
+**Summary:** govern: detect stale IN_PROGRESS tasks and surface them instead of preserving focus
+ACs verified:
+- [x] govern-system.ts Rule 3b: stale IN_PROGRESS detection after configurable tick threshold (default 10) → yields focus to next READY task ✓
+- [x] STALE_TASK appended to INBOX with idempotency guard (checked before appending) ✓
+- [x] [STALE_TASK] added to DETERMINISTIC_PREFIXES in inbox-hygiene.ts (survives hygiene pass, same as ANDON_HALT) ✓
+- [x] 659 tests pass (3 new tests: stale yields focus, idempotent INBOX, below-threshold no-op) ✓
+- [x] arch review passes ✓
+Changed files: cli/src/main/ts/application/use-cases/govern-system.ts, cli/src/main/ts/application/use-cases/inbox-hygiene.ts, cli/src/test/ts/govern-system.test.ts
+
+## REVIEW_REQUEST TASK-1025 — arch corpus import: federated corpus from external ARCH repos
+
+- [x] `arch corpus import <path>` implemented — reads docs/archive/TASK-*.md and docs/adr/ADR-*.md, merges into corpus-index.json with source tag ✓
+- [x] URL import via git clone --depth 1 → temp dir → import → cleanup ✓
+- [x] `--as <slug>` flag for explicit source slug ✓
+- [x] Idempotent re-import: clears old entries for slug before merging new ones ✓
+- [x] `arch ask --project <slug>` filters corpus query to entries from that source ✓
+- [x] `source?: string` added to CorpusEntry interface (optional, absent = local) ✓
+- [x] `mergeImported()` and `parseEntryPublic()` methods added to CorpusIndexService ✓
+- [x] Registered as `corpus:import` in command-dispatcher.ts and command-registry.ts ✓
+- [x] 663 tests pass (4 new: source tagging, idempotency, cross-source isolation, local entry preservation) ✓
+- [x] arch review passes ✓
+Changed files: cli/src/main/ts/application/use-cases/corpus-index.ts, cli/src/main/ts/application/commands/corpus-import-command.ts (new), cli/src/main/ts/application/commands/ask-command.ts, cli/src/main/ts/application/use-cases/ask-corpus.ts, cli/src/main/ts/application/command-dispatcher.ts, cli/src/main/ts/domain/services/command-registry.ts, cli/src/test/ts/corpus-import-command.test.ts (new)

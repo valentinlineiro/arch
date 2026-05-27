@@ -494,6 +494,130 @@ test('govern stages archived task file (including working-tree edits) in archive
   );
 });
 
+// ─── Stale IN_PROGRESS detection ─────────────────────────────────────────────
+
+test('yields focus to READY task when IN_PROGRESS task exceeds stale threshold', async () => {
+  // staleTaskThresholdTicks = 3, ticksSinceAcquired = 4 (acquired at tick 1, lastCommittedTick = 4)
+  const staleConfig = JSON.stringify({
+    version: '0.6.0',
+    minTicksBeforeSwitch: 2,
+    governance: { conductEveryN: 3, staleTaskThresholdTicks: 3 },
+    hanseiSinceTaskId: 195,
+  });
+
+  const inProgress = makeTask('TASK-100', 'P2', TaskStatus.IN_PROGRESS, true);
+  const ready = makeTask('TASK-101', 'P2', TaskStatus.READY, false);
+
+  const fs = new SpyFileSystem();
+  fs.addFile('arch.config.json', staleConfig);
+  fs.addFile('docs/tasks/TASK-100.md', inProgress.content);
+  fs.addFile('docs/tasks/TASK-101.md', ready.content);
+
+  // Ledger: TASK-100 acquired at tick 1, lastCommittedTick = 4 → ticksSinceAcquired = 4 >= 3
+  const ledgerContent = [
+    JSON.stringify({ meta: true, lastCommittedTick: 4 }),
+    JSON.stringify({ tick: 1, taskId: 'TASK-100', action: 'FOCUS_ACQUIRED', timestamp: '2026-01-01T00:00:00Z' }),
+    JSON.stringify({ tick: 2, taskId: 'TASK-100', action: 'FOCUS_PRESERVED', timestamp: '2026-01-01T01:00:00Z' }),
+    JSON.stringify({ tick: 3, taskId: 'TASK-100', action: 'FOCUS_PRESERVED', timestamp: '2026-01-01T02:00:00Z' }),
+    JSON.stringify({ tick: 4, taskId: 'TASK-100', action: 'FOCUS_PRESERVED', timestamp: '2026-01-01T03:00:00Z' }),
+  ].join('\n') + '\n';
+  fs.addFile('.arch/focus-ledger.jsonl', ledgerContent);
+
+  const repo = new SpyTaskRepository([inProgress, ready]);
+  const git = new SpyGitRepository();
+
+  const system = new GovernSystem(repo as any, git as any, fs as any);
+  await system.execute();
+
+  // Focus must shift to READY task
+  assert.ok(fs.files['docs/tasks/TASK-101.md'].includes('Focus:yes'), 'READY task must gain focus after stale detection');
+  assert.ok(!fs.files['docs/tasks/TASK-100.md'].includes('Focus:yes'), 'stale IN_PROGRESS task must lose focus');
+
+  // INBOX must contain STALE_TASK entry
+  const inbox = fs.files['docs/INBOX.md'] ?? '';
+  assert.ok(inbox.includes('[STALE_TASK] TASK-100'), 'INBOX must contain [STALE_TASK] TASK-100 entry');
+
+  // Ledger must record FOCUS_ACQUIRED for TASK-101
+  const ledger = parseLedger(fs.files['.arch/focus-ledger.jsonl']);
+  const acquired = ledger.rulings.find(r => r.action === 'FOCUS_ACQUIRED' && r.taskId === 'TASK-101');
+  assert.ok(acquired, 'ledger must record FOCUS_ACQUIRED for TASK-101');
+  assert.strictEqual(acquired?.previousTask, 'TASK-100');
+});
+
+test('does not append duplicate STALE_TASK to INBOX when already present', async () => {
+  const staleConfig = JSON.stringify({
+    version: '0.6.0',
+    minTicksBeforeSwitch: 2,
+    governance: { conductEveryN: 3, staleTaskThresholdTicks: 3 },
+    hanseiSinceTaskId: 195,
+  });
+
+  const inProgress = makeTask('TASK-100', 'P2', TaskStatus.IN_PROGRESS, true);
+
+  const fs = new SpyFileSystem();
+  fs.addFile('arch.config.json', staleConfig);
+  fs.addFile('docs/tasks/TASK-100.md', inProgress.content);
+
+  // Pre-existing STALE_TASK entry for TASK-100
+  fs.addFile('docs/INBOX.md', '\n## [2026-01-01 00:00] [STALE_TASK] TASK-100 | TASK-100\nEvidence: stale\n');
+
+  const ledgerContent = [
+    JSON.stringify({ meta: true, lastCommittedTick: 4 }),
+    JSON.stringify({ tick: 1, taskId: 'TASK-100', action: 'FOCUS_ACQUIRED', timestamp: '2026-01-01T00:00:00Z' }),
+    JSON.stringify({ tick: 2, taskId: 'TASK-100', action: 'FOCUS_PRESERVED', timestamp: '2026-01-01T01:00:00Z' }),
+    JSON.stringify({ tick: 3, taskId: 'TASK-100', action: 'FOCUS_PRESERVED', timestamp: '2026-01-01T02:00:00Z' }),
+    JSON.stringify({ tick: 4, taskId: 'TASK-100', action: 'FOCUS_PRESERVED', timestamp: '2026-01-01T03:00:00Z' }),
+  ].join('\n') + '\n';
+  fs.addFile('.arch/focus-ledger.jsonl', ledgerContent);
+
+  const repo = new SpyTaskRepository([inProgress]);
+  const git = new SpyGitRepository();
+
+  const system = new GovernSystem(repo as any, git as any, fs as any);
+  await system.execute();
+
+  // INBOX must contain exactly one STALE_TASK entry for TASK-100
+  const inbox = fs.files['docs/INBOX.md'] ?? '';
+  const count = (inbox.match(/\[STALE_TASK\] TASK-100/g) ?? []).length;
+  assert.strictEqual(count, 1, 'INBOX must contain exactly one [STALE_TASK] TASK-100 entry (idempotent)');
+});
+
+test('does not mark task stale when ticksSinceAcquired is below threshold', async () => {
+  const staleConfig = JSON.stringify({
+    version: '0.6.0',
+    minTicksBeforeSwitch: 2,
+    governance: { conductEveryN: 3, staleTaskThresholdTicks: 10 },
+    hanseiSinceTaskId: 195,
+  });
+
+  const inProgress = makeTask('TASK-100', 'P2', TaskStatus.IN_PROGRESS, true);
+
+  const fs = new SpyFileSystem();
+  fs.addFile('arch.config.json', staleConfig);
+  fs.addFile('docs/tasks/TASK-100.md', inProgress.content);
+
+  // Acquired 3 ticks ago — below threshold of 10
+  const ledgerContent = [
+    JSON.stringify({ meta: true, lastCommittedTick: 3 }),
+    JSON.stringify({ tick: 1, taskId: 'TASK-100', action: 'FOCUS_ACQUIRED', timestamp: '2026-01-01T00:00:00Z' }),
+    JSON.stringify({ tick: 2, taskId: 'TASK-100', action: 'FOCUS_PRESERVED', timestamp: '2026-01-01T01:00:00Z' }),
+    JSON.stringify({ tick: 3, taskId: 'TASK-100', action: 'FOCUS_PRESERVED', timestamp: '2026-01-01T02:00:00Z' }),
+  ].join('\n') + '\n';
+  fs.addFile('.arch/focus-ledger.jsonl', ledgerContent);
+
+  const repo = new SpyTaskRepository([inProgress]);
+  const git = new SpyGitRepository();
+
+  const system = new GovernSystem(repo as any, git as any, fs as any);
+  await system.execute();
+
+  // INBOX must NOT contain STALE_TASK
+  const inbox = fs.files['docs/INBOX.md'] ?? '';
+  assert.ok(!inbox.includes('[STALE_TASK] TASK-100'), 'INBOX must not contain STALE_TASK when below threshold');
+  // Task must keep its focus
+  assert.ok(fs.files['docs/tasks/TASK-100.md'].includes('Focus:yes'), 'IN_PROGRESS task below threshold must keep focus');
+});
+
 test('govern commits materialized report files (README, ROADMAP, METRICS, status-projection)', async () => {
   const task = makeTask('TASK-042', 'P2');
   const fs = new SpyFileSystem();

@@ -18,6 +18,7 @@ export interface CorpusEntry {
   acCount: number;
   acMachineVerifiable: number;
   closurePath: 'L3' | 'auditor' | 'unknown';
+  source?: string;
 }
 
 export interface CorpusIndex {
@@ -83,6 +84,44 @@ export class CorpusIndexService {
     } catch { /* non-fatal — index write failure doesn't break anything */ }
 
     return index;
+  }
+
+  /**
+   * Parse a single file into a CorpusEntry (public for import use).
+   * Returns null if the file cannot be parsed (no Hansei, malformed, etc).
+   */
+  parseEntryPublic(id: string, content: string): CorpusEntry | null {
+    return this.parseEntry(id, content);
+  }
+
+  /**
+   * Merge entries tagged with a given source slug into the main corpus index.
+   * Clears any existing entries with that source first (idempotent re-import).
+   */
+  async mergeImported(slug: string, newEntries: Record<string, CorpusEntry>): Promise<{ added: number }> {
+    let index: CorpusIndex;
+    try {
+      const raw = await this.fileSystem.readFile(INDEX_PATH);
+      index = JSON.parse(raw) as CorpusIndex;
+    } catch {
+      index = { version: CURRENT_VERSION, builtAt: new Date().toISOString(), archiveCommit: '', taskCount: 0, entries: {} };
+    }
+
+    // Remove existing entries for this source slug
+    for (const [key, entry] of Object.entries(index.entries)) {
+      if (entry.source === slug) delete index.entries[key];
+    }
+
+    // Tag and merge new entries
+    for (const [key, entry] of Object.entries(newEntries)) {
+      index.entries[key] = { ...entry, source: slug };
+    }
+
+    index.taskCount = Object.keys(index.entries).length;
+    index.builtAt = new Date().toISOString();
+
+    await this.fileSystem.writeFile(INDEX_PATH, JSON.stringify(index, null, 2));
+    return { added: Object.keys(newEntries).length };
   }
 
   /** Invalidate: force next load() to rebuild. */
