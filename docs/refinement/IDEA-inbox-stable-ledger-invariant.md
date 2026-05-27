@@ -44,3 +44,4 @@ None — though TASK-1058 (inbox hygiene REVIEW_REQUEST cleanup) is complementar
 ## Gaps
 
 ## Decision
+PROMOTE → TASK-1059
