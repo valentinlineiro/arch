@@ -94,7 +94,13 @@
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-1058.md"
+          "taskPath": "docs/archive/TASK-1058.md"
+        },
+        "TASK-1061": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-1061.md"
         },
         "TASK-157": {
           "evidenceKinds": [
@@ -296,6 +302,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-1057.md"
+        },
+        "TASK-1062": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1062.md"
         },
         "TASK-242": {
           "evidenceKinds": [
@@ -757,7 +769,7 @@
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-1058.md"
+          "taskPath": "docs/archive/TASK-1058.md"
         },
         "TASK-225": {
           "evidenceKinds": [
@@ -929,6 +941,12 @@
           ],
           "taskPath": "docs/tasks/TASK-1056.md"
         },
+        "TASK-1062": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1062.md"
+        },
         "TASK-957": {
           "evidenceKinds": [
             "literal-mention"
@@ -1075,7 +1093,13 @@
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-1058.md"
+          "taskPath": "docs/archive/TASK-1058.md"
+        },
+        "TASK-1062": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1062.md"
         },
         "TASK-958": {
           "evidenceKinds": [
@@ -4314,7 +4338,7 @@
       "title": "Govern/Reflect Structural Separation"
     }
   },
-  "builtAt": "2026-05-27T11:26:23.490Z",
+  "builtAt": "2026-05-27T13:01:29.466Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -10543,15 +10567,18 @@
       }
     },
     "TASK-1043": {
-      "commitCount": 2,
+      "commitCount": 3,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-27T13:26:19+02:00",
+      "lastCommitDate": "2026-05-27T15:01:23+02:00",
       "recentCommitRefs": [
+        "2e9481f9",
         "d18b0569",
         "fabdabdb"
       ],
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 2,
+        ".arch/focus-ledger.jsonl": 3,
+        "arch.config.json": 1,
+        "cli/package.json": 1,
         "docs/tasks/TASK-1043.md": 1
       }
     },
@@ -10830,15 +10857,63 @@
       }
     },
     "TASK-1058": {
-      "commitCount": 2,
+      "commitCount": 4,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-27T13:16:30+02:00",
+      "lastCommitDate": "2026-05-27T13:27:23+02:00",
       "recentCommitRefs": [
+        "123b117a",
+        "401e1a8f",
         "42b51937",
         "dfea0391"
       ],
       "touchedFrequency": {
-        "docs/tasks/TASK-1058.md": 2
+        "cli/src/main/ts/application/use-cases/inbox-hygiene.ts": 1,
+        "cli/src/test/ts/inbox-hygiene.test.ts": 1,
+        "docs/INBOX.md": 1,
+        "docs/archive/TASK-1058.md": 1,
+        "docs/tasks/TASK-1058.md": 3
+      }
+    },
+    "TASK-1059": {
+      "commitCount": 1,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-05-27T14:01:52+02:00",
+      "recentCommitRefs": [
+        "df39f79e"
+      ],
+      "touchedFrequency": {
+        "docs/refinement/IDEA-context-injector-planned-artifact-projection.md": 1,
+        "docs/refinement/IDEA-govern-rebuild-context-before-focus.md": 1,
+        "docs/refinement/IDEA-inbox-stable-ledger-invariant.md": 1,
+        "docs/tasks/TASK-1059.md": 1,
+        "docs/tasks/TASK-1060.md": 1,
+        "docs/tasks/TASK-1061.md": 1
+      }
+    },
+    "TASK-1062": {
+      "commitCount": 7,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-05-27T15:01:21+02:00",
+      "recentCommitRefs": [
+        "2f857fa5",
+        "6ba5588c",
+        "741a69d2",
+        "a047045c",
+        "a8e6affa",
+        "a9d049f8",
+        "e84626d5"
+      ],
+      "touchedFrequency": {
+        ".github/workflows/release.yml": 1,
+        "cli/src/main/ts/application/use-cases/govern-system.ts": 1,
+        "cli/src/main/ts/domain/repositories/git-repository.ts": 1,
+        "cli/src/main/ts/infrastructure/cli/git-cli.ts": 1,
+        "cli/src/test/ts/govern-system.test.ts": 1,
+        "cli/src/test/ts/mocks/index.ts": 1,
+        "docs/INBOX.md": 1,
+        "docs/archive/TASK-1062.md": 1,
+        "docs/refinement/IDEA-arch-release-and-cd.md": 1,
+        "docs/tasks/TASK-1062.md": 5
       }
     },
     "TASK-161": {
@@ -10875,11 +10950,10 @@
       }
     },
     "TASK-206": {
-      "commitCount": 9,
+      "commitCount": 8,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-26T10:00:51+02:00",
       "recentCommitRefs": [
-        "07c38fd1",
         "21a5605b",
         "290f2b42",
         "313d5a3e",
@@ -10891,379 +10965,24 @@
       ],
       "touchedFrequency": {
         ".arch/context-index.json": 1,
-        ".arch/corpus-index.json": 1,
         ".arch/focus-ledger.jsonl": 6,
-        ".arch/reflect-breach-log.jsonl": 2,
-        ".arch/status-projection.json": 2,
-        "README.md": 2,
-        "cli/.arch/status-projection.json": 1,
-        "docs/INBOX.md": 1,
-        "docs/METRICS.md": 1,
-        "docs/ROADMAP.md": 2,
+        ".arch/reflect-breach-log.jsonl": 1,
+        ".arch/status-projection.json": 1,
+        "README.md": 1,
+        "docs/ROADMAP.md": 1,
         "docs/adr/ADR-021-refinement-ttl-and-admission.md": 1,
         "docs/adr/ADR-024-drift-coverage-identity-model.md": 1,
         "docs/adr/ADR-026-epistemic-layer-separation.md": 1,
         "docs/adr/ADR-027-phase-3-epistemic-stability.md": 1,
         "docs/adr/ADR-028-epistemic-invariant-specification.md": 1,
-        "docs/adr/ADR-030-think-promotion-proposals-domain-model.md": 1,
-        "docs/archive/TASK-001.md": 1,
-        "docs/archive/TASK-002.md": 1,
-        "docs/archive/TASK-003.md": 1,
-        "docs/archive/TASK-004.md": 1,
-        "docs/archive/TASK-005.md": 1,
-        "docs/archive/TASK-006.md": 1,
-        "docs/archive/TASK-007.md": 1,
-        "docs/archive/TASK-008.md": 1,
-        "docs/archive/TASK-009.md": 1,
-        "docs/archive/TASK-010.md": 1,
-        "docs/archive/TASK-011.md": 1,
-        "docs/archive/TASK-012.md": 1,
-        "docs/archive/TASK-013.md": 1,
-        "docs/archive/TASK-014.md": 1,
-        "docs/archive/TASK-015.md": 1,
-        "docs/archive/TASK-016.md": 1,
-        "docs/archive/TASK-018.md": 1,
-        "docs/archive/TASK-019.md": 1,
-        "docs/archive/TASK-020.md": 1,
-        "docs/archive/TASK-021.md": 1,
-        "docs/archive/TASK-022.md": 1,
-        "docs/archive/TASK-023.md": 1,
-        "docs/archive/TASK-024.md": 1,
-        "docs/archive/TASK-025.md": 1,
-        "docs/archive/TASK-026.md": 1,
-        "docs/archive/TASK-027.md": 1,
-        "docs/archive/TASK-028.md": 1,
-        "docs/archive/TASK-029.md": 1,
-        "docs/archive/TASK-030.md": 1,
-        "docs/archive/TASK-031.md": 1,
-        "docs/archive/TASK-032.md": 1,
-        "docs/archive/TASK-033.md": 1,
-        "docs/archive/TASK-034.md": 1,
-        "docs/archive/TASK-035.md": 1,
-        "docs/archive/TASK-036.md": 1,
-        "docs/archive/TASK-037.md": 1,
-        "docs/archive/TASK-038.md": 1,
-        "docs/archive/TASK-039.md": 1,
-        "docs/archive/TASK-040.md": 1,
-        "docs/archive/TASK-041.md": 1,
-        "docs/archive/TASK-042.md": 1,
-        "docs/archive/TASK-043.md": 1,
-        "docs/archive/TASK-044.md": 1,
-        "docs/archive/TASK-045.md": 1,
-        "docs/archive/TASK-046.md": 1,
-        "docs/archive/TASK-047.md": 1,
-        "docs/archive/TASK-048.md": 1,
-        "docs/archive/TASK-049.md": 1,
-        "docs/archive/TASK-050.md": 1,
-        "docs/archive/TASK-051.md": 1,
-        "docs/archive/TASK-052.md": 1,
-        "docs/archive/TASK-053.md": 1,
-        "docs/archive/TASK-054.md": 1,
-        "docs/archive/TASK-055.md": 1,
-        "docs/archive/TASK-056.md": 1,
-        "docs/archive/TASK-057.md": 1,
-        "docs/archive/TASK-058.md": 1,
-        "docs/archive/TASK-059.md": 1,
-        "docs/archive/TASK-060.md": 1,
-        "docs/archive/TASK-061.md": 1,
-        "docs/archive/TASK-062.md": 1,
-        "docs/archive/TASK-063.md": 1,
-        "docs/archive/TASK-064.md": 1,
-        "docs/archive/TASK-065.md": 1,
-        "docs/archive/TASK-066.md": 1,
-        "docs/archive/TASK-067.md": 1,
-        "docs/archive/TASK-068.md": 1,
-        "docs/archive/TASK-069.md": 1,
-        "docs/archive/TASK-070.md": 1,
-        "docs/archive/TASK-071.md": 1,
-        "docs/archive/TASK-072.md": 1,
-        "docs/archive/TASK-074.md": 1,
-        "docs/archive/TASK-075.md": 1,
-        "docs/archive/TASK-076.md": 1,
-        "docs/archive/TASK-077.md": 1,
-        "docs/archive/TASK-078.md": 1,
-        "docs/archive/TASK-079.md": 1,
-        "docs/archive/TASK-080.md": 1,
-        "docs/archive/TASK-081.md": 1,
-        "docs/archive/TASK-082.md": 1,
-        "docs/archive/TASK-083.md": 1,
-        "docs/archive/TASK-084.md": 1,
-        "docs/archive/TASK-085.md": 1,
-        "docs/archive/TASK-086.md": 1,
-        "docs/archive/TASK-087.md": 1,
-        "docs/archive/TASK-088.md": 1,
-        "docs/archive/TASK-089.md": 1,
-        "docs/archive/TASK-090.md": 1,
-        "docs/archive/TASK-091.md": 1,
-        "docs/archive/TASK-092.md": 1,
-        "docs/archive/TASK-093.md": 1,
-        "docs/archive/TASK-094.md": 1,
-        "docs/archive/TASK-095.md": 1,
-        "docs/archive/TASK-096.md": 1,
-        "docs/archive/TASK-097.md": 1,
         "docs/archive/TASK-1000.md": 1,
-        "docs/archive/TASK-102.md": 1,
-        "docs/archive/TASK-103.md": 1,
-        "docs/archive/TASK-104.md": 1,
-        "docs/archive/TASK-105.md": 1,
-        "docs/archive/TASK-106.md": 1,
-        "docs/archive/TASK-107.md": 1,
-        "docs/archive/TASK-108.md": 1,
-        "docs/archive/TASK-109.md": 1,
-        "docs/archive/TASK-110.md": 1,
-        "docs/archive/TASK-111.md": 1,
-        "docs/archive/TASK-112.md": 1,
-        "docs/archive/TASK-113.md": 1,
-        "docs/archive/TASK-114.md": 1,
-        "docs/archive/TASK-115.md": 1,
-        "docs/archive/TASK-116.md": 1,
-        "docs/archive/TASK-117.md": 1,
-        "docs/archive/TASK-118.md": 1,
-        "docs/archive/TASK-119.md": 1,
-        "docs/archive/TASK-120.md": 1,
-        "docs/archive/TASK-121.md": 1,
-        "docs/archive/TASK-122.md": 1,
-        "docs/archive/TASK-123.md": 1,
-        "docs/archive/TASK-124.md": 1,
-        "docs/archive/TASK-125.md": 1,
-        "docs/archive/TASK-126.md": 1,
-        "docs/archive/TASK-127.md": 1,
-        "docs/archive/TASK-128.md": 1,
-        "docs/archive/TASK-129.md": 1,
-        "docs/archive/TASK-130.md": 1,
-        "docs/archive/TASK-131.md": 1,
-        "docs/archive/TASK-132.md": 1,
-        "docs/archive/TASK-133.md": 1,
-        "docs/archive/TASK-134.md": 1,
-        "docs/archive/TASK-135.md": 1,
-        "docs/archive/TASK-136.md": 1,
-        "docs/archive/TASK-137.md": 1,
-        "docs/archive/TASK-138.md": 1,
-        "docs/archive/TASK-139.md": 1,
-        "docs/archive/TASK-140.md": 1,
-        "docs/archive/TASK-141.md": 1,
-        "docs/archive/TASK-142.md": 1,
-        "docs/archive/TASK-143.md": 1,
-        "docs/archive/TASK-144.md": 1,
-        "docs/archive/TASK-145.md": 1,
-        "docs/archive/TASK-146.md": 1,
-        "docs/archive/TASK-147.md": 1,
-        "docs/archive/TASK-148.md": 1,
-        "docs/archive/TASK-149.md": 1,
-        "docs/archive/TASK-150.md": 1,
-        "docs/archive/TASK-151.md": 1,
-        "docs/archive/TASK-152.md": 1,
-        "docs/archive/TASK-153.md": 1,
-        "docs/archive/TASK-154.md": 1,
-        "docs/archive/TASK-155.md": 1,
-        "docs/archive/TASK-156.md": 1,
-        "docs/archive/TASK-157.md": 1,
-        "docs/archive/TASK-158.md": 1,
-        "docs/archive/TASK-159.md": 1,
-        "docs/archive/TASK-160.md": 1,
-        "docs/archive/TASK-164.md": 1,
-        "docs/archive/TASK-165.md": 1,
-        "docs/archive/TASK-166.md": 1,
-        "docs/archive/TASK-167.md": 1,
-        "docs/archive/TASK-168.md": 1,
-        "docs/archive/TASK-169.md": 1,
-        "docs/archive/TASK-170.md": 1,
-        "docs/archive/TASK-171.md": 1,
-        "docs/archive/TASK-172.md": 1,
-        "docs/archive/TASK-173.md": 1,
-        "docs/archive/TASK-174.md": 1,
-        "docs/archive/TASK-175.md": 1,
-        "docs/archive/TASK-176.md": 1,
-        "docs/archive/TASK-177.md": 1,
-        "docs/archive/TASK-178.md": 1,
-        "docs/archive/TASK-179.md": 1,
-        "docs/archive/TASK-180.md": 1,
-        "docs/archive/TASK-181.md": 1,
-        "docs/archive/TASK-182.md": 1,
-        "docs/archive/TASK-183.md": 1,
-        "docs/archive/TASK-184.md": 1,
-        "docs/archive/TASK-185.md": 1,
-        "docs/archive/TASK-186.md": 1,
-        "docs/archive/TASK-187.md": 1,
-        "docs/archive/TASK-188.md": 1,
-        "docs/archive/TASK-189.md": 1,
-        "docs/archive/TASK-190.md": 1,
-        "docs/archive/TASK-191.md": 1,
-        "docs/archive/TASK-192.md": 1,
-        "docs/archive/TASK-193.md": 1,
-        "docs/archive/TASK-194.md": 1,
-        "docs/archive/TASK-195.md": 1,
-        "docs/archive/TASK-196.md": 1,
-        "docs/archive/TASK-197.md": 1,
-        "docs/archive/TASK-198.md": 1,
-        "docs/archive/TASK-199.md": 1,
-        "docs/archive/TASK-200.md": 1,
-        "docs/archive/TASK-201.md": 1,
-        "docs/archive/TASK-202.md": 1,
-        "docs/archive/TASK-203.md": 1,
-        "docs/archive/TASK-204.md": 1,
-        "docs/archive/TASK-205.md": 1,
         "docs/archive/TASK-206.md": 1,
-        "docs/archive/TASK-207.md": 1,
-        "docs/archive/TASK-208.md": 1,
-        "docs/archive/TASK-209.md": 1,
-        "docs/archive/TASK-210.md": 1,
-        "docs/archive/TASK-211.md": 1,
-        "docs/archive/TASK-212.md": 1,
-        "docs/archive/TASK-213.md": 1,
-        "docs/archive/TASK-214.md": 1,
-        "docs/archive/TASK-215.md": 1,
-        "docs/archive/TASK-216.md": 1,
-        "docs/archive/TASK-217.md": 1,
-        "docs/archive/TASK-218.md": 1,
-        "docs/archive/TASK-219.md": 1,
-        "docs/archive/TASK-220.md": 1,
-        "docs/archive/TASK-222.md": 1,
-        "docs/archive/TASK-223.md": 1,
-        "docs/archive/TASK-224.md": 1,
-        "docs/archive/TASK-225.md": 1,
-        "docs/archive/TASK-226.md": 1,
-        "docs/archive/TASK-227.md": 1,
-        "docs/archive/TASK-228.md": 1,
-        "docs/archive/TASK-229.md": 1,
-        "docs/archive/TASK-230.md": 1,
-        "docs/archive/TASK-231.md": 1,
-        "docs/archive/TASK-232.md": 1,
-        "docs/archive/TASK-233.md": 1,
-        "docs/archive/TASK-234.md": 1,
-        "docs/archive/TASK-235.md": 1,
-        "docs/archive/TASK-236.md": 1,
-        "docs/archive/TASK-237.md": 1,
-        "docs/archive/TASK-238.md": 1,
-        "docs/archive/TASK-239.md": 1,
-        "docs/archive/TASK-240.md": 1,
-        "docs/archive/TASK-241.md": 1,
-        "docs/archive/TASK-243.md": 1,
-        "docs/archive/TASK-244.md": 1,
-        "docs/archive/TASK-245.md": 1,
-        "docs/archive/TASK-246.md": 1,
-        "docs/archive/TASK-247.md": 1,
-        "docs/archive/TASK-248.md": 1,
-        "docs/archive/TASK-249.md": 1,
-        "docs/archive/TASK-250.md": 1,
-        "docs/archive/TASK-251.md": 1,
-        "docs/archive/TASK-252.md": 1,
-        "docs/archive/TASK-253.md": 1,
-        "docs/archive/TASK-254.md": 1,
-        "docs/archive/TASK-255.md": 1,
-        "docs/archive/TASK-256.md": 1,
-        "docs/archive/TASK-257.md": 1,
-        "docs/archive/TASK-258.md": 1,
-        "docs/archive/TASK-259.md": 1,
-        "docs/archive/TASK-260.md": 1,
-        "docs/archive/TASK-261.md": 1,
-        "docs/archive/TASK-262.md": 1,
-        "docs/archive/TASK-263.md": 1,
-        "docs/archive/TASK-265.md": 1,
-        "docs/archive/TASK-267.md": 1,
-        "docs/archive/TASK-268.md": 1,
-        "docs/archive/TASK-269.md": 1,
-        "docs/archive/TASK-279.md": 1,
-        "docs/archive/TASK-283.md": 1,
-        "docs/archive/TASK-284.md": 1,
-        "docs/archive/TASK-888.md": 1,
-        "docs/archive/TASK-889.md": 1,
-        "docs/archive/TASK-890.md": 1,
-        "docs/archive/TASK-891.md": 1,
-        "docs/archive/TASK-892.md": 1,
-        "docs/archive/TASK-893.md": 1,
-        "docs/archive/TASK-894.md": 1,
-        "docs/archive/TASK-895.md": 1,
-        "docs/archive/TASK-896.md": 1,
-        "docs/archive/TASK-897.md": 1,
-        "docs/archive/TASK-898.md": 1,
-        "docs/archive/TASK-899.md": 1,
-        "docs/archive/TASK-900.md": 1,
-        "docs/archive/TASK-901.md": 1,
-        "docs/archive/TASK-902.md": 1,
-        "docs/archive/TASK-903.md": 1,
-        "docs/archive/TASK-904.md": 1,
-        "docs/archive/TASK-905.md": 1,
-        "docs/archive/TASK-906.md": 1,
-        "docs/archive/TASK-907.md": 1,
-        "docs/archive/TASK-908.md": 1,
-        "docs/archive/TASK-909.md": 1,
-        "docs/archive/TASK-910.md": 1,
-        "docs/archive/TASK-911.md": 1,
-        "docs/archive/TASK-912.md": 1,
-        "docs/archive/TASK-913.md": 1,
-        "docs/archive/TASK-914.md": 1,
-        "docs/archive/TASK-915.md": 1,
-        "docs/archive/TASK-916.md": 1,
-        "docs/archive/TASK-917.md": 1,
-        "docs/archive/TASK-918.md": 1,
-        "docs/archive/TASK-919.md": 1,
-        "docs/archive/TASK-920.md": 2,
-        "docs/archive/TASK-921.md": 1,
-        "docs/archive/TASK-922.md": 1,
-        "docs/archive/TASK-926.md": 1,
-        "docs/archive/TASK-927.md": 1,
-        "docs/archive/TASK-928.md": 1,
-        "docs/archive/TASK-929.md": 1,
-        "docs/archive/TASK-930.md": 1,
-        "docs/archive/TASK-931.md": 1,
-        "docs/archive/TASK-932.md": 1,
-        "docs/archive/TASK-933.md": 1,
-        "docs/archive/TASK-934.md": 1,
-        "docs/archive/TASK-935.md": 1,
-        "docs/archive/TASK-936.md": 1,
-        "docs/archive/TASK-937.md": 1,
-        "docs/archive/TASK-938.md": 1,
-        "docs/archive/TASK-939.md": 1,
-        "docs/archive/TASK-940.md": 1,
-        "docs/archive/TASK-941.md": 1,
-        "docs/archive/TASK-942.md": 1,
-        "docs/archive/TASK-943.md": 1,
-        "docs/archive/TASK-944.md": 1,
-        "docs/archive/TASK-945.md": 1,
-        "docs/archive/TASK-946.md": 1,
-        "docs/archive/TASK-947.md": 1,
-        "docs/archive/TASK-948.md": 1,
-        "docs/archive/TASK-949.md": 2,
-        "docs/archive/TASK-950.md": 1,
-        "docs/archive/TASK-951.md": 1,
-        "docs/archive/TASK-952.md": 1,
-        "docs/archive/TASK-953.md": 1,
-        "docs/archive/TASK-954.md": 1,
-        "docs/archive/TASK-955.md": 1,
-        "docs/archive/TASK-956.md": 1,
+        "docs/archive/TASK-920.md": 1,
+        "docs/archive/TASK-949.md": 1,
         "docs/archive/TASK-957.md": 1,
-        "docs/archive/TASK-958.md": 2,
-        "docs/archive/TASK-959.md": 1,
-        "docs/archive/TASK-960.md": 1,
-        "docs/archive/TASK-961.md": 1,
-        "docs/archive/TASK-962.md": 1,
-        "docs/archive/TASK-963.md": 1,
-        "docs/archive/TASK-964.md": 1,
-        "docs/archive/TASK-965.md": 1,
-        "docs/archive/TASK-966.md": 2,
-        "docs/archive/TASK-968.md": 1,
-        "docs/archive/TASK-971.md": 1,
-        "docs/archive/TASK-972.md": 1,
-        "docs/archive/TASK-973.md": 1,
-        "docs/archive/TASK-974.md": 1,
-        "docs/archive/TASK-975.md": 1,
-        "docs/archive/TASK-976.md": 1,
-        "docs/archive/TASK-977.md": 2,
-        "docs/archive/TASK-978.md": 1,
-        "docs/archive/TASK-980.md": 1,
-        "docs/archive/TASK-981.md": 1,
-        "docs/archive/TASK-982.md": 1,
-        "docs/archive/TASK-983.md": 1,
-        "docs/archive/TASK-984.md": 1,
-        "docs/archive/TASK-985.md": 1,
-        "docs/archive/TASK-986.md": 1,
-        "docs/archive/TASK-987.md": 1,
-        "docs/archive/TASK-988.md": 1,
-        "docs/archive/TASK-989.md": 1,
-        "docs/archive/TASK-992.md": 1,
-        "docs/archive/TASK-993.md": 1,
-        "docs/archive/TASK-994.md": 1,
+        "docs/archive/TASK-958.md": 1,
+        "docs/archive/TASK-966.md": 1,
+        "docs/archive/TASK-977.md": 1,
         "docs/refinement/archive/IDEA-cli-architecture-drift-review.md": 1,
         "docs/refinement/archive/IDEA-code-quality-audit-process.md": 1,
         "docs/refinement/archive/IDEA-corpus-informed-reprioritization.md": 1,
@@ -11273,10 +10992,7 @@
         "docs/refinement/archive/IDEA-resolve-hansei-contradiction.md": 1,
         "docs/refinement/archive/IDEA-status-doc-refresh.md": 1,
         "docs/tasks/TASK-206.md": 1,
-        "docs/tasks/TASK-967.md": 1,
-        "docs/tasks/TASK-995.md": 1,
-        "docs/tasks/TASK-996.md": 1,
-        "docs/tensions/TENSION-005-specdrift.md": 1
+        "docs/tasks/TASK-995.md": 1
       }
     },
     "TASK-242": {
@@ -11422,13 +11138,11 @@
       }
     },
     "TASK-957": {
-      "commitCount": 6,
+      "commitCount": 4,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-24T15:33:56+00:00",
       "recentCommitRefs": [
-        "262b9d14",
         "3da2d37a",
-        "531deb91",
         "758cac88",
         "a0db17ec",
         "b14992cd"
@@ -11438,8 +11152,7 @@
         ".arch/chronicle.jsonl": 1,
         ".arch/context-feedback.json": 1,
         ".arch/deployment-map-v1.1.json": 1,
-        ".arch/ecp-registry.jsonl": 1,
-        ".arch/focus-ledger.jsonl": 3,
+        ".arch/focus-ledger.jsonl": 2,
         ".arch/reflect-breach-log.jsonl": 2,
         ".arch/sprint-state.json": 1,
         ".arch/status-projection.json": 2,
@@ -11455,18 +11168,14 @@
         "docs/adr/ADR-032-automatic-sprint-lifecycle.md": 1,
         "docs/archive/TASK-957.md": 1,
         "docs/archive/TASK-969.md": 1,
-        "docs/tasks/TASK-206.md": 1,
-        "docs/tasks/TASK-957.md": 1,
-        "docs/tasks/TASK-995.md": 1
+        "docs/tasks/TASK-206.md": 1
       }
     },
     "TASK-967": {
-      "commitCount": 4,
+      "commitCount": 2,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-23T23:46:02+00:00",
       "recentCommitRefs": [
-        "6473ca90",
-        "aa9e74de",
         "b118bd3f",
         "f5af0023"
       ],
@@ -11475,7 +11184,6 @@
         ".arch/chronicle.jsonl": 1,
         ".arch/context-feedback.json": 1,
         ".arch/escalations.jsonl": 1,
-        ".arch/focus-ledger.jsonl": 2,
         ".arch/reflect-breach-log.jsonl": 1,
         ".arch/status-projection.json": 1,
         ".arch/temporal-index.jsonl": 1,
@@ -11527,26 +11235,13 @@
         "docs/tasks/TASK-996.md": 1
       }
     },
-    "TASK-990": {
-      "commitCount": 1,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-23T23:35:13+00:00",
-      "recentCommitRefs": [
-        "6c0c7db7"
-      ],
-      "touchedFrequency": {
-        "docs/archive/TASK-990.md": 1,
-        "docs/tasks/TASK-990.md": 1
-      }
-    },
     "TASK-991": {
-      "commitCount": 4,
+      "commitCount": 3,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-24T19:49:04+02:00",
       "recentCommitRefs": [
         "1180f496",
         "18fa2fbd",
-        "5b41c4cc",
         "9a85cd48"
       ],
       "touchedFrequency": {
@@ -11572,7 +11267,7 @@
         "docs/adr/ADR-031-sprint-domain-model.md": 1,
         "docs/agents/DO.md": 1,
         "docs/archive/TASK-990.md": 1,
-        "docs/archive/TASK-991.md": 3,
+        "docs/archive/TASK-991.md": 2,
         "docs/archive/TASK-996.md": 1,
         "docs/archive/TASK-997.md": 1,
         "docs/archive/TASK-998.md": 1,
@@ -11580,30 +11275,15 @@
         "docs/tasks/TASK-1000.md": 1,
         "docs/tasks/TASK-957.md": 1,
         "docs/tasks/TASK-967.md": 1,
-        "docs/tasks/TASK-991.md": 1,
         "docs/tasks/TASK-996.md": 1,
         "docs/tasks/TASK-999.md": 1
       }
     },
-    "TASK-992": {
-      "commitCount": 1,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-23T20:32:35+00:00",
-      "recentCommitRefs": [
-        "262b9d14"
-      ],
-      "touchedFrequency": {
-        ".arch/ecp-registry.jsonl": 1,
-        "docs/tasks/TASK-957.md": 1,
-        "docs/tasks/TASK-995.md": 1
-      }
-    },
     "TASK-995": {
-      "commitCount": 10,
+      "commitCount": 9,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-26T10:00:51+02:00",
       "recentCommitRefs": [
-        "262b9d14",
         "3eb4493b",
         "4804ff7d",
         "57296df1",
@@ -11615,56 +11295,31 @@
         "e7700905"
       ],
       "touchedFrequency": {
-        ".arch/ecp-registry.jsonl": 1,
         ".arch/focus-ledger.jsonl": 8,
-        "docs/archive/TASK-995.md": 1,
-        "docs/tasks/TASK-957.md": 1,
-        "docs/tasks/TASK-995.md": 1
+        "docs/archive/TASK-995.md": 1
       }
     },
     "TASK-996": {
-      "commitCount": 2,
+      "commitCount": 1,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-24T19:54:40+02:00",
       "recentCommitRefs": [
-        "3d491437",
-        "c7054bae"
+        "3d491437"
       ],
       "touchedFrequency": {
-        "docs/archive/TASK-996.md": 1,
         "docs/refinement/archive/IDEA-opencode-fallback.md": 1,
-        "docs/tasks/TASK-1003.md": 1,
-        "docs/tasks/TASK-996.md": 1
+        "docs/tasks/TASK-1003.md": 1
       }
     },
     "TASK-997": {
-      "commitCount": 2,
+      "commitCount": 1,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-25T12:51:02+02:00",
       "recentCommitRefs": [
-        "23340e94",
         "44209be7"
       ],
       "touchedFrequency": {
-        ".arch/escalations.jsonl": 1,
-        "docs/archive/TASK-997.md": 1,
-        "docs/tasks/TASK-997.md": 1
-      }
-    },
-    "TASK-998": {
-      "commitCount": 2,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-23T23:35:13+00:00",
-      "recentCommitRefs": [
-        "0a073cdd",
-        "262b9d14"
-      ],
-      "touchedFrequency": {
-        ".arch/ecp-registry.jsonl": 1,
-        "docs/archive/TASK-998.md": 1,
-        "docs/tasks/TASK-957.md": 1,
-        "docs/tasks/TASK-995.md": 1,
-        "docs/tasks/TASK-998.md": 1
+        ".arch/escalations.jsonl": 1
       }
     },
     "TASK-999": {
