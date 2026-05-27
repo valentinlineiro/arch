@@ -4314,7 +4314,7 @@
       "title": "Govern/Reflect Structural Separation"
     }
   },
-  "builtAt": "2026-05-27T11:17:50.204Z",
+  "builtAt": "2026-05-27T11:26:23.490Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -10543,14 +10543,15 @@
       }
     },
     "TASK-1043": {
-      "commitCount": 1,
+      "commitCount": 2,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-27T13:17:36+02:00",
+      "lastCommitDate": "2026-05-27T13:26:19+02:00",
       "recentCommitRefs": [
-        "d18b0569"
+        "d18b0569",
+        "fabdabdb"
       ],
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 1,
+        ".arch/focus-ledger.jsonl": 2,
         "docs/tasks/TASK-1043.md": 1
       }
     },
@@ -11457,31 +11458,6 @@
         "docs/tasks/TASK-206.md": 1,
         "docs/tasks/TASK-957.md": 1,
         "docs/tasks/TASK-995.md": 1
-      }
-    },
-    "TASK-966": {
-      "commitCount": 4,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-23T18:12:06+00:00",
-      "recentCommitRefs": [
-        "1d07330a",
-        "7133fd1c",
-        "98bc98ff",
-        "b947acb1"
-      ],
-      "touchedFrequency": {
-        ".arch/corpus-index.json": 1,
-        ".arch/focus-ledger.jsonl": 2,
-        ".arch/reflect-breach-log.jsonl": 1,
-        ".arch/status-projection.json": 1,
-        "README.md": 1,
-        "cli/src/main/ts/application/commands/analyze-command.ts": 1,
-        "cli/src/main/ts/domain/models/promotion-proposal.ts": 1,
-        "cli/src/main/ts/domain/services/promotion-proposal-generator.ts": 1,
-        "docs/INBOX.md": 1,
-        "docs/METRICS.md": 1,
-        "docs/ROADMAP.md": 1,
-        "docs/tasks/TASK-966.md": 2
       }
     },
     "TASK-967": {
