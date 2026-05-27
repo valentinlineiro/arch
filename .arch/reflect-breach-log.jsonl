@@ -591,3 +591,5 @@
 {"timestamp":"2026-05-27T08:20:33.576Z","rule":"observability_gap","breached":false}
 {"timestamp":"2026-05-27T11:17:37.008Z","rule":"engagement","breached":false}
 {"timestamp":"2026-05-27T11:17:37.008Z","rule":"observability_gap","breached":false}
+{"timestamp":"2026-05-27T11:26:19.715Z","rule":"engagement","breached":false}
+{"timestamp":"2026-05-27T11:26:19.715Z","rule":"observability_gap","breached":false}
