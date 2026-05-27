@@ -95,3 +95,8 @@ Changed files: cli/src/main/ts/application/use-cases/corpus-index.ts, cli/src/ma
 **Task:** TASK-1034 standardize CLI output strategy: one path, not three
 **Status:** REVIEW — all 5 ACs pass. 665 tests pass. 0 console.log in commands/. fmt.log/fmt.error added to output-formatter.ts. 23 command files migrated.
 **Auditor action:** Verify ACs, set DONE, archive.
+
+## REVIEW_REQUEST | TASK-1057 | 2026-05-27
+**Task:** TASK-1057 arch init: seed sprint-state.json and set currentSprint on first run
+**Status:** REVIEW — 5/5 ACs pass. 669 tests pass. arch init now creates .arch/sprint-state.json ACTIVE + currentSprint in arch.config.json.
+**Auditor action:** Verify ACs, set DONE, archive.

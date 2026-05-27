@@ -1,3 +1,4 @@
+import * as fmt from '../../infrastructure/cli/output-formatter.js';
 import { CommandExit, Command } from '../../domain/models/command.js';
 import fs from 'node:fs/promises';
 import path from 'node:path';
@@ -26,7 +27,7 @@ export class InitCommand implements Command {
   async execute(args: string[]): Promise<number> {
     const dryRun = args.includes('--dry-run');
     if (dryRun) {
-      console.log('\n  ARCH — dry-run: no files will be written\n');
+      fmt.log('\n  ARCH — dry-run: no files will be written\n');
       return 0;
     }
 
@@ -34,7 +35,7 @@ export class InitCommand implements Command {
     const minimal = args.includes('--minimal');
     const guided = args.includes('--guided');
 
-    console.log('\n  ARCH — initializing framework' + (minimal ? ' [MINIMAL]' : '') + (guided ? ' [GUIDED]' : '') + '\n');
+    fmt.log('\n  ARCH — initializing framework' + (minimal ? ' [MINIMAL]' : '') + (guided ? ' [GUIDED]' : '') + '\n');
 
     // Guided prompts
     let projectName = '';
@@ -54,20 +55,20 @@ export class InitCommand implements Command {
       projectName = await prompt('Project name:', 'arch-project');
       pathsOverride = await prompt('Paths override (comma-separated, e.g. tasks=mytasks):', '');
       protocolVersion = await prompt('Protocol version (1.2.0):', '1.2.0');
-      console.log('');
+      fmt.log('');
     }
 
     // Guard: already initialized (check canonical file)
     const canonical = minimal ? 'ARCH.md' : 'docs/AGENTS.md';
     const alreadyExists = await this.exists(canonical) || await this.exists('AGENTS.md');
     if (alreadyExists && !force) {
-      console.log(`  Already initialised. Run arch review to check system state.`);
+      fmt.log(`  Already initialised. Run arch review to check system state.`);
       return 0;
     }
 
     const stack = await this.detectStack();
-    console.log(`  Detected stack: ${stack.label}`);
-    console.log('');
+    fmt.log(`  Detected stack: ${stack.label}`);
+    fmt.log('');
 
     if (minimal) {
       await this.scaffoldMinimal(stack);
@@ -75,20 +76,20 @@ export class InitCommand implements Command {
       await this.scaffold(stack);
     }
 
-    console.log('');
-    console.log('  Done. Next steps:');
-    console.log('');
+    fmt.log('');
+    fmt.log('  Done. Next steps:');
+    fmt.log('');
     if (minimal) {
-      console.log('  1. Review ARCH.md               — your protocol rules');
-      console.log(`  2. Create ${this.pr.tasks}/TASK-001.md — your first task`);
-      console.log('  3. Run: arch review               — verify system integrity');
+      fmt.log('  1. Review ARCH.md               — your protocol rules');
+      fmt.log(`  2. Create ${this.pr.tasks}/TASK-001.md — your first task`);
+      fmt.log('  3. Run: arch review               — verify system integrity');
     } else {
-      console.log('  1. Review docs/guidelines/core.md  — adjust stack rules if needed');
-      console.log(`  2. Create ${this.pr.tasks}/TASK-001.md   — your first task`);
-      console.log('  3. Run: arch review                — verify system integrity');
-      console.log('  4. Run: arch analyze              — THINK populates INBOX');
+      fmt.log('  1. Review docs/guidelines/core.md  — adjust stack rules if needed');
+      fmt.log(`  2. Create ${this.pr.tasks}/TASK-001.md   — your first task`);
+      fmt.log('  3. Run: arch review                — verify system integrity');
+      fmt.log('  4. Run: arch analyze              — THINK populates INBOX');
     }
-    console.log('');
+    fmt.log('');
     return 0;
   }
 
@@ -180,13 +181,14 @@ export class InitCommand implements Command {
       const fullPath = path.join(this.rootPath, dest);
       if (!await this.exists(dest)) {
         await fs.writeFile(fullPath, content, 'utf-8');
-        console.log(`  + ${dest}`);
+        fmt.log(`  + ${dest}`);
       } else {
-        console.log(`  ~ ${dest} (skipped — already exists)`);
+        fmt.log(`  ~ ${dest} (skipped — already exists)`);
       }
     }
 
     await this.appendGitignore();
+    await this.seedSprint();
 
     // Git hooks
     await this.installGithooks();
@@ -234,9 +236,9 @@ export class InitCommand implements Command {
       const fullPath = path.join(this.rootPath, dest);
       if (!await this.exists(dest)) {
         await fs.writeFile(fullPath, content, 'utf-8');
-        console.log(`  + ${dest}`);
+        fmt.log(`  + ${dest}`);
       } else {
-        console.log(`  ~ ${dest} (skipped — already exists)`);
+        fmt.log(`  ~ ${dest} (skipped — already exists)`);
       }
     }
 
@@ -247,6 +249,7 @@ export class InitCommand implements Command {
 
     // .gitignore entry
     await this.appendGitignore();
+    await this.seedSprint();
 
     // Git hooks
     await this.installGithooks();
@@ -255,7 +258,7 @@ export class InitCommand implements Command {
   private async installGithooks(): Promise<void> {
     const hooksDir = '.githooks';
     if (await this.exists(hooksDir)) {
-      console.log(`  ~ ${hooksDir}/ (skipped — already exists)`);
+      fmt.log(`  ~ ${hooksDir}/ (skipped — already exists)`);
       return;
     }
 
@@ -340,7 +343,7 @@ echo "Integrity review passed. Proceeding with push."
       const hookPath = path.join(this.rootPath, hooksDir, hook.name);
       await fs.writeFile(hookPath, hook.content, 'utf-8');
       await fs.chmod(hookPath, 0o755);
-      console.log(`  + ${hooksDir}/${hook.name}`);
+      fmt.log(`  + ${hooksDir}/${hook.name}`);
     }
   }
 
@@ -348,9 +351,35 @@ echo "Integrity review passed. Proceeding with push."
     const linkPath = path.join(this.rootPath, link);
     if (!await this.exists(link)) {
       await fs.symlink(target, linkPath);
-      console.log(`  → ${link} → ${target}`);
+      fmt.log(`  → ${link} → ${target}`);
     } else {
-      console.log(`  ~ ${link} (skipped — already exists)`);
+      fmt.log(`  ~ ${link} (skipped — already exists)`);
+    }
+  }
+
+  private async seedSprint(): Promise<void> {
+    const sprintName = this.initialSprintName();
+    const sprintStatePath = path.join(this.rootPath, this.pr.archDir, 'sprint-state.json');
+
+    // Idempotent: skip if already seeded
+    try {
+      await fs.access(sprintStatePath);
+      return;
+    } catch { /* not yet created */ }
+
+    const now = new Date().toISOString();
+    const sprintState = { name: sprintName, status: 'ACTIVE', startedAt: now };
+    await fs.writeFile(sprintStatePath, JSON.stringify(sprintState, null, 2), 'utf-8');
+    fmt.log(`  + ${this.pr.archDir}/sprint-state.json`);
+
+    // Append SPRINT_OPEN event to focus ledger
+    const ledgerPath = path.join(this.rootPath, this.pr.focusLedger);
+    const event = JSON.stringify({ ruling: 'SPRINT_OPEN', taskId: sprintName, tick: Date.now(), timestamp: now });
+    try {
+      const existing = await fs.readFile(ledgerPath, 'utf-8');
+      await fs.writeFile(ledgerPath, existing + (existing ? '\n' : '') + event, 'utf-8');
+    } catch {
+      await fs.writeFile(ledgerPath, event, 'utf-8');
     }
   }
 
@@ -361,11 +390,11 @@ echo "Integrity review passed. Proceeding with push."
       const existing = await fs.readFile(gitignorePath, 'utf-8');
       if (!existing.includes('# ARCH')) {
         await fs.appendFile(gitignorePath, entry, 'utf-8');
-        console.log('  ~ .gitignore (appended ARCH entries)');
+        fmt.log('  ~ .gitignore (appended ARCH entries)');
       }
     } catch {
       await fs.writeFile(gitignorePath, `# ARCH — local overrides\n.arch-local\n.arch-local.json\n`, 'utf-8');
-      console.log('  + .gitignore');
+      fmt.log('  + .gitignore');
     }
   }
 
@@ -468,12 +497,19 @@ TASK: READY → IN_PROGRESS → REVIEW → DONE → archived (${this.pr.archive}
 `;
   }
 
+  private initialSprintName(): string {
+    const ts = new Date().toISOString().slice(0, 7); // YYYY-MM
+    return `sprint/v${this.cliVersion}-${ts}`;
+  }
+
   private archConfig(stack: DetectedStack): string {
     const testCmd = stack.testCommand;
     const buildCmd = stack.buildCommand;
     return JSON.stringify({
       version: this.cliVersion,
-      currentSprint: '',
+      currentSprint: this.initialSprintName(),
+      sprintCloseAfterN: 15,
+      sprintAutoNamePrefix: 'sprint/v',
       strategies: {
         '1-code-reasoning': {
           M: [

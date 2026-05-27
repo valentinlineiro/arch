@@ -114,3 +114,76 @@ test('arch init is idempotent: running twice does not overwrite existing files',
     await cleanup(dir);
   }
 });
+
+test('arch init sets currentSprint to a non-empty sprint name in arch.config.json', async () => {
+  const dir = await makeTmpDir();
+  try {
+    const cmd = new InitCommand(dir, '1.2.0');
+    await cmd.execute(['--minimal']);
+
+    const raw = await fs.readFile(path.join(dir, 'arch.config.json'), 'utf-8');
+    const config = JSON.parse(raw);
+    assert.ok(typeof config.currentSprint === 'string' && config.currentSprint.length > 0,
+      `currentSprint must be non-empty, got: ${JSON.stringify(config.currentSprint)}`);
+    assert.ok(config.currentSprint.startsWith('sprint/'),
+      `currentSprint must start with 'sprint/', got: ${config.currentSprint}`);
+  } finally {
+    await cleanup(dir);
+  }
+});
+
+test('arch init writes arch.config.json with sprintCloseAfterN and sprintAutoNamePrefix', async () => {
+  const dir = await makeTmpDir();
+  try {
+    const cmd = new InitCommand(dir, '1.2.0');
+    await cmd.execute(['--minimal']);
+
+    const raw = await fs.readFile(path.join(dir, 'arch.config.json'), 'utf-8');
+    const config = JSON.parse(raw);
+    assert.ok(typeof config.sprintCloseAfterN === 'number',
+      `sprintCloseAfterN must be a number, got: ${JSON.stringify(config.sprintCloseAfterN)}`);
+    assert.ok(typeof config.sprintAutoNamePrefix === 'string' && config.sprintAutoNamePrefix.length > 0,
+      `sprintAutoNamePrefix must be a non-empty string, got: ${JSON.stringify(config.sprintAutoNamePrefix)}`);
+  } finally {
+    await cleanup(dir);
+  }
+});
+
+test('arch init seeds .arch/sprint-state.json with ACTIVE status', async () => {
+  const dir = await makeTmpDir();
+  try {
+    const cmd = new InitCommand(dir, '1.2.0');
+    await cmd.execute(['--minimal']);
+
+    const statePath = path.join(dir, '.arch', 'sprint-state.json');
+    const raw = await fs.readFile(statePath, 'utf-8').catch(() => null);
+    assert.ok(raw !== null, '.arch/sprint-state.json must exist after arch init');
+    const state = JSON.parse(raw!);
+    assert.strictEqual(state.status, 'ACTIVE', `sprint status must be ACTIVE, got: ${state.status}`);
+    assert.ok(typeof state.name === 'string' && state.name.length > 0,
+      `sprint name must be non-empty, got: ${JSON.stringify(state.name)}`);
+  } finally {
+    await cleanup(dir);
+  }
+});
+
+test('arch init sprint seeding is idempotent: second run does not reset sprint-state.json', async () => {
+  const dir = await makeTmpDir();
+  try {
+    const cmd = new InitCommand(dir, '1.2.0');
+    await cmd.execute(['--minimal']);
+
+    // Simulate external modification of sprint-state.json
+    const statePath = path.join(dir, '.arch', 'sprint-state.json');
+    const first = JSON.parse(await fs.readFile(statePath, 'utf-8'));
+    const modified = { ...first, status: 'CLOSED', closedAt: '2026-05-27T10:00:00.000Z' };
+    await fs.writeFile(statePath, JSON.stringify(modified), 'utf-8');
+
+    await cmd.execute(['--minimal', '--force']);
+
+    const after = JSON.parse(await fs.readFile(statePath, 'utf-8'));
+    assert.strictEqual(after.status, 'CLOSED', 'second run must not overwrite existing sprint-state.json');
+  } finally {
+    await cleanup(dir);
+  }
+});
