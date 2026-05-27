@@ -39,3 +39,20 @@ See docs/refinement/ROADMAP-IDEAS.md
 AWAITING_PROMOTION | IDEA-context-injector-planned-artifact-projection | 2026-05-27 — no Decision field set
 AWAITING_PROMOTION | IDEA-govern-rebuild-context-before-focus | 2026-05-27 — no Decision field set
 AWAITING_PROMOTION | IDEA-inbox-stable-ledger-invariant | 2026-05-27 — no Decision field set
+
+---
+REVIEW_REQUEST [TASK-1062] 2026-05-27
+**Task:** TASK-1062 — ARCH CD pipeline: sprint-close tagging, GitHub Actions publish
+**Status:** REVIEW
+**All automatable ACs pass.** Implementable phases done:
+- `.github/workflows/release.yml` exists and triggers on `v*.*.*` tags (OIDC trusted publisher)
+- `govern-system.ts` `bumpVersionOnSprintClose`: bumps patch/minor/major, writes cli/package.json + arch.config.json, commits, tags, pushes
+- `nextVersionBump` minor/major one-shot with reset to 'patch'
+- 4 unit tests in govern-system.test.ts covering all bump scenarios
+- 681 tests pass, arch review passes
+
+**Post-release validation (non-blocking):**
+- Changelog in GitHub Release — verify after first live tag push
+- `arch upgrade` — pending TASK-1055
+
+**Auditor:** Check version bump logic in govern-system.ts:bumpVersionOnSprintClose. Verify GitRepository interface extension (tag + push). Close to DONE when satisfied.
