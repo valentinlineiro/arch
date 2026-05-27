@@ -1,10 +1,10 @@
 # INBOX
-_Generated: 2026-05-26T10:04Z by [THINK] session_
+_Generated: 2026-05-27 by [THINK] session_
 
 ## Loop Status
-- IN_PROGRESS: 9 (TASK-1016, 1017, 1019, 1020, 1021, 1022, 1023, 1048, 1050)
+- IN_PROGRESS: 11 (TASK-1016, 1017, 1019, 1020, 1021, 1022, 1023, 1048, 1050, 1052, 1058)
 - REVIEW: 0
-- READY: 25
+- READY: 18
 - BLOCKED: 1 (TASK-1024 — compliance front door, explicitly deferred)
 
 ## Alerts
@@ -20,29 +20,13 @@ _Generated: 2026-05-26T10:04Z by [THINK] session_
 See docs/refinement/ROADMAP-IDEAS.md
 
 ## Last 5 Completed Tasks
-1. TASK-1018 — rename arch check to arch review in docs (P2/S)
-2. TASK-1040 — add c8 coverage reporting to npm test (P1/XS)
-3. TASK-1032 — fix enforcement/analysis boundary: move SubprocessRunner call to command layer (P1/S)
-4. TASK-1035 — move process.exit() to main entry point: commands return exit codes (P0/M)
-5. TASK-1039 — fix 13 pre-existing test failures (P0/S)
+1. TASK-1057 — arch init: seed sprint-state.json on first run (P3/S)
+2. TASK-1034 — standardize CLI output strategy: one path (P2/S)
+3. TASK-1054 — govern: detect stale IN_PROGRESS tasks (P2/S)
+4. TASK-1025 — arch corpus import: federated corpus from external repos (P2/S)
+5. TASK-1053 — strengthen IDEA template + arch analyze ingestion (P1/M)
 
-## 2026-05-26 13:03:34 — Pattern Alerts
-
-## 2026-05-26 13:11:34 — Pattern Alerts
-
-## 2026-05-26 13:18:36 — Pattern Alerts
-
-## 2026-05-26 13:20:42 — Pattern Alerts
-
-## [2026-05-26 17:14] INFLUENCE_THRESHOLD_VIOLATION | REFLECT
-Evidence: Engagement 48% is below threshold 50% — attribution discipline review required
-
-## [2026-05-26 17:16] INFLUENCE_BREACH_PERSISTENT | REFLECT
-Evidence: Persistent breach (3 consecutive cycles): Engagement 48% is below threshold 50% — attribution discipline review required
-
-## [2026-05-26 22:43] INFLUENCE_BREACH_CLEARED | REFLECT
-Evidence: engagement threshold breach cleared. Verify: did health improve (more decisions attributed) — or did operators adapt behavior to the threshold (worked around the measurement)? These are opposite outcomes that look identical in the data.
-
+## Pending REVIEW_REQUESTS
 ---
 **REVIEW_REQUEST** | TASK-242 | 2026-05-27
 Task: Ship CLI as standalone npm package
@@ -64,39 +48,4 @@ ACs verified:
 - [x] Missing fields reported as "IDEA-{slug}: missing candidate-class, candidate-size" in console output ✓
 - [x] 656 tests pass (647 baseline + 9 new) ✓
 - [x] arch review passes ✓
-Changed files: docs/refinement/TEMPLATE.md, cli/src/main/ts/domain/services/promotion-proposal-generator.ts, cli/src/main/ts/application/commands/analyze-command.ts, cli/src/main/ts/domain/models/promotion-proposal.ts, cli/src/test/ts/promotion-proposal-generator.test.ts
-
-## [REVIEW_REQUEST] TASK-1054
-**Status:** REVIEW
-**Summary:** govern: detect stale IN_PROGRESS tasks and surface them instead of preserving focus
-ACs verified:
-- [x] govern-system.ts Rule 3b: stale IN_PROGRESS detection after configurable tick threshold (default 10) → yields focus to next READY task ✓
-- [x] STALE_TASK appended to INBOX with idempotency guard (checked before appending) ✓
-- [x] [STALE_TASK] added to DETERMINISTIC_PREFIXES in inbox-hygiene.ts (survives hygiene pass, same as ANDON_HALT) ✓
-- [x] 659 tests pass (3 new tests: stale yields focus, idempotent INBOX, below-threshold no-op) ✓
-- [x] arch review passes ✓
-Changed files: cli/src/main/ts/application/use-cases/govern-system.ts, cli/src/main/ts/application/use-cases/inbox-hygiene.ts, cli/src/test/ts/govern-system.test.ts
-
-## REVIEW_REQUEST TASK-1025 — arch corpus import: federated corpus from external ARCH repos
-
-- [x] `arch corpus import <path>` implemented — reads docs/archive/TASK-*.md and docs/adr/ADR-*.md, merges into corpus-index.json with source tag ✓
-- [x] URL import via git clone --depth 1 → temp dir → import → cleanup ✓
-- [x] `--as <slug>` flag for explicit source slug ✓
-- [x] Idempotent re-import: clears old entries for slug before merging new ones ✓
-- [x] `arch ask --project <slug>` filters corpus query to entries from that source ✓
-- [x] `source?: string` added to CorpusEntry interface (optional, absent = local) ✓
-- [x] `mergeImported()` and `parseEntryPublic()` methods added to CorpusIndexService ✓
-- [x] Registered as `corpus:import` in command-dispatcher.ts and command-registry.ts ✓
-- [x] 663 tests pass (4 new: source tagging, idempotency, cross-source isolation, local entry preservation) ✓
-- [x] arch review passes ✓
-Changed files: cli/src/main/ts/application/use-cases/corpus-index.ts, cli/src/main/ts/application/commands/corpus-import-command.ts (new), cli/src/main/ts/application/commands/ask-command.ts, cli/src/main/ts/application/use-cases/ask-corpus.ts, cli/src/main/ts/application/command-dispatcher.ts, cli/src/main/ts/domain/services/command-registry.ts, cli/src/test/ts/corpus-import-command.test.ts (new)
-
-## REVIEW_REQUEST | TASK-1034 | 2026-05-27
-**Task:** TASK-1034 standardize CLI output strategy: one path, not three
-**Status:** REVIEW — all 5 ACs pass. 665 tests pass. 0 console.log in commands/. fmt.log/fmt.error added to output-formatter.ts. 23 command files migrated.
-**Auditor action:** Verify ACs, set DONE, archive.
-
-## REVIEW_REQUEST | TASK-1057 | 2026-05-27
-**Task:** TASK-1057 arch init: seed sprint-state.json and set currentSprint on first run
-**Status:** REVIEW — 5/5 ACs pass. 669 tests pass. arch init now creates .arch/sprint-state.json ACTIVE + currentSprint in arch.config.json.
-**Auditor action:** Verify ACs, set DONE, archive.
+Changed files: docs/refinement/TEMPLATE.md, cli/src/main/ts/application/services/promotion-proposal-generator.ts, cli/src/main/ts/application/commands/analyze-command.ts, cli/src/main/ts/domain/models/promotion-proposal.ts, cli/src/test/ts/promotion-proposal-generator.test.ts

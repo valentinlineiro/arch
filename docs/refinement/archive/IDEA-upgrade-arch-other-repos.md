@@ -1,7 +1,7 @@
 # IDEA: Allow upgrading arch in other repositories
 **Created:** 2026-05-27
 **Source:** Human intent — direct request
-**Status:** DRAFT
+**Status:** PROMOTED → TASK-1055, TASK-1056
 **Candidate-class:** 2-code-generation
 **Candidate-size:** S
 <!-- cli: local | claude | gemini | human -->
