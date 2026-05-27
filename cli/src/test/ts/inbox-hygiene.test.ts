@@ -155,3 +155,98 @@ test('returns unchanged inbox when nothing to clean', () => {
 test('handles empty inbox gracefully', () => {
   assert.doesNotThrow(() => runInboxHygiene('', new Set(), NOW, 14));
 });
+
+// ── REVIEW_REQUEST cleanup ─────────────────────────────────────────────────
+
+const REVIEW_REQUEST_INBOX = `# INBOX
+
+## **REVIEW_REQUEST** | TASK-101 | 2026-05-20
+**Task:** TASK-101 some task
+**Status:** REVIEW — 5/5 ACs pass.
+**Auditor action:** Verify ACs, set DONE, archive.
+
+## REVIEW_REQUEST | TASK-102 | 2026-05-20
+**Task:** TASK-102 another task
+**Status:** REVIEW
+
+## [REVIEW_REQUEST] TASK-103
+**Task:** TASK-103 yet another task
+
+## REVIEW_REQUEST TASK-104 — descriptive title
+**Task:** TASK-104 inline format
+
+## REVIEW_REQUEST | TASK-105 | 2026-05-20
+**Task:** TASK-105 still open — not archived
+`;
+
+const ARCHIVED_REVIEW = new Set(['TASK-101', 'TASK-102', 'TASK-103', 'TASK-104']);
+
+test('removes REVIEW_REQUEST section when task is archived (pipe format)', () => {
+  const result = runInboxHygiene(REVIEW_REQUEST_INBOX, ARCHIVED_REVIEW, NOW, 14);
+  assert.ok(!result.includes('TASK-101'), 'TASK-101 is archived — its REVIEW_REQUEST must be removed');
+});
+
+test('removes REVIEW_REQUEST section when task is archived (bold pipe format)', () => {
+  const result = runInboxHygiene(REVIEW_REQUEST_INBOX, ARCHIVED_REVIEW, NOW, 14);
+  assert.ok(!result.includes('TASK-102'), 'TASK-102 is archived — its REVIEW_REQUEST must be removed');
+});
+
+test('removes REVIEW_REQUEST section when task is archived (bracket format)', () => {
+  const result = runInboxHygiene(REVIEW_REQUEST_INBOX, ARCHIVED_REVIEW, NOW, 14);
+  assert.ok(!result.includes('TASK-103'), 'TASK-103 is archived — its REVIEW_REQUEST must be removed');
+});
+
+test('removes REVIEW_REQUEST section when task is archived (inline title format)', () => {
+  const result = runInboxHygiene(REVIEW_REQUEST_INBOX, ARCHIVED_REVIEW, NOW, 14);
+  assert.ok(!result.includes('TASK-104'), 'TASK-104 is archived — its REVIEW_REQUEST must be removed');
+});
+
+test('keeps REVIEW_REQUEST section when task is NOT archived', () => {
+  const result = runInboxHygiene(REVIEW_REQUEST_INBOX, ARCHIVED_REVIEW, NOW, 14);
+  assert.ok(result.includes('TASK-105'), 'TASK-105 is not archived — its REVIEW_REQUEST must be kept');
+});
+
+// ── Inline REVIEW_REQUEST body blocks ─────────────────────────────────────
+
+const INLINE_REVIEW_REQUEST_INBOX = `# INBOX
+
+## Some Section
+
+---
+**REVIEW_REQUEST** | TASK-201 | 2026-05-20
+Task: Archived task — should be removed
+ACs verified: all pass
+
+---
+**REVIEW_REQUEST** | TASK-202 | 2026-05-20
+Task: Also archived — should be removed
+
+---
+**REVIEW_REQUEST** | TASK-203 | 2026-05-20
+Task: NOT archived — must stay
+
+---
+`;
+
+const ARCHIVED_INLINE = new Set(['TASK-201', 'TASK-202']);
+
+test('removes inline REVIEW_REQUEST body block when task is archived', () => {
+  const result = runInboxHygiene(INLINE_REVIEW_REQUEST_INBOX, ARCHIVED_INLINE, NOW, 14);
+  assert.ok(!result.includes('TASK-201'), 'TASK-201 is archived — inline block must be removed');
+  assert.ok(!result.includes('TASK-202'), 'TASK-202 is archived — inline block must be removed');
+});
+
+test('keeps inline REVIEW_REQUEST body block when task is NOT archived', () => {
+  const result = runInboxHygiene(INLINE_REVIEW_REQUEST_INBOX, ARCHIVED_INLINE, NOW, 14);
+  assert.ok(result.includes('TASK-203'), 'TASK-203 is not archived — inline block must be kept');
+});
+
+test('does not leave orphan --- separators after removing inline blocks', () => {
+  const result = runInboxHygiene(INLINE_REVIEW_REQUEST_INBOX, ARCHIVED_INLINE, NOW, 14);
+  const lines = result.split('\n');
+  for (let i = 0; i < lines.length - 1; i++) {
+    if (lines[i].trim() === '---' && lines[i + 1].trim() === '---') {
+      assert.fail('Consecutive --- separators found at lines ' + i + ' and ' + (i + 1));
+    }
+  }
+});
