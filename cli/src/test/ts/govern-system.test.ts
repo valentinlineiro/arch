@@ -806,3 +806,58 @@ test('sprint close: threshold not reached — no version bump or tag', async () 
   const pkg = JSON.parse(fs.files['cli/package.json']);
   assert.strictEqual(pkg.version, '0.6.0', 'version should remain unchanged');
 });
+
+// ── AWAITING_REVIEW emit tests ────────────────────────────────────────────────
+
+function makeReviewFs(tasks: any[]): SpyFileSystem {
+  const fs = new SpyFileSystem();
+  fs.files['.arch/focus-ledger.jsonl'] = '';
+  fs.files['docs/INBOX.md'] = '# INBOX\n';
+  for (const t of tasks) {
+    fs.files[`docs/tasks/${t.id}.md`] = t.content;
+  }
+  return fs;
+}
+
+test('govern emits AWAITING_REVIEW entry for each REVIEW-status task', async () => {
+  const task = makeTask('TASK-042', 'P2', TaskStatus.REVIEW);
+  const fs = makeReviewFs([task]);
+  const repo = new SpyTaskRepository([task]);
+  const git = new SpyGitRepository();
+
+  const system = new GovernSystem(repo as any, git as any, fs as any);
+  await system.execute();
+
+  const inbox = fs.files['docs/INBOX.md'];
+  assert.ok(inbox.includes('## [AWAITING_REVIEW] TASK-042'), 'AWAITING_REVIEW entry must be added for REVIEW task');
+});
+
+test('govern does not duplicate AWAITING_REVIEW entry on second tick', async () => {
+  const task = makeTask('TASK-042', 'P2', TaskStatus.REVIEW);
+  const fs = makeReviewFs([task]);
+  const repo = new SpyTaskRepository([task]);
+  const git = new SpyGitRepository();
+
+  const system = new GovernSystem(repo as any, git as any, fs as any);
+  // First tick
+  await system.execute();
+  // Second tick — same system, same fs
+  await system.execute();
+
+  const inbox = fs.files['docs/INBOX.md'];
+  const count = (inbox.match(/## \[AWAITING_REVIEW\] TASK-042/g) ?? []).length;
+  assert.strictEqual(count, 1, 'AWAITING_REVIEW entry must not be duplicated on second tick');
+});
+
+test('govern emits no AWAITING_REVIEW entries when no tasks are in REVIEW', async () => {
+  const task = makeTask('TASK-042', 'P2', TaskStatus.READY);
+  const fs = makeReviewFs([task]);
+  const repo = new SpyTaskRepository([task]);
+  const git = new SpyGitRepository();
+
+  const system = new GovernSystem(repo as any, git as any, fs as any);
+  await system.execute();
+
+  const inbox = fs.files['docs/INBOX.md'];
+  assert.ok(!inbox.includes('[AWAITING_REVIEW]'), 'no AWAITING_REVIEW entries for non-REVIEW tasks');
+});

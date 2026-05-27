@@ -196,6 +196,13 @@ export class GovernSystem {
       if (process.env.ARCH_DEBUG) console.error('[inbox-hygiene] pass failed:', err);
     }
 
+    // 7.1 Re-emit AWAITING_REVIEW for all tasks still in REVIEW — idempotent
+    try {
+      await this.emitAwaitingReviewEntries();
+    } catch (err) {
+      if (process.env.ARCH_DEBUG) console.error('[awaiting-review] emit failed:', err);
+    }
+
     return { analysisNeeded: analysisReasons.length > 0, reasons: analysisReasons, projectComplete };
   }
 
@@ -802,6 +809,31 @@ export class GovernSystem {
       confidence: 0.8,
       event: `govern_violation:${taskId}:${violation}`,
     });
+  }
+
+  private async emitAwaitingReviewEntries(): Promise<void> {
+    const allTasks = await this.taskRepository.getActive();
+    const reviewTasks = allTasks.filter(t => t.status === TaskStatus.REVIEW);
+    if (reviewTasks.length === 0) return;
+
+    const inboxPath = this.pathResolver.inbox;
+    let inbox = '';
+    try { inbox = await this.fileSystem.readFile(inboxPath); } catch { /* no inbox yet */ }
+
+    let appended = 0;
+    for (const task of reviewTasks) {
+      const marker = `## [AWAITING_REVIEW] ${task.id}`;
+      if (!inbox.includes(marker)) {
+        const entry = `\n${marker}\nTask ${task.id} is in REVIEW status — awaiting Auditor close.\n`;
+        inbox += entry;
+        appended++;
+      }
+    }
+
+    if (appended > 0) {
+      await this.fileSystem.writeFile(inboxPath, inbox);
+      console.log(`  \x1b[32m✔\x1b[0m INBOX: ${appended} AWAITING_REVIEW entr${appended === 1 ? 'y' : 'ies'} emitted`);
+    }
   }
 
   private async runInboxHygienePass(config: any, force: boolean): Promise<void> {
