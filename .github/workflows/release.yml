@@ -1,0 +1,63 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write   # gh release create
+      id-token: write   # npm trusted publisher (OIDC — no NPM_TOKEN needed)
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Build
+        run: |
+          cd cli
+          npm install
+          npm run build
+
+      - name: Test
+        run: |
+          cd cli
+          npm test
+
+      - name: Publish to npm
+        run: |
+          cd cli
+          npm publish --provenance --access public
+
+      - name: Generate changelog
+        id: changelog
+        run: |
+          PREV_TAG=$(git tag --sort=-version:refname | sed -n '2p')
+          if [ -z "$PREV_TAG" ]; then
+            NOTES=$(git log --pretty=format:"- %s" | grep -E "^- (feat|fix):" | head -50)
+          else
+            NOTES=$(git log "${PREV_TAG}..HEAD" --pretty=format:"- %s" | grep -E "^- (feat|fix):" | head -50)
+          fi
+          if [ -z "$NOTES" ]; then
+            NOTES="- Maintenance release"
+          fi
+          echo "notes<<EOF" >> "$GITHUB_OUTPUT"
+          echo "$NOTES" >> "$GITHUB_OUTPUT"
+          echo "EOF" >> "$GITHUB_OUTPUT"
+
+      - name: Create GitHub Release
+        run: |
+          gh release create "${{ github.ref_name }}" \
+            --title "ARCH ${{ github.ref_name }}" \
+            --notes "${{ steps.changelog.outputs.notes }}"
+        env:
+          GH_TOKEN: ${{ github.token }}
