@@ -42,3 +42,14 @@ Evidence: Persistent breach (3 consecutive cycles): Engagement 48% is below thre
 
 ## [2026-05-26 22:43] INFLUENCE_BREACH_CLEARED | REFLECT
 Evidence: engagement threshold breach cleared. Verify: did health improve (more decisions attributed) — or did operators adapt behavior to the threshold (worked around the measurement)? These are opposite outcomes that look identical in the data.
+
+---
+**REVIEW_REQUEST** | TASK-242 | 2026-05-27
+Task: Ship CLI as standalone npm package
+ACs verified:
+- [x] CLI publishable as npm package → `@valentinlineiro/arch@1.2.0` live on npm, `file: cli/package.json` ✓
+- [x] Installation documented in README → `## Install` section with `npm install -g @valentinlineiro/arch`, `file: README.md` ✓
+- [x] All existing commands work post-package → `file: cli/dist/index.js` ✓
+- [x] Build pipeline produces distributable → `file: cli/tsup.config.ts`, tsup+prepublishOnly ✓
+Changed files: docs/tasks/TASK-242.md
+Note: Closure audit — implementation was already complete in a prior session. Lifecycle gap reconciled.
