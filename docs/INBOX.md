@@ -28,31 +28,13 @@ See docs/refinement/ROADMAP-IDEAS.md
 
 ## Pending REVIEW_REQUESTS
 
-## REVIEW_REQUEST | TASK-1058 | 2026-05-27
-**Task:** TASK-1058 fix inbox hygiene — remove stale REVIEW_REQUEST entries after task is archived
-**Status:** REVIEW — 5/5 ACs pass. 677 tests pass. govern cleaned 6 stale REVIEW_REQUEST entries from INBOX after rebuild.
-**Auditor action:** Verify ACs, set DONE, archive.
-
 ## 2026-05-27 11:45:04 — Pattern Alerts
-[PATTERN-ALERT] [SpecDrift] detected 8 times — systemic issue. See docs/tensions/
 
 AWAITING_PROMOTION | IDEA-context-injector-planned-artifact-projection | 2026-05-27 — no Decision field set
 AWAITING_PROMOTION | IDEA-govern-rebuild-context-before-focus | 2026-05-27 — no Decision field set
 AWAITING_PROMOTION | IDEA-inbox-stable-ledger-invariant | 2026-05-27 — no Decision field set
 
----
-REVIEW_REQUEST [TASK-1062] 2026-05-27
-**Task:** TASK-1062 — ARCH CD pipeline: sprint-close tagging, GitHub Actions publish
-**Status:** REVIEW
-**All automatable ACs pass.** Implementable phases done:
-- `.github/workflows/release.yml` exists and triggers on `v*.*.*` tags (OIDC trusted publisher)
-- `govern-system.ts` `bumpVersionOnSprintClose`: bumps patch/minor/major, writes cli/package.json + arch.config.json, commits, tags, pushes
-- `nextVersionBump` minor/major one-shot with reset to 'patch'
-- 4 unit tests in govern-system.test.ts covering all bump scenarios
-- 681 tests pass, arch review passes
+## 2026-05-27 14:55:44 — Pattern Alerts
+[PATTERN-ALERT] [SpecDrift] detected 8 times — systemic issue. See docs/tensions/
 
-**Post-release validation (non-blocking):**
-- Changelog in GitHub Release — verify after first live tag push
-- `arch upgrade` — pending TASK-1055
-
-**Auditor:** Check version bump logic in govern-system.ts:bumpVersionOnSprintClose. Verify GitRepository interface extension (tag + push). Close to DONE when satisfied.
+AWAITING_PROMOTION | IDEA-user-issue-reporting | 2026-05-27 — no Decision field set

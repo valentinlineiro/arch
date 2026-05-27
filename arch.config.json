@@ -2,7 +2,7 @@
   "version": "1.2.1",
   "protocolVersion": "1.1.0",
   "minimumCliVersion": "1.1.0",
-  "currentSprint": "sprint/v1.2.0-2026-05",
+  "currentSprint": "sprint/v1.2.1-2026-05",
   "strategies": {
     "1-code-reasoning": {
       "M": [

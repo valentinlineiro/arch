@@ -2,6 +2,11 @@
 <!-- One entry per sprint — most recent at top -->
 <!-- AI reads only the latest entry in RETRO mode -->
 
+## sprint/v1.2.0-2026-05
+**Opened:** 2026-05-26  **Closed:** 2026-05-27
+**Velocity:** 18 tasks
+**SPRINT_CLOSE:** appended to .arch/focus-ledger.jsonl
+
 ## sprint/v1.0.0-improvements
 **Opened:** 2026-05-24  **Closed:** 2026-05-26
 **Velocity:** 15 tasks

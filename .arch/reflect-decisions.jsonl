@@ -28,3 +28,6 @@
 {"decision_id": "D-corpus-import", "timestamp": "2026-05-26T06:01:06.867059+00:00", "target": "IDEA-corpus-import", "outcome": "PROMOTE", "finality": "committed", "influence_declared": false, "based_on_proposals": []}
 {"decision_id":"D-task-exec-log","timestamp":"2026-05-26T13:00:00Z","target":"IDEA-task-execution-log","outcome":"PROMOTE","finality":"committed","influence_declared":true,"based_on_proposals":[]}
 {"decision_id":"D-2af26bcb","timestamp":"2026-05-27T11:20:12Z","target":"IDEA-upgrade-arch-other-repos","outcome":"PROMOTE","finality":"committed","influence_declared":false,"based_on_proposals":[]}
+{"decision_id":"D-inbox-ledger-2026-05-27T14:59:24Z","timestamp":"2026-05-27T14:59:24Z","target":"IDEA-inbox-stable-ledger-invariant","outcome":"PROMOTE","finality":"committed","influence_declared":false,"based_on_proposals":[]}
+{"decision_id":"D-govern-rebuild-2026-05-27T14:59:24Z","timestamp":"2026-05-27T14:59:24Z","target":"IDEA-govern-rebuild-context-before-focus","outcome":"PROMOTE","finality":"committed","influence_declared":false,"based_on_proposals":[]}
+{"decision_id":"D-context-injector-2026-05-27T14:59:24Z","timestamp":"2026-05-27T14:59:24Z","target":"IDEA-context-injector-planned-artifact-projection","outcome":"PROMOTE","finality":"committed","influence_declared":false,"based_on_proposals":[]}

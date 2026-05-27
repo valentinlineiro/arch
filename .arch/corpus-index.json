@@ -1,8 +1,8 @@
 {
   "version": 1,
-  "builtAt": "2026-05-27T13:01:23.886Z",
-  "archiveCommit": "",
-  "taskCount": 206,
+  "builtAt": "2026-05-27T14:55:41.537Z",
+  "archiveCommit": "423:design",
+  "taskCount": 208,
   "entries": {
     "TASK-1000": {
       "id": "TASK-1000",
@@ -598,6 +598,40 @@
       "acCount": 0,
       "acMachineVerifiable": 0,
       "closurePath": "auditor"
+    },
+    "TASK-1063": {
+      "id": "TASK-1063",
+      "size": "S",
+      "class": "2-code-generation",
+      "closedAt": "2026-05-27T13:45:00.000Z",
+      "lockedCommit": null,
+      "actor": "unknown",
+      "severity": "H0",
+      "category": "[no-issue]",
+      "decision": "Minimal fix: `bumpVersionOnSprintClose` now iterates the same doc-file list DocVersion uses, replaces `v{old}` with `v{new}` via `replaceAll`, and stages all seven files in the same commit. Absent files are silently skipped. One new unit test verifies content update and staging for all seven files. No design deviation from the TASK spec.",
+      "constraint": "None.",
+      "cost": "None — replaceAll on small doc files is negligible.",
+      "forwardAction": "None.",
+      "acCount": 0,
+      "acMachineVerifiable": 0,
+      "closurePath": "L3"
+    },
+    "TASK-1064": {
+      "id": "TASK-1064",
+      "size": "S",
+      "class": "2-code-generation",
+      "closedAt": "2026-05-27T14:00:00.000Z",
+      "lockedCommit": null,
+      "actor": "unknown",
+      "severity": "H0",
+      "category": "[no-issue]",
+      "decision": "Two-file fix. `LightweightMetricsRefresh.applyMetrics` now replaces the `*Last updated:*` line on every execution — one regex replace. `status-command.ts` parses that timestamp and formats it as `(Nh ago)` / `(just now)`. The \"does not write if unchanged\" test was retired and replaced with two new tests. No design deviations.",
+      "constraint": "Integrity Level value itself still comes from the last full `arch report` run — this fix only makes the staleness visible, not eliminated.",
+      "cost": "`LightweightMetricsRefresh` now always writes METRICS.md (previously skipped on no-change). One unconditional file write per govern tick — negligible.",
+      "forwardAction": "None.",
+      "acCount": 0,
+      "acMachineVerifiable": 0,
+      "closurePath": "L3"
     },
     "TASK-180": {
       "id": "TASK-180",
