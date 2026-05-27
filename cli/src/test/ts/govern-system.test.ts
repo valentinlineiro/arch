@@ -67,6 +67,8 @@ class SpyGitRepository {
   addCalls: string[] = [];
   commitCalls: string[] = [];
   mvCalls: Array<{ src: string; dst: string }> = [];
+  tags: string[] = [];
+  pushArgs: string[][] = [];
 
   async getDiff() { return ''; }
   async getLastCommitMessage() { return 'chore: stub [TASK-001]'; }
@@ -80,6 +82,8 @@ class SpyGitRepository {
   async getMergeCommits() { return []; }
   async rm() {}
   async mv(src: string, dst: string) { this.mvCalls.push({ src, dst }); }
+  async tag(name: string) { this.tags.push(name); }
+  async push(args: string[] = []) { this.pushArgs.push(args); }
 }
 
 class FailingGitRepository extends SpyGitRepository {
@@ -640,4 +644,137 @@ test('govern commits materialized report files (README, ROADMAP, METRICS, status
     git.commitCalls.some(m => m.includes('materialized') || m.includes('reporting') || m.includes('THINK')),
     'a commit must exist for the materialized reporting files'
   );
+});
+
+// ── Sprint-close version bump tests ─────────────────────────────────────────
+//
+// Strategy: govern only calls checkSprintLifecycle when archivedThisTick > 0.
+// We seed one DONE task in docs/tasks/ (task ID < 195 → Hansei not required)
+// so archiveDoneTasks() returns 1. We also seed one already-archived task so
+// countSinceOpen reaches sprintCloseAfterN = 1 (conservative threshold).
+
+const DONE_TASK_CONTENT =
+  '## TASK-001: stub\n' +
+  '**Meta:** P2 | S | DONE | Focus:no | 6-writing | local | docs/\n';
+
+function makeSprintCloseFs(opts: {
+  version: string;
+  nextVersionBump?: string;
+  belowThreshold?: boolean;
+}): { fs: SpyFileSystem; repo: SpyTaskRepository; git: SpyGitRepository } {
+  const { version, nextVersionBump, belowThreshold = false } = opts;
+  const fs = new SpyFileSystem();
+
+  // Use sprintCloseAfterN = 1 for trigger tests; 5 for below-threshold test
+  const sprintCloseAfterN = belowThreshold ? 5 : 1;
+
+  const cfg: any = {
+    version,
+    currentSprint: 'sprint/v0.6.0-2026-01',
+    sprintCloseAfterN,
+    sprintAutoNamePrefix: 'sprint/v',
+    governance: { conductEveryN: 100 },  // suppress conduct cadence
+    hanseiSinceTaskId: 195,
+    minTicksBeforeSwitch: 2,
+  };
+  if (nextVersionBump) cfg.nextVersionBump = nextVersionBump;
+  fs.files['arch.config.json'] = JSON.stringify(cfg);
+
+  // Active sprint state (started at epoch 0 — all closed-at timestamps qualify)
+  fs.files['.arch/sprint-state.json'] = JSON.stringify({
+    name: 'sprint/v0.6.0-2026-01',
+    status: 'ACTIVE',
+    startedAt: new Date(0).toISOString(),
+  });
+  fs.files['.arch/focus-ledger.jsonl'] = '';
+
+  // cli/package.json
+  fs.files['cli/package.json'] = JSON.stringify({ version, name: '@valentinlineiro/arch' }, null, 2);
+
+  // One DONE task in docs/tasks/ — gets archived this tick (archivedThisTick = 1)
+  fs.files['docs/tasks/TASK-001.md'] = DONE_TASK_CONTENT;
+
+  // One already-archived task so countSinceOpen = 1 >= sprintCloseAfterN(1)
+  const closedAt = new Date(1000).toISOString();
+  fs.files['docs/archive/TASK-000.md'] =
+    `## TASK-000\n**Meta:** P2 | S | DONE | Focus:no | 6-writing | local |\n**Closed-at:** ${closedAt}\n`;
+  fs.dirs['docs/archive'] = ['TASK-000.md'];
+
+  // RETRO + corpus files govern may touch
+  fs.files['docs/RETRO.md'] = '# Sprint Retrospectives\n\n';
+  fs.files['.arch/corpus-index.json'] = '{}';
+
+  const doneTask = {
+    id: 'TASK-001',
+    title: 'stub',
+    priority: 'P2',
+    size: 'S',
+    status: TaskStatus.DONE,
+    focus: FocusLevel.NONE,
+    sprint: '',
+    class: '6-writing',
+    cli: 'local',
+    context: [],
+    acceptanceCriteria: [],
+    rawMetaLine: '**Meta:** P2 | S | DONE | Focus:no | 6-writing | local | docs/',
+    depends: undefined,
+    content: DONE_TASK_CONTENT,
+    filePath: 'docs/tasks/TASK-001.md',
+  };
+  const repo = new SpyTaskRepository([doneTask]);
+  const git = new SpyGitRepository();
+  return { fs, repo, git };
+}
+
+test('sprint close: bumps patch version in cli/package.json and arch.config.json', async () => {
+  const { fs, repo, git } = makeSprintCloseFs({ version: '0.6.0' });
+  const system = new GovernSystem(repo as any, git as any, fs as any);
+  await system.execute();
+
+  const pkg = JSON.parse(fs.files['cli/package.json']);
+  assert.strictEqual(pkg.version, '0.6.1', 'package.json version should be bumped to 0.6.1');
+
+  const cfgWrite = fs.writeCalls.findLast(w => w.path === 'arch.config.json');
+  assert.ok(cfgWrite, 'arch.config.json must have been written');
+  const cfg = JSON.parse(cfgWrite!.content);
+  assert.strictEqual(cfg.version, '0.6.1', 'arch.config.json version should be bumped to 0.6.1');
+});
+
+test('sprint close: creates git tag vX.Y.Z and pushes', async () => {
+  const { fs, repo, git } = makeSprintCloseFs({ version: '0.6.0' });
+  const system = new GovernSystem(repo as any, git as any, fs as any);
+  await system.execute();
+
+  assert.ok(git.tags.includes('v0.6.1'), 'git tag v0.6.1 must be created');
+  assert.ok(
+    git.pushArgs.some(args => args.includes('--tags')),
+    'git push --tags must be called'
+  );
+});
+
+test('sprint close: nextVersionBump:minor produces vX.(Y+1).0 and resets to patch', async () => {
+  const { fs, repo, git } = makeSprintCloseFs({ version: '0.6.0', nextVersionBump: 'minor' });
+  const system = new GovernSystem(repo as any, git as any, fs as any);
+  await system.execute();
+
+  const pkg = JSON.parse(fs.files['cli/package.json']);
+  assert.strictEqual(pkg.version, '0.7.0', 'minor bump should produce 0.7.0');
+  assert.ok(git.tags.includes('v0.7.0'), 'tag v0.7.0 must be created');
+
+  // nextVersionBump must be reset to 'patch'
+  const cfgWrite = fs.writeCalls.findLast(w => w.path === 'arch.config.json');
+  assert.ok(cfgWrite, 'arch.config.json must be written');
+  const cfg = JSON.parse(cfgWrite!.content);
+  assert.strictEqual(cfg.nextVersionBump, 'patch', 'nextVersionBump must be reset to patch after minor bump');
+});
+
+test('sprint close: threshold not reached — no version bump or tag', async () => {
+  // belowThreshold: sprintCloseAfterN = 5 but only 1 archived task → no sprint close
+  const { fs, repo, git } = makeSprintCloseFs({ version: '0.6.0', belowThreshold: true });
+  const system = new GovernSystem(repo as any, git as any, fs as any);
+  await system.execute();
+
+  assert.strictEqual(git.tags.length, 0, 'no tags should be created when threshold not reached');
+  const pkg = JSON.parse(fs.files['cli/package.json']);
+  assert.strictEqual(pkg.version, '0.6.0', 'version should remain unchanged');
 });

@@ -25,4 +25,6 @@ export interface GitRepository {
     date: string;
     files: Array<{ path: string; status: string; oldPath?: string }>;
   }>>;
+  tag(name: string, message?: string): Promise<void>;
+  push(args?: string[]): Promise<void>;
 }

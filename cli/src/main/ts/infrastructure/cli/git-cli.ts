@@ -188,4 +188,17 @@ export class GitCli implements GitRepository {
     if (currentCommit) commits.push(currentCommit);
     return commits;
   }
+
+  async tag(name: string, message?: string): Promise<void> {
+    const args = message
+      ? ['tag', '-a', name, '-m', message]
+      : ['tag', name];
+    const { code, stderr } = await SubprocessRunner.runWithOutput('git', args);
+    if (code !== 0) throw new Error(`git tag failed: ${stderr.trim()}`);
+  }
+
+  async push(args: string[] = []): Promise<void> {
+    const { code, stderr } = await SubprocessRunner.runWithOutput('git', ['push', ...args]);
+    if (code !== 0) throw new Error(`git push failed: ${stderr.trim()}`);
+  }
 }

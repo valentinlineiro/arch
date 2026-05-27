@@ -384,6 +384,9 @@ export class GovernSystem {
     // Write deterministic retro entry
     await this.writeRetroEntry(closed, velocity);
 
+    // Bump version, tag, and push
+    await this.bumpVersionOnSprintClose(config);
+
     // Derive next sprint name from version
     const nextName = await this.deriveNextSprintName(config);
     await svc.openNext(nextName);
@@ -411,6 +414,64 @@ export class GovernSystem {
     const insertAt = headerEnd >= 0 ? headerEnd + 2 : existing.length;
     const updated = existing.slice(0, insertAt) + entry + existing.slice(insertAt);
     await this.fileSystem.writeFile(retroPath, updated);
+  }
+
+  private async bumpVersionOnSprintClose(config: any): Promise<void> {
+    // Read current version from cli/package.json
+    let pkgRaw: string;
+    try {
+      pkgRaw = await this.fileSystem.readFile('cli/package.json');
+    } catch {
+      console.log('  [version-bump] cli/package.json not found — skipping version bump');
+      return;
+    }
+
+    const pkg = JSON.parse(pkgRaw);
+    const currentVersion: string = pkg.version ?? '0.0.0';
+    const parts = currentVersion.split('.').map(Number);
+    if (parts.length !== 3 || parts.some(isNaN)) {
+      console.log(`  [version-bump] unrecognised version "${currentVersion}" — skipping`);
+      return;
+    }
+
+    const bumpType: string = config.nextVersionBump ?? 'patch';
+    let [major, minor, patch] = parts;
+    if (bumpType === 'major') { major++; minor = 0; patch = 0; }
+    else if (bumpType === 'minor') { minor++; patch = 0; }
+    else { patch++; }
+    const newVersion = `${major}.${minor}.${patch}`;
+
+    // Write updated version to cli/package.json
+    pkg.version = newVersion;
+    await this.fileSystem.writeFile('cli/package.json', JSON.stringify(pkg, null, 2) + '\n');
+
+    // Update arch.config.json: set version field and reset nextVersionBump to 'patch'
+    const cfgRaw = await this.fileSystem.readFile('arch.config.json');
+    const cfg = JSON.parse(cfgRaw);
+    cfg.version = newVersion;
+    if (bumpType !== 'patch') cfg.nextVersionBump = 'patch';
+    await this.fileSystem.writeFile('arch.config.json', JSON.stringify(cfg, null, 2));
+
+    console.log(`  \x1b[32m⚡ Version bumped:\x1b[0m ${currentVersion} → ${newVersion} (${bumpType})`);
+
+    // Commit the version bump files
+    try {
+      await this.gitRepository.add('cli/package.json');
+      await this.gitRepository.add('arch.config.json');
+      await this.gitRepository.commit(`chore: bump version to ${newVersion} on sprint close`);
+    } catch (err: any) {
+      if (!err.message?.includes('nothing to commit')) throw err;
+    }
+
+    // Create annotated tag and push
+    const tagName = `v${newVersion}`;
+    try {
+      await this.gitRepository.tag(tagName, `Release ${tagName}`);
+      await this.gitRepository.push(['--tags']);
+      console.log(`  \x1b[32m⚡ Tag pushed:\x1b[0m ${tagName}`);
+    } catch (err: any) {
+      console.log(`  [version-bump] tag/push failed: ${err.message} — continuing`);
+    }
   }
 
   private async deriveNextSprintName(config: any): Promise<string> {

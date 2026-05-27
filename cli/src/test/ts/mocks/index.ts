@@ -174,8 +174,12 @@ export class MockGitRepository implements GitRepository {
   async isValidCommitHash(hash: string): Promise<boolean> { return this.validHashes.has(hash); }
   async getCommitAuthor(_hash: string): Promise<string | null> { return 'test-user'; }
   async getCommitCountBetween(_fromHash: string, _toRef?: string): Promise<number | null> { return null; }
-  async getCommitHistory(_limit?: number): Promise<CommitRecord[]> { 
+  async getCommitHistory(_limit?: number): Promise<CommitRecord[]> {
     if (this.lastCommitMessage === 'FAIL_HISTORY') throw new Error('git log failed');
-    return this.commits; 
+    return this.commits;
   }
+  tags: string[] = [];
+  pushArgs: string[][] = [];
+  async tag(name: string, _message?: string): Promise<void> { this.tags.push(name); }
+  async push(args: string[] = []): Promise<void> { this.pushArgs.push(args); }
 }
