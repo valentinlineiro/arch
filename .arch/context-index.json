@@ -73,6 +73,12 @@
           ],
           "taskPath": "docs/archive/TASK-157.md"
         },
+        "TASK-242": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-242.md"
+        },
         "TASK-969": {
           "evidenceKinds": [
             "literal-mention"
@@ -154,6 +160,12 @@
           ],
           "taskPath": "docs/archive/TASK-160.md"
         },
+        "TASK-242": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-242.md"
+        },
         "TASK-969": {
           "evidenceKinds": [
             "literal-mention"
@@ -224,6 +236,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/tasks/TASK-1050.md"
+        },
+        "TASK-242": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-242.md"
         },
         "TASK-957": {
           "evidenceKinds": [
@@ -985,6 +1003,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-1051.md"
+        },
+        "TASK-242": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-242.md"
         },
         "TASK-956": {
           "evidenceKinds": [
@@ -4128,7 +4152,7 @@
       "title": "Govern/Reflect Structural Separation"
     }
   },
-  "builtAt": "2026-05-27T07:09:39.601Z",
+  "builtAt": "2026-05-27T07:24:08.814Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -10397,19 +10421,21 @@
       }
     },
     "TASK-1053": {
-      "commitCount": 1,
+      "commitCount": 2,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-26T17:17:09+00:00",
+      "lastCommitDate": "2026-05-27T09:24:04+02:00",
       "recentCommitRefs": [
-        "506630b4"
+        "506630b4",
+        "ca73087c"
       ],
       "touchedFrequency": {
+        ".arch/focus-ledger.jsonl": 1,
         ".arch/reflect-breach-log.jsonl": 1,
         ".arch/status-projection.json": 1,
         "README.md": 1,
         "docs/INBOX.md": 1,
         "docs/ROADMAP.md": 1,
-        "docs/tasks/TASK-1053.md": 1
+        "docs/tasks/TASK-1053.md": 2
       }
     },
     "TASK-1054": {
@@ -10864,9 +10890,9 @@
       }
     },
     "TASK-242": {
-      "commitCount": 9,
+      "commitCount": 11,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-27T09:09:35+02:00",
+      "lastCommitDate": "2026-05-27T09:24:01+02:00",
       "recentCommitRefs": [
         "0bde3f70",
         "0c33ebe1",
@@ -10875,17 +10901,24 @@
         "37acbbfb",
         "42bb8e79",
         "5a52e7a4",
+        "963cd796",
         "9b47f7e7",
-        "c1d9354c"
+        "c1d9354c",
+        "e0acb0a1"
       ],
       "touchedFrequency": {
-        ".arch/chronicle.jsonl": 1,
+        ".arch/causal-signal.jsonl": 1,
+        ".arch/chronicle.jsonl": 3,
         ".arch/ecp-registry.jsonl": 1,
         ".arch/focus-ledger.jsonl": 8,
         ".arch/status-projection.json": 1,
+        ".arch/temporal-index.jsonl": 1,
         "cli/.arch/status-projection.json": 1,
+        "docs/EVENTS.md": 1,
+        "docs/INBOX.md": 1,
+        "docs/archive/TASK-242.md": 1,
         "docs/tasks/TASK-1010.md": 1,
-        "docs/tasks/TASK-242.md": 2
+        "docs/tasks/TASK-242.md": 3
       }
     },
     "TASK-266": {
@@ -11256,58 +11289,17 @@
       }
     },
     "TASK-993": {
-      "commitCount": 6,
+      "commitCount": 2,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-22T16:12:25+02:00",
       "recentCommitRefs": [
-        "5458bd0b",
-        "603fcefd",
         "723dfc69",
-        "77bc8c24",
-        "c124cb5e",
-        "d30d9895"
+        "c124cb5e"
       ],
       "touchedFrequency": {
-        ".arch/corpus-index.json": 1,
-        ".arch/focus-ledger.jsonl": 1,
-        ".arch/reflect-breach-log.jsonl": 1,
-        ".arch/status-projection.json": 1,
-        ".githooks/commit-msg": 1,
-        ".githooks/pre-commit": 1,
-        ".githooks/pre-push": 1,
-        "README.md": 1,
-        "cli/src/main/ts/application/commands/init-command.ts": 1,
-        "docs/INBOX.md": 3,
-        "docs/METRICS.md": 1,
-        "docs/ROADMAP.md": 1,
-        "docs/archive/TASK-129.md": 1,
-        "docs/archive/TASK-130.md": 1,
-        "docs/archive/TASK-132.md": 1,
-        "docs/archive/TASK-136.md": 1,
-        "docs/archive/TASK-138.md": 1,
-        "docs/archive/TASK-169.md": 1,
-        "docs/archive/TASK-209.md": 1,
-        "docs/archive/TASK-216.md": 1,
-        "docs/archive/TASK-218.md": 1,
-        "docs/archive/TASK-220.md": 1,
-        "docs/archive/TASK-232.md": 1,
-        "docs/archive/TASK-238.md": 1,
-        "docs/archive/TASK-239.md": 1,
-        "docs/archive/TASK-240.md": 1,
-        "docs/archive/TASK-249.md": 1,
-        "docs/archive/TASK-930.md": 1,
-        "docs/archive/TASK-931.md": 1,
-        "docs/archive/TASK-932.md": 1,
-        "docs/archive/TASK-933.md": 1,
-        "docs/archive/TASK-934.md": 1,
-        "docs/archive/TASK-975.md": 1,
-        "docs/archive/TASK-985.md": 1,
-        "docs/archive/TASK-986.md": 1,
-        "docs/archive/TASK-987.md": 1,
-        "docs/archive/TASK-988.md": 1,
+        "docs/INBOX.md": 1,
         "docs/archive/TASK-993.md": 1,
-        "docs/guidelines/core.md": 1,
-        "docs/tasks/TASK-993.md": 3
+        "docs/tasks/TASK-993.md": 1
       }
     },
     "TASK-994": {
