@@ -37,6 +37,4 @@ Extended: `arch upgrade --protocol` diffs current `AGENTS.md` / `docs/refinement
 <!-- THINK fills this section when invoked — do not edit manually -->
 
 ## Decision
-<!-- REJECT: <one-line rationale>                    — no THINK evaluation required. Write it now. -->
-<!-- PROMOTE → TASK-XXX                              — commits to execution. THINK evaluation expected. -->
-<!-- EXTEND: <specific gap or dependency> until <event that triggers re-evaluation> — costs more than REJECT. -->
+PROMOTE → TASK-1055, TASK-1056 — both scopes promoted as separate tasks. TASK-1055: arch upgrade CLI command (S). TASK-1056: arch upgrade --protocol governance artifact sync (M).
