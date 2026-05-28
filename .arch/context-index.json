@@ -4398,7 +4398,7 @@
       "title": "Govern/Reflect Structural Separation"
     }
   },
-  "builtAt": "2026-05-28T08:29:22.171Z",
+  "builtAt": "2026-05-28T09:35:48.721Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -10905,14 +10905,15 @@
       }
     },
     "TASK-1060": {
-      "commitCount": 1,
+      "commitCount": 2,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-28T10:29:03+02:00",
+      "lastCommitDate": "2026-05-28T11:35:43+02:00",
       "recentCommitRefs": [
-        "6bb7276d"
+        "6bb7276d",
+        "adf1e4b8"
       ],
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 1,
+        ".arch/focus-ledger.jsonl": 2,
         "docs/tasks/TASK-1060.md": 1
       }
     },
@@ -11221,18 +11222,17 @@
       }
     },
     "TASK-995": {
-      "commitCount": 5,
+      "commitCount": 4,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-26T10:00:51+02:00",
       "recentCommitRefs": [
         "3eb4493b",
         "57296df1",
-        "9ab10dbc",
         "9d151798",
         "a10ad873"
       ],
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 4,
+        ".arch/focus-ledger.jsonl": 3,
         "docs/archive/TASK-995.md": 1
       }
     },
