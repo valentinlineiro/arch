@@ -4338,7 +4338,7 @@
       "title": "Govern/Reflect Structural Separation"
     }
   },
-  "builtAt": "2026-05-27T13:19:46.498Z",
+  "builtAt": "2026-05-28T06:12:19.603Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -9308,45 +9308,13 @@
         "docs/archive/TASK-100.md": 1
       }
     },
-    "TASK-1000": {
-      "commitCount": 1,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-24T11:45:40+00:00",
-      "recentCommitRefs": [
-        "d4855400"
-      ],
-      "touchedFrequency": {
-        ".arch/causal-signal.jsonl": 1,
-        ".arch/chronicle.jsonl": 1,
-        ".arch/deployment-map-v1.1.json": 1,
-        ".arch/reflect-breach-log.jsonl": 1,
-        ".arch/status-projection.json": 1,
-        ".arch/temporal-index.jsonl": 1,
-        "README.md": 1,
-        "cli/.arch/status-projection.json": 1,
-        "cli/src/main/ts/application/command-dispatcher.ts": 1,
-        "cli/src/main/ts/application/commands/audit-command.ts": 1,
-        "cli/src/main/ts/application/use-cases/build-index.ts": 1,
-        "cli/src/main/ts/application/use-cases/drift-checker.ts": 1,
-        "cli/src/main/ts/application/use-cases/govern-system.ts": 1,
-        "cli/src/main/ts/domain/services/metrics-engine.ts": 1,
-        "cli/src/main/ts/infrastructure/filesystem/markdown-task-repository.ts": 1,
-        "docs/EVENTS.md": 1,
-        "docs/METRICS.md": 1,
-        "docs/ROADMAP.md": 1,
-        "docs/archive/TASK-1000.md": 1,
-        "docs/tasks/TASK-1000.md": 1
-      }
-    },
     "TASK-1001": {
-      "commitCount": 4,
+      "commitCount": 2,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-25T12:54:23+02:00",
       "recentCommitRefs": [
         "49c2ba94",
-        "73f12f84",
-        "9c4d7e91",
-        "d3593add"
+        "73f12f84"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
@@ -9354,7 +9322,6 @@
         ".arch/context-feedback.json": 1,
         ".arch/corpus-index.json": 1,
         ".arch/escalations.jsonl": 2,
-        ".arch/focus-ledger.jsonl": 2,
         ".arch/protocol-versions.jsonl": 1,
         ".arch/reflect-breach-log.jsonl": 1,
         ".arch/status-projection.json": 1,
@@ -10567,18 +10534,19 @@
       }
     },
     "TASK-1043": {
-      "commitCount": 5,
+      "commitCount": 6,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-27T15:19:42+02:00",
+      "lastCommitDate": "2026-05-28T08:12:15+02:00",
       "recentCommitRefs": [
         "2e9481f9",
         "63ec5e3f",
+        "bcdc98f4",
         "d18b0569",
         "fabdabdb",
         "fbdc0123"
       ],
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 5,
+        ".arch/focus-ledger.jsonl": 6,
         "arch.config.json": 1,
         "cli/package.json": 1,
         "docs/tasks/TASK-1043.md": 1
@@ -10877,17 +10845,24 @@
       }
     },
     "TASK-1059": {
-      "commitCount": 1,
+      "commitCount": 5,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-27T14:01:52+02:00",
+      "lastCommitDate": "2026-05-28T08:12:14+02:00",
       "recentCommitRefs": [
+        "06b92869",
+        "6e484dc8",
+        "ae9dbd49",
+        "daaba727",
         "df39f79e"
       ],
       "touchedFrequency": {
+        "cli/src/main/ts/application/use-cases/govern-system.ts": 1,
+        "cli/src/test/ts/govern-system.test.ts": 1,
+        "docs/archive/TASK-1059.md": 1,
         "docs/refinement/IDEA-context-injector-planned-artifact-projection.md": 1,
         "docs/refinement/IDEA-govern-rebuild-context-before-focus.md": 1,
         "docs/refinement/IDEA-inbox-stable-ledger-invariant.md": 1,
-        "docs/tasks/TASK-1059.md": 1,
+        "docs/tasks/TASK-1059.md": 4,
         "docs/tasks/TASK-1060.md": 1,
         "docs/tasks/TASK-1061.md": 1
       }
@@ -10961,6 +10936,34 @@
         "docs/tasks/TASK-1064.md": 3
       }
     },
+    "TASK-1065": {
+      "commitCount": 1,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-05-27T17:04:50+02:00",
+      "recentCommitRefs": [
+        "4f8120b1"
+      ],
+      "touchedFrequency": {
+        "docs/refinement/IDEA-user-issue-reporting.md": 1,
+        "docs/refinement/ROADMAP-IDEAS.md": 1,
+        "docs/tasks/TASK-1065.md": 1,
+        "docs/tasks/TASK-1066.md": 1
+      }
+    },
+    "TASK-1066": {
+      "commitCount": 1,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-05-27T17:04:50+02:00",
+      "recentCommitRefs": [
+        "4f8120b1"
+      ],
+      "touchedFrequency": {
+        "docs/refinement/IDEA-user-issue-reporting.md": 1,
+        "docs/refinement/ROADMAP-IDEAS.md": 1,
+        "docs/tasks/TASK-1065.md": 1,
+        "docs/tasks/TASK-1066.md": 1
+      }
+    },
     "TASK-161": {
       "commitCount": 1,
       "commitRefOverflow": false,
@@ -10995,19 +10998,16 @@
       }
     },
     "TASK-206": {
-      "commitCount": 5,
+      "commitCount": 3,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-26T10:00:51+02:00",
       "recentCommitRefs": [
-        "21a5605b",
         "290f2b42",
         "313d5a3e",
-        "7b3553bb",
         "cc2b9fd5"
       ],
       "touchedFrequency": {
-        ".arch/context-index.json": 1,
-        ".arch/focus-ledger.jsonl": 3,
+        ".arch/focus-ledger.jsonl": 1,
         ".arch/reflect-breach-log.jsonl": 1,
         ".arch/status-projection.json": 1,
         "README.md": 1,
