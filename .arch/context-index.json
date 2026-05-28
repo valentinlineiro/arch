@@ -4416,7 +4416,7 @@
       "title": "Govern/Reflect Structural Separation"
     }
   },
-  "builtAt": "2026-05-28T09:48:48.530Z",
+  "builtAt": "2026-05-28T09:49:28.781Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -9398,34 +9398,6 @@
         ".arch/escalations.jsonl": 1
       }
     },
-    "TASK-1005": {
-      "commitCount": 1,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-24T23:15:03+00:00",
-      "recentCommitRefs": [
-        "6108de7a"
-      ],
-      "touchedFrequency": {
-        ".arch/causal-signal.jsonl": 1,
-        ".arch/chronicle.jsonl": 1,
-        ".arch/context-feedback.json": 1,
-        ".arch/corpus-index.json": 1,
-        ".arch/reflect-breach-log.jsonl": 1,
-        ".arch/status-projection.json": 1,
-        ".arch/temporal-index.jsonl": 1,
-        "README.md": 1,
-        "cli/.arch/status-projection.json": 1,
-        "cli/src/main/ts/application/commands/analyze-command.ts": 1,
-        "docs/EVENTS.md": 1,
-        "docs/INBOX.md": 1,
-        "docs/METRICS.md": 1,
-        "docs/ROADMAP.md": 1,
-        "docs/adr/ADR-034-govern-reflect-separation.md": 1,
-        "docs/archive/TASK-1005.md": 1,
-        "docs/tasks/TASK-1005.md": 1,
-        "docs/tasks/TASK-995.md": 1
-      }
-    },
     "TASK-1006": {
       "commitCount": 20,
       "commitRefOverflow": false,
@@ -11040,16 +11012,17 @@
       }
     },
     "TASK-1071": {
-      "commitCount": 2,
+      "commitCount": 3,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-28T11:48:43+02:00",
+      "lastCommitDate": "2026-05-28T11:49:23+02:00",
       "recentCommitRefs": [
         "b09427b1",
-        "cd1772ee"
+        "cd1772ee",
+        "f66b0b70"
       ],
       "touchedFrequency": {
         ".arch/chronicle.jsonl": 1,
-        ".arch/focus-ledger.jsonl": 1,
+        ".arch/focus-ledger.jsonl": 2,
         "docs/INBOX.md": 1,
         "docs/tasks/TASK-1071.md": 2
       }
@@ -11241,15 +11214,13 @@
       }
     },
     "TASK-995": {
-      "commitCount": 2,
+      "commitCount": 1,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-26T10:00:51+02:00",
       "recentCommitRefs": [
-        "57296df1",
         "a10ad873"
       ],
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 1,
         "docs/archive/TASK-995.md": 1
       }
     },
