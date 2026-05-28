@@ -1,62 +1,67 @@
-## IDEA: Phase-aware sprint close trigger
+## IDEA: Milestone-based sprint closure via PROJECT.md predicates
 
 **Status:** DRAFT
 **Created:** 2026-05-28
-**Source:** smartcart-os pilot — count-based auto-close (sprintCloseAfterN: 15) fired mid-implementation. A feature sprint has definition/implementation/QA phases; the count threshold doesn't respect them. Sprint closed before QA was complete.
+**Source:** smartcart-os pilot retrospective — count-based auto-close (sprintCloseAfterN: 15) fired mid-implementation. Product sprints have phases (definition → implementation → QA/launch); 15 archived tasks during implementation phase produced a sprint close with open QA tasks. The sprint close generated a version bump and RETRO entry while the main feature was unfinished.
 **Candidate-class:** 2-code-generation
 **Candidate-size:** S
-**Depends:** none
+**Depends:** IDEA for PROJECT.md Core Flows predicates (prerequisite for milestone predicates)
 
 ---
 
 ## Problem
 
-`arch govern` auto-closes a sprint when `archivedThisTick >= sprintCloseAfterN`. This works for protocol projects where tasks are roughly equivalent weight and the sprint has no natural phases. It breaks for product feature sprints where:
+`arch govern` auto-closes a sprint when `archivedThisTick >= sprintCloseAfterN`. This is a count signal, not a completion signal. For ARCH-building-ARCH, the two are correlated: tasks are bounded and roughly equivalent weight. For product sprints they diverge:
 
-1. **Tasks are not equivalent weight.** Closing 15 XS file-deletion tasks is not the same as closing 15 M feature tasks. Count doesn't capture sprint completion.
-2. **Sprints have phases.** Definition tasks close first, then implementation, then QA. A count threshold fires during implementation and produces a sprint close with open QA tasks — which is meaningless and generates a confusing RETRO entry.
-3. **The threshold is project-specific but not easily tuned.** `sprintCloseAfterN` in `arch.config.json` requires the user to know the right number upfront, which they don't for a first sprint on a new project.
+1. **Tasks are not equivalent weight.** Archiving 15 XS file-deletion tasks is not sprint completion. Archiving 3 M feature tasks might be.
+2. **Sprints have phases.** Definition tasks close first, then implementation, then QA. The count threshold fires during implementation, not at sprint boundary.
+3. **The threshold is a guess.** `sprintCloseAfterN: 15` requires the user to predict how many tasks the sprint will contain upfront. On a first sprint in a new domain, this is impossible.
 
-The smartcart-os pilot: sprint closed mid-implementation. The sprint close generated a version bump and RETRO entry while the main feature was unfinished. The human had to work around it.
+The count model encodes the assumption that tasks are interchangeable and sprint boundaries are arbitrary. Neither is true for product work.
 
 ---
 
 ## Proposed Fix
 
-Two changes, one required and one optional:
-
-**Required: add `sprintCloseMode` config field**
+Add `sprintCloseOn` to `arch.config.json` as an alternative to `sprintCloseAfterN`:
 
 ```json
 {
-  "sprintCloseMode": "count" | "explicit" | "phase"
+  "sprintCloseOn": "project_milestone",
+  "sprintMilestone": "MVP launch"
 }
 ```
 
-- `"count"` — current behavior (default, backward-compatible)
-- `"explicit"` — sprint only closes when `arch sprint close` is run manually. `sprintCloseAfterN` is ignored. Recommended for product projects.
-- `"phase"` — sprint closes when all tasks in the sprint have status DONE or REVIEW, regardless of count. Intended for teams that mark phase completion via task status.
+When `sprintCloseOn: "project_milestone"` is set:
+- `arch govern` reads `PROJECT.md` and finds the milestone named by `sprintMilestone`
+- The milestone has cmd predicates (same format as AC predicates)
+- If all milestone predicates pass, govern triggers sprint close
+- `sprintCloseAfterN` is ignored
 
-**Optional: warn before auto-close**
+Example `PROJECT.md` milestone block:
+```markdown
+## Milestones
 
-When `sprintCloseMode: "count"` and `archivedThisTick` reaches `sprintCloseAfterN - 1`, emit an INBOX entry: `[SPRINT-CLOSE-IMMINENT] Next govern tick will close sprint X. Run arch sprint close --defer to postpone.`
+### MVP launch
+- [ ] Core user flow end-to-end  →  cmd: npx playwright test --grep "basket entry"; exit: 0
+- [ ] API health  →  cmd: curl -s http://localhost:3001/health | grep ok; exit: 0
+- [ ] No open P0 tasks  →  prose: verified by arch review showing no P0 READY/IN_PROGRESS tasks
+```
 
----
+This ties sprint closure to a meaningful completion signal rather than a task count. The sprint closes when the software works, not when N tasks archive.
 
-## Migration
+**Backward compatibility:** `sprintCloseAfterN` continues to work. `sprintCloseOn` is opt-in. Existing configs are unaffected.
 
-Existing `arch.config.json` files with `sprintCloseAfterN` continue to use `"count"` mode by default. No breaking change.
-
-New projects initialized with `arch init` should be prompted: "Sprint close mode: count (auto) / explicit (manual) / phase (task-completion)?" — default to `"explicit"` for new installs.
+**New project default:** `arch init` prompts for sprint close mode. Default for new projects: `sprintCloseOn: "project_milestone"` with a placeholder milestone. `sprintCloseAfterN` as fallback if PROJECT.md has no milestones.
 
 ---
 
 ## Acceptance Criteria
 
-- [ ] `sprintCloseMode: "explicit"` prevents auto-close on govern tick regardless of archived count  →  prose: verified by seeding archivedThisTick > sprintCloseAfterN with explicit mode
-- [ ] `sprintCloseMode: "phase"` closes sprint when all sprint tasks are DONE or REVIEW  →  prose: verified with a sprint where all tasks reach DONE
-- [ ] `sprintCloseMode: "count"` preserves existing behavior  →  cmd: npm test --prefix cli; exit: 0
-- [ ] `arch.config.json` without `sprintCloseMode` defaults to `"count"` (backward-compatible)  →  prose: verified with existing config fixture
+- [ ] `sprintCloseOn: "project_milestone"` with passing milestone predicates closes the sprint on govern tick  →  prose: verified by seeding a PROJECT.md milestone with passing predicates and running arch govern
+- [ ] `sprintCloseOn: "project_milestone"` with failing milestone predicates does not close the sprint  →  prose: verified with a failing milestone predicate
+- [ ] Config without `sprintCloseOn` falls back to `sprintCloseAfterN` behavior  →  cmd: npm test --prefix cli; exit: 0
+- [ ] `sprintMilestone` referencing a non-existent milestone section emits a warning and falls back to count mode  →  prose: verified by naming a milestone that doesn't exist in PROJECT.md
 - [ ] All existing tests pass  →  cmd: npm test --prefix cli; exit: 0
 - [ ] `arch review` passes  →  cmd: arch review; exit: 0
 

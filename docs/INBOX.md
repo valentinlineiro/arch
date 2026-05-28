@@ -41,9 +41,3 @@ AWAITING_PROMOTION | IDEA-user-issue-reporting | 2026-05-27 — no Decision fiel
 ## [2026-05-28 06:12] INFLUENCE_THRESHOLD_VIOLATION | REFLECT
 Evidence: Engagement 42% is below threshold 50% — attribution discipline review required
 
-
-## REVIEW_REQUEST: TASK-1043
-**Task:** consolidate mocks and add makeBaseFs() fixture factory
-**Status:** REVIEW
-**Date:** 2026-05-28
-**Summary:** Consolidated 25 inline mock class definitions across 13 test files into shared mocks/index.ts. Added writeCalls[], addFile(), commitCalls, mvCalls, addCalls, saved field to MockGitRepository/MockFileSystem/MockTaskRepository. Added createTestRepo() factory. SpyFileSystem/SpyGitRepository removed from govern-system.test.ts. 686 tests pass, arch review passes.
