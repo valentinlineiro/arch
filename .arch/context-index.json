@@ -580,6 +580,12 @@
           ],
           "taskPath": "docs/archive/TASK-1067.md"
         },
+        "TASK-1068": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-1068.md"
+        },
         "TASK-967": {
           "evidenceKinds": [
             "literal-mention"
@@ -891,6 +897,12 @@
           ],
           "taskPath": "docs/archive/TASK-1058.md"
         },
+        "TASK-1068": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-1068.md"
+        },
         "TASK-225": {
           "evidenceKinds": [
             "literal-mention"
@@ -972,6 +984,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-1060.md"
+        },
+        "TASK-1068": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-1068.md"
         },
         "TASK-202": {
           "evidenceKinds": [
@@ -4506,7 +4524,7 @@
       "title": "Govern/Reflect Structural Separation"
     }
   },
-  "builtAt": "2026-05-28T10:43:46.734Z",
+  "builtAt": "2026-05-28T10:50:05.200Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -9497,7 +9515,7 @@
       }
     },
     "TASK-1006": {
-      "commitCount": 10,
+      "commitCount": 9,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-25T15:43:46+02:00",
       "recentCommitRefs": [
@@ -9508,7 +9526,6 @@
         "73a1258a",
         "8cc51101",
         "982a3a83",
-        "d377bc98",
         "dd032417",
         "e8d3d2b7"
       ],
@@ -9516,7 +9533,7 @@
         ".arch/causal-signal.jsonl": 1,
         ".arch/chronicle.jsonl": 1,
         ".arch/corpus-index.json": 1,
-        ".arch/focus-ledger.jsonl": 6,
+        ".arch/focus-ledger.jsonl": 5,
         ".arch/reflect-breach-log.jsonl": 1,
         ".arch/status-projection.json": 1,
         ".arch/temporal-index.jsonl": 1,
@@ -9651,26 +9668,24 @@
       }
     },
     "TASK-1010": {
-      "commitCount": 5,
+      "commitCount": 4,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-25T15:43:46+02:00",
       "recentCommitRefs": [
         "3dbfafeb",
         "4d02ef57",
         "712804c7",
-        "9b47f7e7",
         "b57c8c06"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
-        ".arch/chronicle.jsonl": 2,
+        ".arch/chronicle.jsonl": 1,
         ".arch/corpus-index.json": 1,
-        ".arch/ecp-registry.jsonl": 1,
         ".arch/reflect-breach-log.jsonl": 1,
-        ".arch/status-projection.json": 2,
+        ".arch/status-projection.json": 1,
         ".arch/temporal-index.jsonl": 1,
         "README.md": 1,
-        "cli/.arch/status-projection.json": 2,
+        "cli/.arch/status-projection.json": 1,
         "cli/src/main/ts/application/commands/init-command.ts": 1,
         "cli/src/test/ts/init-command.test.ts": 1,
         "docs/EVENTS.md": 1,
@@ -9681,8 +9696,7 @@
         "docs/archive/TASK-1006.md": 1,
         "docs/archive/TASK-1010.md": 1,
         "docs/tasks/TASK-1007.md": 1,
-        "docs/tasks/TASK-1010.md": 2,
-        "docs/tasks/TASK-242.md": 1,
+        "docs/tasks/TASK-1010.md": 1,
         "docs/tensions/TENSION-005-specdrift.md": 1
       }
     },
@@ -11120,14 +11134,15 @@
       }
     },
     "TASK-1068": {
-      "commitCount": 1,
+      "commitCount": 2,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-28T12:43:40+02:00",
+      "lastCommitDate": "2026-05-28T12:50:00+02:00",
       "recentCommitRefs": [
+        "43ab3dec",
         "88db73c8"
       ],
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 1,
+        ".arch/focus-ledger.jsonl": 2,
         "docs/archive/TASK-1067.md": 1,
         "docs/tasks/TASK-1068.md": 1
       }
@@ -11220,7 +11235,7 @@
       }
     },
     "TASK-242": {
-      "commitCount": 11,
+      "commitCount": 10,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-27T09:24:01+02:00",
       "recentCommitRefs": [
@@ -11232,23 +11247,18 @@
         "42bb8e79",
         "5a52e7a4",
         "963cd796",
-        "9b47f7e7",
         "c1d9354c",
         "e0acb0a1"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
-        ".arch/chronicle.jsonl": 3,
-        ".arch/ecp-registry.jsonl": 1,
+        ".arch/chronicle.jsonl": 2,
         ".arch/focus-ledger.jsonl": 8,
-        ".arch/status-projection.json": 1,
         ".arch/temporal-index.jsonl": 1,
-        "cli/.arch/status-projection.json": 1,
         "docs/EVENTS.md": 1,
         "docs/INBOX.md": 1,
         "docs/archive/TASK-242.md": 1,
-        "docs/tasks/TASK-1010.md": 1,
-        "docs/tasks/TASK-242.md": 3
+        "docs/tasks/TASK-242.md": 2
       }
     },
     "TASK-266": {
