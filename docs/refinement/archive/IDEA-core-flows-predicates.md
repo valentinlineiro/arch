@@ -1,11 +1,12 @@
 ## IDEA: Core Flows predicates in PROJECT.md checked on every govern tick
 
-**Status:** DRAFT
+**Status:** PROMOTED → TASK-1068
 **Created:** 2026-05-28
 **Source:** smartcart-os pilot retrospective — TASK-008 stubbed POST /api/inventory correctly per the cut list. The main "Add to Cart" CTA called that endpoint. The user discovered the broken flow after close, not ARCH. No govern-level check covered end-to-end flow integrity. Per-AC predicates verify task scope; nothing verifies that primary user flows still work after the task.
 **Candidate-class:** 2-code-generation
 **Candidate-size:** M
 **Depends:** none
+**Sessions:** 1
 
 ---
 
@@ -82,4 +83,6 @@ Core Flows: 2/3 passing
 ---
 
 ## Decision
+
+PROMOTE → TASK-1068
 

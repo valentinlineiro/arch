@@ -31,3 +31,6 @@
 {"decision_id":"D-inbox-ledger-2026-05-27T14:59:24Z","timestamp":"2026-05-27T14:59:24Z","target":"IDEA-inbox-stable-ledger-invariant","outcome":"PROMOTE","finality":"committed","influence_declared":false,"based_on_proposals":[]}
 {"decision_id":"D-govern-rebuild-2026-05-27T14:59:24Z","timestamp":"2026-05-27T14:59:24Z","target":"IDEA-govern-rebuild-context-before-focus","outcome":"PROMOTE","finality":"committed","influence_declared":false,"based_on_proposals":[]}
 {"decision_id":"D-context-injector-2026-05-27T14:59:24Z","timestamp":"2026-05-27T14:59:24Z","target":"IDEA-context-injector-planned-artifact-projection","outcome":"PROMOTE","finality":"committed","influence_declared":false,"based_on_proposals":[]}
+{"decision_id":"D-a1b2c3d4","timestamp":"2026-05-28T08:30:00Z","target":"IDEA-codebase-context-injection","outcome":"PROMOTE","finality":"committed","influence_declared":false,"based_on_proposals":["THINK-f1a2b3c4"]}
+{"decision_id":"D-e5f6g7h8","timestamp":"2026-05-28T08:30:00Z","target":"IDEA-core-flows-predicates","outcome":"PROMOTE","finality":"committed","influence_declared":false,"based_on_proposals":["THINK-d5e6f7g8"]}
+{"decision_id":"D-i9j0k1l2","timestamp":"2026-05-28T08:30:00Z","target":"IDEA-corpus-federation","outcome":"PROMOTE","finality":"committed","influence_declared":false,"based_on_proposals":["THINK-h9i0j1k2"]}

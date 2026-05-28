@@ -1,11 +1,12 @@
 ## IDEA: Codebase-aware context injection from declared task paths
 
-**Status:** DRAFT
+**Status:** PROMOTED → TASK-1067
 **Created:** 2026-05-28
 **Source:** smartcart-os pilot retrospective — every implementation task showed confidence 0.00 because the context injector indexed governance artifacts (EVENTS.md, focus-ledger.jsonl) instead of the source files declared in the task's context path. The context path field (e.g. `cli/src/main/ts/`) is used to scope git evidence but is not used to seed the relevant-files suggestion.
 **Candidate-class:** 2-code-generation
 **Candidate-size:** M
 **Depends:** none
+**Sessions:** 1
 
 ---
 
@@ -74,4 +75,6 @@ This runs when corpus confidence < 0.3. When corpus confidence ≥ 0.3, the corp
 ---
 
 ## Decision
+
+PROMOTE → TASK-1067
 

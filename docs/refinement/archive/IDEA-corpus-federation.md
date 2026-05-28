@@ -1,11 +1,12 @@
 ## IDEA: Automatic corpus federation on govern tick
 
-**Status:** DRAFT
+**Status:** PROMOTED → TASK-1069
 **Created:** 2026-05-28
 **Source:** smartcart-os pilot retrospective — after 25 closed tasks in smartcart-os, `arch ask "price comparison patterns"` returned ARCH protocol history, not grocery optimizer learnings. The corpus import is manual (`arch corpus import`) and was never run during the pilot. The Hansei from TASK-008 contained genuine domain learning ("behavioral scoring adds no value over pure cost comparison for commodity grocery items") but lived only in the smartcart-os archive, invisible to other projects. The compounding value of inter-project learning was never realized.
 **Candidate-class:** 2-code-generation
 **Candidate-size:** M
 **Depends:** none
+**Sessions:** 1
 
 ---
 
@@ -75,4 +76,6 @@ For ARCH itself (building ARCH): the protocol learnings from one session are alr
 ---
 
 ## Decision
+
+PROMOTE → TASK-1069
 
