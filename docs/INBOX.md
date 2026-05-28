@@ -35,6 +35,15 @@ AWAITING_PROMOTION | IDEA-govern-rebuild-context-before-focus | 2026-05-27 — n
 AWAITING_PROMOTION | IDEA-inbox-stable-ledger-invariant | 2026-05-27 — no Decision field set
 
 ## 2026-05-27 14:55:44 — Pattern Alerts
-[PATTERN-ALERT] [SpecDrift] detected 8 times — systemic issue. See docs/tensions/
 
 AWAITING_PROMOTION | IDEA-user-issue-reporting | 2026-05-27 — no Decision field set
+
+## [2026-05-28 06:12] INFLUENCE_THRESHOLD_VIOLATION | REFLECT
+Evidence: Engagement 42% is below threshold 50% — attribution discipline review required
+
+
+## REVIEW_REQUEST: TASK-1043
+**Task:** consolidate mocks and add makeBaseFs() fixture factory
+**Status:** REVIEW
+**Date:** 2026-05-28
+**Summary:** Consolidated 25 inline mock class definitions across 13 test files into shared mocks/index.ts. Added writeCalls[], addFile(), commitCalls, mvCalls, addCalls, saved field to MockGitRepository/MockFileSystem/MockTaskRepository. Added createTestRepo() factory. SpyFileSystem/SpyGitRepository removed from govern-system.test.ts. 686 tests pass, arch review passes.
