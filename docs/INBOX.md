@@ -41,3 +41,12 @@ AWAITING_PROMOTION | IDEA-user-issue-reporting | 2026-05-27 — no Decision fiel
 ## [2026-05-28 06:12] INFLUENCE_THRESHOLD_VIOLATION | REFLECT
 Evidence: Engagement 42% is below threshold 50% — attribution discipline review required
 
+## [2026-05-28 08:12] REVIEW_REQUEST | TASK-1044 | property-based tests for meta-line parser
+- AC1: Round-trip property test file created → file: cli/src/test/ts/meta-line-parser.test.ts
+- AC2: 6 boundary test cases (empty context, long path, special chars, Unicode, multi-context, DONE+Cost)
+- AC3: 4 malformed input tests (missing fields, wrong count, unrecognized status, wrong separator)
+- AC4: No parsing bugs found during testing — round-trip clean on all valid combos
+- AC5: `npm test --prefix cli` passes (699 tests)
+- AC6: `arch review` passes
+- Files changed: cli/src/test/ts/meta-line-parser.test.ts (new), docs/tasks/TASK-1044.md
+
