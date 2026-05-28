@@ -4524,7 +4524,7 @@
       "title": "Govern/Reflect Structural Separation"
     }
   },
-  "builtAt": "2026-05-28T10:50:05.200Z",
+  "builtAt": "2026-05-28T10:50:37.341Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -9515,7 +9515,7 @@
       }
     },
     "TASK-1006": {
-      "commitCount": 9,
+      "commitCount": 8,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-25T15:43:46+02:00",
       "recentCommitRefs": [
@@ -9524,7 +9524,6 @@
         "553c1022",
         "712804c7",
         "73a1258a",
-        "8cc51101",
         "982a3a83",
         "dd032417",
         "e8d3d2b7"
@@ -9533,7 +9532,7 @@
         ".arch/causal-signal.jsonl": 1,
         ".arch/chronicle.jsonl": 1,
         ".arch/corpus-index.json": 1,
-        ".arch/focus-ledger.jsonl": 5,
+        ".arch/focus-ledger.jsonl": 4,
         ".arch/reflect-breach-log.jsonl": 1,
         ".arch/status-projection.json": 1,
         ".arch/temporal-index.jsonl": 1,
@@ -9554,7 +9553,6 @@
         "docs/archive/TASK-1010.md": 1,
         "docs/tasks/TASK-1006.md": 1,
         "docs/tasks/TASK-1007.md": 1,
-        "docs/tasks/TASK-1010.md": 1,
         "docs/tensions/TENSION-005-specdrift.md": 1
       }
     },
@@ -9668,14 +9666,13 @@
       }
     },
     "TASK-1010": {
-      "commitCount": 4,
+      "commitCount": 3,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-25T15:43:46+02:00",
       "recentCommitRefs": [
         "3dbfafeb",
         "4d02ef57",
-        "712804c7",
-        "b57c8c06"
+        "712804c7"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
@@ -9686,8 +9683,6 @@
         ".arch/temporal-index.jsonl": 1,
         "README.md": 1,
         "cli/.arch/status-projection.json": 1,
-        "cli/src/main/ts/application/commands/init-command.ts": 1,
-        "cli/src/test/ts/init-command.test.ts": 1,
         "docs/EVENTS.md": 1,
         "docs/INBOX.md": 1,
         "docs/METRICS.md": 1,
@@ -11134,15 +11129,16 @@
       }
     },
     "TASK-1068": {
-      "commitCount": 2,
+      "commitCount": 3,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-28T12:50:00+02:00",
+      "lastCommitDate": "2026-05-28T12:50:32+02:00",
       "recentCommitRefs": [
         "43ab3dec",
-        "88db73c8"
+        "88db73c8",
+        "df0ff538"
       ],
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 2,
+        ".arch/focus-ledger.jsonl": 3,
         "docs/archive/TASK-1067.md": 1,
         "docs/tasks/TASK-1068.md": 1
       }
