@@ -75,6 +75,5 @@ This runs when corpus confidence < 0.3. When corpus confidence ≥ 0.3, the corp
 ---
 
 ## Decision
-
 PROMOTE → TASK-1067
 

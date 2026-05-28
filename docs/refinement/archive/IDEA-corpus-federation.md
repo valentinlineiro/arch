@@ -76,6 +76,5 @@ For ARCH itself (building ARCH): the protocol learnings from one session are alr
 ---
 
 ## Decision
-
 PROMOTE → TASK-1069
 
