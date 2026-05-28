@@ -4,13 +4,13 @@ import { CaptureIntent } from '../../../main/ts/application/use-cases/capture-in
 import { IntentStatus } from '../../../main/ts/domain/models/intent.js';
 import type { Intent } from '../../../main/ts/domain/models/intent.js';
 
-class MockIntentRepository {
+class StubIntentRepository {
   saved: Intent[] = [];
   async getNextId() { return 'INTENT-001'; }
   async save(intent: Intent) { this.saved.push(intent); }
 }
 
-class MockGitRepository {
+class StubGitRepository {
   branch = 'main';
   staged = ['cli/src/auth.ts'];
   modified = ['cli/src/index.ts'];
@@ -22,7 +22,7 @@ class MockGitRepository {
   async getRepoRoot() { return this.root; }
 }
 
-class MockGitRepositoryThrows {
+class StubGitRepositoryThrows {
   async getCurrentBranch(): Promise<string> { throw new Error('no git'); }
   async getStagedFiles(): Promise<string[]> { throw new Error('no git'); }
   async getModifiedFiles(): Promise<string[]> { throw new Error('no git'); }
@@ -30,8 +30,8 @@ class MockGitRepositoryThrows {
 }
 
 test('CaptureIntent creates an INTENT with CAPTURED status', async () => {
-  const repo = new MockIntentRepository();
-  const git = new MockGitRepository();
+  const repo = new StubIntentRepository();
+  const git = new StubGitRepository();
   const useCase = new CaptureIntent(repo as any, git as any, () => '/home/user/project/cli/src');
   const id = await useCase.execute('auth flow feels fragmented');
   assert.equal(id, 'INTENT-001');
@@ -41,8 +41,8 @@ test('CaptureIntent creates an INTENT with CAPTURED status', async () => {
 });
 
 test('CaptureIntent populates origin from git context', async () => {
-  const repo = new MockIntentRepository();
-  const git = new MockGitRepository();
+  const repo = new StubIntentRepository();
+  const git = new StubGitRepository();
   const useCase = new CaptureIntent(repo as any, git as any, () => '/home/user/project/cli/src');
   await useCase.execute('test intent');
   const intent = repo.saved[0];
@@ -52,8 +52,8 @@ test('CaptureIntent populates origin from git context', async () => {
 });
 
 test('CaptureIntent deduplicates recent_files between staged and modified', async () => {
-  const repo = new MockIntentRepository();
-  const git = new MockGitRepository();
+  const repo = new StubIntentRepository();
+  const git = new StubGitRepository();
   git.staged = ['shared.ts'];
   git.modified = ['shared.ts', 'other.ts'];
   const useCase = new CaptureIntent(repo as any, git as any, () => '/home/user/project');
@@ -64,8 +64,8 @@ test('CaptureIntent deduplicates recent_files between staged and modified', asyn
 });
 
 test('CaptureIntent computes cwd relative to repo root', async () => {
-  const repo = new MockIntentRepository();
-  const git = new MockGitRepository();
+  const repo = new StubIntentRepository();
+  const git = new StubGitRepository();
   git.root = '/home/user/project';
   const useCase = new CaptureIntent(repo as any, git as any, () => '/home/user/project/cli/src');
   await useCase.execute('test');
@@ -73,8 +73,8 @@ test('CaptureIntent computes cwd relative to repo root', async () => {
 });
 
 test('CaptureIntent handles git unavailable gracefully', async () => {
-  const repo = new MockIntentRepository();
-  const git = new MockGitRepositoryThrows();
+  const repo = new StubIntentRepository();
+  const git = new StubGitRepositoryThrows();
   const useCase = new CaptureIntent(repo as any, git as any, () => '/absolute/path');
   const id = await useCase.execute('test intent');
   assert.equal(id, 'INTENT-001');
@@ -85,8 +85,8 @@ test('CaptureIntent handles git unavailable gracefully', async () => {
 });
 
 test('CaptureIntent sets schema_version to 1', async () => {
-  const repo = new MockIntentRepository();
-  const git = new MockGitRepository();
+  const repo = new StubIntentRepository();
+  const git = new StubGitRepository();
   const useCase = new CaptureIntent(repo as any, git as any, () => '/home/user/project');
   await useCase.execute('test');
   assert.equal(repo.saved[0].schemaVersion, 1);

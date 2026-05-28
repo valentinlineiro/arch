@@ -21,6 +21,11 @@ export class MockFileSystem implements FileSystem {
   files: Record<string, string> = {};
   dirs: Record<string, string[]> = {};
   written: Record<string, string> = {};
+  writeCalls: Array<{ path: string; content: string }> = [];
+
+  addFile(path: string, content: string): void {
+    this.files[path] = content;
+  }
 
   async readFile(path: string): Promise<string> {
     if (!(path in this.files)) throw new Error(`File not found: ${path}`);
@@ -30,6 +35,7 @@ export class MockFileSystem implements FileSystem {
   async writeFile(path: string, content: string): Promise<void> {
     this.files[path] = content;
     this.written[path] = content;
+    this.writeCalls.push({ path, content });
   }
 
   async exists(path: string): Promise<boolean> {
@@ -67,6 +73,7 @@ export class MockTaskRepository implements TaskRepository {
   archivedTasks: Task[] = [];
   nextId = 'TASK-001';
   fileSystem?: FileSystem;
+  saved: Task | null = null;
 
   async getById(id: string): Promise<Task | null> {
     return this.tasks.find(t => t.id === id) ?? this.archivedTasks.find(t => t.id === id) ?? null;
@@ -74,6 +81,7 @@ export class MockTaskRepository implements TaskRepository {
   async getAll(): Promise<Task[]> { return [...this.tasks, ...this.archivedTasks]; }
   async getActive(): Promise<Task[]> { return this.tasks; }
   async save(task: Task): Promise<void> {
+    this.saved = task;
     const idx = this.tasks.findIndex(t => t.id === task.id);
     if (idx >= 0) this.tasks[idx] = task;
     else this.tasks.push(task);
@@ -150,19 +158,25 @@ export class MockGitRepository implements GitRepository {
   currentBranch = 'main';
   statusLines: string[] = [];
   changedFilesInLastCommit: string[] = [];
-  addedFiles: string[] = [];
+  addCalls: string[] = [];
+  /** @deprecated use addCalls */
+  get addedFiles(): string[] { return this.addCalls; }
   repoRoot = '';
   lastCommitHash: string | null = null;
+  commitCalls: string[] = [];
+  mvCalls: Array<{ src: string; dst: string }> = [];
+  tags: string[] = [];
+  pushArgs: string[][] = [];
 
   async getDiff(_args?: string[]): Promise<string> { return this.diff; }
   async getLastCommitMessage(): Promise<string | null> { return this.lastCommitMessage; }
   async getCurrentBranch(): Promise<string> { return this.currentBranch; }
   async getStatusLines(): Promise<string[]> { return this.statusLines; }
-  async getLog(_limit: number): Promise<string[]> { return []; }
-  async add(path: string): Promise<void> { this.addedFiles.push(path); }
+  async getLog(_limit?: number): Promise<string[]> { return []; }
+  async add(path: string): Promise<void> { this.addCalls.push(path); }
   async rm(_path: string): Promise<void> {}
-  async mv(_oldPath: string, _newPath: string): Promise<void> {}
-  async commit(_message: string): Promise<void> {}
+  async mv(oldPath: string, newPath: string): Promise<void> { this.mvCalls.push({ src: oldPath, dst: newPath }); }
+  async commit(message: string): Promise<void> { this.commitCalls.push(message); }
   async getFileLastModifiedDate(_path: string): Promise<Date | null> { return new Date(); }
   async getChangedFilesInLastCommit(): Promise<string[]> { return this.changedFilesInLastCommit; }
   async getMergeCommits(_limit: number): Promise<string[]> { return []; }
@@ -178,8 +192,18 @@ export class MockGitRepository implements GitRepository {
     if (this.lastCommitMessage === 'FAIL_HISTORY') throw new Error('git log failed');
     return this.commits;
   }
-  tags: string[] = [];
-  pushArgs: string[][] = [];
   async tag(name: string, _message?: string): Promise<void> { this.tags.push(name); }
   async push(args: string[] = []): Promise<void> { this.pushArgs.push(args); }
+}
+
+export function createTestRepo(options?: {
+  files?: Record<string, string>;
+  dirs?: Record<string, string[]>;
+}): { fs: MockFileSystem; git: MockGitRepository } {
+  const fs = new MockFileSystem();
+  fs.dirs['.arch'] = [];
+  fs.dirs['docs/tasks'] = [];
+  if (options?.files) Object.assign(fs.files, options.files);
+  if (options?.dirs) Object.assign(fs.dirs, options.dirs);
+  return { fs, git: new MockGitRepository() };
 }

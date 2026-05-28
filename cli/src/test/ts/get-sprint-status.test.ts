@@ -2,28 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert';
 import { GetSprintStatus } from '../../main/ts/application/use-cases/get-sprint-status.js';
 import { Task, TaskStatus, FocusLevel } from '../../main/ts/domain/models/task.js';
-
-class MockTaskRepository {
-  constructor(private tasks: Task[]) {}
-
-  async getById() { return null; }
-  async getAll() { return this.tasks; }
-  async getActive() { return this.tasks; }
-  async save() {}
-  async findReady() { return this.tasks.filter(task => task.status === TaskStatus.READY); }
-  async getNextId() { return 'TASK-999'; }
-}
-
-class MockFileSystem {
-  constructor(private files: Record<string, string>) {}
-
-  async readFile(path: string) { return this.files[path] ?? ''; }
-  async writeFile() {}
-  async exists(path: string) { return path in this.files; }
-  async readDirectory() { return []; }
-  async rename() {}
-  async deleteFile(_p: string) {}
-}
+import { MockTaskRepository, MockFileSystem } from './mocks/index.js';
 
 const makeTask = (overrides: Partial<Task>): Task => ({
   id: 'TASK-001',
@@ -43,14 +22,14 @@ const makeTask = (overrides: Partial<Task>): Task => ({
 } as Task);
 
 test('GetSprintStatus includes current sprint progress from config and Sprint field', async () => {
-  const repo = new MockTaskRepository([
+  const repo = new MockTaskRepository();
+  repo.tasks.push(
     makeTask({ id: 'TASK-001', sprint: 'sprint/control-panel', status: TaskStatus.DONE }),
     makeTask({ id: 'TASK-002', sprint: 'sprint/control-panel', status: TaskStatus.REVIEW }),
     makeTask({ id: 'TASK-003', sprint: 'sprint/other', status: TaskStatus.DONE }),
-  ]);
-  const fs = new MockFileSystem({
-    'arch.config.json': JSON.stringify({ currentSprint: 'sprint/control-panel' })
-  });
+  );
+  const fs = new MockFileSystem();
+  fs.files['arch.config.json'] = JSON.stringify({ currentSprint: 'sprint/control-panel' });
 
   const result = await new GetSprintStatus(repo as any, fs as any).execute();
 
@@ -62,10 +41,10 @@ test('GetSprintStatus includes current sprint progress from config and Sprint fi
 });
 
 test('GetSprintStatus omits sprint section when no sprint is active', async () => {
-  const repo = new MockTaskRepository([makeTask({ id: 'TASK-001', sprint: 'sprint/control-panel' })]);
-  const fs = new MockFileSystem({
-    'arch.config.json': JSON.stringify({ currentSprint: '' })
-  });
+  const repo = new MockTaskRepository();
+  repo.tasks.push(makeTask({ id: 'TASK-001', sprint: 'sprint/control-panel' }));
+  const fs = new MockFileSystem();
+  fs.files['arch.config.json'] = JSON.stringify({ currentSprint: '' });
 
   const result = await new GetSprintStatus(repo as any, fs as any).execute();
 

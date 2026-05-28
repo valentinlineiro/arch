@@ -2,14 +2,11 @@ import { test } from 'node:test';
 import assert from 'node:assert';
 import { ReviewCommand } from '../../main/ts/application/commands/review-command.js';
 import { TaskStatus, Task, FocusLevel } from '../../main/ts/domain/models/task.js';
-import { MockTaskRepository, MockGitRepository, MockFileSystem } from './mocks/index.js';
+import { MockTaskRepository, MockGitRepository, MockFileSystem, createTestRepo } from './mocks/index.js';
 
 test('ReviewCommand --help exits 0', async () => {
-  const command = new ReviewCommand(
-    new MockTaskRepository(),
-    new MockGitRepository(),
-    new MockFileSystem(),
-  );
+  const { fs, git } = createTestRepo();
+  const command = new ReviewCommand(new MockTaskRepository(), git, fs);
   // Should not throw or exit
   await command.execute(['--help']);
 });

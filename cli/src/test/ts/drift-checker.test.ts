@@ -1,16 +1,17 @@
 import { test } from 'node:test';
 import assert from 'node:assert';
 import { DriftChecker } from '../../main/ts/application/use-cases/drift-checker.js';
-import { MockFileSystem, MockGitRepository } from './mocks/index.js';
+import { MockFileSystem, MockGitRepository, createTestRepo } from './mocks/index.js';
 
 test('DriftChecker - reports dirty worktree tracked deletions and runtime artifacts', async () => {
-  const fs = new MockFileSystem();
-  const git = new MockGitRepository();
-  fs.files['/repo/README.md'] = '';
-  fs.files['/repo/arch.config.json'] = JSON.stringify({ version: '0.2.0' });
-  fs.files['/repo/docs/AGENTS.md'] = '';
-  fs.dirs['/repo/docs/tasks'] = [];
-  fs.dirs['/repo/docs/archive'] = [];
+  const { fs, git } = createTestRepo({
+    files: {
+      '/repo/README.md': '',
+      '/repo/arch.config.json': JSON.stringify({ version: '0.2.0' }),
+      '/repo/docs/AGENTS.md': '',
+    },
+    dirs: { '/repo/docs/tasks': [], '/repo/docs/archive': [] },
+  });
   git.statusLines = [' D docs/tasks/TASK-038.md', '?? .codex'];
 
   const checker = new DriftChecker(fs, git, '/repo', '0.2.0');
@@ -23,19 +24,18 @@ test('DriftChecker - reports dirty worktree tracked deletions and runtime artifa
 });
 
 test('DriftChecker - reports duplicated task ids across active and archive', async () => {
-  const fs = new MockFileSystem();
-  const git = new MockGitRepository();
-  fs.files['/repo/README.md'] = '';
-  fs.files['/repo/arch.config.json'] = JSON.stringify({ version: '0.2.0' });
-  fs.files['/repo/docs/AGENTS.md'] = '';
-  fs.dirs['/repo/docs/tasks'] = ['TASK-038.md', 'TASK-045.md'];
-  fs.dirs['/repo/docs/archive'] = ['TASK-038.md', 'TASK-047.md'];
-  
-  // Provide content for the files to avoid readFile returning undefined
-  fs.files['/repo/docs/tasks/TASK-038.md'] = '**Meta:** P1 | S | READY | Focus:no | 7-operations | local | none';
-  fs.files['/repo/docs/tasks/TASK-045.md'] = '**Meta:** P1 | S | READY | Focus:no | 7-operations | local | none';
-  fs.files['/repo/docs/archive/TASK-038.md'] = '**Meta:** P1 | S | DONE | Focus:no | 7-operations | local | none';
-  fs.files['/repo/docs/archive/TASK-047.md'] = '**Meta:** P1 | S | DONE | Focus:no | 7-operations | local | none';
+  const { fs, git } = createTestRepo({
+    files: {
+      '/repo/README.md': '',
+      '/repo/arch.config.json': JSON.stringify({ version: '0.2.0' }),
+      '/repo/docs/AGENTS.md': '',
+      '/repo/docs/tasks/TASK-038.md': '**Meta:** P1 | S | READY | Focus:no | 7-operations | local | none',
+      '/repo/docs/tasks/TASK-045.md': '**Meta:** P1 | S | READY | Focus:no | 7-operations | local | none',
+      '/repo/docs/archive/TASK-038.md': '**Meta:** P1 | S | DONE | Focus:no | 7-operations | local | none',
+      '/repo/docs/archive/TASK-047.md': '**Meta:** P1 | S | DONE | Focus:no | 7-operations | local | none',
+    },
+    dirs: { '/repo/docs/tasks': ['TASK-038.md', 'TASK-045.md'], '/repo/docs/archive': ['TASK-038.md', 'TASK-047.md'] },
+  });
 
   const checker = new DriftChecker(fs, git, '/repo', '0.2.0');
 

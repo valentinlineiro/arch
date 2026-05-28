@@ -8,7 +8,7 @@ import type { Task } from '../../main/ts/domain/models/task.js';
 
 // ── Shared Mocks ────────────────────────────────────────────────────────────
 
-class MockFileSystem {
+class TestFileSystem {
   files: Record<string, string> = {};
   async readFile(path: string): Promise<string> {
     if (path in this.files) return this.files[path];
@@ -33,7 +33,7 @@ class MockFileSystem {
   }
 }
 
-class MockTaskRepository {
+class TestTaskRepository {
   private tasks: Map<string, Task> = new Map();
   constructor(tasks: Task[] = []) {
     tasks.forEach(t => this.tasks.set(t.id, t));
@@ -46,7 +46,7 @@ class MockTaskRepository {
   async getNextId() { return 'TASK-999'; }
 }
 
-class MockGitRepository {
+class TestGitRepository {
   statusLines: string[] = [];
   lastCommitFiles: string[] = [];
   lastCommitHash = 'abc1234';
@@ -95,7 +95,7 @@ function makeTask(overrides: Partial<Task> = {}): Task {
 // ── Scenario (a): Protected path edit without ADR triggers drift violation ──
 
 test('EscalationMaturity E5 — (a) protected path modified without ADR causes EscalationMaturity WARN', async () => {
-  const fs = new MockFileSystem();
+  const fs = new TestFileSystem();
   fs.files['./arch.config.json'] = JSON.stringify({
     governance: { protectedPaths: ['docs/guidelines/'], negativeConstraints: [] },
   });
@@ -106,12 +106,12 @@ test('EscalationMaturity E5 — (a) protected path modified without ADR causes E
   fs.files['./.arch/focus-ledger.jsonl'] = '';
   fs.files['./docs/guidelines/core.md'] = '';
 
-  const git = new MockGitRepository();
+  const git = new TestGitRepository();
   // Simulating: docs/guidelines/core.md modified, no ADR added
   git.lastCommitFiles = ['docs/guidelines/core.md'];
   git.statusLines = ['M  docs/guidelines/core.md'];
 
-  const taskRepo = new MockTaskRepository([makeTask()]);
+  const taskRepo = new TestTaskRepository([makeTask()]);
 
   const checker = new DriftChecker(fs as any, git as any, '.', '0.6.0');
   const results = await checker.check();
@@ -135,7 +135,7 @@ test('EscalationMaturity E5 — (b) ambiguous task (missing class) blocked at ar
     rawMetaLine: '**Meta:** P2 | S | READY | Focus:yes | | local | none',
   });
 
-  const taskRepo = new MockTaskRepository([malformedTask]);
+  const taskRepo = new TestTaskRepository([malformedTask]);
   const markInProgress = new MarkTaskInProgress(taskRepo as any);
 
   await assert.rejects(
@@ -157,7 +157,7 @@ test('EscalationMaturity E5 — (b) ambiguous task (missing class) blocked at ar
 // ── Scenario: Unresolved halt in HALT-LOG causes HaltPolicy WARN ──────────
 
 test('EscalationMaturity E5 — unresolved halt entry causes HaltPolicy WARN', async () => {
-  const fs = new MockFileSystem();
+  const fs = new TestFileSystem();
   fs.files['./arch.config.json'] = JSON.stringify({
     governance: { protectedPaths: [], negativeConstraints: [] },
   });
@@ -168,8 +168,8 @@ test('EscalationMaturity E5 — unresolved halt entry causes HaltPolicy WARN', a
   fs.files['./docs/TASK-FORMAT.md'] = '';
   fs.files['./.arch/focus-ledger.jsonl'] = '';
 
-  const git = new MockGitRepository();
-  const taskRepo = new MockTaskRepository([makeTask()]);
+  const git = new TestGitRepository();
+  const taskRepo = new TestTaskRepository([makeTask()]);
 
   const checker = new DriftChecker(fs as any, git as any, '.', '0.6.0');
   const results = await checker.check();
@@ -186,7 +186,7 @@ test('EscalationMaturity E5 — unresolved halt entry causes HaltPolicy WARN', a
 // ── FocusStatusAlignment tests ─────────────────────────────────────────────
 
 test('FocusStatusAlignment — IN_PROGRESS + Focus:no → WARN', async () => {
-  const fs = new MockFileSystem();
+  const fs = new TestFileSystem();
   fs.files['./arch.config.json'] = JSON.stringify({ governance: { protectedPaths: [], negativeConstraints: [] } });
   fs.files['./docs/HALT-LOG.md'] = '# Halt Log\n| Timestamp | Type | Task ID | Reason | Resolution |\n|---|---|---|---|---|\n';
   fs.files['./docs/HALT.md'] = '| Condition | Trigger command | CLI exit code | HALT-LOG entry format |\n|---|---|---|---|\n| test | test | 1 | test |\n';
@@ -195,7 +195,7 @@ test('FocusStatusAlignment — IN_PROGRESS + Focus:no → WARN', async () => {
   fs.files['./docs/TASK-FORMAT.md'] = '';
   fs.files['./.arch/focus-ledger.jsonl'] = '';
 
-  const git = new MockGitRepository();
+  const git = new TestGitRepository();
   const checker = new DriftChecker(fs as any, git as any, '.', '0.6.0');
   const results = await checker.check();
 
@@ -206,7 +206,7 @@ test('FocusStatusAlignment — IN_PROGRESS + Focus:no → WARN', async () => {
 });
 
 test('FocusStatusAlignment — READY + Focus:yes → WARN', async () => {
-  const fs = new MockFileSystem();
+  const fs = new TestFileSystem();
   fs.files['./arch.config.json'] = JSON.stringify({ governance: { protectedPaths: [], negativeConstraints: [] } });
   fs.files['./docs/HALT-LOG.md'] = '# Halt Log\n| Timestamp | Type | Task ID | Reason | Resolution |\n|---|---|---|---|---|\n';
   fs.files['./docs/HALT.md'] = '| Condition | Trigger command | CLI exit code | HALT-LOG entry format |\n|---|---|---|---|\n| test | test | 1 | test |\n';
@@ -215,7 +215,7 @@ test('FocusStatusAlignment — READY + Focus:yes → WARN', async () => {
   fs.files['./docs/TASK-FORMAT.md'] = '';
   fs.files['./.arch/focus-ledger.jsonl'] = '';
 
-  const git = new MockGitRepository();
+  const git = new TestGitRepository();
   const checker = new DriftChecker(fs as any, git as any, '.', '0.6.0');
   const results = await checker.check();
 
@@ -226,7 +226,7 @@ test('FocusStatusAlignment — READY + Focus:yes → WARN', async () => {
 });
 
 test('FocusStatusAlignment — REVIEW + Focus:yes → OK (permitted)', async () => {
-  const fs = new MockFileSystem();
+  const fs = new TestFileSystem();
   fs.files['./arch.config.json'] = JSON.stringify({ governance: { protectedPaths: [], negativeConstraints: [] } });
   fs.files['./docs/HALT-LOG.md'] = '# Halt Log\n| Timestamp | Type | Task ID | Reason | Resolution |\n|---|---|---|---|---|\n';
   fs.files['./docs/HALT.md'] = '| Condition | Trigger command | CLI exit code | HALT-LOG entry format |\n|---|---|---|---|\n| test | test | 1 | test |\n';
@@ -235,7 +235,7 @@ test('FocusStatusAlignment — REVIEW + Focus:yes → OK (permitted)', async () 
   fs.files['./docs/TASK-FORMAT.md'] = '';
   fs.files['./.arch/focus-ledger.jsonl'] = '';
 
-  const git = new MockGitRepository();
+  const git = new TestGitRepository();
   const checker = new DriftChecker(fs as any, git as any, '.', '0.6.0');
   const results = await checker.check();
 
@@ -264,8 +264,8 @@ test('arch task next --verify — all passing cmd predicates emits PRE-IMPL warn
     filePath: 'docs/tasks/TASK-020.md',
   };
 
-  const taskRepo = new MockTaskRepository([taskWithCmdAC as any]);
-  const fs = new MockFileSystem();
+  const taskRepo = new TestTaskRepository([taskWithCmdAC as any]);
+  const fs = new TestFileSystem();
   // No INBOX timestamp — freshness check passes
   const command = new NextCommand(taskRepo as any, ['--verify'], undefined, fs as any, '.');
 
@@ -303,8 +303,8 @@ test('arch task next --verify — task with failing cmd predicate emits no PRE-I
     filePath: 'docs/tasks/TASK-021.md',
   };
 
-  const taskRepo = new MockTaskRepository([taskWithFailingAC as any]);
-  const fs = new MockFileSystem();
+  const taskRepo = new TestTaskRepository([taskWithFailingAC as any]);
+  const fs = new TestFileSystem();
   const command = new NextCommand(taskRepo as any, ['--verify'], undefined, fs as any, '.');
 
   const stderrChunks: string[] = [];

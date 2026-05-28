@@ -3,7 +3,7 @@ import assert from 'node:assert';
 import { IntentStatus } from '../../../main/ts/domain/models/intent.js';
 import { MarkdownIntentRepository } from '../../../main/ts/infrastructure/filesystem/markdown-intent-repository.js';
 
-class MockFileSystem {
+class StubFileSystem {
   files: Record<string, string> = {};
   directories: Record<string, string[]> = {};
   async readFile(path: string) { return this.files[path] ?? ''; }
@@ -30,14 +30,14 @@ test('IntentStatus has all required values', () => {
 });
 
 test('MarkdownIntentRepository.getNextId returns INTENT-001 when no intents exist', async () => {
-  const fs = new MockFileSystem();
+  const fs = new StubFileSystem();
   const repo = new MarkdownIntentRepository(fs as any);
   const id = await repo.getNextId();
   assert.equal(id, 'INTENT-001');
 });
 
 test('MarkdownIntentRepository.getNextId increments from existing files', async () => {
-  const fs = new MockFileSystem();
+  const fs = new StubFileSystem();
   fs.directories['docs/intents'] = ['INTENT-001.md', 'INTENT-002.md'];
   const repo = new MarkdownIntentRepository(fs as any);
   const id = await repo.getNextId();
@@ -45,7 +45,7 @@ test('MarkdownIntentRepository.getNextId increments from existing files', async 
 });
 
 test('MarkdownIntentRepository.save writes a file with correct frontmatter', async () => {
-  const fs = new MockFileSystem();
+  const fs = new StubFileSystem();
   const repo = new MarkdownIntentRepository(fs as any);
   await repo.save({
     id: 'INTENT-001',
@@ -67,7 +67,7 @@ test('MarkdownIntentRepository.save writes a file with correct frontmatter', asy
 });
 
 test('MarkdownIntentRepository.save includes recent_files when provided', async () => {
-  const fs = new MockFileSystem();
+  const fs = new StubFileSystem();
   const repo = new MarkdownIntentRepository(fs as any);
   await repo.save({
     id: 'INTENT-001',
@@ -87,7 +87,7 @@ test('MarkdownIntentRepository.save includes recent_files when provided', async 
 });
 
 test('MarkdownIntentRepository.save omits branch and cwd when undefined', async () => {
-  const fs = new MockFileSystem();
+  const fs = new StubFileSystem();
   const repo = new MarkdownIntentRepository(fs as any);
   await repo.save({
     id: 'INTENT-001',

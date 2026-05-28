@@ -2,7 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert';
 import { MarkTaskReview } from '../../main/ts/application/use-cases/mark-task-review.js';
 import { Task, TaskStatus, FocusLevel } from '../../main/ts/domain/models/task.js';
-import { TaskRepository } from '../../main/ts/domain/repositories/task-repository.js';
+import { MockTaskRepository } from './mocks/index.js';
 
 const validHansei = {
   severity: 'H1' as const,
@@ -33,22 +33,8 @@ function makeTask(overrides: Partial<Task> = {}): Task {
   };
 }
 
-class MockTaskRepository implements TaskRepository {
-  saved: Task | null = null;
-  private task: Task | null;
-
-  constructor(task: Task | null) { this.task = task; }
-  async getById(id: string) { return this.task?.id === id ? this.task : null; }
-  async getAll() { return this.task ? [this.task] : []; }
-  async getActive() { return this.task ? [this.task] : []; }
-  async findReady() { return []; }
-  async getNextId() { return 'TASK-001'; }
-  parseTask(_content: string): Task | null { return null; }
-  async save(task: Task) { this.saved = task; }
-}
-
 test('MarkTaskReview - throws when task not found', async () => {
-  const repo = new MockTaskRepository(null);
+  const repo = new MockTaskRepository();
   const useCase = new MarkTaskReview(repo, process.cwd());
 
   await assert.rejects(
@@ -59,7 +45,8 @@ test('MarkTaskReview - throws when task not found', async () => {
 
 test('MarkTaskReview - throws when task is not IN_PROGRESS', async () => {
   const task = makeTask({ status: TaskStatus.READY });
-  const repo = new MockTaskRepository(task);
+  const repo = new MockTaskRepository();
+  repo.tasks.push(task);
   const useCase = new MarkTaskReview(repo, process.cwd());
 
   await assert.rejects(
@@ -73,7 +60,8 @@ test('MarkTaskReview - blocks transition when predicate fails', async () => {
   const task = makeTask({
     content: '- [x] Command fails  →  cmd: false; exit: 0\n',
   });
-  const repo = new MockTaskRepository(task);
+  const repo = new MockTaskRepository();
+  repo.tasks.push(task);
   const useCase = new MarkTaskReview(repo, process.cwd());
 
   const result = await useCase.execute('TASK-031');
@@ -87,7 +75,8 @@ test('MarkTaskReview - sets status to REVIEW when all predicates pass', async ()
   const task = makeTask({
     content: '- [x] Command passes  →  cmd: true; exit: 0\n',
   });
-  const repo = new MockTaskRepository(task);
+  const repo = new MockTaskRepository();
+  repo.tasks.push(task);
   const useCase = new MarkTaskReview(repo, process.cwd());
 
   const result = await useCase.execute('TASK-031');
@@ -99,7 +88,8 @@ test('MarkTaskReview - sets status to REVIEW when all predicates pass', async ()
 
 test('MarkTaskReview - sets status to REVIEW when no predicates present', async () => {
   const task = makeTask();
-  const repo = new MockTaskRepository(task);
+  const repo = new MockTaskRepository();
+  repo.tasks.push(task);
   const useCase = new MarkTaskReview(repo, process.cwd());
 
   const result = await useCase.execute('TASK-031');

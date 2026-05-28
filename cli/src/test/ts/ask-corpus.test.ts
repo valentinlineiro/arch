@@ -3,7 +3,7 @@ import assert from 'node:assert';
 import { AskCorpus } from '../../main/ts/application/use-cases/ask-corpus.js';
 import { CausalGraph } from '../../main/ts/application/use-cases/causal-graph.js';
 
-class MockFileSystem {
+class CorpusFileSystem {
   private files: Map<string, string>;
 
   constructor(files: Record<string, string>) {
@@ -34,56 +34,56 @@ class MockFileSystem {
 // ── Tokenizer ──────────────────────────────────────────────────────────────
 
 test('tokenize strips stop words and short tokens', () => {
-  const corpus = new AskCorpus(new MockFileSystem({}), '/root');
+  const corpus = new AskCorpus(new CorpusFileSystem({}), '/root');
   assert.deepStrictEqual(corpus.tokenize('why do auth tasks fail?'), ['auth', 'tasks', 'fail']);
 });
 
 test('tokenize deduplicates', () => {
-  const corpus = new AskCorpus(new MockFileSystem({}), '/root');
+  const corpus = new AskCorpus(new CorpusFileSystem({}), '/root');
   assert.deepStrictEqual(corpus.tokenize('auth auth auth'), ['auth']);
 });
 
 test('tokenize returns empty for all-stop-words question', () => {
-  const corpus = new AskCorpus(new MockFileSystem({}), '/root');
+  const corpus = new AskCorpus(new CorpusFileSystem({}), '/root');
   assert.deepStrictEqual(corpus.tokenize('why is that the'), []);
 });
 
 // ── Query classification ───────────────────────────────────────────────────
 
 test('classifyQuery detects DEFINITIONAL', () => {
-  const corpus = new AskCorpus(new MockFileSystem({}), '/root');
+  const corpus = new AskCorpus(new CorpusFileSystem({}), '/root');
   assert.strictEqual(corpus.classifyQuery('What is the point of this repo?'), 'DEFINITIONAL');
   assert.strictEqual(corpus.classifyQuery('What is ARCH?'), 'DEFINITIONAL');
   assert.strictEqual(corpus.classifyQuery("What's the purpose of this system?"), 'DEFINITIONAL');
 });
 
 test('classifyQuery detects HISTORICAL', () => {
-  const corpus = new AskCorpus(new MockFileSystem({}), '/root');
+  const corpus = new AskCorpus(new CorpusFileSystem({}), '/root');
   assert.strictEqual(corpus.classifyQuery('Why did auth tasks fail last sprint?'), 'HISTORICAL');
   assert.strictEqual(corpus.classifyQuery('What caused the routing incident?'), 'HISTORICAL');
 });
 
 test('classifyQuery detects STRUCTURAL', () => {
-  const corpus = new AskCorpus(new MockFileSystem({}), '/root');
+  const corpus = new AskCorpus(new CorpusFileSystem({}), '/root');
   assert.strictEqual(corpus.classifyQuery('Where is provider routing defined?'), 'STRUCTURAL');
   assert.strictEqual(corpus.classifyQuery('Which file handles drift detection?'), 'STRUCTURAL');
 });
 
 test('classifyQuery detects PATTERN', () => {
-  const corpus = new AskCorpus(new MockFileSystem({}), '/root');
+  const corpus = new AskCorpus(new CorpusFileSystem({}), '/root');
   assert.strictEqual(corpus.classifyQuery('What keeps failing in review?'), 'PATTERN');
   assert.strictEqual(corpus.classifyQuery('Why do tasks keep getting blocked?'), 'PATTERN');
 });
 
 test('classifyQuery falls back to GENERAL', () => {
-  const corpus = new AskCorpus(new MockFileSystem({}), '/root');
+  const corpus = new AskCorpus(new CorpusFileSystem({}), '/root');
   assert.strictEqual(corpus.classifyQuery('context inference feedback loop'), 'GENERAL');
 });
 
 // ── Scoring with class multipliers ────────────────────────────────────────
 
 test('DEFINITIONAL query boosts IDENTITY.md over archive tasks', async () => {
-  const fs = new MockFileSystem({
+  const fs = new CorpusFileSystem({
     '/root/docs/IDENTITY.md': '## 1. Definition\n> ARCH is a git-native protocol. arch arch arch arch arch',
     '/root/docs/archive/TASK-001.md': 'arch arch arch arch arch arch arch arch',
   });
@@ -95,7 +95,7 @@ test('DEFINITIONAL query boosts IDENTITY.md over archive tasks', async () => {
 });
 
 test('HISTORICAL query boosts archive over IDENTITY', async () => {
-  const fs = new MockFileSystem({
+  const fs = new CorpusFileSystem({
     '/root/docs/IDENTITY.md': 'auth boundary auth auth auth auth auth auth auth',
     '/root/docs/archive/TASK-010.md': '## TASK-010: auth failure\nauth auth auth',
   });
@@ -108,7 +108,7 @@ test('HISTORICAL query boosts archive over IDENTITY', async () => {
 
 // TASK-942: answer removed from AskResult
 test('DEFINITIONAL query does not produce answer field (removed)', async () => {
-  const fs = new MockFileSystem({
+  const fs = new CorpusFileSystem({
     '/root/docs/IDENTITY.md': '# IDENTITY\n## 1. Definition\n> ARCH is a git-native operational protocol.\nThis sentence is frozen.\n## 2. Scope',
   });
   const corpus = new AskCorpus(fs, '/root');
@@ -120,12 +120,12 @@ test('DEFINITIONAL query does not produce answer field (removed)', async () => {
 // ── Core execution ─────────────────────────────────────────────────────────
 
 test('execute throws on empty keywords', async () => {
-  const corpus = new AskCorpus(new MockFileSystem({}), '/root');
+  const corpus = new AskCorpus(new CorpusFileSystem({}), '/root');
   await assert.rejects(() => corpus.execute('why is that'), /No searchable keywords/);
 });
 
 test('execute returns empty matches when no keywords hit', async () => {
-  const fs = new MockFileSystem({
+  const fs = new CorpusFileSystem({
     '/root/docs/archive/TASK-001.md': 'completely unrelated content here',
   });
   const corpus = new AskCorpus(fs, '/root');
@@ -138,13 +138,13 @@ test('execute caps matches at 10', async () => {
   for (let i = 1; i <= 15; i++) {
     files[`/root/docs/archive/TASK-${String(i).padStart(3, '0')}.md`] = `auth task number ${i}`;
   }
-  const corpus = new AskCorpus(new MockFileSystem(files), '/root');
+  const corpus = new AskCorpus(new CorpusFileSystem(files), '/root');
   const result = await corpus.execute('auth task');
   assert.ok(result.matches.length <= 10);
 });
 
 test('execute extracts task refs from matching files', async () => {
-  const fs = new MockFileSystem({
+  const fs = new CorpusFileSystem({
     '/root/docs/archive/TASK-010.md': '## TASK-010: auth failure\nauth failed. see TASK-031 and TASK-044 for prior occurrences.',
   });
   const corpus = new AskCorpus(fs, '/root');
@@ -155,7 +155,7 @@ test('execute extracts task refs from matching files', async () => {
 });
 
 test('execute extracts ADR refs from matching files', async () => {
-  const fs = new MockFileSystem({
+  const fs = new CorpusFileSystem({
     '/root/docs/adr/ADR-005.md': '## ADR-005: auth boundary\nauth boundary enforced per ADR-001 and ADR-003.',
   });
   const corpus = new AskCorpus(fs, '/root');
@@ -171,7 +171,7 @@ test('execute scopes entity refs to top-5 matches', async () => {
     files[`/root/docs/archive/TASK-${String(i).padStart(3, '0')}.md`] =
       `## TASK-${String(i).padStart(3, '0')}: auth\n` + 'auth '.repeat(i) + `ADR-${String(i).padStart(3, '0')} mentioned`;
   }
-  const corpus = new AskCorpus(new MockFileSystem(files), '/root');
+  const corpus = new AskCorpus(new CorpusFileSystem(files), '/root');
   const result = await corpus.execute('auth');
   assert.ok(!result.adrRefs.includes('ADR-001'));
   assert.ok(result.adrRefs.includes('ADR-006'));
@@ -183,14 +183,14 @@ test('AskResult recurringSignals is absent when no temporal index provided', asy
   for (let i = 1; i <= 5; i++) {
     files[`/root/docs/archive/TASK-${String(i).padStart(3, '0')}.md`] = `auth failure see TASK-099`;
   }
-  const corpus = new AskCorpus(new MockFileSystem(files), '/root');
+  const corpus = new AskCorpus(new CorpusFileSystem(files), '/root');
   const result = await corpus.execute('auth failure');
   assert.ok(!result.recurringSignals, 'recurringSignals must be absent when no temporal index is configured');
 });
 
 // TASK-942: causeGroups removed from AskResult
 test('AskResult does not include causeGroups field', async () => {
-  const fs = new MockFileSystem({
+  const fs = new CorpusFileSystem({
     '/root/docs/archive/TASK-010.md': '## TASK-010: auth failure\nauth failed due to missing coverage.',
     '/root/docs/archive/TASK-011.md': '## TASK-011: auth failure\nauth error: missing coverage in module.',
   });
@@ -201,7 +201,7 @@ test('AskResult does not include causeGroups field', async () => {
 
 // TASK-942: CORPUS_DIRS narrowed to archive + adr only
 test('CORPUS_DIRS does not scan docs/tasks or docs/guidelines', async () => {
-  const fs = new MockFileSystem({
+  const fs = new CorpusFileSystem({
     '/root/docs/tasks/TASK-888.md': 'auth task open',
     '/root/docs/guidelines/core.md': 'auth guidelines content',
     '/root/docs/archive/TASK-010.md': 'auth archive content',
@@ -217,7 +217,7 @@ test('CORPUS_DIRS does not scan docs/tasks or docs/guidelines', async () => {
 // ── Match reasons ──────────────────────────────────────────────────────────
 
 test('match reasons include keyword hit counts', async () => {
-  const fs = new MockFileSystem({
+  const fs = new CorpusFileSystem({
     '/root/docs/archive/TASK-010.md': '## TASK-010: auth\nauth auth auth failed.',
   });
   const corpus = new AskCorpus(fs, '/root');
@@ -227,7 +227,7 @@ test('match reasons include keyword hit counts', async () => {
 });
 
 test('match reasons include multiplier label when non-1', async () => {
-  const fs = new MockFileSystem({
+  const fs = new CorpusFileSystem({
     '/root/docs/archive/TASK-010.md': '## TASK-010: auth\nauth failed.',
   });
   const corpus = new AskCorpus(fs, '/root');
@@ -237,7 +237,7 @@ test('match reasons include multiplier label when non-1', async () => {
 });
 
 test('match reasons include ADR refs found in content', async () => {
-  const fs = new MockFileSystem({
+  const fs = new CorpusFileSystem({
     '/root/docs/adr/ADR-005.md': '## ADR-005: auth boundary\nauth boundary enforced per ADR-001.',
   });
   const corpus = new AskCorpus(fs, '/root');
@@ -249,7 +249,7 @@ test('match reasons include ADR refs found in content', async () => {
 // ── Section-priority excerpt ───────────────────────────────────────────────
 
 test('extractExcerpt prefers content after keyword-containing heading', async () => {
-  const fs = new MockFileSystem({
+  const fs = new CorpusFileSystem({
     '/root/docs/archive/TASK-010.md':
       '# Unrelated heading\nsome preamble\n## auth failure details\nThis is the real context.\n## other section\nother stuff',
   });
@@ -259,7 +259,7 @@ test('extractExcerpt prefers content after keyword-containing heading', async ()
 });
 
 test('extractExcerpt falls back to first non-heading keyword line', async () => {
-  const fs = new MockFileSystem({
+  const fs = new CorpusFileSystem({
     '/root/docs/archive/TASK-010.md': '# Title\nno keywords here\nauth failure happened here\nmore content',
   });
   const corpus = new AskCorpus(fs, '/root');
@@ -268,7 +268,7 @@ test('extractExcerpt falls back to first non-heading keyword line', async () => 
 });
 
 test('extractExcerpt falls back to first non-blank line when no keyword match', async () => {
-  const fs = new MockFileSystem({
+  const fs = new CorpusFileSystem({
     '/root/docs/archive/TASK-010.md': '\n\n# Task title\nauth description here',
   });
   const corpus = new AskCorpus(fs, '/root');
@@ -278,7 +278,7 @@ test('extractExcerpt falls back to first non-blank line when no keyword match', 
 
 // ── CausalGraph integration ────────────────────────────────────────────────
 
-class MutableMockFileSystem extends MockFileSystem {
+class MutableCorpusFileSystem extends CorpusFileSystem {
   constructor(files: Record<string, string>) { super(files); }
   async appendFile(path: string, content: string): Promise<void> {
     const existing = await this.readFile(path).catch(() => '');
@@ -288,7 +288,7 @@ class MutableMockFileSystem extends MockFileSystem {
 }
 
 test('causal graph boosts file with STRONG direct path to query entity', async () => {
-  const fs = new MutableMockFileSystem({
+  const fs = new MutableCorpusFileSystem({
     '/root/docs/archive/TASK-184.md': 'TASK-220 routing failure analysis',
     '/root/docs/archive/TASK-001.md': 'TASK-220 something else routing',
   });
@@ -309,7 +309,7 @@ test('causal graph boosts file with STRONG direct path to query entity', async (
 });
 
 test('causal graph does not boost file without direct path to query entity', async () => {
-  const fs = new MutableMockFileSystem({
+  const fs = new MutableCorpusFileSystem({
     '/root/docs/archive/TASK-001.md': 'routing problem description',
   });
   const graph = new CausalGraph(fs, '/root');
@@ -323,7 +323,7 @@ test('causal graph does not boost file without direct path to query entity', asy
 });
 
 test('causal graph does not activate when query has no entity refs', async () => {
-  const fs = new MutableMockFileSystem({
+  const fs = new MutableCorpusFileSystem({
     '/root/docs/archive/TASK-184.md': 'routing failure analysis in depth',
   });
   const graph = new CausalGraph(fs, '/root');

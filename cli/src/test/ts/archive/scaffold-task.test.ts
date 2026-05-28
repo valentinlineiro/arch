@@ -23,7 +23,7 @@ test('IntentRepository interface includes getById, update, findCaptured', () => 
   assert.ok(_typeCheck);
 });
 
-class MockFS {
+class StubFS {
   files: Record<string, string> = {};
   directories: Record<string, string[]> = {};
   deleted: string[] = [];
@@ -61,7 +61,7 @@ fix oauth callback session loss
 `;
 
 test('MarkdownIntentRepository.getById returns parsed intent', async () => {
-  const fs = new MockFS();
+  const fs = new StubFS();
   fs.directories['docs/intents'] = ['INTENT-001.md'];
   fs.files['docs/intents/INTENT-001.md'] = INTENT_MD;
   const repo = new MarkdownIntentRepository(fs as any);
@@ -73,7 +73,7 @@ test('MarkdownIntentRepository.getById returns parsed intent', async () => {
 });
 
 test('MarkdownIntentRepository.getById returns null for unknown id', async () => {
-  const fs = new MockFS();
+  const fs = new StubFS();
   fs.directories['docs/intents'] = [];
   const repo = new MarkdownIntentRepository(fs as any);
   const intent = await repo.getById('INTENT-999');
@@ -81,7 +81,7 @@ test('MarkdownIntentRepository.getById returns null for unknown id', async () =>
 });
 
 test('MarkdownIntentRepository.findCaptured returns only CAPTURED intents', async () => {
-  const fs = new MockFS();
+  const fs = new StubFS();
   fs.directories['docs/intents'] = ['INTENT-001.md', 'INTENT-002.md'];
   fs.files['docs/intents/INTENT-001.md'] = INTENT_MD;
   fs.files['docs/intents/INTENT-002.md'] = INTENT_MD.replace('status: CAPTURED', 'status: PROMOTED');
@@ -92,7 +92,7 @@ test('MarkdownIntentRepository.findCaptured returns only CAPTURED intents', asyn
 });
 
 test('MarkdownIntentRepository.update serializes status and promotedTo', async () => {
-  const fs = new MockFS();
+  const fs = new StubFS();
   fs.directories['docs/intents'] = ['INTENT-001.md'];
   fs.files['docs/intents/INTENT-001.md'] = INTENT_MD;
   const repo = new MarkdownIntentRepository(fs as any);
@@ -108,7 +108,7 @@ test('MarkdownIntentRepository.update serializes status and promotedTo', async (
 import { ScaffoldTask } from '../../../main/ts/application/use-cases/scaffold-task.js';
 import type { Task } from '../../../main/ts/domain/models/task.js';
 
-class MockIntentRepo {
+class StubIntentRepo {
   intents = [{
     id: 'INTENT-001',
     schemaVersion: 1,
@@ -128,7 +128,7 @@ class MockIntentRepo {
   async findCaptured() { return this.intents.filter(i => i.status === IntentStatus.CAPTURED); }
 }
 
-class MockTaskRepo {
+class StubTaskRepo {
   tasks: Task[] = [];
   async getNextId() { return 'TASK-212'; }
   async getAll() { return this.tasks; }
@@ -139,9 +139,9 @@ class MockTaskRepo {
 }
 
 test('ScaffoldTask writes a DRAFT task file with enrichment_phase: scaffolded', async () => {
-  const fs = new MockFS();
-  const intentRepo = new MockIntentRepo();
-  const taskRepo = new MockTaskRepo();
+  const fs = new StubFS();
+  const intentRepo = new StubIntentRepo();
+  const taskRepo = new StubTaskRepo();
   const useCase = new ScaffoldTask(intentRepo as any, taskRepo as any, fs as any);
 
   const result = await useCase.execute('INTENT-001');
@@ -158,10 +158,10 @@ test('ScaffoldTask writes a DRAFT task file with enrichment_phase: scaffolded', 
 });
 
 test('ScaffoldTask aborts if intent not CAPTURED', async () => {
-  const fs = new MockFS();
-  const intentRepo = new MockIntentRepo();
+  const fs = new StubFS();
+  const intentRepo = new StubIntentRepo();
   intentRepo.intents[0] = { ...intentRepo.intents[0], status: IntentStatus.PROMOTED };
-  const taskRepo = new MockTaskRepo();
+  const taskRepo = new StubTaskRepo();
   const useCase = new ScaffoldTask(intentRepo as any, taskRepo as any, fs as any);
 
   await assert.rejects(
@@ -171,10 +171,10 @@ test('ScaffoldTask aborts if intent not CAPTURED', async () => {
 });
 
 test('ScaffoldTask aborts if task file already exists', async () => {
-  const fs = new MockFS();
+  const fs = new StubFS();
   fs.files['docs/tasks/TASK-212.md'] = 'existing content';
-  const intentRepo = new MockIntentRepo();
-  const taskRepo = new MockTaskRepo();
+  const intentRepo = new StubIntentRepo();
+  const taskRepo = new StubTaskRepo();
   const useCase = new ScaffoldTask(intentRepo as any, taskRepo as any, fs as any);
 
   await assert.rejects(
@@ -184,10 +184,10 @@ test('ScaffoldTask aborts if task file already exists', async () => {
 });
 
 test('ScaffoldTask aborts if intent already has promotedTo', async () => {
-  const fs = new MockFS();
-  const intentRepo = new MockIntentRepo();
+  const fs = new StubFS();
+  const intentRepo = new StubIntentRepo();
   intentRepo.intents[0] = { ...intentRepo.intents[0], promotedTo: ['TASK-100'] };
-  const taskRepo = new MockTaskRepo();
+  const taskRepo = new StubTaskRepo();
   const useCase = new ScaffoldTask(intentRepo as any, taskRepo as any, fs as any);
 
   await assert.rejects(
@@ -197,10 +197,10 @@ test('ScaffoldTask aborts if intent already has promotedTo', async () => {
 });
 
 test('ScaffoldTask title is truncated to 60 chars when rawIntent is long', async () => {
-  const fs = new MockFS();
-  const intentRepo = new MockIntentRepo();
+  const fs = new StubFS();
+  const intentRepo = new StubIntentRepo();
   intentRepo.intents[0] = { ...intentRepo.intents[0], rawIntent: 'a'.repeat(80) };
-  const taskRepo = new MockTaskRepo();
+  const taskRepo = new StubTaskRepo();
   const useCase = new ScaffoldTask(intentRepo as any, taskRepo as any, fs as any);
 
   await useCase.execute('INTENT-001');

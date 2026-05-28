@@ -6,7 +6,7 @@ import { EventLogger } from '../../main/ts/domain/services/event-logger.js';
 import { MockFileSystem as BaseMockFileSystem, MockGitRepository } from './mocks/index.js';
 
 // Extended MockFileSystem to support existsResults override
-class MockFileSystem extends BaseMockFileSystem {
+class ExtendedMockFileSystem extends BaseMockFileSystem {
   existsResults: Record<string, boolean> = {};
 
   override async exists(path: string): Promise<boolean> {
@@ -16,7 +16,7 @@ class MockFileSystem extends BaseMockFileSystem {
 }
 
 test('ArchiveParser - parses task content with git history provenance', async () => {
-  const fs = new MockFileSystem();
+  const fs = new ExtendedMockFileSystem();
   const git = new MockGitRepository();
   const parser = new ArchiveParser(fs, git);
 
@@ -55,7 +55,7 @@ test('ArchiveParser - parses task content with git history provenance', async ()
 });
 
 test('MetricsEngine - calculates cycle time and integrity levels', async () => {
-  const fs = new MockFileSystem();
+  const fs = new ExtendedMockFileSystem();
   const git = new MockGitRepository();
   git.validHashes.add('abc');
   git.validHashes.add('def');
@@ -84,7 +84,7 @@ test('MetricsEngine - calculates cycle time and integrity levels', async () => {
 });
 
 test('MetricsEngine - Hostile: detects logistics-only archival (Attack Surface 1)', async () => {
-  const fs = new MockFileSystem();
+  const fs = new ExtendedMockFileSystem();
   const git = new MockGitRepository();
   fs.existsResults['docs/EVENTS.md'] = true;
   fs.files['docs/EVENTS.md'] = '# Event Log\n\n## 2026-05-13T09:00:00Z\nTASK-001 | REVIEW -> DONE | commit:abc\n';
@@ -103,7 +103,7 @@ test('MetricsEngine - Hostile: detects logistics-only archival (Attack Surface 1
 });
 
 test('MetricsEngine - Hostile: detects rewritten history (Attack Surface 2)', async () => {
-  const fs = new MockFileSystem();
+  const fs = new ExtendedMockFileSystem();
   const git = new MockGitRepository();
   fs.existsResults['docs/EVENTS.md'] = true;
   // TASK-001 event references commit 'bad-hash' which is NOT in git
@@ -120,7 +120,7 @@ test('MetricsEngine - Hostile: detects rewritten history (Attack Surface 2)', as
 });
 
 test('MetricsEngine - Hostile: detects ambiguous attribution (Attack Surface 3)', async () => {
-  const fs = new MockFileSystem();
+  const fs = new ExtendedMockFileSystem();
   const git = new MockGitRepository();
   fs.existsResults['docs/EVENTS.md'] = true;
   // TASK-001 has TWO DONE events (ambiguous attribution/laundering)
@@ -139,7 +139,7 @@ test('MetricsEngine - Hostile: detects ambiguous attribution (Attack Surface 3)'
 });
 
 test('MetricsEngine - detects chronological regression', async () => {
-  const fs = new MockFileSystem();
+  const fs = new ExtendedMockFileSystem();
   const git = new MockGitRepository();
   const engine = new MetricsEngine(fs, git);
 
@@ -158,7 +158,7 @@ TASK-002 | REVIEW -> READY
 });
 
 test('MetricsEngine - fails closed on malformed event log (Severity 2)', async () => {
-  const fs = new MockFileSystem();
+  const fs = new ExtendedMockFileSystem();
   const git = new MockGitRepository();
   const engine = new MetricsEngine(fs, git);
 
@@ -176,7 +176,7 @@ GARBAGE LINE
 });
 
 test('MetricsEngine - multiple DONE->DONE events use first, not INVALID', async () => {
-  const fs = new MockFileSystem();
+  const fs = new ExtendedMockFileSystem();
   const git = new MockGitRepository();
   fs.existsResults['docs/EVENTS.md'] = true;
   git.validHashes.add('abc');
@@ -202,7 +202,7 @@ test('MetricsEngine - multiple DONE->DONE events use first, not INVALID', async 
 });
 
 test('ArchiveParser - skips archived tasks with non-DONE status', async () => {
-  const fs = new MockFileSystem();
+  const fs = new ExtendedMockFileSystem();
   const git = new MockGitRepository();
   const parser = new ArchiveParser(fs, git);
 
@@ -218,7 +218,7 @@ test('ArchiveParser - skips archived tasks with non-DONE status', async () => {
 });
 
 test('EventLogger.append produces output parseable by MetricsEngine.loadEvents', async () => {
-  const fs = new MockFileSystem();
+  const fs = new ExtendedMockFileSystem();
   const git = new MockGitRepository();
   git.lastCommitHash = 'abc123';
   fs.existsResults['docs/EVENTS.md'] = true;

@@ -4,7 +4,7 @@ import { ThinkCommand } from '../../../main/ts/application/commands/think-comman
 import { IntentStatus } from '../../../main/ts/domain/models/intent.js';
 import type { Intent } from '../../../main/ts/domain/models/intent.js';
 
-class MockFS {
+class StubFS {
   files: Record<string, string> = {};
   directories: Record<string, string[]> = {};
   deleted: string[] = [];
@@ -54,7 +54,7 @@ superseded_by: []
 fix oauth callback session loss
 `;
 
-class MockIntentRepo {
+class StubIntentRepo {
   intents: Intent[] = [CAPTURED_INTENT];
   async getNextId() { return 'INTENT-001'; }
   async save(_i: Intent) {}
@@ -63,7 +63,7 @@ class MockIntentRepo {
   async findCaptured() { return this.intents.filter(i => i.status === IntentStatus.CAPTURED); }
 }
 
-class MockTaskRepo {
+class StubTaskRepo {
   async getNextId() { return 'TASK-212'; }
   async getAll() { return []; }
   async getActive() { return []; }
@@ -73,11 +73,11 @@ class MockTaskRepo {
 }
 
 test('ThinkCommand scaffolds a CAPTURED intent and logs scaffold created', async () => {
-  const fs = new MockFS();
+  const fs = new StubFS();
   fs.files['docs/intents/INTENT-001.md'] = INTENT_CONTENT;
   fs.directories['docs/tasks'] = [];
-  const intentRepo = new MockIntentRepo();
-  const taskRepo = new MockTaskRepo();
+  const intentRepo = new StubIntentRepo();
+  const taskRepo = new StubTaskRepo();
   const out: string[] = [];
 
   const cmd = new ThinkCommand(intentRepo as any, taskRepo as any, fs as any, (s) => out.push(s));
@@ -91,12 +91,12 @@ test('ThinkCommand scaffolds a CAPTURED intent and logs scaffold created', async
 });
 
 test('ThinkCommand skips scaffold if task already references the intent', async () => {
-  const fs = new MockFS();
+  const fs = new StubFS();
   fs.files['docs/intents/INTENT-001.md'] = INTENT_CONTENT;
   fs.files['docs/tasks/TASK-212.md'] = `## TASK-212: fix\n**Source:** INTENT-001\nenrichment_phase: scaffolded\n`;
   fs.directories['docs/tasks'] = ['TASK-212.md'];
-  const intentRepo = new MockIntentRepo();
-  const taskRepo = new MockTaskRepo();
+  const intentRepo = new StubIntentRepo();
+  const taskRepo = new StubTaskRepo();
   const out: string[] = [];
 
   const cmd = new ThinkCommand(intentRepo as any, taskRepo as any, fs as any, (s) => out.push(s));
@@ -109,7 +109,7 @@ test('ThinkCommand skips scaffold if task already references the intent', async 
 test('ThinkCommand with pending patch applies FinalizePromotion', async () => {
   const SCAFFOLD = `## TASK-212: fix oauth callback session loss\n\n**Meta:** P2 | M | DRAFT | Focus:no | 2-code-generation | claude-code | cli/src/main/ts/\n**Source:** INTENT-001\n**Depends:** none\n\n### Generation\n\nenrichment_phase: scaffolded\nscaffolded_by: arch-cli\nscaffolded_at: 2026-05-11T10:00:00Z\nenriched_by: ~\n\n### Objective\n\n_Awaiting agent enrichment_\n`;
 
-  const fs = new MockFS();
+  const fs = new StubFS();
   fs.files['docs/tasks/TASK-212.md'] = SCAFFOLD;
   fs.files['docs/intents/INTENT-001.md'] = INTENT_CONTENT;
   fs.files['.arch/pending/TASK-212-patch.json'] = JSON.stringify({
@@ -127,8 +127,8 @@ test('ThinkCommand with pending patch applies FinalizePromotion', async () => {
   fs.directories['docs/tasks'] = ['TASK-212.md'];
   fs.directories['.arch/pending'] = ['TASK-212-patch.json', 'INTENT-001-transition.json'];
 
-  const intentRepo = new MockIntentRepo();
-  const taskRepo = new MockTaskRepo();
+  const intentRepo = new StubIntentRepo();
+  const taskRepo = new StubTaskRepo();
   const out: string[] = [];
 
   const cmd = new ThinkCommand(intentRepo as any, taskRepo as any, fs as any, (s) => out.push(s));
@@ -143,7 +143,7 @@ test('ThinkCommand — stale lock is cleaned up and processing continues', async
   const SCAFFOLD = `## TASK-212: fix oauth\n\n**Meta:** P2 | M | DRAFT | Focus:no | 2-code-generation | claude-code | cli/src/main/ts/\n**Source:** INTENT-001\n**Depends:** none\n\n### Generation\n\nenrichment_phase: scaffolded\nscaffolded_by: arch-cli\nscaffolded_at: 2026-05-11T10:00:00Z\nenriched_by: ~\n\n### Objective\n\n_Awaiting agent enrichment_\n`;
 
   const staleTime = new Date(Date.now() - 6 * 60 * 1000).toISOString();
-  const fs = new MockFS();
+  const fs = new StubFS();
   fs.files['.arch/locks/TASK-212.lock'] = staleTime;
   fs.files['docs/tasks/TASK-212.md'] = SCAFFOLD;
   fs.files['docs/intents/INTENT-001.md'] = INTENT_CONTENT;
@@ -160,8 +160,8 @@ test('ThinkCommand — stale lock is cleaned up and processing continues', async
   fs.directories['docs/tasks'] = ['TASK-212.md'];
   fs.directories['.arch/pending'] = ['TASK-212-patch.json', 'INTENT-001-transition.json'];
 
-  const intentRepo = new MockIntentRepo();
-  const taskRepo = new MockTaskRepo();
+  const intentRepo = new StubIntentRepo();
+  const taskRepo = new StubTaskRepo();
   const out: string[] = [];
 
   const cmd = new ThinkCommand(intentRepo as any, taskRepo as any, fs as any, (s) => out.push(s));
@@ -173,11 +173,11 @@ test('ThinkCommand — stale lock is cleaned up and processing continues', async
 });
 
 test('ThinkCommand is idempotent — second run produces same task content', async () => {
-  const fs = new MockFS();
+  const fs = new StubFS();
   fs.files['docs/intents/INTENT-001.md'] = INTENT_CONTENT;
   fs.directories['docs/tasks'] = [];
-  const intentRepo = new MockIntentRepo();
-  const taskRepo = new MockTaskRepo();
+  const intentRepo = new StubIntentRepo();
+  const taskRepo = new StubTaskRepo();
 
   const cmd = new ThinkCommand(intentRepo as any, taskRepo as any, fs as any, () => {});
   await cmd.execute([]);
@@ -191,11 +191,11 @@ test('ThinkCommand is idempotent — second run produces same task content', asy
 });
 
 test('ThinkCommand processes specific intent when INTENT-ID provided', async () => {
-  const fs = new MockFS();
+  const fs = new StubFS();
   const intent2: Intent = { ...CAPTURED_INTENT, id: 'INTENT-002', rawIntent: 'second intent' };
-  const intentRepo = new MockIntentRepo();
+  const intentRepo = new StubIntentRepo();
   intentRepo.intents.push(intent2);
-  const taskRepo = new MockTaskRepo();
+  const taskRepo = new StubTaskRepo();
   const out: string[] = [];
 
   const cmd = new ThinkCommand(intentRepo as any, taskRepo as any, fs as any, (s) => out.push(s));
@@ -209,11 +209,11 @@ test('ThinkCommand processes specific intent when INTENT-ID provided', async () 
 
 // Invariant 11: Multi-intent isolation — one skipped/failed scaffold does not abort remaining intents
 test('ThinkCommand — multi-intent: one scaffold skip does not abort others', async () => {
-  const fs = new MockFS();
+  const fs = new StubFS();
   const intent1 = CAPTURED_INTENT;
   const intent2: Intent = { ...CAPTURED_INTENT, id: 'INTENT-002', rawIntent: 'second intent' };
 
-  const intentRepo = new MockIntentRepo();
+  const intentRepo = new StubIntentRepo();
   intentRepo.intents = [intent1, intent2];
 
   // Inline task repo: INTENT-001 is skipped (existing scaffold found), so only one getNextId call occurs for INTENT-002
@@ -241,7 +241,7 @@ test('ThinkCommand — multi-intent: one scaffold skip does not abort others', a
 });
 
 test('ThinkCommand injects context into scaffolded task file', async () => {
-  const fs = new MockFS();
+  const fs = new StubFS();
   // Minimal context index so ContextInference has something to work with
   fs.files['.arch/context-index.json'] = JSON.stringify({
     version: 5,
@@ -265,8 +265,8 @@ test('ThinkCommand injects context into scaffolded task file', async () => {
   fs.files['docs/intents/INTENT-001.md'] = INTENT_CONTENT;
   fs.directories['docs/tasks'] = [];
 
-  const intentRepo = new MockIntentRepo();
-  const taskRepo = new MockTaskRepo();
+  const intentRepo = new StubIntentRepo();
+  const taskRepo = new StubTaskRepo();
   const logs: string[] = [];
   const cmd = new ThinkCommand(intentRepo as any, taskRepo as any, fs as any, (s) => logs.push(s));
 
@@ -284,7 +284,7 @@ test('ThinkCommand injects context into scaffolded task file', async () => {
 // Invariant 5: Fresh lock causes skip
 test('ThinkCommand — fresh lock prevents processing', async () => {
   const freshTime = new Date().toISOString();
-  const fs = new MockFS();
+  const fs = new StubFS();
   fs.files['.arch/locks/TASK-212.lock'] = freshTime;
   fs.files['.arch/pending/TASK-212-patch.json'] = JSON.stringify({
     task_id: 'TASK-212', intent_id: 'INTENT-001', schema_version: 1,
@@ -298,9 +298,9 @@ test('ThinkCommand — fresh lock prevents processing', async () => {
   });
   fs.directories['.arch/pending'] = ['TASK-212-patch.json', 'INTENT-001-transition.json'];
 
-  const intentRepo = new MockIntentRepo();
+  const intentRepo = new StubIntentRepo();
   intentRepo.intents = []; // no captured intents
-  const taskRepo = new MockTaskRepo();
+  const taskRepo = new StubTaskRepo();
   const out: string[] = [];
 
   const cmd = new ThinkCommand(intentRepo as any, taskRepo as any, fs as any, (s) => out.push(s));

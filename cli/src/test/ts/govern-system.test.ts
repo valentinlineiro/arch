@@ -3,10 +3,18 @@ import assert from 'node:assert';
 import { GovernSystem } from '../../main/ts/application/use-cases/govern-system.js';
 import { TaskStatus, FocusLevel } from '../../main/ts/domain/models/task.js';
 import { parseLedger } from '../../main/ts/application/use-cases/focus-ledger.js';
+import { MockFileSystem, MockGitRepository } from './mocks/index.js';
 
 const TASK_META_READY_NO = `**Meta:** P2 | S | READY | Focus:no | 6-writing | local | docs/`;
 const TASK_META_READY_YES = `**Meta:** P2 | S | READY | Focus:yes | 6-writing | local | docs/`;
 const TASK_META_P1_NO = `**Meta:** P1 | S | READY | Focus:no | 6-writing | local | docs/`;
+
+const CONFIG = JSON.stringify({
+  version: '0.6.0',
+  minTicksBeforeSwitch: 2,
+  governance: { conductEveryN: 3 },
+  hanseiSinceTaskId: 195,
+});
 
 function makeTask(id: string, priority = 'P2', status = TaskStatus.READY, focus = false) {
   const focusStr = focus ? 'Focus:yes' : 'Focus:no';
@@ -31,63 +39,12 @@ function makeTask(id: string, priority = 'P2', status = TaskStatus.READY, focus 
   };
 }
 
-const CONFIG = JSON.stringify({
-  version: '0.6.0',
-  minTicksBeforeSwitch: 2,
-  governance: { conductEveryN: 3 },
-  hanseiSinceTaskId: 195,
-});
-
-class SpyFileSystem {
-  files: Record<string, string> = { 'arch.config.json': CONFIG };
-  dirs: Record<string, string[]> = {};
-  writeCalls: Array<{ path: string; content: string }> = [];
-
-  addFile(path: string, content: string) { this.files[path] = content; }
-
-  async readFile(p: string) {
-    if (!(p in this.files)) throw new Error(`File not found: ${p}`);
-    return this.files[p];
-  }
-  async writeFile(p: string, content: string) {
-    this.writeCalls.push({ path: p, content });
-    this.files[p] = content;
-  }
-  async exists(p: string) { return p in this.files || p in this.dirs; }
-  async readDirectory(p: string) { return this.dirs[p] ?? []; }
-  async rename() {}
-  async deleteFile(_p: string) {}
-  async appendFile(p: string, content: string) {
-    this.files[p] = (this.files[p] ?? '') + content;
-  }
-  async mkdir() {}
-}
-
-class SpyGitRepository {
-  addCalls: string[] = [];
-  commitCalls: string[] = [];
-  mvCalls: Array<{ src: string; dst: string }> = [];
-  tags: string[] = [];
-  pushArgs: string[][] = [];
-
-  async getDiff() { return ''; }
-  async getLastCommitMessage() { return 'chore: stub [TASK-001]'; }
-  async getCurrentBranch() { return 'main'; }
-  async getStatusLines() { return []; }
-  async getLog() { return ['chore: [THINK] session']; }
-  async add(path: string) { this.addCalls.push(path); }
-  async commit(msg: string) { this.commitCalls.push(msg); }
-  async getFileLastModifiedDate() { return new Date(); }
-  async getChangedFilesInLastCommit() { return []; }
-  async getMergeCommits() { return []; }
-  async rm() {}
-  async mv(src: string, dst: string) { this.mvCalls.push({ src, dst }); }
-  async tag(name: string) { this.tags.push(name); }
-  async push(args: string[] = []) { this.pushArgs.push(args); }
-}
-
-class FailingGitRepository extends SpyGitRepository {
-  async commit() { throw new Error('git commit failed: nothing to commit'); }
+function makeFs(extraFiles: Record<string, string> = {}, dirs: Record<string, string[]> = {}): MockFileSystem {
+  const fs = new MockFileSystem();
+  fs.files['arch.config.json'] = CONFIG;
+  Object.assign(fs.files, extraFiles);
+  Object.assign(fs.dirs, dirs);
+  return fs;
 }
 
 class SpyTaskRepository {
@@ -107,10 +64,9 @@ class SpyTaskRepository {
 
 test('assigns focus to top eligible task when no focus exists', async () => {
   const task = makeTask('TASK-042', 'P2');
-  const fs = new SpyFileSystem();
-  fs.addFile('docs/tasks/TASK-042.md', task.content);
+  const fs = makeFs({ 'docs/tasks/TASK-042.md': task.content });
   const repo = new SpyTaskRepository([task]);
-  const git = new SpyGitRepository();
+  const git = new MockGitRepository();
 
   const system = new GovernSystem(repo as any, git as any, fs as any);
   await system.execute();
@@ -128,9 +84,9 @@ test('assigns focus to top eligible task when no focus exists', async () => {
 
 test('no focus assignment when no eligible tasks', async () => {
   const task = makeTask('TASK-042', 'P2', TaskStatus.BLOCKED);
-  const fs = new SpyFileSystem();
+  const fs = makeFs();
   const repo = new SpyTaskRepository([task]);
-  const git = new SpyGitRepository();
+  const git = new MockGitRepository();
 
   const system = new GovernSystem(repo as any, git as any, fs as any);
   await system.execute();
@@ -144,20 +100,21 @@ test('preserves focus within inercia window when higher-priority task exists', a
   const p2task = makeTask('TASK-042', 'P2', TaskStatus.READY, true);
   const p1task = makeTask('TASK-043', 'P1', TaskStatus.READY, false);
 
-  const fs = new SpyFileSystem();
-  fs.addFile('docs/tasks/TASK-042.md', p2task.content);
-  fs.addFile('docs/tasks/TASK-043.md', p1task.content);
-
   // Ledger: TASK-042 acquired at tick 1, lastCommittedTick = 1
   // nextTick = 2, ticksSinceAcquired = 2 - 1 = 1 < minTicksBeforeSwitch(2) → preserve
   const ledgerContent = [
     JSON.stringify({ meta: true, lastCommittedTick: 1 }),
     JSON.stringify({ tick: 1, taskId: 'TASK-042', action: 'FOCUS_ACQUIRED', timestamp: '2026-01-01T00:00:00Z' }),
   ].join('\n') + '\n';
-  fs.addFile('.arch/focus-ledger.jsonl', ledgerContent);
+
+  const fs = makeFs({
+    'docs/tasks/TASK-042.md': p2task.content,
+    'docs/tasks/TASK-043.md': p1task.content,
+    '.arch/focus-ledger.jsonl': ledgerContent,
+  });
 
   const repo = new SpyTaskRepository([p2task, p1task]);
-  const git = new SpyGitRepository();
+  const git = new MockGitRepository();
 
   const system = new GovernSystem(repo as any, git as any, fs as any);
   await system.execute();
@@ -176,10 +133,6 @@ test('preempts lower-priority task after inercia window expires', async () => {
   const p2task = makeTask('TASK-042', 'P2', TaskStatus.READY, true);
   const p1task = makeTask('TASK-043', 'P1', TaskStatus.READY, false);
 
-  const fs = new SpyFileSystem();
-  fs.addFile('docs/tasks/TASK-042.md', p2task.content);
-  fs.addFile('docs/tasks/TASK-043.md', p1task.content);
-
   // Ledger: TASK-042 acquired at tick 1, lastCommittedTick = 3
   // nextTick = 4, ticksSinceAcquired = 4 - 1 = 3 >= minTicksBeforeSwitch(2) → preempt
   const ledgerContent = [
@@ -188,10 +141,15 @@ test('preempts lower-priority task after inercia window expires', async () => {
     JSON.stringify({ tick: 2, taskId: 'TASK-042', action: 'FOCUS_PRESERVED', timestamp: '2026-01-01T01:00:00Z' }),
     JSON.stringify({ tick: 3, taskId: 'TASK-042', action: 'FOCUS_PRESERVED', timestamp: '2026-01-01T02:00:00Z' }),
   ].join('\n') + '\n';
-  fs.addFile('.arch/focus-ledger.jsonl', ledgerContent);
+
+  const fs = makeFs({
+    'docs/tasks/TASK-042.md': p2task.content,
+    'docs/tasks/TASK-043.md': p1task.content,
+    '.arch/focus-ledger.jsonl': ledgerContent,
+  });
 
   const repo = new SpyTaskRepository([p2task, p1task]);
-  const git = new SpyGitRepository();
+  const git = new MockGitRepository();
 
   const system = new GovernSystem(repo as any, git as any, fs as any);
   await system.execute();
@@ -209,13 +167,13 @@ test('preempts lower-priority task after inercia window expires', async () => {
 
 test('emits INTEGRITY_FIX and clears focus when Focus:yes has no acquisition ruling', async () => {
   const task = makeTask('TASK-042', 'P2', TaskStatus.READY, true);
-  const fs = new SpyFileSystem();
-  fs.addFile('docs/tasks/TASK-042.md', task.content);
-  // Empty ledger — no FOCUS_ACQUIRED ruling
-  fs.addFile('.arch/focus-ledger.jsonl', JSON.stringify({ meta: true, lastCommittedTick: 0 }) + '\n');
+  const fs = makeFs({
+    'docs/tasks/TASK-042.md': task.content,
+    '.arch/focus-ledger.jsonl': JSON.stringify({ meta: true, lastCommittedTick: 0 }) + '\n',
+  });
 
   const repo = new SpyTaskRepository([task]);
-  const git = new SpyGitRepository();
+  const git = new MockGitRepository();
 
   const system = new GovernSystem(repo as any, git as any, fs as any);
   await system.execute();
@@ -235,12 +193,13 @@ test('blocked task (status BLOCKED) is not eligible for focus', async () => {
   const blocked = makeTask('TASK-042', 'P1', TaskStatus.BLOCKED);
   const ready = makeTask('TASK-043', 'P2', TaskStatus.READY);
 
-  const fs = new SpyFileSystem();
-  fs.addFile('docs/tasks/TASK-042.md', blocked.content);
-  fs.addFile('docs/tasks/TASK-043.md', ready.content);
+  const fs = makeFs({
+    'docs/tasks/TASK-042.md': blocked.content,
+    'docs/tasks/TASK-043.md': ready.content,
+  });
 
   const repo = new SpyTaskRepository([blocked, ready]);
-  const git = new SpyGitRepository();
+  const git = new MockGitRepository();
 
   const system = new GovernSystem(repo as any, git as any, fs as any);
   await system.execute();
@@ -253,12 +212,13 @@ test('task with unresolved dependency is not eligible for focus', async () => {
   const dep = makeTask('TASK-001', 'P0', TaskStatus.READY);
   const task = { ...makeTask('TASK-042', 'P1', TaskStatus.READY), depends: ['TASK-001'] };
 
-  const fs = new SpyFileSystem();
-  fs.addFile('docs/tasks/TASK-042.md', task.content);
-  fs.addFile('docs/tasks/TASK-001.md', dep.content);
+  const fs = makeFs({
+    'docs/tasks/TASK-042.md': task.content,
+    'docs/tasks/TASK-001.md': dep.content,
+  });
 
   const repo = new SpyTaskRepository([task, dep]);
-  const git = new SpyGitRepository();
+  const git = new MockGitRepository();
 
   const system = new GovernSystem(repo as any, git as any, fs as any);
   await system.execute();
@@ -276,10 +236,11 @@ test('archiveDoneTasks blocks auto-archiving post-rollout DONE task without Hans
     ...makeTask('TASK-195', 'P1', TaskStatus.DONE),
     rawMetaLine: '**Meta:** P1 | M | DONE | Focus:no | 2-code-generation | claude-code | docs/',
   };
-  const fs = new SpyFileSystem();
-  fs.addFile('docs/tasks/TASK-195.md', '## TASK-195: Missing Hansei\n**Meta:** P1 | M | DONE | Focus:no | 2-code-generation | claude-code | docs/\n');
+  const fs = makeFs({
+    'docs/tasks/TASK-195.md': '## TASK-195: Missing Hansei\n**Meta:** P1 | M | DONE | Focus:no | 2-code-generation | claude-code | docs/\n',
+  });
   const repo = new SpyTaskRepository([task]);
-  const git = new SpyGitRepository();
+  const git = new MockGitRepository();
 
   const system = new GovernSystem(repo as any, git as any, fs as any);
   await assert.rejects(
@@ -295,11 +256,12 @@ test('archiveDoneTasks appends ANDON_HALT to INBOX.md on Hansei violation', asyn
     ...makeTask('TASK-195', 'P1', TaskStatus.DONE),
     rawMetaLine: '**Meta:** P1 | M | DONE | Focus:no | 2-code-generation | claude-code | docs/',
   };
-  const fs = new SpyFileSystem();
-  fs.addFile('docs/tasks/TASK-195.md', '## TASK-195: Missing Hansei\n**Meta:** P1 | M | DONE | Focus:no | 2-code-generation | claude-code | docs/\n');
-  fs.addFile('docs/INBOX.md', '# INBOX\n');
+  const fs = makeFs({
+    'docs/tasks/TASK-195.md': '## TASK-195: Missing Hansei\n**Meta:** P1 | M | DONE | Focus:no | 2-code-generation | claude-code | docs/\n',
+    'docs/INBOX.md': '# INBOX\n',
+  });
   const repo = new SpyTaskRepository([task]);
-  const git = new SpyGitRepository();
+  const git = new MockGitRepository();
 
   const system = new GovernSystem(repo as any, git as any, fs as any);
   await assert.rejects(() => system.execute(), /missing ## Hansei section/);
@@ -313,39 +275,37 @@ test('archiveDoneTasks appends ANDON_HALT to INBOX.md on Hansei violation', asyn
 
 test('govern tick updates METRICS.md Trusted section', async () => {
   const task = makeTask('TASK-042', 'P2');
-  const fs = new SpyFileSystem();
-  fs.addFile('docs/tasks/TASK-042.md', task.content);
-  // Seed METRICS.md with parseable Trusted rows
-  fs.addFile('docs/METRICS.md', [
-    '# ARCH Metrics',
-    '<!-- GENERATED:START -->',
-    '## Operational Metrics',
-    '',
-    '*Last updated: 2026-01-01T00:00:00.000Z*',
-    '',
-    '### Trusted Metrics',
-    '',
-    '| Metric | Value | Notes |',
-    '|--------|-------|-------|',
-    '| **Completed Tasks** | 10 | total archived |',
-    '| **REVIEW_FAIL Rate** | 0.0% | rejected / total review exits |',
-    '',
-    '### Cycle Time (P50/P90)',
-    '',
-    '| Size | P50 | P90 | Count |',
-    '|------|-----|-----|-------|',
-    '',
-    '### Experimental Metrics',
-    '',
-    '> Confidence placeholder',
-    '',
-    '<!-- GENERATED:END -->',
-  ].join('\n'));
-  // Seed archive dir with 3 .md files so completedTasks = 3
-  fs.dirs['docs/archive'] = ['T1.md', 'T2.md', 'T3.md'];
+  const fs = makeFs({
+    'docs/tasks/TASK-042.md': task.content,
+    'docs/METRICS.md': [
+      '# ARCH Metrics',
+      '<!-- GENERATED:START -->',
+      '## Operational Metrics',
+      '',
+      '*Last updated: 2026-01-01T00:00:00.000Z*',
+      '',
+      '### Trusted Metrics',
+      '',
+      '| Metric | Value | Notes |',
+      '|--------|-------|-------|',
+      '| **Completed Tasks** | 10 | total archived |',
+      '| **REVIEW_FAIL Rate** | 0.0% | rejected / total review exits |',
+      '',
+      '### Cycle Time (P50/P90)',
+      '',
+      '| Size | P50 | P90 | Count |',
+      '|------|-----|-----|-------|',
+      '',
+      '### Experimental Metrics',
+      '',
+      '> Confidence placeholder',
+      '',
+      '<!-- GENERATED:END -->',
+    ].join('\n'),
+  }, { 'docs/archive': ['T1.md', 'T2.md', 'T3.md'] });
 
   const repo = new SpyTaskRepository([task]);
-  const git = new SpyGitRepository();
+  const git = new MockGitRepository();
 
   const system = new GovernSystem(repo as any, git as any, fs as any);
   await system.execute();
@@ -357,12 +317,11 @@ test('govern tick updates METRICS.md Trusted section', async () => {
 
 test('govern tick continues when metrics refresh fails', async () => {
   const task = makeTask('TASK-042', 'P2');
-  const fs = new SpyFileSystem();
-  fs.addFile('docs/tasks/TASK-042.md', task.content);
+  const fs = makeFs({ 'docs/tasks/TASK-042.md': task.content });
   // No METRICS.md — refresh will throw, but govern must not fail
 
   const repo = new SpyTaskRepository([task]);
-  const git = new SpyGitRepository();
+  const git = new MockGitRepository();
 
   const system = new GovernSystem(repo as any, git as any, fs as any);
   // Should not throw even though refresh will fail (METRICS.md missing)
@@ -374,21 +333,21 @@ test('govern tick continues when metrics refresh fails', async () => {
 
 test('govern surfaces deep analysis due when cadence threshold reached', async () => {
   const task = makeTask('TASK-042', 'P2');
-  const fs = new SpyFileSystem();
-  fs.addFile('docs/tasks/TASK-042.md', task.content);
 
   // Seed ledger at tick 6
   const ledgerContent = [
     JSON.stringify({ meta: true, lastCommittedTick: 6 }),
     JSON.stringify({ tick: 1, taskId: 'TASK-042', action: 'FOCUS_ACQUIRED', timestamp: '2026-01-01T00:00:00Z' }),
   ].join('\n') + '\n';
-  fs.addFile('.arch/focus-ledger.jsonl', ledgerContent);
 
-  // Seed deep analysis state at tick 1 — 6-1=5 >= 5 → due
-  fs.addFile('.arch/deep-analysis-state.json', JSON.stringify({ lastDeepRunTick: 1, lastDeepRunTimestamp: '2026-05-01T00:00:00Z' }));
+  const fs = makeFs({
+    'docs/tasks/TASK-042.md': task.content,
+    '.arch/focus-ledger.jsonl': ledgerContent,
+    '.arch/deep-analysis-state.json': JSON.stringify({ lastDeepRunTick: 1, lastDeepRunTimestamp: '2026-05-01T00:00:00Z' }),
+  });
 
   const repo = new SpyTaskRepository([task]);
-  const git = new SpyGitRepository();
+  const git = new MockGitRepository();
 
   const system = new GovernSystem(repo as any, git as any, fs as any);
   const result = await system.execute();
@@ -398,21 +357,21 @@ test('govern surfaces deep analysis due when cadence threshold reached', async (
 
 test('govern does not surface deep analysis due when within cadence window', async () => {
   const task = makeTask('TASK-042', 'P2');
-  const fs = new SpyFileSystem();
-  fs.addFile('docs/tasks/TASK-042.md', task.content);
 
   // Seed ledger at tick 4
   const ledgerContent = [
     JSON.stringify({ meta: true, lastCommittedTick: 4 }),
     JSON.stringify({ tick: 1, taskId: 'TASK-042', action: 'FOCUS_ACQUIRED', timestamp: '2026-01-01T00:00:00Z' }),
   ].join('\n') + '\n';
-  fs.addFile('.arch/focus-ledger.jsonl', ledgerContent);
 
-  // Seed deep analysis state at tick 1 — 4-1=3 < 5 → not due
-  fs.addFile('.arch/deep-analysis-state.json', JSON.stringify({ lastDeepRunTick: 1, lastDeepRunTimestamp: '2026-05-01T00:00:00Z' }));
+  const fs = makeFs({
+    'docs/tasks/TASK-042.md': task.content,
+    '.arch/focus-ledger.jsonl': ledgerContent,
+    '.arch/deep-analysis-state.json': JSON.stringify({ lastDeepRunTick: 1, lastDeepRunTimestamp: '2026-05-01T00:00:00Z' }),
+  });
 
   const repo = new SpyTaskRepository([task]);
-  const git = new SpyGitRepository();
+  const git = new MockGitRepository();
 
   const system = new GovernSystem(repo as any, git as any, fs as any);
   const result = await system.execute();
@@ -422,19 +381,16 @@ test('govern does not surface deep analysis due when within cadence window', asy
 
 test('govern surfaces deep analysis due when weak signal is overdue', async () => {
   const task = makeTask('TASK-042', 'P2');
-  const fs = new SpyFileSystem();
-  fs.addFile('docs/tasks/TASK-042.md', task.content);
 
-  // Seed deep analysis state as recent (not cadence-due)
-  const ledgerContent = JSON.stringify({ meta: true, lastCommittedTick: 2 }) + '\n';
-  fs.addFile('.arch/focus-ledger.jsonl', ledgerContent);
-  fs.addFile('.arch/deep-analysis-state.json', JSON.stringify({ lastDeepRunTick: 1, lastDeepRunTimestamp: '2026-05-14T00:00:00Z' }));
-
-  // Seed weak signals with a past-due date
-  fs.addFile('docs/tensions/weak-signals.md', '**Adjudicate by:** 2026-01-01 (past deadline)');
+  const fs = makeFs({
+    'docs/tasks/TASK-042.md': task.content,
+    '.arch/focus-ledger.jsonl': JSON.stringify({ meta: true, lastCommittedTick: 2 }) + '\n',
+    '.arch/deep-analysis-state.json': JSON.stringify({ lastDeepRunTick: 1, lastDeepRunTimestamp: '2026-05-14T00:00:00Z' }),
+    'docs/tensions/weak-signals.md': '**Adjudicate by:** 2026-01-01 (past deadline)',
+  });
 
   const repo = new SpyTaskRepository([task]);
-  const git = new SpyGitRepository();
+  const git = new MockGitRepository();
 
   const system = new GovernSystem(repo as any, git as any, fs as any);
   const result = await system.execute();
@@ -467,10 +423,9 @@ function makeDoneTask(id: string) {
 
 test('govern stages focus-flag task file in the FOCUS_ACQUIRED commit', async () => {
   const task = makeTask('TASK-042', 'P2');
-  const fs = new SpyFileSystem();
-  fs.addFile('docs/tasks/TASK-042.md', task.content);
+  const fs = makeFs({ 'docs/tasks/TASK-042.md': task.content });
   const repo = new SpyTaskRepository([task]);
-  const git = new SpyGitRepository();
+  const git = new MockGitRepository();
 
   const system = new GovernSystem(repo as any, git as any, fs as any);
   await system.execute();
@@ -483,11 +438,12 @@ test('govern stages focus-flag task file in the FOCUS_ACQUIRED commit', async ()
 
 test('govern stages archived task file (including working-tree edits) in archive commit', async () => {
   const task = makeDoneTask('TASK-099');
-  const fs = new SpyFileSystem();
-  fs.addFile('docs/tasks/TASK-099.md', task.content);
-  fs.addFile('.arch/corpus-index.json', '{}');
+  const fs = makeFs({
+    'docs/tasks/TASK-099.md': task.content,
+    '.arch/corpus-index.json': '{}',
+  });
   const repo = new SpyTaskRepository([task]);
-  const git = new SpyGitRepository();
+  const git = new MockGitRepository();
 
   const system = new GovernSystem(repo as any, git as any, fs as any);
   await system.execute();
@@ -512,11 +468,6 @@ test('yields focus to READY task when IN_PROGRESS task exceeds stale threshold',
   const inProgress = makeTask('TASK-100', 'P2', TaskStatus.IN_PROGRESS, true);
   const ready = makeTask('TASK-101', 'P2', TaskStatus.READY, false);
 
-  const fs = new SpyFileSystem();
-  fs.addFile('arch.config.json', staleConfig);
-  fs.addFile('docs/tasks/TASK-100.md', inProgress.content);
-  fs.addFile('docs/tasks/TASK-101.md', ready.content);
-
   // Ledger: TASK-100 acquired at tick 1, lastCommittedTick = 4 → ticksSinceAcquired = 4 >= 3
   const ledgerContent = [
     JSON.stringify({ meta: true, lastCommittedTick: 4 }),
@@ -525,10 +476,16 @@ test('yields focus to READY task when IN_PROGRESS task exceeds stale threshold',
     JSON.stringify({ tick: 3, taskId: 'TASK-100', action: 'FOCUS_PRESERVED', timestamp: '2026-01-01T02:00:00Z' }),
     JSON.stringify({ tick: 4, taskId: 'TASK-100', action: 'FOCUS_PRESERVED', timestamp: '2026-01-01T03:00:00Z' }),
   ].join('\n') + '\n';
-  fs.addFile('.arch/focus-ledger.jsonl', ledgerContent);
+
+  const fs = makeFs({
+    'arch.config.json': staleConfig,
+    'docs/tasks/TASK-100.md': inProgress.content,
+    'docs/tasks/TASK-101.md': ready.content,
+    '.arch/focus-ledger.jsonl': ledgerContent,
+  });
 
   const repo = new SpyTaskRepository([inProgress, ready]);
-  const git = new SpyGitRepository();
+  const git = new MockGitRepository();
 
   const system = new GovernSystem(repo as any, git as any, fs as any);
   await system.execute();
@@ -558,13 +515,6 @@ test('does not append duplicate STALE_TASK to INBOX when already present', async
 
   const inProgress = makeTask('TASK-100', 'P2', TaskStatus.IN_PROGRESS, true);
 
-  const fs = new SpyFileSystem();
-  fs.addFile('arch.config.json', staleConfig);
-  fs.addFile('docs/tasks/TASK-100.md', inProgress.content);
-
-  // Pre-existing STALE_TASK entry for TASK-100
-  fs.addFile('docs/INBOX.md', '\n## [2026-01-01 00:00] [STALE_TASK] TASK-100 | TASK-100\nEvidence: stale\n');
-
   const ledgerContent = [
     JSON.stringify({ meta: true, lastCommittedTick: 4 }),
     JSON.stringify({ tick: 1, taskId: 'TASK-100', action: 'FOCUS_ACQUIRED', timestamp: '2026-01-01T00:00:00Z' }),
@@ -572,10 +522,16 @@ test('does not append duplicate STALE_TASK to INBOX when already present', async
     JSON.stringify({ tick: 3, taskId: 'TASK-100', action: 'FOCUS_PRESERVED', timestamp: '2026-01-01T02:00:00Z' }),
     JSON.stringify({ tick: 4, taskId: 'TASK-100', action: 'FOCUS_PRESERVED', timestamp: '2026-01-01T03:00:00Z' }),
   ].join('\n') + '\n';
-  fs.addFile('.arch/focus-ledger.jsonl', ledgerContent);
+
+  const fs = makeFs({
+    'arch.config.json': staleConfig,
+    'docs/tasks/TASK-100.md': inProgress.content,
+    'docs/INBOX.md': '\n## [2026-01-01 00:00] [STALE_TASK] TASK-100 | TASK-100\nEvidence: stale\n',
+    '.arch/focus-ledger.jsonl': ledgerContent,
+  });
 
   const repo = new SpyTaskRepository([inProgress]);
-  const git = new SpyGitRepository();
+  const git = new MockGitRepository();
 
   const system = new GovernSystem(repo as any, git as any, fs as any);
   await system.execute();
@@ -596,10 +552,6 @@ test('does not mark task stale when ticksSinceAcquired is below threshold', asyn
 
   const inProgress = makeTask('TASK-100', 'P2', TaskStatus.IN_PROGRESS, true);
 
-  const fs = new SpyFileSystem();
-  fs.addFile('arch.config.json', staleConfig);
-  fs.addFile('docs/tasks/TASK-100.md', inProgress.content);
-
   // Acquired 3 ticks ago — below threshold of 10
   const ledgerContent = [
     JSON.stringify({ meta: true, lastCommittedTick: 3 }),
@@ -607,10 +559,15 @@ test('does not mark task stale when ticksSinceAcquired is below threshold', asyn
     JSON.stringify({ tick: 2, taskId: 'TASK-100', action: 'FOCUS_PRESERVED', timestamp: '2026-01-01T01:00:00Z' }),
     JSON.stringify({ tick: 3, taskId: 'TASK-100', action: 'FOCUS_PRESERVED', timestamp: '2026-01-01T02:00:00Z' }),
   ].join('\n') + '\n';
-  fs.addFile('.arch/focus-ledger.jsonl', ledgerContent);
+
+  const fs = makeFs({
+    'arch.config.json': staleConfig,
+    'docs/tasks/TASK-100.md': inProgress.content,
+    '.arch/focus-ledger.jsonl': ledgerContent,
+  });
 
   const repo = new SpyTaskRepository([inProgress]);
-  const git = new SpyGitRepository();
+  const git = new MockGitRepository();
 
   const system = new GovernSystem(repo as any, git as any, fs as any);
   await system.execute();
@@ -624,15 +581,13 @@ test('does not mark task stale when ticksSinceAcquired is below threshold', asyn
 
 test('govern commits materialized report files (README, ROADMAP, METRICS, status-projection)', async () => {
   const task = makeTask('TASK-042', 'P2');
-  const fs = new SpyFileSystem();
-  fs.addFile('docs/tasks/TASK-042.md', task.content);
+  const fs = makeFs({ 'docs/tasks/TASK-042.md': task.content });
   const repo = new SpyTaskRepository([task]);
-  const git = new SpyGitRepository();
+  const git = new MockGitRepository();
 
   const system = new GovernSystem(repo as any, git as any, fs as any);
   await system.execute();
 
-  const stagedOrCommitted = [...git.addCalls, ...git.commitCalls.join(' ').split(' ')];
   const reportFiles = ['README.md', 'docs/ROADMAP.md', 'docs/METRICS.md', '.arch/status-projection.json'];
   for (const f of reportFiles) {
     assert.ok(
@@ -661,9 +616,9 @@ function makeSprintCloseFs(opts: {
   version: string;
   nextVersionBump?: string;
   belowThreshold?: boolean;
-}): { fs: SpyFileSystem; repo: SpyTaskRepository; git: SpyGitRepository } {
+}): { fs: MockFileSystem; repo: SpyTaskRepository; git: MockGitRepository } {
   const { version, nextVersionBump, belowThreshold = false } = opts;
-  const fs = new SpyFileSystem();
+  const fs = new MockFileSystem();
 
   // Use sprintCloseAfterN = 1 for trigger tests; 5 for below-threshold test
   const sprintCloseAfterN = belowThreshold ? 5 : 1;
@@ -731,7 +686,7 @@ function makeSprintCloseFs(opts: {
     filePath: 'docs/tasks/TASK-001.md',
   };
   const repo = new SpyTaskRepository([doneTask]);
-  const git = new SpyGitRepository();
+  const git = new MockGitRepository();
   return { fs, repo, git };
 }
 
@@ -809,10 +764,11 @@ test('sprint close: threshold not reached — no version bump or tag', async () 
 
 // ── AWAITING_REVIEW emit tests ────────────────────────────────────────────────
 
-function makeReviewFs(tasks: any[]): SpyFileSystem {
-  const fs = new SpyFileSystem();
-  fs.files['.arch/focus-ledger.jsonl'] = '';
-  fs.files['docs/INBOX.md'] = '# INBOX\n';
+function makeReviewFs(tasks: any[]): MockFileSystem {
+  const fs = makeFs({
+    '.arch/focus-ledger.jsonl': '',
+    'docs/INBOX.md': '# INBOX\n',
+  });
   for (const t of tasks) {
     fs.files[`docs/tasks/${t.id}.md`] = t.content;
   }
@@ -823,7 +779,7 @@ test('govern emits AWAITING_REVIEW entry for each REVIEW-status task', async () 
   const task = makeTask('TASK-042', 'P2', TaskStatus.REVIEW);
   const fs = makeReviewFs([task]);
   const repo = new SpyTaskRepository([task]);
-  const git = new SpyGitRepository();
+  const git = new MockGitRepository();
 
   const system = new GovernSystem(repo as any, git as any, fs as any);
   await system.execute();
@@ -836,7 +792,7 @@ test('govern does not duplicate AWAITING_REVIEW entry on second tick', async () 
   const task = makeTask('TASK-042', 'P2', TaskStatus.REVIEW);
   const fs = makeReviewFs([task]);
   const repo = new SpyTaskRepository([task]);
-  const git = new SpyGitRepository();
+  const git = new MockGitRepository();
 
   const system = new GovernSystem(repo as any, git as any, fs as any);
   // First tick
@@ -853,7 +809,7 @@ test('govern emits no AWAITING_REVIEW entries when no tasks are in REVIEW', asyn
   const task = makeTask('TASK-042', 'P2', TaskStatus.READY);
   const fs = makeReviewFs([task]);
   const repo = new SpyTaskRepository([task]);
-  const git = new SpyGitRepository();
+  const git = new MockGitRepository();
 
   const system = new GovernSystem(repo as any, git as any, fs as any);
   await system.execute();

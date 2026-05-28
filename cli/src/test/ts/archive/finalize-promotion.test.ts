@@ -2,7 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert';
 import { FinalizePromotion } from '../../../main/ts/application/use-cases/finalize-promotion.js';
 
-class MockFS {
+class StubFS {
   files: Record<string, string> = {};
   directories: Record<string, string[]> = {};
   deleted: string[] = [];
@@ -132,7 +132,7 @@ function setupHappyPath(fs: MockFS) {
 }
 
 test('FinalizePromotion happy path - TASK updated to finalized', async () => {
-  const fs = new MockFS();
+  const fs = new StubFS();
   setupHappyPath(fs);
 
   const useCase = new FinalizePromotion(fs as any);
@@ -146,7 +146,7 @@ test('FinalizePromotion happy path - TASK updated to finalized', async () => {
 });
 
 test('FinalizePromotion happy path - INTENT updated to PROMOTED', async () => {
-  const fs = new MockFS();
+  const fs = new StubFS();
   setupHappyPath(fs);
 
   const useCase = new FinalizePromotion(fs as any);
@@ -158,7 +158,7 @@ test('FinalizePromotion happy path - INTENT updated to PROMOTED', async () => {
 });
 
 test('FinalizePromotion happy path - enrichment snapshot written', async () => {
-  const fs = new MockFS();
+  const fs = new StubFS();
   setupHappyPath(fs);
 
   const useCase = new FinalizePromotion(fs as any);
@@ -174,7 +174,7 @@ test('FinalizePromotion happy path - enrichment snapshot written', async () => {
 });
 
 test('FinalizePromotion happy path - pending files deleted', async () => {
-  const fs = new MockFS();
+  const fs = new StubFS();
   setupHappyPath(fs);
 
   const useCase = new FinalizePromotion(fs as any);
@@ -186,7 +186,7 @@ test('FinalizePromotion happy path - pending files deleted', async () => {
 });
 
 test('FinalizePromotion - aborts if enrichment_phase is not scaffolded', async () => {
-  const fs = new MockFS();
+  const fs = new StubFS();
   setupHappyPath(fs);
   fs.files['docs/tasks/TASK-212.md'] = SCAFFOLD_CONTENT.replace('enrichment_phase: scaffolded', 'enrichment_phase: finalized');
 
@@ -198,7 +198,7 @@ test('FinalizePromotion - aborts if enrichment_phase is not scaffolded', async (
 });
 
 test('FinalizePromotion - aborts if intent status is not CAPTURED', async () => {
-  const fs = new MockFS();
+  const fs = new StubFS();
   setupHappyPath(fs);
   fs.files['docs/intents/INTENT-001.md'] = INTENT_CONTENT.replace('status: CAPTURED', 'status: PROMOTED');
 
@@ -210,7 +210,7 @@ test('FinalizePromotion - aborts if intent status is not CAPTURED', async () => 
 });
 
 test('FinalizePromotion - writes error artifact on empty patch content', async () => {
-  const fs = new MockFS();
+  const fs = new StubFS();
   setupHappyPath(fs);
   const badPatch = JSON.stringify({
     task_id: 'TASK-212',
@@ -233,7 +233,7 @@ test('FinalizePromotion - writes error artifact on empty patch content', async (
 });
 
 test('FinalizePromotion - pending files deleted on failure too', async () => {
-  const fs = new MockFS();
+  const fs = new StubFS();
   setupHappyPath(fs);
   const badPatch = JSON.stringify({ task_id: 'TASK-212', intent_id: 'INTENT-001', schema_version: 1, produced_at: '2026-05-11T10:30:00Z', actor: { name: 'think-agent', model: 'claude-sonnet-4-6', version: 'v1' }, content: '' });
   fs.files['.arch/pending/TASK-212-patch.json'] = badPatch;
@@ -246,7 +246,7 @@ test('FinalizePromotion - pending files deleted on failure too', async () => {
 });
 
 test('FinalizePromotion - aborts if snapshot already exists', async () => {
-  const fs = new MockFS();
+  const fs = new StubFS();
   setupHappyPath(fs);
   fs.files['.arch/enrichments/TASK-212.json'] = '{"existing": true}';
 
@@ -260,7 +260,7 @@ test('FinalizePromotion - aborts if snapshot already exists', async () => {
 // Invariant 8: Patch pair required — transition file missing → ThinkCommand skips;
 // FinalizePromotion itself does not check transition file, so direct call still succeeds.
 test('FinalizePromotion - returns success when transition file is missing (transition check is ThinkCommand responsibility)', async () => {
-  const fs = new MockFS();
+  const fs = new StubFS();
   fs.files['docs/tasks/TASK-212.md'] = SCAFFOLD_CONTENT;
   fs.files['docs/intents/INTENT-001.md'] = INTENT_CONTENT;
   fs.files['.arch/pending/TASK-212-patch.json'] = VALID_PATCH;
@@ -274,7 +274,7 @@ test('FinalizePromotion - returns success when transition file is missing (trans
 
 // Invariant 9: .arch/staging/ is clean after execution (success case)
 test('FinalizePromotion - staging files are cleaned up on success', async () => {
-  const fs = new MockFS();
+  const fs = new StubFS();
   setupHappyPath(fs);
 
   const useCase = new FinalizePromotion(fs as any);
@@ -287,7 +287,7 @@ test('FinalizePromotion - staging files are cleaned up on success', async () => 
 
 // Invariant 7: No partial promotion — INTENT only marked PROMOTED after step B rename
 test('FinalizePromotion - rename order is A (task) then B (intent) then C (snapshot)', async () => {
-  const fs = new MockFS();
+  const fs = new StubFS();
   setupHappyPath(fs);
 
   const useCase = new FinalizePromotion(fs as any);

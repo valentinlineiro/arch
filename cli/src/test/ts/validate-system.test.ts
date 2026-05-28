@@ -1,20 +1,8 @@
 import { test } from 'node:test';
 import assert from 'node:assert';
 import { ValidateSystem } from '../../main/ts/application/use-cases/validate-system.js';
-import { TaskRepository } from '../../main/ts/domain/repositories/task-repository.js';
 import { Task, TaskStatus } from '../../main/ts/domain/models/task.js';
-import { MockFileSystem } from './mocks/index.js';
-
-class MockTaskRepository implements TaskRepository {
-  tasks: Task[] = [];
-  async getById(id: string) { return null; }
-  async getAll() { return this.tasks; }
-  async getActive() { return this.tasks; }
-  parseTask(_content: string): Task | null { return null; }
-  async save(task: Task) {}
-  async findReady() { return []; }
-  async getNextId() { return 'TASK-001'; }
-  }
+import { MockFileSystem, MockTaskRepository } from './mocks/index.js';
 
 test('ValidateSystem - success when everything is valid', async () => {
   const repo = new MockTaskRepository();

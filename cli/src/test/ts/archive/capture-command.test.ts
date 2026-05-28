@@ -2,7 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert';
 import { CaptureCommand } from '../../../main/ts/application/commands/capture-command.js';
 
-class MockCaptureIntent {
+class StubCaptureIntent {
   lastRaw: string | null = null;
   async execute(raw: string): Promise<string> {
     this.lastRaw = raw;
@@ -15,7 +15,7 @@ async function makeCommand(opts: {
   stdin?: string;
   isTTY?: boolean;
 }): Promise<{ out: string[]; err: string[]; exit: number | null; mock: MockCaptureIntent }> {
-  const mock = new MockCaptureIntent();
+  const mock = new StubCaptureIntent();
   const out: string[] = [];
   const err: string[] = [];
   let exitCode: number | null = null;

@@ -364,7 +364,7 @@ test('ContextInference.execute() writes context from explicit task refs even wit
 import { TaskCommand } from '../../main/ts/application/commands/task-command.js';
 import { TaskStatus } from '../../main/ts/domain/models/task.js';
 
-class MockTaskRepositoryForIntegration {
+class IntegrationTaskRepository {
   private task = {
     id: 'TASK-001',
     title: 'Add capture intent for auth flow',
@@ -389,7 +389,7 @@ class MockTaskRepositoryForIntegration {
   async getNextId() { return 'TASK-002'; }
 }
 
-class MockFileSystemForIntegration {
+class IntegrationFileSystem {
   files: Record<string, string> = {};
   written: Record<string, string> = {};
 
@@ -406,8 +406,8 @@ class MockFileSystemForIntegration {
 }
 
 test('TaskCommand start writes Relevant Context to task file when index exists', async () => {
-  const taskRepo = new MockTaskRepositoryForIntegration();
-  const fs = new MockFileSystemForIntegration();
+  const taskRepo = new IntegrationTaskRepository();
+  const fs = new IntegrationFileSystem();
   fs.files['.arch/context-index.json'] = JSON.stringify(FIXTURE_INDEX);
   fs.files['docs/tasks/TASK-001.md'] = '## TASK-001: Add capture intent for auth flow\n**Meta:** P2 | S | READY | Focus:yes | 2-code-generation | claude-code | none\n\n### Acceptance Criteria\n- [ ] implement CaptureIntent\n';
 

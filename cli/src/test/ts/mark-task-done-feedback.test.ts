@@ -2,7 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert';
 import { MarkTaskDone } from '../../main/ts/application/use-cases/mark-task-done.js';
 import { TaskStatus, Task, FocusLevel } from '../../main/ts/domain/models/task.js';
-import { MockFileSystem, MockTaskRepository, MockReviewer, MockFeedbackRepository, MockGitRepository, MockEventRepository } from './mocks/index.js';
+import { MockFileSystem, MockTaskRepository, MockReviewer, MockFeedbackRepository, MockGitRepository, MockEventRepository, createTestRepo } from './mocks/index.js';
 
 function makeTestTask(): Task {
   return {
@@ -42,15 +42,15 @@ function makeTestTask(): Task {
 }
 
 function setup() {
-  const fs = new MockFileSystem();
-  fs.files['arch.config.json'] = JSON.stringify({ hanseiSinceTaskId: 1 });
-  
+  const { fs, git: gitRepo } = createTestRepo({
+    files: { 'arch.config.json': JSON.stringify({ hanseiSinceTaskId: 1 }) },
+  });
+
   const taskRepo = new MockTaskRepository();
   taskRepo.tasks = [makeTestTask()];
-  
+
   const reviewer = new MockReviewer();
   const feedbackRepo = new MockFeedbackRepository();
-  const gitRepo = new MockGitRepository();
   const eventRepo = new MockEventRepository();
 
   return { fs, taskRepo, reviewer, feedbackRepo, gitRepo, eventRepo };
