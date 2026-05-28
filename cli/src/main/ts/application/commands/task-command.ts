@@ -11,6 +11,7 @@ import { UpdateTaskMetrics } from '../use-cases/update-task-metrics.js';
 import { ContextInference } from '../use-cases/context-inference.js';
 import { ConstraintPreflight } from '../use-cases/constraint-preflight.js';
 import { SemanticCollisionDetector } from '../use-cases/semantic-collision-detector.js';
+import { CodebaseContextInjector } from '../use-cases/codebase-context-injector.js';
 import { CorrectionSignalStore, HANSEI_CATEGORIES, HANSEI_CATEGORY_ALIASES } from '../use-cases/correction-signal-store.js';
 import { CompressTask } from '../use-cases/compress-task.js';
 import { NextCommand } from './next-command.js';
@@ -126,6 +127,15 @@ export class TaskCommand implements Command {
           const inference = new ContextInference(this.fileSystem);
           await inference.execute(taskId, taskText, task.class ?? '');
         } catch { /* inference errors must never block task start */ }
+
+        try {
+          const codebaseInjector = new CodebaseContextInjector(this.fileSystem, this.gitRepository);
+          const contextPaths = task.context ?? [];
+          if (contextPaths.length > 0 && contextPaths.some(p => p.startsWith('cli/') || p.startsWith('src/'))) {
+            const block = await codebaseInjector.execute(taskId, contextPaths);
+            if (block) fmt.log(block);
+          }
+        } catch { /* codebase injection errors must never block task start */ }
 
         try {
           const preflight = new ConstraintPreflight(this.fileSystem);

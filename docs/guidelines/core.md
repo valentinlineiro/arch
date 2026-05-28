@@ -6,7 +6,7 @@
 - **Evidence Required:** Every proposal must citing the signal or feedback in a `Source:` field.
 
 ### 2. Git & Commits
-- **Conventional Commits:** Use authoritative prefixes (feat, fix, chore, docs, refactor, idea). Every commit must reference a TASK-ID (except `idea:` drafts).
+- **Conventional Commits:** Use authoritative prefixes (feat, fix, chore, docs, refactor, idea). Every commit must reference a TASK-ID (except `idea:` drafts). System-mode commits tagged `[THINK]` or `[GOVERN]` are exempt — the tag substitutes for the TASK-ID requirement.
 - **No-Merge Policy:** ARCH enforces a clean, linear history. Merge commits (2+ parents) and history-changing ops (`pull`, `merge`, `rebase`) are **FORBIDDEN** without explicit human approval. Use `git fetch`.
 - **Atomicity:** One task per commit where possible.
 - **Hygiene:** Every new code directory must include a `.gitignore`.
@@ -27,3 +27,4 @@
 ### 5. Backlog Health
 - **Autonomous Replenishment:** Propose an IDEA when READY tasks < 3 (THINK Phase 1).
 - **Metrics:** `Closed-at: <ISO 8601>` is required for DONE tasks.
+- **Decision Integrity:** When promoting an IDEA, cross-check the `Decision: PROMOTE → TASK-XXX` field — the task title must plausibly match the IDEA intent. Flag unmatched pairs as a Data Integrity Alert in INBOX.
