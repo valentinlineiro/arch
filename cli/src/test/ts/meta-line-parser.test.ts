@@ -156,29 +156,27 @@ test('boundary: DONE status with Cost and Steps in meta line', () => {
 test('malformed: missing fields in meta line', () => {
   const metaLine = '**Meta:** P0 | S | READY';
   const task = repo.parseTask(makeContent(metaLine));
-  assert.ok(task === null || task, 'must not throw');
+  assert.ok(task, 'parser returns a Task object for partial meta');
 });
 
 test('malformed: wrong number of pipe-separated parts (too few)', () => {
   const metaLine = '**Meta:** P0 | S';
   const task = repo.parseTask(makeContent(metaLine));
-  assert.ok(task === null || task, 'must not throw');
-  if (task) {
-    assert.strictEqual(task.priority, 'P0');
-  }
+  assert.ok(task, 'parser returns a Task object for truncated meta');
+  assert.strictEqual(task.priority, 'P0');
 });
 
 test('malformed: unrecognized status value', () => {
   const metaLine = '**Meta:** P0 | S | INVALID_STATUS | Focus:no | 2-code-generation | local | test/path';
   const task = repo.parseTask(makeContent(metaLine));
-  assert.ok(task === null || task, 'must not throw');
+  assert.ok(task, 'parser returns a Task object despite invalid status');
 });
 
 test('malformed: wrong pipe separator (using colon instead of pipe)', () => {
   const metaLine = '**Meta:** P0 : S : READY : Focus:no : 2-code-generation : local : test/path';
   const content = makeContent(metaLine);
   const task = repo.parseTask(content);
-  assert.ok(task === null || task, 'must not throw');
+  assert.ok(task, 'parser returns a Task object despite non-pipe separator');
 });
 
 test('malformed: empty meta line content (no **Meta:** prefix)', () => {
