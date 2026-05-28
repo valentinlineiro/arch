@@ -21,6 +21,7 @@ import { readDeepAnalysisState, isDeepAnalysisDue } from './deep-analysis-state.
 import { hasOverdueWeakSignal } from './weak-signal-checker.js';
 import { DeterministicACVerifier } from '../../domain/services/deterministic-ac-verifier.js';
 import { runInboxHygiene } from './inbox-hygiene.js';
+import { BuildIndex } from './build-index.js';
 
 export interface GovernResult {
   analysisNeeded: boolean;
@@ -106,6 +107,15 @@ export class GovernSystem {
         : `${currentTick - (deepState?.lastDeepRunTick ?? 0)} ticks since last deep run`;
       console.log(`  Deep analysis due (${reason}) — run arch reflect --deep`);
       analysisReasons.push('deep-analysis-due');
+    }
+
+    // 2.9 Rebuild context-index before focus assignment so the tick is self-consistent.
+    // A task committed since the last govern run must be visible to the focus selector.
+    try {
+      const contextRules = (config.contextRules as Record<string, { taskClasses: string[] }>) ?? {};
+      await new BuildIndex(this.fileSystem).execute(contextRules, this.gitRepository);
+    } catch (err) {
+      if (process.env.ARCH_DEBUG) console.error('[govern] pre-focus index rebuild failed:', err);
     }
 
     // 3. Focus Sovereignty — run the AGFM tick cycle

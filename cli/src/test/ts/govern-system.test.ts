@@ -817,3 +817,46 @@ test('govern emits no AWAITING_REVIEW entries when no tasks are in REVIEW', asyn
   const inbox = fs.files['docs/INBOX.md'];
   assert.ok(!inbox.includes('[AWAITING_REVIEW]'), 'no AWAITING_REVIEW entries for non-REVIEW tasks');
 });
+
+// ─── Pre-focus context-index rebuild (TASK-1060) ─────────────────────────────
+
+test('rebuilds context index before focus assignment — P1 task wins focus in same tick', async () => {
+  const p1task = makeTask('TASK-P1', 'P1');
+  const p2task = makeTask('TASK-P2', 'P2');
+
+  const staleIndexBuiltAt = '2026-01-01T00:00:00.000Z';
+  const staleIndex = JSON.stringify({
+    version: 5,
+    builtAt: staleIndexBuiltAt,
+    files: {},
+    adrs: {},
+    adrTaskLinks: {},
+    failures: {},
+    guidelineFailureLinks: {},
+    guidelines: {},
+    tasks: {},
+  });
+
+  const fs = makeFs(
+    {
+      'docs/tasks/TASK-P1.md': p1task.content,
+      'docs/tasks/TASK-P2.md': p2task.content,
+      '.arch/context-index.json': staleIndex,
+    },
+    { 'docs/tasks': ['TASK-P1.md', 'TASK-P2.md'] },
+  );
+
+  const repo = new SpyTaskRepository([p1task, p2task]);
+  const git = new MockGitRepository();
+
+  const system = new GovernSystem(repo as any, git as any, fs as any);
+  await system.execute();
+
+  assert.ok(fs.files['docs/tasks/TASK-P1.md'].includes('Focus:yes'), 'P1 task must win focus');
+  assert.ok(!fs.files['docs/tasks/TASK-P2.md']?.includes('Focus:yes'), 'P2 task must not get focus');
+
+  const rebuiltRaw = fs.files['.arch/context-index.json'];
+  assert.ok(rebuiltRaw, 'context index must be present after govern tick');
+  const rebuilt = JSON.parse(rebuiltRaw);
+  assert.ok(rebuilt.builtAt !== staleIndexBuiltAt, 'index builtAt must be updated — rebuild ran before focus assignment');
+});
