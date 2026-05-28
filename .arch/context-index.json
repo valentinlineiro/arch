@@ -321,6 +321,12 @@
           ],
           "taskPath": "docs/archive/TASK-1057.md"
         },
+        "TASK-1060": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-1060.md"
+        },
         "TASK-1062": {
           "evidenceKinds": [
             "literal-mention"
@@ -449,6 +455,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-1054.md"
+        },
+        "TASK-1060": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-1060.md"
         },
         "TASK-990": {
           "evidenceKinds": [
@@ -888,6 +900,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/tasks/TASK-1052.md"
+        },
+        "TASK-1060": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-1060.md"
         },
         "TASK-202": {
           "evidenceKinds": [
@@ -4398,7 +4416,7 @@
       "title": "Govern/Reflect Structural Separation"
     }
   },
-  "builtAt": "2026-05-28T09:35:48.721Z",
+  "builtAt": "2026-05-28T09:44:01.954Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -6598,6 +6616,7 @@
       "imports": [
         "cli/src/main/ts/application/commands/corpus-audit-command.ts",
         "cli/src/main/ts/application/use-cases/batch-system.ts",
+        "cli/src/main/ts/application/use-cases/build-index.ts",
         "cli/src/main/ts/application/use-cases/causal-signal-log.ts",
         "cli/src/main/ts/application/use-cases/compute-trusted-metrics.ts",
         "cli/src/main/ts/application/use-cases/deep-analysis-state.ts",
@@ -9379,27 +9398,6 @@
         ".arch/escalations.jsonl": 1
       }
     },
-    "TASK-1004": {
-      "commitCount": 2,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-24T18:49:03+00:00",
-      "recentCommitRefs": [
-        "79523126",
-        "a291c509"
-      ],
-      "touchedFrequency": {
-        ".arch/corpus-index.json": 1,
-        ".arch/reflect-breach-log.jsonl": 2,
-        ".arch/reflect-decisions.jsonl": 1,
-        ".arch/status-projection.json": 2,
-        "README.md": 2,
-        "arch.config.json": 1,
-        "docs/INBOX.md": 1,
-        "docs/ROADMAP.md": 2,
-        "docs/refinement/archive/IDEA-opencode-fallback.md": 1,
-        "docs/tasks/TASK-1004.md": 2
-      }
-    },
     "TASK-1005": {
       "commitCount": 3,
       "commitRefOverflow": false,
@@ -10905,16 +10903,21 @@
       }
     },
     "TASK-1060": {
-      "commitCount": 2,
+      "commitCount": 4,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-28T11:35:43+02:00",
+      "lastCommitDate": "2026-05-28T11:43:57+02:00",
       "recentCommitRefs": [
+        "05530d97",
+        "1aab48c3",
         "6bb7276d",
         "adf1e4b8"
       ],
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 2,
-        "docs/tasks/TASK-1060.md": 1
+        ".arch/focus-ledger.jsonl": 3,
+        "cli/src/main/ts/application/use-cases/govern-system.ts": 1,
+        "cli/src/test/ts/govern-system.test.ts": 1,
+        "docs/INBOX.md": 1,
+        "docs/tasks/TASK-1060.md": 2
       }
     },
     "TASK-1062": {
@@ -11222,17 +11225,16 @@
       }
     },
     "TASK-995": {
-      "commitCount": 4,
+      "commitCount": 3,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-26T10:00:51+02:00",
       "recentCommitRefs": [
-        "3eb4493b",
         "57296df1",
         "9d151798",
         "a10ad873"
       ],
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 3,
+        ".arch/focus-ledger.jsonl": 2,
         "docs/archive/TASK-995.md": 1
       }
     },
