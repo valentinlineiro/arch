@@ -860,3 +860,66 @@ test('rebuilds context index before focus assignment — P1 task wins focus in s
   const rebuilt = JSON.parse(rebuiltRaw);
   assert.ok(rebuilt.builtAt !== staleIndexBuiltAt, 'index builtAt must be updated — rebuild ran before focus assignment');
 });
+
+test('GovernSystem - runs ## Core Flows predicates, logs events, and prints health summary', async () => {
+  const fs = makeFs({
+    'docs/PROJECT.md': '\n## Core Flows\n- [ ] CLI unit tests pass\n  - `cmd: true; exit: 0`\n',
+  });
+  const repo = new SpyTaskRepository([]);
+  const git = new MockGitRepository();
+
+  const system = new GovernSystem(repo as any, git as any, fs as any);
+
+  const logs: string[] = [];
+  const originalLog = console.log;
+  console.log = (...args: any[]) => {
+    logs.push(args.join(' '));
+  };
+
+  try {
+    await system.execute();
+    
+    // 1. Verify health summary printed
+    const hasSummary = logs.some(l => l.includes('Core Flows: 1/1 passing') || l.includes('✔ CLI unit tests pass'));
+    assert.strictEqual(hasSummary, true, 'Should print Core Flows health summary');
+    
+    // 2. Verify events file written with FLOW_CHECK_PASS
+    const eventsContent = fs.files['docs/EVENTS.md'];
+    assert.ok(eventsContent, 'EVENTS.md should be written');
+    assert.ok(eventsContent.includes('FLOW_CHECK_PASS'), 'EVENTS.md should record FLOW_CHECK_PASS event');
+    assert.ok(eventsContent.includes('CLI unit tests pass'), 'EVENTS.md should include flow description');
+  } finally {
+    console.log = originalLog;
+  }
+});
+
+test('GovernSystem - prints last passed date for failing core flows', async () => {
+  const fs = makeFs({
+    'docs/PROJECT.md': '\n## Core Flows\n- [ ] CLI unit tests pass\n  - `cmd: false; exit: 0`\n',
+    'docs/EVENTS.md': '# Event Log\n\n## 2026-05-20T10:00:00.000Z\nFLOW_CHECK_PASS | CLI unit tests pass -> PASS | commit:abc | agent:human\n',
+  });
+  const repo = new SpyTaskRepository([]);
+  const git = new MockGitRepository();
+
+  const system = new GovernSystem(repo as any, git as any, fs as any);
+
+  const logs: string[] = [];
+  const originalLog = console.log;
+  console.log = (...args: any[]) => {
+    logs.push(args.join(' '));
+  };
+
+  try {
+    await system.execute();
+    
+    // Verify health summary printed with last passed date (ANSI escape safe)
+    const hasLastPassed = logs.some(l => l.includes('✖') && l.includes('CLI unit tests pass') && l.includes('last passed: 2026-05-20'));
+    assert.strictEqual(hasLastPassed, true, 'Should print Core Flows health summary with last passed date');
+    
+    // Verify EVENTS.md now has FLOW_CHECK_FAIL
+    const eventsContent = fs.files['docs/EVENTS.md'];
+    assert.ok(eventsContent.includes('FLOW_CHECK_FAIL'), 'EVENTS.md should record FLOW_CHECK_FAIL event');
+  } finally {
+    console.log = originalLog;
+  }
+});

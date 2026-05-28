@@ -76,7 +76,7 @@ export class TaskCommand implements Command {
     this.rootPath = rootPath;
     this.markInProgress = new MarkTaskInProgress(taskRepository, eventRepository, gitRepository);
     this.markDone = new MarkTaskDone(taskRepository, reviewer, fileSystem, eventRepository, new NodeFeedbackRepository(fileSystem), causalSignalLog, eventLogger, gitRepository, undefined, temporalIndex);
-    this.markReview = new MarkTaskReview(taskRepository, rootPath);
+    this.markReview = new MarkTaskReview(taskRepository, rootPath, this.fileSystem);
     this.rejectTask = new RejectTask(taskRepository, eventLogger);
     this.rejectStaleTask = new RejectStaleTask(taskRepository);
     this.updateMetrics = new UpdateTaskMetrics(taskRepository);

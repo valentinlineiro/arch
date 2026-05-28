@@ -1,8 +1,11 @@
 import { test } from 'node:test';
 import assert from 'node:assert';
+import fs from 'node:fs';
+import path from 'node:path';
+import os from 'node:os';
 import { MarkTaskReview } from '../../main/ts/application/use-cases/mark-task-review.js';
 import { Task, TaskStatus, FocusLevel } from '../../main/ts/domain/models/task.js';
-import { MockTaskRepository } from './mocks/index.js';
+import { MockTaskRepository, MockFileSystem } from './mocks/index.js';
 
 const validHansei = {
   severity: 'H1' as const,
@@ -97,4 +100,79 @@ test('MarkTaskReview - sets status to REVIEW when no predicates present', async 
   assert.strictEqual(result.passed, true);
   assert.strictEqual(repo.saved?.status, TaskStatus.REVIEW);
   assert.strictEqual(repo.saved?.focus, FocusLevel.NONE);
+});
+
+test('MarkTaskReview - emits FLOW-REGRESSION warning when failing core flow context overlaps', async () => {
+  const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'arch-test-'));
+  const docsDir = path.join(tempDir, 'docs');
+  fs.mkdirSync(docsDir, { recursive: true });
+  fs.writeFileSync(path.join(docsDir, 'PROJECT.md'), '\n## Core Flows\n- [ ] CLI unit tests pass\n  - `cmd: false; exit: 0`\n');
+
+  try {
+    const task = makeTask({
+      context: ['cli/src/main/ts'],
+      content: '- [x] Command passes  →  cmd: true; exit: 0\n',
+    });
+    const repo = new MockTaskRepository();
+    repo.tasks.push(task);
+    const mockFs = new MockFileSystem();
+    mockFs.addFile('docs/PROJECT.md', '\n## Core Flows\n- [ ] CLI unit tests pass\n  - `cmd: false; exit: 0`\n');
+    
+    const useCase = new MarkTaskReview(repo, tempDir, mockFs);
+
+    const logs: string[] = [];
+    const originalLog = console.log;
+    console.log = (...args: any[]) => {
+      logs.push(args.join(' '));
+    };
+
+    try {
+      const result = await useCase.execute('TASK-031');
+      assert.strictEqual(result.passed, true);
+      const hasWarningHeader = logs.some(l => l.includes('[FLOW-REGRESSION]'));
+      const hasFlowName = logs.some(l => l.includes('CLI unit tests pass'));
+      assert.strictEqual(hasWarningHeader && hasFlowName, true, 'Should log FLOW-REGRESSION warning');
+    } finally {
+      console.log = originalLog;
+    }
+  } finally {
+    fs.rmSync(tempDir, { recursive: true, force: true });
+  }
+});
+
+test('MarkTaskReview - does not emit FLOW-REGRESSION warning when context does not overlap', async () => {
+  const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'arch-test-'));
+  const docsDir = path.join(tempDir, 'docs');
+  fs.mkdirSync(docsDir, { recursive: true });
+  fs.writeFileSync(path.join(docsDir, 'PROJECT.md'), '\n## Core Flows\n- [ ] CLI unit tests pass\n  - `cmd: false; exit: 0`\n');
+
+  try {
+    const task = makeTask({
+      context: ['server/src/main'],
+      content: '- [x] Command passes  →  cmd: true; exit: 0\n',
+    });
+    const repo = new MockTaskRepository();
+    repo.tasks.push(task);
+    const mockFs = new MockFileSystem();
+    mockFs.addFile('docs/PROJECT.md', '\n## Core Flows\n- [ ] CLI unit tests pass\n  - `cmd: false; exit: 0`\n');
+    
+    const useCase = new MarkTaskReview(repo, tempDir, mockFs);
+
+    const logs: string[] = [];
+    const originalLog = console.log;
+    console.log = (...args: any[]) => {
+      logs.push(args.join(' '));
+    };
+
+    try {
+      const result = await useCase.execute('TASK-031');
+      assert.strictEqual(result.passed, true);
+      const hasWarning = logs.some(l => l.includes('[FLOW-REGRESSION]'));
+      assert.strictEqual(hasWarning, false, 'Should not log warning when no overlap');
+    } finally {
+      console.log = originalLog;
+    }
+  } finally {
+    fs.rmSync(tempDir, { recursive: true, force: true });
+  }
 });

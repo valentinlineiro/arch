@@ -22,6 +22,7 @@ import { hasOverdueWeakSignal } from './weak-signal-checker.js';
 import { DeterministicACVerifier } from '../../domain/services/deterministic-ac-verifier.js';
 import { runInboxHygiene } from './inbox-hygiene.js';
 import { BuildIndex } from './build-index.js';
+import { EventLogger } from '../../domain/services/event-logger.js';
 
 export interface GovernResult {
   analysisNeeded: boolean;
@@ -32,6 +33,7 @@ export interface GovernResult {
 export class GovernSystem {
   private batchSystem: BatchSystem;
   private readonly pathResolver: PathResolver;
+  private eventLogger: EventLogger;
 
   constructor(
     private taskRepository: TaskRepository,
@@ -39,10 +41,12 @@ export class GovernSystem {
     private fileSystem: FileSystem,
     private causalSignalLog?: CausalSignalLog,
     private rootPath: string = '.',
-    pathResolver?: PathResolver
+    pathResolver?: PathResolver,
+    eventLogger?: EventLogger
   ) {
     this.batchSystem = new BatchSystem(fileSystem);
     this.pathResolver = pathResolver ?? PathResolver.from({});
+    this.eventLogger = eventLogger ?? new EventLogger(fileSystem, gitRepository, this.pathResolver.events ?? 'docs/EVENTS.md');
   }
 
   async execute(cleanInbox = false): Promise<GovernResult> {
@@ -176,6 +180,13 @@ export class GovernSystem {
     // 5. Project DoD gate
     const projectComplete = await this.checkProjectDoD();
 
+    // 5.1 Core Flows check — runs every tick, optional section in PROJECT.md
+    try {
+      await this.checkCoreFlows();
+    } catch (err) {
+      if (process.env.ARCH_DEBUG) console.error('[govern] core-flows check failed:', err);
+    }
+
     // 6. Commit materialized output files produced this tick.
     // These are non-authoritative projections written by the reporting and metrics layers;
     // they have no pre-commit hook requirements, so a best-effort trailing commit is safe.
@@ -276,6 +287,76 @@ export class GovernSystem {
 
     console.log('  \x1b[32m✔\x1b[0m PROJECT_COMPLETE — all DoD predicates pass. Loop will exit.');
     return true;
+  }
+
+  private async getLastPassedDate(flowName: string): Promise<string | null> {
+    const eventsPath = this.pathResolver.events ?? 'docs/EVENTS.md';
+    if (!await this.fileSystem.exists(eventsPath)) return null;
+
+    const content = await this.fileSystem.readFile(eventsPath);
+    const lines = content.split('\n');
+
+    let currentTimestamp = '';
+    let lastPassed: string | null = null;
+
+    for (const line of lines) {
+      const trimmed = line.trim();
+      if (trimmed.startsWith('## ')) {
+        currentTimestamp = trimmed.replace('## ', '').trim();
+      } else if (trimmed.includes('FLOW_CHECK_PASS') && trimmed.includes(flowName)) {
+        if (currentTimestamp) {
+          try {
+            lastPassed = new Date(currentTimestamp).toISOString().split('T')[0];
+          } catch {
+            lastPassed = currentTimestamp;
+          }
+        }
+      }
+    }
+    return lastPassed;
+  }
+
+  private async checkCoreFlows(): Promise<void> {
+    const projectPath = 'docs/PROJECT.md';
+    if (!await this.fileSystem.exists(projectPath)) return;
+
+    const content = await this.fileSystem.readFile(projectPath);
+    const cfStart = content.indexOf('\n## Core Flows');
+    if (cfStart === -1) return;
+
+    const bodyStart = content.indexOf('\n', cfStart + 1) + 1;
+    const nextSection = content.indexOf('\n## ', bodyStart);
+    const cfSection = nextSection === -1 ? content.slice(bodyStart) : content.slice(bodyStart, nextSection);
+
+    const verifier = new DeterministicACVerifier(this.rootPath);
+    const result = await verifier.verifySection(cfSection);
+
+    // Emit FLOW_CHECK_PASS/FAIL events for each flow checked
+    for (const r of result.evidence) {
+      const eventType = r.pass ? 'FLOW_CHECK_PASS' : 'FLOW_CHECK_FAIL';
+      await this.eventLogger.append({
+        taskId: eventType,
+        from: r.ac,
+        to: r.pass ? 'PASS' : 'FAIL',
+        timestamp: new Date().toISOString()
+      });
+    }
+
+    const passCount = result.evidence.filter(r => r.pass).length;
+    const failCount = result.evidence.filter(r => !r.pass).length;
+    const totalCount = result.evidence.length;
+
+    console.log(`  Core Flows: ${passCount}/${totalCount} passing`);
+    for (const r of result.evidence) {
+      const desc = r.ac.length > 60 ? r.ac.slice(0, 60) + '…' : r.ac;
+      if (r.pass) {
+        console.log(`    \x1b[32m✔\x1b[0m ${desc}`);
+      } else {
+        const lastPassed = await this.getLastPassedDate(r.ac);
+        const lastPassedStr = lastPassed ? ` — last passed: ${lastPassed}` : ' — never passed';
+        console.log(`    \x1b[31m✖\x1b[0m ${desc}\x1b[31m${lastPassedStr}\x1b[0m`);
+      }
+    }
   }
 
   private priorityNum(p: string): number {
