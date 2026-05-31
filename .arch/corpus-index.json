@@ -1,8 +1,8 @@
 {
   "version": 1,
-  "builtAt": "2026-05-31T10:51:14.723Z",
-  "archiveCommit": "446:design",
-  "taskCount": 230,
+  "builtAt": "2026-05-31T11:01:52.228Z",
+  "archiveCommit": "447:design",
+  "taskCount": 231,
   "entries": {
     "TASK-1000": {
       "id": "TASK-1000",
@@ -53,6 +53,23 @@
       "forwardAction": "None required.",
       "acCount": 5,
       "acMachineVerifiable": 3,
+      "closurePath": "L3"
+    },
+    "TASK-1003": {
+      "id": "TASK-1003",
+      "size": "S",
+      "class": "2-code-generation",
+      "closedAt": "2026-05-31T11:01:47.790Z",
+      "lockedCommit": null,
+      "actor": null,
+      "severity": "H1",
+      "category": "[SpecDrift]",
+      "decision": "Superseded by TASK-1004 (analyze-command fallback loop). TASK-1004 is better specified and covers the same behavior. Closing to avoid duplicate execution.",
+      "constraint": "None.",
+      "cost": "No work done.",
+      "forwardAction": "TASK-1004 implements the fallback loop.",
+      "acCount": 0,
+      "acMachineVerifiable": 0,
       "closurePath": "L3"
     },
     "TASK-1005": {
