@@ -1,5 +1,5 @@
 ## TASK-272: Add Local-First Decomposition heuristic to THINK refinement protocol
-**Meta:** P3 | S | READY | Focus:no | 6-writing | claude | docs/agents/THINK.md
+**Meta:** P3 | S | READY | Focus:no | 6-writing | claude-code | docs/agents/THINK.md
 
 ### Context
 

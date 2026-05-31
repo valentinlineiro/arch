@@ -153,3 +153,9 @@ FLOW_CHECK_PASS | Structural validation passes — integrity review must be clea
 ## 2026-05-31T11:01:47.805Z
 TASK-1003 | DONE -> DONE | commit:dbd4388 | agent:human
 
+## 2026-05-31T11:02:20.596Z
+FLOW_CHECK_FAIL | CLI unit tests pass — regression guard for all core flows -> FAIL | commit:e841054 | agent:human
+
+## 2026-05-31T11:02:20.621Z
+FLOW_CHECK_PASS | Structural validation passes — integrity review must be clean -> PASS | commit:e841054 | agent:human
+
