@@ -1,8 +1,8 @@
 {
   "version": 1,
-  "builtAt": "2026-05-31T11:16:18.200Z",
-  "archiveCommit": "451:design",
-  "taskCount": 235,
+  "builtAt": "2026-05-31T13:33:21.498Z",
+  "archiveCommit": "452:design",
+  "taskCount": 236,
   "entries": {
     "TASK-1000": {
       "id": "TASK-1000",
@@ -1090,6 +1090,23 @@
       "forwardAction": "Consider adding arch triage to the default help surface once remote IDEAs are flowing regularly.",
       "acCount": 9,
       "acMachineVerifiable": 3,
+      "closurePath": "L3"
+    },
+    "TASK-1074": {
+      "id": "TASK-1074",
+      "size": "S",
+      "class": "1-code-reasoning",
+      "closedAt": "2026-05-31T11:26:44.344Z",
+      "lockedCommit": "47fb219",
+      "actor": "unknown",
+      "severity": "H1",
+      "category": "[SpecDrift]",
+      "decision": "capture-command.ts: verifiability score and collision advisory suppressed from output. Auto-fix is now silent. Success and failure paths both show only taskId, title, and arch task start next action. Ambiguity check added for < 5 words (TTY only). Tests updated to contract-assertion style.",
+      "constraint": "Ambiguity check fires in TTY only — CI and non-interactive captures are unaffected.",
+      "cost": "Verifiability score no longer surfaced to user. Operators who want the score can read the task file directly. Acceptable trade-off for first-use clarity.",
+      "forwardAction": "Consider adding arch capture --verbose to surface internal checks for power users.",
+      "acCount": 4,
+      "acMachineVerifiable": 1,
       "closurePath": "L3"
     },
     "TASK-180": {
