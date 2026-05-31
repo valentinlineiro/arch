@@ -189,3 +189,6 @@ FLOW_CHECK_PASS | Structural validation passes — integrity review must be clea
 ## 2026-05-31T16:16:36.829Z
 TASK-1024 | IN_PROGRESS -> DONE | commit:c78a37c | agent:human
 
+## 2026-05-31T16:17:31.804Z
+TASK-970 | IN_PROGRESS -> DONE | commit:ffc470e | agent:human
+
