@@ -182,10 +182,26 @@ export class GovernSystem {
     if (corpusRemotes?.some(r => r.syncOnGovern !== false)) {
       try {
         const { CorpusIndexService } = await import('./corpus-index.js');
-        const svc = new CorpusIndexService(this.fileSystem, this.gitRepository);
+        const svc = new CorpusIndexService(this.fileSystem, this.gitRepository, this.rootPath);
         const remotes = corpusRemotes.filter(r => r.syncOnGovern !== false);
-        const { synced, skipped } = await svc.syncRemotes(remotes);
+        const { synced, skipped, incomingIdeas } = await svc.syncRemotes(remotes);
         if (synced > 0) console.log(`  \x1b[32m✔\x1b[0m Corpus federation: +${synced} new tasks from ${remotes.length} remote${remotes.length > 1 ? 's' : ''} (${skipped} already indexed)`);
+
+        // Surface new incoming IDEAs as AWAITING_TRIAGE in INBOX
+        if (incomingIdeas > 0) {
+          const incoming = await svc.getIncomingIdeas();
+          const inboxPath = `${this.rootPath}/docs/INBOX.md`;
+          let inbox = await this.fileSystem.readFile(inboxPath).catch(() => '');
+          const now = new Date().toISOString().slice(0, 19).replace('T', ' ');
+          for (const idea of incoming) {
+            const entry = `[AWAITING_TRIAGE] ${idea.slug}:${idea.name.replace('.md', '')} — remote IDEA pending review (${now})`;
+            if (!inbox.includes(idea.name.replace('.md', ''))) {
+              inbox = inbox.trimEnd() + '\n' + entry + '\n';
+            }
+          }
+          await this.fileSystem.writeFile(inboxPath, inbox);
+          console.log(`  \x1b[33m⚡\x1b[0m ${incomingIdeas} incoming IDEA${incomingIdeas > 1 ? 's' : ''} from remote — see INBOX for triage`);
+        }
       } catch (err: any) {
         if (process.env.ARCH_DEBUG) console.error('[corpus-federation] sync failed:', err);
       }

@@ -37,6 +37,7 @@ export class CorpusIndexService {
   constructor(
     private fileSystem: FileSystem,
     private gitRepository?: GitRepository,
+    private rootPath: string = '.',
   ) {}
 
   /** Load index from disk, rebuilding if stale or missing. */
@@ -189,7 +190,7 @@ export class CorpusIndexService {
    * Runs on govern tick when corpus.remotes is configured.
    * Non-blocking — warnings only on remote failures.
    */
-  async syncRemotes(remotes: Array<{ url: string; slug?: string }>): Promise<{ synced: number; skipped: number }> {
+  async syncRemotes(remotes: Array<{ url: string; slug?: string }>): Promise<{ synced: number; skipped: number; incomingIdeas: number }> {
     const { execSync } = await import('node:child_process');
     const { mkdtempSync, rmSync, existsSync } = await import('node:fs');
     const { tmpdir } = await import('node:os');
@@ -197,6 +198,16 @@ export class CorpusIndexService {
 
     let synced = 0;
     let skipped = 0;
+    let incomingIdeas = 0;
+
+    // Load already-staged idea IDs to avoid duplicates
+    const stagedDir = join(this.rootPath, '.arch', 'incoming-ideas');
+    const alreadyStaged = new Set<string>();
+    try {
+      const { readdir: rd } = await import('node:fs/promises');
+      const staged = await rd(stagedDir).catch(() => [] as string[]);
+      for (const f of staged) alreadyStaged.add(f);
+    } catch {}
 
     const index = await this.load();
 
@@ -205,7 +216,7 @@ export class CorpusIndexService {
       let tmpDir: string | null = null;
 
       try {
-        tmpDir = mkdtempSync(join(tmpdir(), `arch-sync-${slug}-`));
+        tmpDir = mkdtempSync(join(tmpdir(), ));
         execSync(`git clone --depth 50 "${remote.url}" "${tmpDir}"`, { stdio: 'pipe', timeout: 60000 });
 
         // Read remote archive
@@ -215,13 +226,13 @@ export class CorpusIndexService {
           continue;
         }
 
-        const { readdir, readFile } = await import('node:fs/promises');
+        const { readdir, readFile, mkdir, writeFile } = await import('node:fs/promises');
         const files = await readdir(archiveDir).catch(() => [] as string[]);
         const taskFiles = files.filter(f => f.startsWith('TASK-') && f.endsWith('.md'));
 
         for (const file of taskFiles) {
           const remoteId = `${slug}:${file.replace('.md', '')}`;
-          if (index.entries[remoteId]) { skipped++; continue; } // Already indexed
+          if (index.entries[remoteId]) { skipped++; continue; }
 
           const content = await readFile(join(archiveDir, file), 'utf8').catch(() => null);
           if (!content) continue;
@@ -230,6 +241,29 @@ export class CorpusIndexService {
           if (entry) {
             index.entries[remoteId] = { ...entry, source: slug };
             synced++;
+          }
+        }
+
+        // ── Sync remote IDEAs ────────────────────────────────────────────
+        for (const ideaSubDir of ['refinement', 'refinement/archive']) {
+          const ideaDir = join(tmpDir!, 'docs', ideaSubDir);
+          if (!existsSync(ideaDir)) continue;
+          const ideaFiles = await readdir(ideaDir).catch(() => [] as string[]);
+
+          for (const file of ideaFiles.filter(f => f.startsWith('IDEA-') && f.endsWith('.md'))) {
+            const stagedName = `${slug}-${file}`;
+            if (alreadyStaged.has(stagedName)) continue;
+
+            const content = await readFile(join(ideaDir, file), 'utf8').catch(() => null);
+            if (!content) continue;
+
+            const status = content.match(/\*\*Status:\*\*\s*(\S+)/)?.[1] ?? '';
+            if (!['DRAFT', 'PROMOTED'].includes(status)) continue;
+
+            await mkdir(stagedDir, { recursive: true });
+            await writeFile(join(stagedDir, stagedName), content);
+            alreadyStaged.add(stagedName);
+            incomingIdeas++;
           }
         }
 
@@ -246,6 +280,24 @@ export class CorpusIndexService {
       await this.fileSystem.writeFile(INDEX_PATH, JSON.stringify(index, null, 2));
     }
 
-    return { synced, skipped };
+    return { synced, skipped, incomingIdeas };
+  }
+
+  /** Return list of staged incoming IDEA files from remotes. */
+  async getIncomingIdeas(): Promise<Array<{ filename: string; slug: string; name: string }>> {
+    const { readdir } = await import('node:fs/promises');
+    const { join } = await import('node:path');
+    const stagedDir = join(this.rootPath, '.arch', 'incoming-ideas');
+    try {
+      const files = await readdir(stagedDir);
+      return files
+        .filter(f => f.endsWith('.md'))
+        .map(f => {
+          const dashIdx = f.indexOf('-IDEA-');
+          const slug = dashIdx >= 0 ? f.slice(0, dashIdx) : 'remote';
+          const name = dashIdx >= 0 ? f.slice(dashIdx + 1) : f;
+          return { filename: f, slug, name };
+        });
+    } catch { return []; }
   }
 }
