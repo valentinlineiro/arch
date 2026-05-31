@@ -1,8 +1,8 @@
 {
   "version": 1,
-  "builtAt": "2026-05-31T13:33:21.498Z",
-  "archiveCommit": "452:design",
-  "taskCount": 236,
+  "builtAt": "2026-05-31T16:18:07.161Z",
+  "archiveCommit": "455:design",
+  "taskCount": 239,
   "entries": {
     "TASK-1000": {
       "id": "TASK-1000",
@@ -412,6 +412,23 @@
       "acMachineVerifiable": 2,
       "closurePath": "L3"
     },
+    "TASK-1024": {
+      "id": "TASK-1024",
+      "size": "L",
+      "class": "2-code-generation",
+      "closedAt": "2026-05-31T16:16:36.823Z",
+      "lockedCommit": "8ed3afb9",
+      "actor": "unknown",
+      "severity": "H1",
+      "category": "[SpecDrift]",
+      "decision": "arch audit --report implemented in AuditCommand.runReport(). Four sections: governance rule inventory (35 ADRs), chronicle summary (451 tasks, 0 ANDON halts, focus transitions), enforcement separation attestation (PASS — zero spawnSync/execSync in govern-system.ts, references ADR-034), gap analysis. Outputs .arch/compliance-report.md and .arch/compliance-report.json via --format flag. Live test: attestation PASS, all sections populated.",
+      "constraint": "Enforcement separation attestation uses grep on govern-system.ts source — works only when run from the ARCH repo itself. External repos using arch audit --report get UNVERIFIED if the source file is absent.",
+      "cost": "No architectural debt. The report is deterministic and regeneratable on every run.",
+      "forwardAction": "Consider adding --output flag to write report to a custom path for CI artifact upload.",
+      "acCount": 6,
+      "acMachineVerifiable": 2,
+      "closurePath": "unknown"
+    },
     "TASK-1025": {
       "id": "TASK-1025",
       "size": "S",
@@ -496,6 +513,23 @@
       "acCount": 11,
       "acMachineVerifiable": 6,
       "closurePath": "auditor"
+    },
+    "TASK-1030": {
+      "id": "TASK-1030",
+      "size": "S",
+      "class": "6-writing",
+      "closedAt": "2026-05-31T16:18:02.107Z",
+      "lockedCommit": "dbb6190",
+      "actor": "unknown",
+      "severity": "H0",
+      "category": "[SpecDrift]",
+      "decision": "ADR-035 written. Decision: docs/archive/YYYY-MM/ subdirectories, triggered at 500 files (current: 454). Sprint-based rejected (names change). Date-based is deterministic. Migration via scripts/partition-archive.ts. Execution deferred per original task scope.",
+      "constraint": "Execution deferred until 500 files. Corpus indexer, arch check, and glob patterns in external tools need updating when executed.",
+      "cost": "No code changes in this task — design only. Migration cost is moderate (S-sized execution task when triggered).",
+      "forwardAction": "File TASK-XXXX when archive reaches 500 to execute the migration per ADR-035.",
+      "acCount": 0,
+      "acMachineVerifiable": 0,
+      "closurePath": "L3"
     },
     "TASK-1031": {
       "id": "TASK-1031",
@@ -3657,6 +3691,23 @@
       "forwardAction": "None required.",
       "acCount": 3,
       "acMachineVerifiable": 1,
+      "closurePath": "L3"
+    },
+    "TASK-970": {
+      "id": "TASK-970",
+      "size": "S",
+      "class": "6-writing",
+      "closedAt": "2026-05-31T16:17:31.579Z",
+      "lockedCommit": "ffc470e",
+      "actor": "unknown",
+      "severity": "H0",
+      "category": "[SpecDrift]",
+      "decision": "CODE-QUALITY-AUDIT.md written: complexity thresholds (cyclomatic, line length, fan-in, nesting), linting rules triggering manual review (any casts, silent catch, parallel mutation, magic strings, nested async in loop), refactoring sprint trigger conditions, hotspot peer review protocol. First audit subject: drift-checker.ts — debt acknowledged, TASK-1036 is the refactor path.",
+      "constraint": "Sentinel check references arch sentinel but threshold enforcement is currently advisory only — not yet integrated into arch review exit code. That integration is TASK-1036 scope.",
+      "cost": "Process doc without tooling enforcement is advisory. Value increases when thresholds are wired into arch review.",
+      "forwardAction": "Wire complexity thresholds into arch review (TASK-1036 or separate XS task).",
+      "acCount": 3,
+      "acMachineVerifiable": 2,
       "closurePath": "L3"
     },
     "TASK-971": {
