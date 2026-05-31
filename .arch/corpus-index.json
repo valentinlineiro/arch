@@ -1,8 +1,8 @@
 {
   "version": 1,
-  "builtAt": "2026-05-31T09:53:24.039Z",
-  "archiveCommit": "445:design",
-  "taskCount": 229,
+  "builtAt": "2026-05-31T10:51:14.723Z",
+  "archiveCommit": "446:design",
+  "taskCount": 230,
   "entries": {
     "TASK-1000": {
       "id": "TASK-1000",
@@ -988,6 +988,23 @@
       "forwardAction": "None.",
       "acCount": 0,
       "acMachineVerifiable": 0,
+      "closurePath": "L3"
+    },
+    "TASK-1072": {
+      "id": "TASK-1072",
+      "size": "S",
+      "class": "1-code-reasoning",
+      "closedAt": "2026-05-31T10:50:46.715Z",
+      "lockedCommit": "f2f70bd",
+      "actor": "unknown",
+      "severity": "H1",
+      "category": "[SpecDrift]",
+      "decision": "syncRemotes() extended to pull IDEAs from docs/refinement/ and docs/refinement/archive/ on remote. DRAFT and PROMOTED IDEAs staged to .arch/incoming-ideas/<slug>-<filename>. govern step 4.1 calls getIncomingIdeas() and writes [AWAITING_TRIAGE] to INBOX. [AWAITING_TRIAGE] added to DETERMINISTIC_PREFIXES in inbox-hygiene so it never expires. rootPath added to CorpusIndexService constructor.",
+      "constraint": "IDEA staging is file-based (.arch/incoming-ideas/). Once staged, marking an IDEA as triaged requires manually deleting the staged file or the entry persisting. A future TASK should add arch triage command to clear staged IDEAs.",
+      "cost": "syncRemotes now pulls IDEAs on every govern tick if remotes configured. Minor extra readdir per remote per tick — negligible.",
+      "forwardAction": "File arch triage command to mark staged IDEAs as reviewed and remove from AWAITING_TRIAGE.",
+      "acCount": 6,
+      "acMachineVerifiable": 4,
       "closurePath": "L3"
     },
     "TASK-180": {
