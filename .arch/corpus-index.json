@@ -1,8 +1,8 @@
 {
   "version": 1,
-  "builtAt": "2026-05-31T11:01:52.228Z",
-  "archiveCommit": "447:design",
-  "taskCount": 231,
+  "builtAt": "2026-05-31T11:16:18.200Z",
+  "archiveCommit": "451:design",
+  "taskCount": 235,
   "entries": {
     "TASK-1000": {
       "id": "TASK-1000",
@@ -70,6 +70,23 @@
       "forwardAction": "TASK-1004 implements the fallback loop.",
       "acCount": 0,
       "acMachineVerifiable": 0,
+      "closurePath": "L3"
+    },
+    "TASK-1004": {
+      "id": "TASK-1004",
+      "size": "S",
+      "class": "2-code-generation",
+      "closedAt": "2026-05-31T11:13:22.922Z",
+      "lockedCommit": "c207b5d",
+      "actor": "unknown",
+      "severity": "H0",
+      "category": "[SpecDrift]",
+      "decision": "Fallback loop added to both Phase 1 and Phase 3 CLI invocations in analyze-command.ts. On non-zero exit: logs [FALLBACK] <cli-name> exited N, continues to next CLI. On success (exit 0): breaks. Falls through to existing fallback prompt display if all CLIs fail. Fallback chain: opencode -> claude -> ollama -> prompt display.",
+      "constraint": "Stderr from failing CLIs still shown (stdio: inherit). A future improvement could suppress stderr on non-final failures. Acceptable for now.",
+      "cost": "No architectural debt.",
+      "forwardAction": "Consider suppressing stderr on non-final CLI failures (separate XS task if needed).",
+      "acCount": 5,
+      "acMachineVerifiable": 2,
       "closurePath": "L3"
     },
     "TASK-1005": {
@@ -446,6 +463,23 @@
       "acMachineVerifiable": 2,
       "closurePath": "auditor"
     },
+    "TASK-1028": {
+      "id": "TASK-1028",
+      "size": "L",
+      "class": "6-writing",
+      "closedAt": "2026-05-31T11:16:13.604Z",
+      "lockedCommit": "954276c",
+      "actor": "unknown",
+      "severity": "H1",
+      "category": "[SpecDrift]",
+      "decision": "AC breakdown doc written at docs/90-day-sprint-acs.md. Four objectives locked. Objectives 1, 2, 4 already DONE (TASK-1021/1022/1023). Objective 3 (arch task capture clean surface) filed as TASK-1074. Sprint is 75% done. Phantom deps TASK-1026/1027 were removed — they never existed.",
+      "constraint": "TASK-1028 depended on TASK-1026/1027 which do not exist in archive or tasks. Those were phantom references from the original filing. The sprint is executable without them.",
+      "cost": "Objective 3 remains as TASK-1074 P2 S. One session of work to close the sprint.",
+      "forwardAction": "Complete TASK-1074 to close the 90-day productization sprint.",
+      "acCount": 8,
+      "acMachineVerifiable": 2,
+      "closurePath": "unknown"
+    },
     "TASK-1029": {
       "id": "TASK-1029",
       "size": "M",
@@ -649,6 +683,23 @@
       "acCount": 6,
       "acMachineVerifiable": 2,
       "closurePath": "auditor"
+    },
+    "TASK-1047": {
+      "id": "TASK-1047",
+      "size": "XS",
+      "class": "3-chore",
+      "closedAt": "2026-05-31T11:12:04.852Z",
+      "lockedCommit": "472a9ef",
+      "actor": "unknown",
+      "severity": "H0",
+      "category": "[SpecDrift]",
+      "decision": "Added npm run test:watch to cli/package.json. One line change.",
+      "constraint": "--watch flag requires Node 18+. Already satisfied.",
+      "cost": "No architectural debt. Script-only change.",
+      "forwardAction": "None required — one-line script addition.",
+      "acCount": 3,
+      "acMachineVerifiable": 2,
+      "closurePath": "L3"
     },
     "TASK-1048": {
       "id": "TASK-1048",
@@ -1022,6 +1073,23 @@
       "forwardAction": "File arch triage command to mark staged IDEAs as reviewed and remove from AWAITING_TRIAGE.",
       "acCount": 6,
       "acMachineVerifiable": 4,
+      "closurePath": "L3"
+    },
+    "TASK-1073": {
+      "id": "TASK-1073",
+      "size": "S",
+      "class": "1-code-reasoning",
+      "closedAt": "2026-05-31T11:14:50.594Z",
+      "lockedCommit": "ff2cfa2",
+      "actor": "unknown",
+      "severity": "H1",
+      "category": "[SpecDrift]",
+      "decision": "TriageCommand implemented. Lists staged IDEAs, prompts P/N/D/S per IDEA. Promote: strips slug prefix, copies to docs/refinement/, removes staged file and INBOX entry. Noise: deletes staged file and INBOX entry. Defer: appends Deferred date, keeps file. arch triage --all: sequential. Wired in dispatcher.",
+      "constraint": "Interactive readline won't work in non-TTY environments (CI). arch triage is a human-operated command — acceptable.",
+      "cost": "No architectural debt.",
+      "forwardAction": "Consider adding arch triage to the default help surface once remote IDEAs are flowing regularly.",
+      "acCount": 9,
+      "acMachineVerifiable": 3,
       "closurePath": "L3"
     },
     "TASK-180": {
