@@ -46,6 +46,7 @@ import { RankCommand } from './commands/rank-command.js';
 import { AuditCommand } from './commands/audit-command.js';
 import { ResumeCommand } from './commands/resume-command.js';
 import { FixCommand } from './commands/fix-command.js';
+import { TriageCommand } from './commands/triage-command.js';
 import { ProjectCommand } from './commands/project-command.js';
 import { CorpusImportCommand } from './commands/corpus-import-command.js';
 
@@ -180,6 +181,7 @@ export class CommandDispatcher {
     'sentinel': async () => new SentinelCommand(this.fileSystem),
     'audit': async () => new AuditCommand(),
     'fix': async () => new FixCommand(this.fileSystem, this.rootPath),
+    'triage': async () => new TriageCommand(this.fileSystem, this.rootPath),
     'resume': async () => new ResumeCommand(this.fileSystem, this.gitRepository, this.taskRepository, this.rootPath),
 
     'task:loop': async () => new LoopCommand(this.taskRepository, this.gitRepository, this.fileSystem, this.reviewer, this.driftChecker),

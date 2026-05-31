@@ -134,12 +134,17 @@ export class AnalyzeCommand implements Command {
         const tmpFile = `/tmp/arch-hansei-prompt-${Date.now()}.md`;
         fs.writeFileSync(tmpFile, prompt);
         const cmd = cli.template.replace(/\{prompt\}/g, `$(cat ${tmpFile})`);
-        
-        spawnSync('sh', ['-c', cmd], { stdio: 'inherit' });
-        
+
+        const result = spawnSync('sh', ['-c', cmd], { stdio: 'inherit' });
+
         try { fs.unlinkSync(tmpFile); } catch {}
-        advisoryExecuted = true;
-        break;
+
+        if (result.status === 0) {
+          advisoryExecuted = true;
+          break;
+        }
+        // Non-zero exit (quota exhausted, error) — try next CLI
+        console.log(`  [FALLBACK] ${cli.name} exited ${result.status} — trying next CLI`);
       }
 
       if (!advisoryExecuted) {
@@ -339,9 +344,14 @@ ${taskSections}`;
           if (which.status !== 0) continue;
 
           const cmd = cli.template.replace(/\{prompt\}/g, `$(cat ${tmpPath})`);
-          
-          // Execute Advisory analysis
-          spawnSync('sh', ['-c', cmd], { stdio: 'inherit' });
+
+          // Execute Advisory analysis — fallback to next CLI on non-zero exit
+          const result = spawnSync('sh', ['-c', cmd], { stdio: 'inherit' });
+
+          if (result.status !== 0) {
+            console.log(`  [FALLBACK] ${cli.name} exited ${result.status} — trying next CLI`);
+            continue;
+          }
 
           if (deepMode) {
             await this.updateDeepState();
