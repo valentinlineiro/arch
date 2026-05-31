@@ -351,6 +351,12 @@
           ],
           "taskPath": "docs/archive/TASK-1028.md"
         },
+        "TASK-1030": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1030.md"
+        },
         "TASK-1044": {
           "evidenceKinds": [
             "literal-mention"
@@ -522,6 +528,12 @@
           ],
           "taskPath": "docs/archive/TASK-1025.md"
         },
+        "TASK-1030": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1030.md"
+        },
         "TASK-1034": {
           "evidenceKinds": [
             "literal-mention"
@@ -588,6 +600,12 @@
           ],
           "taskPath": "docs/archive/TASK-1072.md"
         },
+        "TASK-970": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-970.md"
+        },
         "TASK-990": {
           "evidenceKinds": [
             "literal-mention"
@@ -627,6 +645,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-1023.md"
+        },
+        "TASK-1030": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1030.md"
         },
         "TASK-1051": {
           "evidenceKinds": [
@@ -690,7 +714,7 @@
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-970.md"
+          "taskPath": "docs/archive/TASK-970.md"
         },
         "TASK-999": {
           "evidenceKinds": [
@@ -896,7 +920,7 @@
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-1024.md"
+          "taskPath": "docs/archive/TASK-1024.md"
         },
         "TASK-231": {
           "evidenceKinds": [
@@ -1115,7 +1139,7 @@
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-970.md"
+          "taskPath": "docs/archive/TASK-970.md"
         },
         "TASK-990": {
           "evidenceKinds": [
@@ -1179,7 +1203,7 @@
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-1024.md"
+          "taskPath": "docs/archive/TASK-1024.md"
         },
         "TASK-1043": {
           "evidenceKinds": [
@@ -1452,12 +1476,6 @@
           ],
           "taskPath": "docs/archive/TASK-950.md"
         },
-        "TASK-970": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/tasks/TASK-970.md"
-        },
         "TASK-980": {
           "evidenceKinds": [
             "literal-mention"
@@ -1546,7 +1564,7 @@
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-1024.md"
+          "taskPath": "docs/archive/TASK-1024.md"
         },
         "TASK-1029": {
           "evidenceKinds": [
@@ -1677,6 +1695,22 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-1005.md"
+        },
+        "TASK-1024": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1024.md"
+        }
+      }
+    },
+    "ADR-035": {
+      "tasks": {
+        "TASK-1030": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1030.md"
         }
       }
     }
@@ -4660,9 +4694,86 @@
       ],
       "strength": "advisory",
       "title": "Govern/Reflect Structural Separation"
+    },
+    "ADR-035": {
+      "affectedModules": [],
+      "keywords": [
+        "001",
+        "002",
+        "035",
+        "1030",
+        "2026",
+        "454",
+        "500",
+        "accepted",
+        "adr",
+        "aligned",
+        "always",
+        "approaching",
+        "archive",
+        "archived",
+        "aren",
+        "become",
+        "been",
+        "before",
+        "change",
+        "closed",
+        "cognitive",
+        "commit",
+        "considered",
+        "context",
+        "date",
+        "decided",
+        "decision",
+        "deferred",
+        "deterministic",
+        "directory",
+        "docs",
+        "exceeds",
+        "execution",
+        "field",
+        "file",
+        "files",
+        "flat",
+        "git",
+        "identifiers",
+        "independent",
+        "latency",
+        "listing",
+        "locks",
+        "measurable",
+        "month",
+        "moved",
+        "names",
+        "naming",
+        "options",
+        "overhead",
+        "partitioning",
+        "scheme",
+        "slug",
+        "source",
+        "sprint",
+        "stable",
+        "status",
+        "strategy",
+        "structure",
+        "subdirectories",
+        "task",
+        "tasks",
+        "them",
+        "threshold",
+        "under",
+        "until",
+        "where",
+        "without",
+        "year",
+        "yyyy"
+      ],
+      "strength": "advisory",
+      "title": "Archive Partitioning Strategy — Year-Month Subdirectories"
     }
   },
-  "builtAt": "2026-05-31T13:33:50.785Z",
+  "builtAt": "2026-05-31T16:18:39.609Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -9890,6 +10001,27 @@
         "docs/tasks/TASK-1069.md": 1
       }
     },
+    "TASK-1024": {
+      "commitCount": 2,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-05-31T16:16:36+00:00",
+      "recentCommitRefs": [
+        "c78a37c",
+        "ffc470e"
+      ],
+      "touchedFrequency": {
+        ".arch/causal-signal.jsonl": 1,
+        ".arch/chronicle.jsonl": 2,
+        ".arch/context-feedback.json": 1,
+        ".arch/temporal-index.jsonl": 1,
+        "cli/src/main/ts/application/commands/capture-command.ts": 1,
+        "cli/src/test/ts/capture-command-verifiability.test.ts": 1,
+        "docs/EVENTS.md": 2,
+        "docs/INBOX.md": 1,
+        "docs/archive/TASK-1024.md": 1,
+        "docs/tasks/TASK-1024.md": 1
+      }
+    },
     "TASK-1028": {
       "commitCount": 3,
       "commitRefOverflow": false,
@@ -9919,15 +10051,34 @@
       }
     },
     "TASK-1030": {
+      "commitCount": 2,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-05-31T16:18:02+00:00",
+      "recentCommitRefs": [
+        "4cfaead",
+        "e63b93e"
+      ],
+      "touchedFrequency": {
+        ".arch/causal-signal.jsonl": 1,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/context-feedback.json": 1,
+        ".arch/focus-ledger.jsonl": 1,
+        ".arch/temporal-index.jsonl": 1,
+        "docs/EVENTS.md": 1,
+        "docs/archive/TASK-1030.md": 1,
+        "docs/tasks/TASK-1030.md": 2
+      }
+    },
+    "TASK-1036": {
       "commitCount": 1,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-31T13:33:21+00:00",
+      "lastCommitDate": "2026-05-31T16:18:07+00:00",
       "recentCommitRefs": [
-        "4cfaead"
+        "75133e8"
       ],
       "touchedFrequency": {
         ".arch/focus-ledger.jsonl": 1,
-        "docs/tasks/TASK-1030.md": 1
+        "docs/tasks/TASK-1036.md": 1
       }
     },
     "TASK-1043": {
@@ -11619,22 +11770,43 @@
       }
     },
     "TASK-1074": {
-      "commitCount": 2,
+      "commitCount": 3,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-31T11:26:44+00:00",
+      "lastCommitDate": "2026-05-31T16:14:47+00:00",
       "recentCommitRefs": [
         "6a9a42a",
-        "bb9635d"
+        "bb9635d",
+        "c78a37c"
+      ],
+      "touchedFrequency": {
+        ".arch/causal-signal.jsonl": 1,
+        ".arch/chronicle.jsonl": 2,
+        ".arch/context-feedback.json": 1,
+        ".arch/focus-ledger.jsonl": 1,
+        ".arch/temporal-index.jsonl": 1,
+        "cli/src/main/ts/application/commands/capture-command.ts": 1,
+        "cli/src/test/ts/capture-command-verifiability.test.ts": 1,
+        "docs/EVENTS.md": 2,
+        "docs/INBOX.md": 1,
+        "docs/archive/TASK-1074.md": 1,
+        "docs/tasks/TASK-1024.md": 1,
+        "docs/tasks/TASK-1074.md": 2
+      }
+    },
+    "TASK-970": {
+      "commitCount": 1,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-05-31T16:17:31+00:00",
+      "recentCommitRefs": [
+        "dbb6190"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
         ".arch/chronicle.jsonl": 1,
         ".arch/context-feedback.json": 1,
-        ".arch/focus-ledger.jsonl": 1,
         ".arch/temporal-index.jsonl": 1,
         "docs/EVENTS.md": 1,
-        "docs/archive/TASK-1074.md": 1,
-        "docs/tasks/TASK-1074.md": 2
+        "docs/archive/TASK-970.md": 1
       }
     }
   },
