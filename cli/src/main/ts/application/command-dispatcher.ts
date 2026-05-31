@@ -45,6 +45,7 @@ import { SentinelCommand } from './commands/sentinel-command.js';
 import { RankCommand } from './commands/rank-command.js';
 import { AuditCommand } from './commands/audit-command.js';
 import { ResumeCommand } from './commands/resume-command.js';
+import { FixCommand } from './commands/fix-command.js';
 import { ProjectCommand } from './commands/project-command.js';
 import { CorpusImportCommand } from './commands/corpus-import-command.js';
 
@@ -68,6 +69,13 @@ export class CommandDispatcher {
   ) {}
 
   async dispatch(name: string, args: string[]): Promise<number> {
+    // Two-tier help
+    if (name === 'help' || name === '--help' || name === '-h') {
+      const full = args.includes('--full');
+      this.showHelp(full);
+      return 0;
+    }
+
     const command = await this.resolveCommand(name, args);
     if (command) {
       try {
@@ -82,7 +90,21 @@ export class CommandDispatcher {
     }
   }
 
-  private showHelp(): void {
+  private showHelp(full = false): void {
+    // Default (surface) help: 3 entry points only
+    if (!full) {
+      console.log('');
+      console.log('  \x1b[32mARCH\x1b[0m — autonomous repository governance\n');
+      console.log('  arch init              Set up ARCH in this repository');
+      console.log('  arch review            Review repository health and governance status');
+      console.log('  arch task capture      Capture a task, decision, or observation');
+      console.log('');
+      console.log('  \x1b[90march help --full       Show all commands\x1b[0m');
+      console.log('');
+      return;
+    }
+
+    // Full help: existing behaviour
     const publicTopLevel = getPublicTopLevel();
     const groups: Map<string, CommandEntry[]> = new Map();
     for (const ns of publicTopLevel) {
@@ -157,6 +179,7 @@ export class CommandDispatcher {
     'compile': async () => new CompileCommand(this.fileSystem),
     'sentinel': async () => new SentinelCommand(this.fileSystem),
     'audit': async () => new AuditCommand(),
+    'fix': async () => new FixCommand(this.fileSystem, this.rootPath),
     'resume': async () => new ResumeCommand(this.fileSystem, this.gitRepository, this.taskRepository, this.rootPath),
 
     'task:loop': async () => new LoopCommand(this.taskRepository, this.gitRepository, this.fileSystem, this.reviewer, this.driftChecker),

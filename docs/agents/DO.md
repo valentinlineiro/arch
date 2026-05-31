@@ -111,3 +111,48 @@ These boundaries define which tools can be invoked autonomously in CI environmen
 | L    | `arch task done TASK-XXX` | Required — wizard runs | Required + Auditor |
 
 XS is the explicit exception to the default Auditor invariant. Direct-to-DONE is intentional.
+
+## Execution Logging
+
+Agents MAY write structured execution logs to `.arch/task-logs/TASK-XXXX.jsonl` during task execution. Logging is optional but recommended for M+ tasks and any task where the implementation path was non-obvious.
+
+### Schema
+
+**Required fields:**
+```json
+{
+  "ts": "2026-05-31T10:00:00Z",
+  "task": "TASK-1048",
+  "type": "step",
+  "msg": "Added Execution Logging section to DO.md"
+}
+```
+
+**Optional fields:**
+```json
+{
+  "context": "DO.md line 120 — appended after Human-Approval section",
+  "ac_ref": "AC1",
+  "resolution": "Used cat >> to append rather than str_replace to avoid conflicts",
+  "retro": false
+}
+```
+
+### Event types
+
+| Type | When to use |
+|------|-------------|
+| `step` | A discrete implementation step completed |
+| `decision` | An architectural or approach decision made during execution |
+| `scope-deviation` | Discovered the task scope is larger or smaller than estimated |
+| `blocker` | Hit an obstacle — file missing, test failing, ambiguous spec |
+| `ac-verified` | An AC predicate was manually checked and passed |
+
+The `scope-deviation` type supports a `retro: true` flag for deviations detected at REVIEW time rather than in-flight:
+```json
+{ "ts": "...", "task": "TASK-XXX", "type": "scope-deviation", "msg": "AC3 required touching 3 files not in context path", "retro": true }
+```
+
+### Cleanup rule
+
+Delete `.arch/task-logs/TASK-XXXX.jsonl` after the task's Hansei section is written. The log is execution scaffolding — its signal belongs in Hansei, not in permanent storage. Exception: keep the log if the Hansei references it directly via `ac_ref`.

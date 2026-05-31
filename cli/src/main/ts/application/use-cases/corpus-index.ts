@@ -183,4 +183,69 @@ export class CorpusIndexService {
       return `${files.length}:${files.sort().at(-1) ?? ''}`;
     } catch { return '0:'; }
   }
+
+  /**
+   * Sync remote ARCH repos into local corpus index.
+   * Runs on govern tick when corpus.remotes is configured.
+   * Non-blocking — warnings only on remote failures.
+   */
+  async syncRemotes(remotes: Array<{ url: string; slug?: string }>): Promise<{ synced: number; skipped: number }> {
+    const { execSync } = await import('node:child_process');
+    const { mkdtempSync, rmSync, existsSync } = await import('node:fs');
+    const { tmpdir } = await import('node:os');
+    const { join } = await import('node:path');
+
+    let synced = 0;
+    let skipped = 0;
+
+    const index = await this.load();
+
+    for (const remote of remotes) {
+      const slug = remote.slug ?? remote.url.split('/').at(-1)?.replace('.git', '') ?? 'remote';
+      let tmpDir: string | null = null;
+
+      try {
+        tmpDir = mkdtempSync(join(tmpdir(), `arch-sync-${slug}-`));
+        execSync(`git clone --depth 50 "${remote.url}" "${tmpDir}"`, { stdio: 'pipe', timeout: 60000 });
+
+        // Read remote archive
+        const archiveDir = join(tmpDir, 'docs', 'archive');
+        if (!existsSync(archiveDir)) {
+          console.log(`  ⚠ Remote ${slug}: no docs/archive/ found — skipping`);
+          continue;
+        }
+
+        const { readdir, readFile } = await import('node:fs/promises');
+        const files = await readdir(archiveDir).catch(() => [] as string[]);
+        const taskFiles = files.filter(f => f.startsWith('TASK-') && f.endsWith('.md'));
+
+        for (const file of taskFiles) {
+          const remoteId = `${slug}:${file.replace('.md', '')}`;
+          if (index.entries[remoteId]) { skipped++; continue; } // Already indexed
+
+          const content = await readFile(join(archiveDir, file), 'utf8').catch(() => null);
+          if (!content) continue;
+
+          const entry = this.parseEntry(content, remoteId);
+          if (entry) {
+            index.entries[remoteId] = { ...entry, source: slug };
+            synced++;
+          }
+        }
+
+      } catch (err: any) {
+        console.log(`  ⚠ Corpus sync failed for ${slug}: ${err.message?.slice(0, 80)}`);
+      } finally {
+        if (tmpDir) { try { rmSync(tmpDir, { recursive: true, force: true }); } catch {} }
+      }
+    }
+
+    if (synced > 0) {
+      index.taskCount = Object.keys(index.entries).length;
+      index.builtAt = new Date().toISOString();
+      await this.fileSystem.writeFile(INDEX_PATH, JSON.stringify(index, null, 2));
+    }
+
+    return { synced, skipped };
+  }
 }

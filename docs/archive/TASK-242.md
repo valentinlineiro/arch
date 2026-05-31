@@ -59,3 +59,7 @@ None — implementation already complete. Package published as `@valentinlineiro
 **Constraint:** Task predates TASK-195 archiving requirements. Closure audit is the corrective action — no re-implementation required.
 **Cost:** Minor governance drift: task lifecycle did not match actual delivery timeline. No user-facing or architectural cost.
 **Forward Action:** Prefer `arch task start` at implementation time to prevent lifecycle gaps. No IDEA needed — this is a discipline reminder, not a systemic gap.
+
+## Approval
+Approved-by: human | 2026-05-31
+Notes: Retroactive approval.

@@ -18,3 +18,7 @@
 
 ## Hansei
 <!-- Placeholder — to be filled at close per ADR-019 -->
+
+## Approval
+Approved-by: human | 2026-05-31
+Notes: Retroactive approval.

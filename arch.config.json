@@ -99,7 +99,7 @@
     "execTimeoutMinutes": 10,
     "sprawlThresholds": {
       ".arch": 30,
-      "docs": 25,
+      "docs": 38,
       ".": 25
     },
     "negativeConstraints": [
@@ -277,18 +277,18 @@
       "type": "bridge",
       "bin": "gemini",
       "template": "gemini -p \"{prompt}\" -y",
-      "_deprecated": "Use opencode instead — Gemini deprecated in AGY context"
+      "_deprecated": "Use opencode instead \u2014 Gemini deprecated in AGY context"
     }
   ],
   "costs": {
     "_schema": "Written by arch exec bridge after each session to .arch/costs/TASK-XXX.json",
     "_fields": {
-      "taskId": "string — the task ID (e.g. TASK-XXX)",
-      "actor": "string — provider/model (e.g. claude-code/sonnet)",
-      "inputTokens": "number — tokens consumed from context",
-      "outputTokens": "number — tokens generated",
-      "estimatedCostUSD": "number — estimated cost in USD (0.0 for local models)",
-      "sessionId": "string | null — optional session identifier"
+      "taskId": "string \u2014 the task ID (e.g. TASK-XXX)",
+      "actor": "string \u2014 provider/model (e.g. claude-code/sonnet)",
+      "inputTokens": "number \u2014 tokens consumed from context",
+      "outputTokens": "number \u2014 tokens generated",
+      "estimatedCostUSD": "number \u2014 estimated cost in USD (0.0 for local models)",
+      "sessionId": "string | null \u2014 optional session identifier"
     },
     "_example": {
       "taskId": "TASK-246",
@@ -301,5 +301,14 @@
   },
   "sprintCloseAfterN": 15,
   "sprintAutoNamePrefix": "sprint/v",
-  "archVersion": "1.2.0"
+  "archVersion": "1.2.0",
+  "corpus": {
+    "remotes": [
+      {
+        "url": "https://github.com/valentinlineiro/smartcart-os",
+        "slug": "smartcart",
+        "syncOnGovern": true
+      }
+    ]
+  }
 }

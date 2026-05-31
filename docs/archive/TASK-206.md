@@ -26,3 +26,7 @@ Protocol and CLI currently share a repo, coupling their release cycles. Web tool
 **Constraint:** Task predates hanseiSinceTaskId threshold — Hansei is retroactively added.
 **Cost:** No cost introduced — this is a template compliance fix only.
 **Forward Action:** None required.
+
+## Approval
+Approved-by: human | 2026-05-31
+Notes: Retroactive approval.

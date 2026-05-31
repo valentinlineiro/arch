@@ -177,6 +177,20 @@ export class GovernSystem {
       }
     }
 
+    // 4.1 Corpus federation — sync remotes if configured
+    const corpusRemotes = (config as any).corpus?.remotes as Array<{ url: string; slug?: string; syncOnGovern?: boolean }> | undefined;
+    if (corpusRemotes?.some(r => r.syncOnGovern !== false)) {
+      try {
+        const { CorpusIndexService } = await import('./corpus-index.js');
+        const svc = new CorpusIndexService(this.fileSystem, this.gitRepository);
+        const remotes = corpusRemotes.filter(r => r.syncOnGovern !== false);
+        const { synced, skipped } = await svc.syncRemotes(remotes);
+        if (synced > 0) console.log(`  \x1b[32m✔\x1b[0m Corpus federation: +${synced} new tasks from ${remotes.length} remote${remotes.length > 1 ? 's' : ''} (${skipped} already indexed)`);
+      } catch (err: any) {
+        if (process.env.ARCH_DEBUG) console.error('[corpus-federation] sync failed:', err);
+      }
+    }
+
     // 5. Project DoD gate
     const projectComplete = await this.checkProjectDoD();
 

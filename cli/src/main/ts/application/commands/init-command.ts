@@ -90,10 +90,77 @@ export class InitCommand implements Command {
       fmt.log('  4. Run: arch analyze              — THINK populates INBOX');
     }
     fmt.log('');
+
+    // Enforcement demo moment — show what governance actually enforces
+    fmt.log('  \x1b[33m⚡ How enforcement works:\x1b[0m');
+    fmt.log('');
+    fmt.log('  Every commit is checked by arch review (via .githooks/pre-commit).');
+    fmt.log('  Try it: make a commit without a TASK-ID in the message.');
+    fmt.log('');
+    fmt.log('    git commit -m "fix typo"');
+    fmt.log('    → blocked by \x1b[36march review\x1b[0m: commit message must reference a TASK-ID');
+    fmt.log('');
+    fmt.log('    git commit -m "[TASK-001] fix typo"');
+    fmt.log('    → \x1b[32m✔\x1b[0m passes');
+    fmt.log('');
+    fmt.log('  This is the boundary. ARCH enforces it. Not a request.');
+    fmt.log('');
+
+    // PLG: run a quick review scan and surface findings in plain language
+    await this.runInitialScan();
+
     return 0;
   }
 
-  // ── Stack Detection ────────────────────────────────────────────────────────
+  private async runInitialScan(): Promise<void> {
+    fmt.log('  \x1b[36mScanning repository...\x1b[0m');
+    fmt.log('');
+
+    // Plain-language finding categories (no protocol jargon)
+    const findings: string[] = [];
+
+    // Check for open tasks without owners
+    try {
+      const { readdir } = await import('node:fs/promises');
+      const taskDir = `${this.rootPath}/${this.pr.tasks}`;
+      const taskFiles = await readdir(taskDir).catch(() => [] as string[]);
+      const taskCount = taskFiles.filter(f => f.endsWith('.md') && f.startsWith('TASK-')).length;
+      if (taskCount === 0) {
+        findings.push('No tasks found — create your first task to get started');
+      }
+    } catch { /* not a blocker */ }
+
+    // Check for missing ARCH governance docs
+    const missing: string[] = [];
+    for (const doc of ['docs/INBOX.md', 'docs/EVENTS.md']) {
+      if (!await this.exists(doc)) missing.push(doc);
+    }
+    if (missing.length > 0) {
+      findings.push(`${missing.length} governance file${missing.length > 1 ? 's' : ''} not yet created`);
+    }
+
+    // Check for uncommitted changes
+    try {
+      const cp = await import('node:child_process');
+      const status = cp.execSync('git status --porcelain', { cwd: this.rootPath, encoding: 'utf8', timeout: 5000, stdio: ['pipe', 'pipe', 'pipe'] });
+      const dirtyCount = status.trim().split('\n').filter(Boolean).length;
+      if (dirtyCount > 0) {
+        findings.push(`${dirtyCount} uncommitted file${dirtyCount > 1 ? 's' : ''} — commit before starting work`);
+      }
+    } catch { /* git not available or not a git repo */ }
+
+    if (findings.length === 0) {
+      fmt.log('  \x1b[32m✔\x1b[0m Repository looks good. No immediate issues found.');
+    } else {
+      fmt.log(`  Found ${findings.length} thing${findings.length > 1 ? 's' : ''} to address:\n`);
+      for (const f of findings) {
+        fmt.log(`    · ${f}`);
+      }
+      fmt.log('');
+      fmt.log(`  Run \x1b[36march fix\x1b[0m to resolve them automatically.`);
+    }
+    fmt.log('');
+  }  // ── Stack Detection ────────────────────────────────────────────────────────
 
   private async detectStack(): Promise<DetectedStack> {
     if (await this.exists('package.json')) {
