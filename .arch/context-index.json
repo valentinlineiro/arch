@@ -4560,7 +4560,7 @@
       "title": "Govern/Reflect Structural Separation"
     }
   },
-  "builtAt": "2026-05-31T10:51:40.017Z",
+  "builtAt": "2026-05-31T11:02:21.786Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -9537,14 +9537,20 @@
   },
   "tasks": {
     "TASK-1003": {
-      "commitCount": 1,
+      "commitCount": 2,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-31T10:51:14+00:00",
+      "lastCommitDate": "2026-05-31T11:01:47+00:00",
       "recentCommitRefs": [
+        "85ae820",
         "f5e663e"
       ],
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 1
+        ".arch/causal-signal.jsonl": 1,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/focus-ledger.jsonl": 1,
+        ".arch/temporal-index.jsonl": 1,
+        "docs/EVENTS.md": 1,
+        "docs/archive/TASK-1003.md": 1
       }
     },
     "TASK-1021": {
@@ -9737,6 +9743,18 @@
         "docs/tasks/TASK-1003.md": 1,
         "docs/tasks/TASK-1024.md": 1,
         "docs/tasks/TASK-1069.md": 1
+      }
+    },
+    "TASK-1028": {
+      "commitCount": 1,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-05-31T11:01:52+00:00",
+      "recentCommitRefs": [
+        "e841054"
+      ],
+      "touchedFrequency": {
+        ".arch/focus-ledger.jsonl": 1,
+        "docs/tasks/TASK-1028.md": 1
       }
     },
     "TASK-1043": {
@@ -11352,18 +11370,23 @@
       }
     },
     "TASK-1072": {
-      "commitCount": 1,
+      "commitCount": 2,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-31T10:51:10+00:00",
+      "lastCommitDate": "2026-05-31T10:51:53+00:00",
       "recentCommitRefs": [
-        "c10051f"
+        "c10051f",
+        "dbd4388"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
         ".arch/chronicle.jsonl": 1,
         ".arch/context-feedback.json": 1,
         ".arch/temporal-index.jsonl": 1,
-        "docs/EVENTS.md": 1,
+        "cli/src/main/ts/application/use-cases/corpus-index.ts": 1,
+        "cli/src/main/ts/application/use-cases/govern-system.ts": 1,
+        "cli/src/main/ts/application/use-cases/inbox-hygiene.ts": 1,
+        "docs/EVENTS.md": 2,
+        "docs/INBOX.md": 1,
         "docs/archive/TASK-1072.md": 1
       }
     }
