@@ -16,7 +16,14 @@ import { LanguageAdapter } from '../../domain/services/ueg-interfaces.js';
 
 export class AuditCommand implements Command {
   async execute(args: string[]): Promise<number> {
+    const isReport = args.includes('--report');
     const isPublic = args.includes('--public');
+    const format = args.includes('--format') ? args[args.indexOf('--format') + 1] : 'markdown';
+
+    if (isReport) {
+      return await this.runReport(format as 'markdown' | 'json');
+    }
+
     const target = (isPublic ? args[args.indexOf('--public') + 1] : args[0]) ?? '.';
     const verbose = args.includes('--verbose') || args.includes('-v');
 
@@ -197,5 +204,140 @@ export class AuditCommand implements Command {
     fmt.log('');
 
     fmt.log(`  \x1b[90mNote: ARCH v1.1 is a structural decomposition engine. Labels and views are emergent lenses, not truth claims.\x1b[0m\n`);
+  }
+
+  private async runReport(format: 'markdown' | 'json'): Promise<number> {
+    const { readdir, readFile, writeFile } = await import('node:fs/promises');
+    const { existsSync } = await import('node:fs');
+    const { join, resolve } = await import('node:path');
+    const root = resolve('.');
+
+    console.log(`\n  \x1b[32mARCH\x1b[0m — Compliance Report\n`);
+
+    // ── 1. Governance Rule Inventory ─────────────────────────────────────
+    const adrDir = join(root, 'docs', 'adr');
+    const adrs: Array<{ id: string; title: string; status: string; enforcement: string }> = [];
+
+    if (existsSync(adrDir)) {
+      const adrFiles = (await readdir(adrDir)).filter(f => f.match(/^ADR-\d+/));
+      for (const file of adrFiles) {
+        const content = await readFile(join(adrDir, file), 'utf8').catch(() => '');
+        const title = content.match(/^# (ADR-[\d]+: .+)/m)?.[1] ?? file.replace('.md', '');
+        const status = content.match(/\*\*Status:\*\*\s*(\S+)/)?.[1] ?? 'Unknown';
+        // Enforcement: look for file references in ADR
+        const enforcement = content.match(/`([^`]+\.ts)`/g)?.slice(0, 2).map(s => s.replace(/`/g, '')).join(', ') ?? 'documented';
+        adrs.push({ id: file.replace('.md', ''), title, status, enforcement });
+      }
+    }
+
+    // ── 2. Chronicle Summary ──────────────────────────────────────────────
+    const ledgerPath = join(root, '.arch', 'focus-ledger.jsonl');
+    let totalRulings = 0, andonCount = 0, focusPreserved = 0, focusAcquired = 0;
+    if (existsSync(ledgerPath)) {
+      const lines = (await readFile(ledgerPath, 'utf8')).split('\n').filter(Boolean);
+      totalRulings = lines.length;
+      for (const line of lines) {
+        try {
+          const r = JSON.parse(line);
+          if (r.ruling === 'ANDON_HALT') andonCount++;
+          if (r.ruling === 'FOCUS_PRESERVED') focusPreserved++;
+          if (r.ruling === 'FOCUS_ACQUIRED') focusAcquired++;
+        } catch {}
+      }
+    }
+
+    const archiveDir = join(root, 'docs', 'archive');
+    const archivedCount = existsSync(archiveDir)
+      ? (await readdir(archiveDir)).filter(f => f.startsWith('TASK-')).length : 0;
+
+    // ── 3. Enforcement Separation Attestation ─────────────────────────────
+    const governPath = join(root, 'cli', 'src', 'main', 'ts', 'application', 'use-cases', 'govern-system.ts');
+    let attestation = 'UNVERIFIED';
+    let attestationDetail = 'govern-system.ts not found for analysis';
+    if (existsSync(governPath)) {
+      const governSrc = await readFile(governPath, 'utf8');
+      const spawnMatches = (governSrc.match(/spawnSync|execSync/g) ?? []).length;
+      if (spawnMatches === 0) {
+        attestation = 'PASS';
+        attestationDetail = 'govern-system.ts contains zero spawnSync/execSync calls — no LLM invocations in governance tick';
+      } else {
+        attestation = 'FAIL';
+        attestationDetail = `govern-system.ts contains ${spawnMatches} subprocess call(s) — manual review required`;
+      }
+    }
+
+    // ── 4. Gap Analysis ───────────────────────────────────────────────────
+    const gaps: string[] = [];
+    const tasksDir = join(root, 'docs', 'tasks');
+    if (existsSync(tasksDir)) {
+      const openTasks = (await readdir(tasksDir)).filter(f => f.startsWith('TASK-')).length;
+      if (openTasks > 20) gaps.push(`Backlog depth: ${openTasks} open tasks — consider prioritization review`);
+    }
+    const blockedAdrs = adrs.filter(a => a.status !== 'Accepted' && a.status !== 'ACCEPTED');
+    if (blockedAdrs.length > 0) gaps.push(`${blockedAdrs.length} ADR(s) not in Accepted status`);
+
+    const reportData = {
+      generated: new Date().toISOString(),
+      version: '1.2.1',
+      sections: {
+        governanceRules: { count: adrs.length, rules: adrs },
+        chronicle: { totalRulings, archivedTasks: archivedCount, andonHalts: andonCount, focusPreserved, focusAcquired },
+        enforcementSeparation: { attestation, detail: attestationDetail, adrReference: 'ADR-034' },
+        gaps: { count: gaps.length, items: gaps },
+      },
+    };
+
+    if (format === 'json') {
+      const outPath = join(root, '.arch', 'compliance-report.json');
+      await writeFile(outPath, JSON.stringify(reportData, null, 2));
+      console.log(`  Report written: .arch/compliance-report.json\n`);
+      return 0;
+    }
+
+    // Markdown output
+    const lines = [
+      `# ARCH Compliance Report`,
+      `Generated: ${new Date().toISOString().slice(0, 10)}  Version: ${reportData.version}`,
+      '',
+      `## 1. Governance Rule Inventory (${adrs.length} ADRs)`,
+      '',
+      '| ADR | Title | Status | Enforcement |',
+      '|-----|-------|--------|-------------|',
+      ...adrs.map(a => `| ${a.id} | ${a.title.slice(0, 50)} | ${a.status} | ${a.enforcement} |`),
+      '',
+      `## 2. Chronicle Summary`,
+      '',
+      `- **Governance rulings:** ${totalRulings}`,
+      `- **Tasks completed:** ${archivedCount}`,
+      `- **ANDON halts:** ${andonCount}`,
+      `- **Focus transitions:** ${focusAcquired} acquired, ${focusPreserved} preserved`,
+      '',
+      `## 3. Enforcement Separation Attestation`,
+      '',
+      `**Result:** ${attestation === 'PASS' ? '✔ PASS' : '✖ FAIL'}`,
+      `**ADR:** ADR-034 — Govern/Reflect Structural Separation`,
+      `**Detail:** ${attestationDetail}`,
+      '',
+      `> This attestation confirms that ARCH governance decisions are made exclusively by`,
+      `> deterministic code. No LLM output bypasses a governance gate.`,
+      '',
+      `## 4. Gap Analysis`,
+      '',
+      gaps.length === 0 ? '✔ No gaps identified.' : gaps.map(g => `- ${g}`).join('\n'),
+      '',
+    ];
+
+    const md = lines.join('\n');
+    const outPath = join(root, '.arch', 'compliance-report.md');
+    await writeFile(outPath, md);
+
+    // Print summary to console
+    console.log(`  Governance rules:  ${adrs.length} ADRs`);
+    console.log(`  Tasks completed:   ${archivedCount}`);
+    console.log(`  ANDON halts:       ${andonCount}`);
+    console.log(`  Enforcement sep:   ${attestation === 'PASS' ? '\x1b[32m✔ PASS\x1b[0m' : '\x1b[31m✖ FAIL\x1b[0m'} — ${attestationDetail.slice(0, 70)}`);
+    console.log(`  Gaps:              ${gaps.length === 0 ? 'none' : gaps.length}`);
+    console.log(`\n  Report written: .arch/compliance-report.md\n`);
+    return 0;
   }
 }

@@ -1,0 +1,239 @@
+{
+  "generated": "2026-05-31T16:16:19.180Z",
+  "version": "1.2.1",
+  "sections": {
+    "governanceRules": {
+      "count": 35,
+      "rules": [
+        {
+          "id": "ADR-000-template",
+          "title": "ADR-000-template",
+          "status": "PROPOSED",
+          "enforcement": "documented"
+        },
+        {
+          "id": "ADR-001-git-as-operating-system",
+          "title": "ADR-001: Use git as the primary state engine",
+          "status": "ACCEPTED",
+          "enforcement": "documented"
+        },
+        {
+          "id": "ADR-002-context-as-budget",
+          "title": "ADR-002: Context as a budget, not a default",
+          "status": "ACCEPTED",
+          "enforcement": "documented"
+        },
+        {
+          "id": "ADR-003-dispatch-ephemeral",
+          "title": "ADR-003: DISPATCH output is ephemeral — exception to ADR-001",
+          "status": "ACCEPTED",
+          "enforcement": "documented"
+        },
+        {
+          "id": "ADR-004-flat-tasks-with-focus-field",
+          "title": "ADR-004: Flat docs/tasks/ directory with Focus field replaces sprint/backlog split",
+          "status": "ACCEPTED",
+          "enforcement": "documented"
+        },
+        {
+          "id": "ADR-005-non-docker-sandbox",
+          "title": "ADR-005: Non-Docker Sandbox Strategy",
+          "status": "Unknown",
+          "enforcement": "documented"
+        },
+        {
+          "id": "ADR-006-depends-graph-validation-in-drift-checker",
+          "title": "ADR-006: Depends Graph Validation in DriftChecker Domain Service",
+          "status": "ACCEPTED",
+          "enforcement": "documented"
+        },
+        {
+          "id": "ADR-007-census-context-budget-check",
+          "title": "ADR-007: Census Context Budget Check in DriftChecker",
+          "status": "ACCEPTED",
+          "enforcement": "documented"
+        },
+        {
+          "id": "ADR-008-halt-policy-centralization",
+          "title": "ADR-008: Centralize halt conditions in HALT.md",
+          "status": "ACCEPTED",
+          "enforcement": "documented"
+        },
+        {
+          "id": "ADR-009-l3-self-archive",
+          "title": "ADR-009: L3 Self-Archive — Audited Autonomous Task Completion",
+          "status": "Accepted",
+          "enforcement": "documented"
+        },
+        {
+          "id": "ADR-010-escalation-maturity",
+          "title": "ADR-010: Escalation Maturity Phase 1 (E3 Detectable)",
+          "status": "PROPOSED",
+          "enforcement": "documented"
+        },
+        {
+          "id": "ADR-011-unified-provider-strategies",
+          "title": "ADR-011: Unified Provider Strategies",
+          "status": "Unknown",
+          "enforcement": "documented"
+        },
+        {
+          "id": "ADR-012-exec-bridge-layer-bugfixes",
+          "title": "ADR-012: Exec/Bridge Layer Bugfixes - maxBuffer, buildCommand signature, local routing",
+          "status": "Unknown",
+          "enforcement": "documented"
+        },
+        {
+          "id": "ADR-013-two-tier-drift-detection",
+          "title": "ADR-013: Two-Tier Drift Detection Architecture",
+          "status": "ACCEPTED",
+          "enforcement": "documented"
+        },
+        {
+          "id": "ADR-014-causal-graph-schema",
+          "title": "ADR-014: Causal Graph Schema for Chronicle",
+          "status": "ACCEPTED",
+          "enforcement": "cli/src/main/ts/domain/models/causal-relation.ts"
+        },
+        {
+          "id": "ADR-015-causal-signal-arbitration",
+          "title": "ADR-015: Causal Signal Arbitration Layer",
+          "status": "ACCEPTED",
+          "enforcement": "documented"
+        },
+        {
+          "id": "ADR-016-domain-layer-semantic-boundary",
+          "title": "ADR-016: Define the semantic boundary of the domain layer",
+          "status": "ACCEPTED",
+          "enforcement": "drift-checker.ts, drift-checker.ts"
+        },
+        {
+          "id": "ADR-017-deterministic-observability",
+          "title": "ADR-017: Deterministic Observability & Operational Metrics",
+          "status": "ACCEPTED",
+          "enforcement": "documented"
+        },
+        {
+          "id": "ADR-018-clean-execution-context",
+          "title": "ADR-018: Adversarially Robust Epistemology & Graded Integrity",
+          "status": "ACCEPTED",
+          "enforcement": "documented"
+        },
+        {
+          "id": "ADR-019-hansei-ontology",
+          "title": "ADR-019: Constitutional Hansei Ontology",
+          "status": "PROPOSED",
+          "enforcement": "documented"
+        },
+        {
+          "id": "ADR-020-focus-sovereignty-model",
+          "title": "ADR-020: Focus Sovereignty Model",
+          "status": "SUPERSEDED",
+          "enforcement": "documented"
+        },
+        {
+          "id": "ADR-021-refinement-ttl-and-admission",
+          "title": "ADR-021: Refinement funnel TTL and admission gate",
+          "status": "ACCEPTED",
+          "enforcement": "documented"
+        },
+        {
+          "id": "ADR-022-census-budget-recalibration",
+          "title": "ADR-022: Census Budget Recalibration for Capture Template",
+          "status": "Accepted",
+          "enforcement": "documented"
+        },
+        {
+          "id": "ADR-023-deterministic-gate-invariant",
+          "title": "ADR-023: Deterministic Gate Invariant",
+          "status": "Unknown",
+          "enforcement": "reflect-command.ts, reflect-command.ts"
+        },
+        {
+          "id": "ADR-024-drift-coverage-identity-model",
+          "title": "ADR-024: Drift Coverage Identity Model",
+          "status": "ACCEPTED",
+          "enforcement": "documented"
+        },
+        {
+          "id": "ADR-025-versioning-architecture",
+          "title": "ADR-025: Two-Track Versioning Architecture",
+          "status": "ACCEPTED",
+          "enforcement": "documented"
+        },
+        {
+          "id": "ADR-026-epistemic-layer-separation",
+          "title": "ADR-026: Epistemic Layer Separation — Event Log, State Projection, Governance Semantics",
+          "status": "ACCEPTED",
+          "enforcement": "documented"
+        },
+        {
+          "id": "ADR-027-phase-3-epistemic-stability",
+          "title": "ADR-027: Epistemically Bounded Stream Projections — Non-Persistent Sequence Processing",
+          "status": "ACCEPTED",
+          "enforcement": "documented"
+        },
+        {
+          "id": "ADR-028-epistemic-invariant-specification",
+          "title": "ADR-028: Unified Epistemic Invariant Specification — Bounded Stream Enforcement",
+          "status": "ACCEPTED",
+          "enforcement": "cli/src/test/ts/corpus-stress-test.test.ts"
+        },
+        {
+          "id": "ADR-029-cli-refactoring",
+          "title": "ADR-029: Human-Centric CLI Surface & Command Dispatcher",
+          "status": "Unknown",
+          "enforcement": "index.ts, index.ts"
+        },
+        {
+          "id": "ADR-030-think-promotion-proposals-domain-model",
+          "title": "ADR-030: THINK-generated promotion proposals as a first-class domain model",
+          "status": "Accepted",
+          "enforcement": "cli/src/main/ts/domain/models/promotion-proposal.ts"
+        },
+        {
+          "id": "ADR-031-sprint-domain-model",
+          "title": "ADR-031: Sprint as a first-class domain model",
+          "status": "Accepted",
+          "enforcement": "cli/src/main/ts/domain/models/sprint.ts, cli/src/main/ts/domain/services/sprint-service.ts"
+        },
+        {
+          "id": "ADR-032-automatic-sprint-lifecycle",
+          "title": "ADR-032: Automatic sprint lifecycle in arch govern",
+          "status": "Accepted",
+          "enforcement": "documented"
+        },
+        {
+          "id": "ADR-033-protocol-upgrade-policy",
+          "title": "ADR-033: Protocol upgrade policy — patch/minor/major classification and adoption",
+          "status": "Accepted",
+          "enforcement": "documented"
+        },
+        {
+          "id": "ADR-034-govern-reflect-separation",
+          "title": "ADR-034: Govern/Reflect Structural Separation",
+          "status": "Accepted",
+          "enforcement": "grep -n \"spawnSync\\|execSync\" cli/src/main/ts/application/use-cases/govern-system.ts, analyze-command.ts"
+        }
+      ]
+    },
+    "chronicle": {
+      "totalRulings": 155,
+      "archivedTasks": 451,
+      "andonHalts": 0,
+      "focusPreserved": 0,
+      "focusAcquired": 0
+    },
+    "enforcementSeparation": {
+      "attestation": "PASS",
+      "detail": "govern-system.ts contains zero spawnSync/execSync calls — no LLM invocations in governance tick",
+      "adrReference": "ADR-034"
+    },
+    "gaps": {
+      "count": 1,
+      "items": [
+        "9 ADR(s) not in Accepted status"
+      ]
+    }
+  }
+}
