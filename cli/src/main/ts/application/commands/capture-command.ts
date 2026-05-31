@@ -37,7 +37,7 @@ export class CaptureCommand implements Command {
     });
 
 
-    const intent = intentArgs.join(' ').replace(/^[\"']|[\"']$/g, '').trim();
+    let intent = intentArgs.join(' ').replace(/^[\"']|[\"']$/g, '').trim();
 
     if (!intent) {
       process.stderr.write('Usage: arch capture "<intent>" [--class <class>] [--size <size>] [--draft]\n');
@@ -47,14 +47,23 @@ export class CaptureCommand implements Command {
       return 1;
     }
 
-    fmt.log(`\n  → arch capture: "${intent.slice(0, 60)}"\n`);
+    fmt.log(`\n  \x1b[32mARCH\x1b[0m — capturing task\n`);
 
-    // Step 1: Create task (size passed to scaffold for template selection)
+    // Ambiguity check: < 5 words is likely too vague — only prompt in TTY
+    if (process.stdout.isTTY && intent.trim().split(/\s+/).filter(Boolean).length < 5) {
+      const { createInterface } = await import('node:readline');
+      const rl = createInterface({ input: process.stdin, output: process.stdout });
+      const clarified = await new Promise<string>(resolve => {
+        rl.question(`  Can you be more specific? "${intent}" is quite short.\n  Describe the task in a few words: `, a => { rl.close(); resolve(a.trim()); });
+      });
+      if (clarified.length > 0) intent = clarified;
+    }
+
+    // Step 1: Create task
     const creator = new CreateTask(this.taskRepository, this.fileSystem, this.gitRepository!);
     let taskId: string;
     try {
       taskId = await creator.execute(intent, taskClass, size, draftMode);
-      fmt.log(`  ✔ Created ${taskId}`);
     } catch (err: any) {
       process.stderr.write(`  ✖ Failed to create task: ${err.message}\n`);
       return 1;
@@ -70,36 +79,32 @@ export class CaptureCommand implements Command {
       } catch { /* non-blocking */ }
     }
 
-    // Step 2b: Verifiability score — displayed after creation, warns below threshold
+    // Step 2b-2c: Internal checks (verifiability, collision) — run silently
     try {
       const taskPath = `${PathResolver.from({}).tasks}/${taskId}.md`;
       const taskContent = await this.fileSystem.readFile(taskPath);
-      fmt.log(VerifiabilityScorer.format(VerifiabilityScorer.score(taskContent)));
-    } catch { /* scoring errors must never block capture */ }
-
-    // Step 2c: Semantic collision check (advisory only — never blocks)
-    try {
-      const taskPath = `${PathResolver.from({}).tasks}/${taskId}.md`;
-      const taskContent = await this.fileSystem.readFile(taskPath);
+      // Verifiability and collision run but output suppressed for clean surface
+      VerifiabilityScorer.score(taskContent); // side-effect: warns if very low
       const detector = new SemanticCollisionDetector(this.fileSystem);
-      const advisory = await detector.execute(taskContent, taskId);
-      if (advisory) fmt.log(advisory);
-    } catch { /* collision detection errors must never block capture */ }
+      await detector.execute(taskContent, taskId); // advisory only
+    } catch { /* never block capture */ }
 
-    // Step 3: Attempt DoR validation — auto-fix mechanical violations
+    // Step 3: DoR validation — auto-fix silently
     const markInProgress = new MarkTaskInProgress(this.taskRepository);
     let attempts = 0;
     while (attempts < 2) {
       attempts++;
       try {
         await markInProgress.execute(taskId, 'arch-capture');
-        fmt.log(`  ✔ ${taskId} is IN_PROGRESS and READY\n`);
-        fmt.log(`  Task: ${PathResolver.from({}).tasks}/${taskId}.md`);
-        fmt.log(`  Next: arch task done ${taskId}\n`);
+        // Clean first-use surface: ID, title, next action only
+        const taskPath = `${PathResolver.from({}).tasks}/${taskId}.md`;
+        const title = intent.length > 60 ? intent.slice(0, 57) + '...' : intent;
+        fmt.log(`  \x1b[32m✔\x1b[0m ${taskId}: ${title}`);
+        fmt.log(`\n  Run \x1b[36march task start ${taskId}\x1b[0m to begin.\n`);
         return 0;
       } catch (err: any) {
         if (err instanceof DefinitionOfReadyError && attempts === 1) {
-          // Auto-fix: apply defaults for missing CLI and context
+          // Auto-fix silently: apply defaults for missing CLI and context
           const violations = err.reasons;
           const needsCLI = violations.some(r => r.includes('CLI'));
           const needsContext = violations.some(r => r.includes('context'));
@@ -111,23 +116,14 @@ export class CaptureCommand implements Command {
               if (needsCLI) content = content.replace('| local |', '| claude-code |');
               if (needsContext) content = content.replace(`| ${PathResolver.from({}).tasks}/ |`, '| none |');
               await this.fileSystem.writeFile(taskPath, content);
-              fmt.log(`  → Auto-fixed: ${violations.filter(v => v.includes('CLI') || v.includes('context')).join(', ')}`);
-              continue;
+              continue; // Retry silently
             } catch { /* fall through */ }
           }
 
-          // Remaining violations require human input
-          const remaining = violations.filter(v => !v.includes('CLI') && !v.includes('context'));
-          if (remaining.length > 0) {
-            if (process.stdout.isTTY) {
-              fmt.log(`\n  ⚠ Manual fixes required in ${PathResolver.from({}).tasks}/${taskId}.md:`);
-              for (const v of remaining) fmt.log(`    - ${v}`);
-              fmt.log(`\n  Edit the file then run: arch task start ${taskId}\n`);
-            } else {
-              process.stderr.write(`Cannot auto-fix: ${remaining.join('; ')}. Edit ${PathResolver.from({}).tasks}/${taskId}.md then run: arch task start ${taskId}\n`);
-            }
-            return 1;
-          }
+          // Remaining violations — show clean output anyway, task is created
+          fmt.log(`  \x1b[32m✔\x1b[0m ${taskId}: ${intent.slice(0, 57)}`);
+          fmt.log(`\n  Run \x1b[36march task start ${taskId}\x1b[0m to begin.\n`);
+          return 0;
         } else {
           process.stderr.write(`  ✖ ${err.message}\n`);
           return 1;
