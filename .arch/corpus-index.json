@@ -1,8 +1,8 @@
 {
   "version": 1,
-  "builtAt": "2026-05-31T16:18:07.161Z",
-  "archiveCommit": "455:design",
-  "taskCount": 239,
+  "builtAt": "2026-06-01T18:42:27.767Z",
+  "archiveCommit": "460:design",
+  "taskCount": 244,
   "entries": {
     "TASK-1000": {
       "id": "TASK-1000",
@@ -616,6 +616,23 @@
       "acMachineVerifiable": 6,
       "closurePath": "auditor"
     },
+    "TASK-1038": {
+      "id": "TASK-1038",
+      "size": "M",
+      "class": "3-chore",
+      "closedAt": "2026-06-01T18:42:22.850Z",
+      "lockedCommit": "90d3cd2",
+      "actor": "unknown",
+      "severity": "H0",
+      "category": "[SpecDrift]",
+      "decision": "Import graph checked for 7 speculative services. 3 dead (zero callers): action-governance-service.ts, decision-observability-service.ts, measurement-governance-layer.ts — deleted. 4 live: transient-window-compiler, stateless-hypothesis-generator, transient-actuation-projector (all called by compile-command.ts), institutional-anomaly-tracker (called by corpus-audit-command.ts) — kept. Build clean, 707 tests pass.",
+      "constraint": "compile-command.ts and corpus-audit-command.ts retain the 4 live services. Those commands may themselves be candidates for audit — out of scope here.",
+      "cost": "3 files removed.",
+      "forwardAction": "Audit compile-command.ts usage — it references 3 domain services in a single command which may indicate it is doing too much.",
+      "acCount": 7,
+      "acMachineVerifiable": 3,
+      "closurePath": "unknown"
+    },
     "TASK-1039": {
       "id": "TASK-1039",
       "size": "S",
@@ -717,6 +734,23 @@
       "acCount": 6,
       "acMachineVerifiable": 2,
       "closurePath": "auditor"
+    },
+    "TASK-1046": {
+      "id": "TASK-1046",
+      "size": "S",
+      "class": "3-chore",
+      "closedAt": "2026-06-01T18:31:31.123Z",
+      "lockedCommit": "3e58686",
+      "actor": "unknown",
+      "severity": "H0",
+      "category": "[SpecDrift]",
+      "decision": "drift-checker.test.ts (61 tests) wrapped in top-level describe(DriftChecker) block. Simpler approach than per-group nesting — brace-counting was fragile. All 707 tests pass. describe import added.",
+      "constraint": "Single top-level describe rather than per-group — the task asked for consistent naming, not deep nesting. Acceptable for now.",
+      "cost": "No architectural debt.",
+      "forwardAction": "Apply describe() to init-command.test.ts and govern-system.test.ts in a future XS pass. to init-command.test.ts and govern-system.test.ts in a future XS pass.",
+      "acCount": 6,
+      "acMachineVerifiable": 4,
+      "closurePath": "L3"
     },
     "TASK-1047": {
       "id": "TASK-1047",
@@ -2418,6 +2452,23 @@
       "acMachineVerifiable": 0,
       "closurePath": "auditor"
     },
+    "TASK-264": {
+      "id": "TASK-264",
+      "size": "M",
+      "class": "2-code-generation",
+      "closedAt": "2026-06-01T18:36:57.154Z",
+      "lockedCommit": "5f07f5b",
+      "actor": "unknown",
+      "severity": "H0",
+      "category": "[SpecDrift]",
+      "decision": "modelTiers added to arch.config.json (local/cloud keys with analyze/capture/reflect CLI preferences). analyze-command.ts reads ARCH_ENV or CI env var, selects tier, reorders config.clis to prefer the tier CLI. CI=true or CI=1 → cloud tier. Default → local tier. ARCH_ENV overrides both. provider-registry.ts already had partial modelTiers support via governance.modelTiers.",
+      "constraint": "Tier override only applies to analyze-command. govern and capture use config.clis order directly. Full tier propagation would require threading config through all commands.",
+      "cost": "No architectural debt. Additive feature, backward compatible.",
+      "forwardAction": "Apply same tier-aware CLI reordering to conduct-command.ts if needed.",
+      "acCount": 0,
+      "acMachineVerifiable": 0,
+      "closurePath": "unknown"
+    },
     "TASK-266": {
       "id": "TASK-266",
       "size": "M",
@@ -2465,6 +2516,23 @@
       "constraint": "The IDEA archive (`IDEA-fix-phase-naming-drift.md`, `IDEA-adr-013-phase-label-drift.md`) and old superpowers specs still contain \"Phase 3.5\" references, but these are historical artifacts — they describe the state at authoring time and don't need updating.",
       "cost": "",
       "forwardAction": "IDEA-verify-pre-existing-before-start — third recurrence this session (TASK-279, TASK-260, TASK-268). Agents should grep for the error condition before treating a task as unimplemented. The pattern: task is created to fix X; X is fixed by a side effect of another task; the original task sits in READY until picked up, then closes immediately as already-done.\n- [ ] `arch review` passes.",
+      "acCount": 0,
+      "acMachineVerifiable": 0,
+      "closurePath": "L3"
+    },
+    "TASK-272": {
+      "id": "TASK-272",
+      "size": "S",
+      "class": "6-writing",
+      "closedAt": "2026-06-01T18:41:20.108Z",
+      "lockedCommit": "a08c83f",
+      "actor": "unknown",
+      "severity": "H0",
+      "category": "[SpecDrift]",
+      "decision": "Local-First Decomposition heuristic added to THINK.md Phase 2 (after step 3). Defines mandatory decomposition criteria vs justified complex single-task criteria. checkDecompositionRationale() added to DriftChecker: ADVISORY on READY M/L tasks without ### Gaps section. 707 tests pass.",
+      "constraint": "Check is ADVISORY not WARN — does not block review pass. Intentional: Gaps section is a new requirement, existing tasks would all fail WARN.",
+      "cost": "No architectural debt.",
+      "forwardAction": "Upgrade ADVISORY to WARN after one sprint of adoption (tasks filed after today should all have Gaps sections).",
       "acCount": 0,
       "acMachineVerifiable": 0,
       "closurePath": "L3"
@@ -2570,6 +2638,23 @@
       "acCount": 0,
       "acMachineVerifiable": 0,
       "closurePath": "auditor"
+    },
+    "TASK-282": {
+      "id": "TASK-282",
+      "size": "M",
+      "class": "2-code-generation",
+      "closedAt": "2026-06-01T18:35:41.085Z",
+      "lockedCommit": "570ed46",
+      "actor": "unknown",
+      "severity": "H1",
+      "category": "[SpecDrift]",
+      "decision": "checkStructuralPolicies() added to DriftChecker. Reads arch.config.json policies block: forbiddenDependencies (import violation checks), requiredTestCoverage (test file ratio >= threshold), namingInvariants (pattern checks). arch.config.json extended with sample policies. ConfigLoader import added. System Review OK, 707 tests.",
+      "constraint": "forbiddenDependencies does single-level readdir — does not recurse into subdirectories. Catches direct violations in the declared folder, not nested.",
+      "cost": "Minor: policies check adds ~100ms on large repos. Acceptable.",
+      "forwardAction": "Add recursive directory scanning to forbiddenDependencies if needed.",
+      "acCount": 0,
+      "acMachineVerifiable": 0,
+      "closurePath": "unknown"
     },
     "TASK-283": {
       "id": "TASK-283",

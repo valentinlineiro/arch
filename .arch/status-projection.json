@@ -1,13 +1,13 @@
 {
   "schemaVersion": "1.0.0",
-  "timestamp": "2026-05-31T16:18:07.101Z",
+  "timestamp": "2026-06-01T18:42:27.723Z",
   "sprintId": "sprint/v1.2.1-2026-05",
   "rawCounts": {
-    "READY": 9,
+    "READY": 4,
     "IN_PROGRESS": 0,
     "REVIEW": 0,
     "BLOCKED": 1,
-    "DONE": 454
+    "DONE": 459
   },
   "auditScore": 100
 }
