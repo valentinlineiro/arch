@@ -94,7 +94,7 @@
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-1056.md"
+          "taskPath": "docs/archive/TASK-1056.md"
         },
         "TASK-1057": {
           "evidenceKinds": [
@@ -357,6 +357,12 @@
           ],
           "taskPath": "docs/archive/TASK-1030.md"
         },
+        "TASK-1036": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1036.md"
+        },
         "TASK-1038": {
           "evidenceKinds": [
             "literal-mention"
@@ -552,6 +558,18 @@
           ],
           "taskPath": "docs/archive/TASK-1034.md"
         },
+        "TASK-1036": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1036.md"
+        },
+        "TASK-1037": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1037.md"
+        },
         "TASK-1038": {
           "evidenceKinds": [
             "literal-mention"
@@ -688,6 +706,12 @@
           ],
           "taskPath": "docs/archive/TASK-1030.md"
         },
+        "TASK-1036": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1036.md"
+        },
         "TASK-1046": {
           "evidenceKinds": [
             "literal-mention"
@@ -699,12 +723,6 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-1051.md"
-        },
-        "TASK-1055": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/tasks/TASK-1055.md"
         },
         "TASK-1067": {
           "evidenceKinds": [
@@ -882,6 +900,12 @@
           ],
           "taskPath": "docs/archive/TASK-1034.md"
         },
+        "TASK-1037": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1037.md"
+        },
         "TASK-1038": {
           "evidenceKinds": [
             "literal-mention"
@@ -922,7 +946,7 @@
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-1055.md"
+          "taskPath": "docs/archive/TASK-1055.md"
         },
         "TASK-1073": {
           "evidenceKinds": [
@@ -1153,6 +1177,12 @@
           ],
           "taskPath": "docs/archive/TASK-1034.md"
         },
+        "TASK-1037": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1037.md"
+        },
         "TASK-1043": {
           "evidenceKinds": [
             "literal-mention"
@@ -1170,6 +1200,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-1052.md"
+        },
+        "TASK-1055": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1055.md"
         },
         "TASK-1060": {
           "evidenceKinds": [
@@ -1311,7 +1347,7 @@
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-1056.md"
+          "taskPath": "docs/archive/TASK-1056.md"
         },
         "TASK-1062": {
           "evidenceKinds": [
@@ -1568,7 +1604,7 @@
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-1055.md"
+          "taskPath": "docs/archive/TASK-1055.md"
         },
         "TASK-949": {
           "evidenceKinds": [
@@ -1596,7 +1632,7 @@
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-1056.md"
+          "taskPath": "docs/archive/TASK-1056.md"
         },
         "TASK-242": {
           "evidenceKinds": [
@@ -1763,6 +1799,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-1018.md"
+        },
+        "TASK-1056": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1056.md"
         }
       }
     },
@@ -4851,7 +4893,7 @@
       "title": "Archive Partitioning Strategy — Year-Month Subdirectories"
     }
   },
-  "builtAt": "2026-06-01T18:42:55.335Z",
+  "builtAt": "2026-06-01T22:46:02.735Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -6501,6 +6543,22 @@
         "triage"
       ]
     },
+    "cli/src/main/ts/application/commands/upgrade-command.ts": {
+      "criticality": "domain",
+      "imports": [
+        "cli/src/main/ts/infrastructure/cli/output-formatter.ts"
+      ],
+      "runtimeUsage": "cold",
+      "symbols": [
+        "UpgradeCommand"
+      ],
+      "tags": [
+        "application",
+        "command",
+        "commands",
+        "upgrade"
+      ]
+    },
     "cli/src/main/ts/application/commands/validate-command.ts": {
       "criticality": "domain",
       "imports": [
@@ -6730,6 +6788,121 @@
         "system"
       ]
     },
+    "cli/src/main/ts/application/use-cases/checkers/base-checker.ts": {
+      "criticality": "domain",
+      "imports": [
+        "cli/src/main/ts/application/use-cases/checkers/checker-types.ts",
+        "cli/src/main/ts/domain/repositories/file-system.ts",
+        "cli/src/main/ts/domain/repositories/git-repository.ts",
+        "cli/src/main/ts/domain/services/path-resolver.ts"
+      ],
+      "runtimeUsage": "cold",
+      "symbols": [
+        "BaseChecker"
+      ],
+      "tags": [
+        "application",
+        "base",
+        "cases",
+        "checker",
+        "checkers"
+      ]
+    },
+    "cli/src/main/ts/application/use-cases/checkers/checker-types.ts": {
+      "criticality": "domain",
+      "imports": [
+        "cli/src/main/ts/domain/repositories/file-system.ts",
+        "cli/src/main/ts/domain/repositories/git-repository.ts",
+        "cli/src/main/ts/domain/services/config-loader.ts",
+        "cli/src/main/ts/domain/services/path-resolver.ts"
+      ],
+      "runtimeUsage": "warm",
+      "symbols": [
+        "CheckerContext",
+        "CLI_COMMANDS",
+        "DriftResult"
+      ],
+      "tags": [
+        "application",
+        "cases",
+        "checker",
+        "checkers",
+        "context",
+        "drift",
+        "result",
+        "types"
+      ]
+    },
+    "cli/src/main/ts/application/use-cases/checkers/governance-checker.ts": {
+      "criticality": "domain",
+      "imports": [
+        "cli/src/main/ts/application/use-cases/checkers/checker-types.ts",
+        "cli/src/main/ts/domain/models/task.ts",
+        "cli/src/main/ts/domain/repositories/file-system.ts",
+        "cli/src/main/ts/domain/repositories/git-repository.ts",
+        "cli/src/main/ts/domain/services/config-loader.ts",
+        "cli/src/main/ts/domain/services/hansei-auditor.ts",
+        "cli/src/main/ts/domain/services/path-resolver.ts"
+      ],
+      "runtimeUsage": "hot",
+      "symbols": [
+        "GovernanceChecker"
+      ],
+      "tags": [
+        "application",
+        "cases",
+        "checker",
+        "checkers",
+        "governance"
+      ]
+    },
+    "cli/src/main/ts/application/use-cases/checkers/structural-checker.ts": {
+      "criticality": "domain",
+      "imports": [
+        "cli/src/main/ts/application/use-cases/checkers/checker-types.ts",
+        "cli/src/main/ts/domain/models/task.ts",
+        "cli/src/main/ts/domain/repositories/file-system.ts",
+        "cli/src/main/ts/domain/repositories/git-repository.ts",
+        "cli/src/main/ts/domain/services/config-loader.ts",
+        "cli/src/main/ts/domain/services/hansei-auditor.ts",
+        "cli/src/main/ts/domain/services/path-resolver.ts"
+      ],
+      "runtimeUsage": "hot",
+      "symbols": [
+        "StructuralChecker"
+      ],
+      "tags": [
+        "application",
+        "cases",
+        "checker",
+        "checkers",
+        "structural"
+      ]
+    },
+    "cli/src/main/ts/application/use-cases/checkers/task-health-checker.ts": {
+      "criticality": "domain",
+      "imports": [
+        "cli/src/main/ts/application/use-cases/checkers/checker-types.ts",
+        "cli/src/main/ts/domain/models/task.ts",
+        "cli/src/main/ts/domain/repositories/file-system.ts",
+        "cli/src/main/ts/domain/repositories/git-repository.ts",
+        "cli/src/main/ts/domain/services/config-loader.ts",
+        "cli/src/main/ts/domain/services/hansei-auditor.ts",
+        "cli/src/main/ts/domain/services/path-resolver.ts"
+      ],
+      "runtimeUsage": "hot",
+      "symbols": [
+        "TaskHealthChecker"
+      ],
+      "tags": [
+        "application",
+        "cases",
+        "checker",
+        "checkers",
+        "health",
+        "task"
+      ]
+    },
     "cli/src/main/ts/application/use-cases/codebase-context-injector.ts": {
       "criticality": "domain",
       "imports": [
@@ -6945,10 +7118,12 @@
     "cli/src/main/ts/application/use-cases/drift-checker.ts": {
       "criticality": "domain",
       "imports": [
-        "cli/src/main/ts/domain/models/task.ts",
+        "cli/src/main/ts/application/use-cases/checkers/governance-checker.ts",
+        "cli/src/main/ts/application/use-cases/checkers/structural-checker.ts",
+        "cli/src/main/ts/application/use-cases/checkers/task-health-checker.ts",
         "cli/src/main/ts/domain/repositories/file-system.ts",
         "cli/src/main/ts/domain/repositories/git-repository.ts",
-        "cli/src/main/ts/domain/services/hansei-auditor.ts",
+        "cli/src/main/ts/domain/services/config-loader.ts",
         "cli/src/main/ts/domain/services/path-resolver.ts"
       ],
       "runtimeUsage": "hot",
@@ -8744,7 +8919,7 @@
         "cli/src/main/ts/domain/models/task.ts",
         "cli/src/main/ts/domain/repositories/file-system.ts"
       ],
-      "runtimeUsage": "hot",
+      "runtimeUsage": "warm",
       "symbols": [
         "HanseiAuditor",
         "HanseiAuditResult"
@@ -10104,24 +10279,31 @@
       }
     },
     "TASK-1036": {
-      "commitCount": 2,
+      "commitCount": 3,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-06-01T18:42:27+00:00",
+      "lastCommitDate": "2026-06-01T22:31:56+00:00",
       "recentCommitRefs": [
+        "2e8573b",
         "75133e8",
         "e497d7c"
       ],
       "touchedFrequency": {
+        ".arch/causal-signal.jsonl": 1,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/context-feedback.json": 1,
         ".arch/focus-ledger.jsonl": 2,
-        "docs/tasks/TASK-1036.md": 1
+        ".arch/temporal-index.jsonl": 1,
+        "docs/EVENTS.md": 1,
+        "docs/archive/TASK-1036.md": 1,
+        "docs/tasks/TASK-1036.md": 2
       }
     },
-    "TASK-1038": {
+    "TASK-1037": {
       "commitCount": 1,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-06-01T18:42:22+00:00",
+      "lastCommitDate": "2026-06-01T22:45:24+00:00",
       "recentCommitRefs": [
-        "2f05fa4"
+        "a1dc015"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
@@ -10129,8 +10311,38 @@
         ".arch/context-feedback.json": 1,
         ".arch/temporal-index.jsonl": 1,
         "docs/EVENTS.md": 1,
+        "docs/archive/TASK-1037.md": 1,
+        "docs/tasks/TASK-1037.md": 1
+      }
+    },
+    "TASK-1038": {
+      "commitCount": 2,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-06-01T18:43:11+00:00",
+      "recentCommitRefs": [
+        "2f05fa4",
+        "f48c88f"
+      ],
+      "touchedFrequency": {
+        ".arch/causal-signal.jsonl": 1,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/context-feedback.json": 1,
+        ".arch/temporal-index.jsonl": 1,
+        "arch.config.json": 1,
+        "cli/src/main/ts/application/commands/analyze-command.ts": 1,
+        "cli/src/main/ts/application/use-cases/drift-checker.ts": 1,
+        "cli/src/main/ts/domain/services/action-governance-service.ts": 1,
+        "cli/src/main/ts/domain/services/decision-observability-service.ts": 1,
+        "cli/src/main/ts/domain/services/measurement-governance-layer.ts": 1,
+        "cli/src/test/ts/drift-checker.test.ts": 1,
+        "docs/EVENTS.md": 2,
+        "docs/INBOX.md": 1,
+        "docs/agents/THINK.md": 1,
         "docs/archive/TASK-1038.md": 1,
-        "docs/tasks/TASK-1038.md": 1
+        "docs/tasks/TASK-1036.md": 1,
+        "docs/tasks/TASK-1037.md": 1,
+        "docs/tasks/TASK-1038.md": 1,
+        "docs/tensions/TENSION-005-specdrift.md": 1
       }
     },
     "TASK-1043": {
@@ -10204,20 +10416,33 @@
       }
     },
     "TASK-1046": {
-      "commitCount": 1,
+      "commitCount": 2,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-06-01T18:31:31+00:00",
+      "lastCommitDate": "2026-06-01T18:43:11+00:00",
       "recentCommitRefs": [
-        "570ed46"
+        "570ed46",
+        "f48c88f"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
         ".arch/chronicle.jsonl": 1,
         ".arch/context-feedback.json": 1,
         ".arch/temporal-index.jsonl": 1,
-        "docs/EVENTS.md": 1,
+        "arch.config.json": 1,
+        "cli/src/main/ts/application/commands/analyze-command.ts": 1,
+        "cli/src/main/ts/application/use-cases/drift-checker.ts": 1,
+        "cli/src/main/ts/domain/services/action-governance-service.ts": 1,
+        "cli/src/main/ts/domain/services/decision-observability-service.ts": 1,
+        "cli/src/main/ts/domain/services/measurement-governance-layer.ts": 1,
+        "cli/src/test/ts/drift-checker.test.ts": 1,
+        "docs/EVENTS.md": 2,
+        "docs/INBOX.md": 1,
+        "docs/agents/THINK.md": 1,
         "docs/archive/TASK-1046.md": 1,
-        "docs/tasks/TASK-1046.md": 1
+        "docs/tasks/TASK-1036.md": 1,
+        "docs/tasks/TASK-1037.md": 1,
+        "docs/tasks/TASK-1046.md": 1,
+        "docs/tensions/TENSION-005-specdrift.md": 1
       }
     },
     "TASK-1047": {
@@ -10308,6 +10533,36 @@
         "docs/tasks/TASK-1003.md": 1,
         "docs/tasks/TASK-1024.md": 1,
         "docs/tasks/TASK-1069.md": 1
+      }
+    },
+    "TASK-1055": {
+      "commitCount": 1,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-06-01T19:57:52+00:00",
+      "recentCommitRefs": [
+        "6614770"
+      ],
+      "touchedFrequency": {
+        ".arch/causal-signal.jsonl": 1,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/temporal-index.jsonl": 1,
+        "docs/EVENTS.md": 1,
+        "docs/archive/TASK-1055.md": 1
+      }
+    },
+    "TASK-1056": {
+      "commitCount": 1,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-06-01T19:57:52+00:00",
+      "recentCommitRefs": [
+        "fdb58c4"
+      ],
+      "touchedFrequency": {
+        ".arch/causal-signal.jsonl": 1,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/temporal-index.jsonl": 1,
+        "docs/EVENTS.md": 1,
+        "docs/archive/TASK-1056.md": 1
       }
     },
     "TASK-1059": {
@@ -11863,54 +12118,93 @@
       }
     },
     "TASK-264": {
-      "commitCount": 1,
+      "commitCount": 2,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-06-01T18:36:57+00:00",
+      "lastCommitDate": "2026-06-01T18:43:11+00:00",
       "recentCommitRefs": [
-        "a08c83f"
+        "a08c83f",
+        "f48c88f"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
         ".arch/chronicle.jsonl": 1,
         ".arch/context-feedback.json": 1,
         ".arch/temporal-index.jsonl": 1,
-        "docs/EVENTS.md": 1,
+        "arch.config.json": 1,
+        "cli/src/main/ts/application/commands/analyze-command.ts": 1,
+        "cli/src/main/ts/application/use-cases/drift-checker.ts": 1,
+        "cli/src/main/ts/domain/services/action-governance-service.ts": 1,
+        "cli/src/main/ts/domain/services/decision-observability-service.ts": 1,
+        "cli/src/main/ts/domain/services/measurement-governance-layer.ts": 1,
+        "cli/src/test/ts/drift-checker.test.ts": 1,
+        "docs/EVENTS.md": 2,
+        "docs/INBOX.md": 1,
+        "docs/agents/THINK.md": 1,
         "docs/archive/TASK-264.md": 1,
-        "docs/tasks/TASK-264.md": 1
+        "docs/tasks/TASK-1036.md": 1,
+        "docs/tasks/TASK-1037.md": 1,
+        "docs/tasks/TASK-264.md": 1,
+        "docs/tensions/TENSION-005-specdrift.md": 1
       }
     },
     "TASK-272": {
-      "commitCount": 1,
+      "commitCount": 2,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-06-01T18:41:20+00:00",
+      "lastCommitDate": "2026-06-01T18:43:11+00:00",
       "recentCommitRefs": [
-        "90d3cd2"
+        "90d3cd2",
+        "f48c88f"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
         ".arch/chronicle.jsonl": 1,
         ".arch/context-feedback.json": 1,
         ".arch/temporal-index.jsonl": 1,
-        "docs/EVENTS.md": 1,
+        "arch.config.json": 1,
+        "cli/src/main/ts/application/commands/analyze-command.ts": 1,
+        "cli/src/main/ts/application/use-cases/drift-checker.ts": 1,
+        "cli/src/main/ts/domain/services/action-governance-service.ts": 1,
+        "cli/src/main/ts/domain/services/decision-observability-service.ts": 1,
+        "cli/src/main/ts/domain/services/measurement-governance-layer.ts": 1,
+        "cli/src/test/ts/drift-checker.test.ts": 1,
+        "docs/EVENTS.md": 2,
+        "docs/INBOX.md": 1,
+        "docs/agents/THINK.md": 1,
         "docs/archive/TASK-272.md": 1,
-        "docs/tasks/TASK-272.md": 1
+        "docs/tasks/TASK-1036.md": 1,
+        "docs/tasks/TASK-1037.md": 1,
+        "docs/tasks/TASK-272.md": 1,
+        "docs/tensions/TENSION-005-specdrift.md": 1
       }
     },
     "TASK-282": {
-      "commitCount": 1,
+      "commitCount": 2,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-06-01T18:35:41+00:00",
+      "lastCommitDate": "2026-06-01T18:43:11+00:00",
       "recentCommitRefs": [
-        "5f07f5b"
+        "5f07f5b",
+        "f48c88f"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
         ".arch/chronicle.jsonl": 1,
         ".arch/context-feedback.json": 1,
         ".arch/temporal-index.jsonl": 1,
-        "docs/EVENTS.md": 1,
+        "arch.config.json": 1,
+        "cli/src/main/ts/application/commands/analyze-command.ts": 1,
+        "cli/src/main/ts/application/use-cases/drift-checker.ts": 1,
+        "cli/src/main/ts/domain/services/action-governance-service.ts": 1,
+        "cli/src/main/ts/domain/services/decision-observability-service.ts": 1,
+        "cli/src/main/ts/domain/services/measurement-governance-layer.ts": 1,
+        "cli/src/test/ts/drift-checker.test.ts": 1,
+        "docs/EVENTS.md": 2,
+        "docs/INBOX.md": 1,
+        "docs/agents/THINK.md": 1,
         "docs/archive/TASK-282.md": 1,
-        "docs/tasks/TASK-282.md": 1
+        "docs/tasks/TASK-1036.md": 1,
+        "docs/tasks/TASK-1037.md": 1,
+        "docs/tasks/TASK-282.md": 1,
+        "docs/tensions/TENSION-005-specdrift.md": 1
       }
     },
     "TASK-970": {
