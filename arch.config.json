@@ -310,5 +310,28 @@
         "syncOnGovern": true
       }
     ]
+  },
+  "policies": {
+    "forbiddenDependencies": [
+      {
+        "from": "cli/src/main/ts/infrastructure",
+        "to": "../domain",
+        "message": "Infrastructure must not import domain internals directly"
+      }
+    ],
+    "requiredTestCoverage": 30,
+    "namingInvariants": []
+  },
+  "modelTiers": {
+    "local": {
+      "analyze": "opencode",
+      "capture": "claude-code",
+      "reflect": "claude-code"
+    },
+    "cloud": {
+      "analyze": "claude-code",
+      "capture": "claude-code",
+      "reflect": "claude-code"
+    }
   }
 }

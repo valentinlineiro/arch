@@ -65,7 +65,25 @@ THINK never modifies `docs/guidelines/` directly. All output is proposals. Human
    - **REJECTED:** Move to `docs/refinement/archive/`.
 3. **Phase boundary:** This phase does NOT create tasks directly. All IDEA promotion requires a human Decision field.
 
-## Phase 2.5 [DEEP]: Semantic Drift Analysis (Observer)
+### Local-First Decomposition Heuristic
+
+**Applies to:** Any IDEA promoted to a task with size M or L.
+
+**Mandatory decomposition** — the IDEA must not be promoted as a single task — when ALL of:
+- The IDEA spans more than 2 independent concerns (e.g., UI + API + persistence)
+- Each concern is independently testable
+- The first concern can ship value before the others are done
+
+**Justified as complex (single task is acceptable)** — when ANY of:
+- The concerns share deep state that cannot be cleanly separated without a refactor larger than the task itself
+- The AC count is ≤ 5 (complexity is in implementation depth, not breadth)
+- A prior decomposition attempt produced phantom tasks that were all force-closed
+
+**Output when decomposition is mandatory:** Create a parent IDEA in `docs/refinement/` titled `IDEA-decompose-<slug>.md` with the sub-tasks listed as bullets. Do not promote the original IDEA to a task — promote each sub-task separately.
+
+**Drift signal for arch review:** Any READY task with size M or L in `docs/tasks/` that has no `### Gaps` section or no sub-task reference is flagged as `[ADVISORY] TASK-XXX is M/L-sized — decomposition rationale missing. Add ### Gaps section.`
+
+
 0. **Print:** `[THINK] Phase 2.5 — Semantic Drift Analysis` to stdout.
 1. **Skip condition:** If running under time pressure or minimal-mode flag, skip this phase and print `[THINK] Phase 2.5 — skipped`.
 2. **Inputs to read:** `docs/guidelines/*.md` (full content), `docs/adr/*.md` (Context + Decision sections of ACCEPTED ADRs), `docs/tasks/` (Meta lines + ACs only), `docs/archive/` (Meta lines only), `docs/refinement/IDEA-*.md` (DRAFT and PROMOTED entries), `docs/tensions/weak-signals.md` (full content).

@@ -30,6 +30,23 @@ export class AnalyzeCommand implements Command {
 
     if (sub === 'influence') {
       const config = await ConfigLoader.load(this.fileSystem);
+
+      // Environment-aware model tier: CI=true → cloud tier, else local tier
+      if (config && (config as any).modelTiers) {
+        const isCI = process.env.CI === 'true' || process.env.CI === '1';
+        const env = process.env.ARCH_ENV ?? (isCI ? 'cloud' : 'local');
+        const tier = (config as any).modelTiers?.[env];
+        if (tier?.analyze) {
+          // Override clis to prefer the tier's analyze CLI
+          const preferred = String(tier.analyze);
+          const existing: any[] = (config as any).clis ?? [];
+          const reordered = [
+            ...existing.filter((c: any) => c.name === preferred || c.bin === preferred),
+            ...existing.filter((c: any) => c.name !== preferred && c.bin !== preferred),
+          ];
+          if (reordered.length > 0) (config as any).clis = reordered;
+        }
+      }
       const thresholds = {
         ...DEFAULT_THRESHOLDS,
         ...(config.reflect?.thresholds ?? {}),

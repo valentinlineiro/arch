@@ -4,6 +4,7 @@ import { HanseiAuditor } from '../../domain/services/hansei-auditor.js';
 import semver from 'semver';
 import { FocusLevel, ConflictSeverity, FocusConflict, TaskStatus, Hansei, Task } from '../../domain/models/task.js';
 import { PathResolver } from '../../domain/services/path-resolver.js';
+import { ConfigLoader } from '../../domain/services/config-loader.js';
 
 export interface DriftResult {
   check: string;
@@ -64,6 +65,8 @@ export class DriftChecker {
       this.checkVersionCompat(),
       this.checkStaleEscalations(),
       this.checkMaxTopLevelFiles(),
+      this.checkStructuralPolicies(),
+      this.checkDecompositionRationale(),
     ]);
   }
 
@@ -1431,5 +1434,97 @@ export class DriftChecker {
     }
 
     return { check: 'StaleEscalations', status: details.length === 0 ? 'OK' : 'WARN', details };
+  }
+
+  private async checkDecompositionRationale(): Promise<DriftResult> {
+    const details: string[] = [];
+    try {
+      const taskFiles = await this.fileSystem.readDirectory(this.pr.tasks);
+      for (const file of taskFiles.filter(f => f.startsWith('TASK-') && f.endsWith('.md'))) {
+        const content = await this.fileSystem.readFile(`${this.pr.tasks}/${file}`).catch(() => '');
+        // Check only READY tasks with size M or L
+        const meta = content.match(/\*\*Meta:\*\*[^\n]+\|\s*(M|L)\s*\|\s*READY/);
+        if (!meta) continue;
+        const hasGaps = content.includes('### Gaps');
+        if (!hasGaps) {
+          const id = file.replace('.md', '');
+          details.push(`${id} is ${meta[1]}-sized READY task — add ### Gaps section with decomposition rationale`);
+        }
+      }
+    } catch { /* non-blocking */ }
+    return {
+      check: 'DecompositionRationale',
+      status: details.length === 0 ? 'OK' : 'ADVISORY',
+      details,
+    };
+  }
+
+  private async checkStructuralPolicies(): Promise<DriftResult> {
+    const config = await ConfigLoader.load(this.fileSystem).catch(() => null);
+    const policies = (config as any)?.policies;
+
+    if (!policies) return { check: 'StructuralPolicies', status: 'OK', details: ['No policies configured'] };
+
+    const details: string[] = [];
+
+    // forbiddenDependencies: { from: 'infrastructure/', to: 'domain/' } means infra must not import domain
+    if (Array.isArray(policies.forbiddenDependencies)) {
+      for (const rule of policies.forbiddenDependencies) {
+        const { from, to, message } = rule as { from: string; to: string; message?: string };
+        if (!from || !to) continue;
+        try {
+          const files = await this.fileSystem.readDirectory(`${this.rootPath}/${from}`).catch(() => [] as string[]);
+          for (const file of files.filter(f => f.endsWith('.ts') || f.endsWith('.js'))) {
+            const content = await this.fileSystem.readFile(`${this.rootPath}/${from}/${file}`).catch(() => '');
+            const importLines = content.split('\n').filter(l => l.includes('import') && l.includes(to));
+            if (importLines.length > 0) {
+              const msg = message ?? `Forbidden dependency: ${from} imports from ${to}`;
+              details.push(`[StructuralPolicy] ${from}/${file}: ${msg}`);
+            }
+          }
+        } catch { /* directory may not exist */ }
+      }
+    }
+
+    // requiredTestCoverage: minimum % of src files that have a corresponding test
+    if (typeof policies.requiredTestCoverage === 'number') {
+      const threshold = policies.requiredTestCoverage as number;
+      try {
+        const srcFiles = await this.fileSystem.readDirectory(`${this.rootPath}/cli/src/main/ts`).catch(() => [] as string[]);
+        const testFiles = await this.fileSystem.readDirectory(`${this.rootPath}/cli/src/test/ts`).catch(() => [] as string[]);
+        const srcCount = srcFiles.filter(f => f.endsWith('.ts')).length;
+        const testCount = testFiles.filter(f => f.endsWith('.test.ts')).length;
+        if (srcCount > 0) {
+          const coverage = Math.round((testCount / srcCount) * 100);
+          if (coverage < threshold) {
+            details.push(`[StructuralPolicy] Test coverage: ${coverage}% < required ${threshold}% (${testCount} test files / ${srcCount} src files)`);
+          }
+        }
+      } catch { /* non-blocking */ }
+    }
+
+    // namingInvariants: { pattern, glob, message } — files matching glob must match pattern
+    if (Array.isArray(policies.namingInvariants)) {
+      for (const rule of policies.namingInvariants) {
+        const { pattern, glob: g, message } = rule as { pattern: string; glob: string; message?: string };
+        if (!pattern || !g) continue;
+        const re = new RegExp(pattern);
+        try {
+          const dir = g.split('/').slice(0, -1).join('/');
+          const files = await this.fileSystem.readDirectory(`${this.rootPath}/${dir}`).catch(() => [] as string[]);
+          for (const f of files) {
+            if (!re.test(f)) {
+              details.push(`[StructuralPolicy] ${dir}/${f} violates naming invariant: ${message ?? pattern}`);
+            }
+          }
+        } catch { /* non-blocking */ }
+      }
+    }
+
+    return {
+      check: 'StructuralPolicies',
+      status: details.length === 0 ? 'OK' : 'WARN',
+      details,
+    };
   }
 }
