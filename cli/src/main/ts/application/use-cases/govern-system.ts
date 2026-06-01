@@ -90,155 +90,41 @@ export class GovernSystem {
       analysisReasons.push('cadence');
     }
 
-    // 2.5. Deep analysis cadence check
-    const deepCadenceN = config.reflect?.deepCadenceN ?? 5;
-    const deepState = await readDeepAnalysisState(this.fileSystem);
+
+    // 2.5 Deep analysis cadence
     const currentTick = await this.getCurrentTick();
-    const deepDue = isDeepAnalysisDue(deepState, currentTick, deepCadenceN);
+    await this.checkDeepAnalysisCadence(config, currentTick, analysisReasons);
 
-    let weakSignalOverdue = false;
-    const weakSignalsPath = 'docs/tensions/weak-signals.md';
-    if (await this.fileSystem.exists(weakSignalsPath)) {
-      const content = await this.fileSystem.readFile(weakSignalsPath);
-      const warnings: string[] = [];
-      weakSignalOverdue = hasOverdueWeakSignal(content, new Date(), warnings);
-      warnings.forEach(w => console.log(`  ${w}`));
-    }
 
-    if (deepDue || weakSignalOverdue) {
-      const reason = weakSignalOverdue
-        ? 'weak signal past adjudication deadline'
-        : `${currentTick - (deepState?.lastDeepRunTick ?? 0)} ticks since last deep run`;
-      console.log(`  Deep analysis due (${reason}) — run arch reflect --deep`);
-      analysisReasons.push('deep-analysis-due');
-    }
-
-    // 2.9 Rebuild context-index before focus assignment so the tick is self-consistent.
-    // A task committed since the last govern run must be visible to the focus selector.
-    try {
-      const contextRules = (config.contextRules as Record<string, { taskClasses: string[] }>) ?? {};
-      await new BuildIndex(this.fileSystem).execute(contextRules, this.gitRepository);
-    } catch (err) {
-      if (process.env.ARCH_DEBUG) console.error('[govern] pre-focus index rebuild failed:', err);
-    }
+    // 2.9 Rebuild context-index
+    await this.rebuildContextIndex(config);
 
     // 3. Focus Sovereignty — run the AGFM tick cycle
     await this.decideFocus(config);
 
     await this.checkReflectThresholds(config);
 
-    // 4. Materialized Reporting Layer (TASK-971)
-    // Triggers after deterministic tick completion. Non-authoritative projection.
-    try {
-      const statusService = new StatusReportService(this.taskRepository, this.rootPath);
-      const report = await statusService.generateReport();
-      const markdown = statusService.generateMarkdown(report);
-      
-      console.log('\n  ARCH — Materialized Reporting Layer');
-      console.log('  \x1b[33m⚠ Warning: Materialized report is strictly non-authoritative.\x1b[0m');
-      
-      await statusService.publish('README.md', markdown);
-      await statusService.publish('docs/ROADMAP.md', markdown);
-    } catch (err) {
-      if (process.env.ARCH_DEBUG) console.error('[TASK-971] status refresh failed:', err);
-    }
+    // 4. Materialized reporting
+    await this.runMaterializedReporting();
+    // Lightweight metrics
+    await this.runMetricsRefresh();
 
-    // Lightweight metrics refresh — non-fatal
-    try {
-      const metrics = await computeTrustedMetrics(this.fileSystem);
-      await new LightweightMetricsRefresh(this.fileSystem).execute(metrics);
-    } catch (err) {
-      // non-fatal — metrics refresh failure does not affect task operations
-      if (process.env.ARCH_DEBUG) console.error('[TASK-257] metrics refresh failed:', err);
-    }
+    // Corpus quality audit
+    await this.runCorpusAudit(config, currentTick);
 
-    // Corpus quality audit — runs every N ticks, tiered response
-    const auditEveryN: number = (config.governance as any)?.corpusAuditEveryN ?? 10;
-    const warnThreshold: number = (config.governance as any)?.corpusAuditThresholdWarn ?? 80;
-    const haltThreshold: number = (config.governance as any)?.corpusAuditThresholdHalt ?? 60;
-    if (currentTick % auditEveryN === 0) {
-      try {
-        const auditor = new CorpusAuditCommand(this.fileSystem, this.gitRepository);
-        const score = await auditor.runQuiet();
-        if (score < haltThreshold) {
-          const msg = `Corpus quality score ${score}/100 is below halt threshold (${haltThreshold}). Governance suggestions are unreliable. Run arch corpus audit --verbose.`;
-          await this.appendInbox('CORPUS', 'ANDON_HALT', msg);
-          console.log(`  \x1b[31m✖ CORPUS HALT: score ${score}/100 < ${haltThreshold}. See ${this.pathResolver.inbox}.\x1b[0m`);
-        } else if (score < warnThreshold) {
-          const msg = `Corpus quality score ${score}/100 is below warn threshold (${warnThreshold}). Governance suggestions shown with reduced confidence. Run arch corpus audit --verbose.`;
-          await this.appendInbox('CORPUS', 'CORPUS_ALERT', msg);
-          console.log(`  \x1b[33m⚠ CORPUS ALERT: score ${score}/100 < ${warnThreshold}. See ${this.pathResolver.inbox}.\x1b[0m`);
-        } else {
-          console.log(`  \x1b[32m✔\x1b[0m Corpus quality: ${score}/100`);
-        }
-      } catch (err) {
-        if (process.env.ARCH_DEBUG) console.error('[corpus-audit] audit failed:', err);
-        // non-fatal — audit failure does not block governance
-      }
-    }
+        // 4.1 Corpus federation
+    await this.runCorpusFederation(config);
 
-    // 4.1 Corpus federation — sync remotes if configured
-    const corpusRemotes = (config as any).corpus?.remotes as Array<{ url: string; slug?: string; syncOnGovern?: boolean }> | undefined;
-    if (corpusRemotes?.some(r => r.syncOnGovern !== false)) {
-      try {
-        const { CorpusIndexService } = await import('./corpus-index.js');
-        const svc = new CorpusIndexService(this.fileSystem, this.gitRepository, this.rootPath);
-        const remotes = corpusRemotes.filter(r => r.syncOnGovern !== false);
-        const { synced, skipped, incomingIdeas } = await svc.syncRemotes(remotes);
-        if (synced > 0) console.log(`  \x1b[32m✔\x1b[0m Corpus federation: +${synced} new tasks from ${remotes.length} remote${remotes.length > 1 ? 's' : ''} (${skipped} already indexed)`);
-
-        // Surface new incoming IDEAs as AWAITING_TRIAGE in INBOX
-        if (incomingIdeas > 0) {
-          const incoming = await svc.getIncomingIdeas();
-          const inboxPath = `${this.rootPath}/docs/INBOX.md`;
-          let inbox = await this.fileSystem.readFile(inboxPath).catch(() => '');
-          const now = new Date().toISOString().slice(0, 19).replace('T', ' ');
-          for (const idea of incoming) {
-            const entry = `[AWAITING_TRIAGE] ${idea.slug}:${idea.name.replace('.md', '')} — remote IDEA pending review (${now})`;
-            if (!inbox.includes(idea.name.replace('.md', ''))) {
-              inbox = inbox.trimEnd() + '\n' + entry + '\n';
-            }
-          }
-          await this.fileSystem.writeFile(inboxPath, inbox);
-          console.log(`  \x1b[33m⚡\x1b[0m ${incomingIdeas} incoming IDEA${incomingIdeas > 1 ? 's' : ''} from remote — see INBOX for triage`);
-        }
-      } catch (err: any) {
-        if (process.env.ARCH_DEBUG) console.error('[corpus-federation] sync failed:', err);
-      }
-    }
-
+    
     // 5. Project DoD gate
-    const projectComplete = await this.checkProjectDoD();
+    const projectComplete = await this.checkProjectDodGate(config);
 
-    // 5.1 Core Flows check — runs every tick, optional section in PROJECT.md
-    try {
-      await this.checkCoreFlows();
-    } catch (err) {
-      if (process.env.ARCH_DEBUG) console.error('[govern] core-flows check failed:', err);
-    }
+    // 5.1 Core Flows check
+    await this.checkCoreFlows();
 
-    // 6. Commit materialized output files produced this tick.
-    // These are non-authoritative projections written by the reporting and metrics layers;
-    // they have no pre-commit hook requirements, so a best-effort trailing commit is safe.
-    try {
-      const reportFiles = [
-        'README.md',
-        'docs/ROADMAP.md',
-        'docs/METRICS.md',
-        this.pathResolver.statusProjection,
-        this.pathResolver.corpusIndex,
-        'docs/SENTINEL-LOG.md',
-        `${this.pathResolver.archDir}/reflect-breach-log.jsonl`,
-      ];
-      for (const f of reportFiles) {
-        try { await this.gitRepository.add(f); } catch { /* file may not exist */ }
-      }
-      await this.gitRepository.commit('chore: [THINK] govern materialized reporting');
-    } catch (err: any) {
-      if (!err.message?.includes('nothing to commit')) {
-        if (process.env.ARCH_DEBUG) console.error('[govern] materialized commit failed:', err);
-      }
-    }
+
+    // 6. Commit materialized output
+    await this.commitMaterializedOutput();
 
     // 7. INBOX hygiene — runs every tick (or forced via --clean-inbox)
     try {
@@ -345,6 +231,73 @@ export class GovernSystem {
     }
     return lastPassed;
   }
+
+  private async checkDeepAnalysisCadence(config: any, currentTick: number, analysisReasons: string[]): Promise<void> {
+    const deepCadenceN = config.reflect?.deepCadenceN ?? 5;
+    const deepState = await readDeepAnalysisState(this.fileSystem);
+    const deepDue = isDeepAnalysisDue(deepState, currentTick, deepCadenceN);
+
+    let weakSignalOverdue = false;
+    const weakSignalsPath = 'docs/tensions/weak-signals.md';
+    if (await this.fileSystem.exists(weakSignalsPath)) {
+      const content = await this.fileSystem.readFile(weakSignalsPath);
+      const warnings: string[] = [];
+      weakSignalOverdue = hasOverdueWeakSignal(content, new Date(), warnings);
+      warnings.forEach(w => console.log(`  ${w}`));
+    }
+
+    if (deepDue || weakSignalOverdue) {
+      const reason = weakSignalOverdue
+        ? 'weak signal past adjudication deadline'
+        : `${currentTick - (deepState?.lastDeepRunTick ?? 0)} ticks since last deep run`;
+      console.log(`  Deep analysis due (${reason}) — run arch reflect --deep`);
+      analysisReasons.push('deep-analysis-due');
+    }
+  }
+
+  private async rebuildContextIndex(config: any): Promise<void> {
+    try {
+      const contextRules = (config.contextRules as Record<string, { taskClasses: string[] }>) ?? {};
+      await new BuildIndex(this.fileSystem).execute(contextRules, this.gitRepository);
+    } catch (err) {
+      if (process.env.ARCH_DEBUG) console.error('[govern] pre-focus index rebuild failed:', err);
+    }
+  }
+
+  private async checkProjectDodGate(_config: any): Promise<boolean | undefined> {
+    try {
+      return await this.checkProjectDoD();
+    } catch (err) {
+      if (process.env.ARCH_DEBUG) console.error('[govern] project DoD check failed:', err);
+      return undefined;
+    }
+  }
+
+  private async commitMaterializedOutput(): Promise<void> {
+    try {
+      const materializeFiles = ['README.md', 'docs/ROADMAP.md', 'docs/METRICS.md', '.arch/status-projection.json'];
+      for (const f of materializeFiles) {
+        await this.gitRepository.add(f);
+      }
+      const tick = await this.getCurrentTick();
+      await this.gitRepository.commit(`chore: [TICK-${tick}] materialized reporting layer`);
+    } catch (err) {
+      if (process.env.ARCH_DEBUG) console.error('[govern] materialized commit failed:', err);
+    }
+  }
+
+  private async compactEscalations(): Promise<void> {
+    try {
+      const { EscalationCompactor } = await import('./escalation-compactor.js');
+      const result = await new EscalationCompactor(this.fileSystem, this.rootPath).compact();
+      if (result) {
+        console.log(`  Escalation compaction: ${result.total} total → ${result.open} OPEN records (compacted view: ${result.path})`);
+      }
+    } catch (err) {
+      if (process.env.ARCH_DEBUG) console.error('[govern] escalation compaction failed:', err);
+    }
+  }
+
 
   private async checkCoreFlows(): Promise<void> {
     const projectPath = 'docs/PROJECT.md';
@@ -638,6 +591,82 @@ export class GovernSystem {
       return `${prefix}next-${ts}`;
     }
   }
+
+  private async runMaterializedReporting(): Promise<void> {
+    try {
+      const statusService = new StatusReportService(this.taskRepository, this.rootPath);
+      const report = await statusService.generateReport();
+      const markdown = statusService.generateMarkdown(report);
+      console.log('\n  ARCH — Materialized Reporting Layer');
+      console.log('  \x1b[33m⚠ Warning: Materialized report is strictly non-authoritative.\x1b[0m');
+      await statusService.publish('README.md', markdown);
+      await statusService.publish('docs/ROADMAP.md', markdown);
+    } catch (err) {
+      if (process.env.ARCH_DEBUG) console.error('[TASK-971] status refresh failed:', err);
+    }
+  }
+
+  private async runMetricsRefresh(): Promise<void> {
+    try {
+      const metrics = await computeTrustedMetrics(this.fileSystem);
+      await new LightweightMetricsRefresh(this.fileSystem).execute(metrics);
+    } catch (err) {
+      if (process.env.ARCH_DEBUG) console.error('[TASK-257] metrics refresh failed:', err);
+    }
+  }
+
+  private async runCorpusAudit(config: any, currentTick: number): Promise<void> {
+    const auditEveryN: number = (config.governance as any)?.corpusAuditEveryN ?? 10;
+    const warnThreshold: number = (config.governance as any)?.corpusAuditThresholdWarn ?? 80;
+    const haltThreshold: number = (config.governance as any)?.corpusAuditThresholdHalt ?? 60;
+    if (currentTick % auditEveryN !== 0) return;
+    try {
+      const auditor = new CorpusAuditCommand(this.fileSystem, this.gitRepository);
+      const score = await auditor.runQuiet();
+      if (score < haltThreshold) {
+        const msg = `Corpus quality score ${score}/100 is below halt threshold (${haltThreshold}). Run arch corpus audit --verbose.`;
+        await this.appendInbox('CORPUS', 'ANDON_HALT', msg);
+        console.log(`  \x1b[31m✖ CORPUS HALT: score ${score}/100 < ${haltThreshold}. See ${this.pathResolver.inbox}.\x1b[0m`);
+      } else if (score < warnThreshold) {
+        const msg = `Corpus quality score ${score}/100 is below warn threshold (${warnThreshold}). Run arch corpus audit --verbose.`;
+        await this.appendInbox('CORPUS', 'CORPUS_ALERT', msg);
+        console.log(`  \x1b[33m⚠ CORPUS ALERT: score ${score}/100 < ${warnThreshold}. See ${this.pathResolver.inbox}.\x1b[0m`);
+      } else {
+        console.log(`  \x1b[32m✔\x1b[0m Corpus quality: ${score}/100`);
+      }
+    } catch (err) {
+      if (process.env.ARCH_DEBUG) console.error('[corpus-audit] audit failed:', err);
+    }
+  }
+
+  private async runCorpusFederation(config: any): Promise<void> {
+    const corpusRemotes = (config as any).corpus?.remotes as Array<{ url: string; slug?: string; syncOnGovern?: boolean }> | undefined;
+    if (!corpusRemotes?.some(r => r.syncOnGovern !== false)) return;
+    try {
+      const { CorpusIndexService } = await import('./corpus-index.js');
+      const svc = new CorpusIndexService(this.fileSystem, this.gitRepository, this.rootPath);
+      const remotes = corpusRemotes.filter(r => r.syncOnGovern !== false);
+      const { synced, skipped, incomingIdeas } = await svc.syncRemotes(remotes);
+      if (synced > 0) console.log(`  \x1b[32m✔\x1b[0m Corpus federation: +${synced} new tasks from ${remotes.length} remote${remotes.length > 1 ? 's' : ''} (${skipped} already indexed)`);
+      if (incomingIdeas > 0) {
+        const incoming = await svc.getIncomingIdeas();
+        const inboxPath = `${this.rootPath}/docs/INBOX.md`;
+        let inbox = await this.fileSystem.readFile(inboxPath).catch(() => '');
+        const now = new Date().toISOString().slice(0, 19).replace('T', ' ');
+        for (const idea of incoming) {
+          const entry = `[AWAITING_TRIAGE] ${idea.slug}:${idea.name.replace('.md', '')} — remote IDEA pending review (${now})`;
+          if (!inbox.includes(idea.name.replace('.md', ''))) {
+            inbox = inbox.trimEnd() + '\n' + entry + '\n';
+          }
+        }
+        await this.fileSystem.writeFile(inboxPath, inbox);
+        console.log(`  \x1b[33m⚡\x1b[0m ${incomingIdeas} incoming IDEA${incomingIdeas > 1 ? 's' : ''} from remote — see INBOX for triage`);
+      }
+    } catch (err: any) {
+      if (process.env.ARCH_DEBUG) console.error('[corpus-federation] sync failed:', err);
+    }
+  }
+
 
   private async decideFocus(config: any): Promise<void> {
     const allTasks = await this.taskRepository.getAll();

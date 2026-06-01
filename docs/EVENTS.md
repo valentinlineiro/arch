@@ -234,3 +234,9 @@ TASK-1036 | IN_PROGRESS -> DONE | commit:fdb58c4 | agent:human
 ## 2026-06-01T22:45:24.605Z
 TASK-1037 | IN_PROGRESS -> DONE | commit:2e8573b | agent:human
 
+## 2026-06-01T22:46:01.277Z
+FLOW_CHECK_FAIL | CLI unit tests pass — regression guard for all core flows -> FAIL | commit:a1dc015 | agent:human
+
+## 2026-06-01T22:46:01.301Z
+FLOW_CHECK_PASS | Structural validation passes — integrity review must be clean -> PASS | commit:a1dc015 | agent:human
+
