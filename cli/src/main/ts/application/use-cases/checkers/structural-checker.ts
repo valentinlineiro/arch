@@ -40,6 +40,7 @@ export class StructuralChecker {
       this.checkUnappliedADRs(),
       this.checkStructuralPolicies(),
       this.checkDecompositionRationale(),
+      this.checkFlowRegressionRisk(),
     ]);
   }
 
@@ -397,6 +398,53 @@ export class StructuralChecker {
       check: 'DecompositionRationale',
       status: details.length === 0 ? 'OK' : 'ADVISORY',
       details,
+    };
+  }
+
+  async checkFlowRegressionRisk(): Promise<DriftResult> {
+    const details: string[] = [];
+
+    // Read Core Flows section from PROJECT.md
+    const projectPath = `${this.rootPath}/docs/PROJECT.md`;
+    try {
+      const content = await this.fileSystem.readFile(projectPath);
+      const cfStart = content.indexOf('\n## Core Flows');
+      if (cfStart === -1) return { check: 'FlowRegressionRisk', status: 'OK', details: ['No Core Flows section — check is a no-op'] };
+
+      const bodyStart = content.indexOf('\n', cfStart + 1) + 1;
+      const nextSection = content.indexOf('\n## ', bodyStart);
+      const cfSection = nextSection === -1 ? content.slice(bodyStart) : content.slice(bodyStart, nextSection);
+
+      // Extract endpoint paths from Core Flow predicates (e.g. POST /api/planning, GET /api/inventory)
+      const endpointPattern = /(?:POST|GET|PUT|DELETE|PATCH)\s+(\/\S+)/g;
+      const flowPaths: string[] = [];
+      let m: RegExpExecArray | null;
+      while ((m = endpointPattern.exec(cfSection)) !== null) {
+        flowPaths.push(m[1]);
+      }
+
+      if (flowPaths.length === 0) return { check: 'FlowRegressionRisk', status: 'OK', details: ['Core Flows section has no endpoint predicates'] };
+
+      // Check open tasks for stub patterns referencing core flow paths
+      const taskFiles = await this.getMarkdownFiles('docs/tasks');
+      for (const taskFile of taskFiles) {
+        const taskContent = await this.fileSystem.readFile(`${this.rootPath}/docs/tasks/${taskFile}`).catch(() => '');
+        const isStubTask = /stub.*404|404.*stub|res\.status\(404\)|return.*404|\.status\(404\)/i.test(taskContent);
+        if (!isStubTask) continue;
+
+        for (const path of flowPaths) {
+          if (taskContent.includes(path)) {
+            const taskId = taskFile.replace('.md', '');
+            details.push(`[FLOW-REGRESSION] ${taskId} stubs ${path} which is referenced in Core Flows`);
+          }
+        }
+      }
+    } catch { /* PROJECT.md missing or unreadable — no-op */ }
+
+    return {
+      check: 'FlowRegressionRisk',
+      status: details.length > 0 ? 'WARN' : 'OK',
+      details: details.length > 0 ? details : ['No stub/Core Flow conflicts detected'],
     };
   }
 

@@ -429,6 +429,7 @@ export class GovernSystem {
 
   private async checkSprintLifecycle(config: any, archivedThisTick: number): Promise<void> {
     const closeAfterN: number = config.sprintCloseAfterN ?? 15;
+    const closeOn: string = config.sprintCloseOn ?? 'count';
     const currentSprintName: string = config.currentSprint ?? '';
     if (!currentSprintName) return;
 
@@ -443,22 +444,60 @@ export class GovernSystem {
 
     if (sprint.status !== 'ACTIVE') return;
 
-    // Count tasks archived since sprint opened
-    const archivedFiles = await this.fileSystem.readDirectory(this.pathResolver.archive).catch(() => [] as string[]);
-    const sprintOpenTs = new Date(sprint.startedAt).getTime();
-    let countSinceOpen = 0;
-    for (const f of archivedFiles.filter(x => x.startsWith('TASK-') && x.endsWith('.md'))) {
+    // Determine if sprint should close
+    let shouldClose = false;
+
+    if (closeOn === 'milestone') {
+      // Phase-aware close: only close when Core Flows milestone passes
       try {
-        const content = await this.fileSystem.readFile(`${this.pathResolver.archive}/${f}`);
-        const closedAt = content.match(/\*\*Closed-at:\*\*\s*(\S+)/)?.[1];
-        if (closedAt && new Date(closedAt).getTime() >= sprintOpenTs) countSinceOpen++;
-      } catch { /* skip */ }
+        const projectPath = 'docs/PROJECT.md';
+        if (await this.fileSystem.exists(projectPath)) {
+          const content = await this.fileSystem.readFile(projectPath);
+          const cfStart = content.indexOf('\n## Core Flows');
+          if (cfStart !== -1) {
+            const bodyStart = content.indexOf('\n', cfStart + 1) + 1;
+            const nextSection = content.indexOf('\n## ', bodyStart);
+            const cfSection = nextSection === -1 ? content.slice(bodyStart) : content.slice(bodyStart, nextSection);
+            const verifier = new DeterministicACVerifier(this.rootPath);
+            const result = await verifier.verifySection(cfSection);
+            shouldClose = result.evidence.length > 0 && result.evidence.every(e => e.pass);
+            if (!shouldClose && result.evidence.length > 0) {
+              const failCount = result.evidence.filter(e => !e.pass).length;
+              console.log(`  Sprint milestone: ${result.evidence.length - failCount}/${result.evidence.length} Core Flows passing — sprint remains open`);
+            }
+          }
+        }
+      } catch (err) {
+        if (process.env.ARCH_DEBUG) console.error('[sprint-lifecycle] milestone check failed:', err);
+      }
+    } else {
+      // Default count-based close
+      const archivedFiles = await this.fileSystem.readDirectory(this.pathResolver.archive).catch(() => [] as string[]);
+      const sprintOpenTs = new Date(sprint.startedAt).getTime();
+      let countSinceOpen = 0;
+      for (const f of archivedFiles.filter(x => x.startsWith('TASK-') && x.endsWith('.md'))) {
+        try {
+          const content = await this.fileSystem.readFile(`${this.pathResolver.archive}/${f}`);
+          const closedAt = content.match(/\*\*Closed-at:\*\*\s*(\S+)/)?.[1];
+          if (closedAt && new Date(closedAt).getTime() >= sprintOpenTs) countSinceOpen++;
+        } catch { /* skip */ }
+      }
+      shouldClose = countSinceOpen >= closeAfterN;
     }
 
-    if (countSinceOpen < closeAfterN) return;
+    if (!shouldClose) return;
 
-    // Close current sprint
-    const velocity = countSinceOpen;
+    // Close current sprint — compute velocity from archive
+    let velocity = 0;
+    try {
+      const archivedFiles2 = await this.fileSystem.readDirectory(this.pathResolver.archive).catch(() => [] as string[]);
+      const sprintOpenTs2 = new Date(sprint.startedAt).getTime();
+      for (const f of archivedFiles2.filter(x => x.startsWith('TASK-') && x.endsWith('.md'))) {
+        const content = await this.fileSystem.readFile(`${this.pathResolver.archive}/${f}`).catch(() => '');
+        const closedAt = content.match(/\*\*Closed-at:\*\*\s*(\S+)/)?.[1];
+        if (closedAt && new Date(closedAt).getTime() >= sprintOpenTs2) velocity++;
+      }
+    } catch { /* non-blocking */ }
     const closed = await svc.closeCurrent(velocity);
     console.log(`\n  \x1b[32m⚡ Sprint closed:\x1b[0m ${closed.name} | velocity: ${velocity} tasks\n`);
 

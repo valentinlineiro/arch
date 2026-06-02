@@ -476,7 +476,7 @@ export class BuildIndex {
           const taskId = this.extractTaskId(content) ?? file.replace(/\.md$/, '');
           if (!taskId.startsWith('TASK-')) continue;
 
-          const adrEvidence = this.extractTaskAdrEvidence(content);
+          const adrEvidence = await this.extractTaskAdrEvidence(content);
           for (const [adrId, evidenceKinds] of Object.entries(adrEvidence)) {
             if (!adrs[adrId]) continue;
             const entry = links[adrId] ?? { tasks: {} };
@@ -535,7 +535,7 @@ export class BuildIndex {
     return content.match(/^##\s+(TASK-\d+):/m)?.[1] ?? null;
   }
 
-  private extractTaskAdrEvidence(content: string): Record<string, Set<string>> {
+  private async extractTaskAdrEvidence(content: string): Promise<Record<string, Set<string>>> {
     const evidence = new Map<string, Set<string>>();
 
     for (const adrId of this.extractAdrRefsFromLine(content.match(/^\*\*ADR:\*\*\s*(.*)$/m)?.[1] ?? '')) {
@@ -551,8 +551,12 @@ export class BuildIndex {
       if (adrId) this.addAdrEvidence(evidence, adrId, 'context-path');
     }
 
+    // Only include literal-mention ADR refs that exist on disk — filter out planned artifacts
+    const existingAdrs = await this.getExistingAdrIds();
     for (const adrId of this.extractAdrRefsFromLine(content)) {
-      this.addAdrEvidence(evidence, adrId, 'literal-mention');
+      if (existingAdrs.has(adrId)) {
+        this.addAdrEvidence(evidence, adrId, 'literal-mention');
+      }
     }
 
     return Object.fromEntries([...evidence.entries()].map(([adrId, kinds]) => [adrId, kinds]));
@@ -560,6 +564,20 @@ export class BuildIndex {
 
   private extractAdrRefsFromLine(text: string): string[] {
     return [...new Set(text.match(ADR_ID_PATTERN) ?? [])];
+  }
+
+  private _existingAdrCache: Set<string> | null = null;
+  private async getExistingAdrIds(): Promise<Set<string>> {
+    if (this._existingAdrCache) return this._existingAdrCache;
+    try {
+      const files = await this.fileSystem.readDirectory(this.adrDir);
+      this._existingAdrCache = new Set(
+        files.map(f => f.match(/^(ADR-\d+)/)?.[1]).filter(Boolean) as string[]
+      );
+    } catch {
+      this._existingAdrCache = new Set();
+    }
+    return this._existingAdrCache;
   }
 
   private addAdrEvidence(evidence: Map<string, Set<string>>, adrId: string, kind: string): void {

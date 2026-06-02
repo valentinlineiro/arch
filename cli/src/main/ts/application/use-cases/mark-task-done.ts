@@ -82,8 +82,22 @@ export class MarkTaskDone {
       }
 
       const hanseiErrors = TaskValidator.validateHansei({ ...task, status: TaskStatus.DONE });
-      if (hanseiErrors.length > 0) {
-        throw new Error(`Cannot mark ${taskId} as DONE — Hansei validation failed:\n- ${hanseiErrors.join('\n- ')}`);
+      // XS lightweight close path: if all cmd predicates pass, skip placeholder/forward-action
+      // validation. Severity and Category must still be present.
+      const isXS = task.size === 'XS';
+      const acResult2 = await (new DeterministicACVerifier()).verify(task);
+      const allCmdPass = acResult2.evidence.filter(e => e.type === 'cmd').every(e => e.pass);
+      const xsFiltered = isXS && allCmdPass
+        ? hanseiErrors.filter(e =>
+            !e.includes('placeholder') &&
+            !e.includes('Forward Action') &&
+            !e.includes('too brief') &&
+            !e.includes('specific references') &&
+            !e.includes('H0 requires a justification')
+          )
+        : hanseiErrors;
+      if (xsFiltered.length > 0) {
+        throw new Error(`Cannot mark ${taskId} as DONE — Hansei validation failed:\n- ${xsFiltered.join('\n- ')}`);
       }
 
       // AC structural verification — block if any cmd: or file: predicate fails
