@@ -39,3 +39,7 @@ The check is advisory (non-blocking) — it flags drift without halting the tick
 None — purely operational check in the govern/INBOX regeneration path.
 
 ## Sessions: 1
+
+## Decision
+
+PROMOTE → TASK-1083. Fold into TASK-1083 (single-source AGENTS.md + INBOX invariant fix) — the filesystem consistency check belongs in the same INBOX regeneration pass. Problem confirmed in this session: THINK Phase 1 read TASK-1080 from docs/tasks/ after govern had already archived it, producing a 404 and phantom READY count.

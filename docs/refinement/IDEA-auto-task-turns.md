@@ -35,3 +35,5 @@ None — purely operational, no ADR required.
 
 ## Decision
 
+EXTEND. The post-commit hook approach would count govern ticks, THINK regenerations, and lint-fix commits as turns — inflated noise, not signal. Gap: define precisely what constitutes a turn before implementing. A turn is one agent working session on a task: increment on IN_PROGRESS commit (task start) and on REVIEW commit (task submission), not on any file touch. Trigger: spec added to this IDEA defining the two increment points and the CLI path that owns the increment (status transition handler in mark-task-in-progress / mark-task-done, not a git hook).
+
