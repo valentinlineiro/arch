@@ -18,7 +18,7 @@ export class UpgradeCommand {
     fmt.log('\n  \x1b[32mARCH\x1b[0m — arch upgrade\n');
 
     // Check latest version from npm
-    const checkResult = spawnSync('npm', ['view', 'arch-cli', 'version'], {
+    const checkResult = spawnSync('npm', ['view', '@valentinlineiro/arch', 'version'], {
       encoding: 'utf8',
       stdio: ['pipe', 'pipe', 'pipe'],
       timeout: 10000,
@@ -26,7 +26,7 @@ export class UpgradeCommand {
 
     if (checkResult.status !== 0) {
       fmt.log('  \x1b[33m⚠\x1b[0m Could not check npm for latest version — are you online?');
-      fmt.log('  To upgrade manually: npm install -g arch-cli\n');
+      fmt.log('  To upgrade manually: npm install -g @valentinlineiro/arch\n');
       return 1;
     }
 
@@ -42,13 +42,13 @@ export class UpgradeCommand {
     fmt.log(`  Latest:  ${latest}`);
     fmt.log('\n  Upgrading...\n');
 
-    const installResult = spawnSync('npm', ['install', '-g', 'arch-cli'], {
+    const installResult = spawnSync('npm', ['install', '-g', '@valentinlineiro/arch'], {
       stdio: 'inherit',
       timeout: 120000,
     });
 
     if (installResult.status !== 0) {
-      fmt.log('\n  \x1b[31m✖\x1b[0m Upgrade failed. Try: npm install -g arch-cli\n');
+      fmt.log('\n  \x1b[31m✖\x1b[0m Upgrade failed. Try: npm install -g @valentinlineiro/arch\n');
       return 1;
     }
 
