@@ -60,3 +60,13 @@ Evidence: Persistent breach (32 consecutive cycles): Engagement 39% is below thr
 [PATTERN-ALERT] [SpecDrift] detected 8 times — systemic issue. See docs/tensions/
 
 AWAITING_PROMOTION | IDEA-modular-activation | 2026-06-02 — no Decision field set
+
+## REVIEW_REQUEST — TASK-1082
+**Task:** TASK-1082: Add alert fatigue throttle to REFLECT
+**Status:** IN_PROGRESS → REVIEW
+**Files changed:**
+- `cli/src/main/ts/application/use-cases/alert-fatigue-store.ts` (new)
+- `cli/src/main/ts/application/use-cases/hansei-synthesizer.ts` (modified)
+- `cli/src/main/ts/application/commands/analyze-command.ts` (modified)
+**ACs:** 4/4 passed — file ACs, npm test (708/708 pass), arch check
+**Summary:** Alert fatigue throttle prevents repeated identical PATTERN-ALERT entries from overwhelming INBOX. After 3rd consecutive identical category alert: annotated as ESCALATED (once). After 5th: writes ANDON_HALT and system stops. State stored in `.arch/alert-fatigue.jsonl` for durability across sessions.
