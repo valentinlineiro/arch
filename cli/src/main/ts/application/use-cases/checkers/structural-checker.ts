@@ -41,6 +41,7 @@ export class StructuralChecker {
       this.checkStructuralPolicies(),
       this.checkDecompositionRationale(),
       this.checkFlowRegressionRisk(),
+      this.checkDecisionIntegrity(),
     ]);
   }
 
@@ -445,6 +446,54 @@ export class StructuralChecker {
       check: 'FlowRegressionRisk',
       status: details.length > 0 ? 'WARN' : 'OK',
       details: details.length > 0 ? details : ['No stub/Core Flow conflicts detected'],
+    };
+  }
+
+  async checkDecisionIntegrity(): Promise<DriftResult> {
+    const details: string[] = [];
+
+    try {
+      const { readdir, readFile } = await import('node:fs/promises');
+      const { join } = await import('node:path');
+      const refinementDir = join(this.rootPath, 'docs', 'refinement');
+      const ideaFiles = (await readdir(refinementDir).catch(() => [] as string[]))
+        .filter(f => f.startsWith('IDEA-') && f.endsWith('.md'));
+
+      for (const file of ideaFiles) {
+        const content = await readFile(join(refinementDir, file), 'utf8').catch(() => '');
+        const promoteMatch = content.match(/\*\*Decision:\*\*\s*PROMOTE\s*(?:→|->)\s*(TASK-\d+)/);
+        if (!promoteMatch) continue;
+
+        const taskId = promoteMatch[1];
+        const ideaTitle = content.match(/^# IDEA: (.+)/m)?.[1] ?? file;
+
+        // Check task exists
+        const taskInOpen = await readFile(join(this.rootPath, 'docs', 'tasks', `${taskId}.md`), 'utf8').catch(() => null);
+        const taskInArchive = taskInOpen === null
+          ? await readFile(join(this.rootPath, 'docs', 'archive', `${taskId}.md`), 'utf8').catch(() => null)
+          : taskInOpen;
+        const taskContent = taskInOpen ?? taskInArchive;
+
+        if (!taskContent) {
+          details.push(`[CORPUS_ALERT] ${file}: Decision PROMOTE → ${taskId} references a task that does not exist`);
+          continue;
+        }
+
+        // Advisory: check title similarity (3+ significant words in common)
+        const taskTitle = taskContent.match(/^## TASK-\d+: (.+)/m)?.[1] ?? '';
+        const ideaWords = new Set(ideaTitle.toLowerCase().split(/\W+/).filter(w => w.length > 3));
+        const taskWords = taskTitle.toLowerCase().split(/\W+/).filter(w => w.length > 3);
+        const overlap = taskWords.filter(w => ideaWords.has(w)).length;
+        if (overlap < 2 && ideaWords.size > 2) {
+          details.push(`[ADVISORY] ${file}: PROMOTE → ${taskId} title mismatch — IDEA: "${ideaTitle.slice(0, 40)}" vs task: "${taskTitle.slice(0, 40)}"`);
+        }
+      }
+    } catch { /* non-blocking */ }
+
+    return {
+      check: 'DecisionIntegrity',
+      status: details.some(d => d.includes('CORPUS_ALERT')) ? 'WARN' : details.length > 0 ? 'ADVISORY' : 'OK',
+      details: details.length > 0 ? details : ['All PROMOTE decisions reference valid tasks'],
     };
   }
 

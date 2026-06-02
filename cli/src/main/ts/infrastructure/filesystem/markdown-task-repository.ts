@@ -107,7 +107,12 @@ export class MarkdownTaskRepository implements TaskRepository {
     ensureField('Reason', task.rejectionReason);
     ensureField('Locked-commit', task.lockedCommit);
     if (task.turns !== undefined && task.turns !== null) {
-      ensureField('Turns', String(task.turns));
+      if (content.includes('**Turns:**')) {
+        // Update existing Turns field
+        content = content.replace(/\*\*Turns:\*\* \d+/, `**Turns:** ${task.turns}`);
+      } else {
+        ensureField('Turns', String(task.turns));
+      }
     }
     ensureField('Actor', task.actor);
 

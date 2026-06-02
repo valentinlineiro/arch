@@ -203,6 +203,27 @@ export class MarkTaskDone {
       }
     }
 
+    // Refinement archival gate: when a task closes, archive any IDEA with Decision: PROMOTE → taskId
+    try {
+      const { readdir, readFile, writeFile, rename, mkdir } = await import('node:fs/promises');
+      const { join } = await import('node:path');
+      const pr = PathResolver.from({});
+      const refinementDir = join(this.rootPath ?? '.', pr.refinement ?? 'docs/refinement');
+      const archiveDir = join(refinementDir, 'archive');
+      await mkdir(archiveDir, { recursive: true });
+      const ideaFiles = await readdir(refinementDir).catch(() => [] as string[]);
+      for (const file of ideaFiles.filter(f => f.startsWith('IDEA-') && f.endsWith('.md'))) {
+        const content = await readFile(join(refinementDir, file), 'utf8').catch(() => '');
+        if (content.includes(`PROMOTE → ${taskId}`) || content.includes(`PROMOTE -> ${taskId}`)) {
+          const updated = content.replace(/\*\*Status:\*\* \S+/, '**Status:** ARCHIVED');
+          await writeFile(join(archiveDir, file), updated);
+          await rename(join(refinementDir, file), join(archiveDir, file)).catch(() => {
+            // rename may fail if writeFile already wrote it — OK
+          });
+        }
+      }
+    } catch { /* non-blocking */ }
+
     return task;
   }
 

@@ -88,3 +88,6 @@ AWAITING_PROMOTION | IDEA-verification-layer-depth | 2026-06-02 — no Decision 
 
 ## [2026-06-02 21:38] INFLUENCE_BREACH_PERSISTENT | REFLECT
 Evidence: Persistent breach (36 consecutive cycles): Engagement 39% is below threshold 50% — attribution discipline review required
+## [2026-06-02 21:58] INFLUENCE_BREACH_PERSISTENT | REFLECT
+Evidence: Persistent breach (37 consecutive cycles): Engagement 39% is below threshold 50% — attribution discipline review required
+[ANDON_HALT] Alert fatigue threshold reached (5th consecutive) for "[SpecDrift]" — system halted.

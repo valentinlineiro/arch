@@ -836,6 +836,36 @@ export class GovernSystem {
       return;
     }
 
+    // Rule 5.5: Surface stale IN_PROGRESS + Focus:no tasks (advisory only — do not reclaim)
+    const staleFocusNoThresholdDays = (config?.governance as any)?.staleFocusNoThresholdDays ?? 3;
+    const cutoffMs = Date.now() - staleFocusNoThresholdDays * 24 * 60 * 60 * 1000;
+    try {
+      const taskFiles = await this.fileSystem.readDirectory(this.pathResolver.tasks).catch(() => [] as string[]);
+      const inboxPath = this.pathResolver.inbox;
+      let inbox = await this.fileSystem.readFile(inboxPath).catch(() => '');
+      for (const f of taskFiles.filter(x => x.startsWith('TASK-') && x.endsWith('.md'))) {
+        const content = await this.fileSystem.readFile(`${this.pathResolver.tasks}/${f}`).catch(() => '');
+        const isInProgress = content.includes('| IN_PROGRESS |');
+        const isFocusNo = content.includes('Focus:no');
+        if (!isInProgress || !isFocusNo) continue;
+        const taskId = f.replace('.md', '');
+        if (taskId === focused?.id) continue; // Already handled above
+        if (inbox.includes(`[STALE_TASK] ${taskId}`)) continue; // Already emitted
+        // Check last commit touching this task
+        try {
+          const { execSync } = await import('node:child_process');
+          const lastCommit = execSync(
+            `git log --follow -1 --format=%ct -- "${this.pathResolver.tasks}/${f}" 2>/dev/null`,
+            { cwd: this.rootPath, encoding: 'utf8', timeout: 5000, stdio: ['pipe','pipe','pipe'] }
+          ).trim();
+          if (lastCommit && parseInt(lastCommit, 10) * 1000 < cutoffMs) {
+            await this.appendInbox(taskId, `[STALE_TASK] ${taskId}`, `IN_PROGRESS Focus:no with no commit activity for >${staleFocusNoThresholdDays} days — consider reclaiming to READY or resuming`);
+            inbox += `[STALE_TASK] ${taskId}\n`; // Update local to prevent duplicate this tick
+          }
+        } catch { /* git not available or no history */ }
+      }
+    } catch { /* non-blocking */ }
+
     // Rule 6: Preserve
     newRulings.push({ tick: nextTick, taskId: focused.id, action: 'FOCUS_PRESERVED', timestamp: new Date().toISOString() });
     console.log(`  FOCUS_PRESERVED: ${focused.id}`);

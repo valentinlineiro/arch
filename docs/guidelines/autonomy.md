@@ -43,3 +43,8 @@ L3 allows an agent to execute an entire sprint without per-task human interventi
 - Sprint halts with `ANDON_HALT` if more than 2 consecutive tasks hit Andon Cord conditions.
 - A `SPRINT_CHECKPOINT` entry is written to `docs/INBOX.md` when 50% of sprint tasks are archived, pausing for async human review. Resume with `arch loop --sprint <slug> --resume`.
 
+
+
+## Decision Authorship Convention
+
+When an agent writes a Decision field on an IDEA file, it appends `author:agent` to the value. Human-authored decisions carry no such tag. The absence of `author:agent` is the signal of human authorship. This convention enables subsequent agents to distinguish L2-binding human decisions from agent-generated proposals that still require human confirmation.
