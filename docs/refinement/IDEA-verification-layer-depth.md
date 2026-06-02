@@ -1,12 +1,12 @@
 # IDEA: AC verification layer too shallow — stubs pass but flows break
 
-**Status:** DRAFT
+**Status:** DEFERRED
 **Created:** 2026-06-02
 **Source:** Strategic — smartcart-os TASK-008 incident (stub broke main CTA)
 **Candidate-class:** 1-code-reasoning
 **Candidate-size:** S
 **Depends:** none
-**Decision:** Pending human review.
+**Decision:** DEFERRED — TASK-1075 is a partial fix. Condition: 3+ flow regressions detected in a 30-day window that TASK-1075 did not catch.
 
 ## Problem
 

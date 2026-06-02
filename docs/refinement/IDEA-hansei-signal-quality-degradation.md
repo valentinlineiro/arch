@@ -1,12 +1,12 @@
 # IDEA: Hansei signal quality degrades at scale
 
-**Status:** DRAFT
+**Status:** DEFERRED
 **Created:** 2026-06-02
 **Source:** Strategic retrospective — 468+ tasks closed, category inflation observed
 **Candidate-class:** 1-code-reasoning
 **Candidate-size:** S
 **Depends:** none
-**Decision:** Pending human review.
+**Decision:** DEFERRED — TASK-1076 (XS close path) reduces the worst friction. Condition: category inflation measurable (single category >40% of sprint Hanseis for 2 consecutive sprints).
 
 ## Problem
 

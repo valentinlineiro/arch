@@ -1,6 +1,6 @@
 # IDEA: Guideline — distinguish human-written vs agent-written Decision fields
 
-**Status:** DRAFT
+**Status:** PROMOTED
 **Created:** 2026-05-28
 **Source:** smartcart-os THINK Phase 3 — autonomy.md L2 rule requires human-written Decision but has no detection mechanism; confirmed as finding #8 in ARCH audit 2026-05-22 ("trivially scoped PROMOTE exemption undefined")
 **Candidate-class:** 6-writing

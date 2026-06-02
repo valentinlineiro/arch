@@ -1,6 +1,6 @@
 # IDEA: READY-task replenishment visibility — emit [REPLENISHMENT] block when floor breached
 
-**Status:** DRAFT
+**Status:** PROMOTED
 **Created:** 2026-06-02
 **Source:** THINK Phase 1 replenishment check — READY count = 2 < 3, no visible output from the check
 **Candidate-class:** 3-process

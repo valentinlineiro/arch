@@ -1,6 +1,6 @@
 # IDEA: ADR-034 advisory prefix compliance — THINK INBOX entries must use [ADVISORY]
 
-**Status:** DRAFT
+**Status:** PROMOTED
 **Created:** 2026-06-02
 **Source:** Phase-2.5 — ADR-034 Rule 3 compliance audit
 **Candidate-class:** 6-writing

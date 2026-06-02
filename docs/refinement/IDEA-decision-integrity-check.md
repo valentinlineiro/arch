@@ -1,6 +1,6 @@
 # IDEA: THINK should cross-check PROMOTED IDEA Decision fields against referenced task titles
 
-**Status:** DRAFT
+**Status:** PROMOTED
 **Created:** 2026-05-27
 **Source:** smartcart-os THINK Phase 3 — IDEA-auth had `Decision: PROMOTE → TASK-018` but TASK-018 was an onboarding fix, not an auth task; mismatch went undetected
 **Candidate-class:** 6-writing

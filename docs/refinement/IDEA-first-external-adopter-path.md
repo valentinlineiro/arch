@@ -1,12 +1,12 @@
 # IDEA: ARCH needs a validated first-external-adopter path
 
-**Status:** DRAFT
+**Status:** DEFERRED
 **Created:** 2026-06-02
 **Source:** Strategic — smartcart-os was a controlled pilot (same person, maximum charity)
 **Candidate-class:** 6-writing
 **Candidate-size:** S
 **Depends:** TASK-1080
-**Decision:** Pending human review.
+**Decision:** DEFERRED — not a code task. Condition: strategic decision to initiate external pilot. Revisit after v1.3.0 is used externally at least once.
 
 ## Problem
 

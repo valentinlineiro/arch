@@ -1,12 +1,12 @@
 # IDEA: ARCH as native deployment target for Claude Code
 
-**Status:** DRAFT
+**Status:** DEFERRED
 **Created:** 2026-06-02
 **Source:** Strategic — the strongest version of ARCH is Claude Code governing itself
 **Candidate-class:** 1-code-reasoning
 **Candidate-size:** M
 **Depends:** TASK-1080
-**Decision:** Pending human review.
+**Decision:** DEFERRED — TASK-1080 shipped. Condition: first external adopter successfully closes a task autonomously before this is promoted.
 
 ## Problem
 

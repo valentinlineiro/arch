@@ -1,6 +1,6 @@
 # IDEA: Cap THINK replenishment when undecided IDEAs already exist
 
-**Status:** DRAFT
+**Status:** ARCHIVED
 **Created:** 2026-05-27
 **Source:** smartcart-os THINK Phase 3 — pipeline stall when IDEAs accumulate without decisions; confirmed in ARCH session 2026-06-02 (THINK created new replenishment IDEA despite 2+ undecided IDEAs already in docs/refinement/)
 **Candidate-class:** 6-writing

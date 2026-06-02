@@ -1,12 +1,12 @@
 # IDEA: Corpus is backward-looking — ARCH records but does not reason
 
-**Status:** DRAFT
+**Status:** DEFERRED
 **Created:** 2026-06-02
 **Source:** Strategic — arch ask returns low-confidence results despite 468+ task corpus
 **Candidate-class:** 1-code-reasoning
 **Candidate-size:** M
 **Depends:** none
-**Decision:** Pending human review.
+**Decision:** DEFERRED — right direction, premature. Condition: corpus confidence scores remain below 60% after 600+ archived tasks with no structural improvement.
 
 ## Problem
 

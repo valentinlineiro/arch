@@ -1,6 +1,6 @@
 # IDEA: arch govern should write [AWAITING_TRIAGE] to INBOX for incoming remote ideas
 
-**Status:** DRAFT
+**Status:** ARCHIVED
 **Created:** 2026-05-28
 **Source:** smartcart-os pilot — TASK-032 audit; confirmed in ARCH session 2026-06-02 (26 incoming ideas surfaced with no distinct signal)
 **Candidate-class:** 7-operations

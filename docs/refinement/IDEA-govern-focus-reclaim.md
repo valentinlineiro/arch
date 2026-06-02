@@ -1,6 +1,6 @@
 # IDEA: Govern-driven focus reclamation — revert focusless IN_PROGRESS tasks to READY
 
-**Status:** DRAFT
+**Status:** PROMOTED
 **Created:** 2026-06-02
 **Source:** THINK replenishment — READY count = 2 < 3 while 3 IN_PROGRESS tasks have Focus:no (TASK-1085, TASK-1086, TASK-1087)
 **Candidate-class:** 7-operations

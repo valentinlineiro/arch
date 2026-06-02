@@ -1,6 +1,6 @@
 # IDEA: Automatic task turn counter — auto-increment Turns on commit
 
-**Status:** DRAFT
+**Status:** PROMOTED
 **Created:** 2026-06-02
 **Source:** THINK replenishment — archived tasks show `Turns: 0` for all tasks (no automatic tracking)
 **Candidate-class:** 7-operations
