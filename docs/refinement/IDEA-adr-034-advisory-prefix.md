@@ -42,4 +42,4 @@ None — purely documentation change.
 
 ## Decision
 
-(awaiting human decision)
+PROMOTE → TASK-1089

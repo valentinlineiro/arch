@@ -38,4 +38,4 @@ None — extends existing focus-assignment logic in `govern-system.ts`.
 
 ## Decision
 
-(awaiting human decision)
+PROMOTE → TASK-1088
