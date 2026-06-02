@@ -5085,7 +5085,7 @@
       "title": "Archive Partitioning Strategy — Year-Month Subdirectories"
     }
   },
-  "builtAt": "2026-06-02T07:56:32.325Z",
+  "builtAt": "2026-06-02T08:31:22.071Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -10251,7 +10251,7 @@
       }
     },
     "TASK-1008": {
-      "commitCount": 7,
+      "commitCount": 6,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-25T18:34:29+02:00",
       "recentCommitRefs": [
@@ -10259,18 +10259,17 @@
         "0ee7f274",
         "11bf46ed",
         "135b8191",
-        "c7121810",
         "cd0c3211",
         "e236c7f3"
       ],
       "touchedFrequency": {
         ".arch/chronicle.jsonl": 1,
-        ".arch/focus-ledger.jsonl": 2,
+        ".arch/focus-ledger.jsonl": 1,
         "cli/src/main/ts/application/commands/status-command.ts": 1,
         "cli/src/test/ts/status-alerts.test.ts": 1,
         "docs/INBOX.md": 1,
         "docs/archive/TASK-1008.md": 1,
-        "docs/tasks/TASK-1008.md": 4
+        "docs/tasks/TASK-1008.md": 3
       }
     },
     "TASK-1009": {
@@ -10323,72 +10322,14 @@
       }
     },
     "TASK-1015": {
-      "commitCount": 4,
+      "commitCount": 1,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-25T18:25:39+02:00",
       "recentCommitRefs": [
-        "a449300b",
-        "b4cc27dd",
-        "ceacb994",
-        "e64a1706"
+        "a449300b"
       ],
       "touchedFrequency": {
-        ".arch/chronicle.jsonl": 1,
-        "cli/src/main/ts/application/commands/analyze-command.ts": 1,
-        "cli/src/main/ts/application/commands/capture-command.ts": 1,
-        "cli/src/main/ts/application/commands/check-command.ts": 1,
-        "cli/src/main/ts/application/commands/corpus-audit-command.ts": 1,
-        "cli/src/main/ts/application/commands/explain-command.ts": 1,
-        "cli/src/main/ts/application/commands/govern-command.ts": 1,
-        "cli/src/main/ts/application/commands/inbox-command.ts": 1,
-        "cli/src/main/ts/application/commands/index-command.ts": 1,
-        "cli/src/main/ts/application/commands/lint-command.ts": 1,
-        "cli/src/main/ts/application/commands/project-command.ts": 1,
-        "cli/src/main/ts/application/commands/reprioritize-command.ts": 1,
-        "cli/src/main/ts/application/commands/resume-command.ts": 1,
-        "cli/src/main/ts/application/commands/sandbox-command.ts": 1,
-        "cli/src/main/ts/application/commands/serve-command.ts": 1,
-        "cli/src/main/ts/application/commands/status-command.ts": 1,
-        "cli/src/main/ts/application/commands/task-command.ts": 1,
-        "cli/src/main/ts/application/commands/validate-command.ts": 1,
-        "cli/src/main/ts/application/use-cases/ask-corpus.ts": 1,
-        "cli/src/main/ts/application/use-cases/causal-graph.ts": 1,
-        "cli/src/main/ts/application/use-cases/causal-signal-log.ts": 1,
-        "cli/src/main/ts/application/use-cases/check-system.ts": 1,
-        "cli/src/main/ts/application/use-cases/compress-task.ts": 1,
-        "cli/src/main/ts/application/use-cases/compute-trusted-metrics.ts": 1,
-        "cli/src/main/ts/application/use-cases/constraint-preflight.ts": 1,
-        "cli/src/main/ts/application/use-cases/context-inference.ts": 1,
-        "cli/src/main/ts/application/use-cases/corpus-index.ts": 1,
-        "cli/src/main/ts/application/use-cases/correction-signal-store.ts": 1,
-        "cli/src/main/ts/application/use-cases/create-task.ts": 1,
-        "cli/src/main/ts/application/use-cases/decision-validator.ts": 1,
-        "cli/src/main/ts/application/use-cases/deep-analysis-state.ts": 1,
-        "cli/src/main/ts/application/use-cases/drift-checker.ts": 1,
-        "cli/src/main/ts/application/use-cases/generate-inbox.ts": 1,
-        "cli/src/main/ts/application/use-cases/govern-system.ts": 1,
-        "cli/src/main/ts/application/use-cases/hansei-synthesizer.ts": 1,
-        "cli/src/main/ts/application/use-cases/load-bearing-memory.ts": 1,
-        "cli/src/main/ts/application/use-cases/mark-task-done.ts": 1,
-        "cli/src/main/ts/application/use-cases/merge-resolve.ts": 1,
-        "cli/src/main/ts/application/use-cases/promote-idea.ts": 1,
-        "cli/src/main/ts/application/use-cases/reflect-decision-log.ts": 1,
-        "cli/src/main/ts/application/use-cases/reflect-proposal-log.ts": 1,
-        "cli/src/main/ts/application/use-cases/reprioritize-corpus.ts": 1,
-        "cli/src/main/ts/application/use-cases/semantic-collision-detector.ts": 1,
-        "cli/src/main/ts/application/use-cases/temporal-index.ts": 1,
-        "cli/src/main/ts/application/use-cases/validate-system.ts": 1,
-        "cli/src/main/ts/domain/models/config.ts": 1,
-        "cli/src/main/ts/domain/services/archive-parser.ts": 1,
-        "cli/src/main/ts/domain/services/promotion-proposal-generator.ts": 1,
-        "cli/src/main/ts/domain/services/sprint-service.ts": 1,
-        "cli/src/main/ts/domain/services/status-report-service.ts": 1,
-        "cli/src/main/ts/infrastructure/filesystem/chronicle-event-repository.ts": 1,
-        "cli/src/main/ts/infrastructure/filesystem/node-feedback-repository.ts": 1,
-        "cli/src/main/ts/infrastructure/filesystem/signal-cache.ts": 1,
-        "cli/src/main/ts/infrastructure/git/adr-decision-parser.ts": 1,
-        "docs/archive/TASK-1015.md": 1,
-        "docs/tasks/TASK-1015.md": 1
+        ".arch/chronicle.jsonl": 1
       }
     },
     "TASK-1016": {
@@ -12489,17 +12430,20 @@
       }
     },
     "TASK-1081": {
-      "commitCount": 2,
+      "commitCount": 5,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-06-02T09:56:23+02:00",
+      "lastCommitDate": "2026-06-02T10:31:13+02:00",
       "recentCommitRefs": [
+        "12dc1add",
         "1d24d76b",
-        "d5cfa396"
+        "8a671c82",
+        "d5cfa396",
+        "ea82af70"
       ],
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 1,
-        "docs/tasks/TASK-1081.md": 2,
-        "docs/tasks/TASK-1082.md": 1,
+        ".arch/focus-ledger.jsonl": 2,
+        "docs/tasks/TASK-1081.md": 4,
+        "docs/tasks/TASK-1082.md": 2,
         "docs/tasks/TASK-1083.md": 1,
         "docs/tasks/TASK-1084.md": 1
       }
