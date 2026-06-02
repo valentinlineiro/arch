@@ -52,3 +52,11 @@ See docs/refinement/ROADMAP-IDEAS.md
 
 ## [2026-06-02] INFLUENCE_BREACH_PERSISTENT | REFLECT
 Engagement 41% below threshold 50% (31 consecutive cycles)
+
+## [2026-06-02 08:31] INFLUENCE_BREACH_PERSISTENT | REFLECT
+Evidence: Persistent breach (32 consecutive cycles): Engagement 39% is below threshold 50% — attribution discipline review required
+
+## 2026-06-02 08:31:22 — Pattern Alerts
+[PATTERN-ALERT] [SpecDrift] detected 8 times — systemic issue. See docs/tensions/
+
+AWAITING_PROMOTION | IDEA-modular-activation | 2026-06-02 — no Decision field set

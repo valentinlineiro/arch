@@ -300,6 +300,24 @@ FLOW_CHECK_PASS | CLI unit tests pass — regression guard for all core flows ->
 ## 2026-06-02T06:41:41.672Z
 FLOW_CHECK_PASS | Structural validation passes — integrity review must be clean -> PASS | commit:2d54281d | agent:human
 
+## 2026-06-02T07:28:39.029Z
+FLOW_CHECK_PASS | CLI unit tests pass — regression guard for all core flows -> PASS | commit:fd5d5701 | agent:human
+
+## 2026-06-02T07:28:39.033Z
+FLOW_CHECK_PASS | Structural validation passes — integrity review must be clean -> PASS | commit:fd5d5701 | agent:human
+
 ## 2026-06-02T07:29:08.168Z
 TASK-1080 | REVIEW -> DONE | commit:94f4229d | agent:human
+
+## 2026-06-02T07:56:27.581Z
+FLOW_CHECK_PASS | CLI unit tests pass — regression guard for all core flows -> PASS | commit:d5cfa396 | agent:human
+
+## 2026-06-02T07:56:27.585Z
+FLOW_CHECK_PASS | Structural validation passes — integrity review must be clean -> PASS | commit:d5cfa396 | agent:human
+
+## 2026-06-02T08:31:16.988Z
+FLOW_CHECK_PASS | CLI unit tests pass — regression guard for all core flows -> PASS | commit:ea82af70 | agent:human
+
+## 2026-06-02T08:31:16.991Z
+FLOW_CHECK_PASS | Structural validation passes — integrity review must be clean -> PASS | commit:ea82af70 | agent:human
 

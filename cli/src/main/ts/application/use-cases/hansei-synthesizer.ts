@@ -4,6 +4,7 @@ import { CorpusIndexService } from './corpus-index.js';
 import { ArchiveParser } from '../../domain/services/archive-parser.js';
 import { MetricsEngine } from '../../domain/services/metrics-engine.js';
 import { PathResolver } from '../../domain/services/path-resolver.js';
+import { AlertFatigueStore } from './alert-fatigue-store.js';
 import * as path from 'node:path';
 
 interface TensionEntry {
@@ -25,7 +26,7 @@ export class HanseiSynthesizer {
     private rootPath: string = '.',
   ) {}
 
-  async run(): Promise<void> {
+  async run(): Promise<{ halted: boolean; haltCategories: string[] }> {
     console.log('\n  ⚡ Hansei Pattern Synthesis — deterministic corpus scan\n');
 
     // 1. Collect Hansei data directly from archive
@@ -33,7 +34,7 @@ export class HanseiSynthesizer {
 
     if (tensions.length === 0) {
       console.log('  No H2+ patterns found. Corpus is clean or below threshold.\n');
-      return;
+      return { halted: false, haltCategories: [] };
     }
 
     // 2. Report findings
@@ -53,17 +54,24 @@ export class HanseiSynthesizer {
       else if (result === 'updated') updated++;
     }
 
-    // 4. INBOX alert for strong signals
+    // 4. INBOX alert for strong signals (with alert fatigue throttle)
     const strong = tensions.filter(t => t.isStrongSignal);
+    let halted = false;
+    let haltCategories: string[] = [];
     if (strong.length > 0) {
-      await this.appendInboxAlert(strong);
+      const result = await this.appendInboxAlert(strong);
+      halted = result.halted;
+      haltCategories = result.haltCategories;
     }
 
     console.log(`  TENSION files: ${created} created, ${updated} updated`);
     if (strong.length > 0) {
-      console.log(`  INBOX: ${strong.length} PATTERN-ALERT entries appended`);
+      const alertCount = strong.filter(t => !haltCategories.includes(t.category)).length;
+      console.log(`  INBOX: ${alertCount} PATTERN-ALERT entries appended` + (halted ? `, ${haltCategories.length} halted (ANDON_HALT)` : ''));
     }
     console.log('');
+
+    return { halted, haltCategories };
   }
 
   private async computeTensions(): Promise<TensionEntry[]> {
@@ -180,16 +188,47 @@ export class HanseiSynthesizer {
     return nums.length > 0 ? Math.max(...nums) + 1 : 1;
   }
 
-  private async appendInboxAlert(tensions: TensionEntry[]): Promise<void> {
+  private async appendInboxAlert(tensions: TensionEntry[]): Promise<{ halted: boolean; haltCategories: string[] }> {
     const inboxPath = `${this.rootPath}/${PathResolver.from({}).inbox}`;
+    const fatigueStore = new AlertFatigueStore(this.fileSystem, this.rootPath);
     const today = new Date().toISOString().slice(0, 19).replace('T', ' ');
-    const alerts = tensions.map(t =>
-      `[PATTERN-ALERT] ${t.category} detected ${t.count} times — systemic issue. See docs/tensions/`
-    ).join('\n');
+
+    const emitLines: string[] = [];
+    const escalateLines: string[] = [];
+    const haltCategories: string[] = [];
+
+    for (const t of tensions) {
+      const action = await fatigueStore.recordEmission(t.category);
+      if (action === 'halt') {
+        haltCategories.push(t.category);
+      } else if (action === 'escalate') {
+        escalateLines.push(`[PATTERN-ALERT] ${t.category} detected ${t.count}x — ESCALATED (3rd consecutive). Systemic issue persists across cycles.`);
+      } else if (action === 'emit') {
+        emitLines.push(`[PATTERN-ALERT] ${t.category} detected ${t.count} times — systemic issue. See docs/tensions/`);
+      }
+    }
+
+    const halted = haltCategories.length > 0;
+
     try {
       const content = await this.fileSystem.readFile(inboxPath);
-      await this.fileSystem.writeFile(inboxPath, content.rstrip() + `\n\n## ${today} — Pattern Alerts\n${alerts}\n`);
+      let body = content.rstrip();
+
+      if (emitLines.length > 0 || escalateLines.length > 0) {
+        const alerts = [...emitLines, ...escalateLines].join('\n');
+        body += `\n\n## ${today} — Pattern Alerts\n${alerts}\n`;
+      }
+
+      if (halted) {
+        for (const cat of haltCategories) {
+          body += `\n[ANDON_HALT] Alert fatigue threshold reached (5th consecutive) for "${cat}" — system halted.\n`;
+        }
+      }
+
+      await this.fileSystem.writeFile(inboxPath, body);
     } catch { /* non-blocking */ }
+
+    return { halted, haltCategories };
   }
 }
 

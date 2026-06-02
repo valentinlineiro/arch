@@ -293,7 +293,15 @@ ${taskSections}`;
     try {
       const { HanseiSynthesizer } = await import('../use-cases/hansei-synthesizer.js');
       const synthesizer = new HanseiSynthesizer(new NodeFileSystem(), undefined as any, '.');
-      await synthesizer.run();
+      const result = await synthesizer.run();
+      if (result.halted) {
+        const { EscalationStore } = await import('../use-cases/escalation-store.js');
+        const store = new EscalationStore(new NodeFileSystem(), '.');
+        for (const cat of result.haltCategories) {
+          await store.append('ANDON_HALT', cat, `Alert fatigue throttle: 5th consecutive ${cat} alert triggered system halt.`);
+          fmt.log(`  ✖ ANDON_HALT escalated for "${cat}" — system halted.`);
+        }
+      }
     } catch (e: any) {
       fmt.log(`  Note: Hansei synthesis skipped (${e.message})`);
     }
