@@ -5085,7 +5085,7 @@
       "title": "Archive Partitioning Strategy — Year-Month Subdirectories"
     }
   },
-  "builtAt": "2026-06-02T07:28:43.803Z",
+  "builtAt": "2026-06-02T07:56:32.325Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -10323,12 +10323,10 @@
       }
     },
     "TASK-1015": {
-      "commitCount": 6,
+      "commitCount": 4,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-25T18:25:39+02:00",
       "recentCommitRefs": [
-        "6802401f",
-        "6a6e06f5",
         "a449300b",
         "b4cc27dd",
         "ceacb994",
@@ -10336,7 +10334,6 @@
       ],
       "touchedFrequency": {
         ".arch/chronicle.jsonl": 1,
-        ".arch/focus-ledger.jsonl": 1,
         "cli/src/main/ts/application/commands/analyze-command.ts": 1,
         "cli/src/main/ts/application/commands/capture-command.ts": 1,
         "cli/src/main/ts/application/commands/check-command.ts": 1,
@@ -10390,9 +10387,8 @@
         "cli/src/main/ts/infrastructure/filesystem/node-feedback-repository.ts": 1,
         "cli/src/main/ts/infrastructure/filesystem/signal-cache.ts": 1,
         "cli/src/main/ts/infrastructure/git/adr-decision-parser.ts": 1,
-        "docs/INBOX.md": 1,
         "docs/archive/TASK-1015.md": 1,
-        "docs/tasks/TASK-1015.md": 2
+        "docs/tasks/TASK-1015.md": 1
       }
     },
     "TASK-1016": {
@@ -12490,6 +12486,69 @@
         "docs/archive/TASK-1080.md": 1,
         "docs/refinement/IDEA-modular-activation.md": 1,
         "docs/tasks/TASK-1080.md": 2
+      }
+    },
+    "TASK-1081": {
+      "commitCount": 2,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-06-02T09:56:23+02:00",
+      "recentCommitRefs": [
+        "1d24d76b",
+        "d5cfa396"
+      ],
+      "touchedFrequency": {
+        ".arch/focus-ledger.jsonl": 1,
+        "docs/tasks/TASK-1081.md": 2,
+        "docs/tasks/TASK-1082.md": 1,
+        "docs/tasks/TASK-1083.md": 1,
+        "docs/tasks/TASK-1084.md": 1
+      }
+    },
+    "TASK-1082": {
+      "commitCount": 1,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-06-02T09:56:15+02:00",
+      "recentCommitRefs": [
+        "1d24d76b"
+      ],
+      "touchedFrequency": {
+        "docs/tasks/TASK-1081.md": 1,
+        "docs/tasks/TASK-1082.md": 1,
+        "docs/tasks/TASK-1083.md": 1,
+        "docs/tasks/TASK-1084.md": 1
+      }
+    },
+    "TASK-1083": {
+      "commitCount": 2,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-06-02T09:56:15+02:00",
+      "recentCommitRefs": [
+        "1d24d76b",
+        "444be38b"
+      ],
+      "touchedFrequency": {
+        "docs/refinement/IDEA-auto-task-turns.md": 1,
+        "docs/refinement/IDEA-escalations-archive-compaction.md": 1,
+        "docs/refinement/IDEA-inbox-consistency-gate.md": 1,
+        "docs/refinement/IDEA-influence-breach-condensation.md": 1,
+        "docs/tasks/TASK-1081.md": 1,
+        "docs/tasks/TASK-1082.md": 1,
+        "docs/tasks/TASK-1083.md": 2,
+        "docs/tasks/TASK-1084.md": 1
+      }
+    },
+    "TASK-1084": {
+      "commitCount": 1,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-06-02T09:56:15+02:00",
+      "recentCommitRefs": [
+        "1d24d76b"
+      ],
+      "touchedFrequency": {
+        "docs/tasks/TASK-1081.md": 1,
+        "docs/tasks/TASK-1082.md": 1,
+        "docs/tasks/TASK-1083.md": 1,
+        "docs/tasks/TASK-1084.md": 1
       }
     },
     "TASK-161": {
