@@ -3,20 +3,25 @@ _Generated: 2026-06-02 by [THINK] session_
 
 ## Loop Status
 - READY: 2 (TASK-1083, TASK-1084 — both P3/S)
-- IN_PROGRESS: 1 (TASK-1081 — P3/S, escalations.jsonl upsert)
+- IN_PROGRESS: 4 (TASK-1081 — P3/S, Focus:yes; TASK-1085 — P3/XS, Focus:no; TASK-1086 — P3/XS, Focus:no; TASK-1087 — P3/XS, Focus:no)
 - REVIEW: 0
 - BLOCKED: 0
 
 ## Alerts
-[REPLENISHMENT] READY count: 2/3 — floor breached. Created: IDEA-ready-task-replenishment-visibility.md. Pending decisions on 2 existing DRAFT IDEAs would close the gap.
+[REPLENISHMENT] READY count: 2/3 — floor breached. Created: IDEA-govern-focus-reclaim.md. Pending decisions on 2 existing DRAFT IDEAs would close the gap.
 [PATTERN-ALERT] [SpecDrift] 8+ occurrences — systemic issue. See docs/tensions/TENSION-005-specdrift.md
 
-## Refinement Queue (3 active IDEA-*.md files in docs/refinement/, excluding archive + TEMPLATE)
+## Refinement Queue (8 active IDEA-*.md files in docs/refinement/, excluding archive + TEMPLATE)
 
-### DRAFT (3)
+### DRAFT (8)
 - IDEA-auto-task-turns — Automatic Turns counter (Sessions: 1, Decision: EXTEND)
-- IDEA-ready-task-replenishment-visibility — READY floor breach visibility (Sessions: 0, Decision: awaiting)
-- IDEA-refinement-archival-gate — Auto-archive PROMOTED IDEAs when task is DONE (Sessions: 1, Decision: awaiting)
+- IDEA-decision-authorship-rule — Human vs agent Decision detection (Sessions: 1, Decision: PROMOTE → TASK-1086)
+- IDEA-decision-integrity-check — Cross-check PROMOTE targets (Sessions: 1, Decision: EXTEND)
+- IDEA-govern-focus-reclaim — Auto-reclaim focusless IN_PROGRESS tasks (Sessions: 0, Decision: awaiting)
+- IDEA-incoming-triage-signal — AWAITING_TRIAGE for incoming ideas (Sessions: 1, Decision: PROMOTE → TASK-1085)
+- IDEA-ready-task-replenishment-visibility — READY floor breach visibility (Sessions: 1, Decision: awaiting)
+- IDEA-refinement-archival-gate — Auto-archive PROMOTED IDEAs (Sessions: 1, Decision: awaiting)
+- IDEA-replenishment-backlog-cap — Cap replenishment when queue full (Sessions: 1, Decision: PROMOTE → TASK-1087)
 
 ### Roadmap-Only (8 entries)
 See docs/refinement/ROADMAP-IDEAS.md
@@ -32,9 +37,41 @@ See docs/refinement/ROADMAP-IDEAS.md
 (none)
 
 ## AWAITING_PROMOTION
-- IDEA-auto-task-turns | 2026-06-02 — EXTEND pending spec gap fill
-- IDEA-refinement-archival-gate | 2026-06-02 — awaiting human decision
 - IDEA-ready-task-replenishment-visibility | 2026-06-02 — awaiting human decision
+- IDEA-refinement-archival-gate | 2026-06-02 — awaiting human decision
+- IDEA-govern-focus-reclaim | 2026-06-02 — awaiting human decision
 
 ## [2026-06-02] INFLUENCE_BREACH_PERSISTENT | REFLECT
 Engagement 41% below threshold 50% (31+ consecutive cycles)
+
+## [2026-06-02 09:39] INFLUENCE_BREACH_PERSISTENT | REFLECT
+Evidence: Persistent breach (34 consecutive cycles): Engagement 39% is below threshold 50% — attribution discipline review required
+[AWAITING_TRIAGE] smartcart:IDEA-analytics — remote IDEA pending review (2026-06-02 09:40:00)
+[AWAITING_TRIAGE] smartcart:IDEA-arch-govern-awaiting-triage-signal — remote IDEA pending review (2026-06-02 09:40:00)
+[AWAITING_TRIAGE] smartcart:IDEA-auth-for-pilot-personalization — remote IDEA pending review (2026-06-02 09:40:00)
+[AWAITING_TRIAGE] smartcart:IDEA-catalog-expansion — remote IDEA pending review (2026-06-02 09:40:00)
+[AWAITING_TRIAGE] smartcart:IDEA-cleanup-repo-drift-and-unused-code — remote IDEA pending review (2026-06-02 09:40:00)
+[AWAITING_TRIAGE] smartcart:IDEA-code-review-bugs-and-risks — remote IDEA pending review (2026-06-02 09:40:00)
+[AWAITING_TRIAGE] smartcart:IDEA-grouped-shopping-list — remote IDEA pending review (2026-06-02 09:40:00)
+[AWAITING_TRIAGE] smartcart:IDEA-guideline-decision-authorship — remote IDEA pending review (2026-06-02 09:40:00)
+[AWAITING_TRIAGE] smartcart:IDEA-guideline-stale-idea-escalation — remote IDEA pending review (2026-06-02 09:40:00)
+[AWAITING_TRIAGE] smartcart:IDEA-guideline-system-commit-and-decision-integrity — remote IDEA pending review (2026-06-02 09:40:00)
+[AWAITING_TRIAGE] smartcart:IDEA-health-endpoint — remote IDEA pending review (2026-06-02 09:40:00)
+[AWAITING_TRIAGE] smartcart:IDEA-hot-config — remote IDEA pending review (2026-06-02 09:40:00)
+[AWAITING_TRIAGE] smartcart:IDEA-migrate-to-fly — remote IDEA pending review (2026-06-02 09:40:00)
+[AWAITING_TRIAGE] smartcart:IDEA-mvp-roadmap — remote IDEA pending review (2026-06-02 09:40:00)
+[AWAITING_TRIAGE] smartcart:IDEA-oracle-cloud-deploy — remote IDEA pending review (2026-06-02 09:40:00)
+[AWAITING_TRIAGE] smartcart:IDEA-persistent-app-architecture — remote IDEA pending review (2026-06-02 09:40:00)
+[AWAITING_TRIAGE] smartcart:IDEA-playwright-e2e — remote IDEA pending review (2026-06-02 09:40:00)
+[AWAITING_TRIAGE] smartcart:IDEA-price-corrections — remote IDEA pending review (2026-06-02 09:40:00)
+[AWAITING_TRIAGE] smartcart:IDEA-price-scraping — remote IDEA pending review (2026-06-02 09:40:00)
+[AWAITING_TRIAGE] smartcart:IDEA-search-first-live-cart — remote IDEA pending review (2026-06-02 09:40:00)
+[AWAITING_TRIAGE] smartcart:IDEA-session-isolation — remote IDEA pending review (2026-06-02 09:40:00)
+[AWAITING_TRIAGE] smartcart:IDEA-strengthen-idea-schema-and-think-ingestion — remote IDEA pending review (2026-06-02 09:40:00)
+[AWAITING_TRIAGE] smartcart:IDEA-user-feedback-summary — remote IDEA pending review (2026-06-02 09:40:00)
+[AWAITING_TRIAGE] smartcart:IDEA-user-feedback-to-arch — remote IDEA pending review (2026-06-02 09:40:00)
+[AWAITING_TRIAGE] smartcart:IDEA-ux-polish-and-friction-reduction — remote IDEA pending review (2026-06-02 09:40:00)
+[AWAITING_TRIAGE] smartcart:IDEA-vitest-test-runner-setup — remote IDEA pending review (2026-06-02 09:40:00)
+
+## 2026-06-02 09:40:08 — Pattern Alerts
+[PATTERN-ALERT] [SpecDrift] detected 8 times — systemic issue. See docs/tensions/
