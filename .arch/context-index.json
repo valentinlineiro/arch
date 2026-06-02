@@ -148,25 +148,25 @@
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-1083.md"
+          "taskPath": "docs/archive/TASK-1083.md"
         },
         "TASK-1084": {
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-1084.md"
+          "taskPath": "docs/archive/TASK-1084.md"
         },
         "TASK-1086": {
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-1086.md"
+          "taskPath": "docs/archive/TASK-1086.md"
         },
         "TASK-1087": {
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-1087.md"
+          "taskPath": "docs/archive/TASK-1087.md"
         },
         "TASK-157": {
           "evidenceKinds": [
@@ -219,7 +219,7 @@
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-1085.md"
+          "taskPath": "docs/archive/TASK-1085.md"
         },
         "TASK-969": {
           "evidenceKinds": [
@@ -325,13 +325,13 @@
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-1084.md"
+          "taskPath": "docs/archive/TASK-1084.md"
         },
         "TASK-1087": {
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-1087.md"
+          "taskPath": "docs/archive/TASK-1087.md"
         },
         "TASK-160": {
           "evidenceKinds": [
@@ -529,7 +529,19 @@
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-1087.md"
+          "taskPath": "docs/archive/TASK-1087.md"
+        },
+        "TASK-1088": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1088.md"
+        },
+        "TASK-1089": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1089.md"
         },
         "TASK-242": {
           "evidenceKinds": [
@@ -748,7 +760,13 @@
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-1087.md"
+          "taskPath": "docs/archive/TASK-1087.md"
+        },
+        "TASK-1088": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1088.md"
         },
         "TASK-272": {
           "evidenceKinds": [
@@ -866,7 +884,7 @@
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-1085.md"
+          "taskPath": "docs/archive/TASK-1085.md"
         },
         "TASK-967": {
           "evidenceKinds": [
@@ -912,7 +930,7 @@
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-1083.md"
+          "taskPath": "docs/archive/TASK-1083.md"
         },
         "TASK-233": {
           "evidenceKinds": [
@@ -1116,6 +1134,12 @@
           ],
           "taskPath": "docs/archive/TASK-1074.md"
         },
+        "TASK-1089": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1089.md"
+        },
         "TASK-967": {
           "evidenceKinds": [
             "literal-mention"
@@ -1178,13 +1202,13 @@
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-1084.md"
+          "taskPath": "docs/archive/TASK-1084.md"
         },
         "TASK-1086": {
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-1086.md"
+          "taskPath": "docs/archive/TASK-1086.md"
         },
         "TASK-231": {
           "evidenceKinds": [
@@ -1263,7 +1287,7 @@
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-1081.md"
+          "taskPath": "docs/archive/TASK-1081.md"
         },
         "TASK-224": {
           "evidenceKinds": [
@@ -1315,13 +1339,13 @@
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-1081.md"
+          "taskPath": "docs/archive/TASK-1081.md"
         },
         "TASK-1086": {
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-1086.md"
+          "taskPath": "docs/archive/TASK-1086.md"
         },
         "TASK-225": {
           "evidenceKinds": [
@@ -1458,6 +1482,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-1082.md"
+        },
+        "TASK-1089": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1089.md"
         },
         "TASK-202": {
           "evidenceKinds": [
@@ -1942,19 +1972,25 @@
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-1081.md"
+          "taskPath": "docs/archive/TASK-1081.md"
         },
         "TASK-1083": {
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-1083.md"
+          "taskPath": "docs/archive/TASK-1083.md"
         },
         "TASK-1085": {
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-1085.md"
+          "taskPath": "docs/archive/TASK-1085.md"
+        },
+        "TASK-1088": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1088.md"
         },
         "TASK-958": {
           "evidenceKinds": [
@@ -5151,7 +5187,7 @@
       "title": "Archive Partitioning Strategy — Year-Month Subdirectories"
     }
   },
-  "builtAt": "2026-06-02T09:40:08.407Z",
+  "builtAt": "2026-06-02T21:35:32.390Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -10264,46 +10300,13 @@
     }
   },
   "tasks": {
-    "TASK-098": {
-      "commitCount": 1,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-26T10:00:51+02:00",
-      "recentCommitRefs": [
-        "40bb05ec"
-      ],
-      "touchedFrequency": {
-        "docs/archive/TASK-098.md": 1
-      }
-    },
-    "TASK-099": {
-      "commitCount": 1,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-26T10:00:51+02:00",
-      "recentCommitRefs": [
-        "43b9a626"
-      ],
-      "touchedFrequency": {
-        "docs/archive/TASK-099.md": 1
-      }
-    },
-    "TASK-100": {
-      "commitCount": 1,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-26T10:00:51+02:00",
-      "recentCommitRefs": [
-        "af8a7877"
-      ],
-      "touchedFrequency": {
-        "docs/archive/TASK-100.md": 1
-      }
-    },
     "TASK-1003": {
       "commitCount": 2,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-31T11:01:47+00:00",
       "recentCommitRefs": [
-        "85ae8201",
-        "f5e663ea"
+        "85ae820",
+        "f5e663e"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
@@ -10319,8 +10322,8 @@
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-31T11:17:06+00:00",
       "recentCommitRefs": [
-        "47fb2192",
-        "ff2cfa22"
+        "47fb219",
+        "ff2cfa2"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
@@ -10340,169 +10343,16 @@
         "docs/tensions/TENSION-005-specdrift.md": 1
       }
     },
-    "TASK-1009": {
-      "commitCount": 21,
-      "commitRefOverflow": true,
-      "lastCommitDate": "2026-05-25T18:46:21+02:00",
-      "recentCommitRefs": [
-        "0667e2de",
-        "2f457ff6",
-        "5cf6c712",
-        "600fe183",
-        "63c7a2c7",
-        "66933859",
-        "718b0b8a",
-        "7688bdee",
-        "79c3e947",
-        "815324f1",
-        "81d2b263",
-        "94201c50",
-        "a5f69ed7",
-        "a86d41ee",
-        "a91af75b",
-        "a9c07f5d",
-        "afc43eec",
-        "b7501560",
-        "e9259bf6",
-        "f64b2a7b"
-      ],
-      "touchedFrequency": {
-        ".arch/chronicle.jsonl": 1,
-        ".arch/focus-ledger.jsonl": 18,
-        "cli/src/main/ts/application/commands/govern-command.ts": 1,
-        "cli/src/main/ts/application/use-cases/govern-system.ts": 1,
-        "cli/src/main/ts/application/use-cases/inbox-hygiene.ts": 1,
-        "cli/src/test/ts/inbox-hygiene.test.ts": 1,
-        "docs/INBOX.md": 1,
-        "docs/archive/TASK-1009.md": 1,
-        "docs/tasks/TASK-1009.md": 2
-      }
-    },
-    "TASK-101": {
-      "commitCount": 1,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-26T10:00:51+02:00",
-      "recentCommitRefs": [
-        "4d49876a"
-      ],
-      "touchedFrequency": {
-        "docs/archive/TASK-101.md": 1
-      }
-    },
-    "TASK-1016": {
-      "commitCount": 2,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-25T19:02:10+02:00",
-      "recentCommitRefs": [
-        "875359ae",
-        "ffd36ba9"
-      ],
-      "touchedFrequency": {
-        ".arch/chronicle.jsonl": 1,
-        "docs/refinement/IDEA-chronicle-govern-coverage.md": 1,
-        "docs/refinement/IDEA-dual-truth-reconciliation.md": 1,
-        "docs/refinement/IDEA-friction-measurement-instrumentation.md": 1,
-        "docs/refinement/IDEA-generated-docs-coupling.md": 1,
-        "docs/refinement/IDEA-idea-adjudication-throughput.md": 1,
-        "docs/refinement/IDEA-promotion-decision-support.md": 1,
-        "docs/refinement/IDEA-reflect-independence-measurement.md": 1,
-        "docs/tasks/TASK-1016.md": 2,
-        "docs/tasks/TASK-1017.md": 1,
-        "docs/tasks/TASK-1018.md": 1,
-        "docs/tasks/TASK-1019.md": 1,
-        "docs/tasks/TASK-1020.md": 1
-      }
-    },
-    "TASK-1017": {
-      "commitCount": 1,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-25T18:52:29+02:00",
-      "recentCommitRefs": [
-        "2169cfa7"
-      ],
-      "touchedFrequency": {
-        "docs/tasks/TASK-1017.md": 1
-      }
-    },
-    "TASK-1018": {
-      "commitCount": 4,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-26T16:20:49+02:00",
-      "recentCommitRefs": [
-        "19955f66",
-        "9f9c753a",
-        "a83f4c1c",
-        "cde1c98c"
-      ],
-      "touchedFrequency": {
-        "AGENTS.md": 1,
-        "GEMINI.md": 1,
-        "README.md": 2,
-        "cli/src/main/ts/application/commands/init-command.ts": 1,
-        "cli/src/main/ts/application/commands/project-command.ts": 1,
-        "cli/src/main/ts/application/commands/resume-command.ts": 1,
-        "cli/src/main/ts/application/use-cases/create-task.ts": 1,
-        "cli/src/main/ts/application/use-cases/promote-idea.ts": 1,
-        "cli/src/main/ts/domain/services/deterministic-ac-verifier.ts": 1,
-        "cli/src/main/ts/domain/services/promotion-proposal-generator.ts": 1,
-        "cli/src/test/ts/init-command.test.ts": 1,
-        "docs/ARCH-CORE.md": 1,
-        "docs/GOVERNANCE.md": 1,
-        "docs/HALT.md": 1,
-        "docs/INBOX.md": 1,
-        "docs/KAIZEN-LOG.md": 1,
-        "docs/PRINCIPLES.md": 1,
-        "docs/PROTOCOL-UPGRADES.md": 1,
-        "docs/ROADMAP.md": 1,
-        "docs/TASK-FORMAT.md": 1,
-        "docs/adr/ADR-029-cli-refactoring.md": 1,
-        "docs/adr/ADR-033-protocol-upgrade-policy.md": 1,
-        "docs/agents/DO.md": 1,
-        "docs/agents/THINK.md": 1,
-        "docs/archive/TASK-1032.md": 1,
-        "docs/guidelines/bugs.md": 1,
-        "docs/guidelines/core.md": 1,
-        "docs/guidelines/testing-a-change.md": 1,
-        "docs/guidelines/versioning.md": 1,
-        "docs/tasks/TASK-1016.md": 1,
-        "docs/tasks/TASK-1017.md": 1,
-        "docs/tasks/TASK-1018.md": 2,
-        "docs/tasks/TASK-1019.md": 1,
-        "docs/tasks/TASK-1020.md": 1,
-        "docs/tasks/TASK-1021.md": 1,
-        "docs/tasks/TASK-1022.md": 1,
-        "docs/tasks/TASK-1023.md": 1,
-        "docs/tasks/TASK-1024.md": 1,
-        "docs/tasks/TASK-1036.md": 1,
-        "docs/tasks/TASK-1041.md": 1,
-        "docs/tasks/TASK-1048.md": 1,
-        "docs/tasks/TASK-1050.md": 1
-      }
-    },
-    "TASK-1019": {
-      "commitCount": 1,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-25T18:52:40+02:00",
-      "recentCommitRefs": [
-        "c486dc8f"
-      ],
-      "touchedFrequency": {
-        "docs/tasks/TASK-1019.md": 1
-      }
-    },
     "TASK-1021": {
-      "commitCount": 4,
+      "commitCount": 1,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-31T09:54:13+00:00",
       "recentCommitRefs": [
-        "7ce67ae7",
-        "dd64dc84",
-        "f2f70bdf",
-        "fc24deba"
+        "f2f70bd"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
-        ".arch/chronicle.jsonl": 2,
+        ".arch/chronicle.jsonl": 1,
         ".arch/context-feedback.json": 1,
         ".arch/context-index.json": 1,
         ".arch/corpus-index.json": 1,
@@ -10522,7 +10372,6 @@
         "docs/INBOX.md": 1,
         "docs/METRICS.md": 1,
         "docs/ROADMAP.md": 1,
-        "docs/SENTINEL-LOG.md": 1,
         "docs/agents/DO.md": 1,
         "docs/archive/TASK-1016.md": 1,
         "docs/archive/TASK-1017.md": 1,
@@ -10553,23 +10402,17 @@
         "docs/archive/TASK-277.md": 1,
         "docs/archive/TASK-281.md": 1,
         "docs/archive/TASK-995.md": 1,
-        "docs/refinement/IDEA-90-day-productization-sprint.md": 1,
         "docs/tasks/TASK-1003.md": 1,
-        "docs/tasks/TASK-1019.md": 1,
-        "docs/tasks/TASK-1021.md": 2,
-        "docs/tasks/TASK-1022.md": 1,
-        "docs/tasks/TASK-1023.md": 1,
-        "docs/tasks/TASK-1024.md": 2,
+        "docs/tasks/TASK-1024.md": 1,
         "docs/tasks/TASK-1069.md": 1
       }
     },
     "TASK-1022": {
-      "commitCount": 2,
+      "commitCount": 1,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-31T09:54:13+00:00",
       "recentCommitRefs": [
-        "b0fd9ce8",
-        "f2f70bdf"
+        "f2f70bd"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
@@ -10624,18 +10467,16 @@
         "docs/archive/TASK-281.md": 1,
         "docs/archive/TASK-995.md": 1,
         "docs/tasks/TASK-1003.md": 1,
-        "docs/tasks/TASK-1022.md": 1,
         "docs/tasks/TASK-1024.md": 1,
         "docs/tasks/TASK-1069.md": 1
       }
     },
     "TASK-1023": {
-      "commitCount": 2,
+      "commitCount": 1,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-31T09:54:13+00:00",
       "recentCommitRefs": [
-        "2ad913bc",
-        "f2f70bdf"
+        "f2f70bd"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
@@ -10690,20 +10531,18 @@
         "docs/archive/TASK-281.md": 1,
         "docs/archive/TASK-995.md": 1,
         "docs/tasks/TASK-1003.md": 1,
-        "docs/tasks/TASK-1023.md": 1,
         "docs/tasks/TASK-1024.md": 1,
         "docs/tasks/TASK-1069.md": 1
       }
     },
     "TASK-1024": {
-      "commitCount": 4,
+      "commitCount": 3,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-31T16:18:54+00:00",
       "recentCommitRefs": [
-        "3e58686a",
-        "8ed3afb9",
-        "c78a37cc",
-        "ffc470e8"
+        "3e58686",
+        "c78a37c",
+        "ffc470e"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
@@ -10720,102 +10559,17 @@
         "docs/INBOX.md": 2,
         "docs/adr/ADR-035-archive-partitioning.md": 1,
         "docs/archive/TASK-1024.md": 1,
-        "docs/tasks/TASK-1024.md": 2
-      }
-    },
-    "TASK-1025": {
-      "commitCount": 5,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-27T11:02:34+02:00",
-      "recentCommitRefs": [
-        "2a254292",
-        "5d147e42",
-        "848f26e4",
-        "8807864f",
-        "e65fd594"
-      ],
-      "touchedFrequency": {
-        ".arch/chronicle.jsonl": 1,
-        ".arch/corpus-index.json": 2,
-        ".arch/focus-ledger.jsonl": 1,
-        ".arch/reflect-breach-log.jsonl": 2,
-        ".arch/reflect-decisions.jsonl": 1,
-        ".arch/status-projection.json": 2,
-        "README.md": 2,
-        "cli/src/main/ts/application/command-dispatcher.ts": 1,
-        "cli/src/main/ts/application/commands/ask-command.ts": 1,
-        "cli/src/main/ts/application/commands/corpus-import-command.ts": 1,
-        "cli/src/main/ts/application/use-cases/ask-corpus.ts": 1,
-        "cli/src/main/ts/application/use-cases/corpus-index.ts": 1,
-        "cli/src/main/ts/application/use-cases/govern-system.ts": 1,
-        "cli/src/main/ts/application/use-cases/inbox-hygiene.ts": 1,
-        "cli/src/main/ts/domain/services/command-registry.ts": 1,
-        "cli/src/test/ts/corpus-import-command.test.ts": 1,
-        "cli/src/test/ts/govern-system.test.ts": 1,
-        "docs/INBOX.md": 3,
-        "docs/METRICS.md": 1,
-        "docs/ROADMAP.md": 2,
-        "docs/archive/TASK-1025.md": 1,
-        "docs/archive/TASK-1034.md": 1,
-        "docs/archive/TASK-1054.md": 1,
-        "docs/refinement/archive/IDEA-corpus-import.md": 1,
-        "docs/tasks/TASK-1025.md": 3,
-        "docs/tasks/TASK-1054.md": 1,
-        "docs/tasks/TASK-242.md": 1,
-        "docs/tensions/TENSION-005-specdrift.md": 1
-      }
-    },
-    "TASK-1026": {
-      "commitCount": 2,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-26T10:00:51+02:00",
-      "recentCommitRefs": [
-        "37d06237",
-        "41957030"
-      ],
-      "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 1,
-        "docs/archive/TASK-1026.md": 1,
-        "docs/refinement/IDEA-90-day-productization-sprint.md": 1,
-        "docs/refinement/IDEA-chronicle-govern-coverage.md": 1,
-        "docs/refinement/IDEA-compliance-front-door.md": 1,
-        "docs/refinement/IDEA-dual-truth-reconciliation.md": 1,
-        "docs/refinement/IDEA-enforcement-boundary-demo.md": 1,
-        "docs/refinement/IDEA-friction-measurement-instrumentation.md": 1,
-        "docs/refinement/IDEA-generated-docs-coupling.md": 1,
-        "docs/refinement/IDEA-idea-adjudication-throughput.md": 1,
-        "docs/refinement/IDEA-plg-onboarding-flow.md": 1,
-        "docs/refinement/IDEA-progressive-cli-surface.md": 1,
-        "docs/refinement/IDEA-promotion-decision-support.md": 1,
-        "docs/refinement/IDEA-reflect-independence-measurement.md": 1,
-        "docs/refinement/ROADMAP-IDEAS.md": 1,
-        "docs/tasks/TASK-1026.md": 1,
-        "docs/tasks/TASK-1027.md": 1,
-        "docs/tasks/TASK-1028.md": 1,
-        "docs/tasks/TASK-242.md": 1
-      }
-    },
-    "TASK-1027": {
-      "commitCount": 1,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-26T10:00:51+02:00",
-      "recentCommitRefs": [
-        "d7bac14c"
-      ],
-      "touchedFrequency": {
-        "docs/archive/TASK-1027.md": 1
+        "docs/tasks/TASK-1024.md": 1
       }
     },
     "TASK-1028": {
-      "commitCount": 5,
+      "commitCount": 3,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-31T11:17:06+00:00",
       "recentCommitRefs": [
-        "47fb2192",
-        "618d414e",
-        "8608f971",
-        "b27dbd45",
-        "e8410547"
+        "47fb219",
+        "618d414",
+        "e841054"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
@@ -10830,90 +10584,10 @@
         "cli/src/main/ts/application/commands/triage-command.ts": 1,
         "docs/90-day-sprint-acs.md": 1,
         "docs/EVENTS.md": 2,
-        "docs/INBOX.md": 2,
-        "docs/archive/TASK-1028.md": 1,
-        "docs/refinement/IDEA-enforcement-boundary-demo.md": 1,
-        "docs/refinement/IDEA-plg-onboarding-flow.md": 1,
-        "docs/refinement/IDEA-progressive-cli-surface.md": 1,
-        "docs/tasks/TASK-098.md": 1,
-        "docs/tasks/TASK-099.md": 1,
-        "docs/tasks/TASK-100.md": 1,
-        "docs/tasks/TASK-101.md": 1,
-        "docs/tasks/TASK-1021.md": 1,
-        "docs/tasks/TASK-1022.md": 1,
-        "docs/tasks/TASK-1023.md": 1,
-        "docs/tasks/TASK-1024.md": 1,
-        "docs/tasks/TASK-1026.md": 1,
-        "docs/tasks/TASK-1027.md": 2,
-        "docs/tasks/TASK-1028.md": 3,
-        "docs/tasks/TASK-161.md": 1,
-        "docs/tasks/TASK-162.md": 1,
-        "docs/tasks/TASK-163.md": 1,
-        "docs/tasks/TASK-206.md": 1,
-        "docs/tasks/TASK-266.md": 1,
-        "docs/tasks/TASK-270.md": 1,
-        "docs/tasks/TASK-271.md": 1,
-        "docs/tasks/TASK-273.md": 1,
-        "docs/tasks/TASK-274.md": 1,
-        "docs/tasks/TASK-276.md": 1,
-        "docs/tasks/TASK-277.md": 1,
-        "docs/tasks/TASK-278.md": 1,
-        "docs/tasks/TASK-280.md": 1,
-        "docs/tasks/TASK-281.md": 1,
-        "docs/tasks/TASK-995.md": 1,
-        "docs/tensions/TENSION-005-specdrift.md": 1
-      }
-    },
-    "TASK-1029": {
-      "commitCount": 11,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-26T10:23:25+02:00",
-      "recentCommitRefs": [
-        "2b3f9897",
-        "2b7c5470",
-        "2ee8e598",
-        "314f3b68",
-        "47417eb0",
-        "6afd4675",
-        "80a74d18",
-        "9be68b23",
-        "d9bc29a6",
-        "f1536e56",
-        "ffae1fa4"
-      ],
-      "touchedFrequency": {
-        ".arch/causal-signal.jsonl": 1,
-        ".arch/chronicle.jsonl": 1,
-        ".arch/focus-ledger.jsonl": 1,
-        ".arch/temporal-index.jsonl": 1,
-        "arch.config.json": 1,
-        "cli/src/main/ts/application/commands/govern-command.ts": 1,
-        "cli/src/main/ts/application/use-cases/check-system.ts": 1,
-        "cli/src/main/ts/application/use-cases/drift-checker.ts": 2,
-        "cli/src/test/ts/drift-checker.test.ts": 1,
-        "docs/EVENTS.md": 1,
         "docs/INBOX.md": 1,
-        "docs/agents/THINK.md": 1,
-        "docs/archive/TASK-1029.md": 1,
-        "docs/tasks/TASK-1029.md": 6,
-        "docs/tasks/TASK-1030.md": 1,
-        "docs/tasks/TASK-1031.md": 1,
-        "docs/tasks/TASK-1032.md": 1,
-        "docs/tasks/TASK-1033.md": 2,
-        "docs/tasks/TASK-1034.md": 1,
-        "docs/tasks/TASK-1035.md": 1,
-        "docs/tasks/TASK-1036.md": 1,
-        "docs/tasks/TASK-1037.md": 1,
-        "docs/tasks/TASK-1038.md": 1,
-        "docs/tasks/TASK-1039.md": 1,
-        "docs/tasks/TASK-1040.md": 1,
-        "docs/tasks/TASK-1041.md": 1,
-        "docs/tasks/TASK-1042.md": 1,
-        "docs/tasks/TASK-1043.md": 1,
-        "docs/tasks/TASK-1044.md": 1,
-        "docs/tasks/TASK-1045.md": 1,
-        "docs/tasks/TASK-1046.md": 1,
-        "docs/tasks/TASK-1047.md": 1
+        "docs/archive/TASK-1028.md": 1,
+        "docs/tasks/TASK-1028.md": 2,
+        "docs/tensions/TENSION-005-specdrift.md": 1
       }
     },
     "TASK-1030": {
@@ -10921,9 +10595,9 @@
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-31T16:18:54+00:00",
       "recentCommitRefs": [
-        "3e58686a",
-        "4cfaead2",
-        "e63b93ed"
+        "3e58686",
+        "4cfaead",
+        "e63b93e"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
@@ -10942,210 +10616,15 @@
         "docs/tasks/TASK-1030.md": 2
       }
     },
-    "TASK-1031": {
-      "commitCount": 10,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-26T11:46:28+02:00",
-      "recentCommitRefs": [
-        "1bf23a7d",
-        "47303d1c",
-        "6f7425f0",
-        "730ed0c5",
-        "8ab8579b",
-        "9eed4e7b",
-        "e56ab332",
-        "eb04c320",
-        "ec561278",
-        "ffae1fa4"
-      ],
-      "touchedFrequency": {
-        ".arch/causal-signal.jsonl": 2,
-        ".arch/chronicle.jsonl": 2,
-        ".arch/focus-ledger.jsonl": 3,
-        ".arch/temporal-index.jsonl": 2,
-        "cli/package.json": 1,
-        "cli/src/main/ts/application/use-cases/govern-system.ts": 1,
-        "cli/src/main/ts/domain/task.ts": 1,
-        "docs/EVENTS.md": 2,
-        "docs/archive/TASK-1031.md": 4,
-        "docs/tasks/TASK-1031.md": 4,
-        "docs/tasks/TASK-1032.md": 1,
-        "docs/tasks/TASK-1033.md": 1,
-        "docs/tasks/TASK-1034.md": 1,
-        "docs/tasks/TASK-1035.md": 1,
-        "docs/tasks/TASK-1036.md": 1,
-        "docs/tasks/TASK-1037.md": 1,
-        "docs/tasks/TASK-1038.md": 1
-      }
-    },
-    "TASK-1032": {
-      "commitCount": 7,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-26T15:18:29+02:00",
-      "recentCommitRefs": [
-        "01cafeea",
-        "280eef1f",
-        "4f7c3ccb",
-        "514689c3",
-        "931d7d99",
-        "b280d4fa",
-        "b7f7cbe5"
-      ],
-      "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 5,
-        ".arch/sprint-state.json": 1,
-        "arch.config.json": 1,
-        "cli/src/main/ts/application/command-dispatcher.ts": 1,
-        "cli/src/main/ts/application/commands/analyze-command.ts": 1,
-        "cli/src/main/ts/application/commands/ask-command.ts": 1,
-        "cli/src/main/ts/application/commands/audit-command.ts": 1,
-        "cli/src/main/ts/application/commands/batch-command.ts": 1,
-        "cli/src/main/ts/application/commands/capture-command.ts": 1,
-        "cli/src/main/ts/application/commands/check-command.ts": 1,
-        "cli/src/main/ts/application/commands/compile-command.ts": 1,
-        "cli/src/main/ts/application/commands/conduct-command.ts": 1,
-        "cli/src/main/ts/application/commands/corpus-audit-command.ts": 1,
-        "cli/src/main/ts/application/commands/deps-command.ts": 1,
-        "cli/src/main/ts/application/commands/exec-command.ts": 1,
-        "cli/src/main/ts/application/commands/explain-command.ts": 1,
-        "cli/src/main/ts/application/commands/govern-command.ts": 1,
-        "cli/src/main/ts/application/commands/inbox-command.ts": 1,
-        "cli/src/main/ts/application/commands/index-command.ts": 1,
-        "cli/src/main/ts/application/commands/init-command.ts": 1,
-        "cli/src/main/ts/application/commands/lint-command.ts": 1,
-        "cli/src/main/ts/application/commands/loop-command.ts": 1,
-        "cli/src/main/ts/application/commands/merge-resolve-command.ts": 1,
-        "cli/src/main/ts/application/commands/move-command.ts": 1,
-        "cli/src/main/ts/application/commands/next-command.ts": 1,
-        "cli/src/main/ts/application/commands/project-command.ts": 1,
-        "cli/src/main/ts/application/commands/promote-command.ts": 1,
-        "cli/src/main/ts/application/commands/rank-command.ts": 1,
-        "cli/src/main/ts/application/commands/report-command.ts": 1,
-        "cli/src/main/ts/application/commands/reprioritize-command.ts": 1,
-        "cli/src/main/ts/application/commands/resume-command.ts": 1,
-        "cli/src/main/ts/application/commands/review-command.ts": 1,
-        "cli/src/main/ts/application/commands/sandbox-command.ts": 1,
-        "cli/src/main/ts/application/commands/sentinel-command.ts": 1,
-        "cli/src/main/ts/application/commands/serve-command.ts": 1,
-        "cli/src/main/ts/application/commands/status-command.ts": 1,
-        "cli/src/main/ts/application/commands/task-command.ts": 1,
-        "cli/src/main/ts/application/commands/trace-command.ts": 1,
-        "cli/src/main/ts/application/commands/validate-command.ts": 1,
-        "cli/src/main/ts/application/commands/verify-acs-command.ts": 1,
-        "cli/src/main/ts/application/commands/version-command.ts": 1,
-        "cli/src/main/ts/application/use-cases/govern-system.ts": 1,
-        "cli/src/main/ts/domain/models/command.ts": 1,
-        "cli/src/test/ts/compile-command.test.ts": 1,
-        "cli/src/test/ts/govern-command.test.ts": 1,
-        "cli/src/test/ts/task-command.test.ts": 1,
-        "docs/INBOX.md": 2,
-        "docs/RETRO.md": 1,
-        "docs/archive/TASK-1035.md": 1,
-        "docs/tasks/TASK-1032.md": 4
-      }
-    },
-    "TASK-1033": {
-      "commitCount": 4,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-26T14:30:51+02:00",
-      "recentCommitRefs": [
-        "0fb0fdb5",
-        "214a89b3",
-        "42f36683",
-        "88352930"
-      ],
-      "touchedFrequency": {
-        "cli/src/main/ts/application/command-dispatcher.ts": 1,
-        "cli/src/main/ts/domain/services/command-registry.ts": 1,
-        "docs/INBOX.md": 1,
-        "docs/archive/TASK-1033.md": 1,
-        "docs/tasks/TASK-1033.md": 3
-      }
-    },
-    "TASK-1034": {
-      "commitCount": 3,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-27T13:07:16+02:00",
-      "recentCommitRefs": [
-        "17672d73",
-        "851c3399",
-        "8807864f"
-      ],
-      "touchedFrequency": {
-        ".arch/chronicle.jsonl": 1,
-        "cli/src/main/ts/application/commands/analyze-command.ts": 1,
-        "cli/src/main/ts/application/commands/audit-command.ts": 1,
-        "cli/src/main/ts/application/commands/batch-command.ts": 1,
-        "cli/src/main/ts/application/commands/capture-command.ts": 1,
-        "cli/src/main/ts/application/commands/check-command.ts": 1,
-        "cli/src/main/ts/application/commands/compile-command.ts": 1,
-        "cli/src/main/ts/application/commands/conduct-command.ts": 1,
-        "cli/src/main/ts/application/commands/corpus-audit-command.ts": 1,
-        "cli/src/main/ts/application/commands/corpus-import-command.ts": 1,
-        "cli/src/main/ts/application/commands/deps-command.ts": 1,
-        "cli/src/main/ts/application/commands/exec-command.ts": 1,
-        "cli/src/main/ts/application/commands/explain-command.ts": 1,
-        "cli/src/main/ts/application/commands/govern-command.ts": 1,
-        "cli/src/main/ts/application/commands/inbox-command.ts": 1,
-        "cli/src/main/ts/application/commands/index-command.ts": 1,
-        "cli/src/main/ts/application/commands/lint-command.ts": 1,
-        "cli/src/main/ts/application/commands/merge-resolve-command.ts": 1,
-        "cli/src/main/ts/application/commands/next-command.ts": 1,
-        "cli/src/main/ts/application/commands/project-command.ts": 1,
-        "cli/src/main/ts/application/commands/promote-command.ts": 1,
-        "cli/src/main/ts/application/commands/rank-command.ts": 1,
-        "cli/src/main/ts/application/commands/report-command.ts": 1,
-        "cli/src/main/ts/application/commands/reprioritize-command.ts": 1,
-        "cli/src/main/ts/application/commands/resume-command.ts": 1,
-        "cli/src/main/ts/application/commands/review-command.ts": 1,
-        "cli/src/main/ts/application/commands/sandbox-command.ts": 1,
-        "cli/src/main/ts/application/commands/sentinel-command.ts": 1,
-        "cli/src/main/ts/application/commands/serve-command.ts": 1,
-        "cli/src/main/ts/application/commands/status-command.ts": 1,
-        "cli/src/main/ts/application/commands/task-command.ts": 1,
-        "cli/src/main/ts/application/commands/validate-command.ts": 1,
-        "cli/src/main/ts/application/commands/verify-acs-command.ts": 1,
-        "cli/src/main/ts/application/commands/version-command.ts": 1,
-        "cli/src/main/ts/infrastructure/cli/output-formatter.ts": 1,
-        "cli/src/test/ts/output-formatter.test.ts": 1,
-        "docs/INBOX.md": 1,
-        "docs/archive/TASK-1025.md": 1,
-        "docs/archive/TASK-1034.md": 1,
-        "docs/archive/TASK-1054.md": 1,
-        "docs/tasks/TASK-1034.md": 1
-      }
-    },
-    "TASK-1035": {
-      "commitCount": 6,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-26T15:29:03+02:00",
-      "recentCommitRefs": [
-        "5e3924db",
-        "8abd6b70",
-        "a1cfc046",
-        "b63bc704",
-        "c8ad42ae",
-        "f464d90b"
-      ],
-      "touchedFrequency": {
-        ".arch/deep-analysis-state.json": 1,
-        ".arch/focus-ledger.jsonl": 2,
-        "arch.config.json": 1,
-        "cli/src/main/ts/index.ts": 1,
-        "docs/INBOX.md": 2,
-        "docs/tasks/TASK-1032.md": 1,
-        "docs/tasks/TASK-1035.md": 2
-      }
-    },
     "TASK-1036": {
       "commitCount": 4,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-06-01T22:46:23+00:00",
       "recentCommitRefs": [
-        "1a2b5214",
-        "2e8573b7",
-        "75133e8a",
-        "e497d7c9"
+        "1a2b521",
+        "2e8573b",
+        "75133e8",
+        "e497d7c"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
@@ -11175,8 +10654,8 @@
       "commitRefOverflow": false,
       "lastCommitDate": "2026-06-01T22:46:23+00:00",
       "recentCommitRefs": [
-        "1a2b5214",
-        "a1dc0150"
+        "1a2b521",
+        "a1dc015"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
@@ -11201,13 +10680,12 @@
       }
     },
     "TASK-1038": {
-      "commitCount": 3,
+      "commitCount": 2,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-06-01T18:43:11+00:00",
       "recentCommitRefs": [
-        "2f05fa4c",
-        "f48c88f9",
-        "ffae1fa4"
+        "2f05fa4",
+        "f48c88f"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
@@ -11225,173 +10703,30 @@
         "docs/INBOX.md": 1,
         "docs/agents/THINK.md": 1,
         "docs/archive/TASK-1038.md": 1,
-        "docs/tasks/TASK-1031.md": 1,
-        "docs/tasks/TASK-1032.md": 1,
-        "docs/tasks/TASK-1033.md": 1,
-        "docs/tasks/TASK-1034.md": 1,
-        "docs/tasks/TASK-1035.md": 1,
-        "docs/tasks/TASK-1036.md": 2,
-        "docs/tasks/TASK-1037.md": 2,
-        "docs/tasks/TASK-1038.md": 2,
+        "docs/tasks/TASK-1036.md": 1,
+        "docs/tasks/TASK-1037.md": 1,
+        "docs/tasks/TASK-1038.md": 1,
         "docs/tensions/TENSION-005-specdrift.md": 1
       }
     },
-    "TASK-1039": {
-      "commitCount": 8,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-26T14:18:56+02:00",
-      "recentCommitRefs": [
-        "05b1ebbf",
-        "0864f111",
-        "15f97787",
-        "2b3f9897",
-        "932ea5f4",
-        "bd44b64d",
-        "dcec7dd3",
-        "f16b3026"
-      ],
-      "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 2,
-        "cli/src/test/ts/causal-graph.test.ts": 1,
-        "cli/src/test/ts/command-registry.test.ts": 1,
-        "cli/src/test/ts/mark-task-done-feedback.test.ts": 1,
-        "cli/src/test/ts/mark-task-review.test.ts": 1,
-        "cli/src/test/ts/reflect-command.test.ts": 1,
-        "docs/INBOX.md": 1,
-        "docs/archive/TASK-1039.md": 1,
-        "docs/tasks/TASK-1016.md": 1,
-        "docs/tasks/TASK-1017.md": 1,
-        "docs/tasks/TASK-1018.md": 1,
-        "docs/tasks/TASK-1020.md": 1,
-        "docs/tasks/TASK-1021.md": 1,
-        "docs/tasks/TASK-1022.md": 1,
-        "docs/tasks/TASK-1023.md": 1,
-        "docs/tasks/TASK-1028.md": 1,
-        "docs/tasks/TASK-1032.md": 1,
-        "docs/tasks/TASK-1033.md": 1,
-        "docs/tasks/TASK-1035.md": 1,
-        "docs/tasks/TASK-1039.md": 4,
-        "docs/tasks/TASK-1040.md": 1,
-        "docs/tasks/TASK-1041.md": 1,
-        "docs/tasks/TASK-1042.md": 1,
-        "docs/tasks/TASK-1043.md": 1,
-        "docs/tasks/TASK-1044.md": 1,
-        "docs/tasks/TASK-1045.md": 2,
-        "docs/tasks/TASK-1046.md": 1,
-        "docs/tasks/TASK-1047.md": 1,
-        "docs/tasks/TASK-1049.md": 1,
-        "docs/tasks/TASK-242.md": 1
-      }
-    },
-    "TASK-1040": {
-      "commitCount": 8,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-26T16:18:18+02:00",
-      "recentCommitRefs": [
-        "5567fce2",
-        "564f8b42",
-        "81ccf347",
-        "81e6848d",
-        "a8f3a700",
-        "db5e076c",
-        "e0913dc5",
-        "eeb393d3"
-      ],
-      "touchedFrequency": {
-        ".arch/causal-signal.jsonl": 1,
-        ".arch/chronicle.jsonl": 1,
-        ".arch/focus-ledger.jsonl": 3,
-        "cli/.gitignore": 1,
-        "cli/package-lock.json": 1,
-        "cli/package.json": 1,
-        "cli/src/main/ts/application/commands/init-command.ts": 1,
-        "cli/src/main/ts/application/commands/project-command.ts": 1,
-        "cli/src/main/ts/application/use-cases/promote-idea.ts": 1,
-        "cli/src/main/ts/domain/services/deterministic-ac-verifier.ts": 1,
-        "cli/src/test/ts/init-command.test.ts": 1,
-        "cli/src/test/ts/sandbox.test.ts": 1,
-        "docs/EVENTS.md": 1,
-        "docs/INBOX.md": 1,
-        "docs/archive/TASK-1040.md": 1,
-        "docs/tasks/TASK-1018.md": 1,
-        "docs/tasks/TASK-1040.md": 2
-      }
-    },
-    "TASK-1041": {
-      "commitCount": 5,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-26T17:00:11+02:00",
-      "recentCommitRefs": [
-        "06a0fc6e",
-        "668860f0",
-        "74a01abb",
-        "99964c16",
-        "c2395675"
-      ],
-      "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 3,
-        "cli/src/main/ts/index.ts": 1,
-        "cli/src/main/ts/infrastructure/cli/git-cli.ts": 1,
-        "cli/src/test/ts/arch-check-integration.test.ts": 1,
-        "docs/archive/TASK-1018.md": 1,
-        "docs/archive/TASK-1041.md": 1,
-        "docs/tasks/TASK-1041.md": 2
-      }
-    },
-    "TASK-1042": {
-      "commitCount": 5,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-26T18:13:33+02:00",
-      "recentCommitRefs": [
-        "0383b505",
-        "0864844b",
-        "29ac359f",
-        "845d120d",
-        "bd904d91"
-      ],
-      "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 3,
-        "cli/src/main/ts/infrastructure/cli/git-cli.ts": 2,
-        "cli/src/test/ts/capture-command-verifiability.test.ts": 1,
-        "cli/src/test/ts/check-system.test.ts": 1,
-        "cli/src/test/ts/govern-command.test.ts": 1,
-        "cli/src/test/ts/hansei-wizard.test.ts": 1,
-        "cli/src/test/ts/mark-task-done-feedback.test.ts": 1,
-        "cli/src/test/ts/mark-task-done.test.ts": 1,
-        "cli/src/test/ts/mark-task-in-progress.test.ts": 1,
-        "cli/src/test/ts/mocks/index.ts": 1,
-        "cli/src/test/ts/project-command.test.ts": 1,
-        "cli/src/test/ts/review-command.test.ts": 1,
-        "cli/src/test/ts/task-command.test.ts": 1,
-        "cli/src/test/ts/task-reject.test.ts": 1,
-        "cli/src/test/ts/task-validator.test.ts": 1,
-        "cli/src/test/ts/temporal-index.test.ts": 1,
-        "docs/archive/TASK-1042.md": 1,
-        "docs/archive/TASK-1045.md": 1,
-        "docs/tasks/TASK-1042.md": 2,
-        "docs/tasks/TASK-1052.md": 1
-      }
-    },
     "TASK-1043": {
-      "commitCount": 10,
+      "commitCount": 8,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-28T09:31:48+02:00",
       "recentCommitRefs": [
-        "09945344",
-        "2e14daaf",
-        "2e9481f9",
-        "335a331b",
-        "612beb34",
-        "63ec5e3f",
-        "bcdc98f4",
-        "d18b0569",
-        "fabdabdb",
-        "fbdc0123"
+        "0994534",
+        "2e14daa",
+        "2e9481f",
+        "335a331",
+        "612beb3",
+        "63ec5e3",
+        "bcdc98f",
+        "fbdc012"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
         ".arch/chronicle.jsonl": 1,
-        ".arch/focus-ledger.jsonl": 6,
+        ".arch/focus-ledger.jsonl": 4,
         ".arch/temporal-index.jsonl": 1,
         "arch.config.json": 1,
         "cli/package.json": 1,
@@ -11418,7 +10753,7 @@
         "docs/EVENTS.md": 1,
         "docs/INBOX.md": 1,
         "docs/archive/TASK-1043.md": 1,
-        "docs/tasks/TASK-1043.md": 3
+        "docs/tasks/TASK-1043.md": 2
       }
     },
     "TASK-1044": {
@@ -11426,11 +10761,11 @@
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-28T10:29:02+02:00",
       "recentCommitRefs": [
-        "3a92090d",
-        "6e96ab87",
-        "b6c6e5b0",
-        "eb9971e8",
-        "f012ae4d"
+        "3a92090",
+        "6e96ab8",
+        "b6c6e5b",
+        "eb9971e",
+        "f012ae4"
       ],
       "touchedFrequency": {
         ".arch/chronicle.jsonl": 1,
@@ -11444,32 +10779,13 @@
         "docs/tasks/TASK-1044.md": 4
       }
     },
-    "TASK-1045": {
-      "commitCount": 3,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-26T18:13:33+02:00",
-      "recentCommitRefs": [
-        "4dd9c5d1",
-        "bd904d91",
-        "dcb9ebe2"
-      ],
-      "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 1,
-        ".github/workflows/test.yml": 1,
-        "cli/package.json": 1,
-        "cli/src/main/ts/infrastructure/cli/git-cli.ts": 1,
-        "docs/archive/TASK-1042.md": 1,
-        "docs/archive/TASK-1045.md": 1,
-        "docs/tasks/TASK-1045.md": 2
-      }
-    },
     "TASK-1046": {
       "commitCount": 2,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-06-01T18:43:11+00:00",
       "recentCommitRefs": [
-        "570ed462",
-        "f48c88f9"
+        "570ed46",
+        "f48c88f"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
@@ -11494,13 +10810,12 @@
       }
     },
     "TASK-1047": {
-      "commitCount": 3,
+      "commitCount": 2,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-31T11:17:06+00:00",
       "recentCommitRefs": [
-        "2b3f9897",
-        "47fb2192",
-        "c207b5d8"
+        "47fb219",
+        "c207b5d"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
@@ -11516,28 +10831,16 @@
         "docs/EVENTS.md": 2,
         "docs/INBOX.md": 1,
         "docs/archive/TASK-1047.md": 1,
-        "docs/tasks/TASK-1033.md": 1,
-        "docs/tasks/TASK-1039.md": 1,
-        "docs/tasks/TASK-1040.md": 1,
-        "docs/tasks/TASK-1041.md": 1,
-        "docs/tasks/TASK-1042.md": 1,
-        "docs/tasks/TASK-1043.md": 1,
-        "docs/tasks/TASK-1044.md": 1,
-        "docs/tasks/TASK-1045.md": 1,
-        "docs/tasks/TASK-1046.md": 1,
-        "docs/tasks/TASK-1047.md": 2,
+        "docs/tasks/TASK-1047.md": 1,
         "docs/tensions/TENSION-005-specdrift.md": 1
       }
     },
     "TASK-1048": {
-      "commitCount": 4,
+      "commitCount": 1,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-31T09:54:13+00:00",
       "recentCommitRefs": [
-        "a5a9e6bf",
-        "a8f1c19d",
-        "ee1a255b",
-        "f2f70bdf"
+        "f2f70bd"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
@@ -11571,7 +10874,6 @@
         "docs/archive/TASK-1023.md": 1,
         "docs/archive/TASK-1027.md": 1,
         "docs/archive/TASK-1029.md": 1,
-        "docs/archive/TASK-1031.md": 1,
         "docs/archive/TASK-1035.md": 1,
         "docs/archive/TASK-1041.md": 1,
         "docs/archive/TASK-1043.md": 1,
@@ -11592,198 +10894,22 @@
         "docs/archive/TASK-277.md": 1,
         "docs/archive/TASK-281.md": 1,
         "docs/archive/TASK-995.md": 1,
-        "docs/refinement/IDEA-task-execution-log.md": 1,
         "docs/tasks/TASK-1003.md": 1,
         "docs/tasks/TASK-1024.md": 1,
-        "docs/tasks/TASK-1048.md": 2,
         "docs/tasks/TASK-1069.md": 1
       }
     },
-    "TASK-1049": {
-      "commitCount": 7,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-26T12:49:36+02:00",
-      "recentCommitRefs": [
-        "341b65cd",
-        "3bc3b7bb",
-        "93b2a69b",
-        "a1e36e66",
-        "cfae44b7",
-        "d419076e",
-        "eb04c320"
-      ],
-      "touchedFrequency": {
-        ".arch/chronicle.jsonl": 1,
-        ".arch/corpus-index.json": 1,
-        "cli/src/main/ts/application/commands/analyze-command.ts": 1,
-        "cli/src/main/ts/application/commands/audit-command.ts": 1,
-        "cli/src/main/ts/application/commands/report-command.ts": 1,
-        "cli/src/main/ts/application/use-cases/context-inference.ts": 1,
-        "cli/src/main/ts/application/use-cases/drift-checker.ts": 2,
-        "cli/src/main/ts/application/use-cases/hansei-wizard.ts": 2,
-        "cli/src/main/ts/application/use-cases/mark-task-done.ts": 1,
-        "cli/src/main/ts/application/use-cases/mark-task-review.ts": 1,
-        "cli/src/main/ts/application/use-cases/reprioritize-corpus.ts": 1,
-        "cli/src/main/ts/application/use-cases/validate-task-acs.ts": 1,
-        "cli/src/main/ts/domain/services/archive-parser.ts": 1,
-        "cli/src/main/ts/domain/services/decision-impact-engine.ts": 1,
-        "cli/src/main/ts/domain/services/deterministic-hansei-checker.ts": 1,
-        "cli/src/main/ts/domain/services/epistemic-integrity-service.ts": 1,
-        "cli/src/main/ts/domain/services/hansei-auditor.ts": 1,
-        "cli/src/main/ts/domain/services/reviewer.ts": 1,
-        "cli/src/main/ts/domain/services/signal-router.ts": 1,
-        "cli/src/main/ts/domain/services/task-validator.ts": 1,
-        "cli/src/main/ts/infrastructure/filesystem/chronicle-event-repository.ts": 1,
-        "cli/src/main/ts/infrastructure/filesystem/markdown-task-repository.ts": 1,
-        "cli/src/main/ts/infrastructure/git/adr-decision-parser.ts": 1,
-        "cli/src/main/ts/infrastructure/git/git-evidence-collector.ts": 1,
-        "cli/src/test/ts/archive/capture-command.test.ts": 1,
-        "cli/src/test/ts/archive/capture-intent.test.ts": 1,
-        "cli/src/test/ts/archive/finalize-promotion.test.ts": 1,
-        "cli/src/test/ts/archive/markdown-intent-repository.test.ts": 1,
-        "cli/src/test/ts/archive/scaffold-task.test.ts": 1,
-        "cli/src/test/ts/archive/think-command.test.ts": 1,
-        "cli/src/test/ts/build-index.test.ts": 1,
-        "cli/src/test/ts/compress-task.test.ts": 1,
-        "cli/src/test/ts/context-inference.test.ts": 1,
-        "cli/src/test/ts/deep-analysis-state.test.ts": 1,
-        "cli/src/test/ts/get-sprint-status.test.ts": 1,
-        "cli/src/test/ts/git-cli-integration.test.ts": 1,
-        "cli/src/test/ts/hansei-auditor.test.ts": 1,
-        "cli/src/test/ts/hansei-validation.test.ts": 1,
-        "cli/src/test/ts/loop-sprint.test.ts": 2,
-        "cli/src/test/ts/mark-task-done.test.ts": 3,
-        "cli/src/test/ts/mark-task-in-progress.test.ts": 2,
-        "cli/src/test/ts/mark-task-review.test.ts": 3,
-        "cli/src/test/ts/mocks/index.ts": 1,
-        "cli/src/test/ts/reviewer.test.ts": 1,
-        "cli/src/test/ts/select-next-task.test.ts": 2,
-        "cli/src/test/ts/serve-command.test.ts": 1,
-        "cli/src/test/ts/size-tiered-closure.test.ts": 1,
-        "cli/src/test/ts/task-command.test.ts": 1,
-        "cli/src/test/ts/task-reject.test.ts": 1,
-        "cli/src/test/ts/task-validator.test.ts": 2,
-        "cli/src/test/ts/validate-system.test.ts": 2,
-        "cli/tsconfig.json": 1,
-        "docs/INBOX.md": 2,
-        "docs/archive/TASK-1031.md": 1,
-        "docs/archive/TASK-1049.md": 1,
-        "docs/tasks/TASK-1031.md": 1,
-        "docs/tasks/TASK-1049.md": 2,
-        "docs/tasks/TASK-1050.md": 1
-      }
-    },
-    "TASK-1050": {
-      "commitCount": 1,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-26T12:01:03+02:00",
-      "recentCommitRefs": [
-        "4fc82e73"
-      ],
-      "touchedFrequency": {
-        "docs/tasks/TASK-1050.md": 1
-      }
-    },
-    "TASK-1051": {
-      "commitCount": 4,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-26T17:13:14+02:00",
-      "recentCommitRefs": [
-        "162694c8",
-        "7fdc8d22",
-        "a1e2b658",
-        "eaec61b4"
-      ],
-      "touchedFrequency": {
-        "cli/src/main/ts/application/command-dispatcher.ts": 1,
-        "cli/src/main/ts/application/commands/init-command.ts": 1,
-        "docs/archive/TASK-1051.md": 1,
-        "docs/tasks/TASK-1051.md": 3
-      }
-    },
-    "TASK-1052": {
-      "commitCount": 1,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-26T17:13:50+02:00",
-      "recentCommitRefs": [
-        "4e336c88"
-      ],
-      "touchedFrequency": {
-        "docs/tasks/TASK-1052.md": 1
-      }
-    },
-    "TASK-1053": {
-      "commitCount": 4,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-27T10:20:29+02:00",
-      "recentCommitRefs": [
-        "506630b4",
-        "7f26d315",
-        "c55f44ba",
-        "ca73087c"
-      ],
-      "touchedFrequency": {
-        ".arch/causal-signal.jsonl": 1,
-        ".arch/chronicle.jsonl": 2,
-        ".arch/focus-ledger.jsonl": 1,
-        ".arch/reflect-breach-log.jsonl": 1,
-        ".arch/status-projection.json": 1,
-        ".arch/temporal-index.jsonl": 1,
-        "README.md": 1,
-        "cli/src/main/ts/application/commands/analyze-command.ts": 1,
-        "cli/src/main/ts/domain/models/promotion-proposal.ts": 1,
-        "cli/src/main/ts/domain/services/promotion-proposal-generator.ts": 1,
-        "cli/src/test/ts/promotion-proposal-generator.test.ts": 1,
-        "docs/EVENTS.md": 1,
-        "docs/INBOX.md": 2,
-        "docs/ROADMAP.md": 1,
-        "docs/archive/TASK-1053.md": 1,
-        "docs/refinement/TEMPLATE.md": 1,
-        "docs/tasks/TASK-1053.md": 3
-      }
-    },
-    "TASK-1054": {
-      "commitCount": 3,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-27T11:02:34+02:00",
-      "recentCommitRefs": [
-        "642eb2c3",
-        "848f26e4",
-        "8807864f"
-      ],
-      "touchedFrequency": {
-        ".arch/chronicle.jsonl": 2,
-        "cli/src/main/ts/application/command-dispatcher.ts": 1,
-        "cli/src/main/ts/application/commands/ask-command.ts": 1,
-        "cli/src/main/ts/application/commands/corpus-import-command.ts": 1,
-        "cli/src/main/ts/application/use-cases/ask-corpus.ts": 1,
-        "cli/src/main/ts/application/use-cases/corpus-index.ts": 1,
-        "cli/src/main/ts/application/use-cases/govern-system.ts": 1,
-        "cli/src/main/ts/application/use-cases/inbox-hygiene.ts": 1,
-        "cli/src/main/ts/domain/services/command-registry.ts": 1,
-        "cli/src/test/ts/corpus-import-command.test.ts": 1,
-        "cli/src/test/ts/govern-system.test.ts": 1,
-        "docs/INBOX.md": 2,
-        "docs/archive/TASK-1025.md": 1,
-        "docs/archive/TASK-1034.md": 1,
-        "docs/archive/TASK-1054.md": 1,
-        "docs/tasks/TASK-1025.md": 1,
-        "docs/tasks/TASK-1054.md": 2
-      }
-    },
     "TASK-1055": {
-      "commitCount": 4,
+      "commitCount": 2,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-06-01T22:46:23+00:00",
       "recentCommitRefs": [
-        "0e01661a",
-        "1a2b5214",
-        "66147701",
-        "78fd5f36"
+        "1a2b521",
+        "6614770"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
-        ".arch/chronicle.jsonl": 2,
+        ".arch/chronicle.jsonl": 1,
         ".arch/corpus-index.json": 1,
         ".arch/reflect-breach-log.jsonl": 1,
         ".arch/temporal-index.jsonl": 1,
@@ -11798,25 +10924,20 @@
         "cli/src/main/ts/application/use-cases/govern-system.ts": 1,
         "docs/EVENTS.md": 2,
         "docs/INBOX.md": 1,
-        "docs/archive/TASK-1055.md": 1,
-        "docs/refinement/IDEA-upgrade-arch-other-repos.md": 1,
-        "docs/tasks/TASK-1055.md": 2,
-        "docs/tasks/TASK-1056.md": 1
+        "docs/archive/TASK-1055.md": 1
       }
     },
     "TASK-1056": {
-      "commitCount": 4,
+      "commitCount": 2,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-06-01T22:46:23+00:00",
       "recentCommitRefs": [
-        "0e01661a",
-        "18dcd726",
-        "1a2b5214",
-        "fdb58c48"
+        "1a2b521",
+        "fdb58c4"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
-        ".arch/chronicle.jsonl": 2,
+        ".arch/chronicle.jsonl": 1,
         ".arch/corpus-index.json": 1,
         ".arch/reflect-breach-log.jsonl": 1,
         ".arch/temporal-index.jsonl": 1,
@@ -11831,69 +10952,24 @@
         "cli/src/main/ts/application/use-cases/govern-system.ts": 1,
         "docs/EVENTS.md": 2,
         "docs/INBOX.md": 1,
-        "docs/archive/TASK-1056.md": 1,
-        "docs/refinement/IDEA-upgrade-arch-other-repos.md": 1,
-        "docs/tasks/TASK-1055.md": 1,
-        "docs/tasks/TASK-1056.md": 2
-      }
-    },
-    "TASK-1057": {
-      "commitCount": 4,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-27T13:05:13+02:00",
-      "recentCommitRefs": [
-        "2d198726",
-        "786be784",
-        "8d9523d6",
-        "a12562b8"
-      ],
-      "touchedFrequency": {
-        "cli/src/main/ts/application/commands/init-command.ts": 1,
-        "cli/src/test/ts/init-command.test.ts": 1,
-        "docs/INBOX.md": 1,
-        "docs/archive/TASK-1057.md": 1,
-        "docs/tasks/TASK-1057.md": 3
-      }
-    },
-    "TASK-1058": {
-      "commitCount": 4,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-27T13:27:23+02:00",
-      "recentCommitRefs": [
-        "123b117a",
-        "401e1a8f",
-        "42b51937",
-        "dfea0391"
-      ],
-      "touchedFrequency": {
-        "cli/src/main/ts/application/use-cases/inbox-hygiene.ts": 1,
-        "cli/src/test/ts/inbox-hygiene.test.ts": 1,
-        "docs/INBOX.md": 1,
-        "docs/archive/TASK-1058.md": 1,
-        "docs/tasks/TASK-1058.md": 3
+        "docs/archive/TASK-1056.md": 1
       }
     },
     "TASK-1059": {
-      "commitCount": 5,
+      "commitCount": 4,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-28T08:12:14+02:00",
       "recentCommitRefs": [
-        "06b92869",
-        "6e484dc8",
-        "ae9dbd49",
-        "daaba727",
-        "df39f79e"
+        "06b9286",
+        "6e484dc",
+        "ae9dbd4",
+        "daaba72"
       ],
       "touchedFrequency": {
         "cli/src/main/ts/application/use-cases/govern-system.ts": 1,
         "cli/src/test/ts/govern-system.test.ts": 1,
         "docs/archive/TASK-1059.md": 1,
-        "docs/refinement/IDEA-context-injector-planned-artifact-projection.md": 1,
-        "docs/refinement/IDEA-govern-rebuild-context-before-focus.md": 1,
-        "docs/refinement/IDEA-inbox-stable-ledger-invariant.md": 1,
-        "docs/tasks/TASK-1059.md": 4,
-        "docs/tasks/TASK-1060.md": 1,
-        "docs/tasks/TASK-1061.md": 1
+        "docs/tasks/TASK-1059.md": 3
       }
     },
     "TASK-1060": {
@@ -11901,11 +10977,11 @@
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-28T11:48:29+02:00",
       "recentCommitRefs": [
-        "05530d97",
-        "1aab48c3",
-        "6bb7276d",
-        "adf1e4b8",
-        "be53d6da"
+        "05530d9",
+        "1aab48c",
+        "6bb7276",
+        "adf1e4b",
+        "be53d6d"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
@@ -11925,7 +11001,7 @@
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-28T12:28:13+02:00",
       "recentCommitRefs": [
-        "72bf306f"
+        "72bf306"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
@@ -11941,33 +11017,1182 @@
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-27T15:02:49+02:00",
       "recentCommitRefs": [
-        "2f857fa5",
-        "4e17758f",
-        "6ba5588c",
-        "741a69d2",
-        "a047045c",
-        "a8e6affa",
-        "a9d049f8",
-        "e84626d5"
+        "2f857fa",
+        "4e17758",
+        "6ba5588",
+        "741a69d",
+        "a047045",
+        "a8e6aff",
+        "a9d049f",
+        "e84626d"
       ],
       "touchedFrequency": {
+        ".arch-local": 1,
+        ".arch/cache/git-signals.jsonl": 1,
+        ".arch/causal-graph.jsonl": 1,
+        ".arch/causal-signal.jsonl": 1,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/context-feedback.json": 1,
+        ".arch/context-index.json": 1,
+        ".arch/corpus-index.json": 1,
+        ".arch/correction-signals.jsonl": 1,
+        ".arch/deep-analysis-state.json": 1,
+        ".arch/deployment-map-v1.1.json": 1,
+        ".arch/ecp-registry.jsonl": 1,
+        ".arch/escalations-compacted.jsonl": 1,
+        ".arch/escalations.jsonl": 1,
+        ".arch/focus-ledger.jsonl": 1,
+        ".arch/git-history-cache.txt": 1,
+        ".arch/last-audit.json": 1,
+        ".arch/protocol-versions.jsonl": 1,
+        ".arch/reflect-breach-log.jsonl": 1,
+        ".arch/reflect-decisions.jsonl": 1,
+        ".arch/reflect-proposals.jsonl": 1,
+        ".arch/sprint-state.json": 1,
+        ".arch/status-projection.json": 1,
+        ".arch/temporal-index.jsonl": 1,
+        ".githooks/commit-msg": 1,
+        ".githooks/pre-commit": 1,
+        ".githooks/pre-push": 1,
+        ".github/workflows/build.yml": 1,
+        ".github/workflows/pages.yml": 1,
         ".github/workflows/release.yml": 1,
-        "AGENTS.md": 1,
-        "GEMINI.md": 1,
-        "cli/src/main/ts/application/use-cases/govern-system.ts": 2,
-        "cli/src/main/ts/domain/repositories/git-repository.ts": 1,
-        "cli/src/main/ts/infrastructure/cli/git-cli.ts": 1,
-        "cli/src/test/ts/govern-system.test.ts": 2,
-        "cli/src/test/ts/mocks/index.ts": 1,
-        "docs/AGENTS.md": 1,
-        "docs/INBOX.md": 1,
-        "docs/ONBOARDING.html": 1,
-        "docs/agents/DO.md": 1,
-        "docs/agents/THINK.md": 1,
+        ".github/workflows/review.yml": 1,
+        ".github/workflows/test.yml": 1,
+        ".gitignore": 1,
+        "AGENTS.md": 2,
+        "ARCH_CONTEXT_AXIOMS.md": 1,
+        "CHANGELOG.md": 1,
+        "CLAUDE.md": 1,
+        "CONTRIBUTING.md": 1,
+        "DEVELOPMENT.md": 1,
+        "GEMINI.md": 2,
+        "README.md": 1,
+        "arch.config.json": 1,
+        "cli/.arch/context-index.json": 1,
+        "cli/.arch/corpus-index.json": 1,
+        "cli/.arch/deployment-map-v1.1.json": 1,
+        "cli/.arch/deployment-map.json": 1,
+        "cli/.gitignore": 1,
+        "cli/.npmignore": 1,
+        "cli/.npmrc": 1,
+        "cli/README.md": 1,
+        "cli/package-lock.json": 1,
+        "cli/package.json": 1,
+        "cli/src/main/ts/application/command-dispatcher.ts": 1,
+        "cli/src/main/ts/application/commands/analyze-command.ts": 1,
+        "cli/src/main/ts/application/commands/ask-command.ts": 1,
+        "cli/src/main/ts/application/commands/audit-command.ts": 1,
+        "cli/src/main/ts/application/commands/batch-command.ts": 1,
+        "cli/src/main/ts/application/commands/capture-command.ts": 1,
+        "cli/src/main/ts/application/commands/check-command.ts": 1,
+        "cli/src/main/ts/application/commands/compile-command.ts": 1,
+        "cli/src/main/ts/application/commands/conduct-command.ts": 1,
+        "cli/src/main/ts/application/commands/corpus-audit-command.ts": 1,
+        "cli/src/main/ts/application/commands/corpus-import-command.ts": 1,
+        "cli/src/main/ts/application/commands/deps-command.ts": 1,
+        "cli/src/main/ts/application/commands/exec-command.ts": 1,
+        "cli/src/main/ts/application/commands/explain-command.ts": 1,
+        "cli/src/main/ts/application/commands/govern-command.ts": 1,
+        "cli/src/main/ts/application/commands/inbox-command.ts": 1,
+        "cli/src/main/ts/application/commands/index-command.ts": 1,
+        "cli/src/main/ts/application/commands/init-command.ts": 1,
+        "cli/src/main/ts/application/commands/lint-command.ts": 1,
+        "cli/src/main/ts/application/commands/loop-command.ts": 1,
+        "cli/src/main/ts/application/commands/merge-resolve-command.ts": 1,
+        "cli/src/main/ts/application/commands/move-command.ts": 1,
+        "cli/src/main/ts/application/commands/next-command.ts": 1,
+        "cli/src/main/ts/application/commands/project-command.ts": 1,
+        "cli/src/main/ts/application/commands/promote-command.ts": 1,
+        "cli/src/main/ts/application/commands/rank-command.ts": 1,
+        "cli/src/main/ts/application/commands/report-command.ts": 1,
+        "cli/src/main/ts/application/commands/reprioritize-command.ts": 1,
+        "cli/src/main/ts/application/commands/resume-command.ts": 1,
+        "cli/src/main/ts/application/commands/review-command.ts": 1,
+        "cli/src/main/ts/application/commands/sandbox-command.ts": 1,
+        "cli/src/main/ts/application/commands/sentinel-command.ts": 1,
+        "cli/src/main/ts/application/commands/serve-command.ts": 1,
+        "cli/src/main/ts/application/commands/status-command.ts": 1,
+        "cli/src/main/ts/application/commands/task-command.ts": 1,
+        "cli/src/main/ts/application/commands/task-done-command.ts": 1,
+        "cli/src/main/ts/application/commands/trace-command.ts": 1,
+        "cli/src/main/ts/application/commands/validate-command.ts": 1,
+        "cli/src/main/ts/application/commands/verify-acs-command.ts": 1,
+        "cli/src/main/ts/application/commands/version-command.ts": 1,
+        "cli/src/main/ts/application/use-cases/ask-corpus.ts": 1,
+        "cli/src/main/ts/application/use-cases/batch-system.ts": 1,
+        "cli/src/main/ts/application/use-cases/build-index.ts": 1,
+        "cli/src/main/ts/application/use-cases/causal-arbitrator.ts": 1,
+        "cli/src/main/ts/application/use-cases/causal-graph.ts": 1,
+        "cli/src/main/ts/application/use-cases/causal-signal-log.ts": 1,
+        "cli/src/main/ts/application/use-cases/check-system.ts": 1,
+        "cli/src/main/ts/application/use-cases/compress-task.ts": 1,
+        "cli/src/main/ts/application/use-cases/compute-trusted-metrics.ts": 1,
+        "cli/src/main/ts/application/use-cases/constraint-preflight.ts": 1,
+        "cli/src/main/ts/application/use-cases/context-inference.ts": 1,
+        "cli/src/main/ts/application/use-cases/corpus-index.ts": 1,
+        "cli/src/main/ts/application/use-cases/correction-signal-store.ts": 1,
+        "cli/src/main/ts/application/use-cases/create-task.ts": 1,
+        "cli/src/main/ts/application/use-cases/decision-validator.ts": 1,
+        "cli/src/main/ts/application/use-cases/deep-analysis-state.ts": 1,
+        "cli/src/main/ts/application/use-cases/drift-checker.ts": 1,
+        "cli/src/main/ts/application/use-cases/edit-task-metadata.ts": 1,
+        "cli/src/main/ts/application/use-cases/escalation-store.ts": 1,
+        "cli/src/main/ts/application/use-cases/extract-context-feedback.ts": 1,
+        "cli/src/main/ts/application/use-cases/focus-ledger.ts": 1,
+        "cli/src/main/ts/application/use-cases/generate-inbox.ts": 1,
+        "cli/src/main/ts/application/use-cases/get-sprint-status.ts": 1,
+        "cli/src/main/ts/application/use-cases/govern-system.ts": 3,
+        "cli/src/main/ts/application/use-cases/govern-transaction.ts": 1,
+        "cli/src/main/ts/application/use-cases/hansei-synthesizer.ts": 1,
+        "cli/src/main/ts/application/use-cases/hansei-wizard.ts": 1,
+        "cli/src/main/ts/application/use-cases/inbox-hygiene.ts": 1,
+        "cli/src/main/ts/application/use-cases/lightweight-metrics-refresh.ts": 1,
+        "cli/src/main/ts/application/use-cases/load-bearing-memory.ts": 1,
+        "cli/src/main/ts/application/use-cases/loop-engine.ts": 1,
+        "cli/src/main/ts/application/use-cases/mark-task-done.ts": 1,
+        "cli/src/main/ts/application/use-cases/mark-task-in-progress.ts": 1,
+        "cli/src/main/ts/application/use-cases/mark-task-review.ts": 1,
+        "cli/src/main/ts/application/use-cases/merge-resolve.ts": 1,
+        "cli/src/main/ts/application/use-cases/move-artifact.ts": 1,
+        "cli/src/main/ts/application/use-cases/normalize-repo-events.ts": 1,
+        "cli/src/main/ts/application/use-cases/promote-idea.ts": 1,
+        "cli/src/main/ts/application/use-cases/rank-tasks.ts": 1,
+        "cli/src/main/ts/application/use-cases/reflect-decision-log.ts": 1,
+        "cli/src/main/ts/application/use-cases/reflect-influence-report.ts": 1,
+        "cli/src/main/ts/application/use-cases/reflect-proposal-log.ts": 1,
+        "cli/src/main/ts/application/use-cases/reprioritize-corpus.ts": 1,
+        "cli/src/main/ts/application/use-cases/select-next-task.ts": 1,
+        "cli/src/main/ts/application/use-cases/semantic-collision-detector.ts": 1,
+        "cli/src/main/ts/application/use-cases/task-reject-stale.ts": 1,
+        "cli/src/main/ts/application/use-cases/task-reject.ts": 1,
+        "cli/src/main/ts/application/use-cases/temporal-index.ts": 1,
+        "cli/src/main/ts/application/use-cases/update-task-metrics.ts": 1,
+        "cli/src/main/ts/application/use-cases/validate-system.ts": 1,
+        "cli/src/main/ts/application/use-cases/validate-task-acs.ts": 1,
+        "cli/src/main/ts/application/use-cases/weak-signal-checker.ts": 1,
+        "cli/src/main/ts/commands/review.ts": 1,
+        "cli/src/main/ts/domain/models/action.ts": 1,
+        "cli/src/main/ts/domain/models/audit-inference.ts": 1,
+        "cli/src/main/ts/domain/models/batch-entry.ts": 1,
+        "cli/src/main/ts/domain/models/causal-relation.ts": 1,
+        "cli/src/main/ts/domain/models/causal-signal.ts": 1,
+        "cli/src/main/ts/domain/models/command.ts": 1,
+        "cli/src/main/ts/domain/models/config.ts": 1,
+        "cli/src/main/ts/domain/models/context-index.ts": 1,
+        "cli/src/main/ts/domain/models/decision.ts": 1,
+        "cli/src/main/ts/domain/models/deployment-map.ts": 1,
+        "cli/src/main/ts/domain/models/epistemic-report.ts": 1,
+        "cli/src/main/ts/domain/models/event.ts": 1,
+        "cli/src/main/ts/domain/models/evidence.ts": 1,
+        "cli/src/main/ts/domain/models/feedback-signal.ts": 1,
+        "cli/src/main/ts/domain/models/ontology.ts": 1,
+        "cli/src/main/ts/domain/models/outcome.ts": 1,
+        "cli/src/main/ts/domain/models/promotion-proposal.ts": 1,
+        "cli/src/main/ts/domain/models/provenance.ts": 1,
+        "cli/src/main/ts/domain/models/reconciliation.ts": 1,
+        "cli/src/main/ts/domain/models/reflect-decision.ts": 1,
+        "cli/src/main/ts/domain/models/reflect-proposal.ts": 1,
+        "cli/src/main/ts/domain/models/semantic-stability.ts": 1,
+        "cli/src/main/ts/domain/models/sprint.ts": 1,
+        "cli/src/main/ts/domain/models/stability.ts": 1,
+        "cli/src/main/ts/domain/models/task.ts": 1,
+        "cli/src/main/ts/domain/models/traceability-graph.ts": 1,
+        "cli/src/main/ts/domain/models/ueg-ir.ts": 1,
+        "cli/src/main/ts/domain/repositories/feedback-repository.ts": 1,
+        "cli/src/main/ts/domain/repositories/file-system.ts": 1,
+        "cli/src/main/ts/domain/repositories/git-repository.ts": 2,
+        "cli/src/main/ts/domain/repositories/task-repository.ts": 1,
+        "cli/src/main/ts/domain/services/action-governance-service.ts": 1,
+        "cli/src/main/ts/domain/services/adr-inference-engine.ts": 1,
+        "cli/src/main/ts/domain/services/archive-parser.ts": 1,
+        "cli/src/main/ts/domain/services/behavioral-profiler.ts": 1,
+        "cli/src/main/ts/domain/services/bridge-provider.ts": 1,
+        "cli/src/main/ts/domain/services/command-registry.ts": 1,
+        "cli/src/main/ts/domain/services/config-loader.ts": 1,
+        "cli/src/main/ts/domain/services/decision-impact-engine.ts": 1,
+        "cli/src/main/ts/domain/services/decision-observability-service.ts": 1,
+        "cli/src/main/ts/domain/services/decision-reconciliation-engine.ts": 1,
+        "cli/src/main/ts/domain/services/deterministic-ac-verifier.ts": 1,
+        "cli/src/main/ts/domain/services/deterministic-hansei-checker.ts": 1,
+        "cli/src/main/ts/domain/services/epistemic-integrity-service.ts": 1,
+        "cli/src/main/ts/domain/services/event-logger.ts": 1,
+        "cli/src/main/ts/domain/services/governance-drift-detector.ts": 1,
+        "cli/src/main/ts/domain/services/governance-stability-service.ts": 1,
+        "cli/src/main/ts/domain/services/hansei-auditor.ts": 1,
+        "cli/src/main/ts/domain/services/human-coordination-service.ts": 1,
+        "cli/src/main/ts/domain/services/identity-resolver.ts": 1,
+        "cli/src/main/ts/domain/services/init-recommendation-engine.ts": 1,
+        "cli/src/main/ts/domain/services/institutional-anomaly-tracker.ts": 1,
+        "cli/src/main/ts/domain/services/instrumentation-planner.ts": 1,
+        "cli/src/main/ts/domain/services/java-adapter.ts": 1,
+        "cli/src/main/ts/domain/services/llm-provider.ts": 1,
+        "cli/src/main/ts/domain/services/measurement-governance-layer.ts": 1,
+        "cli/src/main/ts/domain/services/metrics-engine.ts": 1,
+        "cli/src/main/ts/domain/services/native-provider.ts": 1,
+        "cli/src/main/ts/domain/services/noise-filter.ts": 1,
+        "cli/src/main/ts/domain/services/outcome-validation-service.ts": 1,
+        "cli/src/main/ts/domain/services/path-resolver.ts": 1,
+        "cli/src/main/ts/domain/services/pattern-engine.ts": 1,
+        "cli/src/main/ts/domain/services/precedent-novelty-scorer.ts": 1,
+        "cli/src/main/ts/domain/services/promotion-proposal-generator.ts": 1,
+        "cli/src/main/ts/domain/services/provider-registry.ts": 1,
+        "cli/src/main/ts/domain/services/python-adapter.ts": 1,
+        "cli/src/main/ts/domain/services/repository-summarizer.ts": 1,
+        "cli/src/main/ts/domain/services/reviewer.ts": 1,
+        "cli/src/main/ts/domain/services/risk-detector.ts": 1,
+        "cli/src/main/ts/domain/services/role-inference-engine.ts": 1,
+        "cli/src/main/ts/domain/services/sandbox.ts": 1,
+        "cli/src/main/ts/domain/services/signal-extraction-engine.ts": 1,
+        "cli/src/main/ts/domain/services/signal-router.ts": 1,
+        "cli/src/main/ts/domain/services/sprint-service.ts": 1,
+        "cli/src/main/ts/domain/services/stateless-hypothesis-generator.ts": 1,
+        "cli/src/main/ts/domain/services/status-report-service.ts": 1,
+        "cli/src/main/ts/domain/services/structural-extractor.ts": 1,
+        "cli/src/main/ts/domain/services/subsystem-clusterer.ts": 1,
+        "cli/src/main/ts/domain/services/task-validator.ts": 1,
+        "cli/src/main/ts/domain/services/traceability-projection.ts": 1,
+        "cli/src/main/ts/domain/services/transient-actuation-projector.ts": 1,
+        "cli/src/main/ts/domain/services/transient-window-compiler.ts": 1,
+        "cli/src/main/ts/domain/services/typescript-adapter.ts": 1,
+        "cli/src/main/ts/domain/services/ueg-analysis-layer.ts": 1,
+        "cli/src/main/ts/domain/services/ueg-interfaces.ts": 1,
+        "cli/src/main/ts/domain/services/ueg-ir-builder.ts": 1,
+        "cli/src/main/ts/domain/services/verifiability-scorer.ts": 1,
+        "cli/src/main/ts/index.ts": 1,
+        "cli/src/main/ts/infrastructure/cli/command-parser.ts": 1,
+        "cli/src/main/ts/infrastructure/cli/git-cli.ts": 2,
+        "cli/src/main/ts/infrastructure/cli/output-formatter.ts": 1,
+        "cli/src/main/ts/infrastructure/cli/subprocess-runner.ts": 1,
+        "cli/src/main/ts/infrastructure/filesystem/chronicle-event-repository.ts": 1,
+        "cli/src/main/ts/infrastructure/filesystem/markdown-task-repository.ts": 1,
+        "cli/src/main/ts/infrastructure/filesystem/node-feedback-repository.ts": 1,
+        "cli/src/main/ts/infrastructure/filesystem/node-file-system.ts": 1,
+        "cli/src/main/ts/infrastructure/filesystem/signal-cache.ts": 1,
+        "cli/src/main/ts/infrastructure/git/adr-decision-parser.ts": 1,
+        "cli/src/main/ts/infrastructure/git/git-evidence-collector.ts": 1,
+        "cli/src/main/ts/infrastructure/git/git-semantic-extractor.ts": 1,
+        "cli/src/test/ts/arch-check-integration.test.ts": 1,
+        "cli/src/test/ts/archive/capture-command.test.ts": 1,
+        "cli/src/test/ts/archive/capture-intent.test.ts": 1,
+        "cli/src/test/ts/archive/finalize-promotion.test.ts": 1,
+        "cli/src/test/ts/archive/markdown-intent-repository.test.ts": 1,
+        "cli/src/test/ts/archive/scaffold-task.test.ts": 1,
+        "cli/src/test/ts/archive/think-command.test.ts": 1,
+        "cli/src/test/ts/ask-corpus.test.ts": 1,
+        "cli/src/test/ts/build-index-v2.test.ts": 1,
+        "cli/src/test/ts/build-index.test.ts": 1,
+        "cli/src/test/ts/capture-command-verifiability.test.ts": 1,
+        "cli/src/test/ts/causal-arbitrator.test.ts": 1,
+        "cli/src/test/ts/causal-graph.test.ts": 1,
+        "cli/src/test/ts/check-system.test.ts": 1,
+        "cli/src/test/ts/command-registry.test.ts": 1,
+        "cli/src/test/ts/compile-command.test.ts": 1,
+        "cli/src/test/ts/compress-task.test.ts": 1,
+        "cli/src/test/ts/compute-trusted-metrics.test.ts": 1,
+        "cli/src/test/ts/constraint-preflight.test.ts": 1,
+        "cli/src/test/ts/context-inference-feedback.test.ts": 1,
+        "cli/src/test/ts/context-inference.test.ts": 1,
+        "cli/src/test/ts/corpus-audit-command.test.ts": 1,
+        "cli/src/test/ts/corpus-audit-weighted.test.ts": 1,
+        "cli/src/test/ts/corpus-import-command.test.ts": 1,
+        "cli/src/test/ts/corpus-index.test.ts": 1,
+        "cli/src/test/ts/corpus-stress-test.test.ts": 1,
+        "cli/src/test/ts/create-task.test.ts": 1,
+        "cli/src/test/ts/deep-analysis-state.test.ts": 1,
+        "cli/src/test/ts/deterministic-ac-verifier.test.ts": 1,
+        "cli/src/test/ts/deterministic-hansei-checker.test.ts": 1,
+        "cli/src/test/ts/drift-checker.test.ts": 1,
+        "cli/src/test/ts/escalation-maturity-e5.test.ts": 1,
+        "cli/src/test/ts/exec-command.test.ts": 1,
+        "cli/src/test/ts/extract-context-feedback.test.ts": 1,
+        "cli/src/test/ts/get-sprint-status.test.ts": 1,
+        "cli/src/test/ts/git-cli-integration.test.ts": 1,
+        "cli/src/test/ts/govern-command.test.ts": 1,
+        "cli/src/test/ts/govern-system.test.ts": 3,
+        "cli/src/test/ts/governance-drift-detector.test.ts": 1,
+        "cli/src/test/ts/hansei-auditor.test.ts": 1,
+        "cli/src/test/ts/hansei-validation.test.ts": 1,
+        "cli/src/test/ts/hansei-wizard.test.ts": 1,
+        "cli/src/test/ts/inbox-hygiene.test.ts": 1,
+        "cli/src/test/ts/init-command.test.ts": 1,
+        "cli/src/test/ts/institutional-anomaly-tracker.test.ts": 1,
+        "cli/src/test/ts/lightweight-metrics-refresh.test.ts": 1,
+        "cli/src/test/ts/llm-provider.test.ts": 1,
+        "cli/src/test/ts/loop-sprint.test.ts": 1,
+        "cli/src/test/ts/mark-task-done-feedback.test.ts": 1,
+        "cli/src/test/ts/mark-task-done.test.ts": 1,
+        "cli/src/test/ts/mark-task-in-progress.test.ts": 1,
+        "cli/src/test/ts/mark-task-review.test.ts": 1,
+        "cli/src/test/ts/markdown-task-repository.test.ts": 1,
+        "cli/src/test/ts/merge-resolve.test.ts": 1,
+        "cli/src/test/ts/mocks/index.ts": 2,
+        "cli/src/test/ts/mocks/telemetry-sample.json": 1,
+        "cli/src/test/ts/output-formatter.test.ts": 1,
+        "cli/src/test/ts/path-resolver.test.ts": 1,
+        "cli/src/test/ts/precedent-novelty-scorer.test.ts": 1,
+        "cli/src/test/ts/project-command.test.ts": 1,
+        "cli/src/test/ts/project-dod-gate.test.ts": 1,
+        "cli/src/test/ts/promotion-proposal-generator.test.ts": 1,
+        "cli/src/test/ts/reflect-influence-report.test.ts": 1,
+        "cli/src/test/ts/report.test.ts": 1,
+        "cli/src/test/ts/review-command.test.ts": 1,
+        "cli/src/test/ts/reviewer.test.ts": 1,
+        "cli/src/test/ts/sandbox.test.ts": 1,
+        "cli/src/test/ts/select-next-task.test.ts": 1,
+        "cli/src/test/ts/serve-command.test.ts": 1,
+        "cli/src/test/ts/size-tiered-closure.test.ts": 1,
+        "cli/src/test/ts/status-alerts.test.ts": 1,
+        "cli/src/test/ts/task-command.test.ts": 1,
+        "cli/src/test/ts/task-reject.test.ts": 1,
+        "cli/src/test/ts/task-validator.test.ts": 1,
+        "cli/src/test/ts/temporal-index.test.ts": 1,
+        "cli/src/test/ts/validate-system.test.ts": 1,
+        "cli/src/test/ts/validate-task-acs-v2.test.ts": 1,
+        "cli/src/test/ts/validate-task-acs.test.ts": 1,
+        "cli/src/test/ts/verifiability-scorer.test.ts": 1,
+        "cli/src/test/ts/weak-signal-checker.test.ts": 1,
+        "cli/tsconfig.json": 1,
+        "cli/tsup.config.ts": 1,
+        "docs/AGENTS.md": 2,
+        "docs/ARCH-CORE.md": 1,
+        "docs/EVENTS.md": 1,
+        "docs/GOVERNANCE.md": 1,
+        "docs/HALT-LOG.md": 1,
+        "docs/HALT.md": 1,
+        "docs/IDENTITY.md": 1,
+        "docs/INBOX.md": 2,
+        "docs/KAIZEN-LOG.md": 1,
+        "docs/METRICS.md": 1,
+        "docs/ONBOARDING.html": 2,
+        "docs/PRINCIPLES.md": 1,
+        "docs/PROTOCOL-UPGRADES.md": 1,
+        "docs/PROTOCOL.md": 1,
+        "docs/RETRO.md": 1,
+        "docs/ROADMAP.md": 1,
+        "docs/SENTINEL-LOG.md": 1,
+        "docs/TASK-FORMAT.md": 1,
+        "docs/adr/ADR-000-template.md": 1,
+        "docs/adr/ADR-001-git-as-operating-system.md": 1,
+        "docs/adr/ADR-002-context-as-budget.md": 1,
+        "docs/adr/ADR-003-dispatch-ephemeral.md": 1,
+        "docs/adr/ADR-004-flat-tasks-with-focus-field.md": 1,
+        "docs/adr/ADR-005-non-docker-sandbox.md": 1,
+        "docs/adr/ADR-006-depends-graph-validation-in-drift-checker.md": 1,
+        "docs/adr/ADR-007-census-context-budget-check.md": 1,
+        "docs/adr/ADR-008-halt-policy-centralization.md": 1,
+        "docs/adr/ADR-009-l3-self-archive.md": 1,
+        "docs/adr/ADR-010-escalation-maturity.md": 1,
+        "docs/adr/ADR-011-unified-provider-strategies.md": 1,
+        "docs/adr/ADR-012-exec-bridge-layer-bugfixes.md": 1,
+        "docs/adr/ADR-013-two-tier-drift-detection.md": 1,
+        "docs/adr/ADR-014-causal-graph-schema.md": 1,
+        "docs/adr/ADR-015-causal-signal-arbitration.md": 1,
+        "docs/adr/ADR-016-domain-layer-semantic-boundary.md": 1,
+        "docs/adr/ADR-017-deterministic-observability.md": 1,
+        "docs/adr/ADR-018-clean-execution-context.md": 1,
+        "docs/adr/ADR-019-hansei-ontology.md": 1,
+        "docs/adr/ADR-020-focus-sovereignty-model.md": 1,
+        "docs/adr/ADR-021-refinement-ttl-and-admission.md": 1,
+        "docs/adr/ADR-022-census-budget-recalibration.md": 1,
+        "docs/adr/ADR-023-deterministic-gate-invariant.md": 1,
+        "docs/adr/ADR-024-drift-coverage-identity-model.md": 1,
+        "docs/adr/ADR-025-versioning-architecture.md": 1,
+        "docs/adr/ADR-026-epistemic-layer-separation.md": 1,
+        "docs/adr/ADR-027-phase-3-epistemic-stability.md": 1,
+        "docs/adr/ADR-028-epistemic-invariant-specification.md": 1,
+        "docs/adr/ADR-029-cli-refactoring.md": 1,
+        "docs/adr/ADR-030-think-promotion-proposals-domain-model.md": 1,
+        "docs/adr/ADR-031-sprint-domain-model.md": 1,
+        "docs/adr/ADR-032-automatic-sprint-lifecycle.md": 1,
+        "docs/adr/ADR-033-protocol-upgrade-policy.md": 1,
+        "docs/adr/ADR-034-govern-reflect-separation.md": 1,
+        "docs/agents/DO.md": 2,
+        "docs/agents/THINK.md": 2,
+        "docs/arch-assistant.html": 1,
+        "docs/arch-initializr.html": 1,
+        "docs/arch-upgrade.html": 1,
+        "docs/arch-viewer.html": 1,
+        "docs/archive/TASK-001.md": 1,
+        "docs/archive/TASK-002.md": 1,
+        "docs/archive/TASK-003.md": 1,
+        "docs/archive/TASK-004.md": 1,
+        "docs/archive/TASK-005.md": 1,
+        "docs/archive/TASK-006.md": 1,
+        "docs/archive/TASK-007.md": 1,
+        "docs/archive/TASK-008.md": 1,
+        "docs/archive/TASK-009.md": 1,
+        "docs/archive/TASK-010.md": 1,
+        "docs/archive/TASK-011.md": 1,
+        "docs/archive/TASK-012.md": 1,
+        "docs/archive/TASK-013.md": 1,
+        "docs/archive/TASK-014.md": 1,
+        "docs/archive/TASK-015.md": 1,
+        "docs/archive/TASK-016.md": 1,
+        "docs/archive/TASK-018.md": 1,
+        "docs/archive/TASK-019.md": 1,
+        "docs/archive/TASK-020.md": 1,
+        "docs/archive/TASK-021.md": 1,
+        "docs/archive/TASK-022.md": 1,
+        "docs/archive/TASK-023.md": 1,
+        "docs/archive/TASK-024.md": 1,
+        "docs/archive/TASK-025.md": 1,
+        "docs/archive/TASK-026.md": 1,
+        "docs/archive/TASK-027.md": 1,
+        "docs/archive/TASK-028.md": 1,
+        "docs/archive/TASK-029.md": 1,
+        "docs/archive/TASK-030.md": 1,
+        "docs/archive/TASK-031.md": 1,
+        "docs/archive/TASK-032.md": 1,
+        "docs/archive/TASK-033.md": 1,
+        "docs/archive/TASK-034.md": 1,
+        "docs/archive/TASK-035.md": 1,
+        "docs/archive/TASK-036.md": 1,
+        "docs/archive/TASK-037.md": 1,
+        "docs/archive/TASK-038.md": 1,
+        "docs/archive/TASK-039.md": 1,
+        "docs/archive/TASK-040.md": 1,
+        "docs/archive/TASK-041.md": 1,
+        "docs/archive/TASK-042.md": 1,
+        "docs/archive/TASK-043.md": 1,
+        "docs/archive/TASK-044.md": 1,
+        "docs/archive/TASK-045.md": 1,
+        "docs/archive/TASK-046.md": 1,
+        "docs/archive/TASK-047.md": 1,
+        "docs/archive/TASK-048.md": 1,
+        "docs/archive/TASK-049.md": 1,
+        "docs/archive/TASK-050.md": 1,
+        "docs/archive/TASK-051.md": 1,
+        "docs/archive/TASK-052.md": 1,
+        "docs/archive/TASK-053.md": 1,
+        "docs/archive/TASK-054.md": 1,
+        "docs/archive/TASK-055.md": 1,
+        "docs/archive/TASK-056.md": 1,
+        "docs/archive/TASK-057.md": 1,
+        "docs/archive/TASK-058.md": 1,
+        "docs/archive/TASK-059.md": 1,
+        "docs/archive/TASK-060.md": 1,
+        "docs/archive/TASK-061.md": 1,
+        "docs/archive/TASK-062.md": 1,
+        "docs/archive/TASK-063.md": 1,
+        "docs/archive/TASK-064.md": 1,
+        "docs/archive/TASK-065.md": 1,
+        "docs/archive/TASK-066.md": 1,
+        "docs/archive/TASK-067.md": 1,
+        "docs/archive/TASK-068.md": 1,
+        "docs/archive/TASK-069.md": 1,
+        "docs/archive/TASK-070.md": 1,
+        "docs/archive/TASK-071.md": 1,
+        "docs/archive/TASK-072.md": 1,
+        "docs/archive/TASK-074.md": 1,
+        "docs/archive/TASK-075.md": 1,
+        "docs/archive/TASK-076.md": 1,
+        "docs/archive/TASK-077.md": 1,
+        "docs/archive/TASK-078.md": 1,
+        "docs/archive/TASK-079.md": 1,
+        "docs/archive/TASK-080.md": 1,
+        "docs/archive/TASK-081.md": 1,
+        "docs/archive/TASK-082.md": 1,
+        "docs/archive/TASK-083.md": 1,
+        "docs/archive/TASK-084.md": 1,
+        "docs/archive/TASK-085.md": 1,
+        "docs/archive/TASK-086.md": 1,
+        "docs/archive/TASK-087.md": 1,
+        "docs/archive/TASK-088.md": 1,
+        "docs/archive/TASK-089.md": 1,
+        "docs/archive/TASK-090.md": 1,
+        "docs/archive/TASK-091.md": 1,
+        "docs/archive/TASK-092.md": 1,
+        "docs/archive/TASK-093.md": 1,
+        "docs/archive/TASK-094.md": 1,
+        "docs/archive/TASK-095.md": 1,
+        "docs/archive/TASK-096.md": 1,
+        "docs/archive/TASK-097.md": 1,
+        "docs/archive/TASK-098.md": 1,
+        "docs/archive/TASK-099.md": 1,
+        "docs/archive/TASK-100.md": 1,
+        "docs/archive/TASK-1000.md": 1,
+        "docs/archive/TASK-1001.md": 1,
+        "docs/archive/TASK-1002.md": 1,
+        "docs/archive/TASK-1005.md": 1,
+        "docs/archive/TASK-1006.md": 1,
+        "docs/archive/TASK-1007.md": 1,
+        "docs/archive/TASK-1008.md": 1,
+        "docs/archive/TASK-1009.md": 1,
+        "docs/archive/TASK-101.md": 1,
+        "docs/archive/TASK-1010.md": 1,
+        "docs/archive/TASK-1011.md": 1,
+        "docs/archive/TASK-1012.md": 1,
+        "docs/archive/TASK-1013.md": 1,
+        "docs/archive/TASK-1014.md": 1,
+        "docs/archive/TASK-1015.md": 1,
+        "docs/archive/TASK-1018.md": 1,
+        "docs/archive/TASK-102.md": 1,
+        "docs/archive/TASK-1025.md": 1,
+        "docs/archive/TASK-1026.md": 1,
+        "docs/archive/TASK-1027.md": 1,
+        "docs/archive/TASK-1029.md": 1,
+        "docs/archive/TASK-103.md": 1,
+        "docs/archive/TASK-1031.md": 1,
+        "docs/archive/TASK-1032.md": 1,
+        "docs/archive/TASK-1033.md": 1,
+        "docs/archive/TASK-1034.md": 1,
+        "docs/archive/TASK-1035.md": 1,
+        "docs/archive/TASK-1039.md": 1,
+        "docs/archive/TASK-104.md": 1,
+        "docs/archive/TASK-1040.md": 1,
+        "docs/archive/TASK-1041.md": 1,
+        "docs/archive/TASK-1042.md": 1,
+        "docs/archive/TASK-1045.md": 1,
+        "docs/archive/TASK-1049.md": 1,
+        "docs/archive/TASK-105.md": 1,
+        "docs/archive/TASK-1051.md": 1,
+        "docs/archive/TASK-1053.md": 1,
+        "docs/archive/TASK-1054.md": 1,
+        "docs/archive/TASK-1057.md": 1,
+        "docs/archive/TASK-1058.md": 1,
+        "docs/archive/TASK-106.md": 1,
         "docs/archive/TASK-1062.md": 1,
-        "docs/index.html": 1,
+        "docs/archive/TASK-107.md": 1,
+        "docs/archive/TASK-108.md": 1,
+        "docs/archive/TASK-109.md": 1,
+        "docs/archive/TASK-110.md": 1,
+        "docs/archive/TASK-111.md": 1,
+        "docs/archive/TASK-112.md": 1,
+        "docs/archive/TASK-113.md": 1,
+        "docs/archive/TASK-114.md": 1,
+        "docs/archive/TASK-115.md": 1,
+        "docs/archive/TASK-116.md": 1,
+        "docs/archive/TASK-117.md": 1,
+        "docs/archive/TASK-118.md": 1,
+        "docs/archive/TASK-119.md": 1,
+        "docs/archive/TASK-120.md": 1,
+        "docs/archive/TASK-121.md": 1,
+        "docs/archive/TASK-122.md": 1,
+        "docs/archive/TASK-123.md": 1,
+        "docs/archive/TASK-124.md": 1,
+        "docs/archive/TASK-125.md": 1,
+        "docs/archive/TASK-126.md": 1,
+        "docs/archive/TASK-127.md": 1,
+        "docs/archive/TASK-128.md": 1,
+        "docs/archive/TASK-129.md": 1,
+        "docs/archive/TASK-130.md": 1,
+        "docs/archive/TASK-131.md": 1,
+        "docs/archive/TASK-132.md": 1,
+        "docs/archive/TASK-133.md": 1,
+        "docs/archive/TASK-134.md": 1,
+        "docs/archive/TASK-135.md": 1,
+        "docs/archive/TASK-136.md": 1,
+        "docs/archive/TASK-137.md": 1,
+        "docs/archive/TASK-138.md": 1,
+        "docs/archive/TASK-139.md": 1,
+        "docs/archive/TASK-140.md": 1,
+        "docs/archive/TASK-141.md": 1,
+        "docs/archive/TASK-142.md": 1,
+        "docs/archive/TASK-143.md": 1,
+        "docs/archive/TASK-144.md": 1,
+        "docs/archive/TASK-145.md": 1,
+        "docs/archive/TASK-146.md": 1,
+        "docs/archive/TASK-147.md": 1,
+        "docs/archive/TASK-148.md": 1,
+        "docs/archive/TASK-149.md": 1,
+        "docs/archive/TASK-150.md": 1,
+        "docs/archive/TASK-151.md": 1,
+        "docs/archive/TASK-152.md": 1,
+        "docs/archive/TASK-153.md": 1,
+        "docs/archive/TASK-154.md": 1,
+        "docs/archive/TASK-155.md": 1,
+        "docs/archive/TASK-156.md": 1,
+        "docs/archive/TASK-157.md": 1,
+        "docs/archive/TASK-158.md": 1,
+        "docs/archive/TASK-159.md": 1,
+        "docs/archive/TASK-160.md": 1,
+        "docs/archive/TASK-161.md": 1,
+        "docs/archive/TASK-162.md": 1,
+        "docs/archive/TASK-163.md": 1,
+        "docs/archive/TASK-164.md": 1,
+        "docs/archive/TASK-165.md": 1,
+        "docs/archive/TASK-166.md": 1,
+        "docs/archive/TASK-167.md": 1,
+        "docs/archive/TASK-168.md": 1,
+        "docs/archive/TASK-169.md": 1,
+        "docs/archive/TASK-170.md": 1,
+        "docs/archive/TASK-171.md": 1,
+        "docs/archive/TASK-172.md": 1,
+        "docs/archive/TASK-173.md": 1,
+        "docs/archive/TASK-174.md": 1,
+        "docs/archive/TASK-175.md": 1,
+        "docs/archive/TASK-176.md": 1,
+        "docs/archive/TASK-177.md": 1,
+        "docs/archive/TASK-178.md": 1,
+        "docs/archive/TASK-179.md": 1,
+        "docs/archive/TASK-180.md": 1,
+        "docs/archive/TASK-181.md": 1,
+        "docs/archive/TASK-182.md": 1,
+        "docs/archive/TASK-183.md": 1,
+        "docs/archive/TASK-184.md": 1,
+        "docs/archive/TASK-185.md": 1,
+        "docs/archive/TASK-186.md": 1,
+        "docs/archive/TASK-187.md": 1,
+        "docs/archive/TASK-188.md": 1,
+        "docs/archive/TASK-189.md": 1,
+        "docs/archive/TASK-190.md": 1,
+        "docs/archive/TASK-191.md": 1,
+        "docs/archive/TASK-192.md": 1,
+        "docs/archive/TASK-193.md": 1,
+        "docs/archive/TASK-194.md": 1,
+        "docs/archive/TASK-195.md": 1,
+        "docs/archive/TASK-196.md": 1,
+        "docs/archive/TASK-197.md": 1,
+        "docs/archive/TASK-198.md": 1,
+        "docs/archive/TASK-199.md": 1,
+        "docs/archive/TASK-200.md": 1,
+        "docs/archive/TASK-201.md": 1,
+        "docs/archive/TASK-202.md": 1,
+        "docs/archive/TASK-203.md": 1,
+        "docs/archive/TASK-204.md": 1,
+        "docs/archive/TASK-205.md": 1,
+        "docs/archive/TASK-206.md": 1,
+        "docs/archive/TASK-207.md": 1,
+        "docs/archive/TASK-208.md": 1,
+        "docs/archive/TASK-209.md": 1,
+        "docs/archive/TASK-210.md": 1,
+        "docs/archive/TASK-211.md": 1,
+        "docs/archive/TASK-212.md": 1,
+        "docs/archive/TASK-213.md": 1,
+        "docs/archive/TASK-214.md": 1,
+        "docs/archive/TASK-215.md": 1,
+        "docs/archive/TASK-216.md": 1,
+        "docs/archive/TASK-217.md": 1,
+        "docs/archive/TASK-218.md": 1,
+        "docs/archive/TASK-219.md": 1,
+        "docs/archive/TASK-220.md": 1,
+        "docs/archive/TASK-222.md": 1,
+        "docs/archive/TASK-223.md": 1,
+        "docs/archive/TASK-224.md": 1,
+        "docs/archive/TASK-225.md": 1,
+        "docs/archive/TASK-226.md": 1,
+        "docs/archive/TASK-227.md": 1,
+        "docs/archive/TASK-228.md": 1,
+        "docs/archive/TASK-229.md": 1,
+        "docs/archive/TASK-230.md": 1,
+        "docs/archive/TASK-231.md": 1,
+        "docs/archive/TASK-232.md": 1,
+        "docs/archive/TASK-233.md": 1,
+        "docs/archive/TASK-234.md": 1,
+        "docs/archive/TASK-235.md": 1,
+        "docs/archive/TASK-236.md": 1,
+        "docs/archive/TASK-237.md": 1,
+        "docs/archive/TASK-238.md": 1,
+        "docs/archive/TASK-239.md": 1,
+        "docs/archive/TASK-240.md": 1,
+        "docs/archive/TASK-241.md": 1,
+        "docs/archive/TASK-242.md": 1,
+        "docs/archive/TASK-243.md": 1,
+        "docs/archive/TASK-244.md": 1,
+        "docs/archive/TASK-245.md": 1,
+        "docs/archive/TASK-246.md": 1,
+        "docs/archive/TASK-247.md": 1,
+        "docs/archive/TASK-248.md": 1,
+        "docs/archive/TASK-249.md": 1,
+        "docs/archive/TASK-250.md": 1,
+        "docs/archive/TASK-251.md": 1,
+        "docs/archive/TASK-252.md": 1,
+        "docs/archive/TASK-253.md": 1,
+        "docs/archive/TASK-254.md": 1,
+        "docs/archive/TASK-255.md": 1,
+        "docs/archive/TASK-256.md": 1,
+        "docs/archive/TASK-257.md": 1,
+        "docs/archive/TASK-258.md": 1,
+        "docs/archive/TASK-259.md": 1,
+        "docs/archive/TASK-260.md": 1,
+        "docs/archive/TASK-261.md": 1,
+        "docs/archive/TASK-262.md": 1,
+        "docs/archive/TASK-263.md": 1,
+        "docs/archive/TASK-265.md": 1,
+        "docs/archive/TASK-266.md": 1,
+        "docs/archive/TASK-267.md": 1,
+        "docs/archive/TASK-268.md": 1,
+        "docs/archive/TASK-269.md": 1,
+        "docs/archive/TASK-270.md": 1,
+        "docs/archive/TASK-271.md": 1,
+        "docs/archive/TASK-273.md": 1,
+        "docs/archive/TASK-274.md": 1,
+        "docs/archive/TASK-276.md": 1,
+        "docs/archive/TASK-277.md": 1,
+        "docs/archive/TASK-278.md": 1,
+        "docs/archive/TASK-279.md": 1,
+        "docs/archive/TASK-280.md": 1,
+        "docs/archive/TASK-281.md": 1,
+        "docs/archive/TASK-283.md": 1,
+        "docs/archive/TASK-284.md": 1,
+        "docs/archive/TASK-888.md": 1,
+        "docs/archive/TASK-889.md": 1,
+        "docs/archive/TASK-890.md": 1,
+        "docs/archive/TASK-891.md": 1,
+        "docs/archive/TASK-892.md": 1,
+        "docs/archive/TASK-893.md": 1,
+        "docs/archive/TASK-894.md": 1,
+        "docs/archive/TASK-895.md": 1,
+        "docs/archive/TASK-896.md": 1,
+        "docs/archive/TASK-897.md": 1,
+        "docs/archive/TASK-898.md": 1,
+        "docs/archive/TASK-899.md": 1,
+        "docs/archive/TASK-900.md": 1,
+        "docs/archive/TASK-901.md": 1,
+        "docs/archive/TASK-902.md": 1,
+        "docs/archive/TASK-903.md": 1,
+        "docs/archive/TASK-904.md": 1,
+        "docs/archive/TASK-905.md": 1,
+        "docs/archive/TASK-906.md": 1,
+        "docs/archive/TASK-907.md": 1,
+        "docs/archive/TASK-908.md": 1,
+        "docs/archive/TASK-909.md": 1,
+        "docs/archive/TASK-910.md": 1,
+        "docs/archive/TASK-911.md": 1,
+        "docs/archive/TASK-912.md": 1,
+        "docs/archive/TASK-913.md": 1,
+        "docs/archive/TASK-914.md": 1,
+        "docs/archive/TASK-915.md": 1,
+        "docs/archive/TASK-916.md": 1,
+        "docs/archive/TASK-917.md": 1,
+        "docs/archive/TASK-918.md": 1,
+        "docs/archive/TASK-919.md": 1,
+        "docs/archive/TASK-920.md": 1,
+        "docs/archive/TASK-921.md": 1,
+        "docs/archive/TASK-922.md": 1,
+        "docs/archive/TASK-926.md": 1,
+        "docs/archive/TASK-927.md": 1,
+        "docs/archive/TASK-928.md": 1,
+        "docs/archive/TASK-929.md": 1,
+        "docs/archive/TASK-930.md": 1,
+        "docs/archive/TASK-931.md": 1,
+        "docs/archive/TASK-932.md": 1,
+        "docs/archive/TASK-933.md": 1,
+        "docs/archive/TASK-934.md": 1,
+        "docs/archive/TASK-935.md": 1,
+        "docs/archive/TASK-936.md": 1,
+        "docs/archive/TASK-937.md": 1,
+        "docs/archive/TASK-938.md": 1,
+        "docs/archive/TASK-939.md": 1,
+        "docs/archive/TASK-940.md": 1,
+        "docs/archive/TASK-941.md": 1,
+        "docs/archive/TASK-942.md": 1,
+        "docs/archive/TASK-943.md": 1,
+        "docs/archive/TASK-944.md": 1,
+        "docs/archive/TASK-945.md": 1,
+        "docs/archive/TASK-946.md": 1,
+        "docs/archive/TASK-947.md": 1,
+        "docs/archive/TASK-948.md": 1,
+        "docs/archive/TASK-949.md": 1,
+        "docs/archive/TASK-950.md": 1,
+        "docs/archive/TASK-951.md": 1,
+        "docs/archive/TASK-952.md": 1,
+        "docs/archive/TASK-953.md": 1,
+        "docs/archive/TASK-954.md": 1,
+        "docs/archive/TASK-955.md": 1,
+        "docs/archive/TASK-956.md": 1,
+        "docs/archive/TASK-957.md": 1,
+        "docs/archive/TASK-958.md": 1,
+        "docs/archive/TASK-959.md": 1,
+        "docs/archive/TASK-960.md": 1,
+        "docs/archive/TASK-961.md": 1,
+        "docs/archive/TASK-962.md": 1,
+        "docs/archive/TASK-963.md": 1,
+        "docs/archive/TASK-964.md": 1,
+        "docs/archive/TASK-965.md": 1,
+        "docs/archive/TASK-966.md": 1,
+        "docs/archive/TASK-967.md": 1,
+        "docs/archive/TASK-968.md": 1,
+        "docs/archive/TASK-969.md": 1,
+        "docs/archive/TASK-971.md": 1,
+        "docs/archive/TASK-972.md": 1,
+        "docs/archive/TASK-973.md": 1,
+        "docs/archive/TASK-974.md": 1,
+        "docs/archive/TASK-975.md": 1,
+        "docs/archive/TASK-976.md": 1,
+        "docs/archive/TASK-977.md": 1,
+        "docs/archive/TASK-978.md": 1,
+        "docs/archive/TASK-980.md": 1,
+        "docs/archive/TASK-981.md": 1,
+        "docs/archive/TASK-982.md": 1,
+        "docs/archive/TASK-983.md": 1,
+        "docs/archive/TASK-984.md": 1,
+        "docs/archive/TASK-985.md": 1,
+        "docs/archive/TASK-986.md": 1,
+        "docs/archive/TASK-987.md": 1,
+        "docs/archive/TASK-988.md": 1,
+        "docs/archive/TASK-989.md": 1,
+        "docs/archive/TASK-990.md": 1,
+        "docs/archive/TASK-991.md": 1,
+        "docs/archive/TASK-992.md": 1,
+        "docs/archive/TASK-993.md": 1,
+        "docs/archive/TASK-994.md": 1,
+        "docs/archive/TASK-995.md": 1,
+        "docs/archive/TASK-996.md": 1,
+        "docs/archive/TASK-997.md": 1,
+        "docs/archive/TASK-998.md": 1,
+        "docs/archive/TASK-999.md": 1,
+        "docs/archive/design/governance-execution-model.md": 1,
+        "docs/archive/design/superpowers/plans/2026-05-06-llm-bridge.md": 1,
+        "docs/archive/design/superpowers/plans/2026-05-07-arch-capture.md": 1,
+        "docs/archive/design/superpowers/plans/2026-05-07-auto-context-engine.md": 1,
+        "docs/archive/design/superpowers/plans/2026-05-07-drift-detection.md": 1,
+        "docs/archive/design/superpowers/plans/2026-05-08-automatic-entity-linking.md": 1,
+        "docs/archive/design/superpowers/plans/2026-05-08-roadmap-reflection.md": 1,
+        "docs/archive/design/superpowers/plans/2026-05-11-arch-think-plan.md": 1,
+        "docs/archive/design/superpowers/plans/2026-05-11-close-learning-loop.md": 1,
+        "docs/archive/design/superpowers/plans/2026-05-15-think-compression.md": 1,
+        "docs/archive/design/superpowers/plans/2026-05-18-next-phase.md": 1,
+        "docs/archive/design/superpowers/plans/2026-05-18-protocol-upgrade-policy.md": 1,
+        "docs/archive/design/superpowers/plans/2026-05-18-v1-readiness.md": 1,
+        "docs/archive/design/superpowers/plans/2026-05-19-arch-versioning.md": 1,
+        "docs/archive/design/superpowers/specs/2026-05-05-rag-arch-design.md": 1,
+        "docs/archive/design/superpowers/specs/2026-05-07-arch-capture-design.md": 1,
+        "docs/archive/design/superpowers/specs/2026-05-07-auto-context-engine-design.md": 1,
+        "docs/archive/design/superpowers/specs/2026-05-07-drift-detection-design.md": 1,
+        "docs/archive/design/superpowers/specs/2026-05-08-automatic-entity-linking-design.md": 1,
+        "docs/archive/design/superpowers/specs/2026-05-08-roadmap-reflection-design.md": 1,
+        "docs/archive/design/superpowers/specs/2026-05-11-arch-think-design.md": 1,
+        "docs/archive/design/superpowers/specs/2026-05-14-shared-test-mocks-design.md": 1,
+        "docs/archive/design/superpowers/specs/2026-05-19-arch-versioning-design.md": 1,
+        "docs/course/cheatsheet.md": 1,
+        "docs/course/key-concepts.md": 1,
+        "docs/course/walkthrough.md": 1,
+        "docs/course/what-is-arch.md": 1,
+        "docs/guidelines/autonomy.md": 1,
+        "docs/guidelines/bugs.md": 1,
+        "docs/guidelines/core.md": 1,
+        "docs/guidelines/documentation.md": 1,
+        "docs/guidelines/models.md": 1,
+        "docs/guidelines/testing-a-change.md": 1,
+        "docs/guidelines/versioning.md": 1,
+        "docs/index.html": 2,
+        "docs/refinement/.gitkeep": 1,
         "docs/refinement/IDEA-arch-release-and-cd.md": 1,
-        "docs/tasks/TASK-1062.md": 5
+        "docs/refinement/IDEA-chronicle-govern-coverage.md": 1,
+        "docs/refinement/IDEA-context-injector-planned-artifact-projection.md": 1,
+        "docs/refinement/IDEA-dual-truth-reconciliation.md": 1,
+        "docs/refinement/IDEA-govern-rebuild-context-before-focus.md": 1,
+        "docs/refinement/IDEA-idea-adjudication-throughput.md": 1,
+        "docs/refinement/IDEA-inbox-stable-ledger-invariant.md": 1,
+        "docs/refinement/IDEA-promotion-decision-support.md": 1,
+        "docs/refinement/ROADMAP-IDEAS.md": 1,
+        "docs/refinement/TEMPLATE.md": 1,
+        "docs/refinement/archive/.gitkeep": 1,
+        "docs/refinement/archive/IDEA-5s-seiso-deletion-action.md": 1,
+        "docs/refinement/archive/IDEA-90-day-productization-sprint.md": 1,
+        "docs/refinement/archive/IDEA-Hansei-Governance.md": 1,
+        "docs/refinement/archive/IDEA-ac-executable-sandbox.md": 1,
+        "docs/refinement/archive/IDEA-active-constraint-injection.md": 1,
+        "docs/refinement/archive/IDEA-actor-routing-config-key.md": 1,
+        "docs/refinement/archive/IDEA-adr-013-phase-label-drift.md": 1,
+        "docs/refinement/archive/IDEA-align-idea-template-cli-field.md": 1,
+        "docs/refinement/archive/IDEA-andon-cord.md": 1,
+        "docs/refinement/archive/IDEA-anti-hallucination-acs.md": 1,
+        "docs/refinement/archive/IDEA-api-fallback-chain.md": 1,
+        "docs/refinement/archive/IDEA-approval-checker-field-index.md": 1,
+        "docs/refinement/archive/IDEA-approval-entry-check.md": 1,
+        "docs/refinement/archive/IDEA-arch-context-pruning-stale-tasks.md": 1,
+        "docs/refinement/archive/IDEA-arch-core-contract.md": 1,
+        "docs/refinement/archive/IDEA-arch-deps.md": 1,
+        "docs/refinement/archive/IDEA-arch-explain.md": 1,
+        "docs/refinement/archive/IDEA-arch-help-and-training.md": 1,
+        "docs/refinement/archive/IDEA-arch-init-ux.md": 1,
+        "docs/refinement/archive/IDEA-arch-loop-engine.md": 1,
+        "docs/refinement/archive/IDEA-arch-metrics-dashboard.md": 1,
+        "docs/refinement/archive/IDEA-arch-resume.md": 1,
+        "docs/refinement/archive/IDEA-arch-review-ac-validation.md": 1,
+        "docs/refinement/archive/IDEA-arch-review-dependency-graph.md": 1,
+        "docs/refinement/archive/IDEA-arch-review-priority-drift.md": 1,
+        "docs/refinement/archive/IDEA-arch-review-stale-locks.md": 1,
+        "docs/refinement/archive/IDEA-arch-task-done-guard.md": 1,
+        "docs/refinement/archive/IDEA-arch-upgrade-diff-tool.md": 1,
+        "docs/refinement/archive/IDEA-arch-version-command.md": 1,
+        "docs/refinement/archive/IDEA-architectural-tension-capture.md": 1,
+        "docs/refinement/archive/IDEA-archive-compression.md": 1,
+        "docs/refinement/archive/IDEA-archive-parser-skip-non-done.md": 1,
+        "docs/refinement/archive/IDEA-archive-status-drift-check.md": 1,
+        "docs/refinement/archive/IDEA-artifact-deletion-backlog-scan.md": 1,
+        "docs/refinement/archive/IDEA-auto-inject-closed-at.md": 1,
+        "docs/refinement/archive/IDEA-auto-next-task-selection.md": 1,
+        "docs/refinement/archive/IDEA-auto-sprint-sizing.md": 1,
+        "docs/refinement/archive/IDEA-automate-govern-metadata-flush.md": 1,
+        "docs/refinement/archive/IDEA-automate-turn-count-recording.md": 1,
+        "docs/refinement/archive/IDEA-automate-turn-count.md": 1,
+        "docs/refinement/archive/IDEA-automatic-sprint-lifecycle.md": 1,
+        "docs/refinement/archive/IDEA-autonomous-build-loop.md": 1,
+        "docs/refinement/archive/IDEA-autonomous-cli.md": 1,
+        "docs/refinement/archive/IDEA-autonomous-governance.md": 1,
+        "docs/refinement/archive/IDEA-autonomous-loop.md": 1,
+        "docs/refinement/archive/IDEA-backfill-legacy-hansei.md": 1,
+        "docs/refinement/archive/IDEA-brownfield-onboarding-pipeline.md": 1,
+        "docs/refinement/archive/IDEA-capture-deterministic-default.md": 1,
+        "docs/refinement/archive/IDEA-census-context-budget-review-check.md": 1,
+        "docs/refinement/archive/IDEA-cli-architecture-drift-review.md": 1,
+        "docs/refinement/archive/IDEA-cli-npm.md": 1,
+        "docs/refinement/archive/IDEA-cli-protocol-decoupling.md": 1,
+        "docs/refinement/archive/IDEA-code-quality-audit-process.md": 1,
+        "docs/refinement/archive/IDEA-commit-hook-task-id-enforcement.md": 1,
+        "docs/refinement/archive/IDEA-compliance-front-door.md": 1,
+        "docs/refinement/archive/IDEA-conflict-resolver-agent.md": 1,
+        "docs/refinement/archive/IDEA-consolidate-autonomy-rules.md": 1,
+        "docs/refinement/archive/IDEA-consolidate-cli-commands.md": 1,
+        "docs/refinement/archive/IDEA-consolidate-core-guidelines.md": 1,
+        "docs/refinement/archive/IDEA-consolidate-root-agent-docs.md": 1,
+        "docs/refinement/archive/IDEA-context-control.md": 1,
+        "docs/refinement/archive/IDEA-continuous-simplification.md": 1,
+        "docs/refinement/archive/IDEA-corpus-drift-repair.md": 1,
+        "docs/refinement/archive/IDEA-corpus-import.md": 1,
+        "docs/refinement/archive/IDEA-corpus-informed-reprioritization.md": 1,
+        "docs/refinement/archive/IDEA-correction-signal.md": 1,
+        "docs/refinement/archive/IDEA-cost-aware-protocol.md": 1,
+        "docs/refinement/archive/IDEA-cost-reducing-multi-api.md": 1,
+        "docs/refinement/archive/IDEA-cost-tracking.md": 1,
+        "docs/refinement/archive/IDEA-cross-layer-coverage-identity.md": 1,
+        "docs/refinement/archive/IDEA-cross-repo-learning-network.md": 1,
+        "docs/refinement/archive/IDEA-daas-hansei-wizard.md": 1,
+        "docs/refinement/archive/IDEA-daas-memory-injection.md": 1,
+        "docs/refinement/archive/IDEA-daas-task-create.md": 1,
+        "docs/refinement/archive/IDEA-daas-task-edit.md": 1,
+        "docs/refinement/archive/IDEA-daas-template-acs.md": 1,
+        "docs/refinement/archive/IDEA-daas-vision.md": 1,
+        "docs/refinement/archive/IDEA-decision-gate-loss.md": 1,
+        "docs/refinement/archive/IDEA-definition-of-ready.md": 1,
+        "docs/refinement/archive/IDEA-deterministic-ac-expansion.md": 1,
+        "docs/refinement/archive/IDEA-deterministic-governance-gates.md": 1,
+        "docs/refinement/archive/IDEA-deterministic-reconciliation.md": 1,
+        "docs/refinement/archive/IDEA-dispatch-stale.md": 1,
+        "docs/refinement/archive/IDEA-do-step-registry-for-kaizen.md": 1,
+        "docs/refinement/archive/IDEA-docs-clarification-json-rule.md": 1,
+        "docs/refinement/archive/IDEA-docs-drift-guidelines-file-reference.md": 1,
+        "docs/refinement/archive/IDEA-done-command-ac-section-scoping.md": 1,
+        "docs/refinement/archive/IDEA-dynamic-interactive-inbox.md": 1,
+        "docs/refinement/archive/IDEA-dynamic-model-provisioning.md": 1,
+        "docs/refinement/archive/IDEA-dynamic-reprioritization.md": 1,
+        "docs/refinement/archive/IDEA-easier-promotion-workflow.md": 1,
+        "docs/refinement/archive/IDEA-enforcement-boundary-demo.md": 1,
+        "docs/refinement/archive/IDEA-escalation-event-structured-store.md": 1,
+        "docs/refinement/archive/IDEA-escalation-lifecycle-gap.md": 1,
+        "docs/refinement/archive/IDEA-escalation-maturity.md": 1,
+        "docs/refinement/archive/IDEA-excision-legitimacy-check.md": 1,
+        "docs/refinement/archive/IDEA-executable-acceptance-criteria.md": 1,
+        "docs/refinement/archive/IDEA-feature-branch-workflow.md": 1,
+        "docs/refinement/archive/IDEA-fix-archive-meta-drift.md": 1,
+        "docs/refinement/archive/IDEA-fix-build-environment.md": 1,
+        "docs/refinement/archive/IDEA-fix-class-boundary-violation-excision.md": 1,
+        "docs/refinement/archive/IDEA-fix-commit-exception-contradiction.md": 1,
+        "docs/refinement/archive/IDEA-fix-config-gaps.md": 1,
+        "docs/refinement/archive/IDEA-fix-decomposition-duplication.md": 1,
+        "docs/refinement/archive/IDEA-fix-escalation-deduplication.md": 1,
+        "docs/refinement/archive/IDEA-fix-governance-terminology-collision.md": 1,
+        "docs/refinement/archive/IDEA-fix-meta-line-regex-and-fields.md": 1,
+        "docs/refinement/archive/IDEA-fix-phase-naming-drift.md": 1,
+        "docs/refinement/archive/IDEA-fix-readme-version-drift.md": 1,
+        "docs/refinement/archive/IDEA-focus-status-alignment.md": 1,
+        "docs/refinement/archive/IDEA-formal-protocol-invariants.md": 1,
+        "docs/refinement/archive/IDEA-friction-measurement-instrumentation.md": 1,
+        "docs/refinement/archive/IDEA-full-autonomy-roadmap.md": 1,
+        "docs/refinement/archive/IDEA-generated-docs-coupling.md": 1,
+        "docs/refinement/archive/IDEA-git-archival-automation.md": 1,
+        "docs/refinement/archive/IDEA-govern-reflect-split.md": 1,
+        "docs/refinement/archive/IDEA-governance-epistemic-doctrine.md": 1,
+        "docs/refinement/archive/IDEA-governance-knowledge-store.md": 1,
+        "docs/refinement/archive/IDEA-governance-reporting-system.md": 1,
+        "docs/refinement/archive/IDEA-grandfather-legacy-tasks.md": 1,
+        "docs/refinement/archive/IDEA-guided-close-path.md": 1,
+        "docs/refinement/archive/IDEA-halt-policy.md": 1,
+        "docs/refinement/archive/IDEA-handle-parallelism.md": 1,
+        "docs/refinement/archive/IDEA-hansei-drift-check.md": 1,
+        "docs/refinement/archive/IDEA-hansei-pattern-synthesis.md": 1,
+        "docs/refinement/archive/IDEA-hansei-reflection-on-done-tasks.md": 1,
+        "docs/refinement/archive/IDEA-hansei-wizard.md": 1,
+        "docs/refinement/archive/IDEA-human-review-rejection-workflow.md": 1,
+        "docs/refinement/archive/IDEA-idea-ttl-auto-rejection.md": 1,
+        "docs/refinement/archive/IDEA-improve-loop-observability.md": 1,
+        "docs/refinement/archive/IDEA-inbox-agent-design.md": 1,
+        "docs/refinement/archive/IDEA-inbox-approval-gate-reads.md": 1,
+        "docs/refinement/archive/IDEA-inbox-hygiene.md": 1,
+        "docs/refinement/archive/IDEA-inbox-invariant-contradiction.md": 1,
+        "docs/refinement/archive/IDEA-inbox-regeneration-protocol.md": 1,
+        "docs/refinement/archive/IDEA-institutional-memory-document.md": 1,
+        "docs/refinement/archive/IDEA-interactive-test.md": 1,
+        "docs/refinement/archive/IDEA-kaizen-learn-from-review-mistakes.md": 1,
+        "docs/refinement/archive/IDEA-kaizen-when-empty.md": 1,
+        "docs/refinement/archive/IDEA-l3-self-archive.md": 1,
+        "docs/refinement/archive/IDEA-l3-sprint-autonomy.md": 1,
+        "docs/refinement/archive/IDEA-language-policy.md": 1,
+        "docs/refinement/archive/IDEA-legacy-refinement-pruning.md": 1,
+        "docs/refinement/archive/IDEA-level-terminology-disambiguation.md": 1,
+        "docs/refinement/archive/IDEA-link-unapplied-adrs.md": 1,
+        "docs/refinement/archive/IDEA-lock-model-contradiction.md": 1,
+        "docs/refinement/archive/IDEA-loop-hitl-ux-improvement.md": 1,
+        "docs/refinement/archive/IDEA-loop-load-balancing.md": 1,
+        "docs/refinement/archive/IDEA-loop-mode-output-visibility.md": 1,
+        "docs/refinement/archive/IDEA-mechanize-protocol-controls.md": 1,
+        "docs/refinement/archive/IDEA-memory-ask-narrow-scope.md": 1,
+        "docs/refinement/archive/IDEA-metrics-auto-population.md": 1,
+        "docs/refinement/archive/IDEA-migrate-arch-sh-routing-to-typescript.md": 1,
+        "docs/refinement/archive/IDEA-multi-human-governance.md": 1,
+        "docs/refinement/archive/IDEA-multi-repo-arch.md": 1,
+        "docs/refinement/archive/IDEA-mura-turns-per-size-metric.md": 1,
+        "docs/refinement/archive/IDEA-native-llm-providers.md": 1,
+        "docs/refinement/archive/IDEA-ollama-local-integration.md": 1,
+        "docs/refinement/archive/IDEA-open-standard-portability.md": 1,
+        "docs/refinement/archive/IDEA-openclaw-integration.md": 1,
+        "docs/refinement/archive/IDEA-opencode-fallback.md": 1,
+        "docs/refinement/archive/IDEA-openrouter-groq-free-tier-fallback.md": 1,
+        "docs/refinement/archive/IDEA-opt-in-project-registry.md": 1,
+        "docs/refinement/archive/IDEA-optimize-decomposition-for-local-llms.md": 1,
+        "docs/refinement/archive/IDEA-oracle-archive-distillation.md": 1,
+        "docs/refinement/archive/IDEA-parallel-tasks.md": 1,
+        "docs/refinement/archive/IDEA-periodic-architecture-revision.md": 1,
+        "docs/refinement/archive/IDEA-plg-onboarding-flow.md": 1,
+        "docs/refinement/archive/IDEA-pluggable-cli-registry.md": 1,
+        "docs/refinement/archive/IDEA-poka-yoke-kaizen-to-review-pipeline.md": 1,
+        "docs/refinement/archive/IDEA-preimpl-detection.md": 1,
+        "docs/refinement/archive/IDEA-prevent-npm-install-side-effects.md": 1,
+        "docs/refinement/archive/IDEA-probabilistic-trust-model.md": 1,
+        "docs/refinement/archive/IDEA-productizing-arch-separation.md": 1,
+        "docs/refinement/archive/IDEA-progressive-cli-surface.md": 1,
+        "docs/refinement/archive/IDEA-project-dod-gate.md": 1,
+        "docs/refinement/archive/IDEA-project-scaffold.md": 1,
+        "docs/refinement/archive/IDEA-promotion-authority-contradiction.md": 1,
+        "docs/refinement/archive/IDEA-proportional-protocol.md": 1,
+        "docs/refinement/archive/IDEA-protocol-archival-guard.md": 1,
+        "docs/refinement/archive/IDEA-protocol-as-code.md": 1,
+        "docs/refinement/archive/IDEA-protocol-flow-guard.md": 1,
+        "docs/refinement/archive/IDEA-protocol-replay-regression.md": 1,
+        "docs/refinement/archive/IDEA-protocol-upgrade-policy.md": 1,
+        "docs/refinement/archive/IDEA-prune-stale-documentation.md": 1,
+        "docs/refinement/archive/IDEA-push-after-review-success.md": 1,
+        "docs/refinement/archive/IDEA-queryable-archive.md": 1,
+        "docs/refinement/archive/IDEA-rag-context-retrieval.md": 1,
+        "docs/refinement/archive/IDEA-reduce-meta-fields.md": 1,
+        "docs/refinement/archive/IDEA-refactor-cli-entrypoint.md": 1,
+        "docs/refinement/archive/IDEA-reflect-independence-measurement.md": 1,
+        "docs/refinement/archive/IDEA-remove-redundant-done-file.md": 1,
+        "docs/refinement/archive/IDEA-resolve-hansei-contradiction.md": 1,
+        "docs/refinement/archive/IDEA-resurrection-review.md": 1,
+        "docs/refinement/archive/IDEA-review-failure-bug-task.md": 1,
+        "docs/refinement/archive/IDEA-review-warn-checked-review-tasks.md": 1,
+        "docs/refinement/archive/IDEA-roadmap-adaptive-planning.md": 1,
+        "docs/refinement/archive/IDEA-roadmap-ai-proposed-policies.md": 1,
+        "docs/refinement/archive/IDEA-roadmap-arch-capture.md": 1,
+        "docs/refinement/archive/IDEA-roadmap-auto-context-engine.md": 1,
+        "docs/refinement/archive/IDEA-roadmap-automatic-linking.md": 1,
+        "docs/refinement/archive/IDEA-roadmap-deterministic-drift.md": 1,
+        "docs/refinement/archive/IDEA-roadmap-domain-packs.md": 1,
+        "docs/refinement/archive/IDEA-roadmap-drift-detection.md": 1,
+        "docs/refinement/archive/IDEA-roadmap-memory-queries.md": 1,
+        "docs/refinement/archive/IDEA-roadmap-multiagent-runtime.md": 1,
+        "docs/refinement/archive/IDEA-roadmap-operational-load.md": 1,
+        "docs/refinement/archive/IDEA-roadmap-routing-engine.md": 1,
+        "docs/refinement/archive/IDEA-roadmap-structural-policies.md": 1,
+        "docs/refinement/archive/IDEA-scope-based-sprints.md": 1,
+        "docs/refinement/archive/IDEA-scoped-review.md": 1,
+        "docs/refinement/archive/IDEA-selective-approval.md": 1,
+        "docs/refinement/archive/IDEA-semantic-ac-verification.md": 1,
+        "docs/refinement/archive/IDEA-semantic-collision-detection.md": 1,
+        "docs/refinement/archive/IDEA-semantic-compression-layer.md": 1,
+        "docs/refinement/archive/IDEA-sentinel-log-infrastructure.md": 1,
+        "docs/refinement/archive/IDEA-separate-arch-core-from-content.md": 1,
+        "docs/refinement/archive/IDEA-separate-arch-repo-from-cli.md": 1,
+        "docs/refinement/archive/IDEA-separate-review-context.md": 1,
+        "docs/refinement/archive/IDEA-session-identity.md": 1,
+        "docs/refinement/archive/IDEA-simplify-agent-protocols.md": 1,
+        "docs/refinement/archive/IDEA-simplify-by-experience.md": 1,
+        "docs/refinement/archive/IDEA-simplify-cli-ux.md": 1,
+        "docs/refinement/archive/IDEA-sprint-open-protocol.md": 1,
+        "docs/refinement/archive/IDEA-sprint-state-machine.md": 1,
+        "docs/refinement/archive/IDEA-stale-lock-resolution.md": 1,
+        "docs/refinement/archive/IDEA-standard-autonomous-actions.md": 1,
+        "docs/refinement/archive/IDEA-status-alerts-fix.md": 1,
+        "docs/refinement/archive/IDEA-status-doc-refresh.md": 1,
+        "docs/refinement/archive/IDEA-support-batch-task-commits.md": 1,
+        "docs/refinement/archive/IDEA-task-execution-log.md": 1,
+        "docs/refinement/archive/IDEA-task-execution-plans.md": 1,
+        "docs/refinement/archive/IDEA-task-idea-metrics-context-price.md": 1,
+        "docs/refinement/archive/IDEA-task-metrics.md": 1,
+        "docs/refinement/archive/IDEA-task-split.md": 1,
+        "docs/refinement/archive/IDEA-task-template-linter.md": 1,
+        "docs/refinement/archive/IDEA-task-templates.md": 1,
+        "docs/refinement/archive/IDEA-temporal-pattern-layer.md": 1,
+        "docs/refinement/archive/IDEA-testing-guideline-expansion.md": 1,
+        "docs/refinement/archive/IDEA-think-generated-proposals.md": 1,
+        "docs/refinement/archive/IDEA-think-phase-progress-output.md": 1,
+        "docs/refinement/archive/IDEA-think-replenishment-link.md": 1,
+        "docs/refinement/archive/IDEA-think-scope-restriction.md": 1,
+        "docs/refinement/archive/IDEA-tiered-obligations.md": 1,
+        "docs/refinement/archive/IDEA-typed-protocol-schema.md": 1,
+        "docs/refinement/archive/IDEA-unify-routing-and-tiers.md": 1,
+        "docs/refinement/archive/IDEA-unify-ui-angular.md": 1,
+        "docs/refinement/archive/IDEA-update-kaizen-log.md": 1,
+        "docs/refinement/archive/IDEA-upgrade-arch-other-repos.md": 1,
+        "docs/refinement/archive/IDEA-value-cost-task-ordering.md": 1,
+        "docs/refinement/archive/IDEA-verbose-fallback-logging.md": 1,
+        "docs/refinement/archive/IDEA-verifiability-first-templates.md": 1,
+        "docs/refinement/archive/IDEA-verify-pre-existing-before-start.md": 1,
+        "docs/refinement/archive/idea-rank-autofocus.md": 1,
+        "docs/refinement/archive/idea-simplify-agent-context.md": 1,
+        "docs/reviews/ARCH-comprehensive-review-2026-05-22.md": 1,
+        "docs/reviews/cli-arch-review-2026-05-20.md": 1,
+        "docs/tasks/TASK-1003.md": 1,
+        "docs/tasks/TASK-1004.md": 1,
+        "docs/tasks/TASK-1016.md": 1,
+        "docs/tasks/TASK-1017.md": 1,
+        "docs/tasks/TASK-1019.md": 1,
+        "docs/tasks/TASK-1020.md": 1,
+        "docs/tasks/TASK-1021.md": 1,
+        "docs/tasks/TASK-1022.md": 1,
+        "docs/tasks/TASK-1023.md": 1,
+        "docs/tasks/TASK-1024.md": 1,
+        "docs/tasks/TASK-1028.md": 1,
+        "docs/tasks/TASK-1030.md": 1,
+        "docs/tasks/TASK-1036.md": 1,
+        "docs/tasks/TASK-1037.md": 1,
+        "docs/tasks/TASK-1038.md": 1,
+        "docs/tasks/TASK-1043.md": 1,
+        "docs/tasks/TASK-1044.md": 1,
+        "docs/tasks/TASK-1046.md": 1,
+        "docs/tasks/TASK-1047.md": 1,
+        "docs/tasks/TASK-1048.md": 1,
+        "docs/tasks/TASK-1050.md": 1,
+        "docs/tasks/TASK-1052.md": 1,
+        "docs/tasks/TASK-1055.md": 1,
+        "docs/tasks/TASK-1056.md": 1,
+        "docs/tasks/TASK-1059.md": 1,
+        "docs/tasks/TASK-1060.md": 1,
+        "docs/tasks/TASK-1061.md": 1,
+        "docs/tasks/TASK-1062.md": 5,
+        "docs/tasks/TASK-264.md": 1,
+        "docs/tasks/TASK-272.md": 1,
+        "docs/tasks/TASK-275.md": 1,
+        "docs/tasks/TASK-282.md": 1,
+        "docs/tasks/TASK-970.md": 1,
+        "docs/templates/task-1-code-reasoning.md": 1,
+        "docs/templates/task-2-code-generation.md": 1,
+        "docs/templates/task-6-writing.md": 1,
+        "docs/templates/task-7-operations.md": 1,
+        "docs/tensions/TEMPLATE.md": 1,
+        "docs/tensions/TENSION-001.md": 1,
+        "docs/tensions/TENSION-002.md": 1,
+        "docs/tensions/TENSION-003.md": 1,
+        "docs/tensions/TENSION-004.md": 1,
+        "docs/tensions/TENSION-005-specdrift.md": 1,
+        "docs/tensions/TENSION-006-inbox-dual-truth.md": 1,
+        "docs/tensions/weak-signals.md": 1,
+        "package-lock.json": 1,
+        "registry.json": 1,
+        "scripts/arch": 1,
+        "scripts/arch-init.sh": 1,
+        "scripts/arch-install.sh": 1,
+        "scripts/arch-upgrade.sh": 1,
+        "scripts/arch.sh": 1,
+        "scripts/git-hooks/commit-msg.template": 1,
+        "scripts/git-hooks/pre-commit.template": 1,
+        "scripts/git-hooks/pre-push.template": 1,
+        "scripts/install-hooks.sh": 1
       }
     },
     "TASK-1063": {
@@ -11975,10 +12200,10 @@
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-27T15:07:47+02:00",
       "recentCommitRefs": [
-        "07c9037f",
-        "35ff5083",
-        "8d5744cc",
-        "e626addb"
+        "07c9037",
+        "35ff508",
+        "8d5744c",
+        "e626add"
       ],
       "touchedFrequency": {
         "cli/src/main/ts/application/use-cases/govern-system.ts": 1,
@@ -11992,10 +12217,10 @@
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-27T15:19:41+02:00",
       "recentCommitRefs": [
-        "62fcfcbe",
-        "67cb8d83",
-        "6c8948e2",
-        "f4da2b86"
+        "62fcfcb",
+        "67cb8d8",
+        "6c8948e",
+        "f4da2b8"
       ],
       "touchedFrequency": {
         "cli/src/main/ts/application/commands/status-command.ts": 1,
@@ -12010,8 +12235,8 @@
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-28T12:28:55+02:00",
       "recentCommitRefs": [
-        "2404384a",
-        "4f8120b1"
+        "2404384",
+        "4f8120b"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
@@ -12030,8 +12255,8 @@
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-28T12:29:27+02:00",
       "recentCommitRefs": [
-        "4a252a03",
-        "4f8120b1"
+        "4a252a0",
+        "4f8120b"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
@@ -12050,11 +12275,11 @@
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-28T12:35:37+02:00",
       "recentCommitRefs": [
-        "13e182a0",
-        "7438e56d",
-        "7ff7cc17",
-        "edb02e0e",
-        "f52751a4"
+        "13e182a",
+        "7438e56",
+        "7ff7cc1",
+        "edb02e0",
+        "f52751a"
       ],
       "touchedFrequency": {
         ".arch/chronicle.jsonl": 1,
@@ -12079,12 +12304,12 @@
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-28T14:09:00+02:00",
       "recentCommitRefs": [
-        "4383da6a",
-        "43ab3dec",
-        "5c0f363c",
-        "88db73c8",
-        "a0f2b207",
-        "df0ff538"
+        "4383da6",
+        "43ab3de",
+        "5c0f363",
+        "88db73c",
+        "a0f2b20",
+        "df0ff53"
       ],
       "touchedFrequency": {
         ".arch/chronicle.jsonl": 1,
@@ -12106,7 +12331,7 @@
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-31T09:54:13+00:00",
       "recentCommitRefs": [
-        "f2f70bdf"
+        "f2f70bd"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
@@ -12170,8 +12395,8 @@
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-28T11:59:16+02:00",
       "recentCommitRefs": [
-        "05aa6f00",
-        "609b6183"
+        "05aa6f0",
+        "609b618"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
@@ -12189,13 +12414,13 @@
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-28T12:27:01+02:00",
       "recentCommitRefs": [
-        "3642d499",
-        "38c269e4",
-        "735c99a0",
-        "94acfe04",
-        "b09427b1",
-        "cd1772ee",
-        "f66b0b70"
+        "3642d49",
+        "38c269e",
+        "735c99a",
+        "94acfe0",
+        "b09427b",
+        "cd1772e",
+        "f66b0b7"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
@@ -12213,8 +12438,8 @@
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-31T10:51:53+00:00",
       "recentCommitRefs": [
-        "c10051f8",
-        "dbd43885"
+        "c10051f",
+        "dbd4388"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
@@ -12234,9 +12459,9 @@
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-31T11:17:06+00:00",
       "recentCommitRefs": [
-        "472a9ef2",
-        "47fb2192",
-        "954276cf"
+        "472a9ef",
+        "47fb219",
+        "954276c"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
@@ -12263,9 +12488,9 @@
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-31T16:14:47+00:00",
       "recentCommitRefs": [
-        "6a9a42aa",
-        "bb9635d1",
-        "c78a37cc"
+        "6a9a42a",
+        "bb9635d",
+        "c78a37c"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
@@ -12287,11 +12512,11 @@
       "commitRefOverflow": false,
       "lastCommitDate": "2026-06-02T10:32:51+02:00",
       "recentCommitRefs": [
-        "18dafc13",
-        "34d6184e",
-        "9ca9084b",
-        "d7ba7f8b",
-        "d944e3ff"
+        "18dafc1",
+        "34d6184",
+        "9ca9084",
+        "d7ba7f8",
+        "d944e3f"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
@@ -12340,9 +12565,9 @@
       "commitRefOverflow": false,
       "lastCommitDate": "2026-06-02T10:32:51+02:00",
       "recentCommitRefs": [
-        "79acbff2",
-        "9ca9084b",
-        "d944e3ff"
+        "79acbff",
+        "9ca9084",
+        "d944e3f"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
@@ -12374,9 +12599,9 @@
       "commitRefOverflow": false,
       "lastCommitDate": "2026-06-02T10:32:51+02:00",
       "recentCommitRefs": [
-        "7920e20e",
-        "9ca9084b",
-        "d944e3ff"
+        "7920e20",
+        "9ca9084",
+        "d944e3f"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
@@ -12408,9 +12633,9 @@
       "commitRefOverflow": false,
       "lastCommitDate": "2026-06-02T10:32:51+02:00",
       "recentCommitRefs": [
-        "9ca9084b",
-        "d944e3ff",
-        "ebbb5469"
+        "9ca9084",
+        "d944e3f",
+        "ebbb546"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
@@ -12442,10 +12667,10 @@
       "commitRefOverflow": false,
       "lastCommitDate": "2026-06-02T10:32:51+02:00",
       "recentCommitRefs": [
-        "007cd840",
-        "9ca9084b",
-        "d7ba7f8b",
-        "d944e3ff"
+        "007cd84",
+        "9ca9084",
+        "d7ba7f8",
+        "d944e3f"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
@@ -12493,14 +12718,14 @@
       "commitRefOverflow": false,
       "lastCommitDate": "2026-06-02T10:32:51+02:00",
       "recentCommitRefs": [
-        "2878fbc5",
-        "94f4229d",
-        "a09faebe",
-        "ab4bbabb",
-        "bed69a0a",
-        "d944e3ff",
-        "e99b0a61",
-        "fd5d5701"
+        "2878fbc",
+        "94f4229",
+        "a09faeb",
+        "ab4bbab",
+        "bed69a0",
+        "d944e3f",
+        "e99b0a6",
+        "fd5d570"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
@@ -12529,37 +12754,68 @@
       }
     },
     "TASK-1081": {
-      "commitCount": 7,
+      "commitCount": 13,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-06-02T11:39:58+02:00",
+      "lastCommitDate": "2026-06-02T21:34:57+00:00",
       "recentCommitRefs": [
-        "12dc1add",
-        "1d24d76b",
-        "5c458f90",
-        "7c5e3bef",
-        "8a671c82",
-        "d5cfa396",
-        "ea82af70"
+        "12dc1ad",
+        "1d24d76",
+        "3aaa54f",
+        "51372d5",
+        "5c458f9",
+        "7c5e3be",
+        "8a671c8",
+        "90614bf",
+        "b3dcd82",
+        "d5cfa39",
+        "ea82af7",
+        "ee5cfb8",
+        "f1a29ab"
       ],
       "touchedFrequency": {
+        ".arch/alert-fatigue.jsonl": 1,
+        ".arch/causal-signal.jsonl": 1,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/context-feedback.json": 1,
+        ".arch/escalations-compacted.jsonl": 1,
         ".arch/focus-ledger.jsonl": 4,
+        ".arch/reflect-breach-log.jsonl": 1,
+        ".arch/temporal-index.jsonl": 1,
+        "AGENTS.md": 1,
+        "GEMINI.md": 1,
+        "README.md": 1,
+        "arch.config.json": 1,
+        "cli/src/main/ts/application/commands/upgrade-command.ts": 1,
+        "docs/AGENTS.md": 1,
+        "docs/EVENTS.md": 2,
+        "docs/ONBOARDING.html": 1,
+        "docs/agents/DO.md": 2,
+        "docs/agents/THINK.md": 1,
+        "docs/archive/TASK-1081.md": 1,
+        "docs/index.html": 1,
         "docs/tasks/TASK-1081.md": 4,
         "docs/tasks/TASK-1082.md": 2,
         "docs/tasks/TASK-1083.md": 1,
-        "docs/tasks/TASK-1084.md": 1
+        "docs/tasks/TASK-1084.md": 1,
+        "docs/tasks/TASK-1085.md": 1,
+        "docs/tasks/TASK-1086.md": 1,
+        "docs/tasks/TASK-1087.md": 1,
+        "docs/tasks/TASK-1088.md": 1,
+        "docs/tasks/TASK-1089.md": 1
       }
     },
     "TASK-1082": {
-      "commitCount": 6,
+      "commitCount": 7,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-06-02T11:11:01+02:00",
+      "lastCommitDate": "2026-06-02T12:30:38+02:00",
       "recentCommitRefs": [
-        "07e88047",
-        "1d24d76b",
-        "23cf4de3",
-        "791ca603",
-        "e81123b1",
-        "f69641e1"
+        "07e8804",
+        "1d24d76",
+        "23cf4de",
+        "791ca60",
+        "b3e1aa5",
+        "e81123b",
+        "f69641e"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
@@ -12570,6 +12826,7 @@
         "cli/src/main/ts/application/use-cases/alert-fatigue-store.ts": 2,
         "cli/src/main/ts/application/use-cases/hansei-synthesizer.ts": 1,
         "cli/src/test/ts/alert-fatigue-store.test.ts": 1,
+        "cli/src/test/ts/serve-command.test.ts": 1,
         "docs/EVENTS.md": 2,
         "docs/INBOX.md": 2,
         "docs/archive/TASK-1082.md": 1,
@@ -12586,14 +12843,20 @@
       }
     },
     "TASK-1083": {
-      "commitCount": 2,
+      "commitCount": 3,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-06-02T09:56:15+02:00",
+      "lastCommitDate": "2026-06-02T21:34:58+00:00",
       "recentCommitRefs": [
-        "1d24d76b",
-        "444be38b"
+        "1d24d76",
+        "444be38",
+        "5565b3d"
       ],
       "touchedFrequency": {
+        ".arch/causal-signal.jsonl": 1,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/context-feedback.json": 1,
+        "docs/EVENTS.md": 1,
+        "docs/archive/TASK-1083.md": 1,
         "docs/refinement/IDEA-auto-task-turns.md": 1,
         "docs/refinement/IDEA-escalations-archive-compaction.md": 1,
         "docs/refinement/IDEA-inbox-consistency-gate.md": 1,
@@ -12605,13 +12868,20 @@
       }
     },
     "TASK-1084": {
-      "commitCount": 1,
+      "commitCount": 2,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-06-02T09:56:15+02:00",
+      "lastCommitDate": "2026-06-02T21:34:58+00:00",
       "recentCommitRefs": [
-        "1d24d76b"
+        "1d24d76",
+        "a23821d"
       ],
       "touchedFrequency": {
+        ".arch/causal-signal.jsonl": 1,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/context-feedback.json": 1,
+        ".arch/temporal-index.jsonl": 1,
+        "docs/EVENTS.md": 1,
+        "docs/archive/TASK-1084.md": 1,
         "docs/tasks/TASK-1081.md": 1,
         "docs/tasks/TASK-1082.md": 1,
         "docs/tasks/TASK-1083.md": 1,
@@ -12619,13 +12889,20 @@
       }
     },
     "TASK-1085": {
-      "commitCount": 1,
+      "commitCount": 2,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-06-02T11:39:12+02:00",
+      "lastCommitDate": "2026-06-02T21:34:56+00:00",
       "recentCommitRefs": [
-        "2ce75cf1"
+        "2ce75cf",
+        "d210c05"
       ],
       "touchedFrequency": {
+        ".arch/causal-signal.jsonl": 1,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/context-feedback.json": 1,
+        ".arch/temporal-index.jsonl": 1,
+        "docs/EVENTS.md": 1,
+        "docs/archive/TASK-1085.md": 1,
         "docs/refinement/IDEA-decision-authorship-rule.md": 1,
         "docs/refinement/IDEA-decision-integrity-check.md": 1,
         "docs/refinement/IDEA-incoming-triage-signal.md": 1,
@@ -12635,75 +12912,78 @@
         "docs/tasks/TASK-1087.md": 1
       }
     },
-    "TASK-161": {
+    "TASK-1086": {
       "commitCount": 1,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-26T10:00:51+02:00",
+      "lastCommitDate": "2026-06-02T21:34:56+00:00",
       "recentCommitRefs": [
-        "27cd73e2"
-      ],
-      "touchedFrequency": {
-        "docs/archive/TASK-161.md": 1
-      }
-    },
-    "TASK-162": {
-      "commitCount": 1,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-26T10:00:51+02:00",
-      "recentCommitRefs": [
-        "d7c52d28"
-      ],
-      "touchedFrequency": {
-        "docs/archive/TASK-162.md": 1
-      }
-    },
-    "TASK-163": {
-      "commitCount": 1,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-26T10:00:51+02:00",
-      "recentCommitRefs": [
-        "503e51fa"
-      ],
-      "touchedFrequency": {
-        "docs/archive/TASK-163.md": 1
-      }
-    },
-    "TASK-206": {
-      "commitCount": 1,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-26T10:00:51+02:00",
-      "recentCommitRefs": [
-        "cc2b9fd5"
-      ],
-      "touchedFrequency": {
-        "docs/archive/TASK-206.md": 1
-      }
-    },
-    "TASK-242": {
-      "commitCount": 10,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-27T09:24:01+02:00",
-      "recentCommitRefs": [
-        "0bde3f70",
-        "0c33ebe1",
-        "2125c0dc",
-        "2ee79d92",
-        "37acbbfb",
-        "42bb8e79",
-        "5a52e7a4",
-        "963cd796",
-        "c1d9354c",
-        "e0acb0a1"
+        "82d84e1"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
-        ".arch/chronicle.jsonl": 2,
-        ".arch/focus-ledger.jsonl": 8,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/context-feedback.json": 1,
         ".arch/temporal-index.jsonl": 1,
         "docs/EVENTS.md": 1,
-        "docs/INBOX.md": 1,
-        "docs/archive/TASK-242.md": 1,
-        "docs/tasks/TASK-242.md": 2
+        "docs/archive/TASK-1086.md": 1
+      }
+    },
+    "TASK-1087": {
+      "commitCount": 1,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-06-02T21:34:56+00:00",
+      "recentCommitRefs": [
+        "302cc07"
+      ],
+      "touchedFrequency": {
+        ".arch/causal-signal.jsonl": 1,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/context-feedback.json": 1,
+        ".arch/temporal-index.jsonl": 1,
+        "docs/EVENTS.md": 1,
+        "docs/archive/TASK-1087.md": 1
+      }
+    },
+    "TASK-1088": {
+      "commitCount": 2,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-06-02T21:34:57+00:00",
+      "recentCommitRefs": [
+        "4284a25",
+        "a793988"
+      ],
+      "touchedFrequency": {
+        ".arch/causal-signal.jsonl": 1,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/context-feedback.json": 1,
+        ".arch/temporal-index.jsonl": 1,
+        "docs/EVENTS.md": 1,
+        "docs/archive/TASK-1088.md": 1,
+        "docs/refinement/IDEA-adr-034-advisory-prefix.md": 1,
+        "docs/refinement/IDEA-govern-focus-reclaim.md": 1,
+        "docs/tasks/TASK-1088.md": 1,
+        "docs/tasks/TASK-1089.md": 1
+      }
+    },
+    "TASK-1089": {
+      "commitCount": 2,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-06-02T21:34:57+00:00",
+      "recentCommitRefs": [
+        "a793988",
+        "abbcf1e"
+      ],
+      "touchedFrequency": {
+        ".arch/causal-signal.jsonl": 1,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/context-feedback.json": 1,
+        ".arch/temporal-index.jsonl": 1,
+        "docs/EVENTS.md": 1,
+        "docs/archive/TASK-1089.md": 1,
+        "docs/refinement/IDEA-adr-034-advisory-prefix.md": 1,
+        "docs/refinement/IDEA-govern-focus-reclaim.md": 1,
+        "docs/tasks/TASK-1088.md": 1,
+        "docs/tasks/TASK-1089.md": 1
       }
     },
     "TASK-264": {
@@ -12711,8 +12991,8 @@
       "commitRefOverflow": false,
       "lastCommitDate": "2026-06-01T18:43:11+00:00",
       "recentCommitRefs": [
-        "a08c83fb",
-        "f48c88f9"
+        "a08c83f",
+        "f48c88f"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
@@ -12736,46 +13016,13 @@
         "docs/tensions/TENSION-005-specdrift.md": 1
       }
     },
-    "TASK-266": {
-      "commitCount": 1,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-26T10:00:51+02:00",
-      "recentCommitRefs": [
-        "01783425"
-      ],
-      "touchedFrequency": {
-        "docs/archive/TASK-266.md": 1
-      }
-    },
-    "TASK-270": {
-      "commitCount": 1,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-26T10:00:51+02:00",
-      "recentCommitRefs": [
-        "b3706b6e"
-      ],
-      "touchedFrequency": {
-        "docs/archive/TASK-270.md": 1
-      }
-    },
-    "TASK-271": {
-      "commitCount": 1,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-26T10:00:51+02:00",
-      "recentCommitRefs": [
-        "ff0e75ea"
-      ],
-      "touchedFrequency": {
-        "docs/archive/TASK-271.md": 1
-      }
-    },
     "TASK-272": {
       "commitCount": 2,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-06-01T18:43:11+00:00",
       "recentCommitRefs": [
-        "90d3cd2e",
-        "f48c88f9"
+        "90d3cd2",
+        "f48c88f"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
@@ -12799,34 +13046,12 @@
         "docs/tensions/TENSION-005-specdrift.md": 1
       }
     },
-    "TASK-273": {
-      "commitCount": 1,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-26T10:00:51+02:00",
-      "recentCommitRefs": [
-        "03aa2fa3"
-      ],
-      "touchedFrequency": {
-        "docs/archive/TASK-273.md": 1
-      }
-    },
-    "TASK-274": {
-      "commitCount": 1,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-26T10:00:51+02:00",
-      "recentCommitRefs": [
-        "4a655f56"
-      ],
-      "touchedFrequency": {
-        "docs/archive/TASK-274.md": 1
-      }
-    },
     "TASK-275": {
       "commitCount": 1,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-06-02T05:27:44+00:00",
       "recentCommitRefs": [
-        "2b46e231"
+        "2b46e23"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
@@ -12837,68 +13062,13 @@
         "docs/tasks/TASK-275.md": 1
       }
     },
-    "TASK-276": {
-      "commitCount": 1,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-26T10:00:51+02:00",
-      "recentCommitRefs": [
-        "64f0d456"
-      ],
-      "touchedFrequency": {
-        "docs/archive/TASK-276.md": 1
-      }
-    },
-    "TASK-277": {
-      "commitCount": 1,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-26T10:00:51+02:00",
-      "recentCommitRefs": [
-        "859be4ee"
-      ],
-      "touchedFrequency": {
-        "docs/archive/TASK-277.md": 1
-      }
-    },
-    "TASK-278": {
-      "commitCount": 1,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-26T10:00:51+02:00",
-      "recentCommitRefs": [
-        "d1014b9e"
-      ],
-      "touchedFrequency": {
-        "docs/archive/TASK-278.md": 1
-      }
-    },
-    "TASK-280": {
-      "commitCount": 1,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-26T10:00:51+02:00",
-      "recentCommitRefs": [
-        "8e05a039"
-      ],
-      "touchedFrequency": {
-        "docs/archive/TASK-280.md": 1
-      }
-    },
-    "TASK-281": {
-      "commitCount": 1,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-26T10:00:51+02:00",
-      "recentCommitRefs": [
-        "6d9844c6"
-      ],
-      "touchedFrequency": {
-        "docs/archive/TASK-281.md": 1
-      }
-    },
     "TASK-282": {
       "commitCount": 2,
       "commitRefOverflow": false,
       "lastCommitDate": "2026-06-01T18:43:11+00:00",
       "recentCommitRefs": [
-        "5f07f5bc",
-        "f48c88f9"
+        "5f07f5b",
+        "f48c88f"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
@@ -12927,8 +13097,8 @@
       "commitRefOverflow": false,
       "lastCommitDate": "2026-05-31T16:18:54+00:00",
       "recentCommitRefs": [
-        "3e58686a",
-        "dbb6190d"
+        "3e58686",
+        "dbb6190"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
@@ -12943,17 +13113,6 @@
         "docs/INBOX.md": 1,
         "docs/adr/ADR-035-archive-partitioning.md": 1,
         "docs/archive/TASK-970.md": 1
-      }
-    },
-    "TASK-995": {
-      "commitCount": 1,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-26T10:00:51+02:00",
-      "recentCommitRefs": [
-        "a10ad873"
-      ],
-      "touchedFrequency": {
-        "docs/archive/TASK-995.md": 1
       }
     }
   },
