@@ -372,3 +372,6 @@ FLOW_CHECK_PASS | CLI unit tests pass — regression guard for all core flows ->
 ## 2026-06-02T21:38:44.254Z
 FLOW_CHECK_PASS | Structural validation passes — integrity review must be clean -> PASS | commit:3480878 | agent:human
 
+## 2026-06-02T21:51:13.421Z
+TASK-1090 | IN_PROGRESS -> DONE | commit:59e5776 | agent:human
+
