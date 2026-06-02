@@ -1,7 +1,7 @@
 # IDEA: ARCH release system — automated versioning, publish pipeline, and consumer upgrades
 **Created:** 2026-05-27
 **Source:** human intent — "achieve CD"; ARCH is published to npm but releases are fully manual today
-**Status:** DRAFT
+**Status:** PROMOTED
 **Candidate-class:** 2-code-generation
 **Candidate-size:** M
 
@@ -64,3 +64,5 @@ Version bump strategy: patch on every sprint close. Minor bump requires explicit
 
 ## Decision
 PROMOTE → TASK-1062
+
+**Decision:** PROMOTE → TASK-1078

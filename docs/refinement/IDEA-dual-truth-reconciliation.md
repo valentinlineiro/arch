@@ -1,7 +1,7 @@
 # IDEA: Dual-truth reconciliation for INBOX and live state
 **Created:** 2026-05-25
 **Source:** Human structural review
-**Status:** DRAFT
+**Status:** DEFERRED
 **Meta:** P0 | M | local | docs/refinement/
 
 ## Problem
@@ -23,3 +23,5 @@ M
 
 ## Decision
 EXTEND. Gap: TASK-1019 (INBOX regen wired into govern) is IN_PROGRESS. Promoting this IDEA while TASK-1019 is in flight risks dual ownership definitions — both tasks would be modifying INBOX mechanics simultaneously with different scopes. Trigger: TASK-1019 reaches DONE and its scope is confirmed to address count drift without resolving the structural ownership split (agent-write vs. human-write boundary). If TASK-1019 over-reaches and resolves the split, REJECT this IDEA as subsumed.
+
+**Decision:** DEFERRED — TENSION-006 tracks this. Structural contradiction between append-only INBOX.md and machine-written entries is real but scope is large. Defer until INBOX ergonomics become a daily friction point. Condition: >3 manual INBOX corruptions reported in a 30-day window.

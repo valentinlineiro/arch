@@ -1,7 +1,7 @@
 # IDEA: IDEA adjudication throughput mismatch
 **Created:** 2026-05-25
 **Source:** Human structural review
-**Status:** DRAFT
+**Status:** ARCHIVED
 **Meta:** P0 | M | local | docs/refinement/
 
 ## Problem
@@ -23,3 +23,5 @@ M
 
 ## Decision
 EXTEND. Required decomposition before this can be promoted: the auto-expiry TTL mechanism is independently actionable and should be extracted as a standalone S IDEA; the batch adjudication surface is speculative and should be deferred indefinitely; the rate governor is novel and can remain in this IDEA's scope. Trigger: a standalone IDEA for auto-expiry TTL enforcement is filed and this IDEA is narrowed to rate governor only. Do not promote the combined scope — the rate governor is useful; the batch surface is premature.
+
+**Decision:** PARTIALLY SUPERSEDED — arch triage (TASK-1073) addresses the human throughput bottleneck for remote IDEAs. Escalation compactor handles escalation noise. Remaining concern (IDEA generation rate exceeding human capacity) is addressed by this adjudication pass. No further structural change needed now.

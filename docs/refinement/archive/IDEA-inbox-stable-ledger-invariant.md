@@ -1,7 +1,7 @@
 # IDEA: INBOX hygiene must preserve REVIEW_REQUEST entries for tasks still in REVIEW status
 **Created:** 2026-05-27
 **Source:** smartcart-os observation — govern regenerated INBOX.md and wiped REVIEW_REQUEST entries for TASK-002, 012, 013, 014, 016, 019 — tasks still in REVIEW status, not yet archived. Those entries were the only audit trail for pending Auditor verification.
-**Status:** DRAFT
+**Status:** ARCHIVED
 **Candidate-class:** 2-code-generation
 **Candidate-size:** S
 
@@ -45,3 +45,5 @@ None — though TASK-1058 (inbox hygiene REVIEW_REQUEST cleanup) is complementar
 
 ## Decision
 PROMOTE → TASK-1059
+
+**Decision:** IMPLEMENTED — REVIEW_REQUEST preservation fixed in TASK-1071. INBOX hygiene pass no longer discards REVIEW_REQUEST entries for tasks in REVIEW status.

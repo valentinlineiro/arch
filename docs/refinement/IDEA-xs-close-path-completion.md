@@ -1,6 +1,6 @@
 ## IDEA: Size-tiered close path — no mandatory Hansei for XS
 
-**Status:** DRAFT
+**Status:** PROMOTED
 **Created:** 2026-05-28
 **Source:** smartcart-os pilot retrospective — XS tasks (delete 3 files, change a constant, fix a fallback message) required 5–10 minutes of ceremony for 5 minutes of work. Forward Action required non-empty content; Hansei category had to match a controlled vocabulary; AC format had to be audited manually. The protocol has size-tiered Hansei obligation in principle but not in implementation.
 **Candidate-class:** 2-code-generation
@@ -59,3 +59,4 @@ All existing XS tasks in archive were closed before this change — no migration
 
 ## Decision
 
+**Decision:** PROMOTE → TASK-1076

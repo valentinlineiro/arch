@@ -1,7 +1,7 @@
 # IDEA: Emit chronicle signals for govern normal-path execution
 **Created:** 2026-05-25
 **Source:** Human structural review
-**Status:** DRAFT
+**Status:** DEFERRED
 **Meta:** P0 | M | local | docs/refinement/
 
 ## Problem
@@ -24,3 +24,5 @@ M
 
 ## Decision
 EXTEND. Correct diagnosis; minimal schema is adoptable (tick_id, actions_taken, decision_count). This is a retention feature — it detects degradation in users who already have the system. Trigger: IDEA-plg-onboarding-flow reaches DONE and the 90-day sprint's first objective (`arch init` flow) ships. Promoting before acquisition infrastructure lands inverts the sprint's explicit priority ordering.
+
+**Decision:** DEFERRED — Recording normal-path govern signals in the causal graph is philosophically correct but operationally low-priority. The chronicle records exceptions by design; enriching it with normal paths adds query value only when corpus analysis is mature. Condition: arch ask queries return low-confidence results citing missing govern context.

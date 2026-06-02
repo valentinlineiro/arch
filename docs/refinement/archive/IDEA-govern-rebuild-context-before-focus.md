@@ -1,7 +1,7 @@
 # IDEA: govern rebuilds context-index before focus assignment
 **Created:** 2026-05-27
 **Source:** smartcart-os observation — P1 task created and committed in same breath as govern tick; govern picked P2 task for focus because context-index hadn't been rebuilt yet and P1 task was invisible to the selector
-**Status:** DRAFT
+**Status:** ARCHIVED
 **Candidate-class:** 2-code-generation
 **Candidate-size:** S
 
@@ -39,3 +39,5 @@ None
 
 ## Decision
 PROMOTE → TASK-1060
+
+**Decision:** IMPLEMENTED — rebuildContextIndex() extracted into govern-system.ts as named private method in TASK-1037. Context rebuild before focus is now explicit in execute(). No further action needed.

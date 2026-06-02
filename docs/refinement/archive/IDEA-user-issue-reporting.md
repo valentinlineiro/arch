@@ -1,6 +1,6 @@
 ## IDEA: User issue reporting — surface downstream findings to arch
 
-**Status:** DRAFT
+**Status:** ARCHIVED
 **Created:** 2026-05-27
 **Source:** Downstream project smartcart-os surfaced two rule gaps (system-commit exemption, IDEA Decision integrity check) that required manual copy-paste to reach arch. There is no formal channel for arch users to report issues or findings back to the upstream project.
 **Candidate-class:** 2-code-generation
@@ -98,3 +98,5 @@ The following is the concrete issue that triggered this IDEA, provided as a bund
 ## Decision
 
 DEFER. Bundled findings extracted to TASK-1065 (system-commit exemption) and TASK-1066 (IDEA Decision integrity). The `arch report` command is deferred to ROADMAP-IDEAS — trigger: ≥3 downstream installations not controlled by the primary maintainer hit the upstream-reporting friction. See `docs/refinement/ROADMAP-IDEAS.md#arch-report-downstream-findings`.
+
+**Decision:** SUPERSEDED — arch triage + corpus federation (TASK-1072) implement the user issue reporting loop for downstream repos. SmartCart-os pilot uses POST /api/feedback → IDEA file → syncRemotes → AWAITING_TRIAGE → arch triage. The arch-native equivalent is arch capture for issues encountered during use. No dedicated command needed.

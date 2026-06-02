@@ -1,7 +1,7 @@
 # IDEA: Structured decision support at the IDEA promotion gate
 **Created:** 2026-05-25
 **Source:** Human structural review
-**Status:** DRAFT
+**Status:** DEFERRED
 **Meta:** P0 | M | local | docs/refinement/
 
 ## Problem
@@ -24,3 +24,5 @@ M
 
 ## Decision
 EXTEND. Gap: the brief format output by `arch analyze <IDEA-id>` is undefined — no schema, no field list, no write target in the IDEA file. Without a concrete spec (max 5 fields, each with a named source), the implementation target is vague and risks building the wrong surface. Trigger: define the brief schema as a spec document (not a task — a one-page spec is sufficient). Templates for human rationale are explicitly excluded per the proposed solution. This must land before IDEA-idea-adjudication-throughput: decision quality before decision throughput.
+
+**Decision:** DEFERRED — Structured comparison at IDEA promotion gate is valuable but premature. arch triage gives the human a decision surface; structured cost/dependency analysis requires THINK to persist output to a file rather than terminal. Condition: >5 PROMOTE decisions reversed post-implementation due to missed dependencies.

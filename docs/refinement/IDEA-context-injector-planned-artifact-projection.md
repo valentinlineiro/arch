@@ -1,7 +1,7 @@
 # IDEA: context injector must not project planned artifacts as existing
 **Created:** 2026-05-27
 **Source:** smartcart-os observation — "ADR-001: Cost-only optimization for Cádiz pilot _(advisory)_" appeared in task context before ADR-001 existed as a file; injector read the ADR name from the task description body and treated it as an existing artifact
-**Status:** DRAFT
+**Status:** PROMOTED
 **Candidate-class:** 1-code-reasoning
 **Candidate-size:** S
 
@@ -40,3 +40,5 @@ None
 
 ## Decision
 PROMOTE → TASK-1061
+
+**Decision:** PROMOTE → TASK-1079

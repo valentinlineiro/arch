@@ -1,6 +1,6 @@
 ## IDEA: Milestone-based sprint closure via PROJECT.md predicates
 
-**Status:** DRAFT
+**Status:** PROMOTED
 **Created:** 2026-05-28
 **Source:** smartcart-os pilot retrospective — count-based auto-close (sprintCloseAfterN: 15) fired mid-implementation. Product sprints have phases (definition → implementation → QA/launch); 15 archived tasks during implementation phase produced a sprint close with open QA tasks. The sprint close generated a version bump and RETRO entry while the main feature was unfinished.
 **Candidate-class:** 2-code-generation
@@ -69,3 +69,4 @@ This ties sprint closure to a meaningful completion signal rather than a task co
 
 ## Decision
 
+**Decision:** PROMOTE → TASK-1077

@@ -1,6 +1,6 @@
 ## IDEA: Prompt for end-to-end flow coverage when AC stubs an endpoint
 
-**Status:** DRAFT
+**Status:** PROMOTED
 **Created:** 2026-05-28
 **Source:** smartcart-os pilot — TASK-008 stubbed POST /api/inventory to 404 per the cut list. DeterministicACVerifier passed (AC predicates all green). The main CTA called that endpoint; the user discovered the broken flow post-close, not ARCH.
 **Candidate-class:** 1-code-reasoning
@@ -60,3 +60,4 @@ This is advisory, not blocking. The author can add a prose AC acknowledging the 
 
 ## Decision
 
+**Decision:** PROMOTE → TASK-1075
