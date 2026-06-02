@@ -68,3 +68,4 @@
 {"taskId":"TASK-1077","timestamp":"2026-06-02T05:10:47.077Z","labels":["[no-issue]"]}
 {"taskId":"TASK-1079","timestamp":"2026-06-02T05:12:08.676Z","labels":["[no-issue]"]}
 {"taskId":"TASK-1078","timestamp":"2026-06-02T05:12:35.883Z","labels":["[no-issue]"]}
+{"taskId":"TASK-275","timestamp":"2026-06-02T05:27:44.042Z","labels":["[SpecDrift]"]}
