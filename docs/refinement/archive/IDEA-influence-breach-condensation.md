@@ -2,7 +2,7 @@
 
 **Created:** 2026-06-02
 **Source:** Phase 1 replenishment — INBOX contains 29+ identical `INFLUENCE_BREACH_PERSISTENT` entries, engagement stuck at 41% vs 50%, system emits same message each cycle with no condensation or escalation
-**Status:** DRAFT
+**Status:** REJECTED
 **Candidate-class:** 7-operations
 **Candidate-size:** S
 

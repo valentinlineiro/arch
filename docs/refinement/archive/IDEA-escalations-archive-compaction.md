@@ -1,6 +1,6 @@
 # IDEA: Escalations archive compaction — prune old RESOLVED records from escalations.jsonl
 
-**Status:** DRAFT
+**Status:** REJECTED
 **Created:** 2026-06-02
 **Source:** THINK replenishment — .arch/escalations.jsonl has 195+ lines, mostly RESOLVED phantom entries from May 19 cleanup. Every read wastes context on irrelevant history.
 **Candidate-class:** 7-operations

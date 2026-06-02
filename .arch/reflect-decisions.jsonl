@@ -34,3 +34,4 @@
 {"decision_id":"D-a1b2c3d4","timestamp":"2026-05-28T08:30:00Z","target":"IDEA-codebase-context-injection","outcome":"PROMOTE","finality":"committed","influence_declared":false,"based_on_proposals":["THINK-f1a2b3c4"]}
 {"decision_id":"D-e5f6g7h8","timestamp":"2026-05-28T08:30:00Z","target":"IDEA-core-flows-predicates","outcome":"PROMOTE","finality":"committed","influence_declared":false,"based_on_proposals":["THINK-d5e6f7g8"]}
 {"decision_id":"D-i9j0k1l2","timestamp":"2026-05-28T08:30:00Z","target":"IDEA-corpus-federation","outcome":"PROMOTE","finality":"committed","influence_declared":false,"based_on_proposals":["THINK-h9i0j1k2"]}
+{"decision_id":"D-inbox-consistency-2026-06-02","timestamp":"2026-06-02T08:00:00Z","target":"IDEA-inbox-consistency-gate","outcome":"PROMOTE","finality":"committed","influence_declared":false,"based_on_proposals":[]}

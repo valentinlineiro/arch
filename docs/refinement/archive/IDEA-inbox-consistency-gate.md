@@ -1,6 +1,6 @@
 # IDEA: INBOX consistency gate — verify task file locations match computed status on govern tick
 
-**Status:** DRAFT
+**Status:** PROMOTED → TASK-1083
 **Created:** 2026-06-02
 **Source:** THINK replenishment — TASK-1080 appears as "READY" in INBOX but its file is in docs/archive/, creating phantom count in status projection
 **Candidate-class:** 7-operations
