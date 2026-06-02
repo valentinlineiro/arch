@@ -96,7 +96,7 @@ The autonomous execution loop must halt and yield to a human when any of these c
 Any action hitting a human-approval gate (e.g., `action:deploy`, `action:pr-create`, or architectural changes) must append a timestamped entry to `docs/INBOX.md` before halting.
 - **Format:** `## [YYYY-MM-DD HH:MM] AWAITING_APPROVAL | [Type] | [Description]`
 - **Examples:**
-  - `## [2026-04-30 14:00] AWAITING_APPROVAL | DEPLOY | Deploy v1.2.1 to production`
+  - `## [2026-04-30 14:00] AWAITING_APPROVAL | DEPLOY | Deploy v1.3.0 to production`
   - `## [2026-04-30 14:05] AWAITING_APPROVAL | MAJOR_CHANGE | Update core auth logic`
 
 These boundaries define which tools can be invoked autonomously in CI environments.
