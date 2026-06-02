@@ -71,3 +71,4 @@
 {"taskId":"TASK-275","timestamp":"2026-06-02T05:27:44.042Z","labels":["[SpecDrift]"]}
 {"taskId":"TASK-1080","timestamp":"2026-06-02T07:29:08.174Z","labels":["[SpecDrift]"]}
 {"taskId":"TASK-1082","timestamp":"2026-06-02T09:11:01.532Z","labels":["[AuditGap]"]}
+{"taskId":"TASK-1085","timestamp":"2026-06-02T21:34:55.976Z","labels":["[SpecDrift]"]}
