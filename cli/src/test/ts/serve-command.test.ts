@@ -1,6 +1,9 @@
 import { test } from 'node:test';
 import assert from 'node:assert';
 import http from 'node:http';
+import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
 import { ServeCommand } from '../../main/ts/application/commands/serve-command.js';
 
 test('ServeCommand exists and can be instantiated', () => {
@@ -28,7 +31,11 @@ test('parsePort returns parsed number when arg is purely numeric', () => {
 });
 
 test('serve command handler strips query string before resolving file path', async () => {
-  const cmd = new ServeCommand('/home/valentin/code/arch');
+  const tmpRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'arch-serve-test-'));
+  fs.mkdirSync(path.join(tmpRoot, 'docs'), { recursive: true });
+  fs.writeFileSync(path.join(tmpRoot, 'docs', 'arch-viewer.html'), '<html></html>');
+
+  const cmd = new ServeCommand(tmpRoot);
   const handler = (cmd as any).createHandler() as http.RequestListener;
 
   const status = await new Promise<number>((resolve) => {
@@ -41,6 +48,7 @@ test('serve command handler strips query string before resolving file path', asy
     handler(req, res);
   });
 
+  fs.rmSync(tmpRoot, { recursive: true, force: true });
   assert.strictEqual(status, 200, 'File with query string should be served (200), not 404');
 });
 
