@@ -1,8 +1,8 @@
 {
   "version": 1,
-  "builtAt": "2026-06-02T07:28:44.008Z",
-  "archiveCommit": "471:design",
-  "taskCount": 255,
+  "builtAt": "2026-06-02T09:11:17.510Z",
+  "archiveCommit": "472:design",
+  "taskCount": 256,
   "entries": {
     "TASK-1000": {
       "id": "TASK-1000",
@@ -1345,6 +1345,23 @@
       "forwardAction": "Monitor for EscalationMaturity warnings on future tasks that modify protected paths under pre-authorized context — consider relaxing the check when a READY task explicitly lists the path in its meta context.",
       "acCount": 0,
       "acMachineVerifiable": 0,
+      "closurePath": "auditor"
+    },
+    "TASK-1082": {
+      "id": "TASK-1082",
+      "size": "S",
+      "class": "2-code-generation",
+      "closedAt": "2026-06-02T09:10:57.698Z",
+      "lockedCommit": null,
+      "actor": null,
+      "severity": "H1",
+      "category": "[AuditGap]",
+      "decision": "Implementation correct. Two post-review fixes applied by Auditor: (1) removed dead `getAction` method; (2) added 9 unit tests for AlertFatigueStore (708 → 717). HanseiReconciliation flagged console.log in hansei-synthesizer.ts as undeclared layer-boundary debt. The console.log calls pre-existed TASK-1082 but the implementation added more (console.log is an ADR-016 violation in use-case code). Acknowledged as H1 rather than H3a: no constitutional rule broken, pre-existing pattern, non-blocking.",
+      "constraint": "ADR-016 layer boundary — use-case code should not write to stdout directly; output belongs in the CLI/command layer.",
+      "cost": "8 console.log calls in hansei-synthesizer.ts now exist. Refactoring requires changing the return signature to carry structured output rather than printing in place — bounded S-sized work.",
+      "forwardAction": "Capture IDEA to refactor HanseiSynthesizer output from console.log side-effects to structured return values consumed by the command layer. IDEA-XXXX to be opened as follow-on.",
+      "acCount": 4,
+      "acMachineVerifiable": 4,
       "closurePath": "auditor"
     },
     "TASK-180": {
