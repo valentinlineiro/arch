@@ -2,71 +2,39 @@
 _Generated: 2026-06-02 by [THINK] session_
 
 ## Loop Status
-- READY: 4 (TASK-1081, TASK-1082, TASK-1083, TASK-1084 — all P3/S)
-- IN_PROGRESS: 0
+- READY: 2 (TASK-1083, TASK-1084 — both P3/S)
+- IN_PROGRESS: 1 (TASK-1081 — P3/S, escalations.jsonl upsert)
 - REVIEW: 0
 - BLOCKED: 0
 
 ## Alerts
+[REPLENISHMENT] READY count: 2/3 — floor breached. Created: IDEA-ready-task-replenishment-visibility.md. Pending decisions on 2 existing DRAFT IDEAs would close the gap.
 [PATTERN-ALERT] [SpecDrift] 8+ occurrences — systemic issue. See docs/tensions/TENSION-005-specdrift.md
 
-## Refinement Queue (13 active IDEA-*.md files in docs/refinement/, excluding archive + TEMPLATE)
+## Refinement Queue (3 active IDEA-*.md files in docs/refinement/, excluding archive + TEMPLATE)
 
-### DRAFT (4)
+### DRAFT (3)
 - IDEA-auto-task-turns — Automatic Turns counter (Sessions: 1, Decision: EXTEND)
-- IDEA-chronicle-govern-coverage — Emit chronicle signals (Sessions: 2, Decision: DEFERRED)
-- IDEA-dual-truth-reconciliation — INBOX/live state reconciliation (Sessions: 2, Decision: DEFERRED)
-- IDEA-promotion-decision-support — Structured decision support (Sessions: 2, Decision: DEFERRED)
-
-### PROMOTED (7 — awaiting archival)
-- IDEA-arch-release-and-cd → TASK-1078
-- IDEA-context-injector-planned-artifact-projection → TASK-1079
-- IDEA-inbox-consistency-gate → TASK-1083
-- IDEA-modular-activation → TASK-1080
-- IDEA-phase-aware-sprint-close → TASK-1077
-- IDEA-stub-e2e-coverage-prompt → TASK-1075
-- IDEA-xs-close-path-completion → TASK-1076
-
-### REJECTED (2 — awaiting archival)
-- IDEA-escalations-archive-compaction — subsumed by TASK-1081
-- IDEA-influence-breach-condensation — subsumed by TASK-1082
+- IDEA-ready-task-replenishment-visibility — READY floor breach visibility (Sessions: 0, Decision: awaiting)
+- IDEA-refinement-archival-gate — Auto-archive PROMOTED IDEAs when task is DONE (Sessions: 1, Decision: awaiting)
 
 ### Roadmap-Only (8 entries)
 See docs/refinement/ROADMAP-IDEAS.md
 
 ## Last 5 Completed Tasks
-1. TASK-1080 — Modular activation: archProfile + modules block (P1/L) — archived DONE
-2. TASK-1079 — Context injector planned artifact projection fix (P2/S)
-3. TASK-1078 — ARCH release and CD pipeline (P2/M)
-4. TASK-1077 — Phase-aware sprint close (P2/S)
-5. TASK-1076 — XS lightweight close path (P2/S)
+1. TASK-1082 — Add alert fatigue throttle to REFLECT (S) — archived DONE
+2. TASK-1080 — Modular activation: archProfile + modules block (M) — archived DONE
+3. TASK-1079 — Context injector planned artifact projection fix (S)
+4. TASK-1078 — ARCH release and CD pipeline (M)
+5. TASK-1077 — Phase-aware sprint close (S)
 
 ## Pending REVIEW_REQUESTS
 (none)
 
 ## AWAITING_PROMOTION
 - IDEA-auto-task-turns | 2026-06-02 — EXTEND pending spec gap fill
-- IDEA-dual-truth-reconciliation | 2026-06-02 — DEFERRED pending condition
-- IDEA-chronicle-govern-coverage | 2026-06-02 — DEFERRED pending condition
-- IDEA-promotion-decision-support | 2026-06-02 — DEFERRED pending condition
+- IDEA-refinement-archival-gate | 2026-06-02 — awaiting human decision
+- IDEA-ready-task-replenishment-visibility | 2026-06-02 — awaiting human decision
 
 ## [2026-06-02] INFLUENCE_BREACH_PERSISTENT | REFLECT
-Engagement 41% below threshold 50% (31 consecutive cycles)
-
-## [2026-06-02 08:31] INFLUENCE_BREACH_PERSISTENT | REFLECT
-Evidence: Persistent breach (32 consecutive cycles): Engagement 39% is below threshold 50% — attribution discipline review required
-
-## 2026-06-02 08:31:22 — Pattern Alerts
-[PATTERN-ALERT] [SpecDrift] detected 8 times — systemic issue. See docs/tensions/
-
-AWAITING_PROMOTION | IDEA-modular-activation | 2026-06-02 — no Decision field set
-
-## REVIEW_REQUEST — TASK-1082
-**Task:** TASK-1082: Add alert fatigue throttle to REFLECT
-**Status:** IN_PROGRESS → REVIEW
-**Files changed:**
-- `cli/src/main/ts/application/use-cases/alert-fatigue-store.ts` (new)
-- `cli/src/main/ts/application/use-cases/hansei-synthesizer.ts` (modified)
-- `cli/src/main/ts/application/commands/analyze-command.ts` (modified)
-**ACs:** 4/4 passed — file ACs, npm test (708/708 pass), arch check
-**Summary:** Alert fatigue throttle prevents repeated identical PATTERN-ALERT entries from overwhelming INBOX. After 3rd consecutive identical category alert: annotated as ESCALATED (once). After 5th: writes ANDON_HALT and system stops. State stored in `.arch/alert-fatigue.jsonl` for durability across sessions.
+Engagement 41% below threshold 50% (31+ consecutive cycles)

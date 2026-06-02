@@ -36,7 +36,7 @@ Can run as part of the INBOX regeneration step (Phase 1 step 4) since INBOX is t
 
 None — purely operational.
 
-## Sessions: 0
+## Sessions: 1
 
 ## Decision
 
