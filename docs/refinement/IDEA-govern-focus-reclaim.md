@@ -14,24 +14,25 @@ There is no mechanism to detect or correct this. The Focus field is advisory onl
 
 ## Proposed solution
 
-Add a lightweight check to the govern loop (or as a new step in `govern-transaction.ts`):
+Extend `arch govern`'s existing focus-assignment step to consider IN_PROGRESS+Focus:no tasks as assignment candidates alongside READY tasks.
 
-1. On each govern tick, scan all `IN_PROGRESS` tasks with `Focus:no`
-2. For each, check if the last commit touching `docs/tasks/TASK-XXX.md` was more than N ticks ago (recommend: 2 govern ticks)
-3. If yes: revert status to `READY`, set `Focus:no`, add a `### Reclaimed` annotation recording the revert
-4. Emit `[RECLAIMED] TASK-XXX — reverted to READY after N ticks without activity` to INBOX
+Current behavior: govern assigns Focus:yes only to the highest-priority READY task.
+Proposed behavior: if no READY task is available (or after assigning one), govern also assigns Focus:yes to the highest-priority IN_PROGRESS task with Focus:no — using the same priority ordering already in place.
 
-Threshold N and the tick counting mechanism should be configurable or hardcoded at 2 for the initial implementation.
+This is a one-line extension of the focus-assignment query, not a new mechanism. The FocusStatusAlignment drift check already flags the gap as `H1: debt of attention`; govern should close it deterministically rather than leaving it as a warning.
+
+No reclamation, no revert, no commit-counting. Captured IN_PROGRESS tasks stay IN_PROGRESS — they just get focus assigned on the next tick.
 
 ## Validation hints
 
-- Set TASK-1085, TASK-1086, TASK-1087 to Focus:no IN_PROGRESS (current state); run govern 2 ticks; verify they revert to READY
-- After reclamation: READY count ≥ original + reclaimed count
+- Capture a task (creates IN_PROGRESS+Focus:no); run govern; verify Focus:yes assigned
+- READY tasks still take priority over IN_PROGRESS tasks when both exist
+- FocusStatusAlignment warning clears after govern tick
 - `arch review` passes
 
 ## Dependencies
 
-None — purely operational, no ADR required. Govern loop already has focus pressure logic; this extends it with a reclamation path.
+None — extends existing focus-assignment logic in `govern-system.ts`.
 
 ## Sessions: 0
 

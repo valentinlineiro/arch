@@ -14,16 +14,24 @@ This is an ADR compliance gap. Without the prefix, readers and automated tools c
 
 ## Proposed fix
 
-Update `docs/agents/THINK.md` Phase 1 INBOX regeneration step (step 4) to require:
+THINK should wrap its entire INBOX contribution in a demarcated HTML comment boundary rather than prefixing each individual entry:
 
-> All THINK-generated INBOX blocks must carry `[ADVISORY]` prefix. Specifically: `[REPLENISHMENT]` → `[ADVISORY] [REPLENISHMENT]`, `[RECLAIMED]` → `[ADVISORY] [RECLAIMED]`. Deterministic blocks (those written by `arch govern` — e.g., `[ANDON_HALT]`, `[PATTERN-ALERT]` from hansei-synthesizer) are exempt and retain their existing prefix.
+```
+<!-- THINK:start -->
+[REPLENISHMENT] ...
+[PATTERN-ALERT] ...
+<!-- THINK:end -->
+```
 
-This preserves the informational content of each block while making the source layer explicit.
+This makes the section machine-readable as advisory without changing individual entry readability. Automated tools can strip or ignore the THINK block by scanning for the boundary comments. The INBOX header already signals THINK authorship for human readers — this adds the machine-readable equivalent.
+
+Update `docs/agents/THINK.md` Phase 1 step 4 to require the boundary comments. Update any THINK INBOX-write code path to emit the opening and closing markers. Deterministic govern entries (`[ANDON_HALT]`, `[REVIEW_REQUEST]`, etc.) written outside the THINK block remain unchanged and need no markers.
 
 ## Acceptance Criteria
 
-- [ ] `docs/agents/THINK.md` Phase 1 step 4 updated with advisory prefix requirement
-- [ ] After update: INBOX `[REPLENISHMENT]` blocks appear as `[ADVISORY] [REPLENISHMENT]`
+- [ ] `docs/agents/THINK.md` Phase 1 step 4 updated with `<!-- THINK:start -->` / `<!-- THINK:end -->` boundary requirement
+- [ ] THINK-generated INBOX section is wrapped in boundary comments in the next INBOX regeneration
+- [ ] Govern-written entries outside the boundary are unaffected
 - [ ] `arch review` passes
 
 ## Dependencies
