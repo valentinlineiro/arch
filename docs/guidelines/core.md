@@ -8,7 +8,7 @@
 ### 2. Git & Commits
 - **Conventional Commits:** Use authoritative prefixes (feat, fix, chore, docs, refactor, idea). Every commit must reference a TASK-ID (except `idea:` drafts). System-mode commits tagged `[THINK]` or `[GOVERN]` are exempt — the tag substitutes for the TASK-ID requirement.
 - **No-Merge Policy:** ARCH enforces a clean, linear history. Merge commits (2+ parents) and history-changing ops (`pull`, `merge`, `rebase`) are **FORBIDDEN** without explicit human approval. Use `git fetch`.
-- **Atomicity:** One task per commit where possible.
+- **Atomicity:** One task per commit where possible. **Definition of operation:** an *operation* is one status transition — a task moving from READY→IN_PROGRESS, IN_PROGRESS→DONE, or a single governance action (focus assignment, sprint close). One commit = one operation. Multiple task closes in a single commit are acceptable only during batch governance ticks; they must all be referenced in the commit message.
 - **Hygiene:** Every new code directory must include a `.gitignore`.
 - **Git Hooks:** `arch init` installs git hooks (commit-msg, pre-commit, pre-push) in `.githooks/`. Run `arch init` to install, or manually execute `git config core.hooksPath .githooks`.
 

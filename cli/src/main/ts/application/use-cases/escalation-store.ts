@@ -31,23 +31,35 @@ export class EscalationStore {
     return `${this.rootPath}/${this.pathResolver.escalations}`;
   }
 
+  /**
+   * Upsert: if an OPEN record for (type, subject) already exists, update it
+   * in place (timestamp, reason). Otherwise append a new OPEN record.
+   * Eliminates phantom resolution chains and append vs dedup contradiction.
+   */
   async append(type: EscalationType, subject: string, reason: string): Promise<EscalationEntry | null> {
-    // Deduplication: read last 100 lines, skip if OPEN record for same (subject, type) within 24h
+    let lines: string[] = [];
     try {
       const raw = await this.fileSystem.readFile(this.path);
-      const lines = raw.trim().split('\n').filter(Boolean);
-      const tail = lines.slice(-100);
-      const cutoff = Date.now() - 24 * 60 * 60 * 1000;
-      for (const line of tail) {
-        try {
-          const rec = JSON.parse(line) as EscalationEntry;
-          if (rec.status === 'OPEN' && rec.type === type && rec.subject === subject
-              && new Date(rec.timestamp).getTime() > cutoff) {
-            return null; // Duplicate — skip
-          }
-        } catch { /* skip malformed line */ }
-      }
-    } catch { /* file doesn't exist yet — first write */ }
+      lines = raw.trim().split('\n').filter(Boolean);
+    } catch { /* file doesn't exist yet */ }
+
+    const key = `${type}::${subject}`;
+    let found = false;
+    const updated = lines.map(line => {
+      try {
+        const rec = JSON.parse(line) as EscalationEntry;
+        if (rec.status === 'OPEN' && `${rec.type}::${rec.subject}` === key) {
+          found = true;
+          return JSON.stringify({ ...rec, timestamp: new Date().toISOString(), reason });
+        }
+      } catch { /* skip malformed */ }
+      return line;
+    });
+
+    if (found) {
+      await this.fileSystem.writeFile(this.path, updated.join('\n') + '\n');
+      return null; // Upserted in place — not a new record
+    }
 
     const entry: EscalationEntry = {
       escalation_id: `ESC-${randomUUID().slice(0, 8)}`,
@@ -61,6 +73,42 @@ export class EscalationStore {
     };
     await this.fileSystem.appendFile(this.path, JSON.stringify(entry) + '\n');
     return entry;
+  }
+
+  /**
+   * Resolve: find the OPEN record for (type, subject) and mutate it in place.
+   * Appends a RESOLVED tombstone only when no matching OPEN record is found.
+   */
+  async resolve(type: EscalationType, subject: string, resolvedBy = 'system'): Promise<boolean> {
+    let lines: string[] = [];
+    try {
+      const raw = await this.fileSystem.readFile(this.path);
+      lines = raw.trim().split('\n').filter(Boolean);
+    } catch { return false; }
+
+    const key = `${type}::${subject}`;
+    let found = false;
+    const updated = lines.map(line => {
+      try {
+        const rec = JSON.parse(line) as EscalationEntry;
+        if (rec.status === 'OPEN' && `${rec.type}::${rec.subject}` === key) {
+          found = true;
+          return JSON.stringify({
+            ...rec,
+            status: 'RESOLVED' as EscalationStatus,
+            resolved_at: new Date().toISOString(),
+            resolved_by: resolvedBy,
+          });
+        }
+      } catch { /* skip */ }
+      return line;
+    });
+
+    if (found) {
+      await this.fileSystem.writeFile(this.path, updated.join('\n') + '\n');
+      return true;
+    }
+    return false;
   }
 
   /**

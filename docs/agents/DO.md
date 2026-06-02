@@ -1,3 +1,5 @@
+<!-- CANONICAL SOURCE: docs/AGENTS.md — Hansei taxonomy, lifecycle rules, and idempotency rule are defined there. This file (DO.md) references those definitions; it does not redefine them. -->
+
 # DO.md
 <!-- ARCH v1.3.0 — Modular Execution -->
 <!-- Purpose: Execute tasks from docs/tasks/ or perform human-directed operations -->
@@ -156,3 +158,24 @@ The `scope-deviation` type supports a `retro: true` flag for deviations detected
 ### Cleanup rule
 
 Delete `.arch/task-logs/TASK-XXXX.jsonl` after the task's Hansei section is written. The log is execution scaffolding — its signal belongs in Hansei, not in permanent storage. Exception: keep the log if the Hansei references it directly via `ac_ref`.
+
+## Human-Authorship Detection
+
+Agents operating in a repo where human-authored commits and agent-authored commits coexist must apply these detection rules before treating any file as authoritative:
+
+### Detection signals
+
+A commit or file section is **human-authored** if any of:
+- Commit author is not `github-actions[bot]` or a known agent identifier
+- Commit message contains no `[TASK-XXX]` or `[THINK]` tag
+- File contains prose that is semantically inconsistent with adjacent agent output (tonal shift, first-person voice, non-standard formatting)
+
+A commit or file section is **agent-authored** if:
+- Commit message contains `[TASK-XXX]`, `[THINK]`, `[TICK-N]`, or `chore: [govern tick N]`
+- Commit author matches a known agent pattern (`claude-code`, `github-actions[bot]`)
+
+### Authorship-aware rules
+
+1. **Never overwrite human-authored content silently.** If a file was last touched by a human commit, treat its content as intentional. Propose changes via task, do not apply directly.
+2. **Human-authored INBOX entries are inviolable.** Lines without a machine prefix (`[AWAITING_TRIAGE]`, `[ANDON_HALT]`, etc.) were written by a human. Do not delete or reorder them in hygiene passes.
+3. **Conflict resolution:** When agent-generated content conflicts with human-authored content in the same file, the human content wins. File a task to reconcile; do not auto-resolve.

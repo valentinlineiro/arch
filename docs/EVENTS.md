@@ -360,3 +360,9 @@ TASK-1083 | DONE -> DONE | commit:90614bf | agent:human
 ## 2026-06-02T21:34:58.693Z
 TASK-1084 | DONE -> DONE | commit:5565b3d | agent:human
 
+## 2026-06-02T21:35:30.442Z
+FLOW_CHECK_PASS | CLI unit tests pass — regression guard for all core flows -> PASS | commit:a23821d | agent:human
+
+## 2026-06-02T21:35:30.466Z
+FLOW_CHECK_PASS | Structural validation passes — integrity review must be clean -> PASS | commit:a23821d | agent:human
+
