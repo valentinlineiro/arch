@@ -126,6 +126,12 @@
           ],
           "taskPath": "docs/archive/TASK-1074.md"
         },
+        "TASK-1079": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-1079.md"
+        },
         "TASK-157": {
           "evidenceKinds": [
             "depends",
@@ -803,6 +809,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-1010.md"
+        },
+        "TASK-1076": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-1076.md"
         },
         "TASK-208": {
           "evidenceKinds": [
@@ -4893,7 +4905,7 @@
       "title": "Archive Partitioning Strategy — Year-Month Subdirectories"
     }
   },
-  "builtAt": "2026-06-01T22:46:02.735Z",
+  "builtAt": "2026-06-02T05:02:37.535Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -5688,6 +5700,7 @@
         "cli/src/main/ts/application/commands/task-command.ts",
         "cli/src/main/ts/application/commands/trace-command.ts",
         "cli/src/main/ts/application/commands/triage-command.ts",
+        "cli/src/main/ts/application/commands/upgrade-command.ts",
         "cli/src/main/ts/application/commands/verify-acs-command.ts",
         "cli/src/main/ts/application/commands/version-command.ts",
         "cli/src/main/ts/application/use-cases/ask-corpus.ts",
@@ -6548,7 +6561,7 @@
       "imports": [
         "cli/src/main/ts/infrastructure/cli/output-formatter.ts"
       ],
-      "runtimeUsage": "cold",
+      "runtimeUsage": "hot",
       "symbols": [
         "UpgradeCommand"
       ],
@@ -10279,10 +10292,11 @@
       }
     },
     "TASK-1036": {
-      "commitCount": 3,
+      "commitCount": 4,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-06-01T22:31:56+00:00",
+      "lastCommitDate": "2026-06-01T22:46:23+00:00",
       "recentCommitRefs": [
+        "1a2b521",
         "2e8573b",
         "75133e8",
         "e497d7c"
@@ -10291,26 +10305,51 @@
         ".arch/causal-signal.jsonl": 1,
         ".arch/chronicle.jsonl": 1,
         ".arch/context-feedback.json": 1,
+        ".arch/corpus-index.json": 1,
         ".arch/focus-ledger.jsonl": 2,
+        ".arch/reflect-breach-log.jsonl": 1,
         ".arch/temporal-index.jsonl": 1,
-        "docs/EVENTS.md": 1,
+        "cli/src/main/ts/application/command-dispatcher.ts": 1,
+        "cli/src/main/ts/application/commands/upgrade-command.ts": 1,
+        "cli/src/main/ts/application/use-cases/checkers/base-checker.ts": 1,
+        "cli/src/main/ts/application/use-cases/checkers/checker-types.ts": 1,
+        "cli/src/main/ts/application/use-cases/checkers/governance-checker.ts": 1,
+        "cli/src/main/ts/application/use-cases/checkers/structural-checker.ts": 1,
+        "cli/src/main/ts/application/use-cases/checkers/task-health-checker.ts": 1,
+        "cli/src/main/ts/application/use-cases/drift-checker.ts": 1,
+        "cli/src/main/ts/application/use-cases/govern-system.ts": 1,
+        "docs/EVENTS.md": 2,
+        "docs/INBOX.md": 1,
         "docs/archive/TASK-1036.md": 1,
         "docs/tasks/TASK-1036.md": 2
       }
     },
     "TASK-1037": {
-      "commitCount": 1,
+      "commitCount": 2,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-06-01T22:45:24+00:00",
+      "lastCommitDate": "2026-06-01T22:46:23+00:00",
       "recentCommitRefs": [
+        "1a2b521",
         "a1dc015"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
         ".arch/chronicle.jsonl": 1,
         ".arch/context-feedback.json": 1,
+        ".arch/corpus-index.json": 1,
+        ".arch/reflect-breach-log.jsonl": 1,
         ".arch/temporal-index.jsonl": 1,
-        "docs/EVENTS.md": 1,
+        "cli/src/main/ts/application/command-dispatcher.ts": 1,
+        "cli/src/main/ts/application/commands/upgrade-command.ts": 1,
+        "cli/src/main/ts/application/use-cases/checkers/base-checker.ts": 1,
+        "cli/src/main/ts/application/use-cases/checkers/checker-types.ts": 1,
+        "cli/src/main/ts/application/use-cases/checkers/governance-checker.ts": 1,
+        "cli/src/main/ts/application/use-cases/checkers/structural-checker.ts": 1,
+        "cli/src/main/ts/application/use-cases/checkers/task-health-checker.ts": 1,
+        "cli/src/main/ts/application/use-cases/drift-checker.ts": 1,
+        "cli/src/main/ts/application/use-cases/govern-system.ts": 1,
+        "docs/EVENTS.md": 2,
+        "docs/INBOX.md": 1,
         "docs/archive/TASK-1037.md": 1,
         "docs/tasks/TASK-1037.md": 1
       }
@@ -10536,32 +10575,58 @@
       }
     },
     "TASK-1055": {
-      "commitCount": 1,
+      "commitCount": 2,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-06-01T19:57:52+00:00",
+      "lastCommitDate": "2026-06-01T22:46:23+00:00",
       "recentCommitRefs": [
+        "1a2b521",
         "6614770"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
         ".arch/chronicle.jsonl": 1,
+        ".arch/corpus-index.json": 1,
+        ".arch/reflect-breach-log.jsonl": 1,
         ".arch/temporal-index.jsonl": 1,
-        "docs/EVENTS.md": 1,
+        "cli/src/main/ts/application/command-dispatcher.ts": 1,
+        "cli/src/main/ts/application/commands/upgrade-command.ts": 1,
+        "cli/src/main/ts/application/use-cases/checkers/base-checker.ts": 1,
+        "cli/src/main/ts/application/use-cases/checkers/checker-types.ts": 1,
+        "cli/src/main/ts/application/use-cases/checkers/governance-checker.ts": 1,
+        "cli/src/main/ts/application/use-cases/checkers/structural-checker.ts": 1,
+        "cli/src/main/ts/application/use-cases/checkers/task-health-checker.ts": 1,
+        "cli/src/main/ts/application/use-cases/drift-checker.ts": 1,
+        "cli/src/main/ts/application/use-cases/govern-system.ts": 1,
+        "docs/EVENTS.md": 2,
+        "docs/INBOX.md": 1,
         "docs/archive/TASK-1055.md": 1
       }
     },
     "TASK-1056": {
-      "commitCount": 1,
+      "commitCount": 2,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-06-01T19:57:52+00:00",
+      "lastCommitDate": "2026-06-01T22:46:23+00:00",
       "recentCommitRefs": [
+        "1a2b521",
         "fdb58c4"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
         ".arch/chronicle.jsonl": 1,
+        ".arch/corpus-index.json": 1,
+        ".arch/reflect-breach-log.jsonl": 1,
         ".arch/temporal-index.jsonl": 1,
-        "docs/EVENTS.md": 1,
+        "cli/src/main/ts/application/command-dispatcher.ts": 1,
+        "cli/src/main/ts/application/commands/upgrade-command.ts": 1,
+        "cli/src/main/ts/application/use-cases/checkers/base-checker.ts": 1,
+        "cli/src/main/ts/application/use-cases/checkers/checker-types.ts": 1,
+        "cli/src/main/ts/application/use-cases/checkers/governance-checker.ts": 1,
+        "cli/src/main/ts/application/use-cases/checkers/structural-checker.ts": 1,
+        "cli/src/main/ts/application/use-cases/checkers/task-health-checker.ts": 1,
+        "cli/src/main/ts/application/use-cases/drift-checker.ts": 1,
+        "cli/src/main/ts/application/use-cases/govern-system.ts": 1,
+        "docs/EVENTS.md": 2,
+        "docs/INBOX.md": 1,
         "docs/archive/TASK-1056.md": 1
       }
     },
@@ -12115,6 +12180,18 @@
         "docs/archive/TASK-1074.md": 1,
         "docs/tasks/TASK-1024.md": 1,
         "docs/tasks/TASK-1074.md": 2
+      }
+    },
+    "TASK-1075": {
+      "commitCount": 1,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-06-02T05:02:08+00:00",
+      "recentCommitRefs": [
+        "34d6184"
+      ],
+      "touchedFrequency": {
+        ".arch/focus-ledger.jsonl": 1,
+        "docs/tasks/TASK-1075.md": 1
       }
     },
     "TASK-264": {
