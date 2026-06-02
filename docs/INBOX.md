@@ -118,4 +118,16 @@ Evidence: Persistent breach (23 consecutive cycles): Engagement 41% is below thr
 Evidence: Persistent breach (24 consecutive cycles): Engagement 41% is below threshold 50% — attribution discipline review required
 
 ## 2026-06-02 05:14:59 — Pattern Alerts
+
+## [2026-06-02 05:16] INFLUENCE_BREACH_PERSISTENT | REFLECT
+Evidence: Persistent breach (25 consecutive cycles): Engagement 41% is below threshold 50% — attribution discipline review required
+
+## 2026-06-02 05:17:06 — Pattern Alerts
+
+## [2026-06-02 05:21] INFLUENCE_BREACH_PERSISTENT | REFLECT
+Evidence: Persistent breach (26 consecutive cycles): Engagement 41% is below threshold 50% — attribution discipline review required
+
+## 2026-06-02 05:22:11 — Pattern Alerts
 [PATTERN-ALERT] [SpecDrift] detected 8 times — systemic issue. See docs/tensions/
+
+AWAITING_PROMOTION | IDEA-modular-activation | 2026-06-02 — no Decision field set
