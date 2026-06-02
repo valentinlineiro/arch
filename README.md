@@ -210,6 +210,9 @@ arch inbox                            # View governance inbox
 arch sentinel                         # Sentinel coverage check
 arch index                            # Rebuild context index
 arch init                             # Initialize ARCH in a repo
+arch fix                              # Apply a targeted fix to a task or protocol issue
+arch triage                           # Triage incoming IDEAs from remote sources
+arch upgrade                          # Upgrade ARCH CLI to the latest published version
 arch version                          # Show CLI version
 arch status                           # High-level sprint and task progress
 ```
