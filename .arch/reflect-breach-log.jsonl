@@ -655,3 +655,7 @@
 {"timestamp":"2026-06-02T05:27:50.222Z","rule":"observability_gap","breached":false}
 {"timestamp":"2026-06-02T05:28:56.973Z","rule":"engagement","breached":true}
 {"timestamp":"2026-06-02T05:28:56.973Z","rule":"observability_gap","breached":false}
+{"timestamp":"2026-06-02T06:41:37.732Z","rule":"engagement","breached":true}
+{"timestamp":"2026-06-02T06:41:37.732Z","rule":"observability_gap","breached":false}
+{"timestamp":"2026-06-02T07:29:15.522Z","rule":"engagement","breached":true}
+{"timestamp":"2026-06-02T07:29:15.522Z","rule":"observability_gap","breached":false}
