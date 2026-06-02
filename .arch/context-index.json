@@ -156,6 +156,18 @@
           ],
           "taskPath": "docs/tasks/TASK-1084.md"
         },
+        "TASK-1086": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-1086.md"
+        },
+        "TASK-1087": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-1087.md"
+        },
         "TASK-157": {
           "evidenceKinds": [
             "depends",
@@ -202,6 +214,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-1050.md"
+        },
+        "TASK-1085": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-1085.md"
         },
         "TASK-969": {
           "evidenceKinds": [
@@ -308,6 +326,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/tasks/TASK-1084.md"
+        },
+        "TASK-1087": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-1087.md"
         },
         "TASK-160": {
           "evidenceKinds": [
@@ -500,6 +524,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-1077.md"
+        },
+        "TASK-1087": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-1087.md"
         },
         "TASK-242": {
           "evidenceKinds": [
@@ -714,6 +744,12 @@
           ],
           "taskPath": "docs/archive/TASK-1079.md"
         },
+        "TASK-1087": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-1087.md"
+        },
         "TASK-272": {
           "evidenceKinds": [
             "literal-mention"
@@ -825,6 +861,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-1082.md"
+        },
+        "TASK-1085": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-1085.md"
         },
         "TASK-967": {
           "evidenceKinds": [
@@ -1138,6 +1180,12 @@
           ],
           "taskPath": "docs/tasks/TASK-1084.md"
         },
+        "TASK-1086": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-1086.md"
+        },
         "TASK-231": {
           "evidenceKinds": [
             "context-path",
@@ -1268,6 +1316,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/tasks/TASK-1081.md"
+        },
+        "TASK-1086": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-1086.md"
         },
         "TASK-225": {
           "evidenceKinds": [
@@ -1895,6 +1949,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/tasks/TASK-1083.md"
+        },
+        "TASK-1085": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-1085.md"
         },
         "TASK-958": {
           "evidenceKinds": [
@@ -5091,7 +5151,7 @@
       "title": "Archive Partitioning Strategy — Year-Month Subdirectories"
     }
   },
-  "builtAt": "2026-06-02T09:11:29.850Z",
+  "builtAt": "2026-06-02T09:40:08.407Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -10281,7 +10341,7 @@
       }
     },
     "TASK-1009": {
-      "commitCount": 23,
+      "commitCount": 21,
       "commitRefOverflow": true,
       "lastCommitDate": "2026-05-25T18:46:21+02:00",
       "recentCommitRefs": [
@@ -10308,14 +10368,14 @@
       ],
       "touchedFrequency": {
         ".arch/chronicle.jsonl": 1,
-        ".arch/focus-ledger.jsonl": 20,
+        ".arch/focus-ledger.jsonl": 18,
         "cli/src/main/ts/application/commands/govern-command.ts": 1,
         "cli/src/main/ts/application/use-cases/govern-system.ts": 1,
         "cli/src/main/ts/application/use-cases/inbox-hygiene.ts": 1,
         "cli/src/test/ts/inbox-hygiene.test.ts": 1,
         "docs/INBOX.md": 1,
         "docs/archive/TASK-1009.md": 1,
-        "docs/tasks/TASK-1009.md": 3
+        "docs/tasks/TASK-1009.md": 2
       }
     },
     "TASK-101": {
@@ -12469,19 +12529,20 @@
       }
     },
     "TASK-1081": {
-      "commitCount": 6,
+      "commitCount": 7,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-06-02T11:11:17+02:00",
+      "lastCommitDate": "2026-06-02T11:39:58+02:00",
       "recentCommitRefs": [
         "12dc1add",
         "1d24d76b",
         "5c458f90",
+        "7c5e3bef",
         "8a671c82",
         "d5cfa396",
         "ea82af70"
       ],
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 3,
+        ".arch/focus-ledger.jsonl": 4,
         "docs/tasks/TASK-1081.md": 4,
         "docs/tasks/TASK-1082.md": 2,
         "docs/tasks/TASK-1083.md": 1,
@@ -12555,6 +12616,23 @@
         "docs/tasks/TASK-1082.md": 1,
         "docs/tasks/TASK-1083.md": 1,
         "docs/tasks/TASK-1084.md": 1
+      }
+    },
+    "TASK-1085": {
+      "commitCount": 1,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-06-02T11:39:12+02:00",
+      "recentCommitRefs": [
+        "2ce75cf1"
+      ],
+      "touchedFrequency": {
+        "docs/refinement/IDEA-decision-authorship-rule.md": 1,
+        "docs/refinement/IDEA-decision-integrity-check.md": 1,
+        "docs/refinement/IDEA-incoming-triage-signal.md": 1,
+        "docs/refinement/IDEA-replenishment-backlog-cap.md": 1,
+        "docs/tasks/TASK-1085.md": 1,
+        "docs/tasks/TASK-1086.md": 1,
+        "docs/tasks/TASK-1087.md": 1
       }
     },
     "TASK-161": {
