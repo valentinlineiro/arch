@@ -4995,7 +4995,7 @@
       "title": "Archive Partitioning Strategy — Year-Month Subdirectories"
     }
   },
-  "builtAt": "2026-06-02T05:14:59.024Z",
+  "builtAt": "2026-06-02T05:17:06.743Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -12273,23 +12273,30 @@
       }
     },
     "TASK-1075": {
-      "commitCount": 3,
+      "commitCount": 4,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-06-02T05:08:14+00:00",
+      "lastCommitDate": "2026-06-02T05:15:21+00:00",
       "recentCommitRefs": [
         "18dafc1",
         "34d6184",
+        "9ca9084",
         "d7ba7f8"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
         ".arch/chronicle.jsonl": 1,
         ".arch/context-feedback.json": 1,
+        ".arch/corpus-index.json": 1,
         ".arch/focus-ledger.jsonl": 1,
-        ".arch/reflect-breach-log.jsonl": 1,
+        ".arch/reflect-breach-log.jsonl": 2,
         ".arch/temporal-index.jsonl": 1,
-        "docs/EVENTS.md": 2,
-        "docs/INBOX.md": 1,
+        ".github/workflows/version-tag.yml": 1,
+        "cli/src/main/ts/application/use-cases/build-index.ts": 1,
+        "cli/src/main/ts/application/use-cases/checkers/structural-checker.ts": 1,
+        "cli/src/main/ts/application/use-cases/govern-system.ts": 1,
+        "cli/src/main/ts/application/use-cases/mark-task-done.ts": 1,
+        "docs/EVENTS.md": 3,
+        "docs/INBOX.md": 2,
         "docs/archive/TASK-1075.md": 1,
         "docs/refinement/IDEA-arch-release-and-cd.md": 1,
         "docs/refinement/IDEA-chronicle-govern-coverage.md": 1,
@@ -12307,76 +12314,114 @@
         "docs/tasks/TASK-1076.md": 1,
         "docs/tasks/TASK-1077.md": 1,
         "docs/tasks/TASK-1078.md": 1,
-        "docs/tasks/TASK-1079.md": 1
+        "docs/tasks/TASK-1079.md": 1,
+        "docs/tensions/TENSION-005-specdrift.md": 1
       }
     },
     "TASK-1076": {
-      "commitCount": 1,
+      "commitCount": 2,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-06-02T05:09:33+00:00",
+      "lastCommitDate": "2026-06-02T05:15:21+00:00",
       "recentCommitRefs": [
-        "79acbff"
+        "79acbff",
+        "9ca9084"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
         ".arch/chronicle.jsonl": 1,
         ".arch/context-feedback.json": 1,
+        ".arch/corpus-index.json": 1,
+        ".arch/reflect-breach-log.jsonl": 1,
         ".arch/temporal-index.jsonl": 1,
-        "docs/EVENTS.md": 1,
+        ".github/workflows/version-tag.yml": 1,
+        "cli/src/main/ts/application/use-cases/build-index.ts": 1,
+        "cli/src/main/ts/application/use-cases/checkers/structural-checker.ts": 1,
+        "cli/src/main/ts/application/use-cases/govern-system.ts": 1,
+        "cli/src/main/ts/application/use-cases/mark-task-done.ts": 1,
+        "docs/EVENTS.md": 2,
+        "docs/INBOX.md": 1,
         "docs/archive/TASK-1076.md": 1,
-        "docs/tasks/TASK-1076.md": 1
+        "docs/tasks/TASK-1076.md": 1,
+        "docs/tensions/TENSION-005-specdrift.md": 1
       }
     },
     "TASK-1077": {
-      "commitCount": 1,
+      "commitCount": 2,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-06-02T05:10:47+00:00",
+      "lastCommitDate": "2026-06-02T05:15:21+00:00",
       "recentCommitRefs": [
-        "7920e20"
+        "7920e20",
+        "9ca9084"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
         ".arch/chronicle.jsonl": 1,
         ".arch/context-feedback.json": 1,
+        ".arch/corpus-index.json": 1,
+        ".arch/reflect-breach-log.jsonl": 1,
         ".arch/temporal-index.jsonl": 1,
-        "docs/EVENTS.md": 1,
+        ".github/workflows/version-tag.yml": 1,
+        "cli/src/main/ts/application/use-cases/build-index.ts": 1,
+        "cli/src/main/ts/application/use-cases/checkers/structural-checker.ts": 1,
+        "cli/src/main/ts/application/use-cases/govern-system.ts": 1,
+        "cli/src/main/ts/application/use-cases/mark-task-done.ts": 1,
+        "docs/EVENTS.md": 2,
+        "docs/INBOX.md": 1,
         "docs/archive/TASK-1077.md": 1,
-        "docs/tasks/TASK-1077.md": 1
+        "docs/tasks/TASK-1077.md": 1,
+        "docs/tensions/TENSION-005-specdrift.md": 1
       }
     },
     "TASK-1078": {
-      "commitCount": 1,
+      "commitCount": 2,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-06-02T05:12:35+00:00",
+      "lastCommitDate": "2026-06-02T05:15:21+00:00",
       "recentCommitRefs": [
+        "9ca9084",
         "ebbb546"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
         ".arch/chronicle.jsonl": 1,
         ".arch/context-feedback.json": 1,
+        ".arch/corpus-index.json": 1,
+        ".arch/reflect-breach-log.jsonl": 1,
         ".arch/temporal-index.jsonl": 1,
-        "docs/EVENTS.md": 1,
+        ".github/workflows/version-tag.yml": 1,
+        "cli/src/main/ts/application/use-cases/build-index.ts": 1,
+        "cli/src/main/ts/application/use-cases/checkers/structural-checker.ts": 1,
+        "cli/src/main/ts/application/use-cases/govern-system.ts": 1,
+        "cli/src/main/ts/application/use-cases/mark-task-done.ts": 1,
+        "docs/EVENTS.md": 2,
+        "docs/INBOX.md": 1,
         "docs/archive/TASK-1078.md": 1,
-        "docs/tasks/TASK-1078.md": 1
+        "docs/tasks/TASK-1078.md": 1,
+        "docs/tensions/TENSION-005-specdrift.md": 1
       }
     },
     "TASK-1079": {
-      "commitCount": 2,
+      "commitCount": 3,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-06-02T05:12:08+00:00",
+      "lastCommitDate": "2026-06-02T05:15:21+00:00",
       "recentCommitRefs": [
         "007cd84",
+        "9ca9084",
         "d7ba7f8"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
         ".arch/chronicle.jsonl": 1,
         ".arch/context-feedback.json": 1,
-        ".arch/reflect-breach-log.jsonl": 1,
+        ".arch/corpus-index.json": 1,
+        ".arch/reflect-breach-log.jsonl": 2,
         ".arch/temporal-index.jsonl": 1,
-        "docs/EVENTS.md": 2,
-        "docs/INBOX.md": 1,
+        ".github/workflows/version-tag.yml": 1,
+        "cli/src/main/ts/application/use-cases/build-index.ts": 1,
+        "cli/src/main/ts/application/use-cases/checkers/structural-checker.ts": 1,
+        "cli/src/main/ts/application/use-cases/govern-system.ts": 1,
+        "cli/src/main/ts/application/use-cases/mark-task-done.ts": 1,
+        "docs/EVENTS.md": 3,
+        "docs/INBOX.md": 2,
         "docs/archive/TASK-1079.md": 1,
         "docs/refinement/IDEA-arch-release-and-cd.md": 1,
         "docs/refinement/IDEA-chronicle-govern-coverage.md": 1,
@@ -12394,7 +12439,8 @@
         "docs/tasks/TASK-1076.md": 1,
         "docs/tasks/TASK-1077.md": 1,
         "docs/tasks/TASK-1078.md": 1,
-        "docs/tasks/TASK-1079.md": 2
+        "docs/tasks/TASK-1079.md": 2,
+        "docs/tensions/TENSION-005-specdrift.md": 1
       }
     },
     "TASK-264": {
