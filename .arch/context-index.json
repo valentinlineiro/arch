@@ -126,11 +126,17 @@
           ],
           "taskPath": "docs/archive/TASK-1074.md"
         },
+        "TASK-1078": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1078.md"
+        },
         "TASK-1079": {
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-1079.md"
+          "taskPath": "docs/archive/TASK-1079.md"
         },
         "TASK-157": {
           "evidenceKinds": [
@@ -266,6 +272,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-1074.md"
+        },
+        "TASK-1078": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1078.md"
         },
         "TASK-160": {
           "evidenceKinds": [
@@ -446,6 +458,18 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-1074.md"
+        },
+        "TASK-1076": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1076.md"
+        },
+        "TASK-1077": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1077.md"
         },
         "TASK-242": {
           "evidenceKinds": [
@@ -648,6 +672,18 @@
           ],
           "taskPath": "docs/archive/TASK-1072.md"
         },
+        "TASK-1076": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1076.md"
+        },
+        "TASK-1079": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1079.md"
+        },
         "TASK-272": {
           "evidenceKinds": [
             "literal-mention"
@@ -742,6 +778,12 @@
           ],
           "taskPath": "docs/archive/TASK-1068.md"
         },
+        "TASK-1075": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1075.md"
+        },
         "TASK-967": {
           "evidenceKinds": [
             "literal-mention"
@@ -769,6 +811,18 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-1050.md"
+        },
+        "TASK-1075": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1075.md"
+        },
+        "TASK-1078": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1078.md"
         },
         "TASK-233": {
           "evidenceKinds": [
@@ -814,7 +868,7 @@
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-1076.md"
+          "taskPath": "docs/archive/TASK-1076.md"
         },
         "TASK-208": {
           "evidenceKinds": [
@@ -1091,6 +1145,12 @@
           ],
           "taskPath": "docs/archive/TASK-1070.md"
         },
+        "TASK-1079": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1079.md"
+        },
         "TASK-224": {
           "evidenceKinds": [
             "literal-mention"
@@ -1130,6 +1190,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-1072.md"
+        },
+        "TASK-1077": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1077.md"
         },
         "TASK-225": {
           "evidenceKinds": [
@@ -1236,6 +1302,24 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-1069.md"
+        },
+        "TASK-1075": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1075.md"
+        },
+        "TASK-1076": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1076.md"
+        },
+        "TASK-1077": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1077.md"
         },
         "TASK-202": {
           "evidenceKinds": [
@@ -1568,6 +1652,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-1073.md"
+        },
+        "TASK-1078": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1078.md"
         },
         "TASK-958": {
           "evidenceKinds": [
@@ -4905,7 +4995,7 @@
       "title": "Archive Partitioning Strategy — Year-Month Subdirectories"
     }
   },
-  "builtAt": "2026-06-02T05:02:37.535Z",
+  "builtAt": "2026-06-02T05:14:59.024Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -12183,15 +12273,128 @@
       }
     },
     "TASK-1075": {
-      "commitCount": 1,
+      "commitCount": 3,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-06-02T05:02:08+00:00",
+      "lastCommitDate": "2026-06-02T05:08:14+00:00",
       "recentCommitRefs": [
-        "34d6184"
+        "18dafc1",
+        "34d6184",
+        "d7ba7f8"
       ],
       "touchedFrequency": {
+        ".arch/causal-signal.jsonl": 1,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/context-feedback.json": 1,
         ".arch/focus-ledger.jsonl": 1,
-        "docs/tasks/TASK-1075.md": 1
+        ".arch/reflect-breach-log.jsonl": 1,
+        ".arch/temporal-index.jsonl": 1,
+        "docs/EVENTS.md": 2,
+        "docs/INBOX.md": 1,
+        "docs/archive/TASK-1075.md": 1,
+        "docs/refinement/IDEA-arch-release-and-cd.md": 1,
+        "docs/refinement/IDEA-chronicle-govern-coverage.md": 1,
+        "docs/refinement/IDEA-context-injector-planned-artifact-projection.md": 1,
+        "docs/refinement/IDEA-dual-truth-reconciliation.md": 1,
+        "docs/refinement/IDEA-phase-aware-sprint-close.md": 1,
+        "docs/refinement/IDEA-promotion-decision-support.md": 1,
+        "docs/refinement/IDEA-stub-e2e-coverage-prompt.md": 1,
+        "docs/refinement/IDEA-xs-close-path-completion.md": 1,
+        "docs/refinement/archive/IDEA-govern-rebuild-context-before-focus.md": 1,
+        "docs/refinement/archive/IDEA-idea-adjudication-throughput.md": 1,
+        "docs/refinement/archive/IDEA-inbox-stable-ledger-invariant.md": 1,
+        "docs/refinement/archive/IDEA-user-issue-reporting.md": 1,
+        "docs/tasks/TASK-1075.md": 3,
+        "docs/tasks/TASK-1076.md": 1,
+        "docs/tasks/TASK-1077.md": 1,
+        "docs/tasks/TASK-1078.md": 1,
+        "docs/tasks/TASK-1079.md": 1
+      }
+    },
+    "TASK-1076": {
+      "commitCount": 1,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-06-02T05:09:33+00:00",
+      "recentCommitRefs": [
+        "79acbff"
+      ],
+      "touchedFrequency": {
+        ".arch/causal-signal.jsonl": 1,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/context-feedback.json": 1,
+        ".arch/temporal-index.jsonl": 1,
+        "docs/EVENTS.md": 1,
+        "docs/archive/TASK-1076.md": 1,
+        "docs/tasks/TASK-1076.md": 1
+      }
+    },
+    "TASK-1077": {
+      "commitCount": 1,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-06-02T05:10:47+00:00",
+      "recentCommitRefs": [
+        "7920e20"
+      ],
+      "touchedFrequency": {
+        ".arch/causal-signal.jsonl": 1,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/context-feedback.json": 1,
+        ".arch/temporal-index.jsonl": 1,
+        "docs/EVENTS.md": 1,
+        "docs/archive/TASK-1077.md": 1,
+        "docs/tasks/TASK-1077.md": 1
+      }
+    },
+    "TASK-1078": {
+      "commitCount": 1,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-06-02T05:12:35+00:00",
+      "recentCommitRefs": [
+        "ebbb546"
+      ],
+      "touchedFrequency": {
+        ".arch/causal-signal.jsonl": 1,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/context-feedback.json": 1,
+        ".arch/temporal-index.jsonl": 1,
+        "docs/EVENTS.md": 1,
+        "docs/archive/TASK-1078.md": 1,
+        "docs/tasks/TASK-1078.md": 1
+      }
+    },
+    "TASK-1079": {
+      "commitCount": 2,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-06-02T05:12:08+00:00",
+      "recentCommitRefs": [
+        "007cd84",
+        "d7ba7f8"
+      ],
+      "touchedFrequency": {
+        ".arch/causal-signal.jsonl": 1,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/context-feedback.json": 1,
+        ".arch/reflect-breach-log.jsonl": 1,
+        ".arch/temporal-index.jsonl": 1,
+        "docs/EVENTS.md": 2,
+        "docs/INBOX.md": 1,
+        "docs/archive/TASK-1079.md": 1,
+        "docs/refinement/IDEA-arch-release-and-cd.md": 1,
+        "docs/refinement/IDEA-chronicle-govern-coverage.md": 1,
+        "docs/refinement/IDEA-context-injector-planned-artifact-projection.md": 1,
+        "docs/refinement/IDEA-dual-truth-reconciliation.md": 1,
+        "docs/refinement/IDEA-phase-aware-sprint-close.md": 1,
+        "docs/refinement/IDEA-promotion-decision-support.md": 1,
+        "docs/refinement/IDEA-stub-e2e-coverage-prompt.md": 1,
+        "docs/refinement/IDEA-xs-close-path-completion.md": 1,
+        "docs/refinement/archive/IDEA-govern-rebuild-context-before-focus.md": 1,
+        "docs/refinement/archive/IDEA-idea-adjudication-throughput.md": 1,
+        "docs/refinement/archive/IDEA-inbox-stable-ledger-invariant.md": 1,
+        "docs/refinement/archive/IDEA-user-issue-reporting.md": 1,
+        "docs/tasks/TASK-1075.md": 1,
+        "docs/tasks/TASK-1076.md": 1,
+        "docs/tasks/TASK-1077.md": 1,
+        "docs/tasks/TASK-1078.md": 1,
+        "docs/tasks/TASK-1079.md": 2
       }
     },
     "TASK-264": {
