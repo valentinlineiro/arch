@@ -129,3 +129,35 @@ Performance improvements sprint. Anchored on the `getById` full-scan bottleneck:
 
 ---
 <!-- Add new retros above this line -->
+
+---
+
+## Sprint: sprint/v1.2.1-2026-05 → v1.3.0
+**Closed:** 2026-06-02 | **Velocity:** 50 tasks | **Duration:** 6 days
+
+### What shipped
+
+**PLG onboarding surface** — arch init with post-bootstrap scan, enforcement demo moment, arch fix command, arch help two-tier surface. First-use friction reduced.
+
+**Corpus federation** — syncRemotes() on govern tick, smartcart-os wired as remote. IDEA pipeline: pilot-user feedback → IDEA files → AWAITING_TRIAGE in INBOX → arch triage command.
+
+**Compliance report** — arch audit --report: governance rule inventory, chronicle summary, enforcement separation attestation (PASS), gap analysis. JSON + Markdown output.
+
+**DriftChecker decomposition** — 1530 → 78 lines (thin orchestrator). Three checker groups: TaskHealthChecker (13 methods), StructuralChecker (11 methods), GovernanceChecker (10 methods).
+
+**GovernSystem decomposition** — execute() 206 → 92 lines. 9 named private methods extracted.
+
+**arch upgrade** — version check + npm install -g. Protocol stub.
+
+**arch triage** — P/N/D/S flow for incoming remote IDEAs.
+
+**IDEA adjudication** — 12 IDEAs resolved: 4 archived (superseded), 5 promoted as tasks, 3 deferred with conditions.
+
+**5 tasks from IDEA adjudication** — Flow regression risk gate, XS lightweight close path, phase-aware sprint close, CD pipeline, context injector projection fix.
+
+**TASK-275 rejected** — human-state qualifiers misaligned with deterministic governance model.
+
+### Next sprint: v1.3.0-2026-06
+
+Primary: TASK-1080 — modular ARCH activation (archProfile + modules block). Reduces onboarding curve for new adopters.
+

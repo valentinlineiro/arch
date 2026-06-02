@@ -1,8 +1,8 @@
 {
   "version": 1,
-  "builtAt": "2026-06-02T05:14:32.215Z",
-  "archiveCommit": "469:design",
-  "taskCount": 253,
+  "builtAt": "2026-06-02T05:27:50.315Z",
+  "archiveCommit": "470:design",
+  "taskCount": 254,
   "entries": {
     "TASK-1000": {
       "id": "TASK-1000",
@@ -2723,6 +2723,23 @@
       "acCount": 0,
       "acMachineVerifiable": 0,
       "closurePath": "auditor"
+    },
+    "TASK-275": {
+      "id": "TASK-275",
+      "size": "S",
+      "class": "6-writing",
+      "closedAt": "2026-06-02T05:27:43.991Z",
+      "lockedCommit": null,
+      "actor": null,
+      "severity": "H1",
+      "category": "[SpecDrift]",
+      "decision": "REJECTED. Human-state qualifiers (energy levels, emotional state, focus modes) are misaligned with ARCH direction. ARCH governs work structure, not human state. Injecting human-state signals into the task priority model adds subjectivity and undermines the deterministic governance guarantee. The problem this task addressed (poor task selection when the human is tired) is better solved by the operator choosing not to run arch govern.",
+      "constraint": "Rejection is final. If pilot data shows human-state signals improve outcomes measurably, re-file as a new IDEA with evidence.",
+      "cost": "No implementation cost — task rejected before any work.",
+      "forwardAction": "None. If human state signals become relevant, file a new IDEA with concrete evidence from real usage.",
+      "acCount": 0,
+      "acMachineVerifiable": 0,
+      "closurePath": "L3"
     },
     "TASK-276": {
       "id": "TASK-276",
