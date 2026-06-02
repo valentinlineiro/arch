@@ -142,7 +142,7 @@
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-1082.md"
+          "taskPath": "docs/archive/TASK-1082.md"
         },
         "TASK-1083": {
           "evidenceKinds": [
@@ -301,7 +301,7 @@
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-1082.md"
+          "taskPath": "docs/archive/TASK-1082.md"
         },
         "TASK-1084": {
           "evidenceKinds": [
@@ -824,7 +824,7 @@
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-1082.md"
+          "taskPath": "docs/archive/TASK-1082.md"
         },
         "TASK-967": {
           "evidenceKinds": [
@@ -1398,6 +1398,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-1080.md"
+        },
+        "TASK-1082": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1082.md"
         },
         "TASK-202": {
           "evidenceKinds": [
@@ -5085,7 +5091,7 @@
       "title": "Archive Partitioning Strategy — Year-Month Subdirectories"
     }
   },
-  "builtAt": "2026-06-02T08:31:22.071Z",
+  "builtAt": "2026-06-02T09:11:29.850Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -6810,6 +6816,29 @@
         "version"
       ]
     },
+    "cli/src/main/ts/application/use-cases/alert-fatigue-store.ts": {
+      "criticality": "domain",
+      "imports": [
+        "cli/src/main/ts/domain/repositories/file-system.ts",
+        "cli/src/main/ts/domain/services/path-resolver.ts"
+      ],
+      "runtimeUsage": "cold",
+      "symbols": [
+        "AlertFatigueRecord",
+        "AlertFatigueStore",
+        "ThrottleAction"
+      ],
+      "tags": [
+        "action",
+        "alert",
+        "application",
+        "cases",
+        "fatigue",
+        "record",
+        "store",
+        "throttle"
+      ]
+    },
     "cli/src/main/ts/application/use-cases/ask-corpus.ts": {
       "criticality": "domain",
       "imports": [
@@ -7527,6 +7556,7 @@
     "cli/src/main/ts/application/use-cases/hansei-synthesizer.ts": {
       "criticality": "domain",
       "imports": [
+        "cli/src/main/ts/application/use-cases/alert-fatigue-store.ts",
         "cli/src/main/ts/application/use-cases/corpus-index.ts",
         "cli/src/main/ts/domain/repositories/file-system.ts",
         "cli/src/main/ts/domain/repositories/git-repository.ts",
@@ -10250,28 +10280,6 @@
         "docs/tensions/TENSION-005-specdrift.md": 1
       }
     },
-    "TASK-1008": {
-      "commitCount": 6,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-25T18:34:29+02:00",
-      "recentCommitRefs": [
-        "0b6648a0",
-        "0ee7f274",
-        "11bf46ed",
-        "135b8191",
-        "cd0c3211",
-        "e236c7f3"
-      ],
-      "touchedFrequency": {
-        ".arch/chronicle.jsonl": 1,
-        ".arch/focus-ledger.jsonl": 1,
-        "cli/src/main/ts/application/commands/status-command.ts": 1,
-        "cli/src/test/ts/status-alerts.test.ts": 1,
-        "docs/INBOX.md": 1,
-        "docs/archive/TASK-1008.md": 1,
-        "docs/tasks/TASK-1008.md": 3
-      }
-    },
     "TASK-1009": {
       "commitCount": 23,
       "commitRefOverflow": true,
@@ -10319,17 +10327,6 @@
       ],
       "touchedFrequency": {
         "docs/archive/TASK-101.md": 1
-      }
-    },
-    "TASK-1015": {
-      "commitCount": 1,
-      "commitRefOverflow": false,
-      "lastCommitDate": "2026-05-25T18:25:39+02:00",
-      "recentCommitRefs": [
-        "a449300b"
-      ],
-      "touchedFrequency": {
-        ".arch/chronicle.jsonl": 1
       }
     },
     "TASK-1016": {
@@ -12226,14 +12223,15 @@
       }
     },
     "TASK-1075": {
-      "commitCount": 4,
+      "commitCount": 5,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-06-02T05:15:21+00:00",
+      "lastCommitDate": "2026-06-02T10:32:51+02:00",
       "recentCommitRefs": [
         "18dafc13",
         "34d6184e",
         "9ca9084b",
-        "d7ba7f8b"
+        "d7ba7f8b",
+        "d944e3ff"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
@@ -12259,10 +12257,16 @@
         "docs/refinement/IDEA-promotion-decision-support.md": 1,
         "docs/refinement/IDEA-stub-e2e-coverage-prompt.md": 1,
         "docs/refinement/IDEA-xs-close-path-completion.md": 1,
+        "docs/refinement/archive/IDEA-arch-release-and-cd.md": 1,
+        "docs/refinement/archive/IDEA-context-injector-planned-artifact-projection.md": 1,
         "docs/refinement/archive/IDEA-govern-rebuild-context-before-focus.md": 1,
         "docs/refinement/archive/IDEA-idea-adjudication-throughput.md": 1,
         "docs/refinement/archive/IDEA-inbox-stable-ledger-invariant.md": 1,
+        "docs/refinement/archive/IDEA-modular-activation.md": 1,
+        "docs/refinement/archive/IDEA-phase-aware-sprint-close.md": 1,
+        "docs/refinement/archive/IDEA-stub-e2e-coverage-prompt.md": 1,
         "docs/refinement/archive/IDEA-user-issue-reporting.md": 1,
+        "docs/refinement/archive/IDEA-xs-close-path-completion.md": 1,
         "docs/tasks/TASK-1075.md": 3,
         "docs/tasks/TASK-1076.md": 1,
         "docs/tasks/TASK-1077.md": 1,
@@ -12272,12 +12276,13 @@
       }
     },
     "TASK-1076": {
-      "commitCount": 2,
+      "commitCount": 3,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-06-02T05:15:21+00:00",
+      "lastCommitDate": "2026-06-02T10:32:51+02:00",
       "recentCommitRefs": [
         "79acbff2",
-        "9ca9084b"
+        "9ca9084b",
+        "d944e3ff"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
@@ -12294,17 +12299,24 @@
         "docs/EVENTS.md": 2,
         "docs/INBOX.md": 1,
         "docs/archive/TASK-1076.md": 1,
+        "docs/refinement/archive/IDEA-arch-release-and-cd.md": 1,
+        "docs/refinement/archive/IDEA-context-injector-planned-artifact-projection.md": 1,
+        "docs/refinement/archive/IDEA-modular-activation.md": 1,
+        "docs/refinement/archive/IDEA-phase-aware-sprint-close.md": 1,
+        "docs/refinement/archive/IDEA-stub-e2e-coverage-prompt.md": 1,
+        "docs/refinement/archive/IDEA-xs-close-path-completion.md": 1,
         "docs/tasks/TASK-1076.md": 1,
         "docs/tensions/TENSION-005-specdrift.md": 1
       }
     },
     "TASK-1077": {
-      "commitCount": 2,
+      "commitCount": 3,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-06-02T05:15:21+00:00",
+      "lastCommitDate": "2026-06-02T10:32:51+02:00",
       "recentCommitRefs": [
         "7920e20e",
-        "9ca9084b"
+        "9ca9084b",
+        "d944e3ff"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
@@ -12321,16 +12333,23 @@
         "docs/EVENTS.md": 2,
         "docs/INBOX.md": 1,
         "docs/archive/TASK-1077.md": 1,
+        "docs/refinement/archive/IDEA-arch-release-and-cd.md": 1,
+        "docs/refinement/archive/IDEA-context-injector-planned-artifact-projection.md": 1,
+        "docs/refinement/archive/IDEA-modular-activation.md": 1,
+        "docs/refinement/archive/IDEA-phase-aware-sprint-close.md": 1,
+        "docs/refinement/archive/IDEA-stub-e2e-coverage-prompt.md": 1,
+        "docs/refinement/archive/IDEA-xs-close-path-completion.md": 1,
         "docs/tasks/TASK-1077.md": 1,
         "docs/tensions/TENSION-005-specdrift.md": 1
       }
     },
     "TASK-1078": {
-      "commitCount": 2,
+      "commitCount": 3,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-06-02T05:15:21+00:00",
+      "lastCommitDate": "2026-06-02T10:32:51+02:00",
       "recentCommitRefs": [
         "9ca9084b",
+        "d944e3ff",
         "ebbb5469"
       ],
       "touchedFrequency": {
@@ -12348,18 +12367,25 @@
         "docs/EVENTS.md": 2,
         "docs/INBOX.md": 1,
         "docs/archive/TASK-1078.md": 1,
+        "docs/refinement/archive/IDEA-arch-release-and-cd.md": 1,
+        "docs/refinement/archive/IDEA-context-injector-planned-artifact-projection.md": 1,
+        "docs/refinement/archive/IDEA-modular-activation.md": 1,
+        "docs/refinement/archive/IDEA-phase-aware-sprint-close.md": 1,
+        "docs/refinement/archive/IDEA-stub-e2e-coverage-prompt.md": 1,
+        "docs/refinement/archive/IDEA-xs-close-path-completion.md": 1,
         "docs/tasks/TASK-1078.md": 1,
         "docs/tensions/TENSION-005-specdrift.md": 1
       }
     },
     "TASK-1079": {
-      "commitCount": 3,
+      "commitCount": 4,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-06-02T05:15:21+00:00",
+      "lastCommitDate": "2026-06-02T10:32:51+02:00",
       "recentCommitRefs": [
         "007cd840",
         "9ca9084b",
-        "d7ba7f8b"
+        "d7ba7f8b",
+        "d944e3ff"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
@@ -12384,10 +12410,16 @@
         "docs/refinement/IDEA-promotion-decision-support.md": 1,
         "docs/refinement/IDEA-stub-e2e-coverage-prompt.md": 1,
         "docs/refinement/IDEA-xs-close-path-completion.md": 1,
+        "docs/refinement/archive/IDEA-arch-release-and-cd.md": 1,
+        "docs/refinement/archive/IDEA-context-injector-planned-artifact-projection.md": 1,
         "docs/refinement/archive/IDEA-govern-rebuild-context-before-focus.md": 1,
         "docs/refinement/archive/IDEA-idea-adjudication-throughput.md": 1,
         "docs/refinement/archive/IDEA-inbox-stable-ledger-invariant.md": 1,
+        "docs/refinement/archive/IDEA-modular-activation.md": 1,
+        "docs/refinement/archive/IDEA-phase-aware-sprint-close.md": 1,
+        "docs/refinement/archive/IDEA-stub-e2e-coverage-prompt.md": 1,
         "docs/refinement/archive/IDEA-user-issue-reporting.md": 1,
+        "docs/refinement/archive/IDEA-xs-close-path-completion.md": 1,
         "docs/tasks/TASK-1075.md": 1,
         "docs/tasks/TASK-1076.md": 1,
         "docs/tasks/TASK-1077.md": 1,
@@ -12397,15 +12429,16 @@
       }
     },
     "TASK-1080": {
-      "commitCount": 7,
+      "commitCount": 8,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-06-02T09:29:08+02:00",
+      "lastCommitDate": "2026-06-02T10:32:51+02:00",
       "recentCommitRefs": [
         "2878fbc5",
         "94f4229d",
         "a09faebe",
         "ab4bbabb",
         "bed69a0a",
+        "d944e3ff",
         "e99b0a61",
         "fd5d5701"
       ],
@@ -12426,22 +12459,29 @@
         "docs/INBOX.md": 2,
         "docs/archive/TASK-1080.md": 1,
         "docs/refinement/IDEA-modular-activation.md": 1,
+        "docs/refinement/archive/IDEA-arch-release-and-cd.md": 1,
+        "docs/refinement/archive/IDEA-context-injector-planned-artifact-projection.md": 1,
+        "docs/refinement/archive/IDEA-modular-activation.md": 1,
+        "docs/refinement/archive/IDEA-phase-aware-sprint-close.md": 1,
+        "docs/refinement/archive/IDEA-stub-e2e-coverage-prompt.md": 1,
+        "docs/refinement/archive/IDEA-xs-close-path-completion.md": 1,
         "docs/tasks/TASK-1080.md": 2
       }
     },
     "TASK-1081": {
-      "commitCount": 5,
+      "commitCount": 6,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-06-02T10:31:13+02:00",
+      "lastCommitDate": "2026-06-02T11:11:17+02:00",
       "recentCommitRefs": [
         "12dc1add",
         "1d24d76b",
+        "5c458f90",
         "8a671c82",
         "d5cfa396",
         "ea82af70"
       ],
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 2,
+        ".arch/focus-ledger.jsonl": 3,
         "docs/tasks/TASK-1081.md": 4,
         "docs/tasks/TASK-1082.md": 2,
         "docs/tasks/TASK-1083.md": 1,
@@ -12449,15 +12489,37 @@
       }
     },
     "TASK-1082": {
-      "commitCount": 1,
+      "commitCount": 6,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-06-02T09:56:15+02:00",
+      "lastCommitDate": "2026-06-02T11:11:01+02:00",
       "recentCommitRefs": [
-        "1d24d76b"
+        "07e88047",
+        "1d24d76b",
+        "23cf4de3",
+        "791ca603",
+        "e81123b1",
+        "f69641e1"
       ],
       "touchedFrequency": {
+        ".arch/causal-signal.jsonl": 1,
+        ".arch/chronicle.jsonl": 2,
+        ".arch/escalations-compacted.jsonl": 1,
+        ".arch/temporal-index.jsonl": 1,
+        "cli/src/main/ts/application/commands/analyze-command.ts": 1,
+        "cli/src/main/ts/application/use-cases/alert-fatigue-store.ts": 2,
+        "cli/src/main/ts/application/use-cases/hansei-synthesizer.ts": 1,
+        "cli/src/test/ts/alert-fatigue-store.test.ts": 1,
+        "docs/EVENTS.md": 2,
+        "docs/INBOX.md": 2,
+        "docs/archive/TASK-1082.md": 1,
+        "docs/refinement/IDEA-arch-release-and-cd.md": 1,
+        "docs/refinement/IDEA-context-injector-planned-artifact-projection.md": 1,
+        "docs/refinement/IDEA-modular-activation.md": 1,
+        "docs/refinement/IDEA-phase-aware-sprint-close.md": 1,
+        "docs/refinement/IDEA-stub-e2e-coverage-prompt.md": 1,
+        "docs/refinement/IDEA-xs-close-path-completion.md": 1,
         "docs/tasks/TASK-1081.md": 1,
-        "docs/tasks/TASK-1082.md": 1,
+        "docs/tasks/TASK-1082.md": 4,
         "docs/tasks/TASK-1083.md": 1,
         "docs/tasks/TASK-1084.md": 1
       }
