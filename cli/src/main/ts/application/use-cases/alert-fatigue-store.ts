@@ -80,16 +80,6 @@ export class AlertFatigueStore {
     return 'emit';
   }
 
-  async getAction(category: string): Promise<ThrottleAction | null> {
-    const records = await this.readAll();
-    const existing = records.find(r => r.category === category);
-    if (!existing) return null;
-    const lastTime = new Date(existing.lastTimestamp).getTime();
-    const isConsecutive = (Date.now() - lastTime) < 24 * 60 * 60 * 1000;
-    if (!isConsecutive) return 'emit';
-    return this.determineAction(existing.consecutiveCount);
-  }
-
   async reset(category: string): Promise<void> {
     const records = await this.readAll();
     const idx = records.findIndex(r => r.category === category);
