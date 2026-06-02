@@ -13,6 +13,7 @@ import { ConfigLoader } from '../../domain/services/config-loader.js';
 import { TaskHealthChecker } from './checkers/task-health-checker.js';
 import { StructuralChecker } from './checkers/structural-checker.js';
 import { GovernanceChecker } from './checkers/governance-checker.js';
+import { shouldRunDriftGroup } from '../../domain/models/config.js';
 
 export interface DriftResult {
   check: string;
@@ -48,13 +49,21 @@ export class DriftChecker {
   }
 
   async check(): Promise<DriftResult[]> {
-    const [taskResults, structuralResults, governanceResults, census] = await Promise.all([
-      this.taskHealth.check(),
-      this.structural.check(),
-      this.governance.check(),
-      this.checkCensus(),
-    ]);
-    return [...taskResults, ...structuralResults, ...governanceResults, census];
+    const checkers: Promise<DriftResult[]>[] = [this.taskHealth.check()];
+
+    const raw = await this.fileSystem.readFile(`${this.rootPath}/arch.config.json`).catch(() => '{}');
+    const config = JSON.parse(raw);
+
+    if (shouldRunDriftGroup(config, 'Structural')) {
+      checkers.push(this.structural.check());
+    }
+    if (shouldRunDriftGroup(config, 'Governance')) {
+      checkers.push(this.governance.check());
+    }
+
+    checkers.push(this.checkCensus());
+    const results = await Promise.all(checkers);
+    return results.flat();
   }
 
   /** checkCensus spans all domains — kept in orchestrator */

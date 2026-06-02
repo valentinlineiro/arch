@@ -64,7 +64,9 @@ export class CheckSystem {
   async execute(options: CheckOptions = {}) {
     const scope = options.scope ?? 'hybrid';
     const violations: string[] = [];
-    
+    const config = await ConfigLoader.load(this.fileSystem).catch(() => ({}));
+    const hanseiAdvisory = config.modules?.hansei === 'advisory' || config.archProfile === 'minimal';
+
     // 1. Review active tasks — delta-aware: only review touched tasks
     const tasks = await this.taskRepository.getActive();
     let touchedTaskIds = new Set<string>();
@@ -100,7 +102,6 @@ export class CheckSystem {
 
     // 3. Immutability Check (TASK-154)
     try {
-      const config = await ConfigLoader.load(this.fileSystem);
       const protectedPaths = config.governance?.protectedPaths || [];
       if (protectedPaths.length > 0) {
         const changedFiles = await this.gitRepository.getChangedFilesInLastCommit();
@@ -130,19 +131,30 @@ export class CheckSystem {
 
     const drift: DriftResult[] = this.driftChecker ? await this.driftChecker.check() : [];
 
-    // 4. Critical drift checks as violations — scope-aware
+    // 5. Critical drift checks as violations — scope-aware
+
     for (const d of drift) {
       const isGlobalCheck = DELTA_GLOBAL_CHECKS.has(d.check);
       if (scope === 'delta') {
         if (d.status === 'FAIL') {
           violations.push(...d.details.map(detail => `[${d.check}] ${detail}`));
         } else if (d.status === 'WARN' && DELTA_LOCAL_CHECKS.has(d.check)) {
+          if (hanseiAdvisory && d.check === 'HanseiPresent') {
+            console.warn(`  [${d.check}] ${d.details.join('; ')}`);
+            continue;
+          }
           violations.push(...d.details.map(detail => `[${d.check}] ${detail}`));
         }
       } else {
         if (d.status === 'FAIL') {
           violations.push(...d.details.map(detail => `[${d.check}] ${detail}`));
         } else if (d.status === 'WARN' && ['ConfigPaths', 'DocVersion', 'DeadPaths', 'TaskTemplateCompliance'].includes(d.check)) {
+          violations.push(...d.details.map(detail => `[${d.check}] ${detail}`));
+        } else if (d.status === 'WARN' && d.check === 'HanseiPresent') {
+          if (hanseiAdvisory) {
+            console.warn(`  [${d.check}] ${d.details.join('; ')}`);
+            continue;
+          }
           violations.push(...d.details.map(detail => `[${d.check}] ${detail}`));
         }
       }
@@ -151,7 +163,6 @@ export class CheckSystem {
     // 5. Focus sovereignty check — global only (not relevant to delta)
     let sovereigntyCondition: CheckCondition = 'NONE';
     if (scope !== 'delta') {
-      const config = await ConfigLoader.load(this.fileSystem).catch(() => ({}));
       sovereigntyCondition = await this.checkFocusSovereignty(tasks, config);
       if (sovereigntyCondition === 'FOCUS_INTEGRITY_VIOLATION') {
         violations.push('[FocusSovereignty] FOCUS_INTEGRITY_VIOLATION: task holds Focus:yes with no FOCUS_ACQUIRED ruling in committed ledger — run arch govern to recover');

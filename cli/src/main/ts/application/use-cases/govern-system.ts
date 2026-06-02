@@ -4,6 +4,7 @@ import { FileSystem } from '../../domain/repositories/file-system.js';
 import { Task, TaskStatus, FocusLevel } from '../../domain/models/task.js';
 import { BatchSystem } from './batch-system.js';
 import { ConfigLoader } from '../../domain/services/config-loader.js';
+import { shouldRunSubsystem } from '../../domain/models/config.js';
 import { CausalSignalLog } from './causal-signal-log.js';
 import { ReflectInfluenceReport, DEFAULT_THRESHOLDS } from './reflect-influence-report.js';
 import { TaskValidator } from '../../domain/services/task-validator.js';
@@ -66,12 +67,12 @@ export class GovernSystem {
     }
 
     // 0.2 Sprint lifecycle — close sprint when N tasks archived, open next
-    if (archivedThisTick > 0) {
+    if (archivedThisTick > 0 && shouldRunSubsystem(config, 'sprint')) {
       await this.checkSprintLifecycle(config, archivedThisTick);
     }
 
     // 0.3 Sprint state sync — ensure state file matches arch.config.json intent
-    if (config.currentSprint) {
+    if (config.currentSprint && shouldRunSubsystem(config, 'sprint')) {
       const { SprintService } = await import('../../domain/services/sprint-service.js');
       await SprintService.initFromConfig(this.fileSystem, config.currentSprint);
     }
@@ -110,17 +111,21 @@ export class GovernSystem {
     await this.runMetricsRefresh();
 
     // Corpus quality audit
-    await this.runCorpusAudit(config, currentTick);
+    if (shouldRunSubsystem(config, 'corpus')) {
+      await this.runCorpusAudit(config, currentTick);
 
-        // 4.1 Corpus federation
-    await this.runCorpusFederation(config);
+      // Corpus federation
+      await this.runCorpusFederation(config);
+    }
 
     
     // 5. Project DoD gate
     const projectComplete = await this.checkProjectDodGate(config);
 
     // 5.1 Core Flows check
-    await this.checkCoreFlows();
+    if (shouldRunSubsystem(config, 'coreFlows')) {
+      await this.checkCoreFlows();
+    }
 
 
     // 6. Commit materialized output

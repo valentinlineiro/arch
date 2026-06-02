@@ -18,6 +18,7 @@ import type { Task } from '../../domain/models/task.js';
 import { stdout } from 'node:process';
 import crypto from 'node:crypto';
 import { PathResolver } from '../../domain/services/path-resolver.js';
+import { isHanseiBlocking } from '../../domain/models/config.js';
 
 export class MarkTaskDone {
   private feedbackExtractor = new ExtractContextFeedback();
@@ -81,23 +82,31 @@ export class MarkTaskDone {
         }
       }
 
-      const hanseiErrors = TaskValidator.validateHansei({ ...task, status: TaskStatus.DONE });
-      // XS lightweight close path: if all cmd predicates pass, skip placeholder/forward-action
-      // validation. Severity and Category must still be present.
-      const isXS = task.size === 'XS';
-      const acResult2 = await (new DeterministicACVerifier()).verify(task);
-      const allCmdPass = acResult2.evidence.filter(e => e.type === 'cmd').every(e => e.pass);
-      const xsFiltered = isXS && allCmdPass
-        ? hanseiErrors.filter(e =>
-            !e.includes('placeholder') &&
-            !e.includes('Forward Action') &&
-            !e.includes('too brief') &&
-            !e.includes('specific references') &&
-            !e.includes('H0 requires a justification')
-          )
-        : hanseiErrors;
-      if (xsFiltered.length > 0) {
-        throw new Error(`Cannot mark ${taskId} as DONE — Hansei validation failed:\n- ${xsFiltered.join('\n- ')}`);
+      const configRaw2 = await this.fileSystem.readFile('arch.config.json').catch(() => '{}');
+      const config2 = JSON.parse(configRaw2);
+      const hanseiBlocking = isHanseiBlocking(config2);
+      if (!hanseiBlocking) {
+        const advisoryErrors = TaskValidator.validateHansei({ ...task, status: TaskStatus.DONE });
+        if (advisoryErrors.length > 0) {
+          console.warn(`  [ADVISORY] Hansei validation warnings (non-blocking):\n- ${advisoryErrors.join('\n- ')}`);
+        }
+      } else {
+        const hanseiErrors = TaskValidator.validateHansei({ ...task, status: TaskStatus.DONE });
+        const isXS = task.size === 'XS';
+        const acResult2 = await (new DeterministicACVerifier()).verify(task);
+        const allCmdPass = acResult2.evidence.filter(e => e.type === 'cmd').every(e => e.pass);
+        const xsFiltered = isXS && allCmdPass
+          ? hanseiErrors.filter(e =>
+              !e.includes('placeholder') &&
+              !e.includes('Forward Action') &&
+              !e.includes('too brief') &&
+              !e.includes('specific references') &&
+              !e.includes('H0 requires a justification')
+            )
+          : hanseiErrors;
+        if (xsFiltered.length > 0) {
+          throw new Error(`Cannot mark ${taskId} as DONE — Hansei validation failed:\n- ${xsFiltered.join('\n- ')}`);
+        }
       }
 
       // AC structural verification — block if any cmd: or file: predicate fails
@@ -326,6 +335,9 @@ export class MarkTaskDone {
     const config = JSON.parse(configRaw);
     const size = task.size?.trim();
     const turns = task.turns;
+
+    // Profile/module gate — skip Hansei blocking if non-blocking mode
+    if (!isHanseiBlocking(config)) return null;
 
     // Trigger 1: Turn count delta (Process health trigger)
     const turnBudget = size ? config.muri?.[size]?.turns : undefined;

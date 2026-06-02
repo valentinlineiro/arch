@@ -35,7 +35,25 @@ export class InitCommand implements Command {
     const minimal = args.includes('--minimal');
     const guided = args.includes('--guided');
 
-    fmt.log('\n  ARCH — initializing framework' + (minimal ? ' [MINIMAL]' : '') + (guided ? ' [GUIDED]' : '') + '\n');
+    let archProfile = 'full';
+    if (process.stdout.isTTY && !minimal) {
+      const rl = await import('node:readline');
+      const prompt = (question: string, defaultVal = ''): Promise<string> => {
+        const r = rl.createInterface({ input: process.stdin, output: process.stdout });
+        return new Promise(resolve => {
+          r.question(`  ${question} `, answer => {
+            r.close();
+            resolve(answer.trim().toLowerCase() || defaultVal);
+          });
+        });
+      };
+      const profileAnswer = await prompt('Which profile? [M]inimal / [S]tandard / [F]ull (default: Full)', 'full');
+      if (profileAnswer.startsWith('m')) archProfile = 'minimal';
+      else if (profileAnswer.startsWith('s')) archProfile = 'standard';
+      else archProfile = 'full';
+    }
+
+    fmt.log('\n  ARCH — initializing framework' + (minimal ? ' [MINIMAL]' : '') + (guided ? ' [GUIDED]' : '') + ` [${archProfile}]` + '\n');
 
     // Guided prompts
     let projectName = '';
@@ -71,9 +89,9 @@ export class InitCommand implements Command {
     fmt.log('');
 
     if (minimal) {
-      await this.scaffoldMinimal(stack);
+      await this.scaffoldMinimal(stack, archProfile);
     } else {
-      await this.scaffold(stack);
+      await this.scaffold(stack, archProfile);
     }
 
     fmt.log('');
@@ -222,7 +240,7 @@ export class InitCommand implements Command {
 
   // ── Scaffolding ────────────────────────────────────────────────────────────
 
-  private async scaffoldMinimal(stack: DetectedStack): Promise<void> {
+  private async scaffoldMinimal(stack: DetectedStack, archProfile: string): Promise<void> {
     const dirs = [
       this.pr.tasks,
       this.pr.archive,
@@ -236,7 +254,7 @@ export class InitCommand implements Command {
     const pr = this.pr;
     const files: Array<{ dest: string; content: string }> = [
       { dest: 'ARCH.md',                                 content: this.minimalArchMd() },
-      { dest: 'arch.config.json',                        content: this.archConfig(stack) },
+      { dest: 'arch.config.json',                        content: this.archConfig(stack, archProfile) },
       { dest: pr.inbox,                                  content: this.inboxMd() },
       { dest: 'docs/TASK-FORMAT.md',                     content: this.taskFormatMd() },
       { dest: `${pr.tasks}/.gitkeep`,                    content: '' },
@@ -261,7 +279,7 @@ export class InitCommand implements Command {
     await this.installGithooks();
   }
 
-  private async scaffold(stack: DetectedStack): Promise<void> {
+  private async scaffold(stack: DetectedStack, archProfile: string): Promise<void> {
     const pr = this.pr;
     const dirs = [
       pr.agents,
@@ -282,7 +300,7 @@ export class InitCommand implements Command {
 
     const files: Array<{ dest: string; content: string }> = [
       { dest: 'docs/AGENTS.md',                          content: this.agentsMd() },
-      { dest: 'arch.config.json',                        content: this.archConfig(stack) },
+      { dest: 'arch.config.json',                        content: this.archConfig(stack, archProfile) },
       { dest: `${pr.agents}/DO.md`,                      content: this.doMd() },
       { dest: `${pr.agents}/THINK.md`,                   content: this.thinkMd() },
       { dest: `${pr.guidelines}/core.md`,                content: this.coreMd(stack) },
@@ -569,10 +587,10 @@ TASK: READY → IN_PROGRESS → REVIEW → DONE → archived (${this.pr.archive}
     return `sprint/v${this.cliVersion}-${ts}`;
   }
 
-  private archConfig(stack: DetectedStack): string {
+  private archConfig(stack: DetectedStack, archProfile?: string): string {
     const testCmd = stack.testCommand;
     const buildCmd = stack.buildCommand;
-    return JSON.stringify({
+    const cfg: Record<string, any> = {
       version: this.cliVersion,
       currentSprint: this.initialSprintName(),
       sprintCloseAfterN: 15,
@@ -678,7 +696,11 @@ TASK: READY → IN_PROGRESS → REVIEW → DONE → archived (${this.pr.archive}
       _stackHint: stack.label,
       _testCommand: testCmd,
       _buildCommand: buildCmd,
-    }, null, 2);
+    };
+    if (archProfile && archProfile !== 'full') {
+      cfg.archProfile = archProfile;
+    }
+    return JSON.stringify(cfg, null, 2);
   }
 
   private doMd(): string {
