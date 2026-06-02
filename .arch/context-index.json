@@ -4995,7 +4995,7 @@
       "title": "Archive Partitioning Strategy — Year-Month Subdirectories"
     }
   },
-  "builtAt": "2026-06-02T05:22:11.604Z",
+  "builtAt": "2026-06-02T05:28:19.755Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -12444,14 +12444,20 @@
       }
     },
     "TASK-1080": {
-      "commitCount": 1,
+      "commitCount": 3,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-06-02T05:21:41+00:00",
+      "lastCommitDate": "2026-06-02T05:27:50+00:00",
       "recentCommitRefs": [
-        "a09faeb"
+        "2878fbc",
+        "a09faeb",
+        "ab4bbab"
       ],
       "touchedFrequency": {
-        ".arch/focus-ledger.jsonl": 1,
+        ".arch/focus-ledger.jsonl": 2,
+        ".arch/reflect-breach-log.jsonl": 1,
+        "docs/EVENTS.md": 1,
+        "docs/INBOX.md": 1,
+        "docs/refinement/IDEA-modular-activation.md": 1,
         "docs/tasks/TASK-1080.md": 1
       }
     },
@@ -12513,6 +12519,22 @@
         "docs/tasks/TASK-1037.md": 1,
         "docs/tasks/TASK-272.md": 1,
         "docs/tensions/TENSION-005-specdrift.md": 1
+      }
+    },
+    "TASK-275": {
+      "commitCount": 1,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-06-02T05:27:44+00:00",
+      "recentCommitRefs": [
+        "2b46e23"
+      ],
+      "touchedFrequency": {
+        ".arch/causal-signal.jsonl": 1,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/temporal-index.jsonl": 1,
+        "docs/EVENTS.md": 1,
+        "docs/archive/TASK-275.md": 1,
+        "docs/tasks/TASK-275.md": 1
       }
     },
     "TASK-282": {
