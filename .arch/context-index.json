@@ -2115,6 +2115,18 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-1024.md"
+        },
+        "TASK-1090": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-1090.md"
+        },
+        "TASK-1096": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-1096.md"
         }
       }
     },
@@ -5187,7 +5199,7 @@
       "title": "Archive Partitioning Strategy — Year-Month Subdirectories"
     }
   },
-  "builtAt": "2026-06-02T21:35:32.390Z",
+  "builtAt": "2026-06-02T21:38:46.168Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -12754,9 +12766,9 @@
       }
     },
     "TASK-1081": {
-      "commitCount": 13,
+      "commitCount": 14,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-06-02T21:34:57+00:00",
+      "lastCommitDate": "2026-06-02T21:35:51+00:00",
       "recentCommitRefs": [
         "12dc1ad",
         "1d24d76",
@@ -12767,31 +12779,36 @@
         "8a671c8",
         "90614bf",
         "b3dcd82",
+        "d4f0320",
         "d5cfa39",
         "ea82af7",
         "ee5cfb8",
         "f1a29ab"
       ],
       "touchedFrequency": {
-        ".arch/alert-fatigue.jsonl": 1,
+        ".arch/alert-fatigue.jsonl": 2,
         ".arch/causal-signal.jsonl": 1,
         ".arch/chronicle.jsonl": 1,
         ".arch/context-feedback.json": 1,
-        ".arch/escalations-compacted.jsonl": 1,
+        ".arch/corpus-index.json": 1,
+        ".arch/escalations-compacted.jsonl": 2,
         ".arch/focus-ledger.jsonl": 4,
-        ".arch/reflect-breach-log.jsonl": 1,
+        ".arch/reflect-breach-log.jsonl": 2,
         ".arch/temporal-index.jsonl": 1,
         "AGENTS.md": 1,
         "GEMINI.md": 1,
         "README.md": 1,
         "arch.config.json": 1,
         "cli/src/main/ts/application/commands/upgrade-command.ts": 1,
+        "cli/src/main/ts/application/use-cases/escalation-store.ts": 1,
         "docs/AGENTS.md": 1,
-        "docs/EVENTS.md": 2,
+        "docs/EVENTS.md": 3,
+        "docs/INBOX.md": 1,
         "docs/ONBOARDING.html": 1,
-        "docs/agents/DO.md": 2,
-        "docs/agents/THINK.md": 1,
+        "docs/agents/DO.md": 3,
+        "docs/agents/THINK.md": 2,
         "docs/archive/TASK-1081.md": 1,
+        "docs/guidelines/core.md": 1,
         "docs/index.html": 1,
         "docs/tasks/TASK-1081.md": 4,
         "docs/tasks/TASK-1082.md": 2,
@@ -12843,20 +12860,30 @@
       }
     },
     "TASK-1083": {
-      "commitCount": 3,
+      "commitCount": 4,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-06-02T21:34:58+00:00",
+      "lastCommitDate": "2026-06-02T21:35:51+00:00",
       "recentCommitRefs": [
         "1d24d76",
         "444be38",
-        "5565b3d"
+        "5565b3d",
+        "d4f0320"
       ],
       "touchedFrequency": {
+        ".arch/alert-fatigue.jsonl": 1,
         ".arch/causal-signal.jsonl": 1,
         ".arch/chronicle.jsonl": 1,
         ".arch/context-feedback.json": 1,
-        "docs/EVENTS.md": 1,
+        ".arch/corpus-index.json": 1,
+        ".arch/escalations-compacted.jsonl": 1,
+        ".arch/reflect-breach-log.jsonl": 1,
+        "cli/src/main/ts/application/use-cases/escalation-store.ts": 1,
+        "docs/EVENTS.md": 2,
+        "docs/INBOX.md": 1,
+        "docs/agents/DO.md": 1,
+        "docs/agents/THINK.md": 1,
         "docs/archive/TASK-1083.md": 1,
+        "docs/guidelines/core.md": 1,
         "docs/refinement/IDEA-auto-task-turns.md": 1,
         "docs/refinement/IDEA-escalations-archive-compaction.md": 1,
         "docs/refinement/IDEA-inbox-consistency-gate.md": 1,
@@ -12868,20 +12895,30 @@
       }
     },
     "TASK-1084": {
-      "commitCount": 2,
+      "commitCount": 3,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-06-02T21:34:58+00:00",
+      "lastCommitDate": "2026-06-02T21:35:51+00:00",
       "recentCommitRefs": [
         "1d24d76",
-        "a23821d"
+        "a23821d",
+        "d4f0320"
       ],
       "touchedFrequency": {
+        ".arch/alert-fatigue.jsonl": 1,
         ".arch/causal-signal.jsonl": 1,
         ".arch/chronicle.jsonl": 1,
         ".arch/context-feedback.json": 1,
+        ".arch/corpus-index.json": 1,
+        ".arch/escalations-compacted.jsonl": 1,
+        ".arch/reflect-breach-log.jsonl": 1,
         ".arch/temporal-index.jsonl": 1,
-        "docs/EVENTS.md": 1,
+        "cli/src/main/ts/application/use-cases/escalation-store.ts": 1,
+        "docs/EVENTS.md": 2,
+        "docs/INBOX.md": 1,
+        "docs/agents/DO.md": 1,
+        "docs/agents/THINK.md": 1,
         "docs/archive/TASK-1084.md": 1,
+        "docs/guidelines/core.md": 1,
         "docs/tasks/TASK-1081.md": 1,
         "docs/tasks/TASK-1082.md": 1,
         "docs/tasks/TASK-1083.md": 1,
@@ -12889,20 +12926,30 @@
       }
     },
     "TASK-1085": {
-      "commitCount": 2,
+      "commitCount": 3,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-06-02T21:34:56+00:00",
+      "lastCommitDate": "2026-06-02T21:35:51+00:00",
       "recentCommitRefs": [
         "2ce75cf",
-        "d210c05"
+        "d210c05",
+        "d4f0320"
       ],
       "touchedFrequency": {
+        ".arch/alert-fatigue.jsonl": 1,
         ".arch/causal-signal.jsonl": 1,
         ".arch/chronicle.jsonl": 1,
         ".arch/context-feedback.json": 1,
+        ".arch/corpus-index.json": 1,
+        ".arch/escalations-compacted.jsonl": 1,
+        ".arch/reflect-breach-log.jsonl": 1,
         ".arch/temporal-index.jsonl": 1,
-        "docs/EVENTS.md": 1,
+        "cli/src/main/ts/application/use-cases/escalation-store.ts": 1,
+        "docs/EVENTS.md": 2,
+        "docs/INBOX.md": 1,
+        "docs/agents/DO.md": 1,
+        "docs/agents/THINK.md": 1,
         "docs/archive/TASK-1085.md": 1,
+        "docs/guidelines/core.md": 1,
         "docs/refinement/IDEA-decision-authorship-rule.md": 1,
         "docs/refinement/IDEA-decision-integrity-check.md": 1,
         "docs/refinement/IDEA-incoming-triage-signal.md": 1,
@@ -12913,52 +12960,82 @@
       }
     },
     "TASK-1086": {
-      "commitCount": 1,
+      "commitCount": 2,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-06-02T21:34:56+00:00",
+      "lastCommitDate": "2026-06-02T21:35:51+00:00",
       "recentCommitRefs": [
-        "82d84e1"
+        "82d84e1",
+        "d4f0320"
       ],
       "touchedFrequency": {
+        ".arch/alert-fatigue.jsonl": 1,
         ".arch/causal-signal.jsonl": 1,
         ".arch/chronicle.jsonl": 1,
         ".arch/context-feedback.json": 1,
+        ".arch/corpus-index.json": 1,
+        ".arch/escalations-compacted.jsonl": 1,
+        ".arch/reflect-breach-log.jsonl": 1,
         ".arch/temporal-index.jsonl": 1,
-        "docs/EVENTS.md": 1,
-        "docs/archive/TASK-1086.md": 1
+        "cli/src/main/ts/application/use-cases/escalation-store.ts": 1,
+        "docs/EVENTS.md": 2,
+        "docs/INBOX.md": 1,
+        "docs/agents/DO.md": 1,
+        "docs/agents/THINK.md": 1,
+        "docs/archive/TASK-1086.md": 1,
+        "docs/guidelines/core.md": 1
       }
     },
     "TASK-1087": {
-      "commitCount": 1,
+      "commitCount": 2,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-06-02T21:34:56+00:00",
+      "lastCommitDate": "2026-06-02T21:35:51+00:00",
       "recentCommitRefs": [
-        "302cc07"
+        "302cc07",
+        "d4f0320"
       ],
       "touchedFrequency": {
+        ".arch/alert-fatigue.jsonl": 1,
         ".arch/causal-signal.jsonl": 1,
         ".arch/chronicle.jsonl": 1,
         ".arch/context-feedback.json": 1,
+        ".arch/corpus-index.json": 1,
+        ".arch/escalations-compacted.jsonl": 1,
+        ".arch/reflect-breach-log.jsonl": 1,
         ".arch/temporal-index.jsonl": 1,
-        "docs/EVENTS.md": 1,
-        "docs/archive/TASK-1087.md": 1
+        "cli/src/main/ts/application/use-cases/escalation-store.ts": 1,
+        "docs/EVENTS.md": 2,
+        "docs/INBOX.md": 1,
+        "docs/agents/DO.md": 1,
+        "docs/agents/THINK.md": 1,
+        "docs/archive/TASK-1087.md": 1,
+        "docs/guidelines/core.md": 1
       }
     },
     "TASK-1088": {
-      "commitCount": 2,
+      "commitCount": 3,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-06-02T21:34:57+00:00",
+      "lastCommitDate": "2026-06-02T21:35:51+00:00",
       "recentCommitRefs": [
         "4284a25",
-        "a793988"
+        "a793988",
+        "d4f0320"
       ],
       "touchedFrequency": {
+        ".arch/alert-fatigue.jsonl": 1,
         ".arch/causal-signal.jsonl": 1,
         ".arch/chronicle.jsonl": 1,
         ".arch/context-feedback.json": 1,
+        ".arch/corpus-index.json": 1,
+        ".arch/escalations-compacted.jsonl": 1,
+        ".arch/reflect-breach-log.jsonl": 1,
         ".arch/temporal-index.jsonl": 1,
-        "docs/EVENTS.md": 1,
+        "cli/src/main/ts/application/use-cases/escalation-store.ts": 1,
+        "docs/EVENTS.md": 2,
+        "docs/INBOX.md": 1,
+        "docs/agents/DO.md": 1,
+        "docs/agents/THINK.md": 1,
         "docs/archive/TASK-1088.md": 1,
+        "docs/guidelines/core.md": 1,
         "docs/refinement/IDEA-adr-034-advisory-prefix.md": 1,
         "docs/refinement/IDEA-govern-focus-reclaim.md": 1,
         "docs/tasks/TASK-1088.md": 1,
@@ -12966,24 +13043,46 @@
       }
     },
     "TASK-1089": {
-      "commitCount": 2,
+      "commitCount": 3,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-06-02T21:34:57+00:00",
+      "lastCommitDate": "2026-06-02T21:35:51+00:00",
       "recentCommitRefs": [
         "a793988",
-        "abbcf1e"
+        "abbcf1e",
+        "d4f0320"
       ],
       "touchedFrequency": {
+        ".arch/alert-fatigue.jsonl": 1,
         ".arch/causal-signal.jsonl": 1,
         ".arch/chronicle.jsonl": 1,
         ".arch/context-feedback.json": 1,
+        ".arch/corpus-index.json": 1,
+        ".arch/escalations-compacted.jsonl": 1,
+        ".arch/reflect-breach-log.jsonl": 1,
         ".arch/temporal-index.jsonl": 1,
-        "docs/EVENTS.md": 1,
+        "cli/src/main/ts/application/use-cases/escalation-store.ts": 1,
+        "docs/EVENTS.md": 2,
+        "docs/INBOX.md": 1,
+        "docs/agents/DO.md": 1,
+        "docs/agents/THINK.md": 1,
         "docs/archive/TASK-1089.md": 1,
+        "docs/guidelines/core.md": 1,
         "docs/refinement/IDEA-adr-034-advisory-prefix.md": 1,
         "docs/refinement/IDEA-govern-focus-reclaim.md": 1,
         "docs/tasks/TASK-1088.md": 1,
         "docs/tasks/TASK-1089.md": 1
+      }
+    },
+    "TASK-1090": {
+      "commitCount": 1,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-06-02T21:38:18+00:00",
+      "recentCommitRefs": [
+        "3480878"
+      ],
+      "touchedFrequency": {
+        ".arch/focus-ledger.jsonl": 1,
+        "docs/tasks/TASK-1090.md": 1
       }
     },
     "TASK-264": {
