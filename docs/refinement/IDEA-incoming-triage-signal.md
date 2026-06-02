@@ -27,3 +27,4 @@ When `arch govern` finds files in `.arch/incoming-ideas/` with no `Status: REJEC
 
 ## Decision
 
+PROMOTE → TASK-1085

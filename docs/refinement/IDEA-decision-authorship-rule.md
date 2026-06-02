@@ -30,3 +30,4 @@ Update `docs/agents/THINK.md` to prohibit binding Decision writes. Update `docs/
 
 ## Decision
 
+PROMOTE → TASK-1086

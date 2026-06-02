@@ -31,3 +31,4 @@ This stops new IDEA generation from masking a decision bottleneck.
 
 ## Decision
 
+PROMOTE → TASK-1087

@@ -29,3 +29,4 @@ Add to `docs/agents/THINK.md` Phase 1:
 
 ## Decision
 
+EXTEND. Gap: "keyword overlap ≥1 non-stopword" is too weak a matching heuristic — a task titled "update docs" would pass against any IDEA. Need a tighter definition of plausibility before implementing. Trigger: specify the matching rule (e.g., require ≥2 non-stopword tokens in common, or use the IDEA's candidate-class as a constraint on the task class). One-page spec sufficient; does not need a full THINK evaluation.
