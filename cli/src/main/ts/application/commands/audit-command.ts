@@ -6,13 +6,6 @@ import { existsSync, mkdtempSync, rmSync, writeFileSync, mkdirSync, readFileSync
 import { tmpdir } from 'node:os';
 import { join, resolve, extname } from 'node:path';
 import { NodeFileSystem } from '../../infrastructure/filesystem/node-file-system.js';
-import { TypeScriptAdapter } from '../../domain/services/typescript-adapter.js';
-import { JavaAdapter } from '../../domain/services/java-adapter.js';
-import { PythonAdapter } from '../../domain/services/python-adapter.js';
-import { UEGIRBuilder } from '../../domain/services/ueg-ir-builder.js';
-import { UEGAnalysisLayer } from '../../domain/services/ueg-analysis-layer.js';
-import { ARCHDeploymentMap, UEGGraph, UEGGraphFragment } from '../../domain/models/ueg-ir.js';
-import { LanguageAdapter } from '../../domain/services/ueg-interfaces.js';
 
 export class AuditCommand implements Command {
   async execute(args: string[]): Promise<number> {
@@ -57,76 +50,10 @@ export class AuditCommand implements Command {
     return 0;
   }
 
-  private async runAudit(repoPath: string, opts: { verbose: boolean; publicMode?: boolean }): Promise<void> {
-    const modeLabel = opts.publicMode
-      ? 'Structural MRI (public, non-authoritative)'
-      : 'Language-Agnostic Audit (v1.2.0)';
-    fmt.log(`\n  \x1b[32mARCH\x1b[0m — ${modeLabel}\n`);
-    
-    const adapters: LanguageAdapter[] = [
-      new TypeScriptAdapter(),
-      new JavaAdapter(),
-      new PythonAdapter(),
-    ];
-
-    const fragments: UEGGraphFragment[] = [];
-    const languageCoverage = new Set<string>();
-
-    const files = this.listAllFiles(repoPath);
-    fmt.log(`  [1/4] Extracting UEG fragments from ${files.length} files...`);
-
-    for (const file of files) {
-      const ext = extname(file).toLowerCase();
-      const adapter = adapters.find(a => a.supportedExtensions.includes(ext));
-      if (adapter) {
-        try {
-          const content = readFileSync(join(repoPath, file), 'utf8');
-          const fragment = await adapter.parse(file, content);
-          fragments.push(fragment);
-          languageCoverage.add(adapter.language);
-        } catch { /* skip */ }
-      }
-    }
-
-    fmt.log(`  [2/4] Merging Unified Epistemic Graph IR...`);
-    const builder = new UEGIRBuilder();
-    const graph = builder.merge(fragments, Array.from(languageCoverage));
-
-    fmt.log(`  [3/4] Running non-authoritative analysis layers...`);
-    const analysis = new UEGAnalysisLayer();
-    const subsystems = analysis.generateSubsystemViews(graph);
-    const risks = analysis.detectRisks(graph);
-    const instrumentation = analysis.planInstrumentation(graph, risks);
-
-    const map: ARCHDeploymentMap = {
-      graph,
-      subsystems,
-      risks,
-      instrumentation,
-    };
-
-    fmt.log(`  [4/4] Generating structural deployment map...\n`);
-    this.render(map, opts.verbose);
-
-    // Public mode: add MRI summary line + canonical disclaimer
-    if (opts.publicMode) {
-      const hotspots = risks.filter(r => r.type === 'HIGH_COUPLING' || (r as any).type === 'GOD_ENTITY').length;
-      const orphans = risks.filter(r => (r as any).type === 'ORPHAN' || (r as any).type === 'DEAD_CODE').length;
-      const coupledPairs = graph.edges.filter((e: any) => e.weight > 3).length;
-      const couplingPct = graph.entities.length > 0
-        ? Math.round((coupledPairs / graph.entities.length) * 100)
-        : 0;
-      fmt.log(`  \x1b[1mMRI SUMMARY:\x1b[0m ${hotspots} hotspot${hotspots !== 1 ? 's' : ''}, ${orphans} orphan file${orphans !== 1 ? 's' : ''}, ${couplingPct}% hidden coupling`);
-      fmt.log(`  \x1b[90m⚠ These are structural observations — not canonical truths.\x1b[0m`);
-      fmt.log(`  \x1b[90m  ARCH v1.2 applies heuristic analysis. No claim is authoritative without domain context.\x1b[0m\n`);
-    }
-
-    // Cache audit result
-    try {
-      const archDir = `${repoPath}/.arch`;
-      if (!existsSync(archDir)) mkdirSync(archDir, { recursive: true });
-      writeFileSync(`${archDir}/deployment-map-v1.1.json`, JSON.stringify(map, null, 2));
-    } catch { /* non-blocking */ }
+  private async runAudit(_repoPath: string, _opts: { verbose: boolean; publicMode?: boolean }): Promise<void> {
+    fmt.log('\n  \x1b[32mARCH\x1b[0m — audit\n');
+    fmt.log('  The structural UEG analysis has been removed (TASK-1098).');
+    fmt.log('  Use arch audit --report for the compliance report.\n');
   }
 
   private listAllFiles(dir: string, base: string = ''): string[] {

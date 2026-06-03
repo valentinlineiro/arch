@@ -7,7 +7,6 @@ import { CreateTask } from '../use-cases/create-task.js';
 import { PathResolver } from '../../domain/services/path-resolver.js';
 import { MarkTaskInProgress, DefinitionOfReadyError } from '../use-cases/mark-task-in-progress.js';
 import { SemanticCollisionDetector } from '../use-cases/semantic-collision-detector.js';
-import { VerifiabilityScorer } from '../../domain/services/verifiability-scorer.js';
 
 export class CaptureCommand implements Command {
   constructor(
@@ -84,7 +83,6 @@ export class CaptureCommand implements Command {
       const taskPath = `${PathResolver.from({}).tasks}/${taskId}.md`;
       const taskContent = await this.fileSystem.readFile(taskPath);
       // Verifiability and collision run but output suppressed for clean surface
-      VerifiabilityScorer.score(taskContent); // side-effect: warns if very low
       const detector = new SemanticCollisionDetector(this.fileSystem);
       await detector.execute(taskContent, taskId); // advisory only
     } catch { /* never block capture */ }

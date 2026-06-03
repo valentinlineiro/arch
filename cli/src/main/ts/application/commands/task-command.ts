@@ -14,9 +14,7 @@ import { SemanticCollisionDetector } from '../use-cases/semantic-collision-detec
 import { CodebaseContextInjector } from '../use-cases/codebase-context-injector.js';
 import { CorrectionSignalStore, HANSEI_CATEGORIES, HANSEI_CATEGORY_ALIASES } from '../use-cases/correction-signal-store.js';
 import { CompressTask } from '../use-cases/compress-task.js';
-import { NextCommand } from './next-command.js';
 import { RankCommand } from './rank-command.js';
-import { PromoteCommand } from './promote-command.js';
 import { HumanCoordinationService } from '../../domain/services/human-coordination-service.js';
 import type { TaskRepository } from '../../domain/repositories/task-repository.js';
 import { Reviewer } from '../../domain/services/reviewer.js';
@@ -390,7 +388,7 @@ export class TaskCommand implements Command {
         return 1;
       }
     } else if (subCommand === 'reprioritize') {
-      const { ReprioritizeCommand } = await import('./reprioritize-command.js');
+      // reprioritize-command removed (TASK-1100)
       await new ReprioritizeCommand(this.taskRepository, this.fileSystem, this.rootPath).execute(args.slice(1));
     } else if (subCommand === 'next') {
       await new NextCommand(this.taskRepository, args.slice(1), this.muriConfig, this.fileSystem, this.rootPath).execute();

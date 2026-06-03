@@ -4,7 +4,6 @@ import { CorpusIndexService } from './corpus-index.js';
 import { ArchiveParser } from '../../domain/services/archive-parser.js';
 import { MetricsEngine } from '../../domain/services/metrics-engine.js';
 import { PathResolver } from '../../domain/services/path-resolver.js';
-import { AlertFatigueStore } from './alert-fatigue-store.js';
 import * as path from 'node:path';
 
 interface TensionEntry {
@@ -190,22 +189,15 @@ export class HanseiSynthesizer {
 
   private async appendInboxAlert(tensions: TensionEntry[]): Promise<{ halted: boolean; haltCategories: string[] }> {
     const inboxPath = `${this.rootPath}/${PathResolver.from({}).inbox}`;
-    const fatigueStore = new AlertFatigueStore(this.fileSystem, this.rootPath);
     const today = new Date().toISOString().slice(0, 19).replace('T', ' ');
 
     const emitLines: string[] = [];
     const escalateLines: string[] = [];
     const haltCategories: string[] = [];
 
+    // EscalationStore.append() handles deduplication — emit all tensions directly
     for (const t of tensions) {
-      const action = await fatigueStore.recordEmission(t.category);
-      if (action === 'halt') {
-        haltCategories.push(t.category);
-      } else if (action === 'escalate') {
-        escalateLines.push(`[PATTERN-ALERT] ${t.category} detected ${t.count}x — ESCALATED (3rd consecutive). Systemic issue persists across cycles.`);
-      } else if (action === 'emit') {
-        emitLines.push(`[PATTERN-ALERT] ${t.category} detected ${t.count} times — systemic issue. See docs/tensions/`);
-      }
+      emitLines.push(`[PATTERN-ALERT] ${t.category} detected ${t.count} times — systemic issue. See docs/tensions/`);
     }
 
     const halted = haltCategories.length > 0;

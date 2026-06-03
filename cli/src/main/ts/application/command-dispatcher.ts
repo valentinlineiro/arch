@@ -50,6 +50,7 @@ import { TriageCommand } from './commands/triage-command.js';
 import { UpgradeCommand } from './commands/upgrade-command.js';
 import { ProjectCommand } from './commands/project-command.js';
 import { CorpusImportCommand } from './commands/corpus-import-command.js';
+import { CorpusAuditCommand } from './commands/corpus-audit-command.js';
 
 import { getPublicTopLevel, getPublicEntriesByNamespace, resolveRoute, type CommandEntry } from '../domain/services/command-registry.js';
 
@@ -223,5 +224,6 @@ export class CommandDispatcher {
     'memory:explain': async () => new ExplainCommand(this.taskRepository, this.fileSystem, this.causalSignalLog, this.rootPath),
     'memory:deps': async () => new DepsCommand(this.taskRepository),
     'corpus:import': async () => new CorpusImportCommand(this.fileSystem),
+    'corpus:audit': async () => new CorpusAuditCommand(this.fileSystem, this.gitRepository),
   };
 }

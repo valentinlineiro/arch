@@ -2,7 +2,6 @@ import * as fmt from '../../infrastructure/cli/output-formatter.js';
 import { Command } from '../../domain/models/command.js';
 import type { FileSystem } from '../../domain/repositories/file-system.js';
 import { CausalSignalLog } from '../use-cases/causal-signal-log.js';
-import { aggregateHanseiSignals, WEAK_SIGNAL_THRESHOLD } from '../../domain/services/signal-router.js';
 import { NodeFileSystem } from '../../infrastructure/filesystem/node-file-system.js';
 import { ReflectInfluenceReport, DEFAULT_THRESHOLDS } from '../use-cases/reflect-influence-report.js';
 import { ConfigLoader } from '../../domain/services/config-loader.js';
@@ -258,20 +257,7 @@ ${taskSections}`;
 
   private async runAnalysis(deepMode = false): Promise<number> {
     const promptFile = 'docs/agents/THINK.md';
-    // AC4: Surface weak signal warnings before THINK invocation
-    try {
-      const nodefs = new NodeFileSystem();
-      const signalLog = new CausalSignalLog(nodefs, '.');
-      const aggregates = await aggregateHanseiSignals(signalLog);
-      const weakSignals = aggregates.filter(a => a.isWeakSignal);
-      if (weakSignals.length > 0) {
-        fmt.log('\n  ⚠  Weak Signal Alert (H2+ category appears ≥' + WEAK_SIGNAL_THRESHOLD + 'x):');
-        for (const ws of weakSignals) {
-          fmt.log(`    ${ws.category.padEnd(28)} ${ws.count}x — systemic friction detected`);
-        }
-        fmt.log('');
-      }
-    } catch { /* non-blocking */ }
+    // AC4: Weak signal aggregation removed (TASK-1103) — signal-router deleted
 
     // Temporal pattern spikes — surface before LLM synthesis
     try {

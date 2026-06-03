@@ -9,7 +9,6 @@ import { ExtractContextFeedback } from './extract-context-feedback.js';
 import { CausalSignalLog } from './causal-signal-log.js';
 import { EventLogger } from '../../domain/services/event-logger.js';
 import { DeterministicACVerifier } from '../../domain/services/deterministic-ac-verifier.js';
-import { SignalRouter } from '../../domain/services/signal-router.js';
 import type { GitRepository } from '../../domain/repositories/git-repository.js';
 import { computeTrustedMetrics } from './compute-trusted-metrics.js';
 import { LightweightMetricsRefresh } from './lightweight-metrics-refresh.js';
@@ -177,21 +176,9 @@ export class MarkTaskDone {
 
     if (this.causalSignalLog) {
       await this.emitCompletionSignals(taskId, task.content ?? '', task.depends ?? [], task.hansei);
-
-      // Route H2/H3 Hansei signals to causal graph
-      if (task.hansei && (task.hansei.severity === 'H2' || task.hansei.severity === 'H3a' || task.hansei.severity === 'H3b')) {
-        const router = new SignalRouter(this.causalSignalLog);
-        await router.route({ taskId, title: task.title, hansei: task.hansei });
-      }
     }
 
-    if (this.temporalIndex && task.hansei?.category) {
-      await this.temporalIndex.appendAndDetect(
-        taskId,
-        [task.hansei.category],
-        this.causalSignalLog,
-      );
-    }
+    // temporalIndex.appendAndDetect removed (TASK-1101 — TemporalIndex stubbed)
 
     if (this.metricsRefresh) {
       try {

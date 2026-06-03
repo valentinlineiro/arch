@@ -106,3 +106,9 @@ AWAITING_PROMOTION | IDEA-deprecate-epistemic-adrs | 2026-06-03 — no Decision 
 AWAITING_PROMOTION | IDEA-merge-arch-core-into-agents | 2026-06-03 — no Decision field set
 AWAITING_PROMOTION | IDEA-refactor-think-md-lean | 2026-06-03 — no Decision field set
 AWAITING_PROMOTION | IDEA-split-inbox-notifications-decisions | 2026-06-03 — no Decision field set
+
+## [2026-06-03 11:33] INFLUENCE_BREACH_PERSISTENT | REFLECT
+Evidence: Persistent breach (39 consecutive cycles): Engagement 39% is below threshold 50% — attribution discipline review required
+
+## 2026-06-03 11:33:33 — Pattern Alerts
+[PATTERN-ALERT] [SpecDrift] detected 8 times — systemic issue. See docs/tensions/
