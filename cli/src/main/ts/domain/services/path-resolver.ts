@@ -3,6 +3,7 @@ const DEFAULTS = {
   archive: 'docs/archive',
   adr: 'docs/adr',
   inbox: 'docs/INBOX.md',
+  notifications: 'docs/NOTIFICATIONS.md',
   guidelines: 'docs/guidelines',
   agents: 'docs/agents',
   refinement: 'docs/refinement',
@@ -37,6 +38,7 @@ export class PathResolver {
   get archive(): string          { return this.paths.archive; }
   get adr(): string              { return this.paths.adr; }
   get inbox(): string            { return this.paths.inbox; }
+  get notifications(): string    { return this.paths.notifications ?? 'docs/NOTIFICATIONS.md'; }
   get guidelines(): string       { return this.paths.guidelines; }
   get agents(): string           { return this.paths.agents; }
   get refinement(): string       { return this.paths.refinement; }

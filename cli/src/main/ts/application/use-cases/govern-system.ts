@@ -1090,14 +1090,17 @@ export class GovernSystem {
   private async appendInbox(taskId: string, type: string, evidence: string): Promise<void> {
     const ts = new Date().toISOString().slice(0, 16).replace('T', ' ');
     const entry = `\n## [${ts}] ${type} | ${taskId}\nEvidence: ${evidence}\n`;
-    const inboxPath = this.pathResolver.inbox;
+
+    // Machine signals go to NOTIFICATIONS.md; human decisions stay in INBOX.md
+    const machineTypes = ['CORPUS_ALERT', 'STALE_TASK', 'PATTERN-ALERT', 'FLOW-REGRESSION',
+                          'READY-FLOOR-BREACH', 'STALE-IDEA', 'TENSION-DECAY', 'SEMANTIC-DRIFT',
+                          'INFLUENCE_THRESHOLD_VIOLATION', 'INFLUENCE_BREACH_PERSISTENT', 'INFLUENCE_BREACH_CLEARED'];
+    const isMachine = machineTypes.some(t => type.includes(t));
+    const targetPath = isMachine ? this.pathResolver.notifications : this.pathResolver.inbox;
+
     let existing = '';
-    try {
-      existing = await this.fileSystem.readFile(inboxPath);
-    } catch {
-      // If INBOX.md doesn't exist, start with just the entry
-    }
-    await this.fileSystem.writeFile(inboxPath, existing + entry);
+    try { existing = await this.fileSystem.readFile(targetPath); } catch { /* new file */ }
+    await this.fileSystem.writeFile(targetPath, existing + entry);
   }
 
   private async getArchiveCandidateContent(sourcePath: string, targetPath: string): Promise<string | null> {

@@ -1,18 +1,16 @@
-# INBOX
-_Generated: 2026-06-02 by [THINK] session_
+# INBOX.md
+<!-- Human decision queue: AWAITING_TRIAGE, AWAITING_REVIEW, AWAITING_PROMOTION, ANDON_HALT only. -->
+<!-- Machine alerts go to NOTIFICATIONS.md. -->
 
+_Generated: 2026-06-02 by [THINK] session_
 ## Loop Status
 - READY: 2 (TASK-1083, TASK-1084 — both P3/S)
 - IN_PROGRESS: 4 (TASK-1081 — P3/S, Focus:yes; TASK-1085 — P3/XS, Focus:no; TASK-1086 — P3/XS, Focus:no; TASK-1087 — P3/XS, Focus:no)
 - REVIEW: 0
 - BLOCKED: 0
-
 ## Alerts
 [REPLENISHMENT] READY count: 2/3 — floor breached. Created: IDEA-govern-focus-reclaim.md. Pending decisions on 2 existing DRAFT IDEAs would close the gap.
-[PATTERN-ALERT] [SpecDrift] 8+ occurrences — systemic issue. See docs/tensions/TENSION-005-specdrift.md
-
 ## Refinement Queue (8 active IDEA-*.md files in docs/refinement/, excluding archive + TEMPLATE)
-
 ### DRAFT (8)
 - IDEA-auto-task-turns — Automatic Turns counter (Sessions: 1, Decision: EXTEND)
 - IDEA-decision-authorship-rule — Human vs agent Decision detection (Sessions: 1, Decision: PROMOTE → TASK-1086)
@@ -22,28 +20,22 @@ _Generated: 2026-06-02 by [THINK] session_
 - IDEA-ready-task-replenishment-visibility — READY floor breach visibility (Sessions: 1, Decision: awaiting)
 - IDEA-refinement-archival-gate — Auto-archive PROMOTED IDEAs (Sessions: 1, Decision: awaiting)
 - IDEA-replenishment-backlog-cap — Cap replenishment when queue full (Sessions: 1, Decision: PROMOTE → TASK-1087)
-
 ### Roadmap-Only (8 entries)
 See docs/refinement/ROADMAP-IDEAS.md
-
 ## Last 5 Completed Tasks
 1. TASK-1082 — Add alert fatigue throttle to REFLECT (S) — archived DONE
 2. TASK-1080 — Modular activation: archProfile + modules block (M) — archived DONE
 3. TASK-1079 — Context injector planned artifact projection fix (S)
 4. TASK-1078 — ARCH release and CD pipeline (M)
 5. TASK-1077 — Phase-aware sprint close (S)
-
 ## Pending REVIEW_REQUESTS
 (none)
-
 ## AWAITING_PROMOTION
 - IDEA-ready-task-replenishment-visibility | 2026-06-02 — awaiting human decision
 - IDEA-refinement-archival-gate | 2026-06-02 — awaiting human decision
 - IDEA-govern-focus-reclaim | 2026-06-02 — awaiting human decision
-
 ## [2026-06-02] INFLUENCE_BREACH_PERSISTENT | REFLECT
 Engagement 41% below threshold 50% (31+ consecutive cycles)
-
 ## [2026-06-02 09:39] INFLUENCE_BREACH_PERSISTENT | REFLECT
 Evidence: Persistent breach (34 consecutive cycles): Engagement 39% is below threshold 50% — attribution discipline review required
 [AWAITING_TRIAGE] smartcart:IDEA-analytics — remote IDEA pending review (2026-06-02 09:40:00)
@@ -72,30 +64,24 @@ Evidence: Persistent breach (34 consecutive cycles): Engagement 39% is below thr
 [AWAITING_TRIAGE] smartcart:IDEA-user-feedback-to-arch — remote IDEA pending review (2026-06-02 09:40:00)
 [AWAITING_TRIAGE] smartcart:IDEA-ux-polish-and-friction-reduction — remote IDEA pending review (2026-06-02 09:40:00)
 [AWAITING_TRIAGE] smartcart:IDEA-vitest-test-runner-setup — remote IDEA pending review (2026-06-02 09:40:00)
-
 ## 2026-06-02 09:40:08 — Pattern Alerts
 
 ## [2026-06-02 21:35] INFLUENCE_BREACH_PERSISTENT | REFLECT
 Evidence: Persistent breach (35 consecutive cycles): Engagement 39% is below threshold 50% — attribution discipline review required
-
 ## 2026-06-02 21:35:32 — Pattern Alerts
-
 AWAITING_PROMOTION | IDEA-arch-as-claude-code-deployment-target | 2026-06-02 — no Decision field set
 AWAITING_PROMOTION | IDEA-corpus-reasoning-not-just-recording | 2026-06-02 — no Decision field set
 AWAITING_PROMOTION | IDEA-first-external-adopter-path | 2026-06-02 — no Decision field set
 AWAITING_PROMOTION | IDEA-hansei-signal-quality-degradation | 2026-06-02 — no Decision field set
 AWAITING_PROMOTION | IDEA-verification-layer-depth | 2026-06-02 — no Decision field set
-
 ## [2026-06-02 21:38] INFLUENCE_BREACH_PERSISTENT | REFLECT
 Evidence: Persistent breach (36 consecutive cycles): Engagement 39% is below threshold 50% — attribution discipline review required
 ## [2026-06-02 21:58] INFLUENCE_BREACH_PERSISTENT | REFLECT
 Evidence: Persistent breach (37 consecutive cycles): Engagement 39% is below threshold 50% — attribution discipline review required
 [ANDON_HALT] Alert fatigue threshold reached (5th consecutive) for "[SpecDrift]" — system halted.
-
 ## [2026-06-03 05:50] INFLUENCE_BREACH_PERSISTENT | REFLECT
 Evidence: Persistent breach (38 consecutive cycles): Engagement 39% is below threshold 50% — attribution discipline review required
 [ANDON_HALT] Alert fatigue threshold reached (5th consecutive) for "[SpecDrift]" — system halted.
-
 AWAITING_PROMOTION | IDEA-archive-solved-adrs | 2026-06-03 — no Decision field set
 AWAITING_PROMOTION | IDEA-automate-events-md | 2026-06-03 — no Decision field set
 AWAITING_PROMOTION | IDEA-compress-identity-md | 2026-06-03 — no Decision field set
@@ -106,14 +92,13 @@ AWAITING_PROMOTION | IDEA-deprecate-epistemic-adrs | 2026-06-03 — no Decision 
 AWAITING_PROMOTION | IDEA-merge-arch-core-into-agents | 2026-06-03 — no Decision field set
 AWAITING_PROMOTION | IDEA-refactor-think-md-lean | 2026-06-03 — no Decision field set
 AWAITING_PROMOTION | IDEA-split-inbox-notifications-decisions | 2026-06-03 — no Decision field set
-
 ## [2026-06-03 11:33] INFLUENCE_BREACH_PERSISTENT | REFLECT
 Evidence: Persistent breach (39 consecutive cycles): Engagement 39% is below threshold 50% — attribution discipline review required
-
 ## 2026-06-03 11:33:33 — Pattern Alerts
 
 ## [2026-06-03 11:52] INFLUENCE_BREACH_PERSISTENT | REFLECT
 Evidence: Persistent breach (40 consecutive cycles): Engagement 39% is below threshold 50% — attribution discipline review required
-
 ## 2026-06-03 11:53:06 — Pattern Alerts
+
+## 2026-06-03 11:59:03 — Pattern Alerts
 [PATTERN-ALERT] [SpecDrift] detected 8 times — systemic issue. See docs/tensions/

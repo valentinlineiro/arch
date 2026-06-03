@@ -1,134 +1,63 @@
-<!-- CANONICAL SOURCE: docs/AGENTS.md — Hansei taxonomy, lifecycle rules, and idempotency rule are defined there. This file (THINK.md) references those definitions; it does not redefine them. -->
-
+<!-- CANONICAL SOURCE: docs/AGENTS.md — Hansei taxonomy, lifecycle rules, idempotency rule defined there. -->
 # THINK.md
-<!-- ARCH v1.3.0 — Modular Thinking & Continuous Kaizen -->
-<!-- MODE INSTRUCTION: check the first line of this prompt for <!-- MODE: DEFAULT --> or <!-- MODE: DEEP -->. -->
-<!-- DEFAULT MODE: execute Phase 1 and Phase 2 execution steps only (steps marked [DEFAULT]). -->
-<!-- DEEP MODE: execute all phases. -->
+<!-- ARCH v1.3.0 | Reflection and continuous improvement protocol -->
+<!-- DEFAULT MODE: Phase 1 + Phase 2 steps only. DEEP MODE: all phases. -->
 
-## Phase 1 [DEFAULT]: Context & Replenishment (Conductor)
-0. **Print:** `[THINK] Phase 1 — Context & Replenishment` to stdout.
-1. **Note:** `arch analyze` (or `arch govern` as an analysis side-effect) triggered this session. `arch govern` is enforcement-only; this THINK session is the analysis layer.
-2. **Health Evaluation:** Identify P0 tasks that are blocked or not focused. If a task is `IN_PROGRESS` with a lock > 3 days, create a P1 `READY` bug task in `docs/tasks/`.
-3. **Replenishment check:** Count `READY` tasks in `docs/tasks/`. If count < 3, before proposing a new IDEA, write the following entry to `docs/INBOX.md`: `[ADVISORY][READY-FLOOR-BREACH] READY count dropped to N — replenishment triggered per core.md §5`. Commit with `[THINK]` tag. Then propose at least one new IDEA in `docs/refinement/` before continuing. This threshold is a hard rule (core.md §5) — not optional. **Replenishment cap:** Do not propose more than 3 new IDEAs in a single THINK session regardless of how low the READY count is. If READY < 3 and the refinement queue already has ≥ 5 unresolved DRAFT IDEAs, write the INBOX entry but skip creating a new IDEA — the queue is the bottleneck, not the idea count.
-3a. **Refinement admission criteria (enforced here):** Individual `IDEA-*.md` files are reserved for *executable candidates* — ideas with a clear deliverable, known scope, and an acceptance shape that a future THINK session could evaluate. Speculative or exploratory ideas (no clear deliverable, no known acceptance shape) are NOT given individual files; they are added as entries in `docs/refinement/ROADMAP-IDEAS.md`. When proposing a new IDEA in step 3, apply this gate before creating a file. If an existing IDEA-*.md lacks a clear deliverable upon review, migrate it to ROADMAP-IDEAS.md.
-3b. **TTL enforcement:** Read `arch.config.json` for `refinement.ttlCycles` (default: 10). For each `IDEA-*.md` in `docs/refinement/`, count govern ticks since creation (use the `**Sessions:**` counter as a proxy: each THINK session increments it). If Sessions ≥ ttlCycles and the Decision field is empty or contains only `UNDECIDED`: add a `**Status:** STALE` marker to the IDEA file and append to `docs/INBOX.md`: `[STALE-IDEA] <idea-slug> — N sessions without Decision. Human action required: PROMOTE, REJECT, or DEFERRED.` THINK does not decide — it surfaces. Do not archive automatically.
-4. **INBOX Regeneration (wrap in try/catch):** If any sub-step of INBOX regeneration fails (file unreadable, format error, write permission denied), log the error to stdout as `[THINK-WARN] INBOX regeneration failed: <reason>` and continue — do not halt the THINK session. INBOX is instrumentation, not governance. A failed INBOX write must never block subsequent steps.
+## Phase 1 [DEFAULT]: Context & Replenishment
+0. Print `[THINK] Phase 1 — Context & Replenishment` to stdout.
+1. **Health check:** Identify P0 blocked or unfocused tasks. If an IN_PROGRESS task has no commit activity for >3 days, create a P1 READY bug task.
+2. **Replenishment:** Count READY tasks in `docs/tasks/`. If < 3: write `[ADVISORY][READY-FLOOR-BREACH] READY count dropped to N` to `docs/INBOX.md`, then propose ≤ 3 new IDEAs in `docs/refinement/`. Commit with `[THINK]` tag. See **Appendix A** for cap rules and edge cases.
+3. **TTL enforcement:** For each `IDEA-*.md` in `docs/refinement/`, if Sessions ≥ ttlCycles (default 10) and Decision is empty: mark `**Status:** STALE` and append `[STALE-IDEA] <slug> — N sessions without Decision` to `docs/INBOX.md`.
+4. **INBOX regeneration** (wrap in try/catch — failure is non-fatal): Overwrite `docs/INBOX.md` with: loop status, READY/IN_PROGRESS counts, AWAITING_* items, last 5 closed tasks, refinement queue titles. All THINK-written entries use `[ADVISORY]` prefix unless a deterministic prefix applies (see **Appendix B**). Commit with `[THINK]` tag.
 
-   Overwrite `docs/INBOX.md` with current loop status, active/READY task counts, pending items (`AWAITING_PROMOTION`, `AWAITING_REVIEW`), and summaries of the last 5 completed tasks. **Refinement Queue:** Count all `IDEA-*.md` files in `docs/refinement/` (excluding `archive/` and `TEMPLATE.md`) and list each title; write "No pending ideas." only when the count is zero. Commit with `[THINK]` tag.
-   **ADR-034 compliance (Rule 3):** Every entry THINK writes to `docs/INBOX.md` that is not a deterministic governance signal must carry the `[ADVISORY]` prefix. Deterministic prefixes (`[ANDON_HALT]`, `[AWAITING_TRIAGE]`, `[CORPUS_ALERT]`, `[PATTERN-ALERT]`, `[STALE_TASK]`, `[STALE-IDEA]`, `[READY-FLOOR-BREACH]`, `[FLOW-REGRESSION]`) are exempt. All other THINK-generated entries — replenishment notices, focus status updates, session summaries — must start with `[ADVISORY]`.
-   **Escalation write:** For each IDEA surfaced requiring human decision (promote or reject), append one record to `.arch/escalations.jsonl` with `type: "AWAITING_PROMOTION"`, `subject: "<idea-slug>"`, `status: "OPEN"`. Use schema: `{ escalation_id, timestamp, type, subject, reason, status, resolved_at, resolved_by }`. Do not read `.arch/escalations.jsonl` to check for prior entries — always append.
-   **Escalation close (lifecycle complement):** When the human writes a Decision field on the IDEA (either `PROMOTE → TASK-XXX` or `REJECT`), the executing agent MUST append a RESOLVED record: `{ escalation_id: "RESOLVED-<idea-slug>-<timestamp>", timestamp, type: "AWAITING_PROMOTION", subject: "<idea-slug>", status: "RESOLVED", reason: "<decision summary>", resolved_at: <ISO 8601>, resolved_by: "<session-id>" }`. This closes the escalation loop and prevents `StaleEscalations` drift warnings.
-5. **Evidence Required:** Every recommendation must cite a concrete signal (e.g., 'TASK-003 has stale lock').
+## Phase 2 [DEFAULT/DEEP]: IDEA Refinement
+0. Print `[THINK] Phase 2 — Idea Refinement` to stdout.
+1. **Hansei pattern synthesis:** Read `.arch/causal-signal.jsonl`, group by Hansei category. Count ≥ 3: create `docs/tensions/TENSION-XXX.md`. Count ≥ 5: also append `[PATTERN-ALERT]` to `docs/INBOX.md`.
+2. **Triage IDEAs:** Process decided IDEAs first; process at most 3 DRAFT IDEAs per session. Apply the 5-axis constraint framework (see **Appendix C**) before making a lifecycle decision.
+3. **Lifecycle rules:**
+   - DRAFT: output analysis to terminal. Increment `**Sessions:** N`. If Sessions ≥ 2 and Decision empty: add `**Decision-required:** yes`.
+   - PROMOTE (human Decision): create task, archive IDEA, append to `.arch/reflect-proposals.jsonl` and `.arch/reflect-decisions.jsonl`. Agent-written decisions append `author:agent`.
+   - DEFERRED / REJECTED (human-written): move to `docs/refinement/archive/`. Never auto-archive without human Decision.
+4. Phase boundary: no tasks created directly. All promotion requires human Decision field.
 
-## Phase 2 [DEFAULT/DEEP split]: Idea Refinement (Refine)
-0. **Print:** `[THINK] Phase 2 — Idea Refinement` to stdout.
+## Phase 2.5 [DEEP]: Semantic Drift Analysis
+0. Print `[THINK] Phase 2.5 — Semantic Drift Analysis` to stdout.
+1. Check for contradictions between guideline files → `[SEMANTIC-DRIFT] contradiction:`.
+2. Check for structural duplication across guidelines → `[SEMANTIC-DRIFT] duplication:`.
+3. Check ACCEPTED ADRs for rationale drift vs current system → `[SEMANTIC-DRIFT] adr-drift:`.
+4. Weak signal decay: for each signal in `docs/tensions/weak-signals.md` past its `Adjudicate by:` date, emit `[TENSION-DECAY]` with `[REFLECT-SUGGESTS]` tag and append to `.arch/reflect-proposals.jsonl`.
+5. Output: ≤ 3 new IDEAs per run from steps 1–4. Decay emissions uncapped.
 
-**Hansei Pattern Synthesis (runs before Idea Refinement):**
-Read `.arch/causal-signal.jsonl` and filter for `event` fields matching `hansei_signal:*`. Group by `candidate_to` category (e.g. `friction:[SpecDrift]`). For each category:
-- Count ≥ 3 (weak signal threshold): check `docs/tensions/` for an existing TENSION referencing this category. If none exists: create `docs/tensions/TENSION-XXX.md` using `docs/tensions/TEMPLATE.md` as template, filling in: Pattern (category name), Affected tasks (IDs from `candidate_from`), Evidence (brief description), Proposed protocol change. Commit with `[THINK]` tag.
-- Count ≥ 5 (strong signal): additionally append `[PATTERN-ALERT] [Category] N occurrences — systemic issue. See docs/tensions/TENSION-XXX.md` to `docs/INBOX.md`. Commit with `[THINK]` tag.
-- If a TENSION already exists for this category: append a new evidence block (date, task IDs, count) to the existing file. Commit with `[THINK]` tag.
-THINK never modifies `docs/guidelines/` directly. All output is proposals. Human promotes TENSION → guideline change.
-
-1. Scan `docs/refinement/` for `IDEA-*.md` files. Triage: process all IDEAs with a `Decision:` field first; for DRAFT IDEAs, process at most 3 per session.
-2. **Constraint evaluation framework (apply to every DRAFT IDEA):** Each dimension is an independent axis. Multiple can be active simultaneously. Identify which axes are violated before writing any lifecycle output.
-
-   | Axis | Violation signal | Notes |
-   |------|-----------------|-------|
-   | **Dependency ordering** | Requires something not yet built or operational | Distinct from temporal validity — prerequisites may be done but evidence absent |
-   | **Temporal validity** | Insufficient empirical base for this to be meaningful | "The data that would make this useful doesn't exist yet" |
-   | **Abstraction layer** | Wrong level of the system stack; a simpler/lower layer could solve the same problem | Common failure: new layer where a direct fix would do |
-   | **Observability validity** | Required observable doesn't exist in reliable form | Distinct from temporal validity — data may never be reliably producible, not just absent now |
-   | **Priority displacement** | Valid idea, valid data, wrong bottleneck for current system pressure | Rarely causes rejection alone; primarily sets priority; reference IDENTITY.md §6 |
-
-   A DRAFT IDEA that passes all five axes is **structurally admissible**. That is necessary but not sufficient for promotion. Structural admissibility means: no known constraint axis is violated. It does not mean the IDEA is good — only that it is not currently inadmissible. Human decision is required to activate it.
-
-   New axes may be discovered during adjudication. When a rejection rationale genuinely doesn't fit any existing axis, name it explicitly in the rejection — the taxonomy is empirically derived, not closed.
-
-> **[DEEP only]** The following sub-step (DRAFT evaluation, up to 3 per session) runs only in DEEP mode. In DEFAULT mode, skip directly to the Phase boundary.
-
-3. For each IDEA, apply lifecycle rules:
-   - **DRAFT:** Identify gaps, map active constraint axes, and estimate. Output to terminal only. Increment `**Sessions:** N` counter in the IDEA file (add field if missing).
-     - If `Sessions >= 2` and Decision field is empty or missing: add `**Decision-required:** yes` marker to the IDEA file. Emit `[DECISION-REQUIRED] IDEA-slug — N sessions, human decision needed` to stdout.
-     - If `Sessions >= 3` and Decision field is empty: emit `[STALE-IDEA] IDEA-slug — N sessions without Decision` to stdout.
-     - If `Sessions > 3` and Decision field is still empty: **do NOT archive**. Instead, emit `[DECISION-REQUIRED] IDEA-slug — N sessions, TTL would expire but Decision-required blocks archival. Human must decide: PROMOTE, REJECT: <reason>, or DEFERRED: <reason>.` Do not re-evaluate until Decision field is written.
-   - **Decision authorship:** When a THINK session writes a Decision field (PROMOTE, REJECT, or DEFERRED), append `author:agent` to the value so subsequent sessions can distinguish agent decisions from human decisions. Example: `Decision: PROMOTE → TASK-1090 author:agent`. Human-authored decisions do NOT carry this tag — its absence indicates human authorship. An agent may only act on a `PROMOTE` decision that carries `author:agent` if it has been confirmed by a subsequent human session (absence of override). If the Decision carries no author tag, treat it as human-authored and L2-binding.
-
-   - **DEFERRED (human-written):** If the Decision field contains `DEFERRED:`, move the IDEA to `docs/refinement/archive/` with status `DEFERRED`. Do not re-surface unless explicitly re-opened by human. Commit with `chore: [THINK] archive [IDEA-slug] — DEFERRED by human decision`.
-   - **REJECTED (human-written):** If the Decision field contains `REJECT:`, move the IDEA to `docs/refinement/archive/` immediately. No re-evaluation. No session increment. Commit with `chore: [THINK] archive [IDEA-slug] — REJECTED by human decision`.
-   - **DECIDED (PROMOTE):** If human Decision is written and IDEA meets the L2 autonomy rule (see `docs/guidelines/autonomy.md` — Autonomy Pilot section), promote autonomously: update status to `PROMOTED -> TASK-XXX`, create task file, and archive IDEA. Then:
-     1. Append a PROMOTE record to `.arch/reflect-proposals.jsonl` at confidence 1.0 (records that THINK executed a human decision, not that THINK proposed it).
-     2. Parse the Decision field for an attribution annotation using this tristate:
-        - `[influenced-by: THINK-abc123, THINK-def456]` → `influence_declared: true`, proposals cited
-        - `[influenced-by: none]` → `influence_declared: true`, `based_on_proposals: []` (declared non-influence — human engaged with attribution and confirmed REFLECT did not influence the decision)
-        - No annotation → `influence_declared: false`, `based_on_proposals: []` (undeclared — distinct from declared non-influence; do not conflate)
-     3. Append to `.arch/reflect-decisions.jsonl`:
-        ```json
-        {"decision_id":"D-<8-char-uuid>","timestamp":"<ISO-8601>","target":"<IDEA-slug>","outcome":"PROMOTE","finality":"committed","influence_declared":<true|false>,"based_on_proposals":["THINK-abc123"]}
-        ```
-        All decisions written here carry `finality: "committed"` — there is no provisional state in the current flow. A committed decision can only be corrected by appending a supersession record; never by mutation.
-     Attribution must be explicit or absent — never inferred from temporal proximity to a proposal.
-   - **REJECTED:** Move to `docs/refinement/archive/`.
-3. **Phase boundary:** This phase does NOT create tasks directly. All IDEA promotion requires a human Decision field.
-
-### Local-First Decomposition Heuristic
-
-**Applies to:** Any IDEA promoted to a task with size M or L.
-
-**Mandatory decomposition** — the IDEA must not be promoted as a single task — when ALL of:
-- The IDEA spans more than 2 independent concerns (e.g., UI + API + persistence)
-- Each concern is independently testable
-- The first concern can ship value before the others are done
-
-**Justified as complex (single task is acceptable)** — when ANY of:
-- The concerns share deep state that cannot be cleanly separated without a refactor larger than the task itself
-- The AC count is ≤ 5 (complexity is in implementation depth, not breadth)
-- A prior decomposition attempt produced phantom tasks that were all force-closed
-
-**Output when decomposition is mandatory:** Create a parent IDEA in `docs/refinement/` titled `IDEA-decompose-<slug>.md` with the sub-tasks listed as bullets. Do not promote the original IDEA to a task — promote each sub-task separately.
-
-**Drift signal for arch review:** Any READY task with size M or L in `docs/tasks/` that has no `### Gaps` section or no sub-task reference is flagged as `[ADVISORY] TASK-XXX is M/L-sized — decomposition rationale missing. Add ### Gaps section.`
-
-
-0. **Print:** `[THINK] Phase 2.5 — Semantic Drift Analysis` to stdout.
-1. **Skip condition:** If running under time pressure or minimal-mode flag, skip this phase and print `[THINK] Phase 2.5 — skipped`.
-2. **Inputs to read:** `docs/guidelines/*.md` (full content), `docs/adr/*.md` (Context + Decision sections of ACCEPTED ADRs), `docs/tasks/` (Meta lines + ACs only), `docs/archive/` (Meta lines only), `docs/refinement/IDEA-*.md` (DRAFT and PROMOTED entries), `docs/tensions/weak-signals.md` (full content).
-3. **Analysis — Weak signal decay:** Read `docs/tensions/weak-signals.md`. For each signal with an `**Adjudicate by:**` deadline that has now been reached (count this THINK session as one review against that deadline), emit to stdout: `[TENSION-DECAY] <signal-area>: resolution due — <current classification> — [REFLECT-SUGGESTS] PROMOTE | DEMOTE | EXTEND — rationale: <one sentence>`. Tag suggestions explicitly as `[REFLECT-SUGGESTS]` so they are distinguishable from human decisions in the divergence record. Do NOT make the decision. Do NOT modify the signal record. The pressure signal is output only — human or GOVERN decides the outcome. If a signal has already been extended once and is past its extended deadline, add `FINAL — no further extension valid` to the emission.
-   **After each `[REFLECT-SUGGESTS]` emission**, generate a `proposal_id` of the form `THINK-<8-char-uuid>` and include it in the stdout line: `[REFLECT-SUGGESTS] PROMOTE — id: THINK-abc123 — rationale: <one sentence>`. Then append to `.arch/reflect-proposals.jsonl`:
-   ```json
-   {"proposal_id":"THINK-abc123","timestamp":"<ISO-8601>","target":"<signal-area>","type":"PROMOTE|DEMOTE|EXTEND","confidence":<0.0-1.0>,"rationale_ref":"<one-sentence rationale>","signals_used":["<signal-area>"]}
-   ```
-   Use confidence 0.7 for standard suggestions, 0.9 for FINAL (no further extension valid) signals. The `proposal_id` must appear in stdout so that humans can cite it in their subsequent Decision annotation (`[influenced-by: THINK-abc123]`). This record is the persistent trace of what REFLECT proposed — it is not a decision record.
-4. **Analysis — Conceptual contradictions:** Identify any two guideline sections that assert conflicting behaviors for the same domain (e.g., commit frequency defined differently in two files). If found, emit `[SEMANTIC-DRIFT] contradiction: <file-A>:<section> vs <file-B>:<section> — <description>` to stdout.
-5. **Analysis — Structural duplication:** Identify materially identical sections or rules appearing in more than one guideline file. If found, emit `[SEMANTIC-DRIFT] duplication: <file-A>:<section> ≈ <file-B>:<section>` to stdout.
-6. **Analysis — ADR conceptual drift:** Identify ACCEPTED ADRs whose stated rationale conflicts with how the system currently operates (judged against active tasks and current guidelines). If found, emit `[SEMANTIC-DRIFT] adr-drift: <ADR-ID> — rationale no longer matches observed system behavior` to stdout.
-7. **Analysis — Governance class boundary audit:** Read existing DriftChecker check names and any IDEAs or ADRs in the last 30 days that introduced governance rules. For each, assess: does the check's actual behavior match its declared class (Class I / Class II per `docs/GOVERNANCE.md`)? Specifically: is any Class I check using commit message content, file presence, or naming patterns as a proxy for architectural intent or correctness? If yes, emit `[SEMANTIC-DRIFT] class-boundary-violation: <check-name> — declared Class I but implicitly evaluating: <claim>`. This step requires human interpretation — it is itself a Class II analysis. Do not emit without concrete evidence of scope overreach; absence of evidence is not a finding.
-   Additionally, run two protocol degeneration proxies (per `docs/GOVERNANCE.md §Terminal failure mode`):
-   - **Cross-rule repetition**: Compare `Does NOT evaluate` fields across all governance rules introduced in the last 90 days. If any two share >60% textual overlap (excluding stop words), emit `[SEMANTIC-DRIFT] protocol-degeneration-signal: <rule-A> ≈ <rule-B> — Does NOT evaluate field appears templated rather than discovered`. This is a surface-pattern signal only — do not infer intent, do not count as a violation.
-   - **Rule longevity**: Identify any governance rule (DriftChecker check, ADR, or GOVERNANCE.md section) whose class assignment has not been re-examined in 6+ months (judged by last git modification date of the file containing it). Emit `[SEMANTIC-DRIFT] governance-stale: <rule-name> — class assignment not re-examined since <date>`. Surface only, not a failure.
-   Both proxies can be satisfied with ritual compliance and cannot detect conceptually empty entries. They are early-warning patterns, not verdicts. The terminal limit is stated in GOVERNANCE.md and is not resolvable by adding more proxies.
-8. **Output rule:** For each finding that warrants action (steps 4–7), create a new IDEA file in `docs/refinement/IDEA-<slug>.md` with `Source: Phase-2.5` in the Meta line. Do NOT create tasks directly. Do NOT modify DriftChecker or any enforcement layer.
-9. **Max output:** At most 3 new IDEAs per THINK run from steps 4–7. Weak signal decay emissions (step 3) are not subject to this cap — all due signals must be surfaced in the same session.
-10. **Phase boundary:** This phase is a semantic observer, not an enforcement layer. Its output feeds Phase 2 (refinement queue) and Phase 3 (Kaizen). It never feeds `arch review` or `DriftChecker`.
-
-## Phase 3 [DEEP]: Continuous Kaizen (Real-time Reviewer)
-0. **Print:** `[THINK] Phase 3 — Continuous Kaizen` to stdout.
-1. **Kaizen Learning:** Run `arch review --json`. If failures exist (and aren't in `docs/KAIZEN-LOG.md` exceptions), analyze violations/drift against `docs/PRINCIPLES.md` (primary context) and `docs/KAIZEN-LOG.md` (audit trail). If a violation matches an existing principle, reference it. If it represents a new pattern, propose a new principle entry and a hardening task (`fix:` or `feat:`) to prevent recurrence.
-   **Evidence gate:** Only emit a `[KAIZEN]` proposal if it can cite a concrete repeated signal from at least one of: (a) a Phase 1 violation or blocker found this session, (b) a Phase 2 IDEA triage finding, (c) a Phase 2.5 `[SEMANTIC-DRIFT]` or `[TENSION-DECAY]` emission, or (d) a metric from `docs/METRICS.md` that exceeds its threshold. A proposal without a named source signal is suppressed — do not emit it.
-2. **Mura Detection:** Read `Turns: N` from the last 10 archived tasks. For each size tier (XS/S/M/L), compute the average. If actual avg exceeds the expected range in `docs/METRICS.md` by >50%, emit `[MURA] <size>-tier avg=N turns (threshold=T)` to stdout and propose a re-estimation or decomposition task.
-3. **Resurrection Review (every 20 govern ticks):** Count TTL-rejected and DEFERRED IDEAs in `docs/refinement/archive/`. If count > 10 OR READY task count < 3, emit `[RESURRECTION-REVIEW] N TTL-rejected/DEFERRED IDEAs in archive — run arch govern inbox --resurrect to evaluate` to `docs/INBOX.md`. Do not auto-resurrect. Human decides.
-4. **Immediate Improvements:** Identify context gaps or guideline changes based on patterns observed across phases.
-5. **Sprint Metrics:** Run `arch govern report` to update `docs/METRICS.md` with the latest operational indicators.
-6. **Periodic Architecture Revision (bi-weekly):** Read the `Last-Revision:` field at the bottom of `docs/KAIZEN-LOG.md`. If the field is absent or its date is more than 14 days before today, run a focused architecture audit; otherwise skip this step. Use `docs/METRICS.md` cost-per-task and turns-per-task data as the primary signal for identifying friction candidates (skip if fewer than 5 tasks are recorded). Produce a numbered list of concrete streamlining proposals — each must be an actionable proposal, not an observation — formatted as:
-   ```
-   [REVISION] <N>. <proposal> → <next action: IDEA draft docs/refinement/IDEA-<slug>.md | direct fix in <file>>
-   ```
-   Output to terminal only. If a proposal warrants a task, create an IDEA draft in `docs/refinement/IDEA-<slug>.md` and commit with `idea:` prefix. After completing the audit, append `Last-Revision: YYYY-MM-DD` (today's date) to `docs/KAIZEN-LOG.md` and commit with `[THINK]` tag.
+## Phase 3 [DEEP]: Continuous Kaizen
+0. Print `[THINK] Phase 3 — Continuous Kaizen` to stdout.
+1. Run `arch review --json`. Analyze violations against `docs/PRINCIPLES.md`. Emit `[KAIZEN]` only with a concrete signal from Phase 1, 2, or 2.5 — no signal, no emission.
+2. **Mura detection:** Read `Turns: N` from last 10 archived tasks. If avg exceeds expected range by >50%, emit `[MURA]`.
+3. **Sprint metrics:** Run `arch govern report` to update `docs/METRICS.md`.
 
 ## Output
-- Ephemeral read-only output to terminal.
-- Kaizen: `[KAIZEN] [proposal] — rationale: [rationale]`
-- Autonomy: `[SELF-PROMOTION] IDEA-ID to TASK-ID — criteria: [L2 requirements met]`
-- Revision: `[REVISION] <N>. <proposal> → <next action>`
-- **Finally, print:** `[THINK] Done` to stdout.
+Terminal-only except INBOX writes and file mutations above.
+`[THINK] Done` is the final stdout line.
+
+---
+
+## Appendix A — Replenishment edge cases
+- **Cap:** Never propose more than 3 new IDEAs in one session regardless of READY count.
+- **Queue bottleneck:** If READY < 3 but refinement queue has ≥ 5 unresolved DRAFTs, write the INBOX entry but skip creating a new IDEA.
+- **Admission gate:** IDEAs need a clear deliverable and known acceptance shape. Exploratory ideas without these go to `docs/refinement/ROADMAP-IDEAS.md`, not individual files.
+
+## Appendix B — ADR-034 prefix whitelist
+Deterministic prefixes (no `[ADVISORY]` required): `[ANDON_HALT]`, `[AWAITING_TRIAGE]`, `[CORPUS_ALERT]`, `[PATTERN-ALERT]`, `[STALE_TASK]`, `[STALE-IDEA]`, `[READY-FLOOR-BREACH]`, `[FLOW-REGRESSION]`. All other THINK-written entries use `[ADVISORY]`.
+
+## Appendix C — 5-axis constraint framework
+| Axis | Violation signal |
+|------|-----------------|
+| Dependency ordering | Requires something not yet built |
+| Temporal validity | Insufficient empirical base |
+| Abstraction layer | Wrong level of the stack |
+| Observability validity | Required observable doesn't exist reliably |
+| Priority displacement | Valid idea, wrong bottleneck for current pressure |
+
+A DRAFT passing all 5 axes is structurally admissible — not necessarily good. Human decision still required.
+
+## Appendix D — Decomposition heuristic (M/L tasks)
+Mandatory decomposition when ALL: spans >2 independent concerns, each independently testable, first concern ships value alone. Acceptable as single task when ANY: concerns share deep state, ≤ 5 ACs, prior decomposition attempt produced phantom tasks.

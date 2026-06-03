@@ -494,9 +494,9 @@ test('yields focus to READY task when IN_PROGRESS task exceeds stale threshold',
   assert.ok(fs.files['docs/tasks/TASK-101.md'].includes('Focus:yes'), 'READY task must gain focus after stale detection');
   assert.ok(!fs.files['docs/tasks/TASK-100.md'].includes('Focus:yes'), 'stale IN_PROGRESS task must lose focus');
 
-  // INBOX must contain STALE_TASK entry
-  const inbox = fs.files['docs/INBOX.md'] ?? '';
-  assert.ok(inbox.includes('[STALE_TASK] TASK-100'), 'INBOX must contain [STALE_TASK] TASK-100 entry');
+  // NOTIFICATIONS.md must contain STALE_TASK entry (machine signal goes to NOTIFICATIONS)
+  const notifications = fs.files['docs/NOTIFICATIONS.md'] ?? '';
+  assert.ok(notifications.includes('[STALE_TASK] TASK-100'), 'NOTIFICATIONS.md must contain [STALE_TASK] TASK-100 entry');
 
   // Ledger must record FOCUS_ACQUIRED for TASK-101
   const ledger = parseLedger(fs.files['.arch/focus-ledger.jsonl']);
