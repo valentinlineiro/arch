@@ -2259,6 +2259,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-1096.md"
+        },
+        "TASK-1110": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-1110.md"
         }
       }
     },
@@ -5331,7 +5337,7 @@
       "title": "Archive Partitioning Strategy — Year-Month Subdirectories"
     }
   },
-  "builtAt": "2026-06-02T21:59:20.770Z",
+  "builtAt": "2026-06-03T05:51:23.446Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -13206,25 +13212,34 @@
       }
     },
     "TASK-1090": {
-      "commitCount": 3,
+      "commitCount": 4,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-06-02T21:51:13+00:00",
+      "lastCommitDate": "2026-06-02T21:59:37+00:00",
       "recentCommitRefs": [
         "3480878",
         "59e5776",
+        "d067db2",
         "e65ec0f"
       ],
       "touchedFrequency": {
-        ".arch/alert-fatigue.jsonl": 1,
+        ".arch/alert-fatigue.jsonl": 2,
         ".arch/causal-signal.jsonl": 1,
         ".arch/chronicle.jsonl": 1,
         ".arch/context-feedback.json": 1,
+        ".arch/corpus-index.json": 1,
+        ".arch/escalations.jsonl": 1,
         ".arch/focus-ledger.jsonl": 1,
-        ".arch/reflect-breach-log.jsonl": 1,
+        ".arch/reflect-breach-log.jsonl": 2,
         ".arch/temporal-index.jsonl": 1,
-        "docs/EVENTS.md": 2,
-        "docs/INBOX.md": 1,
+        "cli/src/main/ts/application/use-cases/checkers/structural-checker.ts": 1,
+        "cli/src/main/ts/application/use-cases/govern-system.ts": 1,
+        "cli/src/main/ts/application/use-cases/mark-task-done.ts": 1,
+        "cli/src/main/ts/infrastructure/filesystem/markdown-task-repository.ts": 1,
+        "docs/EVENTS.md": 3,
+        "docs/INBOX.md": 2,
+        "docs/agents/THINK.md": 1,
         "docs/archive/TASK-1090.md": 1,
+        "docs/guidelines/autonomy.md": 1,
         "docs/refinement/IDEA-adr-034-advisory-prefix.md": 1,
         "docs/refinement/IDEA-arch-as-claude-code-deployment-target.md": 1,
         "docs/refinement/IDEA-auto-task-turns.md": 1,
@@ -13371,6 +13386,18 @@
         "docs/tasks/TASK-1094.md": 1,
         "docs/tasks/TASK-1095.md": 1,
         "docs/tasks/TASK-1096.md": 2
+      }
+    },
+    "TASK-1097": {
+      "commitCount": 1,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-06-03T05:50:47+00:00",
+      "recentCommitRefs": [
+        "a38509d"
+      ],
+      "touchedFrequency": {
+        ".arch/focus-ledger.jsonl": 1,
+        "docs/tasks/TASK-1097.md": 1
       }
     },
     "TASK-264": {
