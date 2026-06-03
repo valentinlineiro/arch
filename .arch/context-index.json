@@ -13,6 +13,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-003.md"
+        },
+        "TASK-1109": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1109.md"
         }
       }
     },
@@ -180,201 +186,24 @@
           ],
           "taskPath": "docs/archive/TASK-1106.md"
         },
+        "TASK-1109": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1109.md"
+        },
+        "TASK-1112": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1112.md"
+        },
         "TASK-157": {
           "evidenceKinds": [
             "depends",
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-157.md"
-        },
-        "TASK-242": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-242.md"
-        },
-        "TASK-969": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-969.md"
-        },
-        "TASK-997": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-997.md"
-        }
-      }
-    },
-    "ADR-002": {
-      "tasks": {
-        "TASK-003": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-003.md"
-        },
-        "TASK-1013": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1013.md"
-        },
-        "TASK-1050": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1050.md"
-        },
-        "TASK-1085": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1085.md"
-        },
-        "TASK-1090": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1090.md"
-        },
-        "TASK-1101": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1101.md"
-        },
-        "TASK-969": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-969.md"
-        }
-      }
-    },
-    "ADR-003": {
-      "tasks": {
-        "TASK-023": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-023.md"
-        },
-        "TASK-074": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-074.md"
-        },
-        "TASK-1012": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1012.md"
-        },
-        "TASK-1019": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1019.md"
-        },
-        "TASK-1021": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1021.md"
-        },
-        "TASK-1028": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1028.md"
-        },
-        "TASK-1044": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1044.md"
-        },
-        "TASK-1053": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1053.md"
-        },
-        "TASK-1054": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1054.md"
-        },
-        "TASK-1057": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1057.md"
-        },
-        "TASK-1061": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1061.md"
-        },
-        "TASK-1065": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1065.md"
-        },
-        "TASK-1074": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1074.md"
-        },
-        "TASK-1078": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1078.md"
-        },
-        "TASK-1082": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1082.md"
-        },
-        "TASK-1084": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1084.md"
-        },
-        "TASK-1087": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1087.md"
-        },
-        "TASK-1096": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1096.md"
-        },
-        "TASK-1106": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1106.md"
-        },
-        "TASK-160": {
-          "evidenceKinds": [
-            "depends",
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-160.md"
         },
         "TASK-242": {
           "evidenceKinds": [
@@ -609,6 +438,12 @@
           ],
           "taskPath": "docs/archive/TASK-1104.md"
         },
+        "TASK-1105": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1105.md"
+        },
         "TASK-1106": {
           "evidenceKinds": [
             "literal-mention"
@@ -620,6 +455,24 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-1107.md"
+        },
+        "TASK-1109": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1109.md"
+        },
+        "TASK-1111": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1111.md"
+        },
+        "TASK-1112": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1112.md"
         },
         "TASK-242": {
           "evidenceKinds": [
@@ -650,17 +503,6 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-998.md"
-        }
-      }
-    },
-    "ADR-005": {
-      "tasks": {
-        "TASK-164": {
-          "evidenceKinds": [
-            "depends",
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-164.md"
         }
       }
     },
@@ -900,6 +742,12 @@
           ],
           "taskPath": "docs/archive/TASK-1102.md"
         },
+        "TASK-1105": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1105.md"
+        },
         "TASK-1107": {
           "evidenceKinds": [
             "literal-mention"
@@ -911,6 +759,24 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-1108.md"
+        },
+        "TASK-1109": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1109.md"
+        },
+        "TASK-1110": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1110.md"
+        },
+        "TASK-1111": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1111.md"
         },
         "TASK-272": {
           "evidenceKinds": [
@@ -1042,6 +908,12 @@
           ],
           "taskPath": "docs/archive/TASK-1096.md"
         },
+        "TASK-1110": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1110.md"
+        },
         "TASK-967": {
           "evidenceKinds": [
             "literal-mention"
@@ -1164,212 +1036,6 @@
         }
       }
     },
-    "ADR-011": {
-      "tasks": {
-        "TASK-1051": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1051.md"
-        },
-        "TASK-213": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-213.md"
-        }
-      }
-    },
-    "ADR-012": {
-      "tasks": {
-        "TASK-1004": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1004.md"
-        },
-        "TASK-1005": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1005.md"
-        },
-        "TASK-1007": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1007.md"
-        },
-        "TASK-1008": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1008.md"
-        },
-        "TASK-1014": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1014.md"
-        },
-        "TASK-1015": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1015.md"
-        },
-        "TASK-1017": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1017.md"
-        },
-        "TASK-1019": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1019.md"
-        },
-        "TASK-1025": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1025.md"
-        },
-        "TASK-1034": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1034.md"
-        },
-        "TASK-1037": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1037.md"
-        },
-        "TASK-1038": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1038.md"
-        },
-        "TASK-1043": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1043.md"
-        },
-        "TASK-1044": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1044.md"
-        },
-        "TASK-1046": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1046.md"
-        },
-        "TASK-1049": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1049.md"
-        },
-        "TASK-1052": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1052.md"
-        },
-        "TASK-1055": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1055.md"
-        },
-        "TASK-1073": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1073.md"
-        },
-        "TASK-1074": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1074.md"
-        },
-        "TASK-1089": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1089.md"
-        },
-        "TASK-1097": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1097.md"
-        },
-        "TASK-1098": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1098.md"
-        },
-        "TASK-1099": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1099.md"
-        },
-        "TASK-1100": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1100.md"
-        },
-        "TASK-1102": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1102.md"
-        },
-        "TASK-1104": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1104.md"
-        },
-        "TASK-967": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-967.md"
-        },
-        "TASK-996": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-996.md"
-        },
-        "TASK-997": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-997.md"
-        },
-        "TASK-999": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-999.md"
-        }
-      }
-    },
     "ADR-013": {
       "tasks": {
         "TASK-1005": {
@@ -1464,530 +1130,6 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-991.md"
-        }
-      }
-    },
-    "ADR-014": {
-      "tasks": {
-        "TASK-1017": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1017.md"
-        },
-        "TASK-1022": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1022.md"
-        },
-        "TASK-1048": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1048.md"
-        },
-        "TASK-1069": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1069.md"
-        },
-        "TASK-1070": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1070.md"
-        },
-        "TASK-1079": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1079.md"
-        },
-        "TASK-1081": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1081.md"
-        },
-        "TASK-1092": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1092.md"
-        },
-        "TASK-224": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-224.md"
-        }
-      }
-    },
-    "ADR-015": {
-      "tasks": {
-        "TASK-1013": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1013.md"
-        },
-        "TASK-1014": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1014.md"
-        },
-        "TASK-1058": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1058.md"
-        },
-        "TASK-1068": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1068.md"
-        },
-        "TASK-1072": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1072.md"
-        },
-        "TASK-1077": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1077.md"
-        },
-        "TASK-1081": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1081.md"
-        },
-        "TASK-1086": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1086.md"
-        },
-        "TASK-1094": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1094.md"
-        },
-        "TASK-1103": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1103.md"
-        },
-        "TASK-225": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-225.md"
-        },
-        "TASK-957": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-957.md"
-        },
-        "TASK-999": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-999.md"
-        }
-      }
-    },
-    "ADR-016": {
-      "tasks": {
-        "TASK-1008": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1008.md"
-        },
-        "TASK-1009": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1009.md"
-        },
-        "TASK-1011": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1011.md"
-        },
-        "TASK-1015": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1015.md"
-        },
-        "TASK-1023": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1023.md"
-        },
-        "TASK-1034": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1034.md"
-        },
-        "TASK-1037": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1037.md"
-        },
-        "TASK-1043": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1043.md"
-        },
-        "TASK-1049": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1049.md"
-        },
-        "TASK-1052": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1052.md"
-        },
-        "TASK-1055": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1055.md"
-        },
-        "TASK-1060": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1060.md"
-        },
-        "TASK-1068": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1068.md"
-        },
-        "TASK-1069": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1069.md"
-        },
-        "TASK-1075": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1075.md"
-        },
-        "TASK-1076": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1076.md"
-        },
-        "TASK-1077": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1077.md"
-        },
-        "TASK-1080": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1080.md"
-        },
-        "TASK-1082": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1082.md"
-        },
-        "TASK-1089": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1089.md"
-        },
-        "TASK-1097": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1097.md"
-        },
-        "TASK-1098": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1098.md"
-        },
-        "TASK-1099": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1099.md"
-        },
-        "TASK-1101": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1101.md"
-        },
-        "TASK-1102": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1102.md"
-        },
-        "TASK-1103": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1103.md"
-        },
-        "TASK-202": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-202.md"
-        },
-        "TASK-227": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-227.md"
-        },
-        "TASK-264": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-264.md"
-        },
-        "TASK-282": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-282.md"
-        },
-        "TASK-970": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-970.md"
-        },
-        "TASK-990": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-990.md"
-        },
-        "TASK-996": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-996.md"
-        },
-        "TASK-998": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-998.md"
-        }
-      }
-    },
-    "ADR-017": {
-      "tasks": {
-        "TASK-1001": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1001.md"
-        },
-        "TASK-1002": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1002.md"
-        },
-        "TASK-1004": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1004.md"
-        },
-        "TASK-1006": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1006.md"
-        },
-        "TASK-1007": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1007.md"
-        },
-        "TASK-1023": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1023.md"
-        },
-        "TASK-1024": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1024.md"
-        },
-        "TASK-1043": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1043.md"
-        },
-        "TASK-1048": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1048.md"
-        },
-        "TASK-1053": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1053.md"
-        },
-        "TASK-1054": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1054.md"
-        },
-        "TASK-1056": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1056.md"
-        },
-        "TASK-1062": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1062.md"
-        },
-        "TASK-1067": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1067.md"
-        },
-        "TASK-1070": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1070.md"
-        },
-        "TASK-1090": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1090.md"
-        },
-        "TASK-1094": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1094.md"
-        },
-        "TASK-1096": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1096.md"
-        },
-        "TASK-1100": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1100.md"
-        },
-        "TASK-1103": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1103.md"
-        },
-        "TASK-264": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-264.md"
-        },
-        "TASK-957": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-957.md"
-        },
-        "TASK-966": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-966.md"
-        },
-        "TASK-967": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-967.md"
-        },
-        "TASK-969": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-969.md"
-        },
-        "TASK-991": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-991.md"
-        },
-        "TASK-996": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-996.md"
-        }
-      }
-    },
-    "ADR-018": {
-      "tasks": {
-        "TASK-201": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-201.md"
         }
       }
     },
@@ -2151,6 +1293,12 @@
           ],
           "taskPath": "docs/archive/TASK-1104.md"
         },
+        "TASK-1105": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1105.md"
+        },
         "TASK-1107": {
           "evidenceKinds": [
             "literal-mention"
@@ -2171,16 +1319,6 @@
         }
       }
     },
-    "ADR-022": {
-      "tasks": {
-        "TASK-946": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-946.md"
-        }
-      }
-    },
     "ADR-023": {
       "tasks": {
         "TASK-950": {
@@ -2195,204 +1333,6 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-980.md"
-        }
-      }
-    },
-    "ADR-024": {
-      "tasks": {
-        "TASK-1049": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1049.md"
-        },
-        "TASK-1055": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1055.md"
-        },
-        "TASK-949": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-949.md"
-        }
-      }
-    },
-    "ADR-025": {
-      "tasks": {
-        "TASK-1002": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1002.md"
-        },
-        "TASK-1051": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1051.md"
-        },
-        "TASK-1056": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1056.md"
-        },
-        "TASK-242": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-242.md"
-        },
-        "TASK-282": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-282.md"
-        },
-        "TASK-956": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-956.md"
-        }
-      }
-    },
-    "ADR-026": {
-      "tasks": {
-        "TASK-1005": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1005.md"
-        },
-        "TASK-1017": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1017.md"
-        },
-        "TASK-1019": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1019.md"
-        },
-        "TASK-1024": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1024.md"
-        },
-        "TASK-1029": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1029.md"
-        },
-        "TASK-1048": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1048.md"
-        },
-        "TASK-1057": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1057.md"
-        },
-        "TASK-1081": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1081.md"
-        },
-        "TASK-1083": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1083.md"
-        },
-        "TASK-1085": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1085.md"
-        },
-        "TASK-1088": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1088.md"
-        },
-        "TASK-958": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-958.md"
-        }
-      }
-    },
-    "ADR-027": {
-      "tasks": {
-        "TASK-920": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-920.md"
-        }
-      }
-    },
-    "ADR-028": {
-      "tasks": {
-        "TASK-1052": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1052.md"
-        },
-        "TASK-977": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-977.md"
-        }
-      }
-    },
-    "ADR-029": {
-      "tasks": {
-        "TASK-1001": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1001.md"
-        },
-        "TASK-1008": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1008.md"
-        },
-        "TASK-1013": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1013.md"
-        },
-        "TASK-1018": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1018.md"
-        },
-        "TASK-1021": {
-          "evidenceKinds": [
-            "literal-mention"
-          ],
-          "taskPath": "docs/archive/TASK-1021.md"
         }
       }
     },
@@ -2468,7 +1408,7 @@
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-1110.md"
+          "taskPath": "docs/archive/TASK-1110.md"
         }
       }
     },
@@ -2644,177 +1584,6 @@
       "strength": "enforced",
       "title": "Use git as the primary state engine"
     },
-    "ADR-002": {
-      "affectedModules": [],
-      "keywords": [
-        "002",
-        "2026",
-        "accepted",
-        "act",
-        "adr",
-        "agents",
-        "arch",
-        "architecture",
-        "budget",
-        "budgets",
-        "clean",
-        "codebase",
-        "compared",
-        "consequences",
-        "context",
-        "costs",
-        "date",
-        "deciders",
-        "decision",
-        "declaration",
-        "declared",
-        "default",
-        "degraded",
-        "dependencies",
-        "documentation",
-        "ensure",
-        "entire",
-        "every",
-        "everything",
-        "explicit",
-        "explicitly",
-        "fallacy",
-        "field",
-        "files",
-        "finite",
-        "focused",
-        "forcing",
-        "full",
-        "function",
-        "higher",
-        "important",
-        "increased",
-        "irrelevant",
-        "keeps",
-        "latency",
-        "leads",
-        "listed",
-        "llms",
-        "loading",
-        "logic",
-        "maintainers",
-        "measured",
-        "model",
-        "modularity",
-        "must",
-        "noise",
-        "performance",
-        "positive",
-        "predictable",
-        "prevents",
-        "prohibited",
-        "rationale",
-        "reading",
-        "reasoning",
-        "reduction",
-        "relevant",
-        "remain",
-        "resource",
-        "rot",
-        "scarce",
-        "sifts",
-        "small",
-        "specific",
-        "status",
-        "strictly",
-        "task",
-        "tasks",
-        "through",
-        "token",
-        "treat",
-        "typical",
-        "usage",
-        "windows"
-      ],
-      "strength": "enforced",
-      "title": "Context as a budget, not a default"
-    },
-    "ADR-003": {
-      "affectedModules": [],
-      "keywords": [
-        "001",
-        "003",
-        "017",
-        "2026",
-        "accepted",
-        "adr",
-        "agent",
-        "already",
-        "also",
-        "arch",
-        "auditable",
-        "backlog",
-        "becomes",
-        "carries",
-        "changes",
-        "commits",
-        "committed",
-        "conductor",
-        "context",
-        "creates",
-        "date",
-        "deciders",
-        "decision",
-        "deprecat",
-        "derived",
-        "dispatch",
-        "docs",
-        "duplicates",
-        "elsewhere",
-        "engine",
-        "ephemeral",
-        "establishes",
-        "every",
-        "exception",
-        "explicit",
-        "file",
-        "filesystem",
-        "friction",
-        "git",
-        "information",
-        "introduces",
-        "invalidation",
-        "lives",
-        "maintainers",
-        "moment",
-        "must",
-        "none",
-        "officially",
-        "only",
-        "output",
-        "persisted",
-        "persistent",
-        "present",
-        "primary",
-        "protocols",
-        "question",
-        "recommendations",
-        "record",
-        "related",
-        "repository",
-        "requires",
-        "sprint",
-        "stale",
-        "state",
-        "status",
-        "supersedes",
-        "task",
-        "terminal",
-        "transition",
-        "unique",
-        "view",
-        "whether",
-        "writes",
-        "written"
-      ],
-      "strength": "enforced",
-      "title": "DISPATCH output is ephemeral — exception to ADR-001"
-    },
     "ADR-004": {
       "affectedModules": [],
       "keywords": [
@@ -2893,99 +1662,6 @@
       ],
       "strength": "enforced",
       "title": "Flat docs/tasks/ directory with Focus field replaces sprint/backlog split"
-    },
-    "ADR-005": {
-      "affectedModules": [],
-      "keywords": [
-        "005",
-        "30s",
-        "acce",
-        "acceptance",
-        "access",
-        "acs",
-        "adr",
-        "allowlist",
-        "based",
-        "certain",
-        "code",
-        "command",
-        "commands",
-        "considered",
-        "containerization",
-        "context",
-        "criteria",
-        "decision",
-        "deemed",
-        "designated",
-        "desktop",
-        "directory",
-        "docker",
-        "enforce",
-        "environments",
-        "ephemeral",
-        "escalation",
-        "execute",
-        "executing",
-        "executions",
-        "filesystem",
-        "full",
-        "gate",
-        "git",
-        "grep",
-        "guard",
-        "hardcoded",
-        "heavy",
-        "higher",
-        "implement",
-        "initially",
-        "involve",
-        "isolate",
-        "isolation",
-        "javascript",
-        "layered",
-        "lightweight",
-        "list",
-        "logic",
-        "multi",
-        "native",
-        "need",
-        "network",
-        "node",
-        "non",
-        "only",
-        "overhead",
-        "permit",
-        "portable",
-        "poses",
-        "potentially",
-        "privilege",
-        "proposed",
-        "required",
-        "requiring",
-        "restrict",
-        "risk",
-        "runners",
-        "safe",
-        "safely",
-        "sandbox",
-        "scripts",
-        "security",
-        "shell",
-        "status",
-        "strategy",
-        "strict",
-        "test",
-        "timeout",
-        "timeouts",
-        "tmp",
-        "too",
-        "while",
-        "without",
-        "write",
-        "wsl"
-      ],
-      "strength": "advisory",
-      "title": "Non-Docker Sandbox Strategy"
     },
     "ADR-006": {
       "affectedModules": [],
@@ -3422,175 +2098,6 @@
       "strength": "advisory",
       "title": "Escalation Maturity Phase 1 (E3 Detectable)"
     },
-    "ADR-011": {
-      "affectedModules": [],
-      "keywords": [
-        "011",
-        "199",
-        "211",
-        "accepted",
-        "across",
-        "adr",
-        "arch",
-        "array",
-        "became",
-        "both",
-        "bridge",
-        "bugs",
-        "chains",
-        "changes",
-        "class",
-        "config",
-        "configuration",
-        "consolidate",
-        "context",
-        "controlled",
-        "decision",
-        "default",
-        "defines",
-        "defining",
-        "fallback",
-        "fragmentation",
-        "fragmented",
-        "global",
-        "hierarchical",
-        "identifier",
-        "implemented",
-        "into",
-        "invocation",
-        "json",
-        "key",
-        "leaking",
-        "led",
-        "llm",
-        "locality",
-        "logic",
-        "mapped",
-        "mechanism",
-        "model",
-        "modeltiers",
-        "name",
-        "names",
-        "now",
-        "preferred",
-        "provider",
-        "providers",
-        "redundancy",
-        "redundant",
-        "routing",
-        "schema",
-        "separate",
-        "significant",
-        "single",
-        "size",
-        "specific",
-        "status",
-        "strategies",
-        "strings",
-        "tables",
-        "task",
-        "unified",
-        "universal",
-        "well",
-        "when"
-      ],
-      "strength": "enforced",
-      "title": "Unified Provider Strategies"
-    },
-    "ADR-012": {
-      "affectedModules": [],
-      "keywords": [
-        "011",
-        "012",
-        "accepted",
-        "adr",
-        "agent",
-        "argument",
-        "before",
-        "believing",
-        "bridge",
-        "bridgeprovider",
-        "buffer",
-        "bugfixes",
-        "bugs",
-        "buildcommand",
-        "caller",
-        "callers",
-        "calls",
-        "candidates",
-        "capture",
-        "cat",
-        "check",
-        "checked",
-        "cli",
-        "code",
-        "command",
-        "content",
-        "context",
-        "default",
-        "diffs",
-        "enobufs",
-        "entering",
-        "exceeded",
-        "exec",
-        "execcommand",
-        "execution",
-        "file",
-        "following",
-        "full",
-        "happened",
-        "identified",
-        "inject",
-        "injection",
-        "into",
-        "invocations",
-        "killing",
-        "large",
-        "layer",
-        "limit",
-        "llm",
-        "local",
-        "long",
-        "loop",
-        "maxbuffer",
-        "memory",
-        "method",
-        "mid",
-        "misled",
-        "missing",
-        "name",
-        "never",
-        "node",
-        "original",
-        "output",
-        "parameter",
-        "provider",
-        "read",
-        "refactor",
-        "responses",
-        "routing",
-        "run",
-        "session",
-        "shell",
-        "signature",
-        "silently",
-        "spawnsync",
-        "status",
-        "strategies",
-        "string",
-        "temp",
-        "three",
-        "threw",
-        "transcripts",
-        "unified",
-        "unused",
-        "used",
-        "uses",
-        "written"
-      ],
-      "strength": "enforced",
-      "title": "Exec/Bridge Layer Bugfixes - maxBuffer, buildCommand signature, local routing"
-    },
     "ADR-013": {
       "affectedModules": [],
       "keywords": [
@@ -3681,438 +2188,6 @@
       ],
       "strength": "enforced",
       "title": "Two-Tier Drift Detection Architecture"
-    },
-    "ADR-014": {
-      "affectedModules": [
-        "cli/src/main/ts/domain/models/causal-relation.ts"
-      ],
-      "keywords": [
-        "011",
-        "014",
-        "2026",
-        "220",
-        "accepted",
-        "add",
-        "adr",
-        "allowed",
-        "answer",
-        "append",
-        "arch",
-        "ask",
-        "between",
-        "cannot",
-        "causal",
-        "causality",
-        "caused",
-        "chronicle",
-        "completed",
-        "compound",
-        "context",
-        "date",
-        "deciders",
-        "decision",
-        "decisions",
-        "detection",
-        "did",
-        "eiro",
-        "entities",
-        "events",
-        "exist",
-        "failure",
-        "fixes",
-        "flat",
-        "graph",
-        "guideline",
-        "implements",
-        "invariants",
-        "itself",
-        "json",
-        "jsonl",
-        "layer",
-        "lexical",
-        "limited",
-        "line",
-        "means",
-        "memory",
-        "note",
-        "object",
-        "occurrence",
-        "only",
-        "operational",
-        "proxy",
-        "questions",
-        "records",
-        "recurring",
-        "references",
-        "relation",
-        "relationships",
-        "schema",
-        "spawned",
-        "started",
-        "status",
-        "store",
-        "stores",
-        "structure",
-        "surface",
-        "task",
-        "tasks",
-        "timestamp",
-        "types",
-        "valent",
-        "violated",
-        "which",
-        "why",
-        "without"
-      ],
-      "strength": "enforced",
-      "title": "Causal Graph Schema for Chronicle"
-    },
-    "ADR-015": {
-      "affectedModules": [],
-      "keywords": [
-        "014",
-        "015",
-        "2026",
-        "225",
-        "accepted",
-        "adr",
-        "append",
-        "arbitration",
-        "arch",
-        "architecture",
-        "askcorpus",
-        "asserted",
-        "auditable",
-        "automatically",
-        "backward",
-        "becomes",
-        "causal",
-        "causalgraph",
-        "coherent",
-        "collapse",
-        "committ",
-        "completion",
-        "consumed",
-        "context",
-        "date",
-        "decision",
-        "design",
-        "detection",
-        "direction",
-        "directly",
-        "does",
-        "edges",
-        "epistemic",
-        "epistemologically",
-        "established",
-        "events",
-        "evidence",
-        "existing",
-        "facts",
-        "feedback",
-        "forward",
-        "frozen",
-        "generated",
-        "govern",
-        "graph",
-        "handles",
-        "human",
-        "hypotheses",
-        "inferred",
-        "influence",
-        "introduce",
-        "jsonl",
-        "layer",
-        "learning",
-        "lifecycle",
-        "loop",
-        "needed",
-        "never",
-        "observation",
-        "only",
-        "path",
-        "prematurely",
-        "queries",
-        "records",
-        "recurrence",
-        "remains",
-        "reproducible",
-        "rigid",
-        "signal",
-        "signals",
-        "status",
-        "system",
-        "task",
-        "truth",
-        "uncertainty",
-        "under",
-        "violations",
-        "without"
-      ],
-      "strength": "enforced",
-      "title": "Causal Signal Arbitration Layer"
-    },
-    "ADR-016": {
-      "affectedModules": [],
-      "keywords": [
-        "016",
-        "2026",
-        "accepted",
-        "adr",
-        "application",
-        "arch",
-        "belong",
-        "boundary",
-        "business",
-        "causing",
-        "changes",
-        "checker",
-        "checking",
-        "cli",
-        "config",
-        "consumed",
-        "contained",
-        "context",
-        "covered",
-        "date",
-        "deciders",
-        "decision",
-        "define",
-        "dependencies",
-        "depends",
-        "derived",
-        "directory",
-        "domain",
-        "drift",
-        "eiro",
-        "enforcement",
-        "enforces",
-        "entire",
-        "escalationmaturity",
-        "exclusively",
-        "filesystem",
-        "fire",
-        "gitrepository",
-        "governance",
-        "infrastructure",
-        "interfaces",
-        "invariants",
-        "json",
-        "layer",
-        "logic",
-        "main",
-        "means",
-        "mix",
-        "model",
-        "models",
-        "objects",
-        "operational",
-        "opposite",
-        "path",
-        "protected",
-        "protection",
-        "purely",
-        "rather",
-        "repositories",
-        "repository",
-        "representing",
-        "review",
-        "rules",
-        "semantic",
-        "services",
-        "src",
-        "status",
-        "structural",
-        "system",
-        "than",
-        "true",
-        "valent",
-        "value",
-        "what",
-        "whose"
-      ],
-      "strength": "enforced",
-      "title": "Define the semantic boundary of the domain layer"
-    },
-    "ADR-017": {
-      "affectedModules": [],
-      "keywords": [
-        "017",
-        "2026",
-        "absolute",
-        "accepted",
-        "accurate",
-        "adr",
-        "annotations",
-        "append",
-        "arch",
-        "archive",
-        "auditor",
-        "automated",
-        "aware",
-        "block",
-        "calculation",
-        "clerical",
-        "cli",
-        "command",
-        "commit",
-        "computed",
-        "consisting",
-        "constitutional",
-        "context",
-        "creation",
-        "cycle",
-        "date",
-        "dates",
-        "deciders",
-        "decision",
-        "delimiters",
-        "deterministic",
-        "docs",
-        "done",
-        "either",
-        "ensure",
-        "errors",
-        "event",
-        "events",
-        "extracts",
-        "fail",
-        "fallback",
-        "first",
-        "formal",
-        "formatted",
-        "gemini",
-        "generated",
-        "git",
-        "health",
-        "human",
-        "implement",
-        "lacked",
-        "leading",
-        "like",
-        "log",
-        "logging",
-        "manually",
-        "measuring",
-        "mechanism",
-        "metadata",
-        "metrics",
-        "observability",
-        "only",
-        "operational",
-        "parser",
-        "preserving",
-        "probabilistic",
-        "rate",
-        "readable",
-        "ready",
-        "record",
-        "report",
-        "reporting",
-        "review",
-        "status",
-        "strictly",
-        "structured",
-        "surgically",
-        "system",
-        "task",
-        "time",
-        "transitions",
-        "updates",
-        "uses",
-        "using",
-        "while"
-      ],
-      "strength": "enforced",
-      "title": "Deterministic Observability & Operational Metrics"
-    },
-    "ADR-018": {
-      "affectedModules": [],
-      "keywords": [
-        "018",
-        "2026",
-        "accepted",
-        "adr",
-        "adversarially",
-        "agents",
-        "anchors",
-        "auditor",
-        "backed",
-        "based",
-        "baseline",
-        "calibration",
-        "cap",
-        "cli",
-        "collapse",
-        "confidence",
-        "context",
-        "curves",
-        "date",
-        "decay",
-        "decaying",
-        "deciders",
-        "decision",
-        "digest",
-        "drift",
-        "epistemic",
-        "epistemology",
-        "even",
-        "every",
-        "explicit",
-        "file",
-        "game",
-        "gemini",
-        "governance",
-        "graded",
-        "hardened",
-        "hash",
-        "high",
-        "history",
-        "human",
-        "implement",
-        "inferred",
-        "integrity",
-        "introduced",
-        "known",
-        "lack",
-        "layer",
-        "level",
-        "medium",
-        "metric",
-        "model",
-        "must",
-        "noise",
-        "non",
-        "own",
-        "potential",
-        "provenance",
-        "reporting",
-        "reputation",
-        "requirement",
-        "resilient",
-        "rev",
-        "rigidity",
-        "risks",
-        "robust",
-        "rules",
-        "scale",
-        "score",
-        "semantic",
-        "snapshot",
-        "solved",
-        "status",
-        "system",
-        "through",
-        "traceable",
-        "transition",
-        "truth",
-        "violation",
-        "when",
-        "worktree",
-        "zero"
-      ],
-      "strength": "enforced",
-      "title": "Adversarially Robust Epistemology & Graded Integrity"
     },
     "ADR-019": {
       "affectedModules": [],
@@ -4380,81 +2455,6 @@
       "strength": "enforced",
       "title": "Refinement funnel TTL and admission gate"
     },
-    "ADR-022": {
-      "affectedModules": [],
-      "keywords": [
-        "022",
-        "1000",
-        "1250",
-        "1500",
-        "2026",
-        "946",
-        "accepted",
-        "accurate",
-        "active",
-        "add",
-        "adr",
-        "against",
-        "arch",
-        "averaged",
-        "backlog",
-        "becoming",
-        "budget",
-        "capture",
-        "ceiling",
-        "census",
-        "check",
-        "command",
-        "consistently",
-        "context",
-        "contextbudget",
-        "created",
-        "date",
-        "decision",
-        "decisions",
-        "docs",
-        "established",
-        "feedback",
-        "gaps",
-        "generates",
-        "hansei",
-        "intent",
-        "introduced",
-        "legitimately",
-        "line",
-        "lines",
-        "manually",
-        "mechanically",
-        "milestone",
-        "need",
-        "per",
-        "preserves",
-        "raise",
-        "recalibration",
-        "refactoring",
-        "relative",
-        "release",
-        "relevant",
-        "sections",
-        "semantically",
-        "signal",
-        "signaling",
-        "stale",
-        "status",
-        "structured",
-        "system",
-        "task",
-        "tasks",
-        "template",
-        "unmanageable",
-        "warning",
-        "warns",
-        "when",
-        "wrong"
-      ],
-      "strength": "advisory",
-      "title": "Census Budget Recalibration for Capture Template"
-    },
     "ADR-023": {
       "affectedModules": [],
       "keywords": [
@@ -4531,530 +2531,6 @@
       ],
       "strength": "advisory",
       "title": "Deterministic Gate Invariant"
-    },
-    "ADR-024": {
-      "affectedModules": [],
-      "keywords": [
-        "024",
-        "2026",
-        "accepted",
-        "add",
-        "adr",
-        "already",
-        "arch",
-        "backlog",
-        "been",
-        "being",
-        "cannot",
-        "carries",
-        "centric",
-        "check",
-        "checker",
-        "complete",
-        "config",
-        "context",
-        "corresponding",
-        "coupled",
-        "cover",
-        "coverage",
-        "covers",
-        "date",
-        "deciders",
-        "declare",
-        "describe",
-        "determine",
-        "drift",
-        "driftchecker",
-        "eiro",
-        "emits",
-        "enforcement",
-        "escalationmaturity",
-        "evaluated",
-        "every",
-        "exists",
-        "field",
-        "hansei",
-        "hanseipresent",
-        "idea",
-        "ideas",
-        "identity",
-        "interventions",
-        "invalidated",
-        "json",
-        "layers",
-        "listing",
-        "matching",
-        "mechanically",
-        "model",
-        "named",
-        "names",
-        "option",
-        "options",
-        "pending",
-        "persistent",
-        "primitive",
-        "proposed",
-        "query",
-        "removed",
-        "renamed",
-        "scans",
-        "scope",
-        "semantically",
-        "shared",
-        "signal",
-        "signals",
-        "status",
-        "structured",
-        "system",
-        "task",
-        "these",
-        "three",
-        "valent",
-        "via",
-        "warn",
-        "whether"
-      ],
-      "strength": "enforced",
-      "title": "Drift Coverage Identity Model"
-    },
-    "ADR-025": {
-      "affectedModules": [],
-      "keywords": [
-        "025",
-        "2026",
-        "accepted",
-        "adopt",
-        "adr",
-        "advance",
-        "agent",
-        "arch",
-        "architecture",
-        "archprotocol",
-        "authoritative",
-        "behind",
-        "bidirectional",
-        "breaking",
-        "cadences",
-        "changes",
-        "check",
-        "cli",
-        "commands",
-        "compatibility",
-        "concerns",
-        "config",
-        "conflating",
-        "context",
-        "contracts",
-        "coordination",
-        "creates",
-        "curr",
-        "date",
-        "deciders",
-        "decision",
-        "declared",
-        "different",
-        "distinct",
-        "drift",
-        "eiro",
-        "enforcement",
-        "ergonomics",
-        "excludes",
-        "fails",
-        "false",
-        "flags",
-        "gains",
-        "hard",
-        "hides",
-        "implementation",
-        "invariants",
-        "json",
-        "level",
-        "minimum",
-        "minimumcliversion",
-        "model",
-        "numbers",
-        "output",
-        "package",
-        "present",
-        "protocol",
-        "protocolversion",
-        "range",
-        "required",
-        "review",
-        "rules",
-        "runtime",
-        "semantics",
-        "signals",
-        "status",
-        "supported",
-        "them",
-        "these",
-        "track",
-        "valent",
-        "version",
-        "versioncompat",
-        "versioning",
-        "when"
-      ],
-      "strength": "enforced",
-      "title": "Two-Track Versioning Architecture"
-    },
-    "ADR-026": {
-      "affectedModules": [],
-      "keywords": [
-        "026",
-        "2026",
-        "accepted",
-        "adr",
-        "agents",
-        "alerts",
-        "append",
-        "applies",
-        "arch",
-        "architectural",
-        "architecturally",
-        "comm",
-        "compliance",
-        "computed",
-        "confusion",
-        "context",
-        "counts",
-        "date",
-        "deciders",
-        "different",
-        "distinct",
-        "diverge",
-        "docs",
-        "drift",
-        "during",
-        "eiro",
-        "enforcement",
-        "epistemic",
-        "epistemological",
-        "escalations",
-        "event",
-        "functions",
-        "govern",
-        "governance",
-        "implicitly",
-        "inbox",
-        "incoherent",
-        "information",
-        "invariants",
-        "jsonl",
-        "layer",
-        "live",
-        "log",
-        "never",
-        "non",
-        "observation",
-        "only",
-        "operate",
-        "overwritten",
-        "pattern",
-        "pressure",
-        "processes",
-        "produces",
-        "producing",
-        "prohibitions",
-        "projection",
-        "reality",
-        "recurring",
-        "replicas",
-        "rules",
-        "same",
-        "semantic",
-        "semantics",
-        "separation",
-        "serve",
-        "sprint",
-        "state",
-        "status",
-        "style",
-        "surfaced",
-        "surfaces",
-        "synchronize",
-        "tasks",
-        "their",
-        "them",
-        "these",
-        "they",
-        "think",
-        "through",
-        "ticks",
-        "treated",
-        "under",
-        "valent",
-        "views",
-        "violation",
-        "when",
-        "written"
-      ],
-      "strength": "enforced",
-      "title": "Epistemic Layer Separation — Event Log, State Projection, Governance Semantics"
-    },
-    "ADR-027": {
-      "affectedModules": [],
-      "keywords": [
-        "027",
-        "2026",
-        "absolute",
-        "accepted",
-        "accumulate",
-        "across",
-        "activities",
-        "adjacency",
-        "adr",
-        "antigravity",
-        "arch",
-        "attempted",
-        "axiom",
-        "behavior",
-        "behavioral",
-        "bounded",
-        "build",
-        "causal",
-        "causality",
-        "conceptual",
-        "context",
-        "contradictio",
-        "control",
-        "conversely",
-        "coordinates",
-        "could",
-        "covert",
-        "date",
-        "deciders",
-        "decontextualized",
-        "defeating",
-        "defines",
-        "degrades",
-        "design",
-        "destroying",
-        "developer",
-        "eiro",
-        "enforce",
-        "engineering",
-        "entire",
-        "epistemically",
-        "events",
-        "executions",
-        "forced",
-        "fundamental",
-        "histories",
-        "however",
-        "identifiability",
-        "identities",
-        "impossible",
-        "inferred",
-        "inherently",
-        "intent",
-        "into",
-        "invariance",
-        "iterations",
-        "letting",
-        "mathematical",
-        "metrics",
-        "neutral",
-        "non",
-        "order",
-        "ordering",
-        "permutation",
-        "persistent",
-        "pipeline",
-        "prevent",
-        "previous",
-        "processing",
-        "profiling",
-        "project",
-        "projections",
-        "reconstruction",
-        "repository",
-        "resolve",
-        "self",
-        "sequence",
-        "sequential",
-        "silently",
-        "software",
-        "state",
-        "statelessness",
-        "status",
-        "stream",
-        "temporal",
-        "they",
-        "trace",
-        "valent",
-        "version",
-        "while"
-      ],
-      "strength": "enforced",
-      "title": "Epistemically Bounded Stream Projections — Non-Persistent Sequence Processing"
-    },
-    "ADR-028": {
-      "affectedModules": [
-        "cli/src/test/ts/corpus-stress-test.test.ts"
-      ],
-      "keywords": [
-        "028",
-        "2026",
-        "absolute",
-        "accepted",
-        "across",
-        "adr",
-        "alerts",
-        "antigravity",
-        "arch",
-        "blocking",
-        "boundaries",
-        "bounded",
-        "building",
-        "cli",
-        "compilation",
-        "context",
-        "cross",
-        "date",
-        "deciders",
-        "decision",
-        "defined",
-        "defines",
-        "detected",
-        "deterministic",
-        "developers",
-        "drift",
-        "during",
-        "eiro",
-        "enforcement",
-        "ensure",
-        "epistemic",
-        "establish",
-        "execution",
-        "failure",
-        "following",
-        "formal",
-        "framework",
-        "greatest",
-        "invariant",
-        "invocations",
-        "leaking",
-        "mathematical",
-        "mathematically",
-        "memory",
-        "models",
-        "observations",
-        "ontology",
-        "operational",
-        "optimize",
-        "over",
-        "paradigm",
-        "phase",
-        "pipeline",
-        "precise",
-        "remains",
-        "repo",
-        "require",
-        "risk",
-        "secure",
-        "seeking",
-        "semantic",
-        "sequence",
-        "sequential",
-        "silent",
-        "specification",
-        "specifications",
-        "status",
-        "stream",
-        "strictly",
-        "structurally",
-        "summary",
-        "system",
-        "temporal",
-        "test",
-        "these",
-        "transformations",
-        "unified",
-        "valent",
-        "violation",
-        "within"
-      ],
-      "strength": "enforced",
-      "title": "Unified Epistemic Invariant Specification — Bounded Stream Enforcement"
-    },
-    "ADR-029": {
-      "affectedModules": [],
-      "keywords": [
-        "029",
-        "460",
-        "accepted",
-        "adr",
-        "alias",
-        "aliases",
-        "analyze",
-        "arch",
-        "bootstrap",
-        "causal",
-        "centric",
-        "cli",
-        "command",
-        "commanddispatcher",
-        "compile",
-        "complicates",
-        "context",
-        "creates",
-        "decision",
-        "decouple",
-        "deprecated",
-        "designed",
-        "dispatcher",
-        "driven",
-        "enhance",
-        "entry",
-        "esoteric",
-        "file",
-        "flag",
-        "friction",
-        "govern",
-        "grew",
-        "human",
-        "humans",
-        "index",
-        "init",
-        "instantiation",
-        "internalized",
-        "interpretation",
-        "introduce",
-        "leading",
-        "legacy",
-        "lines",
-        "llm",
-        "maintenance",
-        "memory",
-        "minimal",
-        "monolithic",
-        "names",
-        "onboarding",
-        "originally",
-        "over",
-        "philosophical",
-        "point",
-        "proto",
-        "pruning",
-        "reduce",
-        "reflect",
-        "registry",
-        "remove",
-        "renaming",
-        "resolution",
-        "review",
-        "show",
-        "status",
-        "streamlined",
-        "support",
-        "surface",
-        "trace",
-        "which"
-      ],
-      "strength": "enforced",
-      "title": "Human-Centric CLI Surface & Command Dispatcher"
     },
     "ADR-030": {
       "affectedModules": [
@@ -5541,7 +3017,7 @@
       "title": "Archive Partitioning Strategy — Year-Month Subdirectories"
     }
   },
-  "builtAt": "2026-06-03T11:53:06.667Z",
+  "builtAt": "2026-06-03T11:59:03.430Z",
   "failures": {},
   "files": {
     "cli/src/main/ts/application/command-dispatcher.ts": {
@@ -12413,10 +9889,11 @@
       }
     },
     "TASK-1097": {
-      "commitCount": 3,
+      "commitCount": 4,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-06-03T11:33:56+00:00",
+      "lastCommitDate": "2026-06-03T11:53:21+00:00",
       "recentCommitRefs": [
+        "0be4327",
         "a38509d",
         "c731329",
         "e9a39f0"
@@ -12424,10 +9901,10 @@
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
         ".arch/chronicle.jsonl": 1,
-        ".arch/corpus-index.json": 1,
+        ".arch/corpus-index.json": 2,
         ".arch/escalations-compacted.jsonl": 1,
         ".arch/focus-ledger.jsonl": 1,
-        ".arch/reflect-breach-log.jsonl": 1,
+        ".arch/reflect-breach-log.jsonl": 2,
         ".arch/temporal-index.jsonl": 1,
         "cli/src/main/ts/application/command-dispatcher.ts": 1,
         "cli/src/main/ts/application/commands/analyze-command.ts": 1,
@@ -12466,9 +9943,15 @@
         "cli/src/test/ts/escalation-maturity-e5.test.ts": 1,
         "cli/src/test/ts/select-next-task.test.ts": 1,
         "cli/src/test/ts/temporal-index.test.ts": 1,
-        "docs/EVENTS.md": 2,
-        "docs/INBOX.md": 1,
+        "docs/AGENTS.md": 1,
+        "docs/ARCH-CORE.md": 1,
+        "docs/EVENTS.md": 3,
+        "docs/GOVERNANCE.md": 1,
+        "docs/INBOX.md": 2,
+        "docs/archive/KAIZEN-LOG-2026.md": 1,
+        "docs/archive/ROADMAP-2026.md": 1,
         "docs/archive/TASK-1097.md": 1,
+        "docs/archive/TASK-1103.md": 1,
         "docs/refinement/archive/IDEA-cut-temporal-index-pattern-engine.md": 1,
         "docs/refinement/archive/IDEA-remove-alertfatigue-store.md": 1,
         "docs/refinement/archive/IDEA-remove-causal-graph.md": 1,
@@ -12480,10 +9963,11 @@
       }
     },
     "TASK-1098": {
-      "commitCount": 2,
+      "commitCount": 3,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-06-03T11:33:56+00:00",
+      "lastCommitDate": "2026-06-03T11:53:21+00:00",
       "recentCommitRefs": [
+        "0be4327",
         "3184e6f",
         "e9a39f0"
       ],
@@ -12491,9 +9975,9 @@
         ".arch/causal-signal.jsonl": 1,
         ".arch/chronicle.jsonl": 1,
         ".arch/context-feedback.json": 1,
-        ".arch/corpus-index.json": 1,
+        ".arch/corpus-index.json": 2,
         ".arch/escalations-compacted.jsonl": 1,
-        ".arch/reflect-breach-log.jsonl": 1,
+        ".arch/reflect-breach-log.jsonl": 2,
         ".arch/temporal-index.jsonl": 1,
         "cli/src/main/ts/application/command-dispatcher.ts": 1,
         "cli/src/main/ts/application/commands/analyze-command.ts": 1,
@@ -12532,9 +10016,15 @@
         "cli/src/test/ts/escalation-maturity-e5.test.ts": 1,
         "cli/src/test/ts/select-next-task.test.ts": 1,
         "cli/src/test/ts/temporal-index.test.ts": 1,
-        "docs/EVENTS.md": 2,
-        "docs/INBOX.md": 1,
+        "docs/AGENTS.md": 1,
+        "docs/ARCH-CORE.md": 1,
+        "docs/EVENTS.md": 3,
+        "docs/GOVERNANCE.md": 1,
+        "docs/INBOX.md": 2,
+        "docs/archive/KAIZEN-LOG-2026.md": 1,
+        "docs/archive/ROADMAP-2026.md": 1,
         "docs/archive/TASK-1098.md": 1,
+        "docs/archive/TASK-1103.md": 1,
         "docs/refinement/archive/IDEA-cut-temporal-index-pattern-engine.md": 1,
         "docs/refinement/archive/IDEA-remove-alertfatigue-store.md": 1,
         "docs/refinement/archive/IDEA-remove-causal-graph.md": 1,
@@ -12546,10 +10036,11 @@
       }
     },
     "TASK-1099": {
-      "commitCount": 2,
+      "commitCount": 3,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-06-03T11:33:56+00:00",
+      "lastCommitDate": "2026-06-03T11:53:21+00:00",
       "recentCommitRefs": [
+        "0be4327",
         "29dd3d5",
         "e9a39f0"
       ],
@@ -12557,9 +10048,9 @@
         ".arch/causal-signal.jsonl": 1,
         ".arch/chronicle.jsonl": 1,
         ".arch/context-feedback.json": 1,
-        ".arch/corpus-index.json": 1,
+        ".arch/corpus-index.json": 2,
         ".arch/escalations-compacted.jsonl": 1,
-        ".arch/reflect-breach-log.jsonl": 1,
+        ".arch/reflect-breach-log.jsonl": 2,
         ".arch/temporal-index.jsonl": 1,
         "cli/src/main/ts/application/command-dispatcher.ts": 1,
         "cli/src/main/ts/application/commands/analyze-command.ts": 1,
@@ -12598,9 +10089,15 @@
         "cli/src/test/ts/escalation-maturity-e5.test.ts": 1,
         "cli/src/test/ts/select-next-task.test.ts": 1,
         "cli/src/test/ts/temporal-index.test.ts": 1,
-        "docs/EVENTS.md": 2,
-        "docs/INBOX.md": 1,
+        "docs/AGENTS.md": 1,
+        "docs/ARCH-CORE.md": 1,
+        "docs/EVENTS.md": 3,
+        "docs/GOVERNANCE.md": 1,
+        "docs/INBOX.md": 2,
+        "docs/archive/KAIZEN-LOG-2026.md": 1,
+        "docs/archive/ROADMAP-2026.md": 1,
         "docs/archive/TASK-1099.md": 1,
+        "docs/archive/TASK-1103.md": 1,
         "docs/refinement/archive/IDEA-cut-temporal-index-pattern-engine.md": 1,
         "docs/refinement/archive/IDEA-remove-alertfatigue-store.md": 1,
         "docs/refinement/archive/IDEA-remove-causal-graph.md": 1,
@@ -12742,10 +10239,11 @@
       }
     },
     "TASK-1102": {
-      "commitCount": 2,
+      "commitCount": 3,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-06-03T11:33:56+00:00",
+      "lastCommitDate": "2026-06-03T11:53:21+00:00",
       "recentCommitRefs": [
+        "0be4327",
         "d70beb6",
         "e9a39f0"
       ],
@@ -12753,9 +10251,9 @@
         ".arch/causal-signal.jsonl": 1,
         ".arch/chronicle.jsonl": 1,
         ".arch/context-feedback.json": 1,
-        ".arch/corpus-index.json": 1,
+        ".arch/corpus-index.json": 2,
         ".arch/escalations-compacted.jsonl": 1,
-        ".arch/reflect-breach-log.jsonl": 1,
+        ".arch/reflect-breach-log.jsonl": 2,
         ".arch/temporal-index.jsonl": 1,
         "cli/src/main/ts/application/command-dispatcher.ts": 1,
         "cli/src/main/ts/application/commands/analyze-command.ts": 1,
@@ -12794,9 +10292,15 @@
         "cli/src/test/ts/escalation-maturity-e5.test.ts": 1,
         "cli/src/test/ts/select-next-task.test.ts": 1,
         "cli/src/test/ts/temporal-index.test.ts": 1,
-        "docs/EVENTS.md": 2,
-        "docs/INBOX.md": 1,
+        "docs/AGENTS.md": 1,
+        "docs/ARCH-CORE.md": 1,
+        "docs/EVENTS.md": 3,
+        "docs/GOVERNANCE.md": 1,
+        "docs/INBOX.md": 2,
+        "docs/archive/KAIZEN-LOG-2026.md": 1,
+        "docs/archive/ROADMAP-2026.md": 1,
         "docs/archive/TASK-1102.md": 1,
+        "docs/archive/TASK-1103.md": 1,
         "docs/refinement/archive/IDEA-cut-temporal-index-pattern-engine.md": 1,
         "docs/refinement/archive/IDEA-remove-alertfatigue-store.md": 1,
         "docs/refinement/archive/IDEA-remove-causal-graph.md": 1,
@@ -12808,10 +10312,11 @@
       }
     },
     "TASK-1103": {
-      "commitCount": 2,
+      "commitCount": 3,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-06-03T11:33:56+00:00",
+      "lastCommitDate": "2026-06-03T11:53:21+00:00",
       "recentCommitRefs": [
+        "0be4327",
         "68fc950",
         "e9a39f0"
       ],
@@ -12819,9 +10324,9 @@
         ".arch/causal-signal.jsonl": 1,
         ".arch/chronicle.jsonl": 1,
         ".arch/context-feedback.json": 1,
-        ".arch/corpus-index.json": 1,
+        ".arch/corpus-index.json": 2,
         ".arch/escalations-compacted.jsonl": 1,
-        ".arch/reflect-breach-log.jsonl": 1,
+        ".arch/reflect-breach-log.jsonl": 2,
         ".arch/temporal-index.jsonl": 1,
         "cli/src/main/ts/application/command-dispatcher.ts": 1,
         "cli/src/main/ts/application/commands/analyze-command.ts": 1,
@@ -12860,9 +10365,14 @@
         "cli/src/test/ts/escalation-maturity-e5.test.ts": 1,
         "cli/src/test/ts/select-next-task.test.ts": 1,
         "cli/src/test/ts/temporal-index.test.ts": 1,
-        "docs/EVENTS.md": 2,
-        "docs/INBOX.md": 1,
-        "docs/archive/TASK-1103.md": 1,
+        "docs/AGENTS.md": 1,
+        "docs/ARCH-CORE.md": 1,
+        "docs/EVENTS.md": 3,
+        "docs/GOVERNANCE.md": 1,
+        "docs/INBOX.md": 2,
+        "docs/archive/KAIZEN-LOG-2026.md": 1,
+        "docs/archive/ROADMAP-2026.md": 1,
+        "docs/archive/TASK-1103.md": 2,
         "docs/refinement/archive/IDEA-cut-temporal-index-pattern-engine.md": 1,
         "docs/refinement/archive/IDEA-remove-alertfatigue-store.md": 1,
         "docs/refinement/archive/IDEA-remove-causal-graph.md": 1,
@@ -12892,15 +10402,21 @@
       }
     },
     "TASK-1105": {
-      "commitCount": 1,
+      "commitCount": 2,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-06-03T11:52:33+00:00",
+      "lastCommitDate": "2026-06-03T11:58:23+00:00",
       "recentCommitRefs": [
-        "65fc568"
+        "65fc568",
+        "6ed4f31"
       ],
       "touchedFrequency": {
+        ".arch/causal-signal.jsonl": 1,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/context-feedback.json": 1,
         ".arch/focus-ledger.jsonl": 1,
-        "docs/tasks/TASK-1105.md": 1
+        "docs/EVENTS.md": 1,
+        "docs/archive/TASK-1105.md": 1,
+        "docs/tasks/TASK-1105.md": 2
       }
     },
     "TASK-1106": {
@@ -12949,6 +10465,70 @@
         "docs/EVENTS.md": 1,
         "docs/archive/TASK-1108.md": 1,
         "docs/tasks/TASK-1108.md": 1
+      }
+    },
+    "TASK-1109": {
+      "commitCount": 1,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-06-03T11:58:23+00:00",
+      "recentCommitRefs": [
+        "6f9dce3"
+      ],
+      "touchedFrequency": {
+        ".arch/causal-signal.jsonl": 1,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/context-feedback.json": 1,
+        "docs/EVENTS.md": 1,
+        "docs/archive/TASK-1109.md": 1,
+        "docs/tasks/TASK-1109.md": 1
+      }
+    },
+    "TASK-1110": {
+      "commitCount": 1,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-06-03T11:58:23+00:00",
+      "recentCommitRefs": [
+        "b120c6a"
+      ],
+      "touchedFrequency": {
+        ".arch/causal-signal.jsonl": 1,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/context-feedback.json": 1,
+        "docs/EVENTS.md": 1,
+        "docs/archive/TASK-1110.md": 1,
+        "docs/tasks/TASK-1110.md": 1
+      }
+    },
+    "TASK-1111": {
+      "commitCount": 1,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-06-03T11:58:23+00:00",
+      "recentCommitRefs": [
+        "c0631ed"
+      ],
+      "touchedFrequency": {
+        ".arch/causal-signal.jsonl": 1,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/context-feedback.json": 1,
+        "docs/EVENTS.md": 1,
+        "docs/archive/TASK-1111.md": 1,
+        "docs/tasks/TASK-1111.md": 1
+      }
+    },
+    "TASK-1112": {
+      "commitCount": 1,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-06-03T11:58:24+00:00",
+      "recentCommitRefs": [
+        "c2781e1"
+      ],
+      "touchedFrequency": {
+        ".arch/causal-signal.jsonl": 1,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/context-feedback.json": 1,
+        "docs/EVENTS.md": 1,
+        "docs/archive/TASK-1112.md": 1,
+        "docs/tasks/TASK-1112.md": 1
       }
     },
     "TASK-264": {
