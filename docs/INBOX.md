@@ -111,4 +111,9 @@ AWAITING_PROMOTION | IDEA-split-inbox-notifications-decisions | 2026-06-03 — n
 Evidence: Persistent breach (39 consecutive cycles): Engagement 39% is below threshold 50% — attribution discipline review required
 
 ## 2026-06-03 11:33:33 — Pattern Alerts
+
+## [2026-06-03 11:52] INFLUENCE_BREACH_PERSISTENT | REFLECT
+Evidence: Persistent breach (40 consecutive cycles): Engagement 39% is below threshold 50% — attribution discipline review required
+
+## 2026-06-03 11:53:06 — Pattern Alerts
 [PATTERN-ALERT] [SpecDrift] detected 8 times — systemic issue. See docs/tensions/
