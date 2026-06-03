@@ -91,3 +91,18 @@ Evidence: Persistent breach (36 consecutive cycles): Engagement 39% is below thr
 ## [2026-06-02 21:58] INFLUENCE_BREACH_PERSISTENT | REFLECT
 Evidence: Persistent breach (37 consecutive cycles): Engagement 39% is below threshold 50% — attribution discipline review required
 [ANDON_HALT] Alert fatigue threshold reached (5th consecutive) for "[SpecDrift]" — system halted.
+
+## [2026-06-03 05:50] INFLUENCE_BREACH_PERSISTENT | REFLECT
+Evidence: Persistent breach (38 consecutive cycles): Engagement 39% is below threshold 50% — attribution discipline review required
+[ANDON_HALT] Alert fatigue threshold reached (5th consecutive) for "[SpecDrift]" — system halted.
+
+AWAITING_PROMOTION | IDEA-archive-solved-adrs | 2026-06-03 — no Decision field set
+AWAITING_PROMOTION | IDEA-automate-events-md | 2026-06-03 — no Decision field set
+AWAITING_PROMOTION | IDEA-compress-identity-md | 2026-06-03 — no Decision field set
+AWAITING_PROMOTION | IDEA-consolidate-kaizen-log | 2026-06-03 — no Decision field set
+AWAITING_PROMOTION | IDEA-cut-governance-md-epistemology | 2026-06-03 — no Decision field set
+AWAITING_PROMOTION | IDEA-delete-roadmap-md | 2026-06-03 — no Decision field set
+AWAITING_PROMOTION | IDEA-deprecate-epistemic-adrs | 2026-06-03 — no Decision field set
+AWAITING_PROMOTION | IDEA-merge-arch-core-into-agents | 2026-06-03 — no Decision field set
+AWAITING_PROMOTION | IDEA-refactor-think-md-lean | 2026-06-03 — no Decision field set
+AWAITING_PROMOTION | IDEA-split-inbox-notifications-decisions | 2026-06-03 — no Decision field set

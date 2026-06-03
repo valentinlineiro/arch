@@ -1,6 +1,6 @@
 # IDEA: Automatic task turn counter — auto-increment Turns on commit
 
-**Status:** PROMOTED
+**Status:** ARCHIVED
 **Created:** 2026-06-02
 **Source:** THINK replenishment — archived tasks show `Turns: 0` for all tasks (no automatic tracking)
 **Candidate-class:** 7-operations
@@ -34,6 +34,6 @@ None — purely operational, no ADR required.
 ## Sessions: 1
 
 ## Decision
-
+ARCHIVE — implemented in TASK-1092. markdown-task-repository.ts save() now updates Turns field in-place.
 EXTEND. The post-commit hook approach would count govern ticks, THINK regenerations, and lint-fix commits as turns — inflated noise, not signal. Gap: define precisely what constitutes a turn before implementing. A turn is one agent working session on a task: increment on IN_PROGRESS commit (task start) and on REVIEW commit (task submission), not on any file touch. Trigger: spec added to this IDEA defining the two increment points and the CLI path that owns the increment (status transition handler in mark-task-in-progress / mark-task-done, not a git hook).
 

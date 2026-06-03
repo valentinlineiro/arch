@@ -1,6 +1,6 @@
 # IDEA: Archive 14 solved-and-sealed ADRs to docs/adr/archive/
 
-**Status:** DRAFT
+**Status:** PROMOTED
 **Created:** 2026-06-03
 **Source:** Protocol audit — 40% of ADRs are final decisions that don't need to be in active corpus
 **Candidate-class:** 6-writing

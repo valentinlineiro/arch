@@ -1,6 +1,6 @@
 # IDEA: Deprecate ADR-026/027/028 when causal graph code is removed
 
-**Status:** DRAFT
+**Status:** DEFERRED
 **Created:** 2026-06-03
 **Source:** Protocol audit — three ADRs govern architecture being considered for removal
 **Candidate-class:** 6-writing

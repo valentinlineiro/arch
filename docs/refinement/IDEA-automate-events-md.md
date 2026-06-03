@@ -1,6 +1,6 @@
 # IDEA: EVENTS.md should be machine-generated, not human-maintained
 
-**Status:** DRAFT
+**Status:** PROMOTED
 **Created:** 2026-06-03
 **Source:** Protocol audit — 401 lines, largest protocol doc, nobody reads it for guidance
 **Candidate-class:** 1-code-reasoning

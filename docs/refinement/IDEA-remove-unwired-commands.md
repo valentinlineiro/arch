@@ -1,6 +1,6 @@
 # IDEA: Remove or document 12 unwired commands from codebase
 
-**Status:** DRAFT
+**Status:** PROMOTED
 **Created:** 2026-06-03
 **Source:** Code audit — 12+ command files exist but are not wired in CommandDispatcher
 **Candidate-class:** 1-code-reasoning
@@ -18,3 +18,4 @@ Some may be intentionally unwired (experimental). Most are dead surface that inf
 Proposed action: audit each — wire it, document it, or delete it. No middle ground.
 
 ## Decision
+PROMOTE → TASK-1100

@@ -1,6 +1,6 @@
 # IDEA: READY-task replenishment visibility — emit [REPLENISHMENT] block when floor breached
 
-**Status:** PROMOTED
+**Status:** ARCHIVED
 **Created:** 2026-06-02
 **Source:** THINK Phase 1 replenishment check — READY count = 2 < 3, no visible output from the check
 **Candidate-class:** 3-process
@@ -33,5 +33,5 @@ None — purely operational, output format change only.
 ## Sessions: 1
 
 ## Decision
-
+ARCHIVE — implemented in TASK-1096. THINK.md step 3 writes [ADVISORY][READY-FLOOR-BREACH] to INBOX.
 (awaiting human decision)

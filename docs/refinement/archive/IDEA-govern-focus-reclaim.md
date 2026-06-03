@@ -1,6 +1,6 @@
 # IDEA: Govern-driven focus reclamation — revert focusless IN_PROGRESS tasks to READY
 
-**Status:** PROMOTED
+**Status:** ARCHIVED
 **Created:** 2026-06-02
 **Source:** THINK replenishment — READY count = 2 < 3 while 3 IN_PROGRESS tasks have Focus:no (TASK-1085, TASK-1086, TASK-1087)
 **Candidate-class:** 7-operations
@@ -37,5 +37,5 @@ None — extends existing focus-assignment logic in `govern-system.ts`.
 ## Sessions: 0
 
 ## Decision
-
+ARCHIVE — implemented in TASK-1094. Rule 5.5 in decideFocus() detects stale IN_PROGRESS Focus:no.
 PROMOTE → TASK-1088

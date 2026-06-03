@@ -1,6 +1,6 @@
 # IDEA: Split INBOX.md into NOTIFICATIONS.md (machine) and INBOX.md (human decisions)
 
-**Status:** DRAFT
+**Status:** PROMOTED
 **Created:** 2026-06-03
 **Source:** Protocol audit — INBOX.md mixes machine alerts with human decision queue
 **Candidate-class:** 1-code-reasoning

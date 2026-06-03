@@ -1,6 +1,6 @@
 # IDEA: Guideline — distinguish human-written vs agent-written Decision fields
 
-**Status:** PROMOTED
+**Status:** ARCHIVED
 **Created:** 2026-05-28
 **Source:** smartcart-os THINK Phase 3 — autonomy.md L2 rule requires human-written Decision but has no detection mechanism; confirmed as finding #8 in ARCH audit 2026-05-22 ("trivially scoped PROMOTE exemption undefined")
 **Candidate-class:** 6-writing
@@ -29,5 +29,5 @@ Update `docs/agents/THINK.md` to prohibit binding Decision writes. Update `docs/
 ## Sessions: 1
 
 ## Decision
-
+ARCHIVE — implemented in TASK-1095. author:agent convention added to THINK.md and autonomy.md.
 PROMOTE → TASK-1086

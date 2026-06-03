@@ -1,6 +1,6 @@
 # IDEA: ADR-034 advisory prefix compliance — THINK INBOX entries must use [ADVISORY]
 
-**Status:** PROMOTED
+**Status:** ARCHIVED
 **Created:** 2026-06-02
 **Source:** Phase-2.5 — ADR-034 Rule 3 compliance audit
 **Candidate-class:** 6-writing
@@ -41,5 +41,5 @@ None — purely documentation change.
 ## Sessions: 0
 
 ## Decision
-
+ARCHIVE — implemented in TASK-1090. THINK.md step 4 updated with ADR-034 compliant prefix rules.
 PROMOTE → TASK-1089

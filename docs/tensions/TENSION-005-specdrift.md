@@ -72,3 +72,7 @@ Severities observed: H2, H3b.
 **Count:** 8 occurrences
 **Task IDs:** TASK-267, TASK-268, TASK-283, TASK-926, TASK-927, TASK-930, TASK-940, TASK-955
 **Severities:** H2, H3b
+## Evidence block — 2026-06-03
+**Count:** 8 occurrences
+**Task IDs:** TASK-267, TASK-268, TASK-283, TASK-926, TASK-927, TASK-930, TASK-940, TASK-955
+**Severities:** H2, H3b

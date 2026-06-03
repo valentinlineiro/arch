@@ -1,6 +1,6 @@
 # IDEA: THINK should cross-check PROMOTED IDEA Decision fields against referenced task titles
 
-**Status:** PROMOTED
+**Status:** ARCHIVED
 **Created:** 2026-05-27
 **Source:** smartcart-os THINK Phase 3 — IDEA-auth had `Decision: PROMOTE → TASK-018` but TASK-018 was an onboarding fix, not an auth task; mismatch went undetected
 **Candidate-class:** 6-writing
@@ -28,5 +28,5 @@ Add to `docs/agents/THINK.md` Phase 1:
 ## Sessions: 1
 
 ## Decision
-
+ARCHIVE — implemented in TASK-1093. DecisionIntegrity check added to StructuralChecker.
 EXTEND. Gap: "keyword overlap ≥1 non-stopword" is too weak a matching heuristic — a task titled "update docs" would pass against any IDEA. Need a tighter definition of plausibility before implementing. Trigger: specify the matching rule (e.g., require ≥2 non-stopword tokens in common, or use the IDEA's candidate-class as a constraint on the task class). One-page spec sufficient; does not need a full THINK evaluation.

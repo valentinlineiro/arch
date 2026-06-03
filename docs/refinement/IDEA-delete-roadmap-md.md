@@ -1,6 +1,6 @@
 # IDEA: Delete ROADMAP.md — it competes with the IDEA queue
 
-**Status:** DRAFT
+**Status:** PROMOTED
 **Created:** 2026-06-03
 **Source:** Protocol audit — ROADMAP.md is a second backlog that diverges from docs/refinement/
 **Candidate-class:** 6-writing

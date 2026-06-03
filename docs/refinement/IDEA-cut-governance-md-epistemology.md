@@ -1,6 +1,6 @@
 # IDEA: Cut GOVERNANCE.md epistemology — keep decision authority matrix only
 
-**Status:** DRAFT
+**Status:** PROMOTED
 **Created:** 2026-06-03
 **Source:** Protocol audit — GOVERNANCE.md is 109 lines, 60% is philosophy that doesn't change behavior
 **Candidate-class:** 6-writing

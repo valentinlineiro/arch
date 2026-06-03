@@ -1,6 +1,6 @@
 # IDEA: Compress IDENTITY.md from 276 to ~100 lines
 
-**Status:** DRAFT
+**Status:** PROMOTED
 **Created:** 2026-06-03
 **Source:** Protocol audit — scope boundaries should be crisp, not verbose
 **Candidate-class:** 6-writing

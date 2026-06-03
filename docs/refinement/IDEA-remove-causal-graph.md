@@ -1,6 +1,6 @@
 # IDEA: Cut or reduce CausalGraph to a simple log — arch trace is unused
 
-**Status:** DRAFT
+**Status:** PROMOTED
 **Created:** 2026-06-03
 **Source:** Code audit — CausalGraph 221 lines, arch trace not in default help, nobody uses it
 **Candidate-class:** 1-code-reasoning
@@ -17,3 +17,4 @@ Two options:
 2. Reduce to a simple append-only JSONL log (no graph traversal, no SignalRouter) — keep the data, drop the machinery
 
 ## Decision
+PROMOTE → TASK-1103

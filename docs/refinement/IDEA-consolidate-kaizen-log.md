@@ -1,6 +1,6 @@
 # IDEA: Archive KAIZEN-LOG.md — it's a third backlog
 
-**Status:** DRAFT
+**Status:** PROMOTED
 **Created:** 2026-06-03
 **Source:** Protocol audit — KAIZEN-LOG, ROADMAP.md, and IDEA queue all serve as backlogs
 **Candidate-class:** 6-writing

@@ -1,6 +1,6 @@
 # IDEA: VerifiabilityScorer should stay background-only — remove from all output paths
 
-**Status:** DRAFT
+**Status:** PROMOTED
 **Created:** 2026-06-03
 **Source:** Code audit — scorer runs but output was suppressed in TASK-1074; still adds noise in some paths
 **Candidate-class:** 2-code-generation
@@ -15,3 +15,4 @@ VerifiabilityScorer scores AC predicates (cmd > file > prose). TASK-1074 suppres
 Proposed: keep the scorer running as an internal metric (corpus quality audit can use it) but remove it from all terminal output paths permanently.
 
 ## Decision
+PROMOTE → TASK-1102

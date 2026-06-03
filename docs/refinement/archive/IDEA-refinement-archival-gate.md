@@ -1,6 +1,6 @@
 # IDEA: Refinement archival gate — auto-archive PROMOTED IDEAs when task is DONE
 
-**Status:** PROMOTED
+**Status:** ARCHIVED
 **Created:** 2026-06-02
 **Source:** THINK replenishment — 6 PROMOTED IDEA files sitting in active docs/refinement/ with completed tasks; INBOX regeneration counts them as active
 **Candidate-class:** 7-operations
@@ -17,7 +17,7 @@ This has two effects:
 ## Proposed solution
 
 A lightweight gate (not a CLI change — a structural cleanup pass) that:
-1. Scans `docs/refinement/` for files with `**Status:** PROMOTED
+1. Scans `docs/refinement/` for files with `**Status:** ARCHIVED
 2. For each, parses the Decision field for `PROMOTE → TASK-XXX`
 3. Checks if `docs/archive/TASK-XXX.md` exists (task is DONE)
 4. If yes: moves the IDEA file to `docs/refinement/archive/`
@@ -39,5 +39,5 @@ None — purely operational.
 ## Sessions: 1
 
 ## Decision
-
+ARCHIVE — implemented in TASK-1091. mark-task-done.ts auto-archives matching IDEA files on task close.
 (awaiting human decision)

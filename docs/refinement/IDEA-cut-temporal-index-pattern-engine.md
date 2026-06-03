@@ -1,6 +1,6 @@
 # IDEA: Cut TemporalIndex + PatternEngine or make opt-in
 
-**Status:** DRAFT
+**Status:** PROMOTED
 **Created:** 2026-06-03
 **Source:** Code audit — pattern detection produces INBOX noise without calibrated thresholds
 **Candidate-class:** 1-code-reasoning
@@ -20,3 +20,4 @@ Options:
 3. Keep but raise thresholds significantly and reduce INBOX verbosity
 
 ## Decision
+PROMOTE → TASK-1101

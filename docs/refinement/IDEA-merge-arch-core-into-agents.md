@@ -1,6 +1,6 @@
 # IDEA: Merge ARCH-CORE.md into AGENTS.md — eliminate competing entry points
 
-**Status:** DRAFT
+**Status:** PROMOTED
 **Created:** 2026-06-03
 **Source:** Protocol audit — ARCH-CORE.md and AGENTS.md serve overlapping purposes
 **Candidate-class:** 6-writing

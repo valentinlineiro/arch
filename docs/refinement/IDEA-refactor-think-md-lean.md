@@ -1,6 +1,6 @@
 # IDEA: Refactor THINK.md — separate core steps from edge-case clauses
 
-**Status:** DRAFT
+**Status:** PROMOTED
 **Created:** 2026-06-03
 **Source:** Protocol audit — THINK.md steps have become dense with exception clauses
 **Candidate-class:** 6-writing

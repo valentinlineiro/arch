@@ -1,6 +1,6 @@
 # IDEA: Remove 0-caller domain services — dead speculative code
 
-**Status:** DRAFT
+**Status:** PROMOTED
 **Created:** 2026-06-03
 **Source:** Code audit — 5 domain services with 0 callers totaling 519 lines
 **Candidate-class:** 2-code-generation
@@ -20,3 +20,4 @@ Five domain services exist with zero callers in production code:
 Total: 519 lines of dead code. Built speculatively, never wired. Add maintenance surface, inflate test surface expectations, confuse new contributors.
 
 ## Decision
+PROMOTE → TASK-1097
