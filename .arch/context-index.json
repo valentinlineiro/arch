@@ -233,6 +233,12 @@
           ],
           "taskPath": "docs/archive/TASK-1090.md"
         },
+        "TASK-1101": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1101.md"
+        },
         "TASK-969": {
           "evidenceKinds": [
             "literal-mention"
@@ -834,6 +840,36 @@
           ],
           "taskPath": "docs/archive/TASK-1094.md"
         },
+        "TASK-1097": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1097.md"
+        },
+        "TASK-1098": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1098.md"
+        },
+        "TASK-1099": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1099.md"
+        },
+        "TASK-1100": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1100.md"
+        },
+        "TASK-1102": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1102.md"
+        },
         "TASK-272": {
           "evidenceKinds": [
             "literal-mention"
@@ -1230,6 +1266,36 @@
           ],
           "taskPath": "docs/archive/TASK-1089.md"
         },
+        "TASK-1097": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1097.md"
+        },
+        "TASK-1098": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1098.md"
+        },
+        "TASK-1099": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1099.md"
+        },
+        "TASK-1100": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1100.md"
+        },
+        "TASK-1102": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1102.md"
+        },
         "TASK-967": {
           "evidenceKinds": [
             "literal-mention"
@@ -1455,6 +1521,12 @@
           ],
           "taskPath": "docs/archive/TASK-1094.md"
         },
+        "TASK-1103": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1103.md"
+        },
         "TASK-225": {
           "evidenceKinds": [
             "literal-mention"
@@ -1596,6 +1668,42 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-1089.md"
+        },
+        "TASK-1097": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1097.md"
+        },
+        "TASK-1098": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1098.md"
+        },
+        "TASK-1099": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1099.md"
+        },
+        "TASK-1101": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1101.md"
+        },
+        "TASK-1102": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1102.md"
+        },
+        "TASK-1103": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1103.md"
         },
         "TASK-202": {
           "evidenceKinds": [
@@ -1756,6 +1864,18 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-1096.md"
+        },
+        "TASK-1100": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1100.md"
+        },
+        "TASK-1103": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1103.md"
         },
         "TASK-264": {
           "evidenceKinds": [
@@ -1958,6 +2078,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-1091.md"
+        },
+        "TASK-1101": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1101.md"
         },
         "TASK-958": {
           "evidenceKinds": [
@@ -5337,7 +5463,7 @@
       "title": "Archive Partitioning Strategy — Year-Month Subdirectories"
     }
   },
-  "builtAt": "2026-06-03T05:51:23.446Z",
+  "builtAt": "2026-06-03T11:33:33.646Z",
   "failures": {
     "KAIZEN-CONTEXT-1": {
       "id": "KAIZEN-CONTEXT-1",
@@ -6552,27 +6678,6 @@
         "init"
       ]
     },
-    "cli/src/main/ts/application/commands/lint-command.ts": {
-      "criticality": "domain",
-      "imports": [
-        "cli/src/main/ts/domain/models/command.ts",
-        "cli/src/main/ts/domain/repositories/file-system.ts",
-        "cli/src/main/ts/domain/repositories/task-repository.ts",
-        "cli/src/main/ts/domain/services/path-resolver.ts",
-        "cli/src/main/ts/domain/services/task-validator.ts",
-        "cli/src/main/ts/infrastructure/cli/output-formatter.ts"
-      ],
-      "runtimeUsage": "cold",
-      "symbols": [
-        "LintCommand"
-      ],
-      "tags": [
-        "application",
-        "command",
-        "commands",
-        "lint"
-      ]
-    },
     "cli/src/main/ts/application/commands/loop-command.ts": {
       "criticality": "domain",
       "imports": [
@@ -6638,25 +6743,6 @@
         "move"
       ]
     },
-    "cli/src/main/ts/application/commands/next-command.ts": {
-      "criticality": "domain",
-      "imports": [
-        "cli/src/main/ts/application/use-cases/select-next-task.ts",
-        "cli/src/main/ts/domain/models/command.ts",
-        "cli/src/main/ts/domain/repositories/task-repository.ts",
-        "cli/src/main/ts/infrastructure/cli/output-formatter.ts"
-      ],
-      "runtimeUsage": "warm",
-      "symbols": [
-        "NextCommand"
-      ],
-      "tags": [
-        "application",
-        "command",
-        "commands",
-        "next"
-      ]
-    },
     "cli/src/main/ts/application/commands/project-command.ts": {
       "criticality": "domain",
       "imports": [
@@ -6679,27 +6765,6 @@
         "command",
         "commands",
         "project"
-      ]
-    },
-    "cli/src/main/ts/application/commands/promote-command.ts": {
-      "criticality": "domain",
-      "imports": [
-        "cli/src/main/ts/application/use-cases/promote-idea.ts",
-        "cli/src/main/ts/domain/models/command.ts",
-        "cli/src/main/ts/domain/repositories/file-system.ts",
-        "cli/src/main/ts/domain/repositories/git-repository.ts",
-        "cli/src/main/ts/domain/repositories/task-repository.ts",
-        "cli/src/main/ts/infrastructure/cli/output-formatter.ts"
-      ],
-      "runtimeUsage": "warm",
-      "symbols": [
-        "PromoteCommand"
-      ],
-      "tags": [
-        "application",
-        "command",
-        "commands",
-        "promote"
       ]
     },
     "cli/src/main/ts/application/commands/rank-command.ts": {
@@ -6740,27 +6805,6 @@
         "command",
         "commands",
         "report"
-      ]
-    },
-    "cli/src/main/ts/application/commands/reprioritize-command.ts": {
-      "criticality": "domain",
-      "imports": [
-        "cli/src/main/ts/application/use-cases/reprioritize-corpus.ts",
-        "cli/src/main/ts/domain/models/command.ts",
-        "cli/src/main/ts/domain/repositories/file-system.ts",
-        "cli/src/main/ts/domain/repositories/task-repository.ts",
-        "cli/src/main/ts/domain/services/path-resolver.ts",
-        "cli/src/main/ts/infrastructure/cli/output-formatter.ts"
-      ],
-      "runtimeUsage": "cold",
-      "symbols": [
-        "ReprioritizeCommand"
-      ],
-      "tags": [
-        "application",
-        "command",
-        "commands",
-        "reprioritize"
       ]
     },
     "cli/src/main/ts/application/commands/resume-command.ts": {
@@ -6937,21 +6981,6 @@
         "unchecked"
       ]
     },
-    "cli/src/main/ts/application/commands/task-done-command.ts": {
-      "criticality": "domain",
-      "imports": [],
-      "runtimeUsage": "cold",
-      "symbols": [
-        "TASK_DONE_ENTRY"
-      ],
-      "tags": [
-        "application",
-        "command",
-        "commands",
-        "done",
-        "task"
-      ]
-    },
     "cli/src/main/ts/application/commands/trace-command.ts": {
       "criticality": "domain",
       "imports": [
@@ -7004,28 +7033,6 @@
         "upgrade"
       ]
     },
-    "cli/src/main/ts/application/commands/validate-command.ts": {
-      "criticality": "domain",
-      "imports": [
-        "cli/src/main/ts/application/use-cases/validate-system.ts",
-        "cli/src/main/ts/application/use-cases/validate-task-acs.ts",
-        "cli/src/main/ts/domain/models/command.ts",
-        "cli/src/main/ts/domain/repositories/file-system.ts",
-        "cli/src/main/ts/domain/repositories/task-repository.ts",
-        "cli/src/main/ts/domain/services/path-resolver.ts",
-        "cli/src/main/ts/infrastructure/cli/output-formatter.ts"
-      ],
-      "runtimeUsage": "cold",
-      "symbols": [
-        "ValidateCommand"
-      ],
-      "tags": [
-        "application",
-        "command",
-        "commands",
-        "validate"
-      ]
-    },
     "cli/src/main/ts/application/commands/verify-acs-command.ts": {
       "criticality": "domain",
       "imports": [
@@ -7060,29 +7067,6 @@
         "command",
         "commands",
         "version"
-      ]
-    },
-    "cli/src/main/ts/application/use-cases/alert-fatigue-store.ts": {
-      "criticality": "domain",
-      "imports": [
-        "cli/src/main/ts/domain/repositories/file-system.ts",
-        "cli/src/main/ts/domain/services/path-resolver.ts"
-      ],
-      "runtimeUsage": "cold",
-      "symbols": [
-        "AlertFatigueRecord",
-        "AlertFatigueStore",
-        "ThrottleAction"
-      ],
-      "tags": [
-        "action",
-        "alert",
-        "application",
-        "cases",
-        "fatigue",
-        "record",
-        "store",
-        "throttle"
       ]
     },
     "cli/src/main/ts/application/use-cases/ask-corpus.ts": {
@@ -7154,33 +7138,6 @@
         "hash",
         "index",
         "normalize"
-      ]
-    },
-    "cli/src/main/ts/application/use-cases/causal-arbitrator.ts": {
-      "criticality": "domain",
-      "imports": [
-        "cli/src/main/ts/application/use-cases/causal-graph.ts",
-        "cli/src/main/ts/application/use-cases/causal-signal-log.ts",
-        "cli/src/main/ts/domain/models/causal-relation.ts",
-        "cli/src/main/ts/domain/models/causal-signal.ts"
-      ],
-      "runtimeUsage": "warm",
-      "symbols": [
-        "ArbitrationAction",
-        "ArbitrationResult",
-        "CausalArbitrator",
-        "ConflictRecord"
-      ],
-      "tags": [
-        "action",
-        "application",
-        "arbitration",
-        "arbitrator",
-        "cases",
-        "causal",
-        "conflict",
-        "record",
-        "result"
       ]
     },
     "cli/src/main/ts/application/use-cases/causal-graph.ts": {
@@ -8076,7 +8033,7 @@
         "cli/src/main/ts/domain/repositories/task-repository.ts",
         "cli/src/main/ts/domain/services/path-resolver.ts"
       ],
-      "runtimeUsage": "warm",
+      "runtimeUsage": "cold",
       "symbols": [
         "PromoteIdea"
       ],
@@ -9010,54 +8967,6 @@
         "type"
       ]
     },
-    "cli/src/main/ts/domain/models/ueg-ir.ts": {
-      "criticality": "core",
-      "imports": [],
-      "runtimeUsage": "warm",
-      "symbols": [
-        "ARCHDeploymentMap",
-        "BehavioralSignals",
-        "Edge",
-        "EdgeType",
-        "Entity",
-        "EntityKind",
-        "EvidenceSource",
-        "InstrumentationSuggestion",
-        "Risk",
-        "RiskType",
-        "SignalValue",
-        "StructuralState",
-        "SubsystemView",
-        "UEGGraph",
-        "UEGGraphFragment",
-        "Uncertainty"
-      ],
-      "tags": [
-        "behavioral",
-        "deployment",
-        "domain",
-        "edge",
-        "entity",
-        "evidence",
-        "fragment",
-        "graph",
-        "instrumentation",
-        "kind",
-        "models",
-        "risk",
-        "signal",
-        "signals",
-        "source",
-        "state",
-        "structural",
-        "subsystem",
-        "suggestion",
-        "type",
-        "uncertainty",
-        "value",
-        "view"
-      ]
-    },
     "cli/src/main/ts/domain/repositories/feedback-repository.ts": {
       "criticality": "core",
       "imports": [
@@ -9242,43 +9151,6 @@
         "services"
       ]
     },
-    "cli/src/main/ts/domain/services/decision-impact-engine.ts": {
-      "criticality": "core",
-      "imports": [
-        "cli/src/main/ts/domain/models/action.ts",
-        "cli/src/main/ts/domain/models/reconciliation.ts"
-      ],
-      "runtimeUsage": "cold",
-      "symbols": [
-        "DecisionImpactEngine"
-      ],
-      "tags": [
-        "decision",
-        "domain",
-        "engine",
-        "impact",
-        "services"
-      ]
-    },
-    "cli/src/main/ts/domain/services/decision-reconciliation-engine.ts": {
-      "criticality": "core",
-      "imports": [
-        "cli/src/main/ts/domain/models/decision.ts",
-        "cli/src/main/ts/domain/models/evidence.ts",
-        "cli/src/main/ts/domain/models/reconciliation.ts"
-      ],
-      "runtimeUsage": "cold",
-      "symbols": [
-        "DecisionReconciliationEngine"
-      ],
-      "tags": [
-        "decision",
-        "domain",
-        "engine",
-        "reconciliation",
-        "services"
-      ]
-    },
     "cli/src/main/ts/domain/services/deterministic-ac-verifier.ts": {
       "criticality": "core",
       "imports": [
@@ -9324,24 +9196,6 @@
         "result",
         "services",
         "tier1"
-      ]
-    },
-    "cli/src/main/ts/domain/services/epistemic-integrity-service.ts": {
-      "criticality": "core",
-      "imports": [
-        "cli/src/main/ts/domain/models/epistemic-report.ts",
-        "cli/src/main/ts/domain/models/evidence.ts"
-      ],
-      "runtimeUsage": "cold",
-      "symbols": [
-        "EpistemicIntegrityService"
-      ],
-      "tags": [
-        "domain",
-        "epistemic",
-        "integrity",
-        "service",
-        "services"
       ]
     },
     "cli/src/main/ts/domain/services/event-logger.ts": {
@@ -9650,22 +9504,6 @@
         "services"
       ]
     },
-    "cli/src/main/ts/domain/services/pattern-engine.ts": {
-      "criticality": "core",
-      "imports": [
-        "cli/src/main/ts/domain/models/audit-inference.ts"
-      ],
-      "runtimeUsage": "cold",
-      "symbols": [
-        "PatternEngine"
-      ],
-      "tags": [
-        "domain",
-        "engine",
-        "pattern",
-        "services"
-      ]
-    },
     "cli/src/main/ts/domain/services/precedent-novelty-scorer.ts": {
       "criticality": "core",
       "imports": [
@@ -9811,23 +9649,6 @@
         "services"
       ]
     },
-    "cli/src/main/ts/domain/services/role-inference-engine.ts": {
-      "criticality": "core",
-      "imports": [
-        "cli/src/main/ts/domain/models/deployment-map.ts"
-      ],
-      "runtimeUsage": "cold",
-      "symbols": [
-        "RoleInferenceEngine"
-      ],
-      "tags": [
-        "domain",
-        "engine",
-        "inference",
-        "role",
-        "services"
-      ]
-    },
     "cli/src/main/ts/domain/services/sandbox.ts": {
       "criticality": "core",
       "imports": [],
@@ -9862,29 +9683,6 @@
         "domain",
         "engine",
         "extraction",
-        "services",
-        "signal"
-      ]
-    },
-    "cli/src/main/ts/domain/services/signal-router.ts": {
-      "criticality": "core",
-      "imports": [
-        "cli/src/main/ts/application/use-cases/causal-signal-log.ts",
-        "cli/src/main/ts/domain/models/task.ts"
-      ],
-      "runtimeUsage": "warm",
-      "symbols": [
-        "HanseiAggregate",
-        "HanseiSignalContext",
-        "SignalRouter",
-        "WEAK_SIGNAL_THRESHOLD"
-      ],
-      "tags": [
-        "aggregate",
-        "context",
-        "domain",
-        "hansei",
-        "router",
         "services",
         "signal"
       ]
@@ -9963,22 +9761,6 @@
         "result",
         "services",
         "structural"
-      ]
-    },
-    "cli/src/main/ts/domain/services/subsystem-clusterer.ts": {
-      "criticality": "core",
-      "imports": [
-        "cli/src/main/ts/domain/models/deployment-map.ts"
-      ],
-      "runtimeUsage": "cold",
-      "symbols": [
-        "SubsystemClusterer"
-      ],
-      "tags": [
-        "clusterer",
-        "domain",
-        "services",
-        "subsystem"
       ]
     },
     "cli/src/main/ts/domain/services/task-validator.ts": {
@@ -10067,57 +9849,6 @@
         "services",
         "type",
         "typescript"
-      ]
-    },
-    "cli/src/main/ts/domain/services/ueg-analysis-layer.ts": {
-      "criticality": "core",
-      "imports": [
-        "cli/src/main/ts/domain/models/ueg-ir.ts"
-      ],
-      "runtimeUsage": "warm",
-      "symbols": [
-        "UEGAnalysisLayer"
-      ],
-      "tags": [
-        "analysis",
-        "domain",
-        "layer",
-        "services"
-      ]
-    },
-    "cli/src/main/ts/domain/services/ueg-interfaces.ts": {
-      "criticality": "core",
-      "imports": [
-        "cli/src/main/ts/domain/models/ueg-ir.ts"
-      ],
-      "runtimeUsage": "warm",
-      "symbols": [
-        "IRBuilder",
-        "LanguageAdapter"
-      ],
-      "tags": [
-        "adapter",
-        "builder",
-        "domain",
-        "interfaces",
-        "language",
-        "services"
-      ]
-    },
-    "cli/src/main/ts/domain/services/ueg-ir-builder.ts": {
-      "criticality": "core",
-      "imports": [
-        "cli/src/main/ts/domain/models/ueg-ir.ts",
-        "cli/src/main/ts/domain/services/ueg-interfaces.ts"
-      ],
-      "runtimeUsage": "warm",
-      "symbols": [
-        "UEGIRBuilder"
-      ],
-      "tags": [
-        "builder",
-        "domain",
-        "services"
       ]
     },
     "cli/src/main/ts/domain/services/verifiability-scorer.ts": {
@@ -13389,15 +13120,133 @@
       }
     },
     "TASK-1097": {
+      "commitCount": 2,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-06-03T10:55:04+00:00",
+      "recentCommitRefs": [
+        "a38509d",
+        "c731329"
+      ],
+      "touchedFrequency": {
+        ".arch/causal-signal.jsonl": 1,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/focus-ledger.jsonl": 1,
+        ".arch/temporal-index.jsonl": 1,
+        "docs/EVENTS.md": 1,
+        "docs/archive/TASK-1097.md": 1,
+        "docs/tasks/TASK-1097.md": 2
+      }
+    },
+    "TASK-1098": {
       "commitCount": 1,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-06-03T05:50:47+00:00",
+      "lastCommitDate": "2026-06-03T10:59:44+00:00",
       "recentCommitRefs": [
-        "a38509d"
+        "3184e6f"
+      ],
+      "touchedFrequency": {
+        ".arch/causal-signal.jsonl": 1,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/context-feedback.json": 1,
+        ".arch/temporal-index.jsonl": 1,
+        "docs/EVENTS.md": 1,
+        "docs/archive/TASK-1098.md": 1,
+        "docs/tasks/TASK-1098.md": 1
+      }
+    },
+    "TASK-1099": {
+      "commitCount": 1,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-06-03T10:54:08+00:00",
+      "recentCommitRefs": [
+        "29dd3d5"
+      ],
+      "touchedFrequency": {
+        ".arch/causal-signal.jsonl": 1,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/context-feedback.json": 1,
+        ".arch/temporal-index.jsonl": 1,
+        "docs/EVENTS.md": 1,
+        "docs/archive/TASK-1099.md": 1,
+        "docs/tasks/TASK-1099.md": 1
+      }
+    },
+    "TASK-1100": {
+      "commitCount": 1,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-06-03T11:32:55+00:00",
+      "recentCommitRefs": [
+        "051e3da"
+      ],
+      "touchedFrequency": {
+        ".arch/causal-signal.jsonl": 1,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/context-feedback.json": 1,
+        "docs/EVENTS.md": 1,
+        "docs/archive/TASK-1100.md": 1,
+        "docs/tasks/TASK-1100.md": 1
+      }
+    },
+    "TASK-1101": {
+      "commitCount": 1,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-06-03T11:28:20+00:00",
+      "recentCommitRefs": [
+        "41a52d9"
+      ],
+      "touchedFrequency": {
+        ".arch/causal-signal.jsonl": 1,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/context-feedback.json": 1,
+        "docs/EVENTS.md": 1,
+        "docs/archive/TASK-1101.md": 1,
+        "docs/tasks/TASK-1101.md": 1
+      }
+    },
+    "TASK-1102": {
+      "commitCount": 1,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-06-03T10:54:09+00:00",
+      "recentCommitRefs": [
+        "d70beb6"
+      ],
+      "touchedFrequency": {
+        ".arch/causal-signal.jsonl": 1,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/context-feedback.json": 1,
+        ".arch/temporal-index.jsonl": 1,
+        "docs/EVENTS.md": 1,
+        "docs/archive/TASK-1102.md": 1,
+        "docs/tasks/TASK-1102.md": 1
+      }
+    },
+    "TASK-1103": {
+      "commitCount": 1,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-06-03T11:24:43+00:00",
+      "recentCommitRefs": [
+        "68fc950"
+      ],
+      "touchedFrequency": {
+        ".arch/causal-signal.jsonl": 1,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/context-feedback.json": 1,
+        ".arch/temporal-index.jsonl": 1,
+        "docs/EVENTS.md": 1,
+        "docs/archive/TASK-1103.md": 1,
+        "docs/tasks/TASK-1103.md": 1
+      }
+    },
+    "TASK-1104": {
+      "commitCount": 1,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-06-03T11:33:01+00:00",
+      "recentCommitRefs": [
+        "ab4c698"
       ],
       "touchedFrequency": {
         ".arch/focus-ledger.jsonl": 1,
-        "docs/tasks/TASK-1097.md": 1
+        "docs/tasks/TASK-1104.md": 1
       }
     },
     "TASK-264": {
