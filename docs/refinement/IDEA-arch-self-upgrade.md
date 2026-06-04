@@ -2,6 +2,7 @@
 
 **Status:** DRAFT
 **Submitted:** 2026-06-02
+**Sessions:** 1
 
 ## Intent
 
