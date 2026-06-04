@@ -7,7 +7,7 @@
 
 | Session type | What to load | When to use |
 |---|---|---|
-| **Core** (execution only) | `docs/ARCH-CORE.md` | Weak models, local LLMs, boilerplate tasks, any session where governance prose is unnecessary overhead |
+| **Core** (execution only) | `AGENTS.md` (Execution Session section) | Weak models, local LLMs, boilerplate tasks, any session where governance prose is unnecessary overhead |
 | **Governance** (full protocol) | This file + `docs/agents/DO.md` + `docs/agents/THINK.md` | Strong models, kaizen, protocol evolution, complex reasoning tasks |
 
 **If in doubt, load Core.** It is safe, read-only on review, and cannot corrupt system state.

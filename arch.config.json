@@ -265,7 +265,7 @@
       "endpoint": "http://127.0.0.1:11434/v1",
       "apiKey": "ollama",
       "coreMode": true,
-      "_coreModeNote": "Load docs/ARCH-CORE.md for sessions using this provider"
+      "_coreModeNote": "Load AGENTS.md Execution Session section for sessions using this provider"
     },
     {
       "name": "openrouter",
