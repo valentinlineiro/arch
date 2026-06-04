@@ -216,7 +216,7 @@ export class CorpusIndexService {
       let tmpDir: string | null = null;
 
       try {
-        tmpDir = mkdtempSync(join(tmpdir(), ));
+        tmpDir = mkdtempSync(join(tmpdir(), 'arch-corpus-'));
         execSync(`git clone --depth 50 "${remote.url}" "${tmpDir}"`, { stdio: 'pipe', timeout: 60000 });
 
         // Read remote archive
