@@ -814,6 +814,18 @@
           ],
           "taskPath": "docs/archive/TASK-1116.md"
         },
+        "TASK-1117": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1117.md"
+        },
+        "TASK-1119": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1119.md"
+        },
         "TASK-272": {
           "evidenceKinds": [
             "literal-mention"
@@ -962,6 +974,18 @@
           ],
           "taskPath": "docs/archive/TASK-1115.md"
         },
+        "TASK-1117": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1117.md"
+        },
+        "TASK-1118": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1118.md"
+        },
         "TASK-967": {
           "evidenceKinds": [
             "literal-mention"
@@ -1037,6 +1061,24 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-1116.md"
+        },
+        "TASK-1117": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1117.md"
+        },
+        "TASK-1118": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1118.md"
+        },
+        "TASK-1119": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1119.md"
         },
         "TASK-233": {
           "evidenceKinds": [
@@ -1169,6 +1211,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-1114.md"
+        },
+        "TASK-1119": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1119.md"
         },
         "TASK-231": {
           "evidenceKinds": [
@@ -1382,6 +1430,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-1108.md"
+        },
+        "TASK-1118": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1118.md"
         },
         "TASK-958": {
           "evidenceKinds": [
@@ -3089,7 +3143,7 @@
       "title": "Archive Partitioning Strategy — Year-Month Subdirectories"
     }
   },
-  "builtAt": "2026-06-05T19:44:57.909Z",
+  "builtAt": "2026-06-05T21:38:09.645Z",
   "failures": {},
   "files": {
     "cli/src/main/ts/application/command-dispatcher.ts": {
@@ -6200,7 +6254,6 @@
         "cli/src/main/ts/application/use-cases/corpus-index.ts",
         "cli/src/main/ts/domain/models/promotion-proposal.ts",
         "cli/src/main/ts/domain/services/path-resolver.ts",
-        "cli/src/main/ts/domain/services/precedent-novelty-scorer.ts",
         "cli/src/main/ts/infrastructure/filesystem/node-file-system.ts"
       ],
       "runtimeUsage": "cold",
@@ -10529,18 +10582,88 @@
       }
     },
     "TASK-1116": {
+      "commitCount": 2,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-06-05T19:45:07+00:00",
+      "recentCommitRefs": [
+        "23a9d0b",
+        "4f60cc9"
+      ],
+      "touchedFrequency": {
+        ".arch/causal-signal.jsonl": 1,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/context-feedback.json": 1,
+        ".arch/corpus-index.json": 1,
+        ".arch/reflect-breach-log.jsonl": 1,
+        "arch.config.json": 1,
+        "cli/src/main/ts/domain/services/behavioral-profiler.ts": 1,
+        "cli/src/main/ts/domain/services/governance-stability-service.ts": 1,
+        "cli/src/main/ts/domain/services/identity-resolver.ts": 1,
+        "cli/src/main/ts/domain/services/init-recommendation-engine.ts": 1,
+        "cli/src/main/ts/domain/services/instrumentation-planner.ts": 1,
+        "cli/src/main/ts/domain/services/java-adapter.ts": 1,
+        "cli/src/main/ts/domain/services/noise-filter.ts": 1,
+        "cli/src/main/ts/domain/services/outcome-validation-service.ts": 1,
+        "cli/src/main/ts/domain/services/precedent-novelty-scorer.ts": 1,
+        "cli/src/main/ts/domain/services/promotion-proposal-generator.ts": 1,
+        "cli/src/main/ts/domain/services/python-adapter.ts": 1,
+        "cli/src/main/ts/domain/services/repository-summarizer.ts": 1,
+        "cli/src/main/ts/domain/services/risk-detector.ts": 1,
+        "cli/src/main/ts/domain/services/signal-extraction-engine.ts": 1,
+        "cli/src/main/ts/domain/services/structural-extractor.ts": 1,
+        "cli/src/main/ts/domain/services/traceability-projection.ts": 1,
+        "cli/src/main/ts/domain/services/typescript-adapter.ts": 1,
+        "cli/src/test/ts/precedent-novelty-scorer.test.ts": 1,
+        "cli/src/test/ts/promotion-proposal-generator.test.ts": 1,
+        "docs/EVENTS.md": 2,
+        "docs/INBOX.md": 1,
+        "docs/NOTIFICATIONS.md": 1,
+        "docs/archive/TASK-1116.md": 1
+      }
+    },
+    "TASK-1117": {
       "commitCount": 1,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-06-05T19:44:27+00:00",
+      "lastCommitDate": "2026-06-05T21:34:22+00:00",
       "recentCommitRefs": [
-        "23a9d0b"
+        "48b747c"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
         ".arch/chronicle.jsonl": 1,
         ".arch/context-feedback.json": 1,
         "docs/EVENTS.md": 1,
-        "docs/archive/TASK-1116.md": 1
+        "docs/archive/TASK-1117.md": 1
+      }
+    },
+    "TASK-1118": {
+      "commitCount": 1,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-06-05T21:35:11+00:00",
+      "recentCommitRefs": [
+        "f113737"
+      ],
+      "touchedFrequency": {
+        ".arch/causal-signal.jsonl": 1,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/context-feedback.json": 1,
+        "docs/EVENTS.md": 1,
+        "docs/archive/TASK-1118.md": 1
+      }
+    },
+    "TASK-1119": {
+      "commitCount": 1,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-06-05T21:37:36+00:00",
+      "recentCommitRefs": [
+        "2518b79"
+      ],
+      "touchedFrequency": {
+        ".arch/causal-signal.jsonl": 1,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/context-feedback.json": 1,
+        "docs/EVENTS.md": 1,
+        "docs/archive/TASK-1119.md": 1
       }
     },
     "TASK-264": {
