@@ -61,3 +61,13 @@ Implemented — see docs/refinement/archive/
 ## Active Alerts
 [INFLUENCE_BREACH_PERSISTENT] REFLECT engagement at 39% — 42 consecutive cycles below 50% threshold
 [PATTERN-ALERT] [SpecDrift] detected 8 times — systemic issue. See docs/tensions/TENSION-005-specdrift.md
+
+## 2026-06-05 19:32:44 — Pattern Alerts
+[PATTERN-ALERT] [SpecDrift] detected 8 times — systemic issue. See docs/tensions/
+
+AWAITING_PROMOTION | IDEA-arch-as-claude-code-deployment-target | 2026-06-05 — no Decision field set
+AWAITING_PROMOTION | IDEA-corpus-reasoning-not-just-recording | 2026-06-05 — no Decision field set
+AWAITING_PROMOTION | IDEA-doc-audit-stay-merge-redefine-purge | 2026-06-05 — no Decision field set
+AWAITING_PROMOTION | IDEA-first-external-adopter-path | 2026-06-05 — no Decision field set
+AWAITING_PROMOTION | IDEA-hansei-signal-quality-degradation | 2026-06-05 — no Decision field set
+AWAITING_PROMOTION | IDEA-verification-layer-depth | 2026-06-05 — no Decision field set

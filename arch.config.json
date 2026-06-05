@@ -110,7 +110,6 @@
     ],
     "protectedPaths": [
       "docs/adr/",
-      "arch.config.json",
       "cli/src/main/ts/domain/models/",
       "cli/src/main/ts/domain/repositories/"
     ],

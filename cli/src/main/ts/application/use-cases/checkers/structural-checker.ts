@@ -42,6 +42,7 @@ export class StructuralChecker {
       this.checkDecompositionRationale(),
       this.checkFlowRegressionRisk(),
       this.checkDecisionIntegrity(),
+      this.checkDeadCode(),
     ]);
   }
 
@@ -494,6 +495,69 @@ export class StructuralChecker {
       check: 'DecisionIntegrity',
       status: details.some(d => d.includes('CORPUS_ALERT')) ? 'WARN' : details.length > 0 ? 'ADVISORY' : 'OK',
       details: details.length > 0 ? details : ['All PROMOTE decisions reference valid tasks'],
+    };
+  }
+
+  async checkDeadCode(): Promise<DriftResult> {
+    const details: string[] = [];
+    try {
+      const { readdir, readFile } = await import('node:fs/promises');
+      const { join } = await import('node:path');
+
+      let exemptions: string[] = [];
+      try {
+        const cfg = JSON.parse(await readFile(join(this.rootPath, 'arch.config.json'), 'utf8'));
+        exemptions = cfg?.governance?.deadCodeExemptions ?? [];
+      } catch { /* no config */ }
+
+      // Only scan domain/services — use-cases are too often imported indirectly
+      const dir = join(this.rootPath, 'cli/src/main/ts/domain/services');
+      let files: string[] = [];
+      try { files = await readdir(dir); } catch { return { check: 'DeadCode', status: 'OK', details: ['domain/services not found'] }; }
+
+      // Build combined source excluding domain/services itself
+      const srcRoot = join(this.rootPath, 'cli/src/main/ts');
+      const otherSrc: string[] = [];
+      const collectOther = async (d: string): Promise<void> => {
+        let entries: string[] = [];
+        try { entries = await readdir(d); } catch { return; }
+        for (const e of entries) {
+          const full = join(d, e);
+          if (full.startsWith(dir)) continue; // skip domain/services itself
+          if (e.endsWith('.ts') && !e.includes('.test.') && !e.includes('.spec.')) otherSrc.push(full);
+          else if (!e.includes('.')) await collectOther(full);
+        }
+      };
+      await collectOther(srcRoot);
+
+      const combinedSource = (await Promise.all(
+        otherSrc.map(f => readFile(f, 'utf8').catch(() => ''))
+      )).join('\n');
+
+      for (const file of files.filter(f => f.endsWith('.ts') && !f.endsWith('.d.ts'))) {
+        const stem = file.replace(/\.ts$/, '');
+        if (exemptions.some(e => stem === e || file === e)) continue;
+
+        // Convert kebab-case to PascalCase class name
+        const className = stem.split('-').map(s => s.charAt(0).toUpperCase() + s.slice(1)).join('');
+
+        const stemPattern = new RegExp(`['"\`][^'"\`]*${stem.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(?:\\.js)?['"\`]`);
+        const classPattern = new RegExp(`\\b${className}\\b`);
+
+        const hasImport = stemPattern.test(combinedSource);
+        const hasClassRef = classPattern.test(combinedSource);
+
+        if (!hasImport && !hasClassRef) {
+          const relPath = `cli/src/main/ts/domain/services/${file}`;
+          details.push(`[DEAD-CODE] ${relPath} — no import or class reference found outside domain/services`);
+        }
+      }
+    } catch { /* non-blocking */ }
+
+    return {
+      check: 'DeadCode',
+      status: details.length > 0 ? 'WARN' : 'OK',
+      details: details.length > 0 ? details : ['No 0-caller domain services detected'],
     };
   }
 

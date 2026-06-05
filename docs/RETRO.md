@@ -161,3 +161,42 @@ Performance improvements sprint. Anchored on the `getById` full-scan bottleneck:
 
 Primary: TASK-1080 — modular ARCH activation (archProfile + modules block). Reduces onboarding curve for new adopters.
 
+
+---
+
+## Sprint: sprint/v1.3.0-2026-06 (in progress)
+
+### Current State
+
+*Written at sprint open. Read this before touching the codebase.*
+
+**ARCH is:** a git-native task lifecycle protocol with enforcement. 14 wired commands, 8 active subsystems. See docs/IDENTITY.md for the closed surface.
+
+**Active commands:** init, task, govern, review/check, capture, triage, upgrade, analyze, audit, status, ask, corpus, fix, serve.
+
+**Active subsystems:** DriftChecker (TaskHealthChecker + StructuralChecker + GovernanceChecker), GovernSystem, HanseiAuditor/TaskValidator, DeterministicACVerifier, EscalationStore, SprintService, BuildIndex/CorpusIndexService, MarkTaskDone/MarkTaskInProgress.
+
+**What was removed this sprint and why:**
+- 5 dead domain services (519 lines, 0 callers) — speculative infrastructure, never wired
+- UEG analysis layer (190 lines) — built for arch audit structural analysis, output never consumed
+- AlertFatigueStore — superseded by EscalationStore upsert semantics
+- CausalGraph traversal machinery — arch trace unused; Hansei corpus already contains the same data
+- TemporalIndex + PatternEngine — stubbed; uncalibrated thresholds produced INBOX noise
+- VerifiabilityScorer output paths — score never acted on by humans or agents
+- 17 ADRs archived (36 → 19 active) — solved-and-sealed decisions removed from active corpus
+- IDENTITY.md compressed 276 → 84 lines, THINK.md 134 → 63 lines, EVENTS.md auto-generated
+- INBOX.md split: NOTIFICATIONS.md (machine alerts), INBOX.md (human decisions)
+- ARCH-CORE.md merged into AGENTS.md — eliminated competing entry points
+
+**Open strategic questions:**
+- 16 additional dead domain services detected by new DeadCode check — not yet deleted
+- market-intel brownfield adoption not yet initiated
+- No external adopter yet — all validation is internal
+- `reflect.thresholds` config block governs influence rate system that three sessions touched — needs audit
+
+**What a new session should NOT do:**
+- Add new subsystems or commands without an ADR (see IDENTITY.md ## Commands and ## Subsystems)
+- Add domain services with no callers in the same commit (Invariant 6: caller-on-day-one)
+- Reimplement CausalGraph, UEG layer, or AlertFatigueStore — these were deliberately removed
+- Modify TASK-FORMAT.md without an ADR — it is the single source of truth for task structure
+

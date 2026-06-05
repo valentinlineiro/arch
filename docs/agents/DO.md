@@ -1,3 +1,5 @@
+<!-- READ FIRST: docs/RETRO.md ## Current State — tells you what ARCH is right now,
+     what was removed last sprint and why, and what you must NOT rebuild. -->
 <!-- CANONICAL SOURCE: docs/AGENTS.md — Hansei taxonomy, lifecycle rules, and idempotency rule are defined there. This file (DO.md) references those definitions; it does not redefine them. -->
 
 # DO.md
