@@ -486,6 +486,12 @@
           ],
           "taskPath": "docs/archive/TASK-1115.md"
         },
+        "TASK-1116": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1116.md"
+        },
         "TASK-242": {
           "evidenceKinds": [
             "literal-mention"
@@ -802,6 +808,12 @@
           ],
           "taskPath": "docs/archive/TASK-1114.md"
         },
+        "TASK-1116": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1116.md"
+        },
         "TASK-272": {
           "evidenceKinds": [
             "literal-mention"
@@ -1019,6 +1031,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-1115.md"
+        },
+        "TASK-1116": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1116.md"
         },
         "TASK-233": {
           "evidenceKinds": [
@@ -3071,7 +3089,7 @@
       "title": "Archive Partitioning Strategy — Year-Month Subdirectories"
     }
   },
-  "builtAt": "2026-06-05T19:32:44.377Z",
+  "builtAt": "2026-06-05T19:44:57.909Z",
   "failures": {},
   "files": {
     "cli/src/main/ts/application/command-dispatcher.ts": {
@@ -5872,23 +5890,6 @@
         "task"
       ]
     },
-    "cli/src/main/ts/domain/services/behavioral-profiler.ts": {
-      "criticality": "core",
-      "imports": [
-        "cli/src/main/ts/domain/models/deployment-map.ts",
-        "cli/src/main/ts/domain/repositories/file-system.ts"
-      ],
-      "runtimeUsage": "cold",
-      "symbols": [
-        "BehavioralProfiler"
-      ],
-      "tags": [
-        "behavioral",
-        "domain",
-        "profiler",
-        "services"
-      ]
-    },
     "cli/src/main/ts/domain/services/bridge-provider.ts": {
       "criticality": "core",
       "imports": [
@@ -6043,25 +6044,6 @@
         "services"
       ]
     },
-    "cli/src/main/ts/domain/services/governance-stability-service.ts": {
-      "criticality": "core",
-      "imports": [
-        "cli/src/main/ts/domain/models/action.ts",
-        "cli/src/main/ts/domain/models/reconciliation.ts",
-        "cli/src/main/ts/domain/models/stability.ts"
-      ],
-      "runtimeUsage": "cold",
-      "symbols": [
-        "GovernanceStabilityService"
-      ],
-      "tags": [
-        "domain",
-        "governance",
-        "service",
-        "services",
-        "stability"
-      ]
-    },
     "cli/src/main/ts/domain/services/hansei-auditor.ts": {
       "criticality": "core",
       "imports": [
@@ -6101,40 +6083,6 @@
         "services"
       ]
     },
-    "cli/src/main/ts/domain/services/identity-resolver.ts": {
-      "criticality": "core",
-      "imports": [],
-      "runtimeUsage": "cold",
-      "symbols": [
-        "IdentityResolver",
-        "NodeType"
-      ],
-      "tags": [
-        "domain",
-        "identity",
-        "node",
-        "resolver",
-        "services",
-        "type"
-      ]
-    },
-    "cli/src/main/ts/domain/services/init-recommendation-engine.ts": {
-      "criticality": "core",
-      "imports": [
-        "cli/src/main/ts/domain/models/audit-inference.ts"
-      ],
-      "runtimeUsage": "cold",
-      "symbols": [
-        "InitRecommendationEngine"
-      ],
-      "tags": [
-        "domain",
-        "engine",
-        "init",
-        "recommendation",
-        "services"
-      ]
-    },
     "cli/src/main/ts/domain/services/institutional-anomaly-tracker.ts": {
       "criticality": "core",
       "imports": [
@@ -6158,39 +6106,6 @@
         "report",
         "services",
         "tracker"
-      ]
-    },
-    "cli/src/main/ts/domain/services/instrumentation-planner.ts": {
-      "criticality": "core",
-      "imports": [
-        "cli/src/main/ts/domain/models/deployment-map.ts"
-      ],
-      "runtimeUsage": "cold",
-      "symbols": [
-        "InstrumentationPlanner"
-      ],
-      "tags": [
-        "domain",
-        "instrumentation",
-        "planner",
-        "services"
-      ]
-    },
-    "cli/src/main/ts/domain/services/java-adapter.ts": {
-      "criticality": "core",
-      "imports": [
-        "cli/src/main/ts/domain/models/ueg-ir.ts",
-        "cli/src/main/ts/domain/services/ueg-interfaces.ts"
-      ],
-      "runtimeUsage": "cold",
-      "symbols": [
-        "JavaAdapter"
-      ],
-      "tags": [
-        "adapter",
-        "domain",
-        "java",
-        "services"
       ]
     },
     "cli/src/main/ts/domain/services/llm-provider.ts": {
@@ -6265,38 +6180,6 @@
         "services"
       ]
     },
-    "cli/src/main/ts/domain/services/noise-filter.ts": {
-      "criticality": "core",
-      "imports": [],
-      "runtimeUsage": "cold",
-      "symbols": [
-        "NoiseFilter"
-      ],
-      "tags": [
-        "domain",
-        "filter",
-        "noise",
-        "services"
-      ]
-    },
-    "cli/src/main/ts/domain/services/outcome-validation-service.ts": {
-      "criticality": "core",
-      "imports": [
-        "cli/src/main/ts/domain/models/outcome.ts",
-        "cli/src/main/ts/domain/models/stability.ts"
-      ],
-      "runtimeUsage": "cold",
-      "symbols": [
-        "OutcomeValidationService"
-      ],
-      "tags": [
-        "domain",
-        "outcome",
-        "service",
-        "services",
-        "validation"
-      ]
-    },
     "cli/src/main/ts/domain/services/path-resolver.ts": {
       "criticality": "core",
       "imports": [],
@@ -6309,29 +6192,6 @@
         "path",
         "resolver",
         "services"
-      ]
-    },
-    "cli/src/main/ts/domain/services/precedent-novelty-scorer.ts": {
-      "criticality": "core",
-      "imports": [
-        "cli/src/main/ts/application/use-cases/corpus-index.ts"
-      ],
-      "runtimeUsage": "cold",
-      "symbols": [
-        "NoveltyReport",
-        "PrecedentNoveltyScorer",
-        "PrecedentRef",
-        "TaskDescriptor"
-      ],
-      "tags": [
-        "descriptor",
-        "domain",
-        "novelty",
-        "precedent",
-        "report",
-        "scorer",
-        "services",
-        "task"
       ]
     },
     "cli/src/main/ts/domain/services/promotion-proposal-generator.ts": {
@@ -6384,43 +6244,6 @@
         "services"
       ]
     },
-    "cli/src/main/ts/domain/services/python-adapter.ts": {
-      "criticality": "core",
-      "imports": [
-        "cli/src/main/ts/domain/models/ueg-ir.ts",
-        "cli/src/main/ts/domain/services/ueg-interfaces.ts"
-      ],
-      "runtimeUsage": "cold",
-      "symbols": [
-        "PythonAdapter"
-      ],
-      "tags": [
-        "adapter",
-        "domain",
-        "python",
-        "services"
-      ]
-    },
-    "cli/src/main/ts/domain/services/repository-summarizer.ts": {
-      "criticality": "core",
-      "imports": [
-        "cli/src/main/ts/domain/models/audit-inference.ts",
-        "cli/src/main/ts/domain/models/decision.ts",
-        "cli/src/main/ts/domain/models/reconciliation.ts"
-      ],
-      "runtimeUsage": "cold",
-      "symbols": [
-        "RepositorySummarizer",
-        "RepositorySummary"
-      ],
-      "tags": [
-        "domain",
-        "repository",
-        "services",
-        "summarizer",
-        "summary"
-      ]
-    },
     "cli/src/main/ts/domain/services/reviewer.ts": {
       "criticality": "core",
       "imports": [
@@ -6440,22 +6263,6 @@
         "services"
       ]
     },
-    "cli/src/main/ts/domain/services/risk-detector.ts": {
-      "criticality": "core",
-      "imports": [
-        "cli/src/main/ts/domain/models/deployment-map.ts"
-      ],
-      "runtimeUsage": "cold",
-      "symbols": [
-        "RiskDetector"
-      ],
-      "tags": [
-        "detector",
-        "domain",
-        "risk",
-        "services"
-      ]
-    },
     "cli/src/main/ts/domain/services/sandbox.ts": {
       "criticality": "core",
       "imports": [],
@@ -6472,26 +6279,6 @@
         "sandbox",
         "service",
         "services"
-      ]
-    },
-    "cli/src/main/ts/domain/services/signal-extraction-engine.ts": {
-      "criticality": "core",
-      "imports": [
-        "cli/src/main/ts/domain/models/audit-inference.ts"
-      ],
-      "runtimeUsage": "cold",
-      "symbols": [
-        "SIGNAL_ENGINE_VERSION",
-        "SignalDefinition",
-        "SignalExtractionEngine"
-      ],
-      "tags": [
-        "definition",
-        "domain",
-        "engine",
-        "extraction",
-        "services",
-        "signal"
       ]
     },
     "cli/src/main/ts/domain/services/sprint-service.ts": {
@@ -6550,26 +6337,6 @@
         "status"
       ]
     },
-    "cli/src/main/ts/domain/services/structural-extractor.ts": {
-      "criticality": "core",
-      "imports": [
-        "cli/src/main/ts/domain/models/deployment-map.ts",
-        "cli/src/main/ts/domain/repositories/file-system.ts"
-      ],
-      "runtimeUsage": "cold",
-      "symbols": [
-        "ExtractionResult",
-        "StructuralExtractor"
-      ],
-      "tags": [
-        "domain",
-        "extraction",
-        "extractor",
-        "result",
-        "services",
-        "structural"
-      ]
-    },
     "cli/src/main/ts/domain/services/task-validator.ts": {
       "criticality": "core",
       "imports": [
@@ -6584,22 +6351,6 @@
         "services",
         "task",
         "validator"
-      ]
-    },
-    "cli/src/main/ts/domain/services/traceability-projection.ts": {
-      "criticality": "core",
-      "imports": [
-        "cli/src/main/ts/domain/models/traceability-graph.ts"
-      ],
-      "runtimeUsage": "cold",
-      "symbols": [
-        "TraceabilityProjection"
-      ],
-      "tags": [
-        "domain",
-        "projection",
-        "services",
-        "traceability"
       ]
     },
     "cli/src/main/ts/domain/services/transient-actuation-projector.ts": {
@@ -6637,25 +6388,6 @@
         "services",
         "transient",
         "window"
-      ]
-    },
-    "cli/src/main/ts/domain/services/typescript-adapter.ts": {
-      "criticality": "core",
-      "imports": [
-        "cli/src/main/ts/domain/models/ueg-ir.ts",
-        "cli/src/main/ts/domain/services/ueg-interfaces.ts"
-      ],
-      "runtimeUsage": "cold",
-      "symbols": [
-        "TypeScriptAdapter"
-      ],
-      "tags": [
-        "adapter",
-        "domain",
-        "script",
-        "services",
-        "type",
-        "typescript"
       ]
     },
     "cli/src/main/ts/domain/services/verifiability-scorer.ts": {
@@ -10716,48 +10448,99 @@
       }
     },
     "TASK-1113": {
-      "commitCount": 1,
+      "commitCount": 2,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-06-05T19:32:03+00:00",
+      "lastCommitDate": "2026-06-05T19:32:58+00:00",
       "recentCommitRefs": [
-        "5a06f30"
+        "5a06f30",
+        "c241f71"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
         ".arch/chronicle.jsonl": 1,
         ".arch/context-feedback.json": 1,
-        "docs/EVENTS.md": 1,
-        "docs/archive/TASK-1113.md": 1
+        ".arch/corpus-index.json": 1,
+        ".arch/reflect-breach-log.jsonl": 1,
+        "arch.config.json": 1,
+        "cli/src/main/ts/application/use-cases/checkers/structural-checker.ts": 1,
+        "cli/src/main/ts/domain/services/adr-inference-engine.ts": 1,
+        "docs/EVENTS.md": 2,
+        "docs/IDENTITY.md": 1,
+        "docs/INBOX.md": 1,
+        "docs/NOTIFICATIONS.md": 1,
+        "docs/RETRO.md": 1,
+        "docs/agents/DO.md": 1,
+        "docs/archive/TASK-1113.md": 1,
+        "docs/tensions/TENSION-005-specdrift.md": 1
       }
     },
     "TASK-1114": {
-      "commitCount": 1,
+      "commitCount": 2,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-06-05T19:32:04+00:00",
+      "lastCommitDate": "2026-06-05T19:32:58+00:00",
       "recentCommitRefs": [
-        "04a6f0d"
+        "04a6f0d",
+        "c241f71"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
         ".arch/chronicle.jsonl": 1,
         ".arch/context-feedback.json": 1,
-        "docs/EVENTS.md": 1,
-        "docs/archive/TASK-1114.md": 1
+        ".arch/corpus-index.json": 1,
+        ".arch/reflect-breach-log.jsonl": 1,
+        "arch.config.json": 1,
+        "cli/src/main/ts/application/use-cases/checkers/structural-checker.ts": 1,
+        "cli/src/main/ts/domain/services/adr-inference-engine.ts": 1,
+        "docs/EVENTS.md": 2,
+        "docs/IDENTITY.md": 1,
+        "docs/INBOX.md": 1,
+        "docs/NOTIFICATIONS.md": 1,
+        "docs/RETRO.md": 1,
+        "docs/agents/DO.md": 1,
+        "docs/archive/TASK-1114.md": 1,
+        "docs/tensions/TENSION-005-specdrift.md": 1
       }
     },
     "TASK-1115": {
+      "commitCount": 2,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-06-05T19:32:58+00:00",
+      "recentCommitRefs": [
+        "8647905",
+        "c241f71"
+      ],
+      "touchedFrequency": {
+        ".arch/causal-signal.jsonl": 1,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/context-feedback.json": 1,
+        ".arch/corpus-index.json": 1,
+        ".arch/reflect-breach-log.jsonl": 1,
+        "arch.config.json": 1,
+        "cli/src/main/ts/application/use-cases/checkers/structural-checker.ts": 1,
+        "cli/src/main/ts/domain/services/adr-inference-engine.ts": 1,
+        "docs/EVENTS.md": 2,
+        "docs/IDENTITY.md": 1,
+        "docs/INBOX.md": 1,
+        "docs/NOTIFICATIONS.md": 1,
+        "docs/RETRO.md": 1,
+        "docs/agents/DO.md": 1,
+        "docs/archive/TASK-1115.md": 1,
+        "docs/tensions/TENSION-005-specdrift.md": 1
+      }
+    },
+    "TASK-1116": {
       "commitCount": 1,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-06-05T19:32:04+00:00",
+      "lastCommitDate": "2026-06-05T19:44:27+00:00",
       "recentCommitRefs": [
-        "8647905"
+        "23a9d0b"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
         ".arch/chronicle.jsonl": 1,
         ".arch/context-feedback.json": 1,
         "docs/EVENTS.md": 1,
-        "docs/archive/TASK-1115.md": 1
+        "docs/archive/TASK-1116.md": 1
       }
     },
     "TASK-264": {
