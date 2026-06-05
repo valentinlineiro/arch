@@ -3,13 +3,13 @@
 <!-- GENERATED:START -->
 ## Operational Metrics
 
-*Last updated: 2026-06-05T19:44:32.449Z*
+*Last updated: 2026-06-05T21:37:42.176Z*
 
 ### Trusted Metrics
 
 | Metric | Value | Notes |
 |--------|-------|-------|
-| **Completed Tasks** | 509 | total archived |
+| **Completed Tasks** | 512 | total archived |
 | **REVIEW_FAIL Rate** | pending (insufficient event history) | rejected / total review exits |
 
 ### Cycle Time (P50/P90)
