@@ -63,7 +63,6 @@ Implemented — see docs/refinement/archive/
 [PATTERN-ALERT] [SpecDrift] detected 8 times — systemic issue. See docs/tensions/TENSION-005-specdrift.md
 
 ## 2026-06-05 19:32:44 — Pattern Alerts
-[PATTERN-ALERT] [SpecDrift] detected 8 times — systemic issue. See docs/tensions/
 
 AWAITING_PROMOTION | IDEA-arch-as-claude-code-deployment-target | 2026-06-05 — no Decision field set
 AWAITING_PROMOTION | IDEA-corpus-reasoning-not-just-recording | 2026-06-05 — no Decision field set
@@ -71,3 +70,6 @@ AWAITING_PROMOTION | IDEA-doc-audit-stay-merge-redefine-purge | 2026-06-05 — n
 AWAITING_PROMOTION | IDEA-first-external-adopter-path | 2026-06-05 — no Decision field set
 AWAITING_PROMOTION | IDEA-hansei-signal-quality-degradation | 2026-06-05 — no Decision field set
 AWAITING_PROMOTION | IDEA-verification-layer-depth | 2026-06-05 — no Decision field set
+
+## 2026-06-05 19:44:58 — Pattern Alerts
+[PATTERN-ALERT] [SpecDrift] detected 8 times — systemic issue. See docs/tensions/

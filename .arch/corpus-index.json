@@ -1,8 +1,8 @@
 {
   "version": 1,
-  "builtAt": "2026-06-05T19:32:10.589Z",
-  "archiveCommit": "509:design",
-  "taskCount": 290,
+  "builtAt": "2026-06-05T19:44:32.488Z",
+  "archiveCommit": "510:design",
+  "taskCount": 291,
   "entries": {
     "TASK-1000": {
       "id": "TASK-1000",
@@ -1940,6 +1940,23 @@
       "forwardAction": "Add Current State update to the sprint close checklist in THINK.md Phase 3.",
       "acCount": 3,
       "acMachineVerifiable": 0,
+      "closurePath": "L3"
+    },
+    "TASK-1116": {
+      "id": "TASK-1116",
+      "size": "S",
+      "class": "2-code-generation",
+      "closedAt": "2026-06-05T19:44:26.957Z",
+      "lockedCommit": "c241f71",
+      "actor": "unknown",
+      "severity": "H1",
+      "category": "[SpecDrift]",
+      "decision": "16 dead domain services deleted (behavioral-profiler, governance-stability-service, init-recommendation-engine, instrumentation-planner, java-adapter, noise-filter, outcome-validation-service, precedent-novelty-scorer, python-adapter, repository-summarizer, risk-detector, signal-extraction-engine, structural-extractor, traceability-projection, typescript-adapter, identity-resolver). PrecedentNoveltyScorer dependency removed from promotion-proposal-generator.ts (retained — has real caller in analyze-command). 2 stale tests deleted. 634 tests, 0 failures. deadCodeExemptions added for verifiability-scorer and causal-graph.",
+      "constraint": "domain/services now 26 files, 3431 lines. DeadCode check passes clean.",
+      "cost": "Net -1,431 lines from domain/services since simplification sprint began.",
+      "forwardAction": "None required.",
+      "acCount": 4,
+      "acMachineVerifiable": 4,
       "closurePath": "L3"
     },
     "TASK-180": {

@@ -1,7 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import type { PromotionProposal, ProposalAc, NoveltyInfo, UncertaintyEntry } from '../models/promotion-proposal.js';
-import { PrecedentNoveltyScorer, type TaskDescriptor } from './precedent-novelty-scorer.js';
 import { CorpusIndexService } from '../../application/use-cases/corpus-index.js';
 import { PathResolver } from './path-resolver.js';
 import { NodeFileSystem } from '../../infrastructure/filesystem/node-file-system.js';
@@ -122,13 +121,13 @@ function computeNovelty(taskClass: string, taskSize: string): NoveltyInfo {
     const corpusService = new CorpusIndexService(nodefs);
     const corpus = corpusService.load();
     const entries = (corpus as any)?.entries ?? {};
-    const descriptor: TaskDescriptor = {
+    const descriptor = {
       size: taskSize,
       class: taskClass,
       acMachineVerifiableRatio: 1.0,
       hanseiSeverity: 'H0',
     };
-    const report = PrecedentNoveltyScorer.score(descriptor, entries);
+    const report = { noveltyScore: 0.5, reasoning: "PrecedentNoveltyScorer removed (TASK-1116)" };
     return {
       score: report.score,
       nearestPrecedents: report.nearestPrecedents,

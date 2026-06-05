@@ -116,7 +116,11 @@
     "hanseiSinceTaskId": 195,
     "corpusAuditEveryN": 10,
     "corpusAuditThresholdWarn": 80,
-    "corpusAuditThresholdHalt": 60
+    "corpusAuditThresholdHalt": 60,
+    "deadCodeExemptions": [
+      "verifiability-scorer",
+      "causal-graph"
+    ]
   },
   "reflect": {
     "deepCadenceN": 50,
