@@ -75,7 +75,15 @@ export class CommandDispatcher {
     // Two-tier help
     if (name === 'help' || name === '--help' || name === '-h') {
       const full = args.includes('--full');
-      this.showHelp(full);
+      // Read profile from config synchronously at call site
+      let profile = 'full';
+      try {
+        const raw = this.fileSystem
+          ? await this.fileSystem.readFile('arch.config.json').catch(() => '{}')
+          : '{}';
+        profile = (JSON.parse(raw))?.archProfile ?? 'full';
+      } catch { /* default full */ }
+      this.showHelp(full, profile);
       return 0;
     }
 
@@ -93,74 +101,94 @@ export class CommandDispatcher {
     }
   }
 
-  private showHelp(full = false): void {
-    // Default (surface) help: 3 entry points only
-    if (!full) {
-      console.log('');
-      console.log('  \x1b[32mARCH\x1b[0m — autonomous repository governance\n');
-      console.log('  arch init              Set up ARCH in this repository');
-      console.log('  arch review            Review repository health and governance status');
-      console.log('  arch task capture      Capture a task, decision, or observation');
-      console.log('');
-      console.log('  \x1b[90march help --full       Show all commands\x1b[0m');
-      console.log('');
+  private showHelp(full = false, profile = 'full'): void {
+    // Remove inline profile detection — profile passed as parameter
+
+    if (full) {
+      // Full help: all commands with profile note if minimal/standard
+      const publicTopLevel = getPublicTopLevel();
+      const groups: Map<string, CommandEntry[]> = new Map();
+      for (const ns of publicTopLevel) {
+        const entries = getPublicEntriesByNamespace(ns);
+        if (entries.length > 0) groups.set(ns, entries);
+      }
+
+      function sectionLabel(ns: string): string {
+        const labels: Record<string, string> = {
+          check: 'Core', status: 'Core', trace: 'Core',
+          init: 'System', version: 'System',
+          analyze: 'Governance & Analysis', govern: 'Governance & Analysis',
+          task: 'Task Lifecycle', memory: 'Memory & Knowledge',
+        };
+        return labels[ns] ?? ns;
+      }
+
+      const lines: string[] = [];
+      lines.push(`Usage: arch [${publicTopLevel.join('|')}]`);
+      if (profile !== 'full') lines.push(`\n  Profile: ${profile} — use arch help for profile-filtered commands`);
+
+      const nsGroups = new Map<string, { ns: string; entries: CommandEntry[] }[]>();
+      for (const [ns, entries] of groups) {
+        const label = sectionLabel(ns);
+        if (!nsGroups.has(label)) nsGroups.set(label, []);
+        nsGroups.get(label)!.push({ ns, entries });
+      }
+
+      for (const [label, namespaces] of nsGroups) {
+        lines.push('');
+        lines.push(`${label}:`);
+        for (const { ns, entries } of namespaces) {
+          const topEntry = entries.find(e => !e.subCommand);
+          const subEntries = entries.filter(e => e.subCommand !== undefined);
+          if (topEntry) lines.push(`  arch ${ns.padEnd(18)} ${topEntry.description ?? ''}`);
+          for (const sub of subEntries) {
+            lines.push(`  arch ${ns} ${(sub.subCommand ?? '').padEnd(12)} ${sub.description ?? ''}`);
+          }
+        }
+      }
+
+      console.log('\n' + lines.join('\n') + '\n');
       return;
     }
 
-    // Full help: existing behaviour
-    const publicTopLevel = getPublicTopLevel();
-    const groups: Map<string, CommandEntry[]> = new Map();
-    for (const ns of publicTopLevel) {
-      const entries = getPublicEntriesByNamespace(ns);
-      if (entries.length > 0) {
-        groups.set(ns, entries);
-      }
+    // Default help: profile-filtered
+    console.log('');
+    console.log('  \x1b[32mARCH\x1b[0m — autonomous repository governance\n');
+
+    // Core loop — always shown
+    console.log('  arch capture           Capture a task, decision, or observation');
+    console.log('  arch task start        Start working on a task');
+    console.log('  arch task done         Close a task with retrospective');
+    console.log('  arch govern            Archive done tasks, assign focus, run hygiene');
+    console.log('  arch review            Check system health and governance drift');
+    console.log('  arch status            Show focused task and backlog');
+    console.log('  arch fix               Auto-remediate common violations');
+    console.log('  arch init              Set up ARCH in a new repository');
+    console.log('  arch upgrade           Check and apply CLI updates');
+
+    if (profile === 'standard' || profile === 'full') {
+      console.log('');
+      console.log('  arch analyze           Run THINK reflection session');
+      console.log('  arch triage            Process incoming IDEAs');
+      console.log('  arch ask               Query the task corpus');
     }
 
-    function sectionLabel(ns: string): string {
-      const labels: Record<string, string> = {
-        check: 'Core',
-        status: 'Core',
-        trace: 'Core',
-        init: 'System',
-        version: 'System',
-        analyze: 'Governance & Analysis',
-        govern: 'Governance & Analysis',
-        task: 'Task Lifecycle',
-        memory: 'Memory & Knowledge',
-      };
-      return labels[ns] ?? ns;
+    if (profile === 'full') {
+      console.log('');
+      console.log('  arch audit             Compliance report');
+      console.log('  arch corpus            Manage corpus federation');
+      console.log('  arch sentinel          Monitor governance health');
+      console.log('  arch serve             Serve ARCH dashboard');
     }
 
-    const lines: string[] = [];
-    lines.push(`Usage: arch [${publicTopLevel.join('|')}]`);
-
-    const nsGroups = new Map<string, { ns: string; entries: CommandEntry[] }[]>();
-    for (const [ns, entries] of groups) {
-      const label = sectionLabel(ns);
-      if (!nsGroups.has(label)) nsGroups.set(label, []);
-      nsGroups.get(label)!.push({ ns, entries });
+    console.log('');
+    if (profile !== 'full') {
+      console.log(`  \x1b[90mProfile: ${profile} — arch help --full shows all commands\x1b[0m`);
+    } else {
+      console.log('  \x1b[90march help --full       Show all commands\x1b[0m');
     }
-
-    for (const [label, namespaces] of nsGroups) {
-      lines.push('');
-      lines.push(`${label}:`);
-      for (const { ns, entries } of namespaces) {
-        const topEntry = entries.find(e => !e.subCommand);
-        const subEntries = entries.filter(e => e.subCommand !== undefined);
-        if (topEntry) {
-          lines.push(`  arch ${ns.padEnd(22)} — ${topEntry.description}`);
-        }
-        for (const e of subEntries) {
-          const full = e.name.replace('arch ', '');
-          lines.push(`  arch ${full.padEnd(22)} — ${e.description}`);
-        }
-      }
-    }
-
-    console.log(lines.join('\n'));
+    console.log('');
   }
-
   private async resolveCommand(name: string, args: string[]): Promise<Command | null> {
     const route = resolveRoute(name, args);
     if (!route) return null;

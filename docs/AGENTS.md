@@ -1,5 +1,6 @@
 # AGENTS.md
 <!-- ARCH Framework v1.3.0 | Universal Entry Point -->
+<!-- Minimal entry point: ARCH.md at repo root. Read that first for the core loop. This file is the full protocol reference. -->
 
 ## Onboarding
 

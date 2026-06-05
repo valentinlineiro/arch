@@ -72,4 +72,6 @@ AWAITING_PROMOTION | IDEA-hansei-signal-quality-degradation | 2026-06-05 — no 
 AWAITING_PROMOTION | IDEA-verification-layer-depth | 2026-06-05 — no Decision field set
 
 ## 2026-06-05 19:44:58 — Pattern Alerts
+
+## 2026-06-05 21:38:09 — Pattern Alerts
 [PATTERN-ALERT] [SpecDrift] detected 8 times — systemic issue. See docs/tensions/

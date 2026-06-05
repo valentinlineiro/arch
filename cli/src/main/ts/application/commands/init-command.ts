@@ -35,7 +35,7 @@ export class InitCommand implements Command {
     const minimal = args.includes('--minimal');
     const guided = args.includes('--guided');
 
-    let archProfile = 'full';
+    let archProfile = 'minimal';
     if (process.stdout.isTTY && !minimal) {
       const rl = await import('node:readline');
       const prompt = (question: string, defaultVal = ''): Promise<string> => {
@@ -47,10 +47,10 @@ export class InitCommand implements Command {
           });
         });
       };
-      const profileAnswer = await prompt('Which profile? [M]inimal / [S]tandard / [F]ull (default: Full)', 'full');
-      if (profileAnswer.startsWith('m')) archProfile = 'minimal';
-      else if (profileAnswer.startsWith('s')) archProfile = 'standard';
-      else archProfile = 'full';
+      const profileAnswer = await prompt('Which profile? [M]inimal / [S]tandard / [F]ull (default: Minimal)', 'minimal');
+      if (profileAnswer.startsWith('s')) archProfile = 'standard';
+      else if (profileAnswer.startsWith('f')) archProfile = 'full';
+      else archProfile = 'minimal';
     }
 
     fmt.log('\n  ARCH — initializing framework' + (minimal ? ' [MINIMAL]' : '') + (guided ? ' [GUIDED]' : '') + ` [${archProfile}]` + '\n');
@@ -495,23 +495,40 @@ echo "Integrity review passed. Proceeding with push."
   // ── Templates ──────────────────────────────────────────────────────────────
 
   private minimalArchMd(): string {
-    return `# ARCH.md
-<!-- ARCH Framework v1.0.0 | Minimal Protocol -->
+    return `# ARCH
 
-## Core Protocol
-1. Read \`docs/TASK-FORMAT.md\` — the meta line format is authoritative.
-2. Run \`arch review\` before every commit to verify system integrity.
-3. Every commit must reference a TASK-ID and use an authoritative prefix (\`feat:\`, \`fix:\`, \`chore:\`).
+Governance for human+AI collaborative software development.
+Git-native. No external state. Works with any agent.
 
-## Task Lifecycle
+## The loop
+
 \`\`\`
-READY → IN_PROGRESS → REVIEW → DONE → archived (${this.pr.archive}/)
+arch capture  →  arch start  →  implement  →  arch done  →  arch govern
 \`\`\`
 
-- **READY:** Available for selection.
-- **IN_PROGRESS:** Set \`Focus:yes\` and commit before implementing.
-- **REVIEW:** Run predicates, write Hansei, append \`REVIEW_REQUEST\` to \`${this.pr.inbox}\`, commit, stop.
-- **DONE:** Auditor verifies, moves to archive.
+Capture a task. Start it. Do the work. Close it with a retrospective. Govern cleans up and assigns the next focus. Repeat.
+
+## The 5 commands
+
+| Command | When |
+|---------|------|
+| \`arch capture <task>\` | You have work to do |
+| \`arch task start <id>\` | You're starting this task now |
+| \`arch task done <id>\` | You finished — write what you learned |
+| \`arch govern\` | End of session — archive, focus, hygiene |
+| \`arch review\` | Something feels wrong — check system health |
+
+## The 3 rules
+
+1. **One focused task at a time.** arch govern assigns focus. Don't start a second task while the first is in progress.
+2. **Hansei on close.** Every M/L/XL task gets a retrospective: what deviated, why, what changes next.
+3. **arch review passes before you ship.** If review fails, fix it or file a task for it.
+
+## When you need more
+
+- Full command surface → \`arch help --full\`
+- Protocol details → \`docs/IDENTITY.md\` (if present) or \`docs/AGENTS.md\`
+- Task format reference → \`docs/TASK-FORMAT.md\`
 `;
   }
 
