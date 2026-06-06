@@ -74,4 +74,19 @@ AWAITING_PROMOTION | IDEA-verification-layer-depth | 2026-06-05 — no Decision 
 ## 2026-06-05 19:44:58 — Pattern Alerts
 
 ## 2026-06-05 21:38:09 — Pattern Alerts
+
+## 2026-06-06 18:34:25 — Pattern Alerts
 [PATTERN-ALERT] [SpecDrift] detected 8 times — systemic issue. See docs/tensions/
+
+AWAITING_PROMOTION | IDEA-scan-boilerplate-archconfig | 2026-06-06 (missing: candidate-class) — no Decision field set
+AWAITING_PROMOTION | IDEA-scan-boilerplate-string | 2026-06-06 (missing: candidate-class) — no Decision field set
+AWAITING_PROMOTION | IDEA-scan-forward-action-task-898 | 2026-06-06 (missing: candidate-class) — no Decision field set
+AWAITING_PROMOTION | IDEA-scan-forward-action-task-900 | 2026-06-06 (missing: candidate-class) — no Decision field set
+AWAITING_PROMOTION | IDEA-scan-forward-action-task-901 | 2026-06-06 (missing: candidate-class) — no Decision field set
+AWAITING_PROMOTION | IDEA-scan-forward-action-task-910 | 2026-06-06 (missing: candidate-class) — no Decision field set
+AWAITING_PROMOTION | IDEA-scan-forward-action-task-919 | 2026-06-06 (missing: candidate-class) — no Decision field set
+AWAITING_PROMOTION | IDEA-scan-forward-action-task-926 | 2026-06-06 (missing: candidate-class) — no Decision field set
+AWAITING_PROMOTION | IDEA-scan-forward-action-task-928 | 2026-06-06 (missing: candidate-class) — no Decision field set
+AWAITING_PROMOTION | IDEA-scan-forward-action-task-929 | 2026-06-06 (missing: candidate-class) — no Decision field set
+AWAITING_PROMOTION | IDEA-scan-forward-action-task-931 | 2026-06-06 (missing: candidate-class) — no Decision field set
+AWAITING_PROMOTION | IDEA-scan-forward-action-task-937 | 2026-06-06 (missing: candidate-class) — no Decision field set

@@ -1,8 +1,8 @@
 {
   "version": 1,
-  "builtAt": "2026-06-05T21:37:42.228Z",
-  "archiveCommit": "513:design",
-  "taskCount": 294,
+  "builtAt": "2026-06-06T18:33:54.469Z",
+  "archiveCommit": "514:design",
+  "taskCount": 295,
   "entries": {
     "TASK-1000": {
       "id": "TASK-1000",
@@ -2009,6 +2009,23 @@
       "acCount": 5,
       "acMachineVerifiable": 0,
       "closurePath": "L3"
+    },
+    "TASK-1120": {
+      "id": "TASK-1120",
+      "size": "L",
+      "class": "1-code-reasoning",
+      "closedAt": "2026-06-06T18:33:48.130Z",
+      "lockedCommit": "c533db0",
+      "actor": "unknown",
+      "severity": "H1",
+      "category": "[SpecDrift]",
+      "decision": "arch analyze --scan implemented with 3 detectors: (1) boilerplate pattern detection — finds 3+ files sharing identical function signature shape; (2) ungoverned file detection — git log scan for files modified 3+ times with no TASK-ID in commit messages; (3) forward action mining — scans last 100 archived tasks for non-placeholder Forward Actions not yet promoted to IDEAs. Deduplication against existing refinement queue. Common files (README.md, package.json) exempted. Forward action cap at 10/scan. Tested on market-intel (6 IDEAs) and ARCH (12 IDEAs). 634 tests pass.",
+      "constraint": "Boilerplate detector uses function signature shape normalization — may produce false positives on highly generic signatures (string, void). Forward action threshold at 40 chars reduces noise but may miss short actionable entries.",
+      "cost": "analyze --scan adds ~2-5 seconds on a large repo (git log + readdir scans). Acceptable as an on-demand command.",
+      "forwardAction": "Add arch.config.json governance.scanExemptions list for repos that want to suppress specific detectors.",
+      "acCount": 8,
+      "acMachineVerifiable": 1,
+      "closurePath": "unknown"
     },
     "TASK-180": {
       "id": "TASK-180",

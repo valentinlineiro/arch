@@ -27,6 +27,10 @@ export class AnalyzeCommand implements Command {
       return await this.runHanseiAnalysis(args.slice(1));
     }
 
+    if (sub === '--scan' || args.includes('--scan')) {
+      return await this.runCodebaseScan();
+    }
+
     if (sub === 'influence') {
       const config = await ConfigLoader.load(this.fileSystem);
 
@@ -442,5 +446,252 @@ ${taskSections}`;
     } catch {
       return 0;
     }
+  }
+
+  // ── Codebase scan ──────────────────────────────────────────────────────────
+
+  private async runCodebaseScan(): Promise<number> {
+    const pr = PathResolver.from({});
+    console.log('\n  \x1b[32mARCH\x1b[0m — Codebase Scan\n');
+
+    const ideas: Array<{ slug: string; content: string }> = [];
+
+    const [patternIdeas, ungoverned, forwardAction] = await Promise.all([
+      this.detectBoilerplatePatterns(),
+      this.detectUngovernedFiles(),
+      this.mineForwardActions(),
+    ]);
+
+    ideas.push(...patternIdeas, ...ungoverned, ...forwardAction);
+
+    if (ideas.length === 0) {
+      console.log('  No new IDEAs generated — codebase looks clean.\n');
+      return 0;
+    }
+
+    // Deduplicate against existing refinement queue
+    const refinementDir = `${this.rootPath}/${pr.refinement}`;
+    const archiveDir = `${refinementDir}/archive`;
+    let existing: string[] = [];
+    try {
+      const { readdir } = await import('node:fs/promises');
+      const r = await readdir(refinementDir).catch(() => [] as string[]);
+      const a = await readdir(archiveDir).catch(() => [] as string[]);
+      existing = [...r, ...a];
+    } catch { /* no refinement dir yet */ }
+
+    let emitted = 0;
+    for (const idea of ideas) {
+      const fname = `IDEA-${idea.slug}.md`;
+      if (existing.some(f => f === fname)) {
+        console.log(`  \x1b[90mSkip\x1b[0m ${fname} — already in refinement queue`);
+        continue;
+      }
+      const path = `${refinementDir}/${fname}`;
+      await this.fileSystem.writeFile(path, idea.content);
+      console.log(`  \x1b[32m+\x1b[0m ${fname}`);
+      emitted++;
+    }
+
+    console.log(`\n  ${emitted} new IDEA${emitted !== 1 ? 's' : ''} emitted to ${pr.refinement}/\n`);
+    return 0;
+  }
+
+  private async detectBoilerplatePatterns(): Promise<Array<{ slug: string; content: string }>> {
+    const ideas: Array<{ slug: string; content: string }> = [];
+    try {
+      const { readdir, readFile } = await import('node:fs/promises');
+      const { join } = await import('node:path');
+
+      // Scan source directories for repeated function signature patterns
+      const srcDirs = ['src', 'cli/src', 'lib'].map(d => join(this.rootPath, d));
+      const tsFiles: string[] = [];
+
+      const collect = async (dir: string): Promise<void> => {
+        let entries: string[] = [];
+        try { entries = await readdir(dir); } catch { return; }
+        for (const e of entries) {
+          const full = join(dir, e);
+          if (e.endsWith('.ts') && !e.includes('.test.') && !e.includes('.spec.')) tsFiles.push(full);
+          else if (!e.includes('.') && !e.startsWith('.')) await collect(full);
+        }
+      };
+      for (const d of srcDirs) await collect(d);
+
+      // Extract export function signatures
+      const sigMap = new Map<string, string[]>(); // normalized-sig → [file, ...]
+      for (const f of tsFiles.slice(0, 200)) {
+        const content = await readFile(f, 'utf8').catch(() => '');
+        const sigs = [...content.matchAll(/^export (?:async )?function (\w+)\(([^)]{0,80})\)/gm)];
+        for (const m of sigs) {
+          // Normalize: replace identifiers with types only
+          const normalized = m[2].replace(/\w+:\s*/g, '').replace(/\s+/g, ' ').trim().slice(0, 60);
+          if (!normalized) continue;
+          const key = normalized;
+          const files = sigMap.get(key) ?? [];
+          files.push(f.replace(this.rootPath + '/', ''));
+          sigMap.set(key, files);
+        }
+      }
+
+      // Patterns with 3+ files sharing the same signature shape
+      for (const [sig, files] of sigMap.entries()) {
+        if (files.length < 3) continue;
+        const slug = `scan-boilerplate-${sig.replace(/[^a-z0-9]/gi, '-').slice(0, 30).toLowerCase()}`;
+        const fileList = files.slice(0, 6).map(f => `- ${f}`).join('\n');
+        ideas.push({
+          slug,
+          content: `# IDEA: Extract shared abstraction — ${files.length} files share identical signature pattern
+
+**Status:** DRAFT
+**Created:** ${new Date().toISOString().slice(0, 10)}
+**Source:** codebase-scan (boilerplate-pattern)
+**Candidate-size:** S
+**Depends:** none
+**Decision:** Pending human review.
+
+## Evidence
+
+${files.length} files share the signature shape: \`(${sig})\`
+
+${fileList}${files.length > 6 ? `\n- ...and ${files.length - 6} more` : ''}
+
+## Problem
+
+Repeated identical function signatures across multiple files suggest a missing abstraction — an interface, base class, or factory that would make adding new implementations a matter of configuration rather than copy-paste.
+
+## Proposed solution
+
+Define a shared interface or registry for this pattern. New implementations satisfy the interface rather than duplicating the signature manually.
+`,
+        });
+      }
+    } catch { /* non-blocking */ }
+    return ideas;
+  }
+
+  private async detectUngovernedFiles(): Promise<Array<{ slug: string; content: string }>> {
+    const ideas: Array<{ slug: string; content: string }> = [];
+    try {
+      const { execSync } = await import('node:child_process');
+
+      // Get files with 3+ commits, none of which contain a TASK-ID
+      const logOutput = execSync(
+        `git log --format="%H %s" --no-merges | head -200`,
+        { cwd: this.rootPath, encoding: 'utf8', timeout: 10000, stdio: ['pipe','pipe','pipe'] }
+      ).trim().split('\n');
+
+      const taskPattern = /\[TASK-\d+\]/;
+      const ungovernedHashes = logOutput
+        .filter(line => !taskPattern.test(line))
+        .map(line => line.split(' ')[0]);
+
+      if (ungovernedHashes.length === 0) return ideas;
+
+      // Get files touched by ungoverned commits
+      const fileCommitCount = new Map<string, number>();
+      for (const hash of ungovernedHashes.slice(0, 50)) {
+        const files = execSync(
+          `git diff-tree --no-commit-id -r --name-only ${hash} 2>/dev/null`,
+          { cwd: this.rootPath, encoding: 'utf8', timeout: 5000, stdio: ['pipe','pipe','pipe'] }
+        ).trim().split('\n').filter(Boolean);
+        for (const f of files) {
+          if (f.startsWith('docs/') || f.startsWith('.arch/') || f.startsWith('.git')) continue;
+          if (['README.md','CHANGELOG.md','package-lock.json','package.json','ARCH.md'].includes(f)) continue;
+          fileCommitCount.set(f, (fileCommitCount.get(f) ?? 0) + 1);
+        }
+      }
+
+      // Files touched 3+ times in ungoverned commits
+      for (const [file, count] of fileCommitCount.entries()) {
+        if (count < 3) continue;
+        const slug = `scan-ungoverned-${file.replace(/[^a-z0-9]/gi, '-').slice(0, 40).toLowerCase()}`;
+        ideas.push({
+          slug,
+          content: `# IDEA: Retroactive task capture — ${file} modified ${count} times without governance
+
+**Status:** DRAFT
+**Created:** ${new Date().toISOString().slice(0, 10)}
+**Source:** codebase-scan (ungoverned-file)
+**Candidate-size:** XS
+**Depends:** none
+**Decision:** Pending human review.
+
+## Evidence
+
+\`${file}\` was modified **${count} times** in commits with no [TASK-ID] reference.
+
+These changes have no governance record — no task, no Hansei, no decision trail.
+
+## Problem
+
+High-frequency ungoverned changes to a file mean the work being done on it is invisible to the governance corpus. If something breaks or needs revisiting, there is no trail to follow.
+
+## Proposed solution
+
+Capture a retroactive task describing the accumulated changes to \`${file}\`. Write a brief Hansei covering what changed and why. This creates a corpus entry without requiring a rewrite of history.
+`,
+        });
+      }
+    } catch { /* git not available or no history */ }
+    return ideas;
+  }
+
+  private async mineForwardActions(): Promise<Array<{ slug: string; content: string }>> {
+    const ideas: Array<{ slug: string; content: string }> = [];
+    try {
+      const { readdir, readFile } = await import('node:fs/promises');
+      const { join } = await import('node:path');
+      const pr = PathResolver.from({});
+      const archiveDir = join(this.rootPath, pr.archive);
+
+      const files = await readdir(archiveDir).catch(() => [] as string[]);
+      const taskFiles = files.filter(f => f.startsWith('TASK-') && f.endsWith('.md'));
+
+      for (const fname of taskFiles.slice(-100)) { // last 100 archived tasks
+        const content = await readFile(join(archiveDir, fname), 'utf8').catch(() => '');
+        const forwardMatch = content.match(/\*\*Forward Action:\*\*\s*(.+?)(?:\n|$)/);
+        if (!forwardMatch) continue;
+
+        const action = forwardMatch[1].trim();
+        const isPlaceholder = /^none\.?$/i.test(action) || /^none required\.?$/i.test(action);
+        if (isPlaceholder || action.length < 40) continue;
+        if (/TASK-\d+/.test(action)) continue; // already references a task
+        if (ideas.length >= 10) break; // cap at 10 per scan
+
+        const taskId = fname.replace('.md', '');
+        const slug = `scan-forward-action-${taskId.toLowerCase()}`;
+
+        ideas.push({
+          slug,
+          content: `# IDEA: Unresolved forward action from ${taskId}
+
+**Status:** DRAFT
+**Created:** ${new Date().toISOString().slice(0, 10)}
+**Source:** codebase-scan (forward-action-mining)
+**Candidate-size:** XS
+**Depends:** none
+**Decision:** Pending human review.
+
+## Evidence
+
+**${taskId}** closed with Forward Action:
+
+> ${action}
+
+This forward action was never promoted to an IDEA or task.
+
+## Problem
+
+Forward Actions that are never actioned accumulate as silent technical debt — the insight was captured but not converted into governed work.
+
+## Proposed solution
+
+Review this forward action and either: promote to a task if still relevant, or archive this IDEA with a note explaining why it was superseded.
+`,
+        });
+      }
+    } catch { /* non-blocking */ }
+    return ideas;
   }
 }
