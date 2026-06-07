@@ -76,7 +76,6 @@ AWAITING_PROMOTION | IDEA-verification-layer-depth | 2026-06-05 — no Decision 
 ## 2026-06-05 21:38:09 — Pattern Alerts
 
 ## 2026-06-06 18:34:25 — Pattern Alerts
-[PATTERN-ALERT] [SpecDrift] detected 8 times — systemic issue. See docs/tensions/
 
 AWAITING_PROMOTION | IDEA-scan-boilerplate-archconfig | 2026-06-06 (missing: candidate-class) — no Decision field set
 AWAITING_PROMOTION | IDEA-scan-boilerplate-string | 2026-06-06 (missing: candidate-class) — no Decision field set
@@ -90,3 +89,6 @@ AWAITING_PROMOTION | IDEA-scan-forward-action-task-928 | 2026-06-06 (missing: ca
 AWAITING_PROMOTION | IDEA-scan-forward-action-task-929 | 2026-06-06 (missing: candidate-class) — no Decision field set
 AWAITING_PROMOTION | IDEA-scan-forward-action-task-931 | 2026-06-06 (missing: candidate-class) — no Decision field set
 AWAITING_PROMOTION | IDEA-scan-forward-action-task-937 | 2026-06-06 (missing: candidate-class) — no Decision field set
+
+## 2026-06-07 10:09:43 — Pattern Alerts
+[PATTERN-ALERT] [SpecDrift] detected 8 times — systemic issue. See docs/tensions/
