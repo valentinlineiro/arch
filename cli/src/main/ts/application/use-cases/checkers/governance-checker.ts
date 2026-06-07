@@ -37,6 +37,7 @@ export class GovernanceChecker {
       this.checkSentinelCoverage(),
       this.checkVersionCompat(),
       this.checkStaleEscalations(),
+      this.checkIdeaMissionClass(),
     ]);
   }
 
@@ -458,6 +459,59 @@ export class GovernanceChecker {
       check: 'ExcisionStructuralCheck',
       status: details.some(d => d.includes('FAIL')) ? 'WARN' : 'OK',
       details,
+    };
+  }
+
+  async checkIdeaMissionClass(): Promise<DriftResult> {
+    const details: string[] = [];
+    try {
+      const { readdir, readFile } = await import('node:fs/promises');
+      const { join } = await import('node:path');
+
+      // Load mission config
+      let autonomousScope: string[] = [];
+      let humanGated: string[] = [];
+      try {
+        const cfg = JSON.parse(await readFile(join(this.rootPath, 'arch.config.json'), 'utf8'));
+        autonomousScope = cfg?.mission?.autonomousScope ?? [];
+        humanGated = cfg?.mission?.humanGated ?? [];
+      } catch { return { check: 'IdeaMissionClass', status: 'OK', details: ['No mission config — check skipped'] }; }
+
+      if (autonomousScope.length === 0 && humanGated.length === 0) {
+        return { check: 'IdeaMissionClass', status: 'OK', details: ['No mission classes configured — check skipped'] };
+      }
+
+      const refinementDir = join(this.rootPath, 'docs', 'refinement');
+      const files = await readdir(refinementDir).catch(() => [] as string[]);
+
+      for (const file of files.filter(f => f.startsWith('IDEA-') && f.endsWith('.md'))) {
+        const content = await readFile(join(refinementDir, file), 'utf8').catch(() => '');
+        const missionClass = content.match(/\*\*Mission-class:\*\*\s*(\S+)/)?.[1];
+        const decision = content.match(/\*\*Decision:\*\*\s*(.+)/)?.[1]?.trim() ?? '';
+
+        if (!missionClass) {
+          details.push(`[ADVISORY] ${file}: missing Mission-class field — add a value from arch.config.json mission block`);
+          continue;
+        }
+
+        const allKnown = [...autonomousScope, ...humanGated];
+        if (!allKnown.includes(missionClass)) {
+          details.push(`[WARN] ${file}: unknown Mission-class '${missionClass}' — not in arch.config.json mission block`);
+          continue;
+        }
+
+        if (humanGated.includes(missionClass) && !decision.includes('AWAITING_HUMAN')) {
+          details.push(`[WARN] ${file}: Mission-class '${missionClass}' is human-gated but Decision does not contain AWAITING_HUMAN`);
+        }
+      }
+    } catch { /* non-blocking */ }
+
+    const hasWarn = details.some(d => d.includes('[WARN]'));
+    const hasAdvisory = details.some(d => d.includes('[ADVISORY]'));
+    return {
+      check: 'IdeaMissionClass',
+      status: hasWarn ? 'WARN' : hasAdvisory ? 'ADVISORY' : 'OK',
+      details: details.length > 0 ? details : ['All IDEAs have valid Mission-class'],
     };
   }
 

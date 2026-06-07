@@ -448,6 +448,36 @@ ${taskSections}`;
     }
   }
 
+
+  private classifyByPath(filePath: string, config: { autonomousScope: string[]; humanGated: string[] }): string {
+    const f = filePath.toLowerCase();
+    // Schema / migration
+    if (f.includes('migration') || f.endsWith('.sql') || f.includes('schema')) return 'schema-change';
+    // Dependencies
+    if (f === 'package.json' || f.includes('package-lock') || f.includes('requirements.txt') || f.includes('pyproject.toml')) return 'new-dependency';
+    // Collectors
+    if (f.includes('/collectors/')) return 'new-collector';
+    // Routes / API
+    if (f.includes('/routes/') || f.includes('index.ts') || f.includes('router')) return 'new-api-endpoint';
+    // Tests
+    if (f.includes('.test.') || f.includes('.spec.') || f.includes('/tests/') || f.includes('/test/')) return 'test-coverage';
+    // Docs
+    if (f.endsWith('.md') || f.includes('/docs/')) return 'documentation';
+    // Scoring
+    if (f.includes('score') || f.includes('scoring') || f.includes('rank')) return 'scoring-tuning';
+    // Config
+    if (f.includes('config') || f.includes('.json')) return 'protocol-fix';
+    // Default: ungoverned code = bug-fix
+    return 'bug-fix';
+  }
+
+  private missionDecision(missionClass: string, config: { autonomousScope: string[]; humanGated: string[] }): string {
+    if (config.humanGated.includes(missionClass)) {
+      return `AWAITING_HUMAN — '${missionClass}' is human-gated per arch.config.json mission block`;
+    }
+    return 'Pending human review.';
+  }
+
   // ── Codebase scan ──────────────────────────────────────────────────────────
 
   private async runCodebaseScan(): Promise<number> {
@@ -462,10 +492,22 @@ ${taskSections}`;
       missionContent = await this.fileSystem.readFile(`${this.rootPath}/docs/MISSION.md`).catch(() => '');
     } catch { /* no MISSION.md — all pending */ }
 
+    const { join } = await import('node:path');
+    // Load mission config for deterministic classification
+    let missionConfig = { autonomousScope: [] as string[], humanGated: [] as string[] };
+    try {
+      const cfgRaw = await this.fileSystem.readFile(join(this.rootPath, 'arch.config.json')).catch(() => '{}');
+      const cfg = JSON.parse(cfgRaw);
+      missionConfig = {
+        autonomousScope: cfg?.mission?.autonomousScope ?? [],
+        humanGated: cfg?.mission?.humanGated ?? [],
+      };
+    } catch { /* use empty config */ }
+
     const [patternIdeas, ungoverned, forwardAction] = await Promise.all([
-      this.detectBoilerplatePatterns(),
-      this.detectUngovernedFiles(),
-      this.mineForwardActions(),
+      this.detectBoilerplatePatterns(missionConfig),
+      this.detectUngovernedFiles(missionConfig),
+      this.mineForwardActions(missionConfig),
     ]);
 
     ideas.push(...patternIdeas, ...ungoverned, ...forwardAction);
@@ -503,7 +545,7 @@ ${taskSections}`;
     return 0;
   }
 
-  private async detectBoilerplatePatterns(): Promise<Array<{ slug: string; content: string }>> {
+  private async detectBoilerplatePatterns(missionConfig = { autonomousScope: [] as string[], humanGated: [] as string[] }): Promise<Array<{ slug: string; content: string }>> {
     const ideas: Array<{ slug: string; content: string }> = [];
     try {
       const { readdir, readFile } = await import('node:fs/promises');
@@ -545,6 +587,8 @@ ${taskSections}`;
         if (files.length < 3) continue;
         const slug = `scan-boilerplate-${sig.replace(/[^a-z0-9]/gi, '-').slice(0, 30).toLowerCase()}`;
         const fileList = files.slice(0, 6).map(f => `- ${f}`).join('\n');
+        const mClass = files[0].includes('/collectors/') ? 'new-collector' : 'simplification';
+        const mDecision = this.missionDecision(mClass, missionConfig);
         ideas.push({
           slug,
           content: `# IDEA: Extract shared abstraction — ${files.length} files share identical signature pattern
@@ -576,7 +620,7 @@ Define a shared interface or registry for this pattern. New implementations sati
     return ideas;
   }
 
-  private async detectUngovernedFiles(): Promise<Array<{ slug: string; content: string }>> {
+  private async detectUngovernedFiles(missionConfig = { autonomousScope: [] as string[], humanGated: [] as string[] }): Promise<Array<{ slug: string; content: string }>> {
     const ideas: Array<{ slug: string; content: string }> = [];
     try {
       const { execSync } = await import('node:child_process');
@@ -612,6 +656,8 @@ Define a shared interface or registry for this pattern. New implementations sati
       for (const [file, count] of fileCommitCount.entries()) {
         if (count < 3) continue;
         const slug = `scan-ungoverned-${file.replace(/[^a-z0-9]/gi, '-').slice(0, 40).toLowerCase()}`;
+        const uClass = this.classifyByPath(file, missionConfig);
+        const uDecision = this.missionDecision(uClass, missionConfig);
         ideas.push({
           slug,
           content: `# IDEA: Retroactive task capture — ${file} modified ${count} times without governance
@@ -621,7 +667,8 @@ Define a shared interface or registry for this pattern. New implementations sati
 **Source:** codebase-scan (ungoverned-file)
 **Candidate-size:** XS
 **Depends:** none
-**Decision:** Pending human review.
+**Mission-class:** ${uClass}
+**Decision:** ${uDecision}
 
 ## Evidence
 
@@ -643,7 +690,7 @@ Capture a retroactive task describing the accumulated changes to \`${file}\`. Wr
     return ideas;
   }
 
-  private async mineForwardActions(): Promise<Array<{ slug: string; content: string }>> {
+  private async mineForwardActions(missionConfig = { autonomousScope: [] as string[], humanGated: [] as string[] }): Promise<Array<{ slug: string; content: string }>> {
     const ideas: Array<{ slug: string; content: string }> = [];
     try {
       const { readdir, readFile } = await import('node:fs/promises');
@@ -668,6 +715,7 @@ Capture a retroactive task describing the accumulated changes to \`${file}\`. Wr
         const taskId = fname.replace('.md', '');
         const slug = `scan-forward-action-${taskId.toLowerCase()}`;
 
+        const fDecision = this.missionDecision('documentation', missionConfig);
         ideas.push({
           slug,
           content: `# IDEA: Unresolved forward action from ${taskId}
@@ -677,7 +725,8 @@ Capture a retroactive task describing the accumulated changes to \`${file}\`. Wr
 **Source:** codebase-scan (forward-action-mining)
 **Candidate-size:** XS
 **Depends:** none
-**Decision:** Pending human review.
+**Mission-class:** documentation
+**Decision:** ${fDecision}
 
 ## Evidence
 

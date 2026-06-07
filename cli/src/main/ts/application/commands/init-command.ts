@@ -647,6 +647,16 @@ TASK: READY → IN_PROGRESS → REVIEW → DONE → archived (${this.pr.archive}
       currentSprint: this.initialSprintName(),
       sprintCloseAfterN: 15,
       sprintAutoNamePrefix: 'sprint/v',
+      mission: {
+        autonomousScope: [
+          'bug-fix', 'simplification', 'documentation',
+          'test-coverage', 'dependency-update', 'protocol-fix',
+        ],
+        humanGated: [
+          'new-feature', 'schema-change', 'new-dependency',
+          'new-api-endpoint', 'security-change', 'external-integration',
+        ],
+      },
       strategies: {
         '1-code-reasoning': {
           M: [

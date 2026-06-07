@@ -1,5 +1,7 @@
 # MISSION.md
-<!-- Intent constraint for autonomous governance. Read before promoting any IDEA. -->
+<!-- Human-readable description of the mission classification enum. -->
+<!-- Authoritative source: arch.config.json mission block. -->
+<!-- Classification enforced by arch review (GovernanceChecker.checkIdeaMissionClass). -->
 
 ## Goal
 
@@ -45,3 +47,12 @@ When a detected pattern falls in the autonomous scope, emit:
 ```
 **Decision:** Pending human review.
 ```
+
+## Classification enforcement
+
+arch review validates every IDEA in docs/refinement/ against this enum. It reads Mission-class from the IDEA file and looks it up in arch.config.json mission.autonomousScope and mission.humanGated. No model inference — pure field lookup.
+
+- Missing Mission-class → ADVISORY
+- Unknown Mission-class (not in either list) → WARN
+- Human-gated class without Decision: AWAITING_HUMAN → WARN
+- Autonomous-scope class → OK

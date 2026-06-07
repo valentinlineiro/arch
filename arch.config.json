@@ -337,5 +337,31 @@
       "capture": "claude-code",
       "reflect": "claude-code"
     }
+  },
+  "mission": {
+    "autonomousScope": [
+      "bug-fix",
+      "simplification",
+      "protocol-fix",
+      "dependency-update",
+      "documentation",
+      "test-coverage",
+      "new-collector",
+      "scoring-tuning",
+      "dashboard-copy"
+    ],
+    "humanGated": [
+      "new-command",
+      "new-subsystem",
+      "protocol-change",
+      "external-integration",
+      "schema-change",
+      "new-api-endpoint",
+      "new-dependency",
+      "scoring-architecture",
+      "output-format-change",
+      "cron-change",
+      "security-change"
+    ]
   }
 }

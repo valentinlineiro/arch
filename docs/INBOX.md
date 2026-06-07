@@ -95,4 +95,6 @@ AWAITING_PROMOTION | IDEA-scan-forward-action-task-937 | 2026-06-06 (missing: ca
 ## 2026-06-07 16:50:10 — Pattern Alerts
 
 ## 2026-06-07 16:51:04 — Pattern Alerts
+
+## 2026-06-07 17:09:44 — Pattern Alerts
 [PATTERN-ALERT] [SpecDrift] detected 8 times — systemic issue. See docs/tensions/

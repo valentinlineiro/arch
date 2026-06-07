@@ -151,3 +151,9 @@ TASK-1127 | IN_PROGRESS -> DONE | commit:096b4d7 | agent:human
 ## 2026-06-07T17:09:05.294Z
 TASK-1128 | IN_PROGRESS -> DONE | commit:fd73b5c | agent:human
 
+## 2026-06-07T17:09:41.360Z
+FLOW_CHECK_PASS | CLI unit tests pass — regression guard for all core flows -> PASS | commit:93611e2 | agent:human
+
+## 2026-06-07T17:09:41.392Z
+FLOW_CHECK_PASS | Structural validation passes — integrity review must be clean -> PASS | commit:93611e2 | agent:human
+
