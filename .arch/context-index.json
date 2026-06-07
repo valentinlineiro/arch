@@ -866,7 +866,7 @@
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-1124.md"
+          "taskPath": "docs/archive/TASK-1124.md"
         },
         "TASK-272": {
           "evidenceKinds": [
@@ -1050,7 +1050,7 @@
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-1124.md"
+          "taskPath": "docs/archive/TASK-1124.md"
         },
         "TASK-967": {
           "evidenceKinds": [
@@ -1162,7 +1162,7 @@
           "evidenceKinds": [
             "literal-mention"
           ],
-          "taskPath": "docs/tasks/TASK-1124.md"
+          "taskPath": "docs/archive/TASK-1124.md"
         },
         "TASK-233": {
           "evidenceKinds": [
@@ -3251,7 +3251,7 @@
       "title": "Archive Partitioning Strategy — Year-Month Subdirectories"
     }
   },
-  "builtAt": "2026-06-07T16:50:09.820Z",
+  "builtAt": "2026-06-07T16:51:03.868Z",
   "failures": {},
   "files": {
     "cli/src/main/ts/application/command-dispatcher.ts": {
@@ -10885,6 +10885,22 @@
         "docs/EVENTS.md": 1,
         "docs/archive/TASK-1123.md": 1,
         "docs/tasks/TASK-1123.md": 1
+      }
+    },
+    "TASK-1124": {
+      "commitCount": 1,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-06-07T16:50:19+00:00",
+      "recentCommitRefs": [
+        "5c62417"
+      ],
+      "touchedFrequency": {
+        ".arch/causal-signal.jsonl": 1,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/context-feedback.json": 1,
+        "docs/EVENTS.md": 1,
+        "docs/archive/TASK-1124.md": 1,
+        "docs/tasks/TASK-1124.md": 1
       }
     },
     "TASK-1125": {
