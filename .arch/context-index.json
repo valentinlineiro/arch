@@ -3161,7 +3161,7 @@
       "title": "Archive Partitioning Strategy — Year-Month Subdirectories"
     }
   },
-  "builtAt": "2026-06-06T18:34:25.479Z",
+  "builtAt": "2026-06-07T10:09:43.110Z",
   "failures": {},
   "files": {
     "cli/src/main/ts/application/command-dispatcher.ts": {
@@ -3247,13 +3247,15 @@
       ],
       "runtimeUsage": "hot",
       "symbols": [
-        "AnalyzeCommand"
+        "AnalyzeCommand",
+        "signatures"
       ],
       "tags": [
         "analyze",
         "application",
         "command",
-        "commands"
+        "commands",
+        "signatures"
       ]
     },
     "cli/src/main/ts/application/commands/ask-command.ts": {
@@ -10712,18 +10714,49 @@
       }
     },
     "TASK-1120": {
-      "commitCount": 1,
+      "commitCount": 2,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-06-06T18:33:48+00:00",
+      "lastCommitDate": "2026-06-06T18:34:37+00:00",
       "recentCommitRefs": [
-        "c2943e8"
+        "c2943e8",
+        "db112a5"
       ],
       "touchedFrequency": {
         ".arch/causal-signal.jsonl": 1,
         ".arch/chronicle.jsonl": 1,
         ".arch/context-feedback.json": 1,
-        "docs/EVENTS.md": 1,
-        "docs/archive/TASK-1120.md": 1
+        ".arch/corpus-index.json": 1,
+        ".arch/reflect-breach-log.jsonl": 1,
+        "cli/src/main/ts/application/commands/analyze-command.ts": 1,
+        "docs/EVENTS.md": 2,
+        "docs/INBOX.md": 1,
+        "docs/NOTIFICATIONS.md": 1,
+        "docs/archive/TASK-1120.md": 1,
+        "docs/refinement/IDEA-scan-boilerplate-archconfig.md": 1,
+        "docs/refinement/IDEA-scan-boilerplate-string.md": 1,
+        "docs/refinement/IDEA-scan-forward-action-task-898.md": 1,
+        "docs/refinement/IDEA-scan-forward-action-task-900.md": 1,
+        "docs/refinement/IDEA-scan-forward-action-task-901.md": 1,
+        "docs/refinement/IDEA-scan-forward-action-task-910.md": 1,
+        "docs/refinement/IDEA-scan-forward-action-task-919.md": 1,
+        "docs/refinement/IDEA-scan-forward-action-task-926.md": 1,
+        "docs/refinement/IDEA-scan-forward-action-task-928.md": 1,
+        "docs/refinement/IDEA-scan-forward-action-task-929.md": 1,
+        "docs/refinement/IDEA-scan-forward-action-task-931.md": 1,
+        "docs/refinement/IDEA-scan-forward-action-task-937.md": 1,
+        "docs/tensions/TENSION-005-specdrift.md": 1
+      }
+    },
+    "TASK-1121": {
+      "commitCount": 1,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-06-07T10:09:09+00:00",
+      "recentCommitRefs": [
+        "037bdec"
+      ],
+      "touchedFrequency": {
+        ".arch/focus-ledger.jsonl": 1,
+        "docs/tasks/TASK-1121.md": 1
       }
     },
     "TASK-264": {
