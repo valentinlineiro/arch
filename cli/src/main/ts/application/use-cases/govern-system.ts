@@ -659,6 +659,34 @@ export class GovernSystem {
     }
   }
 
+  private async getAndIncrementAttempts(taskId: string, filePath: string): Promise<number> {
+    try {
+      const absPath = filePath.startsWith('/') ? filePath : `${this.rootPath}/${filePath}`;
+      let content = await this.fileSystem.readFile(absPath);
+      const match = content.match(/\*\*Attempts:\*\*\s*(\d+)/);
+      const current = match ? parseInt(match[1], 10) : 0;
+      const next = current + 1;
+      if (match) {
+        content = content.replace(/\*\*Attempts:\*\*\s*\d+/, `**Attempts:** ${next}`);
+      } else {
+        content = content.replace(/\*\*Locked-commit:\*\*/, `**Attempts:** ${next}\n**Locked-commit:**`);
+      }
+      await this.fileSystem.writeFile(absPath, content);
+      return next;
+    } catch {
+      return 1;
+    }
+  }
+
+  private async setTaskBlocked(taskId: string, filePath: string): Promise<void> {
+    try {
+      const absPath = filePath.startsWith('/') ? filePath : `${this.rootPath}/${filePath}`;
+      let content = await this.fileSystem.readFile(absPath);
+      content = content.replace(/\| READY \|/, '| BLOCKED |').replace(/\| IN_PROGRESS \|/, '| BLOCKED |');
+      await this.fileSystem.writeFile(absPath, content);
+    } catch { /* non-blocking */ }
+  }
+
   private async runCorpusAudit(config: any, currentTick: number): Promise<void> {
     const auditEveryN: number = (config.governance as any)?.corpusAuditEveryN ?? 10;
     const warnThreshold: number = (config.governance as any)?.corpusAuditThresholdWarn ?? 80;
@@ -756,10 +784,28 @@ export class GovernSystem {
     if (!focused) {
       if (eligible.length > 0) {
         const top = eligible[0];
-        newRulings.push({ tick: nextTick, taskId: top.id, action: 'FOCUS_ACQUIRED', timestamp: new Date().toISOString() });
-        const changed = await this.updateFocusFlag(top, true);
-        if (changed) changedFiles.push(top.filePath);
-        console.log(`  FOCUS_ACQUIRED: ${top.id} (no previous focus)`);
+        const maxAttempts: number = (config?.governance as any)?.maxTaskAttempts ?? 3;
+        const attemptCount = await this.getAndIncrementAttempts(top.id, top.filePath);
+
+        if (attemptCount >= maxAttempts) {
+          // Auto-escalate to ANDON_HALT and block the task
+          await this.appendInbox(top.id, `[ANDON_HALT] ${top.id}`, `exceeded maxTaskAttempts (${maxAttempts}) — starts without close. Remove from NOTIFICATIONS.md to retry.`);
+          await this.setTaskBlocked(top.id, top.filePath);
+          console.log(`  \x1b[31mANDON_HALT\x1b[0m ${top.id} — exceeded ${maxAttempts} attempts without close`);
+          // Try next eligible
+          const fallback = eligible.slice(1).find(t => t.id !== top.id);
+          if (fallback) {
+            newRulings.push({ tick: nextTick, taskId: fallback.id, action: 'FOCUS_ACQUIRED', timestamp: new Date().toISOString() });
+            const changed = await this.updateFocusFlag(fallback, true);
+            if (changed) changedFiles.push(fallback.filePath);
+            console.log(`  FOCUS_ACQUIRED: ${fallback.id} (${top.id} halted)`);
+          }
+        } else {
+          newRulings.push({ tick: nextTick, taskId: top.id, action: 'FOCUS_ACQUIRED', timestamp: new Date().toISOString() });
+          const changed = await this.updateFocusFlag(top, true);
+          if (changed) changedFiles.push(top.filePath);
+          console.log(`  FOCUS_ACQUIRED: ${top.id} (no previous focus)`);
+        }
       } else {
         console.log('  No eligible tasks. No focus assigned.');
       }

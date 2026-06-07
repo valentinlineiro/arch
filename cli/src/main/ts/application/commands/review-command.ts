@@ -6,18 +6,28 @@ import { DeterministicACVerifier } from '../../domain/services/deterministic-ac-
 import { TaskStatus } from '../../domain/models/task.js';
 import * as fmt from '../../infrastructure/cli/output-formatter.js';
 import readline from 'node:readline';
+import { DriftChecker } from '../use-cases/drift-checker.js';
+import { PathResolver } from '../../domain/services/path-resolver.js';
 
 export class ReviewCommand implements Command {
+  private driftChecker: DriftChecker;
   constructor(
     private taskRepository: TaskRepository,
     private gitRepository: GitRepository,
     private fileSystem: FileSystem,
-  ) {}
+    private rootPath: string = '.',
+  ) {
+    this.driftChecker = new DriftChecker(fileSystem, gitRepository, rootPath);
+  }
 
   async execute(args: string[] = []): Promise<number> {
     if (args.includes('--help') || args.includes('-h')) {
       this.showHelp();
       return 0;
+    }
+
+    if (args.includes('--env')) {
+      return await this.runEnvCheck();
     }
 
     const tasks = await this.taskRepository.getAll();
@@ -109,6 +119,71 @@ export class ReviewCommand implements Command {
     fmt.log('');
     fmt.log('  Options:');
     fmt.log('    --help, -h    Show this help');
+    fmt.log('    --env         Run environment pre-flight check');
     fmt.log('');
+  }
+
+  private async runEnvCheck(): Promise<number> {
+    console.log('\n  \x1b[32mARCH\x1b[0m — Environment Pre-flight\n');
+    const failures: string[] = [];
+
+    // 1. Check no ANDON_HALT in NOTIFICATIONS.md
+    try {
+      const pr = PathResolver.from({});
+      const notifications = await this.driftChecker.fileSystem?.readFile(pr.notifications ?? 'docs/NOTIFICATIONS.md').catch(() => '');
+      if (notifications && notifications.includes('[ANDON_HALT]')) {
+        failures.push('ANDON_HALT entry in NOTIFICATIONS.md — clear it before proceeding');
+        console.log('  \x1b[31m✖\x1b[0m ANDON_HALT detected in NOTIFICATIONS.md');
+      } else {
+        console.log('  \x1b[32m✔\x1b[0m No ANDON_HALT');
+      }
+    } catch { /* no notifications file — OK */ }
+
+    // 2. Check git clean (no merge conflicts)
+    try {
+      const { execSync } = await import('node:child_process');
+      const status = execSync('git status --porcelain 2>/dev/null', { encoding: 'utf8', timeout: 5000, stdio: ['pipe','pipe','pipe'] }).trim();
+      const conflicts = status.split('\n').filter(l => l.startsWith('UU') || l.startsWith('AA') || l.startsWith('DD'));
+      if (conflicts.length > 0) {
+        failures.push(`${conflicts.length} git merge conflict(s) — resolve before proceeding`);
+        console.log(`  \x1b[31m✖\x1b[0m ${conflicts.length} merge conflict(s)`);
+      } else {
+        console.log('  \x1b[32m✔\x1b[0m Git clean (no merge conflicts)');
+      }
+    } catch { /* git not available */ }
+
+    // 3. Run test suite
+    try {
+      const { execSync } = await import('node:child_process');
+      const { existsSync } = await import('node:fs');
+      // Find the right test directory
+      const cwd = existsSync(`${process.cwd()}/cli/package.json`) ? `${process.cwd()}/cli` : process.cwd();
+      execSync(`npm test 2>/dev/null`, { cwd, timeout: 120000, stdio: ['pipe','pipe','pipe'] });
+      console.log('  \x1b[32m✔\x1b[0m Test suite passes');
+    } catch {
+      failures.push(`Test suite failing — fix tests before running autonomous tasks`);
+      console.log('  \x1b[31m✖\x1b[0m Test suite failing');
+    }
+
+    // 4. Run arch review (drift check)
+    const driftResults = await this.driftChecker.check();
+    const blocking = driftResults.filter(r => r.status === 'FAIL' || r.status === 'ERROR');
+    if (blocking.length > 0) {
+      failures.push(`arch review has ${blocking.length} blocking violation(s) — run arch fix`);
+      console.log(`  \x1b[31m✖\x1b[0m arch review: ${blocking.length} blocking violation(s)`);
+    } else {
+      console.log('  \x1b[32m✔\x1b[0m arch review passes');
+    }
+
+    console.log('');
+    if (failures.length === 0) {
+      console.log('  \x1b[32m✔\x1b[0m Environment ready. Safe to start autonomous tasks.\n');
+      return 0;
+    }
+
+    console.log(`  \x1b[31m✖\x1b[0m ${failures.length} pre-flight failure(s):\n`);
+    for (const f of failures) console.log(`    • ${f}`);
+    console.log('');
+    return 1;
   }
 }

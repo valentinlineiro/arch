@@ -91,4 +91,8 @@ AWAITING_PROMOTION | IDEA-scan-forward-action-task-931 | 2026-06-06 (missing: ca
 AWAITING_PROMOTION | IDEA-scan-forward-action-task-937 | 2026-06-06 (missing: candidate-class) — no Decision field set
 
 ## 2026-06-07 10:09:43 — Pattern Alerts
+
+## 2026-06-07 16:50:10 — Pattern Alerts
+
+## 2026-06-07 16:51:04 — Pattern Alerts
 [PATTERN-ALERT] [SpecDrift] detected 8 times — systemic issue. See docs/tensions/

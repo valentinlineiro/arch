@@ -116,6 +116,17 @@ export class TaskCommand implements Command {
         return 1;
       }
 
+      // Autonomous mode: run env pre-flight before starting
+      if (process.env.ARCH_AUTONOMOUS === '1') {
+        const { ReviewCommand } = await import('./review-command.js');
+        const envCheck = new ReviewCommand(this.taskRepository, this.gitRepository!, this.fileSystem, this.rootPath);
+        const envResult = await envCheck.execute(['--env']);
+        if (envResult !== 0) {
+          fmt.fail('Environment pre-flight failed — aborting task start');
+          return envResult;
+        }
+      }
+
       try {
         const task = await this.markInProgress.execute(taskId, 'cli');
         fmt.arrow(`marking ${taskId} as IN_PROGRESS`);
@@ -322,6 +333,16 @@ export class TaskCommand implements Command {
       try {
         const doneTask = await this.markDone.execute(taskId, force);
         fmt.check(`marking ${taskId} as DONE`);
+
+        // Hansei separation warning in autonomous mode
+        if (process.env.ARCH_AUTONOMOUS === '1' && doneTask?.hansei?.decision) {
+          const firstPersonPattern = /\b(I implemented|I added|I built|I created|I wrote|I fixed|I refactored)\b/i;
+          if (firstPersonPattern.test(doneTask.hansei.decision)) {
+            console.log('  \x1b[33m⚠ HANSEI-SEPARATION\x1b[0m Hansei contains first-person implementation language.');
+            console.log('  In autonomous mode, Hansei should be written in a separate session from implementation.');
+            console.log('  See docs/agents/DO.md ## Hansei Separation');
+          }
+        }
 
         if (this.gitRepository) {
           const rp = this.rootPath ? this.rootPath + '/' : '';

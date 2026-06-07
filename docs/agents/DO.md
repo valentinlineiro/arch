@@ -181,3 +181,22 @@ A commit or file section is **agent-authored** if:
 1. **Never overwrite human-authored content silently.** If a file was last touched by a human commit, treat its content as intentional. Propose changes via task, do not apply directly.
 2. **Human-authored INBOX entries are inviolable.** Lines without a machine prefix (`[AWAITING_TRIAGE]`, `[ANDON_HALT]`, etc.) were written by a human. Do not delete or reorder them in hygiene passes.
 3. **Conflict resolution:** When agent-generated content conflicts with human-authored content in the same file, the human content wins. File a task to reconcile; do not auto-resolve.
+
+## Hansei Separation
+
+**Hansei must be written in a separate session from implementation.**
+
+When closing a task in autonomous mode (ARCH_AUTONOMOUS=1):
+1. The implementing session commits the work and marks the task done with a placeholder Hansei
+2. A separate arch analyze session reads only: the task file, the test output, the git diff since task start
+3. That session writes the Hansei — no other implementation context permitted
+
+This creates genuine separation. The Hansei session cannot know what the implementing agent intended — it observes only what actually happened.
+
+**What counts as a violation:**
+- Hansei Decision containing first-person implementation language: "I implemented", "I added", "I built", "I created"
+- Hansei written in the same session that ran the implementation commands
+- Hansei that describes the implementation path rather than the outcome and deviation
+
+**In human sessions:** advisory. A human writing their own Hansei has legitimate context.
+**In autonomous sessions (ARCH_AUTONOMOUS=1):** arch task done emits a warning when first-person implementation language is detected in the Hansei Decision field.

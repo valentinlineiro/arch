@@ -254,6 +254,7 @@ export class InitCommand implements Command {
     const pr = this.pr;
     const files: Array<{ dest: string; content: string }> = [
       { dest: 'ARCH.md',                                 content: this.minimalArchMd() },
+      { dest: 'docs/MISSION.md',                         content: this.missionMd(stack) },
       { dest: 'arch.config.json',                        content: this.archConfig(stack, archProfile) },
       { dest: pr.inbox,                                  content: this.inboxMd() },
       { dest: 'docs/TASK-FORMAT.md',                     content: this.taskFormatMd() },
@@ -493,6 +494,40 @@ echo "Integrity review passed. Proceeding with push."
   }
 
   // ── Templates ──────────────────────────────────────────────────────────────
+
+  private missionMd(stack: string): string {
+    return `# MISSION.md
+<!-- Intent constraint for autonomous governance. Read before promoting any IDEA. -->
+
+## Goal
+
+One sentence describing what this repo produces and for whom.
+_Edit this before running autonomous sessions._
+
+## Autonomous scope
+
+These classes of work can be promoted and executed without human confirmation:
+
+- Bug fixes — failing tests, broken commands, incorrect output
+- Simplification — removing dead code, compressing verbose docs
+- Documentation — examples, typos, clarity improvements
+- Test coverage — adding tests for existing behavior
+- Dependency updates — patch-level bumps with passing tests
+
+## Human-gated
+
+These classes require a human Decision field before promotion:
+
+- New features — any behavior change visible to users
+- Schema changes — database, config, or API format changes
+- External integrations — new APIs, third-party dependencies
+- Security-relevant changes — auth, secrets, access control
+
+## Non-goals
+
+_What this repo explicitly does not do._
+`;
+  }
 
   private minimalArchMd(): string {
     return `# ARCH

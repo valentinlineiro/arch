@@ -29,6 +29,28 @@ export class GovernCommand implements Command {
   async execute(args: string[] = []): Promise<number> {
     const noAnalyze = args.includes('--no-analyze') || args.includes('--no-conduct');
     const cleanInbox = args.includes('--clean-inbox');
+    const force = args.includes('--force');
+
+    // Circuit breaker: ANDON_HALT stops the autonomous loop
+    if (!force) {
+      try {
+        const pr = PathResolver.from({});
+        const notifPath = pr.notifications ?? 'docs/NOTIFICATIONS.md';
+        const notifications = await this.fileSystem.readFile(notifPath).catch(() => '');
+        const haltLines = notifications.split('\n').filter(l => l.includes('[ANDON_HALT]'));
+        if (haltLines.length > 0) {
+          console.log('\n  \x1b[31m✖\x1b[0m ANDON_HALT — autonomous loop halted\n');
+          for (const line of haltLines.slice(0, 5)) {
+            const summary = line.replace(/.*\[ANDON_HALT\]\s*/, '').slice(0, 80);
+            console.log(`    ${summary}`);
+          }
+          console.log('\n  Remove [ANDON_HALT] entries from NOTIFICATIONS.md to resume.');
+          console.log('  Use arch govern --force to override (human sessions only).\n');
+          return 2;
+        }
+      } catch { /* no notifications file — proceed */ }
+    }
+
     fmt.log('\n  ARCH — Governance Tick');
     const result = await this.useCase.execute(cleanInbox);
 

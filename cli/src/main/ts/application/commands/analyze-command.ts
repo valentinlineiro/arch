@@ -456,6 +456,12 @@ ${taskSections}`;
 
     const ideas: Array<{ slug: string; content: string }> = [];
 
+    // Read MISSION.md for gating
+    let missionContent = '';
+    try {
+      missionContent = await this.fileSystem.readFile(`${this.rootPath}/docs/MISSION.md`).catch(() => '');
+    } catch { /* no MISSION.md — all pending */ }
+
     const [patternIdeas, ungoverned, forwardAction] = await Promise.all([
       this.detectBoilerplatePatterns(),
       this.detectUngovernedFiles(),
