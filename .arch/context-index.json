@@ -204,6 +204,12 @@
           ],
           "taskPath": "docs/archive/TASK-1114.md"
         },
+        "TASK-1125": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1125.md"
+        },
         "TASK-157": {
           "evidenceKinds": [
             "depends",
@@ -491,6 +497,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-1116.md"
+        },
+        "TASK-1125": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1125.md"
         },
         "TASK-242": {
           "evidenceKinds": [
@@ -832,6 +844,30 @@
           ],
           "taskPath": "docs/archive/TASK-1120.md"
         },
+        "TASK-1121": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1121.md"
+        },
+        "TASK-1122": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1122.md"
+        },
+        "TASK-1123": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1123.md"
+        },
+        "TASK-1124": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-1124.md"
+        },
         "TASK-272": {
           "evidenceKinds": [
             "literal-mention"
@@ -998,6 +1034,24 @@
           ],
           "taskPath": "docs/archive/TASK-1120.md"
         },
+        "TASK-1122": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1122.md"
+        },
+        "TASK-1123": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1123.md"
+        },
+        "TASK-1124": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-1124.md"
+        },
         "TASK-967": {
           "evidenceKinds": [
             "literal-mention"
@@ -1091,6 +1145,24 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-1119.md"
+        },
+        "TASK-1121": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1121.md"
+        },
+        "TASK-1123": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1123.md"
+        },
+        "TASK-1124": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/tasks/TASK-1124.md"
         },
         "TASK-233": {
           "evidenceKinds": [
@@ -1229,6 +1301,12 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-1119.md"
+        },
+        "TASK-1125": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1125.md"
         },
         "TASK-231": {
           "evidenceKinds": [
@@ -1454,6 +1532,18 @@
             "literal-mention"
           ],
           "taskPath": "docs/archive/TASK-1120.md"
+        },
+        "TASK-1121": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1121.md"
+        },
+        "TASK-1122": {
+          "evidenceKinds": [
+            "literal-mention"
+          ],
+          "taskPath": "docs/archive/TASK-1122.md"
         },
         "TASK-958": {
           "evidenceKinds": [
@@ -3161,7 +3251,7 @@
       "title": "Archive Partitioning Strategy — Year-Month Subdirectories"
     }
   },
-  "builtAt": "2026-06-07T10:09:43.110Z",
+  "builtAt": "2026-06-07T16:50:09.820Z",
   "failures": {},
   "files": {
     "cli/src/main/ts/application/command-dispatcher.ts": {
@@ -10748,15 +10838,69 @@
       }
     },
     "TASK-1121": {
-      "commitCount": 1,
+      "commitCount": 2,
       "commitRefOverflow": false,
-      "lastCommitDate": "2026-06-07T10:09:09+00:00",
+      "lastCommitDate": "2026-06-07T15:28:13+00:00",
       "recentCommitRefs": [
-        "037bdec"
+        "037bdec",
+        "052d0c9"
       ],
       "touchedFrequency": {
+        ".arch/causal-signal.jsonl": 1,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/context-feedback.json": 1,
         ".arch/focus-ledger.jsonl": 1,
-        "docs/tasks/TASK-1121.md": 1
+        "docs/EVENTS.md": 1,
+        "docs/archive/TASK-1121.md": 1,
+        "docs/tasks/TASK-1121.md": 2
+      }
+    },
+    "TASK-1122": {
+      "commitCount": 1,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-06-07T15:29:25+00:00",
+      "recentCommitRefs": [
+        "3a2e8d4"
+      ],
+      "touchedFrequency": {
+        ".arch/causal-signal.jsonl": 1,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/context-feedback.json": 1,
+        "docs/EVENTS.md": 1,
+        "docs/archive/TASK-1122.md": 1,
+        "docs/tasks/TASK-1122.md": 1
+      }
+    },
+    "TASK-1123": {
+      "commitCount": 1,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-06-07T15:32:16+00:00",
+      "recentCommitRefs": [
+        "ab8024d"
+      ],
+      "touchedFrequency": {
+        ".arch/causal-signal.jsonl": 1,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/context-feedback.json": 1,
+        "docs/EVENTS.md": 1,
+        "docs/archive/TASK-1123.md": 1,
+        "docs/tasks/TASK-1123.md": 1
+      }
+    },
+    "TASK-1125": {
+      "commitCount": 1,
+      "commitRefOverflow": false,
+      "lastCommitDate": "2026-06-07T15:26:50+00:00",
+      "recentCommitRefs": [
+        "925293b"
+      ],
+      "touchedFrequency": {
+        ".arch/causal-signal.jsonl": 1,
+        ".arch/chronicle.jsonl": 1,
+        ".arch/context-feedback.json": 1,
+        "docs/EVENTS.md": 1,
+        "docs/archive/TASK-1125.md": 1,
+        "docs/tasks/TASK-1125.md": 1
       }
     },
     "TASK-264": {
